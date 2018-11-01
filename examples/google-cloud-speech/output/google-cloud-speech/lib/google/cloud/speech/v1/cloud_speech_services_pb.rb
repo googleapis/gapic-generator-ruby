@@ -17,6 +17,7 @@
 #
 #
 
+
 require 'grpc'
 require 'google/cloud/speech/v1/cloud_speech_pb'
 

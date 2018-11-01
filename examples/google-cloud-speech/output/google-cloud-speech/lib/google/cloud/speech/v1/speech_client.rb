@@ -19,6 +19,7 @@
 # For the short term, the refresh process will only be runnable by Google
 # engineers.
 
+
 require "json"
 require "pathname"
 
@@ -34,10 +35,8 @@ module Google
     module Speech
       module V1
         # Service that implements Google Cloud Speech API.
-        #
-        # @!attribute [r] speech_stub
-        #   @return [Google::Cloud::Speech::V1::Speech::Stub]
         class SpeechClient
+          # @private
           attr_reader :speech_stub
 
           # The default address of the service.
@@ -57,9 +56,10 @@ module Google
             "https://www.googleapis.com/auth/cloud-platform"
           ].freeze
 
+          # @private
           class OperationsClient < Google::Longrunning::OperationsClient
-            self::SERVICE_ADDRESS = SpeechClient::SERVICE_ADDRESS
-            self::GRPC_INTERCEPTORS = SpeechClient::GRPC_INTERCEPTORS
+            SERVICE_ADDRESS = SpeechClient::SERVICE_ADDRESS
+            GRPC_INTERCEPTORS = SpeechClient::GRPC_INTERCEPTORS.dup
           end
 
           # @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
@@ -356,8 +356,56 @@ module Google
             end
             @streaming_recognize.call(request_protos, options)
           end
+
+          ##
+          # Gets the latest state of a long-running operation. Clients can use
+          # this method to poll the operation result at intervals as recommended
+          # by the API service.
+          #
+          # @param name [String]
+          #   The name of the operation resource.
+          # @param options [Google::Gax::CallOptions]
+          #   Overrides the default settings for this call, e.g, timeout,
+          #   retries, etc.
+          # @return [Google::Gax::Operation]
+          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @example
+          #   require "google/cloud/speech"
+          #
+          #   speech_client = Google::Cloud::Speech.new version: :v1
+          #
+          #   op = speech_client.get_operation "-"
+          #
+          #   # Process error operations.
+          #   log_error op.error if op.error?
+          #
+          #   if op.done?
+          #     # Process completed operations.
+          #     log_finished op.response, op.metadata
+          #   else
+          #     # Process pending operations.
+          #     log_pending op.name, op.metadata
+          #   end
+          #
+          def get_operation name, options: nil
+            proto_op = @operations_client.get_operation name, options: options
+
+            Google::Gax::Operation.new(
+              proto_op,
+              @operations_client,
+              Google::Cloud::Speech::V1::LongRunningRecognizeResponse,
+              Google::Cloud::Speech::V1::LongRunningRecognizeMetadata,
+              call_options: options
+            )
+          end
         end
       end
     end
   end
+end
+
+# Once client is loaded, load helpers.rb if it exists.
+begin
+  require "google/cloud/speech/v1/helpers"
+rescue LoadError
 end
