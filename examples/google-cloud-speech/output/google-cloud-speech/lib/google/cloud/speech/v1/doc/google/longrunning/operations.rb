@@ -48,13 +48,13 @@ module Google
     #     `TakeSnapshotResponse`.
     class Operation; end
 
-    # The request message for {Google::Longrunning::Operations::GetOperation Operations::GetOperation}.
+    # The request message for [GetOperationRequest](https://cloud.google.com/functions/docs/reference/rpc/google.longrunning#google.longrunning.GetOperationRequest).
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource.
     class GetOperationRequest; end
 
-    # The request message for {Google::Longrunning::Operations::ListOperations Operations::ListOperations}.
+    # The request message for [ListOperationsRequest](https://cloud.google.com/functions/docs/reference/rpc/google.longrunning#google.longrunning.ListOperationsRequest).
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation collection.
@@ -69,7 +69,7 @@ module Google
     #     The standard list page token.
     class ListOperationsRequest; end
 
-    # The response message for {Google::Longrunning::Operations::ListOperations Operations::ListOperations}.
+    # The response message for [ListOperationsResponse](https://cloud.google.com/functions/docs/reference/rpc/google.longrunning#google.longrunning.ListOperationsResponse).
     # @!attribute [rw] operations
     #   @return [Array<Google::Longrunning::Operation>]
     #     A list of operations that matches the specified filter in the request.
@@ -78,13 +78,13 @@ module Google
     #     The standard List next-page token.
     class ListOperationsResponse; end
 
-    # The request message for {Google::Longrunning::Operations::CancelOperation Operations::CancelOperation}.
+    # The request message for CancelOperation.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource to be cancelled.
     class CancelOperationRequest; end
 
-    # The request message for {Google::Longrunning::Operations::DeleteOperation Operations::DeleteOperation}.
+    # The request message for DeleteOperation.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource to be deleted.
