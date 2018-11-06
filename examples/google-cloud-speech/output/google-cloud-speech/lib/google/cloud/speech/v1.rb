@@ -129,6 +129,7 @@ module Google
         # @param exception_transformer [Proc]
         #   An optional proc that intercepts any exceptions raised during an API call to inject
         #   custom error handling.
+        #
         def self.new \
             credentials: nil,
             scopes: nil,

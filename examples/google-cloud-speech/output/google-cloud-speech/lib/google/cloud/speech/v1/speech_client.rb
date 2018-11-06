@@ -62,6 +62,7 @@ module Google
             GRPC_INTERCEPTORS = SpeechClient::GRPC_INTERCEPTORS.dup
           end
 
+          ##
           # @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
           #   Provides the means for authenticating requests made by the client. This parameter can
           #   be many types.
@@ -91,6 +92,7 @@ module Google
           # @param exception_transformer [Proc]
           #   An optional proc that intercepts any exceptions raised during an API call to inject
           #   custom error handling.
+          #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
@@ -192,6 +194,7 @@ module Google
 
           # Service calls
 
+          ##
           # Performs synchronous speech recognition: receive results after all audio
           # has been sent and processed.
           #
@@ -227,7 +230,7 @@ module Google
           #   uri = "gs://bucket_name/file_name.flac"
           #   audio = { uri: uri }
           #   response = speech_client.recognize(config, audio)
-
+          #
           def recognize \
               config,
               audio,
@@ -241,6 +244,7 @@ module Google
             @recognize.call(req, options, &block)
           end
 
+          ##
           # Performs asynchronous speech recognition: receive results via the
           # google.longrunning.Operations interface. Returns either an
           # `Operation.error` or an `Operation.response` which contains
@@ -301,7 +305,7 @@ module Google
           #   # Or block until the operation completes, triggering callbacks on
           #   # completion.
           #   operation.wait_until_done!
-
+          #
           def long_running_recognize \
               config,
               audio,
@@ -322,6 +326,7 @@ module Google
             operation
           end
 
+          ##
           # Performs bidirectional streaming speech recognition: receive results while
           # sending audio. This method is only available via the gRPC API (not REST).
           #
@@ -349,7 +354,7 @@ module Google
           #   speech_client.streaming_recognize(requests).each do |element|
           #     # Process element.
           #   end
-
+          #
           def streaming_recognize reqs, options: nil
             request_protos = reqs.lazy.map do |req|
               Google::Gax::to_proto(req, Google::Cloud::Speech::V1::StreamingRecognizeRequest)
