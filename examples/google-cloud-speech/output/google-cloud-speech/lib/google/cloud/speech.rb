@@ -18,31 +18,23 @@ require "pathname"
 
 module Google
   module Cloud
-    # rubocop:disable LineLength
-
     ##
-    # # Ruby Client for Cloud Speech API ([Alpha](https://github.com/googleapis/google-cloud-ruby#versioning))
+    # # Ruby Client for Cloud Speech API
     #
     # [Cloud Speech API][Product Documentation]:
     # Converts audio to text by applying powerful neural network models.
     # - [Product Documentation][]
     #
-    # ## Quick Start
-    # In order to use this library, you first need to go through the following
-    # steps:
-    #
-    # 1. [Select or create a Cloud Platform project.](https://console.cloud.google.com/project)
-    # 2. [Enable billing for your project.](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
-    # 3. [Enable the Cloud Speech API.](https://console.cloud.google.com/apis/library/speech.googleapis.com)
-    # 4. [Setup Authentication.](https://googleapis.github.io/google-cloud-ruby/#/docs/google-cloud/master/guides/authentication)
-    #
     # ### Installation
+    #
     # ```
     # $ gem install google-cloud-speech
     # ```
     #
     # ### Preview
+    #
     # #### SpeechClient
+    #
     # ```rb
     # require "google/cloud/speech"
     #
@@ -61,6 +53,7 @@ module Google
     # ```
     #
     # ### Next Steps
+    #
     # - Read the [Cloud Speech API Product documentation][Product Documentation]
     #   to learn more about the product and see How-to Guides.
     # - View this [repository's main README](https://github.com/googleapis/google-cloud-ruby/blob/master/README.md)
@@ -68,35 +61,7 @@ module Google
     #
     # [Product Documentation]: https://cloud.google.com/speech
     #
-    # ## Enabling Logging
-    #
-    # To enable logging for this library, set the logger for the underlying [gRPC](https://github.com/grpc/grpc/tree/master/src/ruby) library.
-    # The logger that you set may be a Ruby stdlib [`Logger`](https://ruby-doc.org/stdlib-2.5.0/libdoc/logger/rdoc/Logger.html) as shown below,
-    # or a [`Google::Cloud::Logging::Logger`](https://googleapis.github.io/google-cloud-ruby/#/docs/google-cloud-logging/latest/google/cloud/logging/logger)
-    # that will write logs to [Stackdriver Logging](https://cloud.google.com/logging/). See [grpc/logconfig.rb](https://github.com/grpc/grpc/blob/master/src/ruby/lib/grpc/logconfig.rb)
-    # and the gRPC [spec_helper.rb](https://github.com/grpc/grpc/blob/master/src/ruby/spec/spec_helper.rb) for additional information.
-    #
-    # Configuring a Ruby stdlib logger:
-    #
-    # ```ruby
-    # require "logger"
-    #
-    # module MyLogger
-    #   LOGGER = Logger.new $stderr, level: Logger::WARN
-    #   def logger
-    #     LOGGER
-    #   end
-    # end
-    #
-    # # Define a gRPC module-level logger method before grpc/logconfig.rb loads.
-    # module GRPC
-    #   extend MyLogger
-    # end
-    # ```
-    #
     module Speech
-      # rubocop:enable LineLength
-
       FILE_DIR = File.realdirpath(Pathname.new(__FILE__).join("..").join("speech"))
 
       AVAILABLE_VERSIONS = Dir["#{FILE_DIR}/*"]
@@ -148,6 +113,7 @@ module Google
             "are: [#{AVAILABLE_VERSIONS.join(", ")}]"
         end
 
+        # Delegate to the `new` method of the "version" module in <version>.rb.
         require "#{FILE_DIR}/#{version.to_s.downcase}"
         version_module = Google::Cloud::Speech
           .constants
