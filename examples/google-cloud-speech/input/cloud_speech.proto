@@ -30,6 +30,7 @@ option go_package = "google.golang.org/genproto/googleapis/cloud/speech/v1;speec
 option java_multiple_files = true;
 option java_outer_classname = "SpeechProto";
 option java_package = "com.google.cloud.speech.v1";
+option ruby_namespace = "Google::Cloud::Speech::V1";
 
 
 // Service that implements Google Cloud Speech API.
