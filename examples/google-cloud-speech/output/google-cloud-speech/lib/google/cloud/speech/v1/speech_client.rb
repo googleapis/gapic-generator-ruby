@@ -318,8 +318,8 @@ module Google
             operation = Google::Gax::Operation.new(
               @long_running_recognize.call(req, options),
               @operations_client,
-              Google::Cloud::Speech::V1::LongRunningRecognizeResponse,
-              Google::Cloud::Speech::V1::LongRunningRecognizeMetadata,
+              nil,
+              nil,
               call_options: options
             )
             operation.on_done { |operation| yield(operation) } if block_given?
@@ -398,8 +398,8 @@ module Google
             Google::Gax::Operation.new(
               proto_op,
               @operations_client,
-              Google::Cloud::Speech::V1::LongRunningRecognizeResponse,
-              Google::Cloud::Speech::V1::LongRunningRecognizeMetadata,
+              nil,
+              nil,
               call_options: options
             )
           end
