@@ -18,8 +18,6 @@ require "google/cloud/speech/v1/speech_client"
 module Google
   module Cloud
     module Speech
-      # rubocop:disable LineLength
-
       ##
       # # Ruby Client for Cloud Speech API ([Alpha](https://github.com/googleapis/google-cloud-ruby#versioning))
       #
@@ -95,8 +93,6 @@ module Google
       # ```
       #
       module V1
-        # rubocop:enable LineLength
-
         ##
         # Service that implements Google Cloud Speech API.
         #
