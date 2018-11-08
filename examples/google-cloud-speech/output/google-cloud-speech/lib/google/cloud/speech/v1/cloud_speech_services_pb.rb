@@ -17,9 +17,8 @@
 #
 #
 
-
-require 'grpc'
-require 'google/cloud/speech/v1/cloud_speech_pb'
+require "grpc"
+require "google/cloud/speech/v1/cloud_speech_pb"
 
 module Google
   module Cloud
@@ -28,12 +27,11 @@ module Google
         module Speech
           # Service that implements Google Cloud Speech API.
           class Service
-
             include GRPC::GenericService
 
             self.marshal_class_method = :encode
             self.unmarshal_class_method = :decode
-            self.service_name = 'google.cloud.speech.v1.Speech'
+            self.service_name = "google.cloud.speech.v1.Speech"
 
             # Performs synchronous speech recognition: receive results after all audio
             # has been sent and processed.

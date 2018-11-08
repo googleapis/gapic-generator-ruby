@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 require "google/cloud/speech/v1/speech_client"
 
 module Google
@@ -28,7 +27,8 @@ module Google
         ##
         # Client creation method for Google Cloud Speech API V1.
         #
-        # @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
+        # @param credentials [Google::Auth::Credentials, String, Hash,
+        #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
         #   Provides the means for authenticating requests made by the client. This parameter can
         #   be many types.
         #   A `Google::Auth::Credentials` uses a the properties of its represented keyfile for
@@ -76,7 +76,7 @@ module Google
             exception_transformer: exception_transformer,
             lib_name: lib_name,
             lib_version: lib_version
-          }.select { |_, v| v != nil }
+          }.reject { |_, v| v.nil? }
           Google::Cloud::Speech::V1::SpeechClient.new(**kwargs)
         end
       end

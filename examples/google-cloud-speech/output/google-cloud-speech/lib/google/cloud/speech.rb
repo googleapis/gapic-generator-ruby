@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 require "google/gax"
 require "pathname"
 
@@ -62,13 +61,12 @@ module Google
     # [Product Documentation]: https://cloud.google.com/speech
     #
     module Speech
-      FILE_DIR = File.realdirpath(Pathname.new(__FILE__).join("..").join("speech"))
+      FILE_DIR = File.realdirpath Pathname.new(__FILE__).join("..").join("speech")
 
-      AVAILABLE_VERSIONS = Dir["#{FILE_DIR}/*"]
-        .select { |file| File.directory?(file) }
-        .select { |dir| Google::Gax::VERSION_MATCHER.match(File.basename(dir)) }
-        .select { |dir| File.exist?(dir + ".rb") }
-        .map { |dir| File.basename(dir) }
+      AVAILABLE_VERSIONS = Dir["#{FILE_DIR}/*"].select { |file| File.directory?(file) }
+                                               .select { |dir| Google::Gax::VERSION_MATCHER.match(File.basename(dir)) }
+                                               .select { |dir| File.exist?(dir + ".rb") }
+                                               .map { |dir| File.basename(dir) }
 
       ##
       # Service that implements Google Cloud Speech API.
@@ -77,7 +75,8 @@ module Google
       #   The major version of the service to be used. By default :v1
       #   is used.
       # @overload new(version:, credentials:, scopes:, client_config:, timeout:)
-      #   @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
+      #   @param credentials [Google::Auth::Credentials, String, Hash,
+      #     GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
       #     Provides the means for authenticating requests made by the client. This parameter can
       #     be many types.
       #     A `Google::Auth::Credentials` uses a the properties of its represented keyfile for
@@ -107,18 +106,17 @@ module Google
       #     An optional proc that intercepts any exceptions raised during an API call to inject
       #     custom error handling.
       #
-      def self.new(*args, version: :v1, **kwargs)
+      def self.new *args, version: :v1, **kwargs
         unless AVAILABLE_VERSIONS.include?(version.to_s.downcase)
           raise "The version: #{version} is not available. The available versions " \
-            "are: [#{AVAILABLE_VERSIONS.join(", ")}]"
+            "are: [#{AVAILABLE_VERSIONS.join(', ')}]"
         end
 
         # Delegate to the `new` method of the "version" module in <version>.rb.
         require "#{FILE_DIR}/#{version.to_s.downcase}"
-        version_module = Google::Cloud::Speech
-          .constants
-          .select {|sym| sym.to_s.downcase == version.to_s.downcase}
-          .first
+        version_module = Google::Cloud::Speech.constants
+                                              .select { |sym| sym.to_s.casecmp(version.to_s).zero? }
+                                              .first
         Google::Cloud::Speech.const_get(version_module).new(*args, **kwargs)
       end
     end

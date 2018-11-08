@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 module Google
   module Cloud
     module Speech
@@ -93,7 +92,8 @@ module Google
         #   @return [Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding]
         #     Encoding of audio data sent in all `RecognitionAudio` messages.
         #     This field is optional for `FLAC` and `WAV` audio files and required
-        #     for all other audio formats. For details, see {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
+        #     for all other audio formats. For details, see
+        #     {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
         # @!attribute [rw] sample_rate_hertz
         #   @return [Integer]
         #     Sample rate in Hertz of the audio data sent in all
@@ -102,7 +102,8 @@ module Google
         #     source to 16000 Hz. If that's not possible, use the native sample rate of
         #     the audio source (instead of re-sampling).
         #     This field is optional for `FLAC` and `WAV` audio files and required
-        #     for all other audio formats. For details, see {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
+        #     for all other audio formats. For details, see
+        #     {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
         # @!attribute [rw] language_code
         #   @return [String]
         #     *Required* The language of the supplied audio as a

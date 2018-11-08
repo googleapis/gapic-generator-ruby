@@ -19,7 +19,6 @@
 # For the short term, the refresh process will only be runnable by Google
 # engineers.
 
-
 require "json"
 require "pathname"
 
@@ -46,7 +45,7 @@ module Google
           DEFAULT_SERVICE_PORT = 443
 
           # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
+          GRPC_INTERCEPTORS = [].freeze
 
           DEFAULT_TIMEOUT = 30
 
@@ -63,7 +62,8 @@ module Google
           end
 
           ##
-          # @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
+          # @param credentials [Google::Auth::Credentials, String, Hash,
+          #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
           #   Provides the means for authenticating requests made by the client. This parameter can
           #   be many types.
           #   A `Google::Auth::Credentials` uses a the properties of its represented keyfile for
@@ -116,64 +116,11 @@ module Google
               client_config: client_config,
               timeout: timeout,
               lib_name: lib_name,
-              lib_version: lib_version,
+              lib_version: lib_version
             )
+            @speech_stub = create_stub credentials, scopes
 
-            if credentials.is_a?(String) || credentials.is_a?(Hash)
-              updater_proc = Google::Cloud::Speech::V1::Credentials.new(credentials).updater_proc
-            end
-            if credentials.is_a?(GRPC::Core::Channel)
-              channel = credentials
-            end
-            if credentials.is_a?(GRPC::Core::ChannelCredentials)
-              chan_creds = credentials
-            end
-            if credentials.is_a?(Proc)
-              updater_proc = credentials
-            end
-            if credentials.is_a?(Google::Auth::Credentials)
-              updater_proc = credentials.updater_proc
-            end
-
-            package_version = Gem.loaded_specs['google-cloud-speech'].version.version
-
-            google_api_client = "gl-ruby/#{RUBY_VERSION}"
-            google_api_client << " #{lib_name}/#{lib_version}" if lib_name
-            google_api_client << " gapic/#{package_version} gax/#{Google::Gax::VERSION}"
-            google_api_client << " grpc/#{GRPC::VERSION}"
-            google_api_client.freeze
-
-            headers = { :"x-goog-api-client" => google_api_client }
-            headers.merge!(metadata) unless metadata.nil?
-            client_config_file = Pathname.new(__dir__).join(
-              "speech_client_config.json"
-            )
-            defaults = client_config_file.open do |f|
-              Google::Gax.construct_settings(
-                "google.cloud.speech.v1.Speech",
-                JSON.parse(f.read),
-                client_config,
-                Google::Gax::Grpc::STATUS_CODE_NAMES,
-                timeout,
-                errors: Google::Gax::Grpc::API_ERRORS,
-                metadata: headers
-              )
-            end
-
-            # Allow overriding the service path/port in subclasses.
-            service_path = self.class::SERVICE_ADDRESS
-            port = self.class::DEFAULT_SERVICE_PORT
-            interceptors = self.class::GRPC_INTERCEPTORS
-            @speech_stub = Google::Gax::Grpc.create_stub(
-              service_path,
-              port,
-              chan_creds: chan_creds,
-              channel: channel,
-              updater_proc: updater_proc,
-              scopes: scopes,
-              interceptors: interceptors,
-              &Google::Cloud::Speech::V1::Speech::Stub.method(:new)
-            )
+            defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
             @recognize = Google::Gax.create_api_call(
               @speech_stub.method(:recognize),
@@ -240,7 +187,7 @@ module Google
               config: config,
               audio: audio
             }.delete_if { |_, v| v.nil? }
-            req = Google::Gax::to_proto(req, Google::Cloud::Speech::V1::RecognizeRequest)
+            req = Google::Gax.to_proto req, Google::Cloud::Speech::V1::RecognizeRequest
             @recognize.call(req, options, &block)
           end
 
@@ -314,7 +261,7 @@ module Google
               config: config,
               audio: audio
             }.delete_if { |_, v| v.nil? }
-            req = Google::Gax::to_proto(req, Google::Cloud::Speech::V1::LongRunningRecognizeRequest)
+            req = Google::Gax.to_proto req, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
             operation = Google::Gax::Operation.new(
               @long_running_recognize.call(req, options),
               @operations_client,
@@ -322,7 +269,7 @@ module Google
               nil,
               call_options: options
             )
-            operation.on_done { |operation| yield(operation) } if block_given?
+            operation.on_done { |o| yield o } if block_given?
             operation
           end
 
@@ -357,7 +304,7 @@ module Google
           #
           def streaming_recognize reqs, options: nil
             request_protos = reqs.lazy.map do |req|
-              Google::Gax::to_proto(req, Google::Cloud::Speech::V1::StreamingRecognizeRequest)
+              Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeRequest
             end
             @streaming_recognize.call(request_protos, options)
           end
@@ -403,14 +350,76 @@ module Google
               call_options: options
             )
           end
+
+          protected
+
+          def create_stub credentials, scopes
+            if credentials.is_a?(String) || credentials.is_a?(Hash)
+              updater_proc = Google::Cloud::Speech::V1::Credentials.new(credentials).updater_proc
+            elsif credentials.is_a? GRPC::Core::Channel
+              channel = credentials
+            elsif credentials.is_a? GRPC::Core::ChannelCredentials
+              chan_creds = credentials
+            elsif credentials.is_a? Proc
+              updater_proc = credentials
+            elsif credentials.is_a? Google::Auth::Credentials
+              updater_proc = credentials.updater_proc
+            end
+
+            # Allow overriding the service path/port in subclasses.
+            service_path = self.class::SERVICE_ADDRESS
+            port = self.class::DEFAULT_SERVICE_PORT
+            interceptors = self.class::GRPC_INTERCEPTORS
+            Google::Gax::Grpc.create_stub(
+              service_path,
+              port,
+              chan_creds: chan_creds,
+              channel: channel,
+              updater_proc: updater_proc,
+              scopes: scopes,
+              interceptors: interceptors,
+              &Google::Cloud::Speech::V1::Speech::Stub.method(:new)
+            )
+          end
+
+          def default_settings client_config, timeout, metadata, lib_name, lib_version
+            package_version = Gem.loaded_specs["google-cloud-speech"].version.version
+
+            google_api_client = "gl-ruby/#{RUBY_VERSION}"
+            google_api_client << " #{lib_name}/#{lib_version}" if lib_name
+            google_api_client << " gapic/#{package_version} gax/#{Google::Gax::VERSION}"
+            google_api_client << " grpc/#{GRPC::VERSION}"
+            google_api_client.freeze
+
+            headers = { "x-goog-api-client": google_api_client }
+            headers.merge!(metadata) unless metadata.nil?
+            client_config_file = Pathname.new(__dir__).join(
+              "speech_client_config.json"
+            )
+            client_config_file.open do |f|
+              Google::Gax.construct_settings(
+                "google.cloud.speech.v1.Speech",
+                JSON.parse(f.read),
+                client_config,
+                Google::Gax::Grpc::STATUS_CODE_NAMES,
+                timeout,
+                errors: Google::Gax::Grpc::API_ERRORS,
+                metadata: headers
+              )
+            end
+          end
         end
       end
     end
   end
 end
 
+# rubocop:disable Lint/HandleExceptions
+
 # Once client is loaded, load helpers.rb if it exists.
 begin
   require "google/cloud/speech/v1/helpers"
 rescue LoadError
 end
+
+# rubocop:enable Lint/HandleExceptions
