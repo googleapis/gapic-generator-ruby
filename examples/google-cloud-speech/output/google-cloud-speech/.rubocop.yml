@@ -8,6 +8,8 @@ AllCops:
 Documentation:
   Enabled: false
 
+Layout/EmptyLines: # for the extra line between copyright and code
+  Enabled: false
 Metrics/AbcSize:
   Max: 20
 Metrics/ClassLength:
@@ -21,8 +23,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 30
 Metrics/ParameterLists:
-  Max: 10
+  Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses
+Style/NumericLiterals:
+  Enabled: false
