@@ -184,12 +184,12 @@ module Google
               audio,
               options: nil,
               &block
-            req = {
+            request = {
               config: config,
               audio: audio
             }.delete_if { |_, v| v.nil? }
-            req = Google::Gax.to_proto req, Google::Cloud::Speech::V1::RecognizeRequest
-            @recognize.call(req, options, &block)
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
+            @recognize.call(request, options, &block)
           end
 
           ##
@@ -258,13 +258,13 @@ module Google
               config,
               audio,
               options: nil
-            req = {
+            request = {
               config: config,
               audio: audio
             }.delete_if { |_, v| v.nil? }
-            req = Google::Gax.to_proto req, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
             operation = Google::Gax::Operation.new(
-              @long_running_recognize.call(req, options),
+              @long_running_recognize.call(request, options),
               @operations_client,
               nil,
               nil,
@@ -278,7 +278,7 @@ module Google
           # Performs bidirectional streaming speech recognition: receive results while
           # sending audio. This method is only available via the gRPC API (not REST).
           #
-          # @param reqs [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest>]
+          # @param requests [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest>]
           #   The input requests.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout,
@@ -303,9 +303,9 @@ module Google
           #     # Process element.
           #   end
           #
-          def streaming_recognize reqs, options: nil
-            request_protos = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeRequest
+          def streaming_recognize requests, options: nil
+            request_protos = requests.lazy.map do |request|
+              Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
             end
             @streaming_recognize.call(request_protos, options)
           end
