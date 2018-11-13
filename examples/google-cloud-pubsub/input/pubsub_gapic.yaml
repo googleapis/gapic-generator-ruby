@@ -28,35 +28,6 @@ language_settings:
 license_header:
   copyright_file: copyright-google.txt
   license_file: license-header-apache-2.0.txt
-fixed_resource_name_values:
-- entity_name: deleted_topic
-  fixed_value: _deleted-topic_
-collection_oneofs:
-- oneof_name: topic_oneof
-  collection_names:
-  - topic
-  - deleted_topic
-collections:
-- name_pattern: projects/{project}
-  entity_name: project
-  language_overrides:
-  - language: csharp
-    common_resource_name: Google.Api.Gax.ResourceNames.ProjectName
-- name_pattern: projects/{project}/snapshots/{snapshot}
-  entity_name: snapshot
-  language_overrides:
-  - language: java
-    entity_name: project_snapshot
-- name_pattern: projects/{project}/subscriptions/{subscription}
-  entity_name: subscription
-  language_overrides:
-  - language: java
-    entity_name: project_subscription
-- name_pattern: projects/{project}/topics/{topic}
-  entity_name: topic
-  language_overrides:
-  - language: java
-    entity_name: project_topic
 interfaces:
 - name: google.pubsub.v1.Subscriber
   lang_doc:
@@ -115,9 +86,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      name: subscription
-      topic: topic
     timeout_millis: 60000
   - name: GetSubscription
     flattening:
@@ -130,8 +98,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
   - name: UpdateSubscription
     required_fields:
@@ -162,8 +128,6 @@ interfaces:
         resources_field: subscriptions
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      project: project
     timeout_millis: 60000
   - name: DeleteSubscription
     flattening:
@@ -176,8 +140,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
   - name: ModifyAckDeadline
     flattening:
@@ -194,8 +156,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
     surface_treatments:
     - include_languages:
@@ -214,8 +174,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: messaging
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
     surface_treatments:
     - include_languages:
@@ -235,8 +193,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: pull
     retry_params_name: messaging
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
     surface_treatments:
     - include_languages:
@@ -252,8 +208,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: pull
     retry_params_name: streaming_messaging
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 900000
     surface_treatments:
     - include_languages:
@@ -272,8 +226,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
   - name: ListSnapshots
     flattening:
@@ -293,8 +245,6 @@ interfaces:
         resources_field: snapshots
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      project: project
     timeout_millis: 60000
   - name: CreateSnapshot
     flattening:
@@ -309,9 +259,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      name: snapshot
-      subscription: subscription
     timeout_millis: 60000
   - name: UpdateSnapshot
     required_fields:
@@ -335,8 +282,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      snapshot: snapshot
     timeout_millis: 60000
   - name: Seek
     # Not including flattening until oneof support.
@@ -347,8 +292,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      subscription: subscription
     timeout_millis: 60000
   - name: SetIamPolicy
     flattening:
@@ -362,8 +305,6 @@ interfaces:
     request_object_method: true
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: subscription
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
@@ -380,8 +321,6 @@ interfaces:
     request_object_method: false
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: subscription
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
@@ -400,8 +339,6 @@ interfaces:
     request_object_method: true
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: subscription
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
@@ -460,8 +397,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      name: topic
     timeout_millis: 60000
   - name: UpdateTopic
     required_fields:
@@ -496,8 +431,6 @@ interfaces:
         discriminator_fields:
         - topic
         subresponse_field: message_ids
-    field_name_patterns:
-      topic: topic
     sample_code_init_fields:
     - messages[0].data
     timeout_millis: 60000
@@ -516,8 +449,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      topic: topic
     timeout_millis: 60000
   - name: ListTopics
     flattening:
@@ -537,8 +468,6 @@ interfaces:
         resources_field: topics
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      project: project
     timeout_millis: 60000
   - name: ListTopicSubscriptions
     flattening:
@@ -558,8 +487,6 @@ interfaces:
         resources_field: subscriptions
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      topic: topic
     timeout_millis: 60000
   - name: DeleteTopic
     flattening:
@@ -572,8 +499,6 @@ interfaces:
     resource_name_treatment: STATIC_TYPES
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      topic: topic
     timeout_millis: 60000
   - name: SetIamPolicy
     flattening:
@@ -587,8 +512,6 @@ interfaces:
     request_object_method: true
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: topic
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
@@ -605,8 +528,6 @@ interfaces:
     request_object_method: false
     retry_codes_name: idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: topic
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
@@ -625,79 +546,9 @@ interfaces:
     request_object_method: true
     retry_codes_name: non_idempotent
     retry_params_name: default
-    field_name_patterns:
-      resource: topic
     timeout_millis: 60000
     reroute_to_grpc_interface: google.iam.v1.IAMPolicy
     surface_treatments:
     - include_languages:
       - go
       visibility: DISABLED
-resource_name_generation:
-- message_name: Topic
-  field_entity_map:
-    name: topic
-- message_name: GetTopicRequest
-  field_entity_map:
-    topic: topic
-- message_name: PublishRequest
-  field_entity_map:
-    topic: topic
-- message_name: ListTopicsRequest
-  field_entity_map:
-    project: project
-- message_name: ListTopicSubscriptionsRequest
-  field_entity_map:
-    topic: topic
-- message_name: ListTopicSubscriptionsResponse
-  field_entity_map:
-    subscriptions: subscription
-- message_name: DeleteTopicRequest
-  field_entity_map:
-    topic: topic
-- message_name: Subscription
-  field_entity_map:
-    name: subscription
-    topic: topic_oneof
-- message_name: GetSubscriptionRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: ListSubscriptionsRequest
-  field_entity_map:
-    project: project
-- message_name: DeleteSubscriptionRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: ModifyPushConfigRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: PullRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: ModifyAckDeadlineRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: AcknowledgeRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: StreamingPullRequest
-  field_entity_map:
-    subscription: subscription
-- message_name: Snapshot
-  field_entity_map:
-    name: snapshot
-    topic: topic
-- message_name: CreateSnapshotRequest
-  field_entity_map:
-    name: snapshot
-    subscription: subscription
-- message_name: ListSnapshotsRequest
-  field_entity_map:
-    project: project
-- message_name: DeleteSnapshotRequest
-  field_entity_map:
-    snapshot: snapshot
-- message_name: SeekRequest
-  field_entity_map:
-    subscription: subscription
-    snapshot: snapshot

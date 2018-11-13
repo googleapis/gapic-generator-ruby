@@ -84,37 +84,19 @@ module Google
             "https://www.googleapis.com/auth/pubsub"
           ].freeze
 
-
-          TOPIC_PATH_TEMPLATE = Google::Gax::PathTemplate.new(
-            "projects/{project}/topics/{topic}"
-          )
-
-          private_constant :TOPIC_PATH_TEMPLATE
-
-          PROJECT_PATH_TEMPLATE = Google::Gax::PathTemplate.new(
-            "projects/{project}"
-          )
-
-          private_constant :PROJECT_PATH_TEMPLATE
-
           # Returns a fully-qualified topic resource name string.
           # @param project [String]
           # @param topic [String]
           # @return [String]
           def self.topic_path project, topic
-            TOPIC_PATH_TEMPLATE.render(
-              :"project" => project,
-              :"topic" => topic
-            )
+            "projects/#{project}/topics/#{topic}"
           end
 
           # Returns a fully-qualified project resource name string.
           # @param project [String]
           # @return [String]
           def self.project_path project
-            PROJECT_PATH_TEMPLATE.render(
-              :"project" => project
-            )
+            "projects/#{project}"
           end
 
           # @param credentials [Google::Auth::Credentials, String, Hash, GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
