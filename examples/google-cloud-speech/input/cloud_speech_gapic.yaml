@@ -49,14 +49,6 @@ interfaces:
     total_timeout_millis: 5000000
   methods:
   - name: Recognize
-    flattening:
-      groups:
-      - parameters:
-        - config
-        - audio
-    required_fields:
-    - config
-    - audio
     sample_code_init_fields:
     - config.encoding=FLAC
     - config.sample_rate_hertz=44100
@@ -67,14 +59,6 @@ interfaces:
     retry_params_name: default
     timeout_millis: 1000000
   - name: LongRunningRecognize
-    flattening:
-      groups:
-      - parameters:
-        - config
-        - audio
-    required_fields:
-    - config
-    - audio
     sample_code_init_fields:
     - config.encoding=FLAC
     - config.sample_rate_hertz=44100

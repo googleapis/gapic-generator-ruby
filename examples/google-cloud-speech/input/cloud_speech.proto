@@ -50,6 +50,9 @@ service Speech {
   // a `LongRunningRecognizeResponse` message.
   rpc LongRunningRecognize(LongRunningRecognizeRequest) returns (google.longrunning.Operation) {
     option (google.api.http) = { post: "/v1/speech:longrunningrecognize" body: "*" };
+    option (google.api.method_signature) = {
+      fields: ["config", "audio"]
+    };
   }
 
   // Performs bidirectional streaming speech recognition: receive results while
@@ -72,10 +75,10 @@ message RecognizeRequest {
 message LongRunningRecognizeRequest {
   // *Required* Provides information to the recognizer that specifies how to
   // process the request.
-  RecognitionConfig config = 1;
+  RecognitionConfig config = 1 [(google.api.field_behavior) = REQUIRED];
 
   // *Required* The audio data to be recognized.
-  RecognitionAudio audio = 2;
+  RecognitionAudio audio = 2 [(google.api.field_behavior) = REQUIRED];
 }
 
 // The top-level message sent by the client for the `StreamingRecognize` method.
