@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+$LOAD_PATH << ::File.expand_path('../../lib', __FILE__)
+require 'google/gapic/schema'
+require 'google/gapic/generator'
+require 'protobuf/descriptors'
+
+# Ensure that no encoding conversions are done on STDIN and STDOUT since
+# we are passing binary data back and forth. Otherwise these streams
+# will be mangled on Windows.
+STDIN.binmode
+STDOUT.binmode
+
+# Get the CodeGeneratorRequest.
+request_bytes = STDIN.read
+request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode(request_bytes)
+
+# Create an API Schema from the FileDescriptorProtos
+api = Google::Gapic::Schema::Api.new(request.proto_file, "")
+
+# Specify where to load the templates from.
+class DumpTemplateProvider < Google::Gapic::Generator::TemplateProvider
+  DUMP_TEMPLATE = %{
+<%=@util.file_name "gapic_dump.txt"%>
+<% @api.messages.each do |m| %>
+Message: <%= m.name %>
+  Leading Comments: <%= m.leading_comments.inspect%>
+  Trailing Comments: <%= m.trailing_comments.inspect%>
+  Address: <%= m.address %>
+  Fields:
+  <% m.fields.each do |f| %>
+    Field: <%= f.name %>
+      Leading Comments: <%= f.leading_comments.inspect%>
+      Trailing Comments: <%= f.trailing_comments.inspect%>
+      Address: <%= f.address %>
+      <% if f.message %>
+      Message: <%= f.message %>
+      <% elsif f.enum %>
+      Enum: <%= f.enum %>
+      <% else %>
+      Type: <%= f.type %>
+      <% end %>
+  <% end %>
+
+<% end %>
+
+<% @api.enums.each do |e| %>
+Enum: <%= e.name %>
+  Leading Comments: <%= e.leading_comments.inspect%>
+  Trailing Comments: <%= e.trailing_comments.inspect%>
+  Address: <%= e.address %>
+  Values:
+  <% e.values.each do |v| %>
+    EnumValue: <%= v.name %>
+      Leading Comments: <%= v.leading_comments.inspect%>
+      Trailing Comments: <%= v.trailing_comments.inspect%>
+      Address: <%= v.address %>
+      Number: <%= v.number %>
+  <% end %>
+
+<% end %>
+
+<% @api.services.each do |s| %>
+Service: <%= s.name %>
+  Leading Comments: <%= s.leading_comments.inspect%>
+  Trailing Comments: <%= s.trailing_comments.inspect%>
+  Address <%= s.address %>
+  <% s.methods.each do |m| %>
+    Method: <%= m.name %>
+      Leading Comments: <%= m.leading_comments.inspect%>
+      Trailing Comments: <%= m.trailing_comments.inspect%>
+      Address <%= m.address %>
+      Input Type: <%= m.input.name %>
+        Address: <%= m.input %>
+      Output Type: <%= m.output.name %>
+        Address: <%= m.output %>
+
+  <% end %>
+
+<% end %>
+  }.freeze
+  def templates
+    [DUMP_TEMPLATE]
+  end
+
+  def utility_templates
+    []
+  end
+end
+
+# Create a generator from the API.
+generator = Google::Gapic::Generator::Generator.new(api, DumpTemplateProvider.new)
+
+
+# Generate the files.
+files = generator.generate
+
+# Serialize and print the CodeGeneratorResponse.
+STDOUT.print(Google::Protobuf::Compiler::CodeGeneratorResponse.new(file: files).serialize)
