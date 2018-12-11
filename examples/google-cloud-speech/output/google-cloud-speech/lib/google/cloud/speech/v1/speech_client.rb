@@ -307,7 +307,7 @@ module Google
             request_protos = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
             end
-            @streaming_recognize.call(request_protos, options)
+            @streaming_recognize.call request_protos, options
           end
 
           ##
@@ -371,6 +371,7 @@ module Google
             service_path = self.class::SERVICE_ADDRESS
             port = self.class::DEFAULT_SERVICE_PORT
             interceptors = self.class::GRPC_INTERCEPTORS
+            stub_new = Google::Cloud::Speech::V1::Speech::Stub.method :new
             Google::Gax::Grpc.create_stub(
               service_path,
               port,
@@ -379,7 +380,7 @@ module Google
               updater_proc: updater_proc,
               scopes: scopes,
               interceptors: interceptors,
-              &Google::Cloud::Speech::V1::Speech::Stub.method(:new)
+              &stub_new
             )
           end
 
@@ -393,7 +394,7 @@ module Google
             google_api_client.freeze
 
             headers = { "x-goog-api-client": google_api_client }
-            headers.merge!(metadata) unless metadata.nil?
+            headers.merge! metadata unless metadata.nil?
             client_config_file = Pathname.new(__dir__).join(
               "speech_client_config.json"
             )

@@ -64,10 +64,10 @@ module Google
     module Speech
       FILE_DIR = File.realdirpath Pathname.new(__FILE__).join("..").join("speech")
 
-      AVAILABLE_VERSIONS = Dir["#{FILE_DIR}/*"].select { |file| File.directory?(file) }
-                                               .select { |dir| Google::Gax::VERSION_MATCHER.match(File.basename(dir)) }
-                                               .select { |dir| File.exist?(dir + ".rb") }
-                                               .map { |dir| File.basename(dir) }
+      AVAILABLE_VERSIONS = Dir["#{FILE_DIR}/*"].select { |file| File.directory? file }
+                                               .select { |dir| Google::Gax::VERSION_MATCHER.match File.basename(dir) }
+                                               .select { |dir| File.exist? dir + ".rb" }
+                                               .map { |dir| File.basename dir }
 
       ##
       # Service that implements Google Cloud Speech API.
@@ -108,9 +108,9 @@ module Google
       #     custom error handling.
       #
       def self.new *args, version: :v1, **kwargs
-        unless AVAILABLE_VERSIONS.include?(version.to_s.downcase)
+        unless AVAILABLE_VERSIONS.include? version.to_s.downcase
           raise "The version: #{version} is not available. The available versions " \
-            "are: [#{AVAILABLE_VERSIONS.join(', ')}]"
+            "are: [#{AVAILABLE_VERSIONS.join ', '}]"
         end
 
         # Delegate to the `new` method of the "version" module in <version>.rb.
