@@ -1,17 +1,19 @@
 AllCops:
   Exclude:
-    - "google-cloud-speech.gemspec"
-    - "Rakefile"
-    - "test/**/*"
-    - "acceptance/**/*"
+    - "google-cloud-speech.gemspec" # for required_ruby_version = ">= 2.0.0"
+  TargetRubyVersion: 2.2
 
 Documentation:
   Enabled: false
 
 Layout/EmptyLines: # for the extra line between copyright and code
   Enabled: false
+Layout/EmptyLinesAroundBlockBody: # for the lines surrounding test blocks
+  Enabled: false
 Metrics/AbcSize:
   Max: 20
+Metrics/BlockLength:
+  Enabled: false
 Metrics/ClassLength:
   Enabled: false
 Metrics/CyclomaticComplexity:

@@ -11,7 +11,7 @@ require "google/protobuf/empty_pb"
 require "google/protobuf/timestamp_pb"
 require "google/rpc/status_pb"
 
-# rubocop:disable Metrics/BlockLength, Metrics/LineLength
+# rubocop:disable Metrics/LineLength
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_message "google.cloud.speech.v1.RecognizeRequest" do
@@ -130,4 +130,4 @@ module Google
   end
 end
 
-# rubocop:enable Metrics/BlockLength, Metrics/LineLength
+# rubocop:enable Metrics/LineLength

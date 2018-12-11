@@ -22,7 +22,7 @@ require "google/cloud/speech"
 
 describe "SpeechSmokeTest v1" do
   it "runs one smoke test with recognize" do
-    speech_client = Google::Cloud::Speech.new(version: :v1)
+    speech_client = Google::Cloud::Speech.new version: :v1
     language_code = "en-US"
     sample_rate_hertz = 44100
     encoding = :FLAC
@@ -33,6 +33,6 @@ describe "SpeechSmokeTest v1" do
     }
     uri = "gs://gapic-toolkit/hello.flac"
     audio = { uri: uri }
-    response = speech_client.recognize(config, audio)
+    speech_client.recognize config, audio
   end
 end
