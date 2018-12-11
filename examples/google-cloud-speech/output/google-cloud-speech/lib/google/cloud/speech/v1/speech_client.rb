@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +42,7 @@ module Google
           attr_reader :speech_stub
 
           # The default address of the service.
-          SERVICE_ADDRESS = "speech.googleapis.com".freeze
+          SERVICE_ADDRESS = "speech.googleapis.com"
 
           # The default port of the service.
           DEFAULT_SERVICE_PORT = 443
@@ -387,11 +389,11 @@ module Google
           def default_settings client_config, timeout, metadata, lib_name, lib_version
             package_version = Gem.loaded_specs["google-cloud-speech"].version.version
 
-            google_api_client = "gl-ruby/#{RUBY_VERSION}"
+            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
             google_api_client << " #{lib_name}/#{lib_version}" if lib_name
             google_api_client << " gapic/#{package_version} gax/#{Google::Gax::VERSION}"
             google_api_client << " grpc/#{GRPC::VERSION}"
-            google_api_client.freeze
+            google_api_client.join
 
             headers = { "x-goog-api-client": google_api_client }
             headers.merge! metadata unless metadata.nil?
