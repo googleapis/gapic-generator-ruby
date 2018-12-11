@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - "google-cloud-speech.gemspec" # for required_ruby_version = ">= 2.0.0"
+    - "**/*_pb.rb"
   TargetRubyVersion: 2.3
 
 Documentation:
