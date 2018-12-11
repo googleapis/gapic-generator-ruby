@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.version       = "0.1.0"
 
   gem.authors       = ["Google LLC"]
-  gem.email         = "googleapis-packages@google.com"
+  gem.email         = "google-cloud+ruby@google.com"
   gem.description   = "google-cloud-speech is the official library for Cloud Speech API."
   gem.summary       = "API Client library for Cloud Speech API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
