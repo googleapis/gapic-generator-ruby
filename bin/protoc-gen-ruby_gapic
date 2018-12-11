@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+$LOAD_PATH << ::File.expand_path('../../lib', __FILE__)
+require 'google/gapic/schema'
+require 'google/gapic/generator'
+require 'protobuf/descriptors'
+
+# Ensure that no encoding conversions are done on STDIN and STDOUT since
+# we are passing binary data back and forth. Otherwise these streams
+# will be mangled on Windows.
+STDIN.binmode
+STDOUT.binmode
+
+# Get the CodeGeneratorRequest.
+request_bytes = STDIN.read
+request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode(request_bytes)
+
+# Determine the appropriate package.
+# This generator uses a slightly different mechanism for determining
+# which files to generate; it tracks at package level rather than file
+# level.
+files_to_generate = request.proto_file.select do |file|
+  request.file_to_generate.include? file.name
+end
+package = files_to_generate
+  .reduce(files_to_generate[0].package.split('.')) do |answer, file|
+    parts = file.package.split('.')
+    parts.each_with_index do |part, i|
+      return parts[0..i] if answer[i] != part
+    end
+    answer
+  end
+package = package.join '.'
+
+# Create an API Schema from the FileDescriptorProtos
+api = Google::Gapic::Schema::Api.new(request.proto_file, package)
+
+# Specify where to load the templates from.
+template_path = File.expand_path('../../lib/google/gapic/templates', __FILE__)
+template_provider = Google::Gapic::Generator::GapicTemplateProvider.new(template_path)
+
+# Create a generator from the API.
+generator = Google::Gapic::Generator::Generator.new(api, template_provider)
+
+# Generate the files.
+files = generator.generate
+
+# Format the files.
+formatted_files = files.map do |file|
+  # Only autocorrect ruby files.
+  return file unless file.name.end_with? '.rb'
+
+  # Write generated file to a tmp file.
+  tmp_file = File.expand_path('../../tmp.rb', __FILE__)
+  log_file = File.expand_path('../../tmp.log', __FILE__)
+  f = File.new(tmp_file, 'w')
+  f.write(file.content)
+  f.close
+
+  # Autocorrect file with rubocop.
+  # TODO(landrito) make this call system agnostic.
+  system("rubocop -a #{tmp_file} -o #{log_file}")
+
+  # Read the corrected file.
+  content = File.read(tmp_file)
+
+  # Delete temp file.
+  File.delete(tmp_file)
+  File.delete(log_file)
+
+  # Return the new file.
+  Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+    name: file.name,
+    content: content)
+end
+
+response = Google::Protobuf::Compiler::CodeGeneratorResponse.new(file: formatted_files)
+
+# Serialize and print the CodeGeneratorResponse.
+STDOUT.print(response.serialize)
