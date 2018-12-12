@@ -20,27 +20,31 @@ module Google
       # A representation of a full API.
       #
       # @!attribute [r] files
-      #   @ return [Enumerable<File>] The files represented by this API.
+      #   @return [Array<File>] The files represented by this API.
       # @!attribute [r] services
-      #   @ return [Hash<Enumerable<String>, Service>] A mapping of an address to
-      #      the services seen across all files in this API.
+      #   @return [<Array<Service>] The services seen across all files in this
+      #     API.
       # @!attribute [r] messages
-      #   @ return [Hash<Enumerable<String>, Message>] A mapping of an address to
-      #      the messages seen across all files in this API.
+      #   @return [Array<Message>] The top level messages seen across all files
+      #     in this API.
       # @!attribute [r] enums
-      #   @ return [Hash<Enumerable<String>, Enum>] A mapping of an address to
-      #      the enums seen across all files in this API.
+      #   @return [Array<Enum>] The top level enums seen across all files in
+      #     this API.
       class Api
         attr_accessor :files, :services, :messages, :enums
 
         # Initializes an API object with the file descriptors that represent the
         # API.
         #
-        # @param file_descriptors [Enumerable<Google::Protobuf::FileDescriptorProto>]
+        # @param file_descriptors [Array<Google::Protobuf::FileDescriptorProto>]
         #   The descriptors of the files this API represents.
-        def initialize file_descriptors, package
-          loader = Loader.new(package)
-          @files = file_descriptors.map { |fd| loader.load_file(fd) }
+        # @param files_to_generate [Array<String>] The .proto files that
+        #   should be generated.
+        def initialize file_descriptors, files_to_generate
+          loader = Loader.new
+          @files = file_descriptors.map do |fd|
+            loader.load_file(fd, files_to_generate.include?(fd.name))
+          end
           @services = @files.flat_map { |f| f.services }
           @messages = @files.flat_map { |f| f.messages }
           @enums = @files.flat_map { |f| f.enums }
