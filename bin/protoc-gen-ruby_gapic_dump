@@ -19,17 +19,17 @@ require 'google/gapic/runner'
 # Specify where to load the templates from.
 class DumpTemplateProvider
   DUMP_TEMPLATE = %{
-<%=@util.file_name "gapic_dump.txt"%>
+<%= @util.file_name "gapic_dump.txt" %>
 <% @api.messages.each do |m| %>
 Message: <%= m.name %>
-  Leading Comments: <%= m.leading_comments.inspect%>
-  Trailing Comments: <%= m.trailing_comments.inspect%>
+  Leading Comments: <%= m.leading_comments.inspect %>
+  Trailing Comments: <%= m.trailing_comments.inspect %>
   Address: <%= m.address %>
   Fields:
   <% m.fields.each do |f| %>
     Field: <%= f.name %>
-      Leading Comments: <%= f.leading_comments.inspect%>
-      Trailing Comments: <%= f.trailing_comments.inspect%>
+      Leading Comments: <%= f.leading_comments.inspect %>
+      Trailing Comments: <%= f.trailing_comments.inspect %>
       Address: <%= f.address %>
       <% if f.message %>
       Message: <%= f.message %>
@@ -44,14 +44,14 @@ Message: <%= m.name %>
 
 <% @api.enums.each do |e| %>
 Enum: <%= e.name %>
-  Leading Comments: <%= e.leading_comments.inspect%>
-  Trailing Comments: <%= e.trailing_comments.inspect%>
+  Leading Comments: <%= e.leading_comments.inspect %>
+  Trailing Comments: <%= e.trailing_comments.inspect %>
   Address: <%= e.address %>
   Values:
   <% e.values.each do |v| %>
     EnumValue: <%= v.name %>
-      Leading Comments: <%= v.leading_comments.inspect%>
-      Trailing Comments: <%= v.trailing_comments.inspect%>
+      Leading Comments: <%= v.leading_comments.inspect %>
+      Trailing Comments: <%= v.trailing_comments.inspect %>
       Address: <%= v.address %>
       Number: <%= v.number %>
   <% end %>
@@ -60,13 +60,13 @@ Enum: <%= e.name %>
 
 <% @api.services.each do |s| %>
 Service: <%= s.name %>
-  Leading Comments: <%= s.leading_comments.inspect%>
-  Trailing Comments: <%= s.trailing_comments.inspect%>
+  Leading Comments: <%= s.leading_comments.inspect %>
+  Trailing Comments: <%= s.trailing_comments.inspect %>
   Address <%= s.address %>
   <% s.methods.each do |m| %>
     Method: <%= m.name %>
-      Leading Comments: <%= m.leading_comments.inspect%>
-      Trailing Comments: <%= m.trailing_comments.inspect%>
+      Leading Comments: <%= m.leading_comments.inspect %>
+      Trailing Comments: <%= m.trailing_comments.inspect %>
       Address <%= m.address %>
       Input Type: <%= m.input.name %>
         Address: <%= m.input %>
