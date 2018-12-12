@@ -18,11 +18,11 @@ module Google
   module Gapic
     module Schema
       class Loader
+        # Empty location for things with no comments.
         EMPTY = Google::Protobuf::SourceCodeInfo::Location.new
 
         # Initializes the loader
-        def initialize package
-          @package = package
+        def initialize
           @prior_messages = []
           @prior_enums = []
         end
@@ -31,12 +31,9 @@ module Google
         #
         # @param file_descriptor [Google::Protobuf::FileDescriptorProto] the
         #   descriptor of the proto file.
-        # @param prior_messages [Hash<Enumerable<String>, Message>] a hash of
-        #   addresses mapped to messages that have already been seen.
-        # @param prior_enums [Hash<Enumerable<String>, Enum>] a hash of addresses
-        #   mapped to enums that have already been seen before.
-        # @return [File] the wrapped protofile.
-        def load_file file_descriptor
+        # @oaram file_to_generate [Boolean] Whether this file is to be
+        #   generated.
+        def load_file file_descriptor, file_to_generate
           # Setup.
           address = file_descriptor.package.split('.')
           path = []
@@ -58,13 +55,9 @@ module Google
           end
           messages.each(&method(:update_fields!))
 
-          # Load services for files that should be generated.
-          file_to_generate = file_descriptor.package.start_with?(@package)
-          services = []
-          if file_to_generate
-            services = file_descriptor.service.each_with_index.map do |s, i|
-              load_service(s, address, docs, [6, i])
-            end
+          # Load services.
+          services = file_descriptor.service.each_with_index.map do |s, i|
+            load_service(s, address, docs, [6, i])
           end
 
           # Construct and return the file.
@@ -74,7 +67,7 @@ module Google
             docs[path],
             messages,
             enums,
-            services, 
+            services,
             file_to_generate)
         end
 
@@ -94,9 +87,12 @@ module Google
         #
         # @param descriptor [Google::Protobuf::EnumDescriptorProto] the descriptor
         #   of this enum.
-        # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Enum>] A hash containg the enum
-        #   address mapped to the enum.
+        # @param address [Enumerable<String>] The address of the parent.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [Enum] The loaded enum.
         def load_enum descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
@@ -117,8 +113,11 @@ module Google
         # @param descriptor [Google::Protobuf::EnumValueDescriptorProto] the
         #   descriptor of this enum value.
         # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Enum>] A hash containg the enum value
-        #   address mapped to the enum value.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [EnumValue] The loaded enum value.
         def load_enum_value descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
@@ -134,8 +133,11 @@ module Google
         # @param descriptor [Google::Protobuf::DescriptorProto] the
         #   descriptor of this message.
         # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Message>] A hash containg the message
-        #   address mapped to the message.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [Message] The loaded message.
         def load_message descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
@@ -171,9 +173,12 @@ module Google
         #
         # @param descriptor [Google::Protobuf::FieldDescriptorProto] the
         #   descriptor of this field.
-        # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Field>] A hash containg the field
-        #   address mapped to the field.
+        # @param address [Enumerable<String>] The address of the parent.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [Field] The loaded field.
         def load_field descriptor, address, docs, path
           # Update address.
           address = address.clone << descriptor.name
@@ -191,9 +196,12 @@ module Google
         #
         # @param descriptor [Google::Protobuf::ServiceDescriptorProto] the
         #   descriptor of this service.
-        # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Service>] A hash containg the service
-        #   address mapped to the service.
+        # @param address [Enumerable<String>] The address of the parent.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [Service] The loaded service.
         def load_service descriptor, address, docs, path
           # Update the address.
           address = address.clone << descriptor.name
@@ -215,9 +223,12 @@ module Google
         #
         # @param descriptor [Google::Protobuf::MethodDescriptorProto] the
         #   descriptor of this service.
-        # @param address [Enumerable<String>] the address of the parent.
-        # @return [Hash<Enumerable<String>, Method>] A hash containg the method
-        #   address mapped to the method.
+        # @param address [Enumerable<String>] The address of the parent.
+        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        #   A mapping of a path to the docs. See Proto#docs for more info.
+        # @param path [Enumerable<Integer>] The current path. This is used to
+        #   get the docs for a proto. See Proto#docs for more info.
+        # @return [Method] The loaded method.
         def load_method descriptor, address, docs, path
           # Update the address.
           address = address.clone << descriptor.name
