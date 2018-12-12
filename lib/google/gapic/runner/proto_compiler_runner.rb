@@ -75,7 +75,7 @@ module Google
           # Specify where to load the templates from.
           Google::Gapic::Generator::TemplateProvider.new(template_path)
         end
-        private :template_path
+        private :template_provider
 
         # Private.
         # Formats a file if it is a file that has a name with a '.rb' file
