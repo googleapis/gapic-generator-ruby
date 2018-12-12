@@ -46,7 +46,7 @@ package = files_to_generate
 package = package.join '.'
 
 # Create an API Schema from the FileDescriptorProtos
-api = Google::Gapic::Schema::Api.new(request.proto_file, package)
+api = Google::Gapic::Schema::Api.new(request.proto_file, request.file_to_generate)
 
 # Specify where to load the templates from.
 template_path = File.expand_path('../../lib/google/gapic/templates', __FILE__)
