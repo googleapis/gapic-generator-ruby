@@ -73,7 +73,7 @@ module Google
         # @return [Google::Gapic::Generator::TemplateProvider]
         def template_provider
           # Specify where to load the templates from.
-          template_provider = Google::Gapic::Generator::TemplateProvider.new(template_path)
+          Google::Gapic::Generator::TemplateProvider.new(template_path)
         end
         private :template_path
 
