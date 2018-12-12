@@ -12,29 +12,48 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'google/gapic/generator/template_provider'
+
 module Google
   module Gapic
     module Generator
-      # Abstract base class exposes a method that provides templates.
+      # Provides templates found at a given path.
       class TemplateProvider
-        # Returns the templates that result into output files. These templates
-        # are expected to be embedded ruby files.
+        # Initializes the TemplateProvider.
         #
-        # @return [Array<String>] An array of templates.
+        # @param path [string] The path to search for erb files.
+        def initialize path
+          @path = path
+        end
+
+        # Returns the content of the templates found at the given path.
+        # This will ignore any template that starts with '_' in their file name
+        # because those are understood to be utility templates.
+        #
+        # @return [Array<String>] The templates.
         def templates
-          raise NotImplementedError, 'This method must be overridden in subclasses.'
+          Dir.glob(File.join(@path, "**/*.erb"))
+            .reject { |file| File.directory? file }
+            .reject { |file| File.split(file).last.start_with? '_' }
+            .map { |file| File.read(file)  }
         end
 
         # Returns a Hash<Symbol, String> that maps the symbol to access the
-        # template by to the template content. These templates
-        # are expected to be embedded ruby files.
+        # template by to the template content.
         #
         # @return [Hash<Symbol, String>] A mapping of the symbol to access the
         # template by to the template content.
         def utility_templates
-          raise NotImplementedError, 'This method must be overridden in subclasses.'
+          Dir.glob(File.join(@path, "**/_*.erb"))
+            .reject { |file| File.directory? file }
+            .reduce({}) do |memo, file|
+              name = File.split(file).last[1..-5]
+              memo.merge({name.to_sym => File.read(file)})
+            end
         end
       end
     end
   end
 end
+
+        # Private.        private :templates
