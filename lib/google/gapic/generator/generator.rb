@@ -20,7 +20,7 @@ module Google
   module Gapic
     module Generator
       # The generator orchestrates the rendering of templates giving the
-      # templates context for generation. Explicitely this means that every
+      # templates context for generation. Explicitly this means that every
       # template will be given two objects: a Google::Gapic::Schema::Api object
       # accessible through @api, and a Google::Gapic::Generator::Util object
       # accessible through @util.

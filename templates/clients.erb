@@ -1,6 +1,6 @@
 <% @api.services.each do |service| %>
 <%=@util.file_name "#{@util.snake_case service.name}.rb"%>
-<%=@util.google_license.evaluate%>
+<%=@util.license.evaluate%>
 <%=@util.modules.evaluate(
     util: @util,
     namespaces: service.address[0..-2],

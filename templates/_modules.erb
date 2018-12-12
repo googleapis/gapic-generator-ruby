@@ -1,7 +1,10 @@
+<%# Declare a module. %>
 module <%= @util.upper_camel @namespaces.first %>
+<%# Put content if there are no more modules. %>
 <% if @namespaces.length <= 1 %>
 <%= @content -%>
 <% else %>
+<%# Recursively call this template ensuring to pass @util %>
 <%= @util.modules.evaluate(
   util: @util,
   content: @content,
