@@ -13,26 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH << ::File.expand_path('../../lib', __FILE__)
-require 'google/gapic/schema'
-require 'google/gapic/generator'
-require 'protobuf/descriptors'
-
-# Ensure that no encoding conversions are done on STDIN and STDOUT since
-# we are passing binary data back and forth. Otherwise these streams
-# will be mangled on Windows.
-STDIN.binmode
-STDOUT.binmode
-
-# Get the CodeGeneratorRequest.
-request_bytes = STDIN.read
-request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode(request_bytes)
-
-# Create an API Schema from the FileDescriptorProtos
-api = Google::Gapic::Schema::Api.new(request.proto_file, "")
+$LOAD_PATH.unshift ::File.expand_path('../../lib', __FILE__)
+require 'google/gapic/runner'
 
 # Specify where to load the templates from.
-class DumpTemplateProvider < Google::Gapic::Generator::TemplateProvider
+class DumpTemplateProvider
   DUMP_TEMPLATE = %{
 <%=@util.file_name "gapic_dump.txt"%>
 <% @api.messages.each do |m| %>
@@ -101,12 +86,13 @@ Service: <%= s.name %>
   end
 end
 
-# Create a generator from the API.
-generator = Google::Gapic::Generator::Generator.new(api, DumpTemplateProvider.new)
+# Create a runner to provide the dump templates.
+class DumpRunner < Google::Gapic::Runner::ProtoCompilerRunner
+  def template_provider
+    DumpTemplateProvider.new
+  end
+end
 
-
-# Generate the files.
-files = generator.generate
-
-# Serialize and print the CodeGeneratorResponse.
-STDOUT.print(Google::Protobuf::Compiler::CodeGeneratorResponse.new(file: files).serialize)
+# Run the generator.
+runner = DumpRunner.new
+runner.run
