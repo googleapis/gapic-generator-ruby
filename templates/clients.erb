@@ -1,0 +1,8 @@
+<% @api.services.each do |service| %>
+<%= @util.file_name "#{@util.snake_case service.name}.rb" %>
+<%= @util.license.evaluate %>
+<%= @util.modules.evaluate(
+    util: @util,
+    namespaces: service.address[0..-2],
+    content: @util.client.evaluate(api: @api, util: @util, service: service)) %>
+<% end %>
