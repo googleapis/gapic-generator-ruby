@@ -13,12 +13,24 @@
 # limitations under the License.
 
 require "bundler/gem_tasks"
+require "rubocop/rake_task"
 require "rake/testtask"
 
-Rake::TestTask.new(:test) do |t|
+RuboCop::RakeTask.new # Configuration is in .rubocop.yml
+Rake::TestTask.new :test do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
-task :default => :test
+
+desc "Run the CI build"
+task :ci do
+  puts "\nBUILDING gapic-generator-ruby\n"
+  puts "\ngapic-generator-ruby rubocop\n"
+  Rake::Task[:rubocop].invoke
+  puts "\ngapic-generator-ruby test\n"
+  Rake::Task[:test].invoke
+end
+
+task default: :ci
