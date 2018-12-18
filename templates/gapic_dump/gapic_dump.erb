@@ -11,9 +11,9 @@ Message: <%= m.name %>
       Trailing Comments: <%= f.trailing_comments.inspect %>
       Address: <%= f.address %>
     <% if f.message %>
-      Message: <%= f.message %>
+      Message: <%= f.message.name %>
     <% elsif f.enum %>
-      Enum: <%= f.enum %>
+      Enum: <%= f.enum.name %>
     <% else %>
       Type: <%= f.type %>
     <% end %>
@@ -48,9 +48,9 @@ Service: <%= s.name %>
       Trailing Comments: <%= m.trailing_comments.inspect %>
       Address <%= m.address %>
       Input Type: <%= m.input.name %>
-        Address: <%= m.input %>
+        Address: <%= m.input.address %>
       Output Type: <%= m.output.name %>
-        Address: <%= m.output %>
+        Address: <%= m.output.address %>
 
   <% end %>
 

@@ -1,0 +1,120 @@
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+
+
+require "json"
+require "pathname"
+
+require "google/gax"
+<%- if client_lro? service -%>
+<%= render partial: "client/lro/requires", locals: { api: api, service: service } %>
+<%- end -%>
+
+require "<%= client_require service %>"
+require "<%= credentials_require service %>"
+
+module Google
+  module Cloud
+    module Speech
+      module V1
+        # Service that implements Google Cloud Speech API.
+        class <%= client_name service %>
+          # @private
+          attr_reader :<%= client_stub service %>
+
+          # The default address of the service.
+          SERVICE_ADDRESS = "<%= client_address service %>"
+
+          # The default port of the service.
+          DEFAULT_SERVICE_PORT = <%= client_port service %>
+
+          # The default set of gRPC interceptors.
+          GRPC_INTERCEPTORS = [].freeze
+
+          DEFAULT_TIMEOUT = 30
+
+          # The scopes needed to make gRPC calls to all of the methods defined
+          # in this service.
+          ALL_SCOPES = <% client_scopes(service).inspect %>.freeze
+
+          <%- if client_lro? service -%>
+          <%= indent render(partial: "client/lro/def", locals: { api: api, service: service }), 10 %>
+          <%- end -%>
+
+          <%= indent render(partial: "client/init", locals: { api: api, service: service }), 10 %>
+
+          # Service calls
+
+          <%- service.methods.each do |method| -%>
+          <%= indent render(partial: "client/method/def", locals: { api: api, service: service, method: method }), 10 %>
+          <%- end -%>
+
+          protected
+
+          def create_stub credentials, scopes
+            if credentials.is_a?(String) || credentials.is_a?(Hash)
+              updater_proc = Google::Cloud::Speech::V1::Credentials.new(credentials).updater_proc
+            elsif credentials.is_a? GRPC::Core::Channel
+              channel = credentials
+            elsif credentials.is_a? GRPC::Core::ChannelCredentials
+              chan_creds = credentials
+            elsif credentials.is_a? Proc
+              updater_proc = credentials
+            elsif credentials.is_a? Google::Auth::Credentials
+              updater_proc = credentials.updater_proc
+            end
+
+            # Allow overriding the service path/port in subclasses.
+            service_path = self.class::SERVICE_ADDRESS
+            port = self.class::DEFAULT_SERVICE_PORT
+            interceptors = self.class::GRPC_INTERCEPTORS
+            stub_new = Google::Cloud::Speech::V1::Speech::Stub.method :new
+            Google::Gax::Grpc.create_stub(
+              service_path,
+              port,
+              chan_creds: chan_creds,
+              channel: channel,
+              updater_proc: updater_proc,
+              scopes: scopes,
+              interceptors: interceptors,
+              &stub_new
+            )
+          end
+
+          def default_settings client_config, timeout, metadata, lib_name,
+                               lib_version
+            package_version = Gem.loaded_specs["<%= gem_name api %>"]
+              .version.version
+
+            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
+            google_api_client << " #{lib_name}/#{lib_version}" if lib_name
+            google_api_client << " gapic/#{package_version}"
+            google_api_client << " gax/#{Google::Gax::VERSION}"
+            google_api_client << " grpc/#{GRPC::VERSION}"
+            google_api_client.join
+
+            headers = { "x-goog-api-client": google_api_client }
+            headers.merge! metadata unless metadata.nil?
+            client_config_file = Pathname.new(__dir__).join(
+              "<%= client_json_config_file_name service %>"
+            )
+            client_config_file.open do |f|
+              Google::Gax.construct_settings(
+                "<%= client_proto_name service %>,
+                JSON.parse(f.read),
+                client_config,
+                Google::Gax::Grpc::STATUS_CODE_NAMES,
+                timeout,
+                errors: Google::Gax::Grpc::API_ERRORS,
+                metadata: headers
+              )
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+<%= render partial: "client/helpers", locals: { service: service} %>

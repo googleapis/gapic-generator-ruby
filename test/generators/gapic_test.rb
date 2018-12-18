@@ -15,23 +15,13 @@
 # limitations under the License.
 
 require "test_helper"
+require "google/gapic/generators/gapic_generator"
 
-class ClientTest < Minitest::Test
-  def result
-    provider = ActionController::Base.new
-    provider.prepend_view_path "templates/gapic"
-    service = OpenStruct.new name: "Speech"
-    provider.render_to_string(
-      partial: "shared/client",
-      formats: :text,
-      layout: "ruby",
-      locals: { service: service, namespaces: %w[google cloud speech v1] }
-    )
-  end
-
-  def test_client
-    # In the actual generator, the Ruby code in this output is formatted by
-    # Rubocop after it is rendered.
-    assert_equal expected_content("client.rb"), result
+class GapicGeneratorTest < GeneratorTest
+  def test_speech_generate
+    generator = Google::Gapic::Generators::GapicGenerator.new api(:speech)
+    generator.generate.each do |file|
+      assert_equal expected_content("gapic/#{file.name}"), file.content
+    end
   end
 end

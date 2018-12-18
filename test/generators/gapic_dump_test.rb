@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 # Copyright 2018 Google LLC
@@ -15,10 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
-require "google/gapic/runner"
+require "test_helper"
+require "google/gapic/generators/gapic_dump_generator"
 
-# Create and run the generator passing in the generator class.
-generator = Google::Gapic::Generator.find ENV["GOOGLE_GAPIC_GENERATOR_RUBY"]
-runner = Google::Gapic::Runner.new generator
-runner.run
+class GapicDumpGeneratorTest < GeneratorTest
+  def test_speech_generate
+    generator = Google::Gapic::Generators::GapicDumpGenerator.new api(:speech)
+    generator.generate.each do |file|
+      assert_equal expected_content("gapic_dump/#{file.name}"), file.content
+    end
+  end
+end

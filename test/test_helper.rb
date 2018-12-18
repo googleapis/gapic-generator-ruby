@@ -17,13 +17,28 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "google/gapic/schema/api"
 require "google/gapic/generator"
+require "google/gapic/helpers"
 require "action_controller"
 require "action_view"
 
 require "minitest/autorun"
+require "minitest/focus"
 
-ActionController::Base.helper Google::Gapic::Generator::Helpers
+class GeneratorTest < Minitest::Test
+  def proto_input service
+    File.read "test/proto_input/#{service}.bin", mode: "rb"
+  end
 
-def expected_content filename
-  File.read "test/expected_output/#{filename}"
+  def request service
+    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  end
+
+  def api service
+    r = request service
+    Google::Gapic::Schema::Api.new r.proto_file, r.file_to_generate
+  end
+
+  def expected_content filename
+    File.read "test/expected_output/#{filename}"
+  end
 end

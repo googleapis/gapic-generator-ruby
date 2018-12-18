@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 # Copyright 2018 Google LLC
@@ -15,10 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
-require "google/gapic/runner"
+module NamespaceHelper
+  def namespace_for api
+    api.address.each do |namespace|
+      puts "module #{namespace}"
+    end
 
-# Create and run the generator passing in the generator class.
-generator = Google::Gapic::Generator.find ENV["GOOGLE_GAPIC_GENERATOR_RUBY"]
-runner = Google::Gapic::Runner.new generator
-runner.run
+    yield
+
+    api.address.each do |_namespace|
+      puts "end"
+    end
+  end
+end

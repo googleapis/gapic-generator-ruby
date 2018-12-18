@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 # Copyright 2018 Google LLC
@@ -15,9 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
-require "google/gapic/runner"
+require "test_helper"
+require "google/gapic/generators/gcloud_generator"
 
-# Create and run the generator.
-runner = Google::Gapic::Runner::ProtoCompilerRunner.new "templates/gapic_dump"
-runner.run
+class GcloudGeneratorTest < GeneratorTest
+  def test_speech_generate
+    generator = Google::Gapic::Generators::GcloudGenerator.new api(:speech)
+    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
+    Time.stub :now, test_time do
+      generator.generate.each do |file|
+        # File.write "test/expected_output/gcloud/#{file.name}", file.content
+        assert_equal expected_content("gcloud/#{file.name}"), file.content
+      end
+    end
+  end
+end
