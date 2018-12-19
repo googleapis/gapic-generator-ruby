@@ -49,6 +49,29 @@ module Google
           "#{NAME_TOKEN}#{name}"
         end
 
+        # Converts just the first character to uppercase.
+        # File activesupport/lib/active_support/inflector/methods.rb, line 156
+        def upcase_first(string)
+          string.length > 0 ? string[0].upcase.concat(string[1..-1]) : ""
+        end
+
+        def rubyize_constant s
+          s.split(".").reject(&:empty?).map { |m| upcase_first m }.join("::")
+        end
+
+        # Makes an underscored, lowercase form from the expression in the string.
+        # File activesupport/lib/active_support/inflector/methods.rb, line 92
+        def underscore(camel_cased_word)
+          return camel_cased_word unless /[A-Z-]|::/.match?(camel_cased_word)
+          word = camel_cased_word.to_s.gsub("::".freeze, "/".freeze)
+          # word.gsub!(inflections.acronyms_underscore_regex) { "#{$1 && '_'.freeze }#{$2.downcase}" }
+          word.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2'.freeze)
+          word.gsub!(/([a-z\d])([A-Z])/, '\1_\2'.freeze)
+          word.tr!("-".freeze, "_".freeze)
+          word.downcase!
+          word
+        end
+
         # Converts a camelCased string to a snake_cased string.
         def snake_case s
           # Replace all capital letters that are preceded by a lower-case letter.
