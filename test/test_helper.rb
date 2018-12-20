@@ -13,6 +13,8 @@
 # limitations under the License.
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'gapic/generator'
+require 'google/gapic/generator'
+require 'action_controller'
+require 'action_view'
 
 require 'minitest/autorun'

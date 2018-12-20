@@ -16,6 +16,7 @@
 require 'google/gapic/schema'
 require 'google/gapic/generator'
 require 'protobuf/descriptors'
+require 'action_controller'
 
 module Google
   module Gapic
@@ -59,21 +60,13 @@ module Google
         private :request
 
         # Private.
-        # The path where the templates are located.
-        # TODO: Support custom paths here via env variable.
-        # @return [String]
-        def template_path
-          relative = File.join(*['..']*5, 'templates')
-          File.expand_path(relative, __FILE__)
-        end
-        private :template_path
-
-        # Private.
         # The template provider for this run.
-        # @return [Google::Gapic::Generator::TemplateProvider]
+        # @return [ActionController::Base]
         def template_provider
           # Specify where to load the templates from.
-          Google::Gapic::Generator::TemplateProvider.new(template_path)
+          provider = ActionController::Base.new
+          provider.prepend_view_path "templates"
+          provider
         end
         private :template_provider
 

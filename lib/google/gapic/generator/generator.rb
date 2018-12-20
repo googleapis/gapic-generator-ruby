@@ -12,18 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'erubis'
-require 'google/gapic/generator/util'
 require 'protobuf/descriptors'
 
 module Google
   module Gapic
     module Generator
       # The generator orchestrates the rendering of templates giving the
-      # templates context for generation. Explicitly this means that every
-      # template will be given two objects: a Google::Gapic::Schema::Api object
-      # accessible through @api, and a Google::Gapic::Generator::Util object
-      # accessible through @util.
+      # templates context for generation. Every
+      # template will be given a Google::Gapic::Schema::Api object
+      # accessible through @api.
       class Generator
         # Initializes the generator.
         #
@@ -33,7 +30,6 @@ module Google
         def initialize api, template_provider
           @api = api
           @template_provider = template_provider
-          @util = Util.new(template_provider)
         end
 
         # Renders the template files giving them the context of the API.
@@ -41,19 +37,17 @@ module Google
         # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate
-          # TODO(landrito) add some exception handling to give more information
-          # about which template failed.
-          @template_provider.templates
-            .map { |template| Erubis::Eruby.new(template) }
-            .map { |template| template.evaluate(api: @api, util: @util) }
-            .map { |rendered| @util.split_files(rendered) }
-            .flat_map do |hsh|
-              hsh.each.map do |name, content|
-                Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-                  name: name,
-                  content: content)
-              end
-            end
+          @api.services.map do |service|
+            content = @template_provider.render_to_string(
+              template: "client",
+              layout: "ruby",
+              assigns: { service: service, namespaces: service.address[0..-2] }
+            )
+            Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+              name: "#{service.name.underscore}.rb",
+              content: content
+            )
+          end
         end
       end
     end

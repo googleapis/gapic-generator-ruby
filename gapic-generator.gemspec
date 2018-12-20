@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.executables   = ['protoc-gen-ruby_gapic', 'protoc-gen-ruby_gapic_dump']
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'erubis', '~>2.7'
+  spec.add_dependency 'actionpack', '~> 5.2'
   spec.add_dependency 'protobuf', '~> 3.8'
   spec.add_dependency 'rubocop', '~> 0.61'
 
