@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,11 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path('../../lib', __FILE__)
-require 'google/gapic/runner'
-require 'google/gapic/generator/gapic_dump_generator'
-
-# Create and run the generator.
-runner = Google::Gapic::Runner::ProtoCompilerRunner.new
-generator = Google::Gapic::Generator::GapicDumpGenerator.new
-runner.run generator
+module Google
+module Cloud
+module Speech
+module V1
+class SpeechClient
+end
+end
+end
+end
+end

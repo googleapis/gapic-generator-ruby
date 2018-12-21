@@ -17,11 +17,7 @@ require 'protobuf/descriptors'
 module Google
   module Gapic
     module Generator
-      # The generator orchestrates the rendering of templates giving the
-      # templates context for generation. Every
-      # template will be given a Google::Gapic::Schema::Api object
-      # accessible through `api`.
-      class Generator
+      class GapicDumpGenerator
         # Renders the template files giving them the context of the API.
         #
         # @param api [Google::Gapic::Schema::Api] the API to generate.
@@ -31,18 +27,18 @@ module Google
         # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate api, template_provider
-          api.services.map do |service|
-            content = template_provider.render_to_string(
-              template: "client",
-              formats: :text,
-              layout: "ruby",
-              assigns: { service: service, namespaces: service.address[0..-2] }
-            )
+          content = template_provider.render_to_string(
+            template: "gapic_dump",
+            formats: :text,
+            layout: nil,
+            assigns: { api: api }
+          )
+          [
             Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-              name: "#{service.name.underscore}.rb",
+              name: "gapic_dump.txt",
               content: content
             )
-          end
+          ]
         end
       end
     end

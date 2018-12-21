@@ -32,15 +32,12 @@ module Google
         end
 
         # Run protoc generation.
-        def run
+        def run generator
           # Create an API Schema from the FileDescriptorProtos
           api = Google::Gapic::Schema::Api.new(request.proto_file, request.file_to_generate)
 
-          # Create a generator from the API.
-          generator = Google::Gapic::Generator::Generator.new(api, template_provider)
-
           # Generate and format the files.
-          files = generator.generate.map { |f| format_file f }
+          files = generator.generate(api, template_provider).map { |f| format_file f }
 
           # Create and write the response
           response = Google::Protobuf::Compiler::CodeGeneratorResponse.new(file: files)

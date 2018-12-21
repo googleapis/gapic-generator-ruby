@@ -15,7 +15,9 @@
 
 $LOAD_PATH.unshift ::File.expand_path('../../lib', __FILE__)
 require 'google/gapic/runner'
+require 'google/gapic/generator/generator'
 
-# Run the generator.
+# Create and run the generator.
 runner = Google::Gapic::Runner::ProtoCompilerRunner.new
-runner.run
+generator = Google::Gapic::Generator::Generator.new
+runner.run generator

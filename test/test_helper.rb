@@ -13,8 +13,13 @@
 # limitations under the License.
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'google/gapic/schema/api'
 require 'google/gapic/generator'
 require 'action_controller'
 require 'action_view'
 
 require 'minitest/autorun'
+
+def expected_content filename
+  File.read "test/expected_output/#{filename}"
+end
