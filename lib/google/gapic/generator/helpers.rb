@@ -12,5 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'google/gapic/generator/generator'
-require 'google/gapic/generator/helpers'
+module Google
+  module Gapic
+    module Generator
+      ##
+      # ActionPack helpers for use in templates.
+      module Helpers
+        ##
+        # Extracts part of a template to a string that is stored in the context
+        # variable @output_files hash using the provided `file_name` as the key.
+        def render_to_file file_name, &block
+          @output_files[file_name] = capture &block
+        end
+      end
+    end
+  end
+end

@@ -16,18 +16,20 @@ require 'test_helper'
 
 class ClientTest < Minitest::Test
   def test_client
-    provider = ActionController::Base.new()
+    provider = ActionController::Base.new
     provider.prepend_view_path("templates")
-    service = OpenStruct.new(name: "Speech")
+    service = OpenStruct.new(
+      name: "Speech"
+    )
     assigns = {
       service: service,
       namespaces: %w[google cloud speech v1]
     }
     result = provider.render_to_string(
-      template: "client",
+      partial: "shared/client",
       formats: :text,
       layout: "ruby",
-      assigns: assigns
+      locals: assigns
     )
     # In the actual generator, the Ruby code in this output is formatted by
     # Rubocop after it is rendered.

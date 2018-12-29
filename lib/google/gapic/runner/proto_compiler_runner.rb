@@ -61,6 +61,7 @@ module Google
         # @return [ActionController::Base]
         def template_provider
           # Specify where to load the templates from.
+          ActionController::Base.helper Google::Gapic::Generator::Helpers
           provider = ActionController::Base.new
           provider.prepend_view_path "templates"
           provider

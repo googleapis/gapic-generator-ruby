@@ -31,16 +31,18 @@ module Google
         # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate api, template_provider
-          api.services.map do |service|
-            content = template_provider.render_to_string(
-              template: "client",
-              formats: :text,
-              layout: "ruby",
-              assigns: { service: service, namespaces: service.address[0..-2] }
-            )
+          output_files = {}
+          assigns = { api: api, output_files: output_files }
+          template_provider.render_to_string(
+            template: "clients",
+            formats: :text,
+            layout: nil,
+            assigns: assigns
+          )
+          output_files.keys.map do |file_name|
             Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-              name: "#{service.name.underscore}.rb",
-              content: content
+              name: file_name,
+              content: output_files[file_name]
             )
           end
         end
