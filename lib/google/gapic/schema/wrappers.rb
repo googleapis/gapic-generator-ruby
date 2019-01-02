@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'protobuf/descriptors'
+require "protobuf/descriptors"
 
 module Google
   module Gapic
     module Schema
-      # Base class for all generic proto types including: enums, messages, methods
-      # and services.
+      # Base class for all generic proto types including: enums, messages,
+      # methods and services.
       #
       # @!attribute [r] descriptor
       #   @return [Object] the descriptor of the proto
@@ -32,9 +34,9 @@ module Google
       # @!attribute [r] docs
       #   @return [Google::Protobuf::SourceCodeInfo::Location]
       #     A Location identifies a piece of source code in a .proto file which
-      #     corresponds to a particular definition.  This information is intended
-      #     to be useful to IDEs, code indexers, documentation generators, and similar
-      #     tools.
+      #     corresponds to a particular definition.  This information is
+      #     intended to be useful to IDEs, code indexers, documentation
+      #     generators, and similar tools.
       #
       #     For example, say we have a file like:
       #       message Foo {
@@ -54,26 +56,28 @@ module Google
       #
       #     Notes:
       #     - A location may refer to a repeated field itself (i.e. not to any
-      #       particular index within it).  This is used whenever a set of elements are
-      #       logically enclosed in a single code segment.  For example, an entire
-      #       extend block (possibly containing multiple extension definitions) will
-      #       have an outer location whose path refers to the "extensions" repeated
-      #       field without an index.
-      #     - Multiple locations may have the same path.  This happens when a single
-      #       logical declaration is spread out across multiple places.  The most
-      #       obvious example is the "extend" block again -- there may be multiple
-      #       extend blocks in the same scope, each of which will have the same path.
-      #     - A location's span is not always a subset of its parent's span.  For
-      #       example, the "extendee" of an extension declaration appears at the
-      #       beginning of the "extend" block and is shared by all extensions within
-      #       the block.
-      #     - Just because a location's span is a subset of some other location's span
-      #       does not mean that it is a descendent.  For example, a "group" defines
-      #       both a type and a field in a single declaration.  Thus, the locations
-      #       corresponding to the type and field and their components will overlap.
-      #     - Code which tries to interpret locations should probably be designed to
-      #       ignore those that it doesn't understand, as more types of locations could
-      #       be recorded in the future.
+      #       particular index within it).  This is used whenever a set of
+      #       elements are logically enclosed in a single code segment.  For
+      #       example, an entire extend block (possibly containing multiple
+      #       extension definitions) will have an outer location whose path
+      #       refers to the "extensions" repeated field without an index.
+      #     - Multiple locations may have the same path.  This happens when a
+      #       single logical declaration is spread out across multiple places.
+      #       The most obvious example is the "extend" block again -- there may
+      #       be multiple extend blocks in the same scope, each of which will
+      #       have the same path.
+      #     - A location's span is not always a subset of its parent's span.
+      #       For example, the "extendee" of an extension declaration appears at
+      #       the beginning of the "extend" block and is shared by all
+      #       extensions within the block.
+      #     - Just because a location's span is a subset of some other
+      #       location's span does not mean that it is a descendent. For
+      #       example, a "group" defines both a type and a field in a single
+      #       declaration. Thus, the locations corresponding to the type and
+      #       field and their components will overlap.
+      #     - Code which tries to interpret locations should probably be
+      #       designed to ignore those that it doesn't understand, as more types
+      #       of locations could be recorded in the future.
       class Proto
         extend Forwardable
         attr_reader :descriptor, :address, :docs
@@ -85,7 +89,7 @@ module Google
         #   #address for more info.
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
-        def initialize(descriptor, address, docs)
+        def initialize descriptor, address, docs
           @descriptor = descriptor
           @address = address
           @docs = docs
@@ -93,54 +97,56 @@ module Google
 
         # @!method path
         #   @return [Array<Integer>]
-        #     Identifies which part of the FileDescriptorProto was defined at this
-        #     location.
+        #     Identifies which part of the FileDescriptorProto was defined at
+        #     this location.
         #
         #     Each element is a field number or an index.  They form a path from
-        #     the root FileDescriptorProto to the place where the definition.  For
-        #     example, this path:
+        #     the root FileDescriptorProto to the place where the definition.
+        #     For example, this path:
         #       [ 4, 3, 2, 7, 1 ]
         #     refers to:
         #       file.message_type(3)  // 4, 3
         #           .field(7)         // 2, 7
         #           .name()           // 1
-        #     This is because FileDescriptorProto.message_type has field number 4:
+        #     This is because FileDescriptorProto.message_type has field number
+        #     4:
         #       repeated DescriptorProto message_type = 4;
         #     and DescriptorProto.field has field number 2:
         #       repeated FieldDescriptorProto field = 2;
         #     and FieldDescriptorProto.name has field number 1:
         #       optional string name = 1;
         #
-        #     Thus, the above path gives the location of a field name.  If we removed
-        #     the last element:
+        #     Thus, the above path gives the location of a field name.  If we
+        #     removed the last element:
         #       [ 4, 3, 2, 7 ]
-        #     this path refers to the whole field declaration (from the beginning
-        #     of the label to the terminating semicolon).
+        #     this path refers to the whole field declaration (from the
+        #     beginning of the label to the terminating semicolon).
         # @!method span
         #   @return [Array<Integer
-        #     Always has exactly three or four elements: start line, start column,
-        #     end line (optional, otherwise assumed same as start line), end column.
-        #     These are packed into a single field for efficiency.  Note that line
-        #     and column numbers are zero-based -- typically you will want to add
-        #     1 to each before displaying to a user.
+        #     Always has exactly three or four elements: start line, start
+        #     column, end line (optional, otherwise assumed same as start line),
+        #     end column. These are packed into a single field for efficiency.
+        #     Note that line and column numbers are zero-based -- typically you
+        #     will want to add 1 to each before displaying to a user.
         # @!method leading_comments
         #   @return [String]
-        #     If this SourceCodeInfo represents a complete declaration, these are any
-        #     comments appearing before and after the declaration which appear to be
-        #     attached to the declaration.
+        #     If this SourceCodeInfo represents a complete declaration, these
+        #     are any comments appearing before and after the declaration which
+        #     appear to be attached to the declaration.
         #
-        #     A series of line comments appearing on consecutive lines, with no other
-        #     tokens appearing on those lines, will be treated as a single comment.
+        #     A series of line comments appearing on consecutive lines, with no
+        #     other tokens appearing on those lines, will be treated as a single
+        #     comment.
         #
-        #     leading_detached_comments will keep paragraphs of comments that appear
-        #     before (but not connected to) the current element. Each paragraph,
-        #     separated by empty lines, will be one comment element in the repeated
-        #     field.
+        #     leading_detached_comments will keep paragraphs of comments that
+        #     appear before (but not connected to) the current element. Each
+        #     paragraph, separated by empty lines, will be one comment element
+        #     in the repeated field.
         #
-        #     Only the comment content is provided; comment markers (e.g. //) are
-        #     stripped out.  For block comments, leading whitespace and an asterisk
-        #     will be stripped from the beginning of each line other than the first.
-        #     Newlines are included in the output.
+        #     Only the comment content is provided; comment markers (e.g. //)
+        #     are stripped out.  For block comments, leading whitespace and an
+        #     asterisk will be stripped from the beginning of each line other
+        #     than the first. Newlines are included in the output.
         #
         #     Examples:
         #
@@ -157,9 +163,9 @@ module Google
         #       // Another line attached to qux.
         #       optional double qux = 4;
         #
-        #       // Detached comment for corge. This is not leading or trailing comments
-        #       // to qux or corge because there are blank lines separating it from
-        #       // both.
+        #       // Detached comment for corge. This is not leading or trailing
+        #       // comments to qux or corge because there are blank lines
+        #       // separating it from both.
         #
         #       // Detached comment for corge paragraph 2.
         #
@@ -181,7 +187,8 @@ module Google
           :path,
           :leading_comments,
           :trailing_comments,
-          :leading_detached_comments)
+          :leading_detached_comments
+        )
       end
 
       # Wrapper for a protobuf service.
@@ -193,14 +200,14 @@ module Google
         attr_reader :methods
 
         # Initializes a Service object.
-        # @param descriptor [Google::Protobuf::ServiceDescriptorProto] the protobuf
-        #   representation of this service.
+        # @param descriptor [Google::Protobuf::ServiceDescriptorProto] the
+        #   protobuf representation of this service.
         # @param address [Enumerable<String>] The address of the proto. See
         #   #address for more info.
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
         # @param methods [Enumerable<Method>] The methods of this service.
-        def initialize(descriptor, address, docs, methods)
+        def initialize descriptor, address, docs, methods
           super(descriptor, address, docs)
           @methods = methods || {}
         end
@@ -213,7 +220,8 @@ module Google
         def_delegators(
           :descriptor,
           :name,
-          :options)
+          :options
+        )
       end
 
       # Wrapper for a protobuf method.
@@ -227,16 +235,16 @@ module Google
         attr_reader :input, :output
 
         # Initializes a method object.
-        # @param descriptor [Google::Protobuf::MethodDescriptorProto] the protobuf
-        #   representation of this service.
+        # @param descriptor [Google::Protobuf::MethodDescriptorProto] the
+        #   protobuf representation of this service.
         # @param address [Enumerable<String>] The address of the proto. See
         #   #address for more info.
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
         # @param input [Message] The input message of this method.
         # @param output [Message] The output message of this method.
-        def initialize(descriptor, address, docs, input, output)
-          super(descriptor, address, docs)
+        def initialize descriptor, address, docs, input, output
+          super descriptor, address, docs
           @input = input
           @output = output
         end
@@ -257,20 +265,25 @@ module Google
           :name,
           :options,
           :client_streaming,
-          :server_streaming)
+          :server_streaming
+        )
       end
 
       # Wrapper for a protobuf file.
       #
       # @!attribute [r] messages
-      #   @ return [Enumerable<Message>] The top level messages contained in this file.
+      #   @ return [Enumerable<Message>] The top level messages contained in
+      #     this file.
       # @!attribute [r] enums
-      #   @ return [Enumerable<Enum>] The top level enums contained in this file.
+      #   @ return [Enumerable<Enum>] The top level enums contained in this
+      #     file.
       # @!attribute [r] services
       #   @ return [Enumerable<Service>] The services contained in this file.
       class File < Proto
         extend Forwardable
         attr_reader :messages, :enums, :services
+
+        # rubocop:disable Metrics/ParameterLists
 
         # Initializes a message object.
         # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -284,13 +297,16 @@ module Google
         # @param enums [Enumerable<Enum>] The top level enums of this file.
         # @param services [Enumerable<Service>] The services of this file.
         # @param generate [Boolean] Whether this file should be generated.
-        def initialize(descriptor, address, docs, messages, enums, services, generate)
+        def initialize descriptor, address, docs, messages, enums, services,
+                       generate
           super(descriptor, address, docs)
           @messages = messages || {}
           @enums = enums || {}
           @services = services || {}
           @generate = generate
         end
+
+        # rubocop:enable Metrics/ParameterLists
 
         def generate?
           @generate
@@ -313,7 +329,8 @@ module Google
           :package,
           :dependency,
           :public_dependency,
-          :options)
+          :options
+        )
       end
 
       # Wrapper for a protobuf enum.
@@ -332,7 +349,7 @@ module Google
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
         # @param values [Enumerable<EnumValue>] The EnumValues of this enum.
-        def initialize(descriptor, address, docs, values)
+        def initialize descriptor, address, docs, values
           super(descriptor, address, docs)
           @values = values || {}
         end
@@ -345,7 +362,8 @@ module Google
         def_delegators(
           :descriptor,
           :name,
-          :options)
+          :options
+        )
       end
 
       # Wrapper for a protobuf Enum Value.
@@ -359,8 +377,8 @@ module Google
         #   #address for more info.
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
-        def initialize(descriptor, address, docs)
-          super(descriptor, address, docs)
+        def initialize descriptor, address, docs
+          super descriptor, address, docs
         end
 
         # @!method name
@@ -374,7 +392,8 @@ module Google
           :descriptor,
           :name,
           :number,
-          :options)
+          :options
+        )
       end
 
       # Wrapper for a protobuf Message.
@@ -392,6 +411,8 @@ module Google
         extend Forwardable
         attr_reader :fields, :extensions, :nested_messages, :nested_enums
 
+        # rubocop:disable Metrics/ParameterLists
+
         # Initializes a message object.
         # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
         #   representation of this service.
@@ -405,13 +426,16 @@ module Google
         #   declarations of this message.
         # @param nested_enums [Enumerable<Enum>] The nested enum declarations
         #   of this message.
-        def initialize(descriptor, address, docs, fields, extensions, nested_messages, nested_enums)
+        def initialize descriptor, address, docs, fields, extensions,
+                       nested_messages, nested_enums
           super(descriptor, address, docs)
           @fields = fields || {}
           @extensions = extensions || {}
           @nested_messages = nested_messages || {}
           @nested_enums = nested_enums || {}
         end
+
+        # rubocop:enable Metrics/ParameterLists
 
         # @!method name
         #   @return [String] the unqualified name of the message.
@@ -425,7 +449,8 @@ module Google
           :descriptor,
           :name,
           :oneof_decl,
-          :options)
+          :options
+        )
       end
 
       # Wrapper for a protobuf Field.
@@ -442,18 +467,18 @@ module Google
         attr_writer :message, :enum
 
         # Initializes a message object.
-        # @param descriptor [Google::Protobuf::FieldDescriptorProto] the protobuf
-        #   representation of this service.
+        # @param descriptor [Google::Protobuf::FieldDescriptorProto] the
+        #   protobuf representation of this service.
         # @param address [Enumerable<String>] The address of the proto. See
         #   #address for more info.
         # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
         #   of the proto. See #docs for more info.
-        # @param message [Message | nil] The message if the field is a message, nil
-        #   otherwise.
+        # @param message [Message | nil] The message if the field is a message,
+        #   nil otherwise.
         # @param enum [Enum | nil] The enum if the field is an enum, nil
         #   otherwise.
-        def initialize(descriptor, address, docs, message, enum)
-          super(descriptor, address, docs)
+        def initialize descriptor, address, docs, message, enum
+          super descriptor, address, docs
           @message = message
           @enum = enum
         end
@@ -462,6 +487,7 @@ module Google
         # @return [Boolean]
         def message?
           return true if @message
+
           false
         end
 
@@ -469,6 +495,7 @@ module Google
         # @return [Boolean]
         def enum?
           return true if @enum
+
           false
         end
 
@@ -481,31 +508,32 @@ module Google
         #     The label of the field.
         # @!method type
         #   @return [Google::Protobuf::FieldDescriptorProto::Type]
-        #     If type_name is set, this need not be set.  If both this and type_name
-        #     are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
+        #     If type_name is set, this need not be set.  If both this and
+        #     type_name are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or
+        #     TYPE_GROUP.
         # @!method type_name
         #   @return [String]
-        #     For message and enum types, this is the name of the type.  If the name
-        #     starts with a '.', it is fully-qualified.  Otherwise, C++-like scoping
-        #     rules are used to find the type (i.e. first the nested types within this
-        #     message are searched, then within the parent, on up to the root
-        #     namespace).
+        #     For message and enum types, this is the name of the type.  If the
+        #     name starts with a '.', it is fully-qualified.  Otherwise,
+        #     C++-like scoping rules are used to find the type (i.e. first the
+        #     nested types within this message are searched, then within the
+        #     parent, on up to the root namespace).
         # @!method default_value
         #   @return [String]
-        #     For numeric types, contains the original text representation of the value.
-        #     For booleans, "true" or "false".
-        #     For strings, contains the default text contents (not escaped in any way).
-        #     For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
+        #     For numeric types, contains the original text representation of
+        #     the value. For booleans, "true" or "false". For strings, contains
+        #     the default text contents (not escaped in any way). For bytes,
+        #     contains the C escaped value.  All bytes >= 128 are escaped.
         # @!method oneof_index
         #   @return [Integer]
-        #     If set, gives the index of a oneof in the containing type's oneof_decl
-        #     list.  This field is a member of that oneof.
+        #     If set, gives the index of a oneof in the containing type's
+        #     oneof_decl list.  This field is a member of that oneof.
         # @!method json_name
         #   @return [String]
-        #     JSON name of this field. The value is set by protocol compiler. If the
-        #     user has set a "json_name" option on this field, that option's value
-        #     will be used. Otherwise, it's deduced from the field's name by converting
-        #     it to camelCase.
+        #     JSON name of this field. The value is set by protocol compiler. If
+        #     the user has set a "json_name" option on this field, that option's
+        #     value will be used. Otherwise, it's deduced from the field's name
+        #     by converting it to camelCase.
         # @!method options
         #   @return [Google::Protobuf::FieldOptions] the options of this field.
         def_delegators(
@@ -518,7 +546,8 @@ module Google
           :default_value,
           :oneof_index,
           :json_name,
-          :options)
+          :options
+        )
       end
     end
   end

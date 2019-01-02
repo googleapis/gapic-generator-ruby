@@ -15,12 +15,12 @@
 # limitations under the License.
 
 module Google
-module Cloud
-module Speech
-module V1
-class SpeechClient
-end
-end
-end
-end
+  module Cloud
+    module Speech
+      module V1
+        class SpeechClient
+        end
+      end
+    end
+  end
 end

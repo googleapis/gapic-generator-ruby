@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'protobuf/descriptors'
+require "protobuf/descriptors"
 
 module Google
   module Gapic
@@ -38,9 +40,21 @@ module Google
 
         # Renders the template files giving them the context of the API.
         #
-        # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
+        # @return [Array<
+        #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate
+          generate_output_files.map do |file_name, content|
+            Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+              name: file_name,
+              content: content
+            )
+          end
+        end
+
+        protected
+
+        def generate_output_files
           output_files = {}
           @templates.each do |template|
             @controller.render_to_string(
@@ -50,12 +64,7 @@ module Google
               assigns: { api: @api, output_files: output_files }
             )
           end
-          output_files.keys.map do |file_name|
-            Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-              name: file_name,
-              content: output_files[file_name]
-            )
-          end
+          output_files
         end
       end
     end
