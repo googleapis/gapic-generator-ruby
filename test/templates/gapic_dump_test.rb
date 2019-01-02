@@ -17,17 +17,16 @@ require 'test_helper'
 class GapicDumpTest < Minitest::Test
   def test_gapic_dump
     provider = ActionController::Base.new()
-    provider.prepend_view_path("templates")
-    assigns = {
-      api: api
-    }
+    provider.prepend_view_path("templates/gapic_dump")
+    output_files = {}
     result = provider.render_to_string(
       template: "gapic_dump",
       formats: :text,
       layout: nil,
-      assigns: assigns
+      assigns: { api: api, output_files: output_files }
     )
-    assert_equal expected_content("gapic_dump.txt"), result
+    file_name = "gapic_dump.txt"
+    assert_equal expected_content(file_name), output_files[file_name]
   end
 
   # Test fixtures

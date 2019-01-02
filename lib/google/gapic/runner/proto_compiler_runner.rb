@@ -23,21 +23,25 @@ module Google
     module Runner
       class ProtoCompilerRunner
         # Initializes the runner.
-        def initialize
+        def initialize templates_path
           # Ensure that no encoding conversions are done on STDIN and STDOUT since
           # we are passing binary data back and forth. Otherwise these streams
           # will be mangled on Windows.
           STDIN.binmode
           STDOUT.binmode
+          @templates_path = templates_path
         end
 
         # Run protoc generation.
-        def run generator
+        def run
           # Create an API Schema from the FileDescriptorProtos
           api = Google::Gapic::Schema::Api.new(request.proto_file, request.file_to_generate)
 
+          # Create a generator from the API.
+          generator = Google::Gapic::Generator::Generator.new(api, template_provider, templates)
+
           # Generate and format the files.
-          files = generator.generate(api, template_provider).map { |f| format_file f }
+          files = generator.generate.map { |f| format_file f }
 
           # Create and write the response
           response = Google::Protobuf::Compiler::CodeGeneratorResponse.new(file: files)
@@ -63,10 +67,24 @@ module Google
           # Specify where to load the templates from.
           ActionController::Base.helper Google::Gapic::Generator::Helpers
           provider = ActionController::Base.new
-          provider.prepend_view_path "templates"
+          provider.prepend_view_path @templates_path
           provider
         end
         private :template_provider
+
+        # Returns the content of the templates found at the given path.
+        # This will ignore any template that starts with '_' in their file name
+        # because those are understood to be partial templates.
+        #
+        # @return [Array<String>] The templates.
+        def templates
+          Dir.new(@templates_path).each
+            .select { |file| file.end_with? ".erb" }
+            .reject { |file| File.directory? file }
+            .reject { |file| File.split(file).last.start_with? '_' }
+            .map { |file| file.chomp ".erb"  }
+        end
+        private :templates
 
         # Private.
         # Formats a file if it is a file that has a name with a '.rb' file

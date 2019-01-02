@@ -20,25 +20,33 @@ module Google
       # The generator orchestrates the rendering of templates giving the
       # templates context for generation. Every
       # template will be given a Google::Gapic::Schema::Api object
-      # accessible through `api`.
+      # accessible through `@api`.
       class Generator
-        # Renders the template files giving them the context of the API.
+        # Initializes the generator.
         #
         # @param api [Google::Gapic::Schema::Api] the API to generate.
         # @param template_provider [Google::Gapic::TemplateProvider] provides
         #   the templates to render.
+        def initialize api, template_provider, templates
+          @api = api
+          @template_provider = template_provider
+          @templates = templates
+        end
+
+        # Renders the template files giving them the context of the API.
         #
         # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
-        def generate api, template_provider
+        def generate
           output_files = {}
-          assigns = { api: api, output_files: output_files }
-          template_provider.render_to_string(
-            template: "clients",
-            formats: :text,
-            layout: nil,
-            assigns: assigns
-          )
+          @templates.each do |template|
+            @template_provider.render_to_string(
+              template: template,
+              formats: :text,
+              layout: nil,
+              assigns: { api: @api, output_files: output_files }
+            )
+          end
           output_files.keys.map do |file_name|
             Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
               name: file_name,

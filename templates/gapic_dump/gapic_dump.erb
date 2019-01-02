@@ -1,3 +1,4 @@
+<% render_to_file "gapic_dump.txt" do %>
 <% @api.messages.each do |m| %>
 Message: <%= m.name %>
   Leading Comments: <%= m.leading_comments.inspect %>
@@ -53,4 +54,5 @@ Service: <%= s.name %>
 
   <% end %>
 
+<% end %>
 <% end %>

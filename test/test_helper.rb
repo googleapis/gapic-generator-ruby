@@ -20,6 +20,8 @@ require 'action_view'
 
 require 'minitest/autorun'
 
+ActionController::Base.helper Google::Gapic::Generator::Helpers
+
 def expected_content filename
   File.read "test/expected_output/#{filename}"
 end

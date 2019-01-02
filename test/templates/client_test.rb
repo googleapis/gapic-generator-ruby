@@ -17,7 +17,7 @@ require 'test_helper'
 class ClientTest < Minitest::Test
   def test_client
     provider = ActionController::Base.new
-    provider.prepend_view_path("templates")
+    provider.prepend_view_path("templates/gapic")
     service = OpenStruct.new(
       name: "Speech"
     )
