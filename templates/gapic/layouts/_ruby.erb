@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+<% namespaces.each_with_index do |namespace, i| %>
+module <%= namespace.upcase_first %>
+<% end %>
+<%= yield %>
+<% namespaces.each_with_index do |namespace, i| %>
+end
+<% end %>

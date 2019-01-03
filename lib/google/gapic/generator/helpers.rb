@@ -12,16 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'google/gapic/schema/api'
-require 'google/gapic/generator'
-require 'action_controller'
-require 'action_view'
-
-require 'minitest/autorun'
-
-ActionController::Base.helper Google::Gapic::Generator::Helpers
-
-def expected_content filename
-  File.read "test/expected_output/#{filename}"
+module Google
+  module Gapic
+    module Generator
+      ##
+      # ActionPack helpers for use in templates.
+      module Helpers
+        ##
+        # Extracts part of a template to a string that is stored in the context
+        # variable @output_files hash using the provided `file_name` as the key.
+        def render_to_file file_name, &block
+          if @output_files.keys.include? file_name
+            raise ArgumentError, "output_files already contains #{file_name}"
+          end
+          @output_files[file_name] = capture &block
+        end
+      end
+    end
+  end
 end

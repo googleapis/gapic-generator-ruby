@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'test_helper'
-
-class Gapic::GeneratorTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Gapic::Generator::VERSION
-  end
+module Google
+module Cloud
+module Speech
+module V1
+class SpeechClient
+end
+end
+end
+end
 end

@@ -12,28 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'erubis'
-require 'google/gapic/generator/util'
 require 'protobuf/descriptors'
 
 module Google
   module Gapic
     module Generator
       # The generator orchestrates the rendering of templates giving the
-      # templates context for generation. Explicitly this means that every
-      # template will be given two objects: a Google::Gapic::Schema::Api object
-      # accessible through @api, and a Google::Gapic::Generator::Util object
-      # accessible through @util.
+      # templates context for generation. Every
+      # template will be given a Google::Gapic::Schema::Api object
+      # accessible through `@api`.
       class Generator
         # Initializes the generator.
         #
-        # @param api [Google::Gapic::Schema::Api] the API to generate.
-        # @param template_provider [Google::Gapic::TemplateProvider] provides
-        #   the templates to render.
-        def initialize api, template_provider
+        # @param api [Google::Gapic::Schema::Api] The API model/context to
+        #   generate.
+        # @param controller [ActionController::Base] The controller that will
+        #   render the templates.
+        # @param templates [Array<String>] The relative paths (excluding the
+        #   .erb file extension) of templates for the controller to render.
+        def initialize api, controller, templates
           @api = api
-          @template_provider = template_provider
-          @util = Util.new(template_provider)
+          @controller = controller
+          @templates = templates
         end
 
         # Renders the template files giving them the context of the API.
@@ -41,19 +41,21 @@ module Google
         # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate
-          # TODO(landrito) add some exception handling to give more information
-          # about which template failed.
-          @template_provider.templates
-            .map { |template| Erubis::Eruby.new(template) }
-            .map { |template| template.evaluate(api: @api, util: @util) }
-            .map { |rendered| @util.split_files(rendered) }
-            .flat_map do |hsh|
-              hsh.each.map do |name, content|
-                Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-                  name: name,
-                  content: content)
-              end
-            end
+          output_files = {}
+          @templates.each do |template|
+            @controller.render_to_string(
+              template: template,
+              formats: :text,
+              layout: nil,
+              assigns: { api: @api, output_files: output_files }
+            )
+          end
+          output_files.keys.map do |file_name|
+            Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+              name: file_name,
+              content: output_files[file_name]
+            )
+          end
         end
       end
     end

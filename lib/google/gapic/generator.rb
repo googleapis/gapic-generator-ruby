@@ -13,4 +13,4 @@
 # limitations under the License.
 
 require 'google/gapic/generator/generator'
-require 'google/gapic/generator/template_provider'
+require 'google/gapic/generator/helpers'

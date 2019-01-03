@@ -12,16 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'google/gapic/schema/api'
-require 'google/gapic/generator'
-require 'action_controller'
-require 'action_view'
+require 'test_helper'
 
-require 'minitest/autorun'
-
-ActionController::Base.helper Google::Gapic::Generator::Helpers
-
-def expected_content filename
-  File.read "test/expected_output/#{filename}"
+class Google::Gapic::GeneratorTest < Minitest::Test
+  def test_that_it_has_a_version_number
+    refute_nil Google::Gapic::Generator::VERSION
+  end
 end
