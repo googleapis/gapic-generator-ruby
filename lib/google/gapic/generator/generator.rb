@@ -24,12 +24,15 @@ module Google
       class Generator
         # Initializes the generator.
         #
-        # @param api [Google::Gapic::Schema::Api] the API to generate.
-        # @param template_provider [Google::Gapic::TemplateProvider] provides
-        #   the templates to render.
-        def initialize api, template_provider, templates
+        # @param api [Google::Gapic::Schema::Api] The API model/context to
+        #   generate.
+        # @param controller [ActionController::Base] The controller that will
+        #   render the templates.
+        # @param templates [Array<String>] The relative paths (excluding the
+        #   .erb file extension) of templates for the controller to render.
+        def initialize api, controller, templates
           @api = api
-          @template_provider = template_provider
+          @controller = controller
           @templates = templates
         end
 
@@ -40,7 +43,7 @@ module Google
         def generate
           output_files = {}
           @templates.each do |template|
-            @template_provider.render_to_string(
+            @controller.render_to_string(
               template: template,
               formats: :text,
               layout: nil,

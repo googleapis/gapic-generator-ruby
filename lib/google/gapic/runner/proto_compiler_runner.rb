@@ -38,7 +38,7 @@ module Google
           api = Google::Gapic::Schema::Api.new(request.proto_file, request.file_to_generate)
 
           # Create a generator from the API.
-          generator = Google::Gapic::Generator::Generator.new(api, template_provider, templates)
+          generator = Google::Gapic::Generator::Generator.new(api, controller, templates)
 
           # Generate and format the files.
           files = generator.generate.map { |f| format_file f }
@@ -61,16 +61,16 @@ module Google
         private :request
 
         # Private.
-        # The template provider for this run.
+        # The controller for this run.
         # @return [ActionController::Base]
-        def template_provider
+        def controller
           # Specify where to load the templates from.
           ActionController::Base.helper Google::Gapic::Generator::Helpers
           provider = ActionController::Base.new
           provider.prepend_view_path @templates_path
           provider
         end
-        private :template_provider
+        private :controller
 
         # Returns the content of the templates found at the given path.
         # This will ignore any template that starts with '_' in their file name
