@@ -21,7 +21,7 @@ module Google
     module Generators
       # The generator orchestrates the rendering of templates for Google Cloud
       # projects.
-      class GcloudGenerator < DefaultGenerator
+      class GoogleCloudGenerator < DefaultGenerator
         # Initializes the generator.
         #
         # @param api [Google::Gapic::Schema::Api] The API model/context to
@@ -30,7 +30,7 @@ module Google
           super
 
           # Configure to use prefer Google Cloud templates
-          use_templates! "templates/gcloud"
+          use_templates! "templates/google_cloud"
 
           # Configure these helper method to be used by the generator
           use_helpers! :gem_name, :gem_path, :client_file_path,
