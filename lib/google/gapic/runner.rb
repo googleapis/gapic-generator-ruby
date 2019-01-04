@@ -35,8 +35,7 @@ module Google
       # Run protoc generation.
       def run
         # Create an API Schema from the FileDescriptorProtos
-        api = Google::Gapic::Schema::Api.new request.proto_file,
-                                             request.file_to_generate
+        api = Google::Gapic::Schema::Api.new request
 
         # Create and run the generator from the API.
         output_files = generate api

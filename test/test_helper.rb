@@ -34,8 +34,7 @@ class GeneratorTest < Minitest::Test
   end
 
   def api service
-    r = request service
-    Google::Gapic::Schema::Api.new r.proto_file, r.file_to_generate
+    Google::Gapic::Schema::Api.new request(service)
   end
 
   def expected_content filename
