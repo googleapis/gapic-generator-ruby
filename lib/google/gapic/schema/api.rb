@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'google/gapic/schema/loader'
+require "google/gapic/schema/loader"
 
 module Google
   module Gapic
@@ -43,11 +45,11 @@ module Google
         def initialize file_descriptors, files_to_generate
           loader = Loader.new
           @files = file_descriptors.map do |fd|
-            loader.load_file(fd, files_to_generate.include?(fd.name))
+            loader.load_file fd, files_to_generate.include?(fd.name)
           end
-          @services = @files.flat_map { |f| f.services }
-          @messages = @files.flat_map { |f| f.messages }
-          @enums = @files.flat_map { |f| f.enums }
+          @services = @files.flat_map(&:services)
+          @messages = @files.flat_map(&:messages)
+          @enums = @files.flat_map(&:enums)
         end
       end
     end

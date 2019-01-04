@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +17,7 @@
 module Google
   module Gapic
     module Generator
-      VERSION = '0.1.0'
+      VERSION = "0.1.0"
     end
   end
 end

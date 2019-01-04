@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +24,6 @@ Rake::TestTask.new :test do |t|
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
 end
-
 
 desc "Run the CI build"
 task :ci do

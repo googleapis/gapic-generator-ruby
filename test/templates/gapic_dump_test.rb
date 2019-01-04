@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'test_helper'
+require "test_helper"
 
+# rubocop:disable Metrics/ClassLength
+# rubocop:disable Metrics/MethodLength
 class GapicDumpTest < Minitest::Test
   def test_gapic_dump
-    provider = ActionController::Base.new()
-    provider.prepend_view_path("templates/gapic_dump")
+    provider = ActionController::Base.new
+    provider.prepend_view_path "templates/gapic_dump"
     output_files = {}
-    result = provider.render_to_string(
+    provider.render_to_string(
       template: "gapic_dump",
       formats: :text,
       layout: nil,
@@ -30,7 +34,8 @@ class GapicDumpTest < Minitest::Test
   end
 
   # Test fixtures
-  # TODO: Replace OpenStruct with correct proto types from lib/google/gapic/schema/wrappers.rb
+  # TODO: Replace OpenStruct with correct proto types from
+  # lib/google/gapic/schema/wrappers.rb
 
   def api
     OpenStruct.new(
@@ -43,8 +48,14 @@ class GapicDumpTest < Minitest::Test
   def messages names
     Array(names).map do |name|
       message_fields = [
-        ["rules", { message: "#<Google::Gapic::Schema::Message:0x00007fd89e97b7c8>" }],
-        ["fully_decode_reserved_expansion", { type: 8 }]
+        [
+          "rules",
+          { message: "#<Google::Gapic::Schema::Message:0x00007fd89e97b7c8>" }
+        ],
+        [
+          "fully_decode_reserved_expansion",
+          { type: 8 }
+        ]
       ]
       OpenStruct.new(
         address: address(name),
@@ -66,9 +77,9 @@ class GapicDumpTest < Minitest::Test
         name: name,
         trailing_comments: trailing_comments(name)
       )
-      f.send("#{type}=", name_and_type[1][type])
+      f.send "#{type}=", name_and_type[1][type]
       f
-     end
+    end
   end
 
   def enums names
@@ -78,7 +89,7 @@ class GapicDumpTest < Minitest::Test
         leading_comments: leading_comments(name),
         name: name,
         trailing_comments: trailing_comments(name),
-        values: values(name, ["FIELD_BEHAVIOR_UNSPECIFIED", "OPTIONAL"])
+        values: values(name, %w[FIELD_BEHAVIOR_UNSPECIFIED OPTIONAL])
       )
     end
   end
@@ -98,9 +109,12 @@ class GapicDumpTest < Minitest::Test
   def services names
     Array(names).map do |name|
       service_methods = [
-        ["ListOperations", { message: "#<Google::Gapic::Schema::Message:0x00007fd89e97b7c8>" }]
+        [
+          "ListOperations",
+          { message: "#<Google::Gapic::Schema::Message:0x00007fd89e97b7c8>" }
+        ]
       ]
-      smethods = methods(name, service_methods)
+      smethods = methods name, service_methods
       s = OpenStruct.new(
         address: address(name),
         leading_comments: leading_comments(name),
@@ -117,7 +131,7 @@ class GapicDumpTest < Minitest::Test
   def methods parent_path, names_and_types
     Array(names_and_types).map do |name_and_type|
       name = name_and_type[0]
-      type = name_and_type[1].keys.first
+      # type = name_and_type[1].keys.first
       OpenStruct.new(
         address: address([parent_path, name]),
         input: OpenStruct.new(name: "ListOperationsRequest"),
@@ -134,7 +148,7 @@ class GapicDumpTest < Minitest::Test
   end
 
   def address path
-    ["google", "api"] + Array(path)
+    %w[google api] + Array(path)
   end
 
   def leading_comments name
@@ -145,3 +159,5 @@ class GapicDumpTest < Minitest::Test
     "The trailing comments for #{name}."
   end
 end
+# rubocop:enable Metrics/ClassLength
+# rubocop:enable Metrics/MethodLength

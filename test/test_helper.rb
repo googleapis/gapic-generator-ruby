@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'google/gapic/schema/api'
-require 'google/gapic/generator'
-require 'action_controller'
-require 'action_view'
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+require "google/gapic/schema/api"
+require "google/gapic/generator"
+require "action_controller"
+require "action_view"
 
-require 'minitest/autorun'
+require "minitest/autorun"
 
 ActionController::Base.helper Google::Gapic::Generator::Helpers
 

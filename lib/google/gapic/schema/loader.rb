@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'google/gapic/schema/wrappers'
+require "google/gapic/schema/wrappers"
 
 module Google
   module Gapic
     module Schema
+      # rubocop:disable Metrics/ClassLength
+
+      # Loader
       class Loader
         # Empty location for things with no comments.
         EMPTY = Google::Protobuf::SourceCodeInfo::Location.new
@@ -27,6 +32,9 @@ module Google
           @prior_enums = []
         end
 
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
+
         # Loads a file.
         #
         # @param file_descriptor [Google::Protobuf::FileDescriptorProto] the
@@ -35,41 +43,38 @@ module Google
         #   generated.
         def load_file file_descriptor, file_to_generate
           # Setup.
-          address = file_descriptor.package.split('.')
+          address = file_descriptor.package.split "."
           path = []
 
           # Load the docs.
-          docs = file_descriptor.source_code_info.location.reduce({}) do |ans, l|
+          location = file_descriptor.source_code_info.location
+          docs = location.each_with_object({}) do |l, ans|
             ans[l.path] = l
-            ans
-          end
-
-          # Load enums.
-          enums = file_descriptor.enum_type.each_with_index.map do |e, i|
-            load_enum(e, address, docs, [5, i])
           end
 
           # Load top-level messages.
           messages = file_descriptor.message_type.each_with_index.map do |m, i|
-            load_message(m, address, docs, [4, i])
+            load_message m, address, docs, [4, i]
           end
           messages.each(&method(:update_fields!))
 
+          # Load enums.
+          enums = file_descriptor.enum_type.each_with_index.map do |e, i|
+            load_enum e, address, docs, [5, i]
+          end
+
           # Load services.
           services = file_descriptor.service.each_with_index.map do |s, i|
-            load_service(s, address, docs, [6, i])
+            load_service s, address, docs, [6, i]
           end
 
           # Construct and return the file.
-          File.new(
-            file_descriptor,
-            address,
-            docs[path],
-            messages,
-            enums,
-            services,
-            file_to_generate)
+          File.new file_descriptor, address, docs[path], messages, enums,
+                   services, file_to_generate
         end
+
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
 
         # Updates the fields of a message and it's nested messages.
         #
@@ -85,10 +90,11 @@ module Google
 
         # Loads an enum.
         #
-        # @param descriptor [Google::Protobuf::EnumDescriptorProto] the descriptor
-        #   of this enum.
+        # @param descriptor [Google::Protobuf::EnumDescriptorProto] the
+        #   descriptor of this enum.
         # @param address [Enumerable<String>] The address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -99,11 +105,11 @@ module Google
 
           # Load Enum Values
           values = descriptor.value.each_with_index.map do |value, i|
-            load_enum_value(value, address, docs, path + [2, i])
+            load_enum_value value, address, docs, path + [2, i]
           end
 
           # Construct, cache and return enum.
-          enum = Enum.new(descriptor, address, docs[path], values)
+          enum = Enum.new descriptor, address, docs[path], values
           @prior_enums << enum
           enum
         end
@@ -113,7 +119,8 @@ module Google
         # @param descriptor [Google::Protobuf::EnumValueDescriptorProto] the
         #   descriptor of this enum value.
         # @param address [Enumerable<String>] the address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -123,9 +130,11 @@ module Google
           address = address.clone << descriptor.name
 
           # Construct and return value.
-          EnumValue.new(descriptor, address, docs[path])
+          EnumValue.new descriptor, address, docs[path]
         end
 
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/MethodLength
 
         # Loads a message. As a side effect, this alters @messages and @enums
         # with the nested messages that are found.
@@ -133,7 +142,8 @@ module Google
         # @param descriptor [Google::Protobuf::DescriptorProto] the
         #   descriptor of this message.
         # @param address [Enumerable<String>] the address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -144,16 +154,16 @@ module Google
 
           # Load Children
           fields = descriptor.field.each_with_index.map do |f, i|
-            load_field(f, address, docs, path + [2, i])
+            load_field f, address, docs, path + [2, i]
           end
           extensions = descriptor.extension.each_with_index.map do |e, i|
-            load_field(e, address, docs, path + [6, i])
+            load_field e, address, docs, path + [6, i]
           end
           nested_messages = descriptor.nested_type.each_with_index.map do |m, i|
-            load_message(m, address, docs, path + [3, i])
+            load_message m, address, docs, path + [3, i]
           end
           nested_enums = descriptor.enum_type.each_with_index.map do |e, i|
-            load_enum(e, address, docs, path + [4, i])
+            load_enum e, address, docs, path + [4, i]
           end
 
           # Construct, cache, and return.
@@ -164,17 +174,22 @@ module Google
             fields,
             extensions,
             nested_messages,
-            nested_enums)
+            nested_enums
+          )
           @prior_messages << msg
           msg
         end
+
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/MethodLength
 
         # Loads a field.
         #
         # @param descriptor [Google::Protobuf::FieldDescriptorProto] the
         #   descriptor of this field.
         # @param address [Enumerable<String>] The address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -189,7 +204,8 @@ module Google
             address,
             docs[path],
             cached_message(descriptor.type_name),
-            cached_enum(descriptor.type_name))
+            cached_enum(descriptor.type_name)
+          )
         end
 
         # Loads a service.
@@ -197,7 +213,8 @@ module Google
         # @param descriptor [Google::Protobuf::ServiceDescriptorProto] the
         #   descriptor of this service.
         # @param address [Enumerable<String>] The address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -208,7 +225,7 @@ module Google
 
           # Load children
           methods = descriptor.method.each_with_index.map do |m, i|
-            load_method(m, address, docs, path + [2, i])
+            load_method m, address, docs, path + [2, i]
           end
 
           # Construct and return the service.
@@ -216,7 +233,8 @@ module Google
             descriptor,
             address,
             docs[path],
-            methods)
+            methods
+          )
         end
 
         # Loads a method.
@@ -224,7 +242,8 @@ module Google
         # @param descriptor [Google::Protobuf::MethodDescriptorProto] the
         #   descriptor of this service.
         # @param address [Enumerable<String>] The address of the parent.
-        # @param docs [Hash<Enumerable<Integer>, Google::Protobuf::SourceCodeInfo::Location>]
+        # @param docs [Hash<Enumerable<Integer>,
+        #   Google::Protobuf::SourceCodeInfo::Location>]
         #   A mapping of a path to the docs. See Proto#docs for more info.
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
@@ -239,7 +258,8 @@ module Google
             address,
             docs[path],
             cached_message(descriptor.input_type),
-            cached_message(descriptor.output_type))
+            cached_message(descriptor.output_type)
+          )
         end
 
         # Retrieves an Enum if it has been seen before.
@@ -249,10 +269,10 @@ module Google
         #   no enum can be found.
         def cached_enum type_name
           # Remove leading dot.
-          type_name = type_name[1..-1 ] if type_name && type_name[0] == '.'
+          type_name = type_name[1..-1] if type_name && type_name[0] == "."
 
           # Create an address from the type.
-          address = type_name.split('.')
+          address = type_name.split "."
 
           # Check cache.
           @prior_enums.find { |e| e.address == address }
@@ -265,15 +285,17 @@ module Google
         #   no message can be found.
         def cached_message type_name
           # Remove leading dot.
-          type_name = type_name[1..-1 ] if type_name && type_name[0] == '.'
+          type_name = type_name[1..-1] if type_name && type_name[0] == "."
 
           # Create an address from the type.
-          address = type_name.split('.')
+          address = type_name.split "."
 
           # Check cache.
           @prior_messages.find { |m| m.address == address }
         end
       end
+
+      # rubocop:enable Metrics/ClassLength
     end
   end
 end

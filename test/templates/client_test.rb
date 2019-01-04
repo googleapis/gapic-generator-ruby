@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,25 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'test_helper'
+require "test_helper"
 
 class ClientTest < Minitest::Test
-  def test_client
+  def result
     provider = ActionController::Base.new
-    provider.prepend_view_path("templates/gapic")
-    service = OpenStruct.new(
-      name: "Speech"
-    )
-    assigns = {
-      service: service,
-      namespaces: %w[google cloud speech v1]
-    }
-    result = provider.render_to_string(
+    provider.prepend_view_path "templates/gapic"
+    service = OpenStruct.new name: "Speech"
+    provider.render_to_string(
       partial: "shared/client",
       formats: :text,
       layout: "ruby",
-      locals: assigns
+      locals: { service: service, namespaces: %w[google cloud speech v1] }
     )
+  end
+
+  def test_client
     # In the actual generator, the Ruby code in this output is formatted by
     # Rubocop after it is rendered.
     assert_equal expected_content("client.rb"), result

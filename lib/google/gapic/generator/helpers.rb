@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +24,11 @@ module Google
         # Extracts part of a template to a string that is stored in the context
         # variable @output_files hash using the provided `file_name` as the key.
         def render_to_file file_name, &block
-          if @output_files.keys.include? file_name
+          if @output_files.key? file_name
             raise ArgumentError, "output_files already contains #{file_name}"
           end
-          @output_files[file_name] = capture &block
+
+          @output_files[file_name] = capture(&block)
         end
       end
     end

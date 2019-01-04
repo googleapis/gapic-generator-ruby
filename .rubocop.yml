@@ -12,3 +12,6 @@ Style/MethodCallWithArgsParentheses:
   AllowParenthesesInMultilineCall: true
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses
+Layout/IndentationWidth:
+  Exclude:
+    - test/expected_output/client.rb
