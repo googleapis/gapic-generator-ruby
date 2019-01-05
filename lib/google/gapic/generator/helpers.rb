@@ -34,8 +34,8 @@ module Google
         ##
         # Converts a dot-separated namespace string to a new string with
         # Ruby double-semicolon separators.
-        def ruby_namespace s
-          s.split(".").reject(&:empty?).map(&:upcase_first).join "::"
+        def ruby_namespace str
+          str.split(".").reject(&:empty?).map(&:upcase_first).join "::"
         end
       end
     end
