@@ -1,0 +1,5 @@
+@<%= method_name method %> = Google::Gax.create_api_call(
+  @<%= client_stub service %>.method(:<%= method_name method %>),
+  defaults["<%= method_name method %>"],
+  exception_transformer: exception_transformer
+)

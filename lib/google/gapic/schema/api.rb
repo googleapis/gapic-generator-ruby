@@ -38,14 +38,12 @@ module Google
         # Initializes an API object with the file descriptors that represent the
         # API.
         #
-        # @param file_descriptors [Array<Google::Protobuf::FileDescriptorProto>]
-        #   The descriptors of the files this API represents.
-        # @param files_to_generate [Array<String>] The .proto files that
-        #   should be generated.
-        def initialize file_descriptors, files_to_generate
+        # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
+        #   The request object.
+        def initialize request
           loader = Loader.new
-          @files = file_descriptors.map do |fd|
-            loader.load_file fd, files_to_generate.include?(fd.name)
+          @files = request.proto_file.map do |fd|
+            loader.load_file fd, request.file_to_generate.include?(fd.name)
           end
           @services = @files.flat_map(&:services)
           @messages = @files.flat_map(&:messages)

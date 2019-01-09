@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
 # Copyright 2018 Google LLC
@@ -15,9 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
-require "google/gapic/runner"
-
-# Create and run the generator.
-runner = Google::Gapic::Runner::ProtoCompilerRunner.new "templates/gapic_dump"
-runner.run
+module LocalsHelper
+  def assert_locals *locals
+    locals.each { |local| raise "missing local in template" if local.nil? }
+  end
+end

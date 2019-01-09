@@ -14,13 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Google
-module Cloud
-module Speech
-module V1
-class SpeechClient
-end
-end
-end
-end
+module ApiHelper
+  def api_services api
+    api.services.reject { |s| s.name == "Operations" }
+  end
 end

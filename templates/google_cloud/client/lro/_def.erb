@@ -1,0 +1,5 @@
+# @private
+class OperationsClient < Google::Longrunning::OperationsClient
+  SERVICE_ADDRESS = <%= client_name service %>::SERVICE_ADDRESS
+  GRPC_INTERCEPTORS = <%= client_name service %>::GRPC_INTERCEPTORS.dup
+end

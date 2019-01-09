@@ -14,5 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gapic/generator/generator"
-require "google/gapic/generator/helpers"
+require "active_support/inflector"
+
+module Google
+  module Gapic
+    module Generator
+      def self.find type = nil
+        type ||= "default"
+        type_const = ActiveSupport::Inflector.camelize type
+        require "google/gapic/generators/#{type}_generator"
+        Kernel.const_get "Google::Gapic::Generators::#{type_const}Generator"
+      end
+    end
+  end
+end
