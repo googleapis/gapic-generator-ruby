@@ -17,7 +17,6 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "google/gapic/schema/api"
 require "google/gapic/generator"
-require "google/gapic/helpers"
 require "action_controller"
 require "action_view"
 

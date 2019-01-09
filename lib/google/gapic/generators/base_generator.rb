@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "action_controller"
-require "google/gapic/helpers"
 require "protobuf/descriptors"
 require "tempfile"
 
@@ -30,8 +29,6 @@ module Google
         #   generate.
         def initialize api
           @api = api
-
-          controller.class.helper Google::Gapic::Helpers
         end
 
         # Generates all the files for the API.
