@@ -19,12 +19,11 @@ require "bundler/gem_tasks"
 require "rubocop/rake_task"
 RuboCop::RakeTask.new
 
+require "rake/testtask"
 desc "Run tests."
-task :test do
-  $LOAD_PATH.unshift "lib", "test"
-  Dir.glob("test/**/*test.rb")
-    .reject { |file| file.include? "smoke_test" }
-    .each { |file| require_relative file }
+Rake::TestTask.new do |t|
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.warning = false
 end
 
 namespace :test do
@@ -32,20 +31,20 @@ namespace :test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "google-cloud-pubsub"
+      command_name "google-cloud-speech"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
 
-    Rake::Task["test"].invoke
+    Rake::Task[:test].invoke
   end
 end
 
 desc "Runs the smoke tests."
-task :smoke_test do
-
-  $LOAD_PATH.unshift "lib", "smoke_test"
-  Dir.glob("acceptance/**/*smoke_test.rb").each { |file| require_relative file }
+desc "Runs the smoke tests."
+Rake::TestTask.new :smoke_test do |t|
+  t.test_files = FileList["acceptance/**/*smoke_test.rb"]
+  t.warning = false
 end
 
 namespace :smoke_test do
@@ -53,51 +52,53 @@ namespace :smoke_test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "google-cloud-pubsub"
+      command_name "google-cloud-speech"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
 
-    Rake::Task["smoke_test"].invoke
+    Rake::Task[:smoke_test].invoke
   end
 end
 
 # Acceptance tests
-desc "Run the google-cloud-pubsub acceptance tests."
+desc "Run the google-cloud-speech acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
   project = args[:project]
   project ||=
-    ENV["PUBSUB_TEST_PROJECT"] ||
+    ENV["SPEECH_TEST_PROJECT"] ||
     ENV["GCLOUD_TEST_PROJECT"]
   keyfile = args[:keyfile]
   keyfile ||=
-    ENV["PUBSUB_TEST_KEYFILE"] ||
+    ENV["SPEECH_TEST_KEYFILE"] ||
     ENV["GCLOUD_TEST_KEYFILE"]
   if keyfile
     keyfile = File.read keyfile
   else
     keyfile ||=
-      ENV["PUBSUB_TEST_KEYFILE_JSON"] ||
+      ENV["SPEECH_TEST_KEYFILE_JSON"] ||
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or PUBSUB_TEST_PROJECT=test123 PUBSUB_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or SPEECH_TEST_PROJECT=test123 SPEECH_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
-  require "google/cloud/pubsub/v1/credentials"
-  (Google::Cloud::Pubsub::V1::Credentials::PATH_ENV_VARS +
-   Google::Cloud::Pubsub::V1::Credentials::JSON_ENV_VARS).each do |path|
+  require "google/cloud/speech/v1/credentials"
+  (Google::Cloud::Speech::V1::Credentials::PATH_ENV_VARS +
+   Google::Cloud::Speech::V1::Credentials::JSON_ENV_VARS).each do |path|
     ENV[path] = nil
   end
-  ENV["PUBSUB_PROJECT"] = project
-  ENV["PUBSUB_TEST_PROJECT"] = project
-  ENV["PUBSUB_KEYFILE_JSON"] = keyfile
+  ENV["SPEECH_PROJECT"] = project
+  ENV["SPEECH_TEST_PROJECT"] = project
+  ENV["SPEECH_KEYFILE_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end
 
 namespace :acceptance do
-  task :run do
-    Rake::Task["smoke_test"].invoke
+  Rake::TestTask.new :run do |t|
+    t.libs << "acceptance"
+    t.test_files = FileList["acceptance/**/*_test.rb"]
+    t.warning = false
   end
 
   desc "Run acceptance tests with coverage."
@@ -115,28 +116,26 @@ YARD::Rake::YardocTask.new
 
 desc "Run yard-doctest example tests."
 task :doctest do
-  puts "The google-cloud-pubsub gem does not have doctest tests."
+  puts "The google-cloud-speech gem does not have doctest tests."
 end
 
 desc "Run the CI build"
 task :ci do
-  header "BUILDING google-cloud-pubsub"
-  header "google-cloud-pubsub rubocop", "*"
-  sh "bundle exec rake rubocop"
-  header "google-cloud-pubsub jsondoc", "*"
-  sh "bundle exec rake jsondoc"
-  header "google-cloud-pubsub doctest", "*"
-  sh "bundle exec rake doctest"
-  header "google-cloud-pubsub test", "*"
-  sh "bundle exec rake test"
+  header "BUILDING google-cloud-speech"
+  header "google-cloud-speech rubocop", "*"
+  Rake::Task[:rubocop].invoke
+  header "google-cloud-speech doctest", "*"
+  Rake::Task[:doctest].invoke
+  header "google-cloud-speech test", "*"
+  Rake::Task[:test].invoke
 end
 
 namespace :ci do
   desc "Run the CI build, with acceptance tests."
   task :acceptance do
-    Rake::Task["ci"].invoke
-    header "google-cloud-pubsub acceptance", "*"
-    sh "bundle exec rake acceptance -v"
+    Rake::Task[:ci].invoke
+    header "google-cloud-speech acceptance", "*"
+    Rake::Task[:acceptance].invoke
   end
   task :a do
     # This is a handy shortcut to save typing
