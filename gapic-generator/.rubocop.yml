@@ -1,6 +1,7 @@
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
+    - Rakefile
     - lib/**/*.pb.rb
     - expected_output/**/*
 
