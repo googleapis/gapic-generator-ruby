@@ -16,11 +16,11 @@
 
 lib = File.expand_path "lib", __dir__
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
-require "google/gapic/generator/google/cloud/version"
+require "google/gapic/generator/cloud/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "gapic-generator-google_cloud"
-  spec.version       = Google::Gapic::Generator::Google::Cloud::VERSION
+  spec.name          = "gapic-generator-cloud"
+  spec.version       = Google::Gapic::Generator::Cloud::VERSION
   spec.authors       = ["landrito@google.com"]
   spec.email         = ["googleapis@google.com"]
   spec.licenses      = ["Apache-2.0"]
@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
     end
   end
   spec.bindir        = "bin"
-  spec.executables   = ["protoc-gen-ruby_google_cloud"]
+  spec.executables   = ["protoc-gen-ruby_cloud"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionpack", "~> 5.2"

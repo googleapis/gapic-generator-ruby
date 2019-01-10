@@ -15,15 +15,15 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/gapic/generators/google_cloud_generator"
+require "google/gapic/generators/cloud_generator"
 
-class GoogleCloudGeneratorTest < GeneratorTest
+class CloudGeneratorTest < GeneratorTest
   def test_speech_generate
-    generator = Google::Gapic::Generators::GoogleCloudGenerator.new api(:speech)
+    generator = Google::Gapic::Generators::CloudGenerator.new api(:speech)
     test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
     Time.stub :now, test_time do
       generator.generate.each do |file|
-        assert_equal expected_content("google_cloud/#{file.name}"), file.content
+        assert_equal expected_content("cloud/#{file.name}"), file.content
       end
     end
   end

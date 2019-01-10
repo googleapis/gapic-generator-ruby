@@ -21,7 +21,7 @@ module Google
     module Generators
       # The generator orchestrates the rendering of templates for Google Cloud
       # projects.
-      class GoogleCloudGenerator < DefaultGenerator
+      class CloudGenerator < DefaultGenerator
         # Initializes the generator.
         #
         # @param api [Google::Gapic::Schema::Api] The API model/context to
@@ -30,7 +30,7 @@ module Google
           super
 
           # Configure to use prefer Google Cloud templates
-          use_templates! File.join __dir__, "../../../../templates/google_cloud"
+          use_templates! File.join __dir__, "../../../../templates/cloud"
 
           # Configure these helper method to be used by the generator
           use_helpers! :gem_name, :gem_path, :client_file_path,
@@ -67,24 +67,6 @@ module Google
 
         # rubocop:enable Metrics/AbcSize
         # rubocop:enable Metrics/MethodLength
-
-        # private
-        #
-        # def gem_name api
-        #   controller.class.helpers.gem_name api
-        # end
-        #
-        # def gem_path api
-        #   controller.class.helpers.gem_path api
-        # end
-        #
-        # def client_file_path service
-        #   controller.class.helpers.client_file_path service
-        # end
-        #
-        # def credentials_file_path service
-        #   controller.class.helpers.credentials_file_path service
-        # end
       end
     end
   end

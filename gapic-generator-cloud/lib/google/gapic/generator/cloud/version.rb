@@ -17,10 +17,8 @@
 module Google
   module Gapic
     module Generator
-      module Google
-        module Cloud
-          VERSION = "0.1.0"
-        end
+      module Cloud
+        VERSION = "0.1.0"
       end
     end
   end
