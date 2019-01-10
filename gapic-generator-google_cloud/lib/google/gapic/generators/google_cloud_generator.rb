@@ -30,7 +30,7 @@ module Google
           super
 
           # Configure to use prefer Google Cloud templates
-          use_templates! "templates/google_cloud"
+          use_templates! File.join __dir__, "../../../../templates/google_cloud"
 
           # Configure these helper method to be used by the generator
           use_helpers! :gem_name, :gem_path, :client_file_path,
