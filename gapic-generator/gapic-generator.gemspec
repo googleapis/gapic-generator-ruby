@@ -21,8 +21,9 @@ require "google/gapic/generator/version"
 Gem::Specification.new do |spec|
   spec.name          = "gapic-generator"
   spec.version       = Google::Gapic::Generator::VERSION
-  spec.authors       = ["landrito@google.com"]
-  spec.email         = ["googleapis@google.com"]
+  spec.authors       = ["Ernest Landrito", "Chris Smith", "Mike Moore"]
+  spec.email         = ["landrito@google.com", "quartzmo@gmail.com",
+                        "mike@blowmage.com"]
   spec.licenses      = ["Apache-2.0"]
 
   spec.summary       = "An API Client Generator for Ruby in Ruby!"
