@@ -16,7 +16,7 @@
 
 require "active_support/inflector"
 
-module GoogleCloudHelper
+module CloudHelper
   def gem_name api
     gem_address(api).join "-"
   end

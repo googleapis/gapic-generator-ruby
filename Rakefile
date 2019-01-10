@@ -14,24 +14,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "bundler/gem_tasks"
-require "rubocop/rake_task"
-require "rake/testtask"
-
-RuboCop::RakeTask.new # Configuration is in .rubocop.yml
-Rake::TestTask.new :test do |t|
-  t.libs << "test"
-  t.libs << "lib"
-  t.test_files = FileList["test/**/*_test.rb"]
+desc "Runs tests for all gems."
+task :test do
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running tests for #{gem}"
+        sh "bundle exec rake test"
+      end
+    end
+  end
 end
 
-desc "Run the CI build"
+desc "Runs rubocop for all gems."
+task :rubocop do
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running rubocop for #{gem}"
+        sh "bundle exec rake rubocop"
+      end
+    end
+  end
+end
+
+desc "Runs CI for all gems."
 task :ci do
-  puts "\nBUILDING gapic-generator-ruby\n"
-  puts "\ngapic-generator-ruby rubocop\n"
-  Rake::Task[:rubocop].invoke
-  puts "\ngapic-generator-ruby test\n"
-  Rake::Task[:test].invoke
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running CI for #{gem}"
+        sh "bundle exec rake ci"
+      end
+    end
+  end
+end
+
+def gem_dirs
+  `git ls-files -- */*.gemspec`.split("\n").map { |gem| gem.split("/").first }.sort
 end
 
 task default: :ci

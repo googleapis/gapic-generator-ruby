@@ -43,6 +43,7 @@ module Google
         private
 
         def use_templates! template_path
+          template_path = File.expand_path template_path
           helpers_path = File.join template_path, "helpers"
 
           # Configure Dependencies to know how to load helpers

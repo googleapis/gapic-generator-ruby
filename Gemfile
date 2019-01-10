@@ -2,7 +2,6 @@
 
 source "https://rubygems.org"
 
-git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
-
-# Specify your gem's dependencies in gapic-generator.gemspec
-gemspec
+gem "gapic-generator",       path: "gapic-generator"
+gem "gapic-generator-cloud", path: "gapic-generator-cloud"
+gem "rake", "~> 10.0"

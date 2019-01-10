@@ -29,7 +29,7 @@ module Google
           super
 
           # Configure to use the default templates
-          use_templates! "templates/default"
+          use_templates! File.join __dir__, "../../../../templates/default"
 
           # Configure to use a custom template directory
           custom_templates = ENV["GOOGLE_GAPIC_GENERATOR_RUBY_TEMPLATES"]
