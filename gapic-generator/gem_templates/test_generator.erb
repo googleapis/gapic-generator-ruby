@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+
+require "test_helper"
+require "google/gapic/generators/<%= gem_name %>_generator"
+
+class <%= gem_class_prefix %>GeneratorTest < GeneratorTest
+  def test_speech_generate
+    generator = Google::Gapic::Generators::<%= gem_class_prefix %>Generator.new api(:speech)
+    generator.generate.each do |file|
+      assert_equal expected_content("<%= gem_name %>/#{file.name}"), file.content
+    end
+  end
+end
