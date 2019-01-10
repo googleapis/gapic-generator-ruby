@@ -27,10 +27,10 @@ end
 
 desc "Run the CI build"
 task :ci do
-  puts "\nBUILDING gapic-generator-ruby\n"
-  puts "\ngapic-generator-ruby rubocop\n"
+  puts "\nBUILDING gapic-generator-cloud\n"
+  puts "\ngapic-generator-cloud rubocop\n"
   Rake::Task[:rubocop].invoke
-  puts "\ngapic-generator-ruby test\n"
+  puts "\ngapic-generator-cloud test\n"
   Rake::Task[:test].invoke
 end
 
