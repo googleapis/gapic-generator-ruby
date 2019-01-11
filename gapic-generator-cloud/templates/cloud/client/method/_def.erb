@@ -2,8 +2,7 @@
 # <%= method_desc method %>
 #
 <%- method_arguments(method).each do |arg| -%>
-# @param <%= method_arg_name arg %> [<%= method_arg_type arg %> | Hash]
-<%= prepend_with method_arg_desc(arg), "#   " %>
+<%= render partial: "client/method/arg", locals: { api: api, service: service, method: method, arg: arg } -%>
 <%- end -%>
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -27,5 +26,15 @@ def <%= method_name method %> \
     <%- end -%>
   }.delete_if { |_, v| v.nil? }
   request = Google::Gax.to_proto request, <%= method_return_type method %>
-  @recognize.call(request, options, &block)
+  <%- if method_lro? method -%>
+  operation = Google::Gax::Operation.new(
+    @<%= method_name method %>.call(request, options),
+    @operations_client,
+    call_options: options
+  )
+  operation.on_done { |operation| yield(operation) } if block_given?
+  operation
+  <%- else -%>
+  @<%= method_name method %>.call(request, options, &block)
+  <%- end -%>
 end
