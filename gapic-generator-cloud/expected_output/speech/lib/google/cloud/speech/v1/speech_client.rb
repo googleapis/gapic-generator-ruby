@@ -239,7 +239,7 @@ module Google
           #
           # @param streaming_config [Google::Cloud::Speech::V1::StreamingRecognitionConfig | Hash]
           #   TODO
-          # @param audio_content [audio_content]
+          # @param audio_content [String]
           #   TODO
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.

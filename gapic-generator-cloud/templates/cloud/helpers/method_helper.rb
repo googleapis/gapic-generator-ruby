@@ -50,7 +50,7 @@ module MethodHelper
       # TODO: handle when arg message is nil and enum is the type
       "ENUM(#{arg.enum.name})"
     else
-      arg.name
+      String # arg.name
     end
   end
 
