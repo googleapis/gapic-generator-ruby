@@ -54,7 +54,7 @@ module Google
           end
 
           files << cop(gen("credentials.erb",
-                           "lib/#{credentials_file_path @api}.rb",
+                           "lib/#{credentials_file_path @api}",
                            api: @api, service: api_services(@api).first))
 
           files << gen("gemspec.erb", "#{gem_name @api}.gemspec", api: @api)
