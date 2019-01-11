@@ -23,7 +23,7 @@ class CloudGeneratorTest < GeneratorTest
     test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
     Time.stub :now, test_time do
       generator.generate.each do |file|
-        assert_equal expected_content("cloud/#{file.name}"), file.content
+        assert_equal expected_content(:speech, file.name), file.content
       end
     end
   end
