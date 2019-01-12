@@ -15,8 +15,11 @@
 # limitations under the License.
 
 require "action_controller"
-require "protobuf/descriptors"
 require "tempfile"
+
+$LOAD_PATH.unshift ::File.expand_path("../../../../../vendor", __FILE__)
+require "google/api/annotations.pb"
+require "google/protobuf/descriptor.pb"
 
 module Google
   module Gapic

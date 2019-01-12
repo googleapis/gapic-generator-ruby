@@ -16,7 +16,10 @@
 
 require "google/gapic/generator"
 require "google/gapic/schema"
-require "protobuf/descriptors"
+
+$LOAD_PATH.unshift ::File.expand_path("../../../../vendor", __FILE__)
+require "google/protobuf/compiler/plugin.rb"
+require "google/protobuf/descriptor.pb"
 
 module Google
   module Gapic
