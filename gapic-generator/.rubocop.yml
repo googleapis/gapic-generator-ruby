@@ -2,7 +2,7 @@ AllCops:
   TargetRubyVersion: 2.5
   Exclude:
     - test/expected_output/**/*
-    - vendor/**/*
+    - lib/**/*.pb.rb
 
 Documentation:
   Enabled: false

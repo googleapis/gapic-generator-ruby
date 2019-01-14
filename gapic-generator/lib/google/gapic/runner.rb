@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "google/gapic/generator"
-require "google/gapic/schema"
+require "google/prootbuf/compiler/plugin.pb"
 
 module Google
   module Gapic

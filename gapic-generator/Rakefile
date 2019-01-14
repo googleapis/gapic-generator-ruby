@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "bundler/gem_tasks"
+require "protobuf/tasks"
 require "rubocop/rake_task"
 require "rake/testtask"
 
@@ -23,6 +24,16 @@ Rake::TestTask.new :test do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
+end
+
+desc "Compile the necessary protobuf files."
+task :compile_protos do
+  Rake::Task["protobuf:compile"].invoke "google", "protos", "lib"
+end
+
+desc "Remove compiled protos"
+task :clean_protos do
+  Rake::Task["protobuf:clean"].invoke "google", "lib"
 end
 
 desc "Run the CI build"

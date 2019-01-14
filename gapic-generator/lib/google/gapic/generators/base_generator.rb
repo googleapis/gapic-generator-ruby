@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "action_controller"
-require "google/gapic/schema"
+require "google/protobuf/compiler/plugin.pb"
 require "tempfile"
 
 module Google
