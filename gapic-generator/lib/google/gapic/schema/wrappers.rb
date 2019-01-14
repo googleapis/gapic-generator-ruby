@@ -261,7 +261,7 @@ module Google
           @output = output
         end
 
-        # return [Array<Google::Api::MethodSignature>] The parameter lists
+        # @return [Array<Google::Api::MethodSignature>] The parameter lists
         #   defined for this method. See `google/api/signature.proto`.
         def signatures
           return options[:".google.api.method_signature"] if options
@@ -269,7 +269,7 @@ module Google
           []
         end
 
-        # return [Google::Api::OperationData] Additional information regarding
+        # @return [Google::Api::OperationData] Additional information regarding
         #   long-running operations.
         #   In particular, this specifies the types that are returned from
         #   long-running operations.
@@ -279,7 +279,7 @@ module Google
           options[:".google.api.operation"] if options
         end
 
-        # return [Google::Api::HttpRule] The HTTP bindings for this method.
+        # @return [Google::Api::HttpRule] The HTTP bindings for this method.
         #     See `google/api/http.proto`.
         def http
           options[:".google.api.http"] if options
@@ -348,13 +348,13 @@ module Google
           @generate
         end
 
-        # return [Google::Api::Metdata] Packaging information.
+        # @return [Google::Api::Metdata] Packaging information.
         #   See `google/api/metadata.proto`.
         def metadata
           options[:".google.api.metadata"] if options
         end
 
-        # return [Array<Google::Api::Resource>] A representation of a resource.
+        # @return [Array<Google::Api::Resource>] A representation of a resource.
         #   At a file level, this is generally used to define information for a
         #   resource from another API, or for a resource that does not have an
         #   associated proto message.
@@ -364,7 +364,7 @@ module Google
           []
         end
 
-        # return [Array<Google::Api::ResourceSet>] A representation of a set of
+        # @return [Array<Google::Api::ResourceSet>] A representation of a set of
         #   resources. At a file level, this is generally used to define
         #   information for a resource set from another API, or for a resource
         #   that does not have an associated proto message.
