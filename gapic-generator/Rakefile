@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "bundler/gem_tasks"
+require "mkmf"
 require "rubocop/rake_task"
 require "rake/testtask"
 
@@ -25,9 +26,41 @@ Rake::TestTask.new :test do |t|
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
+desc "Compile the necessary protobuf files."
+task :compile_protos do
+  Rake::Task[:clean_protos].invoke
+
+  # TODO: Add check to ensure protoc-gen-ruby and protoc are installed.
+
+  plugin_executable = find_executable "protoc-gen-ruby"
+  plugin = "protoc-gen-ruby-protobuf=#{plugin_executable}"
+
+  command = []
+  command << "protoc"
+  command << "--plugin=#{plugin}"
+  command << "--ruby-protobuf_out=lib"
+  command << "-I api-common-protos"
+  command << "-I protobuf/src"
+  command << "api-common-protos/google/api/annotations.proto"
+  command << "protobuf/src/google/protobuf/descriptor.proto"
+  command << "protobuf/src/google/protobuf/compiler/plugin.proto"
+  full_command = command.join " "
+
+  puts full_command
+  system full_command
+end
+
+desc "Remove the compiled protos."
+task :clean_protos do
+  Dir.glob(File.join("lib", "**", "*.pb.rb")).each do |file|
+    FileUtils.rm file
+  end
+end
+
 desc "Run the CI build"
 task :ci do
   puts "\nBUILDING gapic-generator\n"
+  Rake::Task[:compile_protos].invoke
   puts "\ngapic-generator rubocop\n"
   Rake::Task[:rubocop].invoke
   puts "\ngapic-generator test\n"

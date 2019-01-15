@@ -1,0 +1,7 @@
+[submodule "gapic-generator/api-common-protos"]
+	path = gapic-generator/api-common-protos
+	url = https://github.com/googleapis/api-common-protos.git
+	branch = input-contract
+[submodule "gapic-generator/protobuf"]
+	path = gapic-generator/protobuf
+	url = https://github.com/protocolbuffers/protobuf.git

@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "protobuf/descriptors"
-
 module Google
   module Gapic
     module Schema
@@ -212,6 +210,20 @@ module Google
           @methods = methods || {}
         end
 
+        # @return [String] The hostname for this service
+        #   (e.g. "foo.googleapis.com"). This should be specified with no
+        #   prefix.
+        def host
+          options[:".google.api.default_host"] if options
+        end
+
+        # @return [Google::Api::OAuth] OAuth information for the client.
+        #   The "scopes" key is a repeated string; see
+        #   `google/api/metadata.proto`.
+        def oauth
+          options[:".google.api.default_host"] if options
+        end
+
         # @!method name
         #   @return [String] the unqualified name of the service.
         # @!method options
@@ -247,6 +259,30 @@ module Google
           super descriptor, address, docs
           @input = input
           @output = output
+        end
+
+        # @return [Array<Google::Api::MethodSignature>] The parameter lists
+        #   defined for this method. See `google/api/signature.proto`.
+        def signatures
+          return options[:".google.api.method_signature"] if options
+
+          []
+        end
+
+        # @return [Google::Api::OperationData] Additional information regarding
+        #   long-running operations.
+        #   In particular, this specifies the types that are returned from
+        #   long-running operations.
+        #   Required for methods that return `google.longrunning.Operation`;
+        #   invalid otherwise.
+        def operation
+          options[:".google.api.operation"] if options
+        end
+
+        # @return [Google::Api::HttpRule] The HTTP bindings for this method.
+        #     See `google/api/http.proto`.
+        def http
+          options[:".google.api.http"] if options
         end
 
         # @!method name
@@ -310,6 +346,32 @@ module Google
 
         def generate?
           @generate
+        end
+
+        # @return [Google::Api::Metdata] Packaging information.
+        #   See `google/api/metadata.proto`.
+        def metadata
+          options[:".google.api.metadata"] if options
+        end
+
+        # @return [Array<Google::Api::Resource>] A representation of a resource.
+        #   At a file level, this is generally used to define information for a
+        #   resource from another API, or for a resource that does not have an
+        #   associated proto message.
+        def resources
+          return options[:".google.api.resource_definition"] if options
+
+          []
+        end
+
+        # @return [Array<Google::Api::ResourceSet>] A representation of a set of
+        #   resources. At a file level, this is generally used to define
+        #   information for a resource set from another API, or for a resource
+        #   that does not have an associated proto message.
+        def resource_sets
+          return options[:".google.api.resource_set_definition"] if options
+
+          []
         end
 
         # @!method name
@@ -497,6 +559,37 @@ module Google
           return true if @enum
 
           false
+        end
+
+        # @return [Google::Api::Resource] A representation of the resource.
+        #   This is generally intended to be attached to the "name" field.
+        #   See `google/api/resources.proto`.
+        def resource
+          options[:".google.api.resource"] if options
+        end
+
+        # @return [Google::Api::ResourceSet] A representation of a set of
+        #   resources, any of which may be represented.
+        #   This is generally intended to be attached to the "name" field
+        #   and is mutually exclusive with `resource`.
+        #   See `google/api/resources.proto`.
+        def resource_set
+          options[:".google.api.resource_set"] if options
+        end
+
+        # @return [String] A reference to another resource message or resource
+        #   definition. See `google/api/resources.proto`.
+        def resource_reference
+          options[:".google.api.resource_reference"] if options
+        end
+
+        # @return [Array<Google::Api::FieldBehavior>] A designation of a
+        #   specific field behavior (required, output only, etc.) in protobuf
+        #   messages.
+        def field_behavior
+          return options[:".google.api.field_behavior"] if options
+
+          []
         end
 
         # @!method name

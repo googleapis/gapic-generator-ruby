@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
       f.match %r{^(test|spec|features)/}
     end
   end
+  spec.files += Dir.glob "lib/**/*.pb.rb"
   spec.bindir        = "bin"
   spec.executables   = ["gapic-generator", "protoc-gen-ruby_gapic"]
   spec.require_paths = ["lib"]

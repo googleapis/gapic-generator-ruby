@@ -14,7 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "google/api/annotations.pb"
 require "google/gapic/schema/wrappers"
+require "google/protobuf/descriptor.pb"
 
 module Google
   module Gapic
