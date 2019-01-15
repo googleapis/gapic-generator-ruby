@@ -57,6 +57,9 @@ task :clean_protos do
   end
 end
 
+Rake::Task[:build].enhance [:compile_protos]
+Rake::Task[:clean].enhance [:clean_protos]
+
 desc "Run the CI build"
 task :ci do
   puts "\nBUILDING gapic-generator\n"
