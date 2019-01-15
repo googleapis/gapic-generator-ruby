@@ -52,10 +52,11 @@ end
 
 desc "Remove the compiled protos."
 task :clean_protos do
-  Dir.glob(File.join("lib", "**", "*.pb.rb")).each do |file|
-    FileUtils.rm file
-  end
+  FileUtils.rm Dir.glob(File.join("lib", "**", "*.pb.rb"))
 end
+
+Rake::Task[:build].enhance [:compile_protos]
+Rake::Task[:clean].enhance [:clean_protos]
 
 desc "Run the CI build"
 task :ci do

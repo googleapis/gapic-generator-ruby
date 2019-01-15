@@ -14,6 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+desc "Builds all gems."
+task :build do
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running build for #{gem}"
+        sh "bundle exec rake build"
+      end
+    end
+  end
+end
+
+desc "Installs all gems."
+task :install do
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running install for #{gem}"
+        sh "bundle exec rake install"
+      end
+    end
+  end
+end
+
 desc "Runs tests for all gems."
 task :test do
   gem_dirs.each do |gem|
