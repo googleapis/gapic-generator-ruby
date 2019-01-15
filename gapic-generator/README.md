@@ -42,8 +42,7 @@ as shown in the previous section.
 ```sh
 $ git clone https://github.com/googleapis/gapic-generator-ruby.git
 $ cd gapic-generator-ruby
-$ git submodule init
-$ git submodule update
+$ git submodule update --init
 $ bundle install
 $ bundle exec rake
 $ cd gapic-generator

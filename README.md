@@ -41,8 +41,7 @@ build the generator from scratch.
 ```sh
 $ git clone https://github.com/googleapis/gapic-generator-ruby.git
 $ cd gapic-generator-ruby
-$ git submodule init
-$ git submodule update
+$ git submodule update --init
 $ bundle update
 $ bundle exec install
 $ which protoc-gen-ruby_gapic
