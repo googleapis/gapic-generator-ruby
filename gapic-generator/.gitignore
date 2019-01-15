@@ -10,5 +10,4 @@ Gemfile.lock
 /tmp/
 
 # Ignore generated protobuf files
-*.pb.rb
 mkmf.log
