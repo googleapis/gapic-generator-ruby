@@ -46,8 +46,9 @@ $ git submodule init
 $ git submodule update
 $ bundle install
 $ bundle exec rake
-$ gem build gapic-generator.gemspec
-$ gem install gapic-generator-0.1.0.gem
+$ cd
+$ gem build gapic-generator/gapic-generator.gemspec
+$ gem install gapic-generator/gapic-generator-0.1.0.gem
 $ which protoc-gen-ruby_gapic
 > {Non-empty path}
 ```
