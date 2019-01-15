@@ -50,7 +50,7 @@ $ gem build gapic-generator.gemspec
 $ gem install gapic-generator-0.1.0.gem
 $ which protoc-gen-ruby_gapic
 > {Non-empty path}
-
+```
 
 ### Generate an API
 Installing this generator exposes `protoc-gen-ruby_gapic` on the PATH. By doing
