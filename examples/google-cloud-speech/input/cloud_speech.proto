@@ -53,6 +53,10 @@ service Speech {
     option (google.api.method_signature) = {
       fields: ["config", "audio"]
     };
+    option (google.api.operation) = {
+      response_type: "LongRunningRecognizeResponse",
+      metadata_type: "LongRunningRecognizeMetadata"
+    };
   }
 
   // Performs bidirectional streaming speech recognition: receive results while
