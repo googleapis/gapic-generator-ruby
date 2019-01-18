@@ -20,13 +20,13 @@ require "active_support/inflector"
 module Google
   module Gapic
     ##
-    # The generator generates files for new extension gems.
-    class GemGenerator
+    # The builder created files for new extension gems.
+    class GemBuilder
       ##
-      # Initializes the generator.
+      # Initializes the builder.
       #
       # @param name [String] The name of the new extension gem.
-      # @param path [String] The directory to generate the gem files.
+      # @param path [String] The directory to write the gem files.
       #
       def initialize name, path
         @name = name
@@ -37,9 +37,9 @@ module Google
       # rubocop:disable Metrics/MethodLength
 
       ##
-      # Generates all the files for the API.
+      # Writes all the files for the gem.
       #
-      def generate
+      def bootstrap
         gen "readme.erb",    "README.md"
         gen "gemspec.erb",   "gapic-generator-#{gem_name}.gemspec"
         gen "rakefile.erb",  "Rakefile"

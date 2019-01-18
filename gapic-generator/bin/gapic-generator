@@ -28,17 +28,17 @@ def export_templates_to export_path
   FileUtils.cp_r "templates/default/.", export_path
 end
 
-def generate_gem_to gem_name, gem_path
+def build_gem_to gem_name, gem_path
   if File.exist?(gem_path) && File.file?(gem_path)
     puts "Cannot generate gem to an existing file path"
     exit
   end
   FileUtils.mkdir_p gem_path
 
-  require "google/gapic/gem_generator"
+  require "google/gapic/gem_builder"
 
-  generator = Google::Gapic::GemGenerator.new gem_name, gem_path
-  generator.generate
+  builder = Google::Gapic::GemBuilder.new gem_name, gem_path
+  builder.bootstrap
   export_templates_to File.join(gem_path, "templates", "gem_name")
 end
 
@@ -80,7 +80,7 @@ if options[:gem]
   # TODO: Validate gem name
   gem_path = File.expand_path options[:gem][:path]
 
-  generate_gem_to gem_name, gem_path
+  build_gem_to gem_name, gem_path
 
   puts "Gem #{gem_name} created at #{gem_path}"
 end

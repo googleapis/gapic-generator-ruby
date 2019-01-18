@@ -103,14 +103,14 @@ def generate_default_templates service
 end
 
 def generate_gem gem_name
-  require "google/gapic/gem_generator"
+  require "google/gapic/gem_builder"
   require "tmpdir"
 
   target_path = File.expand_path File.join("expected_output/gems", gem_name)
 
   Dir.mktmpdir do |tmp_dir|
-    generator = Google::Gapic::GemGenerator.new gem_name, target_path
-    generator.generate
+    builder = Google::Gapic::GemBuilder.new gem_name, target_path
+    builder.bootstrap
 
     Dir.glob(File.join(tmp_dir, "**/*")).each do |file|
       next unless File.file? file
