@@ -15,13 +15,22 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/gapic/generators/default_generator"
+require "google/gapic/gem_builder"
+require "tmpdir"
 
-class DefaultGeneratorTest < GeneratorTest
-  def test_speech_generate
-    generator = Google::Gapic::Generators::DefaultGenerator.new api(:speech)
-    generator.generate.each do |file|
-      assert_equal expected_content("default", file.name), file.content
+class GemBuilderTest < GemTest
+  def test_speech_gem
+    Dir.mktmpdir do |tmp_dir|
+      builder = Google::Gapic::GemBuilder.new "my_plugin", tmp_dir
+      builder.bootstrap
+
+      Dir.glob(File.join(tmp_dir, "**/*")).each do |file|
+        next unless File.file? file
+
+        local_file_path = file.gsub "#{tmp_dir}/", ""
+        assert_equal expected_content("my_plugin", local_file_path),
+                     File.read(file)
+      end
     end
   end
 end

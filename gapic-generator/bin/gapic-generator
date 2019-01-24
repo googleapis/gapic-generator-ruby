@@ -19,6 +19,29 @@ $stderr.sync = true
 require "optparse"
 require "fileutils"
 
+def export_templates_to export_path
+  if File.exist?(export_path) && File.file?(export_path)
+    puts "Cannot export to an existing file path"
+    exit
+  end
+  FileUtils.mkdir_p export_path
+  FileUtils.cp_r "templates/default/.", export_path
+end
+
+def build_gem_to gem_name, gem_path
+  if File.exist?(gem_path) && File.file?(gem_path)
+    puts "Cannot generate gem to an existing file path"
+    exit
+  end
+  FileUtils.mkdir_p gem_path
+
+  require "google/gapic/gem_builder"
+
+  builder = Google::Gapic::GemBuilder.new gem_name, gem_path
+  builder.bootstrap
+  export_templates_to File.join(gem_path, "templates", "gem_name")
+end
+
 ARGV << "-h" if ARGV.empty?
 
 options = {}
@@ -30,10 +53,10 @@ OptionParser.new do |opts|
     options[:export] = export_path
   end
 
-  # opts.on "-g", "--gem name", String,
-  #         "Generate a new rubygem" do |gem_name|
-  #   options[:gem] = gem_name
-  # end
+  opts.on "-g", "--gem name, path", Array, "Generate a new rubygem" do |args|
+    # puts args.inspect
+    options[:gem] = { name: args[0], path: args[1] }
+  end
 
   opts.on_tail "-h", "--help", "Show this message" do
     puts opts
@@ -43,15 +66,21 @@ end.parse!
 
 if options[:export]
   export_path = File.expand_path options[:export]
-  if File.exist?(export_path) && File.file?(options[:export])
-    puts "Cannot export to an existing file path"
-    exit
-  end
-  FileUtils.mkdir_p export_path
-  FileUtils.cp_r "templates/default/.", export_path
+
+  export_templates_to export_path
 
   puts "Template files exported to #{export_path}"
   puts "You can use these files when calling protoc with:"
   puts ""
   puts "$ GOOGLE_GAPIC_GENERATOR_RUBY_TEMPLATES=#{export_path} protoc ..."
+end
+
+if options[:gem]
+  gem_name = options[:gem][:name]
+  # TODO: Validate gem name
+  gem_path = File.expand_path options[:gem][:path]
+
+  build_gem_to gem_name, gem_path
+
+  puts "Gem #{gem_name} created at #{gem_path}"
 end

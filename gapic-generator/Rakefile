@@ -69,3 +69,56 @@ task :ci do
 end
 
 task default: :ci
+
+desc "Generate the expected output for tests"
+task :gen do
+  Rake::Task["gen:templates"].invoke
+  Rake::Task["gen:gem_creation"].invoke
+end
+namespace :gen do
+  desc "Generate the expected output for template tests"
+  task :templates do
+    generate_default_templates "speech"
+  end
+
+  desc "Generate the expected output for gem creation tests"
+  task :gem_creation do
+    generate_gem "my_plugin"
+  end
+end
+
+def generate_default_templates service
+  require "google/gapic/schema/api"
+  require "google/gapic/generators/default_generator"
+
+  proto_input = File.read "test/proto_input/#{service}.bin", mode: "rb"
+  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+  api = Google::Gapic::Schema::Api.new request
+  generator = Google::Gapic::Generators::DefaultGenerator.new api
+  generator.generate.each do |file|
+    target_file_path = File.join "expected_output/templates/default", file.name
+    FileUtils.mkdir_p File.dirname(target_file_path)
+    File.write target_file_path, file.content
+  end
+end
+
+def generate_gem gem_name
+  require "google/gapic/gem_builder"
+  require "tmpdir"
+
+  target_path = File.expand_path File.join("expected_output/gems", gem_name)
+
+  Dir.mktmpdir do |tmp_dir|
+    builder = Google::Gapic::GemBuilder.new gem_name, target_path
+    builder.bootstrap
+
+    Dir.glob(File.join(tmp_dir, "**/*")).each do |file|
+      next unless File.file? file
+
+      local_file_path = file.gsub "#{tmp_dir}/", ""
+      target_file_path = File.join target_path, gem_name, local_file_path
+      FileUtils.mkdir_p File.dirname(target_file_path)
+      File.write target_file_path, File.read(file)
+    end
+  end
+end

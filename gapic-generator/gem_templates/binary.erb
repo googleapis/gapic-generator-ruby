@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+
+$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
+require "google/gapic/runner"
+require "google/gapic/generators/<%= gem_name %>_generator"
+
+# Create and run the generator passing in the generator class.
+generator = Google::Gapic::Generators::<%= gem_class_prefix %>Generator
+runner = Google::Gapic::Runner.new generator
+runner.run
