@@ -43,13 +43,13 @@ module Google
           DEFAULT_SERVICE_PORT = 443
 
           # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = [].freeze
+          GRPC_INTERCEPTORS = []
 
           DEFAULT_TIMEOUT = 30
 
           # The scopes needed to make gRPC calls to all of the methods defined
           # in this service.
-          ALL_SCOPES = .freeze
+          ALL_SCOPES = ["https://www.googleapis.com/auth/cloud-platform"].freeze
 
           # @private
           class OperationsClient < Google::Longrunning::OperationsClient
@@ -184,6 +184,7 @@ module Google
             request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
             @recognize.call(request, options, &block)
           end
+
           ##
           # TODO
           #
@@ -194,9 +195,9 @@ module Google
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Cloud::Speech::V1::RecognizeResponse]
+          # @yieldparam result [Google::Gax::Operation]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
-          # @return [Google::Cloud::Speech::V1::RecognizeResponse]
+          # @return [Google::Gax::Operation]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
@@ -223,22 +224,29 @@ module Google
               config: config,
               audio: audio,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
-            @recognize.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Gax::Operation
+            operation = Google::Gax::Operation.new(
+              @long_running_recognize.call(request, options),
+              @operations_client,
+              call_options: options
+            )
+            operation.on_done { |operation| yield(operation) } if block_given?
+            operation
           end
+
           ##
           # TODO
           #
-          # @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+          # @param streaming_config [Google::Cloud::Speech::V1::StreamingRecognitionConfig | Hash]
           #   TODO
-          # @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+          # @param audio_content [String]
           #   TODO
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Cloud::Speech::V1::RecognizeResponse]
+          # @yieldparam result [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
-          # @return [Google::Cloud::Speech::V1::RecognizeResponse]
+          # @return [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
@@ -257,16 +265,16 @@ module Google
           #   response = speech_client.recognize(config, audio)
           #
           def streaming_recognize \
-              config,
-              audio,
+              streaming_config,
+              audio_content,
               options: nil,
               &block
             request = {
-              config: config,
-              audio: audio,
+              streaming_config: streaming_config,
+              audio_content: audio_content,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
-            @recognize.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeResponse
+            @streaming_recognize.call(request, options, &block)
           end
 
           protected

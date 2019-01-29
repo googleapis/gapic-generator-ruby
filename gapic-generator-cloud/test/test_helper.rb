@@ -36,7 +36,7 @@ class GeneratorTest < Minitest::Test
     Google::Gapic::Schema::Api.new request(service)
   end
 
-  def expected_content filename
-    File.read "test/expected_output/#{filename}"
+  def expected_content service, filename
+    File.read "expected_output/#{service}/#{filename}"
   end
 end

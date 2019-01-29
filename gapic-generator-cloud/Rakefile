@@ -34,4 +34,34 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+desc "Generate the expected output for tests"
+task :gen do
+  Rake::Task["gen:templates"].invoke
+end
+namespace :gen do
+  desc "Generate the expected output for template tests"
+  task :templates do
+    generate_cloud_templates "speech"
+  end
+end
+
+def api service
+  require "google/gapic/schema/api"
+  proto_input = File.read "test/proto_input/#{service}.bin", mode: "rb"
+  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+  Google::Gapic::Schema::Api.new request
+end
+
+def generate_cloud_templates service
+  require "google/gapic/generators/cloud_generator"
+
+  api = api service
+  generator = Google::Gapic::Generators::CloudGenerator.new api
+  generator.generate.each do |file|
+    target_file_path = File.join "expected_output", service, file.name
+    FileUtils.mkdir_p File.dirname(target_file_path)
+    File.write target_file_path, file.content
+  end
+end
+
 task default: :ci

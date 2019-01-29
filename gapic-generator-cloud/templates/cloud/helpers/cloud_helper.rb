@@ -80,55 +80,6 @@ module CloudHelper
     "google/cloud/speech/v1/cloud_speech_services_pb"
   end
 
-  def method_name method
-    ActiveSupport::Inflector.underscore method.name
-  end
-
-  def method_return_type _method
-    "Google::Cloud::Speech::V1::RecognizeResponse"
-  end
-
-  def method_desc _method
-    "TODO"
-  end
-
-  def method_arguments _method
-    %w[config audio]
-  end
-
-  def method_arg_name arg
-    arg.to_s
-  end
-
-  def method_arg_type arg
-    return "Google::Cloud::Speech::V1::RecognitionConfig" if arg == "config"
-
-    "Google::Cloud::Speech::V1::RecognitionAudio"
-  end
-
-  def method_arg_desc _arg
-    "TODO"
-  end
-
-  def method_code_example _method
-    <<~CODE_EXAMPLE
-      require "google/cloud/speech"
-
-      speech_client = Google::Cloud::Speech.new(version: :v1)
-      encoding = :FLAC
-      sample_rate_hertz = 44100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
-      response = speech_client.recognize(config, audio)
-    CODE_EXAMPLE
-  end
-
   def prepend_with input, prepend
     input.strip.each_line.map { |line| prepend + line }.join
   end
