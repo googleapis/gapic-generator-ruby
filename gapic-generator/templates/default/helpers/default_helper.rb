@@ -32,6 +32,7 @@ module DefaultHelper
 
   def indent_tail input, spacing
     return input if input.lines.count < 2
+
     input.lines[0] + indent(input.lines[1..-1].join, spacing)
   end
 
