@@ -85,8 +85,8 @@ module Google
         def update_fields! message
           message.nested_messages.each(&method(:update_fields!))
           message.fields.each do |f|
-            f.message = cached_message(f.type_name)
-            f.enum = cached_enum(f.type_name)
+            f.message = cached_message f.type_name
+            f.enum = cached_enum f.type_name
           end
         end
 
