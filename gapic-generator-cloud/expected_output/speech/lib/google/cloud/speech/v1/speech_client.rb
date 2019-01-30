@@ -39,8 +39,12 @@ module Google
           # The default port of the service.
           DEFAULT_SERVICE_PORT = 443
 
+          # rubocop:disable Style/MutableConstant
+
           # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = [].freeze
+          GRPC_INTERCEPTORS = []
+
+          # rubocop:enable Style/MutableConstant
 
           DEFAULT_TIMEOUT = 30
 

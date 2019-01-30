@@ -22,8 +22,12 @@ class <%= client_name service %>
   # The default port of the service.
   DEFAULT_SERVICE_PORT = <%= client_port service %>
 
+  # rubocop:disable Style/MutableConstant
+
   # The default set of gRPC interceptors.
   GRPC_INTERCEPTORS = []
+
+  # rubocop:enable Style/MutableConstant
 
   DEFAULT_TIMEOUT = 30
 
