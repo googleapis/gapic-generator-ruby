@@ -14,15 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-
 require "json"
 require "pathname"
 
 require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
-
 
 require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/credentials"
@@ -43,7 +40,7 @@ module Google
           DEFAULT_SERVICE_PORT = 443
 
           # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
+          GRPC_INTERCEPTORS = [].freeze
 
           DEFAULT_TIMEOUT = 30
 
@@ -104,40 +101,39 @@ module Google
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/cloud/speech/v1/cloud_speech_services_pb"
-          
+
             credentials ||= Google::Cloud::Speech::V1::Credentials.default
-          
+
             @operations_client = OperationsClient.new(
-            credentials: credentials,
-            scopes: scopes,
-            client_config: client_config,
-            timeout: timeout,
-            lib_name: lib_name,
-            lib_version: lib_version
-          )
-          
+              credentials: credentials,
+              scopes: scopes,
+              client_config: client_config,
+              timeout: timeout,
+              lib_name: lib_name,
+              lib_version: lib_version
+            )
+
             @speech_stub = create_stub credentials, scopes
-          
+
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-          
+
             @recognize = Google::Gax.create_api_call(
-            @speech_stub.method(:recognize),
-            defaults["recognize"],
-            exception_transformer: exception_transformer
-          )
-          
+              @speech_stub.method(:recognize),
+              defaults["recognize"],
+              exception_transformer: exception_transformer
+            )
+
             @long_running_recognize = Google::Gax.create_api_call(
-            @speech_stub.method(:long_running_recognize),
-            defaults["long_running_recognize"],
-            exception_transformer: exception_transformer
-          )
-          
+              @speech_stub.method(:long_running_recognize),
+              defaults["long_running_recognize"],
+              exception_transformer: exception_transformer
+            )
+
             @streaming_recognize = Google::Gax.create_api_call(
-            @speech_stub.method(:streaming_recognize),
-            defaults["streaming_recognize"],
-            exception_transformer: exception_transformer
-          )
-          
+              @speech_stub.method(:streaming_recognize),
+              defaults["streaming_recognize"],
+              exception_transformer: exception_transformer
+            )
           end
 
           # Service calls
@@ -158,7 +154,7 @@ module Google
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
-          #   
+          #
           #   speech_client = Google::Cloud::Speech.new(version: :v1)
           #   encoding = :FLAC
           #   sample_rate_hertz = 44100
@@ -179,7 +175,7 @@ module Google
               &block
             request = {
               config: config,
-              audio: audio,
+              audio: audio
             }.delete_if { |_, v| v.nil? }
             request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
             @recognize.call(request, options, &block)
@@ -201,7 +197,7 @@ module Google
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
-          #   
+          #
           #   speech_client = Google::Cloud::Speech.new(version: :v1)
           #   encoding = :FLAC
           #   sample_rate_hertz = 44100
@@ -218,11 +214,10 @@ module Google
           def long_running_recognize \
               config,
               audio,
-              options: nil,
-              &block
+              options: nil
             request = {
               config: config,
-              audio: audio,
+              audio: audio
             }.delete_if { |_, v| v.nil? }
             request = Google::Gax.to_proto request, Google::Gax::Operation
             operation = Google::Gax::Operation.new(
@@ -230,7 +225,7 @@ module Google
               @operations_client,
               call_options: options
             )
-            operation.on_done { |operation| yield(operation) } if block_given?
+            operation.on_done { |operation| yield operation } if block_given?
             operation
           end
 
@@ -250,7 +245,7 @@ module Google
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
-          #   
+          #
           #   speech_client = Google::Cloud::Speech.new(version: :v1)
           #   encoding = :FLAC
           #   sample_rate_hertz = 44100
@@ -271,7 +266,7 @@ module Google
               &block
             request = {
               streaming_config: streaming_config,
-              audio_content: audio_content,
+              audio_content: audio_content
             }.delete_if { |_, v| v.nil? }
             request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeResponse
             @streaming_recognize.call(request, options, &block)
@@ -312,7 +307,7 @@ module Google
           def default_settings client_config, timeout, metadata, lib_name,
                                lib_version
             package_version = Gem.loaded_specs["google-cloud-speech"]
-              .version.version
+                                 .version.version
 
             google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
             google_api_client << " #{lib_name}/#{lib_version}" if lib_name
@@ -328,7 +323,7 @@ module Google
             )
             client_config_file.open do |f|
               Google::Gax.construct_settings(
-                "google.cloud.speech.v1.Speech,
+                "google.cloud.speech.v1.Speech",
                 JSON.parse(f.read),
                 client_config,
                 Google::Gax::Grpc::STATUS_CODE_NAMES,
@@ -353,4 +348,3 @@ rescue LoadError
 end
 
 # rubocop:enable Lint/HandleExceptions
-

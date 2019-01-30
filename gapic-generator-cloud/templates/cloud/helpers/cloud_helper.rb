@@ -81,11 +81,21 @@ module CloudHelper
   end
 
   def prepend_with input, prepend
-    input.strip.each_line.map { |line| prepend + line }.join
+    input
+      .strip
+      .each_line
+      .map { |line| prepend + line }
+      .map { |line| line.blank? ? "\n" : line }
+      .join
   end
 
   def indent input, spacing
-    prepend_with(input, " " * spacing).lstrip
+    prepend_with(input, " " * spacing).rstrip
+  end
+
+  def indent_tail input, spacing
+    return input if input.lines.count < 2
+    input.lines[0] + indent(input.lines[1..-1].join, spacing)
   end
 
   def client_json_config_file_name _service
