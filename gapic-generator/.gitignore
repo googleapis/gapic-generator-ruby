@@ -8,6 +8,7 @@ Gemfile.lock
 /pkg/
 /spec/reports/
 /tmp/
+Gemfile.lock
 
 # Ignore generated protobuf files
 *.pb.rb
