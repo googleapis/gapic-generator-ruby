@@ -8,3 +8,4 @@ Gemfile.lock
 /pkg/
 /spec/reports/
 /tmp/
+Gemfile.lock
