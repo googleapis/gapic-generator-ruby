@@ -1,0 +1,31 @@
+##
+# <%= method_desc method %>
+#
+<%- method_arguments(method).each do |arg| -%>
+# @param <%= method_arg_name arg %> [<%= method_doc_arg_type arg %>]
+<%= prepend_with method_arg_desc(arg), "#   " %>
+<%- end -%>
+# @param options [Google::Gax::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+# @yield [result, operation] Access the result along with the RPC operation
+# @yieldparam result [<%= method_return_type method %>]
+# @yieldparam operation [GRPC::ActiveCall::Operation]
+# @return [<%= method_return_type method %>]
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+# @example
+<%= prepend_with method_code_example(method), "#   " %>
+#
+def <%= method_name method %> \
+    <%- method_arguments(method).each do |arg| -%>
+    <%= method_arg_name arg %>,
+    <%- end -%>
+    options: nil,
+    &block
+  request = {
+    <%- method_arguments(method).each do |arg| -%>
+    <%= method_arg_name arg %>: <%= method_arg_name arg %>,
+    <%- end -%>
+  }.delete_if { |_, v| v.nil? }
+  request = Google::Gax.to_proto request, <%= method_request_type method %>
+  <%= method_ivar method %>.call(request, options, &block)
+end

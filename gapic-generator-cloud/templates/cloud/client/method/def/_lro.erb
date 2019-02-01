@@ -1,0 +1,36 @@
+##
+# <%= method_desc method %>
+#
+<%- method_arguments(method).each do |arg| -%>
+# @param <%= method_arg_name arg %> [<%= method_doc_arg_type arg %>]
+<%= prepend_with method_arg_desc(arg), "#   " %>
+<%- end -%>
+# @param options [Google::Gax::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+# @yield [operation] Register a callback to be run when an operation is done.
+# @yieldparam operation [Google::Gax::Operation]
+# @return [Google::Gax::Operation]
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+# @example
+<%= prepend_with method_code_example(method), "#   " %>
+#
+def <%= method_name method %> \
+    <%- method_arguments(method).each do |arg| -%>
+    <%= method_arg_name arg %>,
+    <%- end -%>
+    options: nil,
+    &block
+  request = {
+    <%- method_arguments(method).each do |arg| -%>
+    <%= method_arg_name arg %>: <%= method_arg_name arg %>,
+    <%- end -%>
+  }.delete_if { |_, v| v.nil? }
+  request = Google::Gax.to_proto request, <%= method_request_type method %>
+  operation = Google::Gax::Operation.new(
+    <%= method_ivar method %>.call(request, options),
+    @operations_client,
+    call_options: options
+  )
+  operation.on_done { |operation| yield(operation) } if block_given?
+  operation
+end

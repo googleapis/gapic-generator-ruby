@@ -1,0 +1,21 @@
+##
+# <%= method_desc method %>
+#
+# @param reqs [Enumerable<<%= method_request_type method %> | Hash>]
+#   TODO
+# @param options [Google::Gax::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+# @return [Enumerable<<%= method_return_type method %>>]
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+# @example
+<%= prepend_with method_code_example(method), "#   " %>
+#
+def <%= method_name method %> \
+    reqs,
+    options: nil,
+    &block
+  request = reqs.lazy.map do |req|
+    Google::Gax.to_proto req, <%= method_request_type method %>
+  end
+  <%= method_ivar method %>.call(request, options)
+end

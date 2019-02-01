@@ -25,21 +25,27 @@ module MethodHelper
     "@#{method_name method}"
   end
 
+  def method_kind method
+    if method_client_streaming? method
+      if method_server_streaming? method
+        :bidi
+      else
+        :client
+      end
+    elsif method_server_streaming? method
+      :server
+    elsif method_lro? method
+      :lro
+    else
+      :normal
+    end
+  end
+
   def method_request_type method
     message_ruby_type method.input
   end
 
-  def method_doc_return_type method
-    if method_server_streaming? method
-      return "Enumerable<#{method_return_type method}>"
-    end
-
-    method_return_type method
-  end
-
   def method_return_type method
-    return "Google::Gax::Operation" if message_lro? method.output
-
     message_ruby_type method.output
   end
 
@@ -60,15 +66,6 @@ module MethodHelper
   end
 
   def method_arguments method
-    if method.client_streaming
-      return [
-        OpenStruct.new(
-          name: "reqs",
-          ruby_type: "Enumerable<#{message_ruby_type method.input} | Hash>"
-        )
-      ]
-    end
-
     method.input.fields
   end
 
@@ -77,8 +74,6 @@ module MethodHelper
   end
 
   def method_doc_arg_type arg
-    return arg.ruby_type if arg.respond_to? :ruby_type
-
     if arg.message?
       "#{message_ruby_type arg.message} | Hash"
     elsif arg.enum?
