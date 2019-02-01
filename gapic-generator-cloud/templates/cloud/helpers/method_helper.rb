@@ -25,6 +25,10 @@ module MethodHelper
     "@#{method_name method}"
   end
 
+  def method_request_type method
+    message_ruby_type method.input
+  end
+
   def method_doc_return_type method
     if method_server_streaming? method
       return "Enumerable<#{method_return_type method}>"

@@ -181,7 +181,7 @@ module Google
               config: config,
               audio: audio,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
             @recognize.call(request, options, &block)
           end
 
@@ -223,7 +223,7 @@ module Google
               config: config,
               audio: audio,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Gax::Operation
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
             operation = Google::Gax::Operation.new(
               @long_running_recognize.call(request, options),
               @operations_client,
@@ -263,7 +263,7 @@ module Google
               options: nil,
               &block
             request = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeResponse
+              Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeRequest
             end
             @streaming_recognize.call(request, options)
           end

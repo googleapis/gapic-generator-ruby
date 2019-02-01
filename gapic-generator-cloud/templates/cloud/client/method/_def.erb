@@ -27,7 +27,7 @@ def <%= method_name method %> \
     &block
   <%- if method_client_streaming? method -%>
   request = reqs.lazy.map do |req|
-    Google::Gax.to_proto req, <%= method_return_type method %>
+    Google::Gax.to_proto req, <%= method_request_type method %>
   end
   <%- else -%>
   request = {
@@ -35,7 +35,7 @@ def <%= method_name method %> \
     <%= method_arg_name arg %>: <%= method_arg_name arg %>,
     <%- end -%>
   }.delete_if { |_, v| v.nil? }
-  request = Google::Gax.to_proto request, <%= method_return_type method %>
+  request = Google::Gax.to_proto request, <%= method_request_type method %>
   <%- end -%>
   <%- if method_lro? method -%>
   operation = Google::Gax::Operation.new(
