@@ -1,53 +1,54 @@
+<%- mp = method_presenter api, service, method -%>
 ##
-# <%= method_desc method %>
+<%= prepend_with mp.doc_description, "# " %>
 #
-<%- method_arguments(method).each do |arg| -%>
-<%= render partial: "client/method/arg", locals: { api: api, service: service, method: method, arg: arg } -%>
+<%- mp.arguments.each do |arg| -%>
+# @param <%= arg.name %> [<%= arg.doc_types %>]
+<%= prepend_with arg.doc_description, "#   " %>
 <%- end -%>
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-<%- if method_lro? method -%>
-# @yield [operation] Register a callback to be run when an operation is done.
-# @yieldparam operation [Google::Gax::Operation]
-<%- elsif !method_server_streaming? method -%>
-# @yield [result, operation] Access the result along with the RPC operation
-# @yieldparam result [<%= method_doc_return_type method %>]
-# @yieldparam operation [GRPC::ActiveCall::Operation]
+<%- if mp.yields? -%>
+<%- yield_param_names = mp.yield_params.map(&:name).join(", ") -%>
+# @yield [<%= yield_param_names %>] <%= mp.yield_doc_description %>
+<%- mp.yield_params.each do |yp| -%>
+# @yieldparam <%= yp.name %> [<%= yp.doc_types %>]
 <%- end -%>
-# @return [<%= method_doc_return_type method %>]
+<%- end -%>
+# @return [<%= mp.doc_return_type %>]
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
-<%= prepend_with method_code_example(method), "#   " %>
+<%= prepend_with mp.code_example, "#   " %>
 #
-def <%= method_name method %> \
-    <%- method_arguments(method).each do |arg| -%>
-    <%= method_arg_name arg %>,
-    <%- end -%>
+def <%= mp.name %> \
+<%- mp.arguments.each do |arg| -%>
+    <%= arg.name %>,
+<%- end -%>
     options: nil,
     &block
-  <%- if method_client_streaming? method -%>
-  request = reqs.lazy.map do |req|
-    Google::Gax.to_proto req, <%= method_request_type method %>
+<%- if mp.client_streaming? -%>
+  request = <%= mp.arguments.first.name %>.lazy.map do |req|
+    Google::Gax.to_proto req, <%= mp.request_type %>
   end
-  <%- else -%>
+<%- else -%>
   request = {
-    <%- method_arguments(method).each do |arg| -%>
-    <%= method_arg_name arg %>: <%= method_arg_name arg %>,
-    <%- end -%>
+<%- mp.arguments.each do |arg| -%>
+    <%= arg.name %>: <%= arg.name %>,
+<%- end -%>
   }.delete_if { |_, v| v.nil? }
-  request = Google::Gax.to_proto request, <%= method_request_type method %>
-  <%- end -%>
-  <%- if method_lro? method -%>
+  request = Google::Gax.to_proto request, <%= mp.request_type %>
+<%- end -%>
+<%- if mp.lro? -%>
   operation = Google::Gax::Operation.new(
-    <%= method_ivar method %>.call(request, options),
+    <%= mp.ivar %>.call(request, options),
     @operations_client,
     call_options: options
   )
   operation.on_done { |operation| yield(operation) } if block_given?
   operation
-  <%- elsif method_server_streaming? method -%>
-  <%= method_ivar method %>.call(request, options)
-  <%- else -%>
-  <%= method_ivar method %>.call(request, options, &block)
-  <%- end -%>
+<%- elsif mp.server_streaming? -%>
+  <%= mp.ivar %>.call(request, options)
+<%- else -%>
+  <%= mp.ivar %>.call(request, options, &block)
+<%- end -%>
 end
