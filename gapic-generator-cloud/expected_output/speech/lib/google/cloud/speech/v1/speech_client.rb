@@ -181,7 +181,7 @@ module Google
               config: config,
               audio: audio,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeResponse
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
             @recognize.call(request, options, &block)
           end
 
@@ -194,9 +194,8 @@ module Google
           #   TODO
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Gax::Operation]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yield [operation] Register a callback to be run when an operation is done.
+          # @yieldparam operation [Google::Gax::Operation]
           # @return [Google::Gax::Operation]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
@@ -224,7 +223,7 @@ module Google
               config: config,
               audio: audio,
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Gax::Operation
+            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
             operation = Google::Gax::Operation.new(
               @long_running_recognize.call(request, options),
               @operations_client,
@@ -237,16 +236,11 @@ module Google
           ##
           # TODO
           #
-          # @param streaming_config [Google::Cloud::Speech::V1::StreamingRecognitionConfig | Hash]
-          #   TODO
-          # @param audio_content [String]
+          # @param reqs [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
           #   TODO
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
-          # @return [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
+          # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   require "google/cloud/speech"
@@ -265,16 +259,13 @@ module Google
           #   response = speech_client.recognize(config, audio)
           #
           def streaming_recognize \
-              streaming_config,
-              audio_content,
+              reqs,
               options: nil,
               &block
-            request = {
-              streaming_config: streaming_config,
-              audio_content: audio_content,
-            }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeResponse
-            @streaming_recognize.call(request, options, &block)
+            request = reqs.lazy.map do |req|
+              Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeRequest
+            end
+            @streaming_recognize.call(request, options)
           end
 
           protected

@@ -19,7 +19,8 @@ require "protobuf/descriptors"
 require "google/gapic/schema"
 require_relative "../../../templates/cloud/helpers/method_helper"
 
-describe MethodHelper, :method_arg_type do
+# rubocop:disable Metrics/BlockLength
+describe MethodHelper, :method_doc_arg_type do
   include MethodHelper
 
   def descriptor **args
@@ -37,7 +38,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String # Decimal
+    method_doc_arg_type(arg).must_equal String # Decimal
   end
 
   it "knows the TYPE_FLOAT type" do
@@ -47,7 +48,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String # Float
+    method_doc_arg_type(arg).must_equal String # Float
   end
 
   it "knows the TYPE_INT64 type" do
@@ -57,7 +58,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_UINT64 type" do
@@ -67,7 +68,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_INT32 type" do
@@ -77,7 +78,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_FIXED64 type" do
@@ -87,7 +88,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_FIXED32 type" do
@@ -97,7 +98,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_BOOL type" do
@@ -107,7 +108,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_STRING type" do
@@ -117,7 +118,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_GROUP type" do
@@ -127,7 +128,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_MESSAGE type" do
@@ -137,7 +138,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_BYTES type" do
@@ -147,7 +148,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_UINT32 type" do
@@ -157,7 +158,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_ENUM type" do
@@ -167,7 +168,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_SFIXED32 type" do
@@ -177,7 +178,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_SFIXED64 type" do
@@ -187,7 +188,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_SINT32 type" do
@@ -197,7 +198,7 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
 
   it "knows the TYPE_SINT64 type" do
@@ -207,6 +208,9 @@ describe MethodHelper, :method_arg_type do
       %w[Some Gem some_method]
     )
 
-    method_arg_type(arg).must_equal String
+    method_doc_arg_type(arg).must_equal String
   end
+
+  # TODO: Add test for streaming types.
 end
+# rubocop:enable Metrics/BlockLength

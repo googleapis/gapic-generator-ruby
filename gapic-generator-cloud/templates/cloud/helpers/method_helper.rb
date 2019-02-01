@@ -21,6 +21,22 @@ module MethodHelper
     ActiveSupport::Inflector.underscore method.name
   end
 
+  def method_ivar method
+    "@#{method_name method}"
+  end
+
+  def method_request_type method
+    message_ruby_type method.input
+  end
+
+  def method_doc_return_type method
+    if method_server_streaming? method
+      return "Enumerable<#{method_return_type method}>"
+    end
+
+    method_return_type method
+  end
+
   def method_return_type method
     return "Google::Gax::Operation" if message_lro? method.output
 
@@ -35,7 +51,24 @@ module MethodHelper
     "TODO"
   end
 
+  def method_client_streaming? method
+    method.client_streaming
+  end
+
+  def method_server_streaming? method
+    method.server_streaming
+  end
+
   def method_arguments method
+    if method.client_streaming
+      return [
+        OpenStruct.new(
+          name: "reqs",
+          ruby_type: "Enumerable<#{message_ruby_type method.input} | Hash>"
+        )
+      ]
+    end
+
     method.input.fields
   end
 
@@ -43,9 +76,11 @@ module MethodHelper
     arg.name
   end
 
-  def method_arg_type arg
+  def method_doc_arg_type arg
+    return arg.ruby_type if arg.respond_to? :ruby_type
+
     if arg.message?
-      message_ruby_type arg.message
+      "#{message_ruby_type arg.message} | Hash"
     elsif arg.enum?
       # TODO: handle when arg message is nil and enum is the type
       "ENUM(#{arg.enum.name})"
@@ -56,10 +91,6 @@ module MethodHelper
 
   def method_arg_desc _arg
     "TODO"
-  end
-
-  def method_arg_hashable? arg
-    arg.message?
   end
 
   def method_code_example _method

@@ -6,10 +6,15 @@
 <%- end -%>
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+<%- if method_lro? method -%>
+# @yield [operation] Register a callback to be run when an operation is done.
+# @yieldparam operation [Google::Gax::Operation]
+<%- elsif !method_server_streaming? method -%>
 # @yield [result, operation] Access the result along with the RPC operation
-# @yieldparam result [<%= method_return_type method %>]
+# @yieldparam result [<%= method_doc_return_type method %>]
 # @yieldparam operation [GRPC::ActiveCall::Operation]
-# @return [<%= method_return_type method %>]
+<%- end -%>
+# @return [<%= method_doc_return_type method %>]
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
 <%= prepend_with method_code_example(method), "#   " %>
@@ -20,21 +25,29 @@ def <%= method_name method %> \
     <%- end -%>
     options: nil,
     &block
+  <%- if method_client_streaming? method -%>
+  request = reqs.lazy.map do |req|
+    Google::Gax.to_proto req, <%= method_request_type method %>
+  end
+  <%- else -%>
   request = {
     <%- method_arguments(method).each do |arg| -%>
     <%= method_arg_name arg %>: <%= method_arg_name arg %>,
     <%- end -%>
   }.delete_if { |_, v| v.nil? }
-  request = Google::Gax.to_proto request, <%= method_return_type method %>
+  request = Google::Gax.to_proto request, <%= method_request_type method %>
+  <%- end -%>
   <%- if method_lro? method -%>
   operation = Google::Gax::Operation.new(
-    @<%= method_name method %>.call(request, options),
+    <%= method_ivar method %>.call(request, options),
     @operations_client,
     call_options: options
   )
   operation.on_done { |operation| yield(operation) } if block_given?
   operation
+  <%- elsif method_server_streaming? method -%>
+  <%= method_ivar method %>.call(request, options)
   <%- else -%>
-  @<%= method_name method %>.call(request, options, &block)
+  <%= method_ivar method %>.call(request, options, &block)
   <%- end -%>
 end
