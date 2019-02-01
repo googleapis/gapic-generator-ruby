@@ -1,6 +1,2 @@
-<%- if method_arg_hashable? arg -%>
-# @param <%= method_arg_name arg %> [<%= method_arg_type arg %> | Hash]
-<%- else -%>
-# @param <%= method_arg_name arg %> [<%= method_arg_type arg %>]
-<%- end -%>
+# @param <%= method_arg_name arg %> [<%= method_doc_arg_type arg %>]
 <%= prepend_with method_arg_desc(arg), "#   " %>
