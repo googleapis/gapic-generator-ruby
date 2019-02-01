@@ -39,15 +39,15 @@ def <%= method_name method %> \
   <%- end -%>
   <%- if method_lro? method -%>
   operation = Google::Gax::Operation.new(
-    @<%= method_name method %>.call(request, options),
+    <%= method_ivar method %>.call(request, options),
     @operations_client,
     call_options: options
   )
   operation.on_done { |operation| yield(operation) } if block_given?
   operation
   <%- elsif method_server_streaming? method -%>
-  @<%= method_name method %>.call(request, options)
+  <%= method_ivar method %>.call(request, options)
   <%- else -%>
-  @<%= method_name method %>.call(request, options, &block)
+  <%= method_ivar method %>.call(request, options, &block)
   <%- end -%>
 end

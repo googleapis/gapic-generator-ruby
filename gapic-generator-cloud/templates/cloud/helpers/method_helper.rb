@@ -21,6 +21,10 @@ module MethodHelper
     ActiveSupport::Inflector.underscore method.name
   end
 
+  def method_ivar method
+    "@#{method_name method}"
+  end
+
   def method_doc_return_type method
     if method_server_streaming? method
       return "Enumerable<#{method_return_type method}>"
