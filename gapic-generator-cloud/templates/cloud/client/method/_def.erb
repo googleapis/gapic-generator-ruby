@@ -26,29 +26,8 @@ def <%= mp.name %> \
 <%- end -%>
     options: nil,
     &block
-<%- if mp.client_streaming? -%>
-  request = <%= mp.arguments.first.name %>.lazy.map do |req|
-    Google::Gax.to_proto req, <%= mp.request_type %>
-  end
-<%- else -%>
-  request = {
-<%- mp.arguments.each do |arg| -%>
-    <%= arg.name %>: <%= arg.name %>,
-<%- end -%>
-  }.delete_if { |_, v| v.nil? }
-  request = Google::Gax.to_proto request, <%= mp.request_type %>
-<%- end -%>
-<%- if mp.lro? -%>
-  operation = Google::Gax::Operation.new(
-    <%= mp.ivar %>.call(request, options),
-    @operations_client,
-    call_options: options
-  )
-  operation.on_done { |operation| yield(operation) } if block_given?
-  operation
-<%- elsif mp.server_streaming? -%>
-  <%= mp.ivar %>.call(request, options)
-<%- else -%>
-  <%= mp.ivar %>.call(request, options, &block)
-<%- end -%>
+<%= prepend_with render(
+  partial: "client/method/body/#{mp.kind}",
+  locals: { api: api, service: service, method: method, mp: mp }
+), "  " %>
 end

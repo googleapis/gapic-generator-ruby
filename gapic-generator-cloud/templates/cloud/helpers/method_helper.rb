@@ -26,6 +26,22 @@ module Cloud
       ActiveSupport::Inflector.underscore @method.name
     end
 
+    def kind
+      if client_streaming?
+        if server_streaming?
+          :bidi
+        else
+          :client
+        end
+      elsif server_streaming?
+        :server
+      elsif lro?
+        :lro
+      else
+        :normal
+      end
+    end
+
     def ivar
       "@#{name}"
     end
