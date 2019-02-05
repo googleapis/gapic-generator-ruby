@@ -1,10 +1,10 @@
 <%- mp = method_presenter api, service, method -%>
 ##
-<%= prepend_with mp.doc_description, "# " %>
+<%= indent mp.doc_description, "# " %>
 #
 <%- mp.arguments.each do |arg| -%>
 # @param <%= arg.name %> [<%= arg.doc_types %>]
-<%= prepend_with arg.doc_description, "#   " %>
+<%= indent arg.doc_description, "#   " %>
 <%- end -%>
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -18,7 +18,7 @@
 # @return [<%= mp.doc_return_type %>]
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
-<%= prepend_with mp.code_example, "#   " %>
+<%= indent mp.code_example, "#   " %>
 #
 def <%= mp.name %> \
 <%- mp.arguments.each do |arg| -%>
@@ -26,8 +26,8 @@ def <%= mp.name %> \
 <%- end -%>
     options: nil,
     &block
-<%= prepend_with render(
-  partial: "client/method/body/#{mp.kind}",
-  locals: { api: api, service: service, method: method, mp: mp }
-), "  " %>
+  <%= indent render(
+        partial: "client/method/body/#{mp.kind}",
+        locals: { api: api, service: service, method: method, mp: mp }
+      ), "  " %>
 end
