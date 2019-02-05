@@ -54,6 +54,8 @@ class MethodPresenter
   end
 
   def arguments
+    # TODO: Define the options and &block arguments here, not templates
+
     if client_streaming?
       return [
         OpenStruct.new(
