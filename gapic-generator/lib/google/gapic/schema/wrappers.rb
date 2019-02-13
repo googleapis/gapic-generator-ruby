@@ -206,7 +206,7 @@ module Google
         #   of the proto. See #docs for more info.
         # @param methods [Enumerable<Method>] The methods of this service.
         def initialize descriptor, address, docs, methods
-          super(descriptor, address, docs)
+          super descriptor, address, docs
           @methods = methods || {}
         end
 
@@ -335,7 +335,7 @@ module Google
         # @param generate [Boolean] Whether this file should be generated.
         def initialize descriptor, address, docs, messages, enums, services,
                        generate
-          super(descriptor, address, docs)
+          super descriptor, address, docs
           @messages = messages || {}
           @enums = enums || {}
           @services = services || {}
@@ -412,7 +412,7 @@ module Google
         #   of the proto. See #docs for more info.
         # @param values [Enumerable<EnumValue>] The EnumValues of this enum.
         def initialize descriptor, address, docs, values
-          super(descriptor, address, docs)
+          super descriptor, address, docs
           @values = values || {}
         end
 
@@ -490,7 +490,7 @@ module Google
         #   of this message.
         def initialize descriptor, address, docs, fields, extensions,
                        nested_messages, nested_enums
-          super(descriptor, address, docs)
+          super descriptor, address, docs
           @fields = fields || {}
           @extensions = extensions || {}
           @nested_messages = nested_messages || {}

@@ -14,7 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module LocalsHelper
+require "active_support/inflector"
+
+module DefaultHelper
+  def prepend_with input, prepend
+    input
+      .strip
+      .each_line
+      .map { |line| prepend + line }
+      .map { |line| line.blank? ? "\n" : line }
+      .join
+  end
+
+  def indent input, spacing
+    prepend_with(input, " " * spacing).rstrip
+  end
+
+  def indent_tail input, spacing
+    return input if input.lines.count < 2
+
+    input.lines[0] + indent(input.lines[1..-1].join, spacing)
+  end
+
   def assert_locals *locals
     locals.each { |local| raise "missing local in template" if local.nil? }
   end
