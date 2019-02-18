@@ -36,7 +36,7 @@ module Google
           use_templates! custom_templates if custom_templates
 
           # Configure these helper method to be used by the generator
-          use_helpers! :ruby_file_path, :api_services
+          use_helpers! :ruby_file_path, :api_services, :ruby_require
         end
 
         # Generates all the files for the API.
