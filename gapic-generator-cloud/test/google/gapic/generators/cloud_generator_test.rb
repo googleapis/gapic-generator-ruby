@@ -18,7 +18,6 @@ require "test_helper"
 require "google/gapic/generators/cloud_generator"
 
 class CloudGeneratorTest < GeneratorTest
-  focus
   def test_speech_generate
     generator = Google::Gapic::Generators::CloudGenerator.new api(:speech)
     test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
