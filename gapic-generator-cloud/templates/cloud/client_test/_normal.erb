@@ -1,0 +1,97 @@
+<%- assert_locals service, method -%>
+<% method_name = method.descriptor.name.underscore %>
+describe "<%= method_name %>" do
+  let :custom_error do
+    CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#<%= method_name %>."
+  end
+
+  it "invokes <%= method_name %> without error" do
+    # Create request parameters
+    encoding = :FLAC
+    sample_rate_hertz = 44_100
+    language_code = "en-US"
+    config = {
+      encoding: encoding,
+      sample_rate_hertz: sample_rate_hertz,
+      language_code: language_code
+    }
+    uri = "gs://bucket_name/file_name.flac"
+    audio = { uri: uri }
+
+    # Create expected grpc response
+    expected_response = {}
+    expected_response = Google::Gax.to_proto expected_response,
+                                             Google::Cloud::Speech::V1::RecognizeResponse
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of Google::Cloud::Speech::V1::RecognizeRequest, request
+      assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
+      assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
+      OpenStruct.new execute: expected_response
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+
+    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
+      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
+        client = Google::Cloud::Speech.new version: :v1
+
+        # Call method
+        response = client.<%= method_name %> config, audio
+
+        # Verify the response
+        assert_equal expected_response, response
+
+        # Call method with block
+        client.<%= method_name %> config, audio do |resp, operation|
+          # Verify the response
+          assert_equal expected_response, resp
+          refute_nil operation
+        end
+      end
+    end
+  end
+
+  it "invokes <%= method_name %> with error" do
+    # Create request parameters
+    encoding = :FLAC
+    sample_rate_hertz = 44_100
+    language_code = "en-US"
+    config = {
+      encoding: encoding,
+      sample_rate_hertz: sample_rate_hertz,
+      language_code: language_code
+    }
+    uri = "gs://bucket_name/file_name.flac"
+    audio = { uri: uri }
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of Google::Cloud::Speech::V1::RecognizeRequest, request
+      assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
+      assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
+      raise custom_error
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+
+    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
+      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
+        client = Google::Cloud::Speech.new version: :v1
+
+        # Call method
+        err = assert_raises Google::Gax::GaxError do
+          client.<%= method_name %> config, audio
+        end
+
+        # Verify the GaxError wrapped the custom error that was raised.
+        assert_match custom_error.message, err.message
+      end
+    end
+  end
+end
