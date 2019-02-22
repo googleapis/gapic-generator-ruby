@@ -52,6 +52,10 @@ module CloudHelper
     "#{service.name}Client"
   end
 
+  def client_name_full service
+    "#{ruby_namespace service.address}Client"
+  end
+
   def client_require _service
     "google/cloud/speech/v1/cloud_speech_pb"
   end

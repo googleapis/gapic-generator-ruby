@@ -21,11 +21,11 @@ describe "<%= method_name %>" do
     # Create expected grpc response
     expected_response = {}
     expected_response = Google::Gax.to_proto expected_response,
-                                             Google::Cloud::Speech::V1::RecognizeResponse
+                                             <%= mp.return_type %>
 
     # Mock Grpc layer
     mock_method = proc do |request|
-      assert_instance_of Google::Cloud::Speech::V1::RecognizeRequest, request
+      assert_instance_of <%= mp.request_type %>, request
       assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
       assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
       OpenStruct.new execute: expected_response
@@ -70,7 +70,7 @@ describe "<%= method_name %>" do
 
     # Mock Grpc layer
     mock_method = proc do |request|
-      assert_instance_of Google::Cloud::Speech::V1::RecognizeRequest, request
+      assert_instance_of <%= mp.request_type %>, request
       assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
       assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
       raise custom_error

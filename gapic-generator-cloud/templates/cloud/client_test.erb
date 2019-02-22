@@ -7,15 +7,15 @@ require "minitest/spec"
 
 require "google/gax"
 
-require "<%= ruby_path service.address[0..-3] %>"
-require "<%= ruby_path service.address %>_client"
-require "<%= ruby_path namespaces %>/cloud_<%= service.name.underscore %>_services_pb"
+require "google/cloud/speech"
+require "google/cloud/speech/v1/speech_client"
+require "<%= service_proto_require service %>"
 require "google/longrunning/operations_pb"
 require "google/longrunning/operations_services_pb"
 
-class CustomTestError<%= namespaces.last.upcase_first %> < StandardError; end
+class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStub<%= namespaces.last.upcase_first %>
+class MockGrpcClientStubV1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -55,7 +55,7 @@ class Mock<%= service.name %>Credentials<%= namespaces.last.upcase_first %> < <%
   end
 end
 
-describe <%= ruby_namespace service.address %>Client do
+describe <%= client_name_full service %> do
 <% service.methods.each do |method| %>
 <%- mp = method_presenter api, service, method -%>
 <%= indent render(partial: "client_test/#{mp.kind}",
