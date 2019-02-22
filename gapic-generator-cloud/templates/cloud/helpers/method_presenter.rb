@@ -75,6 +75,14 @@ class MethodPresenter
     end
   end
 
+  def fields   # TODO: merge with #arguments, above?
+    method.input.descriptor.field
+  end
+
+  def argument_names
+    fields.map &:name
+  end
+
   def request_type
     message_ruby_type method.input
   end

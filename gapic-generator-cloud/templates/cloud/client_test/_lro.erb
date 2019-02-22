@@ -33,8 +33,9 @@ describe "<%= method_name %>" do
     # Mock Grpc layer
     mock_method = proc do |request|
       assert_instance_of <%= mp.request_type %>, request
-      assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
-      assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
+<%- mp.fields.each do |field| -%>
+    assert_equal Google::Gax.to_proto(<%= field.name %>, <%= ruby_namespace field.type_name %>), request.<%= field.name %>
+<%- end -%>
       OpenStruct.new execute: operation
     end
     mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
@@ -47,7 +48,7 @@ describe "<%= method_name %>" do
         client = Google::Cloud::Speech.new version: :v1
 
         # Call method
-        response = client.<%= method_name %> config, audio
+        response = client.<%= method_name %> <%= mp.argument_names.join ", " %>
 
         # Verify the response
         assert_equal expected_response, response.response
@@ -81,8 +82,9 @@ describe "<%= method_name %>" do
     # Mock Grpc layer
     mock_method = proc do |request|
       assert_instance_of <%= mp.request_type %>, request
-      assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
-      assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
+<%- mp.fields.each do |field| -%>
+    assert_equal Google::Gax.to_proto(<%= field.name %>, <%= ruby_namespace field.type_name %>), request.<%= field.name %>
+<%- end -%>
       OpenStruct.new execute: operation
     end
     mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
@@ -95,7 +97,7 @@ describe "<%= method_name %>" do
         client = Google::Cloud::Speech.new version: :v1
 
         # Call method
-        response = client.<%= method_name %> config, audio
+        response = client.<%= method_name %> <%= mp.argument_names.join ", " %>
 
         # Verify the response
         assert response.error?
@@ -120,8 +122,9 @@ describe "<%= method_name %>" do
     # Mock Grpc layer
     mock_method = proc do |request|
       assert_instance_of <%= mp.request_type %>, request
-      assert_equal Google::Gax.to_proto(config, Google::Cloud::Speech::V1::RecognitionConfig), request.config
-      assert_equal Google::Gax.to_proto(audio, Google::Cloud::Speech::V1::RecognitionAudio), request.audio
+<%- mp.fields.each do |field| -%>
+    assert_equal Google::Gax.to_proto(<%= field.name %>, <%= ruby_namespace field.type_name %>), request.<%= field.name %>
+<%- end -%>
       raise custom_error
     end
     mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
@@ -135,7 +138,7 @@ describe "<%= method_name %>" do
 
         # Call method
         err = assert_raises Google::Gax::GaxError do
-          client.<%= method_name %> config, audio
+          client.<%= method_name %> <%= mp.argument_names.join ", " %>
         end
 
         # Verify the GaxError wrapped the custom error that was raised.
