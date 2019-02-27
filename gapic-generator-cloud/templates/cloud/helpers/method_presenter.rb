@@ -87,7 +87,7 @@ class MethodPresenter
   end
 
   def argument_names
-    arguments.map &:name
+    arguments.map(&:name)
   end
 
   def request_type
@@ -192,28 +192,26 @@ class MethodPresenter
   # TODO: replace field name comparison with type
   def default_value type_name
     case type_name
-      when "encoding"
-        ":FLAC"
-      when "sample_rate_hertz"
-        "44_100"
-      when "language_code"
-        "\"en-US\""
-      when "uri"
-        "\"gs://bucket_name/file_name.flac\""
-      else
-        type_name #raise "No default type for #{type_name}."
+    when "encoding"
+      ":FLAC"
+    when "sample_rate_hertz"
+      "44_100"
+    when "language_code"
+      "\"en-US\""
+    when "uri"
+      "\"gs://bucket_name/file_name.flac\""
     end
   end
 
   # TODO: replace hardcoded logic with annotation data
   def example_arguments field_name, nested_arguments
     filter = case field_name
-              when "config"
-                ["encoding", "sample_rate_hertz", "language_code"]
-              when "audio"
-                ["uri"]
-              else
-                []
+             when "config"
+               %w[encoding sample_rate_hertz language_code]
+             when "audio"
+               ["uri"]
+             else
+               []
              end
     nested_arguments.select { |na| filter.include? na.name }
   end

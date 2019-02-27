@@ -31,7 +31,7 @@ module NamespaceHelper
   # Converts an array or dot-separated namespace string to a new string with
   # forward-slash separators.
   def ruby_path namespaces
-    namespaces = namespaces.split(".") if namespaces.is_a? String
+    namespaces = namespaces.split "." if namespaces.is_a? String
     namespaces.reject(&:empty?).map(&:underscore).join "/"
   end
 
@@ -39,7 +39,7 @@ module NamespaceHelper
   # Converts an array or dot-separated namespace string to a new string with
   # Ruby double-semicolon separators.
   def ruby_namespace namespaces
-    namespaces = namespaces.split(".") if namespaces.is_a? String
+    namespaces = namespaces.split "." if namespaces.is_a? String
     namespaces.reject(&:empty?).map(&:upcase_first).join "::"
   end
 end
