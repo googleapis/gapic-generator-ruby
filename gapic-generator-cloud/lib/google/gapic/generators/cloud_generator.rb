@@ -37,9 +37,6 @@ module Google
                        :credentials_file_path
         end
 
-        # rubocop:disable Metrics/AbcSize
-        # rubocop:disable Metrics/MethodLength
-
         # Generates all the files for the API.
         #
         # @return [Array<
@@ -50,6 +47,9 @@ module Google
 
           api_services(@api).each do |service|
             files << cop(gen("client.erb", "lib/#{client_file_path service}",
+                             api: @api, service: service))
+            files << cop(gen("client_test.erb",
+                             "#{ruby_require service}_client_test.rb",
                              api: @api, service: service))
           end
 
@@ -64,9 +64,6 @@ module Google
 
           files
         end
-
-        # rubocop:enable Metrics/AbcSize
-        # rubocop:enable Metrics/MethodLength
       end
     end
   end

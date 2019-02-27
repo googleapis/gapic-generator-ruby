@@ -33,4 +33,12 @@ module MethodHelper
   def method_desc _method
     "TODO"
   end
+
+  def method_lro? method
+    method.descriptor.output_type == ".google.longrunning.Operation"
+  end
+
+  def method_streaming_bidi? method
+    method.descriptor.client_streaming && method.descriptor.server_streaming
+  end
 end

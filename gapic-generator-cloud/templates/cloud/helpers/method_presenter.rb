@@ -66,13 +66,28 @@ class MethodPresenter
       ]
     end
 
-    method.input.fields.map do |arg|
+    method.input.fields.map do |field|
+      nested_arguments = field.message.descriptor.field.map do |nested_field|
+        OpenStruct.new(
+          name: nested_field.name,
+          type_name: nested_field.type_name,
+          default_value: default_value(nested_field.name)
+        )
+      end
       OpenStruct.new(
-        name: arg.name,
-        doc_types: doc_types_for(arg),
-        doc_description: "TODO"
+        name: field.name,
+        doc_types: doc_types_for(field),
+        doc_description: "TODO",
+        type_name: field.type_name,
+        arguments: nested_arguments,
+        example_arguments: example_arguments(field.name, nested_arguments),
+        default_value: default_value(field.name)
       )
     end
+  end
+
+  def argument_names
+    arguments.map(&:name)
   end
 
   def request_type
@@ -172,5 +187,32 @@ class MethodPresenter
       # TODO: look at arg.type to determine the actual type
       "String" # default type for now
     end
+  end
+
+  # TODO: replace field name comparison with type
+  def default_value type_name
+    case type_name
+    when "encoding"
+      ":FLAC"
+    when "sample_rate_hertz"
+      "44_100"
+    when "language_code"
+      "\"en-US\""
+    when "uri"
+      "\"gs://bucket_name/file_name.flac\""
+    end
+  end
+
+  # TODO: replace hardcoded logic with annotation data
+  def example_arguments field_name, nested_arguments
+    filter = case field_name
+             when "config"
+               %w[encoding sample_rate_hertz language_code]
+             when "audio"
+               ["uri"]
+             else
+               []
+             end
+    nested_arguments.select { |na| filter.include? na.name }
   end
 end

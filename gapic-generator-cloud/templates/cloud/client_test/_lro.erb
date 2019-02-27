@@ -1,0 +1,119 @@
+<%- assert_locals service, method -%>
+<% method_name = method.descriptor.name.underscore %>
+describe "<%= method_name %>" do
+  let :custom_error do
+    CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#<%= method_name %>."
+  end
+
+  it "invokes <%= method_name %> without error" do
+<%= indent render(partial: "client_test/arguments", locals: { mp: mp }), 2 %>
+
+    # Create expected grpc response
+    expected_response = {}
+    expected_response = Google::Gax.to_proto expected_response,
+                                             Google::Cloud::Speech::V1::LongRunningRecognizeResponse
+    result = Google::Protobuf::Any.new
+    result.pack expected_response
+    operation = Google::Longrunning::Operation.new(
+      name: "operations/<%= method_name %>_test",
+      done: true,
+      response: result
+    )
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of <%= mp.request_type %>, request
+<%- mp.arguments.each do |argument| -%>
+      assert_equal Google::Gax.to_proto(<%= argument.name %>, <%= ruby_namespace argument.type_name %>), request.<%= argument.name %>
+<%- end -%>
+      OpenStruct.new execute: operation
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+
+    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
+      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
+        client = Google::Cloud::Speech.new version: :v1
+
+        # Call method
+        response = client.<%= method_name %> <%= mp.argument_names.join ", " %>
+
+        # Verify the response
+        assert_equal expected_response, response.response
+      end
+    end
+  end
+
+  it "invokes <%= method_name %> and returns an operation error." do
+<%= indent render(partial: "client_test/arguments", locals: { mp: mp }), 2 %>
+
+    # Create expected grpc response
+    operation_error = Google::Rpc::Status.new(
+      message: "Operation error for Google::Cloud::Speech::V1::SpeechClient#<%= method_name %>."
+    )
+    operation = Google::Longrunning::Operation.new(
+      name: "operations/<%= method_name %>_test",
+      done: true,
+      error: operation_error
+    )
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of <%= mp.request_type %>, request
+<%- mp.arguments.each do |argument| -%>
+      assert_equal Google::Gax.to_proto(<%= argument.name %>, <%= ruby_namespace argument.type_name %>), request.<%= argument.name %>
+<%- end -%>
+      OpenStruct.new execute: operation
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+
+    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
+      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
+        client = Google::Cloud::Speech.new version: :v1
+
+        # Call method
+        response = client.<%= method_name %> <%= mp.argument_names.join ", " %>
+
+        # Verify the response
+        assert response.error?
+        assert_equal operation_error, response.error
+      end
+    end
+  end
+
+  it "invokes <%= method_name %> with error" do
+<%= indent render(partial: "client_test/arguments", locals: { mp: mp }), 2 %>
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of <%= mp.request_type %>, request
+<%- mp.arguments.each do |argument| -%>
+      assert_equal Google::Gax.to_proto(<%= argument.name %>, <%= ruby_namespace argument.type_name %>), request.<%= argument.name %>
+<%- end -%>
+      raise custom_error
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+
+    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
+      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
+        client = Google::Cloud::Speech.new version: :v1
+
+        # Call method
+        err = assert_raises Google::Gax::GaxError do
+          client.<%= method_name %> <%= mp.argument_names.join ", " %>
+        end
+
+        # Verify the GaxError wrapped the custom error that was raised.
+        assert_match custom_error.message, err.message
+      end
+    end
+  end
+end

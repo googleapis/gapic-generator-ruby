@@ -6,6 +6,15 @@ AllCops:
 Documentation:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 30
+Metrics/BlockLength:
+  ExcludedMethods: ["describe"]
+Metrics/ClassLength:
+  Enabled: false
+Metrics/MethodLength:
+  Max: 30
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/MethodCallWithArgsParentheses:
@@ -14,6 +23,3 @@ Style/MethodCallWithArgsParentheses:
   AllowParenthesesInMultilineCall: true
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses
-
-Metrics/BlockLength:
-  ExcludedMethods: ["describe"]

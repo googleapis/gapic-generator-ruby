@@ -27,7 +27,8 @@ module DefaultHelper
   end
 
   def indent input, spacing
-    prepend_with(input, " " * spacing).rstrip
+    spacing = " " * spacing unless spacing.is_a? String
+    prepend_with(input, spacing).rstrip
   end
 
   def indent_tail input, spacing
