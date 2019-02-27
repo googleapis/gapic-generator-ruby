@@ -84,7 +84,9 @@ describe Google::Cloud::Speech::V1::SpeechClient do
         language_code: language_code
       }
       uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
+      audio = {
+        uri: uri
+      }
 
       # Create expected grpc response
       expected_response = {}
@@ -134,7 +136,9 @@ describe Google::Cloud::Speech::V1::SpeechClient do
         language_code: language_code
       }
       uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
+      audio = {
+        uri: uri
+      }
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -180,7 +184,9 @@ describe Google::Cloud::Speech::V1::SpeechClient do
         language_code: language_code
       }
       uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
+      audio = {
+        uri: uri
+      }
 
       # Create expected grpc response
       expected_response = {}
@@ -230,7 +236,9 @@ describe Google::Cloud::Speech::V1::SpeechClient do
         language_code: language_code
       }
       uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
+      audio = {
+        uri: uri
+      }
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
@@ -279,7 +287,9 @@ describe Google::Cloud::Speech::V1::SpeechClient do
         language_code: language_code
       }
       uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
+      audio = {
+        uri: uri
+      }
 
       # Mock Grpc layer
       mock_method = proc do |request|
