@@ -29,10 +29,11 @@ module Google
           super
 
           # Configure to use the default templates
-          use_templates! File.join __dir__, "../../../../templates/default"
+          use_templates! File.expand_path \
+            File.join __dir__, "../../../../templates/default"
 
           # Configure to use a custom template directory
-          custom_templates = ENV["GOOGLE_GAPIC_GENERATOR_RUBY_TEMPLATES"]
+          custom_templates = api.parameters[:templates]
           use_templates! custom_templates if custom_templates
 
           # Configure these helper method to be used by the generator
@@ -65,7 +66,7 @@ module Google
               # Autocorrect file with rubocop.
               # TODO(landrito) make this call system agnostic.
               system "rubocop --auto-correct #{input.path} -o #{output.path}" \
-                " -c ./.rubocop.yml"
+                " -c #{rubocop_filepath}"
 
               # Read the corrected file.
               input.rewind
@@ -73,6 +74,10 @@ module Google
             end
           end
           file
+        end
+
+        def rubocop_filepath
+          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end

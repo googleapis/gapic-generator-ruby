@@ -15,11 +15,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift ::File.expand_path("../../lib", __FILE__)
+gem "gapic-generator"
 require "google/gapic/runner"
-require "google/gapic/generators/cloud_generator"
+require "google/protobuf/compiler/plugin.pb"
 
-# Create and run the generator passing in the generator class.
-generator = Google::Gapic::Generators::CloudGenerator
-runner = Google::Gapic::Runner.new generator
-runner.run
+# Ensure that no encoding conversions are done on STDIN and STDOUT
+# since we are passing binary data back and forth. Otherwise these
+# streams will be mangled on Windows.
+STDIN.binmode
+STDOUT.binmode
+
+request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode STDIN.read
+
+# Run the request, specifying the cloud generator
+response = Google::Gapic::Runner.run request, generator: :cloud
+
+STDOUT.print response.serialize

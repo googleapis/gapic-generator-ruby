@@ -33,7 +33,7 @@ module Google
       #   @return [Array<Enum>] The top level enums seen across all files in
       #     this API.
       class Api
-        attr_accessor :files, :services, :messages, :enums
+        attr_accessor :request, :files, :services, :messages, :enums
 
         # Initializes an API object with the file descriptors that represent the
         # API.
@@ -41,6 +41,7 @@ module Google
         # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
         #   The request object.
         def initialize request
+          @request = request
           loader = Loader.new
           @files = request.proto_file.map do |fd|
             loader.load_file fd, request.file_to_generate.include?(fd.name)
@@ -48,6 +49,21 @@ module Google
           @services = @files.flat_map(&:services)
           @messages = @files.flat_map(&:messages)
           @enums = @files.flat_map(&:enums)
+        end
+
+        # Structured Hash representation of the parameter values.
+        # @return [Hash]
+        #   A Hash of the request parameters.
+        def parameters
+          @parameters ||= begin
+            parameters = request.parameter.split(",").map do |parameter|
+              key, value = parameter.split "="
+              value = value.first if value.size == 1
+              value = nil if value.empty? # String or Array
+              [key.to_sym, value]
+            end
+            Hash[parameters]
+          end
         end
       end
     end

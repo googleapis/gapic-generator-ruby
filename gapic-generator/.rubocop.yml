@@ -4,8 +4,6 @@ AllCops:
     - Rakefile
     - lib/**/*.pb.rb
     - expected_output/**/*
-    - protobuf/**/*
-    - api-common-protos/**/*
 
 Documentation:
   Enabled: false

@@ -15,57 +15,78 @@
 # limitations under the License.
 
 require "google/gapic/generator"
+require "google/gapic/schema"
 require "google/protobuf/compiler/plugin.pb"
 
 module Google
   module Gapic
     class Runner
-      # Initializes the runner.
-      def initialize generator
-        @generator = generator
+      attr_reader :request
 
-        # Ensure that no encoding conversions are done on STDIN and STDOUT
-        # since we are passing binary data back and forth. Otherwise these
-        # streams will be mangled on Windows.
-        STDIN.binmode
-        STDOUT.binmode
+      # Initializes the runner.
+      # @param [Google::Protobuf::Compiler::CodeGeneratorRequest] request
+      def initialize request
+        @request = request
       end
 
       # Run protoc generation.
-      def run
+      # @param [String] generator_type
+      # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
+      def run generator_type: nil
+        write_binary_file!
+
         # Create an API Schema from the FileDescriptorProtos
         api = Google::Gapic::Schema::Api.new request
 
+        # Retrieve generator type from parameters if not already provided.
+        generator_type ||= parameters[:generator]
+        # Find the generator for the generator type.
+        generator = Google::Gapic::Generator.find generator_type
+
         # Create and run the generator from the API.
-        output_files = generate api
+        output_files = generator.new(api).generate
 
         # Create and write the response
-        response = Google::Protobuf::Compiler::CodeGeneratorResponse.new \
+        Google::Protobuf::Compiler::CodeGeneratorResponse.new \
           file: output_files
-        write_response response
+      end
+
+      # Run protoc generation.
+      # @param [Google::Protobuf::Compiler::CodeGeneratorRequest] request
+      # @param [String] generator
+      # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
+      def self.run request, generator: nil
+        new(request).run generator_type: generator
       end
 
       private
 
-      # Create the generator from the generator type and generate the files.
-      def generate api
-        @generator.new(api).generate
+      def write_binary_file!
+        return unless parameters[:binary_output]
+
+        # First, strip the binary_output parameter out so it doesn't get saved
+        binary_file = parameters.delete :binary_output
+        request.parameter = parameters.map do |key, value|
+          "#{key}=#{Array(value).join '='}"
+        end.join ","
+
+        # Write binary file if the binary_output option is set
+        File.binwrite binary_file, request.to_proto
       end
 
-      # Private.
-      # Read in the CodeGeneratorRequest and return it.
-      # @return [Google::Protobuf::Compiler::CodeGeneratorRequest]
-      #   The CodeGeneratorRequest.
-      def request
-        @request ||= \
-          Google::Protobuf::Compiler::CodeGeneratorRequest.decode STDIN.read
-      end
-
-      # Private.
-      # Writes the response.
-      # @param response [Google::Protobuf::Compiler::CodeGeneratorResponse]
-      def write_response response
-        STDOUT.print response.serialize
+      # Structured Hash representation of CodeGeneratorRequest#parameter
+      # @return [Hash]
+      #   A Hash of the request parameters.
+      def parameters
+        @parameters ||= begin
+          parameters = request.parameter.split(",").map do |parameter|
+            key, value = parameter.split "="
+            value = value.first if value.size == 1
+            value = nil if value.empty? # String or Array
+            [key.to_sym, value]
+          end
+          Hash[parameters]
+        end
       end
     end
   end

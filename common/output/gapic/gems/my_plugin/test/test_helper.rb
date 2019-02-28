@@ -23,7 +23,7 @@ require "minitest/focus"
 
 class GeneratorTest < Minitest::Test
   def proto_input service
-    File.read "test/proto_input/#{service}.bin", mode: "rb"
+    File.binread "proto_input/#{service}.bin"
   end
 
   def request service
@@ -35,6 +35,6 @@ class GeneratorTest < Minitest::Test
   end
 
   def expected_content filename
-    File.read "test/expected_output/#{filename}"
+    File.read "expected_output/#{filename}"
   end
 end
