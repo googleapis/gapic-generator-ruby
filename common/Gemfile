@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+
+gem "gapic-generator", path: "../gapic-generator"
+gem "gapic-generator-cloud", path: "../gapic-generator-cloud"
+gem "rake", "~> 10.0"

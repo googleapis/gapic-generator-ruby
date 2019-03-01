@@ -53,7 +53,7 @@ module Google
             "lib/google/gapic/generator/#{gem_name}/version.rb"
         gen "test_helper.erb",    "test/test_helper.rb"
         gen "test_generator.erb", "test/generators/#{gem_name}_test.rb"
-        cp  "speech.bin",         "test/proto_input/speech.bin"
+        cp  "speech.bin",         "proto_input/speech.bin"
       end
 
       # rubocop:enable Metrics/AbcSize

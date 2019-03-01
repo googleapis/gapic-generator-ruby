@@ -50,6 +50,25 @@ task :test do
   end
 end
 
+desc "Runs file generation for binary input files and all gems."
+task :gen do
+  Dir.chdir "common" do
+    Bundler.with_clean_env do
+      puts "Running binary input file generation"
+      sh "bundle exec rake gen"
+    end
+  end
+
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running file generation for #{gem}"
+        sh "bundle exec rake gen"
+      end
+    end
+  end
+end
+
 desc "Runs rubocop for all gems."
 task :rubocop do
   gem_dirs.each do |gem|

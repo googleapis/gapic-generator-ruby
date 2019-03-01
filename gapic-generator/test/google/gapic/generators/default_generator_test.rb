@@ -21,7 +21,14 @@ class DefaultGeneratorTest < GeneratorTest
   def test_speech_generate
     generator = Google::Gapic::Generators::DefaultGenerator.new api(:speech)
     generator.generate.each do |file|
-      assert_equal expected_content("default", file.name), file.content
+      assert_equal expected_content("speech", file.name), file.content
+    end
+  end
+
+  def test_vision_generate
+    generator = Google::Gapic::Generators::DefaultGenerator.new api(:vision)
+    generator.generate.each do |file|
+      assert_equal expected_content(:vision, file.name), file.content
     end
   end
 end

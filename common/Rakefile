@@ -1,0 +1,65 @@
+# frozen_string_literal: true
+
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+desc "Generate the binary input files"
+task :gen do
+  Rake::Task["gen:speech"].invoke
+  Rake::Task["gen:vision"].invoke
+end
+namespace :gen do
+  desc "Generate the binary input files for speech"
+  task :speech do
+    speech_protos = [
+      "googleapis/google/cloud/speech/v1/cloud_speech.proto"
+    ]
+    generate_input_file "speech", speech_protos
+  end
+
+  desc "Generate the binary input files for vision"
+  task :vision do
+    vision_protos = [
+      "googleapis/google/cloud/vision/v1/geometry.proto",
+      "googleapis/google/cloud/vision/v1/image_annotator.proto",
+      "googleapis/google/cloud/vision/v1/product_search.proto",
+      "googleapis/google/cloud/vision/v1/product_search_service.proto",
+      "googleapis/google/cloud/vision/v1/text_annotation.proto",
+      "googleapis/google/cloud/vision/v1/web_detection.proto"
+    ]
+    generate_input_file "vision", vision_protos
+  end
+end
+
+def generate_input_file name, protos
+  require "fileutils"
+
+  # ensure output directory exists
+  FileUtils.mkdir_p "./output/protos/#{name}"
+
+  protoc_cmd = [
+    "bundle exec protoc #{Array(protos).join " "}",
+    "--proto_path=googleapis/",
+    "--proto_path=api-common-protos/",
+    # TODO: set output to /dev/null?
+    "--ruby_gapic_out=./output/protos/#{name}",
+    # TODO: invoke a custom runner?
+    # "--ruby_gapic_opt=generator=cloud",
+    # TODO: invoke a custom template path?
+    # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
+    "--ruby_gapic_opt=binary_output=./input/#{name}.bin"
+  ].join " "
+
+  `#{protoc_cmd}`
+end

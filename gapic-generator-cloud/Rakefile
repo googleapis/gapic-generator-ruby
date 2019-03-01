@@ -42,12 +42,13 @@ namespace :gen do
   desc "Generate the expected output for template tests"
   task :templates do
     generate_cloud_templates "speech"
+    # generate_cloud_templates "vision"
   end
 end
 
 def api service
   require "google/gapic/schema/api"
-  proto_input = File.read "test/proto_input/#{service}.bin", mode: "rb"
+  proto_input = File.binread "proto_input/#{service}.bin"
   request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
   Google::Gapic::Schema::Api.new request
 end
