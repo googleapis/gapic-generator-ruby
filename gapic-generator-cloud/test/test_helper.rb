@@ -37,6 +37,6 @@ class GeneratorTest < Minitest::Test
   end
 
   def expected_content service, filename
-    File.read "../common//output/cloud/#{service}/#{filename}"
+    File.read "expected_output/#{service}/#{filename}"
   end
 end
