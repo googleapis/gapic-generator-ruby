@@ -33,7 +33,7 @@ module Google
             File.join __dir__, "../../../../templates/default"
 
           # Configure to use a custom template directory
-          custom_templates = api.parameters[:templates]
+          custom_templates = api.protoc_options[:templates]
           use_templates! custom_templates if custom_templates
 
           # Configure these helper method to be used by the generator

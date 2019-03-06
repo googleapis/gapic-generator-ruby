@@ -54,8 +54,8 @@ module Google
         # Structured Hash representation of the parameter values.
         # @return [Hash]
         #   A Hash of the request parameters.
-        def parameters
-          @parameters ||= begin
+        def protoc_options
+          @protoc_options ||= begin
             parameters = request.parameter.split(",").map do |parameter|
               key, value = parameter.split "="
               value = value.first if value.size == 1
@@ -63,6 +63,24 @@ module Google
               [key.to_sym, value]
             end
             Hash[parameters]
+          end
+        end
+
+        # Structured Hash representation of the configuration file.
+        # @return [Hash]
+        #   A Hash of the configuration values.
+        def configuration
+          @configuration ||= begin
+            config = {}
+
+            if params[:configuration]
+              require "yaml"
+
+              config = YAML.load_file params[:configuration]
+              config.merge! config
+            end
+
+            config
           end
         end
       end

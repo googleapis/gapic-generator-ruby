@@ -42,6 +42,25 @@ namespace :gen do
   end
 end
 
+desc "Start an interactive shell."
+task :console do
+  require "irb"
+  require "irb/completion"
+  require "pp"
+
+  $LOAD_PATH.unshift "lib"
+
+  require "google/gapic/schema"
+  def schema service
+    proto_input = File.binread "input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    Google::Gapic::Schema::Api.new request
+  end
+
+  ARGV.clear
+  IRB.start
+end
+
 def generate_input_file name, protos
   require "fileutils"
 
@@ -50,6 +69,7 @@ def generate_input_file name, protos
 
   protoc_cmd = [
     "bundle exec protoc #{Array(protos).join " "}",
+    "--proto_path=protos/",
     "--proto_path=googleapis/",
     "--proto_path=api-common-protos/",
     # TODO: set output to /dev/null?
@@ -58,6 +78,8 @@ def generate_input_file name, protos
     # "--ruby_gapic_opt=generator=cloud",
     # TODO: invoke a custom template path?
     # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
+    "--ruby_gapic_opt=gem_name=google-cloud-#{name}",
+    "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
     "--ruby_gapic_opt=binary_output=./input/#{name}.bin"
   ].join " "
 
