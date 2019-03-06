@@ -39,11 +39,11 @@ task :compile_protos do
   command << "protoc"
   command << "--plugin=#{plugin}"
   command << "--ruby-protobuf_out=lib"
-  command << "-I ../common/api-common-protos"
-  command << "-I ../common/protobuf/src"
-  command << "../common/api-common-protos/google/api/annotations.proto"
-  command << "../common/protobuf/src/google/protobuf/descriptor.proto"
-  command << "../common/protobuf/src/google/protobuf/compiler/plugin.proto"
+  command << "-I ../shared/api-common-protos"
+  command << "-I ../shared/protobuf/src"
+  command << "../shared/api-common-protos/google/api/annotations.proto"
+  command << "../shared/protobuf/src/google/protobuf/descriptor.proto"
+  command << "../shared/protobuf/src/google/protobuf/compiler/plugin.proto"
   full_command = command.join " "
 
   puts full_command
@@ -86,6 +86,25 @@ namespace :gen do
   task :gem_creation do
     generate_gem "my_plugin"
   end
+end
+
+desc "Start an interactive shell."
+task :console do
+  require "irb"
+  require "irb/completion"
+  require "pp"
+
+  $LOAD_PATH.unshift "lib"
+
+  require "google/gapic/schema"
+  def schema service
+    proto_input = File.binread "proto_input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    Google::Gapic::Schema::Api.new request
+  end
+
+  ARGV.clear
+  IRB.start
 end
 
 def generate_default_templates service

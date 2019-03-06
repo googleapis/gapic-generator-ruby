@@ -18,7 +18,9 @@ require "active_support/inflector"
 
 module CloudHelper
   def gem_name api
-    gem_address(api).join "-"
+    api.protoc_options[:gem_name] ||
+      api.configuration[:gem_name] ||
+      gem_address(api).join "-"
   end
 
   def gem_path api

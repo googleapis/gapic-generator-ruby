@@ -38,8 +38,8 @@ module Google
         # Create an API Schema from the FileDescriptorProtos
         api = Google::Gapic::Schema::Api.new request
 
-        # Retrieve generator type from parameters if not already provided.
-        generator_type ||= parameters[:generator]
+        # Retrieve generator type from protoc_options if not already provided.
+        generator_type ||= protoc_options[:generator]
         # Find the generator for the generator type.
         generator = Google::Gapic::Generator.find generator_type
 
@@ -62,11 +62,11 @@ module Google
       private
 
       def write_binary_file!
-        return unless parameters[:binary_output]
+        return unless protoc_options[:binary_output]
 
         # First, strip the binary_output parameter out so it doesn't get saved
-        binary_file = parameters.delete :binary_output
-        request.parameter = parameters.map do |key, value|
+        binary_file = protoc_options.delete :binary_output
+        request.parameter = protoc_options.map do |key, value|
           "#{key}=#{Array(value).join '='}"
         end.join ","
 
@@ -77,8 +77,8 @@ module Google
       # Structured Hash representation of CodeGeneratorRequest#parameter
       # @return [Hash]
       #   A Hash of the request parameters.
-      def parameters
-        @parameters ||= begin
+      def protoc_options
+        @protoc_options ||= begin
           parameters = request.parameter.split(",").map do |parameter|
             key, value = parameter.split "="
             value = value.first if value.size == 1

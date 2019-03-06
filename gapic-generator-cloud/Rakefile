@@ -46,6 +46,25 @@ namespace :gen do
   end
 end
 
+desc "Start an interactive shell."
+task :console do
+  require "irb"
+  require "irb/completion"
+  require "pp"
+
+  $LOAD_PATH.unshift "lib"
+
+  require "google/gapic/schema"
+  def schema service
+    proto_input = File.binread "proto_input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    Google::Gapic::Schema::Api.new request
+  end
+
+  ARGV.clear
+  IRB.start
+end
+
 def api service
   require "google/gapic/schema/api"
   proto_input = File.binread "proto_input/#{service}.bin"

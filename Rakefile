@@ -52,7 +52,7 @@ end
 
 desc "Runs file generation for binary input files and all gems."
 task :gen do
-  Dir.chdir "common" do
+  Dir.chdir "shared" do
     Bundler.with_clean_env do
       puts "Running binary input file generation"
       sh "bundle exec rake gen"
@@ -88,6 +88,25 @@ task :ci do
       Bundler.with_clean_env do
         puts "Running CI for #{gem}"
         sh "bundle exec rake ci"
+      end
+    end
+  end
+end
+
+desc "Runs bundle update for all gems."
+task :update do
+  Dir.chdir "shared" do
+    Bundler.with_clean_env do
+      puts "Running bundle update for shared"
+      sh "bundle update"
+    end
+  end
+
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_clean_env do
+        puts "Running bundle update for #{gem}"
+        sh "bundle update"
       end
     end
   end
