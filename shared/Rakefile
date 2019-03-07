@@ -19,6 +19,7 @@ task :gen do
   Rake::Task["gen:speech"].invoke
   Rake::Task["gen:vision"].invoke
   Rake::Task["gen:showcase"].invoke
+  Rake::Task["gen:garbage"].invoke
 end
 namespace :gen do
   desc "Generate the binary input files for speech"
@@ -51,6 +52,14 @@ namespace :gen do
       "protos/showcase/v1alpha3/testing.proto"
     ]
     generate_input_file "showcase", showcase_protos
+  end
+
+  desc "Generate the binary input files for garbage"
+  task :garbage do
+    garbage_protos = [
+      "protos/garbage/garbage.proto"
+    ]
+    generate_input_file "garbage", garbage_protos
   end
 end
 

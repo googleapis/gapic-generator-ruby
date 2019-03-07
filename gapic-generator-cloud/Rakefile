@@ -44,6 +44,7 @@ namespace :gen do
     generate_cloud_templates "speech"
     # generate_cloud_templates "vision"
     # generate_cloud_templates "showcase"
+    # generate_default_templates "garbage"
   end
 end
 
