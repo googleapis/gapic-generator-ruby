@@ -36,6 +36,12 @@ service GarbageService {
       body: "*"
     };
   }
+  rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
+    option (google.api.http) = {
+      post: "/v1/nested_garbage:get"
+      body: "*"
+    };
+  }
   rpc GetRepeatedGarbage(RepeatedGarbage) returns (RepeatedGarbage) {
     option (google.api.http) = {
       post: "/v1/repeated_garbage:get"
@@ -77,6 +83,7 @@ message LongRunningGarbageRequest {
         {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
         {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
         {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
+        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
         {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
       ]
     }];
@@ -90,6 +97,7 @@ message LongRunningGarbageResponse {
         {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
         {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
         {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
+        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
         {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
       ]
     }];
@@ -116,6 +124,7 @@ message ListGarbageRequest {
         {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
         {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
         {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
+        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
         {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
       ]
     }];
@@ -129,6 +138,7 @@ message ListGarbageResponse {
         {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
         {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
         {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
+        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
         {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
       ]
     }];
@@ -143,6 +153,7 @@ message GarbageItem {
         {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
         {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
         {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
+        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
         {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
       ]
     }];
@@ -195,6 +206,20 @@ message SpecificGarbage {
   bytes bytes = 9;
   GarbageMap msg = 10;
   GarbageEnum enum = 11;
+
+  message NestedGarbage {
+    string name = 1;
+    int32 int32 = 2;
+    int64 int64 = 3;
+    uint32 uint32 = 4;
+    uint64 uint64 = 5;
+    bool bool = 6;
+    float float = 7;
+    double double = 8;
+    bytes bytes = 9;
+    GarbageMap msg = 10;
+    GarbageEnum enum = 11;
+  }
 }
 
 message RepeatedGarbage {

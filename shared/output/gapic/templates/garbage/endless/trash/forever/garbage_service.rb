@@ -127,6 +127,11 @@ module Endless
             defaults["get_specific_garbage"],
             exception_transformer: exception_transformer
           )
+          @get_nested_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:get_nested_garbage),
+            defaults["get_nested_garbage"],
+            exception_transformer: exception_transformer
+          )
           @get_repeated_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:get_repeated_garbage),
             defaults["get_repeated_garbage"],
@@ -198,6 +203,38 @@ module Endless
           }.delete_if { |_, v| v.nil? }
           request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage
           @get_specific_garbage.call(request, options, &block)
+        end
+
+        ##
+        def get_nested_garbage \
+            name,
+            int32,
+            int64,
+            uint32,
+            uint64,
+            bool,
+            float,
+            double,
+            bytes,
+            msg,
+            enum,
+            options: nil,
+            &block
+          request = {
+            name: name,
+            int32: int32,
+            int64: int64,
+            uint32: uint32,
+            uint64: uint64,
+            bool: bool,
+            float: float,
+            double: double,
+            bytes: bytes,
+            msg: msg,
+            enum: enum
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage::NestedGarbage
+          @get_nested_garbage.call(request, options, &block)
         end
 
         ##
