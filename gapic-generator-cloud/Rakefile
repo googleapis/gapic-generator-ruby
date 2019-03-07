@@ -43,6 +43,7 @@ namespace :gen do
   task :templates do
     generate_cloud_templates "speech"
     # generate_cloud_templates "vision"
+    # generate_cloud_templates "showcase"
   end
 end
 

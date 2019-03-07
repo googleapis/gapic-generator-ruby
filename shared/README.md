@@ -15,3 +15,14 @@ $ cd shared
 $ bundle update
 $ bundle exec rake gen
 ```
+
+## Showcase Tests
+
+This project includes a functional test suite for the Ruby GAPIC generator. See
+[Showcase](https://github.com/googleapis/gapic-showcase) for more details.
+
+```sh
+$ cd shared
+$ bundle update
+$ bundle exec rake test:showcase
+```

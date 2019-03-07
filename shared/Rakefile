@@ -18,6 +18,7 @@ desc "Generate the binary input files"
 task :gen do
   Rake::Task["gen:speech"].invoke
   Rake::Task["gen:vision"].invoke
+  Rake::Task["gen:showcase"].invoke
 end
 namespace :gen do
   desc "Generate the binary input files for speech"
@@ -40,7 +41,35 @@ namespace :gen do
     ]
     generate_input_file "vision", vision_protos
   end
+
+  desc "Generate the binary input files for showcase"
+  task :showcase do
+    showcase_protos = [
+      "protos/showcase/v1alpha3/echo.proto",
+      "protos/showcase/v1alpha3/identity.proto",
+      "protos/showcase/v1alpha3/messaging.proto",
+      "protos/showcase/v1alpha3/testing.proto"
+    ]
+    generate_input_file "showcase", showcase_protos
+  end
 end
+
+require "rake/testtask"
+desc "Run functional tests for all custom protos"
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList["test/**/*_test.rb"]
+  t.warning = false
+end
+namespace :test do
+  desc "Run functional tests for showcase protos"
+  Rake::TestTask.new :showcase do |t|
+    t.libs << "test"
+    t.test_files = FileList["test/showcase/**/*_test.rb"]
+    t.warning = false
+  end
+end
+
 
 desc "Start an interactive shell."
 task :console do
