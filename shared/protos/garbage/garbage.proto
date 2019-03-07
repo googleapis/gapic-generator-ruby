@@ -4,6 +4,7 @@ package endless.trash.forever;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
+import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/timestamp.proto";
@@ -188,21 +189,21 @@ message SimpleGarbageItem {
 }
 
 message TypicalGarbage {
-  string name = 1;
-  int32 int32 = 2;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
+  int32 int32 = 2 [(google.api.field_behavior) = REQUIRED];
   int64 int64 = 3;
   uint32 uint32 = 4;
   uint64 uint64 = 5;
-  bool bool = 6;
+  bool bool = 6 [(google.api.field_behavior) = REQUIRED];
   float float = 7;
   double double = 8;
   bytes bytes = 9;
-  GarbageMap msg = 10;
+  GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   GarbageEnum enum = 11;
 }
 
 message SpecificGarbage {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
   int32 int32 = 2;
   int64 int64 = 3;
   uint32 uint32 = 4;
@@ -211,11 +212,11 @@ message SpecificGarbage {
   float float = 7;
   double double = 8;
   bytes bytes = 9;
-  GarbageMap msg = 10;
+  GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   GarbageEnum enum = 11;
 
   message NestedGarbage {
-    string name = 1;
+    string name = 1 [(google.api.field_behavior) = REQUIRED];
     int32 int32 = 2;
     int64 int64 = 3;
     uint32 uint32 = 4;
@@ -224,13 +225,13 @@ message SpecificGarbage {
     float float = 7;
     double double = 8;
     bytes bytes = 9;
-    GarbageMap msg = 10;
+    GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
     GarbageEnum enum = 11;
   }
 }
 
 message RepeatedGarbage {
-  string name = 1;
+  string name = 1 [(google.api.field_behavior) = REQUIRED];
   repeated int32 repeated_int32 = 12;
   repeated int64 repeated_int64 = 13;
   repeated uint32 repeated_uint32 = 14;
@@ -240,7 +241,7 @@ message RepeatedGarbage {
   repeated double repeated_double = 18;
   repeated string repeated_string = 19;
   repeated bytes repeated_bytes = 20;
-  repeated GarbageMap repeated_msg = 21;
+  repeated GarbageMap repeated_msg = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
   repeated GarbageEnum repeated_enum = 22;
 }
 
