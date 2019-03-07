@@ -239,6 +239,7 @@ module Endless
 
         ##
         def get_repeated_garbage \
+            name,
             repeated_int32,
             repeated_int64,
             repeated_uint32,
@@ -253,6 +254,7 @@ module Endless
             options: nil,
             &block
           request = {
+            name: name,
             repeated_int32: repeated_int32,
             repeated_int64: repeated_int64,
             repeated_uint32: repeated_uint32,

@@ -35,18 +35,25 @@ service GarbageService {
       post: "/v1/specific_garbage:get"
       body: "*"
     };
+    option (google.api.method_signature) = "name,int32,bool";
   }
   rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
     option (google.api.http) = {
       post: "/v1/nested_garbage:get"
       body: "*"
     };
+    option (google.api.method_signature) = "name,int32,int64";
+    option (google.api.method_signature) = "name,float,double";
+    option (google.api.method_signature) = "name,bool,enum";
   }
   rpc GetRepeatedGarbage(RepeatedGarbage) returns (RepeatedGarbage) {
     option (google.api.http) = {
       post: "/v1/repeated_garbage:get"
       body: "*"
     };
+    option (google.api.method_signature) = "name,bool,enum";
+    option (google.api.method_signature) = "name,float,double";
+    option (google.api.method_signature) = "name,int32,int64,uint32,uint64";
   }
   rpc LongRunningGarbage(LongRunningGarbageRequest) returns (google.longrunning.Operation) {
     option (google.api.http) = {
@@ -223,6 +230,7 @@ message SpecificGarbage {
 }
 
 message RepeatedGarbage {
+  string name = 1;
   repeated int32 repeated_int32 = 12;
   repeated int64 repeated_int64 = 13;
   repeated uint32 repeated_uint32 = 14;
