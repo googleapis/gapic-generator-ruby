@@ -24,9 +24,9 @@ require "google/longrunning/operations_client"
 require "google/cloud/garbage_service/v1/cloud_garbage_service_pb"
 require "google/cloud/garbage_service/v1/credentials"
 
-module Google
-  module Garbage
-    module V1
+module Endless
+  module Trash
+    module Forever
       ##
       # Endless trash
       class GarbageServiceClient
@@ -164,7 +164,7 @@ module Google
           request = {
             name: name
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::SimpleGarbage
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SimpleGarbage
           @get_simple_garbage.call(request, options, &block)
         end
 
@@ -196,7 +196,7 @@ module Google
             msg: msg,
             enum: enum
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::SpecificGarbage
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage
           @get_specific_garbage.call(request, options, &block)
         end
 
@@ -228,7 +228,7 @@ module Google
             repeated_msg: repeated_msg,
             repeated_enum: repeated_enum
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::RepeatedGarbage
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::RepeatedGarbage
           @get_repeated_garbage.call(request, options, &block)
         end
 
@@ -240,13 +240,11 @@ module Google
           request = {
             garbage: garbage
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::LongRunningGarbageRequest
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::LongRunningGarbageRequest
           @long_running_garbage.call(request, options, &block)
         end
 
         ##
-        #  This method split the given content into words and will pass each word back
-        #  through the stream. This method showcases server-side streaming rpcs.
         def client_garbage \
             garbage,
             options: nil,
@@ -254,14 +252,11 @@ module Google
           request = {
             garbage: garbage
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::ListGarbageRequest
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
           @client_garbage.call(request, options, &block)
         end
 
         ##
-        #  This method will collect the words given to it. When the stream is closed
-        #  by the client, this method will return the a concatenation of the strings
-        #  passed to it. This method showcases client-side streaming rpcs.
         def server_garbage \
             garbage,
             options: nil,
@@ -269,14 +264,11 @@ module Google
           request = {
             garbage: garbage
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::ListGarbageRequest
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
           @server_garbage.call(request, options, &block)
         end
 
         ##
-        #  This method, upon receiving a request on the stream, the same content will
-        #  be passed  back on the stream. This method showcases bidirectional
-        #  streaming rpcs.
         def bidi_garbage \
             garbage,
             options: nil,
@@ -284,7 +276,7 @@ module Google
           request = {
             garbage: garbage
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Garbage::V1::ListGarbageRequest
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
           @bidi_garbage.call(request, options, &block)
         end
 

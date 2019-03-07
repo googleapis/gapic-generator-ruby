@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package google.garbage.v1;
+package endless.trash.forever;
 
 import "google/api/annotations.proto";
 import "google/api/client.proto";
@@ -10,18 +10,19 @@ import "google/protobuf/timestamp.proto";
 
 option (google.api.client_package) = {
   title: "Testing Garbage"
-  namespace: ["Google", "Cloud"]
-  version: "v1"
+  namespace: ["Endless", "Trash"]
+  version: "Forever"
 };
 
 // Endless trash
 service GarbageService {
   // The address where this API is typically served.
-  option (google.api.default_host) = "garbage.googleapis.com";
+  option (google.api.default_host) = "endlesstrash.example.net";
 
   // The OAuth scopes needed to make requests to this API.
-  option (google.api.oauth_scopes) = "https://cloud.google.com/auth/cloud-platform,"
-                                     "https://cloud.google.com/auth/garbage";
+  option (google.api.oauth_scopes) = "https://endlesstrash.example.net/garbage-admin,"
+                                     "https://endlesstrash.example.net/garbage-read,"
+                                     "https://endlesstrash.example.net/garbage-write";
 
   rpc GetSimpleGarbage(SimpleGarbage) returns (SimpleGarbage) {
     option (google.api.http) = {
@@ -53,29 +54,18 @@ service GarbageService {
       metadata_type: "google.garbage.v1.LongRunningGarbageMetadata"
     };
   }
-
-  // This method split the given content into words and will pass each word back
-  // through the stream. This method showcases server-side streaming rpcs.
   rpc ClientGarbage(ListGarbageRequest) returns (stream GarbageItem) {
     option (google.api.http) = {
       post: "/v1/garbage:client"
       body: "*"
     };
   }
-
-  // This method will collect the words given to it. When the stream is closed
-  // by the client, this method will return the a concatenation of the strings
-  // passed to it. This method showcases client-side streaming rpcs.
   rpc ServerGarbage(stream ListGarbageRequest) returns (ListGarbageResponse) {
     option (google.api.http) = {
       post: "/v1/garbage:server"
       body: "*"
     };
   }
-
-  // This method, upon receiving a request on the stream, the same content will
-  // be passed  back on the stream. This method showcases bidirectional
-  // streaming rpcs.
   rpc BidiGarbage(stream ListGarbageRequest) returns (stream GarbageItem);
 }
 
