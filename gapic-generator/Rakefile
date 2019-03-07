@@ -80,6 +80,7 @@ namespace :gen do
   task :templates do
     generate_default_templates "speech"
     generate_default_templates "vision"
+    generate_default_templates "showcase"
   end
 
   desc "Generate the expected output for gem creation tests"
