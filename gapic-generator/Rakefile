@@ -15,9 +15,10 @@
 # limitations under the License.
 
 require "bundler/gem_tasks"
+require "fileutils"
 require "mkmf"
-require "rubocop/rake_task"
 require "rake/testtask"
+require "rubocop/rake_task"
 
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
@@ -113,12 +114,16 @@ def generate_default_templates service
   require "google/gapic/schema/api"
   require "google/gapic/generators/default_generator"
 
+  target_path = File.expand_path File.join("expected_output/templates", service)
+  FileUtils.rm_rf target_path
+  FileUtils.mkdir_p target_path
+
   bin_proto = File.binread "proto_input/#{service}.bin"
   request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
   api = Google::Gapic::Schema::Api.new request
   generator = Google::Gapic::Generators::DefaultGenerator.new api
   generator.generate.each do |file|
-    target_file_path = File.join "expected_output/templates", service, file.name
+    target_file_path = File.join target_path, file.name
     FileUtils.mkdir_p File.dirname(target_file_path)
     File.write target_file_path, file.content
   end
@@ -129,6 +134,8 @@ def generate_gem gem_name
   require "tmpdir"
 
   target_path = File.expand_path File.join("expected_output/gems", gem_name)
+  FileUtils.rm_rf target_path
+  FileUtils.mkdir_p target_path
 
   Dir.mktmpdir do |tmp_dir|
     builder = Google::Gapic::GemBuilder.new gem_name, target_path

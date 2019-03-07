@@ -75,12 +75,17 @@ def api service
 end
 
 def generate_cloud_templates service
+  require "fileutils"
   require "google/gapic/generators/cloud_generator"
+
+  target_path = File.expand_path File.join("expected_output", service)
+  FileUtils.rm_rf target_path
+  FileUtils.mkdir_p target_path
 
   api = api service
   generator = Google::Gapic::Generators::CloudGenerator.new api
   generator.generate.each do |file|
-    target_file_path = File.join "expected_output", service, file.name
+    target_file_path = File.join target_path, file.name
     FileUtils.mkdir_p File.dirname(target_file_path)
     File.write target_file_path, file.content
   end
