@@ -52,8 +52,8 @@ task :console do
 
   require "google/gapic/schema"
   def schema service
-    proto_input = File.binread "input/#{service}.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    bin_proto = File.binread "input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
     Google::Gapic::Schema::Api.new request
   end
 
