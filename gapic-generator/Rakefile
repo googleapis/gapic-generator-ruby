@@ -98,8 +98,8 @@ task :console do
 
   require "google/gapic/schema"
   def schema service
-    proto_input = File.binread "proto_input/#{service}.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    bin_proto = File.binread "proto_input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
     Google::Gapic::Schema::Api.new request
   end
 
@@ -111,8 +111,8 @@ def generate_default_templates service
   require "google/gapic/schema/api"
   require "google/gapic/generators/default_generator"
 
-  proto_input = File.binread "proto_input/#{service}.bin"
-  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+  bin_proto = File.binread "proto_input/#{service}.bin"
+  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
   api = Google::Gapic::Schema::Api.new request
   generator = Google::Gapic::Generators::DefaultGenerator.new api
   generator.generate.each do |file|

@@ -52,8 +52,8 @@ task :console do
 
   require "google/gapic/schema"
   def schema service
-    proto_input = File.binread "input/#{service}.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input
+    bin_proto = File.binread "input/#{service}.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
     Google::Gapic::Schema::Api.new request
   end
 
@@ -69,9 +69,9 @@ def generate_input_file name, protos
 
   protoc_cmd = [
     "bundle exec protoc #{Array(protos).join " "}",
-    "--proto_path=protos/",
-    "--proto_path=googleapis/",
     "--proto_path=api-common-protos/",
+    "--proto_path=googleapis/",
+    "--proto_path=protos/",
     # TODO: set output to /dev/null?
     "--ruby_gapic_out=./output/protos/#{name}",
     # TODO: invoke a custom runner?

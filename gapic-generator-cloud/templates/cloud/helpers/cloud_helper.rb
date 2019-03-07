@@ -20,7 +20,7 @@ module CloudHelper
   def gem_name api
     api.protoc_options[:gem_name] ||
       api.configuration[:gem_name] ||
-      gem_address(api).join "-"
+      gem_address(api).join("-")
   end
 
   def gem_path api
