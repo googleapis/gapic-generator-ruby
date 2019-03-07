@@ -99,26 +99,24 @@ task :console do
 end
 
 def generate_input_file name, protos
-  require "fileutils"
+  require "tmpdir"
 
-  # ensure output directory exists
-  FileUtils.mkdir_p "./output/protos/#{name}"
+  Dir.mktmpdir do |tmp|
+    protoc_cmd = [
+      "bundle exec protoc #{Array(protos).join " "}",
+      "--proto_path=api-common-protos/",
+      "--proto_path=googleapis/",
+      "--proto_path=protos/",
+      "--ruby_gapic_out=#{tmp}",
+      # TODO: invoke a custom runner?
+      # "--ruby_gapic_opt=generator=cloud",
+      # TODO: invoke a custom template path?
+      # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
+      "--ruby_gapic_opt=gem_name=google-cloud-#{name}",
+      "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
+      "--ruby_gapic_opt=binary_output=./input/#{name}.bin"
+    ].join " "
 
-  protoc_cmd = [
-    "bundle exec protoc #{Array(protos).join " "}",
-    "--proto_path=api-common-protos/",
-    "--proto_path=googleapis/",
-    "--proto_path=protos/",
-    # TODO: set output to /dev/null?
-    "--ruby_gapic_out=./output/protos/#{name}",
-    # TODO: invoke a custom runner?
-    # "--ruby_gapic_opt=generator=cloud",
-    # TODO: invoke a custom template path?
-    # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
-    "--ruby_gapic_opt=gem_name=google-cloud-#{name}",
-    "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
-    "--ruby_gapic_opt=binary_output=./input/#{name}.bin"
-  ].join " "
-
-  `#{protoc_cmd}`
+    `#{protoc_cmd}`
+  end
 end
