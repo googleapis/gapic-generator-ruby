@@ -1,8 +1,10 @@
 Gemfile.lock
 .DS_STORE
 /.bundle/
+/.vscode/
 /.yardoc
 /_yardoc/
+/bin/
 /coverage/
 /doc/
 /pkg/
