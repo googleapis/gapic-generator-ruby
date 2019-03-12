@@ -1,5 +1,7 @@
 # API Client Generator for Ruby
 
+[![CircleCI](https://circleci.com/gh/googleapis/gapic-generator-ruby.svg?style=svg)](https://circleci.com/gh/googleapis/gapic-generator-ruby)
+
 Create Ruby clients from a protocol buffer description of an API.
 
 **Note** This project is a preview. Please try it out and let us know what you think,
