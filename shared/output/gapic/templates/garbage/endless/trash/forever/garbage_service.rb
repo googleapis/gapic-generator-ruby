@@ -21,21 +21,20 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-require "google/cloud/testing/v1/cloud_testing_pb"
-require "google/cloud/testing/v1/credentials"
+require "google/cloud/garbage_service/v1/cloud_garbage_service_pb"
+require "google/cloud/garbage_service/v1/credentials"
 
-module Google
-  module Showcase
-    module V1alpha3
+module Endless
+  module Trash
+    module Forever
       ##
-      # A service to facilitate running discrete sets of tests
-      # against Showcase.
-      class TestingClient
+      # Endless trash
+      class GarbageServiceClient
         # @private
-        attr_reader :testing_stub
+        attr_reader :garbage_service_stub
 
         # The default address of the service.
-        SERVICE_ADDRESS = "testing.googleapis.com"
+        SERVICE_ADDRESS = "garbage_service.googleapis.com"
 
         # The default port of the service.
         DEFAULT_SERVICE_PORT = 443
@@ -53,8 +52,8 @@ module Google
 
         # @private
         class OperationsClient < Google::Longrunning::OperationsClient
-          SERVICE_ADDRESS = TestingClient::SERVICE_ADDRESS
-          GRPC_INTERCEPTORS = TestingClient::GRPC_INTERCEPTORS.dup
+          SERVICE_ADDRESS = GarbageServiceClient::SERVICE_ADDRESS
+          GRPC_INTERCEPTORS = GarbageServiceClient::GRPC_INTERCEPTORS.dup
         end
 
         ##
@@ -102,9 +101,9 @@ module Google
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "google/gax/grpc"
-          require "google/cloud/testing/v1/cloud_testing_services_pb"
+          require "google/cloud/garbage_service/v1/cloud_garbage_service_services_pb"
 
-          credentials ||= Google::Cloud::Testing::V1::Credentials.default
+          credentials ||= Google::Cloud::GarbageService::V1::Credentials.default
 
           @operations_client = OperationsClient.new(
             credentials: credentials,
@@ -114,48 +113,48 @@ module Google
             lib_name: lib_name,
             lib_version: lib_version
           )
-          @testing_stub = create_stub credentials, scopes
+          @garbage_service_stub = create_stub credentials, scopes
 
           defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-          @create_session = Google::Gax.create_api_call(
-            @testing_stub.method(:create_session),
-            defaults["create_session"],
+          @get_simple_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:get_simple_garbage),
+            defaults["get_simple_garbage"],
             exception_transformer: exception_transformer
           )
-          @get_session = Google::Gax.create_api_call(
-            @testing_stub.method(:get_session),
-            defaults["get_session"],
+          @get_specific_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:get_specific_garbage),
+            defaults["get_specific_garbage"],
             exception_transformer: exception_transformer
           )
-          @list_sessions = Google::Gax.create_api_call(
-            @testing_stub.method(:list_sessions),
-            defaults["list_sessions"],
+          @get_nested_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:get_nested_garbage),
+            defaults["get_nested_garbage"],
             exception_transformer: exception_transformer
           )
-          @delete_session = Google::Gax.create_api_call(
-            @testing_stub.method(:delete_session),
-            defaults["delete_session"],
+          @get_repeated_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:get_repeated_garbage),
+            defaults["get_repeated_garbage"],
             exception_transformer: exception_transformer
           )
-          @report_session = Google::Gax.create_api_call(
-            @testing_stub.method(:report_session),
-            defaults["report_session"],
+          @long_running_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:long_running_garbage),
+            defaults["long_running_garbage"],
             exception_transformer: exception_transformer
           )
-          @list_tests = Google::Gax.create_api_call(
-            @testing_stub.method(:list_tests),
-            defaults["list_tests"],
+          @client_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:client_garbage),
+            defaults["client_garbage"],
             exception_transformer: exception_transformer
           )
-          @delete_test = Google::Gax.create_api_call(
-            @testing_stub.method(:delete_test),
-            defaults["delete_test"],
+          @server_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:server_garbage),
+            defaults["server_garbage"],
             exception_transformer: exception_transformer
           )
-          @verify_test = Google::Gax.create_api_call(
-            @testing_stub.method(:verify_test),
-            defaults["verify_test"],
+          @bidi_garbage = Google::Gax.create_api_call(
+            @garbage_service_stub.method(:bidi_garbage),
+            defaults["bidi_garbage"],
             exception_transformer: exception_transformer
           )
         end
@@ -163,134 +162,168 @@ module Google
         # Service calls
 
         ##
-        #  Creates a new testing session.
-        def create_session \
-            session,
-            options: nil,
-            &block
-          request = {
-            session: session
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
-          @create_session.call(request, options, &block)
-        end
-
-        ##
-        #  Gets a testing session.
-        def get_session \
+        def get_simple_garbage \
             name,
             options: nil,
             &block
           request = {
             name: name
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
-          @get_session.call(request, options, &block)
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SimpleGarbage
+          @get_simple_garbage.call(request, options, &block)
         end
 
         ##
-        #  Lists the current test sessions.
-        def list_sessions \
-            page_size,
-            page_token,
-            options: nil,
-            &block
-          request = {
-            page_size: page_size,
-            page_token: page_token
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
-          @list_sessions.call(request, options, &block)
-        end
-
-        ##
-        #  Delete a test session.
-        def delete_session \
+        def get_specific_garbage \
             name,
-            options: nil,
-            &block
-          request = {
-            name: name
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
-          @delete_session.call(request, options, &block)
-        end
-
-        ##
-        #  Report on the status of a session.
-        #  This generates a report detailing which tests have been completed,
-        #  and an overall rollup.
-        def report_session \
-            name,
-            options: nil,
-            &block
-          request = {
-            name: name
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
-          @report_session.call(request, options, &block)
-        end
-
-        ##
-        #  List the tests of a sessesion.
-        def list_tests \
-            parent,
-            page_size,
-            page_token,
-            options: nil,
-            &block
-          request = {
-            parent: parent,
-            page_size: page_size,
-            page_token: page_token
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
-          @list_tests.call(request, options, &block)
-        end
-
-        ##
-        #  Explicitly decline to implement a test.
-        #
-        #  This removes the test from subsequent `ListTests` calls, and
-        #  attempting to do the test will error.
-        #
-        #  This method will error if attempting to delete a required test.
-        def delete_test \
-            name,
-            options: nil,
-            &block
-          request = {
-            name: name
-          }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
-          @delete_test.call(request, options, &block)
-        end
-
-        ##
-        #  Register a response to a test.
-        #
-        #  In cases where a test involves registering a final answer at the
-        #  end of the test, this method provides the means to do so.
-        def verify_test \
-            name,
-            answer,
-            answers,
+            int32,
+            int64,
+            uint32,
+            uint64,
+            bool,
+            float,
+            double,
+            bytes,
+            msg,
+            enum,
             options: nil,
             &block
           request = {
             name: name,
-            answer: answer,
-            answers: answers
+            int32: int32,
+            int64: int64,
+            uint32: uint32,
+            uint64: uint64,
+            bool: bool,
+            float: float,
+            double: double,
+            bytes: bytes,
+            msg: msg,
+            enum: enum
           }.delete_if { |_, v| v.nil? }
-          request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
-          @verify_test.call(request, options, &block)
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage
+          @get_specific_garbage.call(request, options, &block)
+        end
+
+        ##
+        def get_nested_garbage \
+            name,
+            int32,
+            int64,
+            uint32,
+            uint64,
+            bool,
+            float,
+            double,
+            bytes,
+            msg,
+            enum,
+            options: nil,
+            &block
+          request = {
+            name: name,
+            int32: int32,
+            int64: int64,
+            uint32: uint32,
+            uint64: uint64,
+            bool: bool,
+            float: float,
+            double: double,
+            bytes: bytes,
+            msg: msg,
+            enum: enum
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage::NestedGarbage
+          @get_nested_garbage.call(request, options, &block)
+        end
+
+        ##
+        def get_repeated_garbage \
+            name,
+            repeated_int32,
+            repeated_int64,
+            repeated_uint32,
+            repeated_uint64,
+            repeated_bool,
+            repeated_float,
+            repeated_double,
+            repeated_string,
+            repeated_bytes,
+            repeated_msg,
+            repeated_enum,
+            options: nil,
+            &block
+          request = {
+            name: name,
+            repeated_int32: repeated_int32,
+            repeated_int64: repeated_int64,
+            repeated_uint32: repeated_uint32,
+            repeated_uint64: repeated_uint64,
+            repeated_bool: repeated_bool,
+            repeated_float: repeated_float,
+            repeated_double: repeated_double,
+            repeated_string: repeated_string,
+            repeated_bytes: repeated_bytes,
+            repeated_msg: repeated_msg,
+            repeated_enum: repeated_enum
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::RepeatedGarbage
+          @get_repeated_garbage.call(request, options, &block)
+        end
+
+        ##
+        def long_running_garbage \
+            garbage,
+            options: nil,
+            &block
+          request = {
+            garbage: garbage
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::LongRunningGarbageRequest
+          @long_running_garbage.call(request, options, &block)
+        end
+
+        ##
+        def client_garbage \
+            garbage,
+            options: nil,
+            &block
+          request = {
+            garbage: garbage
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
+          @client_garbage.call(request, options, &block)
+        end
+
+        ##
+        def server_garbage \
+            garbage,
+            options: nil,
+            &block
+          request = {
+            garbage: garbage
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
+          @server_garbage.call(request, options, &block)
+        end
+
+        ##
+        def bidi_garbage \
+            garbage,
+            options: nil,
+            &block
+          request = {
+            garbage: garbage
+          }.delete_if { |_, v| v.nil? }
+          request = Google::Gax.to_proto request, Endless::Trash::Forever::ListGarbageRequest
+          @bidi_garbage.call(request, options, &block)
         end
 
         protected
 
         def create_stub credentials, scopes
           if credentials.is_a?(String) || credentials.is_a?(Hash)
-            updater_proc = Google::Cloud::Testing::V1::Credentials.new(credentials).updater_proc
+            updater_proc = Google::Cloud::GarbageService::V1::Credentials.new(credentials).updater_proc
           elsif credentials.is_a? GRPC::Core::Channel
             channel = credentials
           elsif credentials.is_a? GRPC::Core::ChannelCredentials
@@ -305,7 +338,7 @@ module Google
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::Testing::V1::Testing::Stub.method :new
+          stub_new = Google::Cloud::GarbageService::V1::GarbageService::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,
@@ -319,7 +352,7 @@ module Google
         end
 
         def default_settings client_config, timeout, metadata, lib_name, lib_version
-          package_version = Gem.loaded_specs["google-cloud-testing"].version.version
+          package_version = Gem.loaded_specs["google-cloud-garbage_service"].version.version
 
           google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
           google_api_client << " #{lib_name}/#{lib_version}" if lib_name
@@ -330,11 +363,11 @@ module Google
           headers = { "x-goog-api-client": google_api_client }
           headers.merge! metadata unless metadata.nil?
           client_config_file = Pathname.new(__dir__).join(
-            "testing_client_config.json"
+            "garbage_service_client_config.json"
           )
           client_config_file.open do |f|
             Google::Gax.construct_settings(
-              "google.cloud.testing.v1.Testing",
+              "google.cloud.garbage_service.v1.GarbageService",
               JSON.parse(f.read),
               client_config,
               Google::Gax::Grpc::STATUS_CODE_NAMES,
