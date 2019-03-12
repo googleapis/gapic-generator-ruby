@@ -15,9 +15,7 @@ jobs:
           command: git submodule update --init --recursive
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-dependencies-generator
       - run:
           name: install dependencies
           command: |
@@ -25,7 +23,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v1-dependencies-generator
 
       # run tests!
       - run:
