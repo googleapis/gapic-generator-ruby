@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-
 require "minitest/autorun"
 require "open3"
 

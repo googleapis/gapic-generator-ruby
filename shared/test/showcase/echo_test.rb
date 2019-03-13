@@ -15,9 +15,16 @@
 # limitations under the License.
 
 require "test_helper"
+require "google/showcase/v1alpha3/echo"
 
 class EchoTest < ShowcaseTest
   def test_echo
-    raise "not implemented"
+    client = Google::Showcase::V1alpha3::EchoClient.new(
+      credentials: GRPC::Core::Channel.new(
+        "localhost:7469", nil, :this_channel_is_insecure))
+
+    response = client.echo 'hi there!', nil
+
+    assert_equal 'hi there!', response.content
   end
 end

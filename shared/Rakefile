@@ -73,9 +73,26 @@ end
 namespace :test do
   desc "Run functional tests for showcase protos"
   Rake::TestTask.new :showcase do |t|
+    require "tmpdir"
+
+    client_lib = Dir.mktmpdir
+    protoc_cmd = [
+      "grpc_tools_ruby_protoc",
+      "--proto_path=api-common-protos",
+      "--proto_path=protos/showcase",
+      "--ruby_out=#{client_lib}",
+      "--grpc_out=#{client_lib}",
+      "--ruby_gapic_out=#{client_lib}",
+      "protos/showcase/v1alpha3/echo.proto"
+    ].join " "
+    sh protoc_cmd
+
     t.libs << "test"
+    t.libs << client_lib
     t.test_files = FileList["test/showcase/**/*_test.rb"]
     t.warning = false
+
+    # TODO: delete the temporary dir?
   end
 end
 
@@ -97,6 +114,14 @@ task :console do
   ARGV.clear
   IRB.start
 end
+
+desc "Run the CI build"
+task :ci do
+  puts "\nshared test\n"
+  Rake::Task[:test].invoke
+end
+
+task default: :ci
 
 def generate_input_file name, protos
   require "tmpdir"
