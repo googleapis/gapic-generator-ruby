@@ -24,8 +24,6 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-generator
-
-      # run tests!
       - run:
           name: run tests
           command: bundle exec rake ci
