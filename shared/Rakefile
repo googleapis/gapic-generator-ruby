@@ -65,10 +65,8 @@ end
 
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
-Rake::TestTask.new do |t|
-  t.libs << "test"
-  t.test_files = FileList["test/**/*_test.rb"]
-  t.warning = false
+task :test do
+  Rake::Task["test:showcase"].invoke
 end
 namespace :test do
   desc "Run functional tests for showcase protos"
@@ -87,8 +85,7 @@ namespace :test do
     ].join " "
     sh protoc_cmd
 
-    t.libs << "test"
-    t.libs << client_lib
+    t.libs << ["test",  client_lib]
     t.test_files = FileList["test/showcase/**/*_test.rb"]
     t.warning = false
 
