@@ -15,7 +15,25 @@
 # limitations under the License.
 
 require "minitest/autorun"
+require "fileutils"
 require "open3"
+require "tmpdir"
+
+def generate_library_for_test imports, protos
+  client_lib = Dir.mktmpdir
+
+  protoc_cmd = [
+    "grpc_tools_ruby_protoc",
+    "#{imports.map {|x| "-I#{x}"}.join " "}",
+    "--ruby_out=#{client_lib}",
+    "--grpc_out=#{client_lib}",
+    "--ruby_gapic_out=#{client_lib}",
+    "#{protos.join " "}",
+  ].join " "
+  `"#{protoc_cmd}`
+
+  client_lib
+end
 
 class ShowcaseTest < Minitest::Test
   @showcase_id = begin
@@ -30,8 +48,18 @@ class ShowcaseTest < Minitest::Test
     server_id
   end
 
+  @showcase_library = begin
+    library = generate_library_for_test(
+      %w[api-common-protos protos/showcase],
+      %w[protos/showcase/v1alpha3/echo.proto"])
+    $LOAD_PATH.unshift library
+    library
+  end
+
   Minitest.after_run do
     puts "Stopping showcase server (id: #{@showcase_id})..."
+
+    FileUtils.remove_dir @showcase_library, true
 
     _, status = Open3.capture2 "docker stop #{@showcase_id}"
     raise "failed to stop showcase" unless status.exitstatus.zero?

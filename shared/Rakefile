@@ -71,25 +71,9 @@ end
 namespace :test do
   desc "Run functional tests for showcase protos"
   Rake::TestTask.new :showcase do |t|
-    require "tmpdir"
-
-    client_lib = Dir.mktmpdir
-    protoc_cmd = [
-      "grpc_tools_ruby_protoc",
-      "--proto_path=api-common-protos",
-      "--proto_path=protos/showcase",
-      "--ruby_out=#{client_lib}",
-      "--grpc_out=#{client_lib}",
-      "--ruby_gapic_out=#{client_lib}",
-      "protos/showcase/v1alpha3/echo.proto"
-    ].join " "
-    sh protoc_cmd
-
-    t.libs << ["test",  client_lib]
+    t.libs << ["test"]
     t.test_files = FileList["test/showcase/**/*_test.rb"]
     t.warning = false
-
-    # TODO: delete the temporary dir?
   end
 end
 
