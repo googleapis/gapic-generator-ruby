@@ -21,9 +21,9 @@ jobs:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3
-            bundle install --jobs=4 --retry=3 --gemfile shared/Gemfile
-            bundle install --jobs=4 --retry=3 --gemfile gapic-generator/Gemfile
-            bundle install --jobs=4 --retry=3 --gemfile gapic-generator-cloud/Gemfile
+            cd shared && bundle install --jobs=4 --retry=3
+            cd ../gapic-generator && bundle install --jobs=4 --retry=3
+            cd ../gapic-generator-cloud && bundle install --jobs=4 --retry=3
             bundle clean
       - save_cache:
           paths:
