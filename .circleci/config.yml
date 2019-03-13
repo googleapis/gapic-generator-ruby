@@ -7,6 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4.1-node-browsers
+      - image: gcr.io/gapic-showcase/gapic-showcase:0.0.12
     working_directory: ~/gapic-generator-ruby
     steps:
       - checkout
@@ -15,9 +16,7 @@ jobs:
           command: git submodule update --init --recursive
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-dependencies-generator
       - run:
           name: install dependencies
           command: |
@@ -25,9 +24,7 @@ jobs:
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # run tests!
+          key: v1-dependencies-generator
       - run:
           name: run tests
           command: bundle exec rake ci

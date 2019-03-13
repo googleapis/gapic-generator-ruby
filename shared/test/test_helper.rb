@@ -37,14 +37,18 @@ end
 
 class ShowcaseTest < Minitest::Test
   @showcase_id = begin
-    puts "Starting showcase server..."
+    server_id = nil
+    if ENV['CI'].nil?
+      puts "Starting showcase server..."
 
-    server_id, status = Open3.capture2 "docker run --rm -d "\
+      server_id, status = Open3.capture2 "docker run --rm -d "\
         "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
-    raise "failed to start showcase" unless status.exitstatus.zero?
+      raise "failed to start showcase" unless status.exitstatus.zero?
 
-    server_id.chop!
-    puts "Started with container id: #{server_id}"
+      server_id.chop!
+      puts "Started with container id: #{server_id}"
+    end
+
     server_id
   end
 
@@ -57,11 +61,13 @@ class ShowcaseTest < Minitest::Test
   end
 
   Minitest.after_run do
-    puts "Stopping showcase server (id: #{@showcase_id})..."
-
     FileUtils.remove_dir @showcase_library, true
 
-    _, status = Open3.capture2 "docker stop #{@showcase_id}"
-    raise "failed to stop showcase" unless status.exitstatus.zero?
+    unless @showcase_id.nil?
+      puts "Stopping showcase server (id: #{@showcase_id})..."
+
+      _, status = Open3.capture2 "docker stop #{@showcase_id}"
+      raise "failed to stop showcase" unless status.exitstatus.zero?
+    end
   end
 end
