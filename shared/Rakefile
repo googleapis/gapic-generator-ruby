@@ -25,7 +25,7 @@ namespace :gen do
   desc "Generate the binary input files for speech"
   task :speech do
     speech_protos = [
-      "googleapis/google/cloud/speech/v1/cloud_speech.proto"
+      "google/cloud/speech/v1/cloud_speech.proto"
     ]
     generate_input_file "speech", speech_protos
   end
@@ -33,12 +33,12 @@ namespace :gen do
   desc "Generate the binary input files for vision"
   task :vision do
     vision_protos = [
-      "googleapis/google/cloud/vision/v1/geometry.proto",
-      "googleapis/google/cloud/vision/v1/image_annotator.proto",
-      "googleapis/google/cloud/vision/v1/product_search.proto",
-      "googleapis/google/cloud/vision/v1/product_search_service.proto",
-      "googleapis/google/cloud/vision/v1/text_annotation.proto",
-      "googleapis/google/cloud/vision/v1/web_detection.proto"
+      "google/cloud/vision/v1/geometry.proto",
+      "google/cloud/vision/v1/image_annotator.proto",
+      "google/cloud/vision/v1/product_search.proto",
+      "google/cloud/vision/v1/product_search_service.proto",
+      "google/cloud/vision/v1/text_annotation.proto",
+      "google/cloud/vision/v1/web_detection.proto"
     ]
     generate_input_file "vision", vision_protos
   end
@@ -46,10 +46,10 @@ namespace :gen do
   desc "Generate the binary input files for showcase"
   task :showcase do
     showcase_protos = [
-      "protos/showcase/v1alpha3/echo.proto",
-      "protos/showcase/v1alpha3/identity.proto",
-      "protos/showcase/v1alpha3/messaging.proto",
-      "protos/showcase/v1alpha3/testing.proto"
+      "google/showcase/v1alpha3/echo.proto",
+      "google/showcase/v1alpha3/identity.proto",
+      "google/showcase/v1alpha3/messaging.proto",
+      "google/showcase/v1alpha3/testing.proto"
     ]
     generate_input_file "showcase", showcase_protos
   end
@@ -57,7 +57,7 @@ namespace :gen do
   desc "Generate the binary input files for garbage"
   task :garbage do
     garbage_protos = [
-      "protos/garbage/garbage.proto"
+      "garbage/garbage.proto"
     ]
     generate_input_file "garbage", garbage_protos
   end
