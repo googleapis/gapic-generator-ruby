@@ -46,10 +46,10 @@ namespace :gen do
   desc "Generate the binary input files for showcase"
   task :showcase do
     showcase_protos = [
-      "protos/showcase/v1alpha3/echo.proto",
-      "protos/showcase/v1alpha3/identity.proto",
-      "protos/showcase/v1alpha3/messaging.proto",
-      "protos/showcase/v1alpha3/testing.proto"
+      "protos/google/showcase/v1alpha3/echo.proto",
+      "protos/google/showcase/v1alpha3/identity.proto",
+      "protos/google/showcase/v1alpha3/messaging.proto",
+      "protos/google/showcase/v1alpha3/testing.proto"
     ]
     generate_input_file "showcase", showcase_protos
   end
