@@ -27,7 +27,6 @@ jobs:
             cd ../gapic-generator && bundle install --jobs=4 --retry=3
             cd ../gapic-generator-cloud && bundle install --jobs=4 --retry=3
             cd ..
-            bundle clean
       - run:
           name: wait for showcase server
           command: dockerize -wait tcp://localhost:7469 -timeout 1m
