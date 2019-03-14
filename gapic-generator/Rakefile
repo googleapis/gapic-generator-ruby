@@ -37,7 +37,7 @@ task :compile_protos do
   plugin = "protoc-gen-ruby-protobuf=#{plugin_executable}"
 
   command = []
-  command << "protoc"
+  command << "grpc_tools_ruby_protoc"
   command << "--plugin=#{plugin}"
   command << "--ruby-protobuf_out=lib"
   command << "-I ../shared/api-common-protos"
@@ -48,7 +48,7 @@ task :compile_protos do
   full_command = command.join " "
 
   puts full_command
-  system full_command
+  puts `#{full_command}`
 end
 
 desc "Remove the compiled protos."

@@ -6,33 +6,6 @@ Create Ruby clients from a protocol buffer description of an API.
 but there are currently no guarantees of stability or support.
 
 ## Usage
-### Install the Proto Compiler
-This generator relies on the Protocol Buffer Compiler to [orchestrate] the
-client generation.
-
-```sh
-# Declare the protobuf version to use.
-$ export PROTOBUF_VERSION=3.6.1
-
-# Declare the target installation system.
-# export SYSTEM=osx
-$ export SYSTEM=linux
-
-# Get the precompiled protobuf compiler.
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
-$ cd /usr/src/protoc/
-$ unzip protoc-${PROTOBUF_VERSION}.zip
-$ rm protoc-${PROTOBUF_VERSION}.zip
-
-# Link the protoc to the path.
-$ ln -s /usr/src/protoc/bin/protoc /usr/local/bin/protoc
-$ mkdir -p /protos/
-
-# Move the common protobuf files to the local include folder.
-$ cp -R /usr/src/protoc/include/* /usr/local/include/
-```
-
-[orchestrate]: https://developers.google.com/protocol-buffers/docs/reference/ruby-generated
 
 ### Build and Install the Generator
 This tool is in pre-alpha so it is not yet released to RubyGems. You will have to

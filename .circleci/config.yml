@@ -6,17 +6,19 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.6.1
       - image: gcr.io/gapic-showcase/gapic-showcase:0.0.12
     working_directory: ~/gapic-generator-ruby
     steps:
       - checkout
       - run:
+          name: update environment
+          command: |
+            gem update --system
+            gem install bundler -v 1.7.3
+      - run:
           name: checkout submodules
           command: git submodule update --init --recursive
-      - restore_cache:
-          keys:
-            - v1-dependencies-generator
       - run:
           name: install dependencies
           command: |
@@ -24,11 +26,7 @@ jobs:
             cd shared && bundle install --jobs=4 --retry=3
             cd ../gapic-generator && bundle install --jobs=4 --retry=3
             cd ../gapic-generator-cloud && bundle install --jobs=4 --retry=3
-            bundle clean
-      - save_cache:
-          paths:
-            - ~/.bundle
-          key: v1-dependencies-generator
+            cd ..
       - run:
           name: wait for showcase server
           command: dockerize -wait tcp://localhost:7469 -timeout 1m
