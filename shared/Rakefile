@@ -109,7 +109,7 @@ def generate_input_file name, protos
 
   Dir.mktmpdir do |tmp|
     protoc_cmd = [
-      "bundle exec protoc #{Array(protos).join " "}",
+      "bundle exec grpc_tools_ruby_protoc #{Array(protos).join " "}",
       "--proto_path=api-common-protos/",
       "--proto_path=googleapis/",
       "--proto_path=protos/",
