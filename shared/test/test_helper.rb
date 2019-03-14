@@ -14,28 +14,60 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-
 require "minitest/autorun"
+require "fileutils"
 require "open3"
+require "tmpdir"
+
+def generate_library_for_test imports, protos
+  client_lib = Dir.mktmpdir
+
+  protoc_cmd = [
+    "grpc_tools_ruby_protoc",
+    "#{imports.map {|x| "-I#{x}"}.join " "}",
+    "--ruby_out=#{client_lib}",
+    "--grpc_out=#{client_lib}",
+    "--ruby_gapic_out=#{client_lib}",
+    "#{protos.join " "}",
+  ].join " "
+  `"#{protoc_cmd}`
+
+  client_lib
+end
 
 class ShowcaseTest < Minitest::Test
   @showcase_id = begin
-    puts "Starting showcase server..."
+    server_id = nil
+    if ENV['CI'].nil?
+      puts "Starting showcase server..."
 
-    server_id, status = Open3.capture2 "docker run --rm -d "\
+      server_id, status = Open3.capture2 "docker run --rm -d "\
         "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
-    raise "failed to start showcase" unless status.exitstatus.zero?
+      raise "failed to start showcase" unless status.exitstatus.zero?
 
-    server_id.chop!
-    puts "Started with container id: #{server_id}"
+      server_id.chop!
+      puts "Started with container id: #{server_id}"
+    end
+
     server_id
   end
 
-  Minitest.after_run do
-    puts "Stopping showcase server (id: #{@showcase_id})..."
+  @showcase_library = begin
+    library = generate_library_for_test(
+      %w[api-common-protos protos/showcase],
+      %w[protos/showcase/v1alpha3/echo.proto"])
+    $LOAD_PATH.unshift library
+    library
+  end
 
-    _, status = Open3.capture2 "docker stop #{@showcase_id}"
-    raise "failed to stop showcase" unless status.exitstatus.zero?
+  Minitest.after_run do
+    FileUtils.remove_dir @showcase_library, true
+
+    unless @showcase_id.nil?
+      puts "Stopping showcase server (id: #{@showcase_id})..."
+
+      _, status = Open3.capture2 "docker stop #{@showcase_id}"
+      raise "failed to stop showcase" unless status.exitstatus.zero?
+    end
   end
 end

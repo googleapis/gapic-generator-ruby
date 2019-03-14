@@ -40,6 +40,13 @@ end
 
 desc "Runs tests for all gems."
 task :test do
+  Dir.chdir "shared" do
+    Bundler.with_clean_env do
+      puts "Running shared tests"
+      sh "bundle exec rake test"
+    end
+  end
+
   gem_dirs.each do |gem|
     Dir.chdir gem do
       Bundler.with_clean_env do
@@ -83,6 +90,13 @@ end
 
 desc "Runs CI for all gems."
 task :ci do
+  Dir.chdir "shared" do
+    Bundler.with_clean_env do
+      puts "Running CI for shared"
+      sh "bundle exec rake ci"
+    end
+  end
+
   gem_dirs.each do |gem|
     Dir.chdir gem do
       Bundler.with_clean_env do
