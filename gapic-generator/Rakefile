@@ -60,6 +60,13 @@ task :clean_protos do
   FileUtils.rm Dir.glob(File.join("lib", "**", "*.pb.rb"))
 end
 
+desc "Check that the necessary protobuf files exist."
+task :check_protos do
+  unless File.exist? "lib/google/api/annotations.pb.rb"
+    Rake::Task[:compile_protos].invoke
+  end
+end
+
 Rake::Task[:build].enhance [:compile_protos]
 Rake::Task[:clean].enhance [:clean_protos]
 
@@ -72,6 +79,7 @@ task :ci do
   puts "\ngapic-generator test\n"
   Rake::Task[:test].invoke
 end
+Rake::Task[:ci].enhance [:check_protos]
 
 task default: :ci
 
@@ -94,6 +102,9 @@ namespace :gen do
     generate_gem "my_plugin"
   end
 end
+Rake::Task[:gen].enhance [:check_protos]
+Rake::Task["gen:templates"].enhance [:check_protos]
+Rake::Task["gen:gem_creation"].enhance [:check_protos]
 
 desc "Start an interactive shell."
 task :console do
@@ -113,6 +124,7 @@ task :console do
   ARGV.clear
   IRB.start
 end
+Rake::Task[:console].enhance [:check_protos]
 
 def generate_default_templates service
   require "google/gapic/schema/api"
