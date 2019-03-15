@@ -14,6 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+desc "Check that the necessary protobuf files exist."
+task :check_protos do
+  Dir.chdir "../gapic-generator" do
+    Bundler.with_clean_env do
+      sh "bundle exec rake check_protos"
+    end
+  end
+end
+
 desc "Generate the binary input files"
 task :gen do
   Rake::Task["gen:speech"].invoke
@@ -62,6 +71,11 @@ namespace :gen do
     generate_input_file "garbage", garbage_protos
   end
 end
+Rake::Task[:gen].enhance [:check_protos]
+Rake::Task["gen:speech"].enhance [:check_protos]
+Rake::Task["gen:vision"].enhance [:check_protos]
+Rake::Task["gen:showcase"].enhance [:check_protos]
+Rake::Task["gen:garbage"].enhance [:check_protos]
 
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
@@ -76,6 +90,8 @@ namespace :test do
     t.warning = false
   end
 end
+Rake::Task[:test].enhance [:check_protos]
+Rake::Task["test:showcase"].enhance [:check_protos]
 
 desc "Start an interactive shell."
 task :console do
@@ -95,12 +111,14 @@ task :console do
   ARGV.clear
   IRB.start
 end
+Rake::Task[:console].enhance [:check_protos]
 
 desc "Run the CI build"
 task :ci do
   puts "\nshared test\n"
   Rake::Task[:test].invoke
 end
+Rake::Task[:ci].enhance [:check_protos]
 
 task default: :ci
 

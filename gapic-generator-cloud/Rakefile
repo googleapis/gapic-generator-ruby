@@ -18,12 +18,22 @@ require "bundler/gem_tasks"
 require "rubocop/rake_task"
 require "rake/testtask"
 
+desc "Check that the necessary protobuf files exist."
+task :check_protos do
+  Dir.chdir "../gapic-generator" do
+    Bundler.with_clean_env do
+      sh "bundle exec rake check_protos"
+    end
+  end
+end
+
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
 end
+Rake::Task[:test].enhance [:check_protos]
 
 desc "Run the CI build"
 task :ci do
@@ -33,6 +43,7 @@ task :ci do
   puts "\ngapic-generator-cloud test\n"
   Rake::Task[:test].invoke
 end
+Rake::Task[:ci].enhance [:check_protos]
 
 desc "Generate the expected output for tests"
 task :gen do
@@ -47,6 +58,8 @@ namespace :gen do
     # generate_default_templates "garbage"
   end
 end
+Rake::Task[:gen].enhance [:check_protos]
+Rake::Task["gen:templates"].enhance [:check_protos]
 
 desc "Start an interactive shell."
 task :console do
@@ -66,6 +79,7 @@ task :console do
   ARGV.clear
   IRB.start
 end
+Rake::Task[:console].enhance [:check_protos]
 
 def api service
   require "google/gapic/schema/api"
