@@ -37,6 +37,7 @@ namespace :gen do
       "google/cloud/speech/v1/cloud_speech.proto"
     ]
     generate_input_file "speech", speech_protos
+    generate_yaml_file "speech"
   end
 
   desc "Generate the binary input files for vision"
@@ -50,6 +51,7 @@ namespace :gen do
       "google/cloud/vision/v1/web_detection.proto"
     ]
     generate_input_file "vision", vision_protos
+    generate_yaml_file "vision"
   end
 
   desc "Generate the binary input files for showcase"
@@ -61,6 +63,7 @@ namespace :gen do
       "google/showcase/v1alpha3/testing.proto"
     ]
     generate_input_file "showcase", showcase_protos
+    generate_yaml_file "showcase"
   end
 
   desc "Generate the binary input files for garbage"
@@ -69,6 +72,7 @@ namespace :gen do
       "garbage/garbage.proto"
     ]
     generate_input_file "garbage", garbage_protos
+    generate_yaml_file "garbage"
   end
 end
 Rake::Task[:gen].enhance [:check_protos]
@@ -122,7 +126,7 @@ Rake::Task[:ci].enhance [:check_protos]
 
 task default: :ci
 
-def generate_input_file name, protos
+def generate_input_file service, protos
   require "tmpdir"
 
   Dir.mktmpdir do |tmp|
@@ -136,11 +140,20 @@ def generate_input_file name, protos
       # "--ruby_gapic_opt=generator=cloud",
       # TODO: invoke a custom template path?
       # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
-      "--ruby_gapic_opt=gem_name=google-cloud-#{name}",
-      "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
-      "--ruby_gapic_opt=binary_output=./input/#{name}.bin"
+      "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
+      "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
+      "--ruby_gapic_opt=binary_output=./input/#{service}.bin"
     ].join " "
 
     `#{protoc_cmd}`
   end
+
+  def generate_yaml_file service
+      require "yaml"
+      require "google/gapic/schema"
+
+      bin_proto = File.binread "input/#{service}.bin"
+      request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
+      File.write "input/#{service}.yaml", request.to_hash.to_yaml
+    end
 end
