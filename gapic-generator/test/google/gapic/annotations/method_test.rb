@@ -31,6 +31,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/simple_garbage:get", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_empty method.signatures
   end
 
   def test_garbage_GetSpecificGarbage
@@ -50,6 +56,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal expected_signatures, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/specific_garbage:get", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_equal expected_signatures, method.signatures
   end
 
   def test_garbage_GetNestedGarbage
@@ -71,6 +83,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal expected_signatures, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/nested_garbage:get", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_equal expected_signatures, method.signatures
   end
 
   def test_garbage_GetRepeatedGarbage
@@ -92,6 +110,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal expected_signatures, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/repeated_garbage:get", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_equal expected_signatures, method.signatures
   end
 
   def test_garbage_LongRunningGarbage
@@ -111,6 +135,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_kind_of Google::Longrunning::OperationInfo, method.options[:operation_info]
     assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.options[:operation_info].response_type
     assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.options[:operation_info].metadata_type
+
+    refute_nil method.http
+    assert_equal "/v1/garbage:lro", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_empty method.signatures
   end
 
   def test_garbage_ClientGarbage
@@ -127,6 +157,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/garbage:client", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_empty method.signatures
   end
 
   def test_garbage_ServerGarbage
@@ -143,6 +179,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
+
+    refute_nil method.http
+    assert_equal "/v1/garbage:server", method.http.post
+    assert_equal "*", method.http.body
+
+    assert_empty method.signatures
   end
 
   def test_garbage_BidiGarbage
@@ -153,5 +195,8 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_nil method.options
+
+    assert_nil method.http
+    assert_empty method.signatures
   end
 end

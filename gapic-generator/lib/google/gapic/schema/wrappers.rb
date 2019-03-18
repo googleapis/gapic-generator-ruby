@@ -217,11 +217,9 @@ module Google
           options[:".google.api.default_host"] if options
         end
 
-        # @return [Google::Api::OAuth] OAuth information for the client.
-        #   The "scopes" key is a repeated string; see
-        #   `google/api/metadata.proto`.
-        def oauth
-          options[:".google.api.default_host"] if options
+        # @return [String] The OAuth scopes information for the client.
+        def scopes
+          options[:".google.api.oauth_scopes"] if options
         end
 
         # @!method name
@@ -261,7 +259,7 @@ module Google
           @output = output
         end
 
-        # @return [Array<Google::Api::MethodSignature>] The parameter lists
+        # @return [Array<String>] The parameter lists
         #   defined for this method. See `google/api/signature.proto`.
         def signatures
           return options[:".google.api.method_signature"] if options
@@ -279,8 +277,8 @@ module Google
           options[:".google.api.operation"] if options
         end
 
-        # @return [Google::Api::HttpRule] The HTTP bindings for this method.
-        #     See `google/api/http.proto`.
+        # @return [Google::Api::MethodOptions] The HTTP bindings for this
+        #   method. See `google/api/http.proto`.
         def http
           options[:".google.api.http"] if options
         end
@@ -590,6 +588,42 @@ module Google
           return options[:".google.api.field_behavior"] if options
 
           []
+        end
+
+        # Specifically denotes a field as optional. While all fields in protocol
+        # buffers are optional, this may be specified for emphasis if
+        # appropriate.
+        def optional?
+          field_behavior.include? Google::Api::FieldBehavior::OPTIONAL
+        end
+
+        # Denotes a field as required. This indicates that the field **must** be
+        # provided as part of the request, and failure to do so will cause an
+        # error (usually `INVALID_ARGUMENT`).
+        def required?
+          field_behavior.include? Google::Api::FieldBehavior::REQUIRED
+        end
+
+        # Denotes a field as output only. This indicates that the field is
+        # provided in responses, but including the field in a request does
+        # nothing (the server *must* ignore it and *must not* throw an error as
+        # a result of the field's presence).
+        def output_only?
+          field_behavior.include? Google::Api::FieldBehavior::OUTPUT_ONLY
+        end
+
+        # Denotes a field as input only. This indicates that the field is
+        # provided in requests, and the corresponding field is not included in
+        # output.
+        def input_only?
+          field_behavior.include? Google::Api::FieldBehavior::INPUT_ONLY
+        end
+
+        # Denotes a field as immutable. This indicates that the field may be set
+        # once in a request to create a resource, but may not be changed
+        # thereafter.
+        def immutable?
+          field_behavior.include? Google::Api::FieldBehavior::IMMUTABLE
         end
 
         # @!method name

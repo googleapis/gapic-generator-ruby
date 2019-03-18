@@ -17,11 +17,12 @@
 require "test_helper"
 
 class AnnotationResourceTest < AnnotationTest
-  def test_garbage_SimpleGarbage_resource
+  def test_garbage_SimpleGarbage
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "SimpleGarbage" }
     refute_nil message
     assert_nil message.options
+
     field = message.fields.first
     assert_equal "name", field.name
     refute_nil field.options.to_hash
@@ -29,21 +30,39 @@ class AnnotationResourceTest < AnnotationTest
     resource = field.options[:resource]
     assert_kind_of Google::Api::Resource, resource
     assert_equal "projects/{project}/simple_garbage/{garbage}", resource.pattern
+
+    assert_equal 1, message.fields.count
+    assert_kind_of Google::Api::Resource, message.fields[0].resource
+    assert_equal "projects/{project}/simple_garbage/{garbage}", message.fields[0].resource.pattern
+    assert_equal "", message.fields[0].resource_reference
+    assert_nil message.fields[0].resource_set
   end
 
-  def test_garbage_SimpleGarbageItem_resource_reference
+  def test_garbage_SimpleGarbageItem
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "SimpleGarbageItem" }
     refute_nil message
     assert_nil message.options
+
     field = message.fields.first
     assert_equal "garbage", field.name
     refute_nil field.options.to_hash
     assert_kind_of Google::Protobuf::FieldOptions, field.options
     assert_equal "SimpleGarbage", field.options[:resource_reference]
+
+    assert_equal 3, message.fields.count
+    assert_nil message.fields[0].resource
+    assert_equal "SimpleGarbage", message.fields[0].resource_reference
+    assert_nil message.fields[0].resource_set
+    assert_nil message.fields[1].resource
+    assert_nil message.fields[1].resource_reference
+    assert_nil message.fields[1].resource_set
+    assert_nil message.fields[2].resource
+    assert_nil message.fields[2].resource_reference
+    assert_nil message.fields[2].resource_set
   end
 
-  def test_garbage_LongRunningGarbageRequest_resource_set
+  def test_garbage_LongRunningGarbageRequest
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "LongRunningGarbageRequest" }
     refute_nil message
@@ -67,9 +86,15 @@ class AnnotationResourceTest < AnnotationTest
       { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
     ]
     assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+
+    assert_equal 1, message.fields.count
+    assert_nil message.fields[0].resource
+    assert_equal "", message.fields[0].resource_reference
+    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
+    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
   end
 
-  def test_garbage_LongRunningGarbageResponse_resource_set
+  def test_garbage_LongRunningGarbageResponse
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "LongRunningGarbageResponse" }
     refute_nil message
@@ -93,9 +118,18 @@ class AnnotationResourceTest < AnnotationTest
       { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
     ]
     assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+
+    assert_equal 2, message.fields.count
+    assert_nil message.fields[0].resource
+    assert_equal "", message.fields[0].resource_reference
+    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
+    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[1].resource
+    assert_nil message.fields[1].resource_reference
+    assert_nil message.fields[1].resource_set
   end
 
-  def test_garbage_ListGarbageRequest_resource_set
+  def test_garbage_ListGarbageRequest
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "ListGarbageRequest" }
     refute_nil message
@@ -119,9 +153,15 @@ class AnnotationResourceTest < AnnotationTest
       { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
     ]
     assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+
+    assert_equal 1, message.fields.count
+    assert_nil message.fields[0].resource
+    assert_equal "", message.fields[0].resource_reference
+    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
+    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
   end
 
-  def test_garbage_ListGarbageResponse_resource_set
+  def test_garbage_ListGarbageResponse
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "ListGarbageResponse" }
     refute_nil message
@@ -145,5 +185,14 @@ class AnnotationResourceTest < AnnotationTest
       { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
     ]
     assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+
+    assert_equal 2, message.fields.count
+    assert_nil message.fields[0].resource
+    assert_equal "", message.fields[0].resource_reference
+    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
+    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[1].resource
+    assert_nil message.fields[1].resource_reference
+    assert_nil message.fields[1].resource_set
   end
 end

@@ -31,6 +31,9 @@ class AnnotationServiceTest < AnnotationTest
       https://endlesstrash.example.net/garbage-write
     ].join ","
     assert_equal garbage_scopes, service.options[:oauth_scopes]
+
+    assert_equal garbage_host, service.host
+    assert_equal garbage_scopes, service.scopes
   end
 
   def test_showcase
@@ -41,5 +44,8 @@ class AnnotationServiceTest < AnnotationTest
     assert_kind_of Google::Protobuf::ServiceOptions, service.options
     assert_equal "localhost:7469", service.options[:default_host]
     assert_equal "", service.options[:oauth_scopes]
+
+    assert_equal "localhost:7469", service.host
+    assert_equal "", service.scopes
   end
 end
