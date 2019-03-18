@@ -4,6 +4,7 @@ AllCops:
     - Rakefile
     - lib/**/*.pb.rb
     - expected_output/**/*
+    - test/google/gapic/annotations/**/*
 
 Documentation:
   Enabled: false
