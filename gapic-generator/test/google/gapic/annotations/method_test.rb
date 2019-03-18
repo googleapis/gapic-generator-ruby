@@ -33,10 +33,13 @@ class AnnotationMethodTest < AnnotationTest
     assert_nil method.options[:operation_info]
 
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/simple_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
     assert_empty method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_GetSpecificGarbage
@@ -47,6 +50,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/specific_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -57,11 +61,16 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.options[:operation_info]
 
+    assert_nil method.operation_info
+
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/specific_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
     assert_equal expected_signatures, method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_GetNestedGarbage
@@ -72,6 +81,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/nested_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -84,11 +94,16 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.options[:operation_info]
 
+    assert_nil method.operation_info
+
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/nested_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
     assert_equal expected_signatures, method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_GetRepeatedGarbage
@@ -99,6 +114,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/repeated_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -111,11 +127,16 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.options[:operation_info]
 
+    assert_nil method.operation_info
+
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/repeated_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
     assert_equal expected_signatures, method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_LongRunningGarbage
@@ -126,6 +147,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/garbage:lro", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -133,14 +155,19 @@ class AnnotationMethodTest < AnnotationTest
 
     refute_nil method.options[:operation_info]
     assert_kind_of Google::Longrunning::OperationInfo, method.options[:operation_info]
-    assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.options[:operation_info].response_type
-    assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.options[:operation_info].metadata_type
+    assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.options[:operation_info][:response_type]
+    assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.options[:operation_info][:metadata_type]
 
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/garbage:lro", method.http.post
     assert_equal "*", method.http.body
 
     assert_empty method.signatures
+
+    assert_kind_of Google::Longrunning::OperationInfo, method.operation_info
+    assert_equal "google.garbage.v1.LongRunningGarbageResponse", method.operation_info.response_type
+    assert_equal "google.garbage.v1.LongRunningGarbageMetadata", method.operation_info.metadata_type
   end
 
   def test_garbage_ClientGarbage
@@ -151,6 +178,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/garbage:client", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -158,11 +186,16 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.options[:operation_info]
 
+    assert_nil method.operation_info
+
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/garbage:client", method.http.post
     assert_equal "*", method.http.body
 
     assert_empty method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_ServerGarbage
@@ -173,6 +206,7 @@ class AnnotationMethodTest < AnnotationTest
     refute_nil method
 
     assert_kind_of Google::Protobuf::MethodOptions, method.options
+    assert_kind_of Google::Api::HttpRule, method.options[:http]
     assert_equal "/v1/garbage:server", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
@@ -180,11 +214,16 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.options[:operation_info]
 
+    assert_nil method.operation_info
+
     refute_nil method.http
+    assert_kind_of Google::Api::HttpRule, method.http
     assert_equal "/v1/garbage:server", method.http.post
     assert_equal "*", method.http.body
 
     assert_empty method.signatures
+
+    assert_nil method.operation_info
   end
 
   def test_garbage_BidiGarbage
@@ -198,5 +237,6 @@ class AnnotationMethodTest < AnnotationTest
 
     assert_nil method.http
     assert_empty method.signatures
+    assert_nil method.operation_info
   end
 end

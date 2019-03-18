@@ -267,18 +267,18 @@ module Google
           []
         end
 
-        # @return [Google::Api::OperationData] Additional information regarding
-        #   long-running operations.
+        # @return [Google::Longrunning::OperationInfo] Additional information
+        #   regarding long-running operations.
         #   In particular, this specifies the types that are returned from
         #   long-running operations.
         #   Required for methods that return `google.longrunning.Operation`;
         #   invalid otherwise.
-        def operation
-          options[:".google.api.operation"] if options
+        def operation_info
+          options[:".google.longrunning.operation_info"] if options
         end
 
-        # @return [Google::Api::MethodOptions] The HTTP bindings for this
-        #   method. See `google/api/http.proto`.
+        # @return [Google::Api::HttpRule] The HTTP bindings for this method. See
+        #   `google/api/http.proto`.
         def http
           options[:".google.api.http"] if options
         end
