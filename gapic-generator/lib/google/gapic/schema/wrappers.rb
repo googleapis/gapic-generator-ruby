@@ -561,7 +561,7 @@ module Google
 
         # @return [Google::Api::Resource] A representation of the resource.
         #   This is generally intended to be attached to the "name" field.
-        #   See `google/api/resources.proto`.
+        #   See `google/api/resource.proto`.
         def resource
           options[:".google.api.resource"] if options
         end
@@ -570,13 +570,13 @@ module Google
         #   resources, any of which may be represented.
         #   This is generally intended to be attached to the "name" field
         #   and is mutually exclusive with `resource`.
-        #   See `google/api/resources.proto`.
+        #   See `google/api/resource.proto`.
         def resource_set
           options[:".google.api.resource_set"] if options
         end
 
         # @return [String] A reference to another resource message or resource
-        #   definition. See `google/api/resources.proto`.
+        #   definition. See `google/api/resource.proto`.
         def resource_reference
           options[:".google.api.resource_reference"] if options
         end
