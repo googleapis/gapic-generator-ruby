@@ -71,7 +71,7 @@ task :console do
 
   require "google/gapic/schema"
   def schema service
-    bin_proto = File.binread "proto_input/#{service}.bin"
+    bin_proto = File.binread "proto_input/#{service}_desc.bin"
     request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
     Google::Gapic::Schema::Api.new request
   end
@@ -83,7 +83,7 @@ Rake::Task[:console].enhance [:check_protos]
 
 def api service
   require "google/gapic/schema/api"
-  bin_proto = File.binread "proto_input/#{service}.bin"
+  bin_proto = File.binread "proto_input/#{service}_desc.bin"
   request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
   Google::Gapic::Schema::Api.new request
 end
