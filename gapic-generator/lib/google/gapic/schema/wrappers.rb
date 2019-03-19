@@ -79,6 +79,7 @@ module Google
       class Proto
         extend Forwardable
         attr_reader :descriptor, :address, :docs
+        attr_accessor :parent
 
         # Initializes a Proto object.
         # @param descriptor [Object] the protobuf
@@ -208,6 +209,7 @@ module Google
         def initialize descriptor, address, docs, methods
           super descriptor, address, docs
           @methods = methods || []
+          @methods.each { |m| m.parent = self }
         end
 
         # @return [String] The hostname for this service
@@ -340,6 +342,11 @@ module Google
           @enums = enums || []
           @services = services || []
           @generate = generate
+
+          # Apply parent
+          @messages.each { |m| m.parent = self }
+          @enums.each    { |m| m.parent = self }
+          @services.each { |m| m.parent = self }
         end
 
         # rubocop:enable Metrics/ParameterLists
@@ -414,6 +421,7 @@ module Google
         def initialize descriptor, address, docs, values
           super descriptor, address, docs
           @values = values || []
+          @values.each { |v| v.parent = self }
         end
 
         # @!method name
@@ -495,6 +503,11 @@ module Google
           @extensions = extensions || []
           @nested_messages = nested_messages || []
           @nested_enums = nested_enums || []
+
+          @fields.each          { |f| f.parent = self }
+          @extensions.each      { |x| x.parent = self }
+          @nested_messages.each { |m| m.parent = self }
+          @nested_enums.each    { |e| e.parent = self }
         end
 
         # rubocop:enable Metrics/ParameterLists
