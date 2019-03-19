@@ -219,7 +219,7 @@ module Google
 
         # @return [Array<String>] The OAuth scopes information for the client.
         def scopes
-          String(options[:".google.api.oauth_scopes"]).split(",") if options
+          String(options[:".google.api.oauth_scopes"]).split "," if options
         end
 
         # @!method name
@@ -265,7 +265,7 @@ module Google
           return [] if options.nil?
 
           Array(options[:".google.api.method_signature"]).map do |sig|
-            String(sig).split(",")
+            String(sig).split ","
           end
         end
 
