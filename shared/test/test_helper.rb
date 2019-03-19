@@ -28,10 +28,11 @@ def generate_library_for_test imports, protos
     "--ruby_out=#{client_lib}",
     "--grpc_out=#{client_lib}",
     "--ruby_gapic_out=#{client_lib}",
+    "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
-  `"#{protoc_cmd}`
-
+  puts "#{protoc_cmd}"
+  puts `#{protoc_cmd}`
   client_lib
 end
 
@@ -40,8 +41,7 @@ class ShowcaseTest < Minitest::Test
     server_id = nil
     if ENV['CI'].nil?
       puts "Starting showcase server..."
-
-      server_id, status = Open3.capture2 "docker run --rm -d "\
+      server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
         "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
@@ -54,8 +54,8 @@ class ShowcaseTest < Minitest::Test
 
   @showcase_library = begin
     library = generate_library_for_test(
-      %w[api-common-protos protos/showcase],
-      %w[protos/showcase/v1alpha3/echo.proto"])
+      %w[api-common-protos protos],
+      %w[google/showcase/v1alpha3/echo.proto])
     $LOAD_PATH.unshift library
     library
   end

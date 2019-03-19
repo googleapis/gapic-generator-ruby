@@ -102,7 +102,6 @@ module Endless
           # See https://github.com/googleapis/toolkit/issues/446
           require "google/gax/grpc"
           require "google/cloud/garbage_service/v1/cloud_garbage_service_services_pb"
-
           credentials ||= Google::Cloud::GarbageService::V1::Credentials.default
 
           @operations_client = OperationsClient.new(
@@ -119,42 +118,42 @@ module Endless
 
           @get_simple_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:get_simple_garbage),
-            defaults["get_simple_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_specific_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:get_specific_garbage),
-            defaults["get_specific_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_nested_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:get_nested_garbage),
-            defaults["get_nested_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_repeated_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:get_repeated_garbage),
-            defaults["get_repeated_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @long_running_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:long_running_garbage),
-            defaults["long_running_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @client_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:client_garbage),
-            defaults["client_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @server_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:server_garbage),
-            defaults["server_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @bidi_garbage = Google::Gax.create_api_call(
             @garbage_service_stub.method(:bidi_garbage),
-            defaults["bidi_garbage"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
         end
@@ -340,7 +339,7 @@ module Endless
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::GarbageService::V1::GarbageService::Stub.method :new
+          stub_new = Endless::Trash::Forever::GarbageService::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,

@@ -73,10 +73,10 @@ module Google
           @configuration ||= begin
             config = {}
 
-            if params[:configuration]
+            if protoc_options[:configuration]
               require "yaml"
 
-              config = YAML.load_file params[:configuration]
+              config = YAML.load_file protoc_options[:configuration]
               config.merge! config
             end
 

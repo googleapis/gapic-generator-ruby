@@ -2371,7 +2371,7 @@
       - 30
       :trailing_comments: ' e.g. "foo", "foo.bar", etc.
 
-        '
+'
     - :path:
       - 4
       - 1

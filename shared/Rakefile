@@ -84,7 +84,7 @@ Rake::Task["gen:garbage"].enhance [:check_protos]
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
 task :test do
-  # Rake::Task["test:showcase"].invoke
+  Rake::Task["test:showcase"].invoke
 end
 namespace :test do
   desc "Run functional tests for showcase protos"

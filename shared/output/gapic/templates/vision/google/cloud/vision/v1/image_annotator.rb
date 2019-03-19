@@ -105,7 +105,6 @@ module Google
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/cloud/image_annotator/v1/cloud_image_annotator_services_pb"
-
             credentials ||= Google::Cloud::ImageAnnotator::V1::Credentials.default
 
             @operations_client = OperationsClient.new(
@@ -122,12 +121,12 @@ module Google
 
             @batch_annotate_images = Google::Gax.create_api_call(
               @image_annotator_stub.method(:batch_annotate_images),
-              defaults["batch_annotate_images"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @async_batch_annotate_files = Google::Gax.create_api_call(
               @image_annotator_stub.method(:async_batch_annotate_files),
-              defaults["async_batch_annotate_files"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
           end
@@ -184,7 +183,7 @@ module Google
             service_path = self.class::SERVICE_ADDRESS
             port = self.class::DEFAULT_SERVICE_PORT
             interceptors = self.class::GRPC_INTERCEPTORS
-            stub_new = Google::Cloud::ImageAnnotator::V1::ImageAnnotator::Stub.method :new
+            stub_new = Google::Cloud::Vision::V1::ImageAnnotator::Stub.method :new
             Google::Gax::Grpc.create_stub(
               service_path,
               port,

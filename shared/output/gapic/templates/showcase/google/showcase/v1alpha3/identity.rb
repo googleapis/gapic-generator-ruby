@@ -22,7 +22,6 @@ require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/cloud/identity/v1/cloud_identity_pb"
-require "google/cloud/identity/v1/credentials"
 
 module Google
   module Showcase
@@ -103,8 +102,6 @@ module Google
           require "google/gax/grpc"
           require "google/cloud/identity/v1/cloud_identity_services_pb"
 
-          credentials ||= Google::Cloud::Identity::V1::Credentials.default
-
           @operations_client = OperationsClient.new(
             credentials: credentials,
             scopes: scopes,
@@ -115,31 +112,29 @@ module Google
           )
           @identity_stub = create_stub credentials, scopes
 
-          defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
           @create_user = Google::Gax.create_api_call(
             @identity_stub.method(:create_user),
-            defaults["create_user"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_user = Google::Gax.create_api_call(
             @identity_stub.method(:get_user),
-            defaults["get_user"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @update_user = Google::Gax.create_api_call(
             @identity_stub.method(:update_user),
-            defaults["update_user"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @delete_user = Google::Gax.create_api_call(
             @identity_stub.method(:delete_user),
-            defaults["delete_user"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @list_users = Google::Gax.create_api_call(
             @identity_stub.method(:list_users),
-            defaults["list_users"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
         end
@@ -234,7 +229,7 @@ module Google
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::Identity::V1::Identity::Stub.method :new
+          stub_new = Google::Showcase::V1alpha3::Identity::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,
