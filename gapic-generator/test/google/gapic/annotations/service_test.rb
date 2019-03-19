@@ -29,8 +29,8 @@ class AnnotationServiceTest < AnnotationTest
       https://endlesstrash.example.net/garbage-admin
       https://endlesstrash.example.net/garbage-read
       https://endlesstrash.example.net/garbage-write
-    ].join ","
-    assert_equal garbage_scopes, service.options[:oauth_scopes]
+    ]
+    assert_equal garbage_scopes.join(","), service.options[:oauth_scopes]
 
     assert_equal garbage_host, service.host
     assert_equal garbage_scopes, service.scopes
@@ -46,6 +46,17 @@ class AnnotationServiceTest < AnnotationTest
     assert_equal "", service.options[:oauth_scopes]
 
     assert_equal "localhost:7469", service.host
-    assert_equal "", service.scopes
+    assert_empty service.scopes
+  end
+
+  def test_speech
+    showcase = api :speech
+    service = showcase.services.find { |s| s.name == "Speech" }
+    refute_nil service
+
+    assert_nil service.options
+
+    assert_nil service.host
+    assert_nil service.scopes
   end
 end

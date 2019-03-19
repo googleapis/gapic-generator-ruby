@@ -217,9 +217,9 @@ module Google
           options[:".google.api.default_host"] if options
         end
 
-        # @return [String] The OAuth scopes information for the client.
+        # @return [Array<String>] The OAuth scopes information for the client.
         def scopes
-          options[:".google.api.oauth_scopes"] if options
+          String(options[:".google.api.oauth_scopes"]).split(",") if options
         end
 
         # @!method name
