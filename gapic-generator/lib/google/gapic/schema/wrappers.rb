@@ -224,6 +224,14 @@ module Google
           String(options[:".google.api.oauth_scopes"]).split "," if options
         end
 
+        # @return [Google::Api::Package] Packaging information.
+        #   See `google/api/client.proto`.
+        def client_package
+          return nil if parent.nil?
+
+          parent.client_package
+        end
+
         # @!method name
         #   @return [String] the unqualified name of the service.
         # @!method options
@@ -355,30 +363,10 @@ module Google
           @generate
         end
 
-        # @return [Google::Api::Metdata] Packaging information.
-        #   See `google/api/metadata.proto`.
-        def metadata
-          options[:".google.api.metadata"] if options
-        end
-
-        # @return [Array<Google::Api::Resource>] A representation of a resource.
-        #   At a file level, this is generally used to define information for a
-        #   resource from another API, or for a resource that does not have an
-        #   associated proto message.
-        def resources
-          return options[:".google.api.resource_definition"] if options
-
-          []
-        end
-
-        # @return [Array<Google::Api::ResourceSet>] A representation of a set of
-        #   resources. At a file level, this is generally used to define
-        #   information for a resource set from another API, or for a resource
-        #   that does not have an associated proto message.
-        def resource_sets
-          return options[:".google.api.resource_set_definition"] if options
-
-          []
+        # @return [Google::Api::Package] Packaging information.
+        #   See `google/api/client.proto`.
+        def client_package
+          options[:".google.api.client_package"] if options
         end
 
         # @!method name
