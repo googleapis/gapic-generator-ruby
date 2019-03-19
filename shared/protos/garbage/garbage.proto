@@ -37,6 +37,7 @@ service GarbageService {
       body: "*"
     };
     option (google.api.method_signature) = "name,int32,bool";
+    option (google.api.method_signature) = "name,nested.int64";
   }
   rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
     option (google.api.http) = {
@@ -164,6 +165,7 @@ message SpecificGarbage {
   bytes bytes = 9;
   GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   GarbageEnum enum = 11;
+  NestedGarbage nested = 12;
 
   message NestedGarbage {
     string name = 1 [(google.api.field_behavior) = REQUIRED];

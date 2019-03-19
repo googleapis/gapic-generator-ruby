@@ -55,7 +55,8 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      ["name", "int32", "bool"]
+      ["name", "int32", "bool"],
+      ["name", "nested.int64"]
     ]
     expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
     assert_equal expected_signature_lists, method.options[:method_signature]

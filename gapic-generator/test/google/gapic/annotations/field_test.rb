@@ -144,7 +144,7 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "SpecificGarbage" }
     refute_nil message
 
-    assert_equal 11, message.fields.count
+    assert_equal 12, message.fields.count
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options
@@ -257,6 +257,16 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[10].output_only?
     refute message.fields[10].input_only?
     refute message.fields[10].immutable?
+
+    assert_equal "nested", message.fields[11].name
+    assert_nil message.fields[11].options
+
+    assert_empty message.fields[11].field_behavior
+    refute message.fields[11].optional?
+    refute message.fields[11].required?
+    refute message.fields[11].output_only?
+    refute message.fields[11].input_only?
+    refute message.fields[11].immutable?
   end
 
   def test_garbage_RepeatedGarbage
