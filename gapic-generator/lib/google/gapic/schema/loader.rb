@@ -15,8 +15,12 @@
 # limitations under the License.
 
 require "google/api/annotations.pb"
-require "google/gapic/schema/wrappers"
+require "google/api/client.pb"
+require "google/api/field_behavior.pb"
+require "google/api/resource.pb"
+require "google/longrunning/operations.pb"
 require "google/protobuf/descriptor.pb"
+require "google/gapic/schema/wrappers"
 
 module Google
   module Gapic

@@ -217,11 +217,9 @@ module Google
           options[:".google.api.default_host"] if options
         end
 
-        # @return [Google::Api::OAuth] OAuth information for the client.
-        #   The "scopes" key is a repeated string; see
-        #   `google/api/metadata.proto`.
-        def oauth
-          options[:".google.api.default_host"] if options
+        # @return [Array<String>] The OAuth scopes information for the client.
+        def scopes
+          String(options[:".google.api.oauth_scopes"]).split "," if options
         end
 
         # @!method name
@@ -261,26 +259,28 @@ module Google
           @output = output
         end
 
-        # @return [Array<Google::Api::MethodSignature>] The parameter lists
-        #   defined for this method. See `google/api/signature.proto`.
+        # @return [Array<Array<String>>] The parameter lists
+        #   defined for this method. See `google/api/client.proto`.
         def signatures
-          return options[:".google.api.method_signature"] if options
+          return [] if options.nil?
 
-          []
+          Array(options[:".google.api.method_signature"]).map do |sig|
+            String(sig).split ","
+          end
         end
 
-        # @return [Google::Api::OperationData] Additional information regarding
-        #   long-running operations.
+        # @return [Google::Longrunning::OperationInfo] Additional information
+        #   regarding long-running operations.
         #   In particular, this specifies the types that are returned from
         #   long-running operations.
         #   Required for methods that return `google.longrunning.Operation`;
         #   invalid otherwise.
-        def operation
-          options[:".google.api.operation"] if options
+        def operation_info
+          options[:".google.longrunning.operation_info"] if options
         end
 
-        # @return [Google::Api::HttpRule] The HTTP bindings for this method.
-        #     See `google/api/http.proto`.
+        # @return [Google::Api::HttpRule] The HTTP bindings for this method. See
+        #   `google/api/http.proto`.
         def http
           options[:".google.api.http"] if options
         end
@@ -563,22 +563,13 @@ module Google
 
         # @return [Google::Api::Resource] A representation of the resource.
         #   This is generally intended to be attached to the "name" field.
-        #   See `google/api/resources.proto`.
+        #   See `google/api/resource.proto`.
         def resource
           options[:".google.api.resource"] if options
         end
 
-        # @return [Google::Api::ResourceSet] A representation of a set of
-        #   resources, any of which may be represented.
-        #   This is generally intended to be attached to the "name" field
-        #   and is mutually exclusive with `resource`.
-        #   See `google/api/resources.proto`.
-        def resource_set
-          options[:".google.api.resource_set"] if options
-        end
-
         # @return [String] A reference to another resource message or resource
-        #   definition. See `google/api/resources.proto`.
+        #   definition. See `google/api/resource.proto`.
         def resource_reference
           options[:".google.api.resource_reference"] if options
         end
@@ -590,6 +581,42 @@ module Google
           return options[:".google.api.field_behavior"] if options
 
           []
+        end
+
+        # Specifically denotes a field as optional. While all fields in protocol
+        # buffers are optional, this may be specified for emphasis if
+        # appropriate.
+        def optional?
+          field_behavior.include? Google::Api::FieldBehavior::OPTIONAL
+        end
+
+        # Denotes a field as required. This indicates that the field **must** be
+        # provided as part of the request, and failure to do so will cause an
+        # error (usually `INVALID_ARGUMENT`).
+        def required?
+          field_behavior.include? Google::Api::FieldBehavior::REQUIRED
+        end
+
+        # Denotes a field as output only. This indicates that the field is
+        # provided in responses, but including the field in a request does
+        # nothing (the server *must* ignore it and *must not* throw an error as
+        # a result of the field's presence).
+        def output_only?
+          field_behavior.include? Google::Api::FieldBehavior::OUTPUT_ONLY
+        end
+
+        # Denotes a field as input only. This indicates that the field is
+        # provided in requests, and the corresponding field is not included in
+        # output.
+        def input_only?
+          field_behavior.include? Google::Api::FieldBehavior::INPUT_ONLY
+        end
+
+        # Denotes a field as immutable. This indicates that the field may be set
+        # once in a request to create a resource, but may not be changed
+        # thereafter.
+        def immutable?
+          field_behavior.include? Google::Api::FieldBehavior::IMMUTABLE
         end
 
         # @!method name

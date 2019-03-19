@@ -41,6 +41,20 @@ class GeneratorTest < Minitest::Test
   end
 end
 
+class AnnotationTest < Minitest::Test
+  def proto_input service
+    File.binread "proto_input/#{service}.bin"
+  end
+
+  def request service
+    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  end
+
+  def api service
+    Google::Gapic::Schema::Api.new request(service)
+  end
+end
+
 class GemTest < Minitest::Test
   def expected_content gem, filename
     File.read "expected_output/gems/#{gem}/#{filename}"

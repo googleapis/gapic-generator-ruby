@@ -186,6 +186,7 @@ module Endless
             bytes,
             msg,
             enum,
+            nested,
             options: nil,
             &block
           request = {
@@ -199,7 +200,8 @@ module Endless
             double: double,
             bytes: bytes,
             msg: msg,
-            enum: enum
+            enum: enum,
+            nested: nested
           }.delete_if { |_, v| v.nil? }
           request = Google::Gax.to_proto request, Endless::Trash::Forever::SpecificGarbage
           @get_specific_garbage.call(request, options, &block)

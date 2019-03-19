@@ -37,6 +37,7 @@ service GarbageService {
       body: "*"
     };
     option (google.api.method_signature) = "name,int32,bool";
+    option (google.api.method_signature) = "name,nested.int64";
   }
   rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
     option (google.api.http) = {
@@ -84,31 +85,11 @@ service GarbageService {
 }
 
 message LongRunningGarbageRequest {
-  string garbage = 1 [
-    (google.api.resource_set) = {
-      symbol: "Garbage"
-      resources: [
-        {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
-        {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
-        {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
-        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
-        {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
-      ]
-    }];
+  string garbage = 1;
 }
 
 message LongRunningGarbageResponse {
-  string garbage = 1 [
-    (google.api.resource_set) = {
-      symbol: "Garbage"
-      resources: [
-        {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
-        {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
-        {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
-        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
-        {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
-      ]
-    }];
+  string garbage = 1;
   repeated GarbageItem items = 2;
 }
 
@@ -125,46 +106,16 @@ message LongRunningGarbageMetadata {
 }
 
 message ListGarbageRequest {
-  string garbage = 1 [
-    (google.api.resource_set) = {
-      symbol: "Garbage"
-      resources: [
-        {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
-        {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
-        {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
-        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
-        {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
-      ]
-    }];
+  string garbage = 1;
 }
 
 message ListGarbageResponse {
-  string garbage = 1 [
-    (google.api.resource_set) = {
-      symbol: "Garbage"
-      resources: [
-        {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
-        {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
-        {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
-        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
-        {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
-      ]
-    }];
+  string garbage = 1;
   repeated GarbageItem items = 2;
 }
 
 message GarbageItem {
-  string garbage = 1 [
-    (google.api.resource_set) = {
-      symbol: "Garbage"
-      resources: [
-        {symbol: "SimpleGarbage"   pattern: "projects/{project_id}/simple_garbage/{garbage_id}"},
-        {symbol: "TypicalGarbage"  pattern: "projects/{project_id}/typical_garbage/{garbage_id}"},
-        {symbol: "SpecificGarbage" pattern: "projects/{project_id}/specific_garbage/{garbage_id}"},
-        {symbol: "NestedGarbage" pattern: "projects/{project_id}/nested_garbage/{garbage_id}"},
-        {symbol: "RepeatedGarbage" pattern: "projects/{project_id}/repeated_garbage/{garbage_id}"}
-      ]
-    }];
+  string garbage = 1;
   oneof item {
     string a = 2;
     int32  b = 3;
@@ -214,6 +165,7 @@ message SpecificGarbage {
   bytes bytes = 9;
   GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
   GarbageEnum enum = 11;
+  NestedGarbage nested = 12;
 
   message NestedGarbage {
     string name = 1 [(google.api.field_behavior) = REQUIRED];
