@@ -21,8 +21,13 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-require "google/cloud/echo/v1/cloud_echo_pb"
-require "google/cloud/echo/v1/credentials"
+require "google/showcase/v1alpha3/echo_pb"
+
+module Google
+  module Gax
+    ::CallSettings = CallSettings
+  end
+end
 
 module Google
   module Showcase
@@ -104,9 +109,7 @@ module Google
           # the gRPC module only when it's required.
           # See https://github.com/googleapis/toolkit/issues/446
           require "google/gax/grpc"
-          require "google/cloud/echo/v1/cloud_echo_services_pb"
-
-          credentials ||= Google::Cloud::Echo::V1::Credentials.default
+          require "google/showcase/v1alpha3/echo_services_pb"
 
           @operations_client = OperationsClient.new(
             credentials: credentials,
@@ -118,36 +121,34 @@ module Google
           )
           @echo_stub = create_stub credentials, scopes
 
-          defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
           @echo = Google::Gax.create_api_call(
             @echo_stub.method(:echo),
-            defaults["echo"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @expand = Google::Gax.create_api_call(
             @echo_stub.method(:expand),
-            defaults["expand"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @collect = Google::Gax.create_api_call(
             @echo_stub.method(:collect),
-            defaults["collect"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @chat = Google::Gax.create_api_call(
             @echo_stub.method(:chat),
-            defaults["chat"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @paged_expand = Google::Gax.create_api_call(
             @echo_stub.method(:paged_expand),
-            defaults["paged_expand"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @wait = Google::Gax.create_api_call(
             @echo_stub.method(:wait),
-            defaults["wait"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
         end
@@ -276,7 +277,7 @@ module Google
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::Echo::V1::Echo::Stub.method :new
+          stub_new = Google::Showcase::V1alpha3::Echo::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,

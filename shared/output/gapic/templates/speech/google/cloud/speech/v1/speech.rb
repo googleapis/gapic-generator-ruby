@@ -103,7 +103,6 @@ module Google
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/cloud/speech/v1/cloud_speech_services_pb"
-
             credentials ||= Google::Cloud::Speech::V1::Credentials.default
 
             @operations_client = OperationsClient.new(
@@ -120,17 +119,17 @@ module Google
 
             @recognize = Google::Gax.create_api_call(
               @speech_stub.method(:recognize),
-              defaults["recognize"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @long_running_recognize = Google::Gax.create_api_call(
               @speech_stub.method(:long_running_recognize),
-              defaults["long_running_recognize"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @streaming_recognize = Google::Gax.create_api_call(
               @speech_stub.method(:streaming_recognize),
-              defaults["streaming_recognize"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
           end

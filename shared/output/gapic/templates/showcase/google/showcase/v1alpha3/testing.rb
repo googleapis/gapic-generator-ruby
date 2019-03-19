@@ -22,7 +22,6 @@ require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/cloud/testing/v1/cloud_testing_pb"
-require "google/cloud/testing/v1/credentials"
 
 module Google
   module Showcase
@@ -104,8 +103,6 @@ module Google
           require "google/gax/grpc"
           require "google/cloud/testing/v1/cloud_testing_services_pb"
 
-          credentials ||= Google::Cloud::Testing::V1::Credentials.default
-
           @operations_client = OperationsClient.new(
             credentials: credentials,
             scopes: scopes,
@@ -116,46 +113,44 @@ module Google
           )
           @testing_stub = create_stub credentials, scopes
 
-          defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
           @create_session = Google::Gax.create_api_call(
             @testing_stub.method(:create_session),
-            defaults["create_session"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_session = Google::Gax.create_api_call(
             @testing_stub.method(:get_session),
-            defaults["get_session"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @list_sessions = Google::Gax.create_api_call(
             @testing_stub.method(:list_sessions),
-            defaults["list_sessions"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @delete_session = Google::Gax.create_api_call(
             @testing_stub.method(:delete_session),
-            defaults["delete_session"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @report_session = Google::Gax.create_api_call(
             @testing_stub.method(:report_session),
-            defaults["report_session"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @list_tests = Google::Gax.create_api_call(
             @testing_stub.method(:list_tests),
-            defaults["list_tests"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @delete_test = Google::Gax.create_api_call(
             @testing_stub.method(:delete_test),
-            defaults["delete_test"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @verify_test = Google::Gax.create_api_call(
             @testing_stub.method(:verify_test),
-            defaults["verify_test"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
         end
@@ -305,7 +300,7 @@ module Google
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::Testing::V1::Testing::Stub.method :new
+          stub_new = Google::Showcase::V1alpha3::Testing::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,

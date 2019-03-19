@@ -22,7 +22,6 @@ require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/cloud/messaging/v1/cloud_messaging_pb"
-require "google/cloud/messaging/v1/credentials"
 
 module Google
   module Showcase
@@ -106,8 +105,6 @@ module Google
           require "google/gax/grpc"
           require "google/cloud/messaging/v1/cloud_messaging_services_pb"
 
-          credentials ||= Google::Cloud::Messaging::V1::Credentials.default
-
           @operations_client = OperationsClient.new(
             credentials: credentials,
             scopes: scopes,
@@ -118,76 +115,74 @@ module Google
           )
           @messaging_stub = create_stub credentials, scopes
 
-          defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
           @create_room = Google::Gax.create_api_call(
             @messaging_stub.method(:create_room),
-            defaults["create_room"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_room = Google::Gax.create_api_call(
             @messaging_stub.method(:get_room),
-            defaults["get_room"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @update_room = Google::Gax.create_api_call(
             @messaging_stub.method(:update_room),
-            defaults["update_room"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @delete_room = Google::Gax.create_api_call(
             @messaging_stub.method(:delete_room),
-            defaults["delete_room"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @list_rooms = Google::Gax.create_api_call(
             @messaging_stub.method(:list_rooms),
-            defaults["list_rooms"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @create_blurb = Google::Gax.create_api_call(
             @messaging_stub.method(:create_blurb),
-            defaults["create_blurb"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @get_blurb = Google::Gax.create_api_call(
             @messaging_stub.method(:get_blurb),
-            defaults["get_blurb"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @update_blurb = Google::Gax.create_api_call(
             @messaging_stub.method(:update_blurb),
-            defaults["update_blurb"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @delete_blurb = Google::Gax.create_api_call(
             @messaging_stub.method(:delete_blurb),
-            defaults["delete_blurb"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @list_blurbs = Google::Gax.create_api_call(
             @messaging_stub.method(:list_blurbs),
-            defaults["list_blurbs"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @search_blurbs = Google::Gax.create_api_call(
             @messaging_stub.method(:search_blurbs),
-            defaults["search_blurbs"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @stream_blurbs = Google::Gax.create_api_call(
             @messaging_stub.method(:stream_blurbs),
-            defaults["stream_blurbs"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @send_blurbs = Google::Gax.create_api_call(
             @messaging_stub.method(:send_blurbs),
-            defaults["send_blurbs"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
           @connect = Google::Gax.create_api_call(
             @messaging_stub.method(:connect),
-            defaults["connect"],
+            CallSettings.new,
             exception_transformer: exception_transformer
           )
         end
@@ -429,7 +424,7 @@ module Google
           service_path = self.class::SERVICE_ADDRESS
           port = self.class::DEFAULT_SERVICE_PORT
           interceptors = self.class::GRPC_INTERCEPTORS
-          stub_new = Google::Cloud::Messaging::V1::Messaging::Stub.method :new
+          stub_new = Google::Showcase::V1alpha3::Messaging::Stub.method :new
           Google::Gax::Grpc.create_stub(
             service_path,
             port,

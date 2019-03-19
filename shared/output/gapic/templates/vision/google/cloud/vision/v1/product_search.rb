@@ -118,7 +118,6 @@ module Google
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/cloud/product_search/v1/cloud_product_search_services_pb"
-
             credentials ||= Google::Cloud::ProductSearch::V1::Credentials.default
 
             @operations_client = OperationsClient.new(
@@ -135,92 +134,92 @@ module Google
 
             @create_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:create_product_set),
-              defaults["create_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @list_product_sets = Google::Gax.create_api_call(
               @product_search_stub.method(:list_product_sets),
-              defaults["list_product_sets"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @get_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:get_product_set),
-              defaults["get_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @update_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:update_product_set),
-              defaults["update_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @delete_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:delete_product_set),
-              defaults["delete_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @create_product = Google::Gax.create_api_call(
               @product_search_stub.method(:create_product),
-              defaults["create_product"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @list_products = Google::Gax.create_api_call(
               @product_search_stub.method(:list_products),
-              defaults["list_products"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @get_product = Google::Gax.create_api_call(
               @product_search_stub.method(:get_product),
-              defaults["get_product"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @update_product = Google::Gax.create_api_call(
               @product_search_stub.method(:update_product),
-              defaults["update_product"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @delete_product = Google::Gax.create_api_call(
               @product_search_stub.method(:delete_product),
-              defaults["delete_product"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @create_reference_image = Google::Gax.create_api_call(
               @product_search_stub.method(:create_reference_image),
-              defaults["create_reference_image"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @delete_reference_image = Google::Gax.create_api_call(
               @product_search_stub.method(:delete_reference_image),
-              defaults["delete_reference_image"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @list_reference_images = Google::Gax.create_api_call(
               @product_search_stub.method(:list_reference_images),
-              defaults["list_reference_images"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @get_reference_image = Google::Gax.create_api_call(
               @product_search_stub.method(:get_reference_image),
-              defaults["get_reference_image"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @add_product_to_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:add_product_to_product_set),
-              defaults["add_product_to_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @remove_product_from_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:remove_product_from_product_set),
-              defaults["remove_product_from_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @list_products_in_product_set = Google::Gax.create_api_call(
               @product_search_stub.method(:list_products_in_product_set),
-              defaults["list_products_in_product_set"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
             @import_product_sets = Google::Gax.create_api_call(
               @product_search_stub.method(:import_product_sets),
-              defaults["import_product_sets"],
+              CallSettings.new,
               exception_transformer: exception_transformer
             )
           end
@@ -648,7 +647,7 @@ module Google
             service_path = self.class::SERVICE_ADDRESS
             port = self.class::DEFAULT_SERVICE_PORT
             interceptors = self.class::GRPC_INTERCEPTORS
-            stub_new = Google::Cloud::ProductSearch::V1::ProductSearch::Stub.method :new
+            stub_new = Google::Cloud::Vision::V1::ProductSearch::Stub.method :new
             Google::Gax::Grpc.create_stub(
               service_path,
               port,
