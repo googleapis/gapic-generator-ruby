@@ -259,12 +259,14 @@ module Google
           @output = output
         end
 
-        # @return [Array<String>] The parameter lists
+        # @return [Array<Array<String>>] The parameter lists
         #   defined for this method. See `google/api/client.proto`.
         def signatures
-          return options[:".google.api.method_signature"] if options
+          return [] if options.nil?
 
-          []
+          Array(options[:".google.api.method_signature"]).map do |sig|
+            String(sig).split(",")
+          end
         end
 
         # @return [Google::Longrunning::OperationInfo] Additional information

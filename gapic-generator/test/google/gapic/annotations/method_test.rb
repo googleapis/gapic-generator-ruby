@@ -55,9 +55,10 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      "name,int32,bool",
+      ["name", "int32", "bool"]
     ]
-    assert_equal expected_signatures, method.options[:method_signature]
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
@@ -86,11 +87,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      "name,int32,int64",
-      "name,float,double",
-      "name,bool,enum"
+      ["name", "int32", "int64"],
+      ["name", "float", "double"],
+      ["name", "bool", "enum"]
     ]
-    assert_equal expected_signatures, method.options[:method_signature]
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
@@ -119,11 +121,12 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      "name,bool,enum",
-      "name,float,double",
-      "name,int32,int64,uint32,uint64"
+      ["name", "bool", "enum"],
+      ["name", "float", "double"],
+      ["name", "int32", "int64", "uint32", "uint64"]
     ]
-    assert_equal expected_signatures, method.options[:method_signature]
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
