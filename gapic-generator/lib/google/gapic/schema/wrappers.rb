@@ -207,7 +207,7 @@ module Google
         # @param methods [Enumerable<Method>] The methods of this service.
         def initialize descriptor, address, docs, methods
           super descriptor, address, docs
-          @methods = methods || {}
+          @methods = methods || []
         end
 
         # @return [String] The hostname for this service
@@ -336,9 +336,9 @@ module Google
         def initialize descriptor, address, docs, messages, enums, services,
                        generate
           super descriptor, address, docs
-          @messages = messages || {}
-          @enums = enums || {}
-          @services = services || {}
+          @messages = messages || []
+          @enums = enums || []
+          @services = services || []
           @generate = generate
         end
 
@@ -413,7 +413,7 @@ module Google
         # @param values [Enumerable<EnumValue>] The EnumValues of this enum.
         def initialize descriptor, address, docs, values
           super descriptor, address, docs
-          @values = values || {}
+          @values = values || []
         end
 
         # @!method name
@@ -491,10 +491,10 @@ module Google
         def initialize descriptor, address, docs, fields, extensions,
                        nested_messages, nested_enums
           super descriptor, address, docs
-          @fields = fields || {}
-          @extensions = extensions || {}
-          @nested_messages = nested_messages || {}
-          @nested_enums = nested_enums || {}
+          @fields = fields || []
+          @extensions = extensions || []
+          @nested_messages = nested_messages || []
+          @nested_enums = nested_enums || []
         end
 
         # rubocop:enable Metrics/ParameterLists
