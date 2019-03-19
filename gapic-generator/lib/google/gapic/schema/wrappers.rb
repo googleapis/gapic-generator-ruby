@@ -260,7 +260,7 @@ module Google
         end
 
         # @return [Array<String>] The parameter lists
-        #   defined for this method. See `google/api/signature.proto`.
+        #   defined for this method. See `google/api/client.proto`.
         def signatures
           return options[:".google.api.method_signature"] if options
 
