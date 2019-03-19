@@ -566,15 +566,6 @@ module Google
           options[:".google.api.resource"] if options
         end
 
-        # @return [Google::Api::ResourceSet] A representation of a set of
-        #   resources, any of which may be represented.
-        #   This is generally intended to be attached to the "name" field
-        #   and is mutually exclusive with `resource`.
-        #   See `google/api/resource.proto`.
-        def resource_set
-          options[:".google.api.resource_set"] if options
-        end
-
         # @return [String] A reference to another resource message or resource
         #   definition. See `google/api/resource.proto`.
         def resource_reference

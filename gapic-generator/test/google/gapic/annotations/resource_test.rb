@@ -25,7 +25,7 @@ class AnnotationResourceTest < AnnotationTest
 
     field = message.fields.first
     assert_equal "name", field.name
-    refute_nil field.options.to_hash
+    refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
     resource = field.options[:resource]
     assert_kind_of Google::Api::Resource, resource
@@ -35,7 +35,6 @@ class AnnotationResourceTest < AnnotationTest
     assert_kind_of Google::Api::Resource, message.fields[0].resource
     assert_equal "projects/{project}/simple_garbage/{garbage}", message.fields[0].resource.pattern
     assert_equal "", message.fields[0].resource_reference
-    assert_nil message.fields[0].resource_set
   end
 
   def test_garbage_SimpleGarbageItem
@@ -46,20 +45,17 @@ class AnnotationResourceTest < AnnotationTest
 
     field = message.fields.first
     assert_equal "garbage", field.name
-    refute_nil field.options.to_hash
+    refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
     assert_equal "SimpleGarbage", field.options[:resource_reference]
 
     assert_equal 3, message.fields.count
     assert_nil message.fields[0].resource
     assert_equal "SimpleGarbage", message.fields[0].resource_reference
-    assert_nil message.fields[0].resource_set
     assert_nil message.fields[1].resource
     assert_nil message.fields[1].resource_reference
-    assert_nil message.fields[1].resource_set
     assert_nil message.fields[2].resource
     assert_nil message.fields[2].resource_reference
-    assert_nil message.fields[2].resource_set
   end
 
   def test_garbage_LongRunningGarbageRequest
@@ -69,29 +65,11 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil message.options
     field = message.fields.first
     assert_equal "garbage", field.name
-    refute_nil field.options.to_hash
-    assert_kind_of Google::Protobuf::FieldOptions, field.options
-    resource_set = field.options[:resource_set]
-    assert_kind_of Google::Api::ResourceSet, resource_set
-    assert_equal "Garbage", resource_set.symbol
-    assert_equal 5, resource_set.resources.count
-    resource_set.resources.each do |resource|
-      assert_kind_of Google::Api::Resource, resource
-    end
-    expected_resources = [
-      { pattern: "projects/{project_id}/simple_garbage/{garbage_id}",   symbol: "SimpleGarbage"},
-      { pattern: "projects/{project_id}/typical_garbage/{garbage_id}",  symbol: "TypicalGarbage"},
-      { pattern: "projects/{project_id}/specific_garbage/{garbage_id}", symbol: "SpecificGarbage"},
-      { pattern: "projects/{project_id}/nested_garbage/{garbage_id}",   symbol: "NestedGarbage"},
-      { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
-    ]
-    assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+    assert_nil field.options
 
     assert_equal 1, message.fields.count
     assert_nil message.fields[0].resource
-    assert_equal "", message.fields[0].resource_reference
-    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
-    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[0].resource_reference
   end
 
   def test_garbage_LongRunningGarbageResponse
@@ -101,32 +79,13 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil message.options
     field = message.fields.first
     assert_equal "garbage", field.name
-    refute_nil field.options.to_hash
-    assert_kind_of Google::Protobuf::FieldOptions, field.options
-    resource_set = field.options[:resource_set]
-    assert_kind_of Google::Api::ResourceSet, resource_set
-    assert_equal "Garbage", resource_set.symbol
-    assert_equal 5, resource_set.resources.count
-    resource_set.resources.each do |resource|
-      assert_kind_of Google::Api::Resource, resource
-    end
-    expected_resources = [
-      { pattern: "projects/{project_id}/simple_garbage/{garbage_id}",   symbol: "SimpleGarbage"},
-      { pattern: "projects/{project_id}/typical_garbage/{garbage_id}",  symbol: "TypicalGarbage"},
-      { pattern: "projects/{project_id}/specific_garbage/{garbage_id}", symbol: "SpecificGarbage"},
-      { pattern: "projects/{project_id}/nested_garbage/{garbage_id}",   symbol: "NestedGarbage"},
-      { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
-    ]
-    assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+    assert_nil field.options
 
     assert_equal 2, message.fields.count
     assert_nil message.fields[0].resource
-    assert_equal "", message.fields[0].resource_reference
-    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
-    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[0].resource_reference
     assert_nil message.fields[1].resource
     assert_nil message.fields[1].resource_reference
-    assert_nil message.fields[1].resource_set
   end
 
   def test_garbage_ListGarbageRequest
@@ -136,29 +95,11 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil message.options
     field = message.fields.first
     assert_equal "garbage", field.name
-    refute_nil field.options.to_hash
-    assert_kind_of Google::Protobuf::FieldOptions, field.options
-    resource_set = field.options[:resource_set]
-    assert_kind_of Google::Api::ResourceSet, resource_set
-    assert_equal "Garbage", resource_set.symbol
-    assert_equal 5, resource_set.resources.count
-    resource_set.resources.each do |resource|
-      assert_kind_of Google::Api::Resource, resource
-    end
-    expected_resources = [
-      { pattern: "projects/{project_id}/simple_garbage/{garbage_id}",   symbol: "SimpleGarbage"},
-      { pattern: "projects/{project_id}/typical_garbage/{garbage_id}",  symbol: "TypicalGarbage"},
-      { pattern: "projects/{project_id}/specific_garbage/{garbage_id}", symbol: "SpecificGarbage"},
-      { pattern: "projects/{project_id}/nested_garbage/{garbage_id}",   symbol: "NestedGarbage"},
-      { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
-    ]
-    assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+    assert_nil field.options
 
     assert_equal 1, message.fields.count
     assert_nil message.fields[0].resource
-    assert_equal "", message.fields[0].resource_reference
-    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
-    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[0].resource_reference
   end
 
   def test_garbage_ListGarbageResponse
@@ -168,31 +109,12 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil message.options
     field = message.fields.first
     assert_equal "garbage", field.name
-    refute_nil field.options.to_hash
-    assert_kind_of Google::Protobuf::FieldOptions, field.options
-    resource_set = field.options[:resource_set]
-    assert_kind_of Google::Api::ResourceSet, resource_set
-    assert_equal "Garbage", resource_set.symbol
-    assert_equal 5, resource_set.resources.count
-    resource_set.resources.each do |resource|
-      assert_kind_of Google::Api::Resource, resource
-    end
-    expected_resources = [
-      { pattern: "projects/{project_id}/simple_garbage/{garbage_id}",   symbol: "SimpleGarbage"},
-      { pattern: "projects/{project_id}/typical_garbage/{garbage_id}",  symbol: "TypicalGarbage"},
-      { pattern: "projects/{project_id}/specific_garbage/{garbage_id}", symbol: "SpecificGarbage"},
-      { pattern: "projects/{project_id}/nested_garbage/{garbage_id}",   symbol: "NestedGarbage"},
-      { pattern: "projects/{project_id}/repeated_garbage/{garbage_id}", symbol: "RepeatedGarbage"}
-    ]
-    assert_equal expected_resources, resource_set.resources.map(&:to_hash)
+    assert_nil field.options
 
     assert_equal 2, message.fields.count
     assert_nil message.fields[0].resource
-    assert_equal "", message.fields[0].resource_reference
-    assert_kind_of Google::Api::ResourceSet, message.fields[0].resource_set
-    assert_equal expected_resources, message.fields[0].resource_set.resources.map(&:to_hash)
+    assert_nil message.fields[0].resource_reference
     assert_nil message.fields[1].resource
     assert_nil message.fields[1].resource_reference
-    assert_nil message.fields[1].resource_set
   end
 end
