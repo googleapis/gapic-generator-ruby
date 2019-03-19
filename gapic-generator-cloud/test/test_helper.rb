@@ -25,7 +25,7 @@ require "minitest/focus"
 
 class GeneratorTest < Minitest::Test
   def proto_input service
-    File.binread "proto_input/#{service}.bin"
+    File.binread "proto_input/#{service}_desc.bin"
   end
 
   def request service

@@ -16559,7 +16559,9 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: content
     - :name: page_size
       :number: 2
@@ -16649,6 +16651,8 @@
         :http:
           :post: "/v1alpha3/echo:expand"
           :body: "*"
+        :method_signature:
+        - content,error
       :server_streaming: true
     - :name: Collect
       :input_type: ".google.showcase.v1alpha3.EchoRequest"
@@ -16677,7 +16681,11 @@
         :http:
           :post: "/v1alpha3/echo:wait"
           :body: "*"
-    :options: {}
+        :operation_info:
+          :response_type: WaitResponse
+          :metadata_type: WaitMetadata
+    :options:
+      :default_host: localhost:7469
   :options:
     :java_package: com.google.showcase.v1alpha3
     :java_multiple_files: true
@@ -18349,6 +18357,11 @@
     :java_multiple_files: true
     :go_package: google.golang.org/genproto/googleapis/api/annotations;annotations
     :objc_class_prefix: GAPI
+    :resource_definition:
+    - :pattern: projects/{project}
+      :symbol: Project
+    - :pattern: organizations/{organization}
+      :symbol: Organization
   :source_code_info:
     :location:
     - :span:
@@ -19547,33 +19560,43 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource:
+          :pattern: users/{user_id}
       :json_name: name
     - :name: display_name
       :number: 2
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: displayName
     - :name: email
       :number: 3
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: email
     - :name: create_time
       :number: 4
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: createTime
     - :name: update_time
       :number: 5
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: updateTime
   - :name: CreateUserRequest
     :field:
@@ -19589,7 +19612,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: User
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: UpdateUserRequest
     :field:
@@ -19611,7 +19637,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: User
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: ListUsersRequest
     :field:
@@ -19648,12 +19677,16 @@
         :http:
           :post: "/v1alpha3/users"
           :body: "*"
+        :method_signature:
+        - user.display_name,user.email
     - :name: GetUser
       :input_type: ".google.showcase.v1alpha3.GetUserRequest"
       :output_type: ".google.showcase.v1alpha3.User"
       :options:
         :http:
           :get: "/v1alpha3/{name=users/*}"
+        :method_signature:
+        - name
     - :name: UpdateUser
       :input_type: ".google.showcase.v1alpha3.UpdateUserRequest"
       :output_type: ".google.showcase.v1alpha3.User"
@@ -19667,13 +19700,16 @@
       :options:
         :http:
           :delete: "/v1alpha3/{name=users/*}"
+        :method_signature:
+        - name
     - :name: ListUsers
       :input_type: ".google.showcase.v1alpha3.ListUsersRequest"
       :output_type: ".google.showcase.v1alpha3.ListUsersResponse"
       :options:
         :http:
           :get: "/v1alpha3/users"
-    :options: {}
+    :options:
+      :default_host: localhost:7469
   :options:
     :java_package: com.google.showcase.v1alpha3
     :java_multiple_files: true
@@ -23188,13 +23224,17 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource:
+          :pattern: rooms/{room_id}
       :json_name: name
     - :name: display_name
       :number: 2
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: displayName
     - :name: description
       :number: 3
@@ -23206,14 +23246,18 @@
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: createTime
     - :name: update_time
       :number: 5
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: updateTime
   - :name: CreateRoomRequest
     :field:
@@ -23229,7 +23273,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Room
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: UpdateRoomRequest
     :field:
@@ -23251,7 +23298,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Room
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: ListRoomsRequest
     :field:
@@ -23284,13 +23334,22 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_set:
+          :resources:
+          - :pattern: rooms/{room_id}/blurbs/{blurb_id}
+            :symbol: RoomBlurb
+          - :pattern: user/{user_id}/profile/blurbs/{blurb_id}
+            :symbol: ProfileBlurb
       :json_name: name
     - :name: user
       :number: 2
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: User
+        :field_behavior:
+        - 2
       :json_name: user
     - :name: text
       :number: 3
@@ -23309,14 +23368,18 @@
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: createTime
     - :name: update_time
       :number: 6
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 3
       :json_name: updateTime
     :oneof_decl:
     - :name: content
@@ -23326,7 +23389,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: BlurbParent
+        :field_behavior:
+        - 2
       :json_name: parent
     - :name: blurb
       :number: 2
@@ -23340,7 +23406,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Blurb
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: UpdateBlurbRequest
     :field:
@@ -23362,7 +23431,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Blurb
+        :field_behavior:
+        - 2
       :json_name: name
   - :name: ListBlurbsRequest
     :field:
@@ -23370,7 +23442,10 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: BlurbParent
+        :field_behavior:
+        - 2
       :json_name: parent
     - :name: page_size
       :number: 2
@@ -23401,13 +23476,16 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: query
     - :name: parent
       :number: 2
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: BlurbParent
       :json_name: parent
     - :name: page_size
       :number: 3
@@ -23446,14 +23524,19 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: BlurbParent
+        :field_behavior:
+        - 2
       :json_name: name
     - :name: expire_time
       :number: 2
       :label: 1
       :type: 11
       :type_name: ".google.protobuf.Timestamp"
-      :options: {}
+      :options:
+        :field_behavior:
+        - 2
       :json_name: expireTime
   - :name: StreamBlurbsResponse
     :field:
@@ -23510,7 +23593,8 @@
         :number: 1
         :label: 1
         :type: 9
-        :options: {}
+        :options:
+          :resource_reference: BlurbParent
         :json_name: parent
     :oneof_decl:
     - :name: request
@@ -23524,12 +23608,16 @@
         :http:
           :post: "/v1alpha3/rooms"
           :body: "*"
+        :method_signature:
+        - room.display_name,room.description
     - :name: GetRoom
       :input_type: ".google.showcase.v1alpha3.GetRoomRequest"
       :output_type: ".google.showcase.v1alpha3.Room"
       :options:
         :http:
           :get: "/v1alpha3/{name=rooms/*}"
+        :method_signature:
+        - name
     - :name: UpdateRoom
       :input_type: ".google.showcase.v1alpha3.UpdateRoomRequest"
       :output_type: ".google.showcase.v1alpha3.Room"
@@ -23543,6 +23631,8 @@
       :options:
         :http:
           :delete: "/v1alpha3/{name=rooms/*}"
+        :method_signature:
+        - name
     - :name: ListRooms
       :input_type: ".google.showcase.v1alpha3.ListRoomsRequest"
       :output_type: ".google.showcase.v1alpha3.ListRoomsResponse"
@@ -23559,6 +23649,9 @@
           :additional_bindings:
           - :post: v1alpha3/{parent=users/*/profile}/blurbs
             :body: "*"
+        :method_signature:
+        - parent,blurb.user,blurb.text
+        - parent,blurb.user,blurb.image
     - :name: GetBlurb
       :input_type: ".google.showcase.v1alpha3.GetBlurbRequest"
       :output_type: ".google.showcase.v1alpha3.Blurb"
@@ -23567,6 +23660,8 @@
           :get: "/v1alpha3/{name=rooms/*/blurbs/*}"
           :additional_bindings:
           - :get: v1alpha3/{name=users/*/profile/blurbs/*}
+        :method_signature:
+        - name
     - :name: UpdateBlurb
       :input_type: ".google.showcase.v1alpha3.UpdateBlurbRequest"
       :output_type: ".google.showcase.v1alpha3.Blurb"
@@ -23585,6 +23680,8 @@
           :delete: "/v1alpha3/{name=rooms/*/blurbs/*}"
           :additional_bindings:
           - :delete: v1alpha3/{name=users/*/profile/blurbs/*}
+        :method_signature:
+        - name
     - :name: ListBlurbs
       :input_type: ".google.showcase.v1alpha3.ListBlurbsRequest"
       :output_type: ".google.showcase.v1alpha3.ListBlurbsResponse"
@@ -23593,6 +23690,8 @@
           :get: "/v1alpha3/{parent=rooms/*}/blurbs"
           :additional_bindings:
           - :get: v1alpha3/{parent=users/*/profile}/blurbs}
+        :method_signature:
+        - parent
     - :name: SearchBlurbs
       :input_type: ".google.showcase.v1alpha3.SearchBlurbsRequest"
       :output_type: ".google.longrunning.Operation"
@@ -23602,6 +23701,11 @@
           :body: "*"
           :additional_bindings:
           - :post: v1alpha3/{parent=users/-/profile}/blurbs:search
+        :operation_info:
+          :response_type: SearchBlurbsResponse
+          :metadata_type: SearchBlurbsMetadata
+        :method_signature:
+        - query
     - :name: StreamBlurbs
       :input_type: ".google.showcase.v1alpha3.StreamBlurbsRequest"
       :output_type: ".google.showcase.v1alpha3.StreamBlurbsResponse"
@@ -23629,11 +23733,15 @@
       :output_type: ".google.showcase.v1alpha3.StreamBlurbsResponse"
       :client_streaming: true
       :server_streaming: true
-    :options: {}
+    :options:
+      :default_host: localhost:7469
   :options:
     :java_package: com.google.showcase.v1alpha3
     :java_multiple_files: true
     :go_package: github.com/googleapis/gapic-showcase/server/genproto
+    :resource_definition:
+    - :pattern: users/{user_id}
+      :symbol: User
   :source_code_info:
     :location:
     - :span:
@@ -28504,7 +28612,9 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource:
+          :pattern: sessions/{session}
       :json_name: name
     - :name: version
       :number: 2
@@ -28535,7 +28645,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Session
       :json_name: name
   - :name: ListSessionsRequest
     :field:
@@ -28568,7 +28679,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Session
       :json_name: name
   - :name: ReportSessionRequest
     :field:
@@ -28576,7 +28688,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Session
       :json_name: name
   - :name: ReportSessionResponse
     :field:
@@ -28609,7 +28722,9 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource:
+          :pattern: sessions/{session}/tests/{test}
       :json_name: name
     - :name: expectation_level
       :number: 2
@@ -28635,7 +28750,9 @@
         :number: 1
         :label: 1
         :type: 9
-        :options: {}
+        :options:
+          :resource:
+            :pattern: sessions/{session}/tests/{test}/blueprints/{blueprint}
         :json_name: name
       - :name: description
         :number: 2
@@ -28722,7 +28839,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Session
       :json_name: parent
     - :name: page_size
       :number: 2
@@ -28753,7 +28871,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Test
       :json_name: test
     - :name: issue
       :number: 2
@@ -28767,7 +28886,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Test
       :json_name: name
   - :name: VerifyTestRequest
     :field:
@@ -28775,7 +28895,8 @@
       :number: 1
       :label: 1
       :type: 9
-      :options: {}
+      :options:
+        :resource_reference: Test
       :json_name: name
     - :name: answer
       :number: 2
@@ -28847,7 +28968,8 @@
       :options:
         :http:
           :post: "/v1alpha3/{name=sessions/*/tests/*}:check"
-    :options: {}
+    :options:
+      :default_host: localhost:7469
   :options:
     :java_package: com.google.showcase.v1alpha3
     :java_multiple_files: true
