@@ -79,6 +79,7 @@ module Google
       class Proto
         extend Forwardable
         attr_reader :descriptor, :address, :docs
+        attr_accessor :parent
 
         # Initializes a Proto object.
         # @param descriptor [Object] the protobuf
@@ -207,7 +208,8 @@ module Google
         # @param methods [Enumerable<Method>] The methods of this service.
         def initialize descriptor, address, docs, methods
           super descriptor, address, docs
-          @methods = methods || {}
+          @methods = methods || []
+          @methods.each { |m| m.parent = self }
         end
 
         # @return [String] The hostname for this service
@@ -220,6 +222,14 @@ module Google
         # @return [Array<String>] The OAuth scopes information for the client.
         def scopes
           String(options[:".google.api.oauth_scopes"]).split "," if options
+        end
+
+        # @return [Google::Api::Package] Packaging information.
+        #   See `google/api/client.proto`.
+        def client_package
+          return nil if parent.nil?
+
+          parent.client_package
         end
 
         # @!method name
@@ -336,10 +346,15 @@ module Google
         def initialize descriptor, address, docs, messages, enums, services,
                        generate
           super descriptor, address, docs
-          @messages = messages || {}
-          @enums = enums || {}
-          @services = services || {}
+          @messages = messages || []
+          @enums = enums || []
+          @services = services || []
           @generate = generate
+
+          # Apply parent
+          @messages.each { |m| m.parent = self }
+          @enums.each    { |m| m.parent = self }
+          @services.each { |m| m.parent = self }
         end
 
         # rubocop:enable Metrics/ParameterLists
@@ -348,30 +363,10 @@ module Google
           @generate
         end
 
-        # @return [Google::Api::Metdata] Packaging information.
-        #   See `google/api/metadata.proto`.
-        def metadata
-          options[:".google.api.metadata"] if options
-        end
-
-        # @return [Array<Google::Api::Resource>] A representation of a resource.
-        #   At a file level, this is generally used to define information for a
-        #   resource from another API, or for a resource that does not have an
-        #   associated proto message.
-        def resources
-          return options[:".google.api.resource_definition"] if options
-
-          []
-        end
-
-        # @return [Array<Google::Api::ResourceSet>] A representation of a set of
-        #   resources. At a file level, this is generally used to define
-        #   information for a resource set from another API, or for a resource
-        #   that does not have an associated proto message.
-        def resource_sets
-          return options[:".google.api.resource_set_definition"] if options
-
-          []
+        # @return [Google::Api::Package] Packaging information.
+        #   See `google/api/client.proto`.
+        def client_package
+          options[:".google.api.client_package"] if options
         end
 
         # @!method name
@@ -413,7 +408,8 @@ module Google
         # @param values [Enumerable<EnumValue>] The EnumValues of this enum.
         def initialize descriptor, address, docs, values
           super descriptor, address, docs
-          @values = values || {}
+          @values = values || []
+          @values.each { |v| v.parent = self }
         end
 
         # @!method name
@@ -491,10 +487,15 @@ module Google
         def initialize descriptor, address, docs, fields, extensions,
                        nested_messages, nested_enums
           super descriptor, address, docs
-          @fields = fields || {}
-          @extensions = extensions || {}
-          @nested_messages = nested_messages || {}
-          @nested_enums = nested_enums || {}
+          @fields = fields || []
+          @extensions = extensions || []
+          @nested_messages = nested_messages || []
+          @nested_enums = nested_enums || []
+
+          @fields.each          { |f| f.parent = self }
+          @extensions.each      { |x| x.parent = self }
+          @nested_messages.each { |m| m.parent = self }
+          @nested_enums.each    { |e| e.parent = self }
         end
 
         # rubocop:enable Metrics/ParameterLists

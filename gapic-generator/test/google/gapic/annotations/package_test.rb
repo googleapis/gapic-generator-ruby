@@ -17,5 +17,30 @@
 require "test_helper"
 
 class AnnotationPackageTest < AnnotationTest
-  # TODO: Need to get a way to test the top-level FileOptions annotations
+  def test_garbage
+    garbage = api :garbage
+    service = garbage.services.find { |s| s.name == "GarbageService" }
+    refute_nil service
+    file = service.parent
+    refute_nil file
+
+    refute_nil file.options
+    assert_kind_of Google::Protobuf::FileOptions, file.options
+    refute_nil file.options[:client_package]
+    assert_kind_of Google::Api::Package, file.options[:client_package]
+    assert_equal "Testing Garbage", file.options[:client_package][:title]
+    assert_equal ["Endless", "Trash"], file.options[:client_package][:namespace]
+    assert_equal "Forever", file.options[:client_package][:version]
+
+    assert_kind_of Google::Api::Package, file.client_package
+    assert_equal "Testing Garbage", file.client_package.title
+    assert_equal ["Endless", "Trash"], file.client_package.namespace
+    assert_equal "Forever", file.client_package.version
+
+    # client_package is also exposed on the service
+    assert_kind_of Google::Api::Package, service.client_package
+    assert_equal "Testing Garbage", service.client_package.title
+    assert_equal ["Endless", "Trash"], service.client_package.namespace
+    assert_equal "Forever", service.client_package.version
+  end
 end
