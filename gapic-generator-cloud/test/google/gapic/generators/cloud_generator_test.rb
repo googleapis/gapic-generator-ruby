@@ -37,4 +37,14 @@ class CloudGeneratorTest < GeneratorTest
       end
     end
   end
+
+  def test_showcase_generate
+    generator = Google::Gapic::Generators::CloudGenerator.new api(:showcase)
+    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
+    Time.stub :now, test_time do
+      generator.generate.each do |file|
+        assert_equal expected_content(:showcase, file.name), file.content
+      end
+    end
+  end
 end

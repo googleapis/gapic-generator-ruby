@@ -25,9 +25,10 @@ def generate_library_for_test imports, protos
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
     "#{imports.map {|x| "-I#{x}"}.join " "}",
-    "--ruby_out=#{client_lib}",
-    "--grpc_out=#{client_lib}",
+    "--ruby_out=#{client_lib}/lib",
+    "--grpc_out=#{client_lib}/lib",
     "--ruby_gapic_out=#{client_lib}",
+    "--ruby_gapic_opt=generator=cloud",
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
@@ -56,7 +57,7 @@ class ShowcaseTest < Minitest::Test
     library = generate_library_for_test(
       %w[api-common-protos protos],
       %w[google/showcase/v1alpha3/echo.proto])
-    $LOAD_PATH.unshift library
+    $LOAD_PATH.unshift "#{library}/lib"
     library
   end
 
@@ -66,8 +67,8 @@ class ShowcaseTest < Minitest::Test
     unless @showcase_id.nil?
       puts "Stopping showcase server (id: #{@showcase_id})..."
 
-      _, status = Open3.capture2 "docker stop #{@showcase_id}"
-      raise "failed to stop showcase" unless status.exitstatus.zero?
+      _, status = Open3.capture2 "docker kill #{@showcase_id}"
+      raise "failed to kill showcase" unless status.exitstatus.zero?
     end
   end
 end
