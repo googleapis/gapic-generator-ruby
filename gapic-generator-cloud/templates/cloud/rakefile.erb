@@ -18,7 +18,7 @@ namespace :test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "google-cloud-speech"
+      command_name "<%= gem_name api %>"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
@@ -39,7 +39,7 @@ namespace :smoke_test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "google-cloud-speech"
+      command_name "<%= gem_name api %>"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
@@ -49,34 +49,34 @@ namespace :smoke_test do
 end
 
 # Acceptance tests
-desc "Run the google-cloud-speech acceptance tests."
+desc "Run the <%= gem_name api %> acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
   project = args[:project]
   project ||=
-    ENV["SPEECH_TEST_PROJECT"] ||
+    ENV["<%= service.name.upcase %>_TEST_PROJECT"] ||
     ENV["GCLOUD_TEST_PROJECT"]
   keyfile = args[:keyfile]
   keyfile ||=
-    ENV["SPEECH_TEST_KEYFILE"] ||
+    ENV["<%= service.name.upcase %>_TEST_KEYFILE"] ||
     ENV["GCLOUD_TEST_KEYFILE"]
   if keyfile
     keyfile = File.read keyfile
   else
     keyfile ||=
-      ENV["SPEECH_TEST_KEYFILE_JSON"] ||
+      ENV["<%= service.name.upcase %>_TEST_KEYFILE_JSON"] ||
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or SPEECH_TEST_PROJECT=test123 SPEECH_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= service.name.upcase %>_TEST_PROJECT=test123 <%= service.name.upcase %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
-  require "google/cloud/speech/v1/credentials"
-  (Google::Cloud::Speech::V1::Credentials::PATH_ENV_VARS +
-   Google::Cloud::Speech::V1::Credentials::JSON_ENV_VARS).each do |path|
+  require "<%= credentials_require service %>"
+  (<%= client_name_full service %>::PATH_ENV_VARS +
+   <%= client_name_full service %>::JSON_ENV_VARS).each do |path|
     ENV[path] = nil
   end
-  ENV["SPEECH_PROJECT"] = project
-  ENV["SPEECH_TEST_PROJECT"] = project
-  ENV["SPEECH_KEYFILE_JSON"] = keyfile
+  ENV["<%= service.name.upcase %>_PROJECT"] = project
+  ENV["<%= service.name.upcase %>_TEST_PROJECT"] = project
+  ENV["<%= service.name.upcase %>_KEYFILE_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end
@@ -103,17 +103,17 @@ YARD::Rake::YardocTask.new
 
 desc "Run yard-doctest example tests."
 task :doctest do
-  puts "The google-cloud-speech gem does not have doctest tests."
+  puts "The <%= gem_name api %> gem does not have doctest tests."
 end
 
 desc "Run the CI build"
 task :ci do
-  header "BUILDING google-cloud-speech"
-  header "google-cloud-speech rubocop", "*"
+  header "BUILDING <%= gem_name api %>"
+  header "<%= gem_name api %> rubocop", "*"
   Rake::Task[:rubocop].invoke
-  header "google-cloud-speech doctest", "*"
+  header "<%= gem_name api %> doctest", "*"
   Rake::Task[:doctest].invoke
-  header "google-cloud-speech test", "*"
+  header "<%= gem_name api %> test", "*"
   Rake::Task[:test].invoke
 end
 
@@ -121,7 +121,7 @@ namespace :ci do
   desc "Run the CI build, with acceptance tests."
   task :acceptance do
     Rake::Task[:ci].invoke
-    header "google-cloud-speech acceptance", "*"
+    header "<%= gem_name api %> acceptance", "*"
     Rake::Task[:acceptance].invoke
   end
   task :a do

@@ -3,18 +3,35 @@
 require "json"
 require "pathname"
 
+require "googleauth"
 require "google/gax"
 <%- if client_lro? service -%>
 <%= render partial: "client/lro/requires", locals: { api: api, service: service } %>
 <%- end -%>
 
-require "<%= client_require service %>"
-require "<%= credentials_require service %>"
+require "<%= service_proto_require service %>"
 <% end %>
+class Credentials < Google::Auth::Credentials
+  SCOPE = [
+    "https://www.googleapis.com/auth/cloud-platform"
+  ].freeze
+  PATH_ENV_VARS = %w(<%= service.name.upcase %>_CREDENTIALS
+                     <%= service.name.upcase %>_KEYFILE
+                     GOOGLE_CLOUD_CREDENTIALS
+                     GOOGLE_CLOUD_KEYFILE
+                     GCLOUD_KEYFILE)
+  JSON_ENV_VARS = %w(<%= service.name.upcase %>_CREDENTIALS_JSON
+                     <%= service.name.upcase %>_KEYFILE_JSON
+                     GOOGLE_CLOUD_CREDENTIALS_JSON
+                     GOOGLE_CLOUD_KEYFILE_JSON
+                     GCLOUD_KEYFILE_JSON)
+  DEFAULT_PATHS = ["~/.config/google_cloud/application_default_credentials.json"]
+end
+
 # Service that implements Google Cloud Speech API.
 class <%= client_name service %>
   # @private
-  attr_reader :<%= client_stub service %>
+  attr_reader :stub
 
   # The default address of the service.
   SERVICE_ADDRESS = "<%= client_address service %>"
@@ -51,7 +68,7 @@ class <%= client_name service %>
 
   def create_stub credentials, scopes
     if credentials.is_a?(String) || credentials.is_a?(Hash)
-      updater_proc = Google::Cloud::Speech::V1::Credentials.new(credentials).updater_proc
+      updater_proc = Credentials.new(credentials).updater_proc
     elsif credentials.is_a? GRPC::Core::Channel
       channel = credentials
     elsif credentials.is_a? GRPC::Core::ChannelCredentials
@@ -66,7 +83,7 @@ class <%= client_name service %>
     service_path = self.class::SERVICE_ADDRESS
     port = self.class::DEFAULT_SERVICE_PORT
     interceptors = self.class::GRPC_INTERCEPTORS
-    stub_new = Google::Cloud::Speech::V1::Speech::Stub.method :new
+    stub_new = <%= services_stub_name_full service %>.method :new
     Google::Gax::Grpc.create_stub(
       service_path,
       port,
@@ -81,32 +98,20 @@ class <%= client_name service %>
 
   def default_settings client_config, timeout, metadata, lib_name,
                         lib_version
-    package_version = Gem.loaded_specs["<%= gem_name api %>"]
-      .version.version
+    package_gem = Gem.loaded_specs["<%= gem_name api %>"]
+    package_version = package_gem ? package_gem.version.version : nil
 
     google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
     google_api_client << " #{lib_name}/#{lib_version}" if lib_name
-    google_api_client << " gapic/#{package_version}"
+    google_api_client << " gapic/#{package_version}" if package_version
     google_api_client << " gax/#{Google::Gax::VERSION}"
     google_api_client << " grpc/#{GRPC::VERSION}"
     google_api_client.join
 
     headers = { "x-goog-api-client": google_api_client }
     headers.merge! metadata unless metadata.nil?
-    client_config_file = Pathname.new(__dir__).join(
-      "<%= client_json_config_file_name service %>"
-    )
-    client_config_file.open do |f|
-      Google::Gax.construct_settings(
-        "<%= client_proto_name service %>",
-        JSON.parse(f.read),
-        client_config,
-        Google::Gax::Grpc::STATUS_CODE_NAMES,
-        timeout,
-        errors: Google::Gax::Grpc::API_ERRORS,
-        metadata: headers
-      )
-    end
+
+    Google::Gax.const_get(:CallSettings).new metadata: headers
   end
 end
 

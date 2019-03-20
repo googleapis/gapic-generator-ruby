@@ -32,8 +32,7 @@ describe "<%= method_name %>" do
         response = client.<%= method_name %> [request]
 
         # Verify the response
-        assert_equal 1, response.count
-        assert_equal expected_response, response.first
+        assert_equal expected_response, response
       end
     end
   end

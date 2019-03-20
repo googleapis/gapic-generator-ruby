@@ -6,7 +6,7 @@
 - google/cloud/vision/v1/product_search_service.proto
 - google/cloud/vision/v1/text_annotation.proto
 - google/cloud/vision/v1/web_detection.proto
-:parameter: gem_name=google-cloud-vision,configuration=../shared/config/vision.yml
+:parameter: configuration=../shared/config/vision.yml
 :compiler_version:
   :major: 3
   :minor: 6
@@ -2376,7 +2376,7 @@
       - 30
       :trailing_comments: ' e.g. "foo", "foo.bar", etc.
 
-'
+        '
     - :path:
       - 4
       - 1

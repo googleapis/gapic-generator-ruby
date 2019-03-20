@@ -1,17 +1,12 @@
-<%- namespaces = service.address[0..-2] -%>
+<%- namespaces = service.address[0..-1] -%>
 # frozen_string_literal: true
 
 <%= render partial: "shared/license" %>
 require "minitest/autorun"
-require "minitest/spec"
 
-require "google/gax"
-
-require "google/cloud/speech"
-require "google/cloud/speech/v1/speech_client"
 require "<%= service_proto_require service %>"
-require "google/longrunning/operations_pb"
-require "google/longrunning/operations_services_pb"
+require "<%= services_proto_require service %>"
+require "<%= client_require service %>"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
@@ -42,7 +37,7 @@ class MockGrpcClientStubV1
   end
 end
 
-class Mock<%= service.name %>Credentials<%= namespaces.last.upcase_first %> < <%= ruby_namespace namespaces %>::Credentials
+class Mock<%= service.name %>Credentials<%= namespaces[-2].upcase_first %> < <%= ruby_namespace namespaces %>::Credentials
   def initialize method_name
     @method_name = method_name
   end

@@ -46,6 +46,8 @@ module Google
           @files = request.proto_file.map do |fd|
             loader.load_file fd, request.file_to_generate.include?(fd.name)
           end
+          @files.each { |f| f.parent = self }
+
           @services = @files.flat_map(&:services)
           @messages = @files.flat_map(&:messages)
           @enums = @files.flat_map(&:enums)

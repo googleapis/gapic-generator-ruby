@@ -34,7 +34,7 @@ module Google
 
           # Configure these helper method to be used by the generator
           use_helpers! :gem_name, :gem_path, :client_file_path,
-                       :credentials_file_path
+                       :client_test_file_path
         end
 
         # Generates all the files for the API.
@@ -46,20 +46,19 @@ module Google
           files = []
 
           api_services(@api).each do |service|
-            files << cop(gen("client.erb", "lib/#{client_file_path service}",
+            files << cop(gen("client.erb",
+                             "lib/#{client_file_path service}",
                              api: @api, service: service))
             files << cop(gen("client_test.erb",
-                             "#{ruby_require service}_client_test.rb",
+                             "test/#{client_test_file_path service}",
                              api: @api, service: service))
           end
 
-          files << cop(gen("credentials.erb",
-                           "lib/#{credentials_file_path @api}",
-                           api: @api, service: api_services(@api).first))
-
-          files << gen("gemspec.erb", "#{gem_name @api}.gemspec", api: @api)
+          files << gen("gemspec.erb", "#{gem_name @api}.gemspec",
+                       api: @api, service: api_services(@api).first)
           files << gen("gemfile.erb", "Gemfile", api: @api)
-          files << gen("rakefile.erb", "Rakefile", api: @api)
+          files << gen("rakefile.erb", "Rakefile",
+                       api: @api, service: api_services(@api).first)
           files << gen("license.erb", "LICENSE.md", api: @api)
 
           files

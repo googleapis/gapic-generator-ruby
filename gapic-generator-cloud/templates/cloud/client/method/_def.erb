@@ -1,33 +1,4 @@
+<%- assert_locals api, service, method -%>
 <%- mp = method_presenter api, service, method -%>
-##
-<%= indent mp.doc_description, "# " %>
-#
-<%- mp.arguments.each do |arg| -%>
-# @param <%= arg.name %> [<%= arg.doc_types %>]
-<%= indent arg.doc_description, "#   " %>
-<%- end -%>
-# @param options [Google::Gax::CallOptions]
-#   Overrides the default settings for this call, e.g, timeout, retries, etc.
-<%- if mp.yields? -%>
-<%- yield_param_names = mp.yield_params.map(&:name).join(", ") -%>
-# @yield [<%= yield_param_names %>] <%= mp.yield_doc_description %>
-<%- mp.yield_params.each do |yp| -%>
-# @yieldparam <%= yp.name %> [<%= yp.doc_types %>]
-<%- end -%>
-<%- end -%>
-# @return [<%= mp.doc_return_type %>]
-# @raise [Google::Gax::GaxError] if the RPC is aborted.
-# @example
-<%= indent mp.code_example, "#   " %>
-#
-def <%= mp.name %> \
-<%- mp.arguments.each do |arg| -%>
-    <%= arg.name %>,
-<%- end -%>
-    options: nil,
-    &block
-  <%= indent render(
-        partial: "client/method/body/#{mp.kind}",
-        locals: { api: api, service: service, method: method, mp: mp }
-      ), "  " %>
-end
+<%= render partial: "client/method/def/#{mp.kind}",
+           locals: { api: api, service: service, method: method, mp: mp } %>

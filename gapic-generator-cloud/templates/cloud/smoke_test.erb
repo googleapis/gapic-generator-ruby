@@ -9,21 +9,8 @@
 require "minitest/autorun"
 require "minitest/spec"
 
-require "google/cloud/speech"
+require "<%= client_require service %>"
 
-describe "SpeechSmokeTest v1" do
-  it "runs one smoke test with recognize" do
-    speech_client = Google::Cloud::Speech.new version: :v1
-    language_code = "en-US"
-    sample_rate_hertz = 44100
-    encoding = :FLAC
-    config = {
-      language_code: language_code,
-      sample_rate_hertz: sample_rate_hertz,
-      encoding: encoding
-    }
-    uri = "gs://gapic-toolkit/hello.flac"
-    audio = { uri: uri }
-    speech_client.recognize config, audio
-  end
+describe "<%= service.name %>SmokeTest TODO: add lib version" do
+  # TODO: Add smoke test implementation
 end

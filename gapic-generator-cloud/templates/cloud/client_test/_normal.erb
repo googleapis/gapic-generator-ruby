@@ -2,7 +2,7 @@
 <% method_name = method.descriptor.name.underscore %>
 describe "<%= method_name %>" do
   let :custom_error do
-    CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#<%= method_name %>."
+    CustomTestErrorV1.new "Custom test error for <%= client_name_full service %>#<%= method_name %>."
   end
 
   it "invokes <%= method_name %> without error" do
@@ -26,9 +26,9 @@ describe "<%= method_name %>" do
     # Mock auth layer
     mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
 
-    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-        client = Google::Cloud::Speech.new version: :v1
+    <%= services_stub_name_full service %>.stub :new, mock_stub do
+      <%= client_name_full service %>.stub :default, mock_credentials do
+        client = <%= client_name_full service %>.new
 
         # Call method
         response = client.<%= method_name %> <%= mp.argument_names.join ", " %>
@@ -62,9 +62,9 @@ describe "<%= method_name %>" do
     # Mock auth layer
     mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
 
-    Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-      Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-        client = Google::Cloud::Speech.new version: :v1
+    <%= services_stub_name_full service %>.stub :new, mock_stub do
+      <%= client_name_full service %>.stub :default, mock_credentials do
+        client = <%= client_name_full service %>.new
 
         # Call method
         err = assert_raises Google::Gax::GaxError do

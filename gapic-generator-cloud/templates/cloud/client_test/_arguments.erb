@@ -1,15 +1,4 @@
 # Create request parameters
 <%- mp.arguments.each do |argument| -%>
-<%- if argument.example_arguments -%>
-<%- argument.example_arguments.each do |nested| -%>
-<%= nested.name %> = <%= nested.default_value %>
-<%- end -%>
-<%= argument.name %> = {
-<%- argument.example_arguments.each do |nested| -%>
-  <%= nested.name %>: <%= nested.name %><%= "," unless nested == argument.example_arguments.last %>
-<%- end -%>
-}
-<%- else -%>
 <%= argument.name %> = <%= argument.default_value %>
-<%- end -%>
 <%- end -%>

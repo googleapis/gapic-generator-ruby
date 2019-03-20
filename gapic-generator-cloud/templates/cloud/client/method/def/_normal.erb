@@ -1,0 +1,39 @@
+<%- assert_locals api, service, method, mp -%>
+##
+<%- if mp.doc_description -%>
+<%= indent mp.doc_description, "# " %>
+<%- end -%>
+#
+<%- mp.arguments.each do |arg| -%>
+# @param <%= arg.name %> [<%= arg.doc_types %>]
+<%- if arg.doc_description -%>
+<%= indent arg.doc_description, "#   " %>
+<%- end -%>
+<%- end -%>
+# @param options [Google::Gax::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+#
+# @yield [result, operation] Access the result along with the RPC operation
+# @yieldparam result [<%= mp.return_type %>]
+# @yieldparam operation [GRPC::ActiveCall::Operation]
+#
+# @return [<%= mp.return_type %>]
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+# @example
+<%= indent mp.code_example, "#   " %>
+#
+def <%= mp.name %> \
+<%- mp.arguments.each do |arg| -%>
+    <%= arg.name %>,
+<%- end -%>
+    options: nil,
+    &block
+
+  request = {
+  <%- mp.arguments.each do |arg| -%>
+    <%= arg.name %>: <%= arg.name %>,
+  <%- end -%>
+  }.delete_if { |_, v| v.nil? }
+  request = Google::Gax.to_proto request, <%= mp.request_type %>
+  <%= mp.ivar %>.call(request, options, &block)
+end

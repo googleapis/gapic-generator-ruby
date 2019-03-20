@@ -1,4 +1,0 @@
-request = reqs.lazy.map do |req|
-  Google::Gax.to_proto req, <%= mp.request_type %>
-end
-<%= mp.ivar %>.call(request, options)

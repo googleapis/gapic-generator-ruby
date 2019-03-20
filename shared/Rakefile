@@ -140,7 +140,7 @@ def generate_input_file service, protos
       # "--ruby_gapic_opt=generator=cloud",
       # TODO: invoke a custom template path?
       # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
-      "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
+      # "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
       "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
       "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin"
     ].join " "
