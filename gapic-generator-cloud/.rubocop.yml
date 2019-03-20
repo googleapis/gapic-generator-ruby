@@ -2,6 +2,8 @@ AllCops:
   TargetRubyVersion: 2.5
   Exclude:
     - expected_output/**/*
+    - templates/cloud/helpers/**/*
+    - test/google/gapic/presenters/**/*
 
 Documentation:
   Enabled: false

@@ -40,3 +40,17 @@ class GeneratorTest < Minitest::Test
     File.read "expected_output/#{service}/#{filename}"
   end
 end
+
+class PresenterTest < Minitest::Test
+  def proto_input service
+    File.binread "proto_input/#{service}_desc.bin"
+  end
+
+  def request service
+    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  end
+
+  def api service
+    Google::Gapic::Schema::Api.new request(service)
+  end
+end

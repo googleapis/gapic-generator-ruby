@@ -6,11 +6,11 @@ Gem::Specification.new do |gem|
   gem.name          = "<%= gem_name api %>"
   gem.version       = "0.32.0"
 
-  gem.authors       = ["Google LLC"]
-  gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-speech is the official library for Cloud Speech API."
-  gem.summary       = "API Client library for Cloud Speech API"
-  gem.homepage      = "https://github.com/googleapis/googleapis"
+  gem.authors       = <%= gem_authors(api).inspect %>
+  gem.email         = <%= gem_email(api).inspect %>
+  gem.description   = <%= gem_description(api, service).inspect %>
+  gem.summary       = <%= gem_summary(api).inspect %>
+  gem.homepage      = <%= gem_homepage(api).inspect %>
   gem.license       = "Apache-2.0"
 
   gem.platform      = Gem::Platform::RUBY

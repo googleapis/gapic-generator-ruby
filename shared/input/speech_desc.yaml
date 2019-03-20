@@ -1,7 +1,7 @@
 ---
 :file_to_generate:
 - google/cloud/speech/v1/cloud_speech.proto
-:parameter: gem_name=google-cloud-speech,configuration=../shared/config/speech.yml
+:parameter: configuration=../shared/config/speech.yml
 :compiler_version:
   :major: 3
   :minor: 6
@@ -2371,7 +2371,7 @@
       - 30
       :trailing_comments: ' e.g. "foo", "foo.bar", etc.
 
-'
+        '
     - :path:
       - 4
       - 1

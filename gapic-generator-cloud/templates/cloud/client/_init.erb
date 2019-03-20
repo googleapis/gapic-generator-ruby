@@ -44,14 +44,14 @@ def initialize \
   # the gRPC module only when it's required.
   # See https://github.com/googleapis/toolkit/issues/446
   require "google/gax/grpc"
-  require "<%= service_proto_require service %>"
+  require "<%= services_proto_require service %>"
 
-  credentials ||= Google::Cloud::Speech::V1::Credentials.default
+  credentials ||= Credentials.default
 
   <%- if client_lro? service -%>
   <%= render partial: "client/lro/init", locals: { api: api, service: service } %>
   <%- end -%>
-  @<%= client_stub service %> = create_stub credentials, scopes
+  @stub = create_stub credentials, scopes
 
   defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 

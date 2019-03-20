@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
+require_relative "field_presenter"
 
 class MethodPresenter
   attr_reader :api, :service, :method
@@ -50,40 +51,13 @@ class MethodPresenter
   end
 
   def doc_description
-    "TODO "
+    return nil if method.docs.leading_comments.empty?
+
+    method.docs.leading_comments
   end
 
   def arguments
-    # TODO: Define the options and &block arguments here, not templates
-
-    if client_streaming?
-      return [
-        OpenStruct.new(
-          name: "reqs",
-          doc_types: "Enumerable<#{message_ruby_type method.input} | Hash>",
-          doc_description: "TODO"
-        )
-      ]
-    end
-
-    method.input.fields.map do |field|
-      nested_arguments = field.message.descriptor.field.map do |nested_field|
-        OpenStruct.new(
-          name: nested_field.name,
-          type_name: nested_field.type_name,
-          default_value: default_value(nested_field.name)
-        )
-      end
-      OpenStruct.new(
-        name: field.name,
-        doc_types: doc_types_for(field),
-        doc_description: "TODO",
-        type_name: field.type_name,
-        arguments: nested_arguments,
-        example_arguments: example_arguments(field.name, nested_arguments),
-        default_value: default_value(field.name)
-      )
-    end
+    method.input.fields.map { |field| FieldPresenter.new method.input, field }
   end
 
   def argument_names
@@ -95,15 +69,7 @@ class MethodPresenter
   end
 
   def return_type
-    return "Google::Gax::Operation" if lro?
-
     message_ruby_type method.output
-  end
-
-  def doc_return_type
-    orig = return_type
-    orig = "Enumerable<#{orig}>" if server_streaming?
-    orig
   end
 
   def yields?
@@ -139,22 +105,7 @@ class MethodPresenter
   end
 
   def code_example
-    <<~CODE_EXAMPLE
-      require "google/cloud/speech"
-
-      speech_client = Google::Cloud::Speech.new(version: :v1)
-      encoding = :FLAC
-      sample_rate_hertz = 44100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = { uri: uri }
-      response = speech_client.recognize(config, audio)
-    CODE_EXAMPLE
+    "TODO "
   end
 
   def lro?
@@ -184,35 +135,39 @@ class MethodPresenter
       # TODO: handle when arg message is nil and enum is the type
       "ENUM(#{arg.enum.name})"
     else
-      # TODO: look at arg.type to determine the actual type
-      "String" # default type for now
+      case arg.type
+      when 1, 2                              then "Float"
+      when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "Integer"
+      when 9, 12                             then "String"
+      when 8                                 then "Boolean"
+      else
+        "Object"
+      end
     end
   end
 
-  # TODO: replace field name comparison with type
-  def default_value type_name
-    case type_name
-    when "encoding"
-      ":FLAC"
-    when "sample_rate_hertz"
-      "44_100"
-    when "language_code"
-      "\"en-US\""
-    when "uri"
-      "\"gs://bucket_name/file_name.flac\""
-    end
+  def doc_desc_for arg
+    return nil if arg.docs.leading_comments.empty?
+
+    arg.docs.leading_comments
   end
 
-  # TODO: replace hardcoded logic with annotation data
-  def example_arguments field_name, nested_arguments
-    filter = case field_name
-             when "config"
-               %w[encoding sample_rate_hertz language_code]
-             when "audio"
-               ["uri"]
-             else
-               []
-             end
-    nested_arguments.select { |na| filter.include? na.name }
+  def default_value_for arg
+    if arg.message?
+      "{}"
+    elsif arg.enum?
+      # TODO: select the first non-0 enum value
+      # ":ENUM"
+      arg.enum.values.first
+    else
+      case arg.type
+      when 1, 2                              then "3.14"
+      when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
+      when 9, 12                             then "\"hello world\""
+      when 8                                 then "true"
+      else
+        "Object"
+      end
+    end
   end
 end

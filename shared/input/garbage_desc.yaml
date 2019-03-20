@@ -1,7 +1,7 @@
 ---
 :file_to_generate:
 - garbage/garbage.proto
-:parameter: gem_name=google-cloud-garbage,configuration=../shared/config/garbage.yml
+:parameter: configuration=../shared/config/garbage.yml
 :compiler_version:
   :major: 3
   :minor: 6
@@ -2371,7 +2371,7 @@
       - 30
       :trailing_comments: ' e.g. "foo", "foo.bar", etc.
 
-'
+        '
     - :path:
       - 4
       - 1
@@ -17494,20 +17494,20 @@
           :metadata_type: google.garbage.v1.LongRunningGarbageMetadata
     - :name: ClientGarbage
       :input_type: ".endless.trash.forever.ListGarbageRequest"
-      :output_type: ".endless.trash.forever.GarbageItem"
+      :output_type: ".endless.trash.forever.ListGarbageResponse"
       :options:
         :http:
           :post: "/v1/garbage:client"
           :body: "*"
-      :server_streaming: true
+      :client_streaming: true
     - :name: ServerGarbage
       :input_type: ".endless.trash.forever.ListGarbageRequest"
-      :output_type: ".endless.trash.forever.ListGarbageResponse"
+      :output_type: ".endless.trash.forever.GarbageItem"
       :options:
         :http:
           :post: "/v1/garbage:server"
           :body: "*"
-      :client_streaming: true
+      :server_streaming: true
     - :name: BidiGarbage
       :input_type: ".endless.trash.forever.ListGarbageRequest"
       :output_type: ".endless.trash.forever.GarbageItem"
@@ -18196,21 +18196,21 @@
       - 0
       - 2
       - 5
-      - 2
+      - 5
       :span:
       - 71
       - 20
-      - 38
+      - 26
     - :path:
       - 6
       - 0
       - 2
       - 5
-      - 6
+      - 2
       :span:
       - 71
-      - 49
-      - 55
+      - 27
+      - 45
     - :path:
       - 6
       - 0
@@ -18220,7 +18220,7 @@
       :span:
       - 71
       - 56
-      - 67
+      - 75
     - :path:
       - 6
       - 0
@@ -18269,21 +18269,21 @@
       - 0
       - 2
       - 6
-      - 5
+      - 2
       :span:
       - 77
       - 20
-      - 26
+      - 38
     - :path:
       - 6
       - 0
       - 2
       - 6
-      - 2
+      - 6
       :span:
       - 77
-      - 27
-      - 45
+      - 49
+      - 55
     - :path:
       - 6
       - 0
@@ -18293,7 +18293,7 @@
       :span:
       - 77
       - 56
-      - 75
+      - 67
     - :path:
       - 6
       - 0

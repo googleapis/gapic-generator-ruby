@@ -69,13 +69,13 @@ service GarbageService {
       metadata_type: "google.garbage.v1.LongRunningGarbageMetadata"
     };
   }
-  rpc ClientGarbage(ListGarbageRequest) returns (stream GarbageItem) {
+  rpc ClientGarbage(stream ListGarbageRequest) returns (ListGarbageResponse) {
     option (google.api.http) = {
       post: "/v1/garbage:client"
       body: "*"
     };
   }
-  rpc ServerGarbage(stream ListGarbageRequest) returns (ListGarbageResponse) {
+  rpc ServerGarbage(ListGarbageRequest) returns (stream GarbageItem) {
     option (google.api.http) = {
       post: "/v1/garbage:server"
       body: "*"

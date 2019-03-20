@@ -15,15 +15,10 @@
 # limitations under the License.
 
 require "minitest/autorun"
-require "minitest/spec"
 
-require "google/gax"
-
-require "google/cloud/speech"
-require "google/cloud/speech/v1/speech_client"
+require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/cloud_speech_services_pb"
-require "google/longrunning/operations_pb"
-require "google/longrunning/operations_services_pb"
+require "google/cloud/speech/v1/speech_client"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
@@ -54,7 +49,7 @@ class MockGrpcClientStubV1
   end
 end
 
-class MockSpeechCredentialsV1 < Google::Cloud::Speech::V1::Credentials
+class MockSpeechCredentialsV1 < Google::Cloud::Speech::V1::Speech::Credentials
   def initialize method_name
     @method_name = method_name
   end
@@ -67,26 +62,16 @@ class MockSpeechCredentialsV1 < Google::Cloud::Speech::V1::Credentials
   end
 end
 
-describe Google::Cloud::Speech::V1::SpeechClient do
+describe Google::Cloud::Speech::V1::Speech::Client do
   describe "recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#recognize."
     end
 
     it "invokes recognize without error" do
       # Create request parameters
-      encoding = :FLAC
-      sample_rate_hertz = 44_100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = {
-        uri: uri
-      }
+      config = {}
+      audio = {}
 
       # Create expected grpc response
       expected_response = {}
@@ -106,8 +91,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.recognize config, audio
@@ -127,18 +112,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
 
     it "invokes recognize with error" do
       # Create request parameters
-      encoding = :FLAC
-      sample_rate_hertz = 44_100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = {
-        uri: uri
-      }
+      config = {}
+      audio = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -153,8 +128,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -170,28 +145,18 @@ describe Google::Cloud::Speech::V1::SpeechClient do
 
   describe "long_running_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#long_running_recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
     end
 
     it "invokes long_running_recognize without error" do
       # Create request parameters
-      encoding = :FLAC
-      sample_rate_hertz = 44_100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = {
-        uri: uri
-      }
+      config = {}
+      audio = {}
 
       # Create expected grpc response
       expected_response = {}
       expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Speech::V1::LongRunningRecognizeResponse
+                                               Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -213,8 +178,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.long_running_recognize config, audio
@@ -227,22 +192,12 @@ describe Google::Cloud::Speech::V1::SpeechClient do
 
     it "invokes long_running_recognize and returns an operation error." do
       # Create request parameters
-      encoding = :FLAC
-      sample_rate_hertz = 44_100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = {
-        uri: uri
-      }
+      config = {}
+      audio = {}
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Cloud::Speech::V1::SpeechClient#long_running_recognize."
+        message: "Operation error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
       )
       operation = Google::Longrunning::Operation.new(
         name: "operations/long_running_recognize_test",
@@ -263,8 +218,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.long_running_recognize config, audio
@@ -278,18 +233,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
 
     it "invokes long_running_recognize with error" do
       # Create request parameters
-      encoding = :FLAC
-      sample_rate_hertz = 44_100
-      language_code = "en-US"
-      config = {
-        encoding: encoding,
-        sample_rate_hertz: sample_rate_hertz,
-        language_code: language_code
-      }
-      uri = "gs://bucket_name/file_name.flac"
-      audio = {
-        uri: uri
-      }
+      config = {}
+      audio = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -304,8 +249,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -321,7 +266,7 @@ describe Google::Cloud::Speech::V1::SpeechClient do
 
   describe "streaming_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::SpeechClient#streaming_recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#streaming_recognize."
     end
 
     it "invokes streaming_recognize without error" do
@@ -344,8 +289,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "streaming_recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.streaming_recognize [request]
@@ -369,8 +314,8 @@ describe Google::Cloud::Speech::V1::SpeechClient do
       mock_credentials = MockSpeechCredentialsV1.new "streaming_recognize"
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
-        Google::Cloud::Speech::V1::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech.new version: :v1
+        Google::Cloud::Speech::V1::Speech::Client.stub :default, mock_credentials do
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

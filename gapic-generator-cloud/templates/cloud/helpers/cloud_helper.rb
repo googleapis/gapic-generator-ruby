@@ -31,11 +31,49 @@ module CloudHelper
     s = api_services(api).first
     version = s.address.find { |x| x =~ /^v[0-9][0-9a-z.]*\z/ }
     version_index = s.address.index version
+    version_index ||= -2 # service and version
     s.address[0...version_index]
   end
 
-  def client_file_path service
-    ruby_file_path(service).sub ".rb", "_client.rb"
+  def gem_title api, service = nil
+    if service && service.client_package
+      title = service.client_package.title
+      return title unless title.empty?
+    end
+
+    api.protoc_options[:gem_title] ||
+      api.configuration[:gem_title] ||
+      gem_address(api).map(&:classify).join(" ")
+  end
+
+  def gem_authors api
+    api.protoc_options[:gem_authors] ||
+      api.configuration[:gem_authors] ||
+      ["Google LLC"]
+  end
+
+  def gem_email api
+    api.protoc_options[:gem_email] ||
+      api.configuration[:gem_email] ||
+      "googleapis-packages@google.com"
+  end
+
+  def gem_description api, service = nil
+    api.protoc_options[:gem_description] ||
+      api.configuration[:gem_description] ||
+      "#{gem_name api} is the official library for #{gem_title api, service} API."
+  end
+
+  def gem_summary api
+    api.protoc_options[:gem_summary] ||
+      api.configuration[:gem_summary] ||
+      "API Client library for #{gem_title api} API"
+  end
+
+  def gem_homepage api
+    api.protoc_options[:gem_homepage] ||
+      api.configuration[:gem_homepage] ||
+      "https://github.com/googleapis/googleapis"
   end
 
   def credentials_file_path api
@@ -50,47 +88,145 @@ module CloudHelper
     true # TODO
   end
 
-  def client_name service
-    "#{service.name}Client"
+  def service_name service
+    service.name
+  end
+
+
+  def service_proto_name_full service
+    ruby_namespace service.address
+  end
+
+  def service_proto_file_path service
+    if service.parent
+      service.parent.name.sub ".proto", "_pb.rb"
+    else
+      ruby_file_path(service).sub ".rb", "_pb.rb"
+    end
+  end
+
+  def service_proto_file_name service
+    service_proto_file_path(service).split("/").last
+  end
+
+  def service_proto_require service
+    service_proto_file_path(service).sub ".rb", ""
+  end
+
+
+  def services_proto_name_full service
+    ruby_namespace service.address
+  end
+
+  def services_proto_file_path service
+    if service.parent
+      service.parent.name.sub ".proto", "_services_pb.rb"
+    else
+      ruby_file_path(service).sub ".rb", "_services_pb.rb"
+    end
+  end
+
+  def services_proto_file_name service
+    services_proto_file_path(service).split("/").last
+  end
+
+  def services_proto_require service
+    services_proto_file_path(service).sub ".rb", ""
+  end
+
+
+  def services_stub_name_full service
+    "#{services_proto_name_full service}::Stub"
+  end
+
+
+  def client_file_path service
+    ruby_file_path(service).sub ".rb", "_client.rb"
+  end
+
+  def client_file_name service
+    client_file_path(service).split("/").last
+  end
+
+  def client_require service
+    client_file_path(service).sub ".rb", ""
+  end
+
+
+  def client_name _service
+    "Client"
   end
 
   def client_name_full service
-    "#{ruby_namespace service.address}Client"
+    "#{service_proto_name_full service}::#{client_name service}"
   end
 
-  def client_require _service
-    "google/cloud/speech/v1/cloud_speech_pb"
+  def client_test_file_path service
+    client_file_path(service).sub ".rb", "_test.rb"
   end
 
-  def credentials_require _service
-    "google/cloud/speech/v1/credentials"
+  def credentials_name _service
+    "Credentials"
   end
 
-  def client_stub _service
-    "speech_stub"
+  def credentials_name_full service
+    credentials_namespace = service.address.dup
+    credentials_namespace.pop
+    credentials_namespace.push credentials_name(service)
+    ruby_namespace credentials_namespace
   end
 
-  def client_address _service
-    "speech.googleapis.com"
+  def credentials_require service
+    credentials_namespace = service.address.dup
+    credentials_namespace.pop
+    credentials_namespace.push credentials_name(service)
+    credentials_namespace.map(&:underscore).join "/"
   end
 
-  def client_port _service
-    443
+  def credentials_file_path service
+    credentials_require(service) + ".rb"
   end
 
-  def client_scopes _service
-    ["https://www.googleapis.com/auth/cloud-platform"]
+  def helpers_require service
+    helpers_namespace = service.address.dup
+    helpers_namespace.pop
+    helpers_namespace.push "helpers"
+    helpers_namespace.map(&:underscore).join "/"
   end
 
-  def service_proto_require _service
-    "google/cloud/speech/v1/cloud_speech_services_pb"
+  def helpers_file_path service
+    helpers_require(service) + ".rb"
   end
 
-  def client_json_config_file_name _service
-    "speech_client_config.json"
+  def client_address service
+    address = service.host
+    address ||= service.parent.parent.protoc_options[:default_host]
+    address ||= service.parent.parent.configuration[:default_host]
+
+    raise "Unknown default_host for #{service.name}" if address.nil?
+
+    address.split(":").first
   end
 
-  def client_proto_name _service
-    "google.cloud.speech.v1.Speech"
+  def client_port service
+    address = service.host
+    address ||= service.parent.parent.protoc_options[:default_host]
+    address ||= service.parent.parent.configuration[:default_host]
+
+    raise "Unknown default_host for #{service.name}" if address.nil?
+
+    host, *port = address.split ":"
+    port << 443 # push the default port on in case there is none
+    port.first
+  end
+
+  def client_scopes service
+    service.scopes ||
+      service.parent.parent.protoc_options[:oauth_scopes] ||
+      service.parent.parent.configuration[:oauth_scopes]
+  end
+
+  def client_proto_name service
+    service.address.join(".")
   end
 end
