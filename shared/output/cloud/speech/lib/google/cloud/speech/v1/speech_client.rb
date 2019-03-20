@@ -298,11 +298,11 @@ module Google
               package_version = package_gem ? package_gem.version.version : nil
 
               google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-              google_api_client << " #{lib_name}/#{lib_version}" if lib_name
-              google_api_client << " gapic/#{package_version}" if package_version
-              google_api_client << " gax/#{Google::Gax::VERSION}"
-              google_api_client << " grpc/#{GRPC::VERSION}"
-              google_api_client.join
+              google_api_client << "#{lib_name}/#{lib_version}" if lib_name
+              google_api_client << "gapic/#{package_version}" if package_version
+              google_api_client << "gax/#{Google::Gax::VERSION}"
+              google_api_client << "grpc/#{GRPC::VERSION}"
+              google_api_client.join " "
 
               headers = { "x-goog-api-client": google_api_client }
               headers.merge! metadata unless metadata.nil?
