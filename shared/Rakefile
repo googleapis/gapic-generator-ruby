@@ -37,7 +37,6 @@ namespace :gen do
       "google/cloud/speech/v1/cloud_speech.proto"
     ]
     generate_input_file "speech", speech_protos
-    generate_yaml_file "speech"
   end
 
   desc "Generate the binary input files for vision"
@@ -51,7 +50,6 @@ namespace :gen do
       "google/cloud/vision/v1/web_detection.proto"
     ]
     generate_input_file "vision", vision_protos
-    generate_yaml_file "vision"
   end
 
   desc "Generate the binary input files for showcase"
@@ -63,7 +61,6 @@ namespace :gen do
       "google/showcase/v1alpha3/testing.proto"
     ]
     generate_input_file "showcase", showcase_protos
-    generate_yaml_file "showcase"
   end
 
   desc "Generate the binary input files for garbage"
@@ -72,7 +69,6 @@ namespace :gen do
       "garbage/garbage.proto"
     ]
     generate_input_file "garbage", garbage_protos
-    generate_yaml_file "garbage"
   end
 end
 Rake::Task[:gen].enhance [:check_protos]
@@ -147,13 +143,4 @@ def generate_input_file service, protos
 
     `#{protoc_cmd}`
   end
-
-  def generate_yaml_file service
-      require "yaml"
-      require "google/gapic/schema"
-
-      bin_proto = File.binread "input/#{service}_desc.bin"
-      request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-      File.write "input/#{service}_desc.yaml", request.to_hash.to_yaml
-    end
 end
