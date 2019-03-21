@@ -18,9 +18,7 @@ require "active_support/inflector"
 
 module CloudHelper
   def gem_name api
-    api.protoc_options[:gem_name] ||
-      api.configuration[:gem_name] ||
-      gem_address(api).join("-")
+    api.configuration[:gem_name] || gem_address(api).join("-")
   end
 
   def gem_path api
@@ -41,39 +39,28 @@ module CloudHelper
       return title unless title.empty?
     end
 
-    api.protoc_options[:gem_title] ||
-      api.configuration[:gem_title] ||
-      gem_address(api).map(&:classify).join(" ")
+    api.configuration[:gem_title] || gem_address(api).map(&:classify).join(" ")
   end
 
   def gem_authors api
-    api.protoc_options[:gem_authors] ||
-      api.configuration[:gem_authors] ||
-      ["Google LLC"]
+    api.configuration[:gem_authors] || ["Google LLC"]
   end
 
   def gem_email api
-    api.protoc_options[:gem_email] ||
-      api.configuration[:gem_email] ||
-      "googleapis-packages@google.com"
+    api.configuration[:gem_email] || "googleapis-packages@google.com"
   end
 
   def gem_description api, service = nil
-    api.protoc_options[:gem_description] ||
-      api.configuration[:gem_description] ||
+    api.configuration[:gem_description] ||
       "#{gem_name api} is the official library for #{gem_title api, service} API."
   end
 
   def gem_summary api
-    api.protoc_options[:gem_summary] ||
-      api.configuration[:gem_summary] ||
-      "API Client library for #{gem_title api} API"
+    api.configuration[:gem_summary] || "API Client library for #{gem_title api} API"
   end
 
   def gem_homepage api
-    api.protoc_options[:gem_homepage] ||
-      api.configuration[:gem_homepage] ||
-      "https://github.com/googleapis/googleapis"
+    api.configuration[:gem_homepage] || "https://github.com/googleapis/googleapis"
   end
 
   def credentials_file_path api
@@ -200,7 +187,6 @@ module CloudHelper
 
   def client_address service
     address = service.host
-    address ||= service.parent.parent.protoc_options[:default_host]
     address ||= service.parent.parent.configuration[:default_host]
 
     raise "Unknown default_host for #{service.name}" if address.nil?
@@ -210,7 +196,6 @@ module CloudHelper
 
   def client_port service
     address = service.host
-    address ||= service.parent.parent.protoc_options[:default_host]
     address ||= service.parent.parent.configuration[:default_host]
 
     raise "Unknown default_host for #{service.name}" if address.nil?
@@ -221,9 +206,7 @@ module CloudHelper
   end
 
   def client_scopes service
-    service.scopes ||
-      service.parent.parent.protoc_options[:oauth_scopes] ||
-      service.parent.parent.configuration[:oauth_scopes]
+    service.scopes || service.parent.parent.configuration[:oauth_scopes]
   end
 
   def client_proto_name service
