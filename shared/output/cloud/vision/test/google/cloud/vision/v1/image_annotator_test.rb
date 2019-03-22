@@ -18,7 +18,7 @@ require "minitest/autorun"
 
 require "google/cloud/vision/v1/image_annotator_pb"
 require "google/cloud/vision/v1/image_annotator_services_pb"
-require "google/cloud/vision/v1/image_annotator_client"
+require "google/cloud/vision/v1/image_annotator"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
@@ -62,10 +62,10 @@ class MockImageAnnotatorCredentialsV1 < Google::Cloud::Vision::V1::ImageAnnotato
   end
 end
 
-describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
+describe Google::Cloud::Vision::V1::ImageAnnotator do
   describe "batch_annotate_images" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator::Client#batch_annotate_images."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator#batch_annotate_images."
     end
 
     it "invokes batch_annotate_images without error" do
@@ -89,8 +89,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Client.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+          client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
           response = client.batch_annotate_images requests
@@ -124,8 +124,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Client.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+          client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -141,7 +141,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
   describe "async_batch_annotate_files" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator::Client#async_batch_annotate_files."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator#async_batch_annotate_files."
     end
 
     it "invokes async_batch_annotate_files without error" do
@@ -172,8 +172,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Client.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+          client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
           response = client.async_batch_annotate_files requests
@@ -190,7 +190,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Cloud::Vision::V1::ImageAnnotator::Client#async_batch_annotate_files."
+        message: "Operation error for Google::Cloud::Vision::V1::ImageAnnotator#async_batch_annotate_files."
       )
       operation = Google::Longrunning::Operation.new(
         name: "operations/async_batch_annotate_files_test",
@@ -210,8 +210,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Client.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+          client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
           response = client.async_batch_annotate_files requests
@@ -239,8 +239,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Client.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+          client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
