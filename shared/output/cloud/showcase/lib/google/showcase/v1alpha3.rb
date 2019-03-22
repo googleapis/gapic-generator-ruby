@@ -14,11 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "active_support/inflector"
-require_relative "method_presenter"
+require "google/showcase/v1alpha3/echo"
+require "google/showcase/v1alpha3/identity"
+require "google/showcase/v1alpha3/messaging"
+require "google/showcase/v1alpha3/testing"
 
-module MethodHelper
-  def method_presenter api, service, method
-    MethodPresenter.new api, service, method
+module Google
+  module Showcase
+    module V1alpha3
+      def echo *args
+        Echo.new *args
+      end
+
+      def identity *args
+        Identity.new *args
+      end
+
+      def messaging *args
+        Messaging.new *args
+      end
+
+      def testing *args
+        Testing.new *args
+      end
+    end
   end
 end
+

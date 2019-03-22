@@ -1,15 +1,15 @@
-<%- assert_locals api, service -%>
+<%- assert_locals service -%>
 <% @requires = capture do %>
 require "json"
 require "pathname"
 
 require "googleauth"
 require "google/gax"
-<%- if client_lro? service -%>
-<%= render partial: "client/lro/requires", locals: { api: api, service: service } %>
+<%- if service.client_lro? -%>
+<%= render partial: "client/lro/requires", locals: { service: service } %>
 <%- end -%>
 
-require "<%= service_proto_require service %>"
+require "<%= service.service_proto_require %>"
 <% end %>
 class Credentials < Google::Auth::Credentials
   SCOPE = [
@@ -29,15 +29,15 @@ class Credentials < Google::Auth::Credentials
 end
 
 # Service that implements Google Cloud Speech API.
-class Client
+class <%= service.client_name %>
   # @private
   attr_reader :stub
 
   # The default address of the service.
-  SERVICE_ADDRESS = "<%= client_address service %>"
+  SERVICE_ADDRESS = "<%= service.client_address %>"
 
   # The default port of the service.
-  DEFAULT_SERVICE_PORT = <%= client_port service %>
+  DEFAULT_SERVICE_PORT = <%= service.client_port %>
 
   # rubocop:disable Style/MutableConstant
 
@@ -50,18 +50,18 @@ class Client
 
   # The scopes needed to make gRPC calls to all of the methods defined
   # in this service.
-  ALL_SCOPES = <%= client_scopes(service).inspect %>.freeze
+  ALL_SCOPES = <%= service.client_scopes.inspect %>.freeze
 
-  <%- if client_lro? service -%>
-  <%= indent_tail render(partial: "client/lro/def", locals: { api: api, service: service }), 2 %>
+  <%- if service.client_lro? -%>
+  <%= indent_tail render(partial: "client/lro/def", locals: { service: service }), 2 %>
   <%- end -%>
 
-  <%= indent_tail render(partial: "client/init", locals: { api: api, service: service }), 2 %>
+  <%= indent_tail render(partial: "client/init", locals: { service: service }), 2 %>
 
   # Service calls
   <%- service.methods.each do |method| -%>
 
-  <%= indent_tail render(partial: "client/method/def", locals: { api: api, service: service, method: method }), 2 %>
+  <%= indent_tail render(partial: "client/method/def", locals: { service: service, method: method }), 2 %>
   <%- end %>
 
   protected
@@ -83,7 +83,7 @@ class Client
     service_path = self.class::SERVICE_ADDRESS
     port = self.class::DEFAULT_SERVICE_PORT
     interceptors = self.class::GRPC_INTERCEPTORS
-    stub_new = <%= services_stub_name_full service %>.method :new
+    stub_new = <%= service.services_stub_name_full %>.method :new
     Google::Gax::Grpc.create_stub(
       service_path,
       port,
@@ -98,7 +98,7 @@ class Client
 
   def default_settings client_config, timeout, metadata, lib_name,
                         lib_version
-    package_gem = Gem.loaded_specs["<%= gem_name api %>"]
+    package_gem = Gem.loaded_specs["<%= service.api.gem_name %>"]
     package_version = package_gem ? package_gem.version.version : nil
 
     google_api_client = ["gl-ruby/#{RUBY_VERSION}"]

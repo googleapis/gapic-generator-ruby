@@ -33,8 +33,7 @@ module Google
           use_templates! File.join __dir__, "../../../../templates/cloud"
 
           # Configure these helper method to be used by the generator
-          use_helpers! :gem_name, :gem_path, :client_file_path,
-                       :client_test_file_path
+          use_helpers! :api_presenter
         end
 
         # Generates all the files for the API.
@@ -45,21 +44,29 @@ module Google
         def generate
           files = []
 
-          api_services(@api).each do |service|
-            files << cop(gen("client.erb",
-                             "lib/#{client_file_path service}",
-                             api: @api, service: service))
-            files << cop(gen("client_test.erb",
-                             "test/#{client_test_file_path service}",
-                             api: @api, service: service))
+          ap = api_presenter @api
+
+          ap.packages.each do |package|
+            # Package level files
+            files << cop(gen("version.erb", "lib/#{package.version_file_path}",
+                             package: package))
+
+            package.services.each do |service|
+              # Service level files
+              files << cop(gen("client.erb",
+                               "lib/#{service.client_file_path}",
+                               service: service))
+              files << cop(gen("client_test.erb",
+                               "test/#{service.client_test_file_path}",
+                               service: service))
+            end
           end
 
-          files << gen("gemspec.erb", "#{gem_name @api}.gemspec",
-                       api: @api, service: api_services(@api).first)
-          files << gen("gemfile.erb", "Gemfile", api: @api)
-          files << gen("rakefile.erb", "Rakefile",
-                       api: @api, service: api_services(@api).first)
-          files << gen("license.erb", "LICENSE.md", api: @api)
+          # Api level files
+          files << gen("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
+          files << gen("gemfile.erb",  "Gemfile",                api: ap)
+          files << gen("rakefile.erb", "Rakefile",               api: ap)
+          files << gen("license.erb",  "LICENSE.md",             api: ap)
 
           files
         end

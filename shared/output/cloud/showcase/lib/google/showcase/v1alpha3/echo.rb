@@ -476,7 +476,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/showcase/v1alpha3/helpers"
+  require "google/showcase/v1alpha3/echo/helpers"
 rescue LoadError
 end
 

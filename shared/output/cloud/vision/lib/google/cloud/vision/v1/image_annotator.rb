@@ -28,7 +28,7 @@ module Google
   module Cloud
     module Vision
       module V1
-        module ImageAnnotator
+        module Image_annotator
           class Credentials < Google::Auth::Credentials
             SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"
@@ -318,7 +318,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/cloud/vision/v1/helpers"
+  require "google/cloud/vision/v1/image_annotator/helpers"
 rescue LoadError
 end
 

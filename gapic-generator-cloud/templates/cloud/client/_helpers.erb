@@ -2,7 +2,7 @@
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "<%= helpers_require service %>"
+  require "<%= service.helpers_require %>"
 rescue LoadError
 end
 

@@ -1,35 +1,34 @@
-<%- assert_locals service, method -%>
-<% method_name = method.descriptor.name.underscore %>
-describe "<%= method_name %>" do
+<%- assert_locals method -%>
+describe "<%= method.name %>" do
   let :custom_error do
-    CustomTestErrorV1.new "Custom test error for <%= client_name_full service %>#<%= method_name %>."
+    CustomTestErrorV1.new "Custom test error for <%= method.service.client_name_full %>#<%= method.name %>."
   end
 
-  it "invokes <%= method_name %> without error" do
+  it "invokes <%= method.name %> without error" do
     # Create request parameters
     request = {}
 
     # Create expected grpc response
     expected_response = {}
     expected_response = Google::Gax.to_proto expected_response,
-                                             <%= mp.return_type %>
+                                             <%= method.return_type %>
 
     # Mock Grpc layer
     mock_method = proc do |requests|
       request = requests.first
       OpenStruct.new execute: [expected_response]
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
-    <%= services_stub_name_full service %>.stub :new, mock_stub do
-      <%= client_name_full service %>.stub :default, mock_credentials do
-        client = <%= client_name_full service %>.new
+    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.client_name_full %>.stub :default, mock_credentials do
+        client = <%= method.service.client_name_full %>.new
 
         # Call method
-        response = client.<%= method_name %> [request]
+        response = client.<%= method.name %> [request]
 
         # Verify the response
         assert_equal expected_response, response
@@ -37,24 +36,24 @@ describe "<%= method_name %>" do
     end
   end
 
-  it "invokes <%= method_name %> with error" do
+  it "invokes <%= method.name %> with error" do
     # Create request parameters
     request = {}
 
     # Mock Grpc layer
     mock_method = proc { raise custom_error }
-    mock_stub = MockGrpcClientStubV1.new :<%= method_name %>, mock_method
+    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method_name %>"
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
-    <%= services_stub_name_full service %>.stub :new, mock_stub do
-      <%= client_name_full service %>.stub :default, mock_credentials do
-        client = <%= client_name_full service %>.new
+    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.client_name_full %>.stub :default, mock_credentials do
+        client = <%= method.service.client_name_full %>.new
 
         # Call method
         err = assert_raises Google::Gax::GaxError do
-          client.<%= method_name %> [request]
+          client.<%= method.name %> [request]
         end
 
         # Verify the GaxError wrapped the custom error that was raised.

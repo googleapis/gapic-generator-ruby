@@ -357,7 +357,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/cloud/speech/v1/helpers"
+  require "google/cloud/speech/v1/speech/helpers"
 rescue LoadError
 end
 

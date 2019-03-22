@@ -15,7 +15,9 @@
 # limitations under the License.
 
 require "test_helper"
-require_relative "../../../../templates/cloud/helpers/method_presenter"
+require_relative "../../../../../gapic-generator/templates/default/helpers/filepath_helper"
+require_relative "../../../../../gapic-generator/templates/default/helpers/namespace_helper"
+require_relative "../../../../templates/cloud/helpers/presenters/method_presenter"
 
 class MethodPresenterTest < PresenterTest
   def method_presenter api_name, service_name, method_name
@@ -24,7 +26,7 @@ class MethodPresenterTest < PresenterTest
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    MethodPresenter.new api_obj, service, method
+    MethodPresenter.new method
   end
 
   def test_garbage_GetSimpleGarbage

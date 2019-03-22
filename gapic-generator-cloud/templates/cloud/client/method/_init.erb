@@ -1,7 +1,6 @@
-<%- assert_locals api, service, method -%>
-<%- mp = method_presenter api, service, method -%>
-<%= mp.ivar %> = Google::Gax.create_api_call(
-  @stub.method(:<%= mp.name %>),
+<%- assert_locals method -%>
+<%= method.ivar %> = Google::Gax.create_api_call(
+  @stub.method(:<%= method.name %>),
   defaults,
   exception_transformer: exception_transformer
 )

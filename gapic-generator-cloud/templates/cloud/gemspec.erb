@@ -3,14 +3,14 @@
 # encoding: utf-8
 
 Gem::Specification.new do |gem|
-  gem.name          = "<%= gem_name api %>"
+  gem.name          = "<%= api.gem_name %>"
   gem.version       = "0.32.0"
 
-  gem.authors       = <%= gem_authors(api).inspect %>
-  gem.email         = <%= gem_email(api).inspect %>
-  gem.description   = <%= gem_description(api, service).inspect %>
-  gem.summary       = <%= gem_summary(api).inspect %>
-  gem.homepage      = <%= gem_homepage(api).inspect %>
+  gem.authors       = <%= api.gem_authors.inspect %>
+  gem.email         = <%= api.gem_email.inspect %>
+  gem.description   = <%= api.gem_description.inspect %>
+  gem.summary       = <%= api.gem_summary.inspect %>
+  gem.homepage      = <%= api.gem_homepage.inspect %>
   gem.license       = "Apache-2.0"
 
   gem.platform      = Gem::Platform::RUBY

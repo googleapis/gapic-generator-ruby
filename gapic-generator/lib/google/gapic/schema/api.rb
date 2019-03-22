@@ -33,7 +33,7 @@ module Google
       #   @return [Array<Enum>] The top level enums seen across all files in
       #     this API.
       class Api
-        attr_accessor :request, :files, :services, :messages, :enums
+        attr_accessor :request, :files
 
         # Initializes an API object with the file descriptors that represent the
         # API.
@@ -47,10 +47,18 @@ module Google
             loader.load_file fd, request.file_to_generate.include?(fd.name)
           end
           @files.each { |f| f.parent = self }
+        end
 
-          @services = @files.flat_map(&:services)
-          @messages = @files.flat_map(&:messages)
-          @enums = @files.flat_map(&:enums)
+        def generate_files
+          @files.select(&:generate?)
+        end
+
+        def services
+          @files.map(&:services).flatten
+        end
+
+        def messages
+          @files.map(&:messages).flatten
         end
 
         # Structured Hash representation of the parameter values.
