@@ -115,6 +115,8 @@ class <%= client_name service %>
   end
 end
 
+<%= render partial: "client/new" %>
+
 <% @footer = capture do %>
 <%= render partial: "client/helpers", locals: { service: service} %>
 <% end %>
