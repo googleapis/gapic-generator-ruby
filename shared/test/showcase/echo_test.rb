@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo_client"
+require "google/showcase/v1alpha3/echo"
 
 class EchoTest < ShowcaseTest
   def test_echo
