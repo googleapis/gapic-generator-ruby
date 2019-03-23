@@ -1,0 +1,28 @@
+<%- assert_locals resource -%>
+##
+# Create a fully-qualified <%= resource.name %> resource string.
+#
+# The resource will be in the following format:
+#
+# `<%= resource.template %>`
+#
+<%- (resource.positional_args + resource.named_args).each do |name, _regexp, msg| -%>
+# @param <%= name %> [String]
+<%- if msg -%>
+#   <%= msg %>
+<%- end -%>
+<%- end -%>
+#
+# @return [String]
+<%- args = resource.positional_args.map(&:first) -%>
+<%- args += resource.named_args.map(&:first).map { |a| "#{a}:"} -%>
+def <%= resource.path_helper %> <%= args.join ", " %>
+<%- (resource.positional_args + resource.named_args).each do |name, regexp, msg| -%>
+  raise ArgumentError, "<%= name %> is required" if <%= name %>.nil?
+<%- if regexp -%>
+  raise ArgumentError, "<%= msg %>" unless <%= regexp %>.match <%= name %>
+<%- end -%>
+<%- end -%>
+
+  "<%= resource.path_string %>"
+end

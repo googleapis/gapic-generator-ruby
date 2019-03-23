@@ -24,6 +24,7 @@ require "google/longrunning/operations_client"
 require "google/showcase/version"
 require "google/showcase/v1alpha3/identity_pb"
 require "google/showcase/v1alpha3/identity/credentials"
+require "google/showcase/v1alpha3/identity/paths"
 
 module Google
   module Showcase
@@ -31,6 +32,9 @@ module Google
       module Identity
         # Service that implements Identity API.
         class Client
+          include Paths
+          extend Paths
+
           # @private
           attr_reader :identity_stub
 
