@@ -17,6 +17,8 @@
 require "active_support/inflector"
 
 class FieldPresenter
+  include NamespaceHelper
+
   def initialize message, field
     @message = message
     @field = field
@@ -72,6 +74,10 @@ class FieldPresenter
   # TODO: remove, only used in tests
   def type_name
     @field.type_name
+  end
+
+  def type_name_full
+    ruby_namespace @field.type_name
   end
 
   protected

@@ -16,7 +16,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= ruby_namespace field.type_name %>), request.<%= field.name %>
+      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       OpenStruct.new execute: expected_response
     end
@@ -52,7 +52,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= ruby_namespace field.type_name %>), request.<%= field.name %>
+      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       raise custom_error
     end
