@@ -49,7 +49,7 @@ module Google
           # Service that implements Google Cloud Speech API.
           class Client
             # @private
-            attr_reader :stub
+            attr_reader :speech_stub
 
             # The default address of the service.
             SERVICE_ADDRESS = "speech.googleapis.com"
@@ -135,24 +135,24 @@ module Google
                 lib_version: lib_version
               )
 
-              @stub = create_stub credentials, scopes
+              @speech_stub = create_stub credentials, scopes
 
               defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
               @recognize = Google::Gax.create_api_call(
-                @stub.method(:recognize),
+                @speech_stub.method(:recognize),
                 defaults,
                 exception_transformer: exception_transformer
               )
 
               @long_running_recognize = Google::Gax.create_api_call(
-                @stub.method(:long_running_recognize),
+                @speech_stub.method(:long_running_recognize),
                 defaults,
                 exception_transformer: exception_transformer
               )
 
               @streaming_recognize = Google::Gax.create_api_call(
-                @stub.method(:streaming_recognize),
+                @speech_stub.method(:streaming_recognize),
                 defaults,
                 exception_transformer: exception_transformer
               )

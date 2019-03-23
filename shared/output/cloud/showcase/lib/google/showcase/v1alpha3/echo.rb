@@ -48,7 +48,7 @@ module Google
         # Service that implements Google Cloud Speech API.
         class Client
           # @private
-          attr_reader :stub
+          attr_reader :echo_stub
 
           # The default address of the service.
           SERVICE_ADDRESS = "localhost"
@@ -134,42 +134,42 @@ module Google
               lib_version: lib_version
             )
 
-            @stub = create_stub credentials, scopes
+            @echo_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
             @echo = Google::Gax.create_api_call(
-              @stub.method(:echo),
+              @echo_stub.method(:echo),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @expand = Google::Gax.create_api_call(
-              @stub.method(:expand),
+              @echo_stub.method(:expand),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @collect = Google::Gax.create_api_call(
-              @stub.method(:collect),
+              @echo_stub.method(:collect),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @chat = Google::Gax.create_api_call(
-              @stub.method(:chat),
+              @echo_stub.method(:chat),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @paged_expand = Google::Gax.create_api_call(
-              @stub.method(:paged_expand),
+              @echo_stub.method(:paged_expand),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @wait = Google::Gax.create_api_call(
-              @stub.method(:wait),
+              @echo_stub.method(:wait),
               defaults,
               exception_transformer: exception_transformer
             )
