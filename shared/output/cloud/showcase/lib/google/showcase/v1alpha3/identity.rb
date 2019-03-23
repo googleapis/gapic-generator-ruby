@@ -133,7 +133,6 @@ module Google
               lib_name: lib_name,
               lib_version: lib_version
             )
-
             @identity_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
@@ -143,25 +142,21 @@ module Google
               defaults,
               exception_transformer: exception_transformer
             )
-
             @get_user = Google::Gax.create_api_call(
               @identity_stub.method(:get_user),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @update_user = Google::Gax.create_api_call(
               @identity_stub.method(:update_user),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @delete_user = Google::Gax.create_api_call(
               @identity_stub.method(:delete_user),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @list_users = Google::Gax.create_api_call(
               @identity_stub.method(:list_users),
               defaults,
@@ -174,10 +169,17 @@ module Google
           ##
           # Creates a user.
           #
-          # @param user [Google::Showcase::V1alpha3::User | Hash]
-          #   The user to create.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload create_user(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
+          #     Creates a user.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(user: nil, options: nil)
+          #   @param user [Google::Showcase::V1alpha3::User | Hash]
+          #     The user to create.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::User]
@@ -188,25 +190,34 @@ module Google
           # @example
           #   TODO
           #
-          def create_user \
-              user,
-              options: nil,
-              &block
+          def create_user request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              user: user
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
+
             @create_user.call(request, options, &block)
           end
 
           ##
           # Retrieves the User with the given uri.
           #
-          # @param name [String]
-          #   The resource name of the requested user.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload get_user(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
+          #     Retrieves the User with the given uri.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the requested user.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::User]
@@ -217,28 +228,37 @@ module Google
           # @example
           #   TODO
           #
-          def get_user \
-              name,
-              options: nil,
-              &block
+          def get_user request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
+
             @get_user.call(request, options, &block)
           end
 
           ##
           # Updates a user.
           #
-          # @param user [Google::Showcase::V1alpha3::User | Hash]
-          #   The user to update.
-          # @param update_mask [Google::Protobuf::FieldMask | Hash]
-          #   The field mask to determine wich fields are to be updated. If empty, the
-          #    server will assume all fields are to be updated.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload update_user(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
+          #     Updates a user.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(user: nil, update_mask: nil, options: nil)
+          #   @param user [Google::Showcase::V1alpha3::User | Hash]
+          #     The user to update.
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #      server will assume all fields are to be updated.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::User]
@@ -249,27 +269,34 @@ module Google
           # @example
           #   TODO
           #
-          def update_user \
-              user,
-              update_mask,
-              options: nil,
-              &block
+          def update_user request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              user: user,
-              update_mask: update_mask
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
+
             @update_user.call(request, options, &block)
           end
 
           ##
           # Deletes a user, their profile, and all of their authored messages.
           #
-          # @param name [String]
-          #   The resource name of the user to delete.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload delete_user(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
+          #     Deletes a user, their profile, and all of their authored messages.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the user to delete.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Protobuf::Empty]
@@ -280,30 +307,39 @@ module Google
           # @example
           #   TODO
           #
-          def delete_user \
-              name,
-              options: nil,
-              &block
+          def delete_user request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
+
             @delete_user.call(request, options, &block)
           end
 
           ##
           # Lists all users.
           #
-          # @param page_size [Integer]
-          #   The maximum number of users to return. Server may return fewer users
-          #    than requested. If unspecified, server will pick an appropriate default.
-          # @param page_token [String]
-          #   The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
-          #    returned from the previous call to
-          #    `google.showcase.v1alpha3.Identity\ListUsers` method.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload list_users(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
+          #     Lists all users.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(page_size: nil, page_token: nil, options: nil)
+          #   @param page_size [Integer]
+          #     The maximum number of users to return. Server may return fewer users
+          #      than requested. If unspecified, server will pick an appropriate default.
+          #   @param page_token [String]
+          #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
+          #      returned from the previous call to
+          #      `google.showcase.v1alpha3.Identity\ListUsers` method.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ListUsersResponse]
@@ -314,17 +350,17 @@ module Google
           # @example
           #   TODO
           #
-          def list_users \
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def list_users request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
+
             @list_users.call(request, options, &block)
           end
 

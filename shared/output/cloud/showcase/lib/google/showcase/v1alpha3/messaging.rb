@@ -133,7 +133,6 @@ module Google
               lib_name: lib_name,
               lib_version: lib_version
             )
-
             @messaging_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
@@ -143,79 +142,66 @@ module Google
               defaults,
               exception_transformer: exception_transformer
             )
-
             @get_room = Google::Gax.create_api_call(
               @messaging_stub.method(:get_room),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @update_room = Google::Gax.create_api_call(
               @messaging_stub.method(:update_room),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @delete_room = Google::Gax.create_api_call(
               @messaging_stub.method(:delete_room),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @list_rooms = Google::Gax.create_api_call(
               @messaging_stub.method(:list_rooms),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @create_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:create_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @get_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:get_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @update_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:update_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @delete_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:delete_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @list_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:list_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @search_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:search_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @stream_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:stream_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @send_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:send_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @connect = Google::Gax.create_api_call(
               @messaging_stub.method(:connect),
               defaults,
@@ -228,10 +214,17 @@ module Google
           ##
           # Creates a room.
           #
-          # @param room [Google::Showcase::V1alpha3::Room | Hash]
-          #   The room to create.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload create_room(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
+          #     Creates a room.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(room: nil, options: nil)
+          #   @param room [Google::Showcase::V1alpha3::Room | Hash]
+          #     The room to create.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Room]
@@ -242,25 +235,34 @@ module Google
           # @example
           #   TODO
           #
-          def create_room \
-              room,
-              options: nil,
-              &block
+          def create_room request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              room: room
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateRoomRequest
+
             @create_room.call(request, options, &block)
           end
 
           ##
           # Retrieves the Room with the given resource name.
           #
-          # @param name [String]
-          #   The resource name of the requested room.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload get_room(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
+          #     Retrieves the Room with the given resource name.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the requested room.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Room]
@@ -271,28 +273,37 @@ module Google
           # @example
           #   TODO
           #
-          def get_room \
-              name,
-              options: nil,
-              &block
+          def get_room request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetRoomRequest
+
             @get_room.call(request, options, &block)
           end
 
           ##
           # Updates a room.
           #
-          # @param room [Google::Showcase::V1alpha3::Room | Hash]
-          #   The room to update.
-          # @param update_mask [Google::Protobuf::FieldMask | Hash]
-          #   The field mask to determine wich fields are to be updated. If empty, the
-          #    server will assume all fields are to be updated.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload update_room(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
+          #     Updates a room.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(room: nil, update_mask: nil, options: nil)
+          #   @param room [Google::Showcase::V1alpha3::Room | Hash]
+          #     The room to update.
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #      server will assume all fields are to be updated.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Room]
@@ -303,27 +314,34 @@ module Google
           # @example
           #   TODO
           #
-          def update_room \
-              room,
-              update_mask,
-              options: nil,
-              &block
+          def update_room request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              room: room,
-              update_mask: update_mask
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateRoomRequest
+
             @update_room.call(request, options, &block)
           end
 
           ##
           # Deletes a room and all of its blurbs.
           #
-          # @param name [String]
-          #   The resource name of the requested room.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload delete_room(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
+          #     Deletes a room and all of its blurbs.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the requested room.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Protobuf::Empty]
@@ -334,30 +352,39 @@ module Google
           # @example
           #   TODO
           #
-          def delete_room \
-              name,
-              options: nil,
-              &block
+          def delete_room request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteRoomRequest
+
             @delete_room.call(request, options, &block)
           end
 
           ##
           # Lists all chat rooms.
           #
-          # @param page_size [Integer]
-          #   The maximum number of rooms return. Server may return fewer rooms
-          #    than requested. If unspecified, server will pick an appropriate default.
-          # @param page_token [String]
-          #   The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
-          #    returned from the previous call to
-          #    `google.showcase.v1alpha3.Messaging\ListRooms` method.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload list_rooms(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
+          #     Lists all chat rooms.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(page_size: nil, page_token: nil, options: nil)
+          #   @param page_size [Integer]
+          #     The maximum number of rooms return. Server may return fewer rooms
+          #      than requested. If unspecified, server will pick an appropriate default.
+          #   @param page_token [String]
+          #     The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
+          #      returned from the previous call to
+          #      `google.showcase.v1alpha3.Messaging\ListRooms` method.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ListRoomsResponse]
@@ -368,17 +395,17 @@ module Google
           # @example
           #   TODO
           #
-          def list_rooms \
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def list_rooms request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListRoomsRequest
+
             @list_rooms.call(request, options, &block)
           end
 
@@ -387,13 +414,22 @@ module Google
           #  message in that room. If the parent is a profile, the blurb is understood
           #  to be a post on the profile.
           #
-          # @param parent [String]
-          #   The resource name of the chat room or user profile that this blurb will
-          #    be tied to.
-          # @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
-          #   The blurb to create.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload create_blurb(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateBlurbRequest | Hash]
+          #     Creates a blurb. If the parent is a room, the blurb is understood to be a
+          #      message in that room. If the parent is a profile, the blurb is understood
+          #      to be a post on the profile.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(parent: nil, blurb: nil, options: nil)
+          #   @param parent [String]
+          #     The resource name of the chat room or user profile that this blurb will
+          #      be tied to.
+          #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
+          #     The blurb to create.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
@@ -404,27 +440,34 @@ module Google
           # @example
           #   TODO
           #
-          def create_blurb \
-              parent,
-              blurb,
-              options: nil,
-              &block
+          def create_blurb request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              parent: parent,
-              blurb: blurb
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
+
             @create_blurb.call(request, options, &block)
           end
 
           ##
           # Retrieves the Blurb with the given resource name.
           #
-          # @param name [String]
-          #   The resource name of the requested blurb.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload get_blurb(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
+          #     Retrieves the Blurb with the given resource name.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the requested blurb.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
@@ -435,28 +478,37 @@ module Google
           # @example
           #   TODO
           #
-          def get_blurb \
-              name,
-              options: nil,
-              &block
+          def get_blurb request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetBlurbRequest
+
             @get_blurb.call(request, options, &block)
           end
 
           ##
           # Updates a blurb.
           #
-          # @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
-          #   The blurb to update.
-          # @param update_mask [Google::Protobuf::FieldMask | Hash]
-          #   The field mask to determine wich fields are to be updated. If empty, the
-          #    server will assume all fields are to be updated.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload update_blurb(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
+          #     Updates a blurb.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(blurb: nil, update_mask: nil, options: nil)
+          #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
+          #     The blurb to update.
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #      server will assume all fields are to be updated.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
@@ -467,27 +519,34 @@ module Google
           # @example
           #   TODO
           #
-          def update_blurb \
-              blurb,
-              update_mask,
-              options: nil,
-              &block
+          def update_blurb request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              blurb: blurb,
-              update_mask: update_mask
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateBlurbRequest
+
             @update_blurb.call(request, options, &block)
           end
 
           ##
           # Deletes a blurb.
           #
-          # @param name [String]
-          #   The resource name of the requested blurb.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload delete_blurb(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
+          #     Deletes a blurb.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of the requested blurb.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Protobuf::Empty]
@@ -498,15 +557,17 @@ module Google
           # @example
           #   TODO
           #
-          def delete_blurb \
-              name,
-              options: nil,
-              &block
+          def delete_blurb request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteBlurbRequest
+
             @delete_blurb.call(request, options, &block)
           end
 
@@ -514,18 +575,26 @@ module Google
           # Lists blurbs for a specific chat room or user profile depending on the
           #  parent resource name.
           #
-          # @param parent [String]
-          #   The resource name of the requested room or profile whos blurbs to list.
-          # @param page_size [Integer]
-          #   The maximum number of blurbs to return. Server may return fewer
-          #    blurbs than requested. If unspecified, server will pick an appropriate
-          #    default.
-          # @param page_token [String]
-          #   The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
-          #    returned from the previous call to
-          #    `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload list_blurbs(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
+          #     Lists blurbs for a specific chat room or user profile depending on the
+          #      parent resource name.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+          #   @param parent [String]
+          #     The resource name of the requested room or profile whos blurbs to list.
+          #   @param page_size [Integer]
+          #     The maximum number of blurbs to return. Server may return fewer
+          #      blurbs than requested. If unspecified, server will pick an appropriate
+          #      default.
+          #   @param page_token [String]
+          #     The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
+          #      returned from the previous call to
+          #      `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ListBlurbsResponse]
@@ -536,19 +605,17 @@ module Google
           # @example
           #   TODO
           #
-          def list_blurbs \
-              parent,
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def list_blurbs request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              parent: parent,
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListBlurbsRequest
+
             @list_blurbs.call(request, options, &block)
           end
 
@@ -557,23 +624,32 @@ module Google
           #  for blurbs containing to words found in the query. Only posts that
           #  contain an exact match of a queried word will be returned.
           #
-          # @param query [String]
-          #   The query used to search for blurbs containing to words of this string.
-          #    Only posts that contain an exact match of a queried word will be returned.
-          # @param parent [String]
-          #   The rooms or profiles to search. If unset, `SearchBlurbs` will search all
-          #    rooms and all profiles.
-          # @param page_size [Integer]
-          #   The maximum number of blurbs return. Server may return fewer
-          #    blurbs than requested. If unspecified, server will pick an appropriate
-          #    default.
-          # @param page_token [String]
-          #   The value of
-          #    google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
-          #    returned from the previous call to
-          #    `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload search_blurbs(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::SearchBlurbsRequest | Hash]
+          #     This method searches through all blurbs across all rooms and profiles
+          #      for blurbs containing to words found in the query. Only posts that
+          #      contain an exact match of a queried word will be returned.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(query: nil, parent: nil, page_size: nil, page_token: nil, options: nil)
+          #   @param query [String]
+          #     The query used to search for blurbs containing to words of this string.
+          #      Only posts that contain an exact match of a queried word will be returned.
+          #   @param parent [String]
+          #     The rooms or profiles to search. If unset, `SearchBlurbs` will search all
+          #      rooms and all profiles.
+          #   @param page_size [Integer]
+          #     The maximum number of blurbs return. Server may return fewer
+          #      blurbs than requested. If unspecified, server will pick an appropriate
+          #      default.
+          #   @param page_token [String]
+          #     The value of
+          #      google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
+          #      returned from the previous call to
+          #      `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [operation] Register a callback to be run when an operation is done.
           # @yieldparam operation [Google::Gax::Operation]
@@ -583,20 +659,17 @@ module Google
           # @example
           #   TODO
           #
-          def search_blurbs \
-              query,
-              parent,
-              page_size,
-              page_token,
-              options: nil
+          def search_blurbs request = nil, options: nil, **request_fields
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              query: query,
-              parent: parent,
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::SearchBlurbsRequest
+
             operation = Google::Gax::Operation.new(
               @search_blurbs.call(request, options),
               @operations_client,
@@ -610,29 +683,40 @@ module Google
           # This returns a stream that emits the blurbs that are created for a
           #  particular chat room or user profile.
           #
-          # @param name [String]
-          #   The resource name of a chat room or user profile whose blurbs to stream.
-          # @param expire_time [Google::Protobuf::Timestamp | Hash]
-          #   The time at which this stream will close.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload stream_blurbs(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
+          #     This returns a stream that emits the blurbs that are created for a
+          #      particular chat room or user profile.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload client_method(name: nil, expire_time: nil, options: nil)
+          #   @param name [String]
+          #     The resource name of a chat room or user profile whose blurbs to stream.
+          #   @param expire_time [Google::Protobuf::Timestamp | Hash]
+          #     The time at which this stream will close.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances.
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def stream_blurbs \
-              name,
-              expire_time,
-              options: nil
+          def stream_blurbs request = nil, options: nil, **request_fields
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name,
-              expire_time: expire_time
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::StreamBlurbsRequest
+
             @stream_blurbs.call request, options
           end
 
@@ -640,8 +724,8 @@ module Google
           # This is a stream to create multiple blurbs. If an invalid blurb is
           #  requested to be created, the stream will close with an error.
           #
-          # @param reqs [Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
-          #   TODO
+          # @param requests [Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
+          #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -650,19 +734,22 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::SendBlurbsResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
-          def send_blurbs \
-              reqs,
-              options: nil,
-              &block
-
-            request = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Showcase::V1alpha3::CreateBlurbRequest
+          def send_blurbs requests, options: nil, &block
+            unless requests.is_a? Enumerable
+              raise ArgumentError, "requests must be an Enumerable"
             end
-            @send_blurbs.call(request, options, &block)
+
+            requests = requests.lazy.map do |request|
+              Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
+            end
+
+            @send_blurbs.call(requests, options, &block)
           end
 
           ##
@@ -671,24 +758,29 @@ module Google
           #  blurbs. If an invalid blurb is requested to be created, the stream will
           #  close with an error.
           #
-          # @param reqs [Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
-          #   TODO
+          # @param requests [Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
+          #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances.
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
-          def connect \
-              reqs,
-              options: nil
-
-            request = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Showcase::V1alpha3::ConnectRequest
+          def connect requests, options: nil
+            unless requests.is_a? Enumerable
+              raise ArgumentError, "requests must be an Enumerable"
             end
-            @connect.call request, options
+
+            requests = requests.lazy.map do |request|
+              Google::Gax.to_proto request, Google::Showcase::V1alpha3::ConnectRequest
+            end
+
+            @connect.call requests, options
           end
 
           protected

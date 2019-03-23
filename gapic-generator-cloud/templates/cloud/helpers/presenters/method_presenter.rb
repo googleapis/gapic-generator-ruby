@@ -65,12 +65,13 @@ class MethodPresenter
     @method.docs.leading_comments
   end
 
-  def fields
-    @method.input.fields.map { |field| FieldPresenter.new @method.input, field }
+  def arguments
+    arguments = @method.input.fields.reject(&:output_only?)
+    arguments.map { |arg| FieldPresenter.new @method.input, arg }
   end
 
-  def field_names
-    fields.map(&:name)
+  def fields
+    @method.input.fields.map { |field| FieldPresenter.new @method.input, field }
   end
 
   def request_type

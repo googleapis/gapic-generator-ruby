@@ -61,7 +61,7 @@ describe "<%= method.name %>" do
 
         # Call method
         err = assert_raises Google::Gax::GaxError do
-          client.<%= method.name %> <%= method.field_names.join ", " %>
+          client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
         end
 
         # Verify the GaxError wrapped the custom error that was raised.

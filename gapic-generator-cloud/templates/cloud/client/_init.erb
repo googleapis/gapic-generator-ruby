@@ -48,14 +48,14 @@ def initialize \
 
   credentials ||= Credentials.default
 
-  <%- if service.client_lro? -%>
-  <%= render partial: "client/lro/init", locals: { service: service } %>
-  <%- end -%>
+<%- if service.client_lro? -%>
+<%= indent render(partial: "client/lro/init", locals: { service: service }), "  " %>
+<%- end -%>
   @<%= service.stub_name %> = create_stub credentials, scopes
 
   defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-  <%- service.methods.each do |method| -%>
-  <%= render partial: "client/method/init", locals: { service: service, method: method } %>
-  <%- end -%>
+<%- service.methods.each do |method| -%>
+<%= indent render(partial: "client/method/init", locals: { service: service, method: method }), "  " %>
+<%- end -%>
 end
