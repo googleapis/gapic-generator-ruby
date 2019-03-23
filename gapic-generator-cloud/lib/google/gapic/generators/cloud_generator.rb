@@ -66,6 +66,7 @@ module Google
           files << gen("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
           files << gen("gemfile.erb",  "Gemfile",                api: ap)
           files << gen("rakefile.erb", "Rakefile",               api: ap)
+          files << gen("rubocop.erb",  ".rubocop",               api: ap)
           files << gen("license.erb",  "LICENSE.md",             api: ap)
 
           files
