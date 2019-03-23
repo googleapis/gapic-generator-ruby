@@ -1149,6 +1149,8 @@ module Google
   end
 end
 
+Google::Cloud::Vision::V1::ProductSearchClient = Google::Cloud::Vision::V1::ProductSearch::Client
+
 # rubocop:disable Lint/HandleExceptions
 
 # Once client is loaded, load helpers.rb if it exists.

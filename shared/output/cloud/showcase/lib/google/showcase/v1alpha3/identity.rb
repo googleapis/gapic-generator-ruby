@@ -420,6 +420,8 @@ module Google
   end
 end
 
+Google::Showcase::V1alpha3::IdentityClient = Google::Showcase::V1alpha3::Identity::Client
+
 # rubocop:disable Lint/HandleExceptions
 
 # Once client is loaded, load helpers.rb if it exists.

@@ -472,6 +472,8 @@ module Google
   end
 end
 
+Google::Showcase::V1alpha3::EchoClient = Google::Showcase::V1alpha3::Echo::Client
+
 # rubocop:disable Lint/HandleExceptions
 
 # Once client is loaded, load helpers.rb if it exists.

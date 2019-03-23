@@ -353,6 +353,8 @@ module Google
   end
 end
 
+Google::Cloud::Speech::V1::SpeechClient = Google::Cloud::Speech::V1::Speech::Client
+
 # rubocop:disable Lint/HandleExceptions
 
 # Once client is loaded, load helpers.rb if it exists.

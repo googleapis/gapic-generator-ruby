@@ -783,6 +783,8 @@ module Google
   end
 end
 
+Google::Showcase::V1alpha3::MessagingClient = Google::Showcase::V1alpha3::Messaging::Client
+
 # rubocop:disable Lint/HandleExceptions
 
 # Once client is loaded, load helpers.rb if it exists.
