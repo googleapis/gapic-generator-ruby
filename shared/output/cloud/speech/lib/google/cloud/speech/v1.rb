@@ -15,16 +15,3 @@
 # limitations under the License.
 
 require "google/cloud/speech/v1/speech"
-
-module Google
-  module Cloud
-    module Speech
-      module V1
-        def speech *args
-          Speech.new *args
-        end
-      end
-    end
-  end
-end
-

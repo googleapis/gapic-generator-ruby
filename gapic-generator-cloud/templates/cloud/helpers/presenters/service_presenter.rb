@@ -42,9 +42,7 @@ class ServicePresenter
   end
 
   def namespaces
-    @service.address.map do |node|
-      ActiveSupport::Inflector.classify node
-    end
+    @service.address
   end
 
   def version

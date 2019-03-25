@@ -40,13 +40,11 @@ class PackagePresenter
   end
 
   def namespaces
-    @package.split(".").map do |node|
-      ActiveSupport::Inflector.classify node
-    end
+    @package.split "."
   end
 
   def version_require
-    namespaces.join "/"
+    namespaces.map(&:underscore).join "/"
   end
 
   def version_file_path

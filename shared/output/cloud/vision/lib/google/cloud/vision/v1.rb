@@ -16,20 +16,3 @@
 
 require "google/cloud/vision/v1/product_search"
 require "google/cloud/vision/v1/image_annotator"
-
-module Google
-  module Cloud
-    module Vision
-      module V1
-        def product_search *args
-          ProductSearch.new *args
-        end
-
-        def image_annotator *args
-          ImageAnnotator.new *args
-        end
-      end
-    end
-  end
-end
-

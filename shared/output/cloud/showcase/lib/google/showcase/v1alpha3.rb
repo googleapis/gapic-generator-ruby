@@ -18,26 +18,3 @@ require "google/showcase/v1alpha3/echo"
 require "google/showcase/v1alpha3/identity"
 require "google/showcase/v1alpha3/messaging"
 require "google/showcase/v1alpha3/testing"
-
-module Google
-  module Showcase
-    module V1alpha3
-      def echo *args
-        Echo.new *args
-      end
-
-      def identity *args
-        Identity.new *args
-      end
-
-      def messaging *args
-        Messaging.new *args
-      end
-
-      def testing *args
-        Testing.new *args
-      end
-    end
-  end
-end
-

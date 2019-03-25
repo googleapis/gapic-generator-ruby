@@ -11,7 +11,7 @@ require "google/gax"
 
 require "<%= service.service_proto_require %>"
 <% end %>
-class Credentials < Google::Auth::Credentials
+class <%= service.credentials_class_name %> < Google::Auth::Credentials
   SCOPE = [
     "https://www.googleapis.com/auth/cloud-platform"
   ].freeze

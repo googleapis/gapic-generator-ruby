@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "active_support/inflector"
+
 module NamespaceHelper
   def namespace_for api
     api.address.each do |namespace|
@@ -40,6 +42,6 @@ module NamespaceHelper
   # Ruby double-semicolon separators.
   def ruby_namespace namespaces
     namespaces = namespaces.split "." if namespaces.is_a? String
-    namespaces.reject(&:empty?).map(&:upcase_first).join "::"
+    namespaces.reject(&:empty?).map(&:classify).join "::"
   end
 end

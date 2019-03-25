@@ -48,7 +48,7 @@ module Google
 
           ap.packages.each do |package|
             # Package level files
-            files << cop(gen("version.erb", "lib/#{package.version_file_path}",
+            files << cop(gen("package.erb", "lib/#{package.version_file_path}",
                              package: package))
 
             package.services.each do |service|
