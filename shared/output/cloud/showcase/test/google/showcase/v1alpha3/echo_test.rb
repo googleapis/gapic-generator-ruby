@@ -91,7 +91,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "echo"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -128,7 +128,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "echo"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -171,7 +171,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "expand"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -202,7 +202,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "expand"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -242,7 +242,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "collect"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -266,7 +266,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "collect"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -306,7 +306,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "chat"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -331,7 +331,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "chat"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -376,7 +376,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "paged_expand"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -415,7 +415,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "paged_expand"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -469,7 +469,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "wait"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -513,7 +513,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "wait"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method
@@ -548,7 +548,7 @@ describe Google::Showcase::V1alpha3::Echo do
       mock_credentials = MockSpeechCredentialsV1.new "wait"
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Echo.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Echo.new
 
           # Call method

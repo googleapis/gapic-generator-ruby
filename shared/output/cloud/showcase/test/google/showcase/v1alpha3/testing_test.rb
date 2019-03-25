@@ -89,7 +89,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "create_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -124,7 +124,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "create_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -165,7 +165,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "get_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -200,7 +200,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "get_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -243,7 +243,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "list_sessions"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -280,7 +280,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "list_sessions"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -321,7 +321,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "delete_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -356,7 +356,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "delete_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -397,7 +397,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "report_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -432,7 +432,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "report_session"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -477,7 +477,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "list_tests"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -516,7 +516,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "list_tests"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -557,7 +557,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "delete_test"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -592,7 +592,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "delete_test"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -637,7 +637,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "verify_test"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method
@@ -676,7 +676,7 @@ describe Google::Showcase::V1alpha3::Testing do
       mock_credentials = MockSpeechCredentialsV1.new "verify_test"
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Testing.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Testing.new
 
           # Call method

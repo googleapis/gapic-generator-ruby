@@ -89,7 +89,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "create_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -124,7 +124,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "create_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -165,7 +165,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "get_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -200,7 +200,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "get_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -243,7 +243,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "update_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -280,7 +280,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "update_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -321,7 +321,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "delete_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -356,7 +356,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "delete_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -399,7 +399,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "list_users"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
@@ -436,7 +436,7 @@ describe Google::Showcase::V1alpha3::Identity do
       mock_credentials = MockSpeechCredentialsV1.new "list_users"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Identity::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method

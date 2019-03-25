@@ -188,22 +188,22 @@ module CloudHelper
     path_nodes.join "/"
   end
 
-  def credentials_name _service
+  def credentials_class_name _service
     "Credentials"
   end
 
-  def credentials_name_full service
-    credentials_namespace = service.address.dup
-    credentials_namespace.pop
-    credentials_namespace.push credentials_name(service)
-    ruby_namespace credentials_namespace
+  def credentials_class_full service
+    credentials_class_namespace = service.address.dup
+    credentials_class_namespace.pop
+    credentials_class_namespace.push credentials_class_name(service)
+    ruby_namespace credentials_class_namespace
   end
 
   def credentials_require service
-    credentials_namespace = service.address.dup
-    credentials_namespace.pop
-    credentials_namespace.push credentials_name(service)
-    credentials_namespace.map(&:underscore).join "/"
+    credentials_class_namespace = service.address.dup
+    credentials_class_namespace.pop
+    credentials_class_namespace.push credentials_class_name(service)
+    credentials_class_namespace.map(&:underscore).join "/"
   end
 
   def credentials_file_path service

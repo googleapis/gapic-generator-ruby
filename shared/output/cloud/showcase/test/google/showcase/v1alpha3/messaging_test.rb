@@ -89,7 +89,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "create_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -124,7 +124,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "create_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -165,7 +165,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "get_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -200,7 +200,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "get_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -243,7 +243,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "update_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -280,7 +280,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "update_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -321,7 +321,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "delete_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -356,7 +356,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "delete_room"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -399,7 +399,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "list_rooms"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -436,7 +436,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "list_rooms"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -479,7 +479,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "create_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -516,7 +516,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "create_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -557,7 +557,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "get_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -592,7 +592,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "get_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -635,7 +635,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "update_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -672,7 +672,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "update_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -713,7 +713,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "delete_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -748,7 +748,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "delete_blurb"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -793,7 +793,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "list_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -832,7 +832,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "list_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -886,7 +886,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -930,7 +930,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -965,7 +965,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1008,7 +1008,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "stream_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1039,7 +1039,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "stream_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1079,7 +1079,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "send_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1103,7 +1103,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "send_blurbs"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1143,7 +1143,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "connect"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method
@@ -1168,7 +1168,7 @@ describe Google::Showcase::V1alpha3::Messaging do
       mock_credentials = MockSpeechCredentialsV1.new "connect"
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Messaging.stub :default, mock_credentials do
+        Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
           client = Google::Showcase::V1alpha3::Messaging.new
 
           # Call method

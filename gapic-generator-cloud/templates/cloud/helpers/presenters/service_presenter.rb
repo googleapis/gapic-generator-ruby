@@ -112,12 +112,16 @@ class ServicePresenter
     client_file_path.sub ".rb", ""
   end
 
-  def client_name
+  def client_name_full
+    service_proto_name_full
+  end
+
+  def client_class_name
     "Client"
   end
 
-  def client_name_full
-    "#{service_proto_name_full}::#{client_name}"
+  def client_class_name_full
+    "#{service_proto_name_full}::#{client_class_name}"
   end
 
   def client_lro?
@@ -142,12 +146,12 @@ class ServicePresenter
     @service.address.join(".")
   end
 
-  def credentials_name
+  def credentials_class_name
     "Credentials"
   end
 
-  def credentials_name_full
-    "#{service_proto_name_full}::#{credentials_name}"
+  def credentials_class_full
+    "#{service_proto_name_full}::#{credentials_class_name}"
   end
 
   def helpers_require
