@@ -78,11 +78,7 @@ class ApiPresenter
       "https://github.com/googleapis/googleapis"
   end
 
-  def package_name
-    gem_name.split("-").last.classify
-  end
-
-  def package_env_prefix
-    package_name.upcase
+  def product_env_prefix
+    (@api.configuration[:env_prefix] || gem_name.split("-").last).upcase
   end
 end
