@@ -166,6 +166,10 @@ class ServicePresenter
     client_file_path.sub ".rb", "_test.rb"
   end
 
+  def stub_name
+    "#{ActiveSupport::Inflector.underscore name}_stub"
+  end
+
   protected
 
   def configuration

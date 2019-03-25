@@ -51,7 +51,7 @@ def initialize \
   <%- if service.client_lro? -%>
   <%= render partial: "client/lro/init", locals: { service: service } %>
   <%- end -%>
-  @stub = create_stub credentials, scopes
+  @<%= service.stub_name %> = create_stub credentials, scopes
 
   defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 

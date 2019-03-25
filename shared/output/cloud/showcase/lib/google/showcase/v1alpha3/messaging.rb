@@ -48,7 +48,7 @@ module Google
         # Service that implements Google Cloud Speech API.
         class Client
           # @private
-          attr_reader :stub
+          attr_reader :messaging_stub
 
           # The default address of the service.
           SERVICE_ADDRESS = "localhost"
@@ -134,90 +134,90 @@ module Google
               lib_version: lib_version
             )
 
-            @stub = create_stub credentials, scopes
+            @messaging_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
             @create_room = Google::Gax.create_api_call(
-              @stub.method(:create_room),
+              @messaging_stub.method(:create_room),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @get_room = Google::Gax.create_api_call(
-              @stub.method(:get_room),
+              @messaging_stub.method(:get_room),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @update_room = Google::Gax.create_api_call(
-              @stub.method(:update_room),
+              @messaging_stub.method(:update_room),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @delete_room = Google::Gax.create_api_call(
-              @stub.method(:delete_room),
+              @messaging_stub.method(:delete_room),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @list_rooms = Google::Gax.create_api_call(
-              @stub.method(:list_rooms),
+              @messaging_stub.method(:list_rooms),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @create_blurb = Google::Gax.create_api_call(
-              @stub.method(:create_blurb),
+              @messaging_stub.method(:create_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @get_blurb = Google::Gax.create_api_call(
-              @stub.method(:get_blurb),
+              @messaging_stub.method(:get_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @update_blurb = Google::Gax.create_api_call(
-              @stub.method(:update_blurb),
+              @messaging_stub.method(:update_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @delete_blurb = Google::Gax.create_api_call(
-              @stub.method(:delete_blurb),
+              @messaging_stub.method(:delete_blurb),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @list_blurbs = Google::Gax.create_api_call(
-              @stub.method(:list_blurbs),
+              @messaging_stub.method(:list_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @search_blurbs = Google::Gax.create_api_call(
-              @stub.method(:search_blurbs),
+              @messaging_stub.method(:search_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @stream_blurbs = Google::Gax.create_api_call(
-              @stub.method(:stream_blurbs),
+              @messaging_stub.method(:stream_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @send_blurbs = Google::Gax.create_api_call(
-              @stub.method(:send_blurbs),
+              @messaging_stub.method(:send_blurbs),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @connect = Google::Gax.create_api_call(
-              @stub.method(:connect),
+              @messaging_stub.method(:connect),
               defaults,
               exception_transformer: exception_transformer
             )

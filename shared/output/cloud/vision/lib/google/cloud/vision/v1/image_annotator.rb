@@ -49,7 +49,7 @@ module Google
           # Service that implements Google Cloud Speech API.
           class Client
             # @private
-            attr_reader :stub
+            attr_reader :image_annotator_stub
 
             # The default address of the service.
             SERVICE_ADDRESS = "vision.googleapis.com"
@@ -135,18 +135,18 @@ module Google
                 lib_version: lib_version
               )
 
-              @stub = create_stub credentials, scopes
+              @image_annotator_stub = create_stub credentials, scopes
 
               defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
               @batch_annotate_images = Google::Gax.create_api_call(
-                @stub.method(:batch_annotate_images),
+                @image_annotator_stub.method(:batch_annotate_images),
                 defaults,
                 exception_transformer: exception_transformer
               )
 
               @async_batch_annotate_files = Google::Gax.create_api_call(
-                @stub.method(:async_batch_annotate_files),
+                @image_annotator_stub.method(:async_batch_annotate_files),
                 defaults,
                 exception_transformer: exception_transformer
               )
