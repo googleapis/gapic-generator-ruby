@@ -22,24 +22,24 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-require "google/cloud/vision/v1/image_annotator_pb"
+require "google/cloud/speech/v1/cloud_speech_pb"
 
 module Google
   module Cloud
-    module Vision
+    module Speech
       module V1
-        module ImageAnnotator
+        module Speech
           class Credentials < Google::Auth::Credentials
             SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"
             ].freeze
-            PATH_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS
-                               IMAGEANNOTATOR_KEYFILE
+            PATH_ENV_VARS = %w[SPEECH_CREDENTIALS
+                               SPEECH_KEYFILE
                                GOOGLE_CLOUD_CREDENTIALS
                                GOOGLE_CLOUD_KEYFILE
                                GCLOUD_KEYFILE].freeze
-            JSON_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS_JSON
-                               IMAGEANNOTATOR_KEYFILE_JSON
+            JSON_ENV_VARS = %w[SPEECH_CREDENTIALS_JSON
+                               SPEECH_KEYFILE_JSON
                                GOOGLE_CLOUD_CREDENTIALS_JSON
                                GOOGLE_CLOUD_KEYFILE_JSON
                                GCLOUD_KEYFILE_JSON].freeze
@@ -52,7 +52,7 @@ module Google
             attr_reader :stub
 
             # The default address of the service.
-            SERVICE_ADDRESS = "vision.googleapis.com"
+            SERVICE_ADDRESS = "speech.googleapis.com"
 
             # The default port of the service.
             DEFAULT_SERVICE_PORT = 443
@@ -68,7 +68,7 @@ module Google
 
             # The scopes needed to make gRPC calls to all of the methods defined
             # in this service.
-            ALL_SCOPES = ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"].freeze
+            ALL_SCOPES = ["https://www.googleapis.com/auth/cloud-platform"].freeze
 
             # @private
             class OperationsClient < Google::Longrunning::OperationsClient
@@ -122,7 +122,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
-              require "google/cloud/vision/v1/image_annotator_services_pb"
+              require "google/cloud/speech/v1/cloud_speech_services_pb"
 
               credentials ||= Credentials.default
 
@@ -139,14 +139,20 @@ module Google
 
               defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-              @batch_annotate_images = Google::Gax.create_api_call(
-                @stub.method(:batch_annotate_images),
+              @recognize = Google::Gax.create_api_call(
+                @stub.method(:recognize),
                 defaults,
                 exception_transformer: exception_transformer
               )
 
-              @async_batch_annotate_files = Google::Gax.create_api_call(
-                @stub.method(:async_batch_annotate_files),
+              @long_running_recognize = Google::Gax.create_api_call(
+                @stub.method(:long_running_recognize),
+                defaults,
+                exception_transformer: exception_transformer
+              )
+
+              @streaming_recognize = Google::Gax.create_api_call(
+                @stub.method(:streaming_recognize),
                 defaults,
                 exception_transformer: exception_transformer
               )
@@ -155,44 +161,51 @@ module Google
             # Service calls
 
             ##
-            # Run image detection and annotation for a batch of images.
+            # Performs synchronous speech recognition: receive results after all audio
+            #  has been sent and processed.
             #
-            # @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
-            #   Individual image annotation requests for this batch.
+            # @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   *Required* Provides information to the recognizer that specifies how to
+            #    process the request.
+            # @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   *Required* The audio data to be recognized.
             # @param options [Google::Gax::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            # @yieldparam result [Google::Cloud::Speech::V1::RecognizeResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            # @return [Google::Cloud::Speech::V1::RecognizeResponse]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
             #
-            def batch_annotate_images \
-                requests,
+            def recognize \
+                config,
+                audio,
                 options: nil,
                 &block
 
               request = {
-                requests: requests
+                config: config,
+                audio: audio
               }.delete_if { |_, v| v.nil? }
-              request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
-              @batch_annotate_images.call(request, options, &block)
+              request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
+              @recognize.call(request, options, &block)
             end
 
             ##
-            # Run asynchronous image detection and annotation for a list of generic
-            #  files, such as PDF files, which may contain multiple pages and multiple
-            #  images per page. Progress and results can be retrieved through the
-            #  `google.longrunning.Operations` interface.
-            #  `Operation.metadata` contains `OperationMetadata` (metadata).
-            #  `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            # Performs asynchronous speech recognition: receive results via the
+            #  google.longrunning.Operations interface. Returns either an
+            #  `Operation.error` or an `Operation.response` which contains
+            #  a `LongRunningRecognizeResponse` message.
             #
-            # @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
-            #   Individual async file annotation requests for this batch.
+            # @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   *Required* Provides information to the recognizer that specifies how to
+            #    process the request.
+            # @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   *Required* The audio data to be recognized.
             # @param options [Google::Gax::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -204,21 +217,47 @@ module Google
             # @example
             #   TODO
             #
-            def async_batch_annotate_files \
-                requests,
+            def long_running_recognize \
+                config,
+                audio,
                 options: nil
 
               request = {
-                requests: requests
+                config: config,
+                audio: audio
               }.delete_if { |_, v| v.nil? }
-              request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+              request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
               operation = Google::Gax::Operation.new(
-                @async_batch_annotate_files.call(request, options),
+                @long_running_recognize.call(request, options),
                 @operations_client,
                 call_options: options
               )
               operation.on_done { |operation| yield operation } if block_given?
               operation
+            end
+
+            ##
+            # Performs bidirectional streaming speech recognition: receive results while
+            #  sending audio. This method is only available via the gRPC API (not REST).
+            #
+            # @param reqs [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
+            #   TODO
+            # @param options [Google::Gax::CallOptions]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #
+            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
+            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @example
+            #   TODO
+            #
+            def streaming_recognize \
+                reqs,
+                options: nil
+
+              request = reqs.lazy.map do |req|
+                Google::Gax.to_proto req, Google::Cloud::Speech::V1::StreamingRecognizeRequest
+              end
+              @streaming_recognize.call request, options
             end
 
             protected
@@ -240,7 +279,7 @@ module Google
               service_path = self.class::SERVICE_ADDRESS
               port = self.class::DEFAULT_SERVICE_PORT
               interceptors = self.class::GRPC_INTERCEPTORS
-              stub_new = Google::Cloud::Vision::V1::ImageAnnotator::Stub.method :new
+              stub_new = Google::Cloud::Speech::V1::Speech::Stub.method :new
               Google::Gax::Grpc.create_stub(
                 service_path,
                 port,
@@ -255,7 +294,7 @@ module Google
 
             def default_settings _client_config, _timeout, metadata, lib_name,
                                  lib_version
-              package_gem = Gem.loaded_specs["google-cloud-vision"]
+              package_gem = Gem.loaded_specs["google-cloud-speech"]
               package_version = package_gem ? package_gem.version.version : nil
 
               google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
@@ -271,6 +310,43 @@ module Google
               Google::Gax.const_get(:CallSettings).new metadata: headers
             end
           end
+
+          ##
+          # @param credentials [Google::Auth::Credentials, String, Hash,
+          #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
+          #   Provides the means for authenticating requests made by the client. This
+          #   parameter can be many types.
+          #   A `Google::Auth::Credentials` uses a the properties of its represented
+          #   keyfile for authenticating requests made by this client.
+          #   A `String` will be treated as the path to the keyfile to be used for the
+          #   construction of credentials for this client.
+          #   A `Hash` will be treated as the contents of a keyfile to be used for the
+          #   construction of credentials for this client.
+          #   A `GRPC::Core::Channel` will be used to make calls through.
+          #   A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The
+          #   channel credentials should already be composed with a
+          #   `GRPC::Core::CallCredentials` object.
+          #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
+          #   transforms the metadata for requests, generally, to give OAuth credentials.
+          # @param scopes [Array<String>]
+          #   The OAuth scopes for this service. This parameter is ignored if an
+          #   updater_proc is supplied.
+          # @param client_config [Hash]
+          #   A Hash for call options for each method. See Google::Gax#construct_settings
+          #   for the structure of this data. Falls back to the default config if not
+          #   specified or the specified config is missing data points.
+          # @param timeout [Numeric]
+          #   The default timeout, in seconds, for calls made through this client.
+          # @param metadata [Hash]
+          #   Default metadata to be sent with each request. This can be overridden on a
+          #   per call basis.
+          # @param exception_transformer [Proc]
+          #   An optional proc that intercepts any exceptions raised during an API call to
+          #   inject custom error handling.
+          #
+          def self.new *args
+            Client.new *args
+          end
         end
       end
     end
@@ -281,7 +357,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/cloud/vision/v1/helpers"
+  require "google/cloud/speech/v1/helpers"
 rescue LoadError
 end
 

@@ -18,7 +18,7 @@ require "minitest/autorun"
 
 require "google/showcase/v1alpha3/identity_pb"
 require "google/showcase/v1alpha3/identity_services_pb"
-require "google/showcase/v1alpha3/identity_client"
+require "google/showcase/v1alpha3/identity"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
@@ -62,10 +62,10 @@ class MockIdentityCredentialsV1alpha3 < Google::Showcase::V1alpha3::Identity::Cr
   end
 end
 
-describe Google::Showcase::V1alpha3::Identity::Client do
+describe Google::Showcase::V1alpha3::Identity do
   describe "create_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity::Client#create_user."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity#create_user."
     end
 
     it "invokes create_user without error" do
@@ -89,8 +89,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "create_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           response = client.create_user user
@@ -124,8 +124,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "create_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -141,7 +141,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
   describe "get_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity::Client#get_user."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity#get_user."
     end
 
     it "invokes get_user without error" do
@@ -165,8 +165,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "get_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           response = client.get_user name
@@ -200,8 +200,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "get_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -217,7 +217,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
   describe "update_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity::Client#update_user."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity#update_user."
     end
 
     it "invokes update_user without error" do
@@ -243,8 +243,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "update_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           response = client.update_user user, update_mask
@@ -280,8 +280,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "update_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -297,7 +297,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
   describe "delete_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity::Client#delete_user."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity#delete_user."
     end
 
     it "invokes delete_user without error" do
@@ -321,8 +321,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "delete_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           response = client.delete_user name
@@ -356,8 +356,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "delete_user"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -373,7 +373,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
   describe "list_users" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity::Client#list_users."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Identity#list_users."
     end
 
     it "invokes list_users without error" do
@@ -399,8 +399,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "list_users"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           response = client.list_users page_size, page_token
@@ -436,8 +436,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       mock_credentials = MockSpeechCredentialsV1.new "list_users"
 
       Google::Showcase::V1alpha3::Identity::Stub.stub :new, mock_stub do
-        Google::Showcase::V1alpha3::Identity::Client.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Identity::Client.new
+        Google::Showcase::V1alpha3::Identity.stub :default, mock_credentials do
+          client = Google::Showcase::V1alpha3::Identity.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

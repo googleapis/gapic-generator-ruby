@@ -22,23 +22,23 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-require "google/showcase/v1alpha3/testing_pb"
+require "google/showcase/v1alpha3/identity_pb"
 
 module Google
   module Showcase
     module V1alpha3
-      module Testing
+      module Identity
         class Credentials < Google::Auth::Credentials
           SCOPE = [
             "https://www.googleapis.com/auth/cloud-platform"
           ].freeze
-          PATH_ENV_VARS = %w[TESTING_CREDENTIALS
-                             TESTING_KEYFILE
+          PATH_ENV_VARS = %w[IDENTITY_CREDENTIALS
+                             IDENTITY_KEYFILE
                              GOOGLE_CLOUD_CREDENTIALS
                              GOOGLE_CLOUD_KEYFILE
                              GCLOUD_KEYFILE].freeze
-          JSON_ENV_VARS = %w[TESTING_CREDENTIALS_JSON
-                             TESTING_KEYFILE_JSON
+          JSON_ENV_VARS = %w[IDENTITY_CREDENTIALS_JSON
+                             IDENTITY_KEYFILE_JSON
                              GOOGLE_CLOUD_CREDENTIALS_JSON
                              GOOGLE_CLOUD_KEYFILE_JSON
                              GCLOUD_KEYFILE_JSON].freeze
@@ -121,7 +121,7 @@ module Google
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
-            require "google/showcase/v1alpha3/testing_services_pb"
+            require "google/showcase/v1alpha3/identity_services_pb"
 
             credentials ||= Credentials.default
 
@@ -138,50 +138,32 @@ module Google
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-            @create_session = Google::Gax.create_api_call(
-              @stub.method(:create_session),
+            @create_user = Google::Gax.create_api_call(
+              @stub.method(:create_user),
               defaults,
               exception_transformer: exception_transformer
             )
 
-            @get_session = Google::Gax.create_api_call(
-              @stub.method(:get_session),
+            @get_user = Google::Gax.create_api_call(
+              @stub.method(:get_user),
               defaults,
               exception_transformer: exception_transformer
             )
 
-            @list_sessions = Google::Gax.create_api_call(
-              @stub.method(:list_sessions),
+            @update_user = Google::Gax.create_api_call(
+              @stub.method(:update_user),
               defaults,
               exception_transformer: exception_transformer
             )
 
-            @delete_session = Google::Gax.create_api_call(
-              @stub.method(:delete_session),
+            @delete_user = Google::Gax.create_api_call(
+              @stub.method(:delete_user),
               defaults,
               exception_transformer: exception_transformer
             )
 
-            @report_session = Google::Gax.create_api_call(
-              @stub.method(:report_session),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-
-            @list_tests = Google::Gax.create_api_call(
-              @stub.method(:list_tests),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-
-            @delete_test = Google::Gax.create_api_call(
-              @stub.method(:delete_test),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-
-            @verify_test = Google::Gax.create_api_call(
-              @stub.method(:verify_test),
+            @list_users = Google::Gax.create_api_call(
+              @stub.method(:list_users),
               defaults,
               exception_transformer: exception_transformer
             )
@@ -190,54 +172,52 @@ module Google
           # Service calls
 
           ##
-          # Creates a new testing session.
+          # Creates a user.
           #
-          # @param session [Google::Showcase::V1alpha3::Session | Hash]
-          #   The session to be created.
-          #    Sessions are immutable once they are created (although they can
-          #    be deleted).
+          # @param user [Google::Showcase::V1alpha3::User | Hash]
+          #   The user to create.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Session]
+          # @yieldparam result [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::Session]
+          # @return [Google::Showcase::V1alpha3::User]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def create_session \
-              session,
+          def create_user \
+              user,
               options: nil,
               &block
 
             request = {
-              session: session
+              user: user
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
-            @create_session.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
+            @create_user.call(request, options, &block)
           end
 
           ##
-          # Gets a testing session.
+          # Retrieves the User with the given uri.
           #
           # @param name [String]
-          #   The session to be retrieved.
+          #   The resource name of the requested user.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Session]
+          # @yieldparam result [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::Session]
+          # @return [Google::Showcase::V1alpha3::User]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def get_session \
+          def get_user \
               name,
               options: nil,
               &block
@@ -245,48 +225,49 @@ module Google
             request = {
               name: name
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
-            @get_session.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
+            @get_user.call(request, options, &block)
           end
 
           ##
-          # Lists the current test sessions.
+          # Updates a user.
           #
-          # @param page_size [Integer]
-          #   The maximum number of sessions to return per page.
-          # @param page_token [String]
-          #   The page token, for retrieving subsequent pages.
+          # @param user [Google::Showcase::V1alpha3::User | Hash]
+          #   The user to update.
+          # @param update_mask [Google::Protobuf::FieldMask | Hash]
+          #   The field mask to determine wich fields are to be updated. If empty, the
+          #    server will assume all fields are to be updated.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListSessionsResponse]
+          # @yieldparam result [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::ListSessionsResponse]
+          # @return [Google::Showcase::V1alpha3::User]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def list_sessions \
-              page_size,
-              page_token,
+          def update_user \
+              user,
+              update_mask,
               options: nil,
               &block
 
             request = {
-              page_size: page_size,
-              page_token: page_token
+              user: user,
+              update_mask: update_mask
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
-            @list_sessions.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
+            @update_user.call(request, options, &block)
           end
 
           ##
-          # Delete a test session.
+          # Deletes a user, their profile, and all of their authored messages.
           #
           # @param name [String]
-          #   The session to be deleted.
+          #   The resource name of the user to delete.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -299,7 +280,7 @@ module Google
           # @example
           #   TODO
           #
-          def delete_session \
+          def delete_user \
               name,
               options: nil,
               &block
@@ -307,150 +288,44 @@ module Google
             request = {
               name: name
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
-            @delete_session.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
+            @delete_user.call(request, options, &block)
           end
 
           ##
-          # Report on the status of a session.
-          #  This generates a report detailing which tests have been completed,
-          #  and an overall rollup.
+          # Lists all users.
           #
-          # @param name [String]
-          #   The session to be reported on.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ReportSessionResponse]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
-          #
-          # @return [Google::Showcase::V1alpha3::ReportSessionResponse]
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
-          # @example
-          #   TODO
-          #
-          def report_session \
-              name,
-              options: nil,
-              &block
-
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
-            @report_session.call(request, options, &block)
-          end
-
-          ##
-          # List the tests of a sessesion.
-          #
-          # @param parent [String]
-          #   The session.
           # @param page_size [Integer]
-          #   The maximum number of tests to return per page.
+          #   The maximum number of users to return. Server may return fewer users
+          #    than requested. If unspecified, server will pick an appropriate default.
           # @param page_token [String]
-          #   The page token, for retrieving subsequent pages.
+          #   The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
+          #    returned from the previous call to
+          #    `google.showcase.v1alpha3.Identity\ListUsers` method.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListTestsResponse]
+          # @yieldparam result [Google::Showcase::V1alpha3::ListUsersResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::ListTestsResponse]
+          # @return [Google::Showcase::V1alpha3::ListUsersResponse]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def list_tests \
-              parent,
+          def list_users \
               page_size,
               page_token,
               options: nil,
               &block
 
             request = {
-              parent: parent,
               page_size: page_size,
               page_token: page_token
             }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
-            @list_tests.call(request, options, &block)
-          end
-
-          ##
-          # Explicitly decline to implement a test.
-          #
-          #  This removes the test from subsequent `ListTests` calls, and
-          #  attempting to do the test will error.
-          #
-          #  This method will error if attempting to delete a required test.
-          #
-          # @param name [String]
-          #   The test to be deleted.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
-          #
-          # @return [Google::Protobuf::Empty]
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
-          # @example
-          #   TODO
-          #
-          def delete_test \
-              name,
-              options: nil,
-              &block
-
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
-            @delete_test.call(request, options, &block)
-          end
-
-          ##
-          # Register a response to a test.
-          #
-          #  In cases where a test involves registering a final answer at the
-          #  end of the test, this method provides the means to do so.
-          #
-          # @param name [String]
-          #   The test to have an answer registered to it.
-          # @param answer [String]
-          #   The answer from the test.
-          # @param answers [String]
-          #   The answers from the test if multiple are to be checked
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::VerifyTestResponse]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
-          #
-          # @return [Google::Showcase::V1alpha3::VerifyTestResponse]
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
-          # @example
-          #   TODO
-          #
-          def verify_test \
-              name,
-              answer,
-              answers,
-              options: nil,
-              &block
-
-            request = {
-              name: name,
-              answer: answer,
-              answers: answers
-            }.delete_if { |_, v| v.nil? }
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
-            @verify_test.call(request, options, &block)
+            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
+            @list_users.call(request, options, &block)
           end
 
           protected
@@ -472,7 +347,7 @@ module Google
             service_path = self.class::SERVICE_ADDRESS
             port = self.class::DEFAULT_SERVICE_PORT
             interceptors = self.class::GRPC_INTERCEPTORS
-            stub_new = Google::Showcase::V1alpha3::Testing::Stub.method :new
+            stub_new = Google::Showcase::V1alpha3::Identity::Stub.method :new
             Google::Gax::Grpc.create_stub(
               service_path,
               port,
@@ -502,6 +377,43 @@ module Google
 
             Google::Gax.const_get(:CallSettings).new metadata: headers
           end
+        end
+
+        ##
+        # @param credentials [Google::Auth::Credentials, String, Hash,
+        #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
+        #   Provides the means for authenticating requests made by the client. This
+        #   parameter can be many types.
+        #   A `Google::Auth::Credentials` uses a the properties of its represented
+        #   keyfile for authenticating requests made by this client.
+        #   A `String` will be treated as the path to the keyfile to be used for the
+        #   construction of credentials for this client.
+        #   A `Hash` will be treated as the contents of a keyfile to be used for the
+        #   construction of credentials for this client.
+        #   A `GRPC::Core::Channel` will be used to make calls through.
+        #   A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The
+        #   channel credentials should already be composed with a
+        #   `GRPC::Core::CallCredentials` object.
+        #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
+        #   transforms the metadata for requests, generally, to give OAuth credentials.
+        # @param scopes [Array<String>]
+        #   The OAuth scopes for this service. This parameter is ignored if an
+        #   updater_proc is supplied.
+        # @param client_config [Hash]
+        #   A Hash for call options for each method. See Google::Gax#construct_settings
+        #   for the structure of this data. Falls back to the default config if not
+        #   specified or the specified config is missing data points.
+        # @param timeout [Numeric]
+        #   The default timeout, in seconds, for calls made through this client.
+        # @param metadata [Hash]
+        #   Default metadata to be sent with each request. This can be overridden on a
+        #   per call basis.
+        # @param exception_transformer [Proc]
+        #   An optional proc that intercepts any exceptions raised during an API call to
+        #   inject custom error handling.
+        #
+        def self.new *args
+          Client.new *args
         end
       end
     end

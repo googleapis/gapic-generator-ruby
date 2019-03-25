@@ -15,11 +15,11 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo_client"
+require "google/showcase/v1alpha3/echo"
 
 class EchoTest < ShowcaseTest
   def test_echo
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
+    client = Google::Showcase::V1alpha3::Echo.new(
       credentials: GRPC::Core::Channel.new(
         "localhost:7469", nil, :this_channel_is_insecure))
 

@@ -29,7 +29,7 @@ class Credentials < Google::Auth::Credentials
 end
 
 # Service that implements Google Cloud Speech API.
-class <%= client_name service %>
+class Client
   # @private
   attr_reader :stub
 
@@ -114,6 +114,8 @@ class <%= client_name service %>
     Google::Gax.const_get(:CallSettings).new metadata: headers
   end
 end
+
+<%= render partial: "client/new" %>
 
 <% @footer = capture do %>
 <%= render partial: "client/helpers", locals: { service: service} %>

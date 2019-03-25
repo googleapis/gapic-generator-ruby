@@ -63,14 +63,6 @@ module CloudHelper
     api.configuration[:gem_homepage] || "https://github.com/googleapis/googleapis"
   end
 
-  def credentials_file_path api
-    s = api_services(api).first
-    path_nodes = ruby_file_path(s).split "/"
-    path_nodes.pop
-    path_nodes << "credentials.rb"
-    path_nodes.join "/"
-  end
-
   def client_lro? _service
     true # TODO
   end
@@ -128,7 +120,7 @@ module CloudHelper
 
 
   def client_file_path service
-    ruby_file_path(service).sub ".rb", "_client.rb"
+    ruby_file_path service
   end
 
   def client_file_name service
@@ -140,38 +132,12 @@ module CloudHelper
   end
 
 
-  def client_name _service
-    "Client"
-  end
-
   def client_name_full service
-    "#{service_proto_name_full service}::#{client_name service}"
+    service_proto_name_full service
   end
 
   def client_test_file_path service
     client_file_path(service).sub ".rb", "_test.rb"
-  end
-
-  def credentials_name _service
-    "Credentials"
-  end
-
-  def credentials_name_full service
-    credentials_namespace = service.address.dup
-    credentials_namespace.pop
-    credentials_namespace.push credentials_name(service)
-    ruby_namespace credentials_namespace
-  end
-
-  def credentials_require service
-    credentials_namespace = service.address.dup
-    credentials_namespace.pop
-    credentials_namespace.push credentials_name(service)
-    credentials_namespace.map(&:underscore).join "/"
-  end
-
-  def credentials_file_path service
-    credentials_require(service) + ".rb"
   end
 
   def helpers_require service
@@ -211,5 +177,36 @@ module CloudHelper
 
   def client_proto_name service
     service.address.join(".")
+  end
+
+
+  def credentials_file_path api
+    s = api_services(api).first
+    path_nodes = ruby_file_path(s).split "/"
+    path_nodes.pop
+    path_nodes << "credentials.rb"
+    path_nodes.join "/"
+  end
+
+  def credentials_name _service
+    "Credentials"
+  end
+
+  def credentials_name_full service
+    credentials_namespace = service.address.dup
+    credentials_namespace.pop
+    credentials_namespace.push credentials_name(service)
+    ruby_namespace credentials_namespace
+  end
+
+  def credentials_require service
+    credentials_namespace = service.address.dup
+    credentials_namespace.pop
+    credentials_namespace.push credentials_name(service)
+    credentials_namespace.map(&:underscore).join "/"
+  end
+
+  def credentials_file_path service
+    credentials_require(service) + ".rb"
   end
 end
