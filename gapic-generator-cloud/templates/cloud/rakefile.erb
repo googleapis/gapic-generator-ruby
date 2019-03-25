@@ -54,38 +54,38 @@ desc "Run the <%= api.gem_name %> acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
   project = args[:project]
   project ||=
-    ENV["<%= api.package_env_prefix %>_TEST_PROJECT"] ||
+    ENV["<%= api.product_env_prefix %>_TEST_PROJECT"] ||
     ENV["GCLOUD_TEST_PROJECT"]
   keyfile = args[:keyfile]
   keyfile ||=
-    ENV["<%= api.package_env_prefix %>_TEST_KEYFILE"] ||
+    ENV["<%= api.product_env_prefix %>_TEST_KEYFILE"] ||
     ENV["GCLOUD_TEST_KEYFILE"]
   if keyfile
     keyfile = File.read keyfile
   else
     keyfile ||=
-      ENV["<%= api.package_env_prefix %>_TEST_KEYFILE_JSON"] ||
+      ENV["<%= api.product_env_prefix %>_TEST_KEYFILE_JSON"] ||
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= api.package_env_prefix %>_TEST_PROJECT=test123 <%= api.package_env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= api.product_env_prefix %>_TEST_PROJECT=test123 <%= api.product_env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
 
-  ENV["<%= api.package_env_prefix %>_CREDENTIALS"] = nil
-  ENV["<%= api.package_env_prefix %>_KEYFILE"] = nil
+  ENV["<%= api.product_env_prefix %>_CREDENTIALS"] = nil
+  ENV["<%= api.product_env_prefix %>_KEYFILE"] = nil
   ENV["GOOGLE_CLOUD_CREDENTIALS"] = nil
   ENV["GOOGLE_CLOUD_KEYFILE"] = nil
   ENV["GCLOUD_KEYFILE"] = nil
 
-  ENV["<%= api.package_env_prefix %>_CREDENTIALS_JSON"] = nil
-  ENV["<%= api.package_env_prefix %>_KEYFILE_JSON"] = nil
+  ENV["<%= api.product_env_prefix %>_CREDENTIALS_JSON"] = nil
+  ENV["<%= api.product_env_prefix %>_KEYFILE_JSON"] = nil
   ENV["GOOGLE_CLOUD_CREDENTIALS_JSON"] = nil
   ENV["GOOGLE_CLOUD_KEYFILE_JSON"] = nil
   ENV["GCLOUD_KEYFILE_JSON"] = nil
 
-  ENV["<%= api.package_env_prefix %>_PROJECT"] = project
-  ENV["<%= api.package_env_prefix %>_TEST_PROJECT"] = project
-  ENV["<%= api.package_env_prefix %>_KEYFILE_JSON"] = keyfile
+  ENV["<%= api.product_env_prefix %>_PROJECT"] = project
+  ENV["<%= api.product_env_prefix %>_TEST_PROJECT"] = project
+  ENV["<%= api.product_env_prefix %>_KEYFILE_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end
