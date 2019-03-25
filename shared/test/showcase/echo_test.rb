@@ -23,7 +23,7 @@ class EchoTest < ShowcaseTest
       credentials: GRPC::Core::Channel.new(
         "localhost:7469", nil, :this_channel_is_insecure))
 
-    response = client.echo 'hi there!', nil
+    response = client.echo content: 'hi there!'
 
     assert_equal 'hi there!', response.content
   end

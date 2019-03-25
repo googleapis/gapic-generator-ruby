@@ -133,7 +133,6 @@ module Google
               lib_name: lib_name,
               lib_version: lib_version
             )
-
             @testing_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
@@ -143,43 +142,36 @@ module Google
               defaults,
               exception_transformer: exception_transformer
             )
-
             @get_session = Google::Gax.create_api_call(
               @testing_stub.method(:get_session),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @list_sessions = Google::Gax.create_api_call(
               @testing_stub.method(:list_sessions),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @delete_session = Google::Gax.create_api_call(
               @testing_stub.method(:delete_session),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @report_session = Google::Gax.create_api_call(
               @testing_stub.method(:report_session),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @list_tests = Google::Gax.create_api_call(
               @testing_stub.method(:list_tests),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @delete_test = Google::Gax.create_api_call(
               @testing_stub.method(:delete_test),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @verify_test = Google::Gax.create_api_call(
               @testing_stub.method(:verify_test),
               defaults,
@@ -192,12 +184,19 @@ module Google
           ##
           # Creates a new testing session.
           #
-          # @param session [Google::Showcase::V1alpha3::Session | Hash]
-          #   The session to be created.
-          #    Sessions are immutable once they are created (although they can
-          #    be deleted).
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload create_session(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
+          #     Creates a new testing session.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload create_session(session: nil, options: nil)
+          #   @param session [Google::Showcase::V1alpha3::Session | Hash]
+          #     The session to be created.
+          #      Sessions are immutable once they are created (although they can
+          #      be deleted).
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Session]
@@ -208,25 +207,34 @@ module Google
           # @example
           #   TODO
           #
-          def create_session \
-              session,
-              options: nil,
-              &block
+          def create_session request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              session: session
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
+
             @create_session.call(request, options, &block)
           end
 
           ##
           # Gets a testing session.
           #
-          # @param name [String]
-          #   The session to be retrieved.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload get_session(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
+          #     Gets a testing session.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload get_session(name: nil, options: nil)
+          #   @param name [String]
+          #     The session to be retrieved.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::Session]
@@ -237,27 +245,36 @@ module Google
           # @example
           #   TODO
           #
-          def get_session \
-              name,
-              options: nil,
-              &block
+          def get_session request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
+
             @get_session.call(request, options, &block)
           end
 
           ##
           # Lists the current test sessions.
           #
-          # @param page_size [Integer]
-          #   The maximum number of sessions to return per page.
-          # @param page_token [String]
-          #   The page token, for retrieving subsequent pages.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload list_sessions(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
+          #     Lists the current test sessions.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload list_sessions(page_size: nil, page_token: nil, options: nil)
+          #   @param page_size [Integer]
+          #     The maximum number of sessions to return per page.
+          #   @param page_token [String]
+          #     The page token, for retrieving subsequent pages.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ListSessionsResponse]
@@ -268,27 +285,34 @@ module Google
           # @example
           #   TODO
           #
-          def list_sessions \
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def list_sessions request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
+
             @list_sessions.call(request, options, &block)
           end
 
           ##
           # Delete a test session.
           #
-          # @param name [String]
-          #   The session to be deleted.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload delete_session(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
+          #     Delete a test session.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload delete_session(name: nil, options: nil)
+          #   @param name [String]
+          #     The session to be deleted.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Protobuf::Empty]
@@ -299,15 +323,17 @@ module Google
           # @example
           #   TODO
           #
-          def delete_session \
-              name,
-              options: nil,
-              &block
+          def delete_session request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
+
             @delete_session.call(request, options, &block)
           end
 
@@ -316,10 +342,19 @@ module Google
           #  This generates a report detailing which tests have been completed,
           #  and an overall rollup.
           #
-          # @param name [String]
-          #   The session to be reported on.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload report_session(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ReportSessionRequest | Hash]
+          #     Report on the status of a session.
+          #      This generates a report detailing which tests have been completed,
+          #      and an overall rollup.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload report_session(name: nil, options: nil)
+          #   @param name [String]
+          #     The session to be reported on.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ReportSessionResponse]
@@ -330,29 +365,38 @@ module Google
           # @example
           #   TODO
           #
-          def report_session \
-              name,
-              options: nil,
-              &block
+          def report_session request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
+
             @report_session.call(request, options, &block)
           end
 
           ##
           # List the tests of a sessesion.
           #
-          # @param parent [String]
-          #   The session.
-          # @param page_size [Integer]
-          #   The maximum number of tests to return per page.
-          # @param page_token [String]
-          #   The page token, for retrieving subsequent pages.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload list_tests(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
+          #     List the tests of a sessesion.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload list_tests(parent: nil, page_size: nil, page_token: nil, options: nil)
+          #   @param parent [String]
+          #     The session.
+          #   @param page_size [Integer]
+          #     The maximum number of tests to return per page.
+          #   @param page_token [String]
+          #     The page token, for retrieving subsequent pages.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::ListTestsResponse]
@@ -363,19 +407,17 @@ module Google
           # @example
           #   TODO
           #
-          def list_tests \
-              parent,
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def list_tests request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              parent: parent,
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
+
             @list_tests.call(request, options, &block)
           end
 
@@ -387,10 +429,22 @@ module Google
           #
           #  This method will error if attempting to delete a required test.
           #
-          # @param name [String]
-          #   The test to be deleted.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload delete_test(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteTestRequest | Hash]
+          #     Explicitly decline to implement a test.
+          #
+          #      This removes the test from subsequent `ListTests` calls, and
+          #      attempting to do the test will error.
+          #
+          #      This method will error if attempting to delete a required test.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload delete_test(name: nil, options: nil)
+          #   @param name [String]
+          #     The test to be deleted.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Protobuf::Empty]
@@ -401,15 +455,17 @@ module Google
           # @example
           #   TODO
           #
-          def delete_test \
-              name,
-              options: nil,
-              &block
+          def delete_test request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
+
             @delete_test.call(request, options, &block)
           end
 
@@ -419,14 +475,24 @@ module Google
           #  In cases where a test involves registering a final answer at the
           #  end of the test, this method provides the means to do so.
           #
-          # @param name [String]
-          #   The test to have an answer registered to it.
-          # @param answer [String]
-          #   The answer from the test.
-          # @param answers [String]
-          #   The answers from the test if multiple are to be checked
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload verify_test(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::VerifyTestRequest | Hash]
+          #     Register a response to a test.
+          #
+          #      In cases where a test involves registering a final answer at the
+          #      end of the test, this method provides the means to do so.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload verify_test(name: nil, answer: nil, answers: nil, options: nil)
+          #   @param name [String]
+          #     The test to have an answer registered to it.
+          #   @param answer [String]
+          #     The answer from the test.
+          #   @param answers [String]
+          #     The answers from the test if multiple are to be checked
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::VerifyTestResponse]
@@ -437,19 +503,17 @@ module Google
           # @example
           #   TODO
           #
-          def verify_test \
-              name,
-              answer,
-              answers,
-              options: nil,
-              &block
+          def verify_test request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              name: name,
-              answer: answer,
-              answers: answers
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
+
             @verify_test.call(request, options, &block)
           end
 

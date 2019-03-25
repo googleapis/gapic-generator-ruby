@@ -133,7 +133,6 @@ module Google
               lib_name: lib_name,
               lib_version: lib_version
             )
-
             @echo_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
@@ -143,31 +142,26 @@ module Google
               defaults,
               exception_transformer: exception_transformer
             )
-
             @expand = Google::Gax.create_api_call(
               @echo_stub.method(:expand),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @collect = Google::Gax.create_api_call(
               @echo_stub.method(:collect),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @chat = Google::Gax.create_api_call(
               @echo_stub.method(:chat),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @paged_expand = Google::Gax.create_api_call(
               @echo_stub.method(:paged_expand),
               defaults,
               exception_transformer: exception_transformer
             )
-
             @wait = Google::Gax.create_api_call(
               @echo_stub.method(:wait),
               defaults,
@@ -180,12 +174,19 @@ module Google
           ##
           # This method simply echos the request. This method is showcases unary rpcs.
           #
-          # @param content [String]
-          #   The content to be echoed by the server.
-          # @param error [Google::Rpc::Status | Hash]
-          #   The error to be thrown by the server.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload echo(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
+          #     This method simply echos the request. This method is showcases unary rpcs.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload echo(content: nil, error: nil, options: nil)
+          #   @param content [String]
+          #     The content to be echoed by the server.
+          #   @param error [Google::Rpc::Status | Hash]
+          #     The error to be thrown by the server.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::EchoResponse]
@@ -196,17 +197,17 @@ module Google
           # @example
           #   TODO
           #
-          def echo \
-              content,
-              error,
-              options: nil,
-              &block
+          def echo request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              content: content,
-              error: error
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+
             @echo.call(request, options, &block)
           end
 
@@ -214,29 +215,40 @@ module Google
           # This method split the given content into words and will pass each word back
           #  through the stream. This method showcases server-side streaming rpcs.
           #
-          # @param content [String]
-          #   The content that will be split into words and returned on the stream.
-          # @param error [Google::Rpc::Status | Hash]
-          #   The error that is thrown after all words are sent on the stream.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload expand(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
+          #     This method split the given content into words and will pass each word back
+          #      through the stream. This method showcases server-side streaming rpcs.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload expand(content: nil, error: nil, options: nil)
+          #   @param content [String]
+          #     The content that will be split into words and returned on the stream.
+          #   @param error [Google::Rpc::Status | Hash]
+          #     The error that is thrown after all words are sent on the stream.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances.
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def expand \
-              content,
-              error,
-              options: nil
+          def expand request = nil, options: nil, **request_fields
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              content: content,
-              error: error
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ExpandRequest
+
             @expand.call request, options
           end
 
@@ -245,8 +257,8 @@ module Google
           #  by the client, this method will return the a concatenation of the strings
           #  passed to it. This method showcases client-side streaming rpcs.
           #
-          # @param reqs [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
-          #   TODO
+          # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -255,19 +267,22 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
-          def collect \
-              reqs,
-              options: nil,
-              &block
-
-            request = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Showcase::V1alpha3::EchoRequest
+          def collect requests, options: nil, &block
+            unless requests.is_a? Enumerable
+              raise ArgumentError, "requests must be an Enumerable"
             end
-            @collect.call(request, options, &block)
+
+            requests = requests.lazy.map do |request|
+              Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+            end
+
+            @collect.call(requests, options, &block)
           end
 
           ##
@@ -275,38 +290,51 @@ module Google
           #  be passed  back on the stream. This method showcases bidirectional
           #  streaming rpcs.
           #
-          # @param reqs [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
-          #   TODO
+          # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances.
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
-          def chat \
-              reqs,
-              options: nil
-
-            request = reqs.lazy.map do |req|
-              Google::Gax.to_proto req, Google::Showcase::V1alpha3::EchoRequest
+          def chat requests, options: nil
+            unless requests.is_a? Enumerable
+              raise ArgumentError, "requests must be an Enumerable"
             end
-            @chat.call request, options
+
+            requests = requests.lazy.map do |request|
+              Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+            end
+
+            @chat.call requests, options
           end
 
           ##
           # This is similar to the Expand method but instead of returning a stream of
           #  expanded words, this method returns a paged list of expanded words.
           #
-          # @param content [String]
-          #   The string to expand.
-          # @param page_size [Integer]
-          #   The amount of words to returned in each page.
-          # @param page_token [String]
-          #   The position of the page to be returned.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload paged_expand(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
+          #     This is similar to the Expand method but instead of returning a stream of
+          #      expanded words, this method returns a paged list of expanded words.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload paged_expand(content: nil, page_size: nil, page_token: nil, options: nil)
+          #   @param content [String]
+          #     The string to expand.
+          #   @param page_size [Integer]
+          #     The amount of words to returned in each page.
+          #   @param page_token [String]
+          #     The position of the page to be returned.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
           # @yieldparam result [Google::Showcase::V1alpha3::PagedExpandResponse]
@@ -317,19 +345,17 @@ module Google
           # @example
           #   TODO
           #
-          def paged_expand \
-              content,
-              page_size,
-              page_token,
-              options: nil,
-              &block
+          def paged_expand request = nil, options: nil, **request_fields, &block
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              content: content,
-              page_size: page_size,
-              page_token: page_token
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::PagedExpandRequest
+
             @paged_expand.call(request, options, &block)
           end
 
@@ -337,17 +363,25 @@ module Google
           # This method will wait the requested amount of and then return.
           #  This method showcases how a client handles a request timing out.
           #
-          # @param end_time [Google::Protobuf::Timestamp | Hash]
-          #   The time that this operation will complete.
-          # @param ttl [Google::Protobuf::Duration | Hash]
-          #   The duration of this operation.
-          # @param error [Google::Rpc::Status | Hash]
-          #   The error that will be returned by the server. If this code is specified
-          #    to be the OK rpc code, an empty response will be returned.
-          # @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
-          #   The response to be returned on operation completion.
-          # @param options [Google::Gax::CallOptions]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @overload wait(request, options: nil)
+          #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
+          #     This method will wait the requested amount of and then return.
+          #      This method showcases how a client handles a request timing out.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #
+          # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
+          #   @param end_time [Google::Protobuf::Timestamp | Hash]
+          #     The time that this operation will complete.
+          #   @param ttl [Google::Protobuf::Duration | Hash]
+          #     The duration of this operation.
+          #   @param error [Google::Rpc::Status | Hash]
+          #     The error that will be returned by the server. If this code is specified
+          #      to be the OK rpc code, an empty response will be returned.
+          #   @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
+          #     The response to be returned on operation completion.
+          #   @param options [Google::Gax::CallOptions]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [operation] Register a callback to be run when an operation is done.
           # @yieldparam operation [Google::Gax::Operation]
@@ -357,20 +391,17 @@ module Google
           # @example
           #   TODO
           #
-          def wait \
-              end_time,
-              ttl,
-              error,
-              success,
-              options: nil
+          def wait request = nil, options: nil, **request_fields
+            if request.nil? && request_fields.empty?
+              raise ArgumentError, "request must be provided"
+            end
+            if !request.nil? && !request_fields.empty?
+              raise ArgumentError, "cannot pass both request object and named arguments"
+            end
 
-            request = {
-              end_time: end_time,
-              ttl: ttl,
-              error: error,
-              success: success
-            }.delete_if { |_, v| v.nil? }
+            request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::WaitRequest
+
             operation = Google::Gax::Operation.new(
               @wait.call(request, options),
               @operations_client,

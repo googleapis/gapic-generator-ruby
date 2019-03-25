@@ -2,16 +2,32 @@
 ##
 <%- if method.doc_description -%>
 <%= indent method.doc_description, "# " %>
-<%- end -%>
 #
-<%- method.fields.each do |field| -%>
-# @param <%= field.name %> [<%= field.doc_types %>]
-<%- if field.doc_description -%>
-<%= indent field.doc_description, "#   " %>
+<%- end -%>
+# @overload <%= method.name %>(request, options: nil)
+#   @param request [<%= method.request_type %> | Hash]
+<%- if method.doc_description -%>
+<%= indent method.doc_description, "#     " %>
+<%- end -%>
+#   @param options [Google::Gax::CallOptions]
+#     Overrides the default settings for this call, e.g, timeout, retries, etc.
+#
+<%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
+# @overload <%= method.name %>(<%= arg_list %>, options: nil)
+<%- method.arguments.each do |arg| -%>
+#   @param <%= arg.name %> [<%= arg.doc_types %>]
+<%- if arg.doc_description -%>
+<%= indent arg.doc_description, "#     " %>
 <%- end -%>
 <%- end -%>
-# @param options [Google::Gax::CallOptions]
-#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+#   @param options [Google::Gax::CallOptions]
+#     Overrides the default settings for this call, e.g, timeout, retries, etc.
+<%- if method.arguments.find { |arg| arg.name == "options" } -%>
+#
+#     If you want to provide a {<%= method.request_type %>#options}
+#     value you will need to pass all attributes in a Hash instead of using
+#     named arguments.
+<%- end -%>
 #
 # @yield [operation] Register a callback to be run when an operation is done.
 # @yieldparam operation [Google::Gax::Operation]
@@ -21,24 +37,22 @@
 # @example
 <%= indent method.code_example, "#   " %>
 #
-def <%= method.name %> \
-<%- method.fields.each do |field| -%>
-    <%= field.name %>,
-<%- end -%>
-    options: nil,
-    &block
+def <%= method.name %> request = nil, options: nil, **request_fields
+  if request.nil? && request_fields.empty?
+    raise ArgumentError, "request must be provided"
+  end
+  if !request.nil? && !request_fields.empty?
+    raise ArgumentError, "cannot pass both request object and named arguments"
+  end
 
-  request = {
-  <%- method.fields.each do |field| -%>
-    <%= field.name %>: <%= field.name %>,
-  <%- end -%>
-  }.delete_if { |_, v| v.nil? }
+  request ||= request_fields
   request = Google::Gax.to_proto request, <%= method.request_type %>
+
   operation = Google::Gax::Operation.new(
     <%= method.ivar %>.call(request, options),
     @operations_client,
     call_options: options
   )
-  operation.on_done { |operation| yield(operation) } if block_given?
+  operation.on_done { |operation| yield operation } if block_given?
   operation
 end

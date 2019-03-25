@@ -30,13 +30,13 @@ describe "<%= method.name %>" do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
-        response = client.<%= method.name %> <%= method.field_names.join ", " %>
+        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
 
         # Verify the response
         assert_equal expected_response, response
 
         # Call method with block
-        client.<%= method.name %> <%= method.field_names.join ", " %> do |resp, operation|
+        client.<%= method.name %> <%= method.fields.map(&:name).join ", " %> do |resp, operation|
           # Verify the response
           assert_equal expected_response, resp
           refute_nil operation
@@ -67,7 +67,7 @@ describe "<%= method.name %>" do
 
         # Call method
         err = assert_raises Google::Gax::GaxError do
-          client.<%= method.name %> <%= method.field_names.join ", " %>
+          client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
         end
 
         # Verify the GaxError wrapped the custom error that was raised.

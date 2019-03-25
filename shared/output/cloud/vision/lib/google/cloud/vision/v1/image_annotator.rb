@@ -134,7 +134,6 @@ module Google
                 lib_name: lib_name,
                 lib_version: lib_version
               )
-
               @image_annotator_stub = create_stub credentials, scopes
 
               defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
@@ -144,7 +143,6 @@ module Google
                 defaults,
                 exception_transformer: exception_transformer
               )
-
               @async_batch_annotate_files = Google::Gax.create_api_call(
                 @image_annotator_stub.method(:async_batch_annotate_files),
                 defaults,
@@ -157,10 +155,17 @@ module Google
             ##
             # Run image detection and annotation for a batch of images.
             #
-            # @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
-            #   Individual image annotation requests for this batch.
-            # @param options [Google::Gax::CallOptions]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @overload batch_annotate_images(request, options: nil)
+            #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
+            #     Run image detection and annotation for a batch of images.
+            #   @param options [Google::Gax::CallOptions]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #
+            # @overload batch_annotate_images(requests: nil, options: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
+            #     Individual image annotation requests for this batch.
+            #   @param options [Google::Gax::CallOptions]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
             # @yieldparam result [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
@@ -171,15 +176,17 @@ module Google
             # @example
             #   TODO
             #
-            def batch_annotate_images \
-                requests,
-                options: nil,
-                &block
+            def batch_annotate_images request = nil, options: nil, **request_fields, &block
+              if request.nil? && request_fields.empty?
+                raise ArgumentError, "request must be provided"
+              end
+              if !request.nil? && !request_fields.empty?
+                raise ArgumentError, "cannot pass both request object and named arguments"
+              end
 
-              request = {
-                requests: requests
-              }.delete_if { |_, v| v.nil? }
+              request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
+
               @batch_annotate_images.call(request, options, &block)
             end
 
@@ -191,10 +198,22 @@ module Google
             #  `Operation.metadata` contains `OperationMetadata` (metadata).
             #  `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
             #
-            # @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
-            #   Individual async file annotation requests for this batch.
-            # @param options [Google::Gax::CallOptions]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @overload async_batch_annotate_files(request, options: nil)
+            #   @param request [Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest | Hash]
+            #     Run asynchronous image detection and annotation for a list of generic
+            #      files, such as PDF files, which may contain multiple pages and multiple
+            #      images per page. Progress and results can be retrieved through the
+            #      `google.longrunning.Operations` interface.
+            #      `Operation.metadata` contains `OperationMetadata` (metadata).
+            #      `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            #   @param options [Google::Gax::CallOptions]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #
+            # @overload async_batch_annotate_files(requests: nil, options: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
+            #     Individual async file annotation requests for this batch.
+            #   @param options [Google::Gax::CallOptions]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [operation] Register a callback to be run when an operation is done.
             # @yieldparam operation [Google::Gax::Operation]
@@ -204,14 +223,17 @@ module Google
             # @example
             #   TODO
             #
-            def async_batch_annotate_files \
-                requests,
-                options: nil
+            def async_batch_annotate_files request = nil, options: nil, **request_fields
+              if request.nil? && request_fields.empty?
+                raise ArgumentError, "request must be provided"
+              end
+              if !request.nil? && !request_fields.empty?
+                raise ArgumentError, "cannot pass both request object and named arguments"
+              end
 
-              request = {
-                requests: requests
-              }.delete_if { |_, v| v.nil? }
+              request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+
               operation = Google::Gax::Operation.new(
                 @async_batch_annotate_files.call(request, options),
                 @operations_client,

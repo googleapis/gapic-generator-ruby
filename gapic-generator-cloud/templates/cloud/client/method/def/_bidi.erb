@@ -2,24 +2,29 @@
 ##
 <%- if method.doc_description -%>
 <%= indent method.doc_description, "# " %>
-<%- end -%>
 #
-# @param reqs [Enumerable<<%= method.request_type %> | Hash>]
-#   TODO
+<%- end -%>
+# @param requests [Enumerable<<%= method.request_type %> | Hash>]
+#   An enumerable of {<%= method.request_type %>} instances.
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
 #
 # @return [Enumerable<<%= method.return_type %>>]
+#   An enumerable of {<%= method.return_type %>} instances.
+#
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
+#
 # @example
 <%= indent method.code_example, "#   " %>
 #
-def <%= method.name %> \
-    reqs,
-    options: nil
-
-  request = reqs.lazy.map do |req|
-    Google::Gax.to_proto req, <%= method.request_type %>
+def <%= method.name %> requests, options: nil
+  unless requests.is_a? Enumerable
+    raise ArgumentError, "requests must be an Enumerable"
   end
-  <%= method.ivar %>.call(request, options)
+
+  requests = requests.lazy.map do |request|
+    Google::Gax.to_proto request, <%= method.request_type %>
+  end
+
+  <%= method.ivar %>.call(requests, options)
 end
