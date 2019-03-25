@@ -31,7 +31,7 @@ end
 # Service that implements Google Cloud Speech API.
 class <%= service.client_class_name %>
   # @private
-  attr_reader :stub
+  attr_reader :<%= service.stub_name %>
 
   # The default address of the service.
   SERVICE_ADDRESS = "<%= service.client_address %>"

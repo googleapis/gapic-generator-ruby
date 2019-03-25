@@ -48,7 +48,7 @@ module Google
         # Service that implements Google Cloud Speech API.
         class Client
           # @private
-          attr_reader :stub
+          attr_reader :testing_stub
 
           # The default address of the service.
           SERVICE_ADDRESS = "localhost"
@@ -134,54 +134,54 @@ module Google
               lib_version: lib_version
             )
 
-            @stub = create_stub credentials, scopes
+            @testing_stub = create_stub credentials, scopes
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
             @create_session = Google::Gax.create_api_call(
-              @stub.method(:create_session),
+              @testing_stub.method(:create_session),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @get_session = Google::Gax.create_api_call(
-              @stub.method(:get_session),
+              @testing_stub.method(:get_session),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @list_sessions = Google::Gax.create_api_call(
-              @stub.method(:list_sessions),
+              @testing_stub.method(:list_sessions),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @delete_session = Google::Gax.create_api_call(
-              @stub.method(:delete_session),
+              @testing_stub.method(:delete_session),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @report_session = Google::Gax.create_api_call(
-              @stub.method(:report_session),
+              @testing_stub.method(:report_session),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @list_tests = Google::Gax.create_api_call(
-              @stub.method(:list_tests),
+              @testing_stub.method(:list_tests),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @delete_test = Google::Gax.create_api_call(
-              @stub.method(:delete_test),
+              @testing_stub.method(:delete_test),
               defaults,
               exception_transformer: exception_transformer
             )
 
             @verify_test = Google::Gax.create_api_call(
-              @stub.method(:verify_test),
+              @testing_stub.method(:verify_test),
               defaults,
               exception_transformer: exception_transformer
             )
