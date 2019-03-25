@@ -17,25 +17,25 @@
 require "active_support/inflector"
 
 class FieldPresenter
-  attr_reader :message, :field
+  include NamespaceHelper
 
   def initialize message, field
     @message = message
-    @field   = field
+    @field = field
   end
 
   def name
-    field.name
+    @field.name
   end
 
   def doc_types
-    if field.message?
-      "#{message_ruby_type field.message} | Hash"
-    elsif field.enum?
+    if @field.message?
+      "#{message_ruby_type @field.message} | Hash"
+    elsif @field.enum?
       # TODO: handle when arg message is nil and enum is the type
-      "ENUM(#{field.enum.name})"
+      "ENUM(#{@field.enum.name})"
     else
-      case field.type
+      case @field.type
       when 1, 2                              then "Float"
       when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "Integer"
       when 9, 12                             then "String"
@@ -47,20 +47,20 @@ class FieldPresenter
   end
 
   def doc_description
-    return nil if field.docs.leading_comments.empty?
+    return nil if @field.docs.leading_comments.empty?
 
-    field.docs.leading_comments
+    @field.docs.leading_comments
   end
 
   def default_value
-    if field.message?
+    if @field.message?
       "{}"
-    elsif field.enum?
+    elsif @field.enum?
       # TODO: select the first non-0 enum value
       # ":ENUM"
-      field.enum.values.first
+      @field.enum.values.first
     else
-      case field.type
+      case @field.type
       when 1, 2                              then "3.14"
       when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
       when 9, 12                             then "\"hello world\""
@@ -73,7 +73,11 @@ class FieldPresenter
 
   # TODO: remove, only used in tests
   def type_name
-    field.type_name
+    @field.type_name
+  end
+
+  def type_name_full
+    ruby_namespace @field.type_name
   end
 
   protected

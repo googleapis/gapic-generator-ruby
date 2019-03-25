@@ -1153,7 +1153,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/cloud/vision/v1/helpers"
+  require "google/cloud/vision/v1/product_search/helpers"
 rescue LoadError
 end
 

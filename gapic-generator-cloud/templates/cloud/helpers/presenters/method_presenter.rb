@@ -15,19 +15,28 @@
 # limitations under the License.
 
 require "active_support/inflector"
+require_relative "service_presenter"
 require_relative "field_presenter"
 
 class MethodPresenter
-  attr_reader :api, :service, :method
-
-  def initialize api, service, method
-    @api     = api
-    @service = service
+  def initialize method
     @method  = method
   end
 
+  def api
+    service.api
+  end
+
+  def package
+    service.package
+  end
+
+  def service
+    ServicePresenter.new @method.parent
+  end
+
   def name
-    ActiveSupport::Inflector.underscore method.name
+    ActiveSupport::Inflector.underscore @method.name
   end
 
   def kind
@@ -51,25 +60,25 @@ class MethodPresenter
   end
 
   def doc_description
-    return nil if method.docs.leading_comments.empty?
+    return nil if @method.docs.leading_comments.empty?
 
-    method.docs.leading_comments
+    @method.docs.leading_comments
   end
 
-  def arguments
-    method.input.fields.map { |field| FieldPresenter.new method.input, field }
+  def fields
+    @method.input.fields.map { |field| FieldPresenter.new @method.input, field }
   end
 
-  def argument_names
-    arguments.map(&:name)
+  def field_names
+    fields.map(&:name)
   end
 
   def request_type
-    message_ruby_type method.input
+    message_ruby_type @method.input
   end
 
   def return_type
-    message_ruby_type method.output
+    message_ruby_type @method.output
   end
 
   def yields?
@@ -109,15 +118,15 @@ class MethodPresenter
   end
 
   def lro?
-    message_ruby_type(method.output) == "Google::Longrunning::Operation"
+    message_ruby_type(@method.output) == "Google::Longrunning::Operation"
   end
 
   def client_streaming?
-    method.client_streaming
+    @method.client_streaming
   end
 
   def server_streaming?
-    method.server_streaming
+    @method.server_streaming
   end
 
   protected

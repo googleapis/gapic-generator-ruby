@@ -1,4 +1,5 @@
 ---
+:gem_name: "google-cloud-vision"
 :default_host: "vision.googleapis.com"
 :oauth_scopes:
   - https://www.googleapis.com/auth/cloud-platform

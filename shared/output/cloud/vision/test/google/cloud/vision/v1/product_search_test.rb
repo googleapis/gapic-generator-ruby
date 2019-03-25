@@ -93,7 +93,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -132,7 +132,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -177,7 +177,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -216,7 +216,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -257,7 +257,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -292,7 +292,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -335,7 +335,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "update_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -372,7 +372,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "update_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -413,7 +413,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -448,7 +448,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -493,7 +493,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -532,7 +532,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -577,7 +577,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -616,7 +616,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -657,7 +657,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -692,7 +692,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -735,7 +735,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "update_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -772,7 +772,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "update_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -813,7 +813,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -848,7 +848,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -893,7 +893,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -932,7 +932,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "create_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -973,7 +973,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1008,7 +1008,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "delete_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1053,7 +1053,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_reference_images"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1092,7 +1092,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_reference_images"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1133,7 +1133,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1168,7 +1168,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "get_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1211,7 +1211,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "add_product_to_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1248,7 +1248,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "add_product_to_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1291,7 +1291,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "remove_product_from_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1328,7 +1328,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "remove_product_from_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1373,7 +1373,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_products_in_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1412,7 +1412,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "list_products_in_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1462,7 +1462,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1502,7 +1502,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method
@@ -1533,7 +1533,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ProductSearch.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ProductSearch.new
 
           # Call method

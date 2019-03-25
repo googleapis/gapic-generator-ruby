@@ -66,30 +66,38 @@ desc "Run the google-showcase acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
   project = args[:project]
   project ||=
-    ENV["ECHO_TEST_PROJECT"] ||
+    ENV["SHOWCASE_TEST_PROJECT"] ||
     ENV["GCLOUD_TEST_PROJECT"]
   keyfile = args[:keyfile]
   keyfile ||=
-    ENV["ECHO_TEST_KEYFILE"] ||
+    ENV["SHOWCASE_TEST_KEYFILE"] ||
     ENV["GCLOUD_TEST_KEYFILE"]
   if keyfile
     keyfile = File.read keyfile
   else
     keyfile ||=
-      ENV["ECHO_TEST_KEYFILE_JSON"] ||
+      ENV["SHOWCASE_TEST_KEYFILE_JSON"] ||
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or ECHO_TEST_PROJECT=test123 ECHO_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or SHOWCASE_TEST_PROJECT=test123 SHOWCASE_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
-  require "google/showcase/v1alpha3/credentials"
-  (Google::Showcase::V1alpha3::Echo::PATH_ENV_VARS +
-   Google::Showcase::V1alpha3::Echo::JSON_ENV_VARS).each do |path|
-    ENV[path] = nil
-  end
-  ENV["ECHO_PROJECT"] = project
-  ENV["ECHO_TEST_PROJECT"] = project
-  ENV["ECHO_KEYFILE_JSON"] = keyfile
+
+  ENV["SHOWCASE_CREDENTIALS"] = nil
+  ENV["SHOWCASE_KEYFILE"] = nil
+  ENV["GOOGLE_CLOUD_CREDENTIALS"] = nil
+  ENV["GOOGLE_CLOUD_KEYFILE"] = nil
+  ENV["GCLOUD_KEYFILE"] = nil
+
+  ENV["SHOWCASE_CREDENTIALS_JSON"] = nil
+  ENV["SHOWCASE_KEYFILE_JSON"] = nil
+  ENV["GOOGLE_CLOUD_CREDENTIALS_JSON"] = nil
+  ENV["GOOGLE_CLOUD_KEYFILE_JSON"] = nil
+  ENV["GCLOUD_KEYFILE_JSON"] = nil
+
+  ENV["SHOWCASE_PROJECT"] = project
+  ENV["SHOWCASE_TEST_PROJECT"] = project
+  ENV["SHOWCASE_KEYFILE_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end

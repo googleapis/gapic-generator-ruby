@@ -171,7 +171,7 @@ exception_transformer: exception_transformer
     service_path = self.class::SERVICE_ADDRESS
     port = self.class::DEFAULT_SERVICE_PORT
     interceptors = self.class::GRPC_INTERCEPTORS
-    stub_new = <%= service.address.map(&:upcase_first).join "::" %>::Stub.method :new
+    stub_new = <%= service.address.map(&:classify).join "::" %>::Stub.method :new
     Google::Gax::Grpc.create_stub(
       service_path,
       port,

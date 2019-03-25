@@ -89,7 +89,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
@@ -124,7 +124,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
@@ -172,7 +172,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
@@ -210,7 +210,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method
@@ -239,7 +239,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
 
       Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator.stub :default, mock_credentials do
+        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
           client = Google::Cloud::Vision::V1::ImageAnnotator.new
 
           # Call method

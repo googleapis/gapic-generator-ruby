@@ -1,8 +1,6 @@
+<%- assert_locals service -%>
 <%= render partial: "client/client",
            layout: "layouts/ruby",
-           locals: {
-             api: api,
-             service: service,
-             namespaces: service.address
-           }
+           locals: { service: service,
+                     namespaces: service.namespaces }
 %>

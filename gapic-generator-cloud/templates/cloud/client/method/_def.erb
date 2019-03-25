@@ -1,4 +1,3 @@
-<%- assert_locals api, service, method -%>
-<%- mp = method_presenter api, service, method -%>
-<%= render partial: "client/method/def/#{mp.kind}",
-           locals: { api: api, service: service, method: method, mp: mp } %>
+<%- assert_locals method -%>
+<%= render partial: "client/method/def/#{method.kind}",
+           locals: { method: method } %>
