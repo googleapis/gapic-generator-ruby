@@ -168,7 +168,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(config: nil, audio: nil, options: nil)
+            # @overload recognize(config: nil, audio: nil, options: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
             #      process the request.
@@ -215,7 +215,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(config: nil, audio: nil, options: nil)
+            # @overload long_running_recognize(config: nil, audio: nil, options: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
             #      process the request.

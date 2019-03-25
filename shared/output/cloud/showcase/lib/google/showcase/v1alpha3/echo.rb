@@ -180,7 +180,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(content: nil, error: nil, options: nil)
+          # @overload echo(content: nil, error: nil, options: nil)
           #   @param content [String]
           #     The content to be echoed by the server.
           #   @param error [Google::Rpc::Status | Hash]
@@ -222,7 +222,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(content: nil, error: nil, options: nil)
+          # @overload expand(content: nil, error: nil, options: nil)
           #   @param content [String]
           #     The content that will be split into words and returned on the stream.
           #   @param error [Google::Rpc::Status | Hash]
@@ -326,7 +326,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(content: nil, page_size: nil, page_token: nil, options: nil)
+          # @overload paged_expand(content: nil, page_size: nil, page_token: nil, options: nil)
           #   @param content [String]
           #     The string to expand.
           #   @param page_size [Integer]
@@ -370,7 +370,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
+          # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
           #   @param end_time [Google::Protobuf::Timestamp | Hash]
           #     The time that this operation will complete.
           #   @param ttl [Google::Protobuf::Duration | Hash]

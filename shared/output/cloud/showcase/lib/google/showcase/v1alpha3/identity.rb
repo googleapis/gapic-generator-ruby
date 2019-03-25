@@ -175,7 +175,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(user: nil, options: nil)
+          # @overload create_user(user: nil, options: nil)
           #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to create.
           #   @param options [Google::Gax::CallOptions]
@@ -213,7 +213,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload get_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested user.
           #   @param options [Google::Gax::CallOptions]
@@ -251,7 +251,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(user: nil, update_mask: nil, options: nil)
+          # @overload update_user(user: nil, update_mask: nil, options: nil)
           #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
@@ -292,7 +292,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload delete_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the user to delete.
           #   @param options [Google::Gax::CallOptions]
@@ -330,7 +330,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(page_size: nil, page_token: nil, options: nil)
+          # @overload list_users(page_size: nil, page_token: nil, options: nil)
           #   @param page_size [Integer]
           #     The maximum number of users to return. Server may return fewer users
           #      than requested. If unspecified, server will pick an appropriate default.

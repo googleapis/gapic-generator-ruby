@@ -190,7 +190,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(session: nil, options: nil)
+          # @overload create_session(session: nil, options: nil)
           #   @param session [Google::Showcase::V1alpha3::Session | Hash]
           #     The session to be created.
           #      Sessions are immutable once they are created (although they can
@@ -230,7 +230,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload get_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be retrieved.
           #   @param options [Google::Gax::CallOptions]
@@ -268,7 +268,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(page_size: nil, page_token: nil, options: nil)
+          # @overload list_sessions(page_size: nil, page_token: nil, options: nil)
           #   @param page_size [Integer]
           #     The maximum number of sessions to return per page.
           #   @param page_token [String]
@@ -308,7 +308,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload delete_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be deleted.
           #   @param options [Google::Gax::CallOptions]
@@ -350,7 +350,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload report_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be reported on.
           #   @param options [Google::Gax::CallOptions]
@@ -388,7 +388,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+          # @overload list_tests(parent: nil, page_size: nil, page_token: nil, options: nil)
           #   @param parent [String]
           #     The session.
           #   @param page_size [Integer]
@@ -440,7 +440,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload delete_test(name: nil, options: nil)
           #   @param name [String]
           #     The test to be deleted.
           #   @param options [Google::Gax::CallOptions]
@@ -484,7 +484,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, answer: nil, answers: nil, options: nil)
+          # @overload verify_test(name: nil, answer: nil, answers: nil, options: nil)
           #   @param name [String]
           #     The test to have an answer registered to it.
           #   @param answer [String]

@@ -13,7 +13,7 @@
 #     Overrides the default settings for this call, e.g, timeout, retries, etc.
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
-# @overload client_method(<%= arg_list %>, options: nil)
+# @overload <%= method.name %>(<%= arg_list %>, options: nil)
 <%- method.arguments.each do |arg| -%>
 #   @param <%= arg.name %> [<%= arg.doc_types %>]
 <%- if arg.doc_description -%>

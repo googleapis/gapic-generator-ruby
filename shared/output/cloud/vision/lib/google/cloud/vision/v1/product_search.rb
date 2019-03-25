@@ -251,7 +251,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, product_set: nil, product_set_id: nil, options: nil)
+            # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil, options: nil)
             #   @param parent [String]
             #     The project in which the ProductSet should be created.
             #
@@ -308,7 +308,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+            # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil, options: nil)
             #   @param parent [String]
             #     The project from which ProductSets should be listed.
             #
@@ -360,7 +360,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload get_product_set(name: nil, options: nil)
             #   @param name [String]
             #     Resource name of the ProductSet to get.
             #
@@ -415,7 +415,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(product_set: nil, update_mask: nil, options: nil)
+            # @overload update_product_set(product_set: nil, update_mask: nil, options: nil)
             #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
             #     The ProductSet resource which replaces the one on the server.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
@@ -472,7 +472,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload delete_product_set(name: nil, options: nil)
             #   @param name [String]
             #     Resource name of the ProductSet to delete.
             #
@@ -527,7 +527,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, product: nil, product_id: nil, options: nil)
+            # @overload create_product(parent: nil, product: nil, product_id: nil, options: nil)
             #   @param parent [String]
             #     The project in which the Product should be created.
             #
@@ -583,7 +583,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+            # @overload list_products(parent: nil, page_size: nil, page_token: nil, options: nil)
             #   @param parent [String]
             #     The project OR ProductSet from which Products should be listed.
             #
@@ -636,7 +636,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload get_product(name: nil, options: nil)
             #   @param name [String]
             #     Resource name of the Product to get.
             #
@@ -705,7 +705,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(product: nil, update_mask: nil, options: nil)
+            # @overload update_product(product: nil, update_mask: nil, options: nil)
             #   @param product [Google::Cloud::Vision::V1::Product | Hash]
             #     The Product resource which replaces the one on the server.
             #      product.name is immutable.
@@ -766,7 +766,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload delete_product(name: nil, options: nil)
             #   @param name [String]
             #     Resource name of product to delete.
             #
@@ -843,7 +843,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, reference_image: nil, reference_image_id: nil, options: nil)
+            # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil, options: nil)
             #   @param parent [String]
             #     Resource name of the product in which to create the reference image.
             #
@@ -912,7 +912,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload delete_reference_image(name: nil, options: nil)
             #   @param name [String]
             #     The resource name of the reference image to delete.
             #
@@ -966,7 +966,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+            # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil, options: nil)
             #   @param parent [String]
             #     Resource name of the product containing the reference images.
             #
@@ -1022,7 +1022,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, options: nil)
+            # @overload get_reference_image(name: nil, options: nil)
             #   @param name [String]
             #     The resource name of the ReferenceImage to get.
             #
@@ -1078,7 +1078,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, product: nil, options: nil)
+            # @overload add_product_to_product_set(name: nil, product: nil, options: nil)
             #   @param name [String]
             #     The resource name for the ProductSet to modify.
             #
@@ -1132,7 +1132,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, product: nil, options: nil)
+            # @overload remove_product_from_product_set(name: nil, product: nil, options: nil)
             #   @param name [String]
             #     The resource name for the ProductSet to modify.
             #
@@ -1190,7 +1190,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(name: nil, page_size: nil, page_token: nil, options: nil)
+            # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil, options: nil)
             #   @param name [String]
             #     The ProductSet resource for which to retrieve Products.
             #
@@ -1255,7 +1255,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(parent: nil, input_config: nil, options: nil)
+            # @overload import_product_sets(parent: nil, input_config: nil, options: nil)
             #   @param parent [String]
             #     The project in which the ProductSets should be imported.
             #

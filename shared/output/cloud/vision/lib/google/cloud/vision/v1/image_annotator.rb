@@ -161,7 +161,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(requests: nil, options: nil)
+            # @overload batch_annotate_images(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
             #     Individual image annotation requests for this batch.
             #   @param options [Google::Gax::CallOptions]
@@ -209,7 +209,7 @@ module Google
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @overload client_method(requests: nil, options: nil)
+            # @overload async_batch_annotate_files(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
             #     Individual async file annotation requests for this batch.
             #   @param options [Google::Gax::CallOptions]

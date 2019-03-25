@@ -220,7 +220,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(room: nil, options: nil)
+          # @overload create_room(room: nil, options: nil)
           #   @param room [Google::Showcase::V1alpha3::Room | Hash]
           #     The room to create.
           #   @param options [Google::Gax::CallOptions]
@@ -258,7 +258,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload get_room(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested room.
           #   @param options [Google::Gax::CallOptions]
@@ -296,7 +296,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(room: nil, update_mask: nil, options: nil)
+          # @overload update_room(room: nil, update_mask: nil, options: nil)
           #   @param room [Google::Showcase::V1alpha3::Room | Hash]
           #     The room to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
@@ -337,7 +337,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload delete_room(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested room.
           #   @param options [Google::Gax::CallOptions]
@@ -375,7 +375,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(page_size: nil, page_token: nil, options: nil)
+          # @overload list_rooms(page_size: nil, page_token: nil, options: nil)
           #   @param page_size [Integer]
           #     The maximum number of rooms return. Server may return fewer rooms
           #      than requested. If unspecified, server will pick an appropriate default.
@@ -422,7 +422,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(parent: nil, blurb: nil, options: nil)
+          # @overload create_blurb(parent: nil, blurb: nil, options: nil)
           #   @param parent [String]
           #     The resource name of the chat room or user profile that this blurb will
           #      be tied to.
@@ -463,7 +463,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload get_blurb(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested blurb.
           #   @param options [Google::Gax::CallOptions]
@@ -501,7 +501,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(blurb: nil, update_mask: nil, options: nil)
+          # @overload update_blurb(blurb: nil, update_mask: nil, options: nil)
           #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
           #     The blurb to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
@@ -542,7 +542,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, options: nil)
+          # @overload delete_blurb(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested blurb.
           #   @param options [Google::Gax::CallOptions]
@@ -582,7 +582,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(parent: nil, page_size: nil, page_token: nil, options: nil)
+          # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil, options: nil)
           #   @param parent [String]
           #     The resource name of the requested room or profile whos blurbs to list.
           #   @param page_size [Integer]
@@ -632,7 +632,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(query: nil, parent: nil, page_size: nil, page_token: nil, options: nil)
+          # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil, options: nil)
           #   @param query [String]
           #     The query used to search for blurbs containing to words of this string.
           #      Only posts that contain an exact match of a queried word will be returned.
@@ -690,7 +690,7 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload client_method(name: nil, expire_time: nil, options: nil)
+          # @overload stream_blurbs(name: nil, expire_time: nil, options: nil)
           #   @param name [String]
           #     The resource name of a chat room or user profile whose blurbs to stream.
           #   @param expire_time [Google::Protobuf::Timestamp | Hash]
