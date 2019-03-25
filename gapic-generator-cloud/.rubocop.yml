@@ -1,3 +1,6 @@
+inherit_gem:
+  google-style: google-style.yml
+
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
@@ -5,23 +8,7 @@ AllCops:
     - templates/cloud/helpers/**/*
     - test/google/gapic/presenters/**/*
 
-Documentation:
-  Enabled: false
-
-Metrics/AbcSize:
-  Max: 30
-Metrics/BlockLength:
-  ExcludedMethods: ["describe"]
 Metrics/ClassLength:
-  Enabled: false
-Metrics/MethodLength:
-  Max: 30
-
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-Style/MethodCallWithArgsParentheses:
-  Enabled: true
-  EnforcedStyle: omit_parentheses
-  AllowParenthesesInMultilineCall: true
-Style/MethodDefParentheses:
-  EnforcedStyle: require_no_parentheses
+  Max: 110
+Metrics/ModuleLength:
+  Max: 105
