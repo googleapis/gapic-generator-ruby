@@ -41,7 +41,7 @@ class PackagePresenter
 
   def namespaces
     @package.split(".").map do |node|
-      ActiveSupport::Inflector.underscore node
+      ActiveSupport::Inflector.classify node
     end
   end
 

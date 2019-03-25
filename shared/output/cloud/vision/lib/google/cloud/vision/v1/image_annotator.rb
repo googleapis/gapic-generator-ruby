@@ -28,7 +28,7 @@ module Google
   module Cloud
     module Vision
       module V1
-        module Image_annotator
+        module ImageAnnotator
           class Credentials < Google::Auth::Credentials
             SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"

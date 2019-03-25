@@ -43,7 +43,7 @@ class ServicePresenter
 
   def namespaces
     @service.address.map do |node|
-      ActiveSupport::Inflector.underscore node
+      ActiveSupport::Inflector.classify node
     end
   end
 
