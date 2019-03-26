@@ -76,12 +76,12 @@ module Google
           file = Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
             name: filename, content: content
           )
-          format_file! file if format
+          format_file file if format
           file
         end
         alias_method :g, :generate_file
 
-        def format_file! file
+        def format_file file
           require "tmpdir"
           require "fileutils"
           Dir.mktmpdir do |dir|
