@@ -76,8 +76,8 @@ module Google
         ##
         # Override the default rubocop config file to be used.
         def format_config
-          # TODO: Allow this file to be overriden in the configuration
-          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
+          @api.configuration[:format_config] ||
+            File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end
