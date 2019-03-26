@@ -49,35 +49,11 @@ module Google
           files = []
 
           api_services(@api).each do |service|
-            files << cop(gen("client.erb", ruby_file_path(service),
-                             api: @api, service: service))
+            files << g("client.erb", ruby_file_path(service),
+                       api: @api, service: service, format: true)
           end
 
           files
-        end
-
-        private
-
-        def cop file
-          Tempfile.open ["input", ".rb"] do |input|
-            Tempfile.open ["output", ".rb"] do |output|
-              input.write file.content
-
-              # Autocorrect file with rubocop.
-              # TODO(landrito) make this call system agnostic.
-              system "rubocop --auto-correct #{input.path} -o #{output.path}" \
-                " -c #{rubocop_filepath}"
-
-              # Read the corrected file.
-              input.rewind
-              file.content = input.read
-            end
-          end
-          file
-        end
-
-        def rubocop_filepath
-          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end

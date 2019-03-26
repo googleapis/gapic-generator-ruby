@@ -69,16 +69,33 @@ module Google
           @controller ||= Class.new(ActionController::Base).new
         end
 
-        def gen template, filename, **args
+        def generate_file template, filename, format: true, **args
           content = controller.render_to_string(
-            template: template,
-            formats: :text,
-            locals: args
+            template: template, formats: :text, locals: args
           )
-          Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
-            name: filename,
-            content: content
+          file = Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+            name: filename, content: content
           )
+          format_file! file if format
+          file
+        end
+        alias_method :g, :generate_file
+
+        def format_file! file
+          require "tmpdir"
+          require "fileutils"
+          Dir.mktmpdir do |dir|
+            tmp_file = File.join dir, file.name
+            FileUtils.mkdir_p File.dirname tmp_file
+            File.write tmp_file, file.content
+            system "rubocop --auto-correct #{tmp_file} -o #{tmp_file}.out " \
+                   " -c #{format_config}"
+            file.content = File.read tmp_file
+          end
+        end
+
+        def format_config
+          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end

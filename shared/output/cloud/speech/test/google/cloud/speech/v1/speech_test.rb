@@ -160,8 +160,8 @@ describe Google::Cloud::Speech::V1::Speech do
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/long_running_recognize_test",
-        done: true,
+        name:     "operations/long_running_recognize_test",
+        done:     true,
         response: result
       )
 
@@ -200,8 +200,8 @@ describe Google::Cloud::Speech::V1::Speech do
         message: "Operation error for Google::Cloud::Speech::V1::Speech#long_running_recognize."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/long_running_recognize_test",
-        done: true,
+        name:  "operations/long_running_recognize_test",
+        done:  true,
         error: operation_error
       )
 

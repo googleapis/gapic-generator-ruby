@@ -22,6 +22,7 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
+
 require "google/showcase/v1alpha3/identity_pb"
 
 module Google
@@ -126,12 +127,12 @@ module Google
             credentials ||= Credentials.default
 
             @operations_client = OperationsClient.new(
-              credentials: credentials,
-              scopes: scopes,
+              credentials:   credentials,
+              scopes:        scopes,
               client_config: client_config,
-              timeout: timeout,
-              lib_name: lib_name,
-              lib_version: lib_version
+              timeout:       timeout,
+              lib_name:      lib_name,
+              lib_version:   lib_version
             )
             @identity_stub = create_stub credentials, scopes
 
@@ -191,9 +192,7 @@ module Google
           #   TODO
           #
           def create_user request = nil, options: nil, **request_fields, &block
-            if request.nil? && request_fields.empty?
-              raise ArgumentError, "request must be provided"
-            end
+            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
@@ -229,9 +228,7 @@ module Google
           #   TODO
           #
           def get_user request = nil, options: nil, **request_fields, &block
-            if request.nil? && request_fields.empty?
-              raise ArgumentError, "request must be provided"
-            end
+            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
@@ -270,9 +267,7 @@ module Google
           #   TODO
           #
           def update_user request = nil, options: nil, **request_fields, &block
-            if request.nil? && request_fields.empty?
-              raise ArgumentError, "request must be provided"
-            end
+            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
@@ -308,9 +303,7 @@ module Google
           #   TODO
           #
           def delete_user request = nil, options: nil, **request_fields, &block
-            if request.nil? && request_fields.empty?
-              raise ArgumentError, "request must be provided"
-            end
+            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
@@ -351,9 +344,7 @@ module Google
           #   TODO
           #
           def list_users request = nil, options: nil, **request_fields, &block
-            if request.nil? && request_fields.empty?
-              raise ArgumentError, "request must be provided"
-            end
+            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
@@ -387,10 +378,10 @@ module Google
             Google::Gax::Grpc.create_stub(
               service_path,
               port,
-              chan_creds: chan_creds,
-              channel: channel,
+              chan_creds:   chan_creds,
+              channel:      channel,
               updater_proc: updater_proc,
-              scopes: scopes,
+              scopes:       scopes,
               interceptors: interceptors,
               &stub_new
             )

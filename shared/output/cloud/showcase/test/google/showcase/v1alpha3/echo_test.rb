@@ -449,8 +449,8 @@ describe Google::Showcase::V1alpha3::Echo do
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/wait_test",
-        done: true,
+        name:     "operations/wait_test",
+        done:     true,
         response: result
       )
 
@@ -493,8 +493,8 @@ describe Google::Showcase::V1alpha3::Echo do
         message: "Operation error for Google::Showcase::V1alpha3::Echo#wait."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/wait_test",
-        done: true,
+        name:  "operations/wait_test",
+        done:  true,
         error: operation_error
       )
 

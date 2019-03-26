@@ -866,8 +866,8 @@ describe Google::Showcase::V1alpha3::Messaging do
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/search_blurbs_test",
-        done: true,
+        name:     "operations/search_blurbs_test",
+        done:     true,
         response: result
       )
 
@@ -910,8 +910,8 @@ describe Google::Showcase::V1alpha3::Messaging do
         message: "Operation error for Google::Showcase::V1alpha3::Messaging#search_blurbs."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/search_blurbs_test",
-        done: true,
+        name:  "operations/search_blurbs_test",
+        done:  true,
         error: operation_error
       )
 
