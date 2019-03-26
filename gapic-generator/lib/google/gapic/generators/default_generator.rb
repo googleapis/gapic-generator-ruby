@@ -50,7 +50,7 @@ module Google
 
           api_services(@api).each do |service|
             files << g("client.erb", ruby_file_path(service),
-                       api: @api, service: service, format: true)
+                       api: @api, service: service)
           end
 
           files

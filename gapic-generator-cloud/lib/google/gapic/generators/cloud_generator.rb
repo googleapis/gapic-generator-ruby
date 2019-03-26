@@ -49,15 +49,15 @@ module Google
           ap.packages.each do |package|
             # Package level files
             files << g("package.erb", "lib/#{package.version_file_path}",
-                       package: package, format: true)
+                       package: package)
 
             package.services.each do |service|
               # Service level files
               files << g("client.erb", "lib/#{service.client_file_path}",
-                         service: service, format: true)
+                         service: service)
               files << g("client_test.erb",
                          "test/#{service.client_test_file_path}",
-                         service: service, format: true)
+                         service: service)
             end
           end
 
