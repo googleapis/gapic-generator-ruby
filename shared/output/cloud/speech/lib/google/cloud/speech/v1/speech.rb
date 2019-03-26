@@ -22,7 +22,6 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-
 require "google/cloud/speech/v1/cloud_speech_pb"
 
 module Google

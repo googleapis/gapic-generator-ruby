@@ -22,7 +22,6 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-
 require "google/cloud/vision/v1/image_annotator_pb"
 
 module Google

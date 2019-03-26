@@ -22,7 +22,6 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
-
 require "google/showcase/v1alpha3/echo_pb"
 
 module Google

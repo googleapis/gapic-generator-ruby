@@ -6,7 +6,7 @@ require "pathname"
 require "googleauth"
 require "google/gax"
 <%- if service.client_lro? -%>
-<%= render partial: "client/lro/requires", locals: { service: service } %>
+<%= render partial: "client/lro/requires", locals: { service: service } -%>
 <%- end -%>
 
 require "<%= service.service_proto_require %>"
