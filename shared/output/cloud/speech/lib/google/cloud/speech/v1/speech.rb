@@ -127,12 +127,12 @@ module Google
               credentials ||= Credentials.default
 
               @operations_client = OperationsClient.new(
-                credentials: credentials,
-                scopes: scopes,
+                credentials:   credentials,
+                scopes:        scopes,
                 client_config: client_config,
-                timeout: timeout,
-                lib_name: lib_name,
-                lib_version: lib_version
+                timeout:       timeout,
+                lib_name:      lib_name,
+                lib_version:   lib_version
               )
               @speech_stub = create_stub credentials, scopes
 
@@ -187,9 +187,7 @@ module Google
             #   TODO
             #
             def recognize request = nil, options: nil, **request_fields, &block
-              if request.nil? && request_fields.empty?
-                raise ArgumentError, "request must be provided"
-              end
+              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
               if !request.nil? && !request_fields.empty?
                 raise ArgumentError, "cannot pass both request object and named arguments"
               end
@@ -233,9 +231,7 @@ module Google
             #   TODO
             #
             def long_running_recognize request = nil, options: nil, **request_fields
-              if request.nil? && request_fields.empty?
-                raise ArgumentError, "request must be provided"
-              end
+              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
               if !request.nil? && !request_fields.empty?
                 raise ArgumentError, "cannot pass both request object and named arguments"
               end
@@ -270,9 +266,7 @@ module Google
             #   TODO
             #
             def streaming_recognize requests, options: nil
-              unless requests.is_a? Enumerable
-                raise ArgumentError, "requests must be an Enumerable"
-              end
+              raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
 
               requests = requests.lazy.map do |request|
                 Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
@@ -304,10 +298,10 @@ module Google
               Google::Gax::Grpc.create_stub(
                 service_path,
                 port,
-                chan_creds: chan_creds,
-                channel: channel,
+                chan_creds:   chan_creds,
+                channel:      channel,
                 updater_proc: updater_proc,
-                scopes: scopes,
+                scopes:       scopes,
                 interceptors: interceptors,
                 &stub_new
               )

@@ -35,8 +35,8 @@ module Google
           files = []
 
           api_services(@api).each do |service|
-            files << cop(gen("client.erb", ruby_file_path(service),
-                             api: @api, service: service))
+            files << g("client.erb", ruby_file_path(service),
+                       api: @api, service: service)
           end
 
           files

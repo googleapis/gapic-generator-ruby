@@ -155,8 +155,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/async_batch_annotate_files_test",
-        done: true,
+        name:     "operations/async_batch_annotate_files_test",
+        done:     true,
         response: result
       )
 
@@ -193,8 +193,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator do
         message: "Operation error for Google::Cloud::Vision::V1::ImageAnnotator#async_batch_annotate_files."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/async_batch_annotate_files_test",
-        done: true,
+        name:  "operations/async_batch_annotate_files_test",
+        done:  true,
         error: operation_error
       )
 

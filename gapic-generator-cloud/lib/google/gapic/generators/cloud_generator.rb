@@ -48,28 +48,36 @@ module Google
 
           ap.packages.each do |package|
             # Package level files
-            files << cop(gen("package.erb", "lib/#{package.version_file_path}",
-                             package: package))
+            files << g("package.erb", "lib/#{package.version_file_path}",
+                       package: package)
 
             package.services.each do |service|
               # Service level files
-              files << cop(gen("client.erb",
-                               "lib/#{service.client_file_path}",
-                               service: service))
-              files << cop(gen("client_test.erb",
-                               "test/#{service.client_test_file_path}",
-                               service: service))
+              files << g("client.erb", "lib/#{service.client_file_path}",
+                         service: service)
+              files << g("client_test.erb",
+                         "test/#{service.client_test_file_path}",
+                         service: service)
             end
           end
 
           # Api level files
-          files << gen("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
-          files << gen("gemfile.erb",  "Gemfile",                api: ap)
-          files << gen("rakefile.erb", "Rakefile",               api: ap)
-          files << gen("rubocop.erb",  ".rubocop",               api: ap)
-          files << gen("license.erb",  "LICENSE.md",             api: ap)
+          files << g("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
+          files << g("gemfile.erb",  "Gemfile",                api: ap)
+          files << g("rakefile.erb", "Rakefile",               api: ap)
+          files << g("rubocop.erb",  ".rubocop",               api: ap)
+          files << g("license.erb",  "LICENSE.md",             api: ap)
 
           files
+        end
+
+        private
+
+        ##
+        # Override the default rubocop config file to be used.
+        def format_config
+          @api.configuration[:format_config] ||
+            File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end

@@ -17,3 +17,5 @@ Style/MethodCallWithArgsParentheses:
   AllowParenthesesInMultilineCall: true
 Style/MethodDefParentheses:
   EnforcedStyle: require_no_parentheses
+Style/Alias:
+  EnforcedStyle: prefer_alias_method

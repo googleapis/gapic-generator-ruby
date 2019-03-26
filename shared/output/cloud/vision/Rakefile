@@ -63,7 +63,7 @@ end
 
 # Acceptance tests
 desc "Run the google-cloud-vision acceptance tests."
-task :acceptance, :project, :keyfile do |t, args|
+task :acceptance, :project, :keyfile do |_t, args|
   project = args[:project]
   project ||=
     ENV["VISION_TEST_PROJECT"] ||
@@ -80,7 +80,7 @@ task :acceptance, :project, :keyfile do |t, args|
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or VISION_TEST_PROJECT=test123 VISION_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    raise "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or VISION_TEST_PROJECT=test123 VISION_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
 
   ENV["VISION_CREDENTIALS"] = nil
@@ -151,7 +151,7 @@ namespace :ci do
   end
 end
 
-task :default => :test
+task default: :test
 
 def header str, token = "#"
   line_length = str.length + 8

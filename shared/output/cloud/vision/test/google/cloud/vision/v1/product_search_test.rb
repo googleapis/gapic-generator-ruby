@@ -1444,8 +1444,8 @@ describe Google::Cloud::Vision::V1::ProductSearch do
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/import_product_sets_test",
-        done: true,
+        name:     "operations/import_product_sets_test",
+        done:     true,
         response: result
       )
 
@@ -1484,8 +1484,8 @@ describe Google::Cloud::Vision::V1::ProductSearch do
         message: "Operation error for Google::Cloud::Vision::V1::ProductSearch#import_product_sets."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/import_product_sets_test",
-        done: true,
+        name:  "operations/import_product_sets_test",
+        done:  true,
         error: operation_error
       )
 
