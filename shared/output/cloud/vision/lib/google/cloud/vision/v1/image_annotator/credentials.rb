@@ -25,13 +25,13 @@ module Google
             SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"
             ].freeze
-            PATH_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS
-                               IMAGEANNOTATOR_KEYFILE
+            PATH_ENV_VARS = %w[VISION_CREDENTIALS
+                               VISION_KEYFILE
                                GOOGLE_CLOUD_CREDENTIALS
                                GOOGLE_CLOUD_KEYFILE
                                GCLOUD_KEYFILE].freeze
-            JSON_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS_JSON
-                               IMAGEANNOTATOR_KEYFILE_JSON
+            JSON_ENV_VARS = %w[VISION_CREDENTIALS_JSON
+                               VISION_KEYFILE_JSON
                                GOOGLE_CLOUD_CREDENTIALS_JSON
                                GOOGLE_CLOUD_KEYFILE_JSON
                                GCLOUD_KEYFILE_JSON].freeze
