@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require_relative "api_presenter"
+require_relative "gem_presenter"
 require_relative "package_presenter"
 require_relative "method_presenter"
 
@@ -27,8 +27,8 @@ class ServicePresenter
     @service = service
   end
 
-  def api
-    ApiPresenter.new @service.parent.parent
+  def gem
+    GemPresenter.new @service.parent.parent
   end
 
   def package

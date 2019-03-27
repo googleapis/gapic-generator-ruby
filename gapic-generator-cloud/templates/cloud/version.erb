@@ -1,6 +1,6 @@
-<%- assert_locals api -%>
-<%= render partial: "package/version",
+<%- assert_locals gem -%>
+<%= render partial: "gem/version",
            layout: "layouts/ruby",
-           locals: { api: api,
-                     namespaces: api.namespaces }
+           locals: { gem: gem,
+                     namespaces: gem.namespaces }
 %>

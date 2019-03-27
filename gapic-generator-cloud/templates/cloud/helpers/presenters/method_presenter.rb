@@ -23,14 +23,6 @@ class MethodPresenter
     @method  = method
   end
 
-  def api
-    service.api
-  end
-
-  def package
-    service.package
-  end
-
   def service
     ServicePresenter.new @method.parent
   end

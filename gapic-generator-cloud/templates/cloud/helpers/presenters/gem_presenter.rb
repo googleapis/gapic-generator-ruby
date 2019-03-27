@@ -17,7 +17,7 @@
 require_relative "package_presenter"
 require_relative "service_presenter"
 
-class ApiPresenter
+class GemPresenter
   def initialize api
     @api = api
   end
@@ -37,15 +37,15 @@ class ApiPresenter
   end
 
   def namespaces
-    gem_name.split("-").map(&:classify)
+    name.split("-").map(&:classify)
   end
 
-  def gem_name
-    @api.configuration[:gem_name] #|| gem_address.join("-")
-    # TODO: Infer the gem name from all the package strings
+  def name
+    # TODO: Infer the gem name from all the package strings?
+    @api.configuration[:gem_name]
   end
 
-  def gem_title
+  def title
     # TODO: Infer from all the services?
 
     # if service && service.client_package
@@ -54,52 +54,52 @@ class ApiPresenter
     # end
 
     @api.configuration[:gem_title] ||
-      gem_name.split("-").map(&:classify).join(" ")
+      name.split("-").map(&:classify).join(" ")
   end
 
-  def gem_version
+  def version
     @api.configuration[:gem_version] ||
       "0.0.1"
   end
 
-  def gem_version_require
-    "#{gem_name.gsub("-", "/")}/version"
+  def version_require
+    "#{name.gsub("-", "/")}/version"
   end
 
-  def gem_version_file_path
-    "#{gem_version_require}.rb"
+  def version_file_path
+    "#{version_require}.rb"
   end
 
-  def gem_version_name_full
-    gem_name.split("-").map(&:classify).join("::") + "::VERSION"
+  def version_name_full
+    name.split("-").map(&:classify).join("::") + "::VERSION"
   end
 
-  def gem_authors
+  def authors
     @api.configuration[:gem_authors] ||
       ["Google LLC"]
   end
 
-  def gem_email
+  def email
     @api.configuration[:gem_email] ||
       "googleapis-packages@google.com"
   end
 
-  def gem_description
+  def description
     @api.configuration[:gem_description] ||
-      "#{gem_name} is the official library for #{gem_title} API."
+      "#{name} is the official library for #{title} API."
   end
 
-  def gem_summary
+  def summary
     @api.configuration[:gem_summary] ||
-      "API Client library for #{gem_title} API"
+      "API Client library for #{title} API"
   end
 
-  def gem_homepage
+  def homepage
     @api.configuration[:gem_homepage] ||
       "https://github.com/googleapis/googleapis"
   end
 
   def product_env_prefix
-    (@api.configuration[:env_prefix] || gem_name.split("-").last).upcase
+    (@api.configuration[:env_prefix] || name.split("-").last).upcase
   end
 end

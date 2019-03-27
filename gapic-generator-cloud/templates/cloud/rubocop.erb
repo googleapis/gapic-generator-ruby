@@ -1,4 +1,4 @@
-<%- assert_locals api -%>
+<%- assert_locals gem -%>
 inherit_gem:
   google-style: google-style.yml
 
@@ -6,7 +6,7 @@ inherit_gem:
 AllCops:
   Exclude:
     - "acceptance/**/*"
-    - "<%= api.gem_name %>.gemspec"
+    - "<%= gem.name %>.gemspec"
     - "lib/**/*_pb..rb"
     - "Rakefile"
     - "support/**/*"

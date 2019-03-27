@@ -15,15 +15,15 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require_relative "presenters/api_presenter"
+require_relative "presenters/gem_presenter"
 require_relative "presenters/package_presenter"
 require_relative "presenters/service_presenter"
 require_relative "presenters/method_presenter"
 require_relative "presenters/field_presenter"
 
 module PresenterHelper
-  def api_presenter api
-    ApiPresenter.new api
+  def gem_presenter api
+    GemPresenter.new api
   end
 
   def package_presenter api, package
