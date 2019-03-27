@@ -5,7 +5,7 @@ require File.expand_path("../lib/<%= api.gem_version_require %>", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name          = "<%= api.gem_name %>"
-  gem.version       = "0.32.0"
+  gem.version       = <%= api.gem_version_name_full %>
 
   gem.authors       = <%= api.gem_authors.inspect %>
   gem.email         = <%= api.gem_email.inspect %>
