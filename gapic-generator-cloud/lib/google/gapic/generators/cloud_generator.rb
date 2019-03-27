@@ -61,7 +61,8 @@ module Google
             end
           end
 
-          # Api level files
+          # Gem level files
+          files << g("version.erb", "lib/#{ap.gem_version_file_path}", api: ap)
           files << g("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
           files << g("gemfile.erb",  "Gemfile",                api: ap)
           files << g("rakefile.erb", "Rakefile",               api: ap)

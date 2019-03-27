@@ -22,6 +22,7 @@ require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
+require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 
 module Google
@@ -1291,12 +1292,9 @@ module Google
 
             def default_settings _client_config, _timeout, metadata, lib_name,
                                  lib_version
-              package_gem = Gem.loaded_specs["google-cloud-vision"]
-              package_version = package_gem ? package_gem.version.version : nil
-
               google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
               google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-              google_api_client << "gapic/#{package_version}" if package_version
+              google_api_client << "gapic/#{Google::Cloud::Vision::VERSION}"
               google_api_client << "gax/#{Google::Gax::VERSION}"
               google_api_client << "grpc/#{GRPC::VERSION}"
               google_api_client.join " "
