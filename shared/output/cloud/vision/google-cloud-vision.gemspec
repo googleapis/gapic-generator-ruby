@@ -1,6 +1,8 @@
 # -*- ruby -*-
 # encoding: utf-8
 
+require File.expand_path("lib/google/cloud/vision/version", __dir__)
+
 Gem::Specification.new do |gem|
   gem.name          = "google-cloud-vision"
   gem.version       = "0.32.0"

@@ -32,7 +32,7 @@ class ServicePresenter
   end
 
   def package
-    PackagePresenter.new @service.parent.parent, service.package
+    PackagePresenter.new @service.parent.parent, @service.parent.package
   end
 
   def methods

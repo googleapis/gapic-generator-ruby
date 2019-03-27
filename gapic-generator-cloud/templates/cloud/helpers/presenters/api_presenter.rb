@@ -36,6 +36,10 @@ class ApiPresenter
     end
   end
 
+  def namespaces
+    gem_name.split("-").map(&:classify)
+  end
+
   def gem_name
     @api.configuration[:gem_name] #|| gem_address.join("-")
     # TODO: Infer the gem name from all the package strings
@@ -51,6 +55,23 @@ class ApiPresenter
 
     @api.configuration[:gem_title] ||
       gem_name.split("-").map(&:classify).join(" ")
+  end
+
+  def gem_version
+    @api.configuration[:gem_version] ||
+      "0.0.1"
+  end
+
+  def gem_version_require
+    "#{gem_name.gsub("-", "/")}/version"
+  end
+
+  def gem_version_file_path
+    "#{gem_version_require}.rb"
+  end
+
+  def gem_version_name_full
+    gem_name.split("-").map(&:classify).join("::") + "::VERSION"
   end
 
   def gem_authors

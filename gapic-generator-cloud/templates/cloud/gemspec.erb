@@ -1,6 +1,7 @@
 <%- assert_locals api -%>
 # -*- ruby -*-
 # encoding: utf-8
+require File.expand_path("../lib/<%= api.gem_version_require %>", __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name          = "<%= api.gem_name %>"
