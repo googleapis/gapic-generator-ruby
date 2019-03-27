@@ -10,7 +10,7 @@ require "google/gax"
 
 require "<%= service.gem.version_require %>"
 require "<%= service.service_proto_require %>"
-require "<%= service.credentials_require %>"
+require "<%= service.credentials_class_require %>"
 <% end %>
 # Service that implements <%= service.name %> API.
 class <%= service.client_class_name %>
@@ -95,8 +95,6 @@ class <%= service.client_class_name %>
     Google::Gax.const_get(:CallSettings).new metadata: headers
   end
 end
-
-<%= render partial: "client/new" %>
 
 <% @footer = capture do %>
 <%= render partial: "client/helpers", locals: { service: service} %>

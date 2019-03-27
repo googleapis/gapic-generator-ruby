@@ -122,6 +122,16 @@ class ServicePresenter
     "#{service_proto_name_full}::#{client_class_name}"
   end
 
+  def client_class_require
+    class_namespace = @service.address.dup
+    class_namespace.push client_class_name
+    class_namespace.map(&:underscore).join "/"
+  end
+
+  def client_class_file_path
+    client_class_require + ".rb"
+  end
+
   def client_lro?
     true # TODO: Make not fake
   end
@@ -152,14 +162,14 @@ class ServicePresenter
     "#{service_proto_name_full}::#{credentials_class_name}"
   end
 
-  def credentials_require
+  def credentials_class_require
     credentials_namespace = @service.address.dup
     credentials_namespace.push credentials_class_name
     credentials_namespace.map(&:underscore).join "/"
   end
 
-  def credentials_file_path
-    credentials_require + ".rb"
+  def credentials_class_file_path
+    credentials_class_require + ".rb"
   end
 
   def helpers_require

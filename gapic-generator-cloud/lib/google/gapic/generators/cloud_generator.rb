@@ -36,6 +36,8 @@ module Google
           use_helpers! :gem_presenter
         end
 
+        # rubocop:disable all
+
         # Generates all the files for the API.
         #
         # @return [Array<
@@ -55,8 +57,11 @@ module Google
               # Service level files
               files << g("client.erb", "lib/#{service.client_file_path}",
                          service: service)
-              files << g("credentials.erb",
-                         "lib/#{service.credentials_file_path}",
+              files << g("client/class.erb",
+                         "lib/#{service.client_class_file_path}",
+                         service: service)
+              files << g("client/credentials.erb",
+                         "lib/#{service.credentials_class_file_path}",
                          service: service)
               files << g("client_test.erb",
                          "test/#{service.client_test_file_path}",
@@ -74,6 +79,8 @@ module Google
 
           files
         end
+
+        # rubocop:enable all
 
         private
 
