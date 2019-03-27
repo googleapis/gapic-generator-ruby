@@ -33,7 +33,7 @@ module Google
           use_templates! File.join __dir__, "../../../../templates/cloud"
 
           # Configure these helper method to be used by the generator
-          use_helpers! :api_presenter
+          use_helpers! :gem_presenter
         end
 
         # Generates all the files for the API.
@@ -44,9 +44,9 @@ module Google
         def generate
           files = []
 
-          ap = api_presenter @api
+          gem = gem_presenter @api
 
-          ap.packages.each do |package|
+          gem.packages.each do |package|
             # Package level files
             files << g("package.erb", "lib/#{package.version_file_path}",
                        package: package)
@@ -62,12 +62,12 @@ module Google
           end
 
           # Gem level files
-          files << g("version.erb", "lib/#{ap.gem_version_file_path}", api: ap)
-          files << g("gemspec.erb",  "#{ap.gem_name}.gemspec", api: ap)
-          files << g("gemfile.erb",  "Gemfile",                api: ap)
-          files << g("rakefile.erb", "Rakefile",               api: ap)
-          files << g("rubocop.erb",  ".rubocop",               api: ap)
-          files << g("license.erb",  "LICENSE.md",             api: ap)
+          files << g("version.erb", "lib/#{gem.version_file_path}", gem: gem)
+          files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
+          files << g("gemfile.erb",  "Gemfile",                     gem: gem)
+          files << g("rakefile.erb", "Rakefile",                    gem: gem)
+          files << g("rubocop.erb",  ".rubocop",                    gem: gem)
+          files << g("license.erb",  "LICENSE.md",                  gem: gem)
 
           files
         end

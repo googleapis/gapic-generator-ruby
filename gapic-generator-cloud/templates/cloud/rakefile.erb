@@ -1,4 +1,4 @@
-<%- assert_locals api -%>
+<%- assert_locals gem -%>
 <%= render partial: "shared/license" %>
 
 require "bundler/setup"
@@ -19,7 +19,7 @@ namespace :test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "<%= api.gem_name %>"
+      command_name "<%= gem.name %>"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
@@ -40,7 +40,7 @@ namespace :smoke_test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "<%= api.gem_name %>"
+      command_name "<%= gem.name %>"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
@@ -50,42 +50,42 @@ namespace :smoke_test do
 end
 
 # Acceptance tests
-desc "Run the <%= api.gem_name %> acceptance tests."
+desc "Run the <%= gem.name %> acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
   project = args[:project]
   project ||=
-    ENV["<%= api.product_env_prefix %>_TEST_PROJECT"] ||
+    ENV["<%= gem.product_env_prefix %>_TEST_PROJECT"] ||
     ENV["GCLOUD_TEST_PROJECT"]
   keyfile = args[:keyfile]
   keyfile ||=
-    ENV["<%= api.product_env_prefix %>_TEST_KEYFILE"] ||
+    ENV["<%= gem.product_env_prefix %>_TEST_KEYFILE"] ||
     ENV["GCLOUD_TEST_KEYFILE"]
   if keyfile
     keyfile = File.read keyfile
   else
     keyfile ||=
-      ENV["<%= api.product_env_prefix %>_TEST_KEYFILE_JSON"] ||
+      ENV["<%= gem.product_env_prefix %>_TEST_KEYFILE_JSON"] ||
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= api.product_env_prefix %>_TEST_PROJECT=test123 <%= api.product_env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= gem.product_env_prefix %>_TEST_PROJECT=test123 <%= gem.product_env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
 
-  ENV["<%= api.product_env_prefix %>_CREDENTIALS"] = nil
-  ENV["<%= api.product_env_prefix %>_KEYFILE"] = nil
+  ENV["<%= gem.product_env_prefix %>_CREDENTIALS"] = nil
+  ENV["<%= gem.product_env_prefix %>_KEYFILE"] = nil
   ENV["GOOGLE_CLOUD_CREDENTIALS"] = nil
   ENV["GOOGLE_CLOUD_KEYFILE"] = nil
   ENV["GCLOUD_KEYFILE"] = nil
 
-  ENV["<%= api.product_env_prefix %>_CREDENTIALS_JSON"] = nil
-  ENV["<%= api.product_env_prefix %>_KEYFILE_JSON"] = nil
+  ENV["<%= gem.product_env_prefix %>_CREDENTIALS_JSON"] = nil
+  ENV["<%= gem.product_env_prefix %>_KEYFILE_JSON"] = nil
   ENV["GOOGLE_CLOUD_CREDENTIALS_JSON"] = nil
   ENV["GOOGLE_CLOUD_KEYFILE_JSON"] = nil
   ENV["GCLOUD_KEYFILE_JSON"] = nil
 
-  ENV["<%= api.product_env_prefix %>_PROJECT"] = project
-  ENV["<%= api.product_env_prefix %>_TEST_PROJECT"] = project
-  ENV["<%= api.product_env_prefix %>_KEYFILE_JSON"] = keyfile
+  ENV["<%= gem.product_env_prefix %>_PROJECT"] = project
+  ENV["<%= gem.product_env_prefix %>_TEST_PROJECT"] = project
+  ENV["<%= gem.product_env_prefix %>_KEYFILE_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end
@@ -112,17 +112,17 @@ YARD::Rake::YardocTask.new
 
 desc "Run yard-doctest example tests."
 task :doctest do
-  puts "The <%= api.gem_name %> gem does not have doctest tests."
+  puts "The <%= gem.name %> gem does not have doctest tests."
 end
 
 desc "Run the CI build"
 task :ci do
-  header "BUILDING <%= api.gem_name %>"
-  header "<%= api.gem_name %> rubocop", "*"
+  header "BUILDING <%= gem.name %>"
+  header "<%= gem.name %> rubocop", "*"
   Rake::Task[:rubocop].invoke
-  header "<%= api.gem_name %> doctest", "*"
+  header "<%= gem.name %> doctest", "*"
   Rake::Task[:doctest].invoke
-  header "<%= api.gem_name %> test", "*"
+  header "<%= gem.name %> test", "*"
   Rake::Task[:test].invoke
 end
 
@@ -130,7 +130,7 @@ namespace :ci do
   desc "Run the CI build, with acceptance tests."
   task :acceptance do
     Rake::Task[:ci].invoke
-    header "<%= api.gem_name %> acceptance", "*"
+    header "<%= gem.name %> acceptance", "*"
     Rake::Task[:acceptance].invoke
   end
   task :a do

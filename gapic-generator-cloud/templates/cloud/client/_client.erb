@@ -9,7 +9,7 @@ require "google/gax"
 <%= render partial: "client/lro/requires", locals: { service: service } -%>
 <%- end -%>
 
-require "<%= service.api.gem_version_require %>"
+require "<%= service.gem.version_require %>"
 require "<%= service.service_proto_require %>"
 <% end %>
 class <%= service.credentials_class_name %> < Google::Auth::Credentials
@@ -101,7 +101,7 @@ class <%= service.client_class_name %>
                         lib_version
     google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
     google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-    google_api_client << "gapic/#{<%= service.api.gem_version_name_full %>}"
+    google_api_client << "gapic/#{<%= service.gem.version_name_full %>}"
     google_api_client << "gax/#{Google::Gax::VERSION}"
     google_api_client << "grpc/#{GRPC::VERSION}"
     google_api_client.join " "

@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require_relative "api_presenter"
+require_relative "gem_presenter"
 require_relative "service_presenter"
 
 class PackagePresenter
@@ -24,8 +24,8 @@ class PackagePresenter
     @package = package
   end
 
-  def api
-    ApiPresenter.new @api
+  def def gem
+    GemPresenter.new.new @api
   end
 
   def name
