@@ -77,7 +77,13 @@ module Google
         # Override the default rubocop config file to be used.
         def format_config
           @api.configuration[:format_config] ||
-            File.expand_path File.join __dir__, "../../../../.rubocop.yml"
+            google_style_config
+        end
+
+        ##
+        # Path to the rubocop file for this project, which uses google-style
+        def google_style_config
+          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
         end
       end
     end
