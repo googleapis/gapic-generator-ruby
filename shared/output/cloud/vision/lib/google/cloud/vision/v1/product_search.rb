@@ -17,37 +17,20 @@
 require "json"
 require "pathname"
 
-require "googleauth"
 require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
+require "google/cloud/vision/v1/product_search/credentials"
 
 module Google
   module Cloud
     module Vision
       module V1
         module ProductSearch
-          class Credentials < Google::Auth::Credentials
-            SCOPE = [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ].freeze
-            PATH_ENV_VARS = %w[PRODUCTSEARCH_CREDENTIALS
-                               PRODUCTSEARCH_KEYFILE
-                               GOOGLE_CLOUD_CREDENTIALS
-                               GOOGLE_CLOUD_KEYFILE
-                               GCLOUD_KEYFILE].freeze
-            JSON_ENV_VARS = %w[PRODUCTSEARCH_CREDENTIALS_JSON
-                               PRODUCTSEARCH_KEYFILE_JSON
-                               GOOGLE_CLOUD_CREDENTIALS_JSON
-                               GOOGLE_CLOUD_KEYFILE_JSON
-                               GCLOUD_KEYFILE_JSON].freeze
-            DEFAULT_PATHS = ["~/.config/google_cloud/application_default_credentials.json"].freeze
-          end
-
-          # Service that implements Google Cloud Speech API.
+          # Service that implements ProductSearch API.
           class Client
             # @private
             attr_reader :product_search_stub

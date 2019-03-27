@@ -152,6 +152,16 @@ class ServicePresenter
     "#{service_proto_name_full}::#{credentials_class_name}"
   end
 
+  def credentials_require
+    credentials_namespace = @service.address.dup
+    credentials_namespace.push credentials_class_name
+    credentials_namespace.map(&:underscore).join "/"
+  end
+
+  def credentials_file_path
+    credentials_require + ".rb"
+  end
+
   def helpers_require
     helpers_namespace = @service.address.dup
     helpers_namespace.push "helpers"
@@ -159,7 +169,7 @@ class ServicePresenter
   end
 
   def helpers_file_path
-    helpers_require(service) + ".rb"
+    helpers_require + ".rb"
   end
 
   def client_test_file_path

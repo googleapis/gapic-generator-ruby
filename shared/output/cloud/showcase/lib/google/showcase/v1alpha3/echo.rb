@@ -17,36 +17,19 @@
 require "json"
 require "pathname"
 
-require "googleauth"
 require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/echo_pb"
+require "google/showcase/v1alpha3/echo/credentials"
 
 module Google
   module Showcase
     module V1alpha3
       module Echo
-        class Credentials < Google::Auth::Credentials
-          SCOPE = [
-            "https://www.googleapis.com/auth/cloud-platform"
-          ].freeze
-          PATH_ENV_VARS = %w[ECHO_CREDENTIALS
-                             ECHO_KEYFILE
-                             GOOGLE_CLOUD_CREDENTIALS
-                             GOOGLE_CLOUD_KEYFILE
-                             GCLOUD_KEYFILE].freeze
-          JSON_ENV_VARS = %w[ECHO_CREDENTIALS_JSON
-                             ECHO_KEYFILE_JSON
-                             GOOGLE_CLOUD_CREDENTIALS_JSON
-                             GOOGLE_CLOUD_KEYFILE_JSON
-                             GCLOUD_KEYFILE_JSON].freeze
-          DEFAULT_PATHS = ["~/.config/google_cloud/application_default_credentials.json"].freeze
-        end
-
-        # Service that implements Google Cloud Speech API.
+        # Service that implements Echo API.
         class Client
           # @private
           attr_reader :echo_stub

@@ -55,6 +55,9 @@ module Google
               # Service level files
               files << g("client.erb", "lib/#{service.client_file_path}",
                          service: service)
+              files << g("credentials.erb",
+                         "lib/#{service.credentials_file_path}",
+                         service: service)
               files << g("client_test.erb",
                          "test/#{service.client_test_file_path}",
                          service: service)

@@ -17,37 +17,20 @@
 require "json"
 require "pathname"
 
-require "googleauth"
 require "google/gax"
 require "google/gax/operation"
 require "google/longrunning/operations_client"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/image_annotator_pb"
+require "google/cloud/vision/v1/image_annotator/credentials"
 
 module Google
   module Cloud
     module Vision
       module V1
         module ImageAnnotator
-          class Credentials < Google::Auth::Credentials
-            SCOPE = [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ].freeze
-            PATH_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS
-                               IMAGEANNOTATOR_KEYFILE
-                               GOOGLE_CLOUD_CREDENTIALS
-                               GOOGLE_CLOUD_KEYFILE
-                               GCLOUD_KEYFILE].freeze
-            JSON_ENV_VARS = %w[IMAGEANNOTATOR_CREDENTIALS_JSON
-                               IMAGEANNOTATOR_KEYFILE_JSON
-                               GOOGLE_CLOUD_CREDENTIALS_JSON
-                               GOOGLE_CLOUD_KEYFILE_JSON
-                               GCLOUD_KEYFILE_JSON].freeze
-            DEFAULT_PATHS = ["~/.config/google_cloud/application_default_credentials.json"].freeze
-          end
-
-          # Service that implements Google Cloud Speech API.
+          # Service that implements ImageAnnotator API.
           class Client
             # @private
             attr_reader :image_annotator_stub
