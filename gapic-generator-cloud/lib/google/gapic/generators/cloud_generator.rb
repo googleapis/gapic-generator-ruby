@@ -36,6 +36,8 @@ module Google
           use_helpers! :gem_presenter
         end
 
+        # Disable Rubocop because we expect generate to grow and violate more
+        # and more style rules.
         # rubocop:disable all
 
         # Generates all the files for the API.
