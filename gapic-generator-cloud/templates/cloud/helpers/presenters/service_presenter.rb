@@ -147,7 +147,7 @@ class ServicePresenter
   end
 
   def client_scopes
-    @service.scopes || configuration[:oauth_scopes]
+    @service.scopes || default_config(:oauth_scopes)
   end
 
   def client_proto_name
@@ -190,13 +190,16 @@ class ServicePresenter
     "#{ActiveSupport::Inflector.underscore name}_stub"
   end
 
-  protected
-
-  def configuration
-    @service.parent.parent.configuration
-  end
+  private
 
   def lookup_default_host
-    @service.host || configuration[:default_host] || "localhost"
+    @service.host || default_config(:default_host) || "localhost"
+  end
+
+  def default_config key
+    return unless @service.parent.parent.configuration[:defaults]
+    return unless @service.parent.parent.configuration[:defaults][:service]
+
+    @service.parent.parent.configuration[:defaults][:service][key]
   end
 end
