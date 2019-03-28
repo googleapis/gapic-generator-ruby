@@ -99,7 +99,7 @@ class GemPresenter
       "https://github.com/googleapis/googleapis"
   end
 
-  def product_env_prefix
+  def env_prefix
     (@api.configuration[:env_prefix] || name.split("-").last).upcase
   end
 end
