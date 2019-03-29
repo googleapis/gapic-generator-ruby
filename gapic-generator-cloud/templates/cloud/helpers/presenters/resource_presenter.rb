@@ -20,6 +20,11 @@ class ResourcePresenter
   def initialize name, template
     @name = name
     @template = Template.new template
+
+    if positional_args?
+      raise ArgumentError, "only resources with named segments are supported, " \
+                           " not #{@template.template}"
+    end
   end
 
   def name
@@ -47,6 +52,10 @@ class ResourcePresenter
   end
 
   private
+
+  def positional_args?
+    @template.positional_args.any?
+  end
 
   class Template
     TMPL = /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
