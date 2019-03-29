@@ -241,7 +241,7 @@ module Google
           # by the client, this method will return the a concatenation of the strings
           # passed to it. This method showcases client-side streaming rpcs.
           #
-          # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -258,7 +258,13 @@ module Google
           #   TODO
           #
           def collect requests, options: nil, &block
-            raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
+            unless requests.is_a? Enumerable
+              if requests.respond_to? :to_enum
+                requests = requests.to_enum
+              else
+                raise ArgumentError, "requests must be an Enumerable"
+              end
+            end
 
             requests = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
@@ -272,7 +278,7 @@ module Google
           # be passed  back on the stream. This method showcases bidirectional
           # streaming rpcs.
           #
-          # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -290,7 +296,13 @@ module Google
           #   TODO
           #
           def chat requests, options: nil, &block
-            raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
+            unless requests.is_a? Enumerable
+              if requests.respond_to? :to_enum
+                requests = requests.to_enum
+              else
+                raise ArgumentError, "requests must be an Enumerable"
+              end
+            end
 
             requests = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest

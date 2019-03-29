@@ -4,7 +4,7 @@
 <%= indent method.doc_description, "# " %>
 #
 <%- end -%>
-# @param requests [Enumerable<<%= method.request_type %> | Hash>]
+# @param requests [Google::Gax::StreamInput, Enumerable<<%= method.request_type %> | Hash>]
 #   An enumerable of {<%= method.request_type %>} instances.
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -22,7 +22,11 @@
 #
 def <%= method.name %> requests, options: nil, &block
   unless requests.is_a? Enumerable
-    raise ArgumentError, "requests must be an Enumerable"
+    if requests.respond_to? :to_enum
+      requests = requests.to_enum
+    else
+      raise ArgumentError, "requests must be an Enumerable"
+    end
   end
 
   requests = requests.lazy.map do |request|

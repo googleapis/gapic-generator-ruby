@@ -691,7 +691,7 @@ module Google
           # This is a stream to create multiple blurbs. If an invalid blurb is
           # requested to be created, the stream will close with an error.
           #
-          # @param requests [Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
+          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -708,7 +708,13 @@ module Google
           #   TODO
           #
           def send_blurbs requests, options: nil, &block
-            raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
+            unless requests.is_a? Enumerable
+              if requests.respond_to? :to_enum
+                requests = requests.to_enum
+              else
+                raise ArgumentError, "requests must be an Enumerable"
+              end
+            end
 
             requests = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
@@ -723,7 +729,7 @@ module Google
           # blurbs. If an invalid blurb is requested to be created, the stream will
           # close with an error.
           #
-          # @param requests [Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
+          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -741,7 +747,13 @@ module Google
           #   TODO
           #
           def connect requests, options: nil, &block
-            raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
+            unless requests.is_a? Enumerable
+              if requests.respond_to? :to_enum
+                requests = requests.to_enum
+              else
+                raise ArgumentError, "requests must be an Enumerable"
+              end
+            end
 
             requests = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::ConnectRequest
