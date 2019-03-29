@@ -33,7 +33,6 @@ module Google
         # Service that implements Testing API.
         class Client
           include Paths
-          extend Paths
 
           # @private
           attr_reader :testing_stub

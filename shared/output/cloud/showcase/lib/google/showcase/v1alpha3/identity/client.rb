@@ -33,7 +33,6 @@ module Google
         # Service that implements Identity API.
         class Client
           include Paths
-          extend Paths
 
           # @private
           attr_reader :identity_stub

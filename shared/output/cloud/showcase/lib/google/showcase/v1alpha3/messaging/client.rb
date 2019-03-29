@@ -33,7 +33,6 @@ module Google
         # Service that implements Messaging API.
         class Client
           include Paths
-          extend Paths
 
           # @private
           attr_reader :messaging_stub

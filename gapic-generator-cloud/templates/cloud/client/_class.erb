@@ -19,7 +19,6 @@ require "<%= service.paths_require %>"
 class <%= service.client_class_name %>
 <%- if service.paths? -%>
   include <%= service.paths_name %>
-  extend <%= service.paths_name %>
 
 <%- end -%>
   # @private
