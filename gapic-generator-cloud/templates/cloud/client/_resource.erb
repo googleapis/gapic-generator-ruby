@@ -6,21 +6,20 @@
 #
 # `<%= resource.template %>`
 #
-<%- (resource.positional_args + resource.named_args).each do |name, _regexp, msg| -%>
-# @param <%= name %> [String]
-<%- if msg -%>
-#   <%= msg %>
+<%- resource.arguments.each do |arg| -%>
+# @param <%= arg.name %> [String]
+<%- if arg.msg -%>
+#   <%= arg.msg %>
 <%- end -%>
 <%- end -%>
 #
 # @return [String]
-<%- args = resource.positional_args.map(&:first) -%>
-<%- args += resource.named_args.map(&:first).map { |a| "#{a}:"} -%>
+<%- args = resource.arguments.map { |arg| "#{arg.name}:" } -%>
 def <%= resource.path_helper %> <%= args.join ", " %>
-<%- (resource.positional_args + resource.named_args).each do |name, regexp, msg| -%>
-  raise ArgumentError, "<%= name %> is required" if <%= name %>.nil?
-<%- if regexp -%>
-  raise ArgumentError, "<%= msg %>" unless <%= regexp %>.match <%= name %>
+<%- resource.arguments.each do |arg| -%>
+  raise ArgumentError, "<%= arg.name %> is required" if <%= arg.name %>.nil?
+<%- if arg.regexp -%>
+  raise ArgumentError, "<%= arg.msg %>" unless <%= arg.regexp %>.match <%= arg.name %>
 <%- end -%>
 <%- end -%>
 

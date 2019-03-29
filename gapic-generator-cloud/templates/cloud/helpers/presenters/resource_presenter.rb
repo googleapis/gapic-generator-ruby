@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "ostruct"
 require "active_support/inflector"
 
 class ResourcePresenter
@@ -44,12 +45,10 @@ class ResourcePresenter
     "#{ActiveSupport::Inflector.underscore @name}_path"
   end
 
-  def positional_args
-    @template.positional_args
-  end
-
-  def named_args
-    @template.named_args
+  def arguments
+    @template.named_args.map do |name, regexp, msg, template|
+      OpenStruct.new name: name, regexp: regexp, msg: msg
+    end
   end
 
   def path_string
