@@ -25,6 +25,11 @@ class ResourcePresenter
       raise ArgumentError, "only resources with named segments are supported, " \
                            " not #{@template.template}"
     end
+
+    if named_arg_templates?
+      raise ArgumentError, "only resources without named templates are supported, " \
+                           " not #{@template.template}"
+    end
   end
 
   def name
@@ -55,6 +60,10 @@ class ResourcePresenter
 
   def positional_args?
     @template.positional_args.any?
+  end
+
+  def named_arg_templates?
+    @template.named_args.select { |arg| arg[3] }.any?
   end
 
   class Template
