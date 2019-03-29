@@ -36,6 +36,10 @@ module Google
           use_helpers! :gem_presenter
         end
 
+        # Disable Rubocop because we expect generate to grow and violate more
+        # and more style rules.
+        # rubocop:disable all
+
         # Generates all the files for the API.
         #
         # @return [Array<
@@ -55,6 +59,12 @@ module Google
               # Service level files
               files << g("client.erb", "lib/#{service.client_file_path}",
                          service: service)
+              files << g("client/class.erb",
+                         "lib/#{service.client_class_file_path}",
+                         service: service)
+              files << g("client/credentials.erb",
+                         "lib/#{service.credentials_class_file_path}",
+                         service: service)
               files << g("client_test.erb",
                          "test/#{service.client_test_file_path}",
                          service: service)
@@ -71,6 +81,8 @@ module Google
 
           files
         end
+
+        # rubocop:enable all
 
         private
 

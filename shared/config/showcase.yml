@@ -1,3 +1,4 @@
 ---
 :skip_credentials: true
-:gem_name: google-showcase
+:gem:
+  :name: google-showcase

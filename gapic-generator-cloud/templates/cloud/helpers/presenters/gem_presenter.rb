@@ -42,23 +42,16 @@ class GemPresenter
 
   def name
     # TODO: Infer the gem name from all the package strings?
-    @api.configuration[:gem_name]
+    gem_config :name
   end
 
   def title
-    # TODO: Infer from all the services?
-
-    # if service && service.client_package
-    #   title = service.client_package.title
-    #   return title unless title.empty?
-    # end
-
-    @api.configuration[:gem_title] ||
+    gem_config(:title) ||
       name.split("-").map(&:classify).join(" ")
   end
 
   def version
-    @api.configuration[:gem_version] ||
+    gem_config(:version) ||
       "0.0.1"
   end
 
@@ -75,31 +68,39 @@ class GemPresenter
   end
 
   def authors
-    @api.configuration[:gem_authors] ||
+    gem_config(:authors) ||
       ["Google LLC"]
   end
 
   def email
-    @api.configuration[:gem_email] ||
+    gem_config(:email) ||
       "googleapis-packages@google.com"
   end
 
   def description
-    @api.configuration[:gem_description] ||
+    gem_config(:description) ||
       "#{name} is the official library for #{title} API."
   end
 
   def summary
-    @api.configuration[:gem_summary] ||
+    gem_config(:summary) ||
       "API Client library for #{title} API"
   end
 
   def homepage
-    @api.configuration[:gem_homepage] ||
+    gem_config(:homepage) ||
       "https://github.com/googleapis/googleapis"
   end
 
-  def product_env_prefix
-    (@api.configuration[:env_prefix] || name.split("-").last).upcase
+  def env_prefix
+    (gem_config(:env_prefix) || name.split("-").last).upcase
+  end
+
+  private
+
+  def gem_config key
+    return unless @api.configuration[:gem]
+
+    @api.configuration[:gem][key]
   end
 end

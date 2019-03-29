@@ -122,6 +122,16 @@ class ServicePresenter
     "#{service_proto_name_full}::#{client_class_name}"
   end
 
+  def client_class_require
+    class_namespace = @service.address.dup
+    class_namespace.push client_class_name
+    class_namespace.map(&:underscore).join "/"
+  end
+
+  def client_class_file_path
+    client_class_require + ".rb"
+  end
+
   def client_lro?
     true # TODO: Make not fake
   end
@@ -137,7 +147,7 @@ class ServicePresenter
   end
 
   def client_scopes
-    @service.scopes || configuration[:oauth_scopes]
+    @service.scopes || default_config(:oauth_scopes)
   end
 
   def client_proto_name
@@ -152,6 +162,16 @@ class ServicePresenter
     "#{service_proto_name_full}::#{credentials_class_name}"
   end
 
+  def credentials_class_require
+    credentials_namespace = @service.address.dup
+    credentials_namespace.push credentials_class_name
+    credentials_namespace.map(&:underscore).join "/"
+  end
+
+  def credentials_class_file_path
+    credentials_class_require + ".rb"
+  end
+
   def helpers_require
     helpers_namespace = @service.address.dup
     helpers_namespace.push "helpers"
@@ -159,7 +179,7 @@ class ServicePresenter
   end
 
   def helpers_file_path
-    helpers_require(service) + ".rb"
+    helpers_require + ".rb"
   end
 
   def client_test_file_path
@@ -170,13 +190,16 @@ class ServicePresenter
     "#{ActiveSupport::Inflector.underscore name}_stub"
   end
 
-  protected
-
-  def configuration
-    @service.parent.parent.configuration
-  end
+  private
 
   def lookup_default_host
-    @service.host || configuration[:default_host] || "localhost"
+    @service.host || default_config(:default_host) || "localhost"
+  end
+
+  def default_config key
+    return unless @service.parent.parent.configuration[:defaults]
+    return unless @service.parent.parent.configuration[:defaults][:service]
+
+    @service.parent.parent.configuration[:defaults][:service][key]
   end
 end
