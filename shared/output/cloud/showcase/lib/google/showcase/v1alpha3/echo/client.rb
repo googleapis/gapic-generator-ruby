@@ -212,15 +212,19 @@ module Google
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
-          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances.
+          # @yield [response] Called on each streaming responses, when provided.
+          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
+          #
+          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse, nil>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances when a block is not provided.
+          #   When a block is provided `nil` is returned.
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def expand request = nil, options: nil, **request_fields
+          def expand request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
@@ -229,7 +233,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ExpandRequest
 
-            @expand.call request, options
+            @expand.call(request, options, &block)
           end
 
           ##
@@ -273,22 +277,26 @@ module Google
           # @param options [Google::Gax::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
-          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances.
+          # @yield [response] Called on each streaming responses, when provided.
+          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
+          #
+          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse, nil>]
+          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances when a block is not provided.
+          #   When a block is provided `nil` is returned.
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def chat requests, options: nil
+          def chat requests, options: nil, &block
             raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
 
             requests = requests.lazy.map do |request|
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
             end
 
-            @chat.call requests, options
+            @chat.call(requests, options, &block)
           end
 
           ##

@@ -29,15 +29,19 @@
 #     named arguments.
 <%- end -%>
 #
-# @return [Enumerable<<%= method.return_type %>>]
-#   An enumerable of {<%= method.return_type %>} instances.
+# @yield [response] Called on each streaming responses, when provided.
+# @yieldparam response [<%= method.return_type %>]
+#
+# @return [Enumerable<<%= method.return_type %>, nil>]
+#   An enumerable of {<%= method.return_type %>} instances when a block is not provided.
+#   When a block is provided `nil` is returned.
 #
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 #
 # @example
 <%= indent method.code_example, "#   " %>
 #
-def <%= method.name %> request = nil, options: nil, **request_fields
+def <%= method.name %> request = nil, options: nil, **request_fields, &block
   if request.nil? && request_fields.empty?
     raise ArgumentError, "request must be provided"
   end
@@ -48,5 +52,5 @@ def <%= method.name %> request = nil, options: nil, **request_fields
   request ||= request_fields
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
-  <%= method.ivar %>.call(request, options)
+  <%= method.ivar %>.call(request, options, &block)
 end

@@ -9,15 +9,19 @@
 # @param options [Google::Gax::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc.
 #
-# @return [Enumerable<<%= method.return_type %>>]
-#   An enumerable of {<%= method.return_type %>} instances.
+# @yield [response] Called on each streaming responses, when provided.
+# @yieldparam response [<%= method.return_type %>]
+#
+# @return [Enumerable<<%= method.return_type %>, nil>]
+#   An enumerable of {<%= method.return_type %>} instances when a block is not provided.
+#   When a block is provided `nil` is returned.
 #
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 #
 # @example
 <%= indent method.code_example, "#   " %>
 #
-def <%= method.name %> requests, options: nil
+def <%= method.name %> requests, options: nil, &block
   unless requests.is_a? Enumerable
     raise ArgumentError, "requests must be an Enumerable"
   end
@@ -26,5 +30,5 @@ def <%= method.name %> requests, options: nil
     Google::Gax.to_proto request, <%= method.request_type %>
   end
 
-  <%= method.ivar %>.call(requests, options)
+  <%= method.ivar %>.call(requests, options, &block)
 end

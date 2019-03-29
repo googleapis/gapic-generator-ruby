@@ -241,22 +241,26 @@ module Google
             # @param options [Google::Gax::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
-            #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeResponse} instances.
+            # @yield [response] Called on each streaming responses, when provided.
+            # @yieldparam response [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
+            #
+            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse, nil>]
+            #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeResponse} instances when a block is not provided.
+            #   When a block is provided `nil` is returned.
             #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             #
             # @example
             #   TODO
             #
-            def streaming_recognize requests, options: nil
+            def streaming_recognize requests, options: nil, &block
               raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
 
               requests = requests.lazy.map do |request|
                 Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
               end
 
-              @streaming_recognize.call requests, options
+              @streaming_recognize.call(requests, options, &block)
             end
 
             protected
