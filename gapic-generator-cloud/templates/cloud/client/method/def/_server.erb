@@ -52,5 +52,5 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   request ||= request_fields
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
-  <%= method.ivar %>.call(request, options, &block)
+  <%= method.ivar %>.call(request, options, enum_proc: block)
 end

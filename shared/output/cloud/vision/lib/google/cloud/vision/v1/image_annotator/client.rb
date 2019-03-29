@@ -169,7 +169,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
-              @batch_annotate_images.call(request, options, &block)
+              @batch_annotate_images.call request, options, op_proc: block
             end
 
             ##

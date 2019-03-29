@@ -33,5 +33,5 @@ def <%= method.name %> requests, options: nil, &block
     Google::Gax.to_proto request, <%= method.request_type %>
   end
 
-  <%= method.ivar %>.call(requests, options, &block)
+  <%= method.ivar %>.call(requests, options, op_proc: block)
 end

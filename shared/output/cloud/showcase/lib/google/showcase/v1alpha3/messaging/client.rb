@@ -231,7 +231,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateRoomRequest
 
-            @create_room.call(request, options, &block)
+            @create_room.call request, options, op_proc: block
           end
 
           ##
@@ -267,7 +267,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetRoomRequest
 
-            @get_room.call(request, options, &block)
+            @get_room.call request, options, op_proc: block
           end
 
           ##
@@ -306,7 +306,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateRoomRequest
 
-            @update_room.call(request, options, &block)
+            @update_room.call request, options, op_proc: block
           end
 
           ##
@@ -342,7 +342,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteRoomRequest
 
-            @delete_room.call(request, options, &block)
+            @delete_room.call request, options, op_proc: block
           end
 
           ##
@@ -383,7 +383,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListRoomsRequest
 
-            @list_rooms.call(request, options, &block)
+            @list_rooms.call request, options, op_proc: block
           end
 
           ##
@@ -426,7 +426,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
 
-            @create_blurb.call(request, options, &block)
+            @create_blurb.call request, options, op_proc: block
           end
 
           ##
@@ -462,7 +462,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetBlurbRequest
 
-            @get_blurb.call(request, options, &block)
+            @get_blurb.call request, options, op_proc: block
           end
 
           ##
@@ -501,7 +501,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateBlurbRequest
 
-            @update_blurb.call(request, options, &block)
+            @update_blurb.call request, options, op_proc: block
           end
 
           ##
@@ -537,7 +537,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteBlurbRequest
 
-            @delete_blurb.call(request, options, &block)
+            @delete_blurb.call request, options, op_proc: block
           end
 
           ##
@@ -583,7 +583,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListBlurbsRequest
 
-            @list_blurbs.call(request, options, &block)
+            @list_blurbs.call request, options, op_proc: block
           end
 
           ##
@@ -684,7 +684,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::StreamBlurbsRequest
 
-            @stream_blurbs.call(request, options, &block)
+            @stream_blurbs.call request, options, enum_proc: block
           end
 
           ##
@@ -720,7 +720,7 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
             end
 
-            @send_blurbs.call(requests, options, &block)
+            @send_blurbs.call requests, options, op_proc: block
           end
 
           ##
@@ -759,7 +759,7 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::ConnectRequest
             end
 
-            @connect.call(requests, options, &block)
+            @connect.call requests, options, enum_proc: block
           end
 
           protected

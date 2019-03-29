@@ -190,7 +190,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
 
-            @echo.call(request, options, &block)
+            @echo.call request, options, op_proc: block
           end
 
           ##
@@ -233,7 +233,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ExpandRequest
 
-            @expand.call(request, options, &block)
+            @expand.call request, options, enum_proc: block
           end
 
           ##
@@ -270,7 +270,7 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
             end
 
-            @collect.call(requests, options, &block)
+            @collect.call requests, options, op_proc: block
           end
 
           ##
@@ -308,7 +308,7 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
             end
 
-            @chat.call(requests, options, &block)
+            @chat.call requests, options, enum_proc: block
           end
 
           ##
@@ -350,7 +350,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::PagedExpandRequest
 
-            @paged_expand.call(request, options, &block)
+            @paged_expand.call request, options, op_proc: block
           end
 
           ##

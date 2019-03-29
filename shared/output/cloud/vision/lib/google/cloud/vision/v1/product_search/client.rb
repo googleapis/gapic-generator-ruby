@@ -268,7 +268,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductSetRequest
 
-              @create_product_set.call(request, options, &block)
+              @create_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -320,7 +320,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductSetsRequest
 
-              @list_product_sets.call(request, options, &block)
+              @list_product_sets.call request, options, op_proc: block
             end
 
             ##
@@ -367,7 +367,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductSetRequest
 
-              @get_product_set.call(request, options, &block)
+              @get_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -422,7 +422,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductSetRequest
 
-              @update_product_set.call(request, options, &block)
+              @update_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -475,7 +475,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductSetRequest
 
-              @delete_product_set.call(request, options, &block)
+              @delete_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -535,7 +535,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductRequest
 
-              @create_product.call(request, options, &block)
+              @create_product.call request, options, op_proc: block
             end
 
             ##
@@ -586,7 +586,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsRequest
 
-              @list_products.call(request, options, &block)
+              @list_products.call request, options, op_proc: block
             end
 
             ##
@@ -633,7 +633,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductRequest
 
-              @get_product.call(request, options, &block)
+              @get_product.call request, options, op_proc: block
             end
 
             ##
@@ -704,7 +704,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductRequest
 
-              @update_product.call(request, options, &block)
+              @update_product.call request, options, op_proc: block
             end
 
             ##
@@ -759,7 +759,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductRequest
 
-              @delete_product.call(request, options, &block)
+              @delete_product.call request, options, op_proc: block
             end
 
             ##
@@ -842,7 +842,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
-              @create_reference_image.call(request, options, &block)
+              @create_reference_image.call request, options, op_proc: block
             end
 
             ##
@@ -902,7 +902,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
-              @delete_reference_image.call(request, options, &block)
+              @delete_reference_image.call request, options, op_proc: block
             end
 
             ##
@@ -960,7 +960,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
-              @list_reference_images.call(request, options, &block)
+              @list_reference_images.call request, options, op_proc: block
             end
 
             ##
@@ -1008,7 +1008,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetReferenceImageRequest
 
-              @get_reference_image.call(request, options, &block)
+              @get_reference_image.call request, options, op_proc: block
             end
 
             ##
@@ -1066,7 +1066,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
-              @add_product_to_product_set.call(request, options, &block)
+              @add_product_to_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -1118,7 +1118,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
-              @remove_product_from_product_set.call(request, options, &block)
+              @remove_product_from_product_set.call request, options, op_proc: block
             end
 
             ##
@@ -1173,7 +1173,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
-              @list_products_in_product_set.call(request, options, &block)
+              @list_products_in_product_set.call request, options, op_proc: block
             end
 
             ##

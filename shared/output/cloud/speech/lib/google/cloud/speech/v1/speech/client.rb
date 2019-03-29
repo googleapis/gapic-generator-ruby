@@ -179,7 +179,7 @@ module Google
               request ||= request_fields
               request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
 
-              @recognize.call(request, options, &block)
+              @recognize.call request, options, op_proc: block
             end
 
             ##
@@ -266,7 +266,7 @@ module Google
                 Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
               end
 
-              @streaming_recognize.call(requests, options, &block)
+              @streaming_recognize.call requests, options, enum_proc: block
             end
 
             protected

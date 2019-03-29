@@ -203,7 +203,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
 
-            @create_session.call(request, options, &block)
+            @create_session.call request, options, op_proc: block
           end
 
           ##
@@ -239,7 +239,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
 
-            @get_session.call(request, options, &block)
+            @get_session.call request, options, op_proc: block
           end
 
           ##
@@ -277,7 +277,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
 
-            @list_sessions.call(request, options, &block)
+            @list_sessions.call request, options, op_proc: block
           end
 
           ##
@@ -313,7 +313,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
 
-            @delete_session.call(request, options, &block)
+            @delete_session.call request, options, op_proc: block
           end
 
           ##
@@ -353,7 +353,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
 
-            @report_session.call(request, options, &block)
+            @report_session.call request, options, op_proc: block
           end
 
           ##
@@ -393,7 +393,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
 
-            @list_tests.call(request, options, &block)
+            @list_tests.call request, options, op_proc: block
           end
 
           ##
@@ -439,7 +439,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
 
-            @delete_test.call(request, options, &block)
+            @delete_test.call request, options, op_proc: block
           end
 
           ##
@@ -485,7 +485,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
 
-            @verify_test.call(request, options, &block)
+            @verify_test.call request, options, op_proc: block
           end
 
           protected

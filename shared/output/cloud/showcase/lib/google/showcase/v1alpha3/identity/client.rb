@@ -186,7 +186,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
 
-            @create_user.call(request, options, &block)
+            @create_user.call request, options, op_proc: block
           end
 
           ##
@@ -222,7 +222,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
 
-            @get_user.call(request, options, &block)
+            @get_user.call request, options, op_proc: block
           end
 
           ##
@@ -261,7 +261,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
 
-            @update_user.call(request, options, &block)
+            @update_user.call request, options, op_proc: block
           end
 
           ##
@@ -297,7 +297,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
 
-            @delete_user.call(request, options, &block)
+            @delete_user.call request, options, op_proc: block
           end
 
           ##
@@ -338,7 +338,7 @@ module Google
             request ||= request_fields
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
 
-            @list_users.call(request, options, &block)
+            @list_users.call request, options, op_proc: block
           end
 
           protected
