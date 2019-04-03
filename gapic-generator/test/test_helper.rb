@@ -17,6 +17,7 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "google/gapic/schema/api"
 require "google/gapic/generator"
+require "google/gapic/template"
 require "action_controller"
 require "action_view"
 
@@ -58,5 +59,19 @@ end
 class GemTest < Minitest::Test
   def expected_content gem, filename
     File.read "expected_output/gems/#{gem}/#{filename}"
+  end
+end
+
+class TemplateTest < Minitest::Test
+  def assert_template template, *exp_segments
+    act_segments = Google::Gapic::Template.parse template
+
+    assert_valid_segments act_segments
+    assert_equal exp_segments, act_segments
+  end
+
+  def assert_valid_segments segments
+    refute segments.any?(nil), "segments won't contain any nil segments"
+    refute segments.any?(""), "segments won't contain any empty segments"
   end
 end

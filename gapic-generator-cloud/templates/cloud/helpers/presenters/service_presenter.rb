@@ -17,6 +17,7 @@
 require "active_support/inflector"
 require_relative "gem_presenter"
 require_relative "package_presenter"
+require_relative "resource_presenter"
 require_relative "method_presenter"
 
 class ServicePresenter
@@ -188,6 +189,33 @@ class ServicePresenter
 
   def stub_name
     "#{ActiveSupport::Inflector.underscore name}_stub"
+  end
+
+  def references
+    @references ||= begin
+      m = @service.parent.messages.select { |m| m.fields.select(&:resource).any? }
+      pairs = m.map { |m1| [m1.name, m1.fields.map(&:resource).compact.first.pattern] }
+      pairs.sort_by! { |name, tmplt| name }
+      pairs.map { |name, tmplt| ResourcePresenter.new name, tmplt }
+    end
+  end
+
+  def paths?
+    references.any?
+  end
+
+  def paths_name
+    "Paths"
+  end
+
+  def paths_require
+    helpers_namespace = @service.address.dup
+    helpers_namespace.push paths_name
+    helpers_namespace.map(&:underscore).join "/"
+  end
+
+  def paths_file_path
+    paths_require + ".rb"
   end
 
   private

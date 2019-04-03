@@ -24,6 +24,7 @@ require "google/longrunning/operations_client"
 require "google/showcase/version"
 require "google/showcase/v1alpha3/messaging_pb"
 require "google/showcase/v1alpha3/messaging/credentials"
+require "google/showcase/v1alpha3/messaging/paths"
 
 module Google
   module Showcase
@@ -31,6 +32,8 @@ module Google
       module Messaging
         # Service that implements Messaging API.
         class Client
+          include Paths
+
           # @private
           attr_reader :messaging_stub
 
