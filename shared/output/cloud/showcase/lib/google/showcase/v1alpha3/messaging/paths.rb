@@ -27,19 +27,15 @@ module Google
           # `rooms/{room_id}`
           #
           # @param room_id [String]
-          #   room_id cannot contain /
           #
           # @return [String]
           def room_path room_id:
             raise ArgumentError, "room_id is required" if room_id.nil?
-            raise ArgumentError, "room_id cannot contain /" unless /([^/]+)/.match room_id
 
             "rooms/#{room_id}"
           end
-
         end
       end
     end
   end
 end
-

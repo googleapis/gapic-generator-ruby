@@ -14,22 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "google/gapic/template"
 require "ostruct"
 require "active_support/inflector"
 
 class ResourcePresenter
   def initialize name, template
-    @name = name
-    @template = Template.new template
+    @name     = name
+    @template = template
+    @segments = Google::Gapic::Template.parse template
 
-    if positional_args?
+    # Template verification for expected proto resource usage
+    if positional_args? @segments
       raise ArgumentError, "only resources with named segments are supported, " \
-                           " not #{@template.template}"
+                           " not #{template}"
     end
-
-    if named_arg_templates?
-      raise ArgumentError, "only resources without named templates are supported, " \
-                           " not #{@template.template}"
+    if named_arg_patterns? @segments
+      raise ArgumentError, "only resources without named patterns are supported, " \
+                           " not #{template}"
     end
   end
 
@@ -38,7 +40,7 @@ class ResourcePresenter
   end
 
   def template
-    @template.template
+    @template
   end
 
   def path_helper
@@ -46,61 +48,40 @@ class ResourcePresenter
   end
 
   def arguments
-    @template.named_args.map do |name, regexp, msg, template|
-      OpenStruct.new name: name, regexp: regexp, msg: msg
+    # We only expect that named args are present
+    arg_segments(@segments).map do |arg|
+      OpenStruct.new(
+        name: arg.name,
+        msg: "#{arg.name} cannot contain /",
+        regexp: "/([^/]+)/"
+      )
+    end.tap do |arg_structs|
+      arg_structs.last.regexp = nil
     end
   end
 
   def path_string
-    @template.output
+    @segments.map do |segment|
+      if segment.is_a? Google::Gapic::Template::Segment
+        "\#{#{segment.name}}"
+      else
+        # Should be a String
+        segment
+      end
+    end.join
   end
 
   private
 
-  def positional_args?
-    @template.positional_args.any?
+  def arg_segments segments
+    segments.select { |segment| segment.is_a? Google::Gapic::Template::Segment }
   end
 
-  def named_arg_templates?
-    @template.named_args.select { |arg| arg[3] }.any?
+  def positional_args? segments
+    arg_segments(segments).any?(&:positional?)
   end
 
-  class Template
-    TMPL = /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
-
-    attr_reader :template, :positional_args, :named_args, :output
-
-    def initialize template
-      @template = template
-      @positional_args = []
-      @named_args = []
-
-      out = []
-      tmpl = template.dup
-      while m = TMPL.match(tmpl)
-        pos_arg_num = @positional_args.count + 1
-        out << m.pre_match
-        if m[:positional] == "*"
-          out << "\#{arg#{pos_arg_num}}"
-          @positional_args << ["arg#{pos_arg_num}", "/([^/]+)/", "arg#{pos_arg_num} cannot contain /"]
-        elsif m[:positional] == "**"
-          out << "\#{arg#{pos_arg_num}}"
-          @positional_args << ["arg#{pos_arg_num}", nil, nil]
-        else
-          out << "\#{#{m[:name]}}"
-          if m[:template]
-            named_tmpl_regexp = m[:template].dup
-            named_tmpl_regexp.gsub! "**", ".+"
-            named_tmpl_regexp.gsub! "*", "[^/]+"
-            named_tmpl_regexp.gsub! "/", "\\/"
-            @named_args << [m[:name], named_tmpl_regexp, "#{m[:name]} must match #{m[:template]}"]
-          else
-            @named_args << [m[:name], "/([^/]+)/", "#{m[:name]} cannot contain /"]
-          end
-        end
-        tmpl = m.post_match
-      end
-      @output = out.join
-    end
+  def named_arg_patterns? segments
+    arg_segments(segments).any?(&:pattern)
   end
 end

@@ -8,8 +8,8 @@
 #
 <%- resource.arguments.each do |arg| -%>
 # @param <%= arg.name %> [String]
-<%- if arg.msg -%>
-#   <%= arg.msg %>
+<%- if arg.desc -%>
+#   <%= arg.desc %>
 <%- end -%>
 <%- end -%>
 #
@@ -19,7 +19,7 @@ def <%= resource.path_helper %> <%= args.join ", " %>
 <%- resource.arguments.each do |arg| -%>
   raise ArgumentError, "<%= arg.name %> is required" if <%= arg.name %>.nil?
 <%- if arg.regexp -%>
-  raise ArgumentError, "<%= arg.msg %>" unless <%= arg.regexp %>.match <%= arg.name %>
+  raise ArgumentError, <%= arg.msg.inspect %> unless <%= arg.regexp %>.match <%= arg.name %>
 <%- end -%>
 <%- end -%>
 

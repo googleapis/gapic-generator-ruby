@@ -27,12 +27,10 @@ module Google
           # `sessions/{session}`
           #
           # @param session [String]
-          #   session cannot contain /
           #
           # @return [String]
           def session_path session:
             raise ArgumentError, "session is required" if session.nil?
-            raise ArgumentError, "session cannot contain /" unless /([^/]+)/.match session
 
             "sessions/#{session}"
           end
@@ -45,16 +43,13 @@ module Google
           # `sessions/{session}/tests/{test}`
           #
           # @param session [String]
-          #   session cannot contain /
           # @param test [String]
-          #   test cannot contain /
           #
           # @return [String]
           def test_path session:, test:
             raise ArgumentError, "session is required" if session.nil?
             raise ArgumentError, "session cannot contain /" unless /([^/]+)/.match session
             raise ArgumentError, "test is required" if test.nil?
-            raise ArgumentError, "test cannot contain /" unless /([^/]+)/.match test
 
             "sessions/#{session}/tests/#{test}"
           end

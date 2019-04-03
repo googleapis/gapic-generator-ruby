@@ -27,19 +27,15 @@ module Google
           # `users/{user_id}`
           #
           # @param user_id [String]
-          #   user_id cannot contain /
           #
           # @return [String]
           def user_path user_id:
             raise ArgumentError, "user_id is required" if user_id.nil?
-            raise ArgumentError, "user_id cannot contain /" unless /([^/]+)/.match user_id
 
             "users/#{user_id}"
           end
-
         end
       end
     end
   end
 end
-
