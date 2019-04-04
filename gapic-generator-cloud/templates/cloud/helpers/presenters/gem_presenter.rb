@@ -39,7 +39,7 @@ class GemPresenter
 
   def proto_files
     @proto_files ||= begin
-      files = @api.files.select { |f| !f.messages.empty? || !f.enums.empty? }
+      files = @api.files.reject { |f| f.messages.empty? && f.enums.empty? }
       files.map { |f| FilePresenter.new f }
     end
   end
