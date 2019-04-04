@@ -72,6 +72,12 @@ module Google
                          "test/#{service.client_test_file_path}",
                          service: service)
             end
+
+            gem.proto_files.each do |file|
+              files << g("doc/proto_file.erb",
+                         "lib/doc/#{file.docs_file_path}",
+                         file: file)
+            end
           end
 
           # Gem level files
