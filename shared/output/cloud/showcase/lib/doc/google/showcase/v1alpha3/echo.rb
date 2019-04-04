@@ -20,7 +20,7 @@ module Google
   module Showcase
     module V1alpha3
       # The request message used for the Echo, Collect and Chat methods. If content
-      #  is set in this message then the request will succeed. If a status is
+      # is set in this message then the request will succeed. If a status is
       # @!attribute [rw] content
       #   @return [String]
       #     The content to be echoed by the server.
@@ -90,7 +90,7 @@ module Google
       # @!attribute [rw] error
       #   @return [Google::Rpc::Status]
       #     The error that will be returned by the server. If this code is specified
-      #      to be the OK rpc code, an empty response will be returned.
+      #     to be the OK rpc code, an empty response will be returned.
       # @!attribute [rw] success
       #   @return [Google::Showcase::V1alpha3::WaitResponse]
       #     The response to be returned on operation completion.

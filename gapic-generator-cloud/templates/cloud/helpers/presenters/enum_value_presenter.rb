@@ -26,7 +26,12 @@ class EnumValuePresenter
   def doc_description
     return nil if @value.docs.leading_comments.empty?
 
-    @value.docs.leading_comments
+    @value
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   def number

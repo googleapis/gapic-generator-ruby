@@ -20,14 +20,14 @@ module Google
   module Showcase
     module V1alpha3
       # A session is a suite of tests, generally being made in the context
-      #  of testing code generation.
+      # of testing code generation.
       #
-      #  A session defines tests it may expect, based on which version of the
-      #  code generation spec is in use.
+      # A session defines tests it may expect, based on which version of the
+      # code generation spec is in use.
       # @!attribute [rw] name
       #   @return [String]
       #     The name of the session. The ID must conform to ^[a-z]+$
-      #      If this is not provided, Showcase chooses one at random.
+      #     If this is not provided, Showcase chooses one at random.
       # @!attribute [rw] version
       #   @return [ENUM(Version)]
       #     Required. The version this session is using.
@@ -38,7 +38,7 @@ module Google
         # The specification versions understood by Showcase.
         module Version
           # Unspecified version. If passed on creation, the session will default
-          #  to using the latest stable release.
+          # to using the latest stable release.
           VERSION_UNSPECIFIED = 0
 
           # The latest v1. Currently, this is v1.0.
@@ -53,8 +53,8 @@ module Google
       # @!attribute [rw] session
       #   @return [Google::Showcase::V1alpha3::Session]
       #     The session to be created.
-      #      Sessions are immutable once they are created (although they can
-      #      be deleted).
+      #     Sessions are immutable once they are created (although they can
+      #     be deleted).
       class CreateSessionRequest
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
@@ -88,7 +88,7 @@ module Google
       # @!attribute [rw] next_page_token
       #   @return [String]
       #     The next page token, if any.
-      #      An empty value here means the last page has been reached.
+      #     An empty value here means the last page has been reached.
       class ListSessionsResponse
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
@@ -141,8 +141,8 @@ module Google
       # @!attribute [rw] name
       #   @return [String]
       #     The name of the test.
-      #      The tests/* portion of the names are hard-coded, and do not change
-      #      from session to session.
+      #     The tests/* portion of the names are hard-coded, and do not change
+      #     from session to session.
       # @!attribute [rw] expectation_level
       #   @return [ENUM(ExpectationLevel)]
       #     The expectation level for this test.
@@ -152,17 +152,17 @@ module Google
       # @!attribute [rw] blueprints
       #   @return [Google::Showcase::V1alpha3::Test::Blueprint]
       #     The blueprints that will satisfy this test. There may be multiple blueprints
-      #      that can signal to the server that this test case is being exercised. Although
-      #      multiple blueprints are specified, only a single blueprint needs to be run to
-      #      signal that the test case was exercised.
+      #     that can signal to the server that this test case is being exercised. Although
+      #     multiple blueprints are specified, only a single blueprint needs to be run to
+      #     signal that the test case was exercised.
       class Test
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
 
         # A blueprint is an explicit definition of methods and requests that are needed
-        #  to be made to test this specific test case. Ideally this would be represented
-        #  by something more robust like CEL, but as of writing this, I am unsure if CEL
-        #  is ready.
+        # to be made to test this specific test case. Ideally this would be represented
+        # by something more robust like CEL, but as of writing this, I am unsure if CEL
+        # is ready.
         # @!attribute [rw] name
         #   @return [String]
         #     The name of this blueprint.
@@ -201,21 +201,21 @@ module Google
 
           # This test is recommended.
           #
-          #  If a generator explicitly ignores a recommended test (see `DeleteTest`),
-          #  then the report may still pass, but with a warning.
+          # If a generator explicitly ignores a recommended test (see `DeleteTest`),
+          # then the report may still pass, but with a warning.
           #
-          #  If a generator skips a recommended test and does not explicitly
-          #  express that intention, the report will fail.
+          # If a generator skips a recommended test and does not explicitly
+          # express that intention, the report will fail.
           RECOMMENDED = 2
 
           # This test is optional.
           #
-          #  If a generator explicitly ignores an optional test (see `DeleteTest`),
-          #  then the report may still pass, and no warning will be issued.
+          # If a generator explicitly ignores an optional test (see `DeleteTest`),
+          # then the report may still pass, and no warning will be issued.
           #
-          #  If a generator skips an optional test and does not explicitly
-          #  express that intention, the report may still pass, but with a
-          #  warning.
+          # If a generator skips an optional test and does not explicitly
+          # express that intention, the report may still pass, but with a
+          # warning.
           OPTIONAL = 3
         end
       end
@@ -245,7 +245,7 @@ module Google
           PENDING = 2
 
           # The test was instrumented, but Showcase got an unexpected
-          #  value when the generator tried to confirm success.
+          # value when the generator tried to confirm success.
           INCORRECT_CONFIRMATION = 3
         end
 
@@ -283,7 +283,7 @@ module Google
       # @!attribute [rw] next_page_token
       #   @return [String]
       #     The next page token, if any.
-      #      An empty value here means the last page has been reached.
+      #     An empty value here means the last page has been reached.
       class ListTestsResponse
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
@@ -293,8 +293,8 @@ module Google
       # @!attribute [rw] test
       #   @return [String]
       #     The name of the test.
-      #      The tests/* portion of the names are hard-coded, and do not change
-      #      from session to session.
+      #     The tests/* portion of the names are hard-coded, and do not change
+      #     from session to session.
       # @!attribute [rw] issue
       #   @return [Google::Showcase::V1alpha3::Issue]
       #     An issue found with the test run. If empty, this test run was successful.

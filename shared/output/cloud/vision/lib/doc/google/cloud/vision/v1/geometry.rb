@@ -21,7 +21,7 @@ module Google
     module Vision
       module V1
         # A vertex represents a 2D point in the image.
-        #  NOTE: the vertex coordinates are in the same scale as the original image.
+        # NOTE: the vertex coordinates are in the same scale as the original image.
         # @!attribute [rw] x
         #   @return [Integer]
         #     X coordinate.
@@ -34,8 +34,8 @@ module Google
         end
 
         # A vertex represents a 2D point in the image.
-        #  NOTE: the normalized vertex coordinates are relative to the original image
-        #  and range from 0 to 1.
+        # NOTE: the normalized vertex coordinates are relative to the original image
+        # and range from 0 to 1.
         # @!attribute [rw] x
         #   @return [Float]
         #     X coordinate.
@@ -60,8 +60,8 @@ module Google
         end
 
         # A 3D position in the image, used primarily for Face detection landmarks.
-        #  A valid Position must have both x and y coordinates.
-        #  The position coordinates are in the same scale as the original image.
+        # A valid Position must have both x and y coordinates.
+        # The position coordinates are in the same scale as the original image.
         # @!attribute [rw] x
         #   @return [Float]
         #     X coordinate.

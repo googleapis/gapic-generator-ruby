@@ -195,12 +195,12 @@ module Google
 
           ##
           # This method split the given content into words and will pass each word back
-          #  through the stream. This method showcases server-side streaming rpcs.
+          # through the stream. This method showcases server-side streaming rpcs.
           #
           # @overload expand(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #     This method split the given content into words and will pass each word back
-          #      through the stream. This method showcases server-side streaming rpcs.
+          #     through the stream. This method showcases server-side streaming rpcs.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -234,8 +234,8 @@ module Google
 
           ##
           # This method will collect the words given to it. When the stream is closed
-          #  by the client, this method will return the a concatenation of the strings
-          #  passed to it. This method showcases client-side streaming rpcs.
+          # by the client, this method will return the a concatenation of the strings
+          # passed to it. This method showcases client-side streaming rpcs.
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
@@ -265,8 +265,8 @@ module Google
 
           ##
           # This method, upon receiving a request on the stream, the same content will
-          #  be passed  back on the stream. This method showcases bidirectional
-          #  streaming rpcs.
+          # be passed  back on the stream. This method showcases bidirectional
+          # streaming rpcs.
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
@@ -293,12 +293,12 @@ module Google
 
           ##
           # This is similar to the Expand method but instead of returning a stream of
-          #  expanded words, this method returns a paged list of expanded words.
+          # expanded words, this method returns a paged list of expanded words.
           #
           # @overload paged_expand(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #     This is similar to the Expand method but instead of returning a stream of
-          #      expanded words, this method returns a paged list of expanded words.
+          #     expanded words, this method returns a paged list of expanded words.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -335,12 +335,12 @@ module Google
 
           ##
           # This method will wait the requested amount of and then return.
-          #  This method showcases how a client handles a request timing out.
+          # This method showcases how a client handles a request timing out.
           #
           # @overload wait(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #     This method will wait the requested amount of and then return.
-          #      This method showcases how a client handles a request timing out.
+          #     This method showcases how a client handles a request timing out.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -351,7 +351,7 @@ module Google
           #     The duration of this operation.
           #   @param error [Google::Rpc::Status | Hash]
           #     The error that will be returned by the server. If this code is specified
-          #      to be the OK rpc code, an empty response will be returned.
+          #     to be the OK rpc code, an empty response will be returned.
           #   @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
           #     The response to be returned on operation completion.
           #   @param options [Google::Gax::CallOptions]
