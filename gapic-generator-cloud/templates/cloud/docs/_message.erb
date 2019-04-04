@@ -1,0 +1,23 @@
+<%- assert_locals message -%>
+<%- if message.doc_description -%>
+<%= indent message.doc_description, "# " %>
+<%- end -%>
+<%- message.fields.each do |field| -%>
+# @!attribute [rw] <%= field.name %>
+#   @return [<%= field.output_doc_types %>]
+<%- if field.doc_description -%>
+<%= indent field.doc_description, "#     " %>
+<%- end -%>
+<%- end -%>
+class <%= message.name %>
+  include Google::Protobuf::MessageExts
+  extend Google::Protobuf::MessageExts::ClassMethods
+  <%- message.nested_messages.each do |submsg| -%>
+
+  <%= indent_tail render(partial: "docs/message", locals: { message: submsg }), 2 %>
+  <%- end -%>
+  <%- message.nested_enums.each do |enum| -%>
+
+  <%= indent_tail render(partial: "docs/enum", locals: { enum: enum }), 2 %>
+  <%- end -%>
+end

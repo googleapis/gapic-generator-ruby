@@ -46,6 +46,11 @@ class FieldPresenter
     end
   end
 
+  def output_doc_types
+    return message_ruby_type @field.message if @field.message?
+    doc_types
+  end
+
   def doc_description
     return nil if @field.docs.leading_comments.empty?
 

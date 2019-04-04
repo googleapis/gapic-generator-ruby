@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require_relative "file_presenter"
 require_relative "package_presenter"
 require_relative "service_presenter"
 
@@ -33,6 +34,13 @@ class GemPresenter
     @services ||= begin
       files = @api.generate_files.select { |f| f.package == @package }
       files.map(&:services).flatten.map { |s| ServicePresenter.new s }
+    end
+  end
+
+  def proto_files
+    @proto_files ||= begin
+      files = @api.files.select { |f| !f.messages.empty? || !f.enums.empty? }
+      files.map { |f| FilePresenter.new f }
     end
   end
 

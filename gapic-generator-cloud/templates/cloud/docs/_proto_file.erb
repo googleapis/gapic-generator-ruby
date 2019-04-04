@@ -1,0 +1,9 @@
+<%- assert_locals file -%>
+<%- file.messages.each do |message| -%>
+
+<%= render(partial: "docs/message", locals: { message: message }) %>
+<%- end %>
+<%- file.enums.each do |enum| -%>
+
+<%= render(partial: "docs/enum", locals: { enum: enum }) %>
+<%- end %>
