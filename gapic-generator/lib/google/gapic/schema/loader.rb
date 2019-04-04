@@ -58,16 +58,16 @@ module Google
             ans[l.path] = l
           end
 
+          # Load top-level enums.
+          enums = file_descriptor.enum_type.each_with_index.map do |e, i|
+            load_enum e, address, docs, [5, i]
+          end
+
           # Load top-level messages.
           messages = file_descriptor.message_type.each_with_index.map do |m, i|
             load_message m, address, docs, [4, i]
           end
           messages.each(&method(:update_fields!))
-
-          # Load enums.
-          enums = file_descriptor.enum_type.each_with_index.map do |e, i|
-            load_enum e, address, docs, [5, i]
-          end
 
           # Load services.
           services = file_descriptor.service.each_with_index.map do |s, i|
@@ -88,9 +88,10 @@ module Google
         #    to update.
         def update_fields! message
           message.nested_messages.each(&method(:update_fields!))
-          message.fields.each do |f|
-            f.message = cached_message f.type_name
-            f.enum = cached_enum f.type_name
+          non_primitives = message.fields.reject { |f| f.type_name.empty? }
+          non_primitives.each do |f|
+            f.message ||= cached_message f.type_name
+            f.enum ||= cached_enum f.type_name
           end
         end
 
@@ -159,17 +160,17 @@ module Google
           address = address.clone << descriptor.name
 
           # Load Children
-          fields = descriptor.field.each_with_index.map do |f, i|
-            load_field f, address, docs, path + [2, i]
-          end
-          extensions = descriptor.extension.each_with_index.map do |e, i|
-            load_field e, address, docs, path + [6, i]
-          end
           nested_messages = descriptor.nested_type.each_with_index.map do |m, i|
             load_message m, address, docs, path + [3, i]
           end
           nested_enums = descriptor.enum_type.each_with_index.map do |e, i|
             load_enum e, address, docs, path + [4, i]
+          end
+          fields = descriptor.field.each_with_index.map do |f, i|
+            load_field f, address, docs, path + [2, i]
+          end
+          extensions = descriptor.extension.each_with_index.map do |e, i|
+            load_field e, address, docs, path + [6, i]
           end
 
           # Construct, cache, and return.
