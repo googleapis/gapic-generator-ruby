@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+raise "This file is for documentation purposes only."
+
 module Google
   module Type
     # Represents a color in the RGBA color space. This representation is designed

@@ -1,4 +1,7 @@
 <%- assert_locals file -%>
+<% @requires = capture do %>
+raise "This file is for documentation purposes only."
+<% end %>
 <%- file.messages.each do |message| -%>
 
 <%= render(partial: "docs/message", locals: { message: message }) %>
