@@ -14,10 +14,10 @@ class <%= message.name %>
   extend Google::Protobuf::MessageExts::ClassMethods
   <%- message.nested_messages.each do |submsg| -%>
 
-  <%= indent_tail render(partial: "docs/message", locals: { message: submsg }), 2 %>
+  <%= indent_tail render(partial: "doc/message", locals: { message: submsg }), 2 %>
   <%- end -%>
   <%- message.nested_enums.each do |enum| -%>
 
-  <%= indent_tail render(partial: "docs/enum", locals: { enum: enum }), 2 %>
+  <%= indent_tail render(partial: "doc/enum", locals: { enum: enum }), 2 %>
   <%- end -%>
 end

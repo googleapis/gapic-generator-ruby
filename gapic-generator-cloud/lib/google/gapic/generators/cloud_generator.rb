@@ -74,8 +74,8 @@ module Google
             end
 
             gem.proto_files.each do |file|
-              files << g("docs/proto_file.erb",
-                         "lib/docs/#{file.docs_file_path}",
+              files << g("doc/proto_file.erb",
+                         "lib/doc/#{file.docs_file_path}",
                          file: file)
             end
           end
