@@ -174,20 +174,20 @@ module Google
 
             ##
             # Run asynchronous image detection and annotation for a list of generic
-            #  files, such as PDF files, which may contain multiple pages and multiple
-            #  images per page. Progress and results can be retrieved through the
-            #  `google.longrunning.Operations` interface.
-            #  `Operation.metadata` contains `OperationMetadata` (metadata).
-            #  `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            # files, such as PDF files, which may contain multiple pages and multiple
+            # images per page. Progress and results can be retrieved through the
+            # `google.longrunning.Operations` interface.
+            # `Operation.metadata` contains `OperationMetadata` (metadata).
+            # `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
             #
             # @overload async_batch_annotate_files(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest | Hash]
             #     Run asynchronous image detection and annotation for a list of generic
-            #      files, such as PDF files, which may contain multiple pages and multiple
-            #      images per page. Progress and results can be retrieved through the
-            #      `google.longrunning.Operations` interface.
-            #      `Operation.metadata` contains `OperationMetadata` (metadata).
-            #      `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            #     files, such as PDF files, which may contain multiple pages and multiple
+            #     images per page. Progress and results can be retrieved through the
+            #     `google.longrunning.Operations` interface.
+            #     `Operation.metadata` contains `OperationMetadata` (metadata).
+            #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #

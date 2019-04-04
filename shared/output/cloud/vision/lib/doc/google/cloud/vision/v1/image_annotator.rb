@@ -21,20 +21,20 @@ module Google
     module Vision
       module V1
         # The type of Google Cloud Vision API detection to perform, and the maximum
-        #  number of results to return for that type. Multiple `Feature` objects can
-        #  be specified in the `features` list.
+        # number of results to return for that type. Multiple `Feature` objects can
+        # be specified in the `features` list.
         # @!attribute [rw] type
         #   @return [ENUM(Type)]
         #     The feature type.
         # @!attribute [rw] max_results
         #   @return [Integer]
         #     Maximum number of results of this type. Does not apply to
-        #      `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
+        #     `TEXT_DETECTION`, `DOCUMENT_TEXT_DETECTION`, or `CROP_HINTS`.
         # @!attribute [rw] model
         #   @return [String]
         #     Model to use for the feature.
-        #      Supported values: "builtin/stable" (the default if unset) and
-        #      "builtin/latest".
+        #     Supported values: "builtin/stable" (the default if unset) and
+        #     "builtin/latest".
         class Feature
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -57,20 +57,20 @@ module Google
             LABEL_DETECTION = 4
 
             # Run text detection / optical character recognition (OCR). Text detection
-            #  is optimized for areas of text within a larger image; if the image is
-            #  a document, use `DOCUMENT_TEXT_DETECTION` instead.
+            # is optimized for areas of text within a larger image; if the image is
+            # a document, use `DOCUMENT_TEXT_DETECTION` instead.
             TEXT_DETECTION = 5
 
             # Run dense text document OCR. Takes precedence when both
-            #  `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` are present.
+            # `DOCUMENT_TEXT_DETECTION` and `TEXT_DETECTION` are present.
             DOCUMENT_TEXT_DETECTION = 11
 
             # Run Safe Search to detect potentially unsafe
-            #  or undesirable content.
+            # or undesirable content.
             SAFE_SEARCH_DETECTION = 6
 
             # Compute a set of image properties, such as the
-            #  image's dominant colors.
+            # image's dominant colors.
             IMAGE_PROPERTIES = 7
 
             # Run crop hints.
@@ -92,29 +92,29 @@ module Google
         #   @return [String]
         #     **Use `image_uri` instead.**
         #
-        #      The Google Cloud Storage  URI of the form
-        #      `gs://bucket_name/object_name`. Object versioning is not supported. See
-        #      [Google Cloud Storage Request
-        #      URIs](https://cloud.google.com/storage/docs/reference-uris) for more info.
+        #     The Google Cloud Storage  URI of the form
+        #     `gs://bucket_name/object_name`. Object versioning is not supported. See
+        #     [Google Cloud Storage Request
+        #     URIs](https://cloud.google.com/storage/docs/reference-uris) for more info.
         # @!attribute [rw] image_uri
         #   @return [String]
         #     The URI of the source image. Can be either:
         #
-        #      1. A Google Cloud Storage URI of the form
-        #         `gs://bucket_name/object_name`. Object versioning is not supported. See
-        #         [Google Cloud Storage Request
-        #         URIs](https://cloud.google.com/storage/docs/reference-uris) for more
-        #         info.
+        #     1. A Google Cloud Storage URI of the form
+        #        `gs://bucket_name/object_name`. Object versioning is not supported. See
+        #        [Google Cloud Storage Request
+        #        URIs](https://cloud.google.com/storage/docs/reference-uris) for more
+        #        info.
         #
-        #      2. A publicly-accessible image HTTP/HTTPS URL. When fetching images from
-        #         HTTP/HTTPS URLs, Google cannot guarantee that the request will be
-        #         completed. Your request may fail if the specified host denies the
-        #         request (e.g. due to request throttling or DOS prevention), or if Google
-        #         throttles requests to the site for abuse prevention. You should not
-        #         depend on externally-hosted images for production applications.
+        #     2. A publicly-accessible image HTTP/HTTPS URL. When fetching images from
+        #        HTTP/HTTPS URLs, Google cannot guarantee that the request will be
+        #        completed. Your request may fail if the specified host denies the
+        #        request (e.g. due to request throttling or DOS prevention), or if Google
+        #        throttles requests to the site for abuse prevention. You should not
+        #        depend on externally-hosted images for production applications.
         #
-        #      When both `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
-        #      precedence.
+        #     When both `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
+        #     precedence.
         class ImageSource
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -124,13 +124,13 @@ module Google
         # @!attribute [rw] content
         #   @return [String]
         #     Image content, represented as a stream of bytes.
-        #      Note: As with all `bytes` fields, protobuffers use a pure binary
-        #      representation, whereas JSON representations use base64.
+        #     Note: As with all `bytes` fields, protobuffers use a pure binary
+        #     representation, whereas JSON representations use base64.
         # @!attribute [rw] source
         #   @return [Google::Cloud::Vision::V1::ImageSource]
         #     Google Cloud Storage image location, or publicly-accessible image
-        #      URL. If both `content` and `source` are provided for an image, `content`
-        #      takes precedence and is used to perform the image annotation request.
+        #     URL. If both `content` and `source` are provided for an image, `content`
+        #     takes precedence and is used to perform the image annotation request.
         class Image
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -140,37 +140,37 @@ module Google
         # @!attribute [rw] bounding_poly
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding polygon around the face. The coordinates of the bounding box
-        #      are in the original image's scale, as returned in `ImageParams`.
-        #      The bounding box is computed to "frame" the face in accordance with human
-        #      expectations. It is based on the landmarker results.
-        #      Note that one or more x and/or y coordinates may not be generated in the
-        #      `BoundingPoly` (the polygon will be unbounded) if only a partial face
-        #      appears in the image to be annotated.
+        #     are in the original image's scale, as returned in `ImageParams`.
+        #     The bounding box is computed to "frame" the face in accordance with human
+        #     expectations. It is based on the landmarker results.
+        #     Note that one or more x and/or y coordinates may not be generated in the
+        #     `BoundingPoly` (the polygon will be unbounded) if only a partial face
+        #     appears in the image to be annotated.
         # @!attribute [rw] fd_bounding_poly
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The `fd_bounding_poly` bounding polygon is tighter than the
-        #      `boundingPoly`, and encloses only the skin part of the face. Typically, it
-        #      is used to eliminate the face from any image analysis that detects the
-        #      "amount of skin" visible in an image. It is not based on the
-        #      landmarker results, only on the initial face detection, hence
-        #      the <code>fd</code> (face detection) prefix.
+        #     `boundingPoly`, and encloses only the skin part of the face. Typically, it
+        #     is used to eliminate the face from any image analysis that detects the
+        #     "amount of skin" visible in an image. It is not based on the
+        #     landmarker results, only on the initial face detection, hence
+        #     the <code>fd</code> (face detection) prefix.
         # @!attribute [rw] landmarks
         #   @return [Google::Cloud::Vision::V1::FaceAnnotation::Landmark]
         #     Detected face landmarks.
         # @!attribute [rw] roll_angle
         #   @return [Float]
         #     Roll angle, which indicates the amount of clockwise/anti-clockwise rotation
-        #      of the face relative to the image vertical about the axis perpendicular to
-        #      the face. Range [-180,180].
+        #     of the face relative to the image vertical about the axis perpendicular to
+        #     the face. Range [-180,180].
         # @!attribute [rw] pan_angle
         #   @return [Float]
         #     Yaw angle, which indicates the leftward/rightward angle that the face is
-        #      pointing relative to the vertical plane perpendicular to the image. Range
-        #      [-180,180].
+        #     pointing relative to the vertical plane perpendicular to the image. Range
+        #     [-180,180].
         # @!attribute [rw] tilt_angle
         #   @return [Float]
         #     Pitch angle, which indicates the upwards/downwards angle that the face is
-        #      pointing relative to the image's horizontal plane. Range [-180,180].
+        #     pointing relative to the image's horizontal plane. Range [-180,180].
         # @!attribute [rw] detection_confidence
         #   @return [Float]
         #     Detection confidence. Range [0, 1].
@@ -214,9 +214,9 @@ module Google
             extend Google::Protobuf::MessageExts::ClassMethods
 
             # Face landmark (feature) type.
-            #  Left and right are defined from the vantage of the viewer of the image
-            #  without considering mirror projections typical of photos. So, `LEFT_EYE`,
-            #  typically, is the person's right eye.
+            # Left and right are defined from the vantage of the viewer of the image
+            # without considering mirror projections typical of photos. So, `LEFT_EYE`,
+            # typically, is the person's right eye.
             module Type
               # Unknown face landmark detected. Should not be filled.
               UNKNOWN_LANDMARK = 0
@@ -354,12 +354,12 @@ module Google
         # @!attribute [rw] mid
         #   @return [String]
         #     Opaque entity ID. Some IDs may be available in
-        #      [Google Knowledge Graph Search
-        #      API](https://developers.google.com/knowledge-graph/).
+        #     [Google Knowledge Graph Search
+        #     API](https://developers.google.com/knowledge-graph/).
         # @!attribute [rw] locale
         #   @return [String]
         #     The language code for the locale in which the entity textual
-        #      `description` is expressed.
+        #     `description` is expressed.
         # @!attribute [rw] description
         #   @return [String]
         #     Entity textual description, expressed in its `locale` language.
@@ -369,32 +369,32 @@ module Google
         # @!attribute [rw] confidence
         #   @return [Float]
         #     **Deprecated. Use `score` instead.**
-        #      The accuracy of the entity detection in an image.
-        #      For example, for an image in which the "Eiffel Tower" entity is detected,
-        #      this field represents the confidence that there is a tower in the query
-        #      image. Range [0, 1].
+        #     The accuracy of the entity detection in an image.
+        #     For example, for an image in which the "Eiffel Tower" entity is detected,
+        #     this field represents the confidence that there is a tower in the query
+        #     image. Range [0, 1].
         # @!attribute [rw] topicality
         #   @return [Float]
         #     The relevancy of the ICA (Image Content Annotation) label to the
-        #      image. For example, the relevancy of "tower" is likely higher to an image
-        #      containing the detected "Eiffel Tower" than to an image containing a
-        #      detected distant towering building, even though the confidence that
-        #      there is a tower in each image may be the same. Range [0, 1].
+        #     image. For example, the relevancy of "tower" is likely higher to an image
+        #     containing the detected "Eiffel Tower" than to an image containing a
+        #     detected distant towering building, even though the confidence that
+        #     there is a tower in each image may be the same. Range [0, 1].
         # @!attribute [rw] bounding_poly
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     Image region to which this entity belongs. Not produced
-        #      for `LABEL_DETECTION` features.
+        #     for `LABEL_DETECTION` features.
         # @!attribute [rw] locations
         #   @return [Google::Cloud::Vision::V1::LocationInfo]
         #     The location information for the detected entity. Multiple
-        #      `LocationInfo` elements can be present because one location may
-        #      indicate the location of the scene in the image, and another location
-        #      may indicate the location of the place where the image was taken.
-        #      Location information is usually present for landmarks.
+        #     `LocationInfo` elements can be present because one location may
+        #     indicate the location of the scene in the image, and another location
+        #     may indicate the location of the place where the image was taken.
+        #     Location information is usually present for landmarks.
         # @!attribute [rw] properties
         #   @return [Google::Cloud::Vision::V1::Property]
         #     Some entities may have optional user-supplied `Property` (name/value)
-        #      fields, such a score or string that qualifies the entity.
+        #     fields, such a score or string that qualifies the entity.
         class EntityAnnotation
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -407,8 +407,8 @@ module Google
         # @!attribute [rw] language_code
         #   @return [String]
         #     The BCP-47 language code, such as "en-US" or "sr-Latn". For more
-        #      information, see
-        #      http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+        #     information, see
+        #     http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
         # @!attribute [rw] name
         #   @return [String]
         #     Object name, expressed in its `language_code` language.
@@ -424,18 +424,18 @@ module Google
         end
 
         # Set of features pertaining to the image, computed by computer vision
-        #  methods over safe-search verticals (for example, adult, spoof, medical,
-        #  violence).
+        # methods over safe-search verticals (for example, adult, spoof, medical,
+        # violence).
         # @!attribute [rw] adult
         #   @return [ENUM(Likelihood)]
         #     Represents the adult content likelihood for the image. Adult content may
-        #      contain elements such as nudity, pornographic images or cartoons, or
-        #      sexual activities.
+        #     contain elements such as nudity, pornographic images or cartoons, or
+        #     sexual activities.
         # @!attribute [rw] spoof
         #   @return [ENUM(Likelihood)]
         #     Spoof likelihood. The likelihood that an modification
-        #      was made to the image's canonical version to make it appear
-        #      funny or offensive.
+        #     was made to the image's canonical version to make it appear
+        #     funny or offensive.
         # @!attribute [rw] medical
         #   @return [ENUM(Likelihood)]
         #     Likelihood that this is a medical image.
@@ -445,9 +445,9 @@ module Google
         # @!attribute [rw] racy
         #   @return [ENUM(Likelihood)]
         #     Likelihood that the request image contains racy content. Racy content may
-        #      include (but is not limited to) skimpy or sheer clothing, strategically
-        #      covered nudity, lewd or provocative poses, or close-ups of sensitive
-        #      body areas.
+        #     include (but is not limited to) skimpy or sheer clothing, strategically
+        #     covered nudity, lewd or provocative poses, or close-ups of sensitive
+        #     body areas.
         class SafeSearchAnnotation
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -466,7 +466,7 @@ module Google
         end
 
         # Color information consists of RGB channels, score, and the fraction of
-        #  the image that the color occupies in the image.
+        # the image that the color occupies in the image.
         # @!attribute [rw] color
         #   @return [Google::Type::Color]
         #     RGB components of the color.
@@ -476,7 +476,7 @@ module Google
         # @!attribute [rw] pixel_fraction
         #   @return [Float]
         #     The fraction of pixels the color occupies in the image.
-        #      Value in range [0, 1].
+        #     Value in range [0, 1].
         class ColorInfo
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -504,14 +504,14 @@ module Google
         # @!attribute [rw] bounding_poly
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding polygon for the crop region. The coordinates of the bounding
-        #      box are in the original image's scale, as returned in `ImageParams`.
+        #     box are in the original image's scale, as returned in `ImageParams`.
         # @!attribute [rw] confidence
         #   @return [Float]
         #     Confidence of this being a salient region.  Range [0, 1].
         # @!attribute [rw] importance_fraction
         #   @return [Float]
         #     Fraction of importance of this salient region with respect to the original
-        #      image.
+        #     image.
         class CropHint
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -530,11 +530,11 @@ module Google
         # @!attribute [rw] aspect_ratios
         #   @return [Float]
         #     Aspect ratios in floats, representing the ratio of the width to the height
-        #      of the image. For example, if the desired aspect ratio is 4/3, the
-        #      corresponding float value should be 1.33333.  If not specified, the
-        #      best possible crop is returned. The number of provided aspect ratios is
-        #      limited to a maximum of 16; any aspect ratios provided after the 16th are
-        #      ignored.
+        #     of the image. For example, if the desired aspect ratio is 4/3, the
+        #     corresponding float value should be 1.33333.  If not specified, the
+        #     best possible crop is returned. The number of provided aspect ratios is
+        #     limited to a maximum of 16; any aspect ratios provided after the 16th are
+        #     ignored.
         class CropHintsParams
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -556,13 +556,13 @@ module Google
         # @!attribute [rw] language_hints
         #   @return [String]
         #     List of languages to use for TEXT_DETECTION. In most cases, an empty value
-        #      yields the best results since it enables automatic language detection. For
-        #      languages based on the Latin alphabet, setting `language_hints` is not
-        #      needed. In rare cases, when the language of the text in the image is known,
-        #      setting a hint will help get better results (although it will be a
-        #      significant hindrance if the hint is wrong). Text detection returns an
-        #      error if one or more of the specified languages is not one of the
-        #      [supported languages](/vision/docs/languages).
+        #     yields the best results since it enables automatic language detection. For
+        #     languages based on the Latin alphabet, setting `language_hints` is not
+        #     needed. In rare cases, when the language of the text in the image is known,
+        #     setting a hint will help get better results (although it will be a
+        #     significant hindrance if the hint is wrong). Text detection returns an
+        #     error if one or more of the specified languages is not one of the
+        #     [supported languages](/vision/docs/languages).
         # @!attribute [rw] crop_hints_params
         #   @return [Google::Cloud::Vision::V1::CropHintsParam]
         #     Parameters for crop hints annotation request.
@@ -578,7 +578,7 @@ module Google
         end
 
         # Request for performing Google Cloud Vision API tasks over a user-provided
-        #  image, with user-requested features.
+        # image, with user-requested features.
         # @!attribute [rw] image
         #   @return [Google::Cloud::Vision::V1::Image]
         #     The image to be processed.
@@ -594,14 +594,14 @@ module Google
         end
 
         # If an image was produced from a file (e.g. a PDF), this message gives
-        #  information about the source of that image.
+        # information about the source of that image.
         # @!attribute [rw] uri
         #   @return [String]
         #     The URI of the file used to produce the image.
         # @!attribute [rw] page_number
         #   @return [Integer]
         #     If the file was a PDF or TIFF, this field gives the page number within
-        #      the file used to produce the image.
+        #     the file used to produce the image.
         class ImageAnnotationContext
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -623,16 +623,16 @@ module Google
         # @!attribute [rw] localized_object_annotations
         #   @return [Google::Cloud::Vision::V1::LocalizedObjectAnnotation]
         #     If present, localized object detection has completed successfully.
-        #      This will be sorted descending by confidence score.
+        #     This will be sorted descending by confidence score.
         # @!attribute [rw] text_annotations
         #   @return [Google::Cloud::Vision::V1::EntityAnnotation]
         #     If present, text (OCR) detection has completed successfully.
         # @!attribute [rw] full_text_annotation
         #   @return [Google::Cloud::Vision::V1::TextAnnotation]
         #     If present, text (OCR) detection or document (OCR) text detection has
-        #      completed successfully.
-        #      This annotation provides the structural hierarchy for the OCR detected
-        #      text.
+        #     completed successfully.
+        #     This annotation provides the structural hierarchy for the OCR detected
+        #     text.
         # @!attribute [rw] safe_search_annotation
         #   @return [Google::Cloud::Vision::V1::SafeSearchAnnotation]
         #     If present, safe-search annotation has completed successfully.
@@ -651,19 +651,19 @@ module Google
         # @!attribute [rw] error
         #   @return [Google::Rpc::Status]
         #     If set, represents the error message for the operation.
-        #      Note that filled-in image annotations are guaranteed to be
-        #      correct, even when `error` is set.
+        #     Note that filled-in image annotations are guaranteed to be
+        #     correct, even when `error` is set.
         # @!attribute [rw] context
         #   @return [Google::Cloud::Vision::V1::ImageAnnotationContext]
         #     If present, contextual information is needed to understand where this image
-        #      comes from.
+        #     comes from.
         class AnnotateImageResponse
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
         end
 
         # Response to a single file annotation request. A file may contain one or more
-        #  images, which individually have their own responses.
+        # images, which individually have their own responses.
         # @!attribute [rw] input_config
         #   @return [Google::Cloud::Vision::V1::InputConfig]
         #     Information about the file for which this response is generated.
@@ -721,7 +721,7 @@ module Google
         end
 
         # Multiple async file annotation requests are batched into a single service
-        #  call.
+        # call.
         # @!attribute [rw] requests
         #   @return [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest]
         #     Individual async file annotation requests for this batch.
@@ -734,7 +734,7 @@ module Google
         # @!attribute [rw] responses
         #   @return [Google::Cloud::Vision::V1::AsyncAnnotateFileResponse]
         #     The list of file annotation responses, one for each request in
-        #      AsyncBatchAnnotateFilesRequest.
+        #     AsyncBatchAnnotateFilesRequest.
         class AsyncBatchAnnotateFilesResponse
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -747,7 +747,7 @@ module Google
         # @!attribute [rw] mime_type
         #   @return [String]
         #     The type of the file. Currently only "application/pdf" and "image/tiff"
-        #      are supported. Wildcards are not supported.
+        #     are supported. Wildcards are not supported.
         class InputConfig
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -760,16 +760,16 @@ module Google
         # @!attribute [rw] batch_size
         #   @return [Integer]
         #     The max number of response protos to put into each output JSON file on
-        #      Google Cloud Storage.
-        #      The valid range is [1, 100]. If not specified, the default value is 20.
+        #     Google Cloud Storage.
+        #     The valid range is [1, 100]. If not specified, the default value is 20.
         #
-        #      For example, for one pdf file with 100 pages, 100 response protos will
-        #      be generated. If `batch_size` = 20, then 5 json files each
-        #      containing 20 response protos will be written under the prefix
-        #      `gcs_destination`.`uri`.
+        #     For example, for one pdf file with 100 pages, 100 response protos will
+        #     be generated. If `batch_size` = 20, then 5 json files each
+        #     containing 20 response protos will be written under the prefix
+        #     `gcs_destination`.`uri`.
         #
-        #      Currently, batch_size only applies to GcsDestination, with potential future
-        #      support for other output configurations.
+        #     Currently, batch_size only applies to GcsDestination, with potential future
+        #     support for other output configurations.
         class OutputConfig
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -779,7 +779,7 @@ module Google
         # @!attribute [rw] uri
         #   @return [String]
         #     Google Cloud Storage URI for the input file. This must only be a
-        #      Google Cloud Storage object. Wildcards are not currently supported.
+        #     Google Cloud Storage object. Wildcards are not currently supported.
         class GcsSource
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -789,20 +789,20 @@ module Google
         # @!attribute [rw] uri
         #   @return [String]
         #     Google Cloud Storage URI where the results will be stored. Results will
-        #      be in JSON format and preceded by its corresponding input URI. This field
-        #      can either represent a single file, or a prefix for multiple outputs.
-        #      Prefixes must end in a `/`.
+        #     be in JSON format and preceded by its corresponding input URI. This field
+        #     can either represent a single file, or a prefix for multiple outputs.
+        #     Prefixes must end in a `/`.
         #
-        #      Examples:
+        #     Examples:
         #
-        #      *    File: gs://bucket-name/filename.json
-        #      *    Prefix: gs://bucket-name/prefix/here/
-        #      *    File: gs://bucket-name/prefix/here
+        #     *    File: gs://bucket-name/filename.json
+        #     *    Prefix: gs://bucket-name/prefix/here/
+        #     *    File: gs://bucket-name/prefix/here
         #
-        #      If multiple outputs, each response is still AnnotateFileResponse, each of
-        #      which contains some subset of the full list of AnnotateImageResponse.
-        #      Multiple outputs can happen if, for example, the output JSON is too large
-        #      and overflows into multiple sharded files.
+        #     If multiple outputs, each response is still AnnotateFileResponse, each of
+        #     which contains some subset of the full list of AnnotateImageResponse.
+        #     Multiple outputs can happen if, for example, the output JSON is too large
+        #     and overflows into multiple sharded files.
         class GcsDestination
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -842,7 +842,7 @@ module Google
         end
 
         # A bucketized representation of likelihood, which is intended to give clients
-        #  highly stable results across model upgrades.
+        # highly stable results across model upgrades.
         module Likelihood
           # Unknown likelihood.
           UNKNOWN = 0

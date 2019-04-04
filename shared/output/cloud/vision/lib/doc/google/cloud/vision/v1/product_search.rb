@@ -24,27 +24,27 @@ module Google
         # @!attribute [rw] bounding_poly
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding polygon around the area of interest in the image.
-        #      Optional. If it is not specified, system discretion will be applied.
+        #     Optional. If it is not specified, system discretion will be applied.
         # @!attribute [rw] product_set
         #   @return [String]
         #     The resource name of a [ProductSet][google.cloud.vision.v1.ProductSet] to
-        #      be searched for similar images.
+        #     be searched for similar images.
         #
-        #      Format is:
-        #      `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`.
+        #     Format is:
+        #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`.
         # @!attribute [rw] product_categories
         #   @return [String]
         #     The list of product categories to search in. Currently, we only consider
-        #      the first category, and either "homegoods", "apparel", or "toys" should be
-        #      specified.
+        #     the first category, and either "homegoods", "apparel", or "toys" should be
+        #     specified.
         # @!attribute [rw] filter
         #   @return [String]
         #     The filtering expression. This can be used to restrict search results based
-        #      on Product labels. We currently support an AND of OR of key-value
-        #      expressions, where each expression within an OR must have the same key.
+        #     on Product labels. We currently support an AND of OR of key-value
+        #     expressions, where each expression within an OR must have the same key.
         #
-        #      For example, "(color = red OR color = blue) AND brand = Google" is
-        #      acceptable, but not "(color = red OR brand = Google)" or "color: red".
+        #     For example, "(color = red OR color = blue) AND brand = Google" is
+        #     acceptable, but not "(color = red OR brand = Google)" or "color: red".
         class ProductSearchParams
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -54,16 +54,16 @@ module Google
         # @!attribute [rw] index_time
         #   @return [Google::Protobuf::Timestamp]
         #     Timestamp of the index which provided these results. Changes made after
-        #      this time are not reflected in the current results.
+        #     this time are not reflected in the current results.
         # @!attribute [rw] results
         #   @return [Google::Cloud::Vision::V1::ProductSearchResult::Result]
         #     List of results, one for each product match.
         # @!attribute [rw] product_grouped_results
         #   @return [Google::Cloud::Vision::V1::ProductSearchResult::GroupedResult]
         #     List of results grouped by products detected in the query image. Each entry
-        #      corresponds to one bounding polygon in the query image, and contains the
-        #      matching products specific to that region. There may be duplicate product
-        #      matches in the union of all the per-product results.
+        #     corresponds to one bounding polygon in the query image, and contains the
+        #     matching products specific to that region. There may be duplicate product
+        #     matches in the union of all the per-product results.
         class ProductSearchResults
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -75,18 +75,18 @@ module Google
           # @!attribute [rw] score
           #   @return [Float]
           #     A confidence level on the match, ranging from 0 (no confidence) to
-          #      1 (full confidence).
+          #     1 (full confidence).
           # @!attribute [rw] image
           #   @return [String]
           #     The resource name of the image from the product that is the closest match
-          #      to the query.
+          #     to the query.
           class Result
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods
           end
 
           # Information about the products similar to a single product in a query
-          #  image.
+          # image.
           # @!attribute [rw] bounding_poly
           #   @return [Google::Cloud::Vision::V1::BoundingPoly]
           #     The bounding polygon around the product detected in the query image.

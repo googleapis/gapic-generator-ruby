@@ -180,8 +180,8 @@ module Google
           # @overload create_session(session: nil, options: nil)
           #   @param session [Google::Showcase::V1alpha3::Session | Hash]
           #     The session to be created.
-          #      Sessions are immutable once they are created (although they can
-          #      be deleted).
+          #     Sessions are immutable once they are created (although they can
+          #     be deleted).
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -318,14 +318,14 @@ module Google
 
           ##
           # Report on the status of a session.
-          #  This generates a report detailing which tests have been completed,
-          #  and an overall rollup.
+          # This generates a report detailing which tests have been completed,
+          # and an overall rollup.
           #
           # @overload report_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ReportSessionRequest | Hash]
           #     Report on the status of a session.
-          #      This generates a report detailing which tests have been completed,
-          #      and an overall rollup.
+          #     This generates a report detailing which tests have been completed,
+          #     and an overall rollup.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -399,19 +399,19 @@ module Google
           ##
           # Explicitly decline to implement a test.
           #
-          #  This removes the test from subsequent `ListTests` calls, and
-          #  attempting to do the test will error.
+          # This removes the test from subsequent `ListTests` calls, and
+          # attempting to do the test will error.
           #
-          #  This method will error if attempting to delete a required test.
+          # This method will error if attempting to delete a required test.
           #
           # @overload delete_test(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteTestRequest | Hash]
           #     Explicitly decline to implement a test.
           #
-          #      This removes the test from subsequent `ListTests` calls, and
-          #      attempting to do the test will error.
+          #     This removes the test from subsequent `ListTests` calls, and
+          #     attempting to do the test will error.
           #
-          #      This method will error if attempting to delete a required test.
+          #     This method will error if attempting to delete a required test.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -445,15 +445,15 @@ module Google
           ##
           # Register a response to a test.
           #
-          #  In cases where a test involves registering a final answer at the
-          #  end of the test, this method provides the means to do so.
+          # In cases where a test involves registering a final answer at the
+          # end of the test, this method provides the means to do so.
           #
           # @overload verify_test(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::VerifyTestRequest | Hash]
           #     Register a response to a test.
           #
-          #      In cases where a test involves registering a final answer at the
-          #      end of the test, this method provides the means to do so.
+          #     In cases where a test involves registering a final answer at the
+          #     end of the test, this method provides the means to do so.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #

@@ -54,7 +54,12 @@ class FieldPresenter
   def doc_description
     return nil if @field.docs.leading_comments.empty?
 
-    @field.docs.leading_comments
+    @field
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   def default_value

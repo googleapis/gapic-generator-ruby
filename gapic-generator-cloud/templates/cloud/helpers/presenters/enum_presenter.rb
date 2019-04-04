@@ -28,7 +28,12 @@ class EnumPresenter
   def doc_description
     return nil if @enum.docs.leading_comments.empty?
 
-    @enum.docs.leading_comments
+    @enum
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   def values

@@ -34,7 +34,12 @@ class MessagePresenter
   def doc_description
     return nil if @message.docs.leading_comments.empty?
 
-    @message.docs.leading_comments
+    @message
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   def default_value

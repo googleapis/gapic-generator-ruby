@@ -27,12 +27,12 @@ module Google
         # @!attribute [rw] full_matching_images
         #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
         #     Fully matching images from the Internet.
-        #      Can include resized copies of the query image.
+        #     Can include resized copies of the query image.
         # @!attribute [rw] partial_matching_images
         #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
         #     Partial matching images from the Internet.
-        #      Those images are similar enough to share some key-point features. For
-        #      example an original image will likely have partial matching for its crops.
+        #     Those images are similar enough to share some key-point features. For
+        #     example an original image will likely have partial matching for its crops.
         # @!attribute [rw] pages_with_matching_images
         #   @return [Google::Cloud::Vision::V1::WebDetection::WebPage]
         #     Web pages containing the matching images from the Internet.
@@ -42,7 +42,7 @@ module Google
         # @!attribute [rw] best_guess_labels
         #   @return [Google::Cloud::Vision::V1::WebDetection::WebLabel]
         #     The service's best guess as to the topic of the request image.
-        #      Inferred from similar images on the open web.
+        #     Inferred from similar images on the open web.
         class WebDetection
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -54,7 +54,7 @@ module Google
           # @!attribute [rw] score
           #   @return [Float]
           #     Overall relevancy score for the entity.
-          #      Not normalized and not comparable across different image queries.
+          #     Not normalized and not comparable across different image queries.
           # @!attribute [rw] description
           #   @return [String]
           #     Canonical description of the entity, in English.
@@ -88,13 +88,13 @@ module Google
           # @!attribute [rw] full_matching_images
           #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
           #     Fully matching images on the page.
-          #      Can include resized copies of the query image.
+          #     Can include resized copies of the query image.
           # @!attribute [rw] partial_matching_images
           #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
           #     Partial matching images on the page.
-          #      Those images are similar enough to share some key-point features. For
-          #      example an original image will likely have partial matching for its
-          #      crops.
+          #     Those images are similar enough to share some key-point features. For
+          #     example an original image will likely have partial matching for its
+          #     crops.
           class WebPage
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods
@@ -107,8 +107,8 @@ module Google
           # @!attribute [rw] language_code
           #   @return [String]
           #     The BCP-47 language code for `label`, such as "en-US" or "sr-Latn".
-          #      For more information, see
-          #      http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+          #     For more information, see
+          #     http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
           class WebLabel
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods

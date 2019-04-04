@@ -239,7 +239,7 @@ module Google
           #     The user to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
-          #      server will assume all fields are to be updated.
+          #     server will assume all fields are to be updated.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -312,11 +312,11 @@ module Google
           # @overload list_users(page_size: nil, page_token: nil, options: nil)
           #   @param page_size [Integer]
           #     The maximum number of users to return. Server may return fewer users
-          #      than requested. If unspecified, server will pick an appropriate default.
+          #     than requested. If unspecified, server will pick an appropriate default.
           #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
-          #      returned from the previous call to
-          #      `google.showcase.v1alpha3.Identity\ListUsers` method.
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Identity\ListUsers` method.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #

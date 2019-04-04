@@ -21,13 +21,13 @@ module Google
     module Vision
       module V1
         # TextAnnotation contains a structured representation of OCR extracted text.
-        #  The hierarchy of an OCR extracted text structure is like this:
-        #      TextAnnotation -> Page -> Block -> Paragraph -> Word -> Symbol
-        #  Each structural component, starting from Page, may further have their own
-        #  properties. Properties describe detected languages, breaks etc.. Please refer
-        #  to the
-        #  [TextAnnotation.TextProperty][google.cloud.vision.v1.TextAnnotation.TextProperty]
-        #  message definition below for more detail.
+        # The hierarchy of an OCR extracted text structure is like this:
+        #     TextAnnotation -> Page -> Block -> Paragraph -> Word -> Symbol
+        # Each structural component, starting from Page, may further have their own
+        # properties. Properties describe detected languages, breaks etc.. Please refer
+        # to the
+        # [TextAnnotation.TextProperty][google.cloud.vision.v1.TextAnnotation.TextProperty]
+        # message definition below for more detail.
         # @!attribute [rw] pages
         #   @return [Google::Cloud::Vision::V1::Page]
         #     List of pages detected by OCR.
@@ -42,8 +42,8 @@ module Google
           # @!attribute [rw] language_code
           #   @return [String]
           #     The BCP-47 language code, such as "en-US" or "sr-Latn". For more
-          #      information, see
-          #      http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+          #     information, see
+          #     http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
           # @!attribute [rw] confidence
           #   @return [Float]
           #     Confidence of detected language. Range [0, 1].
@@ -78,7 +78,7 @@ module Google
               EOL_SURE_SPACE = 3
 
               # End-line hyphen that is not present in text; does not co-occur with
-              #  `SPACE`, `LEADER_SPACE`, or `LINE_BREAK`.
+              # `SPACE`, `LEADER_SPACE`, or `LINE_BREAK`.
               HYPHEN = 4
 
               # Line break that ends a paragraph.
@@ -106,11 +106,11 @@ module Google
         # @!attribute [rw] width
         #   @return [Integer]
         #     Page width. For PDFs the unit is points. For images (including
-        #      TIFFs) the unit is pixels.
+        #     TIFFs) the unit is pixels.
         # @!attribute [rw] height
         #   @return [Integer]
         #     Page height. For PDFs the unit is points. For images (including
-        #      TIFFs) the unit is pixels.
+        #     TIFFs) the unit is pixels.
         # @!attribute [rw] blocks
         #   @return [Google::Cloud::Vision::V1::Block]
         #     List of blocks of text, images etc on this page.
@@ -129,25 +129,25 @@ module Google
         # @!attribute [rw] bounding_box
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding box for the block.
-        #      The vertices are in the order of top-left, top-right, bottom-right,
-        #      bottom-left. When a rotation of the bounding box is detected the rotation
-        #      is represented as around the top-left corner as defined when the text is
-        #      read in the 'natural' orientation.
-        #      For example:
+        #     The vertices are in the order of top-left, top-right, bottom-right,
+        #     bottom-left. When a rotation of the bounding box is detected the rotation
+        #     is represented as around the top-left corner as defined when the text is
+        #     read in the 'natural' orientation.
+        #     For example:
         #
-        #      * when the text is horizontal it might look like:
+        #     * when the text is horizontal it might look like:
         #
-        #              0----1
-        #              |    |
-        #              3----2
+        #             0----1
+        #             |    |
+        #             3----2
         #
-        #      * when it's rotated 180 degrees around the top-left corner it becomes:
+        #     * when it's rotated 180 degrees around the top-left corner it becomes:
         #
-        #              2----3
-        #              |    |
-        #              1----0
+        #             2----3
+        #             |    |
+        #             1----0
         #
-        #        and the vertex order will still be (0, 1, 2, 3).
+        #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] paragraphs
         #   @return [Google::Cloud::Vision::V1::Paragraph]
         #     List of paragraphs in this block (if this blocks is of type text).
@@ -190,20 +190,20 @@ module Google
         # @!attribute [rw] bounding_box
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding box for the paragraph.
-        #      The vertices are in the order of top-left, top-right, bottom-right,
-        #      bottom-left. When a rotation of the bounding box is detected the rotation
-        #      is represented as around the top-left corner as defined when the text is
-        #      read in the 'natural' orientation.
-        #      For example:
-        #        * when the text is horizontal it might look like:
-        #           0----1
-        #           |    |
-        #           3----2
-        #        * when it's rotated 180 degrees around the top-left corner it becomes:
-        #           2----3
-        #           |    |
-        #           1----0
-        #        and the vertex order will still be (0, 1, 2, 3).
+        #     The vertices are in the order of top-left, top-right, bottom-right,
+        #     bottom-left. When a rotation of the bounding box is detected the rotation
+        #     is represented as around the top-left corner as defined when the text is
+        #     read in the 'natural' orientation.
+        #     For example:
+        #       * when the text is horizontal it might look like:
+        #          0----1
+        #          |    |
+        #          3----2
+        #       * when it's rotated 180 degrees around the top-left corner it becomes:
+        #          2----3
+        #          |    |
+        #          1----0
+        #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] words
         #   @return [Google::Cloud::Vision::V1::Word]
         #     List of words in this paragraph.
@@ -222,24 +222,24 @@ module Google
         # @!attribute [rw] bounding_box
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding box for the word.
-        #      The vertices are in the order of top-left, top-right, bottom-right,
-        #      bottom-left. When a rotation of the bounding box is detected the rotation
-        #      is represented as around the top-left corner as defined when the text is
-        #      read in the 'natural' orientation.
-        #      For example:
-        #        * when the text is horizontal it might look like:
-        #           0----1
-        #           |    |
-        #           3----2
-        #        * when it's rotated 180 degrees around the top-left corner it becomes:
-        #           2----3
-        #           |    |
-        #           1----0
-        #        and the vertex order will still be (0, 1, 2, 3).
+        #     The vertices are in the order of top-left, top-right, bottom-right,
+        #     bottom-left. When a rotation of the bounding box is detected the rotation
+        #     is represented as around the top-left corner as defined when the text is
+        #     read in the 'natural' orientation.
+        #     For example:
+        #       * when the text is horizontal it might look like:
+        #          0----1
+        #          |    |
+        #          3----2
+        #       * when it's rotated 180 degrees around the top-left corner it becomes:
+        #          2----3
+        #          |    |
+        #          1----0
+        #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] symbols
         #   @return [Google::Cloud::Vision::V1::Symbol]
         #     List of symbols in the word.
-        #      The order of the symbols follows the natural reading order.
+        #     The order of the symbols follows the natural reading order.
         # @!attribute [rw] confidence
         #   @return [Float]
         #     Confidence of the OCR results for the word. Range [0, 1].
@@ -255,20 +255,20 @@ module Google
         # @!attribute [rw] bounding_box
         #   @return [Google::Cloud::Vision::V1::BoundingPoly]
         #     The bounding box for the symbol.
-        #      The vertices are in the order of top-left, top-right, bottom-right,
-        #      bottom-left. When a rotation of the bounding box is detected the rotation
-        #      is represented as around the top-left corner as defined when the text is
-        #      read in the 'natural' orientation.
-        #      For example:
-        #        * when the text is horizontal it might look like:
-        #           0----1
-        #           |    |
-        #           3----2
-        #        * when it's rotated 180 degrees around the top-left corner it becomes:
-        #           2----3
-        #           |    |
-        #           1----0
-        #        and the vertice order will still be (0, 1, 2, 3).
+        #     The vertices are in the order of top-left, top-right, bottom-right,
+        #     bottom-left. When a rotation of the bounding box is detected the rotation
+        #     is represented as around the top-left corner as defined when the text is
+        #     read in the 'natural' orientation.
+        #     For example:
+        #       * when the text is horizontal it might look like:
+        #          0----1
+        #          |    |
+        #          3----2
+        #       * when it's rotated 180 degrees around the top-left corner it becomes:
+        #          2----3
+        #          |    |
+        #          1----0
+        #       and the vertice order will still be (0, 1, 2, 3).
         # @!attribute [rw] text
         #   @return [String]
         #     The actual UTF-8 representation of the symbol.

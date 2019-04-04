@@ -54,7 +54,12 @@ class MethodPresenter
   def doc_description
     return nil if @method.docs.leading_comments.empty?
 
-    @method.docs.leading_comments
+    @method
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   def arguments
