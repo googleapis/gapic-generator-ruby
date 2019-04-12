@@ -53,6 +53,8 @@ module Google
                        api: @api, service: service)
           end
 
+          format_files files
+
           files
         end
       end

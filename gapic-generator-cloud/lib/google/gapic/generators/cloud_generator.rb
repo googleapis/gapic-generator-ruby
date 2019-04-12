@@ -88,6 +88,8 @@ module Google
           files << g("rubocop.erb",  ".rubocop",                    gem: gem)
           files << g("license.erb",  "LICENSE.md",                  gem: gem)
 
+          format_files files
+
           files
         end
 
