@@ -30,12 +30,12 @@ module Google
       #     template.
       class Parser
         # @private
-        # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<path_template>.+?))?})/
-        TEMPLATE = %r{
+        # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
+        PATH_TEMPLATE = %r{
           (
             (?<positional>\*\*?)
             |
-            {(?<name>[^\/]+?)(?:=(?<path_template>.+?))?}
+            {(?<name>[^\/]+?)(?:=(?<template>.+?))?}
           )
         }x.freeze
 
@@ -56,7 +56,7 @@ module Google
           segments = []
           segment_pos = 0
 
-          while (match = TEMPLATE.match path_template)
+          while (match = PATH_TEMPLATE.match path_template)
             # The String before the match needs to be added to the segments
             segments << match.pre_match unless match.pre_match.empty?
 
@@ -76,7 +76,7 @@ module Google
           if match[:positional]
             [Segment.new(pos, match[:positional]), pos + 1]
           else
-            [Segment.new(match[:name], match[:path_template]), pos]
+            [Segment.new(match[:name], match[:template]), pos]
           end
         end
       end

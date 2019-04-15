@@ -25,8 +25,8 @@ module Google
       #
       # @param path_template [String] The URI path template to be parsed.
       #
-      # @return [Array<Template::Segment|String>] The segments of the URI path
-      #   template.
+      # @return [Array<PathTemplate::Segment|String>] The segments of the URI
+      #   path template.
       def self.parse path_template
         Parser.new(path_template).segments
       end
