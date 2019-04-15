@@ -14,24 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gapic/template"
+require "google/gapic/path_template"
 require "ostruct"
 require "active_support/inflector"
 
 class ResourcePresenter
-  def initialize name, template
+  def initialize name, path_template
     @name     = name
-    @template = template
-    @segments = Google::Gapic::Template.parse template
+    @path_template = path_template
+    @segments = Google::Gapic::PathTemplate.parse path_template
 
-    # Template verification for expected proto resource usage
+    # URI path template verification for expected proto resource usage
     if positional_args? @segments
       raise ArgumentError, "only resources with named segments are supported, " \
-                           " not #{template}"
+                           " not #{path_template}"
     end
     if named_arg_patterns? @segments
       raise ArgumentError, "only resources without named patterns are supported, " \
-                           " not #{template}"
+                           " not #{path_template}"
     end
   end
 
@@ -39,8 +39,8 @@ class ResourcePresenter
     @name
   end
 
-  def template
-    @template
+  def path_template
+    @path_template
   end
 
   def path_helper
@@ -62,7 +62,7 @@ class ResourcePresenter
 
   def path_string
     @segments.map do |segment|
-      if segment.is_a? Google::Gapic::Template::Segment
+      if segment.is_a? Google::Gapic::PathTemplate::Segment
         "\#{#{segment.name}}"
       else
         # Should be a String
@@ -74,7 +74,7 @@ class ResourcePresenter
   private
 
   def arg_segments segments
-    segments.select { |segment| segment.is_a? Google::Gapic::Template::Segment }
+    segments.select { |segment| segment.is_a? Google::Gapic::PathTemplate::Segment }
   end
 
   def positional_args? segments

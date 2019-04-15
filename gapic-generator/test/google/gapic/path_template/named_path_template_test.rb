@@ -16,55 +16,55 @@
 
 require "test_helper"
 
-class NamedTemplateTest < TemplateTest
-  def test_simple_template
-    assert_template(
+class NamedPathTemplateTest < PathTemplateTest
+  def test_simple_path_template
+    assert_path_template(
       "foo/{bar}/baz/{bif}",
       "foo/",
-      Google::Gapic::Template::Segment.new("bar", nil),
+      Google::Gapic::PathTemplate::Segment.new("bar", nil),
       "/baz/",
-      Google::Gapic::Template::Segment.new("bif", nil)
+      Google::Gapic::PathTemplate::Segment.new("bif", nil)
     )
   end
 
-  def test_pattern_template
-    assert_template(
+  def test_pattern_path_template
+    assert_path_template(
       "hello/{name=foo/*/bar/**}/world",
       "hello/",
-      Google::Gapic::Template::Segment.new("name", "foo/*/bar/**"),
+      Google::Gapic::PathTemplate::Segment.new("name", "foo/*/bar/**"),
       "/world"
     )
   end
 
   def test_prefix_path_template
-    assert_template(
+    assert_path_template(
       "{foo}/bar/{baz}/bif/{qux}",
-      Google::Gapic::Template::Segment.new("foo", nil),
+      Google::Gapic::PathTemplate::Segment.new("foo", nil),
       "/bar/",
-      Google::Gapic::Template::Segment.new("baz", nil),
+      Google::Gapic::PathTemplate::Segment.new("baz", nil),
       "/bif/",
-      Google::Gapic::Template::Segment.new("qux", nil)
+      Google::Gapic::PathTemplate::Segment.new("qux", nil)
     )
   end
 
   def test_trailing_path_template
-    assert_template(
+    assert_path_template(
       "foo/{bar}/baz/{bif}/qux",
       "foo/",
-      Google::Gapic::Template::Segment.new("bar", nil),
+      Google::Gapic::PathTemplate::Segment.new("bar", nil),
       "/baz/",
-      Google::Gapic::Template::Segment.new("bif", nil),
+      Google::Gapic::PathTemplate::Segment.new("bif", nil),
       "/qux"
     )
   end
 
-  def test_more_than_two_names_template
-    # This is a bad template, it can be parsed but not matched
-    assert_template(
+  def test_more_than_two_names_path_template
+    # This is a bad URI path template, it can be parsed but not matched
+    assert_path_template(
       "hello/{foo}{bar}/world",
       "hello/",
-      Google::Gapic::Template::Segment.new("foo", nil),
-      Google::Gapic::Template::Segment.new("bar", nil),
+      Google::Gapic::PathTemplate::Segment.new("foo", nil),
+      Google::Gapic::PathTemplate::Segment.new("bar", nil),
       "/world"
     )
   end

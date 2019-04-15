@@ -16,9 +16,9 @@
 
 require "test_helper"
 
-class EmptyTemplateTest < TemplateTest
-  def test_empty_template
-    assert_template(
+class EmptyPathTemplateTest < PathTemplateTest
+  def test_empty_path_template
+    assert_path_template(
       "hello/world",
       "hello/world"
     )

@@ -16,8 +16,10 @@
 
 module Google
   module Gapic
-    module Template
-      # A segment in a URI template.
+    module PathTemplate
+      # A segment in a URI path template.
+      #
+      # @see https://tools.ietf.org/html/rfc6570 URI Template
       #
       # @!attribute [r] name
       #   @return [String, Integer] The name of a named segment, or the position
@@ -48,7 +50,7 @@ module Google
 
         # Determines if the segment has a pattern. Positional segments always
         # have a pattern. Named segments may have a pattern if provided in the
-        # template.
+        # URI path template.
         #
         # @return [Boolean]
         def pattern?

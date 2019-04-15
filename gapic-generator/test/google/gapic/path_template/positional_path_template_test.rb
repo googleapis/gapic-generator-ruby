@@ -16,46 +16,46 @@
 
 require "test_helper"
 
-class PositionalTemplateTest < TemplateTest
-  def test_simple_template
-    assert_template(
+class PositionalPathTemplateTest < PathTemplateTest
+  def test_simple_path_template
+    assert_path_template(
       "hello/*/world/**",
       "hello/",
-      Google::Gapic::Template::Segment.new(0, "*"),
+      Google::Gapic::PathTemplate::Segment.new(0, "*"),
       "/world/",
-      Google::Gapic::Template::Segment.new(1, "**")
+      Google::Gapic::PathTemplate::Segment.new(1, "**")
     )
   end
 
   def test_prefix_path_template
-    assert_template(
+    assert_path_template(
       "*/bar/*/bif/*",
-      Google::Gapic::Template::Segment.new(0, "*"),
+      Google::Gapic::PathTemplate::Segment.new(0, "*"),
       "/bar/",
-      Google::Gapic::Template::Segment.new(1, "*"),
+      Google::Gapic::PathTemplate::Segment.new(1, "*"),
       "/bif/",
-      Google::Gapic::Template::Segment.new(2, "*")
+      Google::Gapic::PathTemplate::Segment.new(2, "*")
     )
   end
 
   def test_trailing_path_template
-    assert_template(
+    assert_path_template(
       "foo/*/baz/*/qux",
       "foo/",
-      Google::Gapic::Template::Segment.new(0, "*"),
+      Google::Gapic::PathTemplate::Segment.new(0, "*"),
       "/baz/",
-      Google::Gapic::Template::Segment.new(1, "*"),
+      Google::Gapic::PathTemplate::Segment.new(1, "*"),
       "/qux"
     )
   end
 
-  def test_more_than_two_stars_template
-    # This is a bad template, it can be parsed but not matched
-    assert_template(
+  def test_more_than_two_stars_path_template
+    # This is a bad URI path template, it can be parsed but not matched
+    assert_path_template(
       "hello/***/world",
       "hello/",
-      Google::Gapic::Template::Segment.new(0, "**"),
-      Google::Gapic::Template::Segment.new(1, "*"),
+      Google::Gapic::PathTemplate::Segment.new(0, "**"),
+      Google::Gapic::PathTemplate::Segment.new(1, "*"),
       "/world"
     )
   end
