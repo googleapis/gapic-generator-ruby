@@ -17,7 +17,7 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "google/gapic/schema/api"
 require "google/gapic/generator"
-require "google/gapic/template"
+require "google/gapic/path_template"
 require "action_controller"
 require "action_view"
 
@@ -62,9 +62,14 @@ class GemTest < Minitest::Test
   end
 end
 
-class TemplateTest < Minitest::Test
-  def assert_template template, *exp_segments
-    act_segments = Google::Gapic::Template.parse template
+##
+# Test for URI path template parsing.
+#
+# @see https://tools.ietf.org/html/rfc6570 URI Template
+#
+class PathTemplateTest < Minitest::Test
+  def assert_path_template path_template, *exp_segments
+    act_segments = Google::Gapic::PathTemplate.parse path_template
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments

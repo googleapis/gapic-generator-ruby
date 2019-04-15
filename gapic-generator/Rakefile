@@ -89,7 +89,7 @@ task :gen do
   Rake::Task["gen:gem_creation"].invoke
 end
 namespace :gen do
-  desc "Generate the expected output for template tests"
+  desc "Generate the expected output for templates tests"
   task :templates do
     generate_default_templates "speech"
     generate_default_templates "vision"

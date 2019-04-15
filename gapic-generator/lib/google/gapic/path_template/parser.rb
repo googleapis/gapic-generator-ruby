@@ -14,57 +14,60 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gapic/template/segment"
+require "google/gapic/path_template/segment"
 
 module Google
   module Gapic
-    module Template
-      # A URI template parser.
+    module PathTemplate
+      # A URI path template parser.
       #
-      # @!attribute [r] template
-      #   @return [String] The template to be parsed.
+      # @see https://tools.ietf.org/html/rfc6570 URI Template
+      #
+      # @!attribute [r] path_template
+      #   @return [String] The URI path template to be parsed.
       # @!attribute [r] segments
-      #   @return [Array<Segment|String>] The segments of the parsed template.
+      #   @return [Array<Segment|String>] The segments of the parsed URI path
+      #     template.
       class Parser
         # @private
-        # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
+        # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<path_template>.+?))?})/
         TEMPLATE = %r{
           (
             (?<positional>\*\*?)
             |
-            {(?<name>[^\/]+?)(?:=(?<template>.+?))?}
+            {(?<name>[^\/]+?)(?:=(?<path_template>.+?))?}
           )
         }x.freeze
 
-        attr_reader :template, :segments
+        attr_reader :path_template, :segments
 
-        # Create a new URI template parser.
+        # Create a new URI path template parser.
         #
-        # @param template [String] The template to be parsed.
-        def initialize template
-          @template = template
-          @segments = parse! template
+        # @param path_template [String] The URI path template to be parsed.
+        def initialize path_template
+          @path_template = path_template
+          @segments = parse! path_template
         end
 
         protected
 
-        def parse! template
+        def parse! path_template
           # segments contain either Strings or segment objects
           segments = []
           segment_pos = 0
 
-          while (match = TEMPLATE.match template)
+          while (match = TEMPLATE.match path_template)
             # The String before the match needs to be added to the segments
             segments << match.pre_match unless match.pre_match.empty?
 
             segment, segment_pos = segment_and_pos_from_match match, segment_pos
             segments << segment
 
-            template = match.post_match
+            path_template = match.post_match
           end
 
           # Whatever String is unmatched needs to be added to the segments
-          segments << template unless template.empty?
+          segments << path_template unless path_template.empty?
 
           segments
         end
@@ -73,7 +76,7 @@ module Google
           if match[:positional]
             [Segment.new(pos, match[:positional]), pos + 1]
           else
-            [Segment.new(match[:name], match[:template]), pos]
+            [Segment.new(match[:name], match[:path_template]), pos]
           end
         end
       end

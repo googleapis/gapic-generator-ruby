@@ -14,18 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gapic/template/parser"
+require "google/gapic/path_template/parser"
 
 module Google
   module Gapic
-    module Template
-      # Parse a URI template.
+    module PathTemplate
+      # Parse a URI path template.
       #
-      # @param template [String] The template to be parsed.
+      # @see https://tools.ietf.org/html/rfc6570 URI Template
       #
-      # @return [Array<Template::Segment|String>] The segments of the template.
-      def self.parse template
-        Parser.new(template).segments
+      # @param path_template [String] The URI path template to be parsed.
+      #
+      # @return [Array<Template::Segment|String>] The segments of the URI path
+      #   template.
+      def self.parse path_template
+        Parser.new(path_template).segments
       end
     end
   end

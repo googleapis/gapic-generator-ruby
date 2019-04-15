@@ -32,7 +32,7 @@ module Google
           use_templates! File.expand_path \
             File.join __dir__, "../../../../templates/default"
 
-          # Configure to use a custom template directory
+          # Configure to use a custom templates directory
           custom_templates = api.protoc_options[:templates]
           use_templates! custom_templates if custom_templates
 
