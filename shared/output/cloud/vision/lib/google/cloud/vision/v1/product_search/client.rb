@@ -80,26 +80,17 @@ module Google
             # @param scopes [Array<String>]
             #   The OAuth scopes for this service. This parameter is ignored if an
             #   updater_proc is supplied.
-            # @param client_config [Hash]
-            #   A Hash for call options for each method. See Google::Gax#construct_settings
-            #   for the structure of this data. Falls back to the default config if not
-            #   specified or the specified config is missing data points.
             # @param timeout [Numeric]
             #   The default timeout, in seconds, for calls made through this client.
             # @param metadata [Hash]
             #   Default metadata to be sent with each request. This can be overridden on a
             #   per call basis.
-            # @param exception_transformer [Proc]
-            #   An optional proc that intercepts any exceptions raised during an API call to
-            #   inject custom error handling.
             #
             def initialize \
                 credentials: nil,
                 scopes: ALL_SCOPES,
-                client_config: {},
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
-                exception_transformer: nil,
                 lib_name: nil,
                 lib_version: ""
               # These require statements are intentionally placed here to initialize
@@ -111,107 +102,17 @@ module Google
               credentials ||= Credentials.default
 
               @operations_client = OperationsClient.new(
-                credentials:   credentials,
-                scopes:        scopes,
-                client_config: client_config,
-                timeout:       timeout,
-                lib_name:      lib_name,
-                lib_version:   lib_version
+                credentials: credentials,
+                scopes:      scopes,
+                timeout:     timeout,
+                lib_name:    lib_name,
+                lib_version: lib_version
               )
               @product_search_stub = create_stub credentials, scopes
 
-              defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
-              @create_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:create_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @list_product_sets = Google::Gax.create_api_call(
-                @product_search_stub.method(:list_product_sets),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @get_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:get_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @update_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:update_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @delete_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:delete_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @create_product = Google::Gax.create_api_call(
-                @product_search_stub.method(:create_product),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @list_products = Google::Gax.create_api_call(
-                @product_search_stub.method(:list_products),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @get_product = Google::Gax.create_api_call(
-                @product_search_stub.method(:get_product),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @update_product = Google::Gax.create_api_call(
-                @product_search_stub.method(:update_product),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @delete_product = Google::Gax.create_api_call(
-                @product_search_stub.method(:delete_product),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @create_reference_image = Google::Gax.create_api_call(
-                @product_search_stub.method(:create_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @delete_reference_image = Google::Gax.create_api_call(
-                @product_search_stub.method(:delete_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @list_reference_images = Google::Gax.create_api_call(
-                @product_search_stub.method(:list_reference_images),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @get_reference_image = Google::Gax.create_api_call(
-                @product_search_stub.method(:get_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @add_product_to_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:add_product_to_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @remove_product_from_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:remove_product_from_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @list_products_in_product_set = Google::Gax.create_api_call(
-                @product_search_stub.method(:list_products_in_product_set),
-                defaults,
-                exception_transformer: exception_transformer
-              )
-              @import_product_sets = Google::Gax.create_api_call(
-                @product_search_stub.method(:import_product_sets),
-                defaults,
-                exception_transformer: exception_transformer
-              )
+              @timeout = timeout
+              @metadata = metadata.to_h
+              @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
             end
 
             # Service calls
@@ -232,7 +133,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #       4096 characters.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil, options: nil)
@@ -247,11 +148,11 @@ module Google
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ProductSet]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
@@ -266,9 +167,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductSetRequest
 
-              @create_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
+              @create_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -287,7 +200,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -299,11 +212,11 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ListProductSetsResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ListProductSetsResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ListProductSetsResponse]
@@ -318,9 +231,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductSetsRequest
 
-              @list_product_sets.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
+              @list_product_sets.call request, options: options, on_operation: block
             end
 
             ##
@@ -337,7 +262,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_product_set(name: nil, options: nil)
@@ -346,11 +271,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ProductSet]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
@@ -365,9 +290,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductSetRequest
 
-              @get_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
+              @get_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -390,7 +327,7 @@ module Google
             #     * Returns NOT_FOUND if the ProductSet does not exist.
             #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #       missing from the request or longer than 4096 characters.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload update_product_set(product_set: nil, update_mask: nil, options: nil)
@@ -401,11 +338,11 @@ module Google
             #     update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask path is `display_name`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ProductSet]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
@@ -420,9 +357,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductSetRequest
 
-              @update_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
+              @update_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -445,7 +394,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_product_set(name: nil, options: nil)
@@ -454,11 +403,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Protobuf::Empty]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Protobuf::Empty]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
@@ -473,9 +422,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductSetRequest
 
-              @delete_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
+              @delete_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -498,7 +459,7 @@ module Google
             #       characters.
             #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_product(parent: nil, product: nil, product_id: nil, options: nil)
@@ -514,11 +475,11 @@ module Google
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::Product]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::Product]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
@@ -533,9 +494,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductRequest
 
-              @create_product.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
+              @create_product.call request, options: options, on_operation: block
             end
 
             ##
@@ -552,7 +525,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_products(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -565,11 +538,11 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ListProductsResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ListProductsResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ListProductsResponse]
@@ -584,9 +557,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsRequest
 
-              @list_products.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
+              @list_products.call request, options: options, on_operation: block
             end
 
             ##
@@ -603,7 +588,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_product(name: nil, options: nil)
@@ -612,11 +597,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::Product]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::Product]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
@@ -631,9 +616,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductRequest
 
-              @get_product.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
+              @get_product.call request, options: options, on_operation: block
             end
 
             ##
@@ -670,7 +667,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
             #       longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload update_product(product: nil, update_mask: nil, options: nil)
@@ -683,11 +680,11 @@ module Google
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask paths include `product_labels`, `display_name`, and
             #     `description`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::Product]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::Product]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
@@ -702,9 +699,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductRequest
 
-              @update_product.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
+              @update_product.call request, options: options, on_operation: block
             end
 
             ##
@@ -729,7 +738,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the product does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_product(name: nil, options: nil)
@@ -738,11 +747,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Protobuf::Empty]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Protobuf::Empty]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
@@ -757,9 +766,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductRequest
 
-              @delete_product.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
+              @delete_product.call request, options: options, on_operation: block
             end
 
             ##
@@ -804,7 +825,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
             #       compatible with the parent product's product_category is detected.
             #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil, options: nil)
@@ -821,11 +842,11 @@ module Google
             #     the server will attempt to use this value as the resource id. If it is
             #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
             #     most 128 characters long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ReferenceImage]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
@@ -840,9 +861,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
-              @create_reference_image.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
+              @create_reference_image.call request, options: options, on_operation: block
             end
 
             ##
@@ -871,7 +904,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the reference image does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_reference_image(name: nil, options: nil)
@@ -881,11 +914,11 @@ module Google
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Protobuf::Empty]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Protobuf::Empty]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
@@ -900,9 +933,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
-              @delete_reference_image.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
+              @delete_reference_image.call request, options: options, on_operation: block
             end
 
             ##
@@ -923,7 +968,7 @@ module Google
             #     * Returns NOT_FOUND if the parent product does not exist.
             #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -939,11 +984,11 @@ module Google
             #     of `nextPageToken` returned in a previous reference image list request.
             #
             #     Defaults to the first page if not specified.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ListReferenceImagesResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ListReferenceImagesResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ListReferenceImagesResponse]
@@ -958,9 +1003,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
-              @list_reference_images.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
+              @list_reference_images.call request, options: options, on_operation: block
             end
 
             ##
@@ -977,7 +1034,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the specified image does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_reference_image(name: nil, options: nil)
@@ -987,11 +1044,11 @@ module Google
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ReferenceImage]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
@@ -1006,9 +1063,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetReferenceImageRequest
 
-              @get_reference_image.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
+              @get_reference_image.call request, options: options, on_operation: block
             end
 
             ##
@@ -1031,7 +1100,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload add_product_to_product_set(name: nil, product: nil, options: nil)
@@ -1045,11 +1114,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Protobuf::Empty]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Protobuf::Empty]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
@@ -1064,9 +1133,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
-              @add_product_to_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
+              @add_product_to_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -1083,7 +1164,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload remove_product_from_product_set(name: nil, product: nil, options: nil)
@@ -1097,11 +1178,11 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Protobuf::Empty]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Protobuf::Empty]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
@@ -1116,9 +1197,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
-              @remove_product_from_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
+              @remove_product_from_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -1139,7 +1232,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil, options: nil)
@@ -1152,11 +1245,11 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::ListProductsInProductSetResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::ListProductsInProductSetResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ListProductsInProductSetResponse]
@@ -1171,9 +1264,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
-              @list_products_in_product_set.call request, options, op_proc: block
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
+              @list_products_in_product_set.call request, options: options, on_operation: block
             end
 
             ##
@@ -1202,7 +1307,7 @@ module Google
             #     The input source of this method is a csv file on Google Cloud Storage.
             #     For the format of the csv file please see
             #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload import_product_sets(parent: nil, input_config: nil, options: nil)
@@ -1212,33 +1317,40 @@ module Google
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param input_config [Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash]
             #     The input content for the list of requests.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [operation] Register a callback to be run when an operation is done.
-            # @yieldparam operation [Google::Gax::Operation]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Gax::Operation]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
             #
-            def import_product_sets request = nil, options: nil, **request_fields
+            def import_product_sets request = nil, options: nil, **request_fields, &block
               raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
               if !request.nil? && !request_fields.empty?
                 raise ArgumentError, "cannot pass both request object and named arguments"
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ImportProductSetsRequest
 
-              operation = Google::Gax::Operation.new(
-                @import_product_sets.call(request, options),
-                @operations_client,
-                call_options: options
-              )
-              operation.on_done { |operation| yield operation } if block_given?
-              operation
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              on_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+
+              @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
+              @import_product_sets.call request, options: options, on_operation: block, on_response: on_response
             end
 
             protected
@@ -1273,19 +1385,13 @@ module Google
               )
             end
 
-            def default_settings _client_config, _timeout, metadata, lib_name,
-                                 lib_version
-              google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-              google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-              google_api_client << "gapic/#{Google::Cloud::Vision::VERSION}"
-              google_api_client << "gax/#{Google::Gax::VERSION}"
-              google_api_client << "grpc/#{GRPC::VERSION}"
-              google_api_client.join " "
-
-              headers = { "x-goog-api-client": google_api_client }
-              headers.merge! metadata unless metadata.nil?
-
-              Google::Gax.const_get(:CallSettings).new metadata: headers
+            def x_goog_api_client_header lib_name, lib_version
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              x_goog_api_client_header.join " "
             end
           end
         end

@@ -79,26 +79,17 @@ module Google
           # @param scopes [Array<String>]
           #   The OAuth scopes for this service. This parameter is ignored if an
           #   updater_proc is supplied.
-          # @param client_config [Hash]
-          #   A Hash for call options for each method. See Google::Gax#construct_settings
-          #   for the structure of this data. Falls back to the default config if not
-          #   specified or the specified config is missing data points.
           # @param timeout [Numeric]
           #   The default timeout, in seconds, for calls made through this client.
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
-              client_config: {},
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -110,47 +101,17 @@ module Google
             credentials ||= Credentials.default
 
             @operations_client = OperationsClient.new(
-              credentials:   credentials,
-              scopes:        scopes,
-              client_config: client_config,
-              timeout:       timeout,
-              lib_name:      lib_name,
-              lib_version:   lib_version
+              credentials: credentials,
+              scopes:      scopes,
+              timeout:     timeout,
+              lib_name:    lib_name,
+              lib_version: lib_version
             )
             @echo_stub = create_stub credentials, scopes
 
-            defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
-            @echo = Google::Gax.create_api_call(
-              @echo_stub.method(:echo),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @expand = Google::Gax.create_api_call(
-              @echo_stub.method(:expand),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @collect = Google::Gax.create_api_call(
-              @echo_stub.method(:collect),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @chat = Google::Gax.create_api_call(
-              @echo_stub.method(:chat),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @paged_expand = Google::Gax.create_api_call(
-              @echo_stub.method(:paged_expand),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @wait = Google::Gax.create_api_call(
-              @echo_stub.method(:wait),
-              defaults,
-              exception_transformer: exception_transformer
-            )
+            @timeout = timeout
+            @metadata = metadata.to_h
+            @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
           end
 
           # Service calls
@@ -161,7 +122,7 @@ module Google
           # @overload echo(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #     This method simply echos the request. This method is showcases unary rpcs.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload echo(content: nil, error: nil, options: nil)
@@ -169,11 +130,11 @@ module Google
           #     The content to be echoed by the server.
           #   @param error [Google::Rpc::Status | Hash]
           #     The error to be thrown by the server.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::EchoResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
@@ -188,9 +149,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
 
-            @echo.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
+            @echo.call request, options: options, on_operation: block
           end
 
           ##
@@ -201,7 +174,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #     This method split the given content into words and will pass each word back
           #     through the stream. This method showcases server-side streaming rpcs.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload expand(content: nil, error: nil, options: nil)
@@ -209,7 +182,7 @@ module Google
           #     The content that will be split into words and returned on the stream.
           #   @param error [Google::Rpc::Status | Hash]
           #     The error that is thrown after all words are sent on the stream.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response] Called on each streaming responses, when provided.
@@ -231,9 +204,19 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ExpandRequest
 
-            @expand.call request, options, enum_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
+            @expand.call request, options: options, on_stream: block
           end
 
           ##
@@ -243,11 +226,11 @@ module Google
           #
           # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::CallOptions]
+          # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::EchoResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
@@ -267,10 +250,20 @@ module Google
             end
 
             requests = requests.lazy.map do |request|
+              # Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
             end
 
-            @collect.call requests, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
+            @collect.call requests, options: options, on_operation: block
           end
 
           ##
@@ -280,7 +273,7 @@ module Google
           #
           # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::CallOptions]
+          # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response] Called on each streaming responses, when provided.
@@ -305,10 +298,20 @@ module Google
             end
 
             requests = requests.lazy.map do |request|
+              # Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
             end
 
-            @chat.call requests, options, enum_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
+            @chat.call requests, options: options, on_stream: block
           end
 
           ##
@@ -319,7 +322,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #     This is similar to the Expand method but instead of returning a stream of
           #     expanded words, this method returns a paged list of expanded words.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload paged_expand(content: nil, page_size: nil, page_token: nil, options: nil)
@@ -329,11 +332,11 @@ module Google
           #     The amount of words to returned in each page.
           #   @param page_token [String]
           #     The position of the page to be returned.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::PagedExpandResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::PagedExpandResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::PagedExpandResponse]
@@ -348,9 +351,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::PagedExpandRequest
 
-            @paged_expand.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
+            @paged_expand.call request, options: options, on_operation: block
           end
 
           ##
@@ -361,7 +376,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #     This method will wait the requested amount of and then return.
           #     This method showcases how a client handles a request timing out.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
@@ -374,33 +389,40 @@ module Google
           #     to be the OK rpc code, an empty response will be returned.
           #   @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
           #     The response to be returned on operation completion.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [operation] Register a callback to be run when an operation is done.
-          # @yieldparam operation [Google::Gax::Operation]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Gax::Operation]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::Operation]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def wait request = nil, options: nil, **request_fields
+          def wait request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::WaitRequest
 
-            operation = Google::Gax::Operation.new(
-              @wait.call(request, options),
-              @operations_client,
-              call_options: options
-            )
-            operation.on_done { |operation| yield operation } if block_given?
-            operation
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            on_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+
+            @wait ||= Google::Gax::ApiCall.new @echo_stub.method :wait
+            @wait.call request, options: options, on_operation: block, on_response: on_response
           end
 
           protected
@@ -435,19 +457,13 @@ module Google
             )
           end
 
-          def default_settings _client_config, _timeout, metadata, lib_name,
-                               lib_version
-            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-            google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-            google_api_client << "gapic/#{Google::Showcase::VERSION}"
-            google_api_client << "gax/#{Google::Gax::VERSION}"
-            google_api_client << "grpc/#{GRPC::VERSION}"
-            google_api_client.join " "
-
-            headers = { "x-goog-api-client": google_api_client }
-            headers.merge! metadata unless metadata.nil?
-
-            Google::Gax.const_get(:CallSettings).new metadata: headers
+          def x_goog_api_client_header lib_name, lib_version
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            x_goog_api_client_header.join " "
           end
         end
       end

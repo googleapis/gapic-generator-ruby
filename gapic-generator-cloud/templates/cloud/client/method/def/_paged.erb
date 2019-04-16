@@ -30,10 +30,10 @@
 <%- end -%>
 #
 # @yield [response, operation] Access the result along with the RPC operation
-# @yieldparam response [Google::Gax::Operation]
+# @yieldparam response [Google::Gax::PagedEnumerable<<%= method.return_type %>>]
 # @yieldparam operation [GRPC::ActiveCall::Operation]
 #
-# @return [Google::Gax::Operation]
+# @return [Google::Gax::PagedEnumerable<<%= method.return_type %>>]
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
 <%= indent method.code_example, "#   " %>
@@ -58,7 +58,7 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
   options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
-  on_response = ->(response) { Google::Gax::Operation.new(response, @operations_client, options) }
+  on_response = ->(response) { Google::Gax::PagedEnumerable response }
 
   <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
   <%= method.ivar %>.call(request, options: options, on_operation: block, on_response: on_response)

@@ -18,26 +18,17 @@
 # @param scopes [Array<String>]
 #   The OAuth scopes for this service. This parameter is ignored if an
 #   updater_proc is supplied.
-# @param client_config [Hash]
-#   A Hash for call options for each method. See Google::Gax#construct_settings
-#   for the structure of this data. Falls back to the default config if not
-#   specified or the specified config is missing data points.
 # @param timeout [Numeric]
 #   The default timeout, in seconds, for calls made through this client.
 # @param metadata [Hash]
 #   Default metadata to be sent with each request. This can be overridden on a
 #   per call basis.
-# @param exception_transformer [Proc]
-#   An optional proc that intercepts any exceptions raised during an API call to
-#   inject custom error handling.
 #
 def initialize \
     credentials: nil,
     scopes: ALL_SCOPES,
-    client_config: {},
     timeout: DEFAULT_TIMEOUT,
     metadata: nil,
-    exception_transformer: nil,
     lib_name: nil,
     lib_version: ""
   # These require statements are intentionally placed here to initialize
@@ -53,9 +44,7 @@ def initialize \
 <%- end -%>
   @<%= service.stub_name %> = create_stub credentials, scopes
 
-  defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
-<%- service.methods.each do |method| -%>
-<%= indent render(partial: "client/method/init", locals: { service: service, method: method }), "  " %>
-<%- end -%>
+  @timeout = timeout
+  @metadata = metadata.to_h
+  @metadata["x-goog-api-client".freeze] ||= x_goog_api_client_header lib_name, lib_version
 end

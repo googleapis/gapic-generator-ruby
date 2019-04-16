@@ -82,26 +82,17 @@ module Google
           # @param scopes [Array<String>]
           #   The OAuth scopes for this service. This parameter is ignored if an
           #   updater_proc is supplied.
-          # @param client_config [Hash]
-          #   A Hash for call options for each method. See Google::Gax#construct_settings
-          #   for the structure of this data. Falls back to the default config if not
-          #   specified or the specified config is missing data points.
           # @param timeout [Numeric]
           #   The default timeout, in seconds, for calls made through this client.
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
-              client_config: {},
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -113,42 +104,17 @@ module Google
             credentials ||= Credentials.default
 
             @operations_client = OperationsClient.new(
-              credentials:   credentials,
-              scopes:        scopes,
-              client_config: client_config,
-              timeout:       timeout,
-              lib_name:      lib_name,
-              lib_version:   lib_version
+              credentials: credentials,
+              scopes:      scopes,
+              timeout:     timeout,
+              lib_name:    lib_name,
+              lib_version: lib_version
             )
             @identity_stub = create_stub credentials, scopes
 
-            defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
-
-            @create_user = Google::Gax.create_api_call(
-              @identity_stub.method(:create_user),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @get_user = Google::Gax.create_api_call(
-              @identity_stub.method(:get_user),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @update_user = Google::Gax.create_api_call(
-              @identity_stub.method(:update_user),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @delete_user = Google::Gax.create_api_call(
-              @identity_stub.method(:delete_user),
-              defaults,
-              exception_transformer: exception_transformer
-            )
-            @list_users = Google::Gax.create_api_call(
-              @identity_stub.method(:list_users),
-              defaults,
-              exception_transformer: exception_transformer
-            )
+            @timeout = timeout
+            @metadata = metadata.to_h
+            @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
           end
 
           # Service calls
@@ -159,17 +125,17 @@ module Google
           # @overload create_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #     Creates a user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_user(user: nil, options: nil)
           #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to create.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::User]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
@@ -184,9 +150,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
 
-            @create_user.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
+            @create_user.call request, options: options, on_operation: block
           end
 
           ##
@@ -195,17 +173,17 @@ module Google
           # @overload get_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #     Retrieves the User with the given uri.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::User]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
@@ -220,9 +198,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
 
-            @get_user.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
+            @get_user.call request, options: options, on_operation: block
           end
 
           ##
@@ -231,7 +221,7 @@ module Google
           # @overload update_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #     Updates a user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload update_user(user: nil, update_mask: nil, options: nil)
@@ -240,11 +230,11 @@ module Google
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::User]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::User]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
@@ -259,9 +249,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
 
-            @update_user.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
+            @update_user.call request, options: options, on_operation: block
           end
 
           ##
@@ -270,17 +272,17 @@ module Google
           # @overload delete_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #     Deletes a user, their profile, and all of their authored messages.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the user to delete.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
@@ -295,9 +297,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
 
-            @delete_user.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
+            @delete_user.call request, options: options, on_operation: block
           end
 
           ##
@@ -306,7 +320,7 @@ module Google
           # @overload list_users(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #     Lists all users.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_users(page_size: nil, page_token: nil, options: nil)
@@ -317,11 +331,11 @@ module Google
           #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Identity\ListUsers` method.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListUsersResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ListUsersResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ListUsersResponse]
@@ -336,9 +350,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
 
-            @list_users.call request, options, op_proc: block
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @list_users ||= Google::Gax::ApiCall.new @identity_stub.method :list_users
+            @list_users.call request, options: options, on_operation: block
           end
 
           protected
@@ -373,19 +399,13 @@ module Google
             )
           end
 
-          def default_settings _client_config, _timeout, metadata, lib_name,
-                               lib_version
-            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-            google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-            google_api_client << "gapic/#{Google::Showcase::VERSION}"
-            google_api_client << "gax/#{Google::Gax::VERSION}"
-            google_api_client << "grpc/#{GRPC::VERSION}"
-            google_api_client.join " "
-
-            headers = { "x-goog-api-client": google_api_client }
-            headers.merge! metadata unless metadata.nil?
-
-            Google::Gax.const_get(:CallSettings).new metadata: headers
+          def x_goog_api_client_header lib_name, lib_version
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            x_goog_api_client_header.join " "
           end
         end
       end
