@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "google/gapic/file_formatter"
 require "action_controller"
 require "google/protobuf/compiler/plugin.pb"
 require "tempfile"
@@ -80,23 +81,7 @@ module Google
         alias_method :g, :generate_file
 
         def format_files files
-          require "tmpdir"
-          require "fileutils"
-          Dir.mktmpdir do |dir|
-            files.each do |file|
-              tmp_file = File.join dir, file.name
-              FileUtils.mkdir_p File.dirname tmp_file
-              File.write tmp_file, file.content
-            end
-
-            system "rubocop --auto-correct #{dir} -o #{dir}/rubocop.out" \
-                   " -c #{format_config}"
-
-            files.each do |file|
-              tmp_file = File.join dir, file.name
-              file.content = File.read tmp_file
-            end
-          end
+          FileFormatter.new(format_config, files).files
         end
 
         def format_config
