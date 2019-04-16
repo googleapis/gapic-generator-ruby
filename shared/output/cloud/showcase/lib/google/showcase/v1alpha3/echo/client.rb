@@ -159,7 +159,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
@@ -212,7 +212,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
@@ -259,7 +259,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
@@ -307,7 +307,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
@@ -361,7 +361,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
@@ -416,7 +416,7 @@ module Google
             header_params = {} # { name: request.name }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             on_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }

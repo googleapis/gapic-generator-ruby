@@ -158,7 +158,7 @@ module Google
               header_params = {} # { name: request.name }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
               options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
@@ -214,7 +214,7 @@ module Google
               header_params = {} # { name: request.name }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
               options.merge timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               on_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
