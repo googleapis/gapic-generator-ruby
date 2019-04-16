@@ -43,7 +43,7 @@ $ git clone https://github.com/googleapis/gapic-generator-ruby.git
 $ cd gapic-generator-ruby
 $ git submodule update --init
 $ bundle update
-$ bundle exec install
+$ bundle exec rake install
 $ which protoc-gen-ruby_gapic
 > {Non-empty path}
 ```
