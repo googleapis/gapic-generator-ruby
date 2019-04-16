@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "google/gapic/file_formatter"
 require "action_controller"
 require "google/protobuf/compiler/plugin.pb"
 require "tempfile"
@@ -69,29 +70,18 @@ module Google
           @controller ||= Class.new(ActionController::Base).new
         end
 
-        def generate_file template, filename, format: true, **args
+        def generate_file template, filename, **args
           content = controller.render_to_string(
             template: template, formats: :text, locals: args
           )
-          file = Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+          Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
             name: filename, content: content
           )
-          format_file file if format
-          file
         end
         alias_method :g, :generate_file
 
-        def format_file file
-          require "tmpdir"
-          require "fileutils"
-          Dir.mktmpdir do |dir|
-            tmp_file = File.join dir, file.name
-            FileUtils.mkdir_p File.dirname tmp_file
-            File.write tmp_file, file.content
-            system "rubocop --auto-correct #{tmp_file} -o #{tmp_file}.out " \
-                   " -c #{format_config}"
-            file.content = File.read tmp_file
-          end
+        def format_files files
+          FileFormatter.new(format_config, files).files
         end
 
         def format_config
