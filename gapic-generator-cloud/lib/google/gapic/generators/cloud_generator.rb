@@ -65,9 +65,18 @@ module Google
               files << g("client/credentials.erb",
                          "lib/#{service.credentials_class_file_path}",
                          service: service)
+              files << g("client/paths.erb",
+                         "lib/#{service.paths_file_path}",
+                         service: service) if service.paths?
               files << g("client_test.erb",
                          "test/#{service.client_test_file_path}",
                          service: service)
+            end
+
+            gem.proto_files.each do |file|
+              files << g("doc/proto_file.erb",
+                         "lib/doc/#{file.docs_file_path}",
+                         file: file)
             end
           end
 
@@ -78,6 +87,8 @@ module Google
           files << g("rakefile.erb", "Rakefile",                    gem: gem)
           files << g("rubocop.erb",  ".rubocop",                    gem: gem)
           files << g("license.erb",  "LICENSE.md",                  gem: gem)
+
+          format_files files
 
           files
         end

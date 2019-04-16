@@ -143,19 +143,19 @@ module Google
 
             ##
             # Performs synchronous speech recognition: receive results after all audio
-            #  has been sent and processed.
+            # has been sent and processed.
             #
             # @overload recognize(request, options: nil)
             #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
             #     Performs synchronous speech recognition: receive results after all audio
-            #      has been sent and processed.
+            #     has been sent and processed.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload recognize(config: nil, audio: nil, options: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
-            #      process the request.
+            #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
             #   @param options [Google::Gax::CallOptions]
@@ -184,23 +184,23 @@ module Google
 
             ##
             # Performs asynchronous speech recognition: receive results via the
-            #  google.longrunning.Operations interface. Returns either an
-            #  `Operation.error` or an `Operation.response` which contains
-            #  a `LongRunningRecognizeResponse` message.
+            # google.longrunning.Operations interface. Returns either an
+            # `Operation.error` or an `Operation.response` which contains
+            # a `LongRunningRecognizeResponse` message.
             #
             # @overload long_running_recognize(request, options: nil)
             #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
             #     Performs asynchronous speech recognition: receive results via the
-            #      google.longrunning.Operations interface. Returns either an
-            #      `Operation.error` or an `Operation.response` which contains
-            #      a `LongRunningRecognizeResponse` message.
+            #     google.longrunning.Operations interface. Returns either an
+            #     `Operation.error` or an `Operation.response` which contains
+            #     a `LongRunningRecognizeResponse` message.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload long_running_recognize(config: nil, audio: nil, options: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
-            #      process the request.
+            #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
             #   @param options [Google::Gax::CallOptions]
@@ -234,7 +234,7 @@ module Google
 
             ##
             # Performs bidirectional streaming speech recognition: receive results while
-            #  sending audio. This method is only available via the gRPC API (not REST).
+            # sending audio. This method is only available via the gRPC API (not REST).
             #
             # @param requests [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.

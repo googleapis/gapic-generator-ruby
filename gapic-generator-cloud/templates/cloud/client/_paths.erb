@@ -1,0 +1,7 @@
+<%- assert_locals service -%>
+module Paths
+<%- service.references.each do |resource| -%>
+<%= indent render(partial: "client/resource", locals: { resource: resource }), 2 %>
+
+<%- end %>
+end

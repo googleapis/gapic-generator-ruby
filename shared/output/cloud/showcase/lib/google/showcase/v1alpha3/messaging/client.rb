@@ -24,6 +24,7 @@ require "google/longrunning/operations_client"
 require "google/showcase/version"
 require "google/showcase/v1alpha3/messaging_pb"
 require "google/showcase/v1alpha3/messaging/credentials"
+require "google/showcase/v1alpha3/messaging/paths"
 
 module Google
   module Showcase
@@ -31,6 +32,8 @@ module Google
       module Messaging
         # Service that implements Messaging API.
         class Client
+          include Paths
+
           # @private
           attr_reader :messaging_stub
 
@@ -281,7 +284,7 @@ module Google
           #     The room to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
-          #      server will assume all fields are to be updated.
+          #     server will assume all fields are to be updated.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -354,11 +357,11 @@ module Google
           # @overload list_rooms(page_size: nil, page_token: nil, options: nil)
           #   @param page_size [Integer]
           #     The maximum number of rooms return. Server may return fewer rooms
-          #      than requested. If unspecified, server will pick an appropriate default.
+          #     than requested. If unspecified, server will pick an appropriate default.
           #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
-          #      returned from the previous call to
-          #      `google.showcase.v1alpha3.Messaging\ListRooms` method.
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\ListRooms` method.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -385,21 +388,21 @@ module Google
 
           ##
           # Creates a blurb. If the parent is a room, the blurb is understood to be a
-          #  message in that room. If the parent is a profile, the blurb is understood
-          #  to be a post on the profile.
+          # message in that room. If the parent is a profile, the blurb is understood
+          # to be a post on the profile.
           #
           # @overload create_blurb(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateBlurbRequest | Hash]
           #     Creates a blurb. If the parent is a room, the blurb is understood to be a
-          #      message in that room. If the parent is a profile, the blurb is understood
-          #      to be a post on the profile.
+          #     message in that room. If the parent is a profile, the blurb is understood
+          #     to be a post on the profile.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_blurb(parent: nil, blurb: nil, options: nil)
           #   @param parent [String]
           #     The resource name of the chat room or user profile that this blurb will
-          #      be tied to.
+          #     be tied to.
           #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
           #     The blurb to create.
           #   @param options [Google::Gax::CallOptions]
@@ -476,7 +479,7 @@ module Google
           #     The blurb to update.
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
-          #      server will assume all fields are to be updated.
+          #     server will assume all fields are to be updated.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -539,12 +542,12 @@ module Google
 
           ##
           # Lists blurbs for a specific chat room or user profile depending on the
-          #  parent resource name.
+          # parent resource name.
           #
           # @overload list_blurbs(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
           #     Lists blurbs for a specific chat room or user profile depending on the
-          #      parent resource name.
+          #     parent resource name.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -553,12 +556,12 @@ module Google
           #     The resource name of the requested room or profile whos blurbs to list.
           #   @param page_size [Integer]
           #     The maximum number of blurbs to return. Server may return fewer
-          #      blurbs than requested. If unspecified, server will pick an appropriate
-          #      default.
+          #     blurbs than requested. If unspecified, server will pick an appropriate
+          #     default.
           #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
-          #      returned from the previous call to
-          #      `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -585,33 +588,33 @@ module Google
 
           ##
           # This method searches through all blurbs across all rooms and profiles
-          #  for blurbs containing to words found in the query. Only posts that
-          #  contain an exact match of a queried word will be returned.
+          # for blurbs containing to words found in the query. Only posts that
+          # contain an exact match of a queried word will be returned.
           #
           # @overload search_blurbs(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::SearchBlurbsRequest | Hash]
           #     This method searches through all blurbs across all rooms and profiles
-          #      for blurbs containing to words found in the query. Only posts that
-          #      contain an exact match of a queried word will be returned.
+          #     for blurbs containing to words found in the query. Only posts that
+          #     contain an exact match of a queried word will be returned.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil, options: nil)
           #   @param query [String]
           #     The query used to search for blurbs containing to words of this string.
-          #      Only posts that contain an exact match of a queried word will be returned.
+          #     Only posts that contain an exact match of a queried word will be returned.
           #   @param parent [String]
           #     The rooms or profiles to search. If unset, `SearchBlurbs` will search all
-          #      rooms and all profiles.
+          #     rooms and all profiles.
           #   @param page_size [Integer]
           #     The maximum number of blurbs return. Server may return fewer
-          #      blurbs than requested. If unspecified, server will pick an appropriate
-          #      default.
+          #     blurbs than requested. If unspecified, server will pick an appropriate
+          #     default.
           #   @param page_token [String]
           #     The value of
-          #      google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
-          #      returned from the previous call to
-          #      `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
+          #     google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -643,12 +646,12 @@ module Google
 
           ##
           # This returns a stream that emits the blurbs that are created for a
-          #  particular chat room or user profile.
+          # particular chat room or user profile.
           #
           # @overload stream_blurbs(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
           #     This returns a stream that emits the blurbs that are created for a
-          #      particular chat room or user profile.
+          #     particular chat room or user profile.
           #   @param options [Google::Gax::CallOptions]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -682,7 +685,7 @@ module Google
 
           ##
           # This is a stream to create multiple blurbs. If an invalid blurb is
-          #  requested to be created, the stream will close with an error.
+          # requested to be created, the stream will close with an error.
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
@@ -712,9 +715,9 @@ module Google
 
           ##
           # This method starts a bidirectional stream that receives all blurbs that
-          #  are being created after the stream has started and sends requests to create
-          #  blurbs. If an invalid blurb is requested to be created, the stream will
-          #  close with an error.
+          # are being created after the stream has started and sends requests to create
+          # blurbs. If an invalid blurb is requested to be created, the stream will
+          # close with an error.
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.

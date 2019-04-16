@@ -11,9 +11,16 @@ require "google/gax"
 require "<%= service.gem.version_require %>"
 require "<%= service.service_proto_require %>"
 require "<%= service.credentials_class_require %>"
+<%- if service.paths? -%>
+require "<%= service.paths_require %>"
+<%- end -%>
 <% end %>
 # Service that implements <%= service.name %> API.
 class <%= service.client_class_name %>
+<%- if service.paths? -%>
+  include <%= service.paths_name %>
+
+<%- end -%>
   # @private
   attr_reader :<%= service.stub_name %>
 

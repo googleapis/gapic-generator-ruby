@@ -219,19 +219,19 @@ module Google
             ##
             # Creates and returns a new ProductSet resource.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
-            #    4096 characters.
+            # * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
+            #   4096 characters.
             #
             # @overload create_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::CreateProductSetRequest | Hash]
             #     Creates and returns a new ProductSet resource.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
-            #        4096 characters.
+            #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
+            #       4096 characters.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -239,14 +239,14 @@ module Google
             #   @param parent [String]
             #     The project in which the ProductSet should be created.
             #
-            #      Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
             #     The ProductSet to create.
             #   @param product_set_id [String]
             #     A user-supplied resource id for this ProductSet. If set, the server will
-            #      attempt to use this value as the resource id. If it is already in use, an
-            #      error is returned with code ALREADY_EXISTS. Must be at most 128 characters
-            #      long. It cannot contain the character `/`.
+            #     attempt to use this value as the resource id. If it is already in use, an
+            #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
+            #     long. It cannot contain the character `/`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -274,19 +274,19 @@ module Google
             ##
             # Lists ProductSets in an unspecified order.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
-            #    than 1.
+            # * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
+            #   than 1.
             #
             # @overload list_product_sets(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::ListProductSetsRequest | Hash]
             #     Lists ProductSets in an unspecified order.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
-            #        than 1.
+            #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
+            #       than 1.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -294,7 +294,7 @@ module Google
             #   @param parent [String]
             #     The project from which ProductSets should be listed.
             #
-            #      Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param page_size [Integer]
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
@@ -326,17 +326,17 @@ module Google
             ##
             # Gets information associated with a ProductSet.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the ProductSet does not exist.
+            # * Returns NOT_FOUND if the ProductSet does not exist.
             #
             # @overload get_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::GetProductSetRequest | Hash]
             #     Gets information associated with a ProductSet.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the ProductSet does not exist.
+            #     * Returns NOT_FOUND if the ProductSet does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -344,8 +344,8 @@ module Google
             #   @param name [String]
             #     Resource name of the ProductSet to get.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -372,24 +372,24 @@ module Google
 
             ##
             # Makes changes to a ProductSet resource.
-            #  Only display_name can be updated currently.
+            # Only display_name can be updated currently.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the ProductSet does not exist.
-            #  * Returns INVALID_ARGUMENT if display_name is present in update_mask but
-            #    missing from the request or longer than 4096 characters.
+            # * Returns NOT_FOUND if the ProductSet does not exist.
+            # * Returns INVALID_ARGUMENT if display_name is present in update_mask but
+            #   missing from the request or longer than 4096 characters.
             #
             # @overload update_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::UpdateProductSetRequest | Hash]
             #     Makes changes to a ProductSet resource.
-            #      Only display_name can be updated currently.
+            #     Only display_name can be updated currently.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the ProductSet does not exist.
-            #      * Returns INVALID_ARGUMENT if display_name is present in update_mask but
-            #        missing from the request or longer than 4096 characters.
+            #     * Returns NOT_FOUND if the ProductSet does not exist.
+            #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
+            #       missing from the request or longer than 4096 characters.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -398,9 +398,9 @@ module Google
             #     The ProductSet resource which replaces the one on the server.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
-            #      update.
-            #      If update_mask isn't specified, all mutable fields are to be updated.
-            #      Valid mask path is `display_name`.
+            #     update.
+            #     If update_mask isn't specified, all mutable fields are to be updated.
+            #     Valid mask path is `display_name`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -427,24 +427,24 @@ module Google
 
             ##
             # Permanently deletes a ProductSet. Products and ReferenceImages in the
-            #  ProductSet are not deleted.
+            # ProductSet are not deleted.
             #
-            #  The actual image files are not deleted from Google Cloud Storage.
+            # The actual image files are not deleted from Google Cloud Storage.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the ProductSet does not exist.
+            # * Returns NOT_FOUND if the ProductSet does not exist.
             #
             # @overload delete_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteProductSetRequest | Hash]
             #     Permanently deletes a ProductSet. Products and ReferenceImages in the
-            #      ProductSet are not deleted.
+            #     ProductSet are not deleted.
             #
-            #      The actual image files are not deleted from Google Cloud Storage.
+            #     The actual image files are not deleted from Google Cloud Storage.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the ProductSet does not exist.
+            #     * Returns NOT_FOUND if the ProductSet does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -452,8 +452,8 @@ module Google
             #   @param name [String]
             #     Resource name of the ProductSet to delete.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -481,23 +481,23 @@ module Google
             ##
             # Creates and returns a new product resource.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
-            #    characters.
-            #  * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
-            #  * Returns INVALID_ARGUMENT if product_category is missing or invalid.
+            # * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
+            #   characters.
+            # * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
+            # * Returns INVALID_ARGUMENT if product_category is missing or invalid.
             #
             # @overload create_product(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::CreateProductRequest | Hash]
             #     Creates and returns a new product resource.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
-            #        characters.
-            #      * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
-            #      * Returns INVALID_ARGUMENT if product_category is missing or invalid.
+            #     * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
+            #       characters.
+            #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
+            #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -505,15 +505,15 @@ module Google
             #   @param parent [String]
             #     The project in which the Product should be created.
             #
-            #      Format is
-            #      `projects/PROJECT_ID/locations/LOC_ID`.
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param product [Google::Cloud::Vision::V1::Product | Hash]
             #     The product to create.
             #   @param product_id [String]
             #     A user-supplied resource id for this Product. If set, the server will
-            #      attempt to use this value as the resource id. If it is already in use, an
-            #      error is returned with code ALREADY_EXISTS. Must be at most 128 characters
-            #      long. It cannot contain the character `/`.
+            #     attempt to use this value as the resource id. If it is already in use, an
+            #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
+            #     long. It cannot contain the character `/`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -541,17 +541,17 @@ module Google
             ##
             # Lists products in an unspecified order.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            # * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
             # @overload list_products(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::ListProductsRequest | Hash]
             #     Lists products in an unspecified order.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -559,8 +559,8 @@ module Google
             #   @param parent [String]
             #     The project OR ProductSet from which Products should be listed.
             #
-            #      Format:
-            #      `projects/PROJECT_ID/locations/LOC_ID`
+            #     Format:
+            #     `projects/PROJECT_ID/locations/LOC_ID`
             #   @param page_size [Integer]
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
@@ -592,17 +592,17 @@ module Google
             ##
             # Gets information associated with a Product.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the Product does not exist.
+            # * Returns NOT_FOUND if the Product does not exist.
             #
             # @overload get_product(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::GetProductRequest | Hash]
             #     Gets information associated with a Product.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the Product does not exist.
+            #     * Returns NOT_FOUND if the Product does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -610,8 +610,8 @@ module Google
             #   @param name [String]
             #     Resource name of the Product to get.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -638,51 +638,51 @@ module Google
 
             ##
             # Makes changes to a Product resource.
-            #  Only the `display_name`, `description`, and `labels` fields can be updated
-            #  right now.
+            # Only the `display_name`, `description`, and `labels` fields can be updated
+            # right now.
             #
-            #  If labels are updated, the change will not be reflected in queries until
-            #  the next index time.
+            # If labels are updated, the change will not be reflected in queries until
+            # the next index time.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the Product does not exist.
-            #  * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
-            #    missing from the request or longer than 4096 characters.
-            #  * Returns INVALID_ARGUMENT if description is present in update_mask but is
-            #    longer than 4096 characters.
-            #  * Returns INVALID_ARGUMENT if product_category is present in update_mask.
+            # * Returns NOT_FOUND if the Product does not exist.
+            # * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
+            #   missing from the request or longer than 4096 characters.
+            # * Returns INVALID_ARGUMENT if description is present in update_mask but is
+            #   longer than 4096 characters.
+            # * Returns INVALID_ARGUMENT if product_category is present in update_mask.
             #
             # @overload update_product(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::UpdateProductRequest | Hash]
             #     Makes changes to a Product resource.
-            #      Only the `display_name`, `description`, and `labels` fields can be updated
-            #      right now.
+            #     Only the `display_name`, `description`, and `labels` fields can be updated
+            #     right now.
             #
-            #      If labels are updated, the change will not be reflected in queries until
-            #      the next index time.
+            #     If labels are updated, the change will not be reflected in queries until
+            #     the next index time.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the Product does not exist.
-            #      * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
-            #        missing from the request or longer than 4096 characters.
-            #      * Returns INVALID_ARGUMENT if description is present in update_mask but is
-            #        longer than 4096 characters.
-            #      * Returns INVALID_ARGUMENT if product_category is present in update_mask.
+            #     * Returns NOT_FOUND if the Product does not exist.
+            #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
+            #       missing from the request or longer than 4096 characters.
+            #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
+            #       longer than 4096 characters.
+            #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload update_product(product: nil, update_mask: nil, options: nil)
             #   @param product [Google::Cloud::Vision::V1::Product | Hash]
             #     The Product resource which replaces the one on the server.
-            #      product.name is immutable.
+            #     product.name is immutable.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
-            #      to update.
-            #      If update_mask isn't specified, all mutable fields are to be updated.
-            #      Valid mask paths include `product_labels`, `display_name`, and
-            #      `description`.
+            #     to update.
+            #     If update_mask isn't specified, all mutable fields are to be updated.
+            #     Valid mask paths include `product_labels`, `display_name`, and
+            #     `description`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -710,25 +710,25 @@ module Google
             ##
             # Permanently deletes a product and its reference images.
             #
-            #  Metadata of the product and all its images will be deleted right away, but
-            #  search queries against ProductSets containing the product may still work
-            #  until all related caches are refreshed.
+            # Metadata of the product and all its images will be deleted right away, but
+            # search queries against ProductSets containing the product may still work
+            # until all related caches are refreshed.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the product does not exist.
+            # * Returns NOT_FOUND if the product does not exist.
             #
             # @overload delete_product(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteProductRequest | Hash]
             #     Permanently deletes a product and its reference images.
             #
-            #      Metadata of the product and all its images will be deleted right away, but
-            #      search queries against ProductSets containing the product may still work
-            #      until all related caches are refreshed.
+            #     Metadata of the product and all its images will be deleted right away, but
+            #     search queries against ProductSets containing the product may still work
+            #     until all related caches are refreshed.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the product does not exist.
+            #     * Returns NOT_FOUND if the product does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -736,8 +736,8 @@ module Google
             #   @param name [String]
             #     Resource name of product to delete.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -765,45 +765,45 @@ module Google
             ##
             # Creates and returns a new ReferenceImage resource.
             #
-            #  The `bounding_poly` field is optional. If `bounding_poly` is not specified,
-            #  the system will try to detect regions of interest in the image that are
-            #  compatible with the product_category on the parent product. If it is
-            #  specified, detection is ALWAYS skipped. The system converts polygons into
-            #  non-rotated rectangles.
+            # The `bounding_poly` field is optional. If `bounding_poly` is not specified,
+            # the system will try to detect regions of interest in the image that are
+            # compatible with the product_category on the parent product. If it is
+            # specified, detection is ALWAYS skipped. The system converts polygons into
+            # non-rotated rectangles.
             #
-            #  Note that the pipeline will resize the image if the image resolution is too
-            #  large to process (above 50MP).
+            # Note that the pipeline will resize the image if the image resolution is too
+            # large to process (above 50MP).
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
-            #    characters.
-            #  * Returns INVALID_ARGUMENT if the product does not exist.
-            #  * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
-            #    compatible with the parent product's product_category is detected.
-            #  * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
+            # * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
+            #   characters.
+            # * Returns INVALID_ARGUMENT if the product does not exist.
+            # * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
+            #   compatible with the parent product's product_category is detected.
+            # * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
             #
             # @overload create_reference_image(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::CreateReferenceImageRequest | Hash]
             #     Creates and returns a new ReferenceImage resource.
             #
-            #      The `bounding_poly` field is optional. If `bounding_poly` is not specified,
-            #      the system will try to detect regions of interest in the image that are
-            #      compatible with the product_category on the parent product. If it is
-            #      specified, detection is ALWAYS skipped. The system converts polygons into
-            #      non-rotated rectangles.
+            #     The `bounding_poly` field is optional. If `bounding_poly` is not specified,
+            #     the system will try to detect regions of interest in the image that are
+            #     compatible with the product_category on the parent product. If it is
+            #     specified, detection is ALWAYS skipped. The system converts polygons into
+            #     non-rotated rectangles.
             #
-            #      Note that the pipeline will resize the image if the image resolution is too
-            #      large to process (above 50MP).
+            #     Note that the pipeline will resize the image if the image resolution is too
+            #     large to process (above 50MP).
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
-            #        characters.
-            #      * Returns INVALID_ARGUMENT if the product does not exist.
-            #      * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
-            #        compatible with the parent product's product_category is detected.
-            #      * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
+            #     * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
+            #       characters.
+            #     * Returns INVALID_ARGUMENT if the product does not exist.
+            #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
+            #       compatible with the parent product's product_category is detected.
+            #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -811,16 +811,16 @@ module Google
             #   @param parent [String]
             #     Resource name of the product in which to create the reference image.
             #
-            #      Format is
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
             #   @param reference_image [Google::Cloud::Vision::V1::ReferenceImage | Hash]
             #     The reference image to create.
-            #      If an image ID is specified, it is ignored.
+            #     If an image ID is specified, it is ignored.
             #   @param reference_image_id [String]
             #     A user-supplied resource id for the ReferenceImage to be added. If set,
-            #      the server will attempt to use this value as the resource id. If it is
-            #      already in use, an error is returned with code ALREADY_EXISTS. Must be at
-            #      most 128 characters long. It cannot contain the character `/`.
+            #     the server will attempt to use this value as the resource id. If it is
+            #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
+            #     most 128 characters long. It cannot contain the character `/`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -848,29 +848,29 @@ module Google
             ##
             # Permanently deletes a reference image.
             #
-            #  The image metadata will be deleted right away, but search queries
-            #  against ProductSets containing the image may still work until all related
-            #  caches are refreshed.
+            # The image metadata will be deleted right away, but search queries
+            # against ProductSets containing the image may still work until all related
+            # caches are refreshed.
             #
-            #  The actual image files are not deleted from Google Cloud Storage.
+            # The actual image files are not deleted from Google Cloud Storage.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the reference image does not exist.
+            # * Returns NOT_FOUND if the reference image does not exist.
             #
             # @overload delete_reference_image(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteReferenceImageRequest | Hash]
             #     Permanently deletes a reference image.
             #
-            #      The image metadata will be deleted right away, but search queries
-            #      against ProductSets containing the image may still work until all related
-            #      caches are refreshed.
+            #     The image metadata will be deleted right away, but search queries
+            #     against ProductSets containing the image may still work until all related
+            #     caches are refreshed.
             #
-            #      The actual image files are not deleted from Google Cloud Storage.
+            #     The actual image files are not deleted from Google Cloud Storage.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the reference image does not exist.
+            #     * Returns NOT_FOUND if the reference image does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -878,9 +878,9 @@ module Google
             #   @param name [String]
             #     The resource name of the reference image to delete.
             #
-            #      Format is:
+            #     Format is:
             #
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -908,21 +908,21 @@ module Google
             ##
             # Lists reference images.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the parent product does not exist.
-            #  * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
-            #    than 1.
+            # * Returns NOT_FOUND if the parent product does not exist.
+            # * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
+            #   than 1.
             #
             # @overload list_reference_images(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::ListReferenceImagesRequest | Hash]
             #     Lists reference images.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the parent product does not exist.
-            #      * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
-            #        than 1.
+            #     * Returns NOT_FOUND if the parent product does not exist.
+            #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
+            #       than 1.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -930,15 +930,15 @@ module Google
             #   @param parent [String]
             #     Resource name of the product containing the reference images.
             #
-            #      Format is
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
             #   @param page_size [Integer]
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     A token identifying a page of results to be returned. This is the value
-            #      of `nextPageToken` returned in a previous reference image list request.
+            #     of `nextPageToken` returned in a previous reference image list request.
             #
-            #      Defaults to the first page if not specified.
+            #     Defaults to the first page if not specified.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -966,17 +966,17 @@ module Google
             ##
             # Gets information associated with a ReferenceImage.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the specified image does not exist.
+            # * Returns NOT_FOUND if the specified image does not exist.
             #
             # @overload get_reference_image(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::GetReferenceImageRequest | Hash]
             #     Gets information associated with a ReferenceImage.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the specified image does not exist.
+            #     * Returns NOT_FOUND if the specified image does not exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -984,9 +984,9 @@ module Google
             #   @param name [String]
             #     The resource name of the ReferenceImage to get.
             #
-            #      Format is:
+            #     Format is:
             #
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1013,24 +1013,24 @@ module Google
 
             ##
             # Adds a Product to the specified ProductSet. If the Product is already
-            #  present, no change is made.
+            # present, no change is made.
             #
-            #  One Product can be added to at most 100 ProductSets.
+            # One Product can be added to at most 100 ProductSets.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
+            # * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
             #
             # @overload add_product_to_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::AddProductToProductSetRequest | Hash]
             #     Adds a Product to the specified ProductSet. If the Product is already
-            #      present, no change is made.
+            #     present, no change is made.
             #
-            #      One Product can be added to at most 100 ProductSets.
+            #     One Product can be added to at most 100 ProductSets.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
+            #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1038,13 +1038,13 @@ module Google
             #   @param name [String]
             #     The resource name for the ProductSet to modify.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param product [String]
             #     The resource name for the Product to be added to this ProductSet.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1072,17 +1072,17 @@ module Google
             ##
             # Removes a Product from the specified ProductSet.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns NOT_FOUND If the Product is not found under the ProductSet.
+            # * Returns NOT_FOUND If the Product is not found under the ProductSet.
             #
             # @overload remove_product_from_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest | Hash]
             #     Removes a Product from the specified ProductSet.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns NOT_FOUND If the Product is not found under the ProductSet.
+            #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1090,13 +1090,13 @@ module Google
             #   @param name [String]
             #     The resource name for the ProductSet to modify.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param product [String]
             #     The resource name for the Product to be removed from this ProductSet.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1123,22 +1123,22 @@ module Google
 
             ##
             # Lists the Products in a ProductSet, in an unspecified order. If the
-            #  ProductSet does not exist, the products field of the response will be
-            #  empty.
+            # ProductSet does not exist, the products field of the response will be
+            # empty.
             #
-            #  Possible errors:
+            # Possible errors:
             #
-            #  * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            # * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
             # @overload list_products_in_product_set(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::ListProductsInProductSetRequest | Hash]
             #     Lists the Products in a ProductSet, in an unspecified order. If the
-            #      ProductSet does not exist, the products field of the response will be
-            #      empty.
+            #     ProductSet does not exist, the products field of the response will be
+            #     empty.
             #
-            #      Possible errors:
+            #     Possible errors:
             #
-            #      * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1146,8 +1146,8 @@ module Google
             #   @param name [String]
             #     The ProductSet resource for which to retrieve Products.
             #
-            #      Format is:
-            #      `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param page_size [Integer]
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
@@ -1178,30 +1178,30 @@ module Google
 
             ##
             # Asynchronous API that imports a list of reference images to specified
-            #  product sets based on a list of image information.
+            # product sets based on a list of image information.
             #
-            #  The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            #  used to keep track of the progress and results of the request.
-            #  `Operation.metadata` contains `BatchOperationMetadata`. (progress)
-            #  `Operation.response` contains `ImportProductSetsResponse`. (results)
+            # The [google.longrunning.Operation][google.longrunning.Operation] API can be
+            # used to keep track of the progress and results of the request.
+            # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
+            # `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
-            #  The input source of this method is a csv file on Google Cloud Storage.
-            #  For the format of the csv file please see
-            #  [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
+            # The input source of this method is a csv file on Google Cloud Storage.
+            # For the format of the csv file please see
+            # [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
             #
             # @overload import_product_sets(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::ImportProductSetsRequest | Hash]
             #     Asynchronous API that imports a list of reference images to specified
-            #      product sets based on a list of image information.
+            #     product sets based on a list of image information.
             #
-            #      The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            #      used to keep track of the progress and results of the request.
-            #      `Operation.metadata` contains `BatchOperationMetadata`. (progress)
-            #      `Operation.response` contains `ImportProductSetsResponse`. (results)
+            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be
+            #     used to keep track of the progress and results of the request.
+            #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
+            #     `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
-            #      The input source of this method is a csv file on Google Cloud Storage.
-            #      For the format of the csv file please see
-            #      [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
+            #     The input source of this method is a csv file on Google Cloud Storage.
+            #     For the format of the csv file please see
+            #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
             #   @param options [Google::Gax::CallOptions]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
@@ -1209,7 +1209,7 @@ module Google
             #   @param parent [String]
             #     The project in which the ProductSets should be imported.
             #
-            #      Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param input_config [Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash]
             #     The input content for the list of requests.
             #   @param options [Google::Gax::CallOptions]
