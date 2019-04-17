@@ -1,5 +1,0 @@
-<%- assert_locals method -%>
-<%= method.ivar %> = Google::Gax::ApiCall.new(
-  @<%= method.service.stub_name %>.method(:<%= method.name %>),
-  defaults
-)
