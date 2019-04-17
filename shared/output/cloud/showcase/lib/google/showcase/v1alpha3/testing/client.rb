@@ -152,7 +152,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
 
             # Converts hash and nil to an options object
@@ -200,7 +199,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
 
             # Converts hash and nil to an options object
@@ -250,7 +248,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
 
             # Converts hash and nil to an options object
@@ -298,7 +295,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
 
             # Converts hash and nil to an options object
@@ -350,7 +346,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
 
             # Converts hash and nil to an options object
@@ -402,7 +397,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
 
             # Converts hash and nil to an options object
@@ -460,7 +454,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
 
             # Converts hash and nil to an options object
@@ -518,7 +511,6 @@ module Google
             end
 
             request ||= request_fields
-            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
 
             # Converts hash and nil to an options object

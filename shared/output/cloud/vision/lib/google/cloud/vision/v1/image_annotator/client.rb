@@ -148,7 +148,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
               # Converts hash and nil to an options object
@@ -206,7 +205,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
               # Converts hash and nil to an options object

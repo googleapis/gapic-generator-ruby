@@ -50,7 +50,6 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   end
 
   request ||= request_fields
-  # request = Google::Gax::Protobuf.coerce request, to: <%= method.request_type %>
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
   # Converts hash and nil to an options object

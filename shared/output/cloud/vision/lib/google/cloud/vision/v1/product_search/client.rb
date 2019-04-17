@@ -167,7 +167,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductSetRequest
 
               # Converts hash and nil to an options object
@@ -231,7 +230,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductSetsRequest
 
               # Converts hash and nil to an options object
@@ -290,7 +288,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductSetRequest
 
               # Converts hash and nil to an options object
@@ -357,7 +354,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductSetRequest
 
               # Converts hash and nil to an options object
@@ -422,7 +418,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductSetRequest
 
               # Converts hash and nil to an options object
@@ -494,7 +489,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateProductRequest
 
               # Converts hash and nil to an options object
@@ -557,7 +551,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsRequest
 
               # Converts hash and nil to an options object
@@ -616,7 +609,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetProductRequest
 
               # Converts hash and nil to an options object
@@ -699,7 +691,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::UpdateProductRequest
 
               # Converts hash and nil to an options object
@@ -766,7 +757,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteProductRequest
 
               # Converts hash and nil to an options object
@@ -861,7 +851,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -933,7 +922,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -1003,7 +991,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
               # Converts hash and nil to an options object
@@ -1063,7 +1050,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::GetReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -1133,7 +1119,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1197,7 +1182,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1264,7 +1248,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1336,7 +1319,6 @@ module Google
               end
 
               request ||= request_fields
-              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::ImportProductSetsRequest
 
               # Converts hash and nil to an options object
