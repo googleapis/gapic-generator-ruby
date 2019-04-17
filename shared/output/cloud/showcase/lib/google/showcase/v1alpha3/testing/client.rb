@@ -156,7 +156,7 @@ module Google
           # @overload create_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #     Creates a new testing session.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_session(session: nil, options: nil)
@@ -164,7 +164,7 @@ module Google
           #     The session to be created.
           #     Sessions are immutable once they are created (although they can
           #     be deleted).
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -194,13 +194,13 @@ module Google
           # @overload get_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #     Gets a testing session.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be retrieved.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -230,7 +230,7 @@ module Google
           # @overload list_sessions(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #     Lists the current test sessions.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_sessions(page_size: nil, page_token: nil, options: nil)
@@ -238,7 +238,7 @@ module Google
           #     The maximum number of sessions to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -268,13 +268,13 @@ module Google
           # @overload delete_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #     Delete a test session.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be deleted.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -308,13 +308,13 @@ module Google
           #     Report on the status of a session.
           #     This generates a report detailing which tests have been completed,
           #     and an overall rollup.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload report_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be reported on.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -344,7 +344,7 @@ module Google
           # @overload list_tests(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #     List the tests of a sessesion.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_tests(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -354,7 +354,7 @@ module Google
           #     The maximum number of tests to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -394,13 +394,13 @@ module Google
           #     attempting to do the test will error.
           #
           #     This method will error if attempting to delete a required test.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_test(name: nil, options: nil)
           #   @param name [String]
           #     The test to be deleted.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -436,7 +436,7 @@ module Google
           #
           #     In cases where a test involves registering a final answer at the
           #     end of the test, this method provides the means to do so.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload verify_test(name: nil, answer: nil, answers: nil, options: nil)
@@ -446,7 +446,7 @@ module Google
           #     The answer from the test.
           #   @param answers [String]
           #     The answers from the test if multiple are to be checked
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation

@@ -204,7 +204,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #       4096 characters.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil, options: nil)
@@ -219,7 +219,7 @@ module Google
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -259,7 +259,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -271,7 +271,7 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -309,7 +309,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_product_set(name: nil, options: nil)
@@ -318,7 +318,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -362,7 +362,7 @@ module Google
             #     * Returns NOT_FOUND if the ProductSet does not exist.
             #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #       missing from the request or longer than 4096 characters.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload update_product_set(product_set: nil, update_mask: nil, options: nil)
@@ -373,7 +373,7 @@ module Google
             #     update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask path is `display_name`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -417,7 +417,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_product_set(name: nil, options: nil)
@@ -426,7 +426,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -470,7 +470,7 @@ module Google
             #       characters.
             #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_product(parent: nil, product: nil, product_id: nil, options: nil)
@@ -486,7 +486,7 @@ module Google
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -524,7 +524,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_products(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -537,7 +537,7 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -575,7 +575,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_product(name: nil, options: nil)
@@ -584,7 +584,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -642,7 +642,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
             #       longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload update_product(product: nil, update_mask: nil, options: nil)
@@ -655,7 +655,7 @@ module Google
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask paths include `product_labels`, `display_name`, and
             #     `description`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -701,7 +701,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the product does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_product(name: nil, options: nil)
@@ -710,7 +710,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -776,7 +776,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
             #       compatible with the parent product's product_category is detected.
             #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil, options: nil)
@@ -793,7 +793,7 @@ module Google
             #     the server will attempt to use this value as the resource id. If it is
             #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
             #     most 128 characters long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -843,7 +843,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the reference image does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload delete_reference_image(name: nil, options: nil)
@@ -853,7 +853,7 @@ module Google
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -895,7 +895,7 @@ module Google
             #     * Returns NOT_FOUND if the parent product does not exist.
             #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -911,7 +911,7 @@ module Google
             #     of `nextPageToken` returned in a previous reference image list request.
             #
             #     Defaults to the first page if not specified.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -949,7 +949,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the specified image does not exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload get_reference_image(name: nil, options: nil)
@@ -959,7 +959,7 @@ module Google
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -1003,7 +1003,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload add_product_to_product_set(name: nil, product: nil, options: nil)
@@ -1017,7 +1017,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -1055,7 +1055,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload remove_product_from_product_set(name: nil, product: nil, options: nil)
@@ -1069,7 +1069,7 @@ module Google
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -1111,7 +1111,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil, options: nil)
@@ -1124,7 +1124,7 @@ module Google
             #     The maximum number of items to return. Default 10, maximum 100.
             #   @param page_token [String]
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -1174,7 +1174,7 @@ module Google
             #     The input source of this method is a csv file on Google Cloud Storage.
             #     For the format of the csv file please see
             #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload import_product_sets(parent: nil, input_config: nil, options: nil)
@@ -1184,7 +1184,7 @@ module Google
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param input_config [Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash]
             #     The input content for the list of requests.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [operation] Register a callback to be run when an operation is done.

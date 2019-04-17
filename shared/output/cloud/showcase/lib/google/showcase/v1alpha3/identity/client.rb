@@ -144,13 +144,13 @@ module Google
           # @overload create_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #     Creates a user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_user(user: nil, options: nil)
           #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to create.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -180,13 +180,13 @@ module Google
           # @overload get_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #     Retrieves the User with the given uri.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -216,7 +216,7 @@ module Google
           # @overload update_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #     Updates a user.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload update_user(user: nil, update_mask: nil, options: nil)
@@ -225,7 +225,7 @@ module Google
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -255,13 +255,13 @@ module Google
           # @overload delete_user(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #     Deletes a user, their profile, and all of their authored messages.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_user(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the user to delete.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -291,7 +291,7 @@ module Google
           # @overload list_users(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #     Lists all users.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_users(page_size: nil, page_token: nil, options: nil)
@@ -302,7 +302,7 @@ module Google
           #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Identity\ListUsers` method.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation

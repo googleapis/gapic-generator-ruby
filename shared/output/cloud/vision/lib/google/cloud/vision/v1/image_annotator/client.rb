@@ -130,13 +130,13 @@ module Google
             # @overload batch_annotate_images(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #     Run image detection and annotation for a batch of images.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload batch_annotate_images(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
             #     Individual image annotation requests for this batch.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -176,13 +176,13 @@ module Google
             #     `google.longrunning.Operations` interface.
             #     `Operation.metadata` contains `OperationMetadata` (metadata).
             #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload async_batch_annotate_files(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
             #     Individual async file annotation requests for this batch.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [operation] Register a callback to be run when an operation is done.

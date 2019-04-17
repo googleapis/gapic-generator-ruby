@@ -145,7 +145,7 @@ module Google
           # @overload echo(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #     This method simply echos the request. This method is showcases unary rpcs.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload echo(content: nil, error: nil, options: nil)
@@ -153,7 +153,7 @@ module Google
           #     The content to be echoed by the server.
           #   @param error [Google::Rpc::Status | Hash]
           #     The error to be thrown by the server.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -185,7 +185,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #     This method split the given content into words and will pass each word back
           #     through the stream. This method showcases server-side streaming rpcs.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload expand(content: nil, error: nil, options: nil)
@@ -193,7 +193,7 @@ module Google
           #     The content that will be split into words and returned on the stream.
           #   @param error [Google::Rpc::Status | Hash]
           #     The error that is thrown after all words are sent on the stream.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -223,7 +223,7 @@ module Google
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::CallOptions]
+          # @param options [Google::Gax::ApiCall::Options]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -254,7 +254,7 @@ module Google
           #
           # @param requests [Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::CallOptions]
+          # @param options [Google::Gax::ApiCall::Options]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -283,7 +283,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #     This is similar to the Expand method but instead of returning a stream of
           #     expanded words, this method returns a paged list of expanded words.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload paged_expand(content: nil, page_size: nil, page_token: nil, options: nil)
@@ -293,7 +293,7 @@ module Google
           #     The amount of words to returned in each page.
           #   @param page_token [String]
           #     The position of the page to be returned.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [result, operation] Access the result along with the RPC operation
@@ -325,7 +325,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #     This method will wait the requested amount of and then return.
           #     This method showcases how a client handles a request timing out.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
@@ -338,7 +338,7 @@ module Google
           #     to be the OK rpc code, an empty response will be returned.
           #   @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
           #     The response to be returned on operation completion.
-          #   @param options [Google::Gax::CallOptions]
+          #   @param options [Google::Gax::ApiCall::Options]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [operation] Register a callback to be run when an operation is done.

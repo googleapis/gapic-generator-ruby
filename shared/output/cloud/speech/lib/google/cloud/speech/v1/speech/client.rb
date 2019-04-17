@@ -136,7 +136,7 @@ module Google
             #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
             #     Performs synchronous speech recognition: receive results after all audio
             #     has been sent and processed.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload recognize(config: nil, audio: nil, options: nil)
@@ -145,7 +145,7 @@ module Google
             #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [result, operation] Access the result along with the RPC operation
@@ -181,7 +181,7 @@ module Google
             #     google.longrunning.Operations interface. Returns either an
             #     `Operation.error` or an `Operation.response` which contains
             #     a `LongRunningRecognizeResponse` message.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload long_running_recognize(config: nil, audio: nil, options: nil)
@@ -190,7 +190,7 @@ module Google
             #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
-            #   @param options [Google::Gax::CallOptions]
+            #   @param options [Google::Gax::ApiCall::Options]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [operation] Register a callback to be run when an operation is done.
@@ -225,7 +225,7 @@ module Google
             #
             # @param requests [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
-            # @param options [Google::Gax::CallOptions]
+            # @param options [Google::Gax::ApiCall::Options]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
