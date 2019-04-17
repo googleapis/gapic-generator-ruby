@@ -44,9 +44,7 @@ def initialize \
 <%- end -%>
   @<%= service.stub_name %> = create_stub credentials, scopes
 
-  defaults = default_settings timeout, metadata, lib_name, lib_version
-
-<%- service.methods.each do |method| -%>
-<%= indent render(partial: "client/method/init", locals: { service: service, method: method }), "  " %>
-<%- end -%>
+  @timeout = timeout
+  @metadata = metadata.to_h
+  @metadata["x-goog-api-client".freeze] ||= x_goog_api_client_header lib_name, lib_version
 end

@@ -87,18 +87,13 @@ class <%= service.client_class_name %>
     )
   end
 
-  def default_settings timeout, metadata, lib_name, lib_version
-    google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-    google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-    google_api_client << "gapic/#{<%= service.gem.version_name_full %>}"
-    google_api_client << "gax/#{Google::Gax::VERSION}"
-    google_api_client << "grpc/#{GRPC::VERSION}"
-    google_api_client.join " "
-
-    headers = { "x-goog-api-client": google_api_client }
-    headers.merge! metadata unless metadata.nil?
-
-    Google::Gax.const_get(:CallSettings).new metadata: headers
+  def x_goog_api_client_header lib_name, lib_version
+    x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+    x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+    x_goog_api_client_header << "gapic/#{<%= service.gem.version_name_full %>}"
+    x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+    x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+    x_goog_api_client_header.join " "
   end
 end
 

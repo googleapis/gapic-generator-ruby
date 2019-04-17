@@ -9,7 +9,7 @@
 <%- if method.doc_description -%>
 <%= indent method.doc_description, "#     " %>
 <%- end -%>
-#   @param options [Google::Gax::ApiCall::Options]
+#   @param options [Google::Gax::ApiCall::Options, Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc.
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
@@ -20,7 +20,7 @@
 <%= indent arg.doc_description, "#     " %>
 <%- end -%>
 <%- end -%>
-#   @param options [Google::Gax::ApiCall::Options]
+#   @param options [Google::Gax::ApiCall::Options, Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc.
 <%- if method.arguments.find { |arg| arg.name == "options" } -%>
 #
@@ -29,15 +29,19 @@
 #     named arguments.
 <%- end -%>
 #
-# @return [Enumerable<<%= method.return_type %>>]
-#   An enumerable of {<%= method.return_type %>} instances.
+# @yield [response] Called on each streaming responses, when provided.
+# @yieldparam response [<%= method.return_type %>]
+#
+# @return [Enumerable<<%= method.return_type %>, Thread>]
+#   An enumerable of {<%= method.return_type %>} instances when a block is not provided.
+#   When a block is provided a thread running the block for every streamed response is returned.
 #
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 #
 # @example
 <%= indent method.code_example, "#   " %>
 #
-def <%= method.name %> request = nil, options: nil, **request_fields
+def <%= method.name %> request = nil, options: nil, **request_fields, &block
   if request.nil? && request_fields.empty?
     raise ArgumentError, "request must be provided"
   end
@@ -46,7 +50,17 @@ def <%= method.name %> request = nil, options: nil, **request_fields
   end
 
   request ||= request_fields
+  # request = Google::Gax::Protobuf.coerce request, to: <%= method.request_type %>
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
-  <%= method.ivar %>.call(request, options)
+  # Converts hash and nil to an options object
+  options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+  header_params = {} # { name: request.name }
+  request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+  metadata = @metadata.merge "x-goog-request-params".freeze => request_params_header
+  retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+  options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+  <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
+  <%= method.ivar %>.call(request, options: options, stream_callback: block)
 end

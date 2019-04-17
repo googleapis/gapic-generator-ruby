@@ -110,16 +110,9 @@ module Google
               )
               @image_annotator_stub = create_stub credentials, scopes
 
-              defaults = default_settings timeout, metadata, lib_name, lib_version
-
-              @batch_annotate_images = Google::Gax::ApiCall.new(
-                @image_annotator_stub.method(:batch_annotate_images),
-                defaults
-              )
-              @async_batch_annotate_files = Google::Gax::ApiCall.new(
-                @image_annotator_stub.method(:async_batch_annotate_files),
-                defaults
-              )
+              @timeout = timeout
+              @metadata = metadata.to_h
+              @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
             end
 
             # Service calls
@@ -130,17 +123,17 @@ module Google
             # @overload batch_annotate_images(request, options: nil)
             #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #     Run image detection and annotation for a batch of images.
-            #   @param options [Google::Gax::ApiCall::Options]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload batch_annotate_images(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
             #     Individual image annotation requests for this batch.
-            #   @param options [Google::Gax::ApiCall::Options]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [result, operation] Access the result along with the RPC operation
-            # @yieldparam result [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
@@ -155,9 +148,21 @@ module Google
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
-              @batch_annotate_images.call(request, options, &block)
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
+              @batch_annotate_images.call request, options: options, operation_callback: block
             end
 
             ##
@@ -176,39 +181,46 @@ module Google
             #     `google.longrunning.Operations` interface.
             #     `Operation.metadata` contains `OperationMetadata` (metadata).
             #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
-            #   @param options [Google::Gax::ApiCall::Options]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @overload async_batch_annotate_files(requests: nil, options: nil)
             #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
             #     Individual async file annotation requests for this batch.
-            #   @param options [Google::Gax::ApiCall::Options]
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [operation] Register a callback to be run when an operation is done.
-            # @yieldparam operation [Google::Gax::Operation]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Gax::Operation]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
             #
-            def async_batch_annotate_files request = nil, options: nil, **request_fields
+            def async_batch_annotate_files request = nil, options: nil, **request_fields, &block
               raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
               if !request.nil? && !request_fields.empty?
                 raise ArgumentError, "cannot pass both request object and named arguments"
               end
 
               request ||= request_fields
+              # request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
               request = Google::Gax.to_proto request, Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
-              operation = Google::Gax::Operation.new(
-                @async_batch_annotate_files.call(request, options),
-                @operations_client,
-                call_options: options
-              )
-              operation.on_done { |operation| yield operation } if block_given?
-              operation
+              # Converts hash and nil to an options object
+              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              header_params = {} # { name: request.name }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata = @metadata.merge "x-goog-request-params" => request_params_header
+              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+              format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+
+              @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
+              @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: format_response
             end
 
             protected
@@ -243,18 +255,13 @@ module Google
               )
             end
 
-            def default_settings _timeout, metadata, lib_name, lib_version
-              google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-              google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-              google_api_client << "gapic/#{Google::Cloud::Vision::VERSION}"
-              google_api_client << "gax/#{Google::Gax::VERSION}"
-              google_api_client << "grpc/#{GRPC::VERSION}"
-              google_api_client.join " "
-
-              headers = { "x-goog-api-client": google_api_client }
-              headers.merge! metadata unless metadata.nil?
-
-              Google::Gax.const_get(:CallSettings).new metadata: headers
+            def x_goog_api_client_header lib_name, lib_version
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              x_goog_api_client_header.join " "
             end
           end
         end

@@ -112,40 +112,9 @@ module Google
             )
             @testing_stub = create_stub credentials, scopes
 
-            defaults = default_settings timeout, metadata, lib_name, lib_version
-
-            @create_session = Google::Gax::ApiCall.new(
-              @testing_stub.method(:create_session),
-              defaults
-            )
-            @get_session = Google::Gax::ApiCall.new(
-              @testing_stub.method(:get_session),
-              defaults
-            )
-            @list_sessions = Google::Gax::ApiCall.new(
-              @testing_stub.method(:list_sessions),
-              defaults
-            )
-            @delete_session = Google::Gax::ApiCall.new(
-              @testing_stub.method(:delete_session),
-              defaults
-            )
-            @report_session = Google::Gax::ApiCall.new(
-              @testing_stub.method(:report_session),
-              defaults
-            )
-            @list_tests = Google::Gax::ApiCall.new(
-              @testing_stub.method(:list_tests),
-              defaults
-            )
-            @delete_test = Google::Gax::ApiCall.new(
-              @testing_stub.method(:delete_test),
-              defaults
-            )
-            @verify_test = Google::Gax::ApiCall.new(
-              @testing_stub.method(:verify_test),
-              defaults
-            )
+            @timeout = timeout
+            @metadata = metadata.to_h
+            @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
           end
 
           # Service calls
@@ -156,7 +125,7 @@ module Google
           # @overload create_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #     Creates a new testing session.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_session(session: nil, options: nil)
@@ -164,11 +133,11 @@ module Google
           #     The session to be created.
           #     Sessions are immutable once they are created (although they can
           #     be deleted).
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Session]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Session]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
@@ -183,9 +152,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateSessionRequest
 
-            @create_session.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
+            @create_session.call request, options: options, operation_callback: block
           end
 
           ##
@@ -194,17 +175,17 @@ module Google
           # @overload get_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #     Gets a testing session.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be retrieved.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Session]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Session]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
@@ -219,9 +200,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetSessionRequest
 
-            @get_session.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
+            @get_session.call request, options: options, operation_callback: block
           end
 
           ##
@@ -230,7 +223,7 @@ module Google
           # @overload list_sessions(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #     Lists the current test sessions.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_sessions(page_size: nil, page_token: nil, options: nil)
@@ -238,11 +231,11 @@ module Google
           #     The maximum number of sessions to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListSessionsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ListSessionsResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ListSessionsResponse]
@@ -257,9 +250,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListSessionsRequest
 
-            @list_sessions.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @list_sessions ||= Google::Gax::ApiCall.new @testing_stub.method :list_sessions
+            @list_sessions.call request, options: options, operation_callback: block
           end
 
           ##
@@ -268,17 +273,17 @@ module Google
           # @overload delete_session(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #     Delete a test session.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be deleted.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
@@ -293,9 +298,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteSessionRequest
 
-            @delete_session.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
+            @delete_session.call request, options: options, operation_callback: block
           end
 
           ##
@@ -308,17 +325,17 @@ module Google
           #     Report on the status of a session.
           #     This generates a report detailing which tests have been completed,
           #     and an overall rollup.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload report_session(name: nil, options: nil)
           #   @param name [String]
           #     The session to be reported on.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ReportSessionResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ReportSessionResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ReportSessionResponse]
@@ -333,9 +350,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ReportSessionRequest
 
-            @report_session.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
+            @report_session.call request, options: options, operation_callback: block
           end
 
           ##
@@ -344,7 +373,7 @@ module Google
           # @overload list_tests(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #     List the tests of a sessesion.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_tests(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -354,11 +383,11 @@ module Google
           #     The maximum number of tests to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListTestsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ListTestsResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ListTestsResponse]
@@ -373,9 +402,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListTestsRequest
 
-            @list_tests.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @list_tests ||= Google::Gax::ApiCall.new @testing_stub.method :list_tests
+            @list_tests.call request, options: options, operation_callback: block
           end
 
           ##
@@ -394,17 +435,17 @@ module Google
           #     attempting to do the test will error.
           #
           #     This method will error if attempting to delete a required test.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_test(name: nil, options: nil)
           #   @param name [String]
           #     The test to be deleted.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
@@ -419,9 +460,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteTestRequest
 
-            @delete_test.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
+            @delete_test.call request, options: options, operation_callback: block
           end
 
           ##
@@ -436,7 +489,7 @@ module Google
           #
           #     In cases where a test involves registering a final answer at the
           #     end of the test, this method provides the means to do so.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload verify_test(name: nil, answer: nil, answers: nil, options: nil)
@@ -446,11 +499,11 @@ module Google
           #     The answer from the test.
           #   @param answers [String]
           #     The answers from the test if multiple are to be checked
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::VerifyTestResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::VerifyTestResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::VerifyTestResponse]
@@ -465,9 +518,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::VerifyTestRequest
 
-            @verify_test.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
+            @verify_test.call request, options: options, operation_callback: block
           end
 
           protected
@@ -502,18 +567,13 @@ module Google
             )
           end
 
-          def default_settings _timeout, metadata, lib_name, lib_version
-            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-            google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-            google_api_client << "gapic/#{Google::Showcase::VERSION}"
-            google_api_client << "gax/#{Google::Gax::VERSION}"
-            google_api_client << "grpc/#{GRPC::VERSION}"
-            google_api_client.join " "
-
-            headers = { "x-goog-api-client": google_api_client }
-            headers.merge! metadata unless metadata.nil?
-
-            Google::Gax.const_get(:CallSettings).new metadata: headers
+          def x_goog_api_client_header lib_name, lib_version
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            x_goog_api_client_header.join " "
           end
         end
       end

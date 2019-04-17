@@ -112,64 +112,9 @@ module Google
             )
             @messaging_stub = create_stub credentials, scopes
 
-            defaults = default_settings timeout, metadata, lib_name, lib_version
-
-            @create_room = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:create_room),
-              defaults
-            )
-            @get_room = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:get_room),
-              defaults
-            )
-            @update_room = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:update_room),
-              defaults
-            )
-            @delete_room = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:delete_room),
-              defaults
-            )
-            @list_rooms = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:list_rooms),
-              defaults
-            )
-            @create_blurb = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:create_blurb),
-              defaults
-            )
-            @get_blurb = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:get_blurb),
-              defaults
-            )
-            @update_blurb = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:update_blurb),
-              defaults
-            )
-            @delete_blurb = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:delete_blurb),
-              defaults
-            )
-            @list_blurbs = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:list_blurbs),
-              defaults
-            )
-            @search_blurbs = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:search_blurbs),
-              defaults
-            )
-            @stream_blurbs = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:stream_blurbs),
-              defaults
-            )
-            @send_blurbs = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:send_blurbs),
-              defaults
-            )
-            @connect = Google::Gax::ApiCall.new(
-              @messaging_stub.method(:connect),
-              defaults
-            )
+            @timeout = timeout
+            @metadata = metadata.to_h
+            @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
           end
 
           # Service calls
@@ -180,17 +125,17 @@ module Google
           # @overload create_room(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
           #     Creates a room.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_room(room: nil, options: nil)
           #   @param room [Google::Showcase::V1alpha3::Room | Hash]
           #     The room to create.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Room]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Room]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
@@ -205,9 +150,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateRoomRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateRoomRequest
 
-            @create_room.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
+            @create_room.call request, options: options, operation_callback: block
           end
 
           ##
@@ -216,17 +173,17 @@ module Google
           # @overload get_room(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
           #     Retrieves the Room with the given resource name.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_room(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested room.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Room]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Room]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
@@ -241,9 +198,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetRoomRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetRoomRequest
 
-            @get_room.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
+            @get_room.call request, options: options, operation_callback: block
           end
 
           ##
@@ -252,7 +221,7 @@ module Google
           # @overload update_room(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
           #     Updates a room.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload update_room(room: nil, update_mask: nil, options: nil)
@@ -261,11 +230,11 @@ module Google
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Room]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Room]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
@@ -280,9 +249,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateRoomRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateRoomRequest
 
-            @update_room.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
+            @update_room.call request, options: options, operation_callback: block
           end
 
           ##
@@ -291,17 +272,17 @@ module Google
           # @overload delete_room(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
           #     Deletes a room and all of its blurbs.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_room(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested room.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
@@ -316,9 +297,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteRoomRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteRoomRequest
 
-            @delete_room.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
+            @delete_room.call request, options: options, operation_callback: block
           end
 
           ##
@@ -327,7 +320,7 @@ module Google
           # @overload list_rooms(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
           #     Lists all chat rooms.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_rooms(page_size: nil, page_token: nil, options: nil)
@@ -338,11 +331,11 @@ module Google
           #     The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\ListRooms` method.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListRoomsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ListRoomsResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ListRoomsResponse]
@@ -357,9 +350,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListRoomsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListRoomsRequest
 
-            @list_rooms.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @list_rooms ||= Google::Gax::ApiCall.new @messaging_stub.method :list_rooms
+            @list_rooms.call request, options: options, operation_callback: block
           end
 
           ##
@@ -372,7 +377,7 @@ module Google
           #     Creates a blurb. If the parent is a room, the blurb is understood to be a
           #     message in that room. If the parent is a profile, the blurb is understood
           #     to be a post on the profile.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload create_blurb(parent: nil, blurb: nil, options: nil)
@@ -381,11 +386,11 @@ module Google
           #     be tied to.
           #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
           #     The blurb to create.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
@@ -400,9 +405,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateBlurbRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
 
-            @create_blurb.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
+            @create_blurb.call request, options: options, operation_callback: block
           end
 
           ##
@@ -411,17 +428,17 @@ module Google
           # @overload get_blurb(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
           #     Retrieves the Blurb with the given resource name.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload get_blurb(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested blurb.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
@@ -436,9 +453,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetBlurbRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetBlurbRequest
 
-            @get_blurb.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
+            @get_blurb.call request, options: options, operation_callback: block
           end
 
           ##
@@ -447,7 +476,7 @@ module Google
           # @overload update_blurb(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
           #     Updates a blurb.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload update_blurb(blurb: nil, update_mask: nil, options: nil)
@@ -456,11 +485,11 @@ module Google
           #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::Blurb]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
@@ -475,9 +504,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateBlurbRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateBlurbRequest
 
-            @update_blurb.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
+            @update_blurb.call request, options: options, operation_callback: block
           end
 
           ##
@@ -486,17 +527,17 @@ module Google
           # @overload delete_blurb(request, options: nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
           #     Deletes a blurb.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload delete_blurb(name: nil, options: nil)
           #   @param name [String]
           #     The resource name of the requested blurb.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Protobuf::Empty]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
@@ -511,9 +552,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteBlurbRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteBlurbRequest
 
-            @delete_blurb.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
+            @delete_blurb.call request, options: options, operation_callback: block
           end
 
           ##
@@ -524,7 +577,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
           #     Lists blurbs for a specific chat room or user profile depending on the
           #     parent resource name.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -538,11 +591,11 @@ module Google
           #     The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::ListBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::ListBlurbsResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ListBlurbsResponse]
@@ -557,9 +610,21 @@ module Google
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListBlurbsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListBlurbsRequest
 
-            @list_blurbs.call(request, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @list_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :list_blurbs
+            @list_blurbs.call request, options: options, operation_callback: block
           end
 
           ##
@@ -572,7 +637,7 @@ module Google
           #     This method searches through all blurbs across all rooms and profiles
           #     for blurbs containing to words found in the query. Only posts that
           #     contain an exact match of a queried word will be returned.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil, options: nil)
@@ -591,33 +656,40 @@ module Google
           #     google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [operation] Register a callback to be run when an operation is done.
-          # @yieldparam operation [Google::Gax::Operation]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Gax::Operation]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::Operation]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def search_blurbs request = nil, options: nil, **request_fields
+          def search_blurbs request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::SearchBlurbsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::SearchBlurbsRequest
 
-            operation = Google::Gax::Operation.new(
-              @search_blurbs.call(request, options),
-              @operations_client,
-              call_options: options
-            )
-            operation.on_done { |operation| yield operation } if block_given?
-            operation
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+
+            @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
+            @search_blurbs.call request, options: options, operation_callback: block, format_response: format_response
           end
 
           ##
@@ -628,7 +700,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
           #     This returns a stream that emits the blurbs that are created for a
           #     particular chat room or user profile.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @overload stream_blurbs(name: nil, expire_time: nil, options: nil)
@@ -636,27 +708,41 @@ module Google
           #     The resource name of a chat room or user profile whose blurbs to stream.
           #   @param expire_time [Google::Protobuf::Timestamp | Hash]
           #     The time at which this stream will close.
-          #   @param options [Google::Gax::ApiCall::Options]
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances.
+          # @yield [response] Called on each streaming responses, when provided.
+          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          #
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
+          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
+          #   When a block is provided a thread running the block for every streamed response is returned.
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def stream_blurbs request = nil, options: nil, **request_fields
+          def stream_blurbs request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
+            # request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::StreamBlurbsRequest
             request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::StreamBlurbsRequest
 
-            @stream_blurbs.call request, options
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
+            @stream_blurbs.call request, options: options, stream_callback: block
           end
 
           ##
@@ -665,11 +751,11 @@ module Google
           #
           # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
-          # @param options [Google::Gax::ApiCall::Options]
+          # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [result, operation] Access the result along with the RPC operation
-          # @yieldparam result [Google::Showcase::V1alpha3::SendBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Google::Showcase::V1alpha3::SendBlurbsResponse]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::SendBlurbsResponse]
@@ -692,7 +778,16 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateBlurbRequest
             end
 
-            @send_blurbs.call(requests, options, &block)
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
+            @send_blurbs.call requests, options: options, operation_callback: block
           end
 
           ##
@@ -703,18 +798,22 @@ module Google
           #
           # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
-          # @param options [Google::Gax::ApiCall::Options]
+          # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances.
+          # @yield [response] Called on each streaming responses, when provided.
+          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          #
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
+          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
+          #   When a block is provided a thread running the block for every streamed response is returned.
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def connect requests, options: nil
+          def connect requests, options: nil, &block
             unless requests.is_a? Enumerable
               if requests.respond_to? :to_enum
                 requests = requests.to_enum
@@ -727,7 +826,16 @@ module Google
               Google::Gax.to_proto request, Google::Showcase::V1alpha3::ConnectRequest
             end
 
-            @connect.call requests, options
+            # Converts hash and nil to an options object
+            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            header_params = {} # { name: request.name }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+
+            @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
+            @connect.call requests, options: options, stream_callback: block
           end
 
           protected
@@ -762,18 +870,13 @@ module Google
             )
           end
 
-          def default_settings _timeout, metadata, lib_name, lib_version
-            google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
-            google_api_client << "#{lib_name}/#{lib_version}" if lib_name
-            google_api_client << "gapic/#{Google::Showcase::VERSION}"
-            google_api_client << "gax/#{Google::Gax::VERSION}"
-            google_api_client << "grpc/#{GRPC::VERSION}"
-            google_api_client.join " "
-
-            headers = { "x-goog-api-client": google_api_client }
-            headers.merge! metadata unless metadata.nil?
-
-            Google::Gax.const_get(:CallSettings).new metadata: headers
+          def x_goog_api_client_header lib_name, lib_version
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            x_goog_api_client_header.join " "
           end
         end
       end
