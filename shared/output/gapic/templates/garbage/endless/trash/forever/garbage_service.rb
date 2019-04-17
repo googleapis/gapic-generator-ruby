@@ -116,42 +116,42 @@ module Endless
 
           defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-          @get_simple_garbage = Google::Gax.create_api_call(
+          @get_simple_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:get_simple_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @get_specific_garbage = Google::Gax.create_api_call(
+          @get_specific_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:get_specific_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @get_nested_garbage = Google::Gax.create_api_call(
+          @get_nested_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:get_nested_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @get_repeated_garbage = Google::Gax.create_api_call(
+          @get_repeated_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:get_repeated_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @long_running_garbage = Google::Gax.create_api_call(
+          @long_running_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:long_running_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @client_garbage = Google::Gax.create_api_call(
+          @client_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:client_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @server_garbage = Google::Gax.create_api_call(
+          @server_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:server_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @bidi_garbage = Google::Gax.create_api_call(
+          @bidi_garbage = Google::Gax::ApiCall.new(
             @garbage_service_stub.method(:bidi_garbage),
             CallSettings.new,
             exception_transformer: exception_transformer

@@ -114,23 +114,23 @@ module Google
 
             defaults = default_settings timeout, metadata, lib_name, lib_version
 
-            @create_user = Google::Gax.create_api_call(
+            @create_user = Google::Gax::ApiCall.new(
               @identity_stub.method(:create_user),
               defaults
             )
-            @get_user = Google::Gax.create_api_call(
+            @get_user = Google::Gax::ApiCall.new(
               @identity_stub.method(:get_user),
               defaults
             )
-            @update_user = Google::Gax.create_api_call(
+            @update_user = Google::Gax::ApiCall.new(
               @identity_stub.method(:update_user),
               defaults
             )
-            @delete_user = Google::Gax.create_api_call(
+            @delete_user = Google::Gax::ApiCall.new(
               @identity_stub.method(:delete_user),
               defaults
             )
-            @list_users = Google::Gax.create_api_call(
+            @list_users = Google::Gax::ApiCall.new(
               @identity_stub.method(:list_users),
               defaults
             )

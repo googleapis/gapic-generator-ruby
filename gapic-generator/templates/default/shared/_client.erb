@@ -120,7 +120,7 @@ class <%= service.name %>Client
 
 <% service.methods.each do |method| %>
 <% method_name = method.descriptor.name.underscore %>
-@<%= method_name %> = Google::Gax.create_api_call(
+@<%= method_name %> = Google::Gax::ApiCall.new(
 @<%= service.name.underscore %>_stub.method(:<%= method_name %>),
 CallSettings.new,
 exception_transformer: exception_transformer

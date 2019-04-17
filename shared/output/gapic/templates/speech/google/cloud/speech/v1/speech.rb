@@ -117,17 +117,17 @@ module Google
 
             defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
 
-            @recognize = Google::Gax.create_api_call(
+            @recognize = Google::Gax::ApiCall.new(
               @speech_stub.method(:recognize),
               CallSettings.new,
               exception_transformer: exception_transformer
             )
-            @long_running_recognize = Google::Gax.create_api_call(
+            @long_running_recognize = Google::Gax::ApiCall.new(
               @speech_stub.method(:long_running_recognize),
               CallSettings.new,
               exception_transformer: exception_transformer
             )
-            @streaming_recognize = Google::Gax.create_api_call(
+            @streaming_recognize = Google::Gax::ApiCall.new(
               @speech_stub.method(:streaming_recognize),
               CallSettings.new,
               exception_transformer: exception_transformer

@@ -114,59 +114,59 @@ module Google
 
             defaults = default_settings timeout, metadata, lib_name, lib_version
 
-            @create_room = Google::Gax.create_api_call(
+            @create_room = Google::Gax::ApiCall.new(
               @messaging_stub.method(:create_room),
               defaults
             )
-            @get_room = Google::Gax.create_api_call(
+            @get_room = Google::Gax::ApiCall.new(
               @messaging_stub.method(:get_room),
               defaults
             )
-            @update_room = Google::Gax.create_api_call(
+            @update_room = Google::Gax::ApiCall.new(
               @messaging_stub.method(:update_room),
               defaults
             )
-            @delete_room = Google::Gax.create_api_call(
+            @delete_room = Google::Gax::ApiCall.new(
               @messaging_stub.method(:delete_room),
               defaults
             )
-            @list_rooms = Google::Gax.create_api_call(
+            @list_rooms = Google::Gax::ApiCall.new(
               @messaging_stub.method(:list_rooms),
               defaults
             )
-            @create_blurb = Google::Gax.create_api_call(
+            @create_blurb = Google::Gax::ApiCall.new(
               @messaging_stub.method(:create_blurb),
               defaults
             )
-            @get_blurb = Google::Gax.create_api_call(
+            @get_blurb = Google::Gax::ApiCall.new(
               @messaging_stub.method(:get_blurb),
               defaults
             )
-            @update_blurb = Google::Gax.create_api_call(
+            @update_blurb = Google::Gax::ApiCall.new(
               @messaging_stub.method(:update_blurb),
               defaults
             )
-            @delete_blurb = Google::Gax.create_api_call(
+            @delete_blurb = Google::Gax::ApiCall.new(
               @messaging_stub.method(:delete_blurb),
               defaults
             )
-            @list_blurbs = Google::Gax.create_api_call(
+            @list_blurbs = Google::Gax::ApiCall.new(
               @messaging_stub.method(:list_blurbs),
               defaults
             )
-            @search_blurbs = Google::Gax.create_api_call(
+            @search_blurbs = Google::Gax::ApiCall.new(
               @messaging_stub.method(:search_blurbs),
               defaults
             )
-            @stream_blurbs = Google::Gax.create_api_call(
+            @stream_blurbs = Google::Gax::ApiCall.new(
               @messaging_stub.method(:stream_blurbs),
               defaults
             )
-            @send_blurbs = Google::Gax.create_api_call(
+            @send_blurbs = Google::Gax::ApiCall.new(
               @messaging_stub.method(:send_blurbs),
               defaults
             )
-            @connect = Google::Gax.create_api_call(
+            @connect = Google::Gax::ApiCall.new(
               @messaging_stub.method(:connect),
               defaults
             )

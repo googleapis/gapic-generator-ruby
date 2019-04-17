@@ -112,75 +112,75 @@ module Google
 
               defaults = default_settings timeout, metadata, lib_name, lib_version
 
-              @create_product_set = Google::Gax.create_api_call(
+              @create_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:create_product_set),
                 defaults
               )
-              @list_product_sets = Google::Gax.create_api_call(
+              @list_product_sets = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:list_product_sets),
                 defaults
               )
-              @get_product_set = Google::Gax.create_api_call(
+              @get_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:get_product_set),
                 defaults
               )
-              @update_product_set = Google::Gax.create_api_call(
+              @update_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:update_product_set),
                 defaults
               )
-              @delete_product_set = Google::Gax.create_api_call(
+              @delete_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:delete_product_set),
                 defaults
               )
-              @create_product = Google::Gax.create_api_call(
+              @create_product = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:create_product),
                 defaults
               )
-              @list_products = Google::Gax.create_api_call(
+              @list_products = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:list_products),
                 defaults
               )
-              @get_product = Google::Gax.create_api_call(
+              @get_product = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:get_product),
                 defaults
               )
-              @update_product = Google::Gax.create_api_call(
+              @update_product = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:update_product),
                 defaults
               )
-              @delete_product = Google::Gax.create_api_call(
+              @delete_product = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:delete_product),
                 defaults
               )
-              @create_reference_image = Google::Gax.create_api_call(
+              @create_reference_image = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:create_reference_image),
                 defaults
               )
-              @delete_reference_image = Google::Gax.create_api_call(
+              @delete_reference_image = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:delete_reference_image),
                 defaults
               )
-              @list_reference_images = Google::Gax.create_api_call(
+              @list_reference_images = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:list_reference_images),
                 defaults
               )
-              @get_reference_image = Google::Gax.create_api_call(
+              @get_reference_image = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:get_reference_image),
                 defaults
               )
-              @add_product_to_product_set = Google::Gax.create_api_call(
+              @add_product_to_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:add_product_to_product_set),
                 defaults
               )
-              @remove_product_from_product_set = Google::Gax.create_api_call(
+              @remove_product_from_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:remove_product_from_product_set),
                 defaults
               )
-              @list_products_in_product_set = Google::Gax.create_api_call(
+              @list_products_in_product_set = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:list_products_in_product_set),
                 defaults
               )
-              @import_product_sets = Google::Gax.create_api_call(
+              @import_product_sets = Google::Gax::ApiCall.new(
                 @product_search_stub.method(:import_product_sets),
                 defaults
               )

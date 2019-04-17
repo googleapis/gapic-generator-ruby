@@ -112,11 +112,11 @@ module Google
 
               defaults = default_settings timeout, metadata, lib_name, lib_version
 
-              @batch_annotate_images = Google::Gax.create_api_call(
+              @batch_annotate_images = Google::Gax::ApiCall.new(
                 @image_annotator_stub.method(:batch_annotate_images),
                 defaults
               )
-              @async_batch_annotate_files = Google::Gax.create_api_call(
+              @async_batch_annotate_files = Google::Gax::ApiCall.new(
                 @image_annotator_stub.method(:async_batch_annotate_files),
                 defaults
               )

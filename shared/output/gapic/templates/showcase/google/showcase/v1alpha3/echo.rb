@@ -121,32 +121,32 @@ module Google
           )
           @echo_stub = create_stub credentials, scopes
 
-          @echo = Google::Gax.create_api_call(
+          @echo = Google::Gax::ApiCall.new(
             @echo_stub.method(:echo),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @expand = Google::Gax.create_api_call(
+          @expand = Google::Gax::ApiCall.new(
             @echo_stub.method(:expand),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @collect = Google::Gax.create_api_call(
+          @collect = Google::Gax::ApiCall.new(
             @echo_stub.method(:collect),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @chat = Google::Gax.create_api_call(
+          @chat = Google::Gax::ApiCall.new(
             @echo_stub.method(:chat),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @paged_expand = Google::Gax.create_api_call(
+          @paged_expand = Google::Gax::ApiCall.new(
             @echo_stub.method(:paged_expand),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @wait = Google::Gax.create_api_call(
+          @wait = Google::Gax::ApiCall.new(
             @echo_stub.method(:wait),
             CallSettings.new,
             exception_transformer: exception_transformer

@@ -112,15 +112,15 @@ module Google
 
               defaults = default_settings timeout, metadata, lib_name, lib_version
 
-              @recognize = Google::Gax.create_api_call(
+              @recognize = Google::Gax::ApiCall.new(
                 @speech_stub.method(:recognize),
                 defaults
               )
-              @long_running_recognize = Google::Gax.create_api_call(
+              @long_running_recognize = Google::Gax::ApiCall.new(
                 @speech_stub.method(:long_running_recognize),
                 defaults
               )
-              @streaming_recognize = Google::Gax.create_api_call(
+              @streaming_recognize = Google::Gax::ApiCall.new(
                 @speech_stub.method(:streaming_recognize),
                 defaults
               )

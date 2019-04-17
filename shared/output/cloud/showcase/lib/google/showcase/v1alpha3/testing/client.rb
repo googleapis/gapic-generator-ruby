@@ -114,35 +114,35 @@ module Google
 
             defaults = default_settings timeout, metadata, lib_name, lib_version
 
-            @create_session = Google::Gax.create_api_call(
+            @create_session = Google::Gax::ApiCall.new(
               @testing_stub.method(:create_session),
               defaults
             )
-            @get_session = Google::Gax.create_api_call(
+            @get_session = Google::Gax::ApiCall.new(
               @testing_stub.method(:get_session),
               defaults
             )
-            @list_sessions = Google::Gax.create_api_call(
+            @list_sessions = Google::Gax::ApiCall.new(
               @testing_stub.method(:list_sessions),
               defaults
             )
-            @delete_session = Google::Gax.create_api_call(
+            @delete_session = Google::Gax::ApiCall.new(
               @testing_stub.method(:delete_session),
               defaults
             )
-            @report_session = Google::Gax.create_api_call(
+            @report_session = Google::Gax::ApiCall.new(
               @testing_stub.method(:report_session),
               defaults
             )
-            @list_tests = Google::Gax.create_api_call(
+            @list_tests = Google::Gax::ApiCall.new(
               @testing_stub.method(:list_tests),
               defaults
             )
-            @delete_test = Google::Gax.create_api_call(
+            @delete_test = Google::Gax::ApiCall.new(
               @testing_stub.method(:delete_test),
               defaults
             )
-            @verify_test = Google::Gax.create_api_call(
+            @verify_test = Google::Gax::ApiCall.new(
               @testing_stub.method(:verify_test),
               defaults
             )
