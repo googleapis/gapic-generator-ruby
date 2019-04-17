@@ -18,10 +18,6 @@
 # @param scopes [Array<String>]
 #   The OAuth scopes for this service. This parameter is ignored if an
 #   updater_proc is supplied.
-# @param client_config [Hash]
-#   A Hash for call options for each method. See Google::Gax#construct_settings
-#   for the structure of this data. Falls back to the default config if not
-#   specified or the specified config is missing data points.
 # @param timeout [Numeric]
 #   The default timeout, in seconds, for calls made through this client.
 # @param metadata [Hash]
@@ -34,7 +30,6 @@
 def initialize \
     credentials: nil,
     scopes: ALL_SCOPES,
-    client_config: {},
     timeout: DEFAULT_TIMEOUT,
     metadata: nil,
     exception_transformer: nil,
@@ -53,7 +48,7 @@ def initialize \
 <%- end -%>
   @<%= service.stub_name %> = create_stub credentials, scopes
 
-  defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
+  defaults = default_settings timeout, metadata, lib_name, lib_version
 
 <%- service.methods.each do |method| -%>
 <%= indent render(partial: "client/method/init", locals: { service: service, method: method }), "  " %>

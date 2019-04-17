@@ -80,10 +80,6 @@ module Google
             # @param scopes [Array<String>]
             #   The OAuth scopes for this service. This parameter is ignored if an
             #   updater_proc is supplied.
-            # @param client_config [Hash]
-            #   A Hash for call options for each method. See Google::Gax#construct_settings
-            #   for the structure of this data. Falls back to the default config if not
-            #   specified or the specified config is missing data points.
             # @param timeout [Numeric]
             #   The default timeout, in seconds, for calls made through this client.
             # @param metadata [Hash]
@@ -96,7 +92,6 @@ module Google
             def initialize \
                 credentials: nil,
                 scopes: ALL_SCOPES,
-                client_config: {},
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
                 exception_transformer: nil,
@@ -111,16 +106,15 @@ module Google
               credentials ||= Credentials.default
 
               @operations_client = OperationsClient.new(
-                credentials:   credentials,
-                scopes:        scopes,
-                client_config: client_config,
-                timeout:       timeout,
-                lib_name:      lib_name,
-                lib_version:   lib_version
+                credentials: credentials,
+                scopes:      scopes,
+                timeout:     timeout,
+                lib_name:    lib_name,
+                lib_version: lib_version
               )
               @product_search_stub = create_stub credentials, scopes
 
-              defaults = default_settings client_config, timeout, metadata, lib_name, lib_version
+              defaults = default_settings timeout, metadata, lib_name, lib_version
 
               @create_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:create_product_set),
@@ -1273,8 +1267,7 @@ module Google
               )
             end
 
-            def default_settings _client_config, _timeout, metadata, lib_name,
-                                 lib_version
+            def default_settings _timeout, metadata, lib_name, lib_version
               google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
               google_api_client << "#{lib_name}/#{lib_version}" if lib_name
               google_api_client << "gapic/#{Google::Cloud::Vision::VERSION}"

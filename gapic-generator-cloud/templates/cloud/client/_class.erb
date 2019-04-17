@@ -87,8 +87,7 @@ class <%= service.client_class_name %>
     )
   end
 
-  def default_settings client_config, timeout, metadata, lib_name,
-                        lib_version
+  def default_settings timeout, metadata, lib_name, lib_version
     google_api_client = ["gl-ruby/#{RUBY_VERSION}"]
     google_api_client << "#{lib_name}/#{lib_version}" if lib_name
     google_api_client << "gapic/#{<%= service.gem.version_name_full %>}"

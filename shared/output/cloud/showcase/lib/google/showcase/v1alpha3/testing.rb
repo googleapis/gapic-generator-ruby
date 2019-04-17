@@ -40,10 +40,6 @@ module Google
         # @param scopes [Array<String>]
         #   The OAuth scopes for this service. This parameter is ignored if an
         #   updater_proc is supplied.
-        # @param client_config [Hash]
-        #   A Hash for call options for each method. See Google::Gax#construct_settings
-        #   for the structure of this data. Falls back to the default config if not
-        #   specified or the specified config is missing data points.
         # @param timeout [Numeric]
         #   The default timeout, in seconds, for calls made through this client.
         # @param metadata [Hash]
