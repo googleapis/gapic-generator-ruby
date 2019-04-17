@@ -20,11 +20,100 @@ require "google/showcase/v1alpha3/echo"
 class EchoTest < ShowcaseTest
   def test_echo
     client = Google::Showcase::V1alpha3::Echo.new(
-      credentials: GRPC::Core::Channel.new(
-        "localhost:7469", nil, :this_channel_is_insecure))
+      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    )
 
     response = client.echo content: 'hi there!'
 
     assert_equal 'hi there!', response.content
+  end
+
+  def test_chat_closure
+    client = Google::Showcase::V1alpha3::Echo.new(
+      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    )
+
+    pull_count = 0
+
+    stream_input = Google::Gax::StreamInput.new
+
+    client.chat stream_input do |response|
+      puts "PULL #{response.content}"
+      pull_count += 1
+
+      sleep rand
+
+      msg, count = response.content.split ":"
+      count = count.to_i
+      count += 1
+      puts "PUSH #{msg}:#{count}"
+      stream_input.push content: "#{msg}:#{count}"
+    end
+
+    Thread.new do
+      10.times do |n|
+        puts "PUSH hello #{n}:1"
+        stream_input.push content: "hello #{n}:1"
+        sleep rand
+      end
+    end
+
+    25.times do
+      break if pull_count >= 20
+
+      sleep 1
+    end
+
+    stream_input.close
+
+    assert pull_count >= 20, "should have pulled 20 messages by now"
+  end
+
+  def test_chat_enumerator
+    client = Google::Showcase::V1alpha3::Echo.new(
+      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    )
+
+    pull_count = 0
+
+    stream_input = Google::Gax::StreamInput.new
+
+    responses = client.chat stream_input
+
+    Thread.new do
+      10.times do |n|
+        puts "PUSH hello #{n}:1"
+        stream_input.push content: "hello #{n}:1"
+        sleep rand
+      end
+    end
+
+    Thread.new do
+      sleep 20
+
+      stream_input.close
+    end
+
+    responses.each do |response|
+      puts "PULL #{response.content}"
+      pull_count += 1
+
+      if pull_count >= 20
+        stream_input.close
+        break
+      end
+
+      Thread.new do
+        sleep rand
+
+        msg, count = response.content.split ":"
+        count = count.to_i
+        count += 1
+        puts "PUSH #{msg}:#{count}"
+        stream_input.push content: "#{msg}:#{count}"
+      end
+    end
+
+    assert pull_count >= 20, "should have pulled 20 messages by now"
   end
 end
