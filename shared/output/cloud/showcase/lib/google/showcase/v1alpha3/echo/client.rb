@@ -84,16 +84,12 @@ module Google
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -117,33 +113,27 @@ module Google
 
             @echo = Google::Gax.create_api_call(
               @echo_stub.method(:echo),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @expand = Google::Gax.create_api_call(
               @echo_stub.method(:expand),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @collect = Google::Gax.create_api_call(
               @echo_stub.method(:collect),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @chat = Google::Gax.create_api_call(
               @echo_stub.method(:chat),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @paged_expand = Google::Gax.create_api_call(
               @echo_stub.method(:paged_expand),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @wait = Google::Gax.create_api_call(
               @echo_stub.method(:wait),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
           end
 

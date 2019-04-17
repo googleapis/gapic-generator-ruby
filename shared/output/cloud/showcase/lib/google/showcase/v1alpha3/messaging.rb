@@ -45,9 +45,6 @@ module Google
         # @param metadata [Hash]
         #   Default metadata to be sent with each request. This can be overridden on a
         #   per call basis.
-        # @param exception_transformer [Proc]
-        #   An optional proc that intercepts any exceptions raised during an API call to
-        #   inject custom error handling.
         #
         def self.new *args
           Client.new *args

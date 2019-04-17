@@ -85,16 +85,12 @@ module Google
             # @param metadata [Hash]
             #   Default metadata to be sent with each request. This can be overridden on a
             #   per call basis.
-            # @param exception_transformer [Proc]
-            #   An optional proc that intercepts any exceptions raised during an API call to
-            #   inject custom error handling.
             #
             def initialize \
                 credentials: nil,
                 scopes: ALL_SCOPES,
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
-                exception_transformer: nil,
                 lib_name: nil,
                 lib_version: ""
               # These require statements are intentionally placed here to initialize
@@ -118,18 +114,15 @@ module Google
 
               @recognize = Google::Gax.create_api_call(
                 @speech_stub.method(:recognize),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @long_running_recognize = Google::Gax.create_api_call(
                 @speech_stub.method(:long_running_recognize),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @streaming_recognize = Google::Gax.create_api_call(
                 @speech_stub.method(:streaming_recognize),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
             end
 

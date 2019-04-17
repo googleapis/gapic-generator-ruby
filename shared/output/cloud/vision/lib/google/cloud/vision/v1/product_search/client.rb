@@ -85,16 +85,12 @@ module Google
             # @param metadata [Hash]
             #   Default metadata to be sent with each request. This can be overridden on a
             #   per call basis.
-            # @param exception_transformer [Proc]
-            #   An optional proc that intercepts any exceptions raised during an API call to
-            #   inject custom error handling.
             #
             def initialize \
                 credentials: nil,
                 scopes: ALL_SCOPES,
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
-                exception_transformer: nil,
                 lib_name: nil,
                 lib_version: ""
               # These require statements are intentionally placed here to initialize
@@ -118,93 +114,75 @@ module Google
 
               @create_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:create_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @list_product_sets = Google::Gax.create_api_call(
                 @product_search_stub.method(:list_product_sets),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @get_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:get_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @update_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:update_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @delete_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:delete_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @create_product = Google::Gax.create_api_call(
                 @product_search_stub.method(:create_product),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @list_products = Google::Gax.create_api_call(
                 @product_search_stub.method(:list_products),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @get_product = Google::Gax.create_api_call(
                 @product_search_stub.method(:get_product),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @update_product = Google::Gax.create_api_call(
                 @product_search_stub.method(:update_product),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @delete_product = Google::Gax.create_api_call(
                 @product_search_stub.method(:delete_product),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @create_reference_image = Google::Gax.create_api_call(
                 @product_search_stub.method(:create_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @delete_reference_image = Google::Gax.create_api_call(
                 @product_search_stub.method(:delete_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @list_reference_images = Google::Gax.create_api_call(
                 @product_search_stub.method(:list_reference_images),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @get_reference_image = Google::Gax.create_api_call(
                 @product_search_stub.method(:get_reference_image),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @add_product_to_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:add_product_to_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @remove_product_from_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:remove_product_from_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @list_products_in_product_set = Google::Gax.create_api_call(
                 @product_search_stub.method(:list_products_in_product_set),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @import_product_sets = Google::Gax.create_api_call(
                 @product_search_stub.method(:import_product_sets),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
             end
 

@@ -87,16 +87,12 @@ module Google
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -120,28 +116,23 @@ module Google
 
             @create_user = Google::Gax.create_api_call(
               @identity_stub.method(:create_user),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @get_user = Google::Gax.create_api_call(
               @identity_stub.method(:get_user),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @update_user = Google::Gax.create_api_call(
               @identity_stub.method(:update_user),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @delete_user = Google::Gax.create_api_call(
               @identity_stub.method(:delete_user),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @list_users = Google::Gax.create_api_call(
               @identity_stub.method(:list_users),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
           end
 

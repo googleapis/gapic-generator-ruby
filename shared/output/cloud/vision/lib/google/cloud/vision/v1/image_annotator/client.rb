@@ -85,16 +85,12 @@ module Google
             # @param metadata [Hash]
             #   Default metadata to be sent with each request. This can be overridden on a
             #   per call basis.
-            # @param exception_transformer [Proc]
-            #   An optional proc that intercepts any exceptions raised during an API call to
-            #   inject custom error handling.
             #
             def initialize \
                 credentials: nil,
                 scopes: ALL_SCOPES,
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
-                exception_transformer: nil,
                 lib_name: nil,
                 lib_version: ""
               # These require statements are intentionally placed here to initialize
@@ -118,13 +114,11 @@ module Google
 
               @batch_annotate_images = Google::Gax.create_api_call(
                 @image_annotator_stub.method(:batch_annotate_images),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
               @async_batch_annotate_files = Google::Gax.create_api_call(
                 @image_annotator_stub.method(:async_batch_annotate_files),
-                defaults,
-                exception_transformer: exception_transformer
+                defaults
               )
             end
 

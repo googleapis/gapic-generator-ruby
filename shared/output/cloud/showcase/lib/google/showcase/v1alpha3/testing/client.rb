@@ -87,16 +87,12 @@ module Google
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -120,43 +116,35 @@ module Google
 
             @create_session = Google::Gax.create_api_call(
               @testing_stub.method(:create_session),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @get_session = Google::Gax.create_api_call(
               @testing_stub.method(:get_session),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @list_sessions = Google::Gax.create_api_call(
               @testing_stub.method(:list_sessions),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @delete_session = Google::Gax.create_api_call(
               @testing_stub.method(:delete_session),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @report_session = Google::Gax.create_api_call(
               @testing_stub.method(:report_session),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @list_tests = Google::Gax.create_api_call(
               @testing_stub.method(:list_tests),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @delete_test = Google::Gax.create_api_call(
               @testing_stub.method(:delete_test),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @verify_test = Google::Gax.create_api_call(
               @testing_stub.method(:verify_test),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
           end
 

@@ -87,16 +87,12 @@ module Google
           # @param metadata [Hash]
           #   Default metadata to be sent with each request. This can be overridden on a
           #   per call basis.
-          # @param exception_transformer [Proc]
-          #   An optional proc that intercepts any exceptions raised during an API call to
-          #   inject custom error handling.
           #
           def initialize \
               credentials: nil,
               scopes: ALL_SCOPES,
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
-              exception_transformer: nil,
               lib_name: nil,
               lib_version: ""
             # These require statements are intentionally placed here to initialize
@@ -120,73 +116,59 @@ module Google
 
             @create_room = Google::Gax.create_api_call(
               @messaging_stub.method(:create_room),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @get_room = Google::Gax.create_api_call(
               @messaging_stub.method(:get_room),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @update_room = Google::Gax.create_api_call(
               @messaging_stub.method(:update_room),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @delete_room = Google::Gax.create_api_call(
               @messaging_stub.method(:delete_room),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @list_rooms = Google::Gax.create_api_call(
               @messaging_stub.method(:list_rooms),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @create_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:create_blurb),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @get_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:get_blurb),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @update_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:update_blurb),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @delete_blurb = Google::Gax.create_api_call(
               @messaging_stub.method(:delete_blurb),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @list_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:list_blurbs),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @search_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:search_blurbs),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @stream_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:stream_blurbs),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @send_blurbs = Google::Gax.create_api_call(
               @messaging_stub.method(:send_blurbs),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
             @connect = Google::Gax.create_api_call(
               @messaging_stub.method(:connect),
-              defaults,
-              exception_transformer: exception_transformer
+              defaults
             )
           end
 
