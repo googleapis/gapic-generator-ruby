@@ -223,7 +223,7 @@ module Google
             # Performs bidirectional streaming speech recognition: receive results while
             # sending audio. This method is only available via the gRPC API (not REST).
             #
-            # @param requests [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
+            # @param requests [Google::Gax::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
             # @param options [Google::Gax::ApiCall::Options]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -237,7 +237,13 @@ module Google
             #   TODO
             #
             def streaming_recognize requests, options: nil
-              raise ArgumentError, "requests must be an Enumerable" unless requests.is_a? Enumerable
+              unless requests.is_a? Enumerable
+                if requests.respond_to? :to_enum
+                  requests = requests.to_enum
+                else
+                  raise ArgumentError, "requests must be an Enumerable"
+                end
+              end
 
               requests = requests.lazy.map do |request|
                 Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
