@@ -14,125 +14,14 @@ Rake::TestTask.new do |t|
   t.warning = false
 end
 
-namespace :test do
-  desc "Runs tests with coverage."
-  task :coverage do
-    require "simplecov"
-    SimpleCov.start do
-      command_name "<%= gem.name %>"
-      track_files "lib/**/*.rb"
-      add_filter "test/"
-    end
-
-    Rake::Task[:test].invoke
-  end
-end
-
-desc "Runs the smoke tests."
-desc "Runs the smoke tests."
+desc "Run smoke tests."
 Rake::TestTask.new :smoke_test do |t|
   t.test_files = FileList["acceptance/**/*smoke_test.rb"]
   t.warning = false
-end
-
-namespace :smoke_test do
-  desc "Runs smoke tests with coverage."
-  task :coverage do
-    require "simplecov"
-    SimpleCov.start do
-      command_name "<%= gem.name %>"
-      track_files "lib/**/*.rb"
-      add_filter "test/"
-    end
-
-    Rake::Task[:smoke_test].invoke
-  end
-end
-
-# Acceptance tests
-desc "Run the <%= gem.name %> acceptance tests."
-task :acceptance, :project, :keyfile do |t, args|
-  project = args[:project]
-  project ||= ENV["<%= gem.env_prefix %>_TEST_PROJECT"]
-  keyfile = args[:keyfile]
-  keyfile ||= ENV["<%= gem.env_prefix %>_TEST_CREDENTIALS"]
-  if keyfile
-    keyfile = File.read keyfile
-  else
-    keyfile ||= ENV["<%= gem.env_prefix %>_TEST_CREDENTIALS_JSON"]
-  end
-  if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= gem.env_prefix %>_TEST_PROJECT=test123 <%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
-  end
-
-  ENV["<%= gem.env_prefix %>_CREDENTIALS"] = nil
-  ENV["<%= gem.env_prefix %>_KEYFILE"] = nil
-
-  ENV["<%= gem.env_prefix %>_CREDENTIALS_JSON"] = nil
-  ENV["<%= gem.env_prefix %>_KEYFILE_JSON"] = nil
-
-  ENV["<%= gem.env_prefix %>_PROJECT"] = project
-  ENV["<%= gem.env_prefix %>_CREDENTIALS_JSON"] = keyfile
-
-  Rake::Task["acceptance:run"].invoke
-end
-
-namespace :acceptance do
-  Rake::TestTask.new :run do |t|
-    t.libs << "acceptance"
-    t.test_files = FileList["acceptance/**/*_test.rb"]
-    t.warning = false
-  end
-
-  desc "Run acceptance tests with coverage."
-  task :coverage do
-  end
-
-  desc "Run acceptance cleanup."
-  task :cleanup do
-  end
 end
 
 require "yard"
 require "yard/rake/yardoc_task"
 YARD::Rake::YardocTask.new
 
-desc "Run yard-doctest example tests."
-task :doctest do
-  puts "The <%= gem.name %> gem does not have doctest tests."
-end
-
-desc "Run the CI build"
-task :ci do
-  header "BUILDING <%= gem.name %>"
-  header "<%= gem.name %> rubocop", "*"
-  Rake::Task[:rubocop].invoke
-  header "<%= gem.name %> doctest", "*"
-  Rake::Task[:doctest].invoke
-  header "<%= gem.name %> test", "*"
-  Rake::Task[:test].invoke
-end
-
-namespace :ci do
-  desc "Run the CI build, with acceptance tests."
-  task :acceptance do
-    Rake::Task[:ci].invoke
-    header "<%= gem.name %> acceptance", "*"
-    Rake::Task[:acceptance].invoke
-  end
-  task :a do
-    # This is a handy shortcut to save typing
-    Rake::Task["ci:acceptance"].invoke
-  end
-end
-
 task default: :test
-
-def header str, token = "#"
-  line_length = str.length + 8
-  puts ""
-  puts token * line_length
-  puts "#{token * 3} #{str} #{token * 3}"
-  puts token * line_length
-  puts ""
-end
