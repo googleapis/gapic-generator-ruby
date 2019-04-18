@@ -101,7 +101,7 @@ module Google
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/identity_services_pb"
 
-            credentials ||= Credentials.default
+            credentials ||= Credentials.default scope: scopes
 
             @operations_client = OperationsClient.new(
               credentials: credentials,

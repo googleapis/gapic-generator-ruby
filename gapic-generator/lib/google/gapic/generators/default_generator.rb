@@ -19,8 +19,7 @@ require "google/gapic/generators/base_generator"
 module Google
   module Gapic
     module Generators
-      # The generator orchestrates the rendering of templates for Google Cloud
-      # projects.
+      # The generator orchestrates the rendering of templates.
       class DefaultGenerator < BaseGenerator
         # Initializes the generator.
         #
@@ -29,7 +28,7 @@ module Google
         def initialize api
           super
 
-          # Configure to use prefer Google Cloud templates
+          # Configure to use a custom templates directory
           use_templates! File.join __dir__, "../../../../templates/default"
 
           # Configure these helper method to be used by the generator

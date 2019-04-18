@@ -99,7 +99,7 @@ module Google
               require "google/gax/grpc"
               require "google/cloud/speech/v1/cloud_speech_services_pb"
 
-              credentials ||= Credentials.default
+              credentials ||= Credentials.default scope: scopes
 
               @operations_client = OperationsClient.new(
                 credentials: credentials,

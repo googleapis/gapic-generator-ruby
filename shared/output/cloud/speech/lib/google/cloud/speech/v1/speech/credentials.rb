@@ -22,9 +22,7 @@ module Google
       module V1
         module Speech
           class Credentials < Google::Auth::Credentials
-            SCOPE = [
-              "https://www.googleapis.com/auth/cloud-platform"
-            ].freeze
+            SCOPE = ["https://www.googleapis.com/auth/cloud-platform"].freeze
             PATH_ENV_VARS = %w[SPEECH_CREDENTIALS
                                SPEECH_KEYFILE
                                GOOGLE_CLOUD_CREDENTIALS

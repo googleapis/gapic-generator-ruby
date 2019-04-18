@@ -37,7 +37,7 @@ def initialize \
   require "google/gax/grpc"
   require "<%= service.services_proto_require %>"
 
-  credentials ||= Credentials.default
+  credentials ||= Credentials.default scope: scopes
 
 <%- if service.client_lro? -%>
 <%= indent render(partial: "client/lro/init", locals: { service: service }), "  " %>
