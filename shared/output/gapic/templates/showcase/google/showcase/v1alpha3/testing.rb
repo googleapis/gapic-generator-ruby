@@ -113,42 +113,42 @@ module Google
           )
           @testing_stub = create_stub credentials, scopes
 
-          @create_session = Google::Gax.create_api_call(
+          @create_session = Google::Gax::ApiCall.new(
             @testing_stub.method(:create_session),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @get_session = Google::Gax.create_api_call(
+          @get_session = Google::Gax::ApiCall.new(
             @testing_stub.method(:get_session),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @list_sessions = Google::Gax.create_api_call(
+          @list_sessions = Google::Gax::ApiCall.new(
             @testing_stub.method(:list_sessions),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @delete_session = Google::Gax.create_api_call(
+          @delete_session = Google::Gax::ApiCall.new(
             @testing_stub.method(:delete_session),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @report_session = Google::Gax.create_api_call(
+          @report_session = Google::Gax::ApiCall.new(
             @testing_stub.method(:report_session),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @list_tests = Google::Gax.create_api_call(
+          @list_tests = Google::Gax::ApiCall.new(
             @testing_stub.method(:list_tests),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @delete_test = Google::Gax.create_api_call(
+          @delete_test = Google::Gax::ApiCall.new(
             @testing_stub.method(:delete_test),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @verify_test = Google::Gax.create_api_call(
+          @verify_test = Google::Gax::ApiCall.new(
             @testing_stub.method(:verify_test),
             CallSettings.new,
             exception_transformer: exception_transformer

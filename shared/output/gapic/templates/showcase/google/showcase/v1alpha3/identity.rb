@@ -112,27 +112,27 @@ module Google
           )
           @identity_stub = create_stub credentials, scopes
 
-          @create_user = Google::Gax.create_api_call(
+          @create_user = Google::Gax::ApiCall.new(
             @identity_stub.method(:create_user),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @get_user = Google::Gax.create_api_call(
+          @get_user = Google::Gax::ApiCall.new(
             @identity_stub.method(:get_user),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @update_user = Google::Gax.create_api_call(
+          @update_user = Google::Gax::ApiCall.new(
             @identity_stub.method(:update_user),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @delete_user = Google::Gax.create_api_call(
+          @delete_user = Google::Gax::ApiCall.new(
             @identity_stub.method(:delete_user),
             CallSettings.new,
             exception_transformer: exception_transformer
           )
-          @list_users = Google::Gax.create_api_call(
+          @list_users = Google::Gax::ApiCall.new(
             @identity_stub.method(:list_users),
             CallSettings.new,
             exception_transformer: exception_transformer
