@@ -19,7 +19,8 @@ require "google/gapic/generators/base_generator"
 module Google
   module Gapic
     module Generators
-      # The generator orchestrates the rendering of templates.
+      # The generator orchestrates the rendering of templates for Google Cloud
+      # projects.
       class DefaultGenerator < BaseGenerator
         # Initializes the generator.
         #
@@ -28,17 +29,16 @@ module Google
         def initialize api
           super
 
-          # Configure to use the default templates
-          use_templates! File.expand_path \
-            File.join __dir__, "../../../../templates/default"
-
-          # Configure to use a custom templates directory
-          custom_templates = api.protoc_options[:templates]
-          use_templates! custom_templates if custom_templates
+          # Configure to use prefer Google Cloud templates
+          use_templates! File.join __dir__, "../../../../templates/default"
 
           # Configure these helper method to be used by the generator
-          use_helpers! :ruby_file_path, :api_services, :ruby_require
+          use_helpers! :gem_presenter
         end
+
+        # Disable Rubocop because we expect generate to grow and violate more
+        # and more style rules.
+        # rubocop:disable all
 
         # Generates all the files for the API.
         #
@@ -48,14 +48,60 @@ module Google
         def generate
           files = []
 
-          api_services(@api).each do |service|
-            files << g("client.erb", ruby_file_path(service),
-                       api: @api, service: service)
+          gem = gem_presenter @api
+
+          gem.packages.each do |package|
+            # Package level files
+            files << g("package.erb", "lib/#{package.version_file_path}",
+                       package: package)
+
+            package.services.each do |service|
+              # Service level files
+              files << g("client.erb", "lib/#{service.client_file_path}",
+                         service: service)
+              files << g("client/class.erb",
+                         "lib/#{service.client_class_file_path}",
+                         service: service)
+              files << g("client/credentials.erb",
+                         "lib/#{service.credentials_class_file_path}",
+                         service: service)
+              files << g("client/paths.erb",
+                         "lib/#{service.paths_file_path}",
+                         service: service) if service.paths?
+              files << g("client_test.erb",
+                         "test/#{service.client_test_file_path}",
+                         service: service)
+            end
+
+            gem.proto_files.each do |file|
+              files << g("doc/proto_file.erb",
+                         "lib/doc/#{file.docs_file_path}",
+                         file: file)
+            end
           end
+
+          # Gem level files
+          files << g("version.erb", "lib/#{gem.version_file_path}", gem: gem)
+          files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
+          files << g("gemfile.erb",  "Gemfile",                     gem: gem)
+          files << g("rakefile.erb", "Rakefile",                    gem: gem)
+          files << g("rubocop.erb",  ".rubocop",                    gem: gem)
+          files << g("license.erb",  "LICENSE.md",                  gem: gem)
 
           format_files files
 
           files
+        end
+
+        # rubocop:enable all
+
+        private
+
+        ##
+        # Override the default rubocop config file to be used.
+        def format_config
+          @api.configuration[:format_config] ||
+            super
         end
       end
     end

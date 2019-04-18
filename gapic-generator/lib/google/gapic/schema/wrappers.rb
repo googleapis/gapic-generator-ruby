@@ -329,8 +329,6 @@ module Google
         extend Forwardable
         attr_reader :messages, :enums, :services
 
-        # rubocop:disable Metrics/ParameterLists
-
         # Initializes a message object.
         # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
         #   representation of this service.
@@ -356,8 +354,6 @@ module Google
           @enums.each    { |m| m.parent = self }
           @services.each { |m| m.parent = self }
         end
-
-        # rubocop:enable Metrics/ParameterLists
 
         def generate?
           @generate
@@ -469,8 +465,6 @@ module Google
         extend Forwardable
         attr_reader :fields, :extensions, :nested_messages, :nested_enums
 
-        # rubocop:disable Metrics/ParameterLists
-
         # Initializes a message object.
         # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
         #   representation of this service.
@@ -497,8 +491,6 @@ module Google
           @nested_messages.each { |m| m.parent = self }
           @nested_enums.each    { |e| e.parent = self }
         end
-
-        # rubocop:enable Metrics/ParameterLists
 
         # @!method name
         #   @return [String] the unqualified name of the message.

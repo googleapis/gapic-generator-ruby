@@ -55,10 +55,10 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      ["name", "int32", "bool"],
+      %w[name int32 bool],
       ["name", "nested.int64"]
     ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
     assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
@@ -88,11 +88,11 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      ["name", "int32", "int64"],
-      ["name", "float", "double"],
-      ["name", "bool", "enum"]
+      %w[name int32 int64],
+      %w[name float double],
+      %w[name bool enum]
     ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
     assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
@@ -122,11 +122,11 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "*", method.options[:http][:body]
 
     expected_signatures = [
-      ["name", "bool", "enum"],
-      ["name", "float", "double"],
-      ["name", "int32", "int64", "uint32", "uint64"]
+      %w[name bool enum],
+      %w[name float double],
+      %w[name int32 int64 uint32 uint64]
     ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join(",")}
+    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
     assert_equal expected_signature_lists, method.options[:method_signature]
 
     assert_nil method.options[:operation_info]

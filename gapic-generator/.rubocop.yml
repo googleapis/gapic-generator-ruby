@@ -1,21 +1,20 @@
+inherit_gem:
+  google-style: google-style.yml
+
 AllCops:
   TargetRubyVersion: 2.5
   Exclude:
-    - Rakefile
     - lib/**/*.pb.rb
     - expected_output/**/*
+    - templates/default/helpers/**/*
     - test/google/gapic/annotations/**/*
+    - test/google/gapic/presenters/**/*
 
-Documentation:
-  Enabled: false
+Metrics/ClassLength:
+  Max: 115
+Metrics/BlockLength:
+  Exclude:
+    - gapic-generator.gemspec
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-Style/MethodCallWithArgsParentheses:
-  Enabled: true
-  EnforcedStyle: omit_parentheses
-  AllowParenthesesInMultilineCall: true
-Style/MethodDefParentheses:
-  EnforcedStyle: require_no_parentheses
 Style/Alias:
   EnforcedStyle: prefer_alias_method

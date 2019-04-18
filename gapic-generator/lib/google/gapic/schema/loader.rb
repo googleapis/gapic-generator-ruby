@@ -25,8 +25,6 @@ require "google/gapic/schema/wrappers"
 module Google
   module Gapic
     module Schema
-      # rubocop:disable Metrics/ClassLength
-
       # Loader
       class Loader
         # Empty location for things with no comments.
@@ -37,9 +35,6 @@ module Google
           @prior_messages = []
           @prior_enums = []
         end
-
-        # rubocop:disable Metrics/AbcSize
-        # rubocop:disable Metrics/MethodLength
 
         # Loads a file.
         #
@@ -78,9 +73,6 @@ module Google
           File.new file_descriptor, address, docs[path], messages, enums,
                    services, file_to_generate
         end
-
-        # rubocop:enable Metrics/AbcSize
-        # rubocop:enable Metrics/MethodLength
 
         # Updates the fields of a message and it's nested messages.
         #
@@ -140,9 +132,6 @@ module Google
           EnumValue.new descriptor, address, docs[path]
         end
 
-        # rubocop:disable Metrics/AbcSize
-        # rubocop:disable Metrics/MethodLength
-
         # Loads a message. As a side effect, this alters @messages and @enums
         # with the nested messages that are found.
         #
@@ -186,9 +175,6 @@ module Google
           @prior_messages << msg
           msg
         end
-
-        # rubocop:enable Metrics/AbcSize
-        # rubocop:enable Metrics/MethodLength
 
         # Loads a field.
         #
@@ -301,8 +287,6 @@ module Google
           @prior_messages.find { |m| m.address == address }
         end
       end
-
-      # rubocop:enable Metrics/ClassLength
     end
   end
 end
