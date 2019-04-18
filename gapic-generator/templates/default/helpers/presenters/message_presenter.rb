@@ -32,6 +32,7 @@ class MessagePresenter
   end
 
   def doc_description
+    return nil if @message.docs.nil?
     return nil if @message.docs.leading_comments.empty?
 
     @message

@@ -52,6 +52,7 @@ class FieldPresenter
   end
 
   def doc_description
+    return nil if @field.docs.nil?
     return nil if @field.docs.leading_comments.empty?
 
     @field
