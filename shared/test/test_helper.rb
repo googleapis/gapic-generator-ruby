@@ -28,7 +28,6 @@ def generate_library_for_test imports, protos
     "--ruby_out=#{client_lib}/lib",
     "--grpc_out=#{client_lib}/lib",
     "--ruby_gapic_out=#{client_lib}",
-    "--ruby_gapic_opt=generator=cloud",
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
