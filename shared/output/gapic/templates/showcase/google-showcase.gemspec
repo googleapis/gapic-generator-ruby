@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.description   = "google-showcase is the official library for Google Showcase API."
   gem.summary       = "API Client library for Google Showcase API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
-  gem.license       = "Apache-2.0"
+  gem.license       = "MIT"
 
   gem.platform      = Gem::Platform::RUBY
 
