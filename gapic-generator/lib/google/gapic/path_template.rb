@@ -18,6 +18,8 @@ require "google/gapic/path_template/parser"
 
 module Google
   module Gapic
+    # TODO: Enter docs
+    # Dooooooooocs!!!
     module PathTemplate
       # Parse a URI path template.
       #

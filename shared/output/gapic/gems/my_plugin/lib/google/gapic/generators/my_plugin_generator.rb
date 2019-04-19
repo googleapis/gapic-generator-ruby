@@ -22,7 +22,7 @@ module Google
     module Generators
       # The generator orchestrates the rendering of templates for
       # MyPlugin projects.
-      class MyPluginGenerator < DefaultGenerator
+      class MyPluginGenerator < BaseGenerator
         # Initializes the generator.
         #
         # @param api [Google::Gapic::Schema::Api] The API model/context to

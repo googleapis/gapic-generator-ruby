@@ -18,6 +18,8 @@ require "active_support/inflector"
 
 module Google
   module Gapic
+    # TODO: Enter docs
+    # Dooooooooocs!!!
     module Generator
       def self.find type = nil
         type ||= "default"

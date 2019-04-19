@@ -42,8 +42,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionpack", "~> 5.2"
+  spec.add_dependency "google-style", "~> 0.2"
   spec.add_dependency "protobuf", "~> 3.8"
-  spec.add_dependency "rubocop", "~> 0.61"
 
   spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "grpc-tools", "~> 1.19"

@@ -34,9 +34,6 @@ module Google
         @path = path
       end
 
-      # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/MethodLength
-
       ##
       # Writes all the files for the gem.
       #
@@ -56,9 +53,6 @@ module Google
         gen "test_generator.erb", "test/generators/#{gem_name}_test.rb"
         cp  "speech_desc.bin",    "proto_input/speech_desc.bin"
       end
-
-      # rubocop:enable Metrics/AbcSize
-      # rubocop:enable Metrics/MethodLength
 
       private
 
@@ -91,8 +85,8 @@ module Google
       def gen template, filename
         content = controller.render_to_string(
           template: template,
-          formats: :text,
-          locals: { gem_name: gem_name, gem_class_prefix: gem_class_prefix }
+          formats:  :text,
+          locals:   { gem_name: gem_name, gem_class_prefix: gem_class_prefix }
         )
         target_path = File.join @path, filename
         FileUtils.mkdir_p File.dirname(target_path)

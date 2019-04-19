@@ -96,8 +96,7 @@ task :acceptance, :project, :keyfile do |_t, args|
   ENV["GCLOUD_KEYFILE_JSON"] = nil
 
   ENV["SHOWCASE_PROJECT"] = project
-  ENV["SHOWCASE_TEST_PROJECT"] = project
-  ENV["SHOWCASE_KEYFILE_JSON"] = keyfile
+  ENV["SHOWCASE_CREDENTIALS_JSON"] = keyfile
 
   Rake::Task["acceptance:run"].invoke
 end

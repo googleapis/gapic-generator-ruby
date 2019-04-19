@@ -17,15 +17,15 @@
 require "test_helper"
 
 class EnumTest < AnnotationTest
- def test_enum
-   garbage = api :garbage
-   message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
-   refute_nil message
+  def test_enum
+    garbage = api :garbage
+    message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
+    refute_nil message
 
-   assert_equal 11, message.fields.count
+    assert_equal 11, message.fields.count
 
-   assert_equal "enum", message.fields[10].name
-   assert_equal Google::Protobuf::FieldDescriptorProto::Type::TYPE_ENUM, message.fields[10].type
-   assert message.fields[10].enum?
- end
+    assert_equal "enum", message.fields[10].name
+    assert_equal Google::Protobuf::FieldDescriptorProto::Type::TYPE_ENUM, message.fields[10].type
+    assert message.fields[10].enum?
+  end
 end

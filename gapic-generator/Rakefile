@@ -62,9 +62,7 @@ end
 
 desc "Check that the necessary protobuf files exist."
 task :check_protos do
-  unless File.exist? "lib/google/api/annotations.pb.rb"
-    Rake::Task[:compile_protos].invoke
-  end
+  Rake::Task[:compile_protos].invoke unless File.exist? "lib/google/api/annotations.pb.rb"
 end
 
 Rake::Task[:build].enhance [:compile_protos]
@@ -94,7 +92,7 @@ namespace :gen do
     generate_default_templates "speech"
     generate_default_templates "vision"
     generate_default_templates "showcase"
-    generate_default_templates "garbage"
+    # generate_default_templates "garbage"
   end
 
   desc "Generate the expected output for gem creation tests"

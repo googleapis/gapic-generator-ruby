@@ -20,6 +20,8 @@ require "google/protobuf/compiler/plugin.pb"
 
 module Google
   module Gapic
+    # TODO: Enter docs
+    # Dooooooooocs!!!
     class Runner
       attr_reader :request
 

@@ -99,7 +99,7 @@ module Google
               require "google/gax/grpc"
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
-              credentials ||= Credentials.default
+              credentials ||= Credentials.default scope: scopes
 
               @operations_client = OperationsClient.new(
                 credentials: credentials,

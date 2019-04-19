@@ -31,14 +31,7 @@ module Google
 
           # Configure to use prefer Google Cloud templates
           use_templates! File.join __dir__, "../../../../templates/cloud"
-
-          # Configure these helper method to be used by the generator
-          use_helpers! :gem_presenter
         end
-
-        # Disable Rubocop because we expect generate to grow and violate more
-        # and more style rules.
-        # rubocop:disable all
 
         # Generates all the files for the API.
         #
@@ -46,54 +39,8 @@ module Google
         #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate
-          files = []
-
-          gem = gem_presenter @api
-
-          gem.packages.each do |package|
-            # Package level files
-            files << g("package.erb", "lib/#{package.version_file_path}",
-                       package: package)
-
-            package.services.each do |service|
-              # Service level files
-              files << g("client.erb", "lib/#{service.client_file_path}",
-                         service: service)
-              files << g("client/class.erb",
-                         "lib/#{service.client_class_file_path}",
-                         service: service)
-              files << g("client/credentials.erb",
-                         "lib/#{service.credentials_class_file_path}",
-                         service: service)
-              files << g("client/paths.erb",
-                         "lib/#{service.paths_file_path}",
-                         service: service) if service.paths?
-              files << g("client_test.erb",
-                         "test/#{service.client_test_file_path}",
-                         service: service)
-            end
-
-            gem.proto_files.each do |file|
-              files << g("doc/proto_file.erb",
-                         "lib/doc/#{file.docs_file_path}",
-                         file: file)
-            end
-          end
-
-          # Gem level files
-          files << g("version.erb", "lib/#{gem.version_file_path}", gem: gem)
-          files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
-          files << g("gemfile.erb",  "Gemfile",                     gem: gem)
-          files << g("rakefile.erb", "Rakefile",                    gem: gem)
-          files << g("rubocop.erb",  ".rubocop",                    gem: gem)
-          files << g("license.erb",  "LICENSE.md",                  gem: gem)
-
-          format_files files
-
-          files
+          super
         end
-
-        # rubocop:enable all
 
         private
 

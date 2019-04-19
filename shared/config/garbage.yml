@@ -1,2 +1,3 @@
 ---
-:foo: bar
+:gem:
+  :name: google-garbage
