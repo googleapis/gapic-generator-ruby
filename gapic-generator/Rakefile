@@ -85,6 +85,7 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:gem_creation"].invoke
+  Rake::Task["gen:protos"].invoke
 end
 namespace :gen do
   desc "Generate the expected output for templates tests"
@@ -98,6 +99,11 @@ namespace :gen do
   desc "Generate the expected output for gem creation tests"
   task :gem_creation do
     generate_gem "my_plugin"
+  end
+
+  desc "Generate the protobuf files used in the gem"
+  task :protos do
+    Rake::Task["compile_protos"].invoke
   end
 end
 Rake::Task[:gen].enhance [:check_protos]
