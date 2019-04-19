@@ -5,7 +5,7 @@ AllCops:
   Exclude:
     - "acceptance/**/*"
     - "google-cloud-speech.gemspec"
-    - "lib/**/*_pb..rb"
+    - "lib/**/*_pb.rb"
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
