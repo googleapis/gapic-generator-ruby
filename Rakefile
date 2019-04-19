@@ -14,15 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-desc "Check that the necessary protobuf files exist."
-task :check_protos do
-  Dir.chdir "gapic-generator" do
-    Bundler.with_clean_env do
-      sh "bundle exec rake check_protos"
-    end
-  end
-end
-
 desc "Builds all gems."
 task :build do
   gem_dirs.each do |gem|
@@ -65,7 +56,6 @@ task :test do
     end
   end
 end
-Rake::Task[:test].enhance [:check_protos]
 
 desc "Runs file generation for binary input files and all gems."
 task :gen do
@@ -85,7 +75,6 @@ task :gen do
     end
   end
 end
-Rake::Task[:gen].enhance [:check_protos]
 
 desc "Runs rubocop for all gems."
 task :rubocop do
@@ -98,7 +87,6 @@ task :rubocop do
     end
   end
 end
-Rake::Task[:rubocop].enhance [:check_protos]
 
 desc "Runs CI for all gems."
 task :ci do
@@ -118,7 +106,6 @@ task :ci do
     end
   end
 end
-Rake::Task[:ci].enhance [:check_protos]
 
 desc "Runs bundle update for all gems."
 task :update do

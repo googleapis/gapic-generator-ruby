@@ -9,7 +9,4 @@ Gemfile.lock
 /spec/reports/
 /tmp/
 Gemfile.lock
-
-# Ignore generated protobuf files
-*.pb.rb
 mkmf.log
