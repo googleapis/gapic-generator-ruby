@@ -16,7 +16,6 @@
 
 require "bundler/gem_tasks"
 require "fileutils"
-require "mkmf"
 require "rake/testtask"
 require "rubocop/rake_task"
 
@@ -27,11 +26,66 @@ Rake::TestTask.new :test do |t|
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
-desc "Compile the necessary protobuf files."
-task :compile_protos do
-  Rake::Task[:clean_protos].invoke
+desc "Run the CI build"
+task :ci do
+  puts "\ngapic-generator rubocop\n"
+  Rake::Task[:rubocop].invoke
+  puts "\ngapic-generator test\n"
+  Rake::Task[:test].invoke
+end
 
-  # TODO: Add check to ensure protoc-gen-ruby and protoc are installed.
+task default: :ci
+
+desc "Generate the expected output for tests"
+task :gen do
+  Rake::Task["gen:protos"].invoke
+  Rake::Task["gen:templates"].invoke
+  Rake::Task["gen:gem_creation"].invoke
+end
+namespace :gen do
+  desc "Generate the protobuf files used in the gem"
+  task :protos do
+    generate_protos
+  end
+
+  desc "Generate the expected output for templates tests"
+  task :templates do
+    generate_default_templates "speech"
+    generate_default_templates "vision"
+    generate_default_templates "showcase"
+    # generate_default_templates "garbage"
+  end
+
+  desc "Generate the expected output for gem creation tests"
+  task :gem_creation do
+    generate_gem "my_plugin"
+  end
+end
+
+desc "Start an interactive shell."
+task :console do
+  require "irb"
+  require "irb/completion"
+  require "pp"
+
+  $LOAD_PATH.unshift "lib"
+
+  require "google/gapic/schema"
+  def schema service
+    bin_proto = File.binread "proto_input/#{service}_desc.bin"
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
+    Google::Gapic::Schema::Api.new request
+  end
+
+  ARGV.clear
+  IRB.start
+end
+
+def generate_protos
+  require "mkmf" # needed for find_executable
+
+  # Remove old generated files.
+  FileUtils.rm Dir.glob(File.join("lib", "**", "*.pb.rb"))
 
   plugin_executable = find_executable "protoc-gen-ruby"
   plugin = "protoc-gen-ruby-protobuf=#{plugin_executable}"
@@ -54,81 +108,6 @@ task :compile_protos do
   puts full_command
   puts `#{full_command}`
 end
-
-desc "Remove the compiled protos."
-task :clean_protos do
-  FileUtils.rm Dir.glob(File.join("lib", "**", "*.pb.rb"))
-end
-
-desc "Check that the necessary protobuf files exist."
-task :check_protos do
-  Rake::Task[:compile_protos].invoke unless File.exist? "lib/google/api/annotations.pb.rb"
-end
-
-Rake::Task[:build].enhance [:compile_protos]
-Rake::Task[:clean].enhance [:clean_protos]
-
-desc "Run the CI build"
-task :ci do
-  puts "\nBUILDING gapic-generator\n"
-  Rake::Task[:compile_protos].invoke
-  puts "\ngapic-generator rubocop\n"
-  Rake::Task[:rubocop].invoke
-  puts "\ngapic-generator test\n"
-  Rake::Task[:test].invoke
-end
-Rake::Task[:ci].enhance [:check_protos]
-
-task default: :ci
-
-desc "Generate the expected output for tests"
-task :gen do
-  Rake::Task["gen:templates"].invoke
-  Rake::Task["gen:gem_creation"].invoke
-  Rake::Task["gen:protos"].invoke
-end
-namespace :gen do
-  desc "Generate the expected output for templates tests"
-  task :templates do
-    generate_default_templates "speech"
-    generate_default_templates "vision"
-    generate_default_templates "showcase"
-    # generate_default_templates "garbage"
-  end
-
-  desc "Generate the expected output for gem creation tests"
-  task :gem_creation do
-    generate_gem "my_plugin"
-  end
-
-  desc "Generate the protobuf files used in the gem"
-  task :protos do
-    Rake::Task["compile_protos"].invoke
-  end
-end
-Rake::Task[:gen].enhance [:check_protos]
-Rake::Task["gen:templates"].enhance [:check_protos]
-Rake::Task["gen:gem_creation"].enhance [:check_protos]
-
-desc "Start an interactive shell."
-task :console do
-  require "irb"
-  require "irb/completion"
-  require "pp"
-
-  $LOAD_PATH.unshift "lib"
-
-  require "google/gapic/schema"
-  def schema service
-    bin_proto = File.binread "proto_input/#{service}_desc.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Google::Gapic::Schema::Api.new request
-  end
-
-  ARGV.clear
-  IRB.start
-end
-Rake::Task[:console].enhance [:check_protos]
 
 def generate_default_templates service
   require "google/gapic/schema/api"
