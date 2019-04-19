@@ -23,23 +23,36 @@ $ which protoc-gen-ruby_gapic
 ```
 
 ### Generate an API
+
 Installing this generator exposes `protoc-gen-ruby_gapic` on the PATH. By doing
 so, it gives the protobuf compiler the CLI option `--ruby_gapic_out` on which
 you can specify an output path for this generator.
 
 If you want to experiment with an already-existing API, one example is available.
-Note: You need to clone the googleapis repository from GitHub, and change
-to a special branch:
+First you should get the protos and dependencies:
+
 ```sh
-# Get the protos and it's dependencies.
 $ git clone git@github.com:googleapis/api-common-protos.git
 $ git clone git@github.com:googleapis/googleapis.git
-$ cd googleapis
-$ git checkout --track -b input-contract origin/input-contract
+```
 
-# Now you're ready to compile the API.
+Now you're ready to compile the API:
+
+```sh
 $ protoc google/cloud/vision/v1/*.proto \
-    --proto_path=../api-common-protos/ --proto_path=. \
+    --proto_path=api-common-protos/ \
+    --proto_path=googleapis/ \
+    --ruby_gapic_out=/dest/
+```
+
+Or, if you don't have `protoc` installed, you can use `grpc_tools_ruby_protoc`
+from the `grpc-tools` gem:
+
+```sh
+$ gem install grpc-tools
+$ grpc_tools_ruby_protoc google/cloud/vision/v1/*.proto \
+    --proto_path=api-common-protos/ \
+    --proto_path=googleapis/ \
     --ruby_gapic_out=/dest/
 ```
 
