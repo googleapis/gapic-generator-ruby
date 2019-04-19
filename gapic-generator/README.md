@@ -7,20 +7,17 @@ but there are currently no guarantees of stability or support.
 
 ## Usage
 
-### Build and Install the Generator
-This tool is in pre-alpha so it is not yet released to RubyGems. You will have to
-build the generator from scratch. Building the gem requires the proto compiler to be installed
-as shown in the previous section.
+### Install the Generator
+
+This tool is in pre-alpha so it is not yet released to RubyGems.
 
 ```sh
 $ git clone https://github.com/googleapis/gapic-generator-ruby.git
 $ cd gapic-generator-ruby
 $ git submodule update --init
-$ bundle install
-$ bundle exec rake
 $ cd gapic-generator
-$ gem build gapic-generator.gemspec
-$ gem install gapic-generator-0.1.0.gem
+$ bundle install
+$ bundle exec rake install
 $ which protoc-gen-ruby_gapic
 > {Non-empty path}
 ```
