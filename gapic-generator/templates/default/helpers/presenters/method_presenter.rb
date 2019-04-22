@@ -193,6 +193,7 @@ class MethodPresenter
   end
 
   def method_path
+    return "" if @method.http.nil?
     return @method.http.get unless @method.http.get.empty?
     return @method.http.post unless @method.http.post.empty?
     return @method.http.put unless @method.http.put.empty?
