@@ -1,0 +1,10 @@
+<%- assert_locals gem -%>
+--no-private
+--title=<%= gem.title %>
+--exclude _pb\.rb$
+--markup markdown
+--markup-provider redcarpet
+
+./lib/**/*.rb
+-
+README.md
