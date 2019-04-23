@@ -57,36 +57,6 @@ class <%= service.client_class_name %>
 
   protected
 
-  def create_stub credentials, scopes
-    if credentials.is_a?(String) || credentials.is_a?(Hash)
-      updater_proc = Credentials.new(credentials).updater_proc
-    elsif credentials.is_a? GRPC::Core::Channel
-      channel = credentials
-    elsif credentials.is_a? GRPC::Core::ChannelCredentials
-      chan_creds = credentials
-    elsif credentials.is_a? Proc
-      updater_proc = credentials
-    elsif credentials.is_a? Google::Auth::Credentials
-      updater_proc = credentials.updater_proc
-    end
-
-    # Allow overriding the service path/port in subclasses.
-    service_path = self.class::SERVICE_ADDRESS
-    port = self.class::DEFAULT_SERVICE_PORT
-    interceptors = self.class::GRPC_INTERCEPTORS
-    stub_new = <%= service.services_stub_name_full %>.method :new
-    Google::Gax::Grpc.create_stub(
-      service_path,
-      port,
-      chan_creds: chan_creds,
-      channel: channel,
-      updater_proc: updater_proc,
-      scopes: scopes,
-      interceptors: interceptors,
-      &stub_new
-    )
-  end
-
   def x_goog_api_client_header lib_name, lib_version
     x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
     x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
