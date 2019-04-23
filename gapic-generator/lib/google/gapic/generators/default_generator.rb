@@ -84,7 +84,7 @@ module Google
           files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
           files << g("gemfile.erb",  "Gemfile",                     gem: gem)
           files << g("rakefile.erb", "Rakefile",                    gem: gem)
-          files << g("rubocop.erb",  ".rubocop",                    gem: gem)
+          files << g("rubocop.erb",  ".rubocop.yml",                gem: gem)
           files << g("license.erb",  "LICENSE.md",                  gem: gem)
 
           format_files files
