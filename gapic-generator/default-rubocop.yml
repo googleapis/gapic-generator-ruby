@@ -1,0 +1,10 @@
+# This file is to be used as the default config for formatting the generated files.
+# We can't reference the generated .rubocop.yml file because Rubocop is so clevar
+# that it won't find the google-style gem unless the file is referenced here.
+inherit_gem:
+  google-style: google-style.yml
+
+AllCops:
+  Exclude:
+    - "*.gemspec"
+    - "test/**/*"

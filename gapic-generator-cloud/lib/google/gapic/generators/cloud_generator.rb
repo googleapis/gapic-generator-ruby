@@ -54,7 +54,7 @@ module Google
         ##
         # Path to the rubocop file for this project, which uses google-style
         def google_style_config
-          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
+          File.expand_path File.join __dir__, "../../../../cloud-rubocop.yml"
         end
       end
     end

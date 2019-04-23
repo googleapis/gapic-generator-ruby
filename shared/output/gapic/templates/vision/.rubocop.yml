@@ -1,8 +1,7 @@
-<%- assert_locals gem -%>
 inherit_gem:
   google-style: google-style.yml
 
 AllCops:
   Exclude:
-    - "<%= gem.name %>.gemspec"
+    - "google-cloud-vision.gemspec"
     - "test/**/*"

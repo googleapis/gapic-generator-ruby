@@ -85,7 +85,7 @@ module Google
         end
 
         def format_config
-          File.expand_path File.join __dir__, "../../../../.rubocop.yml"
+          File.expand_path File.join __dir__, "../../../../default-rubocop.yml"
         end
       end
     end
