@@ -87,9 +87,9 @@ module Google
           #   `GRPC::Core::CallCredentials` object.
           #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
           #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scopes [Array<String>]
-          #   The OAuth scopes for this service. This parameter is ignored if an
-          #   updater_proc is supplied.
+          # @param scope [String, Array<String>]
+          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
+          #   an updater_proc is supplied.
           # @param timeout [Numeric]
           #   The default timeout, in seconds, for calls made through this client.
           # @param metadata [Hash]
@@ -98,7 +98,7 @@ module Google
           #
           def initialize \
               credentials: nil,
-              scopes: ALL_SCOPES,
+              scope: ALL_SCOPES,
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
               lib_name: nil,
@@ -109,16 +109,25 @@ module Google
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/identity_services_pb"
 
-            credentials ||= Credentials.default scope: scopes
+            credentials ||= Credentials.default scope: scope
+            if credentials.is_a?(String) || credentials.is_a?(Hash)
+              credentials = Credentials.new credentials, scope: scope
+            end
 
             @operations_client = OperationsClient.new(
               credentials: credentials,
-              scopes:      scopes,
+              scope:       scope,
               timeout:     timeout,
               lib_name:    lib_name,
               lib_version: lib_version
             )
-            @identity_stub = create_stub credentials, scopes
+            @identity_stub = Google::Gax::Grpc::Stub.new(
+              Google::Showcase::V1alpha3::Identity::Stub,
+              host:         self.class::SERVICE_ADDRESS,
+              port:         self.class::DEFAULT_SERVICE_PORT,
+              credentials:  credentials,
+              interceptors: self.class::GRPC_INTERCEPTORS
+            )
 
             @timeout = timeout
             @metadata = metadata.to_h
@@ -373,36 +382,6 @@ module Google
           end
 
           protected
-
-          def create_stub credentials, scopes
-            if credentials.is_a?(String) || credentials.is_a?(Hash)
-              updater_proc = Credentials.new(credentials).updater_proc
-            elsif credentials.is_a? GRPC::Core::Channel
-              channel = credentials
-            elsif credentials.is_a? GRPC::Core::ChannelCredentials
-              chan_creds = credentials
-            elsif credentials.is_a? Proc
-              updater_proc = credentials
-            elsif credentials.is_a? Google::Auth::Credentials
-              updater_proc = credentials.updater_proc
-            end
-
-            # Allow overriding the service path/port in subclasses.
-            service_path = self.class::SERVICE_ADDRESS
-            port = self.class::DEFAULT_SERVICE_PORT
-            interceptors = self.class::GRPC_INTERCEPTORS
-            stub_new = Google::Showcase::V1alpha3::Identity::Stub.method :new
-            Google::Gax::Grpc.create_stub(
-              service_path,
-              port,
-              chan_creds:   chan_creds,
-              channel:      channel,
-              updater_proc: updater_proc,
-              scopes:       scopes,
-              interceptors: interceptors,
-              &stub_new
-            )
-          end
 
           def x_goog_api_client_header lib_name, lib_version
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
