@@ -44,6 +44,8 @@ class PagedExpandTest < ShowcaseTest
     response_enum = client.paged_expand content: request_content, page_size: 2
 
     assert_kind_of Google::Gax::PagedEnumerable, response_enum
+    assert_kind_of Google::Showcase::V1alpha3::PagedExpandResponse, response_enum.page.response
+    assert_equal ["The", "quick"], response_enum.page.response.responses.map(&:content)
 
     responses_content_array = response_enum.to_a.map(&:content)
 
