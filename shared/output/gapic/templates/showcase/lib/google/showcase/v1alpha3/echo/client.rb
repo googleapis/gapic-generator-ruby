@@ -173,8 +173,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
             @echo.call request, options: options, operation_callback: block
@@ -225,8 +224,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
             @expand.call request, options: options, stream_callback: block
@@ -271,8 +269,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
             @collect.call requests, options: options, operation_callback: block
@@ -318,8 +315,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
             @chat.call requests, options: options, stream_callback: block
@@ -369,8 +365,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
             @paged_expand.call request, options: options, operation_callback: block
@@ -423,8 +418,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 

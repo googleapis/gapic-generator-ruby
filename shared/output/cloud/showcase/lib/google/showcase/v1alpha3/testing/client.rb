@@ -168,8 +168,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
             @create_session.call request, options: options, operation_callback: block
@@ -217,8 +216,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
             @get_session.call request, options: options, operation_callback: block
@@ -264,8 +262,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @list_sessions ||= Google::Gax::ApiCall.new @testing_stub.method :list_sessions
             @list_sessions.call request, options: options, operation_callback: block
@@ -313,8 +310,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
             @delete_session.call request, options: options, operation_callback: block
@@ -366,8 +362,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
             @report_session.call request, options: options, operation_callback: block
@@ -419,8 +414,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @list_tests ||= Google::Gax::ApiCall.new @testing_stub.method :list_tests
             @list_tests.call request, options: options, operation_callback: block
@@ -478,8 +472,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
             @delete_test.call request, options: options, operation_callback: block
@@ -537,8 +530,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
             @verify_test.call request, options: options, operation_callback: block
