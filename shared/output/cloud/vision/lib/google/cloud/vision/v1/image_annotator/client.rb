@@ -164,8 +164,7 @@ module Google
 
               # Customize the options with defaults
               metadata = @metadata.dup
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-              options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+              options.apply_defaults timeout: @timeout, metadata: metadata
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
               @batch_annotate_images.call request, options: options, operation_callback: block
@@ -219,8 +218,7 @@ module Google
 
               # Customize the options with defaults
               metadata = @metadata.dup
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-              options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+              options.apply_defaults timeout: @timeout, metadata: metadata
 
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
