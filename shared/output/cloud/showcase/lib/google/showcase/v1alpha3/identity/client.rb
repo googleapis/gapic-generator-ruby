@@ -166,8 +166,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
             @create_user.call request, options: options, operation_callback: block
@@ -215,8 +214,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
             @get_user.call request, options: options, operation_callback: block
@@ -267,8 +265,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
             @update_user.call request, options: options, operation_callback: block
@@ -316,8 +313,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
             @delete_user.call request, options: options, operation_callback: block
@@ -366,8 +362,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-            options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+            options.apply_defaults timeout: @timeout, metadata: metadata
 
             @list_users ||= Google::Gax::ApiCall.new @identity_stub.method :list_users
 

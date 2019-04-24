@@ -14,5 +14,4 @@ metadata = @metadata.merge "x-goog-request-params".freeze => request_params_head
 <%- else -%>
 metadata = @metadata.dup
 <%- end -%>
-retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
+options.apply_defaults timeout: @timeout, metadata: metadata
