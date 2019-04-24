@@ -153,14 +153,13 @@ class MethodPresenter
   def retry_codes
     if @method.http && !@method.http.get.empty?
       # Any RPC with a google.api.http annotation with a non-empty get key (ignore additional_bindings for this purpose)
-      # is assumed to be idempotent and should additionally retry ABORTED, and UNKNOWN errors.
-      return ["GRPC::Core::StatusCodes::UNAVAILABLE",
-              "GRPC::Core::StatusCodes::ABORTED",
+      # is assumed to be idempotent and should retry ABORTED, and UNKNOWN errors.
+      return ["GRPC::Core::StatusCodes::ABORTED",
               "GRPC::Core::StatusCodes::UNKNOWN"]
     end
 
-    # Retry UNAVAILABLE on all methods.
-    ["GRPC::Core::StatusCodes::UNAVAILABLE"]
+    # No default retry for non-get methods.
+    []
   end
 
   def retry_codes?

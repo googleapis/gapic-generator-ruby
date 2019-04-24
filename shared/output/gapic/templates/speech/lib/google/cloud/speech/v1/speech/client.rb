@@ -177,11 +177,7 @@ module Google
 
               # Customize the options with defaults
               metadata = @metadata.dup
-              retry_policy = {
-                retry_codes: [
-                  GRPC::Core::StatusCodes::UNAVAILABLE
-                ]
-              }
+              retry_policy = {}
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
@@ -235,11 +231,7 @@ module Google
 
               # Customize the options with defaults
               metadata = @metadata.dup
-              retry_policy = {
-                retry_codes: [
-                  GRPC::Core::StatusCodes::UNAVAILABLE
-                ]
-              }
+              retry_policy = {}
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
@@ -287,11 +279,7 @@ module Google
 
               # Customize the options with defaults
               metadata = @metadata.dup
-              retry_policy = {
-                retry_codes: [
-                  GRPC::Core::StatusCodes::UNAVAILABLE
-                ]
-              }
+              retry_policy = {}
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize

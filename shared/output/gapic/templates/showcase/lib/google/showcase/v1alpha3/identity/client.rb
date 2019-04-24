@@ -174,11 +174,7 @@ module Google
 
             # Customize the options with defaults
             metadata = @metadata.dup
-            retry_policy = {
-              retry_codes: [
-                GRPC::Core::StatusCodes::UNAVAILABLE
-              ]
-            }
+            retry_policy = {}
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
@@ -229,7 +225,6 @@ module Google
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {
               retry_codes: [
-                GRPC::Core::StatusCodes::UNAVAILABLE,
                 GRPC::Core::StatusCodes::ABORTED,
                 GRPC::Core::StatusCodes::UNKNOWN
               ]
@@ -285,11 +280,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {
-              retry_codes: [
-                GRPC::Core::StatusCodes::UNAVAILABLE
-              ]
-            }
+            retry_policy = {}
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
@@ -338,11 +329,7 @@ module Google
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            retry_policy = {
-              retry_codes: [
-                GRPC::Core::StatusCodes::UNAVAILABLE
-              ]
-            }
+            retry_policy = {}
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
@@ -394,7 +381,6 @@ module Google
             metadata = @metadata.dup
             retry_policy = {
               retry_codes: [
-                GRPC::Core::StatusCodes::UNAVAILABLE,
                 GRPC::Core::StatusCodes::ABORTED,
                 GRPC::Core::StatusCodes::UNKNOWN
               ]
