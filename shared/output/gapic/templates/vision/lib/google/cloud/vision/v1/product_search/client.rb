@@ -234,10 +234,10 @@ module Google
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Vision::V1::ListProductSetsResponse]
+            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Vision::V1::ListProductSetsResponse]
+            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
@@ -264,7 +264,10 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
-              @list_product_sets.call request, options: options, operation_callback: block
+
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_product_sets, request, response, options }
+
+              @list_product_sets.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -565,10 +568,10 @@ module Google
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Vision::V1::ListProductsResponse]
+            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Vision::V1::ListProductsResponse]
+            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
@@ -595,7 +598,10 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
-              @list_products.call request, options: options, operation_callback: block
+
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_products, request, response, options }
+
+              @list_products.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -1017,10 +1023,10 @@ module Google
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Vision::V1::ListReferenceImagesResponse]
+            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Vision::V1::ListReferenceImagesResponse]
+            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
@@ -1047,7 +1053,10 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
-              @list_reference_images.call request, options: options, operation_callback: block
+
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_reference_images, request, response, options }
+
+              @list_reference_images.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -1282,10 +1291,10 @@ module Google
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Vision::V1::ListProductsInProductSetResponse]
+            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Vision::V1::ListProductsInProductSetResponse]
+            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             # @example
             #   TODO
@@ -1312,7 +1321,10 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
-              @list_products_in_product_set.call request, options: options, operation_callback: block
+
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_products_in_product_set, request, response, options }
+
+              @list_products_in_product_set.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##

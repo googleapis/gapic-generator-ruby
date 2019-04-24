@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "minitest/autorun"
+require "minitest/focus"
 require "fileutils"
 require "open3"
 require "tmpdir"

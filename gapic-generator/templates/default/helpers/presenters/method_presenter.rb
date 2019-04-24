@@ -43,6 +43,8 @@ class MethodPresenter
       :server
     elsif lro?
       :lro
+    elsif paged?
+      :paged
     else
       :normal
     end
@@ -128,6 +130,20 @@ class MethodPresenter
     @method.server_streaming
   end
 
+  def paged?
+    paged_request?(@method.input) && paged_response?(@method.output)
+  end
+
+  def paged_response_type
+    return nil unless paged_response? @method.output
+
+    repeated_field = @method.output.fields.find do |f|
+      f.label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED &&
+        f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_MESSAGE
+    end
+    message_ruby_type repeated_field.message
+  end
+
   ##
   #
   # @return [Array<String>] The segment key names.
@@ -200,5 +216,41 @@ class MethodPresenter
     return @method.http.patch unless @method.http.patch.empty?
     return @method.http.delete unless @method.http.delete.empty?
     return @method.http.custom.path unless @method.http.custom.nil?
+  end
+
+  def paged_request? request
+    page_token = request.fields.find do |f|
+      f.name == "page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+    end
+    return false if page_token.nil?
+
+    page_size_types = [
+      Google::Protobuf::FieldDescriptorProto::Type::TYPE_INT32,
+      Google::Protobuf::FieldDescriptorProto::Type::TYPE_INT64
+    ]
+    page_size = request.fields.find do |f|
+      f.name == "page_size" && page_size_types.include?(f.type)
+    end
+    return false if page_size.nil?
+
+    true
+  end
+
+  def paged_response? response
+    next_page_token = response.fields.find do |f|
+      f.name == "next_page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+    end
+    return false if next_page_token.nil?
+
+    repeated_field = response.fields.find do |f|
+      f.label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED &&
+        f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_MESSAGE
+    end
+    return false if repeated_field.nil?
+
+    # We want to make sure the first repeated field is also has the lowest field number,
+    # but the google-protobuf gem sorts firlds by number, so we lose the original order.
+
+    true
   end
 end

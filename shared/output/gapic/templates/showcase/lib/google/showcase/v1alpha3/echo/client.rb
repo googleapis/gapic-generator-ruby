@@ -347,10 +347,10 @@ module Google
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::PagedExpandResponse]
+          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::PagedExpandResponse]
+          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
@@ -373,7 +373,10 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
             @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
-            @paged_expand.call request, options: options, operation_callback: block
+
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @paged_expand, request, response, options }
+
+            @paged_expand.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
