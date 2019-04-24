@@ -173,9 +173,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            metadata = @metadata.dup
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
@@ -220,7 +218,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "name" => request.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -270,7 +270,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "room.name" => request.room.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -317,7 +319,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "name" => request.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -369,9 +373,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+            metadata = @metadata.dup
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
@@ -423,7 +425,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "parent" => request.parent
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -470,7 +474,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "name" => request.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -520,7 +526,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "blurb.name" => request.blurb.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -567,7 +575,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "name" => request.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -624,7 +634,9 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            header_params = {} # { name: request.name }
+            header_params = {
+              "parent" => request.parent
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -686,7 +698,11 @@ module Google
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
-            header_params = {} # { name: request.name }
+
+            # Customize the options with defaults
+            header_params = {
+              "parent" => request.parent
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -740,7 +756,11 @@ module Google
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
-            header_params = {} # { name: request.name }
+
+            # Customize the options with defaults
+            header_params = {
+              "name" => request.name
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -785,7 +805,11 @@ module Google
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
-            header_params = {} # { name: request.name }
+
+            # Customize the options with defaults
+            header_params = {
+              "parent" => request.parent
+            }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
@@ -833,9 +857,9 @@ module Google
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
-            header_params = {} # { name: request.name }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
+
+            # Customize the options with defaults
+            metadata = @metadata.dup
             retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
             options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 

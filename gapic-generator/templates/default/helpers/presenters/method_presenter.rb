@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
+require "google/gapic/path_template"
 require_relative "service_presenter"
 require_relative "field_presenter"
 
@@ -127,6 +128,19 @@ class MethodPresenter
     @method.server_streaming
   end
 
+  ##
+  #
+  # @return [Array<String>] The segment key names.
+  #
+  def routing_params
+    segments = Google::Gapic::PathTemplate.parse method_path
+    segments.select { |s| s.is_a? Google::Gapic::PathTemplate::Segment }.map &:name
+  end
+
+  def routing_params?
+    routing_params.any?
+  end
+
   protected
 
   def message_ruby_type message
@@ -176,5 +190,15 @@ class MethodPresenter
         "Object"
       end
     end
+  end
+
+  def method_path
+    return "" if @method.http.nil?
+    return @method.http.get unless @method.http.get.empty?
+    return @method.http.post unless @method.http.post.empty?
+    return @method.http.put unless @method.http.put.empty?
+    return @method.http.patch unless @method.http.patch.empty?
+    return @method.http.delete unless @method.http.delete.empty?
+    return @method.http.custom.path unless @method.http.custom.nil?
   end
 end
