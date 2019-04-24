@@ -187,7 +187,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
@@ -252,7 +256,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
@@ -312,7 +322,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
@@ -380,7 +396,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
@@ -446,7 +466,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
@@ -519,7 +543,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
@@ -583,7 +611,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
@@ -643,7 +677,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
@@ -727,7 +767,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
@@ -795,7 +839,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
@@ -891,7 +939,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
@@ -964,7 +1016,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
@@ -1035,7 +1091,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
@@ -1096,7 +1158,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
@@ -1167,7 +1235,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
@@ -1232,7 +1304,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
@@ -1300,7 +1376,13 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE,
+                  GRPC::Core::StatusCodes::ABORTED,
+                  GRPC::Core::StatusCodes::UNKNOWN
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
@@ -1373,7 +1455,11 @@ module Google
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              retry_policy = {} # retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+              retry_policy = {
+                retry_codes: [
+                  GRPC::Core::StatusCodes::UNAVAILABLE
+                ]
+              }
               options.apply_defaults timeout: @timeout, metadata: metadata, retry_policy: retry_policy
 
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }

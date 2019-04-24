@@ -141,6 +141,32 @@ class MethodPresenter
     routing_params.any?
   end
 
+  ##
+  # Returns the `GRPC::Core::StatusCodes` that should be retried for this method.
+  #
+  # Strings are returned instead of the actual `GRPC::Core::StatusCodes` values because those constants point to
+  # integers, and then an array of integers would be generated. Returning strings here allows us to generate arrays of
+  # the actual constants which should read better.
+  #
+  # @return [Array<String>] The retry codes
+  #
+  def retry_codes
+    if @method.http && !@method.http.get.empty?
+      # Any RPC with a google.api.http annotation with a non-empty get key (ignore additional_bindings for this purpose)
+      # is assumed to be idempotent and should additionally retry ABORTED, and UNKNOWN errors.
+      return ["GRPC::Core::StatusCodes::UNAVAILABLE",
+              "GRPC::Core::StatusCodes::ABORTED",
+              "GRPC::Core::StatusCodes::UNKNOWN"]
+    end
+
+    # Retry UNAVAILABLE on all methods.
+    ["GRPC::Core::StatusCodes::UNAVAILABLE"]
+  end
+
+  def retry_codes?
+    retry_codes.any?
+  end
+
   protected
 
   def message_ruby_type message
