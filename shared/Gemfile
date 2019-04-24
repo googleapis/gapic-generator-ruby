@@ -6,7 +6,7 @@ gem "gapic-generator", path: "../gapic-generator"
 gem "gapic-generator-cloud", path: "../gapic-generator-cloud"
 gem "googleapis-common-protos", [">= 1.3.9", "< 2.0"]
 gem "googleapis-common-protos-types", [">= 1.0.4", "< 2.0"]
-gem "google-gax", github: "blowmage/gax-ruby", branch: "2.0/fix-paged_enumerable-api_call-call"
+gem "google-gax", github: "googleapis/gax-ruby"
 gem "grpc-tools", "~> 1.18"
 gem "minitest", "~> 5.0"
 gem "minitest-autotest", "~> 1.0"
