@@ -24,7 +24,7 @@ describe "<%= method.name %>" do
     mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
     <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
-      <%= method.service.credentials_class_full %>.stub :default, mock_credentials do
+      <%= method.service.credentials_full %>.stub :default, mock_credentials do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
@@ -48,7 +48,7 @@ describe "<%= method.name %>" do
     mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
     <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
-      <%= method.service.credentials_class_full %>.stub :default, mock_credentials do
+      <%= method.service.credentials_full %>.stub :default, mock_credentials do
         client = <%= method.service.client_name_full %>.new
 
         # Call method

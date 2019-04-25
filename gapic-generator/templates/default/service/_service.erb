@@ -1,6 +1,6 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-require "<%= service.client_class_require %>"
+require "<%= service.client_require %>"
 <% end %>
 ##
 # @param credentials [Google::Auth::Credentials, String, Hash,

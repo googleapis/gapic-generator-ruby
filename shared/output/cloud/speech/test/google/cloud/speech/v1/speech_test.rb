@@ -62,10 +62,10 @@ class MockSpeechCredentialsV1 < Google::Cloud::Speech::V1::Speech::Credentials
   end
 end
 
-describe Google::Cloud::Speech::V1::Speech do
+describe Google::Cloud::Speech::V1::Speech::Client do
   describe "recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech#recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#recognize."
     end
 
     it "invokes recognize without error" do
@@ -92,7 +92,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.recognize config, audio
@@ -129,7 +129,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -145,7 +145,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
   describe "long_running_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech#long_running_recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
     end
 
     it "invokes long_running_recognize without error" do
@@ -179,7 +179,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.long_running_recognize config, audio
@@ -197,7 +197,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Cloud::Speech::V1::Speech#long_running_recognize."
+        message: "Operation error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
       )
       operation = Google::Longrunning::Operation.new(
         name:  "operations/long_running_recognize_test",
@@ -219,7 +219,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.long_running_recognize config, audio
@@ -250,7 +250,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -266,7 +266,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
   describe "streaming_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech#streaming_recognize."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#streaming_recognize."
     end
 
     it "invokes streaming_recognize without error" do
@@ -290,7 +290,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           response = client.streaming_recognize [request]
@@ -315,7 +315,7 @@ describe Google::Cloud::Speech::V1::Speech do
 
       Google::Cloud::Speech::V1::Speech::Stub.stub :new, mock_stub do
         Google::Cloud::Speech::V1::Speech::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Speech::V1::Speech.new
+          client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

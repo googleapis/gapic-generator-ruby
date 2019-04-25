@@ -62,10 +62,10 @@ class MockProductSearchCredentialsV1 < Google::Cloud::Vision::V1::ProductSearch:
   end
 end
 
-describe Google::Cloud::Vision::V1::ProductSearch do
+describe Google::Cloud::Vision::V1::ProductSearch::Client do
   describe "create_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#create_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product_set."
     end
 
     it "invokes create_product_set without error" do
@@ -94,7 +94,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.create_product_set parent, product_set, product_set_id
@@ -133,7 +133,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -149,7 +149,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "list_product_sets" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#list_product_sets."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_product_sets."
     end
 
     it "invokes list_product_sets without error" do
@@ -178,7 +178,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.list_product_sets parent, page_size, page_token
@@ -217,7 +217,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -233,7 +233,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "get_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#get_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product_set."
     end
 
     it "invokes get_product_set without error" do
@@ -258,7 +258,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.get_product_set name
@@ -293,7 +293,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -309,7 +309,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "update_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#update_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product_set."
     end
 
     it "invokes update_product_set without error" do
@@ -336,7 +336,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.update_product_set product_set, update_mask
@@ -373,7 +373,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -389,7 +389,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "delete_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#delete_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product_set."
     end
 
     it "invokes delete_product_set without error" do
@@ -414,7 +414,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.delete_product_set name
@@ -449,7 +449,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -465,7 +465,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "create_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#create_product."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product."
     end
 
     it "invokes create_product without error" do
@@ -494,7 +494,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.create_product parent, product, product_id
@@ -533,7 +533,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -549,7 +549,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "list_products" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#list_products."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products."
     end
 
     it "invokes list_products without error" do
@@ -578,7 +578,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.list_products parent, page_size, page_token
@@ -617,7 +617,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -633,7 +633,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "get_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#get_product."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product."
     end
 
     it "invokes get_product without error" do
@@ -658,7 +658,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.get_product name
@@ -693,7 +693,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -709,7 +709,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "update_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#update_product."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product."
     end
 
     it "invokes update_product without error" do
@@ -736,7 +736,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.update_product product, update_mask
@@ -773,7 +773,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -789,7 +789,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "delete_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#delete_product."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product."
     end
 
     it "invokes delete_product without error" do
@@ -814,7 +814,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.delete_product name
@@ -849,7 +849,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -865,7 +865,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "create_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#create_reference_image."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_reference_image."
     end
 
     it "invokes create_reference_image without error" do
@@ -894,7 +894,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.create_reference_image parent, reference_image, reference_image_id
@@ -933,7 +933,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -949,7 +949,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "delete_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#delete_reference_image."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_reference_image."
     end
 
     it "invokes delete_reference_image without error" do
@@ -974,7 +974,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.delete_reference_image name
@@ -1009,7 +1009,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1025,7 +1025,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "list_reference_images" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#list_reference_images."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_reference_images."
     end
 
     it "invokes list_reference_images without error" do
@@ -1054,7 +1054,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.list_reference_images parent, page_size, page_token
@@ -1093,7 +1093,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1109,7 +1109,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "get_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#get_reference_image."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_reference_image."
     end
 
     it "invokes get_reference_image without error" do
@@ -1134,7 +1134,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.get_reference_image name
@@ -1169,7 +1169,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1185,7 +1185,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "add_product_to_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#add_product_to_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#add_product_to_product_set."
     end
 
     it "invokes add_product_to_product_set without error" do
@@ -1212,7 +1212,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.add_product_to_product_set name, product
@@ -1249,7 +1249,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1265,7 +1265,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "remove_product_from_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#remove_product_from_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#remove_product_from_product_set."
     end
 
     it "invokes remove_product_from_product_set without error" do
@@ -1292,7 +1292,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.remove_product_from_product_set name, product
@@ -1329,7 +1329,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1345,7 +1345,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "list_products_in_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#list_products_in_product_set."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products_in_product_set."
     end
 
     it "invokes list_products_in_product_set without error" do
@@ -1374,7 +1374,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.list_products_in_product_set name, page_size, page_token
@@ -1413,7 +1413,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1429,7 +1429,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
   describe "import_product_sets" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch#import_product_sets."
+      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
     end
 
     it "invokes import_product_sets without error" do
@@ -1463,7 +1463,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.import_product_sets parent, input_config
@@ -1481,7 +1481,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Cloud::Vision::V1::ProductSearch#import_product_sets."
+        message: "Operation error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
       )
       operation = Google::Longrunning::Operation.new(
         name:  "operations/import_product_sets_test",
@@ -1503,7 +1503,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           response = client.import_product_sets parent, input_config
@@ -1534,7 +1534,7 @@ describe Google::Cloud::Vision::V1::ProductSearch do
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ProductSearch.new
+          client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

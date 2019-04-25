@@ -6,7 +6,7 @@ require "minitest/autorun"
 
 require "<%= service.service_proto_require %>"
 require "<%= service.services_proto_require %>"
-require "<%= service.client_require %>"
+require "<%= service.service_require %>"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.
@@ -37,7 +37,7 @@ class MockGrpcClientStubV1
   end
 end
 
-class Mock<%= service.name %>Credentials<%= service.version %> < <%= service.credentials_class_full %>
+class Mock<%= service.name %>Credentials<%= service.version %> < <%= service.credentials_full %>
   def initialize method_name
     @method_name = method_name
   end
