@@ -43,7 +43,7 @@ def initialize \
   end
 
 <%- if service.client_lro? -%>
-<%= indent render(partial: "client/lro/init", locals: { service: service }), "  " %>
+<%= indent render(partial: "service/client/lro/init", locals: { service: service }), "  " %>
 <%- end -%>
   @<%= service.stub_name %> = Google::Gax::Grpc::Stub.new(
     <%= service.services_stub_name_full %>,

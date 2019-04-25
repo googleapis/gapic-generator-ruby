@@ -56,26 +56,15 @@ module Google
 
             package.services.each do |service|
               # Service level files
-              files << g("client.erb", "lib/#{service.client_file_path}",
-                         service: service)
-              files << g("client/class.erb",
-                         "lib/#{service.client_class_file_path}",
-                         service: service)
-              files << g("client/credentials.erb",
-                         "lib/#{service.credentials_class_file_path}",
-                         service: service)
-              files << g("client/paths.erb",
-                         "lib/#{service.paths_file_path}",
-                         service: service) if service.paths?
-              files << g("client_test.erb",
-                         "test/#{service.client_test_file_path}",
-                         service: service)
+              files << g("service.erb", "lib/#{service.client_file_path}", service: service)
+              files << g("service/client.erb", "lib/#{service.client_class_file_path}", service: service)
+              files << g("service/credentials.erb", "lib/#{service.credentials_class_file_path}", service: service)
+              files << g("service/paths.erb", "lib/#{service.paths_file_path}", service: service) if service.paths?
+              files << g("service/test/client.erb", "test/#{service.client_test_file_path}", service: service)
             end
 
             gem.proto_files.each do |file|
-              files << g("doc/proto_file.erb",
-                         "lib/doc/#{file.docs_file_path}",
-                         file: file)
+              files << g("doc/proto_file.erb", "lib/doc/#{file.docs_file_path}", file: file)
             end
           end
 

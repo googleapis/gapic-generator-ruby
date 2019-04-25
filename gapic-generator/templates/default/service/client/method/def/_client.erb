@@ -33,7 +33,7 @@ def <%= method.name %> requests, options: nil, &block
     Google::Gax.to_proto request, <%= method.request_type %>
   end
 
-  <%= indent render(partial: "client/method/def/options_defaults", locals: { method: method }), 2 %>
+  <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
   <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
   <%= method.ivar %>.call(requests, options: options, operation_callback: block)

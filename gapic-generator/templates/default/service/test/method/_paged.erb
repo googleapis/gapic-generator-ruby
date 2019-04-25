@@ -5,7 +5,7 @@ describe "<%= method.name %>" do
   end
 
   it "invokes <%= method.name %> without error" do
-<%= indent render(partial: "client_test/fields", locals: { method: method }), 4 %>
+<%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
 
     # Create expected grpc response
     expected_response = {}
@@ -46,7 +46,7 @@ describe "<%= method.name %>" do
   end
 
   it "invokes <%= method.name %> with error" do
-<%= indent render(partial: "client_test/fields", locals: { method: method }), 4 %>
+<%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
 
     # Mock Grpc layer
     mock_method = proc do |request|

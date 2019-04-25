@@ -30,10 +30,10 @@
 <%- end -%>
 #
 # @yield [response, operation] Access the result along with the RPC operation
-# @yieldparam response [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+# @yieldparam response [<%= method.return_type %>]
 # @yieldparam operation [GRPC::ActiveCall::Operation]
 #
-# @return [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+# @return [<%= method.return_type %>]
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
 <%= indent method.code_example, "#   " %>
@@ -49,11 +49,8 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   request ||= request_fields
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
-  <%= indent render(partial: "client/method/def/options_defaults", locals: { method: method }), 2 %>
+  <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
   <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
-
-  wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options) }
-
-  <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
+  <%= method.ivar %>.call(request, options: options, operation_callback: block)
 end

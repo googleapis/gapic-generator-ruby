@@ -49,7 +49,7 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   request ||= request_fields
   request = Google::Gax.to_proto request, <%= method.request_type %>
 
-  <%= indent render(partial: "client/method/def/options_defaults", locals: { method: method }), 2 %>
+  <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
   format_response = ->(response) { Google::Gax::Operation.new(response, @operations_client, options) }
 
