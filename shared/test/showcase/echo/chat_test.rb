@@ -17,18 +17,8 @@
 require "test_helper"
 require "google/showcase/v1alpha3/echo"
 
-class EchoTest < ShowcaseTest
-  def test_echo
-    client = Google::Showcase::V1alpha3::Echo.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
-
-    response = client.echo content: 'hi there!'
-
-    assert_equal 'hi there!', response.content
-  end
-
-  def test_chat_closure
+class ChatTest < ShowcaseTest
+  def test_closure
     client = Google::Showcase::V1alpha3::Echo.new(
       credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     )
@@ -69,7 +59,7 @@ class EchoTest < ShowcaseTest
     assert pull_count >= 20, "should have pulled 20 messages by now"
   end
 
-  def test_chat_enumerator
+  def test_enumerator
     client = Google::Showcase::V1alpha3::Echo.new(
       credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     )

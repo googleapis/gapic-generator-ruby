@@ -240,10 +240,10 @@ module Google
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::ListSessionsResponse]
+          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::ListSessionsResponse]
+          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
@@ -265,7 +265,10 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @list_sessions ||= Google::Gax::ApiCall.new @testing_stub.method :list_sessions
-            @list_sessions.call request, options: options, operation_callback: block
+
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_sessions, request, response, options }
+
+            @list_sessions.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -388,10 +391,10 @@ module Google
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::ListTestsResponse]
+          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::ListTestsResponse]
+          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
@@ -417,7 +420,10 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @list_tests ||= Google::Gax::ApiCall.new @testing_stub.method :list_tests
-            @list_tests.call request, options: options, operation_callback: block
+
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_tests, request, response, options }
+
+            @list_tests.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
