@@ -249,7 +249,7 @@ class MethodPresenter
     return false if repeated_field.nil?
 
     # We want to make sure the first repeated field is also has the lowest field number,
-    # but the google-protobuf gem sorts firlds by number, so we lose the original order.
+    # but the google-protobuf gem sorts fields by number, so we lose the original order.
 
     true
   end
