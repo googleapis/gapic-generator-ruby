@@ -26,8 +26,6 @@ class ExpandTest < ShowcaseTest
     request_content = "The quick brown fox jumps over the lazy dog"
     responses = Queue.new
 
-    stream_input = Google::Gax::StreamInput.new
-
     response_thread = client.expand content: request_content do |response|
       responses << response
     end
