@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-raise "This file is for documentation purposes only."
-
 module Google
   module Rpc
     # Describes when the clients can retry a failed request. Clients could ignore

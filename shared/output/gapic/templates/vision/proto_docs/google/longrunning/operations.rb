@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-raise "This file is for documentation purposes only."
-
 module Google
   module Longrunning
     # This resource represents a long-running operation that is the result of a

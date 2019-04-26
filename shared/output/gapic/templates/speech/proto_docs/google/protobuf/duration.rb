@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-raise "This file is for documentation purposes only."
-
 module Google
   module Protobuf
     # A Duration represents a signed, fixed-length span of time represented

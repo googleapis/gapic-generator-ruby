@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-raise "This file is for documentation purposes only."
-
 module Google
   module Longrunning
     # This resource represents a long-running operation that is the result of a

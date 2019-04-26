@@ -22,8 +22,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-raise "This file is for documentation purposes only."
-
 module Google
   module Protobuf
     # A Timestamp represents a point in time independent of any time zone or local
