@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.platform      = Gem::Platform::RUBY
 
   gem.files         = `git ls-files -- lib/*`.split("\n") +
+                      `git ls-files -- proto_docs/*`.split("\n") +
                       ["README.md", "LICENSE", ".yardopts"]
   gem.require_paths = ["lib"]
 
