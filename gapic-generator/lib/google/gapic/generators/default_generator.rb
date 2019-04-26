@@ -69,13 +69,13 @@ module Google
           end
 
           # Gem level files
-          files << g("version.erb", "lib/#{gem.version_file_path}", gem: gem)
-          files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
-          files << g("gemfile.erb",  "Gemfile",                     gem: gem)
-          files << g("rakefile.erb", "Rakefile",                    gem: gem)
-          files << g("rubocop.erb",  ".rubocop.yml",                gem: gem)
-          files << g("yardopts.erb", ".yardopts",                   gem: gem)
-          files << g("license.erb",  "LICENSE.md",                  gem: gem)
+          files << g("gem/version.erb", "lib/#{gem.version_file_path}", gem: gem)
+          files << g("gem/gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
+          files << g("gem/gemfile.erb",  "Gemfile",                     gem: gem)
+          files << g("gem/rakefile.erb", "Rakefile",                    gem: gem)
+          files << g("gem/rubocop.erb",  ".rubocop.yml",                gem: gem)
+          files << g("gem/yardopts.erb", ".yardopts",                   gem: gem)
+          files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)
 
           format_files files
 
