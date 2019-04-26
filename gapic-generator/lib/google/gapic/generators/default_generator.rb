@@ -62,10 +62,6 @@ module Google
               files << g("service/paths.erb", "lib/#{service.paths_file_path}", service: service) if service.paths?
               files << g("service/test/client.erb", "test/#{service.test_client_file_path}", service: service)
             end
-
-            gem.proto_files.each do |file|
-              files << g("doc/proto_file.erb", "lib/doc/#{file.docs_file_path}", file: file)
-            end
           end
 
           # Gem level files
@@ -76,6 +72,10 @@ module Google
           files << g("gem/rubocop.erb",  ".rubocop.yml",                gem: gem)
           files << g("gem/yardopts.erb", ".yardopts",                   gem: gem)
           files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)
+
+          gem.proto_files.each do |proto_file|
+            files << g("proto_docs/proto_file.erb", "lib/doc/#{proto_file.docs_file_path}", file: proto_file)
+          end
 
           format_files files
 

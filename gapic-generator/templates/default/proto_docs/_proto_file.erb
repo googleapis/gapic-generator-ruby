@@ -4,9 +4,9 @@ raise "This file is for documentation purposes only."
 <% end %>
 <%- file.messages.each do |message| -%>
 
-<%= render(partial: "doc/message", locals: { message: message }) %>
-<%- end %>
+<%= render(partial: "proto_docs/message", locals: { message: message }) -%>
+<%- end -%>
 <%- file.enums.each do |enum| -%>
 
-<%= render(partial: "doc/enum", locals: { enum: enum }) %>
-<%- end %>
+<%= render(partial: "proto_docs/enum", locals: { enum: enum }) -%>
+<%- end -%>
