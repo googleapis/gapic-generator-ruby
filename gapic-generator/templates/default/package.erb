@@ -4,5 +4,5 @@
 <%= render partial: "shared/license" -%>
 
 <% package.services.each do |service| %>
-require "<%= service.client_require %>"
+require "<%= service.service_require %>"
 <% end %>

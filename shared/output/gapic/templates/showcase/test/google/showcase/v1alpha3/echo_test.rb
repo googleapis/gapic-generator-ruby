@@ -70,10 +70,10 @@ class MockEchoCredentialsV1alpha3 < Google::Showcase::V1alpha3::Echo::Credential
   end
 end
 
-describe Google::Showcase::V1alpha3::Echo do
+describe Google::Showcase::V1alpha3::Echo::Client do
   describe "echo" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#echo."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#echo."
     end
 
     it "invokes echo without error" do
@@ -100,7 +100,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.echo content, error
@@ -137,7 +137,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -153,7 +153,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
   describe "expand" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#expand."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#expand."
     end
 
     it "invokes expand without error" do
@@ -180,7 +180,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.expand [request]
@@ -211,7 +211,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -227,7 +227,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
   describe "collect" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#collect."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#collect."
     end
 
     it "invokes collect without error" do
@@ -251,7 +251,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.collect [request]
@@ -275,7 +275,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -291,7 +291,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
   describe "chat" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#chat."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#chat."
     end
 
     it "invokes chat without error" do
@@ -315,7 +315,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.chat [request]
@@ -340,7 +340,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -356,7 +356,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
   describe "paged_expand" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#paged_expand."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#paged_expand."
     end
 
     it "invokes paged_expand without error" do
@@ -385,7 +385,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.paged_expand content, page_size, page_token
@@ -424,7 +424,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -440,7 +440,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
   describe "wait" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo#wait."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Echo::Client#wait."
     end
 
     it "invokes wait without error" do
@@ -478,7 +478,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.wait end_time, ttl, error, success
@@ -498,7 +498,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Showcase::V1alpha3::Echo#wait."
+        message: "Operation error for Google::Showcase::V1alpha3::Echo::Client#wait."
       )
       operation = Google::Longrunning::Operation.new(
         name:  "operations/wait_test",
@@ -522,7 +522,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           response = client.wait end_time, ttl, error, success
@@ -557,7 +557,7 @@ describe Google::Showcase::V1alpha3::Echo do
 
       Google::Showcase::V1alpha3::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Echo::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Echo.new
+          client = Google::Showcase::V1alpha3::Echo::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

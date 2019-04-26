@@ -1,0 +1,41 @@
+<%- assert_locals method -%>
+##
+<%- if method.doc_description -%>
+<%= indent method.doc_description, "# " %>
+#
+<%- end -%>
+# @param requests [Google::Gax::StreamInput, Enumerable<<%= method.request_type %> | Hash>]
+#   An enumerable of {<%= method.request_type %>} instances.
+# @param options [Google::Gax::ApiCall::Options, Hash]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc.
+#
+# @yield [response] Called on each streaming responses, when provided.
+# @yieldparam response [<%= method.return_type %>]
+#
+# @return [Enumerable<<%= method.return_type %>, Thread>]
+#   An enumerable of {<%= method.return_type %>} instances when a block is not provided.
+#   When a block is provided a thread running the block for every streamed response is returned.
+#
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+#
+# @example
+<%= indent method.code_example, "#   " %>
+#
+def <%= method.name %> requests, options: nil, &block
+  unless requests.is_a? Enumerable
+    if requests.respond_to? :to_enum
+      requests = requests.to_enum
+    else
+      raise ArgumentError, "requests must be an Enumerable"
+    end
+  end
+
+  requests = requests.lazy.map do |request|
+    Google::Gax.to_proto request, <%= method.request_type %>
+  end
+
+  <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
+
+  <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
+  <%= method.ivar %>.call(requests, options: options, stream_callback: block)
+end

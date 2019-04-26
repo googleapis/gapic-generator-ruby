@@ -70,10 +70,10 @@ class MockMessagingCredentialsV1alpha3 < Google::Showcase::V1alpha3::Messaging::
   end
 end
 
-describe Google::Showcase::V1alpha3::Messaging do
+describe Google::Showcase::V1alpha3::Messaging::Client do
   describe "create_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#create_room."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#create_room."
     end
 
     it "invokes create_room without error" do
@@ -98,7 +98,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.create_room room
@@ -133,7 +133,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -149,7 +149,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "get_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#get_room."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#get_room."
     end
 
     it "invokes get_room without error" do
@@ -174,7 +174,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.get_room name
@@ -209,7 +209,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -225,7 +225,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "update_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#update_room."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#update_room."
     end
 
     it "invokes update_room without error" do
@@ -252,7 +252,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.update_room room, update_mask
@@ -289,7 +289,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -305,7 +305,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "delete_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#delete_room."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#delete_room."
     end
 
     it "invokes delete_room without error" do
@@ -330,7 +330,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.delete_room name
@@ -365,7 +365,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -381,7 +381,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "list_rooms" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#list_rooms."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#list_rooms."
     end
 
     it "invokes list_rooms without error" do
@@ -408,7 +408,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.list_rooms page_size, page_token
@@ -445,7 +445,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -461,7 +461,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "create_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#create_blurb."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#create_blurb."
     end
 
     it "invokes create_blurb without error" do
@@ -488,7 +488,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.create_blurb parent, blurb
@@ -525,7 +525,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -541,7 +541,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "get_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#get_blurb."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#get_blurb."
     end
 
     it "invokes get_blurb without error" do
@@ -566,7 +566,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.get_blurb name
@@ -601,7 +601,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -617,7 +617,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "update_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#update_blurb."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#update_blurb."
     end
 
     it "invokes update_blurb without error" do
@@ -644,7 +644,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.update_blurb blurb, update_mask
@@ -681,7 +681,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -697,7 +697,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "delete_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#delete_blurb."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#delete_blurb."
     end
 
     it "invokes delete_blurb without error" do
@@ -722,7 +722,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.delete_blurb name
@@ -757,7 +757,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -773,7 +773,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "list_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#list_blurbs."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#list_blurbs."
     end
 
     it "invokes list_blurbs without error" do
@@ -802,7 +802,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.list_blurbs parent, page_size, page_token
@@ -841,7 +841,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -857,7 +857,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "search_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#search_blurbs."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#search_blurbs."
     end
 
     it "invokes search_blurbs without error" do
@@ -895,7 +895,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.search_blurbs query, parent, page_size, page_token
@@ -915,7 +915,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Showcase::V1alpha3::Messaging#search_blurbs."
+        message: "Operation error for Google::Showcase::V1alpha3::Messaging::Client#search_blurbs."
       )
       operation = Google::Longrunning::Operation.new(
         name:  "operations/search_blurbs_test",
@@ -939,7 +939,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.search_blurbs query, parent, page_size, page_token
@@ -974,7 +974,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -990,7 +990,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "stream_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#stream_blurbs."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#stream_blurbs."
     end
 
     it "invokes stream_blurbs without error" do
@@ -1017,7 +1017,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.stream_blurbs [request]
@@ -1048,7 +1048,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1064,7 +1064,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "send_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#send_blurbs."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#send_blurbs."
     end
 
     it "invokes send_blurbs without error" do
@@ -1088,7 +1088,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.send_blurbs [request]
@@ -1112,7 +1112,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -1128,7 +1128,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
   describe "connect" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging#connect."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Messaging::Client#connect."
     end
 
     it "invokes connect without error" do
@@ -1152,7 +1152,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           response = client.connect [request]
@@ -1177,7 +1177,7 @@ describe Google::Showcase::V1alpha3::Messaging do
 
       Google::Showcase::V1alpha3::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Messaging::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Messaging.new
+          client = Google::Showcase::V1alpha3::Messaging::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

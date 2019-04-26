@@ -51,42 +51,30 @@ module Google
 
           gem.packages.each do |package|
             # Package level files
-            files << g("package.erb", "lib/#{package.version_file_path}",
-                       package: package)
+            files << g("package.erb", "lib/#{package.version_file_path}", package: package)
 
             package.services.each do |service|
               # Service level files
-              files << g("client.erb", "lib/#{service.client_file_path}",
-                         service: service)
-              files << g("client/class.erb",
-                         "lib/#{service.client_class_file_path}",
-                         service: service)
-              files << g("client/credentials.erb",
-                         "lib/#{service.credentials_class_file_path}",
-                         service: service)
-              files << g("client/paths.erb",
-                         "lib/#{service.paths_file_path}",
-                         service: service) if service.paths?
-              files << g("client_test.erb",
-                         "test/#{service.client_test_file_path}",
-                         service: service)
-            end
-
-            gem.proto_files.each do |file|
-              files << g("doc/proto_file.erb",
-                         "lib/doc/#{file.docs_file_path}",
-                         file: file)
+              files << g("service.erb", "lib/#{service.service_file_path}", service: service)
+              files << g("service/client.erb", "lib/#{service.client_file_path}", service: service)
+              files << g("service/credentials.erb", "lib/#{service.credentials_file_path}", service: service)
+              files << g("service/paths.erb", "lib/#{service.paths_file_path}", service: service) if service.paths?
+              files << g("service/test/client.erb", "test/#{service.test_client_file_path}", service: service)
             end
           end
 
           # Gem level files
-          files << g("version.erb", "lib/#{gem.version_file_path}", gem: gem)
-          files << g("gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
-          files << g("gemfile.erb",  "Gemfile",                     gem: gem)
-          files << g("rakefile.erb", "Rakefile",                    gem: gem)
-          files << g("rubocop.erb",  ".rubocop.yml",                gem: gem)
-          files << g("yardopts.erb", ".yardopts",                   gem: gem)
-          files << g("license.erb",  "LICENSE.md",                  gem: gem)
+          files << g("gem/version.erb", "lib/#{gem.version_file_path}", gem: gem)
+          files << g("gem/gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
+          files << g("gem/gemfile.erb",  "Gemfile",                     gem: gem)
+          files << g("gem/rakefile.erb", "Rakefile",                    gem: gem)
+          files << g("gem/rubocop.erb",  ".rubocop.yml",                gem: gem)
+          files << g("gem/yardopts.erb", ".yardopts",                   gem: gem)
+          files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)
+
+          gem.proto_files.each do |proto_file|
+            files << g("proto_docs/proto_file.erb", "lib/doc/#{proto_file.docs_file_path}", file: proto_file)
+          end
 
           format_files files
 

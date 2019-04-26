@@ -1,0 +1,56 @@
+<%- assert_locals method -%>
+##
+<%- if method.doc_description -%>
+<%= indent method.doc_description, "# " %>
+#
+<%- end -%>
+# @overload <%= method.name %>(request, options: nil)
+#   @param request [<%= method.request_type %> | Hash]
+<%- if method.doc_description -%>
+<%= indent method.doc_description, "#     " %>
+<%- end -%>
+#   @param options [Google::Gax::ApiCall::Options, Hash]
+#     Overrides the default settings for this call, e.g, timeout, retries, etc.
+#
+<%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
+# @overload <%= method.name %>(<%= arg_list %>, options: nil)
+<%- method.arguments.each do |arg| -%>
+#   @param <%= arg.name %> [<%= arg.doc_types %>]
+<%- if arg.doc_description -%>
+<%= indent arg.doc_description, "#     " %>
+<%- end -%>
+<%- end -%>
+#   @param options [Google::Gax::ApiCall::Options, Hash]
+#     Overrides the default settings for this call, e.g, timeout, retries, etc.
+<%- if method.arguments.find { |arg| arg.name == "options" } -%>
+#
+#     If you want to provide a {<%= method.request_type %>#options}
+#     value you will need to pass all attributes in a Hash instead of using
+#     named arguments.
+<%- end -%>
+#
+# @yield [response, operation] Access the result along with the RPC operation
+# @yieldparam response [<%= method.return_type %>]
+# @yieldparam operation [GRPC::ActiveCall::Operation]
+#
+# @return [<%= method.return_type %>]
+# @raise [Google::Gax::GaxError] if the RPC is aborted.
+# @example
+<%= indent method.code_example, "#   " %>
+#
+def <%= method.name %> request = nil, options: nil, **request_fields, &block
+  if request.nil? && request_fields.empty?
+    raise ArgumentError, "request must be provided"
+  end
+  if !request.nil? && !request_fields.empty?
+    raise ArgumentError, "cannot pass both request object and named arguments"
+  end
+
+  request ||= request_fields
+  request = Google::Gax.to_proto request, <%= method.request_type %>
+
+  <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
+
+  <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
+  <%= method.ivar %>.call(request, options: options, operation_callback: block)
+end

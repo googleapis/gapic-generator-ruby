@@ -62,10 +62,10 @@ class MockTestingCredentialsV1alpha3 < Google::Showcase::V1alpha3::Testing::Cred
   end
 end
 
-describe Google::Showcase::V1alpha3::Testing do
+describe Google::Showcase::V1alpha3::Testing::Client do
   describe "create_session" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#create_session."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#create_session."
     end
 
     it "invokes create_session without error" do
@@ -90,7 +90,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.create_session session
@@ -125,7 +125,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -141,7 +141,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "get_session" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#get_session."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#get_session."
     end
 
     it "invokes get_session without error" do
@@ -166,7 +166,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.get_session name
@@ -201,7 +201,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -217,7 +217,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "list_sessions" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#list_sessions."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#list_sessions."
     end
 
     it "invokes list_sessions without error" do
@@ -244,7 +244,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.list_sessions page_size, page_token
@@ -281,7 +281,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -297,7 +297,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "delete_session" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#delete_session."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#delete_session."
     end
 
     it "invokes delete_session without error" do
@@ -322,7 +322,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.delete_session name
@@ -357,7 +357,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -373,7 +373,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "report_session" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#report_session."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#report_session."
     end
 
     it "invokes report_session without error" do
@@ -398,7 +398,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.report_session name
@@ -433,7 +433,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -449,7 +449,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "list_tests" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#list_tests."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#list_tests."
     end
 
     it "invokes list_tests without error" do
@@ -478,7 +478,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.list_tests parent, page_size, page_token
@@ -517,7 +517,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -533,7 +533,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "delete_test" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#delete_test."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#delete_test."
     end
 
     it "invokes delete_test without error" do
@@ -558,7 +558,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.delete_test name
@@ -593,7 +593,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do
@@ -609,7 +609,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
   describe "verify_test" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing#verify_test."
+      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1alpha3::Testing::Client#verify_test."
     end
 
     it "invokes verify_test without error" do
@@ -638,7 +638,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           response = client.verify_test name, answer, answers
@@ -677,7 +677,7 @@ describe Google::Showcase::V1alpha3::Testing do
 
       Google::Showcase::V1alpha3::Testing::Stub.stub :new, mock_stub do
         Google::Showcase::V1alpha3::Testing::Credentials.stub :default, mock_credentials do
-          client = Google::Showcase::V1alpha3::Testing.new
+          client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
           err = assert_raises Google::Gax::GaxError do

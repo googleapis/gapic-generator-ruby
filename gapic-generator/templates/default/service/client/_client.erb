@@ -1,0 +1,72 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "json"
+require "pathname"
+
+require "google/gax"
+<%- if service.client_lro? -%>
+<%= render partial: "service/client/lro/requires", locals: { service: service } -%>
+<%- end -%>
+
+require "<%= service.gem.version_require %>"
+require "<%= service.service_proto_require %>"
+require "<%= service.credentials_require %>"
+<%- if service.paths? -%>
+require "<%= service.paths_require %>"
+<%- end -%>
+<% end %>
+# Service that implements <%= service.name %> API.
+class <%= service.client_name %>
+<%- if service.paths? -%>
+  include <%= service.paths_name %>
+
+<%- end -%>
+  # @private
+  attr_reader :<%= service.stub_name %>
+
+  # The default address of the service.
+  SERVICE_ADDRESS = "<%= service.client_address %>"
+
+  # The default port of the service.
+  DEFAULT_SERVICE_PORT = <%= service.client_port %>
+
+  # rubocop:disable Style/MutableConstant
+
+  # The default set of gRPC interceptors.
+  GRPC_INTERCEPTORS = []
+
+  # rubocop:enable Style/MutableConstant
+
+  DEFAULT_TIMEOUT = 30
+
+  # The scopes needed to make gRPC calls to all of the methods defined
+  # in this service.
+  ALL_SCOPES = <%= service.client_scopes.inspect %>.freeze
+
+  <%- if service.client_lro? -%>
+  <%= indent_tail render(partial: "service/client/lro/def", locals: { service: service }), 2 %>
+  <%- end -%>
+
+  <%= indent_tail render(partial: "service/client/init", locals: { service: service }), 2 %>
+
+  # Service calls
+  <%- service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/client/method/def", locals: { service: service, method: method }), 2 %>
+  <%- end %>
+
+  protected
+
+  def x_goog_api_client_header lib_name, lib_version
+    x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+    x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+    x_goog_api_client_header << "gapic/#{<%= service.gem.version_name_full %>}"
+    x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+    x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+    x_goog_api_client_header.join " "
+  end
+end
+
+<% @footer = capture do %>
+<%= render partial: "service/client/helpers", locals: { service: service} %>
+<% end %>

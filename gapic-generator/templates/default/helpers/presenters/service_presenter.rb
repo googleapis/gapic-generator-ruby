@@ -99,38 +99,38 @@ class ServicePresenter
     "#{services_proto_name_full}::Stub"
   end
 
-  def client_file_path
+  def service_file_path
     ruby_file_path @service
   end
 
-  def client_file_name
-    client_file_path.split("/").last
+  def service_file_name
+    service_file_path.split("/").last
   end
 
-  def client_require
-    client_file_path.sub ".rb", ""
+  def service_require
+    service_file_path.sub ".rb", ""
   end
 
   def client_name_full
     service_proto_name_full
   end
 
-  def client_class_name
+  def client_name
     "Client"
   end
 
-  def client_class_name_full
-    "#{service_proto_name_full}::#{client_class_name}"
+  def client_name_full
+    "#{service_proto_name_full}::#{client_name}"
   end
 
-  def client_class_require
+  def client_require
     class_namespace = @service.address.dup
-    class_namespace.push client_class_name
+    class_namespace.push client_name
     class_namespace.map(&:underscore).join "/"
   end
 
-  def client_class_file_path
-    client_class_require + ".rb"
+  def client_file_path
+    client_require + ".rb"
   end
 
   def client_lro?
@@ -155,22 +155,22 @@ class ServicePresenter
     @service.address.join(".")
   end
 
-  def credentials_class_name
+  def credentials_name
     "Credentials"
   end
 
-  def credentials_class_full
-    "#{service_proto_name_full}::#{credentials_class_name}"
+  def credentials_full
+    "#{service_proto_name_full}::#{credentials_name}"
   end
 
-  def credentials_class_require
+  def credentials_require
     credentials_namespace = @service.address.dup
-    credentials_namespace.push credentials_class_name
+    credentials_namespace.push credentials_name
     credentials_namespace.map(&:underscore).join "/"
   end
 
-  def credentials_class_file_path
-    credentials_class_require + ".rb"
+  def credentials_file_path
+    credentials_require + ".rb"
   end
 
   def helpers_require
@@ -183,8 +183,8 @@ class ServicePresenter
     helpers_require + ".rb"
   end
 
-  def client_test_file_path
-    client_file_path.sub ".rb", "_test.rb"
+  def test_client_file_path
+    service_file_path.sub ".rb", "_test.rb"
   end
 
   def stub_name
