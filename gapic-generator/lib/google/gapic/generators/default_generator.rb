@@ -51,8 +51,7 @@ module Google
 
           gem.packages.each do |package|
             # Package level files
-            files << g("package.erb", "lib/#{package.version_file_path}",
-                       package: package)
+            files << g("package.erb", "lib/#{package.version_file_path}", package: package)
 
             package.services.each do |service|
               # Service level files
