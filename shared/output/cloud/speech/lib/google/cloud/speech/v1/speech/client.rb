@@ -50,10 +50,6 @@ module Google
 
             DEFAULT_TIMEOUT = 30
 
-            # The scopes needed to make gRPC calls to all of the methods defined
-            # in this service.
-            ALL_SCOPES = ["https://www.googleapis.com/auth/cloud-platform"].freeze
-
             # @private
             class OperationsClient < Google::Longrunning::OperationsClient
               SERVICE_ADDRESS = Client::SERVICE_ADDRESS
@@ -88,7 +84,7 @@ module Google
             #
             def initialize \
                 credentials: nil,
-                scope: ALL_SCOPES,
+                scope: nil,
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
                 lib_name: nil,

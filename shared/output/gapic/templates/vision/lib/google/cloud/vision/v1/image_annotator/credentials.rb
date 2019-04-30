@@ -30,7 +30,7 @@ module Google
       module V1
         module ImageAnnotator
           class Credentials < Google::Auth::Credentials
-            SCOPE = [].freeze
+            SCOPE = ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"].freeze
             PATH_ENV_VARS = %w[VISION_CREDENTIALS
                                VISION_KEYFILE].freeze
             JSON_ENV_VARS = %w[VISION_CREDENTIALS_JSON
