@@ -73,8 +73,9 @@ module Google
           files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)
 
           gem.proto_files.each do |proto_file|
-            files << g("proto_docs/proto_file.erb", "lib/doc/#{proto_file.docs_file_path}", file: proto_file)
+            files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
           end
+          files << g("proto_docs/readme.erb", "proto_docs/README.md", gem: gem)
 
           format_files files
 
