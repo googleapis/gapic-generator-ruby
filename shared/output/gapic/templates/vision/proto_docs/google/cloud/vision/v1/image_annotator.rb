@@ -570,13 +570,13 @@ module Google
         #     error if one or more of the specified languages is not one of the
         #     [supported languages](/vision/docs/languages).
         # @!attribute [rw] crop_hints_params
-        #   @return [Google::Cloud::Vision::V1::CropHintsParam]
+        #   @return [Google::Cloud::Vision::V1::CropHintsParams]
         #     Parameters for crop hints annotation request.
         # @!attribute [rw] product_search_params
-        #   @return [Google::Cloud::Vision::V1::ProductSearchParam]
+        #   @return [Google::Cloud::Vision::V1::ProductSearchParams]
         #     Parameters for product search.
         # @!attribute [rw] web_detection_params
-        #   @return [Google::Cloud::Vision::V1::WebDetectionParam]
+        #   @return [Google::Cloud::Vision::V1::WebDetectionParams]
         #     Parameters for web detection.
         class ImageContext
           include Google::Protobuf::MessageExts
@@ -643,7 +643,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::SafeSearchAnnotation]
         #     If present, safe-search annotation has completed successfully.
         # @!attribute [rw] image_properties_annotation
-        #   @return [Google::Cloud::Vision::V1::ImageProperty]
+        #   @return [Google::Cloud::Vision::V1::ImageProperties]
         #     If present, image properties were extracted successfully.
         # @!attribute [rw] crop_hints_annotation
         #   @return [Google::Cloud::Vision::V1::CropHintsAnnotation]
@@ -652,7 +652,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::WebDetection]
         #     If present, web detection has completed successfully.
         # @!attribute [rw] product_search_results
-        #   @return [Google::Cloud::Vision::V1::ProductSearchResult]
+        #   @return [Google::Cloud::Vision::V1::ProductSearchResults]
         #     If present, product search has completed successfully.
         # @!attribute [rw] error
         #   @return [Google::Rpc::Status]

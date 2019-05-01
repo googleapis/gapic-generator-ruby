@@ -42,6 +42,6 @@ module NamespaceHelper
   # Ruby double-semicolon separators.
   def ruby_namespace namespaces
     namespaces = namespaces.split "." if namespaces.is_a? String
-    namespaces.reject(&:empty?).map(&:classify).join "::"
+    namespaces.reject(&:empty?).map(&:camelize).join "::"
   end
 end

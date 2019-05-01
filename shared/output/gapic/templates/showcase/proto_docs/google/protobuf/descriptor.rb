@@ -58,7 +58,7 @@ module Google
     # @!attribute [rw] extension
     #   @return [Google::Protobuf::FieldDescriptorProto]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::FileOption]
+    #   @return [Google::Protobuf::FileOptions]
     # @!attribute [rw] source_code_info
     #   @return [Google::Protobuf::SourceCodeInfo]
     #     This field contains optional information about the original source code.
@@ -90,7 +90,7 @@ module Google
     # @!attribute [rw] oneof_decl
     #   @return [Google::Protobuf::OneofDescriptorProto]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::MessageOption]
+    #   @return [Google::Protobuf::MessageOptions]
     # @!attribute [rw] reserved_range
     #   @return [Google::Protobuf::DescriptorProto::ReservedRange]
     # @!attribute [rw] reserved_name
@@ -106,7 +106,7 @@ module Google
       # @!attribute [rw] end
       #   @return [Integer]
       # @!attribute [rw] options
-      #   @return [Google::Protobuf::ExtensionRangeOption]
+      #   @return [Google::Protobuf::ExtensionRangeOptions]
       class ExtensionRange
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
@@ -173,7 +173,7 @@ module Google
     #     will be used. Otherwise, it's deduced from the field's name by converting
     #     it to camelCase.
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::FieldOption]
+    #   @return [Google::Protobuf::FieldOptions]
     class FieldDescriptorProto
       include Google::Protobuf::MessageExts
       extend Google::Protobuf::MessageExts::ClassMethods
@@ -241,7 +241,7 @@ module Google
     # @!attribute [rw] name
     #   @return [String]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::OneofOption]
+    #   @return [Google::Protobuf::OneofOptions]
     class OneofDescriptorProto
       include Google::Protobuf::MessageExts
       extend Google::Protobuf::MessageExts::ClassMethods
@@ -253,7 +253,7 @@ module Google
     # @!attribute [rw] value
     #   @return [Google::Protobuf::EnumValueDescriptorProto]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::EnumOption]
+    #   @return [Google::Protobuf::EnumOptions]
     # @!attribute [rw] reserved_range
     #   @return [Google::Protobuf::EnumDescriptorProto::EnumReservedRange]
     #     Range of reserved numeric values. Reserved numeric values may not be used
@@ -289,7 +289,7 @@ module Google
     # @!attribute [rw] number
     #   @return [Integer]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::EnumValueOption]
+    #   @return [Google::Protobuf::EnumValueOptions]
     class EnumValueDescriptorProto
       include Google::Protobuf::MessageExts
       extend Google::Protobuf::MessageExts::ClassMethods
@@ -301,7 +301,7 @@ module Google
     # @!attribute [rw] method
     #   @return [Google::Protobuf::MethodDescriptorProto]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::ServiceOption]
+    #   @return [Google::Protobuf::ServiceOptions]
     class ServiceDescriptorProto
       include Google::Protobuf::MessageExts
       extend Google::Protobuf::MessageExts::ClassMethods
@@ -317,7 +317,7 @@ module Google
     # @!attribute [rw] output_type
     #   @return [String]
     # @!attribute [rw] options
-    #   @return [Google::Protobuf::MethodOption]
+    #   @return [Google::Protobuf::MethodOptions]
     # @!attribute [rw] client_streaming
     #   @return [Boolean]
     #     Identifies if client streams multiple client messages
