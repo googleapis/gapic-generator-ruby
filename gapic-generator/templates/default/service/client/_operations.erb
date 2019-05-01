@@ -1,42 +1,16 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
 require "google/gax"
+require "google/gax/operation"
 
 require "<%= service.gem.version_require %>"
-require "<%= service.service_proto_require %>"
-require "<%= service.credentials_require %>"
-<%- if service.paths? -%>
-require "<%= service.paths_require %>"
-<%- end -%>
-<%- if service.lro? -%>
-require "<%= service.operations_require %>"
-<%- end -%>
+require "<%= service.client_require %>"
+require "<%= service.lro_service.service_proto_require %>"
 <% end %>
-# Service that implements <%= service.name %> API.
-class <%= service.client_name %>
-<%- if service.paths? -%>
-  include <%= service.paths_name %>
-
-<%- end -%>
+# Service that implements Longrunning Operations API.
+class Operations
   # @private
-  attr_reader :<%= service.stub_name %>
-
-  # The default address of the service.
-  SERVICE_ADDRESS = "<%= service.client_address %>"
-
-  # The default port of the service.
-  DEFAULT_SERVICE_PORT = <%= service.client_port %>
-
-  # rubocop:disable Style/MutableConstant
-
-  # The default set of gRPC interceptors.
-  GRPC_INTERCEPTORS = []
-
-  # rubocop:enable Style/MutableConstant
-
-  DEFAULT_TIMEOUT = 30
-
-
+  attr_reader :<%= service.lro_service.stub_name %>
 
   ##
   # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -65,40 +39,29 @@ class <%= service.client_name %>
   #   per call basis.
   #
   def initialize \
-      credentials: nil,
-      scope: nil,
-      timeout: DEFAULT_TIMEOUT,
-      metadata: nil,
-      lib_name: nil,
-      lib_version: nil
+      credentials:  nil,
+      scope:        Client::ALL_SCOPES,
+      timeout:      Client::DEFAULT_TIMEOUT,
+      metadata:     nil,
+      lib_name:     nil,
+      lib_version:  nil
     # These require statements are intentionally placed here to initialize
     # the gRPC module only when it's required.
     # See https://github.com/googleapis/toolkit/issues/446
     require "google/gax/grpc"
-    require "<%= service.services_proto_require %>"
+    require "<%= service.lro_service.services_proto_require %>"
 
     credentials ||= Credentials.default scope: scope
     if credentials.is_a?(String) || credentials.is_a?(Hash)
       credentials = Credentials.new credentials, scope: scope
     end
 
-    <%- if service.lro? -%>
-    <%= service.lro_client_ivar %> = Operations.new(
-      credentials: credentials,
-      scope:       scope,
-      timeout:     timeout,
-      metadata:    metadata,
-      lib_name:    lib_name,
-      lib_version: lib_version
-    )
-    <%- end -%>
-
-    @<%= service.stub_name %> = Google::Gax::Grpc::Stub.new(
-      <%= service.services_stub_name_full %>,
-      host:         self.class::SERVICE_ADDRESS,
-      port:         self.class::DEFAULT_SERVICE_PORT,
+    @<%= service.lro_service.stub_name %> = Google::Gax::Grpc::Stub.new(
+      <%= service.lro_service.services_stub_name_full %>,
+      host:         Client::SERVICE_ADDRESS,
+      port:         Client::DEFAULT_SERVICE_PORT,
       credentials:  credentials,
-      interceptors: self.class::GRPC_INTERCEPTORS
+      interceptors: Client::GRPC_INTERCEPTORS
     )
 
     @timeout = timeout
@@ -112,12 +75,8 @@ class <%= service.client_name %>
   end
 
   # Service calls
-  <%- service.methods.each do |method| -%>
+  <%- service.lro_service.methods.each do |method| -%>
 
   <%= indent_tail render(partial: "service/client/method/def", locals: { method: method }), 2 %>
   <%- end %>
 end
-
-<% @footer = capture do %>
-<%= render partial: "service/client/helpers", locals: { service: service} %>
-<% end %>

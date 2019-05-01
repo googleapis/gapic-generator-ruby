@@ -14,12 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "json"
-require "pathname"
-
 require "google/gax"
-require "google/gax/operation"
-require "google/longrunning/operations_client"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/testing_pb"
@@ -52,11 +47,7 @@ module Google
 
           DEFAULT_TIMEOUT = 30
 
-          # @private
-          class OperationsClient < Google::Longrunning::OperationsClient
-            SERVICE_ADDRESS = Client::SERVICE_ADDRESS
-            GRPC_INTERCEPTORS = Client::GRPC_INTERCEPTORS.dup
-          end
+
 
           ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -90,7 +81,7 @@ module Google
               timeout: DEFAULT_TIMEOUT,
               metadata: nil,
               lib_name: nil,
-              lib_version: ""
+              lib_version: nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
@@ -102,13 +93,7 @@ module Google
               credentials = Credentials.new credentials, scope: scope
             end
 
-            @operations_client = OperationsClient.new(
-              credentials: credentials,
-              scope:       scope,
-              timeout:     timeout,
-              lib_name:    lib_name,
-              lib_version: lib_version
-            )
+
             @testing_stub = Google::Gax::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Testing::Stub,
               host:         self.class::SERVICE_ADDRESS,
@@ -118,8 +103,13 @@ module Google
             )
 
             @timeout = timeout
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
             @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
+            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -536,17 +526,6 @@ module Google
 
             @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
             @verify_test.call request, options: options, operation_callback: block
-          end
-
-          protected
-
-          def x_goog_api_client_header lib_name, lib_version
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            x_goog_api_client_header.join " "
           end
         end
       end

@@ -14,16 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "json"
-require "pathname"
-
 require "google/gax"
-require "google/gax/operation"
-require "google/longrunning/operations_client"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search/credentials"
+require "google/cloud/vision/v1/product_search/operations"
 
 module Google
   module Cloud
@@ -50,11 +46,7 @@ module Google
 
             DEFAULT_TIMEOUT = 30
 
-            # @private
-            class OperationsClient < Google::Longrunning::OperationsClient
-              SERVICE_ADDRESS = Client::SERVICE_ADDRESS
-              GRPC_INTERCEPTORS = Client::GRPC_INTERCEPTORS.dup
-            end
+
 
             ##
             # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -88,7 +80,7 @@ module Google
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
                 lib_name: nil,
-                lib_version: ""
+                lib_version: nil
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
@@ -100,13 +92,15 @@ module Google
                 credentials = Credentials.new credentials, scope: scope
               end
 
-              @operations_client = OperationsClient.new(
+              @operations_client = Operations.new(
                 credentials: credentials,
                 scope:       scope,
                 timeout:     timeout,
+                metadata:    metadata,
                 lib_name:    lib_name,
                 lib_version: lib_version
               )
+
               @product_search_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
                 host:         self.class::SERVICE_ADDRESS,
@@ -116,8 +110,13 @@ module Google
               )
 
               @timeout = timeout
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
               @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
+              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -1370,17 +1369,6 @@ module Google
 
               @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
               @import_product_sets.call request, options: options, operation_callback: block, format_response: format_response
-            end
-
-            protected
-
-            def x_goog_api_client_header lib_name, lib_version
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              x_goog_api_client_header.join " "
             end
           end
         end
