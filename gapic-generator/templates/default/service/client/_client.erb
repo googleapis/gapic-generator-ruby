@@ -39,10 +39,6 @@ class <%= service.client_name %>
 
   DEFAULT_TIMEOUT = 30
 
-  # The scopes needed to make gRPC calls to all of the methods defined
-  # in this service.
-  ALL_SCOPES = <%= service.client_scopes.inspect %>.freeze
-
   <%- if service.client_lro? -%>
   <%= indent_tail render(partial: "service/client/lro/def", locals: { service: service }), 2 %>
   <%- end -%>

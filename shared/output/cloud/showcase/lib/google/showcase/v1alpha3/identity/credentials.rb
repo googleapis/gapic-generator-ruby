@@ -21,7 +21,7 @@ module Google
     module V1alpha3
       module Identity
         class Credentials < Google::Auth::Credentials
-          SCOPE = ["https://www.googleapis.com/auth/cloud-platform"].freeze
+          SCOPE = [].freeze
           PATH_ENV_VARS = %w[SHOWCASE_CREDENTIALS
                              SHOWCASE_KEYFILE
                              GOOGLE_CLOUD_CREDENTIALS
