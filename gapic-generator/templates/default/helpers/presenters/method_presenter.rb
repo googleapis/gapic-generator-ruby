@@ -161,7 +161,7 @@ class MethodPresenter
 
   def message_ruby_type message
     message.address.map do |namespace_node|
-      ActiveSupport::Inflector.classify namespace_node
+      ActiveSupport::Inflector.camelize namespace_node
     end.join "::"
   end
 

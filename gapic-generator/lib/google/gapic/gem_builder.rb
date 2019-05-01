@@ -65,7 +65,7 @@ module Google
       end
 
       def gem_class_prefix
-        ActiveSupport::Inflector.classify @name
+        ActiveSupport::Inflector.camelize @name
       end
 
       def controller

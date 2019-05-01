@@ -6,7 +6,7 @@
 <%= @requires %>
 <% end %>
 <%- namespaces.each_with_index do |n, i| -%>
-<%= indent "module #{n.classify}", i*2 %>
+<%= indent "module #{n.camelize}", i*2 %>
 <%- end -%>
 <%= indent yield, namespaces.count*2 %>
 <%- namespaces.count.times do |i| -%>

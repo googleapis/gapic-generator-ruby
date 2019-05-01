@@ -47,7 +47,7 @@ class ServicePresenter
   end
 
   def version
-    ActiveSupport::Inflector.classify @service.address[-2]
+    ActiveSupport::Inflector.camelize @service.address[-2]
   end
 
   def name

@@ -45,7 +45,7 @@ class GemPresenter
   end
 
   def namespaces
-    name.split("-").map(&:classify)
+    name.split("-").map(&:camelize)
   end
 
   def name
@@ -55,7 +55,7 @@ class GemPresenter
 
   def title
     gem_config(:title) ||
-      name.split("-").map(&:classify).join(" ")
+      name.split("-").map(&:camelize).join(" ")
   end
 
   def version
@@ -72,7 +72,7 @@ class GemPresenter
   end
 
   def version_name_full
-    name.split("-").map(&:classify).join("::") + "::VERSION"
+    name.split("-").map(&:camelize).join("::") + "::VERSION"
   end
 
   def authors

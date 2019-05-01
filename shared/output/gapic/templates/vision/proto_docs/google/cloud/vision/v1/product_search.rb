@@ -62,10 +62,10 @@ module Google
         #     Timestamp of the index which provided these results. Changes made after
         #     this time are not reflected in the current results.
         # @!attribute [rw] results
-        #   @return [Google::Cloud::Vision::V1::ProductSearchResult::Result]
+        #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
         #     List of results, one for each product match.
         # @!attribute [rw] product_grouped_results
-        #   @return [Google::Cloud::Vision::V1::ProductSearchResult::GroupedResult]
+        #   @return [Google::Cloud::Vision::V1::ProductSearchResults::GroupedResult]
         #     List of results grouped by products detected in the query image. Each entry
         #     corresponds to one bounding polygon in the query image, and contains the
         #     matching products specific to that region. There may be duplicate product
@@ -97,7 +97,7 @@ module Google
           #   @return [Google::Cloud::Vision::V1::BoundingPoly]
           #     The bounding polygon around the product detected in the query image.
           # @!attribute [rw] results
-          #   @return [Google::Cloud::Vision::V1::ProductSearchResult::Result]
+          #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
           #     List of results, one for each product match.
           class GroupedResult
             include Google::Protobuf::MessageExts
