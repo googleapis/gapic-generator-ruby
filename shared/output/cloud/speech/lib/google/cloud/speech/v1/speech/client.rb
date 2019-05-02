@@ -14,16 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "json"
-require "pathname"
-
 require "google/gax"
-require "google/gax/operation"
-require "google/longrunning/operations_client"
 
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"
+require "google/cloud/speech/v1/speech/operations"
 
 module Google
   module Cloud
@@ -50,11 +46,7 @@ module Google
 
             DEFAULT_TIMEOUT = 30
 
-            # @private
-            class OperationsClient < Google::Longrunning::OperationsClient
-              SERVICE_ADDRESS = Client::SERVICE_ADDRESS
-              GRPC_INTERCEPTORS = Client::GRPC_INTERCEPTORS.dup
-            end
+
 
             ##
             # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -88,7 +80,7 @@ module Google
                 timeout: DEFAULT_TIMEOUT,
                 metadata: nil,
                 lib_name: nil,
-                lib_version: ""
+                lib_version: nil
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
@@ -100,13 +92,15 @@ module Google
                 credentials = Credentials.new credentials, scope: scope
               end
 
-              @operations_client = OperationsClient.new(
+              @operations_client = Operations.new(
                 credentials: credentials,
                 scope:       scope,
                 timeout:     timeout,
+                metadata:    metadata,
                 lib_name:    lib_name,
                 lib_version: lib_version
               )
+
               @speech_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Speech::V1::Speech::Stub,
                 host:         self.class::SERVICE_ADDRESS,
@@ -116,8 +110,13 @@ module Google
               )
 
               @timeout = timeout
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
               @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header lib_name, lib_version
+              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -269,17 +268,6 @@ module Google
 
               @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize
               @streaming_recognize.call requests, options: options, stream_callback: block
-            end
-
-            protected
-
-            def x_goog_api_client_header lib_name, lib_version
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              x_goog_api_client_header.join " "
             end
           end
         end

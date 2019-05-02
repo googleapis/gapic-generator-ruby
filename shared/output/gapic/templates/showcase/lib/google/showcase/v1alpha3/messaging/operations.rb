@@ -23,39 +23,20 @@
 # THE SOFTWARE.
 
 require "google/gax"
+require "google/gax/operation"
 
 require "google/showcase/version"
-require "google/showcase/v1alpha3/identity_pb"
-require "google/showcase/v1alpha3/identity/credentials"
-require "google/showcase/v1alpha3/identity/paths"
+require "google/showcase/v1alpha3/messaging/client"
+require "google/longrunning/operations_pb"
 
 module Google
   module Showcase
     module V1alpha3
-      module Identity
-        # Service that implements Identity API.
-        class Client
-          include Paths
-
+      module Messaging
+        # Service that implements Longrunning Operations API.
+        class Operations
           # @private
-          attr_reader :identity_stub
-
-          # The default address of the service.
-          SERVICE_ADDRESS = "localhost"
-
-          # The default port of the service.
-          DEFAULT_SERVICE_PORT = 7469
-
-          # rubocop:disable Style/MutableConstant
-
-          # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
-
-          # rubocop:enable Style/MutableConstant
-
-          DEFAULT_TIMEOUT = 30
-
-
+          attr_reader :operations_stub
 
           ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -84,30 +65,29 @@ module Google
           #   per call basis.
           #
           def initialize \
-              credentials: nil,
-              scope: nil,
-              timeout: DEFAULT_TIMEOUT,
-              metadata: nil,
-              lib_name: nil,
-              lib_version: nil
+              credentials:  nil,
+              scope:        Client::ALL_SCOPES,
+              timeout:      Client::DEFAULT_TIMEOUT,
+              metadata:     nil,
+              lib_name:     nil,
+              lib_version:  nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
-            require "google/showcase/v1alpha3/identity_services_pb"
+            require "google/longrunning/operations_services_pb"
 
             credentials ||= Credentials.default scope: scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: scope
             end
 
-
-            @identity_stub = Google::Gax::Grpc::Stub.new(
-              Google::Showcase::V1alpha3::Identity::Stub,
-              host:         self.class::SERVICE_ADDRESS,
-              port:         self.class::DEFAULT_SERVICE_PORT,
+            @operations_stub = Google::Gax::Grpc::Stub.new(
+              Google::Longrunning::Operations::Stub,
+              host:         Client::SERVICE_ADDRESS,
+              port:         Client::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: self.class::GRPC_INTERCEPTORS
+              interceptors: Client::GRPC_INTERCEPTORS
             )
 
             @timeout = timeout
@@ -123,81 +103,51 @@ module Google
           # Service calls
 
           ##
-          # Creates a user.
+          # Lists operations that match the specified filter in the request. If the
+          # server doesn't support this method, it returns `UNIMPLEMENTED`.
           #
-          # @overload create_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
-          #     Creates a user.
+          # NOTE: the `name` binding below allows API services to override the binding
+          # to use different resource name schemes, such as `users/*/operations`.
+          #
+          # @overload list_operations(request, options: nil)
+          #   @param request [Google::Longrunning::ListOperationsRequest | Hash]
+          #     Lists operations that match the specified filter in the request. If the
+          #     server doesn't support this method, it returns `UNIMPLEMENTED`.
+          #
+          #     NOTE: the `name` binding below allows API services to override the binding
+          #     to use different resource name schemes, such as `users/*/operations`.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload create_user(user: nil, options: nil)
-          #   @param user [Google::Showcase::V1alpha3::User | Hash]
-          #     The user to create.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::User]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
-          #
-          # @return [Google::Showcase::V1alpha3::User]
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
-          # @example
-          #   TODO
-          #
-          def create_user request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
-
-            request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
-
-            # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
-
-            # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
-
-            @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
-            @create_user.call request, options: options, operation_callback: block
-          end
-
-          ##
-          # Retrieves the User with the given uri.
-          #
-          # @overload get_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
-          #     Retrieves the User with the given uri.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload get_user(name: nil, options: nil)
+          # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil, options: nil)
           #   @param name [String]
-          #     The resource name of the requested user.
+          #     The name of the operation collection.
+          #   @param filter [String]
+          #     The standard list filter.
+          #   @param page_size [Integer]
+          #     The standard list page size.
+          #   @param page_token [String]
+          #     The standard list page token.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::User]
+          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Longrunning::Operation>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::User]
+          # @return [Google::Gax::PagedEnumerable<Google::Longrunning::Operation>]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def get_user request = nil, options: nil, **request_fields, &block
+          def list_operations request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
+            request = Google::Gax.to_proto request, Google::Longrunning::ListOperationsRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -210,73 +160,85 @@ module Google
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
-            @get_user.call request, options: options, operation_callback: block
+            @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
+
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options }
+
+            @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
-          # Updates a user.
+          # Gets the latest state of a long-running operation.  Clients can use this
+          # method to poll the operation result at intervals as recommended by the API
+          # service.
           #
-          # @overload update_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
-          #     Updates a user.
+          # @overload get_operation(request, options: nil)
+          #   @param request [Google::Longrunning::GetOperationRequest | Hash]
+          #     Gets the latest state of a long-running operation.  Clients can use this
+          #     method to poll the operation result at intervals as recommended by the API
+          #     service.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload update_user(user: nil, update_mask: nil, options: nil)
-          #   @param user [Google::Showcase::V1alpha3::User | Hash]
-          #     The user to update.
-          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
-          #     The field mask to determine wich fields are to be updated. If empty, the
-          #     server will assume all fields are to be updated.
+          # @overload get_operation(name: nil, options: nil)
+          #   @param name [String]
+          #     The name of the operation resource.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Showcase::V1alpha3::User]
+          # @yieldparam response [Google::Gax::Operation]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Showcase::V1alpha3::User]
+          # @return [Google::Gax::Operation]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def update_user request = nil, options: nil, **request_fields, &block
+          def get_operation request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
+            request = Google::Gax.to_proto request, Google::Longrunning::GetOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             header_params = {
-              "user.name" => request.user.name
+              "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
-            @update_user.call request, options: options, operation_callback: block
+            format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+
+            @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
+            @get_operation.call request, options: options, operation_callback: block, format_response: format_response
           end
 
           ##
-          # Deletes a user, their profile, and all of their authored messages.
+          # Deletes a long-running operation. This method indicates that the client is
+          # no longer interested in the operation result. It does not cancel the
+          # operation. If the server doesn't support this method, it returns
+          # `google.rpc.Code.UNIMPLEMENTED`.
           #
-          # @overload delete_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
-          #     Deletes a user, their profile, and all of their authored messages.
+          # @overload delete_operation(request, options: nil)
+          #   @param request [Google::Longrunning::DeleteOperationRequest | Hash]
+          #     Deletes a long-running operation. This method indicates that the client is
+          #     no longer interested in the operation result. It does not cancel the
+          #     operation. If the server doesn't support this method, it returns
+          #     `google.rpc.Code.UNIMPLEMENTED`.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload delete_user(name: nil, options: nil)
+          # @overload delete_operation(name: nil, options: nil)
           #   @param name [String]
-          #     The resource name of the user to delete.
+          #     The name of the operation resource to be deleted.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
@@ -289,14 +251,14 @@ module Google
           # @example
           #   TODO
           #
-          def delete_user request = nil, options: nil, **request_fields, &block
+          def delete_operation request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
+            request = Google::Gax.to_proto request, Google::Longrunning::DeleteOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -309,73 +271,77 @@ module Google
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
-            @delete_user.call request, options: options, operation_callback: block
+            @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
+            @delete_operation.call request, options: options, operation_callback: block
           end
 
           ##
-          # Lists all users.
+          # Starts asynchronous cancellation on a long-running operation.  The server
+          # makes a best effort to cancel the operation, but success is not
+          # guaranteed.  If the server doesn't support this method, it returns
+          # `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+          # [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+          # other methods to check whether the cancellation succeeded or whether the
+          # operation completed despite cancellation. On successful cancellation,
+          # the operation is not deleted; instead, it becomes an operation with
+          # an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+          # corresponding to `Code.CANCELLED`.
           #
-          # @overload list_users(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
-          #     Lists all users.
+          # @overload cancel_operation(request, options: nil)
+          #   @param request [Google::Longrunning::CancelOperationRequest | Hash]
+          #     Starts asynchronous cancellation on a long-running operation.  The server
+          #     makes a best effort to cancel the operation, but success is not
+          #     guaranteed.  If the server doesn't support this method, it returns
+          #     `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+          #     [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+          #     other methods to check whether the cancellation succeeded or whether the
+          #     operation completed despite cancellation. On successful cancellation,
+          #     the operation is not deleted; instead, it becomes an operation with
+          #     an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+          #     corresponding to `Code.CANCELLED`.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @overload list_users(page_size: nil, page_token: nil, options: nil)
-          #   @param page_size [Integer]
-          #     The maximum number of users to return. Server may return fewer users
-          #     than requested. If unspecified, server will pick an appropriate default.
-          #   @param page_token [String]
-          #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
-          #     returned from the previous call to
-          #     `google.showcase.v1alpha3.Identity\ListUsers` method.
+          # @overload cancel_operation(name: nil, options: nil)
+          #   @param name [String]
+          #     The name of the operation resource to be cancelled.
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
+          # @yieldparam response [Google::Protobuf::Empty]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
+          # @return [Google::Protobuf::Empty]
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           # @example
           #   TODO
           #
-          def list_users request = nil, options: nil, **request_fields, &block
+          def cancel_operation request = nil, options: nil, **request_fields, &block
             raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
             if !request.nil? && !request_fields.empty?
               raise ArgumentError, "cannot pass both request object and named arguments"
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
+            request = Google::Gax.to_proto request, Google::Longrunning::CancelOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
+            header_params = {
+              "name" => request.name
+            }
+            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            @list_users ||= Google::Gax::ApiCall.new @identity_stub.method :list_users
-
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_users, request, response, options }
-
-            @list_users.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
+            @cancel_operation.call request, options: options, operation_callback: block
           end
         end
       end
     end
   end
 end
-
-# rubocop:disable Lint/HandleExceptions
-
-# Once client is loaded, load helpers.rb if it exists.
-begin
-  require "google/showcase/v1alpha3/identity/helpers"
-rescue LoadError
-end
-
-# rubocop:enable Lint/HandleExceptions

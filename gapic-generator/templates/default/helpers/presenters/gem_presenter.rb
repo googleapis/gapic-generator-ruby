@@ -32,7 +32,7 @@ class GemPresenter
 
   def services
     @services ||= begin
-      files = @api.generate_files.select { |f| f.package == @package }
+      files = @api.generate_files
       files.map(&:services).flatten.map { |s| ServicePresenter.new s }
     end
   end

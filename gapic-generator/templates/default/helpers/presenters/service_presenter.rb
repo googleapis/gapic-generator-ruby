@@ -133,10 +133,6 @@ class ServicePresenter
     client_require + ".rb"
   end
 
-  def client_lro?
-    true # TODO: Make not fake
-  end
-
   def client_address
     lookup_default_host.split(":").first
   end
@@ -189,6 +185,38 @@ class ServicePresenter
 
   def stub_name
     "#{ActiveSupport::Inflector.underscore name}_stub"
+  end
+
+  def lro?
+    methods.find(&:lro?)
+  end
+
+  def lro_client_var
+    "operations_client"
+  end
+
+  def lro_client_ivar
+    "@#{lro_client_var}"
+  end
+
+  def operations_name
+    "Operations"
+  end
+
+  def operations_require
+    operations_namespace = @service.address.dup
+    operations_namespace.push operations_name
+    operations_namespace.map(&:underscore).join "/"
+  end
+
+  def operations_file_path
+    operations_require + ".rb"
+  end
+
+  def lro_service
+    lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
+
+    return ServicePresenter.new lro.services.first unless lro.nil?
   end
 
   def references
