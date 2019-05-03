@@ -41,7 +41,7 @@ def build_gem_to gem_name, gem_path
   builder = Google::Gapic::GemBuilder.new gem_name, gem_path
   builder.bootstrap
   export_path = File.join gem_path, "templates", gem_name
-  export_templates_to File.join(gem_path, "templates", "gem_name")
+  export_templates_to export_path
 
   Dir.chdir gem_path do
     system "git init && git add . && git commit -m 'Initial commit'"
