@@ -30,7 +30,7 @@ def <%= method.name %> requests, options: nil, &block
   end
 
   requests = requests.lazy.map do |request|
-    Google::Gax.to_proto request, <%= method.request_type %>
+    Google::Gax::Protobuf.coerce request, to: <%= method.request_type %>
   end
 
   <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>

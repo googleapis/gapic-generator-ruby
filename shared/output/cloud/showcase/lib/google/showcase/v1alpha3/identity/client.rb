@@ -145,7 +145,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::CreateUserRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -189,7 +189,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::GetUserRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -240,7 +240,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::UpdateUserRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -288,7 +288,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::DeleteUserRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -341,7 +341,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ListUsersRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h

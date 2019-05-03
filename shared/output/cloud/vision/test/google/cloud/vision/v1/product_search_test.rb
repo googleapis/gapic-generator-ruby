@@ -76,15 +76,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ProductSet
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ProductSet
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateProductSetRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(product_set, Google::Cloud::Vision::V1::ProductSet), request.product_set
-        assert_equal Google::Gax.to_proto(product_set_id), request.product_set_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(product_set, to: Google::Cloud::Vision::V1::ProductSet), request.product_set
+        assert_equal Google::Gax::Protobuf.coerce(product_set_id, to: ), request.product_set_id
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_product_set, mock_method
@@ -121,9 +120,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateProductSetRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(product_set, Google::Cloud::Vision::V1::ProductSet), request.product_set
-        assert_equal Google::Gax.to_proto(product_set_id), request.product_set_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(product_set, to: Google::Cloud::Vision::V1::ProductSet), request.product_set
+        assert_equal Google::Gax::Protobuf.coerce(product_set_id, to: ), request.product_set_id
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_product_set, mock_method
@@ -160,15 +159,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ListProductSetsResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ListProductSetsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductSetsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_product_sets, mock_method
@@ -205,9 +203,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductSetsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_product_sets, mock_method
@@ -242,13 +240,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ProductSet
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ProductSet
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_product_set, mock_method
@@ -283,7 +280,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_product_set, mock_method
@@ -319,14 +316,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ProductSet
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ProductSet
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::UpdateProductSetRequest, request
-        assert_equal Google::Gax.to_proto(product_set, Google::Cloud::Vision::V1::ProductSet), request.product_set
-        assert_equal Google::Gax.to_proto(update_mask, Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gax::Protobuf.coerce(product_set, to: Google::Cloud::Vision::V1::ProductSet), request.product_set
+        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_product_set, mock_method
@@ -362,8 +358,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::UpdateProductSetRequest, request
-        assert_equal Google::Gax.to_proto(product_set, Google::Cloud::Vision::V1::ProductSet), request.product_set
-        assert_equal Google::Gax.to_proto(update_mask, Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gax::Protobuf.coerce(product_set, to: Google::Cloud::Vision::V1::ProductSet), request.product_set
+        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_product_set, mock_method
@@ -398,13 +394,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Protobuf::Empty
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_product_set, mock_method
@@ -439,7 +434,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_product_set, mock_method
@@ -476,15 +471,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::Product
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::Product
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateProductRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(product, Google::Cloud::Vision::V1::Product), request.product
-        assert_equal Google::Gax.to_proto(product_id), request.product_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(product, to: Google::Cloud::Vision::V1::Product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(product_id, to: ), request.product_id
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_product, mock_method
@@ -521,9 +515,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateProductRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(product, Google::Cloud::Vision::V1::Product), request.product
-        assert_equal Google::Gax.to_proto(product_id), request.product_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(product, to: Google::Cloud::Vision::V1::Product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(product_id, to: ), request.product_id
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_product, mock_method
@@ -560,15 +554,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ListProductsResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ListProductsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_products, mock_method
@@ -605,9 +598,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_products, mock_method
@@ -642,13 +635,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::Product
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::Product
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetProductRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_product, mock_method
@@ -683,7 +675,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetProductRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_product, mock_method
@@ -719,14 +711,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::Product
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::Product
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::UpdateProductRequest, request
-        assert_equal Google::Gax.to_proto(product, Google::Cloud::Vision::V1::Product), request.product
-        assert_equal Google::Gax.to_proto(update_mask, Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gax::Protobuf.coerce(product, to: Google::Cloud::Vision::V1::Product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_product, mock_method
@@ -762,8 +753,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::UpdateProductRequest, request
-        assert_equal Google::Gax.to_proto(product, Google::Cloud::Vision::V1::Product), request.product
-        assert_equal Google::Gax.to_proto(update_mask, Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gax::Protobuf.coerce(product, to: Google::Cloud::Vision::V1::Product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_product, mock_method
@@ -798,13 +789,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Protobuf::Empty
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteProductRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_product, mock_method
@@ -839,7 +829,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteProductRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_product, mock_method
@@ -876,15 +866,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ReferenceImage
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ReferenceImage
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(reference_image, Google::Cloud::Vision::V1::ReferenceImage), request.reference_image
-        assert_equal Google::Gax.to_proto(reference_image_id), request.reference_image_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(reference_image, to: Google::Cloud::Vision::V1::ReferenceImage), request.reference_image
+        assert_equal Google::Gax::Protobuf.coerce(reference_image_id, to: ), request.reference_image_id
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_reference_image, mock_method
@@ -921,9 +910,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::CreateReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(reference_image, Google::Cloud::Vision::V1::ReferenceImage), request.reference_image
-        assert_equal Google::Gax.to_proto(reference_image_id), request.reference_image_id
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(reference_image, to: Google::Cloud::Vision::V1::ReferenceImage), request.reference_image
+        assert_equal Google::Gax::Protobuf.coerce(reference_image_id, to: ), request.reference_image_id
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_reference_image, mock_method
@@ -958,13 +947,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Protobuf::Empty
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_reference_image, mock_method
@@ -999,7 +987,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::DeleteReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_reference_image, mock_method
@@ -1036,15 +1024,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ListReferenceImagesResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ListReferenceImagesResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListReferenceImagesRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_reference_images, mock_method
@@ -1081,9 +1068,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListReferenceImagesRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_reference_images, mock_method
@@ -1118,13 +1105,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ReferenceImage
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ReferenceImage
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_reference_image, mock_method
@@ -1159,7 +1145,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::GetReferenceImageRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_reference_image, mock_method
@@ -1195,14 +1181,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Protobuf::Empty
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AddProductToProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(product, to: ), request.product
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :add_product_to_product_set, mock_method
@@ -1238,8 +1223,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AddProductToProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(product, to: ), request.product
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :add_product_to_product_set, mock_method
@@ -1275,14 +1260,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Protobuf::Empty
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(product, to: ), request.product
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :remove_product_from_product_set, mock_method
@@ -1318,8 +1302,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(product), request.product
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(product, to: ), request.product
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :remove_product_from_product_set, mock_method
@@ -1356,15 +1340,14 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::ListProductsInProductSetResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::ListProductsInProductSetResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductsInProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_products_in_product_set, mock_method
@@ -1401,9 +1384,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ListProductsInProductSetRequest, request
-        assert_equal Google::Gax.to_proto(name), request.name
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_products_in_product_set, mock_method
@@ -1433,27 +1416,26 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets without error" do
-      # Create request parameters
-      parent = "hello world"
-      input_config = {}
+    # Create request parameters
+    parent = "hello world"
+    input_config = {}
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Longrunning::Operation
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name:     "operations/import_product_sets_test",
-        done:     true,
+        name: "operations/import_product_sets_test",
+        done: true,
         response: result
       )
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ImportProductSetsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(input_config, Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method
@@ -1475,25 +1457,25 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets and returns an operation error." do
-      # Create request parameters
-      parent = "hello world"
-      input_config = {}
+    # Create request parameters
+    parent = "hello world"
+    input_config = {}
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
         message: "Operation error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
       )
       operation = Google::Longrunning::Operation.new(
-        name:  "operations/import_product_sets_test",
-        done:  true,
+        name: "operations/import_product_sets_test",
+        done: true,
         error: operation_error
       )
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ImportProductSetsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(input_config, Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method
@@ -1516,15 +1498,15 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets with error" do
-      # Create request parameters
-      parent = "hello world"
-      input_config = {}
+    # Create request parameters
+    parent = "hello world"
+    input_config = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::ImportProductSetsRequest, request
-        assert_equal Google::Gax.to_proto(parent), request.parent
-        assert_equal Google::Gax.to_proto(input_config, Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
+        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gax::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method

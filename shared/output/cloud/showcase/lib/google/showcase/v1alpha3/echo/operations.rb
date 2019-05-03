@@ -139,7 +139,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Longrunning::ListOperationsRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -194,7 +194,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Longrunning::GetOperationRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -250,7 +250,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Longrunning::DeleteOperationRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -316,7 +316,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Longrunning::CancelOperationRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
