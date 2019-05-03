@@ -219,9 +219,10 @@ module Google
               metadata = @metadata.dup
               options.apply_defaults timeout: @timeout, metadata: metadata
 
+              @long_running_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :long_running_recognize
+
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-              @long_running_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :long_running_recognize
               @long_running_recognize.call request, options: options, operation_callback: block, format_response: format_response
             end
 

@@ -1373,9 +1373,10 @@ module Google
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
               options.apply_defaults timeout: @timeout, metadata: metadata
 
+              @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
+
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-              @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
               @import_product_sets.call request, options: options, operation_callback: block, format_response: format_response
             end
           end

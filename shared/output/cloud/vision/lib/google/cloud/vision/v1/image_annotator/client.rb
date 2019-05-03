@@ -215,9 +215,10 @@ module Google
               metadata = @metadata.dup
               options.apply_defaults timeout: @timeout, metadata: metadata
 
+              @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
+
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-              @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
               @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: format_response
             end
           end

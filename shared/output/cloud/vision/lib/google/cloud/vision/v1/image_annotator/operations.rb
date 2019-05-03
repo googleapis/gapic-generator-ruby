@@ -208,9 +208,10 @@ module Google
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
               options.apply_defaults timeout: @timeout, metadata: metadata
 
+              @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
+
               format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-              @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
               @get_operation.call request, options: options, operation_callback: block, format_response: format_response
             end
 

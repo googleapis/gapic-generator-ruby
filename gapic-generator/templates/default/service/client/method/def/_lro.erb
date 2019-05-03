@@ -51,8 +51,9 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
 
   <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
+  <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
+
   format_response = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>, options) }
 
-  <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
   <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: format_response)
 end

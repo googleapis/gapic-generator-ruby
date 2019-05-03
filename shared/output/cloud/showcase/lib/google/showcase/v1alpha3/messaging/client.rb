@@ -690,9 +690,10 @@ module Google
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
+            @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
+
             format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-            @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
             @search_blurbs.call request, options: options, operation_callback: block, format_response: format_response
           end
 
