@@ -25,7 +25,7 @@ def export_templates_to export_path
     exit
   end
   FileUtils.mkdir_p export_path
-  source_dir = File.join File.dirname(__dir__), "templates", "default"
+  source_dir = File.join File.dirname(__dir__), "templates", "default", "."
   FileUtils.cp_r source_dir, export_path
 end
 
