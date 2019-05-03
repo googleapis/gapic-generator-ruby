@@ -161,7 +161,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -212,7 +212,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::ExpandRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -256,7 +256,7 @@ module Google
             end
 
             requests = requests.lazy.map do |request|
-              Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
@@ -302,7 +302,7 @@ module Google
             end
 
             requests = requests.lazy.map do |request|
-              Google::Gax.to_proto request, Google::Showcase::V1alpha3::EchoRequest
+              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
@@ -353,7 +353,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::PagedExpandRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -409,7 +409,7 @@ module Google
             end
 
             request ||= request_fields
-            request = Google::Gax.to_proto request, Google::Showcase::V1alpha3::WaitRequest
+            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
 
             # Converts hash and nil to an options object
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h

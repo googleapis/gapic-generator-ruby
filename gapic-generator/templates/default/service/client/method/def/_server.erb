@@ -50,7 +50,7 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   end
 
   request ||= request_fields
-  request = Google::Gax.to_proto request, <%= method.request_type %>
+  request = Google::Gax::Protobuf.coerce request, to: <%= method.request_type %>
 
   <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 

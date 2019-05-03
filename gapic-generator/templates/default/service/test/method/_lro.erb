@@ -9,8 +9,7 @@ describe "<%= method.name %>" do
 
     # Create expected grpc response
     expected_response = {}
-    expected_response = Google::Gax.to_proto expected_response,
-                                             <%= method.return_type %>
+    expected_response = Google::Gax::Protobuf.coerce expected_response, to: <%= method.return_type %>
     result = Google::Protobuf::Any.new
     result.pack expected_response
     operation = Google::Longrunning::Operation.new(
@@ -23,7 +22,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= field.type_name_full %>), request.<%= field.name %>
+      assert_equal Google::Gax::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       OpenStruct.new execute: operation
     end
@@ -62,7 +61,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= field.type_name_full %>), request.<%= field.name %>
+      assert_equal Google::Gax::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       OpenStruct.new execute: operation
     end
@@ -92,7 +91,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gax.to_proto(<%= field.name %>, <%= field.type_name_full %>), request.<%= field.name %>
+      assert_equal Google::Gax::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       raise custom_error
     end

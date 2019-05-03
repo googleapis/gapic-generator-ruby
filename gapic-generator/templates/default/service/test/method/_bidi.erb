@@ -10,8 +10,7 @@ describe "<%= method.name %>" do
 
     # Create expected grpc response
     expected_response = {}
-    expected_response = Google::Gax.to_proto expected_response,
-                                             <%= method.return_type %>
+    expected_response = Google::Gax::Protobuf.coerce expected_response, to: <%= method.return_type %>
 
     # Mock Grpc layer
     mock_method = proc do |requests|

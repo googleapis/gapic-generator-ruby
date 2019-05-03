@@ -82,13 +82,12 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Cloud::Vision::V1::BatchAnnotateImagesResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::BatchAnnotateImagesResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Google::Gax.to_proto(requests, Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+        assert_equal Google::Gax::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
@@ -123,7 +122,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Google::Gax.to_proto(requests, Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+        assert_equal Google::Gax::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
@@ -158,8 +157,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Longrunning::Operation
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -171,7 +169,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Google::Gax.to_proto(requests, Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+        assert_equal Google::Gax::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
@@ -209,7 +207,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Google::Gax.to_proto(requests, Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+        assert_equal Google::Gax::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
@@ -238,7 +236,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Google::Gax.to_proto(requests, Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+        assert_equal Google::Gax::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method

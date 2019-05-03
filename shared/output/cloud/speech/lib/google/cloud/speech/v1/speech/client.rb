@@ -157,7 +157,7 @@ module Google
               end
 
               request ||= request_fields
-              request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::RecognizeRequest
+              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::RecognizeRequest
 
               # Converts hash and nil to an options object
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -210,7 +210,7 @@ module Google
               end
 
               request ||= request_fields
-              request = Google::Gax.to_proto request, Google::Cloud::Speech::V1::LongRunningRecognizeRequest
+              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::LongRunningRecognizeRequest
 
               # Converts hash and nil to an options object
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -256,7 +256,7 @@ module Google
               end
 
               requests = requests.lazy.map do |request|
-                Google::Gax.to_proto request, Google::Cloud::Speech::V1::StreamingRecognizeRequest
+                Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::StreamingRecognizeRequest
               end
 
               # Converts hash and nil to an options object

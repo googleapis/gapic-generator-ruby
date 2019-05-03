@@ -83,14 +83,13 @@ describe Google::Showcase::V1alpha3::Echo::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Showcase::V1alpha3::EchoResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::EchoResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::EchoRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :echo, mock_method
@@ -126,8 +125,8 @@ describe Google::Showcase::V1alpha3::Echo::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::EchoRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :echo, mock_method
@@ -163,14 +162,13 @@ describe Google::Showcase::V1alpha3::Echo::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Showcase::V1alpha3::EchoResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::EchoResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ExpandRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :expand, mock_method
@@ -200,8 +198,8 @@ describe Google::Showcase::V1alpha3::Echo::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ExpandRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :expand, mock_method
@@ -236,8 +234,7 @@ describe Google::Showcase::V1alpha3::Echo::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Showcase::V1alpha3::EchoResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::EchoResponse
 
       # Mock Grpc layer
       mock_method = proc do |requests|
@@ -300,8 +297,7 @@ describe Google::Showcase::V1alpha3::Echo::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Showcase::V1alpha3::EchoResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::EchoResponse
 
       # Mock Grpc layer
       mock_method = proc do |requests|
@@ -367,15 +363,14 @@ describe Google::Showcase::V1alpha3::Echo::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Showcase::V1alpha3::PagedExpandResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::PagedExpandResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::PagedExpandRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :paged_expand, mock_method
@@ -412,9 +407,9 @@ describe Google::Showcase::V1alpha3::Echo::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::PagedExpandRequest, request
-        assert_equal Google::Gax.to_proto(content), request.content
-        assert_equal Google::Gax.to_proto(page_size), request.page_size
-        assert_equal Google::Gax.to_proto(page_token), request.page_token
+        assert_equal Google::Gax::Protobuf.coerce(content, to: ), request.content
+        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :paged_expand, mock_method
@@ -444,31 +439,30 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait without error" do
-      # Create request parameters
-      end_time = {}
-      ttl = {}
-      error = {}
-      success = {}
+    # Create request parameters
+    end_time = {}
+    ttl = {}
+    error = {}
+    success = {}
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax.to_proto expected_response,
-                                               Google::Longrunning::Operation
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name:     "operations/wait_test",
-        done:     true,
+        name: "operations/wait_test",
+        done: true,
         response: result
       )
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::WaitRequest, request
-        assert_equal Google::Gax.to_proto(end_time, Google::Protobuf::Timestamp), request.end_time
-        assert_equal Google::Gax.to_proto(ttl, Google::Protobuf::Duration), request.ttl
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
-        assert_equal Google::Gax.to_proto(success, Google::Showcase::V1alpha3::WaitResponse), request.success
+        assert_equal Google::Gax::Protobuf.coerce(end_time, to: Google::Protobuf::Timestamp), request.end_time
+        assert_equal Google::Gax::Protobuf.coerce(ttl, to: Google::Protobuf::Duration), request.ttl
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(success, to: Google::Showcase::V1alpha3::WaitResponse), request.success
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :wait, mock_method
@@ -490,29 +484,29 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait and returns an operation error." do
-      # Create request parameters
-      end_time = {}
-      ttl = {}
-      error = {}
-      success = {}
+    # Create request parameters
+    end_time = {}
+    ttl = {}
+    error = {}
+    success = {}
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
         message: "Operation error for Google::Showcase::V1alpha3::Echo::Client#wait."
       )
       operation = Google::Longrunning::Operation.new(
-        name:  "operations/wait_test",
-        done:  true,
+        name: "operations/wait_test",
+        done: true,
         error: operation_error
       )
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::WaitRequest, request
-        assert_equal Google::Gax.to_proto(end_time, Google::Protobuf::Timestamp), request.end_time
-        assert_equal Google::Gax.to_proto(ttl, Google::Protobuf::Duration), request.ttl
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
-        assert_equal Google::Gax.to_proto(success, Google::Showcase::V1alpha3::WaitResponse), request.success
+        assert_equal Google::Gax::Protobuf.coerce(end_time, to: Google::Protobuf::Timestamp), request.end_time
+        assert_equal Google::Gax::Protobuf.coerce(ttl, to: Google::Protobuf::Duration), request.ttl
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(success, to: Google::Showcase::V1alpha3::WaitResponse), request.success
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :wait, mock_method
@@ -535,19 +529,19 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait with error" do
-      # Create request parameters
-      end_time = {}
-      ttl = {}
-      error = {}
-      success = {}
+    # Create request parameters
+    end_time = {}
+    ttl = {}
+    error = {}
+    success = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::WaitRequest, request
-        assert_equal Google::Gax.to_proto(end_time, Google::Protobuf::Timestamp), request.end_time
-        assert_equal Google::Gax.to_proto(ttl, Google::Protobuf::Duration), request.ttl
-        assert_equal Google::Gax.to_proto(error, Google::Rpc::Status), request.error
-        assert_equal Google::Gax.to_proto(success, Google::Showcase::V1alpha3::WaitResponse), request.success
+        assert_equal Google::Gax::Protobuf.coerce(end_time, to: Google::Protobuf::Timestamp), request.end_time
+        assert_equal Google::Gax::Protobuf.coerce(ttl, to: Google::Protobuf::Duration), request.ttl
+        assert_equal Google::Gax::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
+        assert_equal Google::Gax::Protobuf.coerce(success, to: Google::Showcase::V1alpha3::WaitResponse), request.success
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :wait, mock_method
