@@ -70,9 +70,9 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
 
   <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
 <%- elsif method.lro? -%>
-  format_response = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>, options) }
+  wrap_gax_operation = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>, options) }
 
-  <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: format_response)
+  <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_gax_operation)
 <%- else -%>
   <%= method.ivar %>.call(request, options: options, operation_callback: block)
 <%- end -%>

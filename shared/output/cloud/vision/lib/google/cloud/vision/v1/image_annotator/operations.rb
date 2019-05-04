@@ -210,9 +210,9 @@ module Google
 
               @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
 
-              format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
 
-              @get_operation.call request, options: options, operation_callback: block, format_response: format_response
+              @get_operation.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             ##
