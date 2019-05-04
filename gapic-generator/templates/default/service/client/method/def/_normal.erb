@@ -66,7 +66,12 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
 
 <%- if method.paged? -%>
+  <%- if method.lro? -%>
+  wrap_gax_operation = ->(resource) { Google::Gax::Operation.new(resource, <%= method.service.lro_client_ivar %>, options) }
+  wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options, format_resource: wrap_gax_operation) }
+  <%- else -%>
   wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options) }
+  <%- end -%>
 
   <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
 <%- elsif method.lro? -%>

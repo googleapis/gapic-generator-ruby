@@ -162,7 +162,8 @@ module Google
 
             @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options }
+            wrap_gax_operation = ->(resource) { Google::Gax::Operation.new resource, @operations_client, options }
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options, format_resource: wrap_gax_operation }
 
             @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
