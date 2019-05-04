@@ -8,18 +8,25 @@ but there are currently no guarantees of stability or support.
 ## Usage
 ### Install the Proto Compiler
 This generator relies on the Protocol Buffer Compiler to [orchestrate] the
-client generation.
+client generation. Install protoc version 3.7 or later.
 
+It may be available from your package manager. The following should work on Mac
+OS X using homebrew:
+```sh
+$ brew install protobuf
+```
+
+Otherwise, you can download the release from GitHub:
 ```sh
 # Declare the protobuf version to use.
-$ export PROTOBUF_VERSION=3.6.1
+$ export PROTOBUF_VERSION=3.7.1
 
 # Declare the target installation system.
-# export SYSTEM=osx
-$ export SYSTEM=linux
+# export PROTOBUF_SYSTEM=osx-x86_64
+$ export PROTOBUF_SYSTEM=linux-x86_64
 
 # Get the precompiled protobuf compiler.
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-linux-x86_64.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
+$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
 $ cd /usr/src/protoc/
 $ unzip protoc-${PROTOBUF_VERSION}.zip
 $ rm protoc-${PROTOBUF_VERSION}.zip

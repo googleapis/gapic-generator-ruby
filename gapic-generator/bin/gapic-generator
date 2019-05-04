@@ -20,9 +20,9 @@ require "optparse"
 require "fileutils"
 
 def export_templates_to export_path
-  if File.exist?(export_path) && File.file?(export_path)
+  if File.exist? export_path
     puts "Cannot export to an existing file path"
-    exit
+    exit 1
   end
   FileUtils.mkdir_p export_path
   source_dir = File.join File.dirname(__dir__), "templates", "default", "."
@@ -32,7 +32,7 @@ end
 def build_gem_to generator_name, output_path
   if File.exist? output_path
     puts "Cannot generate gem to an existing file path"
-    exit
+    exit 1
   end
   FileUtils.mkdir_p output_path
 
@@ -90,7 +90,10 @@ end
 
 if options[:generator_name]
   generator_name = options[:generator_name]
-  # TODO: Validate generator name
+  unless generator_name =~ /^[a-z]([a-z_]*[a-z])?$/
+    puts "Generator name must be lower_snake_case"
+    exit 1
+  end
   output_path = options[:output_path] || "gapic-generator-#{generator_name}"
   output_path = File.expand_path output_path
 
