@@ -29,22 +29,26 @@ def export_templates_to export_path
   FileUtils.cp_r source_dir, export_path
 end
 
-def build_gem_to gem_name, gem_path
-  if File.exist?(gem_path) && File.file?(gem_path)
+def build_gem_to generator_name, output_path
+  if File.exist?(output_path)
     puts "Cannot generate gem to an existing file path"
     exit
   end
-  FileUtils.mkdir_p gem_path
+  FileUtils.mkdir_p output_path
 
   require "google/gapic/gem_builder"
 
-  builder = Google::Gapic::GemBuilder.new gem_name, gem_path
+  builder = Google::Gapic::GemBuilder.new generator_name, output_path
   builder.bootstrap
-  export_path = File.join gem_path, "templates", gem_name
-  export_templates_to export_path
+  examples_path = File.join output_path, "example_templates", generator_name
+  export_templates_to examples_path
+  templates_path = File.join output_path, "templates", generator_name
+  FileUtils.mkdir_p templates_path
+  FileUtils.touch File.join(templates_path, ".gitkeep")
 
-  Dir.chdir gem_path do
-    system "git init && git add . && git commit -m 'Initial commit'"
+  Dir.chdir output_path do
+    system "git init && git add . && git commit -m " \
+           "'Created new client generator gem using gapic-generator'"
   end
 end
 
@@ -59,9 +63,12 @@ OptionParser.new do |opts|
     options[:export] = export_path
   end
 
-  opts.on "-g", "--gem name,path", Array, "Generate a new rubygem" do |args|
-    # puts args.inspect
-    options[:gem] = { name: args[0], path: args[1] }
+  opts.on "-g", "--gem name", String, "Generate a new rubygem" do |name|
+    options[:generator_name] = name
+  end
+
+  opts.on "--output path", String, "Set the gem output directory" do |path|
+    options[:output_path] = path
   end
 
   opts.on_tail "-h", "--help", "Show this message" do
@@ -81,12 +88,13 @@ if options[:export]
   puts "$ GOOGLE_GAPIC_GENERATOR_RUBY_TEMPLATES=#{export_path} protoc ..."
 end
 
-if options[:gem]
-  gem_name = options[:gem][:name]
-  # TODO: Validate gem name
-  gem_path = File.expand_path options[:gem][:path]
+if options[:generator_name]
+  generator_name = options[:generator_name]
+  # TODO: Validate generator name
+  output_path = options[:output_path] || "gapic-generator-#{generator_name}"
+  output_path = File.expand_path output_path
 
-  build_gem_to gem_name, gem_path
+  build_gem_to generator_name, output_path
 
-  puts "Gem #{gem_name} created at #{gem_path}"
+  puts "Generator for #{generator_name} created at #{output_path}"
 end
