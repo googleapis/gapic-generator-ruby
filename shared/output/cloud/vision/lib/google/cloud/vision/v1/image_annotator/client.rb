@@ -218,7 +218,7 @@ module Google
 
               @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
 
-              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
               @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end

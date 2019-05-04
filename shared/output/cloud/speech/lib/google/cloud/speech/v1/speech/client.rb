@@ -222,7 +222,7 @@ module Google
 
               @long_running_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :long_running_recognize
 
-              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
               @long_running_recognize.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end

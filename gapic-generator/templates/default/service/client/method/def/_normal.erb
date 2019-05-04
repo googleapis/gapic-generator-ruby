@@ -67,7 +67,7 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
 
 <%- if method.paged? -%>
   <%- if method.lro? -%>
-  wrap_gax_operation = ->(resource) { Google::Gax::Operation.new(resource, <%= method.service.lro_client_ivar %>, options) }
+  wrap_gax_operation = ->(resource) { Google::Gax::Operation.new(resource, <%= method.service.lro_client_ivar %>) }
   wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options, format_resource: wrap_gax_operation) }
   <%- else -%>
   wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options) }
@@ -75,7 +75,7 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
 
   <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
 <%- elsif method.lro? -%>
-  wrap_gax_operation = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>, options) }
+  wrap_gax_operation = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>) }
 
   <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_gax_operation)
 <%- else -%>

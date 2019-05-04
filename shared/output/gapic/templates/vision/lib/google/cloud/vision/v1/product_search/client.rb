@@ -1388,7 +1388,7 @@ module Google
 
               @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
 
-              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
               @import_product_sets.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end

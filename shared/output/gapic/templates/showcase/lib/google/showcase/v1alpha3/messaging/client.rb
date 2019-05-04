@@ -708,7 +708,7 @@ module Google
 
             @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
             @search_blurbs.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end

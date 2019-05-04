@@ -421,7 +421,7 @@ module Google
 
             @wait ||= Google::Gax::ApiCall.new @echo_stub.method :wait
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
             @wait.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end

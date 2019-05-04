@@ -162,7 +162,7 @@ module Google
 
             @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
 
-            wrap_gax_operation = ->(resource) { Google::Gax::Operation.new resource, @operations_client, options }
+            wrap_gax_operation = ->(resource) { Google::Gax::Operation.new resource, @operations_client }
             wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options, format_resource: wrap_gax_operation }
 
             @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
@@ -218,7 +218,7 @@ module Google
 
             @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
+            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
             @get_operation.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
