@@ -61,6 +61,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_repeated_garbage", presenter.name
     assert_equal :normal, presenter.kind
+    refute presenter.lro?
     assert_equal "@get_repeated_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
@@ -69,7 +70,8 @@ class MethodPresenterTest < PresenterTest
     presenter = method_presenter :garbage, "GarbageService", "LongRunningGarbage"
 
     assert_equal "long_running_garbage", presenter.name
-    assert_equal :lro, presenter.kind
+    assert_equal :normal, presenter.kind
+    assert presenter.lro?
     assert_equal "@long_running_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end

@@ -155,6 +155,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
+
             @create_user.call request, options: options, operation_callback: block
           end
 
@@ -203,6 +204,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
+
             @get_user.call request, options: options, operation_callback: block
           end
 
@@ -254,6 +256,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
+
             @update_user.call request, options: options, operation_callback: block
           end
 
@@ -302,6 +305,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
+
             @delete_user.call request, options: options, operation_callback: block
           end
 

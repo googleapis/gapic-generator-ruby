@@ -41,10 +41,6 @@ class MethodPresenter
       end
     elsif server_streaming?
       :server
-    elsif lro?
-      :lro
-    elsif paged?
-      :paged
     else
       :normal
     end

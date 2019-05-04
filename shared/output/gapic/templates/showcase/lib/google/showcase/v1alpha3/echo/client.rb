@@ -171,6 +171,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
+
             @echo.call request, options: options, operation_callback: block
           end
 

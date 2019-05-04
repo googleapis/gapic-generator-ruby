@@ -175,6 +175,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
+
               @recognize.call request, options: options, operation_callback: block
             end
 

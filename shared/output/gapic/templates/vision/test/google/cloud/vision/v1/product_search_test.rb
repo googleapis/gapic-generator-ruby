@@ -1424,9 +1424,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets without error" do
-    # Create request parameters
-    parent = "hello world"
-    input_config = {}
+      # Create request parameters
+      parent = "hello world"
+      input_config = {}
 
       # Create expected grpc response
       expected_response = {}
@@ -1465,9 +1465,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets and returns an operation error." do
-    # Create request parameters
-    parent = "hello world"
-    input_config = {}
+      # Create request parameters
+      parent = "hello world"
+      input_config = {}
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
@@ -1506,9 +1506,9 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
     end
 
     it "invokes import_product_sets with error" do
-    # Create request parameters
-    parent = "hello world"
-    input_config = {}
+      # Create request parameters
+      parent = "hello world"
+      input_config = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|

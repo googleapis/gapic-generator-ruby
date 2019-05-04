@@ -162,6 +162,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
+
               @batch_annotate_images.call request, options: options, operation_callback: block
             end
 

@@ -164,6 +164,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
+
             @create_room.call request, options: options, operation_callback: block
           end
 
@@ -212,6 +213,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
+
             @get_room.call request, options: options, operation_callback: block
           end
 
@@ -263,6 +265,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
+
             @update_room.call request, options: options, operation_callback: block
           end
 
@@ -311,6 +314,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
+
             @delete_room.call request, options: options, operation_callback: block
           end
 
@@ -418,6 +422,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
+
             @create_blurb.call request, options: options, operation_callback: block
           end
 
@@ -466,6 +471,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
+
             @get_blurb.call request, options: options, operation_callback: block
           end
 
@@ -517,6 +523,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
+
             @update_blurb.call request, options: options, operation_callback: block
           end
 
@@ -565,6 +572,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
+
             @delete_blurb.call request, options: options, operation_callback: block
           end
 

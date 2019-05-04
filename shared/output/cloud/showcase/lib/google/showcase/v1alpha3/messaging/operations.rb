@@ -265,6 +265,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
+
             @delete_operation.call request, options: options, operation_callback: block
           end
 
@@ -331,6 +332,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
+
             @cancel_operation.call request, options: options, operation_callback: block
           end
         end

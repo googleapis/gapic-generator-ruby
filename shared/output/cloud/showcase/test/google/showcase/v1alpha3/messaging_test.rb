@@ -843,11 +843,11 @@ describe Google::Showcase::V1alpha3::Messaging::Client do
     end
 
     it "invokes search_blurbs without error" do
-    # Create request parameters
-    query = "hello world"
-    parent = "hello world"
-    page_size = 42
-    page_token = "hello world"
+      # Create request parameters
+      query = "hello world"
+      parent = "hello world"
+      page_size = 42
+      page_token = "hello world"
 
       # Create expected grpc response
       expected_response = {}
@@ -888,11 +888,11 @@ describe Google::Showcase::V1alpha3::Messaging::Client do
     end
 
     it "invokes search_blurbs and returns an operation error." do
-    # Create request parameters
-    query = "hello world"
-    parent = "hello world"
-    page_size = 42
-    page_token = "hello world"
+      # Create request parameters
+      query = "hello world"
+      parent = "hello world"
+      page_size = 42
+      page_token = "hello world"
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
@@ -933,11 +933,11 @@ describe Google::Showcase::V1alpha3::Messaging::Client do
     end
 
     it "invokes search_blurbs with error" do
-    # Create request parameters
-    query = "hello world"
-    parent = "hello world"
-    page_size = 42
-    page_token = "hello world"
+      # Create request parameters
+      query = "hello world"
+      parent = "hello world"
+      page_size = 42
+      page_token = "hello world"
 
       # Mock Grpc layer
       mock_method = proc do |request|
