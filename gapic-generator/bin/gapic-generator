@@ -30,7 +30,7 @@ def export_templates_to export_path
 end
 
 def build_gem_to generator_name, output_path
-  if File.exist?(output_path)
+  if File.exist? output_path
     puts "Cannot generate gem to an existing file path"
     exit
   end
