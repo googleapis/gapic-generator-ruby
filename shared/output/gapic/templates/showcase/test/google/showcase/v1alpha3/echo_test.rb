@@ -439,11 +439,11 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait without error" do
-    # Create request parameters
-    end_time = {}
-    ttl = {}
-    error = {}
-    success = {}
+      # Create request parameters
+      end_time = {}
+      ttl = {}
+      error = {}
+      success = {}
 
       # Create expected grpc response
       expected_response = {}
@@ -484,11 +484,11 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait and returns an operation error." do
-    # Create request parameters
-    end_time = {}
-    ttl = {}
-    error = {}
-    success = {}
+      # Create request parameters
+      end_time = {}
+      ttl = {}
+      error = {}
+      success = {}
 
       # Create expected grpc response
       operation_error = Google::Rpc::Status.new(
@@ -529,11 +529,11 @@ describe Google::Showcase::V1alpha3::Echo::Client do
     end
 
     it "invokes wait with error" do
-    # Create request parameters
-    end_time = {}
-    ttl = {}
-    error = {}
-    success = {}
+      # Create request parameters
+      end_time = {}
+      ttl = {}
+      error = {}
+      success = {}
 
       # Mock Grpc layer
       mock_method = proc do |request|

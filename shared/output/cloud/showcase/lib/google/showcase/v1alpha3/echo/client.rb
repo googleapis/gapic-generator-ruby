@@ -163,6 +163,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
+
             @echo.call request, options: options, operation_callback: block
           end
 
@@ -410,10 +411,11 @@ module Google
             metadata = @metadata.dup
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
-
             @wait ||= Google::Gax::ApiCall.new @echo_stub.method :wait
-            @wait.call request, options: options, operation_callback: block, format_response: format_response
+
+            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+
+            @wait.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
         end
       end

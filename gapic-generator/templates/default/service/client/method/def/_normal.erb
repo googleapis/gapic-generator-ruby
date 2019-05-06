@@ -30,10 +30,22 @@
 <%- end -%>
 #
 # @yield [response, operation] Access the result along with the RPC operation
+<%- if method.paged? -%>
+# @yieldparam response [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+<%- elsif method.lro? -%>
+# @yieldparam response [Google::Gax::Operation]
+<%- else -%>
 # @yieldparam response [<%= method.return_type %>]
+<%- end -%>
 # @yieldparam operation [GRPC::ActiveCall::Operation]
 #
+<%- if method.paged? -%>
+# @return [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+<%- elsif method.lro? -%>
+# @return [Google::Gax::Operation]
+<%- else -%>
 # @return [<%= method.return_type %>]
+<%- end -%>
 # @raise [Google::Gax::GaxError] if the RPC is aborted.
 # @example
 <%= indent method.code_example, "#   " %>
@@ -52,5 +64,21 @@ def <%= method.name %> request = nil, options: nil, **request_fields, &block
   <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
   <%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
+
+<%- if method.paged? -%>
+  <%- if method.lro? -%>
+  wrap_gax_operation = ->(resource) { Google::Gax::Operation.new(resource, <%= method.service.lro_client_ivar %>) }
+  wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options, format_resource: wrap_gax_operation) }
+  <%- else -%>
+  wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options) }
+  <%- end -%>
+
+  <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
+<%- elsif method.lro? -%>
+  wrap_gax_operation = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>) }
+
+  <%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_gax_operation)
+<%- else -%>
   <%= method.ivar %>.call(request, options: options, operation_callback: block)
+<%- end -%>
 end

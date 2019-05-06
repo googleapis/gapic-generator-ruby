@@ -31,10 +31,8 @@ module Google
         module ProductSearch
           class Credentials < Google::Auth::Credentials
             SCOPE = ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/cloud-vision"].freeze
-            PATH_ENV_VARS = %w[VISION_CREDENTIALS
-                               VISION_KEYFILE].freeze
-            JSON_ENV_VARS = %w[VISION_CREDENTIALS_JSON
-                               VISION_KEYFILE_JSON].freeze
+            PATH_ENV_VARS = ["VISION_CREDENTIALS", "VISION_KEYFILE"].freeze
+            JSON_ENV_VARS = ["VISION_CREDENTIALS_JSON", "VISION_KEYFILE_JSON"].freeze
             DEFAULT_PATHS = [].freeze
           end
         end

@@ -193,6 +193,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
+
               @create_product_set.call request, options: options, operation_callback: block
             end
 
@@ -319,6 +320,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
+
               @get_product_set.call request, options: options, operation_callback: block
             end
 
@@ -386,6 +388,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
+
               @update_product_set.call request, options: options, operation_callback: block
             end
 
@@ -451,6 +454,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
+
               @delete_product_set.call request, options: options, operation_callback: block
             end
 
@@ -523,6 +527,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
+
               @create_product.call request, options: options, operation_callback: block
             end
 
@@ -648,6 +653,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
+
               @get_product.call request, options: options, operation_callback: block
             end
 
@@ -731,6 +737,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
+
               @update_product.call request, options: options, operation_callback: block
             end
 
@@ -798,6 +805,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
+
               @delete_product.call request, options: options, operation_callback: block
             end
 
@@ -893,6 +901,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
+
               @create_reference_image.call request, options: options, operation_callback: block
             end
 
@@ -965,6 +974,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
+
               @delete_reference_image.call request, options: options, operation_callback: block
             end
 
@@ -1098,6 +1108,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
+
               @get_reference_image.call request, options: options, operation_callback: block
             end
 
@@ -1168,6 +1179,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
+
               @add_product_to_product_set.call request, options: options, operation_callback: block
             end
 
@@ -1232,6 +1244,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
+
               @remove_product_from_product_set.call request, options: options, operation_callback: block
             end
 
@@ -1373,10 +1386,11 @@ module Google
               metadata = @metadata.merge "x-goog-request-params" => request_params_header
               options.apply_defaults timeout: @timeout, metadata: metadata
 
-              format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
-
               @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
-              @import_product_sets.call request, options: options, operation_callback: block, format_response: format_response
+
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+
+              @import_product_sets.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
           end
         end

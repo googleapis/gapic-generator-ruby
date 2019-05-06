@@ -162,6 +162,7 @@ module Google
               options.apply_defaults timeout: @timeout, metadata: metadata
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
+
               @batch_annotate_images.call request, options: options, operation_callback: block
             end
 
@@ -215,10 +216,11 @@ module Google
               metadata = @metadata.dup
               options.apply_defaults timeout: @timeout, metadata: metadata
 
-              format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
-
               @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
-              @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: format_response
+
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+
+              @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
           end
         end

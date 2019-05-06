@@ -154,7 +154,8 @@ module Google
 
             @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options }
+            wrap_gax_operation = ->(resource) { Google::Gax::Operation.new resource, @operations_client }
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options, format_resource: wrap_gax_operation }
 
             @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -207,10 +208,11 @@ module Google
             metadata = @metadata.merge "x-goog-request-params" => request_params_header
             options.apply_defaults timeout: @timeout, metadata: metadata
 
-            format_response = ->(response) { Google::Gax::Operation.new response, @operations_client, options }
-
             @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
-            @get_operation.call request, options: options, operation_callback: block, format_response: format_response
+
+            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+
+            @get_operation.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
 
           ##
@@ -264,6 +266,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
+
             @delete_operation.call request, options: options, operation_callback: block
           end
 
@@ -330,6 +333,7 @@ module Google
             options.apply_defaults timeout: @timeout, metadata: metadata
 
             @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
+
             @cancel_operation.call request, options: options, operation_callback: block
           end
         end

@@ -41,10 +41,6 @@ class MethodPresenter
       end
     elsif server_streaming?
       :server
-    elsif lro?
-      :lro
-    elsif paged?
-      :paged
     else
       :normal
     end
@@ -119,6 +115,8 @@ class MethodPresenter
   end
 
   def lro?
+    return paged_response_type == "Google::Longrunning::Operation" if paged?
+
     message_ruby_type(@method.output) == "Google::Longrunning::Operation"
   end
 

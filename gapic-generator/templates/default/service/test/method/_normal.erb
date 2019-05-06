@@ -4,6 +4,87 @@ describe "<%= method.name %>" do
     CustomTestErrorV1.new "Custom test error for <%= method.service.client_name_full %>#<%= method.name %>."
   end
 
+<%- if method.lro? -%>
+  it "invokes <%= method.name %> without error" do
+<%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
+
+    # Create expected grpc response
+    expected_response = {}
+    expected_response = Google::Gax::Protobuf.coerce expected_response, to: <%= method.return_type %>
+    result = Google::Protobuf::Any.new
+    result.pack expected_response
+    operation = Google::Longrunning::Operation.new(
+      name: "operations/<%= method.name %>_test",
+      done: true,
+      response: result
+    )
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of <%= method.request_type %>, request
+<%- method.fields.each do |field| -%>
+      assert_equal Google::Gax::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%- end -%>
+      OpenStruct.new execute: operation
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+
+    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.credentials_full %>.stub :default, mock_credentials do
+        client = <%= method.service.client_name_full %>.new
+
+        # Call method
+        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+
+        # Verify the response
+        assert_equal expected_response, response.response
+      end
+    end
+  end
+
+  it "invokes <%= method.name %> and returns an operation error." do
+<%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
+
+    # Create expected grpc response
+    operation_error = Google::Rpc::Status.new(
+      message: "Operation error for <%= method.service.client_name_full %>#<%= method.name %>."
+    )
+    operation = Google::Longrunning::Operation.new(
+      name: "operations/<%= method.name %>_test",
+      done: true,
+      error: operation_error
+    )
+
+    # Mock Grpc layer
+    mock_method = proc do |request|
+      assert_instance_of <%= method.request_type %>, request
+<%- method.fields.each do |field| -%>
+      assert_equal Google::Gax::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%- end -%>
+      OpenStruct.new execute: operation
+    end
+    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+
+    # Mock auth layer
+    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+
+    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.credentials_full %>.stub :default, mock_credentials do
+        client = <%= method.service.client_name_full %>.new
+
+        # Call method
+        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+
+        # Verify the response
+        assert response.error?
+        assert_equal operation_error, response.error
+      end
+    end
+  end
+<%- else -%>
   it "invokes <%= method.name %> without error" do
 <%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
 
@@ -43,6 +124,7 @@ describe "<%= method.name %>" do
       end
     end
   end
+<%- end -%>
 
   it "invokes <%= method.name %> with error" do
 <%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
