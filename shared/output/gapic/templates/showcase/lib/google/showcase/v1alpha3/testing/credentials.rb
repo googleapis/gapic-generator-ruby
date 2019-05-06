@@ -30,10 +30,8 @@ module Google
       module Testing
         class Credentials < Google::Auth::Credentials
           SCOPE = [].freeze
-          PATH_ENV_VARS = %w[SHOWCASE_CREDENTIALS
-                             SHOWCASE_KEYFILE].freeze
-          JSON_ENV_VARS = %w[SHOWCASE_CREDENTIALS_JSON
-                             SHOWCASE_KEYFILE_JSON].freeze
+          PATH_ENV_VARS = ["SHOWCASE_CREDENTIALS", "SHOWCASE_KEYFILE"].freeze
+          JSON_ENV_VARS = ["SHOWCASE_CREDENTIALS_JSON", "SHOWCASE_KEYFILE_JSON"].freeze
           DEFAULT_PATHS = [].freeze
         end
       end

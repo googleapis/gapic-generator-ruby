@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "actionpack", "~> 5.2"
   spec.add_dependency "gapic-generator"
-  spec.add_dependency "google-style", "~> 0.2"
+  spec.add_dependency "google-style", "~> 0.3"
   spec.add_dependency "protobuf", "~> 3.8"
 
   spec.add_development_dependency "bundler", "~> 2.0"
