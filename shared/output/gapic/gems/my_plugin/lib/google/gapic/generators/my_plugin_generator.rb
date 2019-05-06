@@ -22,7 +22,7 @@ module Google
     module Generators
       # The generator orchestrates the rendering of templates for
       # MyPlugin projects.
-      class MyPluginGenerator < BaseGenerator
+      class MyPluginGenerator < DefaultGenerator
         # Initializes the generator.
         #
         # @param api [Google::Gapic::Schema::Api] The API model/context to
@@ -45,14 +45,7 @@ module Google
         #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
         #   The files that were generated for the API.
         def generate
-          files = []
-
-          api_services(@api).each do |service|
-            files << g("client.erb", ruby_file_path(service),
-                       api: @api, service: service)
-          end
-
-          files
+          super
         end
       end
     end
