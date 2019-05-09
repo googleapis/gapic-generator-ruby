@@ -25,7 +25,7 @@
 require "minitest/autorun"
 
 require "google/cloud/speech/v1/cloud_speech_pb"
-require "google/cloud/speech/v1/cloud_speech_services_pb"
+require "google/cloud/speech/v1/speech/service"
 require "google/cloud/speech/v1/speech"
 
 class CustomTestErrorV1 < StandardError; end

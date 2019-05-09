@@ -80,11 +80,7 @@ class ServicePresenter
   end
 
   def services_proto_file_path
-    if @service.parent
-      @service.parent.name.sub ".proto", "_services_pb.rb"
-    else
-      ruby_file_path(@service).sub ".rb", "_services_pb.rb"
-    end
+    services_proto_require + ".rb"
   end
 
   def services_proto_file_name
@@ -92,7 +88,9 @@ class ServicePresenter
   end
 
   def services_proto_require
-    services_proto_file_path.sub ".rb", ""
+    class_namespace = @service.address.dup
+    class_namespace.push "Service"
+    class_namespace.map(&:underscore).join "/"
   end
 
   def services_stub_name_full
@@ -244,6 +242,17 @@ class ServicePresenter
 
   def paths_file_path
     paths_require + ".rb"
+  end
+
+  def doc_description
+    return nil if @service.docs.leading_comments.empty?
+
+    @service
+      .docs
+      .leading_comments
+      .each_line
+      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .join
   end
 
   private

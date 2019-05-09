@@ -85,7 +85,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
-              require "google/cloud/speech/v1/cloud_speech_services_pb"
+              require "google/cloud/speech/v1/speech/service"
 
               credentials ||= Credentials.default scope: scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)

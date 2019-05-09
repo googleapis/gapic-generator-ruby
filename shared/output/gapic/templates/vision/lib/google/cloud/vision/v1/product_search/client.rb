@@ -93,7 +93,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
-              require "google/cloud/vision/v1/product_search_service_services_pb"
+              require "google/cloud/vision/v1/product_search/service"
 
               credentials ||= Credentials.default scope: scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)

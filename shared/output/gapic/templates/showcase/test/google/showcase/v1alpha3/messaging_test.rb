@@ -25,7 +25,7 @@
 require "minitest/autorun"
 
 require "google/showcase/v1alpha3/messaging_pb"
-require "google/showcase/v1alpha3/messaging_services_pb"
+require "google/showcase/v1alpha3/messaging/service"
 require "google/showcase/v1alpha3/messaging"
 
 class CustomTestErrorV1 < StandardError; end

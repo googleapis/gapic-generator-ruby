@@ -25,7 +25,7 @@
 require "minitest/autorun"
 
 require "google/cloud/vision/v1/image_annotator_pb"
-require "google/cloud/vision/v1/image_annotator_services_pb"
+require "google/cloud/vision/v1/image_annotator/service"
 require "google/cloud/vision/v1/image_annotator"
 
 class CustomTestErrorV1 < StandardError; end

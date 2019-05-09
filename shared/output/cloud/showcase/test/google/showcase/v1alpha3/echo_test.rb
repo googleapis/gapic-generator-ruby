@@ -17,7 +17,7 @@
 require "minitest/autorun"
 
 require "google/showcase/v1alpha3/echo_pb"
-require "google/showcase/v1alpha3/echo_services_pb"
+require "google/showcase/v1alpha3/echo/service"
 require "google/showcase/v1alpha3/echo"
 
 class CustomTestErrorV1 < StandardError; end

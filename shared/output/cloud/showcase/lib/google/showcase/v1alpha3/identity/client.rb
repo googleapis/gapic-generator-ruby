@@ -86,7 +86,7 @@ module Google
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
-            require "google/showcase/v1alpha3/identity_services_pb"
+            require "google/showcase/v1alpha3/identity/service"
 
             credentials ||= Credentials.default scope: scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)

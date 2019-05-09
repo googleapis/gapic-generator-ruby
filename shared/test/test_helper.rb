@@ -27,7 +27,7 @@ def generate_library_for_test imports, protos
     "grpc_tools_ruby_protoc",
     "#{imports.map {|x| "-I#{x}"}.join " "}",
     "--ruby_out=#{client_lib}/lib",
-    "--grpc_out=#{client_lib}/lib",
+    # "--grpc_out=#{client_lib}/lib",
     "--ruby_gapic_out=#{client_lib}",
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
@@ -62,7 +62,8 @@ class ShowcaseTest < Minitest::Test
   end
 
   Minitest.after_run do
-    FileUtils.remove_dir @showcase_library, true
+    puts @showcase_library
+    # FileUtils.remove_dir @showcase_library, true
 
     unless @showcase_id.nil?
       puts "Stopping showcase server (id: #{@showcase_id})..."

@@ -25,7 +25,7 @@
 require "minitest/autorun"
 
 require "google/showcase/v1alpha3/identity_pb"
-require "google/showcase/v1alpha3/identity_services_pb"
+require "google/showcase/v1alpha3/identity/service"
 require "google/showcase/v1alpha3/identity"
 
 class CustomTestErrorV1 < StandardError; end

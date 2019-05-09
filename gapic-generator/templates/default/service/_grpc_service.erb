@@ -1,0 +1,32 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "grpc"
+require "<%= service.service_proto_require %>"
+<% end %>
+<%= indent service.doc_description, "# " %>
+class Service
+  include ::GRPC::GenericService
+
+  self.marshal_class_method = :encode
+  self.unmarshal_class_method = :decode
+  self.service_name = "<%= service.client_proto_name %>"
+<%- service.methods.each do |method| -%>
+
+<%- if method.doc_description -%>
+<%= indent method.doc_description, "  # " %>
+<%- end -%>
+  rpc :<%= method.rpc_name %>,
+    <%- if method.client_streaming? -%>
+      stream(<%= method.request_type %>),
+    <%- else -%>
+      <%= method.request_type %>,
+    <%- end -%>
+    <%- if method.server_streaming? -%>
+      stream(<%= method.return_type %>)
+    <%- else -%>
+      <%= method.return_type %>
+    <%- end -%>
+<%- end %>
+end
+
+Stub = Service.rpc_stub_class

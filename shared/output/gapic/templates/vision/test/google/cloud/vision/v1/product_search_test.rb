@@ -25,7 +25,7 @@
 require "minitest/autorun"
 
 require "google/cloud/vision/v1/product_search_service_pb"
-require "google/cloud/vision/v1/product_search_service_services_pb"
+require "google/cloud/vision/v1/product_search/service"
 require "google/cloud/vision/v1/product_search"
 
 class CustomTestErrorV1 < StandardError; end

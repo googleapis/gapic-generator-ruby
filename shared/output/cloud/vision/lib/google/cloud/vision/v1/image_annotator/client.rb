@@ -85,7 +85,7 @@ module Google
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
-              require "google/cloud/vision/v1/image_annotator_services_pb"
+              require "google/cloud/vision/v1/image_annotator/service"
 
               credentials ||= Credentials.default scope: scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)

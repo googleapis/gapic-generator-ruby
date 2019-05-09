@@ -28,6 +28,10 @@ class MethodPresenter
     ServicePresenter.new @method.parent
   end
 
+  def rpc_name
+    @method.name
+  end
+
   def name
     ActiveSupport::Inflector.underscore @method.name
   end
