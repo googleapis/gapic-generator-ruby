@@ -45,10 +45,12 @@ class Operations
     require "<%= service.lro_service.services_proto_require %>"
 
     # Create the configuration object
-    @config = <%= service.config_name %>.wrap <%= service.service_proto_name_full %>.configure
+    config ||= <%= service.config_name %>.wrap <%= service.service_proto_name_full %>.configure
 
     # Yield the configuration if needed
-    yield @config if block_given?
+    yield config if block_given?
+
+    @config = config
 
     # Update the configuration with x-goog-api-client header
     # Paradox: do we generate the header before yielding without the lib_name?

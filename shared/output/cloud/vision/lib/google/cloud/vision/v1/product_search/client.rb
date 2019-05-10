@@ -73,10 +73,12 @@ module Google
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
               # Create the configuration object
-              @config = Configure.wrap Google::Cloud::Vision::V1::ProductSearch.configure
+              config ||= Configure.wrap Google::Cloud::Vision::V1::ProductSearch.configure
 
               # Yield the configuration if needed
-              yield @config if block_given?
+              yield config if block_given?
+
+              @config = config
 
               # Update the configuration with x-goog-api-client header
               # Paradox: do we generate the header before yielding without the lib_name?
