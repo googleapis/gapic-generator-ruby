@@ -26,6 +26,7 @@ require "google/gax"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/testing_pb"
+require "google/showcase/v1alpha3/testing/configure"
 require "google/showcase/v1alpha3/testing/credentials"
 require "google/showcase/v1alpha3/testing/paths"
 
@@ -40,22 +41,13 @@ module Google
           # @private
           attr_reader :testing_stub
 
-          # The default address of the service.
-          SERVICE_ADDRESS = "localhost"
-
-          # The default port of the service.
-          DEFAULT_SERVICE_PORT = 7469
-
-          # rubocop:disable Style/MutableConstant
-
-          # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
-
-          # rubocop:enable Style/MutableConstant
-
-          DEFAULT_TIMEOUT = 30
-
-
+          ##
+          # Configure the Client client.
+          #
+          def configure
+            yield @config if block_given?
+            @config
+          end
 
           ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -74,50 +66,52 @@ module Google
           #   `GRPC::Core::CallCredentials` object.
           #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
           #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scope [String, Array<String>]
-          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-          #   an updater_proc is supplied.
-          # @param timeout [Numeric]
-          #   The default timeout, in seconds, for calls made through this client.
-          # @param metadata [Hash]
-          #   Default metadata to be sent with each request. This can be overridden on a
-          #   per call basis.
+          # @param config [Google::Gax::Configuration]
+          #   The configuration object to use in place of the default configuration. It is
+          #   preferable to configure the default configuration using the
+          #   {Client.configure} method or by passing a block instead. Optional.
           #
-          def initialize \
-              credentials: nil,
-              scope: nil,
-              timeout: DEFAULT_TIMEOUT,
-              metadata: nil,
-              lib_name: nil,
-              lib_version: nil
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Google::Gax::Configuration]
+          #
+          def initialize credentials: nil, config: nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/testing_services_pb"
 
-            credentials ||= Credentials.default scope: scope
+            # Create the configuration object
+            @config = Configure.wrap Google::Showcase::V1alpha3::Testing.configure
+
+            # Yield the configuration if needed
+            yield @config if block_given?
+
+            # Update the configuration with x-goog-api-client header
+            # Paradox: do we generate the header before yielding without the lib_name?
+            # Or, do we generate it after yielding, when the lib_name is most likely to be set?
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            @config.metadata ||= {}
+            @config.metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            # Create credentials
+            credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
-              credentials = Credentials.new credentials, scope: scope
+              credentials = Credentials.new credentials, scope: @config.scope
             end
 
 
             @testing_stub = Google::Gax::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Testing::Stub,
-              host:         self.class::SERVICE_ADDRESS,
-              port:         self.class::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: self.class::GRPC_INTERCEPTORS
+              host:         @config.host,
+              port:         @config.port,
+              interceptors: @config.interceptors
             )
-
-            @timeout = timeout
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -161,8 +155,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
 
@@ -210,8 +206,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
 
@@ -257,8 +255,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @list_sessions ||= Google::Gax::ApiCall.new @testing_stub.method :list_sessions
 
@@ -308,8 +308,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
 
@@ -361,8 +363,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
 
@@ -414,8 +418,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @list_tests ||= Google::Gax::ApiCall.new @testing_stub.method :list_tests
 
@@ -475,8 +481,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
 
@@ -534,8 +542,10 @@ module Google
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
 

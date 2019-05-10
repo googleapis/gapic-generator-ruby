@@ -10,8 +10,10 @@ header_params = {
 <%- end -%>
 }
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-metadata = @metadata.merge "x-goog-request-params".freeze => request_params_header
+metadata = @config.metadata.merge "x-goog-request-params".freeze => request_params_header
 <%- else -%>
-metadata = @metadata.dup
+metadata = @config.metadata.dup
 <%- end -%>
-options.apply_defaults timeout: @timeout, metadata: metadata
+# TODO: Grab retry_policy from @config
+# TODO: Allow for Proc in @config's retry_policy
+options.apply_defaults timeout: @config.timeout, metadata: metadata

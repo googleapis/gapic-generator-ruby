@@ -57,6 +57,7 @@ module Google
               # Service level files
               files << g("service.erb",             "lib/#{service.service_file_path}",      service: service)
               files << g("service/client.erb",      "lib/#{service.client_file_path}",       service: service)
+              files << g("service/config.erb",      "lib/#{service.config_file_path}",       service: service)
               files << g("service/credentials.erb", "lib/#{service.credentials_file_path}",  service: service)
               files << g("service/paths.erb",       "lib/#{service.paths_file_path}",        service: service) if service.paths?
               files << g("service/operations.erb",  "lib/#{service.operations_file_path}",   service: service) if service.lro?

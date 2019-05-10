@@ -26,6 +26,7 @@ require "google/gax"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/echo_pb"
+require "google/showcase/v1alpha3/echo/configure"
 require "google/showcase/v1alpha3/echo/credentials"
 require "google/showcase/v1alpha3/echo/operations"
 
@@ -38,22 +39,13 @@ module Google
           # @private
           attr_reader :echo_stub
 
-          # The default address of the service.
-          SERVICE_ADDRESS = "localhost"
-
-          # The default port of the service.
-          DEFAULT_SERVICE_PORT = 7469
-
-          # rubocop:disable Style/MutableConstant
-
-          # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
-
-          # rubocop:enable Style/MutableConstant
-
-          DEFAULT_TIMEOUT = 30
-
-
+          ##
+          # Configure the Client client.
+          #
+          def configure
+            yield @config if block_given?
+            @config
+          end
 
           ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -72,58 +64,56 @@ module Google
           #   `GRPC::Core::CallCredentials` object.
           #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
           #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scope [String, Array<String>]
-          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-          #   an updater_proc is supplied.
-          # @param timeout [Numeric]
-          #   The default timeout, in seconds, for calls made through this client.
-          # @param metadata [Hash]
-          #   Default metadata to be sent with each request. This can be overridden on a
-          #   per call basis.
+          # @param config [Google::Gax::Configuration]
+          #   The configuration object to use in place of the default configuration. It is
+          #   preferable to configure the default configuration using the
+          #   {Client.configure} method or by passing a block instead. Optional.
           #
-          def initialize \
-              credentials: nil,
-              scope: nil,
-              timeout: DEFAULT_TIMEOUT,
-              metadata: nil,
-              lib_name: nil,
-              lib_version: nil
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Google::Gax::Configuration]
+          #
+          def initialize credentials: nil, config: nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/echo_services_pb"
 
-            credentials ||= Credentials.default scope: scope
+            # Create the configuration object
+            @config = Configure.wrap Google::Showcase::V1alpha3::Echo.configure
+
+            # Yield the configuration if needed
+            yield @config if block_given?
+
+            # Update the configuration with x-goog-api-client header
+            # Paradox: do we generate the header before yielding without the lib_name?
+            # Or, do we generate it after yielding, when the lib_name is most likely to be set?
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            @config.metadata ||= {}
+            @config.metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            # Create credentials
+            credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
-              credentials = Credentials.new credentials, scope: scope
+              credentials = Credentials.new credentials, scope: @config.scope
             end
 
             @operations_client = Operations.new(
               credentials: credentials,
-              scope:       scope,
-              timeout:     timeout,
-              metadata:    metadata,
-              lib_name:    lib_name,
-              lib_version: lib_version
+              config:      @config
             )
 
             @echo_stub = Google::Gax::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Echo::Stub,
-              host:         self.class::SERVICE_ADDRESS,
-              port:         self.class::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: self.class::GRPC_INTERCEPTORS
+              host:         @config.host,
+              port:         @config.port,
+              interceptors: @config.interceptors
             )
-
-            @timeout = timeout
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -167,8 +157,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
 
@@ -219,8 +211,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
             @expand.call request, options: options, stream_callback: block
@@ -264,8 +258,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
             @collect.call requests, options: options, operation_callback: block
@@ -310,8 +306,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
             @chat.call requests, options: options, stream_callback: block
@@ -360,8 +358,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
 
@@ -416,8 +416,10 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.metadata.dup
+            # TODO: Grab retry_policy from @config
+            # TODO: Allow for Proc in @config's retry_policy
+            options.apply_defaults timeout: @config.timeout, metadata: metadata
 
             @wait ||= Google::Gax::ApiCall.new @echo_stub.method :wait
 

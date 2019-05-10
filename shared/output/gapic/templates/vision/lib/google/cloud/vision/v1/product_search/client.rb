@@ -26,6 +26,7 @@ require "google/gax"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
+require "google/cloud/vision/v1/product_search/configure"
 require "google/cloud/vision/v1/product_search/credentials"
 require "google/cloud/vision/v1/product_search/operations"
 
@@ -39,22 +40,13 @@ module Google
             # @private
             attr_reader :product_search_stub
 
-            # The default address of the service.
-            SERVICE_ADDRESS = "vision.googleapis.com"
-
-            # The default port of the service.
-            DEFAULT_SERVICE_PORT = 443
-
-            # rubocop:disable Style/MutableConstant
-
-            # The default set of gRPC interceptors.
-            GRPC_INTERCEPTORS = []
-
-            # rubocop:enable Style/MutableConstant
-
-            DEFAULT_TIMEOUT = 30
-
-
+            ##
+            # Configure the Client client.
+            #
+            def configure
+              yield @config if block_given?
+              @config
+            end
 
             ##
             # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -73,58 +65,56 @@ module Google
             #   `GRPC::Core::CallCredentials` object.
             #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
             #   transforms the metadata for requests, generally, to give OAuth credentials.
-            # @param scope [String, Array<String>]
-            #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-            #   an updater_proc is supplied.
-            # @param timeout [Numeric]
-            #   The default timeout, in seconds, for calls made through this client.
-            # @param metadata [Hash]
-            #   Default metadata to be sent with each request. This can be overridden on a
-            #   per call basis.
+            # @param config [Google::Gax::Configuration]
+            #   The configuration object to use in place of the default configuration. It is
+            #   preferable to configure the default configuration using the
+            #   {Client.configure} method or by passing a block instead. Optional.
             #
-            def initialize \
-                credentials: nil,
-                scope: nil,
-                timeout: DEFAULT_TIMEOUT,
-                metadata: nil,
-                lib_name: nil,
-                lib_version: nil
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Google::Gax::Configuration]
+            #
+            def initialize credentials: nil, config: nil
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
-              credentials ||= Credentials.default scope: scope
+              # Create the configuration object
+              @config = Configure.wrap Google::Cloud::Vision::V1::ProductSearch.configure
+
+              # Yield the configuration if needed
+              yield @config if block_given?
+
+              # Update the configuration with x-goog-api-client header
+              # Paradox: do we generate the header before yielding without the lib_name?
+              # Or, do we generate it after yielding, when the lib_name is most likely to be set?
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              @config.metadata ||= {}
+              @config.metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              # Create credentials
+              credentials ||= Credentials.default scope: @config.scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)
-                credentials = Credentials.new credentials, scope: scope
+                credentials = Credentials.new credentials, scope: @config.scope
               end
 
               @operations_client = Operations.new(
                 credentials: credentials,
-                scope:       scope,
-                timeout:     timeout,
-                metadata:    metadata,
-                lib_name:    lib_name,
-                lib_version: lib_version
+                config:      @config
               )
 
               @product_search_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
-                host:         self.class::SERVICE_ADDRESS,
-                port:         self.class::DEFAULT_SERVICE_PORT,
                 credentials:  credentials,
-                interceptors: self.class::GRPC_INTERCEPTORS
+                host:         @config.host,
+                port:         @config.port,
+                interceptors: @config.interceptors
               )
-
-              @timeout = timeout
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -189,8 +179,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
 
@@ -254,8 +246,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
 
@@ -316,8 +310,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
 
@@ -384,8 +380,10 @@ module Google
                 "product_set.name" => request.product_set.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
 
@@ -450,8 +448,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
 
@@ -523,8 +523,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
 
@@ -587,8 +589,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
 
@@ -649,8 +653,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
 
@@ -733,8 +739,10 @@ module Google
                 "product.name" => request.product.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
 
@@ -801,8 +809,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
 
@@ -897,8 +907,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
 
@@ -970,8 +982,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
 
@@ -1041,8 +1055,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
 
@@ -1104,8 +1120,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
 
@@ -1175,8 +1193,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
 
@@ -1240,8 +1260,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
 
@@ -1308,8 +1330,10 @@ module Google
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
 
@@ -1383,8 +1407,10 @@ module Google
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.metadata.merge "x-goog-request-params" => request_params_header
+              # TODO: Grab retry_policy from @config
+              # TODO: Allow for Proc in @config's retry_policy
+              options.apply_defaults timeout: @config.timeout, metadata: metadata
 
               @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
 
