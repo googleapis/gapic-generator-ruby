@@ -19,7 +19,7 @@ require "google/showcase/v1alpha3/echo"
 
 class ExpandTest < ShowcaseTest
   def test_expand
-    client = Google::Showcase::V1alpha3::Echo.new(
+    client = Google::Showcase::V1alpha3::Echo::Client.new(
       credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     )
 
