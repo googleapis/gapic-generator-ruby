@@ -33,7 +33,7 @@ module Google
         # Configuration for the Echo API.
         class Configure
           def self.create
-            Google::Gax::Configuration.create do |config|
+            Google::Gax::Configuration.new do |config|
               default_scope = Google::Gax::Configuration.deferred do
                 Credentials::SCOPE
               end
@@ -119,7 +119,7 @@ module Google
           end
 
           def self.wrap parent
-            Google::Gax::Configuration.create do |config|
+            Google::Gax::Configuration.new do |config|
               config.add_field! :host,        defer_to(parent, :host),          match: [String]
               config.add_field! :port,        defer_to(parent, :port),          match: [Integer]
               config.add_field! :scope,       defer_to(parent, :scope),         match: [String, Array], allow_nil: true
