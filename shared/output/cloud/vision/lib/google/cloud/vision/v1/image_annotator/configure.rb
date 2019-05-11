@@ -45,35 +45,20 @@ module Google
                 config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
                 config.add_field! :interceptors, [],                                    match: [Array]
 
-                config.add_field! :timeout, 60,   match: [Numeric]
-                config.add_field! :metadata, nil, match: [Hash], allow_nil: true
-                config.add_config! :retry_policy do |retry_policy|
-                  retry_policy.add_field! :retry_codes,   nil, match: [Array],   allow_nil: true
-                  retry_policy.add_field! :initial_delay, nil, match: [Numeric], allow_nil: true
-                  retry_policy.add_field! :multiplier,    nil, match: [Numeric], allow_nil: true
-                  retry_policy.add_field! :max_delay,     nil, match: [Numeric], allow_nil: true
-                end
+                config.add_field! :timeout,     60,  match: [Numeric]
+                config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
 
                 config.add_config! :methods do |methods|
                   methods.add_config! :batch_annotate_images do |method|
-                    method.add_field! :timeout,  nil, match: [Numeric], allow_nil: true
-                    method.add_field! :metadata, nil, match: [Hash],    allow_nil: true
-                    method.add_config! :retry_policy do |retry_policy|
-                      retry_policy.add_field! :retry_codes,   nil, match: [Array],   allow_nil: true
-                      retry_policy.add_field! :initial_delay, nil, match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :multiplier,    nil, match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :max_delay,     nil, match: [Numeric], allow_nil: true
-                    end
+                    method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
                   end
                   methods.add_config! :async_batch_annotate_files do |method|
-                    method.add_field! :timeout,  nil, match: [Numeric], allow_nil: true
-                    method.add_field! :metadata, nil, match: [Hash],    allow_nil: true
-                    method.add_config! :retry_policy do |retry_policy|
-                      retry_policy.add_field! :retry_codes,   nil, match: [Array],   allow_nil: true
-                      retry_policy.add_field! :initial_delay, nil, match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :multiplier,    nil, match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :max_delay,     nil, match: [Numeric], allow_nil: true
-                    end
+                    method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
                   end
                 end
               end
@@ -88,57 +73,22 @@ module Google
                 config.add_field! :lib_version, defer_to(parent, :lib_version),   match: [String],        allow_nil: true
                 config.add_field! :interceptors, defer_to(parent, :interceptors), match: [Array]
 
-                config.add_field! :timeout,  defer_to(parent, :timeout),  match: [Numeric]
-                config.add_field! :metadata, defer_to(parent, :metadata), match: [Hash], allow_nil: true
-                config.add_config! :retry_policy do |retry_policy|
-                  retry_policy.add_field! :retry_codes,   defer_to(parent.retry_policy, :retry_codes),
-                                          match: [Array],   allow_nil: true
-                  retry_policy.add_field! :initial_delay, defer_to(parent.retry_policy, :initial_delay),
-                                          match: [Numeric], allow_nil: true
-                  retry_policy.add_field! :multiplier,    defer_to(parent.retry_policy, :multiplier),
-                                          match: [Numeric], allow_nil: true
-                  retry_policy.add_field! :max_delay,     defer_to(parent.retry_policy, :max_delay),
-                                          match: [Numeric], allow_nil: true
-                end
+                config.add_field! :timeout,     defer_to(parent, :timeout),     match: [Numeric]
+                config.add_field! :metadata,    defer_to(parent, :metadata),    match: [Hash],       allow_nil: true
+                config.add_field! :retry_codes, defer_to(parent, :retry_codes), match: [Hash, Proc], allow_nil: true
 
                 config.add_config! :methods do |methods|
                   methods.add_config! :batch_annotate_images do |method|
                     method_parent = parent.methods[:batch_annotate_images]
-                    method.add_field! :timeout,  defer_to(method_parent, :timeout), match: [Numeric], allow_nil: true
-                    method.add_field! :metadata, defer_to(method_parent, :metadata), match: [Hash], allow_nil: true
-                    method.add_config! :retry_policy do |retry_policy|
-                      retry_policy.add_field! :retry_codes,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :retry_codes),
-                                              match: [Array], allow_nil: true
-                      retry_policy.add_field! :initial_delay,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :initial_delay),
-                                              match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :multiplier,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :multiplier),
-                                              match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :max_delay,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :max_delay),
-                                              match: [Numeric], allow_nil: true
-                    end
+                    method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
                   end
                   methods.add_config! :async_batch_annotate_files do |method|
                     method_parent = parent.methods[:async_batch_annotate_files]
-                    method.add_field! :timeout,  defer_to(method_parent, :timeout), match: [Numeric], allow_nil: true
-                    method.add_field! :metadata, defer_to(method_parent, :metadata), match: [Hash], allow_nil: true
-                    method.add_config! :retry_policy do |retry_policy|
-                      retry_policy.add_field! :retry_codes,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :retry_codes),
-                                              match: [Array], allow_nil: true
-                      retry_policy.add_field! :initial_delay,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :initial_delay),
-                                              match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :multiplier,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :multiplier),
-                                              match: [Numeric], allow_nil: true
-                      retry_policy.add_field! :max_delay,
-                                              defer_to(parent.retry_policy, method_parent.retry_policy, :max_delay),
-                                              match: [Numeric], allow_nil: true
-                    end
+                    method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
                   end
                 end
               end
