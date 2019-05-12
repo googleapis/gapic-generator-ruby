@@ -206,7 +206,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.echo.timeout,
                                    metadata:     metadata,
@@ -271,7 +271,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.expand.timeout,
                                    metadata:     metadata,
@@ -329,7 +329,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.collect.timeout,
                                    metadata:     metadata,
@@ -388,7 +388,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.chat.timeout,
                                    metadata:     metadata,
@@ -451,7 +451,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.paged_expand.timeout,
                                    metadata:     metadata,
@@ -520,7 +520,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.wait.timeout,
                                    metadata:     metadata,

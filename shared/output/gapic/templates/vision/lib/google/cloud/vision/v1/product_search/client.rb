@@ -292,13 +292,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.create_product_set.timeout,
                                      metadata:     metadata,
@@ -372,13 +372,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.list_product_sets.timeout,
                                      metadata:     metadata,
@@ -449,13 +449,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.get_product_set.timeout,
                                      metadata:     metadata,
@@ -532,13 +532,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "product_set.name" => request.product_set.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.update_product_set.timeout,
                                      metadata:     metadata,
@@ -613,13 +613,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.delete_product_set.timeout,
                                      metadata:     metadata,
@@ -701,13 +701,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.create_product.timeout,
                                      metadata:     metadata,
@@ -780,13 +780,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.list_products.timeout,
                                      metadata:     metadata,
@@ -857,13 +857,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.get_product.timeout,
                                      metadata:     metadata,
@@ -956,13 +956,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "product.name" => request.product.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.update_product.timeout,
                                      metadata:     metadata,
@@ -1039,13 +1039,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.delete_product.timeout,
                                      metadata:     metadata,
@@ -1150,13 +1150,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.create_reference_image.timeout,
                                      metadata:     metadata,
@@ -1238,13 +1238,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.delete_reference_image.timeout,
                                      metadata:     metadata,
@@ -1324,13 +1324,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.list_reference_images.timeout,
                                      metadata:     metadata,
@@ -1402,13 +1402,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.get_reference_image.timeout,
                                      metadata:     metadata,
@@ -1488,13 +1488,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.add_product_to_product_set.timeout,
                                      metadata:     metadata,
@@ -1568,13 +1568,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.remove_product_from_product_set.timeout,
                                      metadata:     metadata,
@@ -1651,13 +1651,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.list_products_in_product_set.timeout,
                                      metadata:     metadata,
@@ -1741,13 +1741,13 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata["x-goog-request-params"] ||= request_params_header
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.methods.import_product_sets.timeout,
                                      metadata:     metadata,

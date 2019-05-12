@@ -195,7 +195,7 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               options.apply_defaults timeout:      @config.methods.recognize.timeout,
                                      metadata:     metadata,
@@ -262,7 +262,7 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               options.apply_defaults timeout:      @config.methods.long_running_recognize.timeout,
                                      metadata:     metadata,
@@ -323,7 +323,7 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               options.apply_defaults timeout:      @config.methods.streaming_recognize.timeout,
                                      metadata:     metadata,

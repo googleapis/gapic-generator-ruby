@@ -193,7 +193,7 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               options.apply_defaults timeout:      @config.methods.batch_annotate_images.timeout,
                                      metadata:     metadata,
@@ -261,7 +261,7 @@ module Google
               x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
               x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
               x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
               options.apply_defaults timeout:      @config.methods.async_batch_annotate_files.timeout,
                                      metadata:     metadata,

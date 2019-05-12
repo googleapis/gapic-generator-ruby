@@ -10,7 +10,7 @@ x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @con
 x_goog_api_client_header << "gapic/#{<%= method.service.gem.version_name_full %>}"
 x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
 x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-metadata["x-goog-api-client".freeze] ||= x_goog_api_client_header.join(" ")
+metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join(" ")
 <%- if method.routing_params? -%>
 
 header_params = {
@@ -19,7 +19,7 @@ header_params = {
 <%- end -%>
 }
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-metadata["x-goog-request-params".freeze] ||= request_params_header
+metadata[:"x-goog-request-params"] ||= request_params_header
 <%- end -%>
 
 options.apply_defaults timeout: @config.methods.<%= method.name %>.timeout,

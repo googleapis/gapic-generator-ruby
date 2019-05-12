@@ -206,7 +206,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.create_user.timeout,
                                    metadata:     metadata,
@@ -264,13 +264,13 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata["x-goog-request-params"] ||= request_params_header
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.methods.get_user.timeout,
                                    metadata:     metadata,
@@ -331,13 +331,13 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             header_params = {
               "user.name" => request.user.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata["x-goog-request-params"] ||= request_params_header
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.methods.update_user.timeout,
                                    metadata:     metadata,
@@ -395,13 +395,13 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata["x-goog-request-params"] ||= request_params_header
+            metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.methods.delete_user.timeout,
                                    metadata:     metadata,
@@ -464,7 +464,7 @@ module Google
             x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
             x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
             options.apply_defaults timeout:      @config.methods.list_users.timeout,
                                    metadata:     metadata,
