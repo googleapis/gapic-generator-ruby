@@ -56,80 +56,80 @@ module Google
               config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
               config.add_field! :interceptors, [],                                    match: [Array]
 
-              config.add_field! :timeout,     60,  match: [Numeric]
-              config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-              config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              config.add_field! :timeout,      60,  match: [Numeric]
+              config.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+              config.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
 
               config.add_config! :methods do |methods|
                 methods.add_config! :create_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :get_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :update_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :delete_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :list_rooms do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :create_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :get_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :update_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :delete_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :list_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :search_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :stream_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :send_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
                 methods.add_config! :connect do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
                 end
               end
             end
@@ -248,7 +248,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.create_room.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -257,9 +257,12 @@ module Google
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
             metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.create_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.create_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
 
@@ -303,7 +306,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.get_room.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -318,9 +321,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.get_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.get_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
 
@@ -367,7 +373,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.update_room.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -382,9 +388,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.update_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.update_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
 
@@ -428,7 +437,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.delete_room.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -443,9 +452,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.delete_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.delete_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
 
@@ -494,7 +506,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.list_rooms.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -503,9 +515,12 @@ module Google
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
             metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.list_rooms.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.list_rooms.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_rooms ||= Google::Gax::ApiCall.new @messaging_stub.method :list_rooms
 
@@ -558,7 +573,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.create_blurb.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -573,9 +588,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.create_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.create_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
 
@@ -619,7 +637,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.get_blurb.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -634,9 +652,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.get_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.get_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
 
@@ -683,7 +704,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.update_blurb.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -698,9 +719,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.update_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.update_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
 
@@ -744,7 +768,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.delete_blurb.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -759,9 +783,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.delete_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.delete_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
 
@@ -815,7 +842,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.list_blurbs.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -830,9 +857,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.list_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.list_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :list_blurbs
 
@@ -895,7 +925,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.search_blurbs.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -910,9 +940,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.search_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.search_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
 
@@ -965,7 +998,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.stream_blurbs.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -980,9 +1013,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.stream_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.stream_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
             @stream_blurbs.call request, options: options, stream_callback: block
@@ -1025,7 +1061,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.send_blurbs.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -1040,9 +1076,12 @@ module Google
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata["x-goog-request-params"] ||= request_params_header
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.send_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.send_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
             @send_blurbs.call requests, options: options, operation_callback: block
@@ -1088,7 +1127,7 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.metadata.to_h
+            metadata = @config.methods.connect.metadata.to_h
 
             x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
             x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -1097,9 +1136,12 @@ module Google
             x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
             metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
 
-            # TODO: Grab retry_policy from @config
-            # TODO: Allow for Proc in @config's retry_policy
-            options.apply_defaults timeout: @config.timeout, metadata: metadata
+            options.apply_defaults timeout:      @config.methods.connect.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.methods.connect.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
             @connect.call requests, options: options, stream_callback: block

@@ -3,7 +3,7 @@
 options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
 # Customize the options with defaults
-metadata = @config.metadata.to_h
+metadata = @config.methods.<%= method.name %>.metadata.to_h
 
 x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
 x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
@@ -22,6 +22,9 @@ request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
 metadata["x-goog-request-params".freeze] ||= request_params_header
 <%- end -%>
 
-# TODO: Grab retry_policy from @config
-# TODO: Allow for Proc in @config's retry_policy
-options.apply_defaults timeout: @config.timeout, metadata: metadata
+options.apply_defaults timeout: @config.methods.<%= method.name %>.timeout,
+                       metadata: metadata,
+                       retry_policy: @config.methods.<%= method.name %>.retry_policy
+options.apply_defaults timeout: @config.timeout,
+                       metadata: @config.metadata,
+                       retry_policy: @config.retry_policy

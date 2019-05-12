@@ -15,16 +15,16 @@ def self.configure
     config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
     config.add_field! :interceptors, [],                                    match: [Array]
 
-    config.add_field! :timeout,     60,  match: [Numeric]
-    config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-    config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+    config.add_field! :timeout,      60,  match: [Numeric]
+    config.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+    config.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
 
     config.add_config! :methods do |methods|
     <%- method_service.methods.each do |method| -%>
       methods.add_config! :<%= method.name %> do |method|
-        method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-        method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-        method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+        method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+        method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+        method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
       end
     <%- end %>
     end
