@@ -12,6 +12,8 @@ class Operations
   # @private
   attr_reader :<%= service.lro_service.stub_name %>
 
+  <%= indent_tail render(partial: "service/client/config", locals: { service: service, method_service: service.lro_service }), 2 %>
+
   ##
   # @param credentials [Google::Auth::Credentials, String, Hash,
   #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
@@ -49,7 +51,7 @@ class Operations
     require "<%= service.lro_service.services_proto_require %>"
 
     # Create the configuration object
-    config ||= <%= service.name %>.configure
+    config ||= Operations.configure
     config = config.derive! unless config.derived?
 
     # Yield the configuration if needed

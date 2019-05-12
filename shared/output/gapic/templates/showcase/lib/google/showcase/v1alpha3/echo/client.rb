@@ -26,7 +26,6 @@ require "google/gax"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/echo_pb"
-require "google/showcase/v1alpha3/echo/configure"
 require "google/showcase/v1alpha3/echo/credentials"
 require "google/showcase/v1alpha3/echo/operations"
 
@@ -38,6 +37,62 @@ module Google
         class Client
           # @private
           attr_reader :echo_stub
+
+          ##
+          # Configuration for the Echo API.
+          #
+          def self.configure
+            @configure ||= Google::Gax::Configuration.new do |config|
+              default_scope = Google::Gax::Configuration.deferred do
+                Credentials::SCOPE
+              end
+              config.add_field! :host,         "localhost", match: [String]
+              config.add_field! :port,         7469, match: [Integer]
+              config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
+              config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
+              config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
+              config.add_field! :interceptors, [],                                    match: [Array]
+
+              config.add_field! :timeout,     60,  match: [Numeric]
+              config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+              config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+
+              config.add_config! :methods do |methods|
+                methods.add_config! :echo do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :expand do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :collect do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :chat do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :paged_expand do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :wait do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+              end
+            end
+            yield @configure if block_given?
+            @configure
+          end
 
           ##
           # Configure the Client client.
@@ -84,7 +139,7 @@ module Google
             require "google/showcase/v1alpha3/echo_services_pb"
 
             # Create the configuration object
-            config ||= Echo.configure
+            config ||= Client.configure
             config = config.derive! unless config.derived?
 
             # Yield the configuration if needed
@@ -110,8 +165,7 @@ module Google
             end
 
             @operations_client = Operations.new(
-              credentials: credentials,
-              config:      @config
+              credentials: credentials
             )
 
             @echo_stub = Google::Gax::Grpc::Stub.new(

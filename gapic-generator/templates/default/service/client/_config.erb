@@ -1,11 +1,7 @@
 <%- assert_locals service -%>
-<% @requires = capture do %>
-require "google/gax"
-require "google/gax/configuration"
-require "<%= service.credentials_require %>"
-<% end %>
+<%- method_service ||= service  -%>
 ##
-# Configuration for the <%= service.name %> API.
+# Configuration for the <%= method_service.name %> API.
 #
 def self.configure
   @configure ||= Google::Gax::Configuration.new do |config|
@@ -24,7 +20,7 @@ def self.configure
     config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
 
     config.add_config! :methods do |methods|
-    <%- service.methods.each do |method| -%>
+    <%- method_service.methods.each do |method| -%>
       methods.add_config! :<%= method.name %> do |method|
         method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
         method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
@@ -35,4 +31,12 @@ def self.configure
   end
   yield @configure if block_given?
   @configure
+end
+
+##
+# Configure the <%= method_service.client_name %> client.
+#
+def configure
+  yield @config if block_given?
+  @config
 end

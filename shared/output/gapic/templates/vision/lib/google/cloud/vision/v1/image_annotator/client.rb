@@ -26,7 +26,6 @@ require "google/gax"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/image_annotator_pb"
-require "google/cloud/vision/v1/image_annotator/configure"
 require "google/cloud/vision/v1/image_annotator/credentials"
 require "google/cloud/vision/v1/image_annotator/operations"
 
@@ -39,6 +38,42 @@ module Google
           class Client
             # @private
             attr_reader :image_annotator_stub
+
+            ##
+            # Configuration for the ImageAnnotator API.
+            #
+            def self.configure
+              @configure ||= Google::Gax::Configuration.new do |config|
+                default_scope = Google::Gax::Configuration.deferred do
+                  Credentials::SCOPE
+                end
+                config.add_field! :host,         "vision.googleapis.com", match: [String]
+                config.add_field! :port,         443, match: [Integer]
+                config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
+                config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
+                config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
+                config.add_field! :interceptors, [],                                    match: [Array]
+
+                config.add_field! :timeout,     60,  match: [Numeric]
+                config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+
+                config.add_config! :methods do |methods|
+                  methods.add_config! :batch_annotate_images do |method|
+                    method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  end
+                  methods.add_config! :async_batch_annotate_files do |method|
+                    method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                    method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                    method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                  end
+                end
+              end
+              yield @configure if block_given?
+              @configure
+            end
 
             ##
             # Configure the Client client.
@@ -85,7 +120,7 @@ module Google
               require "google/cloud/vision/v1/image_annotator_services_pb"
 
               # Create the configuration object
-              config ||= ImageAnnotator.configure
+              config ||= Client.configure
               config = config.derive! unless config.derived?
 
               # Yield the configuration if needed
@@ -111,8 +146,7 @@ module Google
               end
 
               @operations_client = Operations.new(
-                credentials: credentials,
-                config:      @config
+                credentials: credentials
               )
 
               @image_annotator_stub = Google::Gax::Grpc::Stub.new(

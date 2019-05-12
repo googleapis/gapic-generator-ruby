@@ -26,7 +26,6 @@ require "google/gax"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/identity_pb"
-require "google/showcase/v1alpha3/identity/configure"
 require "google/showcase/v1alpha3/identity/credentials"
 require "google/showcase/v1alpha3/identity/paths"
 
@@ -40,6 +39,57 @@ module Google
 
           # @private
           attr_reader :identity_stub
+
+          ##
+          # Configuration for the Identity API.
+          #
+          def self.configure
+            @configure ||= Google::Gax::Configuration.new do |config|
+              default_scope = Google::Gax::Configuration.deferred do
+                Credentials::SCOPE
+              end
+              config.add_field! :host,         "localhost", match: [String]
+              config.add_field! :port,         7469, match: [Integer]
+              config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
+              config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
+              config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
+              config.add_field! :interceptors, [],                                    match: [Array]
+
+              config.add_field! :timeout,     60,  match: [Numeric]
+              config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+              config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+
+              config.add_config! :methods do |methods|
+                methods.add_config! :create_user do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :get_user do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :update_user do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :delete_user do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+                methods.add_config! :list_users do |method|
+                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+                end
+              end
+            end
+            yield @configure if block_given?
+            @configure
+          end
 
           ##
           # Configure the Client client.
@@ -86,7 +136,7 @@ module Google
             require "google/showcase/v1alpha3/identity_services_pb"
 
             # Create the configuration object
-            config ||= Identity.configure
+            config ||= Client.configure
             config = config.derive! unless config.derived?
 
             # Yield the configuration if needed

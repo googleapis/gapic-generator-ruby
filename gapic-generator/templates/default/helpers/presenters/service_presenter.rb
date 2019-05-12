@@ -169,24 +169,6 @@ class ServicePresenter
     credentials_require + ".rb"
   end
 
-  def config_name
-    "Configure"
-  end
-
-  def config_full
-    "#{service_proto_name_full}::#{config_name}"
-  end
-
-  def config_require
-    config_namespace = @service.address.dup
-    config_namespace.push config_name
-    config_namespace.map(&:underscore).join "/"
-  end
-
-  def config_file_path
-    config_require + ".rb"
-  end
-
   def helpers_require
     helpers_namespace = @service.address.dup
     helpers_namespace.push "helpers"

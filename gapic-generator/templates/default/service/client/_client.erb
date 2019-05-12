@@ -4,7 +4,6 @@ require "google/gax"
 
 require "<%= service.gem.version_require %>"
 require "<%= service.service_proto_require %>"
-require "<%= service.config_require %>"
 require "<%= service.credentials_require %>"
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
@@ -22,13 +21,7 @@ class <%= service.client_name %>
   # @private
   attr_reader :<%= service.stub_name %>
 
-  ##
-  # Configure the <%= service.client_name %> client.
-  #
-  def configure
-    yield @config if block_given?
-    @config
-  end
+  <%= indent_tail render(partial: "service/client/config", locals: { service: service }), 2 %>
 
   ##
   # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -67,7 +60,7 @@ class <%= service.client_name %>
     require "<%= service.services_proto_require %>"
 
     # Create the configuration object
-    config ||= <%= service.name %>.configure
+    config ||= <%= service.client_name %>.configure
     config = config.derive! unless config.derived?
 
     # Yield the configuration if needed
@@ -94,8 +87,7 @@ class <%= service.client_name %>
 
     <%- if service.lro? -%>
     <%= service.lro_client_ivar %> = Operations.new(
-      credentials: credentials,
-      config:      @config
+      credentials: credentials
     )
     <%- end -%>
 
