@@ -61,6 +61,10 @@ module Google
             #   preferable to configure the default configuration using the
             #   {Client.configure} method or by passing a block instead. Optional.
             #
+            #   The configuration is set to the derived mode, meaning that values can be changed,
+            #   but structural changes (adding new fields, etc.) are not allowed. Structural changes
+            #   should be made on {Client.configure}.
+            #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Google::Gax::Configuration]
             #
@@ -72,7 +76,8 @@ module Google
               require "google/longrunning/operations_services_pb"
 
               # Create the configuration object
-              config ||= Configure.wrap Google::Cloud::Vision::V1::ImageAnnotator.configure
+              config ||= ImageAnnotator.configure
+              config = config.derive! unless config.derived?
 
               # Yield the configuration if needed
               yield config if block_given?

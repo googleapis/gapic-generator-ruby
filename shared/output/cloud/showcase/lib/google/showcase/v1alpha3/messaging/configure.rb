@@ -16,228 +16,106 @@
 
 require "google/gax"
 require "google/gax/configuration"
+require "google/showcase/v1alpha3/messaging/credentials"
 
 module Google
   module Showcase
     module V1alpha3
       module Messaging
         ##
-        # Configure the Messaging API.
+        # Configuration for the Messaging API.
         #
         def self.configure
-          @configure ||= Configure.create
+          @configure ||= Google::Gax::Configuration.new do |config|
+            default_scope = Google::Gax::Configuration.deferred do
+              Credentials::SCOPE
+            end
+            config.add_field! :host,         "localhost", match: [String]
+            config.add_field! :port,         7469, match: [Integer]
+            config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
+            config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
+            config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
+            config.add_field! :interceptors, [],                                    match: [Array]
+
+            config.add_field! :timeout,     60,  match: [Numeric]
+            config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+            config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+
+            config.add_config! :methods do |methods|
+              methods.add_config! :create_room do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :get_room do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :update_room do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :delete_room do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :list_rooms do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :create_blurb do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :get_blurb do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :update_blurb do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :delete_blurb do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :list_blurbs do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :search_blurbs do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :stream_blurbs do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :send_blurbs do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+              methods.add_config! :connect do |method|
+                method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
+                method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
+                method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
+              end
+            end
+          end
           yield @configure if block_given?
           @configure
-        end
-
-        # Configuration for the Messaging API.
-        class Configure
-          def self.create
-            Google::Gax::Configuration.new do |config|
-              default_scope = Google::Gax::Configuration.deferred do
-                Credentials::SCOPE
-              end
-              config.add_field! :host,         "localhost", match: [String]
-              config.add_field! :port,         7469, match: [Integer]
-              config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
-              config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
-              config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
-              config.add_field! :interceptors, [],                                    match: [Array]
-
-              config.add_field! :timeout,     60,  match: [Numeric]
-              config.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-              config.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-
-              config.add_config! :methods do |methods|
-                methods.add_config! :create_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :get_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :update_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :delete_room do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :list_rooms do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :create_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :get_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :update_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :delete_blurb do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :list_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :search_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :stream_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :send_blurbs do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :connect do |method|
-                  method.add_field! :timeout,     nil, match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    nil, match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, nil, match: [Hash, Proc], allow_nil: true
-                end
-              end
-            end
-          end
-
-          def self.wrap parent
-            Google::Gax::Configuration.new do |config|
-              config.add_field! :host,        defer_to(parent, :host),          match: [String]
-              config.add_field! :port,        defer_to(parent, :port),          match: [Integer]
-              config.add_field! :scope,       defer_to(parent, :scope),         match: [String, Array], allow_nil: true
-              config.add_field! :lib_name,    defer_to(parent, :lib_name),      match: [String],        allow_nil: true
-              config.add_field! :lib_version, defer_to(parent, :lib_version),   match: [String],        allow_nil: true
-              config.add_field! :interceptors, defer_to(parent, :interceptors), match: [Array]
-
-              config.add_field! :timeout,     defer_to(parent, :timeout),     match: [Numeric]
-              config.add_field! :metadata,    defer_to(parent, :metadata),    match: [Hash],       allow_nil: true
-              config.add_field! :retry_codes, defer_to(parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-
-              config.add_config! :methods do |methods|
-                methods.add_config! :create_room do |method|
-                  method_parent = parent.methods[:create_room]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :get_room do |method|
-                  method_parent = parent.methods[:get_room]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :update_room do |method|
-                  method_parent = parent.methods[:update_room]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :delete_room do |method|
-                  method_parent = parent.methods[:delete_room]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :list_rooms do |method|
-                  method_parent = parent.methods[:list_rooms]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :create_blurb do |method|
-                  method_parent = parent.methods[:create_blurb]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :get_blurb do |method|
-                  method_parent = parent.methods[:get_blurb]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :update_blurb do |method|
-                  method_parent = parent.methods[:update_blurb]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :delete_blurb do |method|
-                  method_parent = parent.methods[:delete_blurb]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :list_blurbs do |method|
-                  method_parent = parent.methods[:list_blurbs]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :search_blurbs do |method|
-                  method_parent = parent.methods[:search_blurbs]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :stream_blurbs do |method|
-                  method_parent = parent.methods[:stream_blurbs]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :send_blurbs do |method|
-                  method_parent = parent.methods[:send_blurbs]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-                methods.add_config! :connect do |method|
-                  method_parent = parent.methods[:connect]
-                  method.add_field! :timeout,     defer_to(method_parent, :timeout),     match: [Numeric],    allow_nil: true
-                  method.add_field! :metadata,    defer_to(method_parent, :metadata),    match: [Hash],       allow_nil: true
-                  method.add_field! :retry_codes, defer_to(method_parent, :retry_codes), match: [Hash, Proc], allow_nil: true
-                end
-              end
-            end
-          end
-
-          # @private
-          def self.defer_to parent = nil, config, field
-            if parent
-              return Google::Gax::Configuration.deferred do
-                config[field] || parent[field]
-              end
-            end
-
-            Google::Gax::Configuration.deferred do
-              config[field]
-            end
-          end
-          private_class_method :defer_to
         end
       end
     end
