@@ -59,17 +59,6 @@ class Operations
 
     @config = config
 
-    # Update the configuration with x-goog-api-client header
-    # Paradox: do we generate the header before yielding without the lib_name?
-    # Or, do we generate it after yielding, when the lib_name is most likely to be set?
-    x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-    x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-    x_goog_api_client_header << "gapic/#{<%= service.gem.version_name_full %>}"
-    x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-    x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-    @config.metadata ||= {}
-    @config.metadata["x-goog-api-client".freeze] ||= x_goog_api_client_header.join(" ")
-
     # Create credentials
     credentials ||= Credentials.default scope: @config.scope
     if credentials.is_a?(String) || credentials.is_a?(Hash)
