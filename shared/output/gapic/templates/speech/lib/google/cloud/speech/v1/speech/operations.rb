@@ -40,7 +40,7 @@ module Google
             attr_reader :operations_stub
 
             ##
-            # Configuration for the Operations API.
+            # Configuration for the Speech Operations API.
             #
             def self.configure
               @configure ||= Google::Gax::Configuration.new do |config|
@@ -86,8 +86,11 @@ module Google
             end
 
             ##
-            # Configure the Client client.
+            # Configure the Speech Operations instance.
             #
+            # The configuration is set to the derived mode, meaning that values can be changed,
+            # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+            # should be made on {Operations.configure}.
             def configure
               yield @config if block_given?
               @config
@@ -110,14 +113,6 @@ module Google
             #   `GRPC::Core::CallCredentials` object.
             #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
             #   transforms the metadata for requests, generally, to give OAuth credentials.
-            # @param config [Google::Gax::Configuration]
-            #   The configuration object to use in place of the default configuration. It is
-            #   preferable to configure the default configuration using the
-            #   {Client.configure} method or by passing a block instead. Optional.
-            #
-            #   The configuration is set to the derived mode, meaning that values can be changed,
-            #   but structural changes (adding new fields, etc.) are not allowed. Structural changes
-            #   should be made on {Client.configure}.
             #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Google::Gax::Configuration]
@@ -130,13 +125,10 @@ module Google
               require "google/longrunning/operations_services_pb"
 
               # Create the configuration object
-              config ||= Operations.configure
-              config = config.derive! unless config.derived?
+              @config = Operations.configure.derive!
 
               # Yield the configuration if needed
               yield config if block_given?
-
-              @config = config
 
               # Create credentials
               credentials ||= Credentials.default scope: @config.scope

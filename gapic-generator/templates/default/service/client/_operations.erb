@@ -12,7 +12,25 @@ class Operations
   # @private
   attr_reader :<%= service.lro_service.stub_name %>
 
-  <%= indent_tail render(partial: "service/client/config", locals: { service: service, method_service: service.lro_service }), 2 %>
+  ##
+  # Configuration for the <%= service.name %> Operations API.
+  #
+  def self.configure
+    @configure ||= <%= indent_tail render(partial: "service/client/config", locals: { service: service, method_service: service.lro_service }), 4 %>
+    yield @configure if block_given?
+    @configure
+  end
+
+  ##
+  # Configure the <%= service.name %> Operations instance.
+  #
+  # The configuration is set to the derived mode, meaning that values can be changed,
+  # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+  # should be made on {Operations.configure}.
+  def configure
+    yield @config if block_given?
+    @config
+  end
 
   ##
   # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -31,14 +49,6 @@ class Operations
   #   `GRPC::Core::CallCredentials` object.
   #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
   #   transforms the metadata for requests, generally, to give OAuth credentials.
-  # @param config [Google::Gax::Configuration]
-  #   The configuration object to use in place of the default configuration. It is
-  #   preferable to configure the default configuration using the
-  #   {<%= service.client_name %>.configure} method or by passing a block instead. Optional.
-  #
-  #   The configuration is set to the derived mode, meaning that values can be changed,
-  #   but structural changes (adding new fields, etc.) are not allowed. Structural changes
-  #   should be made on {<%= service.client_name %>.configure}.
   #
   # @yield [config] Configure the <%= service.client_name %> client.
   # @yieldparam config [Google::Gax::Configuration]
@@ -51,13 +61,10 @@ class Operations
     require "<%= service.lro_service.services_proto_require %>"
 
     # Create the configuration object
-    config ||= Operations.configure
-    config = config.derive! unless config.derived?
+    @config = Operations.configure.derive!
 
     # Yield the configuration if needed
     yield config if block_given?
-
-    @config = config
 
     # Create credentials
     credentials ||= Credentials.default scope: @config.scope

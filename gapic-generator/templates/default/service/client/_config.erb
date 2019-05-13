@@ -1,42 +1,27 @@
 <%- assert_locals service -%>
 <%- method_service ||= service  -%>
-##
-# Configuration for the <%= method_service.name %> API.
-#
-def self.configure
-  @configure ||= Google::Gax::Configuration.new do |config|
-    default_scope = Google::Gax::Configuration.deferred do
-      <%= service.credentials_name %>::SCOPE
-    end
-    config.add_field! :host,         <%= service.client_address.inspect %>, match: [String]
-    config.add_field! :port,         <%= service.client_port %>,            match: [Integer]
-    config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
-    config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
-    config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
-    config.add_field! :interceptors, [],                                    match: [Array]
-
-    config.add_field! :timeout,      60,  match: [Numeric]
-    config.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
-    config.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
-
-    config.add_config! :methods do |methods|
-    <%- method_service.methods.each do |method| -%>
-      methods.add_config! :<%= method.name %> do |method|
-        method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
-        method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
-        method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
-      end
-    <%- end %>
-    end
+Google::Gax::Configuration.new do |config|
+  default_scope = Google::Gax::Configuration.deferred do
+    <%= service.credentials_name %>::SCOPE
   end
-  yield @configure if block_given?
-  @configure
-end
+  config.add_field! :host,         <%= service.client_address.inspect %>, match: [String]
+  config.add_field! :port,         <%= service.client_port %>,            match: [Integer]
+  config.add_field! :scope,        default_scope,                         match: [String, Array], allow_nil: true
+  config.add_field! :lib_name,     nil,                                   match: [String],        allow_nil: true
+  config.add_field! :lib_version,  nil,                                   match: [String],        allow_nil: true
+  config.add_field! :interceptors, [],                                    match: [Array]
 
-##
-# Configure the <%= method_service.client_name %> client.
-#
-def configure
-  yield @config if block_given?
-  @config
+  config.add_field! :timeout,      60,  match: [Numeric]
+  config.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+  config.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
+
+  config.add_config! :methods do |methods|
+  <%- method_service.methods.each do |method| -%>
+    methods.add_config! :<%= method.name %> do |method|
+      method.add_field! :timeout,      nil, match: [Numeric],    allow_nil: true
+      method.add_field! :metadata,     nil, match: [Hash],       allow_nil: true
+      method.add_field! :retry_policy, nil, match: [Hash, Proc], allow_nil: true
+    end
+  <%- end %>
+  end
 end
