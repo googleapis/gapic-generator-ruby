@@ -13,28 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-GAPIC_SERVICE_CONFIG=
-
 # enable extended globbing for flag pattern matching
 shopt -s extglob
 
 # Parse out options.
 while true; do
   case "$1" in
-    --gapic-service-config ) GAPIC_SERVICE_CONFIG="configuration=$2"; shift 2;;
     --ruby-gapic* ) echo "Skipping unrecognized ruby-gapic flag: $1" >&2; shift ;;
     --* | +([[:word:][:punct:]]) ) shift ;;
     * ) break ;;
   esac
 done
 
-if [ -z "$GAPIC_SERVICE_CONFIG" ]; then
-  echo "Required argument --gapic-service-config missing."
-  exit 64
-fi
-
 
 protoc --proto_path=/protos/ --proto_path=/in/ \
        --ruby_gapic_out=/out/ \
-       --ruby_gapic_opt="$GAPIC_SERVICE_CONFIG" \
+       --ruby_gapic_opt="configuration=/config.yml" \
        `find /in/ -name *.proto`

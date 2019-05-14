@@ -23,6 +23,7 @@ IN=
 OUT=
 PLUGIN_OPTIONS=
 PROTO_PATH=`pwd`
+GAPIC_SERVICE_CONFIG=
 
 # Print help and exit.
 function show_help {
@@ -35,6 +36,7 @@ Required arguments:
   -i, --in        A directory containing the protos describing the API
                     to be generated.
   -o, --out       Destination directory for the completed client library.
+      --config    Location of the GAPIC service configuration .yml file.
 
 Optional arguments:
   -p, --path      The base import path for the protos. Assumed to be the
@@ -53,6 +55,7 @@ while true; do
     -i | --in ) IN="$2"; shift 2 ;;
     -o | --out ) OUT="$2"; shift 2 ;;
     -p | --path ) PROTO_PATH=$2; shift 2 ;;
+    --config ) GAPIC_SERVICE_CONFIG=$2; shift 2 ;;
     --* ) PLUGIN_OPTIONS="$PLUGIN_OPTIONS $1 $2"; shift 2 ;;
     -- ) shift; break; ;;
     * ) break ;;
@@ -95,6 +98,7 @@ fi
 # Generate the client library.
 docker run \
   --mount type=bind,source=${PROTO_PATH}/${IN},destination=/in/${IN},readonly \
+  --mount type=bind,source=$GAPIC_SERVICE_CONFIG,destination=/config.yml,readonly \
   --mount type=bind,source=$OUT,destination=/out \
   --rm \
   --user $UID \
