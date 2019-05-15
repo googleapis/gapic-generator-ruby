@@ -172,6 +172,7 @@ module Google
 
             @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
 
+
             @create_room.call request, options: options, operation_callback: block
           end
 
@@ -237,6 +238,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
+
 
             @get_room.call request, options: options, operation_callback: block
           end
@@ -307,6 +309,7 @@ module Google
 
             @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
 
+
             @update_room.call request, options: options, operation_callback: block
           end
 
@@ -372,6 +375,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
+
 
             @delete_room.call request, options: options, operation_callback: block
           end
@@ -513,6 +517,7 @@ module Google
 
             @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
 
+
             @create_blurb.call request, options: options, operation_callback: block
           end
 
@@ -578,6 +583,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
+
 
             @get_blurb.call request, options: options, operation_callback: block
           end
@@ -648,6 +654,7 @@ module Google
 
             @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
 
+
             @update_blurb.call request, options: options, operation_callback: block
           end
 
@@ -713,6 +720,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
+
 
             @delete_blurb.call request, options: options, operation_callback: block
           end
@@ -899,12 +907,11 @@ module Google
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
@@ -947,7 +954,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
-            @stream_blurbs.call request, options: options, stream_callback: block
+
+
+            @stream_blurbs.call request, options: options, operation_callback: block
           end
 
           ##
@@ -1011,6 +1020,7 @@ module Google
 
             @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
 
+
             @send_blurbs.call request, options: options, operation_callback: block
           end
 
@@ -1025,12 +1035,11 @@ module Google
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
@@ -1071,7 +1080,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
-            @connect.call request, options: options, stream_callback: block
+
+
+            @connect.call request, options: options, operation_callback: block
           end
 
           class Configuration

@@ -175,6 +175,7 @@ module Google
 
               @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
 
+
               @recognize.call request, options: options, operation_callback: block
             end
 
@@ -258,12 +259,11 @@ module Google
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [response] Called on each streaming responses, when provided.
-            # @yieldparam response [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse, Thread>]
-            #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeResponse} instances when a block is not provided.
-            #   When a block is provided a thread running the block for every streamed response is returned.
+            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
             #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             #
@@ -304,7 +304,9 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize
-              @streaming_recognize.call request, options: options, stream_callback: block
+
+
+              @streaming_recognize.call request, options: options, operation_callback: block
             end
 
             class Configuration

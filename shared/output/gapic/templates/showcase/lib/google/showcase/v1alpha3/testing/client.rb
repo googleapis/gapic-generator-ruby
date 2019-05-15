@@ -170,6 +170,7 @@ module Google
 
             @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
 
+
             @create_session.call request, options: options, operation_callback: block
           end
 
@@ -235,6 +236,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
+
 
             @get_session.call request, options: options, operation_callback: block
           end
@@ -366,6 +368,7 @@ module Google
 
             @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
 
+
             @delete_session.call request, options: options, operation_callback: block
           end
 
@@ -435,6 +438,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
+
 
             @report_session.call request, options: options, operation_callback: block
           end
@@ -584,6 +588,7 @@ module Google
 
             @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
 
+
             @delete_test.call request, options: options, operation_callback: block
           end
 
@@ -659,6 +664,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
+
 
             @verify_test.call request, options: options, operation_callback: block
           end

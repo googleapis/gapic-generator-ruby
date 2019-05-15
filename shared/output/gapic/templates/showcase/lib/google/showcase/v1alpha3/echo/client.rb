@@ -171,6 +171,7 @@ module Google
 
             @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
 
+
             @echo.call request, options: options, operation_callback: block
           end
 
@@ -193,12 +194,11 @@ module Google
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
@@ -235,7 +235,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
-            @expand.call request, options: options, stream_callback: block
+
+
+            @expand.call request, options: options, operation_callback: block
           end
 
           ##
@@ -294,6 +296,7 @@ module Google
 
             @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
 
+
             @collect.call request, options: options, operation_callback: block
           end
 
@@ -307,12 +310,11 @@ module Google
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::EchoResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
@@ -353,7 +355,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
-            @chat.call request, options: options, stream_callback: block
+
+
+            @chat.call request, options: options, operation_callback: block
           end
 
           ##

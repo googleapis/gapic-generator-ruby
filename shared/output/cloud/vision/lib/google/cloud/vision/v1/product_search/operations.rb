@@ -129,11 +129,13 @@ module Google
             #     Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Longrunning::Operation>]
+            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::PagedEnumerable<Google::Longrunning::Operation>]
+            # @return [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -174,7 +176,7 @@ module Google
 
               @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
 
-              wrap_gax_operation = ->(resource) { Google::Gax::Operation.new resource, @operations_client }
+              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
               wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options, format_resource: wrap_gax_operation }
 
               @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
@@ -204,7 +206,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -276,7 +280,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -316,6 +322,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
+
 
               @delete_operation.call request, options: options, operation_callback: block
             end
@@ -358,7 +365,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -398,6 +407,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
+
 
               @cancel_operation.call request, options: options, operation_callback: block
             end

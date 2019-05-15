@@ -195,6 +195,7 @@ module Google
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
 
+
               @create_product_set.call request, options: options, operation_callback: block
             end
 
@@ -356,6 +357,7 @@ module Google
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
 
+
               @get_product_set.call request, options: options, operation_callback: block
             end
 
@@ -441,6 +443,7 @@ module Google
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
 
+
               @update_product_set.call request, options: options, operation_callback: block
             end
 
@@ -523,6 +526,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
+
 
               @delete_product_set.call request, options: options, operation_callback: block
             end
@@ -613,6 +617,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
+
 
               @create_product.call request, options: options, operation_callback: block
             end
@@ -774,6 +779,7 @@ module Google
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
 
+
               @get_product.call request, options: options, operation_callback: block
             end
 
@@ -875,6 +881,7 @@ module Google
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
 
+
               @update_product.call request, options: options, operation_callback: block
             end
 
@@ -959,6 +966,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
+
 
               @delete_product.call request, options: options, operation_callback: block
             end
@@ -1073,6 +1081,7 @@ module Google
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
 
+
               @create_reference_image.call request, options: options, operation_callback: block
             end
 
@@ -1162,6 +1171,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
+
 
               @delete_reference_image.call request, options: options, operation_callback: block
             end
@@ -1331,6 +1341,7 @@ module Google
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
 
+
               @get_reference_image.call request, options: options, operation_callback: block
             end
 
@@ -1419,6 +1430,7 @@ module Google
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
 
+
               @add_product_to_product_set.call request, options: options, operation_callback: block
             end
 
@@ -1500,6 +1512,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
+
 
               @remove_product_from_product_set.call request, options: options, operation_callback: block
             end

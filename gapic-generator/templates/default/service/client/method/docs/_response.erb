@@ -1,6 +1,6 @@
 <%- assert_locals method -%>
-<%- if method.server_streaming? -%>
-<%= render partial: "service/client/method/docs/response_streaming", locals: { method: method } -%>
-<%- else -%>
-<%= render partial: "service/client/method/docs/response_normal", locals: { method: method } -%>
-<%- end -%>
+# @yield [response, operation] Access the result along with the RPC operation
+# @yieldparam response [<%= method.doc_response_types %>]
+# @yieldparam operation [GRPC::ActiveCall::Operation]
+#
+# @return [<%= method.doc_response_types %>]

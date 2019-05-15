@@ -168,6 +168,7 @@ module Google
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
 
+
             @create_user.call request, options: options, operation_callback: block
           end
 
@@ -233,6 +234,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
+
 
             @get_user.call request, options: options, operation_callback: block
           end
@@ -303,6 +305,7 @@ module Google
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
 
+
             @update_user.call request, options: options, operation_callback: block
           end
 
@@ -368,6 +371,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
+
 
             @delete_user.call request, options: options, operation_callback: block
           end
