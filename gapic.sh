@@ -17,7 +17,8 @@ set -e
 CMD="$0"
 
 # Set variables used by this script.
-# All of these are set in options below, and all but $PATH are required.
+# All of these are set in options below, and all but PLUGIN_OPTIONS and
+# PROTO_PATH are required.
 IMAGE=
 IN=
 OUT=
@@ -104,4 +105,3 @@ docker run \
   --user $UID \
   $IMAGE \
   $PLUGIN_OPTIONS
-exit $?

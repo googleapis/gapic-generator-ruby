@@ -26,7 +26,7 @@ while true; do
 done
 
 
-protoc --proto_path=/protos/ --proto_path=/in/ \
-       --ruby_gapic_out=/out/ \
-       --ruby_gapic_opt="configuration=/config.yml" \
-       `find /in/ -name *.proto`
+exec protoc --proto_path=/protos/ --proto_path=/in/ \
+            --ruby_gapic_out=/out/ \
+            --ruby_gapic_opt="configuration=/config.yml" \
+            `find /in/ -name *.proto`
