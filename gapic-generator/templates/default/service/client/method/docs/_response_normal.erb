@@ -1,0 +1,18 @@
+<%- assert_locals method -%>
+# @yield [response, operation] Access the result along with the RPC operation
+<%- if method.paged? -%>
+# @yieldparam response [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+<%- elsif method.lro? -%>
+# @yieldparam response [Google::Gax::Operation]
+<%- else -%>
+# @yieldparam response [<%= method.return_type %>]
+<%- end -%>
+# @yieldparam operation [GRPC::ActiveCall::Operation]
+#
+<%- if method.paged? -%>
+# @return [Google::Gax::PagedEnumerable<<%= method.paged_response_type %>>]
+<%- elsif method.lro? -%>
+# @return [Google::Gax::Operation]
+<%- else -%>
+# @return [<%= method.return_type %>]
+<%- end -%>

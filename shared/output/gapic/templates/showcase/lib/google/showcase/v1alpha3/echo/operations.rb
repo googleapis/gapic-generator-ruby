@@ -140,7 +140,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Longrunning::Operation>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -211,7 +213,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::Operation]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -283,7 +287,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -365,7 +371,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #

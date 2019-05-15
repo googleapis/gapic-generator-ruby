@@ -133,7 +133,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -201,7 +203,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #

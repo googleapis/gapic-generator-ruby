@@ -1,0 +1,6 @@
+<%- assert_locals method -%>
+<%- if method.client_streaming? -%>
+<%= render partial: "service/client/method/docs/request_streaming", locals: { method: method } -%>
+<%- else -%>
+<%= render partial: "service/client/method/docs/request_normal", locals: { method: method } -%>
+<%- end -%>

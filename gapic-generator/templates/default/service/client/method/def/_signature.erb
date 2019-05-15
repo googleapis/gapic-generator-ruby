@@ -1,0 +1,6 @@
+<%- assert_locals method -%>
+<%- if method.client_streaming? -%>
+def <%= method.name %> request, options: nil, &block
+<%- else -%>
+def <%= method.name %> request = nil, options: nil, **request_fields, &block
+<%- end -%>

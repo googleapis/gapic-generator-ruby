@@ -1,0 +1,10 @@
+<%- assert_locals method -%>
+if request.nil? && request_fields.empty?
+  raise ArgumentError, "request must be provided"
+end
+if !request.nil? && !request_fields.empty?
+  raise ArgumentError, "cannot pass both request object and named arguments"
+end
+
+request ||= request_fields
+request = Google::Gax::Protobuf.coerce request, to: <%= method.request_type %>

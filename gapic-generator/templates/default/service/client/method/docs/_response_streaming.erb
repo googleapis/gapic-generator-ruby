@@ -1,0 +1,7 @@
+<%- assert_locals method -%>
+# @yield [response] Called on each streaming responses, when provided.
+# @yieldparam response [<%= method.return_type %>]
+#
+# @return [Enumerable<<%= method.return_type %>, Thread>]
+#   An enumerable of {<%= method.return_type %>} instances when a block is not provided.
+#   When a block is provided a thread running the block for every streamed response is returned.

@@ -133,7 +133,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -191,7 +193,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -257,7 +261,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -317,7 +323,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -385,7 +393,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ReportSessionResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -453,7 +463,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -529,7 +541,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -603,7 +617,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::VerifyTestResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #

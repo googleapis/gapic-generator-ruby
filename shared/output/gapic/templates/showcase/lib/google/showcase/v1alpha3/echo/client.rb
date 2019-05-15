@@ -134,7 +134,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -241,7 +243,7 @@ module Google
           # by the client, this method will return the a concatenation of the strings
           # passed to it. This method showcases client-side streaming rpcs.
           #
-          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -257,17 +259,17 @@ module Google
           # @example
           #   TODO
           #
-          def collect requests, options: nil, &block
-            unless requests.is_a? Enumerable
-              if requests.respond_to? :to_enum
-                requests = requests.to_enum
+          def collect request, options: nil, &block
+            unless request.is_a? Enumerable
+              if request.respond_to? :to_enum
+                request = request.to_enum
               else
-                raise ArgumentError, "requests must be an Enumerable"
+                raise ArgumentError, "request must be an Enumerable"
               end
             end
 
-            requests = requests.lazy.map do |request|
-              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
+            request = request.lazy.map do |req|
+              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
@@ -291,7 +293,8 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
-            @collect.call requests, options: options, operation_callback: block
+
+            @collect.call request, options: options, operation_callback: block
           end
 
           ##
@@ -299,7 +302,7 @@ module Google
           # be passed  back on the stream. This method showcases bidirectional
           # streaming rpcs.
           #
-          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -316,17 +319,17 @@ module Google
           # @example
           #   TODO
           #
-          def chat requests, options: nil, &block
-            unless requests.is_a? Enumerable
-              if requests.respond_to? :to_enum
-                requests = requests.to_enum
+          def chat request, options: nil, &block
+            unless request.is_a? Enumerable
+              if request.respond_to? :to_enum
+                request = request.to_enum
               else
-                raise ArgumentError, "requests must be an Enumerable"
+                raise ArgumentError, "request must be an Enumerable"
               end
             end
 
-            requests = requests.lazy.map do |request|
-              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
+            request = request.lazy.map do |req|
+              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
@@ -350,7 +353,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
-            @chat.call requests, options: options, stream_callback: block
+            @chat.call request, options: options, stream_callback: block
           end
 
           ##
@@ -379,7 +382,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -448,7 +453,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::Operation]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
