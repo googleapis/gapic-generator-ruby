@@ -23,6 +23,8 @@
 # THE SOFTWARE.
 
 require "google/gax"
+require "google/gax/config"
+require "google/gax/config/method"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
@@ -39,22 +41,36 @@ module Google
             # @private
             attr_reader :product_search_stub
 
-            # The default address of the service.
-            SERVICE_ADDRESS = "vision.googleapis.com"
+            ##
+            # Configuration for the ProductSearch Client API.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def self.configure
+              @configure ||= Client::Configuration.new
+              yield @configure if block_given?
+              @configure
+            end
 
-            # The default port of the service.
-            DEFAULT_SERVICE_PORT = 443
-
-            # rubocop:disable Style/MutableConstant
-
-            # The default set of gRPC interceptors.
-            GRPC_INTERCEPTORS = []
-
-            # rubocop:enable Style/MutableConstant
-
-            DEFAULT_TIMEOUT = 30
-
-
+            ##
+            # Configure the ProductSearch Client instance.
+            #
+            # The configuration is set to the derived mode, meaning that values can be changed,
+            # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+            # should be made on {Client.configure}.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def configure
+              yield @config if block_given?
+              @config
+            end
 
             ##
             # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -73,58 +89,40 @@ module Google
             #   `GRPC::Core::CallCredentials` object.
             #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
             #   transforms the metadata for requests, generally, to give OAuth credentials.
-            # @param scope [String, Array<String>]
-            #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-            #   an updater_proc is supplied.
-            # @param timeout [Numeric]
-            #   The default timeout, in seconds, for calls made through this client.
-            # @param metadata [Hash]
-            #   Default metadata to be sent with each request. This can be overridden on a
-            #   per call basis.
             #
-            def initialize \
-                credentials: nil,
-                scope: nil,
-                timeout: DEFAULT_TIMEOUT,
-                metadata: nil,
-                lib_name: nil,
-                lib_version: nil
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            def initialize credentials: nil
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
-              credentials ||= Credentials.default scope: scope
+              # Create the configuration object
+              @config = Configuration.new Client.configure
+
+              # Yield the configuration if needed
+              yield @config if block_given?
+
+              # Create credentials
+              credentials ||= Credentials.default scope: @config.scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)
-                credentials = Credentials.new credentials, scope: scope
+                credentials = Credentials.new credentials, scope: @config.scope
               end
 
               @operations_client = Operations.new(
-                credentials: credentials,
-                scope:       scope,
-                timeout:     timeout,
-                metadata:    metadata,
-                lib_name:    lib_name,
-                lib_version: lib_version
+                credentials: credentials
               )
 
               @product_search_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
-                host:         self.class::SERVICE_ADDRESS,
-                port:         self.class::DEFAULT_SERVICE_PORT,
                 credentials:  credentials,
-                interceptors: self.class::GRPC_INTERCEPTORS
+                host:         @config.host,
+                port:         @config.port,
+                interceptors: @config.interceptors
               )
-
-              @timeout = timeout
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -185,12 +183,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.create_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.create_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
 
@@ -250,12 +263,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.list_product_sets.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.list_product_sets.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
 
@@ -312,12 +340,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.get_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.get_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
 
@@ -380,12 +423,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.update_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "product_set.name" => request.product_set.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.update_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
 
@@ -446,12 +504,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.delete_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.delete_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
 
@@ -519,12 +592,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.create_product.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.create_product.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
 
@@ -583,12 +671,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.list_products.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.list_products.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
 
@@ -645,12 +748,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.get_product.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.get_product.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
 
@@ -729,12 +847,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.update_product.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "product.name" => request.product.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.update_product.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
 
@@ -797,12 +930,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.delete_product.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.delete_product.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
 
@@ -893,12 +1041,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.create_reference_image.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.create_reference_image.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
 
@@ -966,12 +1129,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.delete_reference_image.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.delete_reference_image.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
 
@@ -1037,12 +1215,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.list_reference_images.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.list_reference_images.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
 
@@ -1100,12 +1293,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.get_reference_image.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.get_reference_image.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
 
@@ -1171,12 +1379,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.add_product_to_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
 
@@ -1236,12 +1459,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.remove_product_from_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
 
@@ -1304,12 +1542,27 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "name" => request.name
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.list_products_in_product_set.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
 
@@ -1379,18 +1632,141 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
+              metadata = @config.rpcs.import_product_sets.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
               header_params = {
                 "parent" => request.parent
               }
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-              metadata = @metadata.merge "x-goog-request-params" => request_params_header
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.import_product_sets.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
 
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
               @import_product_sets.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            end
+
+            class Configuration
+              extend Google::Gax::Config
+
+              config_attr :host,         "vision.googleapis.com", String
+              config_attr :port,         443, Integer
+              config_attr :scope,        nil,                                   String, Array, nil
+              config_attr :lib_name,     nil,                                   String, nil
+              config_attr :lib_version,  nil,                                   String, nil
+              config_attr :interceptors, [],                                    Array
+              config_attr :timeout,      nil,                                   Numeric, nil
+              config_attr :metadata,     nil,                                   Hash, nil
+              config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+              def initialize parent_config = nil
+                @parent_config = parent_config unless parent_config.nil?
+
+                yield self if block_given?
+              end
+
+              def rpcs
+                @rpcs ||= begin
+                  parent_rpcs = nil
+                  parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                  Rpcs.new parent_rpcs
+                end
+              end
+
+              class Rpcs
+                attr_reader :create_product_set
+                attr_reader :list_product_sets
+                attr_reader :get_product_set
+                attr_reader :update_product_set
+                attr_reader :delete_product_set
+                attr_reader :create_product
+                attr_reader :list_products
+                attr_reader :get_product
+                attr_reader :update_product
+                attr_reader :delete_product
+                attr_reader :create_reference_image
+                attr_reader :delete_reference_image
+                attr_reader :list_reference_images
+                attr_reader :get_reference_image
+                attr_reader :add_product_to_product_set
+                attr_reader :remove_product_from_product_set
+                attr_reader :list_products_in_product_set
+                attr_reader :import_product_sets
+
+                def initialize parent_rpcs = nil
+                  create_product_set_config = nil
+                  create_product_set_config = parent_rpcs&.create_product_set if parent_rpcs&.respond_to? :create_product_set
+                  @create_product_set = Google::Gax::Config::Method.new create_product_set_config
+                  list_product_sets_config = nil
+                  list_product_sets_config = parent_rpcs&.list_product_sets if parent_rpcs&.respond_to? :list_product_sets
+                  @list_product_sets = Google::Gax::Config::Method.new list_product_sets_config
+                  get_product_set_config = nil
+                  get_product_set_config = parent_rpcs&.get_product_set if parent_rpcs&.respond_to? :get_product_set
+                  @get_product_set = Google::Gax::Config::Method.new get_product_set_config
+                  update_product_set_config = nil
+                  update_product_set_config = parent_rpcs&.update_product_set if parent_rpcs&.respond_to? :update_product_set
+                  @update_product_set = Google::Gax::Config::Method.new update_product_set_config
+                  delete_product_set_config = nil
+                  delete_product_set_config = parent_rpcs&.delete_product_set if parent_rpcs&.respond_to? :delete_product_set
+                  @delete_product_set = Google::Gax::Config::Method.new delete_product_set_config
+                  create_product_config = nil
+                  create_product_config = parent_rpcs&.create_product if parent_rpcs&.respond_to? :create_product
+                  @create_product = Google::Gax::Config::Method.new create_product_config
+                  list_products_config = nil
+                  list_products_config = parent_rpcs&.list_products if parent_rpcs&.respond_to? :list_products
+                  @list_products = Google::Gax::Config::Method.new list_products_config
+                  get_product_config = nil
+                  get_product_config = parent_rpcs&.get_product if parent_rpcs&.respond_to? :get_product
+                  @get_product = Google::Gax::Config::Method.new get_product_config
+                  update_product_config = nil
+                  update_product_config = parent_rpcs&.update_product if parent_rpcs&.respond_to? :update_product
+                  @update_product = Google::Gax::Config::Method.new update_product_config
+                  delete_product_config = nil
+                  delete_product_config = parent_rpcs&.delete_product if parent_rpcs&.respond_to? :delete_product
+                  @delete_product = Google::Gax::Config::Method.new delete_product_config
+                  create_reference_image_config = nil
+                  create_reference_image_config = parent_rpcs&.create_reference_image if parent_rpcs&.respond_to? :create_reference_image
+                  @create_reference_image = Google::Gax::Config::Method.new create_reference_image_config
+                  delete_reference_image_config = nil
+                  delete_reference_image_config = parent_rpcs&.delete_reference_image if parent_rpcs&.respond_to? :delete_reference_image
+                  @delete_reference_image = Google::Gax::Config::Method.new delete_reference_image_config
+                  list_reference_images_config = nil
+                  list_reference_images_config = parent_rpcs&.list_reference_images if parent_rpcs&.respond_to? :list_reference_images
+                  @list_reference_images = Google::Gax::Config::Method.new list_reference_images_config
+                  get_reference_image_config = nil
+                  get_reference_image_config = parent_rpcs&.get_reference_image if parent_rpcs&.respond_to? :get_reference_image
+                  @get_reference_image = Google::Gax::Config::Method.new get_reference_image_config
+                  add_product_to_product_set_config = nil
+                  add_product_to_product_set_config = parent_rpcs&.add_product_to_product_set if parent_rpcs&.respond_to? :add_product_to_product_set
+                  @add_product_to_product_set = Google::Gax::Config::Method.new add_product_to_product_set_config
+                  remove_product_from_product_set_config = nil
+                  remove_product_from_product_set_config = parent_rpcs&.remove_product_from_product_set if parent_rpcs&.respond_to? :remove_product_from_product_set
+                  @remove_product_from_product_set = Google::Gax::Config::Method.new remove_product_from_product_set_config
+                  list_products_in_product_set_config = nil
+                  list_products_in_product_set_config = parent_rpcs&.list_products_in_product_set if parent_rpcs&.respond_to? :list_products_in_product_set
+                  @list_products_in_product_set = Google::Gax::Config::Method.new list_products_in_product_set_config
+                  import_product_sets_config = nil
+                  import_product_sets_config = parent_rpcs&.import_product_sets if parent_rpcs&.respond_to? :import_product_sets
+                  @import_product_sets = Google::Gax::Config::Method.new import_product_sets_config
+
+                  yield self if block_given?
+                end
+              end
             end
           end
         end

@@ -23,6 +23,8 @@
 # THE SOFTWARE.
 
 require "google/gax"
+require "google/gax/config"
+require "google/gax/config/method"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/image_annotator_pb"
@@ -39,22 +41,36 @@ module Google
             # @private
             attr_reader :image_annotator_stub
 
-            # The default address of the service.
-            SERVICE_ADDRESS = "vision.googleapis.com"
+            ##
+            # Configuration for the ImageAnnotator Client API.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def self.configure
+              @configure ||= Client::Configuration.new
+              yield @configure if block_given?
+              @configure
+            end
 
-            # The default port of the service.
-            DEFAULT_SERVICE_PORT = 443
-
-            # rubocop:disable Style/MutableConstant
-
-            # The default set of gRPC interceptors.
-            GRPC_INTERCEPTORS = []
-
-            # rubocop:enable Style/MutableConstant
-
-            DEFAULT_TIMEOUT = 30
-
-
+            ##
+            # Configure the ImageAnnotator Client instance.
+            #
+            # The configuration is set to the derived mode, meaning that values can be changed,
+            # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+            # should be made on {Client.configure}.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def configure
+              yield @config if block_given?
+              @config
+            end
 
             ##
             # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -73,58 +89,40 @@ module Google
             #   `GRPC::Core::CallCredentials` object.
             #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
             #   transforms the metadata for requests, generally, to give OAuth credentials.
-            # @param scope [String, Array<String>]
-            #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-            #   an updater_proc is supplied.
-            # @param timeout [Numeric]
-            #   The default timeout, in seconds, for calls made through this client.
-            # @param metadata [Hash]
-            #   Default metadata to be sent with each request. This can be overridden on a
-            #   per call basis.
             #
-            def initialize \
-                credentials: nil,
-                scope: nil,
-                timeout: DEFAULT_TIMEOUT,
-                metadata: nil,
-                lib_name: nil,
-                lib_version: nil
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            def initialize credentials: nil
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
               require "google/cloud/vision/v1/image_annotator_services_pb"
 
-              credentials ||= Credentials.default scope: scope
+              # Create the configuration object
+              @config = Configuration.new Client.configure
+
+              # Yield the configuration if needed
+              yield @config if block_given?
+
+              # Create credentials
+              credentials ||= Credentials.default scope: @config.scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)
-                credentials = Credentials.new credentials, scope: scope
+                credentials = Credentials.new credentials, scope: @config.scope
               end
 
               @operations_client = Operations.new(
-                credentials: credentials,
-                scope:       scope,
-                timeout:     timeout,
-                metadata:    metadata,
-                lib_name:    lib_name,
-                lib_version: lib_version
+                credentials: credentials
               )
 
               @image_annotator_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ImageAnnotator::Stub,
-                host:         self.class::SERVICE_ADDRESS,
-                port:         self.class::DEFAULT_SERVICE_PORT,
                 credentials:  credentials,
-                interceptors: self.class::GRPC_INTERCEPTORS
+                host:         @config.host,
+                port:         @config.port,
+                interceptors: @config.interceptors
               )
-
-              @timeout = timeout
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -166,8 +164,21 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
-              metadata = @metadata.dup
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.rpcs.batch_annotate_images.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.batch_annotate_images.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
 
@@ -221,14 +232,71 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
-              metadata = @metadata.dup
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.async_batch_annotate_files.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
 
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
               @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            end
+
+            class Configuration
+              extend Google::Gax::Config
+
+              config_attr :host,         "vision.googleapis.com", String
+              config_attr :port,         443, Integer
+              config_attr :scope,        nil,                                   String, Array, nil
+              config_attr :lib_name,     nil,                                   String, nil
+              config_attr :lib_version,  nil,                                   String, nil
+              config_attr :interceptors, [],                                    Array
+              config_attr :timeout,      nil,                                   Numeric, nil
+              config_attr :metadata,     nil,                                   Hash, nil
+              config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+              def initialize parent_config = nil
+                @parent_config = parent_config unless parent_config.nil?
+
+                yield self if block_given?
+              end
+
+              def rpcs
+                @rpcs ||= begin
+                  parent_rpcs = nil
+                  parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                  Rpcs.new parent_rpcs
+                end
+              end
+
+              class Rpcs
+                attr_reader :batch_annotate_images
+                attr_reader :async_batch_annotate_files
+
+                def initialize parent_rpcs = nil
+                  batch_annotate_images_config = nil
+                  batch_annotate_images_config = parent_rpcs&.batch_annotate_images if parent_rpcs&.respond_to? :batch_annotate_images
+                  @batch_annotate_images = Google::Gax::Config::Method.new batch_annotate_images_config
+                  async_batch_annotate_files_config = nil
+                  async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files if parent_rpcs&.respond_to? :async_batch_annotate_files
+                  @async_batch_annotate_files = Google::Gax::Config::Method.new async_batch_annotate_files_config
+
+                  yield self if block_given?
+                end
+              end
             end
           end
         end

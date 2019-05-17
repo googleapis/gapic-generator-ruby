@@ -15,6 +15,8 @@
 # limitations under the License.
 
 require "google/gax"
+require "google/gax/config"
+require "google/gax/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/identity_pb"
@@ -32,22 +34,36 @@ module Google
           # @private
           attr_reader :identity_stub
 
-          # The default address of the service.
-          SERVICE_ADDRESS = "localhost"
+          ##
+          # Configuration for the Identity Client API.
+          #
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          # @return [Client::Configuration]
+          #
+          def self.configure
+            @configure ||= Client::Configuration.new
+            yield @configure if block_given?
+            @configure
+          end
 
-          # The default port of the service.
-          DEFAULT_SERVICE_PORT = 7469
-
-          # rubocop:disable Style/MutableConstant
-
-          # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
-
-          # rubocop:enable Style/MutableConstant
-
-          DEFAULT_TIMEOUT = 30
-
-
+          ##
+          # Configure the Identity Client instance.
+          #
+          # The configuration is set to the derived mode, meaning that values can be changed,
+          # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+          # should be made on {Client.configure}.
+          #
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          # @return [Client::Configuration]
+          #
+          def configure
+            yield @config if block_given?
+            @config
+          end
 
           ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
@@ -66,50 +82,37 @@ module Google
           #   `GRPC::Core::CallCredentials` object.
           #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
           #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scope [String, Array<String>]
-          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-          #   an updater_proc is supplied.
-          # @param timeout [Numeric]
-          #   The default timeout, in seconds, for calls made through this client.
-          # @param metadata [Hash]
-          #   Default metadata to be sent with each request. This can be overridden on a
-          #   per call basis.
           #
-          def initialize \
-              credentials: nil,
-              scope: nil,
-              timeout: DEFAULT_TIMEOUT,
-              metadata: nil,
-              lib_name: nil,
-              lib_version: nil
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          def initialize credentials: nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/identity_services_pb"
 
-            credentials ||= Credentials.default scope: scope
+            # Create the configuration object
+            @config = Configuration.new Client.configure
+
+            # Yield the configuration if needed
+            yield @config if block_given?
+
+            # Create credentials
+            credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
-              credentials = Credentials.new credentials, scope: scope
+              credentials = Credentials.new credentials, scope: @config.scope
             end
 
 
             @identity_stub = Google::Gax::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Identity::Stub,
-              host:         self.class::SERVICE_ADDRESS,
-              port:         self.class::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: self.class::GRPC_INTERCEPTORS
+              host:         @config.host,
+              port:         @config.port,
+              interceptors: @config.interceptors
             )
-
-            @timeout = timeout
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -151,8 +154,21 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.rpcs.create_user.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            options.apply_defaults timeout:      @config.rpcs.create_user.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.create_user.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
 
@@ -196,12 +212,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.get_user.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_user.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_user.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
 
@@ -248,12 +279,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.update_user.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "user.name" => request.user.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.update_user.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.update_user.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
 
@@ -297,12 +343,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.delete_user.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_user.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_user.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
 
@@ -351,14 +412,83 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.rpcs.list_users.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            options.apply_defaults timeout:      @config.rpcs.list_users.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_users.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_users ||= Google::Gax::ApiCall.new @identity_stub.method :list_users
 
             wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_users, request, response, options }
 
             @list_users.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+          end
+
+          class Configuration
+            extend Google::Gax::Config
+
+            config_attr :host,         "localhost", String
+            config_attr :port,         7469, Integer
+            config_attr :scope,        nil,                                   String, Array, nil
+            config_attr :lib_name,     nil,                                   String, nil
+            config_attr :lib_version,  nil,                                   String, nil
+            config_attr :interceptors, [],                                    Array
+            config_attr :timeout,      nil,                                   Numeric, nil
+            config_attr :metadata,     nil,                                   Hash, nil
+            config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+            def initialize parent_config = nil
+              @parent_config = parent_config unless parent_config.nil?
+
+              yield self if block_given?
+            end
+
+            def rpcs
+              @rpcs ||= begin
+                parent_rpcs = nil
+                parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                Rpcs.new parent_rpcs
+              end
+            end
+
+            class Rpcs
+              attr_reader :create_user
+              attr_reader :get_user
+              attr_reader :update_user
+              attr_reader :delete_user
+              attr_reader :list_users
+
+              def initialize parent_rpcs = nil
+                create_user_config = nil
+                create_user_config = parent_rpcs&.create_user if parent_rpcs&.respond_to? :create_user
+                @create_user = Google::Gax::Config::Method.new create_user_config
+                get_user_config = nil
+                get_user_config = parent_rpcs&.get_user if parent_rpcs&.respond_to? :get_user
+                @get_user = Google::Gax::Config::Method.new get_user_config
+                update_user_config = nil
+                update_user_config = parent_rpcs&.update_user if parent_rpcs&.respond_to? :update_user
+                @update_user = Google::Gax::Config::Method.new update_user_config
+                delete_user_config = nil
+                delete_user_config = parent_rpcs&.delete_user if parent_rpcs&.respond_to? :delete_user
+                @delete_user = Google::Gax::Config::Method.new delete_user_config
+                list_users_config = nil
+                list_users_config = parent_rpcs&.list_users if parent_rpcs&.respond_to? :list_users
+                @list_users = Google::Gax::Config::Method.new list_users_config
+
+                yield self if block_given?
+              end
+            end
           end
         end
       end

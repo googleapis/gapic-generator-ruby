@@ -39,6 +39,37 @@ module Google
           attr_reader :operations_stub
 
           ##
+          # Configuration for the Echo Operations API.
+          #
+          # @yield [config] Configure the Operations client.
+          # @yieldparam config [Operations::Configuration]
+          #
+          # @return [Operations::Configuration]
+          #
+          def self.configure
+            @configure ||= Operations::Configuration.new
+            yield @configure if block_given?
+            @configure
+          end
+
+          ##
+          # Configure the Echo Operations instance.
+          #
+          # The configuration is set to the derived mode, meaning that values can be changed,
+          # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+          # should be made on {Operations.configure}.
+          #
+          # @yield [config] Configure the Operations client.
+          # @yieldparam config [Operations::Configuration]
+          #
+          # @return [Operations::Configuration]
+          #
+          def configure
+            yield @config if block_given?
+            @config
+          end
+
+          ##
           # @param credentials [Google::Auth::Credentials, String, Hash,
           #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
           #   Provides the means for authenticating requests made by the client. This
@@ -55,49 +86,36 @@ module Google
           #   `GRPC::Core::CallCredentials` object.
           #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
           #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scope [String, Array<String>]
-          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-          #   an updater_proc is supplied.
-          # @param timeout [Numeric]
-          #   The default timeout, in seconds, for calls made through this client.
-          # @param metadata [Hash]
-          #   Default metadata to be sent with each request. This can be overridden on a
-          #   per call basis.
           #
-          def initialize \
-              credentials:  nil,
-              scope:        Client::ALL_SCOPES,
-              timeout:      Client::DEFAULT_TIMEOUT,
-              metadata:     nil,
-              lib_name:     nil,
-              lib_version:  nil
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Operations::Configuration]
+          #
+          def initialize credentials: nil, config: nil
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/longrunning/operations_services_pb"
 
-            credentials ||= Credentials.default scope: scope
+            # Create the configuration object
+            @config = Configuration.new Operations.configure
+
+            # Yield the configuration if needed
+            yield @config if block_given?
+
+            # Create credentials
+            credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
-              credentials = Credentials.new credentials, scope: scope
+              credentials = Credentials.new credentials, scope: @config.scope
             end
 
             @operations_stub = Google::Gax::Grpc::Stub.new(
               Google::Longrunning::Operations::Stub,
-              host:         Client::SERVICE_ADDRESS,
-              port:         Client::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: Client::GRPC_INTERCEPTORS
+              host:         @config.host,
+              port:         @config.port,
+              interceptors: @config.interceptors
             )
-
-            @timeout = timeout
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -153,12 +171,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.list_operations.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_operations.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
 
@@ -209,12 +242,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.get_operation.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_operation.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
 
@@ -266,12 +314,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.delete_operation.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_operation.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
 
@@ -333,16 +396,83 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.cancel_operation.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.cancel_operation.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
 
             @cancel_operation.call request, options: options, operation_callback: block
+          end
+
+          class Configuration
+            extend Google::Gax::Config
+
+            config_attr :host,         "localhost", String
+            config_attr :port,         443, Integer
+            config_attr :scope,        nil,                                   String, Array, nil
+            config_attr :lib_name,     nil,                                   String, nil
+            config_attr :lib_version,  nil,                                   String, nil
+            config_attr :interceptors, [],                                    Array
+            config_attr :timeout,      nil,                                   Numeric, nil
+            config_attr :metadata,     nil,                                   Hash, nil
+            config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+            def initialize parent_config = nil
+              @parent_config = parent_config unless parent_config.nil?
+
+              yield self if block_given?
+            end
+
+            def rpcs
+              @rpcs ||= begin
+                parent_rpcs = nil
+                parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                Rpcs.new parent_rpcs
+              end
+            end
+
+            class Rpcs
+              attr_reader :list_operations
+              attr_reader :get_operation
+              attr_reader :delete_operation
+              attr_reader :cancel_operation
+
+              def initialize parent_rpcs = nil
+                list_operations_config = nil
+                list_operations_config = parent_rpcs&.list_operations if parent_rpcs&.respond_to? :list_operations
+                @list_operations = Google::Gax::Config::Method.new list_operations_config
+                get_operation_config = nil
+                get_operation_config = parent_rpcs&.get_operation if parent_rpcs&.respond_to? :get_operation
+                @get_operation = Google::Gax::Config::Method.new get_operation_config
+                delete_operation_config = nil
+                delete_operation_config = parent_rpcs&.delete_operation if parent_rpcs&.respond_to? :delete_operation
+                @delete_operation = Google::Gax::Config::Method.new delete_operation_config
+                cancel_operation_config = nil
+                cancel_operation_config = parent_rpcs&.cancel_operation if parent_rpcs&.respond_to? :cancel_operation
+                @cancel_operation = Google::Gax::Config::Method.new cancel_operation_config
+
+                yield self if block_given?
+              end
+            end
           end
         end
       end
