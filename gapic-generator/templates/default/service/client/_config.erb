@@ -1,7 +1,7 @@
 <%- assert_locals service -%>
 <%- method_service ||= service  -%>
 Google::Gax::Configuration.new do |config|
-  default_scope = Google::Gax::Configuration.deferred do
+  default_scope = Google::Gax::Configuration::DeferredValue.new do
     <%= service.credentials_name %>::SCOPE
   end
   config.add_field! :host,         <%= service.client_address.inspect %>, match: [String]

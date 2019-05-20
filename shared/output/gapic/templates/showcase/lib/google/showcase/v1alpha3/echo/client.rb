@@ -43,7 +43,7 @@ module Google
           #
           def self.configure
             @configure ||= Google::Gax::Configuration.new do |config|
-              default_scope = Google::Gax::Configuration.deferred do
+              default_scope = Google::Gax::Configuration::DeferredValue.new do
                 Credentials::SCOPE
               end
               config.add_field! :host,         "localhost", match: [String]
