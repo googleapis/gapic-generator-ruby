@@ -16,6 +16,7 @@
 
 require "test_helper"
 require "google/showcase/v1alpha3/echo"
+require "grpc"
 
 class WaitTest < ShowcaseTest
   def test_wait
@@ -23,7 +24,7 @@ class WaitTest < ShowcaseTest
       credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     )
 
-    operation = client.wait ttl: { nanos: 50000 }, success: { content: "hi there!" }
+    operation = client.wait ttl: { nanos: 500000 }, success: { content: "hi there!" }
 
     refute operation.done?
     operation.wait_until_done!
@@ -38,7 +39,7 @@ class WaitTest < ShowcaseTest
       credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     )
 
-    operation = client.wait ttl: { nanos: 50000 }, error: Google::Rpc::Status.new(message: "nope")
+    operation = client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
 
     refute operation.done?
     operation.wait_until_done!
