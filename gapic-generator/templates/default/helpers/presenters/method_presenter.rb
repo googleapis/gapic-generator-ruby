@@ -61,7 +61,7 @@ class MethodPresenter
       .join
   end
 
-  def doc_response_types
+  def doc_response_type
     ret = return_type
     ret = "Google::Gax::Operation" if lro?
     if server_streaming?
