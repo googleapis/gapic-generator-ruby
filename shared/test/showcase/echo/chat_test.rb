@@ -16,6 +16,7 @@
 
 require "test_helper"
 require "google/showcase/v1alpha3/echo"
+require "grpc"
 
 class ChatTest < ShowcaseTest
   def test_closure

@@ -16,6 +16,7 @@
 
 require "test_helper"
 require "google/showcase/v1alpha3/echo"
+require "grpc"
 
 class PagedExpandTest < ShowcaseTest
   def test_paged_expand
