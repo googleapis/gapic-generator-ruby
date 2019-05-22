@@ -20,9 +20,9 @@ require "grpc"
 
 class PagedExpandTest < ShowcaseTest
   def test_paged_expand
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
+    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    end
 
     request_content = "The quick brown fox jumps over the lazy dog"
 
@@ -36,9 +36,9 @@ class PagedExpandTest < ShowcaseTest
   end
 
   def test_page_size
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
+    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    end
 
     request_content = "The quick brown fox jumps over the lazy dog"
 

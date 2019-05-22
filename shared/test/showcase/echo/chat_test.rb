@@ -20,9 +20,9 @@ require "grpc"
 
 class ChatTest < ShowcaseTest
   def test_closure
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
+    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    end
 
     pull_count = 0
 
@@ -61,9 +61,9 @@ class ChatTest < ShowcaseTest
   end
 
   def test_enumerator
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
+    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    end
 
     pull_count = 0
 

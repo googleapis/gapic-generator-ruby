@@ -66,27 +66,12 @@ module Google
           end
 
           ##
-          # @param credentials [Google::Auth::Credentials, String, Hash,
-          #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
-          #   Provides the means for authenticating requests made by the client. This
-          #   parameter can be many types.
-          #   A `Google::Auth::Credentials` uses a the properties of its represented
-          #   keyfile for authenticating requests made by this client.
-          #   A `String` will be treated as the path to the keyfile to be used for the
-          #   construction of credentials for this client.
-          #   A `Hash` will be treated as the contents of a keyfile to be used for the
-          #   construction of credentials for this client.
-          #   A `GRPC::Core::Channel` will be used to make calls through.
-          #   A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The
-          #   channel credentials should already be composed with a
-          #   `GRPC::Core::CallCredentials` object.
-          #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
-          #   transforms the metadata for requests, generally, to give OAuth credentials.
+          # Create a new Client client object.
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
           #
-          def initialize credentials: nil
+          def initialize
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
@@ -100,6 +85,7 @@ module Google
             yield @config if block_given?
 
             # Create credentials
+            credentials = @config.credentials
             credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -440,6 +426,11 @@ module Google
 
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
+            config_attr :credentials,  nil do |value|
+              allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials]
+              allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
+              allowed.any? { |klass| klass === value }
+            end
             config_attr :scope,        nil,                                   String, Array, nil
             config_attr :lib_name,     nil,                                   String, nil
             config_attr :lib_version,  nil,                                   String, nil
