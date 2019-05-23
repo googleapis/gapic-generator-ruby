@@ -494,7 +494,7 @@ module Google
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
             config_attr :credentials,  nil do |value|
-              allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials]
+              allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
               allowed.any? { |klass| klass === value }
             end
