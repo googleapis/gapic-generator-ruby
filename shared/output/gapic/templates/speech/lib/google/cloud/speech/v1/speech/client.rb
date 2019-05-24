@@ -23,6 +23,8 @@
 # THE SOFTWARE.
 
 require "google/gax"
+require "google/gax/config"
+require "google/gax/config/method"
 
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
@@ -39,92 +41,74 @@ module Google
             # @private
             attr_reader :speech_stub
 
-            # The default address of the service.
-            SERVICE_ADDRESS = "speech.googleapis.com"
-
-            # The default port of the service.
-            DEFAULT_SERVICE_PORT = 443
-
-            # rubocop:disable Style/MutableConstant
-
-            # The default set of gRPC interceptors.
-            GRPC_INTERCEPTORS = []
-
-            # rubocop:enable Style/MutableConstant
-
-            DEFAULT_TIMEOUT = 30
-
-
+            ##
+            # Configuration for the Speech Client API.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def self.configure
+              @configure ||= Client::Configuration.new
+              yield @configure if block_given?
+              @configure
+            end
 
             ##
-            # @param credentials [Google::Auth::Credentials, String, Hash,
-            #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
-            #   Provides the means for authenticating requests made by the client. This
-            #   parameter can be many types.
-            #   A `Google::Auth::Credentials` uses a the properties of its represented
-            #   keyfile for authenticating requests made by this client.
-            #   A `String` will be treated as the path to the keyfile to be used for the
-            #   construction of credentials for this client.
-            #   A `Hash` will be treated as the contents of a keyfile to be used for the
-            #   construction of credentials for this client.
-            #   A `GRPC::Core::Channel` will be used to make calls through.
-            #   A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The
-            #   channel credentials should already be composed with a
-            #   `GRPC::Core::CallCredentials` object.
-            #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
-            #   transforms the metadata for requests, generally, to give OAuth credentials.
-            # @param scope [String, Array<String>]
-            #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-            #   an updater_proc is supplied.
-            # @param timeout [Numeric]
-            #   The default timeout, in seconds, for calls made through this client.
-            # @param metadata [Hash]
-            #   Default metadata to be sent with each request. This can be overridden on a
-            #   per call basis.
+            # Configure the Speech Client instance.
             #
-            def initialize \
-                credentials: nil,
-                scope: nil,
-                timeout: DEFAULT_TIMEOUT,
-                metadata: nil,
-                lib_name: nil,
-                lib_version: nil
+            # The configuration is set to the derived mode, meaning that values can be changed,
+            # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+            # should be made on {Client.configure}.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            # @return [Client::Configuration]
+            #
+            def configure
+              yield @config if block_given?
+              @config
+            end
+
+            ##
+            # Create a new Client client object.
+            #
+            # @yield [config] Configure the Client client.
+            # @yieldparam config [Client::Configuration]
+            #
+            def initialize
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
               require "google/gax/grpc"
               require "google/cloud/speech/v1/cloud_speech_services_pb"
 
-              credentials ||= Credentials.default scope: scope
+              # Create the configuration object
+              @config = Configuration.new Client.configure
+
+              # Yield the configuration if needed
+              yield @config if block_given?
+
+              # Create credentials
+              credentials = @config.credentials
+              credentials ||= Credentials.default scope: @config.scope
               if credentials.is_a?(String) || credentials.is_a?(Hash)
-                credentials = Credentials.new credentials, scope: scope
+                credentials = Credentials.new credentials, scope: @config.scope
               end
 
-              @operations_client = Operations.new(
-                credentials: credentials,
-                scope:       scope,
-                timeout:     timeout,
-                metadata:    metadata,
-                lib_name:    lib_name,
-                lib_version: lib_version
-              )
+              @operations_client = Operations.new do |config|
+                config.credentials = credentials
+              end
 
               @speech_stub = Google::Gax::Grpc::Stub.new(
                 Google::Cloud::Speech::V1::Speech::Stub,
-                host:         self.class::SERVICE_ADDRESS,
-                port:         self.class::DEFAULT_SERVICE_PORT,
                 credentials:  credentials,
-                interceptors: self.class::GRPC_INTERCEPTORS
+                host:         @config.host,
+                port:         @config.port,
+                interceptors: @config.interceptors
               )
-
-              @timeout = timeout
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              @metadata = metadata.to_h
-              @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
             end
 
             # Service calls
@@ -171,8 +155,21 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
-              metadata = @metadata.dup
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.rpcs.recognize.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.recognize.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
 
@@ -225,8 +222,21 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
-              metadata = @metadata.dup
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.rpcs.long_running_recognize.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.long_running_recognize.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @long_running_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :long_running_recognize
 
@@ -273,11 +283,77 @@ module Google
               options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
-              metadata = @metadata.dup
-              options.apply_defaults timeout: @timeout, metadata: metadata
+              metadata = @config.rpcs.streaming_recognize.metadata.to_h
+
+              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+              x_goog_api_client_header << "gapic/#{Google::Cloud::Speech::VERSION}"
+              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+              options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.streaming_recognize.retry_policy
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize
               @streaming_recognize.call requests, options: options, stream_callback: block
+            end
+
+            class Configuration
+              extend Google::Gax::Config
+
+              config_attr :host,         "speech.googleapis.com", String
+              config_attr :port,         443, Integer
+              config_attr :credentials,  nil do |value|
+                allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, nil]
+                allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
+                allowed.any? { |klass| klass === value }
+              end
+              config_attr :scope,        nil,                                   String, Array, nil
+              config_attr :lib_name,     nil,                                   String, nil
+              config_attr :lib_version,  nil,                                   String, nil
+              config_attr :interceptors, [],                                    Array
+              config_attr :timeout,      nil,                                   Numeric, nil
+              config_attr :metadata,     nil,                                   Hash, nil
+              config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+              def initialize parent_config = nil
+                @parent_config = parent_config unless parent_config.nil?
+
+                yield self if block_given?
+              end
+
+              def rpcs
+                @rpcs ||= begin
+                  parent_rpcs = nil
+                  parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                  Rpcs.new parent_rpcs
+                end
+              end
+
+              class Rpcs
+                attr_reader :recognize
+                attr_reader :long_running_recognize
+                attr_reader :streaming_recognize
+
+                def initialize parent_rpcs = nil
+                  recognize_config = nil
+                  recognize_config = parent_rpcs&.recognize if parent_rpcs&.respond_to? :recognize
+                  @recognize = Google::Gax::Config::Method.new recognize_config
+                  long_running_recognize_config = nil
+                  long_running_recognize_config = parent_rpcs&.long_running_recognize if parent_rpcs&.respond_to? :long_running_recognize
+                  @long_running_recognize = Google::Gax::Config::Method.new long_running_recognize_config
+                  streaming_recognize_config = nil
+                  streaming_recognize_config = parent_rpcs&.streaming_recognize if parent_rpcs&.respond_to? :streaming_recognize
+                  @streaming_recognize = Google::Gax::Config::Method.new streaming_recognize_config
+
+                  yield self if block_given?
+                end
+              end
             end
           end
         end

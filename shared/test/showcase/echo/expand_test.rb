@@ -16,12 +16,13 @@
 
 require "test_helper"
 require "google/showcase/v1alpha3/echo"
+require "grpc"
 
 class ExpandTest < ShowcaseTest
   def test_expand
-    client = Google::Showcase::V1alpha3::Echo::Client.new(
-      credentials: GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    )
+    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    end
 
     request_content = "The quick brown fox jumps over the lazy dog"
     responses = Queue.new

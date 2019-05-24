@@ -23,6 +23,8 @@
 # THE SOFTWARE.
 
 require "google/gax"
+require "google/gax/config"
+require "google/gax/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/messaging_pb"
@@ -41,92 +43,74 @@ module Google
           # @private
           attr_reader :messaging_stub
 
-          # The default address of the service.
-          SERVICE_ADDRESS = "localhost"
-
-          # The default port of the service.
-          DEFAULT_SERVICE_PORT = 7469
-
-          # rubocop:disable Style/MutableConstant
-
-          # The default set of gRPC interceptors.
-          GRPC_INTERCEPTORS = []
-
-          # rubocop:enable Style/MutableConstant
-
-          DEFAULT_TIMEOUT = 30
-
-
+          ##
+          # Configuration for the Messaging Client API.
+          #
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          # @return [Client::Configuration]
+          #
+          def self.configure
+            @configure ||= Client::Configuration.new
+            yield @configure if block_given?
+            @configure
+          end
 
           ##
-          # @param credentials [Google::Auth::Credentials, String, Hash,
-          #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials, Proc]
-          #   Provides the means for authenticating requests made by the client. This
-          #   parameter can be many types.
-          #   A `Google::Auth::Credentials` uses a the properties of its represented
-          #   keyfile for authenticating requests made by this client.
-          #   A `String` will be treated as the path to the keyfile to be used for the
-          #   construction of credentials for this client.
-          #   A `Hash` will be treated as the contents of a keyfile to be used for the
-          #   construction of credentials for this client.
-          #   A `GRPC::Core::Channel` will be used to make calls through.
-          #   A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The
-          #   channel credentials should already be composed with a
-          #   `GRPC::Core::CallCredentials` object.
-          #   A `Proc` will be used as an updater_proc for the Grpc channel. The proc
-          #   transforms the metadata for requests, generally, to give OAuth credentials.
-          # @param scope [String, Array<String>]
-          #   The OAuth scope (or scopes) for this service. This parameter is ignored if
-          #   an updater_proc is supplied.
-          # @param timeout [Numeric]
-          #   The default timeout, in seconds, for calls made through this client.
-          # @param metadata [Hash]
-          #   Default metadata to be sent with each request. This can be overridden on a
-          #   per call basis.
+          # Configure the Messaging Client instance.
           #
-          def initialize \
-              credentials: nil,
-              scope: nil,
-              timeout: DEFAULT_TIMEOUT,
-              metadata: nil,
-              lib_name: nil,
-              lib_version: nil
+          # The configuration is set to the derived mode, meaning that values can be changed,
+          # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+          # should be made on {Client.configure}.
+          #
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          # @return [Client::Configuration]
+          #
+          def configure
+            yield @config if block_given?
+            @config
+          end
+
+          ##
+          # Create a new Client client object.
+          #
+          # @yield [config] Configure the Client client.
+          # @yieldparam config [Client::Configuration]
+          #
+          def initialize
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
             require "google/gax/grpc"
             require "google/showcase/v1alpha3/messaging_services_pb"
 
-            credentials ||= Credentials.default scope: scope
+            # Create the configuration object
+            @config = Configuration.new Client.configure
+
+            # Yield the configuration if needed
+            yield @config if block_given?
+
+            # Create credentials
+            credentials = @config.credentials
+            credentials ||= Credentials.default scope: @config.scope
             if credentials.is_a?(String) || credentials.is_a?(Hash)
-              credentials = Credentials.new credentials, scope: scope
+              credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @operations_client = Operations.new(
-              credentials: credentials,
-              scope:       scope,
-              timeout:     timeout,
-              metadata:    metadata,
-              lib_name:    lib_name,
-              lib_version: lib_version
-            )
+            @operations_client = Operations.new do |config|
+              config.credentials = credentials
+            end
 
             @messaging_stub = Google::Gax::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Messaging::Stub,
-              host:         self.class::SERVICE_ADDRESS,
-              port:         self.class::DEFAULT_SERVICE_PORT,
               credentials:  credentials,
-              interceptors: self.class::GRPC_INTERCEPTORS
+              host:         @config.host,
+              port:         @config.port,
+              interceptors: @config.interceptors
             )
-
-            @timeout = timeout
-            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-            x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
-            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
-            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-            @metadata = metadata.to_h
-            @metadata["x-goog-api-client"] ||= x_goog_api_client_header.join " "
           end
 
           # Service calls
@@ -168,8 +152,21 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.rpcs.create_room.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.create_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
 
@@ -213,12 +210,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.get_room.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
 
@@ -265,12 +277,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.update_room.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "room.name" => request.room.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.update_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.update_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
 
@@ -314,12 +341,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.delete_room.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_room.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_room.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
 
@@ -368,8 +410,21 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.rpcs.list_rooms.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_rooms.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_rooms ||= Google::Gax::ApiCall.new @messaging_stub.method :list_rooms
 
@@ -422,12 +477,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.create_blurb.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "parent" => request.parent
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.create_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.create_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
 
@@ -471,12 +541,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.get_blurb.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.get_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
 
@@ -523,12 +608,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.update_blurb.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "blurb.name" => request.blurb.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.update_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.update_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
 
@@ -572,12 +672,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.delete_blurb.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.delete_blurb.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.delete_blurb.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
 
@@ -631,12 +746,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.list_blurbs.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "parent" => request.parent
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.list_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.list_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @list_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :list_blurbs
 
@@ -699,12 +829,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.search_blurbs.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "parent" => request.parent
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.search_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.search_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
 
@@ -757,12 +902,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.stream_blurbs.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "name" => request.name
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.stream_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
             @stream_blurbs.call request, options: options, stream_callback: block
@@ -805,12 +965,27 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
+            metadata = @config.rpcs.send_blurbs.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
             header_params = {
               "parent" => request.parent
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata = @metadata.merge "x-goog-request-params" => request_params_header
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata[:"x-goog-request-params"] ||= request_params_header
+
+            options.apply_defaults timeout:      @config.rpcs.send_blurbs.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.send_blurbs.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
             @send_blurbs.call requests, options: options, operation_callback: block
@@ -856,11 +1031,121 @@ module Google
             options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @metadata.dup
-            options.apply_defaults timeout: @timeout, metadata: metadata
+            metadata = @config.rpcs.connect.metadata.to_h
+
+            x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+            x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+            x_goog_api_client_header << "gapic/#{Google::Showcase::VERSION}"
+            x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+            x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+            metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+
+            options.apply_defaults timeout:      @config.rpcs.connect.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.connect.retry_policy
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
             @connect.call requests, options: options, stream_callback: block
+          end
+
+          class Configuration
+            extend Google::Gax::Config
+
+            config_attr :host,         "localhost", String
+            config_attr :port,         7469, Integer
+            config_attr :credentials,  nil do |value|
+              allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, nil]
+              allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
+              allowed.any? { |klass| klass === value }
+            end
+            config_attr :scope,        nil,                                   String, Array, nil
+            config_attr :lib_name,     nil,                                   String, nil
+            config_attr :lib_version,  nil,                                   String, nil
+            config_attr :interceptors, [],                                    Array
+            config_attr :timeout,      nil,                                   Numeric, nil
+            config_attr :metadata,     nil,                                   Hash, nil
+            config_attr :retry_policy, nil,                                   Hash, Proc, nil
+
+            def initialize parent_config = nil
+              @parent_config = parent_config unless parent_config.nil?
+
+              yield self if block_given?
+            end
+
+            def rpcs
+              @rpcs ||= begin
+                parent_rpcs = nil
+                parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
+                Rpcs.new parent_rpcs
+              end
+            end
+
+            class Rpcs
+              attr_reader :create_room
+              attr_reader :get_room
+              attr_reader :update_room
+              attr_reader :delete_room
+              attr_reader :list_rooms
+              attr_reader :create_blurb
+              attr_reader :get_blurb
+              attr_reader :update_blurb
+              attr_reader :delete_blurb
+              attr_reader :list_blurbs
+              attr_reader :search_blurbs
+              attr_reader :stream_blurbs
+              attr_reader :send_blurbs
+              attr_reader :connect
+
+              def initialize parent_rpcs = nil
+                create_room_config = nil
+                create_room_config = parent_rpcs&.create_room if parent_rpcs&.respond_to? :create_room
+                @create_room = Google::Gax::Config::Method.new create_room_config
+                get_room_config = nil
+                get_room_config = parent_rpcs&.get_room if parent_rpcs&.respond_to? :get_room
+                @get_room = Google::Gax::Config::Method.new get_room_config
+                update_room_config = nil
+                update_room_config = parent_rpcs&.update_room if parent_rpcs&.respond_to? :update_room
+                @update_room = Google::Gax::Config::Method.new update_room_config
+                delete_room_config = nil
+                delete_room_config = parent_rpcs&.delete_room if parent_rpcs&.respond_to? :delete_room
+                @delete_room = Google::Gax::Config::Method.new delete_room_config
+                list_rooms_config = nil
+                list_rooms_config = parent_rpcs&.list_rooms if parent_rpcs&.respond_to? :list_rooms
+                @list_rooms = Google::Gax::Config::Method.new list_rooms_config
+                create_blurb_config = nil
+                create_blurb_config = parent_rpcs&.create_blurb if parent_rpcs&.respond_to? :create_blurb
+                @create_blurb = Google::Gax::Config::Method.new create_blurb_config
+                get_blurb_config = nil
+                get_blurb_config = parent_rpcs&.get_blurb if parent_rpcs&.respond_to? :get_blurb
+                @get_blurb = Google::Gax::Config::Method.new get_blurb_config
+                update_blurb_config = nil
+                update_blurb_config = parent_rpcs&.update_blurb if parent_rpcs&.respond_to? :update_blurb
+                @update_blurb = Google::Gax::Config::Method.new update_blurb_config
+                delete_blurb_config = nil
+                delete_blurb_config = parent_rpcs&.delete_blurb if parent_rpcs&.respond_to? :delete_blurb
+                @delete_blurb = Google::Gax::Config::Method.new delete_blurb_config
+                list_blurbs_config = nil
+                list_blurbs_config = parent_rpcs&.list_blurbs if parent_rpcs&.respond_to? :list_blurbs
+                @list_blurbs = Google::Gax::Config::Method.new list_blurbs_config
+                search_blurbs_config = nil
+                search_blurbs_config = parent_rpcs&.search_blurbs if parent_rpcs&.respond_to? :search_blurbs
+                @search_blurbs = Google::Gax::Config::Method.new search_blurbs_config
+                stream_blurbs_config = nil
+                stream_blurbs_config = parent_rpcs&.stream_blurbs if parent_rpcs&.respond_to? :stream_blurbs
+                @stream_blurbs = Google::Gax::Config::Method.new stream_blurbs_config
+                send_blurbs_config = nil
+                send_blurbs_config = parent_rpcs&.send_blurbs if parent_rpcs&.respond_to? :send_blurbs
+                @send_blurbs = Google::Gax::Config::Method.new send_blurbs_config
+                connect_config = nil
+                connect_config = parent_rpcs&.connect if parent_rpcs&.respond_to? :connect
+                @connect = Google::Gax::Config::Method.new connect_config
+
+                yield self if block_given?
+              end
+            end
           end
         end
       end

@@ -3,15 +3,28 @@
 options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
 # Customize the options with defaults
+metadata = @config.rpcs.<%= method.name %>.metadata.to_h
+
+x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
+x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
+x_goog_api_client_header << "gapic/#{<%= method.service.gem.version_name_full %>}"
+x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
+x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
+metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join(" ")
 <%- if method.routing_params? -%>
+
 header_params = {
 <%- method.routing_params.each do |rp| -%>
   "<%= rp %>" => request.<%= rp %>,
 <%- end -%>
 }
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-metadata = @metadata.merge "x-goog-request-params".freeze => request_params_header
-<%- else -%>
-metadata = @metadata.dup
+metadata[:"x-goog-request-params"] ||= request_params_header
 <%- end -%>
-options.apply_defaults timeout: @timeout, metadata: metadata
+
+options.apply_defaults timeout: @config.rpcs.<%= method.name %>.timeout,
+                       metadata: metadata,
+                       retry_policy: @config.rpcs.<%= method.name %>.retry_policy
+options.apply_defaults timeout: @config.timeout,
+                       metadata: @config.metadata,
+                       retry_policy: @config.retry_policy
