@@ -5,38 +5,38 @@ require "google/gax/operation"
 
 require "<%= service.gem.version_require %>"
 require "<%= service.client_require %>"
-require "<%= service.lro_service.service_proto_require %>"
+require "<%= service.lro_service.proto_service_require %>"
 <% end %>
 # Service that implements Longrunning Operations API.
-class Operations
+class <%= service.operations_name %>
   # @private
   attr_reader :<%= service.lro_service.stub_name %>
 
   ##
   # Configuration for the <%= service.name %> Operations API.
   #
-  # @yield [config] Configure the Operations client.
-  # @yieldparam config [Operations::Configuration]
+  # @yield [config] Configure the <%= service.operations_name %> client.
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
   #
-  # @return [Operations::Configuration]
+  # @return [<%= service.operations_name %>::Configuration]
   #
   def self.configure
-    @configure ||= Operations::Configuration.new
+    @configure ||= <%= service.operations_name %>::Configuration.new
     yield @configure if block_given?
     @configure
   end
 
   ##
-  # Configure the <%= service.name %> Operations instance.
+  # Configure the <%= service.name %> <%= service.operations_name %> instance.
   #
   # The configuration is set to the derived mode, meaning that values can be changed,
   # but structural changes (adding new fields, etc.) are not allowed. Structural changes
-  # should be made on {Operations.configure}.
+  # should be made on {<%= service.operations_name %>.configure}.
   #
-  # @yield [config] Configure the Operations client.
-  # @yieldparam config [Operations::Configuration]
+  # @yield [config] Configure the <%= service.operations_name %> client.
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
   #
-  # @return [Operations::Configuration]
+  # @return [<%= service.operations_name %>::Configuration]
   #
   def configure
     yield @config if block_given?
@@ -44,20 +44,20 @@ class Operations
   end
 
   ##
-  # Create a new Operations client object.
+  # Create a new <%= service.operations_name %> client object.
   #
   # @yield [config] Configure the <%= service.client_name %> client.
-  # @yieldparam config [Operations::Configuration]
+  # @yieldparam config [<%= service.operations_name %>::Configuration]
   #
   def initialize
     # These require statements are intentionally placed here to initialize
     # the gRPC module only when it's required.
     # See https://github.com/googleapis/toolkit/issues/446
     require "google/gax/grpc"
-    require "<%= service.lro_service.services_proto_require %>"
+    require "<%= service.lro_service.proto_services_require %>"
 
     # Create the configuration object
-    @config = Configuration.new Operations.configure
+    @config = Configuration.new <%= service.operations_name %>.configure
 
     # Yield the configuration if needed
     yield @config if block_given?
@@ -70,7 +70,7 @@ class Operations
     end
 
     @<%= service.lro_service.stub_name %> = Google::Gax::Grpc::Stub.new(
-      <%= service.lro_service.services_stub_name_full %>,
+      <%= service.lro_service.proto_service_stub_name_full %>,
       credentials:  credentials,
       host:         @config.host,
       port:         @config.port,
