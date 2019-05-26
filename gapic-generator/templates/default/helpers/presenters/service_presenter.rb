@@ -46,6 +46,11 @@ class ServicePresenter
     @service.address
   end
 
+  def namespace
+    return @service.ruby_package if @service.ruby_package.present?
+    ruby_namespace @service.address[0...-1]
+  end
+
   def version
     ActiveSupport::Inflector.camelize @service.address[-2]
   end
@@ -55,7 +60,7 @@ class ServicePresenter
   end
 
   def proto_service_name_full
-    ruby_namespace @service.address
+    "#{namespace}::#{name}"
   end
 
   def proto_service_file_path
@@ -95,7 +100,7 @@ class ServicePresenter
   end
 
   def service_file_path
-    ruby_file_path @service
+    service_require + ".rb"
   end
 
   def service_file_name
@@ -103,7 +108,7 @@ class ServicePresenter
   end
 
   def service_require
-    service_file_path.sub ".rb", ""
+    proto_service_name_full.underscore
   end
 
   def client_name
@@ -115,13 +120,15 @@ class ServicePresenter
   end
 
   def client_require
-    class_namespace = @service.address.dup
-    class_namespace.push client_name
-    class_namespace.map(&:underscore).join "/"
+    client_name_full.underscore
   end
 
   def client_file_path
     client_require + ".rb"
+  end
+
+  def client_file_name
+    client_file_path.split("/").last
   end
 
   def client_address
@@ -159,9 +166,7 @@ class ServicePresenter
   end
 
   def credentials_require
-    credentials_namespace = @service.address.dup
-    credentials_namespace.push credentials_name
-    credentials_namespace.map(&:underscore).join "/"
+    credentials_name_full.underscore
   end
 
   def helpers_file_path
@@ -173,9 +178,7 @@ class ServicePresenter
   end
 
   def helpers_require
-    helpers_namespace = @service.address.dup
-    helpers_namespace.push "helpers"
-    helpers_namespace.map(&:underscore).join "/"
+    "#{proto_service_name_full}::Helpers".underscore
   end
 
   def references
@@ -208,9 +211,7 @@ class ServicePresenter
   end
 
   def paths_require
-    helpers_namespace = @service.address.dup
-    helpers_namespace.push paths_name
-    helpers_namespace.map(&:underscore).join "/"
+    "#{proto_service_name_full}::#{paths_name}".underscore
   end
 
   def test_client_file_path
@@ -250,9 +251,7 @@ class ServicePresenter
   end
 
   def operations_require
-    operations_namespace = @service.address.dup
-    operations_namespace.push operations_name
-    operations_namespace.map(&:underscore).join "/"
+    "#{proto_service_name_full}::#{operations_name}".underscore
   end
 
   def lro_service

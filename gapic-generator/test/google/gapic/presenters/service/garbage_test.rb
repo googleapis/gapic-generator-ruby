@@ -40,7 +40,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_proto_service_name_full
-    assert_equal "Endless::Trash::Forever::GarbageService", presenter.proto_service_name_full
+    assert_equal "So::Much::Trash::GarbageService", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
@@ -68,7 +68,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Endless::Trash::Forever::GarbageService::Stub", presenter.proto_service_stub_name_full
+    assert_equal "So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -76,11 +76,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Endless::Trash::Forever::GarbageService::Credentials", presenter.credentials_name_full
+    assert_equal "So::Much::Trash::GarbageService::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
-    assert_equal "endless/trash/forever/garbage_service/credentials.rb", presenter.credentials_file_path
+    assert_equal "so/much/trash/garbage_service/credentials.rb", presenter.credentials_file_path
   end
 
   def test_credentials_file_name
@@ -88,7 +88,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_credentials_require
-    assert_equal "endless/trash/forever/garbage_service/credentials", presenter.credentials_require
+    assert_equal "so/much/trash/garbage_service/credentials", presenter.credentials_require
   end
 
   def test_operations_name
@@ -96,11 +96,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Endless::Trash::Forever::GarbageService::Operations", presenter.operations_name_full
+    assert_equal "So::Much::Trash::GarbageService::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
-    assert_equal "endless/trash/forever/garbage_service/operations.rb", presenter.operations_file_path
+    assert_equal "so/much/trash/garbage_service/operations.rb", presenter.operations_file_path
   end
 
   def test_operations_file_name
@@ -108,11 +108,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_operations_require
-    assert_equal "endless/trash/forever/garbage_service/operations", presenter.operations_require
+    assert_equal "so/much/trash/garbage_service/operations", presenter.operations_require
   end
 
   def test_helpers_file_path
-    assert_equal "endless/trash/forever/garbage_service/helpers.rb", presenter.helpers_file_path
+    assert_equal "so/much/trash/garbage_service/helpers.rb", presenter.helpers_file_path
   end
 
   def test_helpers_file_name
@@ -120,11 +120,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_helpers_require
-    assert_equal "endless/trash/forever/garbage_service/helpers", presenter.helpers_require
+    assert_equal "so/much/trash/garbage_service/helpers", presenter.helpers_require
   end
 
   def test_test_client_file_path
-    assert_equal "endless/trash/forever/garbage_service_test.rb", presenter.test_client_file_path
+    assert_equal "so/much/trash/garbage_service_test.rb", presenter.test_client_file_path
   end
 
   def test_stub_name
@@ -155,11 +155,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Endless::Trash::Forever::GarbageService::Paths", presenter.paths_name_full
+    assert_equal "So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
-    assert_equal "endless/trash/forever/garbage_service/paths.rb", presenter.paths_file_path
+    assert_equal "so/much/trash/garbage_service/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -167,6 +167,6 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "endless/trash/forever/garbage_service/paths", presenter.paths_require
+    assert_equal "so/much/trash/garbage_service/paths", presenter.paths_require
   end
 end

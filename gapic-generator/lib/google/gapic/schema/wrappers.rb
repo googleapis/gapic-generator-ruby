@@ -224,6 +224,13 @@ module Google
           String(options[:".google.api.oauth_scopes"]).split "," if options
         end
 
+        # @return [String] Ruby Package
+        def ruby_package
+          return nil if parent.nil?
+
+          parent.ruby_package
+        end
+
         # @return [Google::Api::Package] Packaging information.
         #   See `google/api/client.proto`.
         def client_package
@@ -357,6 +364,11 @@ module Google
 
         def generate?
           @generate
+        end
+
+        # @return [String] Ruby Package
+        def ruby_package
+          options[:ruby_package] if options
         end
 
         # @return [Google::Api::Package] Packaging information.

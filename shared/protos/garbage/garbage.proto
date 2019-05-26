@@ -9,6 +9,8 @@ import "google/api/resource.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/timestamp.proto";
 
+option ruby_package = "So::Much::Trash";
+
 option (google.api.client_package) = {
   title: "Testing Garbage"
   namespace: ["Endless", "Trash"]
