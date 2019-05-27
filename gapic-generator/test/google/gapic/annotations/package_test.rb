@@ -17,7 +17,7 @@
 require "test_helper"
 
 class AnnotationPackageTest < AnnotationTest
-  def test_garbage
+  def test_garbage_client_package
     garbage = api :garbage
     service = garbage.services.find { |s| s.name == "GarbageService" }
     refute_nil service
@@ -42,5 +42,26 @@ class AnnotationPackageTest < AnnotationTest
     assert_equal "Testing Garbage", service.client_package.title
     assert_equal %w[Endless Trash], service.client_package.namespace
     assert_equal "Forever", service.client_package.version
+  end
+
+  def test_garbage_ruby_package
+    garbage = api :garbage
+    service = garbage.services.find { |s| s.name == "GarbageService" }
+    refute_nil service
+    file = service.parent
+    refute_nil file
+
+    refute_nil file.options
+    assert_kind_of Google::Protobuf::FileOptions, file.options
+    refute_nil file.options[:ruby_package]
+    assert_kind_of String, file.options[:ruby_package]
+    assert_equal "So::Much::Trash", file.options[:ruby_package]
+
+    assert_kind_of String, file.ruby_package
+    assert_equal "So::Much::Trash", file.ruby_package
+
+    # ruby_package is also exposed on the service
+    assert_kind_of String, service.ruby_package
+    assert_equal "So::Much::Trash", service.ruby_package
   end
 end
