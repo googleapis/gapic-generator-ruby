@@ -308,7 +308,7 @@ module Google
               config_attr :host,         "speech.googleapis.com", String
               config_attr :port,         443, Integer
               config_attr :credentials,  nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, nil]
+                allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
