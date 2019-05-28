@@ -25,16 +25,9 @@ class ExpandTest < ShowcaseTest
     end
 
     request_content = "The quick brown fox jumps over the lazy dog"
-    responses = Queue.new
 
-    response_thread = client.expand content: request_content do |response|
-      responses << response
-    end
+    response_enum = client.expand content: request_content
 
-    response_thread.join
-
-    responses_content_array = Array.new(responses.size) { responses.pop.content }
-
-    assert_equal request_content, responses_content_array.join(" ")
+    assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
   end
 end

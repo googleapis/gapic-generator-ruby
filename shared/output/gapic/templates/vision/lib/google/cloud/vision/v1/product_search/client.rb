@@ -152,7 +152,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -193,6 +195,7 @@ module Google
 
               @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
 
+
               @create_product_set.call request, options: options, operation_callback: block
             end
 
@@ -232,7 +235,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -309,7 +314,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -349,6 +356,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
+
 
               @get_product_set.call request, options: options, operation_callback: block
             end
@@ -392,7 +400,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -432,6 +442,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
+
 
               @update_product_set.call request, options: options, operation_callback: block
             end
@@ -473,7 +484,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -513,6 +526,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
+
 
               @delete_product_set.call request, options: options, operation_callback: block
             end
@@ -561,7 +575,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -602,6 +618,7 @@ module Google
 
               @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
 
+
               @create_product.call request, options: options, operation_callback: block
             end
 
@@ -640,7 +657,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -717,7 +736,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -757,6 +778,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
+
 
               @get_product.call request, options: options, operation_callback: block
             end
@@ -816,7 +838,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::Product]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -856,6 +880,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
+
 
               @update_product.call request, options: options, operation_callback: block
             end
@@ -899,7 +924,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -939,6 +966,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
+
 
               @delete_product.call request, options: options, operation_callback: block
             end
@@ -1010,7 +1038,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1050,6 +1080,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
+
 
               @create_reference_image.call request, options: options, operation_callback: block
             end
@@ -1098,7 +1129,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1138,6 +1171,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
+
 
               @delete_reference_image.call request, options: options, operation_callback: block
             end
@@ -1184,7 +1218,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1262,7 +1298,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1302,6 +1340,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
+
 
               @get_reference_image.call request, options: options, operation_callback: block
             end
@@ -1348,7 +1387,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1389,6 +1430,7 @@ module Google
 
               @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
 
+
               @add_product_to_product_set.call request, options: options, operation_callback: block
             end
 
@@ -1428,7 +1470,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Protobuf::Empty]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1468,6 +1512,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
+
 
               @remove_product_from_product_set.call request, options: options, operation_callback: block
             end
@@ -1511,7 +1556,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -1601,7 +1648,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #

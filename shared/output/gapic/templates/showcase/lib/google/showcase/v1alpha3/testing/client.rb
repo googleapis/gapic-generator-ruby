@@ -133,7 +133,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -168,6 +170,7 @@ module Google
 
             @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
 
+
             @create_session.call request, options: options, operation_callback: block
           end
 
@@ -191,7 +194,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Session]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -232,6 +237,7 @@ module Google
 
             @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
 
+
             @get_session.call request, options: options, operation_callback: block
           end
 
@@ -257,7 +263,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -317,7 +325,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -358,6 +368,7 @@ module Google
 
             @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
 
+
             @delete_session.call request, options: options, operation_callback: block
           end
 
@@ -385,7 +396,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::ReportSessionResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -426,6 +439,7 @@ module Google
 
             @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
 
+
             @report_session.call request, options: options, operation_callback: block
           end
 
@@ -453,7 +467,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -529,7 +545,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -570,6 +588,7 @@ module Google
 
             @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
 
+
             @delete_test.call request, options: options, operation_callback: block
           end
 
@@ -603,7 +622,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::VerifyTestResponse]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -643,6 +664,7 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
+
 
             @verify_test.call request, options: options, operation_callback: block
           end

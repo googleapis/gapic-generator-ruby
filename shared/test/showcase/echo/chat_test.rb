@@ -19,48 +19,7 @@ require "google/showcase/v1alpha3/echo"
 require "grpc"
 
 class ChatTest < ShowcaseTest
-  def test_closure
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
-
-    pull_count = 0
-
-    stream_input = Google::Gax::StreamInput.new
-
-    client.chat stream_input do |response|
-      puts "PULL #{response.content}"
-      pull_count += 1
-
-      sleep rand
-
-      msg, count = response.content.split ":"
-      count = count.to_i
-      count += 1
-      puts "PUSH #{msg}:#{count}"
-      stream_input.push content: "#{msg}:#{count}"
-    end
-
-    Thread.new do
-      10.times do |n|
-        puts "PUSH hello #{n}:1"
-        stream_input.push content: "hello #{n}:1"
-        sleep rand
-      end
-    end
-
-    25.times do
-      break if pull_count >= 20
-
-      sleep 1
-    end
-
-    stream_input.close
-
-    assert pull_count >= 20, "should have pulled 20 messages by now"
-  end
-
-  def test_enumerator
+  def test_chat
     client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     end

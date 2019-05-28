@@ -138,7 +138,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Speech::V1::RecognizeResponse]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -173,6 +175,7 @@ module Google
 
               @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
 
+
               @recognize.call request, options: options, operation_callback: block
             end
 
@@ -205,7 +208,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -249,34 +254,33 @@ module Google
             # Performs bidirectional streaming speech recognition: receive results while
             # sending audio. This method is only available via the gRPC API (not REST).
             #
-            # @param requests [Google::Gax::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
+            # @param request [Google::Gax::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc.
             #
-            # @yield [response] Called on each streaming responses, when provided.
-            # @yieldparam response [Google::Cloud::Speech::V1::StreamingRecognizeResponse]
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse, Thread>]
-            #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeResponse} instances when a block is not provided.
-            #   When a block is provided a thread running the block for every streamed response is returned.
+            # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
             #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
             #
             # @example
             #   TODO
             #
-            def streaming_recognize requests, options: nil, &block
-              unless requests.is_a? Enumerable
-                if requests.respond_to? :to_enum
-                  requests = requests.to_enum
+            def streaming_recognize request, options: nil, &block
+              unless request.is_a? Enumerable
+                if request.respond_to? :to_enum
+                  request = request.to_enum
                 else
-                  raise ArgumentError, "requests must be an Enumerable"
+                  raise ArgumentError, "request must be an Enumerable"
                 end
               end
 
-              requests = requests.lazy.map do |request|
-                Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::StreamingRecognizeRequest
+              request = request.lazy.map do |req|
+                Google::Gax::Protobuf.coerce req, to: Google::Cloud::Speech::V1::StreamingRecognizeRequest
               end
 
               # Converts hash and nil to an options object
@@ -300,7 +304,9 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize
-              @streaming_recognize.call requests, options: options, stream_callback: block
+
+
+              @streaming_recognize.call request, options: options, operation_callback: block
             end
 
             class Configuration

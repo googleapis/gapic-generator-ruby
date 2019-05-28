@@ -125,7 +125,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -160,6 +162,7 @@ module Google
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
 
+
               @batch_annotate_images.call request, options: options, operation_callback: block
             end
 
@@ -193,7 +196,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
