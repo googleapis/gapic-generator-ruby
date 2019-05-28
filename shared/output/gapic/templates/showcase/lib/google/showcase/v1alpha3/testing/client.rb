@@ -105,6 +105,7 @@ module Google
               credentials:  credentials,
               host:         @config.host,
               port:         @config.port,
+              channel_args: @config.channel_args,
               interceptors: @config.interceptors
             )
           end
@@ -682,7 +683,8 @@ module Google
             config_attr :scope,        nil,                                   String, Array, nil
             config_attr :lib_name,     nil,                                   String, nil
             config_attr :lib_version,  nil,                                   String, nil
-            config_attr :interceptors, [],                                    Array
+            config_attr :channel_args, nil,                                   Hash, nil
+            config_attr :interceptors, nil,                                   Array, nil
             config_attr :timeout,      nil,                                   Numeric, nil
             config_attr :metadata,     nil,                                   Hash, nil
             config_attr :retry_policy, nil,                                   Hash, Proc, nil
