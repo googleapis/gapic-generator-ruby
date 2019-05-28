@@ -107,6 +107,7 @@ module Google
                 credentials:  credentials,
                 host:         @config.host,
                 port:         @config.port,
+                channel_args: @config.channel_args,
                 interceptors: @config.interceptors
               )
             end
@@ -133,7 +134,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -168,6 +171,7 @@ module Google
 
               @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
 
+
               @batch_annotate_images.call request, options: options, operation_callback: block
             end
 
@@ -201,7 +205,9 @@ module Google
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
             # @return [Google::Gax::Operation]
+            #
             # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            #
             # @example
             #   TODO
             #
@@ -254,7 +260,8 @@ module Google
               config_attr :scope,        nil,                                   String, Array, nil
               config_attr :lib_name,     nil,                                   String, nil
               config_attr :lib_version,  nil,                                   String, nil
-              config_attr :interceptors, [],                                    Array
+              config_attr :channel_args, nil,                                   Hash, nil
+              config_attr :interceptors, nil,                                   Array, nil
               config_attr :timeout,      nil,                                   Numeric, nil
               config_attr :metadata,     nil,                                   Hash, nil
               config_attr :retry_policy, nil,                                   Hash, Proc, nil

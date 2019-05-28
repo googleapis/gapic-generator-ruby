@@ -61,6 +61,19 @@ class MethodPresenter
       .join
   end
 
+  def doc_response_type
+    ret = return_type
+    ret = "Google::Gax::Operation" if lro?
+    if server_streaming?
+      ret = "Enumerable<#{ret}>"
+    elsif paged?
+      paged_type = paged_response_type
+      paged_type = "Google::Gax::Operation" if paged_type == "Google::Longrunning::Operation"
+      ret = "Google::Gax::PagedEnumerable<#{paged_type}>"
+    end
+    ret
+  end
+
   def arguments
     arguments = @method.input.fields.reject(&:output_only?)
     arguments.map { |arg| FieldPresenter.new @method.input, arg }
@@ -129,6 +142,7 @@ class MethodPresenter
   end
 
   def paged?
+    return false if server_streaming? # Cannot page a streaming response
     paged_request?(@method.input) && paged_response?(@method.output)
   end
 

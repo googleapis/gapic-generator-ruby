@@ -1,0 +1,12 @@
+<%- assert_locals method -%>
+unless request.is_a? Enumerable
+  if request.respond_to? :to_enum
+    request = request.to_enum
+  else
+    raise ArgumentError, "request must be an Enumerable"
+  end
+end
+
+request = request.lazy.map do |req|
+  Google::Gax::Protobuf.coerce req, to: <%= method.request_type %>
+end

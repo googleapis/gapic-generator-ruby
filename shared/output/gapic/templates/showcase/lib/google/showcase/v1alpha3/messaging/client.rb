@@ -109,6 +109,7 @@ module Google
               credentials:  credentials,
               host:         @config.host,
               port:         @config.port,
+              channel_args: @config.channel_args,
               interceptors: @config.interceptors
             )
           end
@@ -135,7 +136,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -170,6 +173,7 @@ module Google
 
             @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
 
+
             @create_room.call request, options: options, operation_callback: block
           end
 
@@ -193,7 +197,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -234,6 +240,7 @@ module Google
 
             @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
 
+
             @get_room.call request, options: options, operation_callback: block
           end
 
@@ -260,7 +267,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Room]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -301,6 +310,7 @@ module Google
 
             @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
 
+
             @update_room.call request, options: options, operation_callback: block
           end
 
@@ -324,7 +334,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -365,6 +377,7 @@ module Google
 
             @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
 
+
             @delete_room.call request, options: options, operation_callback: block
           end
 
@@ -393,7 +406,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -460,7 +475,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -501,6 +518,7 @@ module Google
 
             @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
 
+
             @create_blurb.call request, options: options, operation_callback: block
           end
 
@@ -524,7 +542,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -565,6 +585,7 @@ module Google
 
             @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
 
+
             @get_blurb.call request, options: options, operation_callback: block
           end
 
@@ -591,7 +612,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -632,6 +655,7 @@ module Google
 
             @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
 
+
             @update_blurb.call request, options: options, operation_callback: block
           end
 
@@ -655,7 +679,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -696,6 +722,7 @@ module Google
 
             @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
 
+
             @delete_blurb.call request, options: options, operation_callback: block
           end
 
@@ -729,7 +756,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -812,7 +841,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::Operation]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -877,12 +908,11 @@ module Google
           #   @param options [Google::Gax::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
@@ -925,14 +955,16 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
-            @stream_blurbs.call request, options: options, stream_callback: block
+
+
+            @stream_blurbs.call request, options: options, operation_callback: block
           end
 
           ##
           # This is a stream to create multiple blurbs. If an invalid blurb is
           # requested to be created, the stream will close with an error.
           #
-          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
+          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
@@ -948,17 +980,17 @@ module Google
           # @example
           #   TODO
           #
-          def send_blurbs requests, options: nil, &block
-            unless requests.is_a? Enumerable
-              if requests.respond_to? :to_enum
-                requests = requests.to_enum
+          def send_blurbs request, options: nil, &block
+            unless request.is_a? Enumerable
+              if request.respond_to? :to_enum
+                request = request.to_enum
               else
-                raise ArgumentError, "requests must be an Enumerable"
+                raise ArgumentError, "request must be an Enumerable"
               end
             end
 
-            requests = requests.lazy.map do |request|
-              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateBlurbRequest
+            request = request.lazy.map do |req|
+              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::CreateBlurbRequest
             end
 
             # Converts hash and nil to an options object
@@ -988,7 +1020,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
-            @send_blurbs.call requests, options: options, operation_callback: block
+
+
+            @send_blurbs.call request, options: options, operation_callback: block
           end
 
           ##
@@ -997,34 +1031,33 @@ module Google
           # blurbs. If an invalid blurb is requested to be created, the stream will
           # close with an error.
           #
-          # @param requests [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
+          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
-          # @yield [response] Called on each streaming responses, when provided.
-          # @yieldparam response [Google::Showcase::V1alpha3::StreamBlurbsResponse]
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse, Thread>]
-          #   An enumerable of {Google::Showcase::V1alpha3::StreamBlurbsResponse} instances when a block is not provided.
-          #   When a block is provided a thread running the block for every streamed response is returned.
+          # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
           #
           # @example
           #   TODO
           #
-          def connect requests, options: nil, &block
-            unless requests.is_a? Enumerable
-              if requests.respond_to? :to_enum
-                requests = requests.to_enum
+          def connect request, options: nil, &block
+            unless request.is_a? Enumerable
+              if request.respond_to? :to_enum
+                request = request.to_enum
               else
-                raise ArgumentError, "requests must be an Enumerable"
+                raise ArgumentError, "request must be an Enumerable"
               end
             end
 
-            requests = requests.lazy.map do |request|
-              Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ConnectRequest
+            request = request.lazy.map do |req|
+              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::ConnectRequest
             end
 
             # Converts hash and nil to an options object
@@ -1048,7 +1081,9 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
-            @connect.call requests, options: options, stream_callback: block
+
+
+            @connect.call request, options: options, operation_callback: block
           end
 
           class Configuration
@@ -1064,7 +1099,8 @@ module Google
             config_attr :scope,        nil,                                   String, Array, nil
             config_attr :lib_name,     nil,                                   String, nil
             config_attr :lib_version,  nil,                                   String, nil
-            config_attr :interceptors, [],                                    Array
+            config_attr :channel_args, nil,                                   Hash, nil
+            config_attr :interceptors, nil,                                   Array, nil
             config_attr :timeout,      nil,                                   Numeric, nil
             config_attr :metadata,     nil,                                   Hash, nil
             config_attr :retry_policy, nil,                                   Hash, Proc, nil

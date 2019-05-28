@@ -97,6 +97,7 @@ module Google
               credentials:  credentials,
               host:         @config.host,
               port:         @config.port,
+              channel_args: @config.channel_args,
               interceptors: @config.interceptors
             )
           end
@@ -123,7 +124,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -158,6 +161,7 @@ module Google
 
             @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
 
+
             @create_user.call request, options: options, operation_callback: block
           end
 
@@ -181,7 +185,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -222,6 +228,7 @@ module Google
 
             @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
 
+
             @get_user.call request, options: options, operation_callback: block
           end
 
@@ -248,7 +255,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Showcase::V1alpha3::User]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -289,6 +298,7 @@ module Google
 
             @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
 
+
             @update_user.call request, options: options, operation_callback: block
           end
 
@@ -312,7 +322,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Protobuf::Empty]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -353,6 +365,7 @@ module Google
 
             @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
 
+
             @delete_user.call request, options: options, operation_callback: block
           end
 
@@ -381,7 +394,9 @@ module Google
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
           # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
+          #
           # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          #
           # @example
           #   TODO
           #
@@ -434,7 +449,8 @@ module Google
             config_attr :scope,        nil,                                   String, Array, nil
             config_attr :lib_name,     nil,                                   String, nil
             config_attr :lib_version,  nil,                                   String, nil
-            config_attr :interceptors, [],                                    Array
+            config_attr :channel_args, nil,                                   Hash, nil
+            config_attr :interceptors, nil,                                   Array, nil
             config_attr :timeout,      nil,                                   Numeric, nil
             config_attr :metadata,     nil,                                   Hash, nil
             config_attr :retry_policy, nil,                                   Hash, Proc, nil
