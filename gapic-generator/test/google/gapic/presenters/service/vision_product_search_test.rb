@@ -16,7 +16,7 @@
 
 require "test_helper"
 
-class GarbageServiceTest < PresenterTest
+class VisionProductSearchServiceTest < PresenterTest
   def presenter
     service_presenter :vision, "ProductSearch"
   end
