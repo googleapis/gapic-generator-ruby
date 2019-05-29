@@ -180,10 +180,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @create_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product_set
-
-
-              @create_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -257,11 +254,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @list_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :list_product_sets
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, options }
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_product_sets, request, response, options }
-
-              @list_product_sets.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              @product_search_stub.call_rpc :list_product_sets, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -330,10 +325,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @get_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product_set
-
-
-              @get_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -410,10 +402,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @update_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product_set
-
-
-              @update_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :update_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -488,10 +477,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @delete_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product_set
-
-
-              @delete_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -573,10 +559,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @create_product ||= Google::Gax::ApiCall.new @product_search_stub.method :create_product
-
-
-              @create_product.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_product, request, options: options, operation_callback: block
             end
 
             ##
@@ -649,11 +632,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @list_products ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_products, request, response, options }
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_products, request, response, options }
-
-              @list_products.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              @product_search_stub.call_rpc :list_products, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -722,10 +703,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @get_product ||= Google::Gax::ApiCall.new @product_search_stub.method :get_product
-
-
-              @get_product.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_product, request, options: options, operation_callback: block
             end
 
             ##
@@ -818,10 +796,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @update_product ||= Google::Gax::ApiCall.new @product_search_stub.method :update_product
-
-
-              @update_product.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :update_product, request, options: options, operation_callback: block
             end
 
             ##
@@ -898,10 +873,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @delete_product ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_product
-
-
-              @delete_product.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_product, request, options: options, operation_callback: block
             end
 
             ##
@@ -1006,10 +978,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @create_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :create_reference_image
-
-
-              @create_reference_image.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_reference_image, request, options: options, operation_callback: block
             end
 
             ##
@@ -1091,10 +1060,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @delete_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :delete_reference_image
-
-
-              @delete_reference_image.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_reference_image, request, options: options, operation_callback: block
             end
 
             ##
@@ -1174,11 +1140,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @list_reference_images ||= Google::Gax::ApiCall.new @product_search_stub.method :list_reference_images
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, options }
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_reference_images, request, response, options }
-
-              @list_reference_images.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              @product_search_stub.call_rpc :list_reference_images, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -1248,10 +1212,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @get_reference_image ||= Google::Gax::ApiCall.new @product_search_stub.method :get_reference_image
-
-
-              @get_reference_image.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_reference_image, request, options: options, operation_callback: block
             end
 
             ##
@@ -1331,10 +1292,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @add_product_to_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :add_product_to_product_set
-
-
-              @add_product_to_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -1408,10 +1366,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @remove_product_from_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :remove_product_from_product_set
-
-
-              @remove_product_from_product_set.call request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options, operation_callback: block
             end
 
             ##
@@ -1488,11 +1443,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @list_products_in_product_set ||= Google::Gax::ApiCall.new @product_search_stub.method :list_products_in_product_set
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, options }
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_products_in_product_set, request, response, options }
-
-              @list_products_in_product_set.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -1574,11 +1527,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @import_product_sets ||= Google::Gax::ApiCall.new @product_search_stub.method :import_product_sets
-
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-              @import_product_sets.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @product_search_stub.call_rpc :import_product_sets, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             class Configuration

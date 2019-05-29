@@ -153,10 +153,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @create_user ||= Google::Gax::ApiCall.new @identity_stub.method :create_user
-
-
-            @create_user.call request, options: options, operation_callback: block
+            @identity_stub.call_rpc :create_user, request, options: options, operation_callback: block
           end
 
           ##
@@ -214,10 +211,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @get_user ||= Google::Gax::ApiCall.new @identity_stub.method :get_user
-
-
-            @get_user.call request, options: options, operation_callback: block
+            @identity_stub.call_rpc :get_user, request, options: options, operation_callback: block
           end
 
           ##
@@ -278,10 +272,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @update_user ||= Google::Gax::ApiCall.new @identity_stub.method :update_user
-
-
-            @update_user.call request, options: options, operation_callback: block
+            @identity_stub.call_rpc :update_user, request, options: options, operation_callback: block
           end
 
           ##
@@ -339,10 +330,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @delete_user ||= Google::Gax::ApiCall.new @identity_stub.method :delete_user
-
-
-            @delete_user.call request, options: options, operation_callback: block
+            @identity_stub.call_rpc :delete_user, request, options: options, operation_callback: block
           end
 
           ##
@@ -399,11 +387,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @list_users ||= Google::Gax::ApiCall.new @identity_stub.method :list_users
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @identity_stub, :list_users, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_users, request, response, options }
-
-            @list_users.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @identity_stub.call_rpc :list_users, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           class Configuration

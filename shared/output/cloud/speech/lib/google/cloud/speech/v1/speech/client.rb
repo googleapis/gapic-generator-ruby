@@ -160,10 +160,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @recognize ||= Google::Gax::ApiCall.new @speech_stub.method :recognize
-
-
-              @recognize.call request, options: options, operation_callback: block
+              @speech_stub.call_rpc :recognize, request, options: options, operation_callback: block
             end
 
             ##
@@ -224,11 +221,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @long_running_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :long_running_recognize
-
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-              @long_running_recognize.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @speech_stub.call_rpc :long_running_recognize, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             ##
@@ -284,10 +279,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @streaming_recognize ||= Google::Gax::ApiCall.new @speech_stub.method :streaming_recognize
-
-
-              @streaming_recognize.call request, options: options, operation_callback: block
+              @speech_stub.call_rpc :streaming_recognize, request, options: options, operation_callback: block
             end
 
             class Configuration
