@@ -20,6 +20,7 @@ task :gen do
   Rake::Task["gen:vision"].invoke
   Rake::Task["gen:showcase"].invoke
   Rake::Task["gen:garbage"].invoke
+  Rake::Task["gen:googleads"].invoke
 end
 namespace :gen do
   desc "Generate the binary input files for speech"
@@ -60,6 +61,14 @@ namespace :gen do
       "garbage/garbage.proto"
     ]
     generate_input_file "garbage", garbage_protos
+  end
+
+  desc "Generate the binary input files for Google Ads"
+  task :googleads do
+    googleads_protos = [
+      "google/ads/googleads/v1/services/campaign_service.proto"
+    ]
+    generate_input_file "googleads", googleads_protos
   end
 end
 
