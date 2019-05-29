@@ -16,7 +16,7 @@
 
 require "test_helper"
 
-class GarbageServiceTest < PresenterTest
+class VisionImageAnnotatorServiceTest < PresenterTest
   def presenter
     service_presenter :vision, "ImageAnnotator"
   end

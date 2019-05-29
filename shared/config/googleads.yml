@@ -1,0 +1,7 @@
+:gem:
+  :name: "google-ads-googleads"
+:defaults:
+  :service:
+    :default_host: "ads.googleapis.com"
+    :oauth_scopes:
+      - https://www.googleapis.com/auth/adwords
