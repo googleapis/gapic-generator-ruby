@@ -22,8 +22,8 @@ describe "<%= method.name %>" do
     # Mock auth layer
     mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
-    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
-      <%= method.service.credentials_full %>.stub :default, mock_credentials do
+    <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
@@ -46,8 +46,8 @@ describe "<%= method.name %>" do
     # Mock auth layer
     mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
 
-    <%= method.service.services_stub_name_full %>.stub :new, mock_stub do
-      <%= method.service.credentials_full %>.stub :default, mock_credentials do
+    <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
+      <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
         client = <%= method.service.client_name_full %>.new
 
         # Call method

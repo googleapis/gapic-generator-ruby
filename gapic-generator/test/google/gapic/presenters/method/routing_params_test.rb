@@ -15,20 +15,8 @@
 # limitations under the License.
 
 require "test_helper"
-require_relative "../../../../../templates/default/helpers/filepath_helper"
-require_relative "../../../../../templates/default/helpers/namespace_helper"
-require_relative "../../../../../templates/default/helpers/presenters/method_presenter"
 
 class MethodPresenterRoutingParamsTest < PresenterTest
-  def method_presenter api_name, service_name, method_name
-    api_obj = api api_name
-    service = api_obj.services.find { |s| s.name == service_name }
-    refute_nil service
-    method = service.methods.find { |s| s.name == method_name }
-    refute_nil method
-    MethodPresenter.new method
-  end
-
   def test_showcase_CreateRoom
     presenter = method_presenter :showcase, "Messaging", "CreateRoom"
 

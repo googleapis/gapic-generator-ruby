@@ -5,7 +5,7 @@ require "google/gax/config"
 require "google/gax/config/method"
 
 require "<%= service.gem.version_require %>"
-require "<%= service.service_proto_require %>"
+require "<%= service.proto_service_require %>"
 require "<%= service.credentials_require %>"
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
@@ -65,7 +65,7 @@ class <%= service.client_name %>
     # the gRPC module only when it's required.
     # See https://github.com/googleapis/toolkit/issues/446
     require "google/gax/grpc"
-    require "<%= service.services_proto_require %>"
+    require "<%= service.proto_services_require %>"
 
     # Create the configuration object
     @config = Configuration.new <%= service.client_name %>.configure
@@ -81,13 +81,13 @@ class <%= service.client_name %>
     end
 
     <%- if service.lro? -%>
-    <%= service.lro_client_ivar %> = Operations.new do |config|
+    <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
       config.credentials = credentials
     end
     <%- end -%>
 
     @<%= service.stub_name %> = Google::Gax::Grpc::Stub.new(
-      <%= service.services_stub_name_full %>,
+      <%= service.proto_service_stub_name_full %>,
       credentials:  credentials,
       host:         @config.host,
       port:         @config.port,

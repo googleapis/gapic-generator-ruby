@@ -46,6 +46,11 @@ class ServicePresenter
     @service.address
   end
 
+  def namespace
+    return @service.ruby_package if @service.ruby_package.present?
+    ruby_namespace @service.address[0...-1]
+  end
+
   def version
     ActiveSupport::Inflector.camelize @service.address[-2]
   end
@@ -54,11 +59,11 @@ class ServicePresenter
     @service.name
   end
 
-  def service_proto_name_full
-    ruby_namespace @service.address
+  def proto_service_name_full
+    "#{namespace}::#{name}"
   end
 
-  def service_proto_file_path
+  def proto_service_file_path
     if @service.parent
       @service.parent.name.sub ".proto", "_pb.rb"
     else
@@ -66,20 +71,15 @@ class ServicePresenter
     end
   end
 
-  def service_proto_file_name
-    service_proto_file_path.split("/").last
+  def proto_service_file_name
+    proto_service_file_path.split("/").last
   end
 
-  def service_proto_require
-    service_proto_file_path.sub ".rb", ""
+  def proto_service_require
+    proto_service_file_path.sub ".rb", ""
   end
 
-
-  def services_proto_name_full
-    ruby_namespace @service.address
-  end
-
-  def services_proto_file_path
+  def proto_services_file_path
     if @service.parent
       @service.parent.name.sub ".proto", "_services_pb.rb"
     else
@@ -87,20 +87,20 @@ class ServicePresenter
     end
   end
 
-  def services_proto_file_name
-    services_proto_file_path.split("/").last
+  def proto_services_file_name
+    proto_services_file_path.split("/").last
   end
 
-  def services_proto_require
-    services_proto_file_path.sub ".rb", ""
+  def proto_services_require
+    proto_services_file_path.sub ".rb", ""
   end
 
-  def services_stub_name_full
-    "#{services_proto_name_full}::Stub"
+  def proto_service_stub_name_full
+    "#{proto_service_name_full}::Stub"
   end
 
   def service_file_path
-    ruby_file_path @service
+    service_require + ".rb"
   end
 
   def service_file_name
@@ -108,11 +108,7 @@ class ServicePresenter
   end
 
   def service_require
-    service_file_path.sub ".rb", ""
-  end
-
-  def client_name_full
-    service_proto_name_full
+    proto_service_name_full.underscore
   end
 
   def client_name
@@ -120,17 +116,19 @@ class ServicePresenter
   end
 
   def client_name_full
-    "#{service_proto_name_full}::#{client_name}"
+    "#{proto_service_name_full}::#{client_name}"
   end
 
   def client_require
-    class_namespace = @service.address.dup
-    class_namespace.push client_name
-    class_namespace.map(&:underscore).join "/"
+    client_name_full.underscore
   end
 
   def client_file_path
     client_require + ".rb"
+  end
+
+  def client_file_name
+    client_file_path.split("/").last
   end
 
   def client_address
@@ -155,28 +153,65 @@ class ServicePresenter
     "Credentials"
   end
 
-  def credentials_full
-    "#{service_proto_name_full}::#{credentials_name}"
-  end
-
-  def credentials_require
-    credentials_namespace = @service.address.dup
-    credentials_namespace.push credentials_name
-    credentials_namespace.map(&:underscore).join "/"
+  def credentials_name_full
+    "#{proto_service_name_full}::#{credentials_name}"
   end
 
   def credentials_file_path
     credentials_require + ".rb"
   end
 
-  def helpers_require
-    helpers_namespace = @service.address.dup
-    helpers_namespace.push "helpers"
-    helpers_namespace.map(&:underscore).join "/"
+  def credentials_file_name
+    "#{credentials_name.underscore}.rb"
+  end
+
+  def credentials_require
+    credentials_name_full.underscore
   end
 
   def helpers_file_path
     helpers_require + ".rb"
+  end
+
+  def helpers_file_name
+    "helpers.rb"
+  end
+
+  def helpers_require
+    "#{proto_service_name_full}::Helpers".underscore
+  end
+
+  def references
+    @references ||= begin
+      m = @service.parent.messages.select { |m| m.fields.select(&:resource).any? }
+      pairs = m.map { |m1| [m1.name, m1.fields.map(&:resource).compact.first.pattern] }
+      pairs.sort_by! { |name, tmplt| name }
+      pairs.map { |name, tmplt| ResourcePresenter.new name, tmplt }
+    end
+  end
+
+  def paths?
+    references.any?
+  end
+
+  def paths_name
+    "Paths"
+  end
+
+  def paths_name_full
+    "#{proto_service_name_full}::#{paths_name}"
+  end
+
+  def paths_file_path
+    paths_require + ".rb"
+  end
+
+  def paths_file_name
+    "#{paths_name.underscore}.rb"
+  end
+
+  def paths_require
+    "#{proto_service_name_full}::#{paths_name}".underscore
   end
 
   def test_client_file_path
@@ -203,47 +238,26 @@ class ServicePresenter
     "Operations"
   end
 
-  def operations_require
-    operations_namespace = @service.address.dup
-    operations_namespace.push operations_name
-    operations_namespace.map(&:underscore).join "/"
+  def operations_name_full
+    "#{proto_service_name_full}::#{operations_name}"
   end
 
   def operations_file_path
     operations_require + ".rb"
   end
 
+  def operations_file_name
+    "#{operations_name.underscore}.rb"
+  end
+
+  def operations_require
+    "#{proto_service_name_full}::#{operations_name}".underscore
+  end
+
   def lro_service
     lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
 
     return ServicePresenter.new lro.services.first unless lro.nil?
-  end
-
-  def references
-    @references ||= begin
-      m = @service.parent.messages.select { |m| m.fields.select(&:resource).any? }
-      pairs = m.map { |m1| [m1.name, m1.fields.map(&:resource).compact.first.pattern] }
-      pairs.sort_by! { |name, tmplt| name }
-      pairs.map { |name, tmplt| ResourcePresenter.new name, tmplt }
-    end
-  end
-
-  def paths?
-    references.any?
-  end
-
-  def paths_name
-    "Paths"
-  end
-
-  def paths_require
-    helpers_namespace = @service.address.dup
-    helpers_namespace.push paths_name
-    helpers_namespace.map(&:underscore).join "/"
-  end
-
-  def paths_file_path
-    paths_require + ".rb"
   end
 
   private
