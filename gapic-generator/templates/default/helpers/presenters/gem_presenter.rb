@@ -33,24 +33,29 @@ class GemPresenter
   def services
     @services ||= begin
       files = @api.generate_files
-      files.map(&:services).flatten.map { |s| ServicePresenter.new s }
+      files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
     end
   end
 
   def proto_files
     @proto_files ||= begin
       files = @api.files.reject { |f| f.messages.empty? && f.enums.empty? }
-      files.map { |f| FilePresenter.new f }
+      files.map { |f| FilePresenter.new @api, f }
     end
   end
 
-  def namespaces
+  def address
     name.split("-").map(&:camelize)
   end
 
   def name
     # TODO: Infer the gem name from all the package strings?
     gem_config :name
+  end
+
+  def namespace
+    gem_config(:namespace) ||
+      name.split("-").map(&:camelize).join("::")
   end
 
   def title
@@ -64,7 +69,7 @@ class GemPresenter
   end
 
   def version_require
-    "#{name.gsub("-", "/")}/version"
+    version_name_full.underscore
   end
 
   def version_file_path
@@ -72,7 +77,7 @@ class GemPresenter
   end
 
   def version_name_full
-    name.split("-").map(&:camelize).join("::") + "::VERSION"
+    "#{namespace}::VERSION"
   end
 
   def authors

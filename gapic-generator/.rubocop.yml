@@ -11,7 +11,8 @@ AllCops:
     - test/google/gapic/presenters/**/*
 
 Metrics/ClassLength:
-  Max: 115
+  Exclude:
+    - lib/google/gapic/schema/loader.rb
 Metrics/BlockLength:
   Exclude:
     - gapic-generator.gemspec

@@ -18,17 +18,25 @@ require_relative "enum_presenter"
 require_relative "message_presenter"
 
 class FilePresenter
+  include NamespaceHelper
+
   # @param file [Google::Gapic::Schema::File] the file to present
-  def initialize file
+  def initialize api, file
+    @api = api
     @file = file
   end
 
-  def namespaces
+  def address
     @file.address
   end
 
+  def namespace
+    return @file.ruby_package if @file.ruby_package.present?
+    ruby_namespace_for_address address
+  end
+
   def messages
-    @messages ||= @file.messages.map { |m| MessagePresenter.new m }
+    @messages ||= @file.messages.map { |m| MessagePresenter.new @api, m }
   end
 
   def enums

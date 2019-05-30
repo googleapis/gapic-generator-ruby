@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Enums
           # Possible ad serving statuses of a campaign.

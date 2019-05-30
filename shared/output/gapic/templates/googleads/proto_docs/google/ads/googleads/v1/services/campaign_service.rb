@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Services
           # Request message for [CampaignService.GetCampaign][google.ads.googleads.v1.services.CampaignService.GetCampaign].
@@ -41,7 +41,7 @@ module Google
           #   @return [String]
           #     The ID of the customer whose campaigns are being modified.
           # @!attribute [rw] operations
-          #   @return [Google::Ads::Googleads::V1::Services::CampaignOperation]
+          #   @return [Google::Ads::GoogleAds::V1::Services::CampaignOperation]
           #     The list of operations to perform on individual campaigns.
           # @!attribute [rw] partial_failure
           #   @return [Boolean]
@@ -63,10 +63,10 @@ module Google
           #   @return [Google::Protobuf::FieldMask]
           #     FieldMask that determines which resource fields are modified in an update.
           # @!attribute [rw] create
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
           #     Create operation: No resource name is expected for the new campaign.
           # @!attribute [rw] update
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
           #     Update operation: The campaign is expected to have a valid
           #     resource name.
           # @!attribute [rw] remove
@@ -88,7 +88,7 @@ module Google
           #     operations. If any errors occur outside the operations (e.g. auth errors),
           #     we return an RPC level error.
           # @!attribute [rw] results
-          #   @return [Google::Ads::Googleads::V1::Services::MutateCampaignResult]
+          #   @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignResult]
           #     All results for the mutate.
           class MutateCampaignsResponse
             include Google::Protobuf::MessageExts

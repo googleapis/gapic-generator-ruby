@@ -19,7 +19,10 @@ require "active_support/inflector"
 require_relative "field_presenter"
 
 class MessagePresenter
-  def initialize message
+  include NamespaceHelper
+
+  def initialize api, message
+    @api = api
     @message = message
   end
 
@@ -28,7 +31,7 @@ class MessagePresenter
   end
 
   def doc_types
-    message_ruby_type @message
+    type_name_full
   end
 
   def doc_description
@@ -52,7 +55,7 @@ class MessagePresenter
   end
 
   def fields
-    @fields = @message.fields.map { |f| FieldPresenter.new @message, f }
+    @fields = @message.fields.map { |f| FieldPresenter.new @api, @message, f }
   end
 
   def nested_enums
@@ -60,14 +63,12 @@ class MessagePresenter
   end
 
   def nested_messages
-    @nested_messages ||= @message.nested_messages.map { |m| MessagePresenter.new m }
+    @nested_messages ||= @message.nested_messages.map { |m| MessagePresenter.new @api, m }
   end
 
   protected
 
   def message_ruby_type message
-    message.address.map do |namespace_node|
-      ActiveSupport::Inflector.camelize namespace_node
-    end.join "::"
+    ruby_namespace @api, message.address.join(".")
   end
 end

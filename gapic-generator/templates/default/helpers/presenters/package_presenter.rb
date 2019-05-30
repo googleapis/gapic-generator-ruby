@@ -19,6 +19,8 @@ require_relative "gem_presenter"
 require_relative "service_presenter"
 
 class PackagePresenter
+  include NamespaceHelper
+
   def initialize api, package
     @api = api
     @package = package
@@ -32,19 +34,24 @@ class PackagePresenter
     @package
   end
 
+  def namespace
+    return services.first&.namespace if services.first&.namespace
+    ruby_namespace_for_address address
+  end
+
   def services
     @services ||= begin
       files = @api.generate_files.select { |f| f.package == @package }
-      files.map(&:services).flatten.map { |s| ServicePresenter.new s }
+      files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
     end
   end
 
-  def namespaces
+  def address
     @package.split "."
   end
 
   def version_require
-    namespaces.map(&:underscore).join "/"
+    namespace.underscore
   end
 
   def version_file_path

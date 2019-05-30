@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Enums
           # Container for enum describing the type of event that the cap applies to.

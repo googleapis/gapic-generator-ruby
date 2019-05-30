@@ -77,7 +77,7 @@ class PresenterTest < Minitest::Test
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
-    ServicePresenter.new service
+    ServicePresenter.new api_obj, service
   end
 
   def method_presenter api_name, service_name, method_name
@@ -86,7 +86,7 @@ class PresenterTest < Minitest::Test
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    MethodPresenter.new method
+    MethodPresenter.new api_obj, method
   end
 end
 

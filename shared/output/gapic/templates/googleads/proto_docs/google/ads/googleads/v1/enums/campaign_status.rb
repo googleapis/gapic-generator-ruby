@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Enums
           # Container for enum describing possible statuses of a campaign.

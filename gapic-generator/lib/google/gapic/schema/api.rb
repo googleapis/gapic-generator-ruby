@@ -49,6 +49,21 @@ module Google
           @files.each { |f| f.parent = self }
         end
 
+        def lookup address
+          address = address.join "." if address.is_a? Array
+          @files.each do |f|
+            lookup = f.lookup address
+            return lookup if lookup
+          end
+          nil
+        end
+
+        def file_for address
+          address = address.join "." if address.is_a? Array
+          matching_files = @files.select { |f| f.lookup address }
+          matching_files.first
+        end
+
         def generate_files
           @files.select(&:generate?)
         end

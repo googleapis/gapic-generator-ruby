@@ -334,7 +334,7 @@ module Google
       #   @ return [Enumerable<Service>] The services contained in this file.
       class File < Proto
         extend Forwardable
-        attr_reader :messages, :enums, :services
+        attr_reader :messages, :enums, :services, :registry
 
         # Initializes a message object.
         # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -349,17 +349,23 @@ module Google
         # @param services [Enumerable<Service>] The services of this file.
         # @param generate [Boolean] Whether this file should be generated.
         def initialize descriptor, address, docs, messages, enums, services,
-                       generate
+                       generate, registry
           super descriptor, address, docs
           @messages = messages || []
           @enums = enums || []
           @services = services || []
           @generate = generate
+          @registry = registry
 
           # Apply parent
           @messages.each { |m| m.parent = self }
           @enums.each    { |m| m.parent = self }
           @services.each { |m| m.parent = self }
+        end
+
+        def lookup address
+          address = address.split(".").reject(&:empty?).join(".")
+          @registry[address]
         end
 
         def generate?

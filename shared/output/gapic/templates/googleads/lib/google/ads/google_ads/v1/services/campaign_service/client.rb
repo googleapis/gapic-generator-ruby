@@ -26,13 +26,13 @@ require "google/gax"
 require "google/gax/config"
 require "google/gax/config/method"
 
-require "google/ads/googleads/version"
+require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Services
           module CampaignService
@@ -114,7 +114,7 @@ module Google
               ##
               # Returns the requested campaign in full detail.
               #
-              # @param request [Google::Ads::Googleads::V1::Services::GetCampaignRequest | Hash]
+              # @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
               #   Returns the requested campaign in full detail.
               #
               #   When using a hash, the following fields are supported:
@@ -125,10 +125,10 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @yield [response, operation] Access the result along with the RPC operation
-              # @yieldparam response [Google::Ads::Googleads::V1::Resources::Campaign]
+              # @yieldparam response [Google::Ads::GoogleAds::V1::Resources::Campaign]
               # @yieldparam operation [GRPC::ActiveCall::Operation]
               #
-              # @return [Google::Ads::Googleads::V1::Resources::Campaign]
+              # @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
               #
               # @raise [Google::Gax::GaxError] if the RPC is aborted.
               #
@@ -138,7 +138,7 @@ module Google
               def get_campaign request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
 
-                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::Googleads::V1::Services::GetCampaignRequest
+                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
 
                 # Converts hash and nil to an options object
                 options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -148,7 +148,7 @@ module Google
 
                 x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
                 x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::Googleads::VERSION}"
+                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
                 x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
                 x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
                 metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
@@ -175,14 +175,14 @@ module Google
               ##
               # Creates, updates, or removes campaigns. Operation statuses are returned.
               #
-              # @param request [Google::Ads::Googleads::V1::Services::MutateCampaignsRequest | Hash]
+              # @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
               #   Creates, updates, or removes campaigns. Operation statuses are returned.
               #
               #   When using a hash, the following fields are supported:
               #
               #   * `customer_id` (`String`):
               #     The ID of the customer whose campaigns are being modified.
-              #   * `operations` (`Google::Ads::Googleads::V1::Services::CampaignOperation | Hash`):
+              #   * `operations` (`Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash`):
               #     The list of operations to perform on individual campaigns.
               #   * `partial_failure` (`Boolean`):
               #     If true, successful operations will be carried out and invalid
@@ -196,10 +196,10 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @yield [response, operation] Access the result along with the RPC operation
-              # @yieldparam response [Google::Ads::Googleads::V1::Services::MutateCampaignsResponse]
+              # @yieldparam response [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               # @yieldparam operation [GRPC::ActiveCall::Operation]
               #
-              # @return [Google::Ads::Googleads::V1::Services::MutateCampaignsResponse]
+              # @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               #
               # @raise [Google::Gax::GaxError] if the RPC is aborted.
               #
@@ -209,7 +209,7 @@ module Google
               def mutate_campaigns request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
 
-                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::Googleads::V1::Services::MutateCampaignsRequest
+                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
 
                 # Converts hash and nil to an options object
                 options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
@@ -219,7 +219,7 @@ module Google
 
                 x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
                 x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::Googleads::VERSION}"
+                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
                 x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
                 x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
                 metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "

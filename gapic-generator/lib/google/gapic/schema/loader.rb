@@ -46,6 +46,7 @@ module Google
           # Setup.
           address = file_descriptor.package.split "."
           path = []
+          registry = {}
 
           # Load the docs.
           location = file_descriptor.source_code_info.location
@@ -55,23 +56,23 @@ module Google
 
           # Load top-level enums.
           enums = file_descriptor.enum_type.each_with_index.map do |e, i|
-            load_enum e, address, docs, [5, i]
+            load_enum registry, e, address, docs, [5, i]
           end
 
           # Load top-level messages.
           messages = file_descriptor.message_type.each_with_index.map do |m, i|
-            load_message m, address, docs, [4, i]
+            load_message registry, m, address, docs, [4, i]
           end
           messages.each(&method(:update_fields!))
 
           # Load services.
           services = file_descriptor.service.each_with_index.map do |s, i|
-            load_service s, address, docs, [6, i]
+            load_service registry, s, address, docs, [6, i]
           end
 
           # Construct and return the file.
           File.new file_descriptor, address, docs[path], messages, enums,
-                   services, file_to_generate
+                   services, file_to_generate, registry
         end
 
         # Updates the fields of a message and it's nested messages.
@@ -98,17 +99,18 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [Enum] The loaded enum.
-        def load_enum descriptor, address, docs, path
+        def load_enum registry, descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
 
           # Load Enum Values
           values = descriptor.value.each_with_index.map do |value, i|
-            load_enum_value value, address, docs, path + [2, i]
+            load_enum_value registry, value, address, docs, path + [2, i]
           end
 
           # Construct, cache and return enum.
           enum = Enum.new descriptor, address, docs[path], values
+          registry[address.join(".")] = enum
           @prior_enums << enum
           enum
         end
@@ -124,12 +126,14 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [EnumValue] The loaded enum value.
-        def load_enum_value descriptor, address, docs, path
+        def load_enum_value registry, descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
 
           # Construct and return value.
-          EnumValue.new descriptor, address, docs[path]
+          enum_value = EnumValue.new descriptor, address, docs[path]
+          registry[address.join(".")] = enum_value
+          enum_value
         end
 
         # Loads a message. As a side effect, this alters @messages and @enums
@@ -144,22 +148,22 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [Message] The loaded message.
-        def load_message descriptor, address, docs, path
+        def load_message registry, descriptor, address, docs, path
           # Update Address.
           address = address.clone << descriptor.name
 
           # Load Children
           nested_messages = descriptor.nested_type.each_with_index.map do |m, i|
-            load_message m, address, docs, path + [3, i]
+            load_message registry, m, address, docs, path + [3, i]
           end
           nested_enums = descriptor.enum_type.each_with_index.map do |e, i|
-            load_enum e, address, docs, path + [4, i]
+            load_enum registry, e, address, docs, path + [4, i]
           end
           fields = descriptor.field.each_with_index.map do |f, i|
-            load_field f, address, docs, path + [2, i]
+            load_field registry, f, address, docs, path + [2, i]
           end
           extensions = descriptor.extension.each_with_index.map do |e, i|
-            load_field e, address, docs, path + [6, i]
+            load_field registry, e, address, docs, path + [6, i]
           end
 
           # Construct, cache, and return.
@@ -172,6 +176,7 @@ module Google
             nested_messages,
             nested_enums
           )
+          registry[address.join(".")] = msg
           @prior_messages << msg
           msg
         end
@@ -187,18 +192,20 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [Field] The loaded field.
-        def load_field descriptor, address, docs, path
+        def load_field registry, descriptor, address, docs, path
           # Update address.
           address = address.clone << descriptor.name
 
           # Construct and return the field.
-          Field.new(
+          field = Field.new(
             descriptor,
             address,
             docs[path],
             cached_message(descriptor.type_name),
             cached_enum(descriptor.type_name)
           )
+          registry[address.join(".")] = field
+          field
         end
 
         # Loads a service.
@@ -212,22 +219,24 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [Service] The loaded service.
-        def load_service descriptor, address, docs, path
+        def load_service registry, descriptor, address, docs, path
           # Update the address.
           address = address.clone << descriptor.name
 
           # Load children
           methods = descriptor.method.each_with_index.map do |m, i|
-            load_method m, address, docs, path + [2, i]
+            load_method registry, m, address, docs, path + [2, i]
           end
 
           # Construct and return the service.
-          Service.new(
+          service = Service.new(
             descriptor,
             address,
             docs[path],
             methods
           )
+          registry[address.join(".")] = service
+          service
         end
 
         # Loads a method.
@@ -241,18 +250,20 @@ module Google
         # @param path [Enumerable<Integer>] The current path. This is used to
         #   get the docs for a proto. See Proto#docs for more info.
         # @return [Method] The loaded method.
-        def load_method descriptor, address, docs, path
+        def load_method registry, descriptor, address, docs, path
           # Update the address.
           address = address.clone << descriptor.name
 
           # Construct and return the method.
-          Method.new(
+          method = Method.new(
             descriptor,
             address,
             docs[path],
             cached_message(descriptor.input_type),
             cached_message(descriptor.output_type)
           )
+          registry[address.join(".")] = method
+          method
         end
 
         # Retrieves an Enum if it has been seen before.

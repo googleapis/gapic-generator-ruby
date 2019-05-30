@@ -2,5 +2,5 @@
 <%= render partial: "service/client/operations",
            layout: "layouts/ruby",
            locals: { service: service,
-                     namespaces: service.namespaces }
+                     namespace: service.proto_service_name_full }
 %>

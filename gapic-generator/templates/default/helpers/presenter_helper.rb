@@ -16,29 +16,9 @@
 
 require "active_support/inflector"
 require_relative "presenters/gem_presenter"
-require_relative "presenters/package_presenter"
-require_relative "presenters/service_presenter"
-require_relative "presenters/method_presenter"
-require_relative "presenters/field_presenter"
 
 module PresenterHelper
   def gem_presenter api
     GemPresenter.new api
-  end
-
-  def package_presenter api, package
-    PackagePresenter.new api, package
-  end
-
-  def service_presenter service
-    ServicePresenter.new service
-  end
-
-  def method_presenter method
-    MethodPresenter.new method
-  end
-
-  def field_presenter message, field
-    FieldPresenter.new message, field
   end
 end

@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Enums
           # The text that will be displayed in display URL of the text ad when website

@@ -26,7 +26,7 @@ class MethodPresenterTest < PresenterTest
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    MethodPresenter.new method
+    MethodPresenter.new api_obj, method
   end
 
   def test_garbage_GetSimpleGarbage

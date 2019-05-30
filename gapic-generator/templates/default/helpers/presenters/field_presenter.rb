@@ -19,7 +19,8 @@ require "active_support/inflector"
 class FieldPresenter
   include NamespaceHelper
 
-  def initialize message, field
+  def initialize api, message, field
+    @api = api
     @message = message
     @field = field
   end
@@ -88,14 +89,13 @@ class FieldPresenter
   end
 
   def type_name_full
-    ruby_namespace @field.type_name
+    return nil if type_name.blank?
+    ruby_namespace @api, type_name
   end
 
   protected
 
   def message_ruby_type message
-    message.address.map do |namespace_node|
-      ActiveSupport::Inflector.camelize namespace_node
-    end.join "::"
+    ruby_namespace @api, message.address.join(".")
   end
 end

@@ -24,7 +24,7 @@
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Common
           # Settings for Real-Time Bidding, a feature only available for campaigns
