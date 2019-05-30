@@ -163,10 +163,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @create_session ||= Google::Gax::ApiCall.new @testing_stub.method :create_session
-
-
-            @create_session.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :create_session, request, options: options, operation_callback: block
           end
 
           ##
@@ -224,10 +221,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @get_session ||= Google::Gax::ApiCall.new @testing_stub.method :get_session
-
-
-            @get_session.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :get_session, request, options: options, operation_callback: block
           end
 
           ##
@@ -281,11 +275,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @list_sessions ||= Google::Gax::ApiCall.new @testing_stub.method :list_sessions
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @testing_stub, :list_sessions, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_sessions, request, response, options }
-
-            @list_sessions.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -343,10 +335,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @delete_session ||= Google::Gax::ApiCall.new @testing_stub.method :delete_session
-
-
-            @delete_session.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :delete_session, request, options: options, operation_callback: block
           end
 
           ##
@@ -408,10 +397,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @report_session ||= Google::Gax::ApiCall.new @testing_stub.method :report_session
-
-
-            @report_session.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :report_session, request, options: options, operation_callback: block
           end
 
           ##
@@ -473,11 +459,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @list_tests ||= Google::Gax::ApiCall.new @testing_stub.method :list_tests
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @testing_stub, :list_tests, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_tests, request, response, options }
-
-            @list_tests.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -545,10 +529,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @delete_test ||= Google::Gax::ApiCall.new @testing_stub.method :delete_test
-
-
-            @delete_test.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :delete_test, request, options: options, operation_callback: block
           end
 
           ##
@@ -616,10 +597,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @verify_test ||= Google::Gax::ApiCall.new @testing_stub.method :verify_test
-
-
-            @verify_test.call request, options: options, operation_callback: block
+            @testing_stub.call_rpc :verify_test, request, options: options, operation_callback: block
           end
 
           class Configuration

@@ -156,10 +156,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo ||= Google::Gax::ApiCall.new @echo_stub.method :echo
-
-
-            @echo.call request, options: options, operation_callback: block
+            @echo_stub.call_rpc :echo, request, options: options, operation_callback: block
           end
 
           ##
@@ -215,10 +212,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @expand ||= Google::Gax::ApiCall.new @echo_stub.method :expand
-
-
-            @expand.call request, options: options, operation_callback: block
+            @echo_stub.call_rpc :expand, request, options: options, operation_callback: block
           end
 
           ##
@@ -275,10 +269,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @collect ||= Google::Gax::ApiCall.new @echo_stub.method :collect
-
-
-            @collect.call request, options: options, operation_callback: block
+            @echo_stub.call_rpc :collect, request, options: options, operation_callback: block
           end
 
           ##
@@ -335,10 +326,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @chat ||= Google::Gax::ApiCall.new @echo_stub.method :chat
-
-
-            @chat.call request, options: options, operation_callback: block
+            @echo_stub.call_rpc :chat, request, options: options, operation_callback: block
           end
 
           ##
@@ -396,11 +384,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @paged_expand ||= Google::Gax::ApiCall.new @echo_stub.method :paged_expand
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @echo_stub, :paged_expand, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @paged_expand, request, response, options }
-
-            @paged_expand.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @echo_stub.call_rpc :paged_expand, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -461,11 +447,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @wait ||= Google::Gax::ApiCall.new @echo_stub.method :wait
-
             wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-            @wait.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            @echo_stub.call_rpc :wait, request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
 
           class Configuration

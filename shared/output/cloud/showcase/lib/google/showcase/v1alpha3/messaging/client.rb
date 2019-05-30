@@ -157,10 +157,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @create_room ||= Google::Gax::ApiCall.new @messaging_stub.method :create_room
-
-
-            @create_room.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :create_room, request, options: options, operation_callback: block
           end
 
           ##
@@ -218,10 +215,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @get_room ||= Google::Gax::ApiCall.new @messaging_stub.method :get_room
-
-
-            @get_room.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :get_room, request, options: options, operation_callback: block
           end
 
           ##
@@ -282,10 +276,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @update_room ||= Google::Gax::ApiCall.new @messaging_stub.method :update_room
-
-
-            @update_room.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :update_room, request, options: options, operation_callback: block
           end
 
           ##
@@ -343,10 +334,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @delete_room ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_room
-
-
-            @delete_room.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :delete_room, request, options: options, operation_callback: block
           end
 
           ##
@@ -403,11 +391,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @list_rooms ||= Google::Gax::ApiCall.new @messaging_stub.method :list_rooms
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @messaging_stub, :list_rooms, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_rooms, request, response, options }
-
-            @list_rooms.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @messaging_stub.call_rpc :list_rooms, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -472,10 +458,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @create_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :create_blurb
-
-
-            @create_blurb.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :create_blurb, request, options: options, operation_callback: block
           end
 
           ##
@@ -533,10 +516,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @get_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :get_blurb
-
-
-            @get_blurb.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :get_blurb, request, options: options, operation_callback: block
           end
 
           ##
@@ -597,10 +577,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @update_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :update_blurb
-
-
-            @update_blurb.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :update_blurb, request, options: options, operation_callback: block
           end
 
           ##
@@ -658,10 +635,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @delete_blurb ||= Google::Gax::ApiCall.new @messaging_stub.method :delete_blurb
-
-
-            @delete_blurb.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :delete_blurb, request, options: options, operation_callback: block
           end
 
           ##
@@ -729,11 +703,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @list_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :list_blurbs
+            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @messaging_stub, :list_blurbs, request, response, options }
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_blurbs, request, response, options }
-
-            @list_blurbs.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            @messaging_stub.call_rpc :list_blurbs, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           ##
@@ -808,11 +780,9 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @search_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :search_blurbs
-
             wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-            @search_blurbs.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            @messaging_stub.call_rpc :search_blurbs, request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
 
           ##
@@ -874,10 +844,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @stream_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :stream_blurbs
-
-
-            @stream_blurbs.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :stream_blurbs, request, options: options, operation_callback: block
           end
 
           ##
@@ -939,10 +906,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @send_blurbs ||= Google::Gax::ApiCall.new @messaging_stub.method :send_blurbs
-
-
-            @send_blurbs.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :send_blurbs, request, options: options, operation_callback: block
           end
 
           ##
@@ -1000,10 +964,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @connect ||= Google::Gax::ApiCall.new @messaging_stub.method :connect
-
-
-            @connect.call request, options: options, operation_callback: block
+            @messaging_stub.call_rpc :connect, request, options: options, operation_callback: block
           end
 
           class Configuration

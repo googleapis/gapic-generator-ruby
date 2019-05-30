@@ -155,10 +155,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @batch_annotate_images ||= Google::Gax::ApiCall.new @image_annotator_stub.method :batch_annotate_images
-
-
-              @batch_annotate_images.call request, options: options, operation_callback: block
+              @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options, operation_callback: block
             end
 
             ##
@@ -220,11 +217,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @async_batch_annotate_files ||= Google::Gax::ApiCall.new @image_annotator_stub.method :async_batch_annotate_files
-
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-              @async_batch_annotate_files.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             class Configuration

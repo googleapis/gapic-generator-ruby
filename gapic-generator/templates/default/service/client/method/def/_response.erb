@@ -1,21 +1,19 @@
 <%- assert_locals method -%>
-<%= method.ivar %> ||= Google::Gax::ApiCall.new @<%= method.service.stub_name %>.method :<%= method.name %>
-
 <%- if method.lro? -%>
 wrap_gax_operation = ->(response) { Google::Gax::Operation.new(response, <%= method.service.lro_client_ivar %>) }
 <%- end -%>
 <%- if method.paged? -%>
 <%- if method.lro? -%>
-wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options, format_resource: wrap_gax_operation) }
+wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options, format_resource: wrap_gax_operation) }
 <%- else -%>
-wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(<%= method.ivar %>, request, response, options) }
+wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options) }
 <%- end -%>
 <%- end -%>
 
 <%- if method.paged? -%>
-<%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_paged_enum)
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block, format_response: wrap_paged_enum
 <%- elsif method.lro? -%>
-<%= method.ivar %>.call(request, options: options, operation_callback: block, format_response: wrap_gax_operation)
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block, format_response: wrap_gax_operation
 <%- else -%>
-<%= method.ivar %>.call(request, options: options, operation_callback: block)
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block
 <%- end -%>

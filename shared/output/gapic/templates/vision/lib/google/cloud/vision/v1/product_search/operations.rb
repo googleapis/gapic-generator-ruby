@@ -177,12 +177,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @list_operations ||= Google::Gax::ApiCall.new @operations_stub.method :list_operations
-
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @list_operations, request, response, options, format_resource: wrap_gax_operation }
+              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @operations_stub, :list_operations, request, response, options, format_resource: wrap_gax_operation }
 
-              @list_operations.call request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              @operations_stub.call_rpc :list_operations, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
 
             ##
@@ -244,11 +242,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @get_operation ||= Google::Gax::ApiCall.new @operations_stub.method :get_operation
-
               wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
 
-              @get_operation.call request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @operations_stub.call_rpc :get_operation, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             ##
@@ -312,10 +308,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @delete_operation ||= Google::Gax::ApiCall.new @operations_stub.method :delete_operation
-
-
-              @delete_operation.call request, options: options, operation_callback: block
+              @operations_stub.call_rpc :delete_operation, request, options: options, operation_callback: block
             end
 
             ##
@@ -391,10 +384,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @cancel_operation ||= Google::Gax::ApiCall.new @operations_stub.method :cancel_operation
-
-
-              @cancel_operation.call request, options: options, operation_callback: block
+              @operations_stub.call_rpc :cancel_operation, request, options: options, operation_callback: block
             end
 
             class Configuration

@@ -34,7 +34,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_simple_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_equal "@get_simple_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -43,7 +42,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_specific_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_equal "@get_specific_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -52,7 +50,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_nested_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_equal "@get_nested_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -62,7 +59,6 @@ class MethodPresenterTest < PresenterTest
     assert_equal "get_repeated_garbage", presenter.name
     assert_equal :normal, presenter.kind
     refute presenter.lro?
-    assert_equal "@get_repeated_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -72,7 +68,6 @@ class MethodPresenterTest < PresenterTest
     assert_equal "long_running_garbage", presenter.name
     assert_equal :normal, presenter.kind
     assert presenter.lro?
-    assert_equal "@long_running_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -81,7 +76,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "client_garbage", presenter.name
     assert_equal :client, presenter.kind
-    assert_equal "@client_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -90,7 +84,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "server_garbage", presenter.name
     assert_equal :server, presenter.kind
-    assert_equal "@server_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 
@@ -99,7 +92,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "bidi_garbage", presenter.name
     assert_equal :bidi, presenter.kind
-    assert_equal "@bidi_garbage", presenter.ivar
     assert_nil presenter.doc_description
   end
 end

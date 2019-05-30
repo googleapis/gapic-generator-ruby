@@ -49,10 +49,6 @@ class MethodPresenter
     end
   end
 
-  def ivar
-    "@#{name}"
-  end
-
   def doc_description
     return nil if @method.docs.leading_comments.empty?
 
