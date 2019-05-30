@@ -160,12 +160,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -234,12 +231,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_product_sets.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -305,12 +299,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -382,12 +373,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.update_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "product_set.name" => request.product_set.name
@@ -457,12 +445,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -539,12 +524,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_product.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -612,12 +594,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_products.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -683,12 +662,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_product.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -776,12 +752,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.update_product.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "product.name" => request.product.name
@@ -853,12 +826,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -958,12 +928,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_reference_image.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -1040,12 +1007,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_reference_image.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -1120,12 +1084,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_reference_images.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
@@ -1192,12 +1153,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_reference_image.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -1272,12 +1230,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -1346,12 +1301,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -1423,12 +1375,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "name" => request.name
@@ -1507,12 +1456,9 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.import_product_sets.metadata.to_h
 
-              x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-              x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-              x_goog_api_client_header << "gapic/#{Google::Cloud::Vision::VERSION}"
-              x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-              x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-              metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
 
               header_params = {
                 "parent" => request.parent
