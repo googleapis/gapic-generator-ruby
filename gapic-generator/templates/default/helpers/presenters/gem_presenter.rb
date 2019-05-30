@@ -33,14 +33,14 @@ class GemPresenter
   def services
     @services ||= begin
       files = @api.generate_files
-      files.map(&:services).flatten.map { |s| ServicePresenter.new s }
+      files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
     end
   end
 
   def proto_files
     @proto_files ||= begin
       files = @api.files.reject { |f| f.messages.empty? && f.enums.empty? }
-      files.map { |f| FilePresenter.new f }
+      files.map { |f| FilePresenter.new @api, f }
     end
   end
 

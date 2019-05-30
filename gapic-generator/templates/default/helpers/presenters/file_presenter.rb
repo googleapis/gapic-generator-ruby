@@ -21,7 +21,8 @@ class FilePresenter
   include NamespaceHelper
 
   # @param file [Google::Gapic::Schema::File] the file to present
-  def initialize file
+  def initialize api, file
+    @api = api
     @file = file
   end
 
@@ -35,7 +36,7 @@ class FilePresenter
   end
 
   def messages
-    @messages ||= @file.messages.map { |m| MessagePresenter.new m }
+    @messages ||= @file.messages.map { |m| MessagePresenter.new @api, m }
   end
 
   def enums

@@ -19,7 +19,8 @@ require "active_support/inflector"
 class FieldPresenter
   include NamespaceHelper
 
-  def initialize message, field
+  def initialize api, message, field
+    @api = api
     @message = message
     @field = field
   end

@@ -24,21 +24,26 @@ class ServicePresenter
   include FilepathHelper
   include NamespaceHelper
 
-  def initialize service
+  def initialize api, service
+    @api = api
     @service = service
   end
 
   def gem
-    GemPresenter.new @service.parent.parent
+    GemPresenter.new @api
+  end
+
+  def file
+    FilePresenter.new @api, @service.parent
   end
 
   def package
-    PackagePresenter.new @service.parent.parent, @service.parent.package
+    PackagePresenter.new @api, @service.parent.package
   end
 
   def methods
     @methods ||= begin
-      @service.methods.map { |m| MethodPresenter.new m }
+      @service.methods.map { |m| MethodPresenter.new @api, m }
     end
   end
 
@@ -257,7 +262,7 @@ class ServicePresenter
   def lro_service
     lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
 
-    return ServicePresenter.new lro.services.first unless lro.nil?
+    return ServicePresenter.new @api, lro.services.first unless lro.nil?
   end
 
   private

@@ -40,7 +40,7 @@ class PackagePresenter
   def services
     @services ||= begin
       files = @api.generate_files.select { |f| f.package == @package }
-      files.map(&:services).flatten.map { |s| ServicePresenter.new s }
+      files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
     end
   end
 

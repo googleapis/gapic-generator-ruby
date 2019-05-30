@@ -19,7 +19,8 @@ require "active_support/inflector"
 require_relative "field_presenter"
 
 class MessagePresenter
-  def initialize message
+  def initialize api, message
+    @api = api
     @message = message
   end
 
@@ -52,7 +53,7 @@ class MessagePresenter
   end
 
   def fields
-    @fields = @message.fields.map { |f| FieldPresenter.new @message, f }
+    @fields = @message.fields.map { |f| FieldPresenter.new @api, @message, f }
   end
 
   def nested_enums
@@ -60,7 +61,7 @@ class MessagePresenter
   end
 
   def nested_messages
-    @nested_messages ||= @message.nested_messages.map { |m| MessagePresenter.new m }
+    @nested_messages ||= @message.nested_messages.map { |m| MessagePresenter.new @api, m }
   end
 
   protected

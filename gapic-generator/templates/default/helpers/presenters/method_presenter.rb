@@ -20,12 +20,13 @@ require_relative "service_presenter"
 require_relative "field_presenter"
 
 class MethodPresenter
-  def initialize method
+  def initialize api, method
+    @api = api
     @method  = method
   end
 
   def service
-    ServicePresenter.new @method.parent
+    ServicePresenter.new @api, @method.parent
   end
 
   def name
@@ -76,11 +77,11 @@ class MethodPresenter
 
   def arguments
     arguments = @method.input.fields.reject(&:output_only?)
-    arguments.map { |arg| FieldPresenter.new @method.input, arg }
+    arguments.map { |arg| FieldPresenter.new @api, @method.input, arg }
   end
 
   def fields
-    @method.input.fields.map { |field| FieldPresenter.new @method.input, field }
+    @method.input.fields.map { |field| FieldPresenter.new @api, @method.input, field }
   end
 
   def request_type
