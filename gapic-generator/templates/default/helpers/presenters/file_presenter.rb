@@ -18,6 +18,8 @@ require_relative "enum_presenter"
 require_relative "message_presenter"
 
 class FilePresenter
+  include NamespaceHelper
+
   # @param file [Google::Gapic::Schema::File] the file to present
   def initialize file
     @file = file
@@ -25,6 +27,11 @@ class FilePresenter
 
   def address
     @file.address
+  end
+
+  def namespace
+    return @file.ruby_package if @file.ruby_package.present?
+    ruby_namespace_for_address address
   end
 
   def messages

@@ -1,5 +1,6 @@
 :gem:
   :name: "google-ads-googleads"
+  :namespace: "Google::Ads::GoogleAds"
 :defaults:
   :service:
     :default_host: "ads.googleapis.com"

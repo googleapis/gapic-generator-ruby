@@ -26,7 +26,7 @@ require "google/gax"
 require "google/gax/config"
 require "google/gax/config/method"
 
-require "google/ads/googleads/version"
+require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
 
@@ -148,7 +148,7 @@ module Google
 
                 x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
                 x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::Googleads::VERSION}"
+                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
                 x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
                 x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
                 metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
@@ -219,7 +219,7 @@ module Google
 
                 x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
                 x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::Googleads::VERSION}"
+                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
                 x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
                 x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
                 metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "

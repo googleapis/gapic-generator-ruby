@@ -53,6 +53,11 @@ class GemPresenter
     gem_config :name
   end
 
+  def namespace
+    gem_config(:namespace) ||
+      name.split("-").map(&:camelize).join("::")
+  end
+
   def title
     gem_config(:title) ||
       name.split("-").map(&:camelize).join(" ")
@@ -64,7 +69,7 @@ class GemPresenter
   end
 
   def version_require
-    "#{name.gsub("-", "/")}/version"
+    version_name_full.underscore
   end
 
   def version_file_path
@@ -72,7 +77,7 @@ class GemPresenter
   end
 
   def version_name_full
-    name.split("-").map(&:camelize).join("::") + "::VERSION"
+    "#{namespace}::VERSION"
   end
 
   def authors

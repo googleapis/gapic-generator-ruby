@@ -1,11 +1,11 @@
 # -*- ruby -*-
 # encoding: utf-8
 
-require File.expand_path("lib/google/ads/googleads/version", __dir__)
+require File.expand_path("lib/google/ads/google_ads/version", __dir__)
 
 Gem::Specification.new do |gem|
   gem.name          = "google-ads-googleads"
-  gem.version       = Google::Ads::Googleads::VERSION
+  gem.version       = Google::Ads::GoogleAds::VERSION
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"

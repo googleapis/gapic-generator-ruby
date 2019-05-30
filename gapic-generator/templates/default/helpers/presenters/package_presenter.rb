@@ -32,6 +32,11 @@ class PackagePresenter
     @package
   end
 
+  def namespace
+    return services.first&.namespace if services.first&.namespace
+    ruby_namespace_for_address address
+  end
+
   def services
     @services ||= begin
       files = @api.generate_files.select { |f| f.package == @package }
@@ -44,7 +49,7 @@ class PackagePresenter
   end
 
   def version_require
-    address.map(&:underscore).join "/"
+    namespace.underscore
   end
 
   def version_file_path
