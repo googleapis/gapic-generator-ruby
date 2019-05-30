@@ -13,7 +13,7 @@
 # @example
 <%= indent method.code_example, "#   " %>
 #
-<%= render partial: "service/client/method/def/signature", locals: { method: method } -%>
+def <%= method.name %> request, options = nil, &block
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>

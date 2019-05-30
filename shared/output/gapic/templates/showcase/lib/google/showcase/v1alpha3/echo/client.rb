@@ -116,19 +116,17 @@ module Google
           ##
           # This method simply echos the request. This method is showcases unary rpcs.
           #
-          # @overload echo(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
-          #     This method simply echos the request. This method is showcases unary rpcs.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
+          #   This method simply echos the request. This method is showcases unary rpcs.
           #
-          # @overload echo(content: nil, error: nil, options: nil)
-          #   @param content [String]
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
           #     The content to be echoed by the server.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   * `error` (`Google::Rpc::Status | Hash`):
           #     The error to be thrown by the server.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
@@ -141,13 +139,9 @@ module Google
           # @example
           #   TODO
           #
-          def echo request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def echo request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
 
             # Converts hash and nil to an options object
@@ -180,20 +174,18 @@ module Google
           # This method split the given content into words and will pass each word back
           # through the stream. This method showcases server-side streaming rpcs.
           #
-          # @overload expand(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
-          #     This method split the given content into words and will pass each word back
-          #     through the stream. This method showcases server-side streaming rpcs.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
+          #   This method split the given content into words and will pass each word back
+          #   through the stream. This method showcases server-side streaming rpcs.
           #
-          # @overload expand(content: nil, error: nil, options: nil)
-          #   @param content [String]
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
           #     The content that will be split into words and returned on the stream.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   * `error` (`Google::Rpc::Status | Hash`):
           #     The error that is thrown after all words are sent on the stream.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -206,13 +198,9 @@ module Google
           # @example
           #   TODO
           #
-          def expand request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def expand request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
 
             # Converts hash and nil to an options object
@@ -249,7 +237,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
@@ -262,7 +250,7 @@ module Google
           # @example
           #   TODO
           #
-          def collect request, options: nil, &block
+          def collect request, options = nil, &block
             unless request.is_a? Enumerable
               if request.respond_to? :to_enum
                 request = request.to_enum
@@ -309,7 +297,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -322,7 +310,7 @@ module Google
           # @example
           #   TODO
           #
-          def chat request, options: nil, &block
+          def chat request, options = nil, &block
             unless request.is_a? Enumerable
               if request.respond_to? :to_enum
                 request = request.to_enum
@@ -365,22 +353,20 @@ module Google
           # This is similar to the Expand method but instead of returning a stream of
           # expanded words, this method returns a paged list of expanded words.
           #
-          # @overload paged_expand(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
-          #     This is similar to the Expand method but instead of returning a stream of
-          #     expanded words, this method returns a paged list of expanded words.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
+          #   This is similar to the Expand method but instead of returning a stream of
+          #   expanded words, this method returns a paged list of expanded words.
           #
-          # @overload paged_expand(content: nil, page_size: nil, page_token: nil, options: nil)
-          #   @param content [String]
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
           #     The string to expand.
-          #   @param page_size [Integer]
+          #   * `page_size` (`Integer`):
           #     The amount of words to returned in each page.
-          #   @param page_token [String]
+          #   * `page_token` (`String`):
           #     The position of the page to be returned.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -393,13 +379,9 @@ module Google
           # @example
           #   TODO
           #
-          def paged_expand request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def paged_expand request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
 
             # Converts hash and nil to an options object
@@ -433,25 +415,23 @@ module Google
           # This method will wait the requested amount of and then return.
           # This method showcases how a client handles a request timing out.
           #
-          # @overload wait(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
-          #     This method will wait the requested amount of and then return.
-          #     This method showcases how a client handles a request timing out.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
+          #   This method will wait the requested amount of and then return.
+          #   This method showcases how a client handles a request timing out.
           #
-          # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil, options: nil)
-          #   @param end_time [Google::Protobuf::Timestamp | Hash]
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `end_time` (`Google::Protobuf::Timestamp | Hash`):
           #     The time that this operation will complete.
-          #   @param ttl [Google::Protobuf::Duration | Hash]
+          #   * `ttl` (`Google::Protobuf::Duration | Hash`):
           #     The duration of this operation.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   * `error` (`Google::Rpc::Status | Hash`):
           #     The error that will be returned by the server. If this code is specified
           #     to be the OK rpc code, an empty response will be returned.
-          #   @param success [Google::Showcase::V1alpha3::WaitResponse | Hash]
+          #   * `success` (`Google::Showcase::V1alpha3::WaitResponse | Hash`):
           #     The response to be returned on operation completion.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::Operation]
@@ -464,13 +444,9 @@ module Google
           # @example
           #   TODO
           #
-          def wait request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def wait request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
 
             # Converts hash and nil to an options object

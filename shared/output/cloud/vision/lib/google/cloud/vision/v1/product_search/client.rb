@@ -114,31 +114,29 @@ module Google
             # * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #   4096 characters.
             #
-            # @overload create_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::CreateProductSetRequest | Hash]
-            #     Creates and returns a new ProductSet resource.
+            # @param request [Google::Cloud::Vision::V1::CreateProductSetRequest | Hash]
+            #   Creates and returns a new ProductSet resource.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
-            #       4096 characters.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
+            #     4096 characters.
             #
-            # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     The project in which the ProductSet should be created.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
-            #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
+            #   * `product_set` (`Google::Cloud::Vision::V1::ProductSet | Hash`):
             #     The ProductSet to create.
-            #   @param product_set_id [String]
+            #   * `product_set_id` (`String`):
             #     A user-supplied resource id for this ProductSet. If set, the server will
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -151,13 +149,9 @@ module Google
             # @example
             #   TODO
             #
-            def create_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def create_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
 
               # Converts hash and nil to an options object
@@ -200,28 +194,26 @@ module Google
             # * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #   than 1.
             #
-            # @overload list_product_sets(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::ListProductSetsRequest | Hash]
-            #     Lists ProductSets in an unspecified order.
+            # @param request [Google::Cloud::Vision::V1::ListProductSetsRequest | Hash]
+            #   Lists ProductSets in an unspecified order.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
-            #       than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
+            #     than 1.
             #
-            # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     The project from which ProductSets should be listed.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
-            #   @param page_size [Integer]
+            #   * `page_size` (`Integer`):
             #     The maximum number of items to return. Default 10, maximum 100.
-            #   @param page_token [String]
+            #   * `page_token` (`String`):
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
@@ -234,13 +226,9 @@ module Google
             # @example
             #   TODO
             #
-            def list_product_sets request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def list_product_sets request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
 
               # Converts hash and nil to an options object
@@ -283,24 +271,22 @@ module Google
             #
             # * Returns NOT_FOUND if the ProductSet does not exist.
             #
-            # @overload get_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::GetProductSetRequest | Hash]
-            #     Gets information associated with a ProductSet.
+            # @param request [Google::Cloud::Vision::V1::GetProductSetRequest | Hash]
+            #   Gets information associated with a ProductSet.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the ProductSet does not exist.
             #
-            # @overload get_product_set(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     Resource name of the ProductSet to get.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -313,13 +299,9 @@ module Google
             # @example
             #   TODO
             #
-            def get_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def get_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
 
               # Converts hash and nil to an options object
@@ -364,29 +346,27 @@ module Google
             # * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #   missing from the request or longer than 4096 characters.
             #
-            # @overload update_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::UpdateProductSetRequest | Hash]
-            #     Makes changes to a ProductSet resource.
-            #     Only display_name can be updated currently.
+            # @param request [Google::Cloud::Vision::V1::UpdateProductSetRequest | Hash]
+            #   Makes changes to a ProductSet resource.
+            #   Only display_name can be updated currently.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
-            #       missing from the request or longer than 4096 characters.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the ProductSet does not exist.
+            #   * Returns INVALID_ARGUMENT if display_name is present in update_mask but
+            #     missing from the request or longer than 4096 characters.
             #
-            # @overload update_product_set(product_set: nil, update_mask: nil, options: nil)
-            #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `product_set` (`Google::Cloud::Vision::V1::ProductSet | Hash`):
             #     The ProductSet resource which replaces the one on the server.
-            #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+            #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
             #     update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask path is `display_name`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -399,13 +379,9 @@ module Google
             # @example
             #   TODO
             #
-            def update_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def update_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
 
               # Converts hash and nil to an options object
@@ -450,27 +426,25 @@ module Google
             #
             # * Returns NOT_FOUND if the ProductSet does not exist.
             #
-            # @overload delete_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::DeleteProductSetRequest | Hash]
-            #     Permanently deletes a ProductSet. Products and ReferenceImages in the
-            #     ProductSet are not deleted.
+            # @param request [Google::Cloud::Vision::V1::DeleteProductSetRequest | Hash]
+            #   Permanently deletes a ProductSet. Products and ReferenceImages in the
+            #   ProductSet are not deleted.
             #
-            #     The actual image files are not deleted from Google Cloud Storage.
+            #   The actual image files are not deleted from Google Cloud Storage.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the ProductSet does not exist.
             #
-            # @overload delete_product_set(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     Resource name of the ProductSet to delete.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -483,13 +457,9 @@ module Google
             # @example
             #   TODO
             #
-            def delete_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def delete_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
 
               # Converts hash and nil to an options object
@@ -534,34 +504,32 @@ module Google
             # * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             # * Returns INVALID_ARGUMENT if product_category is missing or invalid.
             #
-            # @overload create_product(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::CreateProductRequest | Hash]
-            #     Creates and returns a new product resource.
+            # @param request [Google::Cloud::Vision::V1::CreateProductRequest | Hash]
+            #   Creates and returns a new product resource.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
-            #       characters.
-            #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
-            #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if display_name is missing or longer than 4096
+            #     characters.
+            #   * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
+            #   * Returns INVALID_ARGUMENT if product_category is missing or invalid.
             #
-            # @overload create_product(parent: nil, product: nil, product_id: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     The project in which the Product should be created.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID`.
-            #   @param product [Google::Cloud::Vision::V1::Product | Hash]
+            #   * `product` (`Google::Cloud::Vision::V1::Product | Hash`):
             #     The product to create.
-            #   @param product_id [String]
+            #   * `product_id` (`String`):
             #     A user-supplied resource id for this Product. If set, the server will
             #     attempt to use this value as the resource id. If it is already in use, an
             #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
             #     long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -574,13 +542,9 @@ module Google
             # @example
             #   TODO
             #
-            def create_product request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def create_product request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
 
               # Converts hash and nil to an options object
@@ -622,28 +586,26 @@ module Google
             #
             # * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
-            # @overload list_products(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::ListProductsRequest | Hash]
-            #     Lists products in an unspecified order.
+            # @param request [Google::Cloud::Vision::V1::ListProductsRequest | Hash]
+            #   Lists products in an unspecified order.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
-            # @overload list_products(parent: nil, page_size: nil, page_token: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     The project OR ProductSet from which Products should be listed.
             #
             #     Format:
             #     `projects/PROJECT_ID/locations/LOC_ID`
-            #   @param page_size [Integer]
+            #   * `page_size` (`Integer`):
             #     The maximum number of items to return. Default 10, maximum 100.
-            #   @param page_token [String]
+            #   * `page_token` (`String`):
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
@@ -656,13 +618,9 @@ module Google
             # @example
             #   TODO
             #
-            def list_products request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def list_products request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
 
               # Converts hash and nil to an options object
@@ -705,24 +663,22 @@ module Google
             #
             # * Returns NOT_FOUND if the Product does not exist.
             #
-            # @overload get_product(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::GetProductRequest | Hash]
-            #     Gets information associated with a Product.
+            # @param request [Google::Cloud::Vision::V1::GetProductRequest | Hash]
+            #   Gets information associated with a Product.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the Product does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the Product does not exist.
             #
-            # @overload get_product(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     Resource name of the Product to get.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -735,13 +691,9 @@ module Google
             # @example
             #   TODO
             #
-            def get_product request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def get_product request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
 
               # Converts hash and nil to an options object
@@ -793,38 +745,36 @@ module Google
             #   longer than 4096 characters.
             # * Returns INVALID_ARGUMENT if product_category is present in update_mask.
             #
-            # @overload update_product(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::UpdateProductRequest | Hash]
-            #     Makes changes to a Product resource.
-            #     Only the `display_name`, `description`, and `labels` fields can be updated
-            #     right now.
+            # @param request [Google::Cloud::Vision::V1::UpdateProductRequest | Hash]
+            #   Makes changes to a Product resource.
+            #   Only the `display_name`, `description`, and `labels` fields can be updated
+            #   right now.
             #
-            #     If labels are updated, the change will not be reflected in queries until
-            #     the next index time.
+            #   If labels are updated, the change will not be reflected in queries until
+            #   the next index time.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the Product does not exist.
-            #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
-            #       missing from the request or longer than 4096 characters.
-            #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
-            #       longer than 4096 characters.
-            #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the Product does not exist.
+            #   * Returns INVALID_ARGUMENT if display_name is present in update_mask but is
+            #     missing from the request or longer than 4096 characters.
+            #   * Returns INVALID_ARGUMENT if description is present in update_mask but is
+            #     longer than 4096 characters.
+            #   * Returns INVALID_ARGUMENT if product_category is present in update_mask.
             #
-            # @overload update_product(product: nil, update_mask: nil, options: nil)
-            #   @param product [Google::Cloud::Vision::V1::Product | Hash]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `product` (`Google::Cloud::Vision::V1::Product | Hash`):
             #     The Product resource which replaces the one on the server.
             #     product.name is immutable.
-            #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+            #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
             #     to update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask paths include `product_labels`, `display_name`, and
             #     `description`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -837,13 +787,9 @@ module Google
             # @example
             #   TODO
             #
-            def update_product request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def update_product request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
 
               # Converts hash and nil to an options object
@@ -889,28 +835,26 @@ module Google
             #
             # * Returns NOT_FOUND if the product does not exist.
             #
-            # @overload delete_product(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::DeleteProductRequest | Hash]
-            #     Permanently deletes a product and its reference images.
+            # @param request [Google::Cloud::Vision::V1::DeleteProductRequest | Hash]
+            #   Permanently deletes a product and its reference images.
             #
-            #     Metadata of the product and all its images will be deleted right away, but
-            #     search queries against ProductSets containing the product may still work
-            #     until all related caches are refreshed.
+            #   Metadata of the product and all its images will be deleted right away, but
+            #   search queries against ProductSets containing the product may still work
+            #   until all related caches are refreshed.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the product does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the product does not exist.
             #
-            # @overload delete_product(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     Resource name of product to delete.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -923,13 +867,9 @@ module Google
             # @example
             #   TODO
             #
-            def delete_product request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def delete_product request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
 
               # Converts hash and nil to an options object
@@ -985,46 +925,44 @@ module Google
             #   compatible with the parent product's product_category is detected.
             # * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
             #
-            # @overload create_reference_image(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::CreateReferenceImageRequest | Hash]
-            #     Creates and returns a new ReferenceImage resource.
+            # @param request [Google::Cloud::Vision::V1::CreateReferenceImageRequest | Hash]
+            #   Creates and returns a new ReferenceImage resource.
             #
-            #     The `bounding_poly` field is optional. If `bounding_poly` is not specified,
-            #     the system will try to detect regions of interest in the image that are
-            #     compatible with the product_category on the parent product. If it is
-            #     specified, detection is ALWAYS skipped. The system converts polygons into
-            #     non-rotated rectangles.
+            #   The `bounding_poly` field is optional. If `bounding_poly` is not specified,
+            #   the system will try to detect regions of interest in the image that are
+            #   compatible with the product_category on the parent product. If it is
+            #   specified, detection is ALWAYS skipped. The system converts polygons into
+            #   non-rotated rectangles.
             #
-            #     Note that the pipeline will resize the image if the image resolution is too
-            #     large to process (above 50MP).
+            #   Note that the pipeline will resize the image if the image resolution is too
+            #   large to process (above 50MP).
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
-            #       characters.
-            #     * Returns INVALID_ARGUMENT if the product does not exist.
-            #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
-            #       compatible with the parent product's product_category is detected.
-            #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if the image_uri is missing or longer than 4096
+            #     characters.
+            #   * Returns INVALID_ARGUMENT if the product does not exist.
+            #   * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
+            #     compatible with the parent product's product_category is detected.
+            #   * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
             #
-            # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     Resource name of the product in which to create the reference image.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
-            #   @param reference_image [Google::Cloud::Vision::V1::ReferenceImage | Hash]
+            #   * `reference_image` (`Google::Cloud::Vision::V1::ReferenceImage | Hash`):
             #     The reference image to create.
             #     If an image ID is specified, it is ignored.
-            #   @param reference_image_id [String]
+            #   * `reference_image_id` (`String`):
             #     A user-supplied resource id for the ReferenceImage to be added. If set,
             #     the server will attempt to use this value as the resource id. If it is
             #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
             #     most 128 characters long. It cannot contain the character `/`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
@@ -1037,13 +975,9 @@ module Google
             # @example
             #   TODO
             #
-            def create_reference_image request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def create_reference_image request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -1091,31 +1025,29 @@ module Google
             #
             # * Returns NOT_FOUND if the reference image does not exist.
             #
-            # @overload delete_reference_image(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::DeleteReferenceImageRequest | Hash]
-            #     Permanently deletes a reference image.
+            # @param request [Google::Cloud::Vision::V1::DeleteReferenceImageRequest | Hash]
+            #   Permanently deletes a reference image.
             #
-            #     The image metadata will be deleted right away, but search queries
-            #     against ProductSets containing the image may still work until all related
-            #     caches are refreshed.
+            #   The image metadata will be deleted right away, but search queries
+            #   against ProductSets containing the image may still work until all related
+            #   caches are refreshed.
             #
-            #     The actual image files are not deleted from Google Cloud Storage.
+            #   The actual image files are not deleted from Google Cloud Storage.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the reference image does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the reference image does not exist.
             #
-            # @overload delete_reference_image(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     The resource name of the reference image to delete.
             #
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -1128,13 +1060,9 @@ module Google
             # @example
             #   TODO
             #
-            def delete_reference_image request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def delete_reference_image request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -1178,33 +1106,31 @@ module Google
             # * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #   than 1.
             #
-            # @overload list_reference_images(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::ListReferenceImagesRequest | Hash]
-            #     Lists reference images.
+            # @param request [Google::Cloud::Vision::V1::ListReferenceImagesRequest | Hash]
+            #   Lists reference images.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the parent product does not exist.
-            #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
-            #       than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the parent product does not exist.
+            #   * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
+            #     than 1.
             #
-            # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     Resource name of the product containing the reference images.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
-            #   @param page_size [Integer]
+            #   * `page_size` (`Integer`):
             #     The maximum number of items to return. Default 10, maximum 100.
-            #   @param page_token [String]
+            #   * `page_token` (`String`):
             #     A token identifying a page of results to be returned. This is the value
             #     of `nextPageToken` returned in a previous reference image list request.
             #
             #     Defaults to the first page if not specified.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
@@ -1217,13 +1143,9 @@ module Google
             # @example
             #   TODO
             #
-            def list_reference_images request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def list_reference_images request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
               # Converts hash and nil to an options object
@@ -1266,25 +1188,23 @@ module Google
             #
             # * Returns NOT_FOUND if the specified image does not exist.
             #
-            # @overload get_reference_image(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::GetReferenceImageRequest | Hash]
-            #     Gets information associated with a ReferenceImage.
+            # @param request [Google::Cloud::Vision::V1::GetReferenceImageRequest | Hash]
+            #   Gets information associated with a ReferenceImage.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the specified image does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the specified image does not exist.
             #
-            # @overload get_reference_image(name: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     The resource name of the ReferenceImage to get.
             #
             #     Format is:
             #
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
@@ -1297,13 +1217,9 @@ module Google
             # @example
             #   TODO
             #
-            def get_reference_image request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def get_reference_image request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
 
               # Converts hash and nil to an options object
@@ -1348,32 +1264,30 @@ module Google
             #
             # * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
             #
-            # @overload add_product_to_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::AddProductToProductSetRequest | Hash]
-            #     Adds a Product to the specified ProductSet. If the Product is already
-            #     present, no change is made.
+            # @param request [Google::Cloud::Vision::V1::AddProductToProductSetRequest | Hash]
+            #   Adds a Product to the specified ProductSet. If the Product is already
+            #   present, no change is made.
             #
-            #     One Product can be added to at most 100 ProductSets.
+            #   One Product can be added to at most 100 ProductSets.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
             #
-            # @overload add_product_to_product_set(name: nil, product: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     The resource name for the ProductSet to modify.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param product [String]
+            #   * `product` (`String`):
             #     The resource name for the Product to be added to this ProductSet.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -1386,13 +1300,9 @@ module Google
             # @example
             #   TODO
             #
-            def add_product_to_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def add_product_to_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1434,29 +1344,27 @@ module Google
             #
             # * Returns NOT_FOUND If the Product is not found under the ProductSet.
             #
-            # @overload remove_product_from_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest | Hash]
-            #     Removes a Product from the specified ProductSet.
+            # @param request [Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest | Hash]
+            #   Removes a Product from the specified ProductSet.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns NOT_FOUND If the Product is not found under the ProductSet.
             #
-            # @overload remove_product_from_product_set(name: nil, product: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     The resource name for the ProductSet to modify.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param product [String]
+            #   * `product` (`String`):
             #     The resource name for the Product to be removed from this ProductSet.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -1469,13 +1377,9 @@ module Google
             # @example
             #   TODO
             #
-            def remove_product_from_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def remove_product_from_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1519,30 +1423,28 @@ module Google
             #
             # * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
-            # @overload list_products_in_product_set(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::ListProductsInProductSetRequest | Hash]
-            #     Lists the Products in a ProductSet, in an unspecified order. If the
-            #     ProductSet does not exist, the products field of the response will be
-            #     empty.
+            # @param request [Google::Cloud::Vision::V1::ListProductsInProductSetRequest | Hash]
+            #   Lists the Products in a ProductSet, in an unspecified order. If the
+            #   ProductSet does not exist, the products field of the response will be
+            #   empty.
             #
-            #     Possible errors:
+            #   Possible errors:
             #
-            #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             #
-            # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil, options: nil)
-            #   @param name [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
             #     The ProductSet resource for which to retrieve Products.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-            #   @param page_size [Integer]
+            #   * `page_size` (`Integer`):
             #     The maximum number of items to return. Default 10, maximum 100.
-            #   @param page_token [String]
+            #   * `page_token` (`String`):
             #     The next_page_token returned from a previous List request, if any.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
@@ -1555,13 +1457,9 @@ module Google
             # @example
             #   TODO
             #
-            def list_products_in_product_set request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def list_products_in_product_set request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
@@ -1610,31 +1508,29 @@ module Google
             # For the format of the csv file please see
             # [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
             #
-            # @overload import_product_sets(request, options: nil)
-            #   @param request [Google::Cloud::Vision::V1::ImportProductSetsRequest | Hash]
-            #     Asynchronous API that imports a list of reference images to specified
-            #     product sets based on a list of image information.
+            # @param request [Google::Cloud::Vision::V1::ImportProductSetsRequest | Hash]
+            #   Asynchronous API that imports a list of reference images to specified
+            #   product sets based on a list of image information.
             #
-            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            #     used to keep track of the progress and results of the request.
-            #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
-            #     `Operation.response` contains `ImportProductSetsResponse`. (results)
+            #   The [google.longrunning.Operation][google.longrunning.Operation] API can be
+            #   used to keep track of the progress and results of the request.
+            #   `Operation.metadata` contains `BatchOperationMetadata`. (progress)
+            #   `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
-            #     The input source of this method is a csv file on Google Cloud Storage.
-            #     For the format of the csv file please see
-            #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   The input source of this method is a csv file on Google Cloud Storage.
+            #   For the format of the csv file please see
+            #   [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
             #
-            # @overload import_product_sets(parent: nil, input_config: nil, options: nil)
-            #   @param parent [String]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
             #     The project in which the ProductSets should be imported.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
-            #   @param input_config [Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash]
+            #   * `input_config` (`Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash`):
             #     The input content for the list of requests.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]
@@ -1647,13 +1543,9 @@ module Google
             # @example
             #   TODO
             #
-            def import_product_sets request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def import_product_sets request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
 
               # Converts hash and nil to an options object

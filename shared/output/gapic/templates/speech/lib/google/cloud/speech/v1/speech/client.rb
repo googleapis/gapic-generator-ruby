@@ -118,21 +118,19 @@ module Google
             # Performs synchronous speech recognition: receive results after all audio
             # has been sent and processed.
             #
-            # @overload recognize(request, options: nil)
-            #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
-            #     Performs synchronous speech recognition: receive results after all audio
-            #     has been sent and processed.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
+            #   Performs synchronous speech recognition: receive results after all audio
+            #   has been sent and processed.
             #
-            # @overload recognize(config: nil, audio: nil, options: nil)
-            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
             #     *Required* Provides information to the recognizer that specifies how to
             #     process the request.
-            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
             #     *Required* The audio data to be recognized.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Speech::V1::RecognizeResponse]
@@ -145,13 +143,9 @@ module Google
             # @example
             #   TODO
             #
-            def recognize request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def recognize request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::RecognizeRequest
 
               # Converts hash and nil to an options object
@@ -186,23 +180,21 @@ module Google
             # `Operation.error` or an `Operation.response` which contains
             # a `LongRunningRecognizeResponse` message.
             #
-            # @overload long_running_recognize(request, options: nil)
-            #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
-            #     Performs asynchronous speech recognition: receive results via the
-            #     google.longrunning.Operations interface. Returns either an
-            #     `Operation.error` or an `Operation.response` which contains
-            #     a `LongRunningRecognizeResponse` message.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
+            #   Performs asynchronous speech recognition: receive results via the
+            #   google.longrunning.Operations interface. Returns either an
+            #   `Operation.error` or an `Operation.response` which contains
+            #   a `LongRunningRecognizeResponse` message.
             #
-            # @overload long_running_recognize(config: nil, audio: nil, options: nil)
-            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
             #     *Required* Provides information to the recognizer that specifies how to
             #     process the request.
-            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
             #     *Required* The audio data to be recognized.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
-            #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+            # @param options [Google::Gax::ApiCall::Options, Hash]
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]
@@ -215,13 +207,9 @@ module Google
             # @example
             #   TODO
             #
-            def long_running_recognize request = nil, options: nil, **request_fields, &block
-              raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-              if !request.nil? && !request_fields.empty?
-                raise ArgumentError, "cannot pass both request object and named arguments"
-              end
+            def long_running_recognize request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
 
-              request ||= request_fields
               request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Speech::V1::LongRunningRecognizeRequest
 
               # Converts hash and nil to an options object
@@ -258,7 +246,7 @@ module Google
             # @param request [Google::Gax::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
@@ -271,7 +259,7 @@ module Google
             # @example
             #   TODO
             #
-            def streaming_recognize request, options: nil, &block
+            def streaming_recognize request, options = nil, &block
               unless request.is_a? Enumerable
                 if request.respond_to? :to_enum
                   request = request.to_enum
