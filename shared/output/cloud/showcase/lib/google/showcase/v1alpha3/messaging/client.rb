@@ -113,6 +113,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
           #   Creates a room.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `room` (`Google::Showcase::V1alpha3::Room | Hash`):
+          #     The room to create.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -163,6 +168,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
           #   Retrieves the Room with the given resource name.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the requested room.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -219,6 +229,14 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
           #   Updates a room.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `room` (`Google::Showcase::V1alpha3::Room | Hash`):
+          #     The room to update.
+          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #     server will assume all fields are to be updated.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -275,6 +293,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
           #   Deletes a room and all of its blurbs.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the requested room.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -331,6 +354,16 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
           #   Lists all chat rooms.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `page_size` (`Integer`):
+          #     The maximum number of rooms return. Server may return fewer rooms
+          #     than requested. If unspecified, server will pick an appropriate default.
+          #   * `page_token` (`String`):
+          #     The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\ListRooms` method.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -386,6 +419,14 @@ module Google
           #   Creates a blurb. If the parent is a room, the blurb is understood to be a
           #   message in that room. If the parent is a profile, the blurb is understood
           #   to be a post on the profile.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `parent` (`String`):
+          #     The resource name of the chat room or user profile that this blurb will
+          #     be tied to.
+          #   * `blurb` (`Google::Showcase::V1alpha3::Blurb | Hash`):
+          #     The blurb to create.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -442,6 +483,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
           #   Retrieves the Blurb with the given resource name.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the requested blurb.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -498,6 +544,14 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
           #   Updates a blurb.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `blurb` (`Google::Showcase::V1alpha3::Blurb | Hash`):
+          #     The blurb to update.
+          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #     server will assume all fields are to be updated.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -554,6 +608,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
           #   Deletes a blurb.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the requested blurb.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -612,6 +671,19 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
           #   Lists blurbs for a specific chat room or user profile depending on the
           #   parent resource name.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `parent` (`String`):
+          #     The resource name of the requested room or profile whos blurbs to list.
+          #   * `page_size` (`Integer`):
+          #     The maximum number of blurbs to return. Server may return fewer
+          #     blurbs than requested. If unspecified, server will pick an appropriate
+          #     default.
+          #   * `page_token` (`String`):
+          #     The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -673,6 +745,24 @@ module Google
           #   This method searches through all blurbs across all rooms and profiles
           #   for blurbs containing to words found in the query. Only posts that
           #   contain an exact match of a queried word will be returned.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `query` (`String`):
+          #     The query used to search for blurbs containing to words of this string.
+          #     Only posts that contain an exact match of a queried word will be returned.
+          #   * `parent` (`String`):
+          #     The rooms or profiles to search. If unset, `SearchBlurbs` will search all
+          #     rooms and all profiles.
+          #   * `page_size` (`Integer`):
+          #     The maximum number of blurbs return. Server may return fewer
+          #     blurbs than requested. If unspecified, server will pick an appropriate
+          #     default.
+          #   * `page_token` (`String`):
+          #     The value of
+          #     google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -732,6 +822,13 @@ module Google
           # @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
           #   This returns a stream that emits the blurbs that are created for a
           #   particular chat room or user profile.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of a chat room or user profile whose blurbs to stream.
+          #   * `expire_time` (`Google::Protobuf::Timestamp | Hash`):
+          #     The time at which this stream will close.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #

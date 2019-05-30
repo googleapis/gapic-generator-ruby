@@ -118,6 +118,13 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #   This method simply echos the request. This method is showcases unary rpcs.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
+          #     The content to be echoed by the server.
+          #   * `error` (`Google::Rpc::Status | Hash`):
+          #     The error to be thrown by the server.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -170,6 +177,13 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #   This method split the given content into words and will pass each word back
           #   through the stream. This method showcases server-side streaming rpcs.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
+          #     The content that will be split into words and returned on the stream.
+          #   * `error` (`Google::Rpc::Status | Hash`):
+          #     The error that is thrown after all words are sent on the stream.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -342,6 +356,15 @@ module Google
           # @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #   This is similar to the Expand method but instead of returning a stream of
           #   expanded words, this method returns a paged list of expanded words.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `content` (`String`):
+          #     The string to expand.
+          #   * `page_size` (`Integer`):
+          #     The amount of words to returned in each page.
+          #   * `page_token` (`String`):
+          #     The position of the page to be returned.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -395,6 +418,18 @@ module Google
           # @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #   This method will wait the requested amount of and then return.
           #   This method showcases how a client handles a request timing out.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `end_time` (`Google::Protobuf::Timestamp | Hash`):
+          #     The time that this operation will complete.
+          #   * `ttl` (`Google::Protobuf::Duration | Hash`):
+          #     The duration of this operation.
+          #   * `error` (`Google::Rpc::Status | Hash`):
+          #     The error that will be returned by the server. If this code is specified
+          #     to be the OK rpc code, an empty response will be returned.
+          #   * `success` (`Google::Showcase::V1alpha3::WaitResponse | Hash`):
+          #     The response to be returned on operation completion.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #

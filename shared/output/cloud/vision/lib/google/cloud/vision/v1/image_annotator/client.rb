@@ -111,6 +111,11 @@ module Google
             #
             # @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #   Run image detection and annotation for a batch of images.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `requests` (`Google::Cloud::Vision::V1::AnnotateImageRequest | Hash`):
+            #     Individual image annotation requests for this batch.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -171,6 +176,11 @@ module Google
             #   `google.longrunning.Operations` interface.
             #   `Operation.metadata` contains `OperationMetadata` (metadata).
             #   `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `requests` (`Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash`):
+            #     Individual async file annotation requests for this batch.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #

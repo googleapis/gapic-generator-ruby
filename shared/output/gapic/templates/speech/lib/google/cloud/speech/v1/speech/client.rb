@@ -121,6 +121,14 @@ module Google
             # @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
             #   Performs synchronous speech recognition: receive results after all audio
             #   has been sent and processed.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
+            #     *Required* Provides information to the recognizer that specifies how to
+            #     process the request.
+            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
+            #     *Required* The audio data to be recognized.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -177,6 +185,14 @@ module Google
             #   google.longrunning.Operations interface. Returns either an
             #   `Operation.error` or an `Operation.response` which contains
             #   a `LongRunningRecognizeResponse` message.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
+            #     *Required* Provides information to the recognizer that specifies how to
+            #     process the request.
+            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
+            #     *Required* The audio data to be recognized.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #

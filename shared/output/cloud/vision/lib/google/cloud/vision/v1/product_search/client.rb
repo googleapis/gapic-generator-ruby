@@ -121,6 +121,20 @@ module Google
             #
             #   * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #     4096 characters.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     The project in which the ProductSet should be created.
+            #
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #   * `product_set` (`Google::Cloud::Vision::V1::ProductSet | Hash`):
+            #     The ProductSet to create.
+            #   * `product_set_id` (`String`):
+            #     A user-supplied resource id for this ProductSet. If set, the server will
+            #     attempt to use this value as the resource id. If it is already in use, an
+            #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
+            #     long. It cannot contain the character `/`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -187,6 +201,17 @@ module Google
             #
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #     than 1.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     The project from which ProductSets should be listed.
+            #
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #   * `page_size` (`Integer`):
+            #     The maximum number of items to return. Default 10, maximum 100.
+            #   * `page_token` (`String`):
+            #     The next_page_token returned from a previous List request, if any.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -252,6 +277,14 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the ProductSet does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     Resource name of the ProductSet to get.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -322,6 +355,16 @@ module Google
             #   * Returns NOT_FOUND if the ProductSet does not exist.
             #   * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #     missing from the request or longer than 4096 characters.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `product_set` (`Google::Cloud::Vision::V1::ProductSet | Hash`):
+            #     The ProductSet resource which replaces the one on the server.
+            #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+            #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
+            #     update.
+            #     If update_mask isn't specified, all mutable fields are to be updated.
+            #     Valid mask path is `display_name`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -392,6 +435,14 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the ProductSet does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     Resource name of the ProductSet to delete.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -462,6 +513,21 @@ module Google
             #     characters.
             #   * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #   * Returns INVALID_ARGUMENT if product_category is missing or invalid.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     The project in which the Product should be created.
+            #
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID`.
+            #   * `product` (`Google::Cloud::Vision::V1::Product | Hash`):
+            #     The product to create.
+            #   * `product_id` (`String`):
+            #     A user-supplied resource id for this Product. If set, the server will
+            #     attempt to use this value as the resource id. If it is already in use, an
+            #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
+            #     long. It cannot contain the character `/`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -526,6 +592,18 @@ module Google
             #   Possible errors:
             #
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     The project OR ProductSet from which Products should be listed.
+            #
+            #     Format:
+            #     `projects/PROJECT_ID/locations/LOC_ID`
+            #   * `page_size` (`Integer`):
+            #     The maximum number of items to return. Default 10, maximum 100.
+            #   * `page_token` (`String`):
+            #     The next_page_token returned from a previous List request, if any.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -591,6 +669,14 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the Product does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     Resource name of the Product to get.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -675,6 +761,18 @@ module Google
             #   * Returns INVALID_ARGUMENT if description is present in update_mask but is
             #     longer than 4096 characters.
             #   * Returns INVALID_ARGUMENT if product_category is present in update_mask.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `product` (`Google::Cloud::Vision::V1::Product | Hash`):
+            #     The Product resource which replaces the one on the server.
+            #     product.name is immutable.
+            #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+            #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
+            #     to update.
+            #     If update_mask isn't specified, all mutable fields are to be updated.
+            #     Valid mask paths include `product_labels`, `display_name`, and
+            #     `description`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -747,6 +845,14 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the product does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     Resource name of product to delete.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -839,6 +945,22 @@ module Google
             #   * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
             #     compatible with the parent product's product_category is detected.
             #   * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     Resource name of the product in which to create the reference image.
+            #
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
+            #   * `reference_image` (`Google::Cloud::Vision::V1::ReferenceImage | Hash`):
+            #     The reference image to create.
+            #     If an image ID is specified, it is ignored.
+            #   * `reference_image_id` (`String`):
+            #     A user-supplied resource id for the ReferenceImage to be added. If set,
+            #     the server will attempt to use this value as the resource id. If it is
+            #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
+            #     most 128 characters long. It cannot contain the character `/`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -915,6 +1037,15 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the reference image does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     The resource name of the reference image to delete.
+            #
+            #     Format is:
+            #
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -983,6 +1114,21 @@ module Google
             #   * Returns NOT_FOUND if the parent product does not exist.
             #   * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #     than 1.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     Resource name of the product containing the reference images.
+            #
+            #     Format is
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
+            #   * `page_size` (`Integer`):
+            #     The maximum number of items to return. Default 10, maximum 100.
+            #   * `page_token` (`String`):
+            #     A token identifying a page of results to be returned. This is the value
+            #     of `nextPageToken` returned in a previous reference image list request.
+            #
+            #     Defaults to the first page if not specified.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1048,6 +1194,15 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the specified image does not exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     The resource name of the ReferenceImage to get.
+            #
+            #     Format is:
+            #
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1118,6 +1273,19 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     The resource name for the ProductSet to modify.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #   * `product` (`String`):
+            #     The resource name for the Product to be added to this ProductSet.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1182,6 +1350,19 @@ module Google
             #   Possible errors:
             #
             #   * Returns NOT_FOUND If the Product is not found under the ProductSet.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     The resource name for the ProductSet to modify.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #   * `product` (`String`):
+            #     The resource name for the Product to be removed from this ProductSet.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1250,6 +1431,18 @@ module Google
             #   Possible errors:
             #
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `name` (`String`):
+            #     The ProductSet resource for which to retrieve Products.
+            #
+            #     Format is:
+            #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
+            #   * `page_size` (`Integer`):
+            #     The maximum number of items to return. Default 10, maximum 100.
+            #   * `page_token` (`String`):
+            #     The next_page_token returned from a previous List request, if any.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1327,6 +1520,15 @@ module Google
             #   The input source of this method is a csv file on Google Cloud Storage.
             #   For the format of the csv file please see
             #   [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
+            #
+            #   When using a hash, the following fields are supported:
+            #
+            #   * `parent` (`String`):
+            #     The project in which the ProductSets should be imported.
+            #
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #   * `input_config` (`Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash`):
+            #     The input content for the list of requests.
             # @param options [Google::Gax::ApiCall::Options, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #

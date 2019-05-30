@@ -109,6 +109,13 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #   Creates a new testing session.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `session` (`Google::Showcase::V1alpha3::Session | Hash`):
+          #     The session to be created.
+          #     Sessions are immutable once they are created (although they can
+          #     be deleted).
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -159,6 +166,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #   Gets a testing session.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The session to be retrieved.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -215,6 +227,13 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #   Lists the current test sessions.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `page_size` (`Integer`):
+          #     The maximum number of sessions to return per page.
+          #   * `page_token` (`String`):
+          #     The page token, for retrieving subsequent pages.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -266,6 +285,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #   Delete a test session.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The session to be deleted.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -326,6 +350,11 @@ module Google
           #   Report on the status of a session.
           #   This generates a report detailing which tests have been completed,
           #   and an overall rollup.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The session to be reported on.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -382,6 +411,15 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #   List the tests of a sessesion.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `parent` (`String`):
+          #     The session.
+          #   * `page_size` (`Integer`):
+          #     The maximum number of tests to return per page.
+          #   * `page_token` (`String`):
+          #     The page token, for retrieving subsequent pages.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -449,6 +487,11 @@ module Google
           #   attempting to do the test will error.
           #
           #   This method will error if attempting to delete a required test.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The test to be deleted.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -511,6 +554,15 @@ module Google
           #
           #   In cases where a test involves registering a final answer at the
           #   end of the test, this method provides the means to do so.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The test to have an answer registered to it.
+          #   * `answer` (`String`):
+          #     The answer from the test.
+          #   * `answers` (`String`):
+          #     The answers from the test if multiple are to be checked
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #

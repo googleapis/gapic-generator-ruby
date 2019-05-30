@@ -112,6 +112,17 @@ module Google
           #
           #   NOTE: the `name` binding below allows API services to override the binding
           #   to use different resource name schemes, such as `users/*/operations`.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The name of the operation collection.
+          #   * `filter` (`String`):
+          #     The standard list filter.
+          #   * `page_size` (`Integer`):
+          #     The standard list page size.
+          #   * `page_token` (`String`):
+          #     The standard list page token.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -174,6 +185,11 @@ module Google
           #   Gets the latest state of a long-running operation.  Clients can use this
           #   method to poll the operation result at intervals as recommended by the API
           #   service.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The name of the operation resource.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -237,6 +253,11 @@ module Google
           #   no longer interested in the operation result. It does not cancel the
           #   operation. If the server doesn't support this method, it returns
           #   `google.rpc.Code.UNIMPLEMENTED`.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The name of the operation resource to be deleted.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -311,6 +332,11 @@ module Google
           #   the operation is not deleted; instead, it becomes an operation with
           #   an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
           #   corresponding to `Code.CANCELLED`.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The name of the operation resource to be cancelled.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #

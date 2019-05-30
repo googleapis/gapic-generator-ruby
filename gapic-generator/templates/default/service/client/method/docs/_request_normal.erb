@@ -3,5 +3,12 @@
 <%- if method.doc_description -%>
 <%= indent method.doc_description, "#   " %>
 <%- end -%>
-# @param options [Google::Gax::ApiCall::Options, Hash]
+#
+#   When using a hash, the following fields are supported:
+#
+<%- method.arguments.each do |arg| -%>
+#   * `<%= arg.name %>` (`<%= arg.doc_types %>`)<%- if arg.doc_description -%>:
+<%= indent arg.doc_description, "#     " %>
+<%- end -%>
+<%- end -%># @param options [Google::Gax::ApiCall::Options, Hash]
 #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.

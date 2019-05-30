@@ -109,6 +109,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #   Creates a user.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `user` (`Google::Showcase::V1alpha3::User | Hash`):
+          #     The user to create.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -159,6 +164,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #   Retrieves the User with the given uri.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the requested user.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -215,6 +225,14 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #   Updates a user.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `user` (`Google::Showcase::V1alpha3::User | Hash`):
+          #     The user to update.
+          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #     The field mask to determine wich fields are to be updated. If empty, the
+          #     server will assume all fields are to be updated.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -271,6 +289,11 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #   Deletes a user, their profile, and all of their authored messages.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `name` (`String`):
+          #     The resource name of the user to delete.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
@@ -327,6 +350,16 @@ module Google
           #
           # @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #   Lists all users.
+          #
+          #   When using a hash, the following fields are supported:
+          #
+          #   * `page_size` (`Integer`):
+          #     The maximum number of users to return. Server may return fewer users
+          #     than requested. If unspecified, server will pick an appropriate default.
+          #   * `page_token` (`String`):
+          #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
+          #     returned from the previous call to
+          #     `google.showcase.v1alpha3.Identity\ListUsers` method.
           # @param options [Google::Gax::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #

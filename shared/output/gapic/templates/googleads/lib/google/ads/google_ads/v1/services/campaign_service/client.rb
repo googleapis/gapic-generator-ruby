@@ -116,6 +116,11 @@ module Google
               #
               # @param request [Google::Ads::Googleads::V1::Services::GetCampaignRequest | Hash]
               #   Returns the requested campaign in full detail.
+              #
+              #   When using a hash, the following fields are supported:
+              #
+              #   * `resource_name` (`String`):
+              #     The resource name of the campaign to fetch.
               # @param options [Google::Gax::ApiCall::Options, Hash]
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
@@ -172,6 +177,21 @@ module Google
               #
               # @param request [Google::Ads::Googleads::V1::Services::MutateCampaignsRequest | Hash]
               #   Creates, updates, or removes campaigns. Operation statuses are returned.
+              #
+              #   When using a hash, the following fields are supported:
+              #
+              #   * `customer_id` (`String`):
+              #     The ID of the customer whose campaigns are being modified.
+              #   * `operations` (`Google::Ads::Googleads::V1::Services::CampaignOperation | Hash`):
+              #     The list of operations to perform on individual campaigns.
+              #   * `partial_failure` (`Boolean`):
+              #     If true, successful operations will be carried out and invalid
+              #     operations will return errors. If false, all operations will be carried
+              #     out in one transaction if and only if they are all valid.
+              #     Default is false.
+              #   * `validate_only` (`Boolean`):
+              #     If true, the request is validated but not executed. Only errors are
+              #     returned, not results.
               # @param options [Google::Gax::ApiCall::Options, Hash]
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
