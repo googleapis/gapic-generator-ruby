@@ -178,7 +178,8 @@ class MethodPresenter
 
   def ruby_type_for_address address
     file = @api.file_for address
-    address[file.package] = file.ruby_package if file&.ruby_package.present?
+    address = address.dup
+    address[file.package] = file.ruby_package if file.ruby_package.present?
     address.split(".").reject(&:empty?).map(&:camelize).join("::")
   end
 
