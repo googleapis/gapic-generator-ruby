@@ -107,19 +107,10 @@ module Google
           ##
           # Creates a new testing session.
           #
-          # @overload create_session(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
-          #     Creates a new testing session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload create_session(session: nil, options: nil)
-          #   @param session [Google::Showcase::V1alpha3::Session | Hash]
-          #     The session to be created.
-          #     Sessions are immutable once they are created (although they can
-          #     be deleted).
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
+          #   Creates a new testing session.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Session]
@@ -132,13 +123,9 @@ module Google
           # @example
           #   TODO
           #
-          def create_session request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def create_session request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
 
             # Converts hash and nil to an options object
@@ -170,17 +157,10 @@ module Google
           ##
           # Gets a testing session.
           #
-          # @overload get_session(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
-          #     Gets a testing session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload get_session(name: nil, options: nil)
-          #   @param name [String]
-          #     The session to be retrieved.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
+          #   Gets a testing session.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Session]
@@ -193,13 +173,9 @@ module Google
           # @example
           #   TODO
           #
-          def get_session request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def get_session request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
 
             # Converts hash and nil to an options object
@@ -237,19 +213,10 @@ module Google
           ##
           # Lists the current test sessions.
           #
-          # @overload list_sessions(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
-          #     Lists the current test sessions.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload list_sessions(page_size: nil, page_token: nil, options: nil)
-          #   @param page_size [Integer]
-          #     The maximum number of sessions to return per page.
-          #   @param page_token [String]
-          #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
+          #   Lists the current test sessions.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
@@ -262,13 +229,9 @@ module Google
           # @example
           #   TODO
           #
-          def list_sessions request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def list_sessions request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
 
             # Converts hash and nil to an options object
@@ -301,17 +264,10 @@ module Google
           ##
           # Delete a test session.
           #
-          # @overload delete_session(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
-          #     Delete a test session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload delete_session(name: nil, options: nil)
-          #   @param name [String]
-          #     The session to be deleted.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
+          #   Delete a test session.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -324,13 +280,9 @@ module Google
           # @example
           #   TODO
           #
-          def delete_session request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def delete_session request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
 
             # Converts hash and nil to an options object
@@ -370,19 +322,12 @@ module Google
           # This generates a report detailing which tests have been completed,
           # and an overall rollup.
           #
-          # @overload report_session(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ReportSessionRequest | Hash]
-          #     Report on the status of a session.
-          #     This generates a report detailing which tests have been completed,
-          #     and an overall rollup.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload report_session(name: nil, options: nil)
-          #   @param name [String]
-          #     The session to be reported on.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::ReportSessionRequest | Hash]
+          #   Report on the status of a session.
+          #   This generates a report detailing which tests have been completed,
+          #   and an overall rollup.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::ReportSessionResponse]
@@ -395,13 +340,9 @@ module Google
           # @example
           #   TODO
           #
-          def report_session request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def report_session request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
 
             # Converts hash and nil to an options object
@@ -439,21 +380,10 @@ module Google
           ##
           # List the tests of a sessesion.
           #
-          # @overload list_tests(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
-          #     List the tests of a sessesion.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload list_tests(parent: nil, page_size: nil, page_token: nil, options: nil)
-          #   @param parent [String]
-          #     The session.
-          #   @param page_size [Integer]
-          #     The maximum number of tests to return per page.
-          #   @param page_token [String]
-          #     The page token, for retrieving subsequent pages.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
+          #   List the tests of a sessesion.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
@@ -466,13 +396,9 @@ module Google
           # @example
           #   TODO
           #
-          def list_tests request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def list_tests request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
 
             # Converts hash and nil to an options object
@@ -516,22 +442,15 @@ module Google
           #
           # This method will error if attempting to delete a required test.
           #
-          # @overload delete_test(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::DeleteTestRequest | Hash]
-          #     Explicitly decline to implement a test.
+          # @param request [Google::Showcase::V1alpha3::DeleteTestRequest | Hash]
+          #   Explicitly decline to implement a test.
           #
-          #     This removes the test from subsequent `ListTests` calls, and
-          #     attempting to do the test will error.
+          #   This removes the test from subsequent `ListTests` calls, and
+          #   attempting to do the test will error.
           #
-          #     This method will error if attempting to delete a required test.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload delete_test(name: nil, options: nil)
-          #   @param name [String]
-          #     The test to be deleted.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   This method will error if attempting to delete a required test.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -544,13 +463,9 @@ module Google
           # @example
           #   TODO
           #
-          def delete_test request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def delete_test request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
 
             # Converts hash and nil to an options object
@@ -591,24 +506,13 @@ module Google
           # In cases where a test involves registering a final answer at the
           # end of the test, this method provides the means to do so.
           #
-          # @overload verify_test(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::VerifyTestRequest | Hash]
-          #     Register a response to a test.
+          # @param request [Google::Showcase::V1alpha3::VerifyTestRequest | Hash]
+          #   Register a response to a test.
           #
-          #     In cases where a test involves registering a final answer at the
-          #     end of the test, this method provides the means to do so.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload verify_test(name: nil, answer: nil, answers: nil, options: nil)
-          #   @param name [String]
-          #     The test to have an answer registered to it.
-          #   @param answer [String]
-          #     The answer from the test.
-          #   @param answers [String]
-          #     The answers from the test if multiple are to be checked
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   In cases where a test involves registering a final answer at the
+          #   end of the test, this method provides the means to do so.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::VerifyTestResponse]
@@ -621,13 +525,9 @@ module Google
           # @example
           #   TODO
           #
-          def verify_test request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def verify_test request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
 
             # Converts hash and nil to an options object

@@ -107,17 +107,10 @@ module Google
           ##
           # Creates a user.
           #
-          # @overload create_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
-          #     Creates a user.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload create_user(user: nil, options: nil)
-          #   @param user [Google::Showcase::V1alpha3::User | Hash]
-          #     The user to create.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
+          #   Creates a user.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -130,13 +123,9 @@ module Google
           # @example
           #   TODO
           #
-          def create_user request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def create_user request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
 
             # Converts hash and nil to an options object
@@ -168,17 +157,10 @@ module Google
           ##
           # Retrieves the User with the given uri.
           #
-          # @overload get_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
-          #     Retrieves the User with the given uri.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload get_user(name: nil, options: nil)
-          #   @param name [String]
-          #     The resource name of the requested user.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
+          #   Retrieves the User with the given uri.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -191,13 +173,9 @@ module Google
           # @example
           #   TODO
           #
-          def get_user request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def get_user request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
 
             # Converts hash and nil to an options object
@@ -235,20 +213,10 @@ module Google
           ##
           # Updates a user.
           #
-          # @overload update_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
-          #     Updates a user.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload update_user(user: nil, update_mask: nil, options: nil)
-          #   @param user [Google::Showcase::V1alpha3::User | Hash]
-          #     The user to update.
-          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
-          #     The field mask to determine wich fields are to be updated. If empty, the
-          #     server will assume all fields are to be updated.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
+          #   Updates a user.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -261,13 +229,9 @@ module Google
           # @example
           #   TODO
           #
-          def update_user request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def update_user request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
 
             # Converts hash and nil to an options object
@@ -305,17 +269,10 @@ module Google
           ##
           # Deletes a user, their profile, and all of their authored messages.
           #
-          # @overload delete_user(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
-          #     Deletes a user, their profile, and all of their authored messages.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload delete_user(name: nil, options: nil)
-          #   @param name [String]
-          #     The resource name of the user to delete.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
+          #   Deletes a user, their profile, and all of their authored messages.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -328,13 +285,9 @@ module Google
           # @example
           #   TODO
           #
-          def delete_user request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def delete_user request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
 
             # Converts hash and nil to an options object
@@ -372,22 +325,10 @@ module Google
           ##
           # Lists all users.
           #
-          # @overload list_users(request, options: nil)
-          #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
-          #     Lists all users.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
-          #
-          # @overload list_users(page_size: nil, page_token: nil, options: nil)
-          #   @param page_size [Integer]
-          #     The maximum number of users to return. Server may return fewer users
-          #     than requested. If unspecified, server will pick an appropriate default.
-          #   @param page_token [String]
-          #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
-          #     returned from the previous call to
-          #     `google.showcase.v1alpha3.Identity\ListUsers` method.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc.
+          # @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
+          #   Lists all users.
+          # @param options [Google::Gax::ApiCall::Options, Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
@@ -400,13 +341,9 @@ module Google
           # @example
           #   TODO
           #
-          def list_users request = nil, options: nil, **request_fields, &block
-            raise ArgumentError, "request must be provided" if request.nil? && request_fields.empty?
-            if !request.nil? && !request_fields.empty?
-              raise ArgumentError, "cannot pass both request object and named arguments"
-            end
+          def list_users request, options = nil, &block
+            raise ArgumentError, "request must be provided" if request.nil?
 
-            request ||= request_fields
             request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
 
             # Converts hash and nil to an options object
