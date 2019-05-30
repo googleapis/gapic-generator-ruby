@@ -173,9 +173,13 @@ class MethodPresenter
   protected
 
   def message_ruby_type message
-    message.address.map do |namespace_node|
-      ActiveSupport::Inflector.camelize namespace_node
-    end.join "::"
+    ruby_type_for_address message.address.join(".")
+  end
+
+  def ruby_type_for_address address
+    file = @api.file_for address
+    address[file.package] = file.ruby_package if file&.ruby_package.present?
+    address.split(".").reject(&:empty?).map(&:camelize).join("::")
   end
 
   def doc_types_for arg

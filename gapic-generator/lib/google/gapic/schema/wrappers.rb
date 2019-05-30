@@ -364,6 +364,7 @@ module Google
         end
 
         def lookup address
+          address = address.split(".").reject(&:empty?).join(".")
           @registry[address]
         end
 

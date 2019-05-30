@@ -30,7 +30,7 @@ module Google
           # A rule specifying the maximum number of times an ad (or some set of ads) can
           # be shown to a user over a particular time period.
           # @!attribute [rw] key
-          #   @return [Google::Ads::Googleads::V1::Common::FrequencyCapKey]
+          #   @return [Google::Ads::GoogleAds::V1::Common::FrequencyCapKey]
           #     The key of a particular frequency cap. There can be no more
           #     than one frequency cap with the same key.
           # @!attribute [rw] cap

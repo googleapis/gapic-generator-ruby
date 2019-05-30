@@ -78,30 +78,30 @@ module Google
           #   @return [Google::Protobuf::StringValue]
           #     The URL template for constructing a tracking URL.
           # @!attribute [rw] url_custom_parameters
-          #   @return [Google::Ads::Googleads::V1::Common::CustomParameter]
+          #   @return [Google::Ads::GoogleAds::V1::Common::CustomParameter]
           #     The list of mappings used to substitute custom parameter tags in a
           #     `tracking_url_template`, `final_urls`, or `mobile_final_urls`.
           # @!attribute [rw] real_time_bidding_setting
-          #   @return [Google::Ads::Googleads::V1::Common::RealTimeBiddingSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Common::RealTimeBiddingSetting]
           #     Settings for Real-Time Bidding, a feature only available for campaigns
           #     targeting the Ad Exchange network.
           # @!attribute [rw] network_settings
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::NetworkSettings]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::NetworkSettings]
           #     The network settings for the campaign.
           # @!attribute [rw] hotel_setting
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::HotelSettingInfo]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::HotelSettingInfo]
           #     The hotel setting for the campaign.
           # @!attribute [rw] dynamic_search_ads_setting
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::DynamicSearchAdsSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::DynamicSearchAdsSetting]
           #     The setting for controlling Dynamic Search Ads (DSA).
           # @!attribute [rw] shopping_setting
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::ShoppingSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::ShoppingSetting]
           #     The setting for controlling Shopping campaigns.
           # @!attribute [rw] targeting_setting
-          #   @return [Google::Ads::Googleads::V1::Common::TargetingSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetingSetting]
           #     Setting for targeting related features.
           # @!attribute [rw] geo_target_type_setting
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::GeoTargetTypeSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::GeoTargetTypeSetting]
           #     The setting for ads geotargeting.
           # @!attribute [rw] campaign_budget
           #   @return [Google::Protobuf::StringValue]
@@ -130,67 +130,67 @@ module Google
           #     Suffix used to append query parameters to landing pages that are served
           #     with parallel tracking.
           # @!attribute [rw] frequency_caps
-          #   @return [Google::Ads::Googleads::V1::Common::FrequencyCapEntry]
+          #   @return [Google::Ads::GoogleAds::V1::Common::FrequencyCapEntry]
           #     A list that limits how often each user will see this campaign's ads.
           # @!attribute [rw] video_brand_safety_suitability
           #   @return [ENUM(BrandSafetySuitability)]
           #     3-Tier Brand Safety setting for the campaign.
           # @!attribute [rw] vanity_pharma
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::VanityPharma]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::VanityPharma]
           #     Describes how unbranded pharma ads will be displayed.
           # @!attribute [rw] selective_optimization
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::SelectiveOptimization]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::SelectiveOptimization]
           #     Selective optimization setting for this campaign, which includes a set of
           #     conversion actions to optimize this campaign towards.
           # @!attribute [rw] tracking_setting
-          #   @return [Google::Ads::Googleads::V1::Resources::Campaign::TrackingSetting]
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::TrackingSetting]
           #     Campaign level settings for tracking information.
           # @!attribute [rw] bidding_strategy
           #   @return [Google::Protobuf::StringValue]
           #     Portfolio bidding strategy used by campaign.
           # @!attribute [rw] manual_cpc
-          #   @return [Google::Ads::Googleads::V1::Common::ManualCpc]
+          #   @return [Google::Ads::GoogleAds::V1::Common::ManualCpc]
           #     Standard Manual CPC bidding strategy.
           #     Manual click-based bidding where user pays per click.
           # @!attribute [rw] manual_cpm
-          #   @return [Google::Ads::Googleads::V1::Common::ManualCpm]
+          #   @return [Google::Ads::GoogleAds::V1::Common::ManualCpm]
           #     Standard Manual CPM bidding strategy.
           #     Manual impression-based bidding where user pays per thousand
           #     impressions.
           # @!attribute [rw] manual_cpv
-          #   @return [Google::Ads::Googleads::V1::Common::ManualCpv]
+          #   @return [Google::Ads::GoogleAds::V1::Common::ManualCpv]
           #     A bidding strategy that pays a configurable amount per video view.
           # @!attribute [rw] maximize_conversions
-          #   @return [Google::Ads::Googleads::V1::Common::MaximizeConversions]
+          #   @return [Google::Ads::GoogleAds::V1::Common::MaximizeConversions]
           #     Standard Maximize Conversions bidding strategy that automatically
           #     maximizes number of conversions given a daily budget.
           # @!attribute [rw] maximize_conversion_value
-          #   @return [Google::Ads::Googleads::V1::Common::MaximizeConversionValue]
+          #   @return [Google::Ads::GoogleAds::V1::Common::MaximizeConversionValue]
           #     Standard Maximize Conversion Value bidding strategy that automatically
           #     sets bids to maximize revenue while spending your budget.
           # @!attribute [rw] target_cpa
-          #   @return [Google::Ads::Googleads::V1::Common::TargetCpa]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetCpa]
           #     Standard Target CPA bidding strategy that automatically sets bids to
           #     help get as many conversions as possible at the target
           #     cost-per-acquisition (CPA) you set.
           # @!attribute [rw] target_impression_share
-          #   @return [Google::Ads::Googleads::V1::Common::TargetImpressionShare]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetImpressionShare]
           #     Target Impression Share bidding strategy. An automated bidding strategy
           #     that sets bids to achieve a desired percentage of impressions.
           # @!attribute [rw] target_roas
-          #   @return [Google::Ads::Googleads::V1::Common::TargetRoas]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetRoas]
           #     Standard Target ROAS bidding strategy that automatically maximizes
           #     revenue while averaging a specific target return on ad spend (ROAS).
           # @!attribute [rw] target_spend
-          #   @return [Google::Ads::Googleads::V1::Common::TargetSpend]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetSpend]
           #     Standard Target Spend bidding strategy that automatically sets your bids
           #     to help get as many clicks as possible within your budget.
           # @!attribute [rw] percent_cpc
-          #   @return [Google::Ads::Googleads::V1::Common::PercentCpc]
+          #   @return [Google::Ads::GoogleAds::V1::Common::PercentCpc]
           #     Standard Percent Cpc bidding strategy where bids are a fraction of the
           #     advertised price for some good or service.
           # @!attribute [rw] target_cpm
-          #   @return [Google::Ads::Googleads::V1::Common::TargetCpm]
+          #   @return [Google::Ads::GoogleAds::V1::Common::TargetCpm]
           #     A bidding strategy that automatically optimizes cost per thousand
           #     impressions.
           class Campaign

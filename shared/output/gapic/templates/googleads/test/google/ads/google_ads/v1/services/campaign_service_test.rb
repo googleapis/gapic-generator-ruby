@@ -82,11 +82,11 @@ describe Google::Ads::GoogleAds::V1::Services::CampaignService::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Ads::Googleads::V1::Resources::Campaign
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Ads::GoogleAds::V1::Resources::Campaign
 
       # Mock Grpc layer
       mock_method = proc do |request|
-        assert_instance_of Google::Ads::Googleads::V1::Services::GetCampaignRequest, request
+        assert_instance_of Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, request
         assert_equal Google::Gax::Protobuf.coerce(resource_name, to: ), request.resource_name
         OpenStruct.new execute: expected_response
       end
@@ -121,7 +121,7 @@ describe Google::Ads::GoogleAds::V1::Services::CampaignService::Client do
 
       # Mock Grpc layer
       mock_method = proc do |request|
-        assert_instance_of Google::Ads::Googleads::V1::Services::GetCampaignRequest, request
+        assert_instance_of Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, request
         assert_equal Google::Gax::Protobuf.coerce(resource_name, to: ), request.resource_name
         raise custom_error
       end
@@ -160,13 +160,13 @@ describe Google::Ads::GoogleAds::V1::Services::CampaignService::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Ads::Googleads::V1::Services::MutateCampaignsResponse
+      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
-        assert_instance_of Google::Ads::Googleads::V1::Services::MutateCampaignsRequest, request
+        assert_instance_of Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, request
         assert_equal Google::Gax::Protobuf.coerce(customer_id, to: ), request.customer_id
-        assert_equal Google::Gax::Protobuf.coerce(operations, to: Google::Ads::Googleads::V1::Services::CampaignOperation), request.operations
+        assert_equal Google::Gax::Protobuf.coerce(operations, to: Google::Ads::GoogleAds::V1::Services::CampaignOperation), request.operations
         assert_equal Google::Gax::Protobuf.coerce(partial_failure, to: ), request.partial_failure
         assert_equal Google::Gax::Protobuf.coerce(validate_only, to: ), request.validate_only
         OpenStruct.new execute: expected_response
@@ -205,9 +205,9 @@ describe Google::Ads::GoogleAds::V1::Services::CampaignService::Client do
 
       # Mock Grpc layer
       mock_method = proc do |request|
-        assert_instance_of Google::Ads::Googleads::V1::Services::MutateCampaignsRequest, request
+        assert_instance_of Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, request
         assert_equal Google::Gax::Protobuf.coerce(customer_id, to: ), request.customer_id
-        assert_equal Google::Gax::Protobuf.coerce(operations, to: Google::Ads::Googleads::V1::Services::CampaignOperation), request.operations
+        assert_equal Google::Gax::Protobuf.coerce(operations, to: Google::Ads::GoogleAds::V1::Services::CampaignOperation), request.operations
         assert_equal Google::Gax::Protobuf.coerce(partial_failure, to: ), request.partial_failure
         assert_equal Google::Gax::Protobuf.coerce(validate_only, to: ), request.validate_only
         raise custom_error
