@@ -64,6 +64,12 @@ module Google
           matching_files.first
         end
 
+        def fix_inflection str
+          str = String str
+          return str if configuration[:inflections].nil?
+          configuration[:inflections].fetch str, str
+        end
+
         def generate_files
           @files.select(&:generate?)
         end

@@ -1,8 +1,10 @@
 :gem:
   :name: "google-ads-googleads"
-  :namespace: "Google::Ads::GoogleAds"
 :defaults:
   :service:
     :default_host: "ads.googleapis.com"
     :oauth_scopes:
       - https://www.googleapis.com/auth/adwords
+:inflections:
+  google_ads: googleads
+  Googleads: GoogleAds

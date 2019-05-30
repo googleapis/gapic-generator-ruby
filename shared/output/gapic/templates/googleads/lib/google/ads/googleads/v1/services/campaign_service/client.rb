@@ -26,9 +26,9 @@ require "google/gax"
 require "google/gax/config"
 require "google/gax/config/method"
 
-require "google/ads/google_ads/version"
+require "google/ads/googleads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
-require "google/ads/google_ads/v1/services/campaign_service/credentials"
+require "google/ads/googleads/v1/services/campaign_service/credentials"
 
 module Google
   module Ads
@@ -304,7 +304,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/ads/google_ads/v1/services/campaign_service/helpers"
+  require "google/ads/googleads/v1/services/campaign_service/helpers"
 rescue LoadError
 end
 
