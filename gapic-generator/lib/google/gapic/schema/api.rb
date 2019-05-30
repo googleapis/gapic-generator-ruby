@@ -61,9 +61,7 @@ module Google
         def file_for address
           address = address.join "." if address.is_a? Array
           matching_files = @files.select { |f| f.lookup address }
-          raise matching_files.count.to_s if matching_files.count > 1
-          return matching_files.first if matching_files.count == 1
-          nil
+          matching_files.first
         end
 
         def generate_files
