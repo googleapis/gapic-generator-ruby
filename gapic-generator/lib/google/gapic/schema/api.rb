@@ -50,7 +50,7 @@ module Google
         end
 
         def lookup address
-          address = address.join(".") if address.is_a? Array
+          address = address.join "." if address.is_a? Array
           @files.each do |f|
             lookup = f.lookup address
             return lookup if lookup
@@ -59,7 +59,7 @@ module Google
         end
 
         def file_for address
-          address = address.join(".") if address.is_a? Array
+          address = address.join "." if address.is_a? Array
           matching_files = @files.select { |f| f.lookup address }
           raise matching_files.count.to_s if matching_files.count > 1
           return matching_files.first if matching_files.count == 1
