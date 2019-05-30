@@ -26,7 +26,7 @@ require "googleauth"
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Services
           module CampaignService

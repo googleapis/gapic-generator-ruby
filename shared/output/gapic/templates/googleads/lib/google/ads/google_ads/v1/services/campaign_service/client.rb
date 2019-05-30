@@ -32,7 +32,7 @@ require "google/ads/google_ads/v1/services/campaign_service/credentials"
 
 module Google
   module Ads
-    module Googleads
+    module GoogleAds
       module V1
         module Services
           module CampaignService
