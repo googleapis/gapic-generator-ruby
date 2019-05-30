@@ -77,7 +77,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_credentials_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/credentials.rb", presenter.credentials_file_path
+    assert_equal "google/ads/googleads/v1/services/campaign_service/credentials.rb", presenter.credentials_file_path
   end
 
   def test_credentials_file_name
@@ -85,7 +85,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_credentials_require
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/credentials", presenter.credentials_require
+    assert_equal "google/ads/googleads/v1/services/campaign_service/credentials", presenter.credentials_require
   end
 
   def test_operations_name
@@ -97,7 +97,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_operations_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/operations.rb", presenter.operations_file_path
+    assert_equal "google/ads/googleads/v1/services/campaign_service/operations.rb", presenter.operations_file_path
   end
 
   def test_operations_file_name
@@ -105,11 +105,11 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_operations_require
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/operations", presenter.operations_require
+    assert_equal "google/ads/googleads/v1/services/campaign_service/operations", presenter.operations_require
   end
 
   def test_helpers_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/helpers.rb", presenter.helpers_file_path
+    assert_equal "google/ads/googleads/v1/services/campaign_service/helpers.rb", presenter.helpers_file_path
   end
 
   def test_helpers_file_name
@@ -117,11 +117,11 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_helpers_require
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/helpers", presenter.helpers_require
+    assert_equal "google/ads/googleads/v1/services/campaign_service/helpers", presenter.helpers_require
   end
 
   def test_test_client_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service_test.rb", presenter.test_client_file_path
+    assert_equal "google/ads/googleads/v1/services/campaign_service_test.rb", presenter.test_client_file_path
   end
 
   def test_stub_name
@@ -153,7 +153,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_paths_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/paths.rb", presenter.paths_file_path
+    assert_equal "google/ads/googleads/v1/services/campaign_service/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -161,6 +161,6 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/paths", presenter.paths_require
+    assert_equal "google/ads/googleads/v1/services/campaign_service/paths", presenter.paths_require
   end
 end

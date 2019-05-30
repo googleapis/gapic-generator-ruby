@@ -19,6 +19,9 @@ require_relative "package_presenter"
 require_relative "service_presenter"
 
 class GemPresenter
+  include FilepathHelper
+  include NamespaceHelper
+
   def initialize api
     @api = api
   end
@@ -55,7 +58,7 @@ class GemPresenter
 
   def namespace
     gem_config(:namespace) ||
-      name.split("-").map(&:camelize).join("::")
+      fix_namespace(@api, name.split("-").map(&:camelize).join("::"))
   end
 
   def title
@@ -69,7 +72,7 @@ class GemPresenter
   end
 
   def version_require
-    version_name_full.underscore
+    ruby_file_path @api, version_name_full
   end
 
   def version_file_path

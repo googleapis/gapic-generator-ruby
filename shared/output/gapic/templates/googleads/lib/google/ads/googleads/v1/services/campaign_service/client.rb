@@ -26,9 +26,9 @@ require "google/gax"
 require "google/gax/config"
 require "google/gax/config/method"
 
-require "google/ads/google_ads/version"
+require "google/ads/googleads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
-require "google/ads/google_ads/v1/services/campaign_service/credentials"
+require "google/ads/googleads/v1/services/campaign_service/credentials"
 
 module Google
   module Ads
@@ -166,10 +166,7 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @get_campaign ||= Google::Gax::ApiCall.new @campaign_service_stub.method :get_campaign
-
-
-                @get_campaign.call request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :get_campaign, request, options: options, operation_callback: block
               end
 
               ##
@@ -237,10 +234,7 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @mutate_campaigns ||= Google::Gax::ApiCall.new @campaign_service_stub.method :mutate_campaigns
-
-
-                @mutate_campaigns.call request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options, operation_callback: block
               end
 
               class Configuration
@@ -304,7 +298,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/ads/google_ads/v1/services/campaign_service/helpers"
+  require "google/ads/googleads/v1/services/campaign_service/helpers"
 rescue LoadError
 end
 

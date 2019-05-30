@@ -26,7 +26,7 @@ require "minitest/autorun"
 
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/googleads/v1/services/campaign_service_services_pb"
-require "google/ads/google_ads/v1/services/campaign_service"
+require "google/ads/googleads/v1/services/campaign_service"
 
 class CustomTestErrorV1 < StandardError; end
 # Mock for the GRPC::ClientStub class.

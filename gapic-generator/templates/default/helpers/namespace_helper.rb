@@ -24,7 +24,8 @@ module NamespaceHelper
     file = api.file_for address
     address = address.dup
     address[file.package] = file.ruby_package if file.ruby_package.present?
-    ruby_namespace_for_address address
+    namespace = ruby_namespace_for_address address
+    fix_namespace api, namespace
   end
 
   ##
@@ -33,5 +34,11 @@ module NamespaceHelper
   def ruby_namespace_for_address address
     address = address.split "." if address.is_a? String
     address.reject(&:empty?).map(&:camelize).join "::"
+  end
+
+  ##
+  # Corrects a namespace by replacing known bad values with good values.
+  def fix_namespace api, namespace
+    namespace.split("::").map { |node| api.fix_namespace node }.join("::")
   end
 end

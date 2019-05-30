@@ -19,6 +19,7 @@ require_relative "gem_presenter"
 require_relative "service_presenter"
 
 class PackagePresenter
+  include FilepathHelper
   include NamespaceHelper
 
   def initialize api, package
@@ -51,7 +52,7 @@ class PackagePresenter
   end
 
   def version_require
-    namespace.underscore
+    ruby_file_path @api, namespace
   end
 
   def version_file_path

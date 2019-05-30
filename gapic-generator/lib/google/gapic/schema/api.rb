@@ -64,6 +64,20 @@ module Google
           matching_files.first
         end
 
+        def fix_file_path str
+          str = String str
+          return str if configuration[:overrides].nil?
+          return str if configuration[:overrides][:file_path].nil?
+          configuration[:overrides][:file_path].fetch str, str
+        end
+
+        def fix_namespace str
+          str = String str
+          return str if configuration[:overrides].nil?
+          return str if configuration[:overrides][:namespace].nil?
+          configuration[:overrides][:namespace].fetch str, str
+        end
+
         def generate_files
           @files.select(&:generate?)
         end

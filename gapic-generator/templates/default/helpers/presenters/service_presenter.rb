@@ -53,7 +53,9 @@ class ServicePresenter
 
   def namespace
     return @service.ruby_package if @service.ruby_package.present?
-    ruby_namespace_for_address @service.address[0...-1]
+
+    namespace = ruby_namespace_for_address @service.address[0...-1]
+    fix_namespace @api, namespace
   end
 
   def version
@@ -65,15 +67,11 @@ class ServicePresenter
   end
 
   def proto_service_name_full
-    "#{namespace}::#{name}"
+    fix_namespace @api, "#{namespace}::#{name}"
   end
 
   def proto_service_file_path
-    if @service.parent
-      @service.parent.name.sub ".proto", "_pb.rb"
-    else
-      ruby_file_path(@service).sub ".rb", "_pb.rb"
-    end
+    @service.parent.name.sub ".proto", "_pb.rb"
   end
 
   def proto_service_file_name
@@ -85,11 +83,7 @@ class ServicePresenter
   end
 
   def proto_services_file_path
-    if @service.parent
-      @service.parent.name.sub ".proto", "_services_pb.rb"
-    else
-      ruby_file_path(@service).sub ".rb", "_services_pb.rb"
-    end
+    @service.parent.name.sub ".proto", "_services_pb.rb"
   end
 
   def proto_services_file_name
@@ -113,7 +107,7 @@ class ServicePresenter
   end
 
   def service_require
-    proto_service_name_full.underscore
+    ruby_file_path @api, proto_service_name_full
   end
 
   def client_name
@@ -121,11 +115,11 @@ class ServicePresenter
   end
 
   def client_name_full
-    "#{proto_service_name_full}::#{client_name}"
+    fix_namespace @api, "#{proto_service_name_full}::#{client_name}"
   end
 
   def client_require
-    client_name_full.underscore
+    ruby_file_path @api, client_name_full
   end
 
   def client_file_path
@@ -159,7 +153,7 @@ class ServicePresenter
   end
 
   def credentials_name_full
-    "#{proto_service_name_full}::#{credentials_name}"
+    fix_namespace @api, "#{proto_service_name_full}::#{credentials_name}"
   end
 
   def credentials_file_path
@@ -167,11 +161,11 @@ class ServicePresenter
   end
 
   def credentials_file_name
-    "#{credentials_name.underscore}.rb"
+    credentials_file_path.split("/").last
   end
 
   def credentials_require
-    credentials_name_full.underscore
+    ruby_file_path @api, credentials_name_full
   end
 
   def helpers_file_path
@@ -183,7 +177,7 @@ class ServicePresenter
   end
 
   def helpers_require
-    "#{proto_service_name_full}::Helpers".underscore
+    ruby_file_path @api, "#{proto_service_name_full}::Helpers"
   end
 
   def references
@@ -204,7 +198,7 @@ class ServicePresenter
   end
 
   def paths_name_full
-    "#{proto_service_name_full}::#{paths_name}"
+    fix_namespace @api, "#{proto_service_name_full}::#{paths_name}"
   end
 
   def paths_file_path
@@ -212,11 +206,11 @@ class ServicePresenter
   end
 
   def paths_file_name
-    "#{paths_name.underscore}.rb"
+    paths_file_path.split("/").last
   end
 
   def paths_require
-    "#{proto_service_name_full}::#{paths_name}".underscore
+    ruby_file_path @api, "#{proto_service_name_full}::#{paths_name}"
   end
 
   def test_client_file_path
@@ -244,7 +238,7 @@ class ServicePresenter
   end
 
   def operations_name_full
-    "#{proto_service_name_full}::#{operations_name}"
+    fix_namespace @api, "#{proto_service_name_full}::#{operations_name}"
   end
 
   def operations_file_path
@@ -252,11 +246,11 @@ class ServicePresenter
   end
 
   def operations_file_name
-    "#{operations_name.underscore}.rb"
+    operations_file_path.split("/").last
   end
 
   def operations_require
-    "#{proto_service_name_full}::#{operations_name}".underscore
+    ruby_file_path @api, "#{proto_service_name_full}::#{operations_name}"
   end
 
   def lro_service

@@ -17,11 +17,22 @@
 require "active_support/inflector"
 
 module FilepathHelper
-  def ruby_file_path api
-    ruby_require(api) + ".rb"
+  ##
+  # Converts a ruby namespace string to a file path string.
+  def ruby_file_path api, namespace
+    file_path = ruby_file_path_for_namespace namespace
+    fix_file_path api, file_path
   end
 
-  def ruby_require api
-    api.address.map(&:underscore).join("/")
+  ##
+  # Converts a ruby namespace string to a file path string.
+  def ruby_file_path_for_namespace namespace
+    ActiveSupport::Inflector.underscore namespace
+  end
+
+  ##
+  # Corrects a namespace by replacing known bad values with good values.
+  def fix_file_path api, file_path
+    file_path.split("/").map { |node| api.fix_file_path node }.join("/")
   end
 end
