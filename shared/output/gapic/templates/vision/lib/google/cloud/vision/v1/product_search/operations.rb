@@ -122,7 +122,7 @@ module Google
             #   NOTE: the `name` binding below allows API services to override the binding
             #   to use different resource name schemes, such as `users/*/operations`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
@@ -184,7 +184,7 @@ module Google
             #   method to poll the operation result at intervals as recommended by the API
             #   service.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]
@@ -247,7 +247,7 @@ module Google
             #   operation. If the server doesn't support this method, it returns
             #   `google.rpc.Code.UNIMPLEMENTED`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -321,7 +321,7 @@ module Google
             #   an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
             #   corresponding to `Code.CANCELLED`.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]

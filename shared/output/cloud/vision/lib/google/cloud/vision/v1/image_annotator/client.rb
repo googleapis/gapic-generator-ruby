@@ -112,7 +112,7 @@ module Google
             # @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #   Run image detection and annotation for a batch of images.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
@@ -172,7 +172,7 @@ module Google
             #   `Operation.metadata` contains `OperationMetadata` (metadata).
             #   `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]

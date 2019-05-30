@@ -122,7 +122,7 @@ module Google
             #   * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #     4096 characters.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -188,7 +188,7 @@ module Google
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #     than 1.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
@@ -253,7 +253,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the ProductSet does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -323,7 +323,7 @@ module Google
             #   * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #     missing from the request or longer than 4096 characters.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ProductSet]
@@ -393,7 +393,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the ProductSet does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -463,7 +463,7 @@ module Google
             #   * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #   * Returns INVALID_ARGUMENT if product_category is missing or invalid.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -527,7 +527,7 @@ module Google
             #
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
@@ -592,7 +592,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the Product does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -676,7 +676,7 @@ module Google
             #     longer than 4096 characters.
             #   * Returns INVALID_ARGUMENT if product_category is present in update_mask.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::Product]
@@ -748,7 +748,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the product does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -840,7 +840,7 @@ module Google
             #     compatible with the parent product's product_category is detected.
             #   * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
@@ -916,7 +916,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the reference image does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -984,7 +984,7 @@ module Google
             #   * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #     than 1.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
@@ -1049,7 +1049,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the specified image does not exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::ReferenceImage]
@@ -1119,7 +1119,7 @@ module Google
             #
             #   * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -1183,7 +1183,7 @@ module Google
             #
             #   * Returns NOT_FOUND If the Product is not found under the ProductSet.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -1251,7 +1251,7 @@ module Google
             #
             #   * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
@@ -1328,7 +1328,7 @@ module Google
             #   For the format of the csv file please see
             #   [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]

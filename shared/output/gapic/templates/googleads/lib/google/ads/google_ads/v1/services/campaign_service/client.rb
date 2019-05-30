@@ -117,7 +117,7 @@ module Google
               # @param request [Google::Ads::Googleads::V1::Services::GetCampaignRequest | Hash]
               #   Returns the requested campaign in full detail.
               # @param options [Google::Gax::ApiCall::Options, Hash]
-              #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+              #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::Googleads::V1::Resources::Campaign]
@@ -173,7 +173,7 @@ module Google
               # @param request [Google::Ads::Googleads::V1::Services::MutateCampaignsRequest | Hash]
               #   Creates, updates, or removes campaigns. Operation statuses are returned.
               # @param options [Google::Gax::ApiCall::Options, Hash]
-              #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+              #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::Googleads::V1::Services::MutateCampaignsResponse]

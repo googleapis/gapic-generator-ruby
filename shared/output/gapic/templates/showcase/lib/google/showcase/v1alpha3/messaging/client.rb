@@ -122,7 +122,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
           #   Creates a room.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -172,7 +172,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
           #   Retrieves the Room with the given resource name.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -228,7 +228,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
           #   Updates a room.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -284,7 +284,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
           #   Deletes a room and all of its blurbs.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -340,7 +340,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
           #   Lists all chat rooms.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
@@ -395,7 +395,7 @@ module Google
           #   message in that room. If the parent is a profile, the blurb is understood
           #   to be a post on the profile.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -451,7 +451,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
           #   Retrieves the Blurb with the given resource name.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -507,7 +507,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
           #   Updates a blurb.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -563,7 +563,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
           #   Deletes a blurb.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -621,7 +621,7 @@ module Google
           #   Lists blurbs for a specific chat room or user profile depending on the
           #   parent resource name.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
@@ -682,7 +682,7 @@ module Google
           #   for blurbs containing to words found in the query. Only posts that
           #   contain an exact match of a queried word will be returned.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::Operation]
@@ -741,7 +741,7 @@ module Google
           #   This returns a stream that emits the blurbs that are created for a
           #   particular chat room or user profile.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
@@ -798,7 +798,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::SendBlurbsResponse]
@@ -865,7 +865,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]

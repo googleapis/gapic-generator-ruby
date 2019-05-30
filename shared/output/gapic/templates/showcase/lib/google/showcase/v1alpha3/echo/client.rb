@@ -119,7 +119,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #   This method simply echos the request. This method is showcases unary rpcs.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
@@ -171,7 +171,7 @@ module Google
           #   This method split the given content into words and will pass each word back
           #   through the stream. This method showcases server-side streaming rpcs.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -223,7 +223,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::EchoResponse]
@@ -283,7 +283,7 @@ module Google
           # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -343,7 +343,7 @@ module Google
           #   This is similar to the Expand method but instead of returning a stream of
           #   expanded words, this method returns a paged list of expanded words.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
@@ -396,7 +396,7 @@ module Google
           #   This method will wait the requested amount of and then return.
           #   This method showcases how a client handles a request timing out.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::Operation]

@@ -114,7 +114,7 @@ module Google
             #   Performs synchronous speech recognition: receive results after all audio
             #   has been sent and processed.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Speech::V1::RecognizeResponse]
@@ -170,7 +170,7 @@ module Google
             #   `Operation.error` or an `Operation.response` which contains
             #   a `LongRunningRecognizeResponse` message.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]
@@ -222,7 +222,7 @@ module Google
             # @param request [Google::Gax::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
             # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]

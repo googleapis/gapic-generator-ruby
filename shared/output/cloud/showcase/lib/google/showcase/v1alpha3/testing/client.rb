@@ -110,7 +110,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #   Creates a new testing session.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Session]
@@ -160,7 +160,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #   Gets a testing session.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Session]
@@ -216,7 +216,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #   Lists the current test sessions.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
@@ -267,7 +267,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #   Delete a test session.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -327,7 +327,7 @@ module Google
           #   This generates a report detailing which tests have been completed,
           #   and an overall rollup.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::ReportSessionResponse]
@@ -383,7 +383,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #   List the tests of a sessesion.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
@@ -450,7 +450,7 @@ module Google
           #
           #   This method will error if attempting to delete a required test.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -512,7 +512,7 @@ module Google
           #   In cases where a test involves registering a final answer at the
           #   end of the test, this method provides the means to do so.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::VerifyTestResponse]

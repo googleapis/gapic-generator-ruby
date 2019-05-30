@@ -110,7 +110,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #   Creates a user.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -160,7 +160,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #   Retrieves the User with the given uri.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -216,7 +216,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #   Updates a user.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -272,7 +272,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #   Deletes a user, their profile, and all of their authored messages.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -328,7 +328,7 @@ module Google
           # @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #   Lists all users.
           # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc.
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
