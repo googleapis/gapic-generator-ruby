@@ -90,19 +90,12 @@ class FieldPresenter
 
   def type_name_full
     return nil if type_name.blank?
-    ruby_type_for_address type_name
+    ruby_namespace @api, type_name
   end
 
   protected
 
   def message_ruby_type message
-    ruby_type_for_address message.address.join(".")
-  end
-
-  def ruby_type_for_address address
-    file = @api.file_for address
-    address = address.dup
-    address[file.package] = file.ruby_package if file.ruby_package.present?
-    address.split(".").reject(&:empty?).map(&:camelize).join("::")
+    ruby_namespace @api, message.address.join(".")
   end
 end

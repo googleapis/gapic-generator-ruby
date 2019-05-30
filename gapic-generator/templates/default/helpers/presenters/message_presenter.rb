@@ -19,6 +19,8 @@ require "active_support/inflector"
 require_relative "field_presenter"
 
 class MessagePresenter
+  include NamespaceHelper
+
   def initialize api, message
     @api = api
     @message = message
@@ -67,13 +69,6 @@ class MessagePresenter
   protected
 
   def message_ruby_type message
-    ruby_type_for_address message.address.join(".")
-  end
-
-  def ruby_type_for_address address
-    file = @api.file_for address
-    address = address.dup
-    address[file.package] = file.ruby_package if file.ruby_package.present?
-    address.split(".").reject(&:empty?).map(&:camelize).join("::")
+    ruby_namespace @api, message.address.join(".")
   end
 end

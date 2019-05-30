@@ -19,6 +19,8 @@ require_relative "gem_presenter"
 require_relative "service_presenter"
 
 class PackagePresenter
+  include NamespaceHelper
+
   def initialize api, package
     @api = api
     @package = package
