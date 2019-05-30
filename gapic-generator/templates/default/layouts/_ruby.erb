@@ -1,16 +1,16 @@
-<%- assert_locals namespaces -%>
+<%- assert_locals address -%>
 # frozen_string_literal: true
 
 <%= render partial: "shared/license" %>
 <% if @requires %>
 <%= @requires %>
 <% end %>
-<%- namespaces.each_with_index do |n, i| -%>
+<%- address.each_with_index do |n, i| -%>
 <%= indent "module #{n.camelize}", i*2 %>
 <%- end -%>
-<%= indent yield, namespaces.count*2 %>
-<%- namespaces.count.times do |i| -%>
-<%= indent "end", (namespaces.count-1-i)*2 %>
+<%= indent yield, address.count*2 %>
+<%- address.count.times do |i| -%>
+<%= indent "end", (address.count-1-i)*2 %>
 <%- end -%>
 <%- if @footer -%>
 

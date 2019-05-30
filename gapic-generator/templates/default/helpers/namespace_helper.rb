@@ -17,31 +17,19 @@
 require "active_support/inflector"
 
 module NamespaceHelper
-  def namespace_for api
-    api.address.each do |namespace|
-      puts "module #{namespace}"
-    end
-
-    yield
-
-    api.address.each do |_namespace|
-      puts "end"
-    end
-  end
-
   ##
-  # Converts an array or dot-separated namespace string to a new string with
+  # Converts an array or dot-separated address string to a new string with
   # forward-slash separators.
-  def ruby_path namespaces
-    namespaces = namespaces.split "." if namespaces.is_a? String
-    namespaces.reject(&:empty?).map(&:underscore).join "/"
+  def ruby_path_for_address address
+    address = address.split "." if address.is_a? String
+    address.reject(&:empty?).map(&:underscore).join "/"
   end
 
   ##
-  # Converts an array or dot-separated namespace string to a new string with
+  # Converts an array or dot-separated address string to a new string with
   # Ruby double-semicolon separators.
-  def ruby_namespace namespaces
-    namespaces = namespaces.split "." if namespaces.is_a? String
-    namespaces.reject(&:empty?).map(&:camelize).join "::"
+  def ruby_namespace_for_address address
+    address = address.split "." if address.is_a? String
+    address.reject(&:empty?).map(&:camelize).join "::"
   end
 end

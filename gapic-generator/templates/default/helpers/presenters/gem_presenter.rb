@@ -44,7 +44,7 @@ class GemPresenter
     end
   end
 
-  def namespaces
+  def address
     name.split("-").map(&:camelize)
   end
 

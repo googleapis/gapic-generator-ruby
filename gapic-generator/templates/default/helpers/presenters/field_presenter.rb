@@ -88,7 +88,7 @@ class FieldPresenter
   end
 
   def type_name_full
-    ruby_namespace @field.type_name
+    ruby_namespace_for_address @field.type_name
   end
 
   protected

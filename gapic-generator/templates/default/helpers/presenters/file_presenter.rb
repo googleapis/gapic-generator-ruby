@@ -23,7 +23,7 @@ class FilePresenter
     @file = file
   end
 
-  def namespaces
+  def address
     @file.address
   end
 

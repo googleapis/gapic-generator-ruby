@@ -42,13 +42,13 @@ class ServicePresenter
     end
   end
 
-  def namespaces
+  def address
     @service.address
   end
 
   def namespace
     return @service.ruby_package if @service.ruby_package.present?
-    ruby_namespace @service.address[0...-1]
+    ruby_namespace_for_address @service.address[0...-1]
   end
 
   def version

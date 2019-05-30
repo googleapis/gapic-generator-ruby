@@ -39,12 +39,12 @@ class PackagePresenter
     end
   end
 
-  def namespaces
+  def address
     @package.split "."
   end
 
   def version_require
-    namespaces.map(&:underscore).join "/"
+    address.map(&:underscore).join "/"
   end
 
   def version_file_path
