@@ -39,6 +39,6 @@ module NamespaceHelper
   ##
   # Corrects a namespace by replacing known bad values with good values.
   def fix_namespace api, namespace
-    namespace.split("::").map { |node| api.fix_inflection node }.join("::")
+    namespace.split("::").map { |node| api.fix_namespace node }.join("::")
   end
 end

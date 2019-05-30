@@ -166,10 +166,7 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @get_campaign ||= Google::Gax::ApiCall.new @campaign_service_stub.method :get_campaign
-
-
-                @get_campaign.call request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :get_campaign, request, options: options, operation_callback: block
               end
 
               ##
@@ -237,10 +234,7 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @mutate_campaigns ||= Google::Gax::ApiCall.new @campaign_service_stub.method :mutate_campaigns
-
-
-                @mutate_campaigns.call request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options, operation_callback: block
               end
 
               class Configuration

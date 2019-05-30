@@ -33,6 +33,6 @@ module FilepathHelper
   ##
   # Corrects a namespace by replacing known bad values with good values.
   def fix_file_path api, file_path
-    file_path.split("/").map { |node| api.fix_inflection node }.join("/")
+    file_path.split("/").map { |node| api.fix_file_path node }.join("/")
   end
 end

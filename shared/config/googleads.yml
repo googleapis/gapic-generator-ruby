@@ -5,6 +5,8 @@
     :default_host: "ads.googleapis.com"
     :oauth_scopes:
       - https://www.googleapis.com/auth/adwords
-:inflections:
-  google_ads: googleads
-  Googleads: GoogleAds
+:overrides:
+  :file_path:
+    google_ads: googleads
+  :namespace:
+    Googleads: GoogleAds
