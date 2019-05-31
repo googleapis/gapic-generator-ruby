@@ -143,7 +143,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.create_session.timeout,
                                    metadata:     metadata,
@@ -192,7 +193,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name
@@ -249,7 +251,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.list_sessions.timeout,
                                    metadata:     metadata,
@@ -300,7 +303,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name
@@ -359,7 +363,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name
@@ -418,7 +423,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name
@@ -485,7 +491,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name
@@ -550,7 +557,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             header_params = {
               "name" => request.name

@@ -151,7 +151,8 @@ module Google
 
               # Set x-goog-api-client header
               metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Vision::VERSION
 
               options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
                                      metadata:     metadata,
@@ -210,7 +211,8 @@ module Google
 
               # Set x-goog-api-client header
               metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Vision::VERSION"
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Vision::VERSION
 
               options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
                                      metadata:     metadata,

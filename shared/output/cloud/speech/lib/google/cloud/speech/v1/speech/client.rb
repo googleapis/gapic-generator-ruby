@@ -148,7 +148,8 @@ module Google
 
               # Set x-goog-api-client header
               metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Speech::VERSION"
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Speech::VERSION
 
               options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
                                      metadata:     metadata,
@@ -206,7 +207,8 @@ module Google
 
               # Set x-goog-api-client header
               metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Speech::VERSION"
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Speech::VERSION
 
               options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
                                      metadata:     metadata,
@@ -261,7 +263,8 @@ module Google
 
               # Set x-goog-api-client header
               metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Cloud::Speech::VERSION"
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Speech::VERSION
 
               options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
                                      metadata:     metadata,
