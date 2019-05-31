@@ -146,12 +146,9 @@ module Google
                 # Customize the options with defaults
                 metadata = @config.rpcs.get_campaign.metadata.to_h
 
-                x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-                x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
-                x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-                x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-                metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+                # Set x-goog-api-client header
+                metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Ads::GoogleAds::VERSION"
 
                 header_params = {
                   "resource_name" => request.resource_name
@@ -214,12 +211,9 @@ module Google
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h
 
-                x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-                x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-                x_goog_api_client_header << "gapic/#{Google::Ads::GoogleAds::VERSION}"
-                x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-                x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-                metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join " "
+                # Set x-goog-api-client header
+                metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Ads::GoogleAds::VERSION"
 
                 header_params = {
                   "customer_id" => request.customer_id

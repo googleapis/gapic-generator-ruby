@@ -5,12 +5,9 @@ options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? 
 # Customize the options with defaults
 metadata = @config.rpcs.<%= method.name %>.metadata.to_h
 
-x_goog_api_client_header = ["gl-ruby/#{RUBY_VERSION}"]
-x_goog_api_client_header << "#{@config.lib_name}/#{@config.lib_version}" if @config.lib_name
-x_goog_api_client_header << "gapic/#{<%= method.service.gem.version_name_full %>}"
-x_goog_api_client_header << "gax/#{Google::Gax::VERSION}"
-x_goog_api_client_header << "grpc/#{GRPC::VERSION}"
-metadata[:"x-goog-api-client"] ||= x_goog_api_client_header.join(" ")
+# Set x-goog-api-client header
+metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "<%= method.service.gem.version_name_full %>"
 <%- if method.routing_params? -%>
 
 header_params = {
