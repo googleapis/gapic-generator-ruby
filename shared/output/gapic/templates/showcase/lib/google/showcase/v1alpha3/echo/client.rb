@@ -152,7 +152,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.echo.timeout,
                                    metadata:     metadata,
@@ -205,7 +206,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.expand.timeout,
                                    metadata:     metadata,
@@ -259,7 +261,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.collect.timeout,
                                    metadata:     metadata,
@@ -313,7 +316,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.chat.timeout,
                                    metadata:     metadata,
@@ -368,7 +372,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.paged_expand.timeout,
                                    metadata:     metadata,
@@ -428,7 +433,8 @@ module Google
 
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Showcase::VERSION"
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Showcase::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.wait.timeout,
                                    metadata:     metadata,

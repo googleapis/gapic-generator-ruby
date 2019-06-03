@@ -148,7 +148,8 @@ module Google
 
                 # Set x-goog-api-client header
                 metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Ads::GoogleAds::VERSION"
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: Google::Ads::GoogleAds::VERSION
 
                 header_params = {
                   "resource_name" => request.resource_name
@@ -213,7 +214,8 @@ module Google
 
                 # Set x-goog-api-client header
                 metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-                  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "Google::Ads::GoogleAds::VERSION"
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: Google::Ads::GoogleAds::VERSION
 
                 header_params = {
                   "customer_id" => request.customer_id

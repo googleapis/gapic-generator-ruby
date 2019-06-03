@@ -7,7 +7,8 @@ metadata = @config.rpcs.<%= method.name %>.metadata.to_h
 
 # Set x-goog-api-client header
 metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
-  lib_name: @config.lib_name, lib_version: @config.lib_version, gapic_version: "<%= method.service.gem.version_name_full %>"
+  lib_name: @config.lib_name, lib_version: @config.lib_version,
+  gapic_version: <%= method.service.gem.version_name_full %>
 <%- if method.routing_params? -%>
 
 header_params = {
