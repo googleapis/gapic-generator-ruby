@@ -25,8 +25,10 @@ while true; do
   esac
 done
 
-
-exec protoc --proto_path=/protos/ --proto_path=/in/ \
+mkdir -p /out/lib
+exec grpc_tools_ruby_protoc --proto_path=/protos/ --proto_path=/in/ \
+            --ruby_out=/out/lib \
+            --grpc_out=/out/lib \
             --ruby_gapic_out=/out/ \
             --ruby_gapic_opt="configuration=/config.yml" \
             `find /in/ -name *.proto`
