@@ -75,9 +75,9 @@ EOF
 fi
 
 # Ensure that the input directory exists (and is a directory).
-if ! [ -d $IN ]; then
+if ! [ -d ${PROTO_PATH}/${IN} ]; then
   cat << EOF
-Directory does not exist: $IN
+Directory does not exist: ${PROTO_PATH}/${IN}
 EOF
   exit 2
 fi
