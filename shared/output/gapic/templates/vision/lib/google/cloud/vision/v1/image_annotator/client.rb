@@ -117,15 +117,16 @@ module Google
             ##
             # Run image detection and annotation for a batch of images.
             #
-            # @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
-            #   Run image detection and annotation for a batch of images.
+            # @overload batch_annotate_images(request, options = nil)
+            #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
+            #     Run image detection and annotation for a batch of images.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `requests` (`Google::Cloud::Vision::V1::AnnotateImageRequest | Hash`):
+            # @overload batch_annotate_images(requests: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
             #     Individual image annotation requests for this batch.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
@@ -172,20 +173,21 @@ module Google
             # `Operation.metadata` contains `OperationMetadata` (metadata).
             # `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
             #
-            # @param request [Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest | Hash]
-            #   Run asynchronous image detection and annotation for a list of generic
-            #   files, such as PDF files, which may contain multiple pages and multiple
-            #   images per page. Progress and results can be retrieved through the
-            #   `google.longrunning.Operations` interface.
-            #   `Operation.metadata` contains `OperationMetadata` (metadata).
-            #   `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            # @overload async_batch_annotate_files(request, options = nil)
+            #   @param request [Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest | Hash]
+            #     Run asynchronous image detection and annotation for a list of generic
+            #     files, such as PDF files, which may contain multiple pages and multiple
+            #     images per page. Progress and results can be retrieved through the
+            #     `google.longrunning.Operations` interface.
+            #     `Operation.metadata` contains `OperationMetadata` (metadata).
+            #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `requests` (`Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash`):
+            # @overload async_batch_annotate_files(requests: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
             #     Individual async file annotation requests for this batch.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]

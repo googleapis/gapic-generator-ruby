@@ -115,25 +115,26 @@ module Google
             # NOTE: the `name` binding below allows API services to override the binding
             # to use different resource name schemes, such as `users/*/operations`.
             #
-            # @param request [Google::Longrunning::ListOperationsRequest | Hash]
-            #   Lists operations that match the specified filter in the request. If the
-            #   server doesn't support this method, it returns `UNIMPLEMENTED`.
+            # @overload list_operations(request, options = nil)
+            #   @param request [Google::Longrunning::ListOperationsRequest | Hash]
+            #     Lists operations that match the specified filter in the request. If the
+            #     server doesn't support this method, it returns `UNIMPLEMENTED`.
             #
-            #   NOTE: the `name` binding below allows API services to override the binding
-            #   to use different resource name schemes, such as `users/*/operations`.
+            #     NOTE: the `name` binding below allows API services to override the binding
+            #     to use different resource name schemes, such as `users/*/operations`.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `name` (`String`):
+            # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
+            #   @param name [String]
             #     The name of the operation collection.
-            #   * `filter` (`String`):
+            #   @param filter [String]
             #     The standard list filter.
-            #   * `page_size` (`Integer`):
+            #   @param page_size [Integer]
             #     The standard list page size.
-            #   * `page_token` (`String`):
+            #   @param page_token [String]
             #     The standard list page token.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
@@ -186,17 +187,18 @@ module Google
             # method to poll the operation result at intervals as recommended by the API
             # service.
             #
-            # @param request [Google::Longrunning::GetOperationRequest | Hash]
-            #   Gets the latest state of a long-running operation.  Clients can use this
-            #   method to poll the operation result at intervals as recommended by the API
-            #   service.
+            # @overload get_operation(request, options = nil)
+            #   @param request [Google::Longrunning::GetOperationRequest | Hash]
+            #     Gets the latest state of a long-running operation.  Clients can use this
+            #     method to poll the operation result at intervals as recommended by the API
+            #     service.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `name` (`String`):
+            # @overload get_operation(name: nil)
+            #   @param name [String]
             #     The name of the operation resource.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]
@@ -249,18 +251,19 @@ module Google
             # operation. If the server doesn't support this method, it returns
             # `google.rpc.Code.UNIMPLEMENTED`.
             #
-            # @param request [Google::Longrunning::DeleteOperationRequest | Hash]
-            #   Deletes a long-running operation. This method indicates that the client is
-            #   no longer interested in the operation result. It does not cancel the
-            #   operation. If the server doesn't support this method, it returns
-            #   `google.rpc.Code.UNIMPLEMENTED`.
+            # @overload delete_operation(request, options = nil)
+            #   @param request [Google::Longrunning::DeleteOperationRequest | Hash]
+            #     Deletes a long-running operation. This method indicates that the client is
+            #     no longer interested in the operation result. It does not cancel the
+            #     operation. If the server doesn't support this method, it returns
+            #     `google.rpc.Code.UNIMPLEMENTED`.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `name` (`String`):
+            # @overload delete_operation(name: nil)
+            #   @param name [String]
             #     The name of the operation resource to be deleted.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]
@@ -317,24 +320,25 @@ module Google
             # an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
             # corresponding to `Code.CANCELLED`.
             #
-            # @param request [Google::Longrunning::CancelOperationRequest | Hash]
-            #   Starts asynchronous cancellation on a long-running operation.  The server
-            #   makes a best effort to cancel the operation, but success is not
-            #   guaranteed.  If the server doesn't support this method, it returns
-            #   `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
-            #   [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
-            #   other methods to check whether the cancellation succeeded or whether the
-            #   operation completed despite cancellation. On successful cancellation,
-            #   the operation is not deleted; instead, it becomes an operation with
-            #   an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
-            #   corresponding to `Code.CANCELLED`.
+            # @overload cancel_operation(request, options = nil)
+            #   @param request [Google::Longrunning::CancelOperationRequest | Hash]
+            #     Starts asynchronous cancellation on a long-running operation.  The server
+            #     makes a best effort to cancel the operation, but success is not
+            #     guaranteed.  If the server doesn't support this method, it returns
+            #     `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+            #     [Operations.GetOperation][google.longrunning.Operations.GetOperation] or
+            #     other methods to check whether the cancellation succeeded or whether the
+            #     operation completed despite cancellation. On successful cancellation,
+            #     the operation is not deleted; instead, it becomes an operation with
+            #     an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
+            #     corresponding to `Code.CANCELLED`.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `name` (`String`):
+            # @overload cancel_operation(name: nil)
+            #   @param name [String]
             #     The name of the operation resource to be cancelled.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Protobuf::Empty]

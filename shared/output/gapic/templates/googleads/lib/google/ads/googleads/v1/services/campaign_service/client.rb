@@ -114,15 +114,16 @@ module Google
               ##
               # Returns the requested campaign in full detail.
               #
-              # @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
-              #   Returns the requested campaign in full detail.
+              # @overload get_campaign(request, options = nil)
+              #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
+              #     Returns the requested campaign in full detail.
+              #   @param options [Google::Gax::ApiCall::Options, Hash]
+              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
-              #   When using a hash, the following fields are supported:
-              #
-              #   * `resource_name` (`String`):
+              # @overload get_campaign(resource_name: nil)
+              #   @param resource_name [String]
               #     The resource name of the campaign to fetch.
-              # @param options [Google::Gax::ApiCall::Options, Hash]
-              #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::GoogleAds::V1::Resources::Campaign]
@@ -170,25 +171,26 @@ module Google
               ##
               # Creates, updates, or removes campaigns. Operation statuses are returned.
               #
-              # @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
-              #   Creates, updates, or removes campaigns. Operation statuses are returned.
+              # @overload mutate_campaigns(request, options = nil)
+              #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
+              #     Creates, updates, or removes campaigns. Operation statuses are returned.
+              #   @param options [Google::Gax::ApiCall::Options, Hash]
+              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
-              #   When using a hash, the following fields are supported:
-              #
-              #   * `customer_id` (`String`):
+              # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
+              #   @param customer_id [String]
               #     The ID of the customer whose campaigns are being modified.
-              #   * `operations` (`Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash`):
+              #   @param operations [Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash]
               #     The list of operations to perform on individual campaigns.
-              #   * `partial_failure` (`Boolean`):
+              #   @param partial_failure [Boolean]
               #     If true, successful operations will be carried out and invalid
               #     operations will return errors. If false, all operations will be carried
               #     out in one transaction if and only if they are all valid.
               #     Default is false.
-              #   * `validate_only` (`Boolean`):
+              #   @param validate_only [Boolean]
               #     If true, the request is validated but not executed. Only errors are
               #     returned, not results.
-              # @param options [Google::Gax::ApiCall::Options, Hash]
-              #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
