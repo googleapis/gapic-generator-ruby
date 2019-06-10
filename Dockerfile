@@ -1,8 +1,10 @@
 FROM ruby:2.6-stretch
 
-# Add protoc and our common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:beta /usr/local/bin/protoc /usr/local/bin/protoc
+# Add common protos.
 COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /protos/
+
+# Add protoc and grpc_ruby_plugin.
+RUN gem install grpc-tools
 
 # Add our code to the Docker image.
 ADD . /usr/src/gapic-generator-ruby/
