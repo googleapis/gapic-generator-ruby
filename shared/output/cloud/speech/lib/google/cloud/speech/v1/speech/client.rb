@@ -110,19 +110,20 @@ module Google
             # Performs synchronous speech recognition: receive results after all audio
             # has been sent and processed.
             #
-            # @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
-            #   Performs synchronous speech recognition: receive results after all audio
-            #   has been sent and processed.
+            # @overload recognize(request, options = nil)
+            #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
+            #     Performs synchronous speech recognition: receive results after all audio
+            #     has been sent and processed.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
+            # @overload recognize(config: nil, audio: nil)
+            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
             #     process the request.
-            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
+            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Speech::V1::RecognizeResponse]
@@ -167,21 +168,22 @@ module Google
             # `Operation.error` or an `Operation.response` which contains
             # a `LongRunningRecognizeResponse` message.
             #
-            # @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
-            #   Performs asynchronous speech recognition: receive results via the
-            #   google.longrunning.Operations interface. Returns either an
-            #   `Operation.error` or an `Operation.response` which contains
-            #   a `LongRunningRecognizeResponse` message.
+            # @overload long_running_recognize(request, options = nil)
+            #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
+            #     Performs asynchronous speech recognition: receive results via the
+            #     google.longrunning.Operations interface. Returns either an
+            #     `Operation.error` or an `Operation.response` which contains
+            #     a `LongRunningRecognizeResponse` message.
+            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            #   When using a hash, the following fields are supported:
-            #
-            #   * `config` (`Google::Cloud::Speech::V1::RecognitionConfig | Hash`):
+            # @overload long_running_recognize(config: nil, audio: nil)
+            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
             #     *Required* Provides information to the recognizer that specifies how to
             #     process the request.
-            #   * `audio` (`Google::Cloud::Speech::V1::RecognitionAudio | Hash`):
+            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
             #     *Required* The audio data to be recognized.
-            # @param options [Google::Gax::ApiCall::Options, Hash]
-            #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Gax::Operation]

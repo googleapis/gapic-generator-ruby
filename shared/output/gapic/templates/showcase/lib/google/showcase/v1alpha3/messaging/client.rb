@@ -119,15 +119,16 @@ module Google
           ##
           # Creates a room.
           #
-          # @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
-          #   Creates a room.
+          # @overload create_room(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
+          #     Creates a room.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `room` (`Google::Showcase::V1alpha3::Room | Hash`):
+          # @overload create_room(room: nil)
+          #   @param room [Google::Showcase::V1alpha3::Room | Hash]
           #     The room to create.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -169,15 +170,16 @@ module Google
           ##
           # Retrieves the Room with the given resource name.
           #
-          # @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
-          #   Retrieves the Room with the given resource name.
+          # @overload get_room(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
+          #     Retrieves the Room with the given resource name.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload get_room(name: nil)
+          #   @param name [String]
           #     The resource name of the requested room.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -225,18 +227,19 @@ module Google
           ##
           # Updates a room.
           #
-          # @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
-          #   Updates a room.
+          # @overload update_room(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
+          #     Updates a room.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `room` (`Google::Showcase::V1alpha3::Room | Hash`):
+          # @overload update_room(room: nil, update_mask: nil)
+          #   @param room [Google::Showcase::V1alpha3::Room | Hash]
           #     The room to update.
-          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Room]
@@ -284,15 +287,16 @@ module Google
           ##
           # Deletes a room and all of its blurbs.
           #
-          # @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
-          #   Deletes a room and all of its blurbs.
+          # @overload delete_room(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
+          #     Deletes a room and all of its blurbs.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload delete_room(name: nil)
+          #   @param name [String]
           #     The resource name of the requested room.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -340,20 +344,21 @@ module Google
           ##
           # Lists all chat rooms.
           #
-          # @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
-          #   Lists all chat rooms.
+          # @overload list_rooms(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
+          #     Lists all chat rooms.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `page_size` (`Integer`):
+          # @overload list_rooms(page_size: nil, page_token: nil)
+          #   @param page_size [Integer]
           #     The maximum number of rooms return. Server may return fewer rooms
           #     than requested. If unspecified, server will pick an appropriate default.
-          #   * `page_token` (`String`):
+          #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListRoomsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\ListRooms` method.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
@@ -399,20 +404,21 @@ module Google
           # message in that room. If the parent is a profile, the blurb is understood
           # to be a post on the profile.
           #
-          # @param request [Google::Showcase::V1alpha3::CreateBlurbRequest | Hash]
-          #   Creates a blurb. If the parent is a room, the blurb is understood to be a
-          #   message in that room. If the parent is a profile, the blurb is understood
-          #   to be a post on the profile.
+          # @overload create_blurb(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateBlurbRequest | Hash]
+          #     Creates a blurb. If the parent is a room, the blurb is understood to be a
+          #     message in that room. If the parent is a profile, the blurb is understood
+          #     to be a post on the profile.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `parent` (`String`):
+          # @overload create_blurb(parent: nil, blurb: nil)
+          #   @param parent [String]
           #     The resource name of the chat room or user profile that this blurb will
           #     be tied to.
-          #   * `blurb` (`Google::Showcase::V1alpha3::Blurb | Hash`):
+          #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
           #     The blurb to create.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -460,15 +466,16 @@ module Google
           ##
           # Retrieves the Blurb with the given resource name.
           #
-          # @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
-          #   Retrieves the Blurb with the given resource name.
+          # @overload get_blurb(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
+          #     Retrieves the Blurb with the given resource name.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload get_blurb(name: nil)
+          #   @param name [String]
           #     The resource name of the requested blurb.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -516,18 +523,19 @@ module Google
           ##
           # Updates a blurb.
           #
-          # @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
-          #   Updates a blurb.
+          # @overload update_blurb(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
+          #     Updates a blurb.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `blurb` (`Google::Showcase::V1alpha3::Blurb | Hash`):
+          # @overload update_blurb(blurb: nil, update_mask: nil)
+          #   @param blurb [Google::Showcase::V1alpha3::Blurb | Hash]
           #     The blurb to update.
-          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::Blurb]
@@ -575,15 +583,16 @@ module Google
           ##
           # Deletes a blurb.
           #
-          # @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
-          #   Deletes a blurb.
+          # @overload delete_blurb(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
+          #     Deletes a blurb.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload delete_blurb(name: nil)
+          #   @param name [String]
           #     The resource name of the requested blurb.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -632,24 +641,25 @@ module Google
           # Lists blurbs for a specific chat room or user profile depending on the
           # parent resource name.
           #
-          # @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
-          #   Lists blurbs for a specific chat room or user profile depending on the
-          #   parent resource name.
+          # @overload list_blurbs(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
+          #     Lists blurbs for a specific chat room or user profile depending on the
+          #     parent resource name.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `parent` (`String`):
+          # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil)
+          #   @param parent [String]
           #     The resource name of the requested room or profile whos blurbs to list.
-          #   * `page_size` (`Integer`):
+          #   @param page_size [Integer]
           #     The maximum number of blurbs to return. Server may return fewer
           #     blurbs than requested. If unspecified, server will pick an appropriate
           #     default.
-          #   * `page_token` (`String`):
+          #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListBlurbsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\ListBlurbs` method.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
@@ -701,30 +711,31 @@ module Google
           # for blurbs containing to words found in the query. Only posts that
           # contain an exact match of a queried word will be returned.
           #
-          # @param request [Google::Showcase::V1alpha3::SearchBlurbsRequest | Hash]
-          #   This method searches through all blurbs across all rooms and profiles
-          #   for blurbs containing to words found in the query. Only posts that
-          #   contain an exact match of a queried word will be returned.
+          # @overload search_blurbs(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::SearchBlurbsRequest | Hash]
+          #     This method searches through all blurbs across all rooms and profiles
+          #     for blurbs containing to words found in the query. Only posts that
+          #     contain an exact match of a queried word will be returned.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `query` (`String`):
+          # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil)
+          #   @param query [String]
           #     The query used to search for blurbs containing to words of this string.
           #     Only posts that contain an exact match of a queried word will be returned.
-          #   * `parent` (`String`):
+          #   @param parent [String]
           #     The rooms or profiles to search. If unset, `SearchBlurbs` will search all
           #     rooms and all profiles.
-          #   * `page_size` (`Integer`):
+          #   @param page_size [Integer]
           #     The maximum number of blurbs return. Server may return fewer
           #     blurbs than requested. If unspecified, server will pick an appropriate
           #     default.
-          #   * `page_token` (`String`):
+          #   @param page_token [String]
           #     The value of
           #     google.showcase.v1alpha3.SearchBlurbsResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Messaging\SearchBlurbs` method.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::Operation]
@@ -775,18 +786,19 @@ module Google
           # This returns a stream that emits the blurbs that are created for a
           # particular chat room or user profile.
           #
-          # @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
-          #   This returns a stream that emits the blurbs that are created for a
-          #   particular chat room or user profile.
+          # @overload stream_blurbs(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
+          #     This returns a stream that emits the blurbs that are created for a
+          #     particular chat room or user profile.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload stream_blurbs(name: nil, expire_time: nil)
+          #   @param name [String]
           #     The resource name of a chat room or user profile whose blurbs to stream.
-          #   * `expire_time` (`Google::Protobuf::Timestamp | Hash`):
+          #   @param expire_time [Google::Protobuf::Timestamp | Hash]
           #     The time at which this stream will close.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]

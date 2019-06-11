@@ -115,15 +115,16 @@ module Google
           ##
           # Creates a user.
           #
-          # @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
-          #   Creates a user.
+          # @overload create_user(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
+          #     Creates a user.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `user` (`Google::Showcase::V1alpha3::User | Hash`):
+          # @overload create_user(user: nil)
+          #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to create.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -165,15 +166,16 @@ module Google
           ##
           # Retrieves the User with the given uri.
           #
-          # @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
-          #   Retrieves the User with the given uri.
+          # @overload get_user(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
+          #     Retrieves the User with the given uri.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload get_user(name: nil)
+          #   @param name [String]
           #     The resource name of the requested user.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -221,18 +223,19 @@ module Google
           ##
           # Updates a user.
           #
-          # @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
-          #   Updates a user.
+          # @overload update_user(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
+          #     Updates a user.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `user` (`Google::Showcase::V1alpha3::User | Hash`):
+          # @overload update_user(user: nil, update_mask: nil)
+          #   @param user [Google::Showcase::V1alpha3::User | Hash]
           #     The user to update.
-          #   * `update_mask` (`Google::Protobuf::FieldMask | Hash`):
+          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1alpha3::User]
@@ -280,15 +283,16 @@ module Google
           ##
           # Deletes a user, their profile, and all of their authored messages.
           #
-          # @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
-          #   Deletes a user, their profile, and all of their authored messages.
+          # @overload delete_user(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
+          #     Deletes a user, their profile, and all of their authored messages.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `name` (`String`):
+          # @overload delete_user(name: nil)
+          #   @param name [String]
           #     The resource name of the user to delete.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -336,20 +340,21 @@ module Google
           ##
           # Lists all users.
           #
-          # @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
-          #   Lists all users.
+          # @overload list_users(request, options = nil)
+          #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
+          #     Lists all users.
+          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          #   When using a hash, the following fields are supported:
-          #
-          #   * `page_size` (`Integer`):
+          # @overload list_users(page_size: nil, page_token: nil)
+          #   @param page_size [Integer]
           #     The maximum number of users to return. Server may return fewer users
           #     than requested. If unspecified, server will pick an appropriate default.
-          #   * `page_token` (`String`):
+          #   @param page_token [String]
           #     The value of google.showcase.v1alpha3.ListUsersResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1alpha3.Identity\ListUsers` method.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
-          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
