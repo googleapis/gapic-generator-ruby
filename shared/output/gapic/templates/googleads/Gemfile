@@ -1,6 +1,0 @@
-source "https://rubygems.org"
-
-gemspec
-
-gem "google-gax", github: "googleapis/gax-ruby"
-gem "rake", "~> 11.0"
