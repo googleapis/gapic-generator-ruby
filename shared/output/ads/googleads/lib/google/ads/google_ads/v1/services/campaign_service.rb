@@ -22,5 +22,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/ads/googleads/v1/services/campaign_service/client"
-require "google/ads/googleads/v1/services/campaign_service/credentials"
+require "google/ads/google_ads/v1/services/campaign_service/client"
+require "google/ads/google_ads/v1/services/campaign_service/credentials"
