@@ -39,3 +39,37 @@ class GeneratorTest < Minitest::Test
     File.read "expected_output/#{service}/#{filename}"
   end
 end
+
+require_relative "../../gapic-generator/templates/default/helpers/filepath_helper"
+require_relative "../../gapic-generator/templates/default/helpers/namespace_helper"
+require_relative "../../gapic-generator/templates/default/helpers/presenter_helper"
+
+class PresenterTest < Minitest::Test
+  def proto_input service
+    File.binread "proto_input/#{service}_desc.bin"
+  end
+
+  def request service
+    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  end
+
+  def api service
+    Google::Gapic::Schema::Api.new request(service)
+  end
+
+  def service_presenter api_name, service_name
+    api_obj = api api_name
+    service = api_obj.services.find { |s| s.name == service_name }
+    refute_nil service
+    ServicePresenter.new api_obj, service
+  end
+
+  def method_presenter api_name, service_name, method_name
+    api_obj = api api_name
+    service = api_obj.services.find { |s| s.name == service_name }
+    refute_nil service
+    method = service.methods.find { |s| s.name == method_name }
+    refute_nil method
+    MethodPresenter.new api_obj, method
+  end
+end
