@@ -6,7 +6,5 @@
     :oauth_scopes:
       - https://www.googleapis.com/auth/adwords
 :overrides:
-  :file_path:
-    google_ads: googleads
   :namespace:
     Googleads: GoogleAds
