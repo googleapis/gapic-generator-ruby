@@ -1,0 +1,52 @@
+# Copyright [yyyy] [name of copyright owner]
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+##
+# Builder image.
+# Creates /workspace/gapic-generator-my_plugin.gem
+# to be copied into the final runtime image.
+##
+FROM ruby:2.6-stretch as builder
+WORKDIR /workspace
+
+# Copy code from the local directory.
+COPY . /workspace/
+
+# Create a build of the gapic-generator-my_plugin gem from source.
+RUN gem build -o gapic-generator-my_plugin.gem \
+              gapic-generator-my_plugin.gemspec
+
+
+##
+# Runtime image.
+# Installs the generator executables, common protos, and an entrypoint.
+##
+FROM ruby:2.6-stretch
+WORKDIR /workspace
+
+# Install common protos.
+COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/common-protos/
+
+# Copy gems from the builder.
+COPY --from=builder /workspace/*.gem /workspace/
+
+# Install the subgenerator and other needed tools.
+RUN gem install grpc-tools gapic-generator-my_plugin.gem \
+    && rm gapic-generator-my_plugin.gem \
+    && mkdir -p --mode=777 /.cache
+
+# Install the entrypoint.
+COPY ./docker-entrypoint.sh /workspace/entrypoint.sh
+ENTRYPOINT ["/workspace/entrypoint.sh"]
