@@ -46,6 +46,7 @@ module Google
         gen "rubocop.erb",    ".rubocop.yml"
         gen "dockerfile.erb", "Dockerfile"
         gen "entrypoint.erb", "docker-entrypoint.sh"
+        gen "gapic_sh.erb",   "gapic.sh"
         gen "binary.erb",     "bin/protoc-gen-ruby_#{gem_name}"
         gen "generator.erb",
             "lib/google/gapic/generators/#{gem_name}_generator.rb"
