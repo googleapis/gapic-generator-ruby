@@ -14,8 +14,9 @@
 
 ##
 # Builder image.
-# Creates /workspace/gapic-generator.gem which is later copied into the
-# final runtime image.
+# Creates /workspace/gapic-generator-ads.gem (and possibly also
+# /workspace/gapic-generator.gem if building the base gem from master).
+# These gem files are copied into the final runtime image.
 ##
 FROM ruby:2.6-stretch as builder
 WORKDIR /workspace
@@ -23,8 +24,14 @@ WORKDIR /workspace
 # Copy code from the local directory.
 COPY . /workspace/
 
-# Create a build of the gapic-generator gem from source.
-RUN gem build -o gapic-generator.gem gapic-generator.gemspec
+# Build the base generator from source if the directory is present.
+RUN if [ -d tmp/gapic-generator ]; then \
+      cd tmp/gapic-generator \
+      && gem build -o ../../gapic-generator.gem gapic-generator.gemspec \
+    ;fi
+
+# Create a build of the gapic-generator-ads gem from source.
+RUN gem build -o gapic-generator-ads.gem gapic-generator-ads.gemspec
 
 
 ##
@@ -40,9 +47,15 @@ COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/commo
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /workspace/
 
-# Install the generator and other needed tools.
-RUN gem install grpc-tools ./gapic-generator.gem \
-    && rm gapic-generator.gem \
+# Install the base generator first if it was built from source.
+RUN if [ -f gapic-generator.gem ]; then \
+      gem install gapic-generator.gem \
+      && rm gapic-generator.gem \
+    ;fi
+
+# Install the subgenerator and other needed tools.
+RUN gem install grpc-tools gapic-generator-ads.gem \
+    && rm gapic-generator-ads.gem \
     && mkdir -p --mode=777 /.cache
 
 # Install the entrypoint.

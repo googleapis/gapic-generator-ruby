@@ -79,7 +79,7 @@ namespace :image do
     mkdir_p "tmp"
     base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
     base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
-    rm_r base_tmp_dir
+    rm_rf base_tmp_dir
     cp_r base_source_dir, base_tmp_dir
     sh "docker build -t #{image_name} ."
     rm_r base_tmp_dir

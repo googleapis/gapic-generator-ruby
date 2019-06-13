@@ -29,13 +29,11 @@ Gem::Specification.new do |spec|
   spec.summary       = "An API Client Generator for Ruby in Ruby!"
   spec.homepage      = "https://github.com/googleapis/gapic-generator-ruby"
 
-  spec.files         = Dir.glob("bin/*") +
+  spec.files         = Dir.glob("bin/*") + Dir.glob("lib/**/*.rb") +
                        Dir.glob("gem_templates/**/*.erb") +
-                       Dir.glob("lib/**/*.rb") +
                        Dir.glob("templates/**/*.{rb,erb}") +
                        Dir.glob("*.md") +
-                       Dir.glob("*-rubocop.yml") +
-                       ["LICENSE"]
+                       ["LICENSE", "default-rubocop.yml"]
   spec.bindir        = "bin"
   spec.executables   = ["gapic-generator", "protoc-gen-ruby_gapic"]
   spec.require_paths = ["lib"]

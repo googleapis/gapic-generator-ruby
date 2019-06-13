@@ -61,6 +61,3 @@ RUN gem install grpc-tools gapic-generator-cloud.gem \
 # Install the entrypoint.
 COPY ./docker-entrypoint.sh /workspace/entrypoint.sh
 ENTRYPOINT ["/workspace/entrypoint.sh"]
-
-# TEMP: Remove after google-style-0.3.1 is released
-RUN chmod -R a+r /usr/local/bundle/gems/google-style-0.3.0

@@ -32,8 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir.glob("bin/*") + Dir.glob("lib/**/*.rb") +
                        Dir.glob("templates/**/*.{rb,erb}") +
-                       Dir.glob("*.md") + Dir.glob("*-rubocop.yml") +
-                       ["LICENSE"]
+                       Dir.glob("*.md") +
+                       ["LICENSE", "cloud-rubocop.yml"]
   spec.bindir        = "bin"
   spec.executables   = ["protoc-gen-ruby_cloud"]
   spec.require_paths = ["lib"]
