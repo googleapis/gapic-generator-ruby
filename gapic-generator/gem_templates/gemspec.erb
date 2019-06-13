@@ -18,13 +18,12 @@ Gem::Specification.new do |spec|
   spec.summary       = "An API Client Generator for Ruby in Ruby!"
   spec.homepage      = "https://github.com/googleapis/gapic-generator-ruby"
 
-  # Specify which files should be added to the gem when it is released. The `git
-  # ls-files -z` loads the files in the RubyGem that have been added into git.
-  spec.files         = Dir.chdir File.expand_path(__dir__) do
-    `git ls-files -z`.split("\x0").reject do |f|
-      f.match %r{^(test|spec|features)/}
-    end
-  end
+  spec.files         = Dir.glob("bin/*") +
+                       Dir.glob("lib/**/*.rb") +
+                       Dir.glob("templates/**/*.{rb,erb}") +
+                       Dir.glob("*.md") +
+                       Dir.glob("*-rubocop.yml") +
+                       ["LICENSE"]
   spec.bindir        = "bin"
   spec.executables   = ["protoc-gen-ruby_<%= gem_name %>"]
   spec.require_paths = ["lib"]

@@ -19,16 +19,17 @@ shopt -s extglob
 # Parse out options.
 while true; do
   case "$1" in
-    --ruby-gapic* ) echo "Skipping unrecognized ruby-gapic flag: $1" >&2; shift ;;
+    --ruby-cloud* ) echo "Skipping unrecognized ruby-cloud flag: $1" >&2; shift ;;
     --* | +([[:word:][:punct:]]) ) shift ;;
     * ) break ;;
   esac
 done
 
-mkdir -p /out/lib
-exec grpc_tools_ruby_protoc --proto_path=/protos/ --proto_path=/in/ \
-            --ruby_out=/out/lib \
-            --grpc_out=/out/lib \
-            --ruby_gapic_out=/out/ \
-            --ruby_gapic_opt="configuration=/config.yml" \
-            `find /in/ -name *.proto`
+mkdir -p /workspace/out/lib
+exec grpc_tools_ruby_protoc \
+        --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
+        --ruby_out=/workspace/out/lib \
+        --grpc_out=/workspace/out/lib \
+        --ruby_cloud_out=/workspace/out/ \
+        --ruby_cloud_opt="configuration=/workspace/config.yml" \
+        `find /workspace/in/ -name *.proto`
