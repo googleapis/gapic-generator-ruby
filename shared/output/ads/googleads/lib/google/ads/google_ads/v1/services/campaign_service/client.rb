@@ -18,6 +18,8 @@ require "google/gax"
 require "google/gax/config"
 require "google/gax/config/method"
 
+# require "google/ads/google_ads/error"
+
 require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
@@ -123,7 +125,7 @@ module Google
               #
               # @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
               #
-              # @raise [Google::Gax::GaxError] if the RPC is aborted.
+              # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
               #
               # @example
               #   TODO
@@ -158,6 +160,8 @@ module Google
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :get_campaign, request, options: options, operation_callback: block
+                # rescue Google::Gax::GaxError => gax_error
+                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end
 
               ##
@@ -190,7 +194,7 @@ module Google
               #
               # @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               #
-              # @raise [Google::Gax::GaxError] if the RPC is aborted.
+              # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
               #
               # @example
               #   TODO
@@ -225,6 +229,8 @@ module Google
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options, operation_callback: block
+                # rescue Google::Gax::GaxError => gax_error
+                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end
 
               class Configuration
