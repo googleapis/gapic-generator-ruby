@@ -68,17 +68,17 @@ task :console do
 end
 
 desc "Build the docker image."
-task :image, :name do |t, args|
+task :image, :name do |_t, args|
   image_name = args[:name] || "ruby-gapic-generator-cloud"
   sh "docker build -t #{image_name} ."
 end
 namespace :image do
   desc "Build the docker image using the local base image code"
-  task :local, :name do |t, args|
+  task :local, :name do |_t, args|
     image_name = args[:name] || "ruby-gapic-generator-cloud"
     mkdir_p "tmp"
-    base_source_dir = File.join(File.dirname(__dir__), "gapic-generator")
-    base_tmp_dir = File.join(__dir__, "tmp", "gapic-generator")
+    base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
+    base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
     rm_r base_tmp_dir
     cp_r base_source_dir, base_tmp_dir
     sh "docker build -t #{image_name} ."

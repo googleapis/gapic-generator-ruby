@@ -82,7 +82,7 @@ task :console do
 end
 
 desc "Build the docker image."
-task :image, :name do |t, args|
+task :image, :name do |_t, args|
   image_name = args[:name] || "ruby-gapic-generator"
   sh "docker build -t #{image_name} ."
 end
