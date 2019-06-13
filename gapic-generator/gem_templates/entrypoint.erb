@@ -1,0 +1,24 @@
+#!/bin/bash
+
+<%= render partial: "shared/license" %>
+
+# enable extended globbing for flag pattern matching
+shopt -s extglob
+
+# Parse out options.
+while true; do
+  case "$1" in
+    --ruby-<%= gem_name %>* ) echo "Skipping unrecognized ruby-<%= gem_name %> flag: $1" >&2; shift ;;
+    --* | +([[:word:][:punct:]]) ) shift ;;
+    * ) break ;;
+  esac
+done
+
+mkdir -p /workspace/out/lib
+exec grpc_tools_ruby_protoc \
+        --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
+        --ruby_out=/workspace/out/lib \
+        --grpc_out=/workspace/out/lib \
+        --ruby_<%= gem_name %>_out=/workspace/out/ \
+        --ruby_<%= gem_name %>_opt="configuration=/workspace/config.yml" \
+        `find /workspace/in/ -name *.proto`

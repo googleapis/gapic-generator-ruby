@@ -22,4 +22,10 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+desc "Build the docker image."
+task :image, :name do |_t, args|
+  image_name = args[:name] || "ruby-gapic-generator-<%= gem_name %>"
+  sh "docker build -t #{image_name} ."
+end
+
 task default: :ci

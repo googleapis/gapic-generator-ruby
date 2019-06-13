@@ -38,13 +38,16 @@ module Google
       # Writes all the files for the gem.
       #
       def bootstrap
-        gen "readme.erb",    "README.md"
-        gen "gemspec.erb",   "gapic-generator-#{gem_name}.gemspec"
-        gen "rakefile.erb",  "Rakefile"
-        gen "gemfile.erb",   "Gemfile"
-        gen "gitignore.erb", ".gitignore"
-        gen "rubocop.erb",   ".rubocop.yml"
-        gen "binary.erb",    "bin/protoc-gen-ruby_#{gem_name}"
+        gen "readme.erb",     "README.md"
+        gen "gemspec.erb",    "gapic-generator-#{gem_name}.gemspec"
+        gen "rakefile.erb",   "Rakefile"
+        gen "gemfile.erb",    "Gemfile"
+        gen "gitignore.erb",  ".gitignore"
+        gen "rubocop.erb",    ".rubocop.yml"
+        gen "dockerfile.erb", "Dockerfile"
+        gen "entrypoint.erb", "docker-entrypoint.sh"
+        gen "gapic_sh.erb",   "gapic.sh"
+        gen "binary.erb",     "bin/protoc-gen-ruby_#{gem_name}"
         gen "generator.erb",
             "lib/google/gapic/generators/#{gem_name}_generator.rb"
         gen "version.erb",
