@@ -44,6 +44,6 @@ rm -rf /workspace/out/lib/google/ads/googleads
 
 # Fix requires
 # Fix require with double quote
-find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i '' -e 's/require "google\/ads\/googleads/require "google\/ads\/google_ads/g' {} +
+find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/require "google\/ads\/googleads/require "google\/ads\/google_ads/g' {} \;
 # Fix require with single quote
-find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i '' -e 's/require \'google\/ads\/googleads/require \'google\/ads\/google_ads/g' {} +
+find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e "s/require 'google\/ads\/googleads/require 'google\/ads\/google_ads/g" {} \;
