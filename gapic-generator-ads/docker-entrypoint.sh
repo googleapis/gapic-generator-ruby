@@ -26,13 +26,13 @@ while true; do
 done
 
 mkdir -p /workspace/out/lib
-exec grpc_tools_ruby_protoc \
-        --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
-        --ruby_out=/workspace/out/lib \
-        --grpc_out=/workspace/out/lib \
-        --ruby_ads_out=/workspace/out/ \
-        --ruby_ads_opt="configuration=/workspace/config.yml" \
-        `find /workspace/in/ -name *.proto`
+grpc_tools_ruby_protoc \
+  --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
+  --ruby_out=/workspace/out/lib \
+  --grpc_out=/workspace/out/lib \
+  --ruby_ads_out=/workspace/out/ \
+  --ruby_ads_opt="configuration=/workspace/config.yml" \
+  `find /workspace/in/ -name *.proto`
 
 # Fix file paths
 # Ensure google_ads exists
