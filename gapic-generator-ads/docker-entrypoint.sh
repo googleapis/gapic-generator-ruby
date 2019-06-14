@@ -37,8 +37,8 @@ grpc_tools_ruby_protoc \
 # Fix file paths
 # Ensure google_ads exists
 mkdir -p /workspace/out/lib/google/ads/google_ads
-# Move all googleads files to google_ads
-mv -v /workspace/out/lib/google/ads/googleads/* /workspace/out/lib/google/ads/google_ads
+# Copy all googleads files to google_ads
+cp -r /workspace/out/lib/google/ads/googleads/* /workspace/out/lib/google/ads/google_ads
 # Remove googleads directory
 rm -rf /workspace/out/lib/google/ads/googleads
 
