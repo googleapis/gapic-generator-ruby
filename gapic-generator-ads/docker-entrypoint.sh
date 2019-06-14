@@ -26,10 +26,24 @@ while true; do
 done
 
 mkdir -p /workspace/out/lib
-exec grpc_tools_ruby_protoc \
-        --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
-        --ruby_out=/workspace/out/lib \
-        --grpc_out=/workspace/out/lib \
-        --ruby_ads_out=/workspace/out/ \
-        --ruby_ads_opt="configuration=/workspace/config.yml" \
-        `find /workspace/in/ -name *.proto`
+grpc_tools_ruby_protoc \
+  --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
+  --ruby_out=/workspace/out/lib \
+  --grpc_out=/workspace/out/lib \
+  --ruby_ads_out=/workspace/out/ \
+  --ruby_ads_opt="configuration=/workspace/config.yml" \
+  `find /workspace/in/ -name *.proto`
+
+# Fix file paths
+# Ensure google_ads exists
+mkdir -p /workspace/out/lib/google/ads/google_ads
+# Copy all googleads files to google_ads
+cp -r /workspace/out/lib/google/ads/googleads/* /workspace/out/lib/google/ads/google_ads
+# Remove googleads directory
+rm -rf /workspace/out/lib/google/ads/googleads
+
+# Fix requires
+# Fix require with double quote
+find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/require "google\/ads\/googleads/require "google\/ads\/google_ads/g' {} \;
+# Fix require with single quote
+find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e "s/require 'google\/ads\/googleads/require 'google\/ads\/google_ads/g" {} \;
