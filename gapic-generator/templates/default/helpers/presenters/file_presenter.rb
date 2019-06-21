@@ -26,6 +26,10 @@ class FilePresenter
     @file = file
   end
 
+  def name
+    @file.name
+  end
+
   def address
     @file.address
   end

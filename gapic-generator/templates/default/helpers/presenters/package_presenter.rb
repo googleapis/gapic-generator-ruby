@@ -27,8 +27,8 @@ class PackagePresenter
     @package = package
   end
 
-  def def gem
-    GemPresenter.new.new @api
+  def gem
+    GemPresenter.new @api
   end
 
   def name
