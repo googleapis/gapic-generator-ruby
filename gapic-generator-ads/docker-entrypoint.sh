@@ -47,3 +47,7 @@ rm -rf /workspace/out/lib/google/ads/googleads
 find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/require "google\/ads\/googleads/require "google\/ads\/google_ads/g' {} \;
 # Fix require with single quote
 find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e "s/require 'google\/ads\/googleads/require 'google\/ads\/google_ads/g" {} \;
+
+# Fix the protoc-gen-grpc output not respecting ruby_package:
+# See https://github.com/grpc/grpc/issues/19438
+find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/Google::Ads::Googleads::/Google::Ads::GoogleAds::/g' {} \;
