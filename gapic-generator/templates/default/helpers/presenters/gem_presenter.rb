@@ -63,7 +63,7 @@ class GemPresenter
 
   def title
     gem_config(:title) ||
-      name.split("-").map(&:camelize).join(" ")
+      namespace.split("::").join(" ")
   end
 
   def version
