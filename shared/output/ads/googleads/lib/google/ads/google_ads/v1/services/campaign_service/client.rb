@@ -236,7 +236,7 @@ module Google
               class Configuration
                 extend Google::Gax::Config
 
-                config_attr :host,         "ads.googleapis.com", String
+                config_attr :host,         "googleads.googleapis.com", String
                 config_attr :port,         443, Integer
                 config_attr :credentials,  nil do |value|
                   allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
