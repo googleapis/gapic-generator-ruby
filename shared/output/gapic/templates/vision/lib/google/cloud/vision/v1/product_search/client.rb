@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
@@ -82,7 +82,7 @@ module Google
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
-              require "google/gax/grpc"
+              require "google/gapic/grpc"
               require "google/cloud/vision/v1/product_search_service_services_pb"
 
               # Create the configuration object
@@ -102,7 +102,7 @@ module Google
                 config.credentials = credentials
               end
 
-              @product_search_stub = Google::Gax::Grpc::Stub.new(
+              @product_search_stub = Google::Gapic::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
                 credentials:  credentials,
                 host:         @config.host,
@@ -130,7 +130,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #       4096 characters.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil)
@@ -153,7 +153,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -161,16 +161,16 @@ module Google
             def create_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -206,7 +206,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil)
@@ -221,12 +221,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
+            # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
+            # @return [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::ProductSet>]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -234,16 +234,16 @@ module Google
             def list_product_sets request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_product_sets.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -260,7 +260,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, options }
+              wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, options }
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -279,7 +279,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_product_set(name: nil)
@@ -296,7 +296,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -304,16 +304,16 @@ module Google
             def get_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -353,7 +353,7 @@ module Google
             #     * Returns NOT_FOUND if the ProductSet does not exist.
             #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #       missing from the request or longer than 4096 characters.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload update_product_set(product_set: nil, update_mask: nil)
@@ -372,7 +372,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::ProductSet]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -380,16 +380,16 @@ module Google
             def update_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -429,7 +429,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_product_set(name: nil)
@@ -446,7 +446,7 @@ module Google
             #
             # @return [Google::Protobuf::Empty]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -454,16 +454,16 @@ module Google
             def delete_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -503,7 +503,7 @@ module Google
             #       characters.
             #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_product(parent: nil, product: nil, product_id: nil)
@@ -527,7 +527,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::Product]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -535,16 +535,16 @@ module Google
             def create_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -578,7 +578,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_products(parent: nil, page_size: nil, page_token: nil)
@@ -594,12 +594,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            # @return [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -607,16 +607,16 @@ module Google
             def list_products request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -633,7 +633,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_products, request, response, options }
+              wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, options }
 
               @product_search_stub.call_rpc :list_products, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -652,7 +652,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_product(name: nil)
@@ -669,7 +669,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::Product]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -677,16 +677,16 @@ module Google
             def get_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -740,7 +740,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
             #       longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload update_product(product: nil, update_mask: nil)
@@ -761,7 +761,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::Product]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -769,16 +769,16 @@ module Google
             def update_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -820,7 +820,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the product does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_product(name: nil)
@@ -837,7 +837,7 @@ module Google
             #
             # @return [Google::Protobuf::Empty]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -845,16 +845,16 @@ module Google
             def delete_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -916,7 +916,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
             #       compatible with the parent product's product_category is detected.
             #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil)
@@ -941,7 +941,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -949,16 +949,16 @@ module Google
             def create_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_reference_image.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1004,7 +1004,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the reference image does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_reference_image(name: nil)
@@ -1022,7 +1022,7 @@ module Google
             #
             # @return [Google::Protobuf::Empty]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1030,16 +1030,16 @@ module Google
             def delete_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_reference_image.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1077,7 +1077,7 @@ module Google
             #     * Returns NOT_FOUND if the parent product does not exist.
             #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil)
@@ -1096,12 +1096,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
+            # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
+            # @return [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::ReferenceImage>]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1109,16 +1109,16 @@ module Google
             def list_reference_images request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_reference_images.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1135,7 +1135,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, options }
+              wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, options }
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -1154,7 +1154,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the specified image does not exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_reference_image(name: nil)
@@ -1172,7 +1172,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1180,16 +1180,16 @@ module Google
             def get_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_reference_image.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1229,7 +1229,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload add_product_to_product_set(name: nil, product: nil)
@@ -1251,7 +1251,7 @@ module Google
             #
             # @return [Google::Protobuf::Empty]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1259,16 +1259,16 @@ module Google
             def add_product_to_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1302,7 +1302,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload remove_product_from_product_set(name: nil, product: nil)
@@ -1324,7 +1324,7 @@ module Google
             #
             # @return [Google::Protobuf::Empty]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1332,16 +1332,16 @@ module Google
             def remove_product_from_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1379,7 +1379,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil)
@@ -1395,12 +1395,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
+            # @return [Google::Gapic::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1408,16 +1408,16 @@ module Google
             def list_products_in_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1434,7 +1434,7 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, options }
+              wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, options }
 
               @product_search_stub.call_rpc :list_products_in_product_set, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -1465,7 +1465,7 @@ module Google
             #     The input source of this method is a csv file on Google Cloud Storage.
             #     For the format of the csv file please see
             #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload import_product_sets(parent: nil, input_config: nil)
@@ -1478,12 +1478,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::Operation]
+            # @yieldparam response [Google::Gapic::Operation]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::Operation]
+            # @return [Google::Gapic::Operation]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -1491,16 +1491,16 @@ module Google
             def import_product_sets request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.import_product_sets.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -1517,13 +1517,13 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
 
               @product_search_stub.call_rpc :import_product_sets, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             class Configuration
-              extend Google::Gax::Config
+              extend Google::Gapic::Config
 
               config_attr :host,         "vision.googleapis.com", String
               config_attr :port,         443, Integer
@@ -1578,58 +1578,58 @@ module Google
                 def initialize parent_rpcs = nil
                   create_product_set_config = nil
                   create_product_set_config = parent_rpcs&.create_product_set if parent_rpcs&.respond_to? :create_product_set
-                  @create_product_set = Google::Gax::Config::Method.new create_product_set_config
+                  @create_product_set = Google::Gapic::Config::Method.new create_product_set_config
                   list_product_sets_config = nil
                   list_product_sets_config = parent_rpcs&.list_product_sets if parent_rpcs&.respond_to? :list_product_sets
-                  @list_product_sets = Google::Gax::Config::Method.new list_product_sets_config
+                  @list_product_sets = Google::Gapic::Config::Method.new list_product_sets_config
                   get_product_set_config = nil
                   get_product_set_config = parent_rpcs&.get_product_set if parent_rpcs&.respond_to? :get_product_set
-                  @get_product_set = Google::Gax::Config::Method.new get_product_set_config
+                  @get_product_set = Google::Gapic::Config::Method.new get_product_set_config
                   update_product_set_config = nil
                   update_product_set_config = parent_rpcs&.update_product_set if parent_rpcs&.respond_to? :update_product_set
-                  @update_product_set = Google::Gax::Config::Method.new update_product_set_config
+                  @update_product_set = Google::Gapic::Config::Method.new update_product_set_config
                   delete_product_set_config = nil
                   delete_product_set_config = parent_rpcs&.delete_product_set if parent_rpcs&.respond_to? :delete_product_set
-                  @delete_product_set = Google::Gax::Config::Method.new delete_product_set_config
+                  @delete_product_set = Google::Gapic::Config::Method.new delete_product_set_config
                   create_product_config = nil
                   create_product_config = parent_rpcs&.create_product if parent_rpcs&.respond_to? :create_product
-                  @create_product = Google::Gax::Config::Method.new create_product_config
+                  @create_product = Google::Gapic::Config::Method.new create_product_config
                   list_products_config = nil
                   list_products_config = parent_rpcs&.list_products if parent_rpcs&.respond_to? :list_products
-                  @list_products = Google::Gax::Config::Method.new list_products_config
+                  @list_products = Google::Gapic::Config::Method.new list_products_config
                   get_product_config = nil
                   get_product_config = parent_rpcs&.get_product if parent_rpcs&.respond_to? :get_product
-                  @get_product = Google::Gax::Config::Method.new get_product_config
+                  @get_product = Google::Gapic::Config::Method.new get_product_config
                   update_product_config = nil
                   update_product_config = parent_rpcs&.update_product if parent_rpcs&.respond_to? :update_product
-                  @update_product = Google::Gax::Config::Method.new update_product_config
+                  @update_product = Google::Gapic::Config::Method.new update_product_config
                   delete_product_config = nil
                   delete_product_config = parent_rpcs&.delete_product if parent_rpcs&.respond_to? :delete_product
-                  @delete_product = Google::Gax::Config::Method.new delete_product_config
+                  @delete_product = Google::Gapic::Config::Method.new delete_product_config
                   create_reference_image_config = nil
                   create_reference_image_config = parent_rpcs&.create_reference_image if parent_rpcs&.respond_to? :create_reference_image
-                  @create_reference_image = Google::Gax::Config::Method.new create_reference_image_config
+                  @create_reference_image = Google::Gapic::Config::Method.new create_reference_image_config
                   delete_reference_image_config = nil
                   delete_reference_image_config = parent_rpcs&.delete_reference_image if parent_rpcs&.respond_to? :delete_reference_image
-                  @delete_reference_image = Google::Gax::Config::Method.new delete_reference_image_config
+                  @delete_reference_image = Google::Gapic::Config::Method.new delete_reference_image_config
                   list_reference_images_config = nil
                   list_reference_images_config = parent_rpcs&.list_reference_images if parent_rpcs&.respond_to? :list_reference_images
-                  @list_reference_images = Google::Gax::Config::Method.new list_reference_images_config
+                  @list_reference_images = Google::Gapic::Config::Method.new list_reference_images_config
                   get_reference_image_config = nil
                   get_reference_image_config = parent_rpcs&.get_reference_image if parent_rpcs&.respond_to? :get_reference_image
-                  @get_reference_image = Google::Gax::Config::Method.new get_reference_image_config
+                  @get_reference_image = Google::Gapic::Config::Method.new get_reference_image_config
                   add_product_to_product_set_config = nil
                   add_product_to_product_set_config = parent_rpcs&.add_product_to_product_set if parent_rpcs&.respond_to? :add_product_to_product_set
-                  @add_product_to_product_set = Google::Gax::Config::Method.new add_product_to_product_set_config
+                  @add_product_to_product_set = Google::Gapic::Config::Method.new add_product_to_product_set_config
                   remove_product_from_product_set_config = nil
                   remove_product_from_product_set_config = parent_rpcs&.remove_product_from_product_set if parent_rpcs&.respond_to? :remove_product_from_product_set
-                  @remove_product_from_product_set = Google::Gax::Config::Method.new remove_product_from_product_set_config
+                  @remove_product_from_product_set = Google::Gapic::Config::Method.new remove_product_from_product_set_config
                   list_products_in_product_set_config = nil
                   list_products_in_product_set_config = parent_rpcs&.list_products_in_product_set if parent_rpcs&.respond_to? :list_products_in_product_set
-                  @list_products_in_product_set = Google::Gax::Config::Method.new list_products_in_product_set_config
+                  @list_products_in_product_set = Google::Gapic::Config::Method.new list_products_in_product_set_config
                   import_product_sets_config = nil
                   import_product_sets_config = parent_rpcs&.import_product_sets if parent_rpcs&.respond_to? :import_product_sets
-                  @import_product_sets = Google::Gax::Config::Method.new import_product_sets_config
+                  @import_product_sets = Google::Gapic::Config::Method.new import_product_sets_config
 
                   yield self if block_given?
                 end

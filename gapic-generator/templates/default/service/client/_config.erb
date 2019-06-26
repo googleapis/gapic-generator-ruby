@@ -1,7 +1,7 @@
 <%- assert_locals service -%>
 <%- method_service ||= service  -%>
 class Configuration
-  extend Google::Gax::Config
+  extend Google::Gapic::Config
 
   config_attr :host,         <%= service.client_address.inspect %>, String
   config_attr :port,         <%= service.client_port %>,            Integer
@@ -44,7 +44,7 @@ class Configuration
       <%- method_service.methods.each do |method| -%>
       <%= method.name %>_config = nil
       <%= method.name %>_config = parent_rpcs&.<%= method.name %> if parent_rpcs&.respond_to? :<%= method.name %>
-      @<%= method.name %> = Google::Gax::Config::Method.new <%= method.name %>_config
+      @<%= method.name %> = Google::Gapic::Config::Method.new <%= method.name %>_config
       <%- end %>
 
       yield self if block_given?

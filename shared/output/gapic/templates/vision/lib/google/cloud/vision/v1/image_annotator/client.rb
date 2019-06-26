@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/image_annotator_pb"
@@ -82,7 +82,7 @@ module Google
               # These require statements are intentionally placed here to initialize
               # the gRPC module only when it's required.
               # See https://github.com/googleapis/toolkit/issues/446
-              require "google/gax/grpc"
+              require "google/gapic/grpc"
               require "google/cloud/vision/v1/image_annotator_services_pb"
 
               # Create the configuration object
@@ -102,7 +102,7 @@ module Google
                 config.credentials = credentials
               end
 
-              @image_annotator_stub = Google::Gax::Grpc::Stub.new(
+              @image_annotator_stub = Google::Gapic::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ImageAnnotator::Stub,
                 credentials:  credentials,
                 host:         @config.host,
@@ -120,7 +120,7 @@ module Google
             # @overload batch_annotate_images(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #     Run image detection and annotation for a batch of images.
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload batch_annotate_images(requests: nil)
@@ -134,7 +134,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -142,16 +142,16 @@ module Google
             def batch_annotate_images request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.batch_annotate_images.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -181,7 +181,7 @@ module Google
             #     `google.longrunning.Operations` interface.
             #     `Operation.metadata` contains `OperationMetadata` (metadata).
             #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
-            #   @param options [Google::Gax::ApiCall::Options, Hash]
+            #   @param options [Google::Gapic::ApiCall::Options, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload async_batch_annotate_files(requests: nil)
@@ -190,12 +190,12 @@ module Google
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Gax::Operation]
+            # @yieldparam response [Google::Gapic::Operation]
             # @yieldparam operation [GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Gax::Operation]
+            # @return [Google::Gapic::Operation]
             #
-            # @raise [Google::Gax::GaxError] if the RPC is aborted.
+            # @raise [Google::Gapic::GapicError] if the RPC is aborted.
             #
             # @example
             #   TODO
@@ -203,16 +203,16 @@ module Google
             def async_batch_annotate_files request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
-              request = Google::Gax::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+              request = Google::Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
               # Converts hash and nil to an options object
-              options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h
 
               # Set x-goog-api-client header
-              metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: Google::Cloud::Vision::VERSION
 
@@ -223,13 +223,13 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
 
               @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
             class Configuration
-              extend Google::Gax::Config
+              extend Google::Gapic::Config
 
               config_attr :host,         "vision.googleapis.com", String
               config_attr :port,         443, Integer
@@ -268,10 +268,10 @@ module Google
                 def initialize parent_rpcs = nil
                   batch_annotate_images_config = nil
                   batch_annotate_images_config = parent_rpcs&.batch_annotate_images if parent_rpcs&.respond_to? :batch_annotate_images
-                  @batch_annotate_images = Google::Gax::Config::Method.new batch_annotate_images_config
+                  @batch_annotate_images = Google::Gapic::Config::Method.new batch_annotate_images_config
                   async_batch_annotate_files_config = nil
                   async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files if parent_rpcs&.respond_to? :async_batch_annotate_files
-                  @async_batch_annotate_files = Google::Gax::Config::Method.new async_batch_annotate_files_config
+                  @async_batch_annotate_files = Google::Gapic::Config::Method.new async_batch_annotate_files_config
 
                   yield self if block_given?
                 end

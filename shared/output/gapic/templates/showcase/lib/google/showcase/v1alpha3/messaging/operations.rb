@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/gax"
-require "google/gax/operation"
+require "google/gapic"
+require "google/gapic/operation"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/messaging/client"
@@ -79,7 +79,7 @@ module Google
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
-            require "google/gax/grpc"
+            require "google/gapic/grpc"
             require "google/longrunning/operations_services_pb"
 
             # Create the configuration object
@@ -95,7 +95,7 @@ module Google
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @operations_stub = Google::Gax::Grpc::Stub.new(
+            @operations_stub = Google::Gapic::Grpc::Stub.new(
               Google::Longrunning::Operations::Stub,
               credentials:  credentials,
               host:         @config.host,
@@ -121,7 +121,7 @@ module Google
           #
           #     NOTE: the `name` binding below allows API services to override the binding
           #     to use different resource name schemes, such as `users/*/operations`.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
@@ -136,12 +136,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
+          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Gapic::Operation>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Gax::Operation>]
+          # @return [Google::Gapic::PagedEnumerable<Google::Gapic::Operation>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -149,16 +149,16 @@ module Google
           def list_operations request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_operations.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -175,8 +175,8 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @operations_stub, :list_operations, request, response, options, format_resource: wrap_gax_operation }
+            wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
+            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, options, format_resource: wrap_gax_operation }
 
             @operations_stub.call_rpc :list_operations, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -191,7 +191,7 @@ module Google
           #     Gets the latest state of a long-running operation.  Clients can use this
           #     method to poll the operation result at intervals as recommended by the API
           #     service.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_operation(name: nil)
@@ -200,12 +200,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::Operation]
+          # @yieldparam response [Google::Gapic::Operation]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::Operation]
+          # @return [Google::Gapic::Operation]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -213,16 +213,16 @@ module Google
           def get_operation request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_operation.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -239,7 +239,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+            wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
 
             @operations_stub.call_rpc :get_operation, request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
@@ -256,7 +256,7 @@ module Google
           #     no longer interested in the operation result. It does not cancel the
           #     operation. If the server doesn't support this method, it returns
           #     `google.rpc.Code.UNIMPLEMENTED`.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_operation(name: nil)
@@ -270,7 +270,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -278,16 +278,16 @@ module Google
           def delete_operation request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_operation.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -331,7 +331,7 @@ module Google
           #     the operation is not deleted; instead, it becomes an operation with
           #     an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
           #     corresponding to `Code.CANCELLED`.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload cancel_operation(name: nil)
@@ -345,7 +345,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -353,16 +353,16 @@ module Google
           def cancel_operation request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.cancel_operation.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -383,7 +383,7 @@ module Google
           end
 
           class Configuration
-            extend Google::Gax::Config
+            extend Google::Gapic::Config
 
             config_attr :host,         "localhost", String
             config_attr :port,         443, Integer
@@ -424,16 +424,16 @@ module Google
               def initialize parent_rpcs = nil
                 list_operations_config = nil
                 list_operations_config = parent_rpcs&.list_operations if parent_rpcs&.respond_to? :list_operations
-                @list_operations = Google::Gax::Config::Method.new list_operations_config
+                @list_operations = Google::Gapic::Config::Method.new list_operations_config
                 get_operation_config = nil
                 get_operation_config = parent_rpcs&.get_operation if parent_rpcs&.respond_to? :get_operation
-                @get_operation = Google::Gax::Config::Method.new get_operation_config
+                @get_operation = Google::Gapic::Config::Method.new get_operation_config
                 delete_operation_config = nil
                 delete_operation_config = parent_rpcs&.delete_operation if parent_rpcs&.respond_to? :delete_operation
-                @delete_operation = Google::Gax::Config::Method.new delete_operation_config
+                @delete_operation = Google::Gapic::Config::Method.new delete_operation_config
                 cancel_operation_config = nil
                 cancel_operation_config = parent_rpcs&.cancel_operation if parent_rpcs&.respond_to? :cancel_operation
-                @cancel_operation = Google::Gax::Config::Method.new cancel_operation_config
+                @cancel_operation = Google::Gapic::Config::Method.new cancel_operation_config
 
                 yield self if block_given?
               end

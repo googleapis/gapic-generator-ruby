@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 # require "google/ads/google_ads/error"
 
@@ -76,7 +76,7 @@ module Google
                 # These require statements are intentionally placed here to initialize
                 # the gRPC module only when it's required.
                 # See https://github.com/googleapis/toolkit/issues/446
-                require "google/gax/grpc"
+                require "google/gapic/grpc"
                 require "google/ads/googleads/v1/services/campaign_service_services_pb"
 
                 # Create the configuration object
@@ -93,7 +93,7 @@ module Google
                 end
 
 
-                @campaign_service_stub = Google::Gax::Grpc::Stub.new(
+                @campaign_service_stub = Google::Gapic::Grpc::Stub.new(
                   Google::Ads::GoogleAds::V1::Services::CampaignService::Stub,
                   credentials:  credentials,
                   host:         @config.host,
@@ -111,7 +111,7 @@ module Google
               # @overload get_campaign(request, options = nil)
               #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
               #     Returns the requested campaign in full detail.
-              #   @param options [Google::Gax::ApiCall::Options, Hash]
+              #   @param options [Google::Gapic::ApiCall::Options, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload get_campaign(resource_name: nil)
@@ -133,16 +133,16 @@ module Google
               def get_campaign request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
 
-                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
+                request = Google::Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
 
                 # Converts hash and nil to an options object
-                options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+                options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.get_campaign.metadata.to_h
 
                 # Set x-goog-api-client header
-                metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: Google::Ads::GoogleAds::VERSION
 
@@ -160,7 +160,7 @@ module Google
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :get_campaign, request, options: options, operation_callback: block
-                # rescue Google::Gax::GaxError => gax_error
+                # rescue Google::Gapic::GapicError => gax_error
                 #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end
 
@@ -170,7 +170,7 @@ module Google
               # @overload mutate_campaigns(request, options = nil)
               #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
               #     Creates, updates, or removes campaigns. Operation statuses are returned.
-              #   @param options [Google::Gax::ApiCall::Options, Hash]
+              #   @param options [Google::Gapic::ApiCall::Options, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
@@ -202,16 +202,16 @@ module Google
               def mutate_campaigns request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
 
-                request = Google::Gax::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
+                request = Google::Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
 
                 # Converts hash and nil to an options object
-                options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+                options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h
 
                 # Set x-goog-api-client header
-                metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: Google::Ads::GoogleAds::VERSION
 
@@ -229,12 +229,12 @@ module Google
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options, operation_callback: block
-                # rescue Google::Gax::GaxError => gax_error
+                # rescue Google::Gapic::GapicError => gax_error
                 #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end
 
               class Configuration
-                extend Google::Gax::Config
+                extend Google::Gapic::Config
 
                 config_attr :host,         "googleads.googleapis.com", String
                 config_attr :port,         443, Integer
@@ -273,10 +273,10 @@ module Google
                   def initialize parent_rpcs = nil
                     get_campaign_config = nil
                     get_campaign_config = parent_rpcs&.get_campaign if parent_rpcs&.respond_to? :get_campaign
-                    @get_campaign = Google::Gax::Config::Method.new get_campaign_config
+                    @get_campaign = Google::Gapic::Config::Method.new get_campaign_config
                     mutate_campaigns_config = nil
                     mutate_campaigns_config = parent_rpcs&.mutate_campaigns if parent_rpcs&.respond_to? :mutate_campaigns
-                    @mutate_campaigns = Google::Gax::Config::Method.new mutate_campaigns_config
+                    @mutate_campaigns = Google::Gapic::Config::Method.new mutate_campaigns_config
 
                     yield self if block_given?
                   end

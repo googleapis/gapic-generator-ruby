@@ -74,12 +74,12 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::CreateUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
+        assert_equal Google::Gapic::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
@@ -114,7 +114,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::CreateUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
+        assert_equal Google::Gapic::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
@@ -127,11 +127,11 @@ describe Google::Showcase::V1alpha3::Identity::Client do
           client = Google::Showcase::V1alpha3::Identity::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.create_user user
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -149,12 +149,12 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::GetUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
@@ -189,7 +189,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::GetUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
@@ -202,11 +202,11 @@ describe Google::Showcase::V1alpha3::Identity::Client do
           client = Google::Showcase::V1alpha3::Identity::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.get_user name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -225,13 +225,13 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::User
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::UpdateUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
-        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gapic::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
+        assert_equal Google::Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
@@ -267,8 +267,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::UpdateUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
-        assert_equal Google::Gax::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Google::Gapic::Protobuf.coerce(user, to: Google::Showcase::V1alpha3::User), request.user
+        assert_equal Google::Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
@@ -281,11 +281,11 @@ describe Google::Showcase::V1alpha3::Identity::Client do
           client = Google::Showcase::V1alpha3::Identity::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.update_user user, update_mask
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -303,12 +303,12 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
@@ -343,7 +343,7 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteUserRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
@@ -356,11 +356,11 @@ describe Google::Showcase::V1alpha3::Identity::Client do
           client = Google::Showcase::V1alpha3::Identity::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.delete_user name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -379,13 +379,13 @@ describe Google::Showcase::V1alpha3::Identity::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListUsersResponse
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListUsersResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListUsersRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_users, mock_method
@@ -421,8 +421,8 @@ describe Google::Showcase::V1alpha3::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListUsersRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_users, mock_method
@@ -435,11 +435,11 @@ describe Google::Showcase::V1alpha3::Identity::Client do
           client = Google::Showcase::V1alpha3::Identity::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.list_users page_size, page_token
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end

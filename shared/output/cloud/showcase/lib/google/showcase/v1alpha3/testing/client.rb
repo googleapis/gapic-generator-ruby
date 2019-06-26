@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/testing_pb"
@@ -75,7 +75,7 @@ module Google
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
-            require "google/gax/grpc"
+            require "google/gapic/grpc"
             require "google/showcase/v1alpha3/testing_services_pb"
 
             # Create the configuration object
@@ -92,7 +92,7 @@ module Google
             end
 
 
-            @testing_stub = Google::Gax::Grpc::Stub.new(
+            @testing_stub = Google::Gapic::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Testing::Stub,
               credentials:  credentials,
               host:         @config.host,
@@ -110,7 +110,7 @@ module Google
           # @overload create_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #     Creates a new testing session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_session(session: nil)
@@ -126,7 +126,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Session]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -134,16 +134,16 @@ module Google
           def create_session request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_session.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -163,7 +163,7 @@ module Google
           # @overload get_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #     Gets a testing session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_session(name: nil)
@@ -177,7 +177,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Session]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -185,16 +185,16 @@ module Google
           def get_session request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_session.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -220,7 +220,7 @@ module Google
           # @overload list_sessions(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #     Lists the current test sessions.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_sessions(page_size: nil, page_token: nil)
@@ -231,12 +231,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
+          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
+          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Session>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -244,16 +244,16 @@ module Google
           def list_sessions request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_sessions.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -264,7 +264,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @testing_stub, :list_sessions, request, response, options }
+            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, options }
 
             @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -275,7 +275,7 @@ module Google
           # @overload delete_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #     Delete a test session.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_session(name: nil)
@@ -289,7 +289,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -297,16 +297,16 @@ module Google
           def delete_session request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_session.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -336,7 +336,7 @@ module Google
           #     Report on the status of a session.
           #     This generates a report detailing which tests have been completed,
           #     and an overall rollup.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload report_session(name: nil)
@@ -350,7 +350,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::ReportSessionResponse]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -358,16 +358,16 @@ module Google
           def report_session request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.report_session.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -393,7 +393,7 @@ module Google
           # @overload list_tests(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #     List the tests of a sessesion.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_tests(parent: nil, page_size: nil, page_token: nil)
@@ -406,12 +406,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
+          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
+          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Test>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -419,16 +419,16 @@ module Google
           def list_tests request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_tests.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -445,7 +445,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @testing_stub, :list_tests, request, response, options }
+            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, options }
 
             @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -466,7 +466,7 @@ module Google
           #     attempting to do the test will error.
           #
           #     This method will error if attempting to delete a required test.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_test(name: nil)
@@ -480,7 +480,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -488,16 +488,16 @@ module Google
           def delete_test request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_test.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -529,7 +529,7 @@ module Google
           #
           #     In cases where a test involves registering a final answer at the
           #     end of the test, this method provides the means to do so.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload verify_test(name: nil, answer: nil, answers: nil)
@@ -547,7 +547,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::VerifyTestResponse]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -555,16 +555,16 @@ module Google
           def verify_test request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.verify_test.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -585,7 +585,7 @@ module Google
           end
 
           class Configuration
-            extend Google::Gax::Config
+            extend Google::Gapic::Config
 
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
@@ -630,28 +630,28 @@ module Google
               def initialize parent_rpcs = nil
                 create_session_config = nil
                 create_session_config = parent_rpcs&.create_session if parent_rpcs&.respond_to? :create_session
-                @create_session = Google::Gax::Config::Method.new create_session_config
+                @create_session = Google::Gapic::Config::Method.new create_session_config
                 get_session_config = nil
                 get_session_config = parent_rpcs&.get_session if parent_rpcs&.respond_to? :get_session
-                @get_session = Google::Gax::Config::Method.new get_session_config
+                @get_session = Google::Gapic::Config::Method.new get_session_config
                 list_sessions_config = nil
                 list_sessions_config = parent_rpcs&.list_sessions if parent_rpcs&.respond_to? :list_sessions
-                @list_sessions = Google::Gax::Config::Method.new list_sessions_config
+                @list_sessions = Google::Gapic::Config::Method.new list_sessions_config
                 delete_session_config = nil
                 delete_session_config = parent_rpcs&.delete_session if parent_rpcs&.respond_to? :delete_session
-                @delete_session = Google::Gax::Config::Method.new delete_session_config
+                @delete_session = Google::Gapic::Config::Method.new delete_session_config
                 report_session_config = nil
                 report_session_config = parent_rpcs&.report_session if parent_rpcs&.respond_to? :report_session
-                @report_session = Google::Gax::Config::Method.new report_session_config
+                @report_session = Google::Gapic::Config::Method.new report_session_config
                 list_tests_config = nil
                 list_tests_config = parent_rpcs&.list_tests if parent_rpcs&.respond_to? :list_tests
-                @list_tests = Google::Gax::Config::Method.new list_tests_config
+                @list_tests = Google::Gapic::Config::Method.new list_tests_config
                 delete_test_config = nil
                 delete_test_config = parent_rpcs&.delete_test if parent_rpcs&.respond_to? :delete_test
-                @delete_test = Google::Gax::Config::Method.new delete_test_config
+                @delete_test = Google::Gapic::Config::Method.new delete_test_config
                 verify_test_config = nil
                 verify_test_config = parent_rpcs&.verify_test if parent_rpcs&.respond_to? :verify_test
-                @verify_test = Google::Gax::Config::Method.new verify_test_config
+                @verify_test = Google::Gapic::Config::Method.new verify_test_config
 
                 yield self if block_given?
               end

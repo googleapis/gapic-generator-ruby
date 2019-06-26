@@ -1,8 +1,8 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "<%= service.gem.version_require %>"
 require "<%= service.proto_service_require %>"
@@ -64,7 +64,7 @@ class <%= service.client_name %>
     # These require statements are intentionally placed here to initialize
     # the gRPC module only when it's required.
     # See https://github.com/googleapis/toolkit/issues/446
-    require "google/gax/grpc"
+    require "google/gapic/grpc"
     require "<%= service.proto_services_require %>"
 
     # Create the configuration object
@@ -86,7 +86,7 @@ class <%= service.client_name %>
     end
     <%- end -%>
 
-    @<%= service.stub_name %> = Google::Gax::Grpc::Stub.new(
+    @<%= service.stub_name %> = Google::Gapic::Grpc::Stub.new(
       <%= service.proto_service_stub_name_full %>,
       credentials:  credentials,
       host:         @config.host,

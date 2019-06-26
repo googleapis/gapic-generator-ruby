@@ -62,13 +62,13 @@ class MethodPresenter
 
   def doc_response_type
     ret = return_type
-    ret = "Google::Gax::Operation" if lro?
+    ret = "Google::Gapic::Operation" if lro?
     if server_streaming?
       ret = "Enumerable<#{ret}>"
     elsif paged?
       paged_type = paged_response_type
-      paged_type = "Google::Gax::Operation" if paged_type == "Google::Longrunning::Operation"
-      ret = "Google::Gax::PagedEnumerable<#{paged_type}>"
+      paged_type = "Google::Gapic::Operation" if paged_type == "Google::Longrunning::Operation"
+      ret = "Google::Gapic::PagedEnumerable<#{paged_type}>"
     end
     ret
   end
@@ -106,7 +106,7 @@ class MethodPresenter
       return [
         OpenStruct.new(
           name: "operation",
-          doc_types: "Google::Gax::Operation"
+          doc_types: "Google::Gapic::Operation"
         )
       ]
     end
