@@ -32,7 +32,7 @@ jobs:
           command: dockerize -wait tcp://localhost:7469 -timeout 1m
       - run:
           name: run tests
-          command: bundle exec rake ci
+          command: bundle exec rake update ci
 
 workflows:
   version: 2
