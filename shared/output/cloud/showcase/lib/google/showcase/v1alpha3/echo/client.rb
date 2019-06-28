@@ -14,9 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/echo_pb"
@@ -73,7 +73,7 @@ module Google
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
-            require "google/gax/grpc"
+            require "google/gapic/grpc"
             require "google/showcase/v1alpha3/echo_services_pb"
 
             # Create the configuration object
@@ -93,7 +93,7 @@ module Google
               config.credentials = credentials
             end
 
-            @echo_stub = Google::Gax::Grpc::Stub.new(
+            @echo_stub = Google::Gapic::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Echo::Stub,
               credentials:  credentials,
               host:         @config.host,
@@ -111,7 +111,7 @@ module Google
           # @overload echo(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #     This method simply echos the request. This method is showcases unary rpcs.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload echo(content: nil, error: nil)
@@ -127,7 +127,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -135,16 +135,16 @@ module Google
           def echo request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.echo.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -166,7 +166,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #     This method split the given content into words and will pass each word back
           #     through the stream. This method showcases server-side streaming rpcs.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload expand(content: nil, error: nil)
@@ -182,7 +182,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -190,16 +190,16 @@ module Google
           def expand request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.expand.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -218,9 +218,9 @@ module Google
           # by the client, this method will return the a concatenation of the strings
           # passed to it. This method showcases client-side streaming rpcs.
           #
-          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param request [Google::Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
+          # @param options [Google::Gapic::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -229,7 +229,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::EchoResponse]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -244,17 +244,17 @@ module Google
             end
 
             request = request.lazy.map do |req|
-              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
+              Google::Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.collect.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -273,9 +273,9 @@ module Google
           # be passed  back on the stream. This method showcases bidirectional
           # streaming rpcs.
           #
-          # @param request [Google::Gax::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
+          # @param request [Google::Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Google::Gax::ApiCall::Options, Hash]
+          # @param options [Google::Gapic::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -284,7 +284,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::EchoResponse>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -299,17 +299,17 @@ module Google
             end
 
             request = request.lazy.map do |req|
-              Google::Gax::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
+              Google::Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::EchoRequest
             end
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.chat.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -331,7 +331,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #     This is similar to the Expand method but instead of returning a stream of
           #     expanded words, this method returns a paged list of expanded words.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload paged_expand(content: nil, page_size: nil, page_token: nil)
@@ -344,12 +344,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
+          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::EchoResponse>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -357,16 +357,16 @@ module Google
           def paged_expand request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -377,7 +377,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @echo_stub, :paged_expand, request, response, options }
+            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @echo_stub, :paged_expand, request, response, options }
 
             @echo_stub.call_rpc :paged_expand, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -390,7 +390,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #     This method will wait the requested amount of and then return.
           #     This method showcases how a client handles a request timing out.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil)
@@ -406,12 +406,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::Operation]
+          # @yieldparam response [Google::Gapic::Operation]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::Operation]
+          # @return [Google::Gapic::Operation]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -419,16 +419,16 @@ module Google
           def wait request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.wait.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -439,13 +439,13 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_gax_operation = ->(response) { Google::Gax::Operation.new response, @operations_client }
+            wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
 
             @echo_stub.call_rpc :wait, request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
 
           class Configuration
-            extend Google::Gax::Config
+            extend Google::Gapic::Config
 
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
@@ -488,22 +488,22 @@ module Google
               def initialize parent_rpcs = nil
                 echo_config = nil
                 echo_config = parent_rpcs&.echo if parent_rpcs&.respond_to? :echo
-                @echo = Google::Gax::Config::Method.new echo_config
+                @echo = Google::Gapic::Config::Method.new echo_config
                 expand_config = nil
                 expand_config = parent_rpcs&.expand if parent_rpcs&.respond_to? :expand
-                @expand = Google::Gax::Config::Method.new expand_config
+                @expand = Google::Gapic::Config::Method.new expand_config
                 collect_config = nil
                 collect_config = parent_rpcs&.collect if parent_rpcs&.respond_to? :collect
-                @collect = Google::Gax::Config::Method.new collect_config
+                @collect = Google::Gapic::Config::Method.new collect_config
                 chat_config = nil
                 chat_config = parent_rpcs&.chat if parent_rpcs&.respond_to? :chat
-                @chat = Google::Gax::Config::Method.new chat_config
+                @chat = Google::Gapic::Config::Method.new chat_config
                 paged_expand_config = nil
                 paged_expand_config = parent_rpcs&.paged_expand if parent_rpcs&.respond_to? :paged_expand
-                @paged_expand = Google::Gax::Config::Method.new paged_expand_config
+                @paged_expand = Google::Gapic::Config::Method.new paged_expand_config
                 wait_config = nil
                 wait_config = parent_rpcs&.wait if parent_rpcs&.respond_to? :wait
-                @wait = Google::Gax::Config::Method.new wait_config
+                @wait = Google::Gapic::Config::Method.new wait_config
 
                 yield self if block_given?
               end

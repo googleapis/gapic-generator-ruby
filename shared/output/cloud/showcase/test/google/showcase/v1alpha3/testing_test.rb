@@ -74,12 +74,12 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::Session
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::Session
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::CreateSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(session, to: Google::Showcase::V1alpha3::Session), request.session
+        assert_equal Google::Gapic::Protobuf.coerce(session, to: Google::Showcase::V1alpha3::Session), request.session
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_session, mock_method
@@ -114,7 +114,7 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::CreateSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(session, to: Google::Showcase::V1alpha3::Session), request.session
+        assert_equal Google::Gapic::Protobuf.coerce(session, to: Google::Showcase::V1alpha3::Session), request.session
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_session, mock_method
@@ -127,11 +127,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.create_session session
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -149,12 +149,12 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::Session
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::Session
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::GetSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_session, mock_method
@@ -189,7 +189,7 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::GetSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_session, mock_method
@@ -202,11 +202,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.get_session name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -225,13 +225,13 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListSessionsResponse
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListSessionsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListSessionsRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_sessions, mock_method
@@ -267,8 +267,8 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListSessionsRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_sessions, mock_method
@@ -281,11 +281,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.list_sessions page_size, page_token
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -303,12 +303,12 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_session, mock_method
@@ -343,7 +343,7 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_session, mock_method
@@ -356,11 +356,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.delete_session name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -378,12 +378,12 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ReportSessionResponse
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ReportSessionResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ReportSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :report_session, mock_method
@@ -418,7 +418,7 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ReportSessionRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :report_session, mock_method
@@ -431,11 +431,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.report_session name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -455,14 +455,14 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListTestsResponse
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::ListTestsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListTestsRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_tests, mock_method
@@ -499,9 +499,9 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::ListTestsRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Google::Gax::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Google::Gax::Protobuf.coerce(page_token, to: ), request.page_token
+        assert_equal Google::Gapic::Protobuf.coerce(parent, to: ), request.parent
+        assert_equal Google::Gapic::Protobuf.coerce(page_size, to: ), request.page_size
+        assert_equal Google::Gapic::Protobuf.coerce(page_token, to: ), request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_tests, mock_method
@@ -514,11 +514,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.list_tests parent, page_size, page_token
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -536,12 +536,12 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteTestRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_test, mock_method
@@ -576,7 +576,7 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::DeleteTestRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_test, mock_method
@@ -589,11 +589,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.delete_test name
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end
@@ -613,14 +613,14 @@ describe Google::Showcase::V1alpha3::Testing::Client do
 
       # Create expected grpc response
       expected_response = {}
-      expected_response = Google::Gax::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::VerifyTestResponse
+      expected_response = Google::Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1alpha3::VerifyTestResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::VerifyTestRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
-        assert_equal Google::Gax::Protobuf.coerce(answer, to: ), request.answer
-        assert_equal Google::Gax::Protobuf.coerce(answers, to: ), request.answers
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(answer, to: ), request.answer
+        assert_equal Google::Gapic::Protobuf.coerce(answers, to: ), request.answers
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :verify_test, mock_method
@@ -657,9 +657,9 @@ describe Google::Showcase::V1alpha3::Testing::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1alpha3::VerifyTestRequest, request
-        assert_equal Google::Gax::Protobuf.coerce(name, to: ), request.name
-        assert_equal Google::Gax::Protobuf.coerce(answer, to: ), request.answer
-        assert_equal Google::Gax::Protobuf.coerce(answers, to: ), request.answers
+        assert_equal Google::Gapic::Protobuf.coerce(name, to: ), request.name
+        assert_equal Google::Gapic::Protobuf.coerce(answer, to: ), request.answer
+        assert_equal Google::Gapic::Protobuf.coerce(answers, to: ), request.answers
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :verify_test, mock_method
@@ -672,11 +672,11 @@ describe Google::Showcase::V1alpha3::Testing::Client do
           client = Google::Showcase::V1alpha3::Testing::Client.new
 
           # Call method
-          err = assert_raises Google::Gax::GaxError do
+          err = assert_raises Google::Gapic::GapicError do
             client.verify_test name, answer, answers
           end
 
-          # Verify the GaxError wrapped the custom error that was raised.
+          # Verify the GapicError wrapped the custom error that was raised.
           assert_match custom_error.message, err.message
         end
       end

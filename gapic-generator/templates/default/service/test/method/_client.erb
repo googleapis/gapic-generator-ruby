@@ -10,7 +10,7 @@ describe "<%= method.name %>" do
 
     # Create expected grpc response
     expected_response = {}
-    expected_response = Google::Gax::Protobuf.coerce expected_response, to: <%= method.return_type %>
+    expected_response = Google::Gapic::Protobuf.coerce expected_response, to: <%= method.return_type %>
 
     # Mock Grpc layer
     mock_method = proc do |requests|
@@ -51,11 +51,11 @@ describe "<%= method.name %>" do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
-        err = assert_raises Google::Gax::GaxError do
+        err = assert_raises Google::Gapic::GapicError do
           client.<%= method.name %> [request]
         end
 
-        # Verify the GaxError wrapped the custom error that was raised.
+        # Verify the GapicError wrapped the custom error that was raised.
         assert_match custom_error.message, err.message
       end
     end

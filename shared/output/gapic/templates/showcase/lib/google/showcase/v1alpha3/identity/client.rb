@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/gax"
-require "google/gax/config"
-require "google/gax/config/method"
+require "google/gapic"
+require "google/gapic/config"
+require "google/gapic/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/identity_pb"
@@ -83,7 +83,7 @@ module Google
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
-            require "google/gax/grpc"
+            require "google/gapic/grpc"
             require "google/showcase/v1alpha3/identity_services_pb"
 
             # Create the configuration object
@@ -100,7 +100,7 @@ module Google
             end
 
 
-            @identity_stub = Google::Gax::Grpc::Stub.new(
+            @identity_stub = Google::Gapic::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Identity::Stub,
               credentials:  credentials,
               host:         @config.host,
@@ -118,7 +118,7 @@ module Google
           # @overload create_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #     Creates a user.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_user(user: nil)
@@ -132,7 +132,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::User]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -140,16 +140,16 @@ module Google
           def create_user request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_user.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -169,7 +169,7 @@ module Google
           # @overload get_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #     Retrieves the User with the given uri.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_user(name: nil)
@@ -183,7 +183,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::User]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -191,16 +191,16 @@ module Google
           def get_user request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_user.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -226,7 +226,7 @@ module Google
           # @overload update_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #     Updates a user.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_user(user: nil, update_mask: nil)
@@ -243,7 +243,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::User]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -251,16 +251,16 @@ module Google
           def update_user request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_user.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -286,7 +286,7 @@ module Google
           # @overload delete_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #     Deletes a user, their profile, and all of their authored messages.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_user(name: nil)
@@ -300,7 +300,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -308,16 +308,16 @@ module Google
           def delete_user request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_user.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -343,7 +343,7 @@ module Google
           # @overload list_users(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #     Lists all users.
-          #   @param options [Google::Gax::ApiCall::Options, Hash]
+          #   @param options [Google::Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_users(page_size: nil, page_token: nil)
@@ -357,12 +357,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
+          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::User>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gax::PagedEnumerable<Google::Showcase::V1alpha3::User>]
+          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::User>]
           #
-          # @raise [Google::Gax::GaxError] if the RPC is aborted.
+          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -370,16 +370,16 @@ module Google
           def list_users request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gax::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
+            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gax::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_users.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gax::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -390,13 +390,13 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gax::PagedEnumerable.new @identity_stub, :list_users, request, response, options }
+            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, options }
 
             @identity_stub.call_rpc :list_users, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
 
           class Configuration
-            extend Google::Gax::Config
+            extend Google::Gapic::Config
 
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
@@ -438,19 +438,19 @@ module Google
               def initialize parent_rpcs = nil
                 create_user_config = nil
                 create_user_config = parent_rpcs&.create_user if parent_rpcs&.respond_to? :create_user
-                @create_user = Google::Gax::Config::Method.new create_user_config
+                @create_user = Google::Gapic::Config::Method.new create_user_config
                 get_user_config = nil
                 get_user_config = parent_rpcs&.get_user if parent_rpcs&.respond_to? :get_user
-                @get_user = Google::Gax::Config::Method.new get_user_config
+                @get_user = Google::Gapic::Config::Method.new get_user_config
                 update_user_config = nil
                 update_user_config = parent_rpcs&.update_user if parent_rpcs&.respond_to? :update_user
-                @update_user = Google::Gax::Config::Method.new update_user_config
+                @update_user = Google::Gapic::Config::Method.new update_user_config
                 delete_user_config = nil
                 delete_user_config = parent_rpcs&.delete_user if parent_rpcs&.respond_to? :delete_user
-                @delete_user = Google::Gax::Config::Method.new delete_user_config
+                @delete_user = Google::Gapic::Config::Method.new delete_user_config
                 list_users_config = nil
                 list_users_config = parent_rpcs&.list_users if parent_rpcs&.respond_to? :list_users
-                @list_users = Google::Gax::Config::Method.new list_users_config
+                @list_users = Google::Gapic::Config::Method.new list_users_config
 
                 yield self if block_given?
               end

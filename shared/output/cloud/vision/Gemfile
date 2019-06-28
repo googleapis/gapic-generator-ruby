@@ -2,5 +2,5 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "google-gax", github: "googleapis/gax-ruby"
+gem "gapic-common", github: "googleapis/gapic-generator-ruby"
 gem "rake", "~> 11.0"

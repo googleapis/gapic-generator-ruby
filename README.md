@@ -99,8 +99,8 @@ $ protoc googleapis/google/cloud/vision/v1/*.proto \
     --ruby_gapic_opt=configuration=vision.yml --ruby_gapic_out=dest
 ```
 
-Note that generated clients depend on the `google-gax` 2.0 gem, which is not
-yet released. To test a client, you may need to modify it to pull `google-gax`
+Note that generated clients depend on the `gapic-common` 2.0 gem, which is not
+yet released. To test a client, you may need to modify it to pull `gapic-common`
 from the github master branch.
 
 ### Create a custom generator

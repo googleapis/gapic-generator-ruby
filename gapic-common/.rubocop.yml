@@ -1,0 +1,43 @@
+inherit_gem:
+  google-style: google-style.yml
+
+AllCops:
+  Exclude:
+    - "gapic-common.gemspec"
+    - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/gapic/configuration.rb"
+    - "lib/google/gapic/configuration/schema.rb"
+
+Metrics/AbcSize:
+  Exclude:
+    - "lib/google/gapic/config.rb"
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/google/gapic/config.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/google/gapic/config.rb"
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/google/gapic/config.rb"
+    - "lib/google/gapic/grpc/stub.rb"
+
+Style/Documentation:
+  Exclude:
+    - "lib/google/gapic/api_call.rb"
+    - "lib/google/gapic/configuration/deferred_value.rb"
+    - "lib/google/gapic/configuration/schema.rb"
+    - "lib/google/gapic/errors.rb"
+    - "lib/google/gapic/grpc/status_details.rb"
+Style/GuardClause:
+  Exclude:
+    - "lib/google/gapic/grpc/stub.rb"
+Style/CaseEquality:
+  Exclude:
+    - "lib/google/gapic/configuration.rb"
+    - "lib/google/gapic/configuration/derived.rb"
+    - "lib/google/gapic/configuration/schema.rb"
+    - "lib/google/gapic/config.rb"
