@@ -11,10 +11,10 @@ Documentation:
 
 Metrics/AbcSize:
   Exclude:
-    - lib/google/gapic/generators/ads_generator.rb
+    - lib/gapic/generators/ads_generator.rb
 Metrics/LineLength:
   Exclude:
-    - lib/google/gapic/generators/ads_generator.rb
+    - lib/gapic/generators/ads_generator.rb
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

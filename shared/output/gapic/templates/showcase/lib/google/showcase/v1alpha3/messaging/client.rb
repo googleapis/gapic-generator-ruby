@@ -22,9 +22,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "google/gapic"
-require "google/gapic/config"
-require "google/gapic/config/method"
+require "gapic"
+require "gapic/config"
+require "gapic/config/method"
 
 require "google/showcase/version"
 require "google/showcase/v1alpha3/messaging_pb"
@@ -84,7 +84,7 @@ module Google
             # These require statements are intentionally placed here to initialize
             # the gRPC module only when it's required.
             # See https://github.com/googleapis/toolkit/issues/446
-            require "google/gapic/grpc"
+            require "gapic/grpc"
             require "google/showcase/v1alpha3/messaging_services_pb"
 
             # Create the configuration object
@@ -104,7 +104,7 @@ module Google
               config.credentials = credentials
             end
 
-            @messaging_stub = Google::Gapic::Grpc::Stub.new(
+            @messaging_stub = Gapic::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Messaging::Stub,
               credentials:  credentials,
               host:         @config.host,
@@ -122,7 +122,7 @@ module Google
           # @overload create_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
           #     Creates a room.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_room(room: nil)
@@ -136,7 +136,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Room]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -144,16 +144,16 @@ module Google
           def create_room request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateRoomRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_room.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -173,7 +173,7 @@ module Google
           # @overload get_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
           #     Retrieves the Room with the given resource name.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_room(name: nil)
@@ -187,7 +187,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Room]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -195,16 +195,16 @@ module Google
           def get_room request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetRoomRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetRoomRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_room.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -230,7 +230,7 @@ module Google
           # @overload update_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
           #     Updates a room.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_room(room: nil, update_mask: nil)
@@ -247,7 +247,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Room]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -255,16 +255,16 @@ module Google
           def update_room request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateRoomRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_room.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -290,7 +290,7 @@ module Google
           # @overload delete_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
           #     Deletes a room and all of its blurbs.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_room(name: nil)
@@ -304,7 +304,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -312,16 +312,16 @@ module Google
           def delete_room request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteRoomRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteRoomRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_room.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -347,7 +347,7 @@ module Google
           # @overload list_rooms(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
           #     Lists all chat rooms.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_rooms(page_size: nil, page_token: nil)
@@ -361,12 +361,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
+          # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
+          # @return [Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Room>]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -374,16 +374,16 @@ module Google
           def list_rooms request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListRoomsRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListRoomsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_rooms.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -394,7 +394,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @messaging_stub, :list_rooms, request, response, options }
+            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @messaging_stub, :list_rooms, request, response, options }
 
             @messaging_stub.call_rpc :list_rooms, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -409,7 +409,7 @@ module Google
           #     Creates a blurb. If the parent is a room, the blurb is understood to be a
           #     message in that room. If the parent is a profile, the blurb is understood
           #     to be a post on the profile.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_blurb(parent: nil, blurb: nil)
@@ -426,7 +426,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -434,16 +434,16 @@ module Google
           def create_blurb request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateBlurbRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_blurb.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -469,7 +469,7 @@ module Google
           # @overload get_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
           #     Retrieves the Blurb with the given resource name.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_blurb(name: nil)
@@ -483,7 +483,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -491,16 +491,16 @@ module Google
           def get_blurb request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetBlurbRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_blurb.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -526,7 +526,7 @@ module Google
           # @overload update_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
           #     Updates a blurb.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_blurb(blurb: nil, update_mask: nil)
@@ -543,7 +543,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::Blurb]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -551,16 +551,16 @@ module Google
           def update_blurb request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateBlurbRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_blurb.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -586,7 +586,7 @@ module Google
           # @overload delete_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
           #     Deletes a blurb.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_blurb(name: nil)
@@ -600,7 +600,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -608,16 +608,16 @@ module Google
           def delete_blurb request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteBlurbRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_blurb.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -645,7 +645,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
           #     Lists blurbs for a specific chat room or user profile depending on the
           #     parent resource name.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil)
@@ -662,12 +662,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
+          # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
+          # @return [Gapic::PagedEnumerable<Google::Showcase::V1alpha3::Blurb>]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -675,16 +675,16 @@ module Google
           def list_blurbs request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListBlurbsRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_blurbs.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -701,7 +701,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new @messaging_stub, :list_blurbs, request, response, options }
+            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @messaging_stub, :list_blurbs, request, response, options }
 
             @messaging_stub.call_rpc :list_blurbs, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -716,7 +716,7 @@ module Google
           #     This method searches through all blurbs across all rooms and profiles
           #     for blurbs containing to words found in the query. Only posts that
           #     contain an exact match of a queried word will be returned.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil)
@@ -738,12 +738,12 @@ module Google
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Gapic::Operation]
+          # @yieldparam response [Gapic::Operation]
           # @yieldparam operation [GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Gapic::Operation]
+          # @return [Gapic::Operation]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -751,16 +751,16 @@ module Google
           def search_blurbs request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::SearchBlurbsRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::SearchBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.search_blurbs.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -777,7 +777,7 @@ module Google
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_gax_operation = ->(response) { Google::Gapic::Operation.new response, @operations_client }
+            wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
 
             @messaging_stub.call_rpc :search_blurbs, request, options: options, operation_callback: block, format_response: wrap_gax_operation
           end
@@ -790,7 +790,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
           #     This returns a stream that emits the blurbs that are created for a
           #     particular chat room or user profile.
-          #   @param options [Google::Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::ApiCall::Options, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload stream_blurbs(name: nil, expire_time: nil)
@@ -806,7 +806,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -814,16 +814,16 @@ module Google
           def stream_blurbs request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Google::Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::StreamBlurbsRequest
+            request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::StreamBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.stream_blurbs.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -847,9 +847,9 @@ module Google
           # This is a stream to create multiple blurbs. If an invalid blurb is
           # requested to be created, the stream will close with an error.
           #
-          # @param request [Google::Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
-          # @param options [Google::Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -858,7 +858,7 @@ module Google
           #
           # @return [Google::Showcase::V1alpha3::SendBlurbsResponse]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -873,17 +873,17 @@ module Google
             end
 
             request = request.lazy.map do |req|
-              Google::Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::CreateBlurbRequest
+              Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::CreateBlurbRequest
             end
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.send_blurbs.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -909,9 +909,9 @@ module Google
           # blurbs. If an invalid blurb is requested to be created, the stream will
           # close with an error.
           #
-          # @param request [Google::Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
-          # @param options [Google::Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::ApiCall::Options, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -920,7 +920,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1alpha3::StreamBlurbsResponse>]
           #
-          # @raise [Google::Gapic::GapicError] if the RPC is aborted.
+          # @raise [Gapic::GapicError] if the RPC is aborted.
           #
           # @example
           #   TODO
@@ -935,17 +935,17 @@ module Google
             end
 
             request = request.lazy.map do |req|
-              Google::Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::ConnectRequest
+              Gapic::Protobuf.coerce req, to: Google::Showcase::V1alpha3::ConnectRequest
             end
 
             # Converts hash and nil to an options object
-            options = Google::Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.connect.metadata.to_h
 
             # Set x-goog-api-client header
-            metadata[:"x-goog-api-client"] ||= Google::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
@@ -960,7 +960,7 @@ module Google
           end
 
           class Configuration
-            extend Google::Gapic::Config
+            extend Gapic::Config
 
             config_attr :host,         "localhost", String
             config_attr :port,         7469, Integer
@@ -1011,46 +1011,46 @@ module Google
               def initialize parent_rpcs = nil
                 create_room_config = nil
                 create_room_config = parent_rpcs&.create_room if parent_rpcs&.respond_to? :create_room
-                @create_room = Google::Gapic::Config::Method.new create_room_config
+                @create_room = Gapic::Config::Method.new create_room_config
                 get_room_config = nil
                 get_room_config = parent_rpcs&.get_room if parent_rpcs&.respond_to? :get_room
-                @get_room = Google::Gapic::Config::Method.new get_room_config
+                @get_room = Gapic::Config::Method.new get_room_config
                 update_room_config = nil
                 update_room_config = parent_rpcs&.update_room if parent_rpcs&.respond_to? :update_room
-                @update_room = Google::Gapic::Config::Method.new update_room_config
+                @update_room = Gapic::Config::Method.new update_room_config
                 delete_room_config = nil
                 delete_room_config = parent_rpcs&.delete_room if parent_rpcs&.respond_to? :delete_room
-                @delete_room = Google::Gapic::Config::Method.new delete_room_config
+                @delete_room = Gapic::Config::Method.new delete_room_config
                 list_rooms_config = nil
                 list_rooms_config = parent_rpcs&.list_rooms if parent_rpcs&.respond_to? :list_rooms
-                @list_rooms = Google::Gapic::Config::Method.new list_rooms_config
+                @list_rooms = Gapic::Config::Method.new list_rooms_config
                 create_blurb_config = nil
                 create_blurb_config = parent_rpcs&.create_blurb if parent_rpcs&.respond_to? :create_blurb
-                @create_blurb = Google::Gapic::Config::Method.new create_blurb_config
+                @create_blurb = Gapic::Config::Method.new create_blurb_config
                 get_blurb_config = nil
                 get_blurb_config = parent_rpcs&.get_blurb if parent_rpcs&.respond_to? :get_blurb
-                @get_blurb = Google::Gapic::Config::Method.new get_blurb_config
+                @get_blurb = Gapic::Config::Method.new get_blurb_config
                 update_blurb_config = nil
                 update_blurb_config = parent_rpcs&.update_blurb if parent_rpcs&.respond_to? :update_blurb
-                @update_blurb = Google::Gapic::Config::Method.new update_blurb_config
+                @update_blurb = Gapic::Config::Method.new update_blurb_config
                 delete_blurb_config = nil
                 delete_blurb_config = parent_rpcs&.delete_blurb if parent_rpcs&.respond_to? :delete_blurb
-                @delete_blurb = Google::Gapic::Config::Method.new delete_blurb_config
+                @delete_blurb = Gapic::Config::Method.new delete_blurb_config
                 list_blurbs_config = nil
                 list_blurbs_config = parent_rpcs&.list_blurbs if parent_rpcs&.respond_to? :list_blurbs
-                @list_blurbs = Google::Gapic::Config::Method.new list_blurbs_config
+                @list_blurbs = Gapic::Config::Method.new list_blurbs_config
                 search_blurbs_config = nil
                 search_blurbs_config = parent_rpcs&.search_blurbs if parent_rpcs&.respond_to? :search_blurbs
-                @search_blurbs = Google::Gapic::Config::Method.new search_blurbs_config
+                @search_blurbs = Gapic::Config::Method.new search_blurbs_config
                 stream_blurbs_config = nil
                 stream_blurbs_config = parent_rpcs&.stream_blurbs if parent_rpcs&.respond_to? :stream_blurbs
-                @stream_blurbs = Google::Gapic::Config::Method.new stream_blurbs_config
+                @stream_blurbs = Gapic::Config::Method.new stream_blurbs_config
                 send_blurbs_config = nil
                 send_blurbs_config = parent_rpcs&.send_blurbs if parent_rpcs&.respond_to? :send_blurbs
-                @send_blurbs = Google::Gapic::Config::Method.new send_blurbs_config
+                @send_blurbs = Gapic::Config::Method.new send_blurbs_config
                 connect_config = nil
                 connect_config = parent_rpcs&.connect if parent_rpcs&.respond_to? :connect
-                @connect = Google::Gapic::Config::Method.new connect_config
+                @connect = Gapic::Config::Method.new connect_config
 
                 yield self if block_given?
               end

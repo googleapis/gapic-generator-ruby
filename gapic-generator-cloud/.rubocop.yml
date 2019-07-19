@@ -6,7 +6,7 @@ AllCops:
   Exclude:
     - expected_output/**/*
     - templates/cloud/helpers/**/*
-    - test/google/gapic/presenters/**/*
+    - test/gapic/presenters/**/*
 
 Metrics/ClassLength:
   Max: 110

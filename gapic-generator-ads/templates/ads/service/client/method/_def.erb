@@ -19,6 +19,6 @@ def <%= method.name %> request, options = nil, &block
 <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/client/method/def/response", locals: { method: method }), 2 %>
-#rescue Google::Gapic::GapicError => gax_error
+#rescue Gapic::GapicError => gax_error
 #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
 end

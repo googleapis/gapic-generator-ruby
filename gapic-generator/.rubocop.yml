@@ -7,12 +7,12 @@ AllCops:
     - lib/**/*.pb.rb
     - expected_output/**/*
     - templates/default/helpers/**/*
-    - test/google/gapic/annotations/**/*
-    - test/google/gapic/presenters/**/*
+    - test/gapic/annotations/**/*
+    - test/gapic/presenters/**/*
 
 Metrics/ClassLength:
   Exclude:
-    - lib/google/gapic/schema/loader.rb
+    - lib/gapic/schema/loader.rb
 Metrics/BlockLength:
   Exclude:
     - gapic-generator.gemspec

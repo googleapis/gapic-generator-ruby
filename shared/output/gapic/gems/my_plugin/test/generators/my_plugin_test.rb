@@ -16,11 +16,11 @@
 
 
 require "test_helper"
-require "google/gapic/generators/my_plugin_generator"
+require "gapic/generators/my_plugin_generator"
 
 class MyPluginGeneratorTest < GeneratorTest
   def test_speech_generate
-    generator = Google::Gapic::Generators::MyPluginGenerator.new api(:speech)
+    generator = Gapic::Generators::MyPluginGenerator.new api(:speech)
     generator.generate.each do |file|
       assert_equal expected_content("my_plugin/#{file.name}"), file.content
     end

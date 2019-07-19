@@ -26,7 +26,7 @@ class ChatTest < ShowcaseTest
 
     pull_count = 0
 
-    stream_input = Google::Gapic::StreamInput.new
+    stream_input = Gapic::StreamInput.new
 
     responses = client.chat stream_input
 

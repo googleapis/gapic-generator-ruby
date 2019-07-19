@@ -1,12 +1,12 @@
 <%- assert_locals method -%>
 <%- if method.lro? -%>
-wrap_gax_operation = ->(response) { Google::Gapic::Operation.new(response, <%= method.service.lro_client_ivar %>) }
+wrap_gax_operation = ->(response) { Gapic::Operation.new(response, <%= method.service.lro_client_ivar %>) }
 <%- end -%>
 <%- if method.paged? -%>
 <%- if method.lro? -%>
-wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options, format_resource: wrap_gax_operation) }
+wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options, format_resource: wrap_gax_operation) }
 <%- else -%>
-wrap_paged_enum = ->(response) { Google::Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options) }
+wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options) }
 <%- end -%>
 <%- end -%>
 

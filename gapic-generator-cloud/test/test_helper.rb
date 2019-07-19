@@ -15,8 +15,8 @@
 # limitations under the License.
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "google/gapic/schema/api"
-require "google/gapic/generator"
+require "gapic/schema/api"
+require "gapic/generator"
 require "action_controller"
 require "action_view"
 
@@ -33,7 +33,7 @@ class GeneratorTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 
   def expected_content service, filename
@@ -51,6 +51,6 @@ class PresenterTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 end

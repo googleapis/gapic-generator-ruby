@@ -94,11 +94,11 @@ task :console do
 
   $LOAD_PATH.unshift "lib"
 
-  require "google/gapic/schema"
+  require "gapic/schema"
   def schema service
     bin_proto = File.binread "input/#{service}_desc.bin"
     request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Google::Gapic::Schema::Api.new request
+    Gapic::Schema::Api.new request
   end
 
   ARGV.clear

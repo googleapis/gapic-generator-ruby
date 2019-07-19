@@ -70,11 +70,11 @@ task :console do
 
   $LOAD_PATH.unshift "lib"
 
-  require "google/gapic/schema"
+  require "gapic/schema"
   def schema service
     bin_proto = File.binread "proto_input/#{service}_desc.bin"
     request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Google::Gapic::Schema::Api.new request
+    Gapic::Schema::Api.new request
   end
 
   ARGV.clear
@@ -116,8 +116,8 @@ def generate_protos
 end
 
 def generate_default_templates service
-  require "google/gapic/schema/api"
-  require "google/gapic/generators/default_generator"
+  require "gapic/schema/api"
+  require "gapic/generators/default_generator"
 
   target_path = File.expand_path File.join("expected_output/templates", service)
   FileUtils.rm_rf target_path
@@ -125,8 +125,8 @@ def generate_default_templates service
 
   bin_proto = File.binread "proto_input/#{service}_desc.bin"
   request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-  api = Google::Gapic::Schema::Api.new request
-  generator = Google::Gapic::Generators::DefaultGenerator.new api
+  api = Gapic::Schema::Api.new request
+  generator = Gapic::Generators::DefaultGenerator.new api
   generator.generate.each do |file|
     target_file_path = File.join target_path, file.name
     FileUtils.mkdir_p File.dirname(target_file_path)
@@ -135,7 +135,7 @@ def generate_default_templates service
 end
 
 def generate_gem gem_name
-  require "google/gapic/gem_builder"
+  require "gapic/gem_builder"
   require "tmpdir"
 
   target_path = File.expand_path File.join("expected_output/gems", gem_name)
@@ -143,7 +143,7 @@ def generate_gem gem_name
   FileUtils.mkdir_p target_path
 
   Dir.mktmpdir do |tmp_dir|
-    builder = Google::Gapic::GemBuilder.new gem_name, target_path
+    builder = Gapic::GemBuilder.new gem_name, target_path
     builder.bootstrap
 
     Dir.glob(File.join(tmp_dir, "**/*")).each do |file|

@@ -9,13 +9,13 @@ describe "<%= method.name %>" do
 
     # Create expected grpc response
     expected_response = {}
-    expected_response = Google::Gapic::Protobuf.coerce expected_response, to: <%= method.return_type %>
+    expected_response = Gapic::Protobuf.coerce expected_response, to: <%= method.return_type %>
 
     # Mock Grpc layer
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       OpenStruct.new execute: expected_response
     end
@@ -45,7 +45,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Google::Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
 <%- end -%>
       raise custom_error
     end
@@ -59,7 +59,7 @@ describe "<%= method.name %>" do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
-        err = assert_raises Google::Gapic::GapicError do
+        err = assert_raises Gapic::GapicError do
           client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
         end
 

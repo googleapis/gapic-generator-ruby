@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/gapic/path_template"
+require "gapic/path_template"
 require_relative "service_presenter"
 require_relative "field_presenter"
 
@@ -62,13 +62,13 @@ class MethodPresenter
 
   def doc_response_type
     ret = return_type
-    ret = "Google::Gapic::Operation" if lro?
+    ret = "Gapic::Operation" if lro?
     if server_streaming?
       ret = "Enumerable<#{ret}>"
     elsif paged?
       paged_type = paged_response_type
-      paged_type = "Google::Gapic::Operation" if paged_type == "Google::Longrunning::Operation"
-      ret = "Google::Gapic::PagedEnumerable<#{paged_type}>"
+      paged_type = "Gapic::Operation" if paged_type == "Google::Longrunning::Operation"
+      ret = "Gapic::PagedEnumerable<#{paged_type}>"
     end
     ret
   end
@@ -106,7 +106,7 @@ class MethodPresenter
       return [
         OpenStruct.new(
           name: "operation",
-          doc_types: "Google::Gapic::Operation"
+          doc_types: "Gapic::Operation"
         )
       ]
     end
@@ -160,8 +160,8 @@ class MethodPresenter
   # @return [Array<String>] The segment key names.
   #
   def routing_params
-    segments = Google::Gapic::PathTemplate.parse method_path
-    segments.select { |s| s.is_a? Google::Gapic::PathTemplate::Segment }.map &:name
+    segments = Gapic::PathTemplate.parse method_path
+    segments.select { |s| s.is_a? Gapic::PathTemplate::Segment }.map &:name
   end
 
   def routing_params?

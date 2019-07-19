@@ -15,9 +15,9 @@
 # limitations under the License.
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "google/gapic/schema/api"
-require "google/gapic/generator"
-require "google/gapic/path_template"
+require "gapic/schema/api"
+require "gapic/generator"
+require "gapic/path_template"
 require "action_controller"
 require "action_view"
 
@@ -34,7 +34,7 @@ class GeneratorTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 
   def expected_content type, filename
@@ -52,7 +52,7 @@ class AnnotationTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 end
 
@@ -70,7 +70,7 @@ class PresenterTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 
   def service_presenter api_name, service_name
@@ -103,7 +103,7 @@ end
 #
 class PathTemplateTest < Minitest::Test
   def assert_path_template path_template, *exp_segments
-    act_segments = Google::Gapic::PathTemplate.parse path_template
+    act_segments = Gapic::PathTemplate.parse path_template
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments

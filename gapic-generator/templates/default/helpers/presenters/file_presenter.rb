@@ -20,7 +20,7 @@ require_relative "message_presenter"
 class FilePresenter
   include NamespaceHelper
 
-  # @param file [Google::Gapic::Schema::File] the file to present
+  # @param file [Gapic::Schema::File] the file to present
   def initialize api, file
     @api = api
     @file = file

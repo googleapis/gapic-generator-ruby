@@ -15,13 +15,13 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/gapic/gem_builder"
+require "gapic/gem_builder"
 require "tmpdir"
 
 class GemBuilderTest < GemTest
   def test_speech_gem
     Dir.mktmpdir do |tmp_dir|
-      builder = Google::Gapic::GemBuilder.new "my_plugin", tmp_dir
+      builder = Gapic::GemBuilder.new "my_plugin", tmp_dir
       builder.bootstrap
 
       Dir.glob(File.join(tmp_dir, "**/*")).each do |file|

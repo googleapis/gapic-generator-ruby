@@ -36,9 +36,9 @@ def build_gem_to generator_name, output_path
   end
   FileUtils.mkdir_p output_path
 
-  require "google/gapic/gem_builder"
+  require "gapic/gem_builder"
 
-  builder = Google::Gapic::GemBuilder.new generator_name, output_path
+  builder = Gapic::GemBuilder.new generator_name, output_path
   builder.bootstrap
   examples_path = File.join output_path, "example_templates", generator_name
   export_templates_to examples_path

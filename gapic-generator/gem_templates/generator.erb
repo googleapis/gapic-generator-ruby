@@ -2,38 +2,36 @@
 
 <%= render partial: "shared/license" %>
 
-require "google/gapic/generators/default_generator"
+require "gapic/generators/default_generator"
 
-module Google
-  module Gapic
-    module Generators
-      # The generator orchestrates the rendering of templates for
-      # <%= gem_class_prefix %> projects.
-      class <%= gem_class_prefix %>Generator < DefaultGenerator
-        # Initializes the generator.
-        #
-        # @param api [Google::Gapic::Schema::Api] The API model/context to
-        #   generate.
-        def initialize api
-          super
+module Gapic
+  module Generators
+    # The generator orchestrates the rendering of templates for
+    # <%= gem_class_prefix %> projects.
+    class <%= gem_class_prefix %>Generator < DefaultGenerator
+      # Initializes the generator.
+      #
+      # @param api [Gapic::Schema::Api] The API model/context to
+      #   generate.
+      def initialize api
+        super
 
-          # Configure to use prefer <%= gem_class_prefix %> templates
-          template_path = File.join __dir__,
-                                    "../../../../templates/<%= gem_name %>"
-          use_templates! template_path
+        # Configure to use prefer <%= gem_class_prefix %> templates
+        template_path = File.join __dir__,
+                                  "../../../templates/<%= gem_name %>"
+        use_templates! template_path
 
-          # Configure these helper method to be used by the generator
-          # use_helpers! :helper_method1, :helper_method2, :helper_method3
-        end
+        # Configure these helper method to be used by the generator
+        # use_helpers! :helper_method1, :helper_method2, :helper_method3
+      end
 
-        # Generates all the files for the API.
-        #
-        # @return [Array<
-        #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
-        #   The files that were generated for the API.
-        def generate
-          super
-        end
+      # Generates all the files for the API.
+      #
+      # @return [Array<
+      #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
+      #   The files that were generated for the API.
+      def generate
+        super
       end
     end
   end
