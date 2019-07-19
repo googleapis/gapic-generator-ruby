@@ -17,11 +17,11 @@
 
 lib = File.expand_path "lib", __dir__
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
-require "google/gapic/generator/my_plugin/version"
+require "gapic/generator/my_plugin/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "gapic-generator-my_plugin"
-  spec.version       = Google::Gapic::Generator::MyPlugin::VERSION
+  spec.version       = Gapic::Generator::MyPlugin::VERSION
   spec.authors       = ["Ernest Landrito", "Chris Smith", "Mike Moore"]
   spec.email         = ["landrito@google.com", "quartzmo@gmail.com",
                         "mike@blowmage.com"]

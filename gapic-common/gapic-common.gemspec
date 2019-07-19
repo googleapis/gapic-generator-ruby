@@ -2,11 +2,11 @@
 # encoding: utf-8
 
 $LOAD_PATH.push File.expand_path("lib", __dir__)
-require "google/gapic/common/version"
+require "gapic/common/version"
 
 Gem::Specification.new do |gem|
   gem.name = "gapic-common"
-  gem.version = Google::Gapic::Common::VERSION
+  gem.version = Gapic::Common::VERSION
   gem.authors = ["Google API Authors"]
   gem.email = "googleapis-packages@google.com"
   gem.homepage = "https://github.com/googleapis/gapic-generator-ruby"

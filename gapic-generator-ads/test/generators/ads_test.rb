@@ -16,11 +16,11 @@
 
 
 require "test_helper"
-require "google/gapic/generators/ads_generator"
+require "gapic/generators/ads_generator"
 
 class AdsGeneratorTest < GeneratorTest
   def test_speech_generate
-    generator = Google::Gapic::Generators::AdsGenerator.new api(:googleads)
+    generator = Gapic::Generators::AdsGenerator.new api(:googleads)
     generator.generate.each do |file|
       assert_equal expected_content(:googleads, file.name), file.content
     end

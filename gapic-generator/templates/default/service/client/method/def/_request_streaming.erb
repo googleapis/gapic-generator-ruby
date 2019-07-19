@@ -8,5 +8,5 @@ unless request.is_a? Enumerable
 end
 
 request = request.lazy.map do |req|
-  Google::Gapic::Protobuf.coerce req, to: <%= method.request_type %>
+  Gapic::Protobuf.coerce req, to: <%= method.request_type %>
 end

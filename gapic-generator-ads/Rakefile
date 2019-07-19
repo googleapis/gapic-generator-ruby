@@ -54,11 +54,11 @@ task :console do
 
   $LOAD_PATH.unshift "lib"
 
-  require "google/gapic/schema"
+  require "gapic/schema"
   def schema service
     bin_proto = File.binread "proto_input/#{service}_desc.bin"
     request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Google::Gapic::Schema::Api.new request
+    Gapic::Schema::Api.new request
   end
 
   ARGV.clear
@@ -85,22 +85,22 @@ namespace :image do
 end
 
 def api service
-  require "google/gapic/schema/api"
+  require "gapic/schema/api"
   bin_proto = File.binread "proto_input/#{service}_desc.bin"
   request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-  Google::Gapic::Schema::Api.new request
+  Gapic::Schema::Api.new request
 end
 
 def generate_ads_templates service
   require "fileutils"
-  require "google/gapic/generators/ads_generator"
+  require "gapic/generators/ads_generator"
 
   target_path = File.expand_path File.join("expected_output", service)
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
   api = api service
-  generator = Google::Gapic::Generators::AdsGenerator.new api
+  generator = Gapic::Generators::AdsGenerator.new api
   generator.generate.each do |file|
     target_file_path = File.join target_path, file.name
     FileUtils.mkdir_p File.dirname(target_file_path)

@@ -16,7 +16,7 @@
 
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "google/gapic/generators/my_plugin_generator"
+require "gapic/generators/my_plugin_generator"
 
 require "minitest/autorun"
 require "minitest/focus"
@@ -31,7 +31,7 @@ class GeneratorTest < Minitest::Test
   end
 
   def api service
-    Google::Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service)
   end
 
   def expected_content filename

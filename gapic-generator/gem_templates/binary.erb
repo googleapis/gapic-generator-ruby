@@ -4,7 +4,7 @@
 <%= render partial: "shared/license" %>
 
 gem "gapic-generator"
-require "google/gapic/runner"
+require "gapic/runner"
 require "google/protobuf/compiler/plugin.pb"
 
 # Ensure that no encoding conversions are done on STDIN and STDOUT
@@ -16,6 +16,6 @@ STDOUT.binmode
 request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode STDIN.read
 
 # Run the request, specifying the <%= gem_name %> generator
-response = Google::Gapic::Runner.run request, generator: :<%= gem_name %>
+response = Gapic::Runner.run request, generator: :<%= gem_name %>
 
 STDOUT.print response.serialize
