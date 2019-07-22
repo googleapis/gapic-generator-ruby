@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.0.0"
 
-  gem.add_dependency "gapic-common", "~> 2.0"
+  gem.add_dependency "gapic-common", "~> 0.0.0"
 
   gem.add_development_dependency "google-style", "~> 0.3"
   gem.add_development_dependency "minitest", "~> 5.10"

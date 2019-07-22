@@ -6,14 +6,13 @@ AllCops:
     - "gapic-common.gemspec"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/gapic/config.rb"
 Metrics/ClassLength:
   Exclude:
     - "lib/gapic/configuration.rb"
     - "lib/gapic/configuration/schema.rb"
-
-Metrics/AbcSize:
-  Exclude:
-    - "lib/gapic/config.rb"
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/gapic/config.rb"
@@ -24,6 +23,10 @@ Metrics/PerceivedComplexity:
   Exclude:
     - "lib/gapic/config.rb"
     - "lib/gapic/grpc/stub.rb"
+
+Naming/FileName:
+  Exclude:
+    - "lib/gapic-common.rb"
 
 Style/Documentation:
   Exclude:

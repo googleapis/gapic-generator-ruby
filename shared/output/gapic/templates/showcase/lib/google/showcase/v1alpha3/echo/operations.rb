@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "gapic"
+require "gapic/common"
 require "gapic/operation"
 
 require "google/showcase/version"

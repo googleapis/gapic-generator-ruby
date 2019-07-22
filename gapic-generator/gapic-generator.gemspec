@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
                        Dir.glob("gem_templates/**/*.erb") +
                        Dir.glob("templates/**/*.{rb,erb}") +
                        Dir.glob("*.md") +
-                       ["LICENSE", "default-rubocop.yml"]
+                       ["LICENSE", "default-rubocop.yml", ".yardopts"]
   spec.bindir        = "bin"
   spec.executables   = ["gapic-generator", "protoc-gen-ruby_gapic"]
   spec.require_paths = ["lib"]
@@ -47,5 +47,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "redcarpet", "~> 3.0"
+  spec.add_development_dependency "yard", "~> 0.9"
 end

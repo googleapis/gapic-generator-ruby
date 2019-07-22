@@ -17,7 +17,7 @@ require "minitest/autorun"
 require "minitest/focus"
 require "minitest/rg"
 
-require "gapic"
+require "gapic/common"
 require "google/protobuf/any_pb"
 require_relative "./fixtures/fixture_pb"
 
