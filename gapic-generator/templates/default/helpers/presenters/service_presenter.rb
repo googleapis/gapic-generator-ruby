@@ -131,7 +131,7 @@ class ServicePresenter
   end
 
   def client_endpoint
-    lookup_default_host
+    @service.host || default_config(:default_host) || "localhost"
   end
 
   def client_scopes
@@ -254,10 +254,6 @@ class ServicePresenter
   end
 
   private
-
-  def lookup_default_host
-    @service.host || default_config(:default_host) || "localhost"
-  end
 
   def default_config key
     return unless @service.parent.parent.configuration[:defaults]
