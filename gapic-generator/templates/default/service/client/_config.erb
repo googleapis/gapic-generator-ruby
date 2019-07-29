@@ -3,8 +3,7 @@
 class Configuration
   extend Gapic::Config
 
-  config_attr :host,         <%= service.client_address.inspect %>, String
-  config_attr :port,         <%= service.client_port %>,            Integer
+  config_attr :endpoint,     <%= service.client_endpoint.inspect %>, String
   config_attr :credentials,  nil do |value|
     allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
     if defined? ::GRPC

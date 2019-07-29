@@ -97,8 +97,7 @@ module Google
               @product_search_stub = Gapic::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
                 credentials:  credentials,
-                host:         @config.host,
-                port:         @config.port,
+                endpoint:     @config.endpoint,
                 channel_args: @config.channel_args,
                 interceptors: @config.interceptors
               )
@@ -1517,8 +1516,7 @@ module Google
             class Configuration
               extend Gapic::Config
 
-              config_attr :host,         "vision.googleapis.com", String
-              config_attr :port,         443, Integer
+              config_attr :endpoint,     "vision.googleapis.com", String
               config_attr :credentials,  nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC

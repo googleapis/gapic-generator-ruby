@@ -20,8 +20,7 @@ require "gapic/config/method"
 class ServiceConfig
   extend Gapic::Config
 
-  config_attr :host,         "localhost", String
-  config_attr :port,         443,         Integer
+  config_attr :endpoint,     "localhost", String
   config_attr :timeout,      60,          Numeric, nil
   config_attr :metadata,     nil,         Hash, nil
   config_attr :retry_policy, nil,         Hash, Proc, nil
@@ -40,8 +39,7 @@ class MethodConfigTest < Minitest::Test
   def test_rpc_method
     config = ServiceConfig.new
 
-    assert_equal "localhost", config.host
-    assert_equal 443,         config.port
+    assert_equal "localhost", config.endpoint
     assert_equal 60,          config.timeout
     assert_nil config.metadata
     assert_nil config.retry_policy
@@ -94,8 +92,7 @@ class MethodConfigTest < Minitest::Test
     end
     config = ServiceConfig.new parent_config
 
-    assert_equal "localhost", config.host
-    assert_equal 443,         config.port
+    assert_equal "localhost", config.endpoint
     assert_equal 60,          config.timeout
 
     assert_equal 120, config.rpc_method.timeout

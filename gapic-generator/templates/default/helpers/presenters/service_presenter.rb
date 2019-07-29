@@ -130,14 +130,8 @@ class ServicePresenter
     client_file_path.split("/").last
   end
 
-  def client_address
-    lookup_default_host.split(":").first
-  end
-
-  def client_port
-    host, *ports = lookup_default_host.split ":"
-    ports << "443" # push the default port on in case there is none
-    ports.first
+  def client_endpoint
+    lookup_default_host
   end
 
   def client_scopes
