@@ -33,8 +33,7 @@ module Gapic
       # Creates a Gapic gRPC stub object.
       #
       # @param grpc_stub_class [Class] gRPC stub class to create a new instance of.
-      # @param host [String] The domain name of the API remote host.
-      # @param port [Fixnum] The port on which to connect to the remote host.
+      # @param endpoint [String] The endpoint of the API.
       # @param credentials [Google::Auth::Credentials, Signet::OAuth2::Client, String, Hash, Proc,
       #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials] Provides the means for authenticating requests made by
       #   the client. This parameter can be many types:
@@ -52,22 +51,20 @@ module Gapic
       # @param interceptors [Array<GRPC::ClientInterceptor>] An array of {GRPC::ClientInterceptor} objects that will
       #   be used for intercepting calls before they are executed Interceptors are an EXPERIMENTAL API.
       #
-      def initialize grpc_stub_class, host:, port:, credentials:, channel_args: nil, interceptors: nil
+      def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
         raise ArgumentError, "grpc_stub_class is required" if grpc_stub_class.nil?
-        raise ArgumentError, "host is required" if host.nil?
-        raise ArgumentError, "port is required" if port.nil?
+        raise ArgumentError, "endpoint is required" if endpoint.nil?
         raise ArgumentError, "credentials is required" if credentials.nil?
 
-        address = "#{host}:#{port}"
         channel_args = Hash channel_args
         interceptors = Array interceptors
 
         @grpc_stub = if credentials.is_a? GRPC::Core::Channel
-                       grpc_stub_class.new address, nil, channel_override: credentials,
-                                                         interceptors:     interceptors
+                       grpc_stub_class.new endpoint, nil, channel_override: credentials,
+                                                          interceptors:     interceptors
                      elsif credentials.is_a? GRPC::Core::ChannelCredentials
-                       grpc_stub_class.new address, credentials, channel_args: channel_args,
-                                                                 interceptors: interceptors
+                       grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
+                                                                  interceptors: interceptors
                      else
                        updater_proc = credentials.updater_proc if credentials.respond_to? :updater_proc
                        updater_proc ||= credentials if credentials.is_a? Proc
@@ -75,8 +72,8 @@ module Gapic
 
                        call_creds = GRPC::Core::CallCredentials.new updater_proc
                        chan_creds = GRPC::Core::ChannelCredentials.new.compose call_creds
-                       grpc_stub_class.new address, chan_creds, channel_args: channel_args,
-                                                                interceptors: interceptors
+                       grpc_stub_class.new endpoint, chan_creds, channel_args: channel_args,
+                                                                 interceptors: interceptors
                      end
       end
 
@@ -113,7 +110,7 @@ module Gapic
       #   )
       #   echo_stub = Gapic::Grpc::Stub.new(
       #     Google::Showcase::V1alpha3::Echo::Stub,
-      #     host: "localhost", port: 7469, credentials: echo_channel
+      #     endpoint: "localhost:7469", credentials: echo_channel
       #   )
       #
       #   request = Google::Showcase::V1alpha3::EchoRequest.new
@@ -130,7 +127,7 @@ module Gapic
       #   )
       #   echo_stub = Gapic::Grpc::Stub.new(
       #     Google::Showcase::V1alpha3::Echo::Stub,
-      #     host: "localhost", port: 7469, credentials: echo_channel
+      #     endpoint: "localhost:7469", credentials: echo_channel
       #   )
       #
       #   request = Google::Showcase::V1alpha3::EchoRequest.new
@@ -153,7 +150,7 @@ module Gapic
       #   )
       #   echo_stub = Gapic::Grpc::Stub.new(
       #     Google::Showcase::V1alpha3::Echo::Stub,
-      #     host: "localhost", port: 7469, credentials: echo_channel
+      #     endpoint: "localhost:7469", credentials: echo_channel
       #   )
       #
       #   request = Google::Showcase::V1alpha3::EchoRequest.new

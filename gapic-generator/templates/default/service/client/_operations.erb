@@ -72,8 +72,7 @@ class <%= service.operations_name %>
     @<%= service.lro_service.stub_name %> = Gapic::Grpc::Stub.new(
       <%= service.lro_service.proto_service_stub_name_full %>,
       credentials:  credentials,
-      host:         @config.host,
-      port:         @config.port,
+      endpoint:     @config.endpoint,
       channel_args: @config.channel_args,
       interceptors: @config.interceptors
     )

@@ -107,8 +107,7 @@ module Google
             @messaging_stub = Gapic::Grpc::Stub.new(
               Google::Showcase::V1alpha3::Messaging::Stub,
               credentials:  credentials,
-              host:         @config.host,
-              port:         @config.port,
+              endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
               interceptors: @config.interceptors
             )
@@ -962,8 +961,7 @@ module Google
           class Configuration
             extend Gapic::Config
 
-            config_attr :host,         "localhost", String
-            config_attr :port,         7469, Integer
+            config_attr :endpoint,     "localhost:7469", String
             config_attr :credentials,  nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
