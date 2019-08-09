@@ -13,7 +13,6 @@
 # limitations under the License.
 
 require "gapic/api_call"
-require "gapic/configuration"
 require "gapic/errors"
 require "gapic/headers"
 require "gapic/operation"
