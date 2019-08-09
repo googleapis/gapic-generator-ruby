@@ -121,7 +121,7 @@ module Google
           # @overload create_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateRoomRequest | Hash]
           #     Creates a room.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_room(room: nil)
@@ -146,7 +146,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_room.metadata.to_h
@@ -172,7 +172,7 @@ module Google
           # @overload get_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetRoomRequest | Hash]
           #     Retrieves the Room with the given resource name.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_room(name: nil)
@@ -197,7 +197,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_room.metadata.to_h
@@ -229,7 +229,7 @@ module Google
           # @overload update_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateRoomRequest | Hash]
           #     Updates a room.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_room(room: nil, update_mask: nil)
@@ -257,7 +257,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_room.metadata.to_h
@@ -289,7 +289,7 @@ module Google
           # @overload delete_room(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteRoomRequest | Hash]
           #     Deletes a room and all of its blurbs.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_room(name: nil)
@@ -314,7 +314,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_room.metadata.to_h
@@ -346,7 +346,7 @@ module Google
           # @overload list_rooms(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListRoomsRequest | Hash]
           #     Lists all chat rooms.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_rooms(page_size: nil, page_token: nil)
@@ -376,7 +376,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListRoomsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_rooms.metadata.to_h
@@ -408,7 +408,7 @@ module Google
           #     Creates a blurb. If the parent is a room, the blurb is understood to be a
           #     message in that room. If the parent is a profile, the blurb is understood
           #     to be a post on the profile.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_blurb(parent: nil, blurb: nil)
@@ -436,7 +436,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_blurb.metadata.to_h
@@ -468,7 +468,7 @@ module Google
           # @overload get_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetBlurbRequest | Hash]
           #     Retrieves the Blurb with the given resource name.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_blurb(name: nil)
@@ -493,7 +493,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_blurb.metadata.to_h
@@ -525,7 +525,7 @@ module Google
           # @overload update_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateBlurbRequest | Hash]
           #     Updates a blurb.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_blurb(blurb: nil, update_mask: nil)
@@ -553,7 +553,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_blurb.metadata.to_h
@@ -585,7 +585,7 @@ module Google
           # @overload delete_blurb(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteBlurbRequest | Hash]
           #     Deletes a blurb.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_blurb(name: nil)
@@ -610,7 +610,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_blurb.metadata.to_h
@@ -644,7 +644,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ListBlurbsRequest | Hash]
           #     Lists blurbs for a specific chat room or user profile depending on the
           #     parent resource name.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_blurbs(parent: nil, page_size: nil, page_token: nil)
@@ -677,7 +677,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_blurbs.metadata.to_h
@@ -715,7 +715,7 @@ module Google
           #     This method searches through all blurbs across all rooms and profiles
           #     for blurbs containing to words found in the query. Only posts that
           #     contain an exact match of a queried word will be returned.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload search_blurbs(query: nil, parent: nil, page_size: nil, page_token: nil)
@@ -753,7 +753,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::SearchBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.search_blurbs.metadata.to_h
@@ -789,7 +789,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::StreamBlurbsRequest | Hash]
           #     This returns a stream that emits the blurbs that are created for a
           #     particular chat room or user profile.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload stream_blurbs(name: nil, expire_time: nil)
@@ -816,7 +816,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::StreamBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.stream_blurbs.metadata.to_h
@@ -848,7 +848,7 @@ module Google
           #
           # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::CreateBlurbRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::CreateBlurbRequest} instances.
-          # @param options [Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -876,7 +876,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.send_blurbs.metadata.to_h
@@ -910,7 +910,7 @@ module Google
           #
           # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::ConnectRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::ConnectRequest} instances.
-          # @param options [Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -938,7 +938,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.connect.metadata.to_h

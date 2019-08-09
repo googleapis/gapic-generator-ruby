@@ -111,7 +111,7 @@ module Google
             # @overload batch_annotate_images(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::BatchAnnotateImagesRequest | Hash]
             #     Run image detection and annotation for a batch of images.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload batch_annotate_images(requests: nil)
@@ -136,7 +136,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.batch_annotate_images.metadata.to_h
@@ -172,7 +172,7 @@ module Google
             #     `google.longrunning.Operations` interface.
             #     `Operation.metadata` contains `OperationMetadata` (metadata).
             #     `Operation.response` contains `AsyncBatchAnnotateFilesResponse` (results).
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload async_batch_annotate_files(requests: nil)
@@ -197,7 +197,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h

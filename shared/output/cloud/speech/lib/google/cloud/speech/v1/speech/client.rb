@@ -113,7 +113,7 @@ module Google
             #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
             #     Performs synchronous speech recognition: receive results after all audio
             #     has been sent and processed.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload recognize(config: nil, audio: nil)
@@ -141,7 +141,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Speech::V1::RecognizeRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.recognize.metadata.to_h
@@ -173,7 +173,7 @@ module Google
             #     google.longrunning.Operations interface. Returns either an
             #     `Operation.error` or an `Operation.response` which contains
             #     a `LongRunningRecognizeResponse` message.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload long_running_recognize(config: nil, audio: nil)
@@ -201,7 +201,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Speech::V1::LongRunningRecognizeRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.long_running_recognize.metadata.to_h
@@ -229,7 +229,7 @@ module Google
             #
             # @param request [Gapic::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
-            # @param options [Gapic::ApiCall::Options, Hash]
+            # @param options [Gapic::CallOptions, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @yield [response, operation] Access the result along with the RPC operation
@@ -257,7 +257,7 @@ module Google
               end
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.streaming_recognize.metadata.to_h

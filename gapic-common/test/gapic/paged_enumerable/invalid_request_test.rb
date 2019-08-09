@@ -18,7 +18,7 @@ class PagedEnumerableInvalidRequestTest < Minitest::Test
   def test_MissingPageTokenRequest
     request = Gapic::Examples::MissingPageTokenRequest.new
     response = Gapic::Examples::GoodPagedResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
@@ -32,7 +32,7 @@ class PagedEnumerableInvalidRequestTest < Minitest::Test
   def test_MissingPageSizeRequest
     request = Gapic::Examples::MissingPageSizeRequest.new
     response = Gapic::Examples::GoodPagedResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(

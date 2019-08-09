@@ -16,7 +16,7 @@ require "test_helper"
 
 class RetryPolicyCallTest < Minitest::Test
   def test_wont_retry_when_unconfigured
-    retry_policy = Gapic::ApiCall::RetryPolicy.new
+    retry_policy = Gapic::CallOptions::RetryPolicy.new
     grpc_error = GRPC::Unavailable.new
 
     refute_includes retry_policy.retry_codes, grpc_error.code
@@ -29,7 +29,7 @@ class RetryPolicyCallTest < Minitest::Test
   end
 
   def test_retries_configured_grpc_errors
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
     )
     grpc_error = GRPC::Unavailable.new
@@ -48,7 +48,7 @@ class RetryPolicyCallTest < Minitest::Test
   end
 
   def test_wont_retry_unconfigured_grpc_errors
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
     )
     grpc_error = GRPC::Unimplemented.new
@@ -63,7 +63,7 @@ class RetryPolicyCallTest < Minitest::Test
   end
 
   def test_wont_retry_non_grpc_errors
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
     )
     other_error = StandardError.new
@@ -76,7 +76,7 @@ class RetryPolicyCallTest < Minitest::Test
   end
 
   def test_incremental_backoff
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
     )
     grpc_error = GRPC::Unavailable.new

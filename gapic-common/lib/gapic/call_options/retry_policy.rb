@@ -13,7 +13,7 @@
 # limitations under the License.
 
 module Gapic
-  class ApiCall
+  class CallOptions
     ##
     # The policy for retrying failed API calls using an incremental backoff. A new object instance should be used for
     # every ApiCall invocation.

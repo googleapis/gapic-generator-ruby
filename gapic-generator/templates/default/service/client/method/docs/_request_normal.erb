@@ -4,7 +4,7 @@
 <%- if method.doc_description -%>
 <%= indent method.doc_description, "#     " %>
 <%- end -%>
-#   @param options [Gapic::ApiCall::Options, Hash]
+#   @param options [Gapic::CallOptions, Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>

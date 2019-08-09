@@ -52,7 +52,7 @@ module Gapic
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
     # @param response [Object] The response object.
-    # @param options [ApiCall::Options] The options for making the API call.
+    # @param options [Gapic::CallOptions] The options for making the API call.
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
     #

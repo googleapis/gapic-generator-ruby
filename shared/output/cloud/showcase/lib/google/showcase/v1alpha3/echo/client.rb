@@ -110,7 +110,7 @@ module Google
           # @overload echo(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::EchoRequest | Hash]
           #     This method simply echos the request. This method is showcases unary rpcs.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload echo(content: nil, error: nil)
@@ -137,7 +137,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::EchoRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.echo.metadata.to_h
@@ -165,7 +165,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::ExpandRequest | Hash]
           #     This method split the given content into words and will pass each word back
           #     through the stream. This method showcases server-side streaming rpcs.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload expand(content: nil, error: nil)
@@ -192,7 +192,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ExpandRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.expand.metadata.to_h
@@ -219,7 +219,7 @@ module Google
           #
           # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -247,7 +247,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.collect.metadata.to_h
@@ -274,7 +274,7 @@ module Google
           #
           # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1alpha3::EchoRequest | Hash>]
           #   An enumerable of {Google::Showcase::V1alpha3::EchoRequest} instances.
-          # @param options [Gapic::ApiCall::Options, Hash]
+          # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
@@ -302,7 +302,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.chat.metadata.to_h
@@ -330,7 +330,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::PagedExpandRequest | Hash]
           #     This is similar to the Expand method but instead of returning a stream of
           #     expanded words, this method returns a paged list of expanded words.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload paged_expand(content: nil, page_size: nil, page_token: nil)
@@ -359,7 +359,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::PagedExpandRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand.metadata.to_h
@@ -389,7 +389,7 @@ module Google
           #   @param request [Google::Showcase::V1alpha3::WaitRequest | Hash]
           #     This method will wait the requested amount of and then return.
           #     This method showcases how a client handles a request timing out.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil)
@@ -421,7 +421,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::WaitRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.wait.metadata.to_h

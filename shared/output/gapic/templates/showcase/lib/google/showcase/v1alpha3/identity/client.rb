@@ -117,7 +117,7 @@ module Google
           # @overload create_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateUserRequest | Hash]
           #     Creates a user.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_user(user: nil)
@@ -142,7 +142,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_user.metadata.to_h
@@ -168,7 +168,7 @@ module Google
           # @overload get_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetUserRequest | Hash]
           #     Retrieves the User with the given uri.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_user(name: nil)
@@ -193,7 +193,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_user.metadata.to_h
@@ -225,7 +225,7 @@ module Google
           # @overload update_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::UpdateUserRequest | Hash]
           #     Updates a user.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_user(user: nil, update_mask: nil)
@@ -253,7 +253,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::UpdateUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_user.metadata.to_h
@@ -285,7 +285,7 @@ module Google
           # @overload delete_user(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteUserRequest | Hash]
           #     Deletes a user, their profile, and all of their authored messages.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_user(name: nil)
@@ -310,7 +310,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_user.metadata.to_h
@@ -342,7 +342,7 @@ module Google
           # @overload list_users(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListUsersRequest | Hash]
           #     Lists all users.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_users(page_size: nil, page_token: nil)
@@ -372,7 +372,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListUsersRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_users.metadata.to_h

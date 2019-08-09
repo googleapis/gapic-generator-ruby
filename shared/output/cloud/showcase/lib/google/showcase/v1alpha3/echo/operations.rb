@@ -112,7 +112,7 @@ module Google
           #
           #     NOTE: the `name` binding below allows API services to override the binding
           #     to use different resource name schemes, such as `users/*/operations`.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
@@ -143,7 +143,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_operations.metadata.to_h
@@ -182,7 +182,7 @@ module Google
           #     Gets the latest state of a long-running operation.  Clients can use this
           #     method to poll the operation result at intervals as recommended by the API
           #     service.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_operation(name: nil)
@@ -207,7 +207,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_operation.metadata.to_h
@@ -247,7 +247,7 @@ module Google
           #     no longer interested in the operation result. It does not cancel the
           #     operation. If the server doesn't support this method, it returns
           #     `google.rpc.Code.UNIMPLEMENTED`.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_operation(name: nil)
@@ -272,7 +272,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_operation.metadata.to_h
@@ -322,7 +322,7 @@ module Google
           #     the operation is not deleted; instead, it becomes an operation with
           #     an [Operation.error][google.longrunning.Operation.error] value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
           #     corresponding to `Code.CANCELLED`.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload cancel_operation(name: nil)
@@ -347,7 +347,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.cancel_operation.metadata.to_h
