@@ -3,8 +3,7 @@
 class Configuration
   extend Gapic::Config
 
-  config_attr :host,         <%= service.client_address.inspect %>, String
-  config_attr :port,         <%= service.client_port %>,            Integer
+  config_attr :endpoint,     <%= service.client_endpoint.inspect %>, String
   config_attr :credentials,  nil do |value|
     allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
     if defined? ::GRPC
@@ -12,14 +11,14 @@ class Configuration
     end
     allowed.any? { |klass| klass === value }
   end
-  config_attr :scope,        nil,                                   String, Array, nil
-  config_attr :lib_name,     nil,                                   String, nil
-  config_attr :lib_version,  nil,                                   String, nil
-  config_attr :channel_args, nil,                                   Hash, nil
-  config_attr :interceptors, nil,                                   Array, nil
-  config_attr :timeout,      nil,                                   Numeric, nil
-  config_attr :metadata,     nil,                                   Hash, nil
-  config_attr :retry_policy, nil,                                   Hash, Proc, nil
+  config_attr :scope,        nil, String, Array, nil
+  config_attr :lib_name,     nil, String, nil
+  config_attr :lib_version,  nil, String, nil
+  config_attr(:channel_args, <%= service.config_channel_args.inspect %>, Hash, nil)
+  config_attr :interceptors, nil, Array, nil
+  config_attr :timeout,      nil, Numeric, nil
+  config_attr :metadata,     nil, Hash, nil
+  config_attr :retry_policy, nil, Hash, Proc, nil
 
   def initialize parent_config = nil
     @parent_config = parent_config unless parent_config.nil?

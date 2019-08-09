@@ -15,12 +15,18 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
 require "rubocop/rake_task"
+require "yard"
+require "yard/rake/yardoc_task"
 
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
+end
+
+YARD::Rake::YardocTask.new do |y|
+  # y.options << "--fail-on-warning"
 end
 
 desc "Run the CI build"

@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "gapic"
+require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
@@ -105,8 +105,7 @@ module Google
               @product_search_stub = Gapic::Grpc::Stub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
                 credentials:  credentials,
-                host:         @config.host,
-                port:         @config.port,
+                endpoint:     @config.endpoint,
                 channel_args: @config.channel_args,
                 interceptors: @config.interceptors
               )
@@ -1525,21 +1524,20 @@ module Google
             class Configuration
               extend Gapic::Config
 
-              config_attr :host,         "vision.googleapis.com", String
-              config_attr :port,         443, Integer
+              config_attr :endpoint,     "vision.googleapis.com", String
               config_attr :credentials,  nil do |value|
                 allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
-              config_attr :scope,        nil,                                   String, Array, nil
-              config_attr :lib_name,     nil,                                   String, nil
-              config_attr :lib_version,  nil,                                   String, nil
-              config_attr :channel_args, nil,                                   Hash, nil
-              config_attr :interceptors, nil,                                   Array, nil
-              config_attr :timeout,      nil,                                   Numeric, nil
-              config_attr :metadata,     nil,                                   Hash, nil
-              config_attr :retry_policy, nil,                                   Hash, Proc, nil
+              config_attr :scope,        nil, String, Array, nil
+              config_attr :lib_name,     nil, String, nil
+              config_attr :lib_version,  nil, String, nil
+              config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
+              config_attr :interceptors, nil, Array, nil
+              config_attr :timeout,      nil, Numeric, nil
+              config_attr :metadata,     nil, Hash, nil
+              config_attr :retry_policy, nil, Hash, Proc, nil
 
               def initialize parent_config = nil
                 @parent_config = parent_config unless parent_config.nil?

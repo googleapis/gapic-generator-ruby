@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionpack", "~> 5.2"
-  spec.add_dependency "gapic-generator"
+  spec.add_dependency "gapic-generator", "~> 0.0.0.dev"
   spec.add_dependency "protobuf", "~> 3.8"
   spec.add_dependency "rubocop", "~> 0.61"
 

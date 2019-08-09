@@ -6,11 +6,6 @@ AllCops:
     - "gapic-common.gemspec"
     - "test/**/*"
 
-Metrics/ClassLength:
-  Exclude:
-    - "lib/gapic/configuration.rb"
-    - "lib/gapic/configuration/schema.rb"
-
 Metrics/AbcSize:
   Exclude:
     - "lib/gapic/config.rb"
@@ -25,11 +20,13 @@ Metrics/PerceivedComplexity:
     - "lib/gapic/config.rb"
     - "lib/gapic/grpc/stub.rb"
 
+Naming/FileName:
+  Exclude:
+    - "lib/gapic-common.rb"
+
 Style/Documentation:
   Exclude:
     - "lib/gapic/api_call.rb"
-    - "lib/gapic/configuration/deferred_value.rb"
-    - "lib/gapic/configuration/schema.rb"
     - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
 Style/GuardClause:
@@ -37,7 +34,4 @@ Style/GuardClause:
     - "lib/gapic/grpc/stub.rb"
 Style/CaseEquality:
   Exclude:
-    - "lib/gapic/configuration.rb"
-    - "lib/gapic/configuration/derived.rb"
-    - "lib/gapic/configuration/schema.rb"
     - "lib/gapic/config.rb"

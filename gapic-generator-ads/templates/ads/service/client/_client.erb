@@ -1,6 +1,6 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-require "gapic"
+require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
@@ -91,8 +91,7 @@ class <%= service.client_name %>
     @<%= service.stub_name %> = Gapic::Grpc::Stub.new(
       <%= service.proto_service_stub_name_full %>,
       credentials:  credentials,
-      host:         @config.host,
-      port:         @config.port,
+      endpoint:     @config.endpoint,
       channel_args: @config.channel_args,
       interceptors: @config.interceptors
     )

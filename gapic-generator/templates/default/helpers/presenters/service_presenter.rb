@@ -130,14 +130,8 @@ class ServicePresenter
     client_file_path.split("/").last
   end
 
-  def client_address
-    lookup_default_host.split(":").first
-  end
-
-  def client_port
-    host, *ports = lookup_default_host.split ":"
-    ports << "443" # push the default port on in case there is none
-    ports.first
+  def client_endpoint
+    @service.host || default_config(:default_host) || "localhost"
   end
 
   def client_scopes
@@ -259,11 +253,11 @@ class ServicePresenter
     return ServicePresenter.new @api, lro.services.first unless lro.nil?
   end
 
-  private
-
-  def lookup_default_host
-    @service.host || default_config(:default_host) || "localhost"
+  def config_channel_args
+    { "grpc.service_config_disable_resolution" => 1 }
   end
+
+  private
 
   def default_config key
     return unless @service.parent.parent.configuration[:defaults]

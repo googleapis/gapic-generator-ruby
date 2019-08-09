@@ -66,7 +66,7 @@ module Gapic
     #   )
     #   echo_stub = Gapic::Grpc::Stub.new(
     #     Google::Showcase::V1alpha3::Echo::Stub,
-    #     host: "localhost", port: 7469, credentials: echo_channel
+    #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #   echo_call = Gapic::ApiCall.new echo_stub.method :echo
     #
@@ -84,7 +84,7 @@ module Gapic
     #   )
     #   echo_stub = Gapic::Grpc::Stub.new(
     #     Google::Showcase::V1alpha3::Echo::Stub,
-    #     host: "localhost", port: 7469, credentials: echo_channel
+    #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #   echo_call = Gapic::ApiCall.new echo_stub.method :echo
     #
@@ -107,7 +107,7 @@ module Gapic
     #   )
     #   echo_stub = Gapic::Grpc::Stub.new(
     #     Google::Showcase::V1alpha3::Echo::Stub,
-    #     host: "localhost", port: 7469, credentials: echo_channel
+    #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #   echo_call = Gapic::ApiCall.new echo_stub.method :echo
     #

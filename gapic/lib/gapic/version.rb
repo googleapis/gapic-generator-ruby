@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/api_call"
-require "gapic/configuration"
-require "gapic/errors"
-require "gapic/headers"
-require "gapic/operation"
-require "gapic/paged_enumerable"
-require "gapic/protobuf"
-require "gapic/stream_input"
-require "gapic/common/version"
-
-# Gapic defines Google API extensions
 module Gapic
+  # Library version
+  VERSION = "0.0.1.dev.1"
 end
