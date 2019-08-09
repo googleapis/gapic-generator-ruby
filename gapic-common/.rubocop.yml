@@ -9,10 +9,6 @@ AllCops:
 Metrics/AbcSize:
   Exclude:
     - "lib/gapic/config.rb"
-Metrics/ClassLength:
-  Exclude:
-    - "lib/gapic/configuration.rb"
-    - "lib/gapic/configuration/schema.rb"
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/gapic/config.rb"
@@ -31,8 +27,6 @@ Naming/FileName:
 Style/Documentation:
   Exclude:
     - "lib/gapic/api_call.rb"
-    - "lib/gapic/configuration/deferred_value.rb"
-    - "lib/gapic/configuration/schema.rb"
     - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
 Style/GuardClause:
@@ -40,7 +34,4 @@ Style/GuardClause:
     - "lib/gapic/grpc/stub.rb"
 Style/CaseEquality:
   Exclude:
-    - "lib/gapic/configuration.rb"
-    - "lib/gapic/configuration/derived.rb"
-    - "lib/gapic/configuration/schema.rb"
     - "lib/gapic/config.rb"
