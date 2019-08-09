@@ -34,7 +34,7 @@ class ChatTest < ShowcaseTest
 
     Thread.new do
       10.times do |n|
-        puts "PUSH hello #{n}:1"
+        puts "PUSH hello #{n}:1" if ENV["VERBOSE"]
         stream_input.push content: "hello #{n}:1"
         sleep rand
       end
@@ -47,7 +47,7 @@ class ChatTest < ShowcaseTest
     end
 
     responses.each do |response|
-      puts "PULL #{response.content}"
+      puts "PULL #{response.content}" if ENV["VERBOSE"]
       pull_count += 1
 
       if pull_count >= 20
@@ -61,7 +61,7 @@ class ChatTest < ShowcaseTest
         msg, count = response.content.split ":"
         count = count.to_i
         count += 1
-        puts "PUSH #{msg}:#{count}"
+        puts "PUSH #{msg}:#{count}" if ENV["VERBOSE"]
         stream_input.push content: "#{msg}:#{count}"
       end
     end
