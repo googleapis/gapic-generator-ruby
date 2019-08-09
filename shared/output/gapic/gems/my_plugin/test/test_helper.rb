@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Copyright [yyyy] [name of copyright owner]
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");

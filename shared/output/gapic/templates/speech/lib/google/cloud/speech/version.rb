@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # The MIT License (MIT)
 #
 # Copyright <YEAR> <COPYRIGHT HOLDER>
@@ -25,7 +23,7 @@
 module Google
   module Cloud
     module Speech
-      VERSION = "0.0.1"
+      VERSION = "0.0.1".freeze
     end
   end
 end

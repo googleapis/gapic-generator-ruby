@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,5 +14,5 @@
 
 module Gapic
   # Library version
-  VERSION = "0.0.1.dev.1"
+  VERSION = "0.0.1.dev.1".freeze
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # The MIT License (MIT)
 #
 # Copyright <YEAR> <COPYRIGHT HOLDER>
