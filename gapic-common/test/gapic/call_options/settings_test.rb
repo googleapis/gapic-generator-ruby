@@ -16,7 +16,7 @@ require "test_helper"
 
 class OptionsSettingsTest < Minitest::Test
   def test_defaults
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     assert_equal 300, options.timeout
     assert_equal({}, options.metadata)
@@ -27,7 +27,7 @@ class OptionsSettingsTest < Minitest::Test
   end
 
   def test_apply_defaults_overrides_default_values
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
     options.apply_defaults(
       timeout: 60, metadata: { foo: :bar },
       retry_policy: {
@@ -48,7 +48,7 @@ class OptionsSettingsTest < Minitest::Test
   end
 
   def test_overrides_default_values
-    options = Gapic::ApiCall::Options.new(
+    options = Gapic::CallOptions.new(
       timeout: 60, metadata: { foo: :bar },
       retry_policy: {
         retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
@@ -68,7 +68,7 @@ class OptionsSettingsTest < Minitest::Test
   end
 
   def test_apply_defaults_wont_override_custom_values
-    options = Gapic::ApiCall::Options.new(
+    options = Gapic::CallOptions.new(
       timeout: 30, metadata: { baz: :bif },
       retry_policy: {
         retry_codes: [GRPC::Core::StatusCodes::UNIMPLEMENTED],

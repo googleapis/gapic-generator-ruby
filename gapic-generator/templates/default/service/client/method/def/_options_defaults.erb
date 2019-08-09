@@ -1,6 +1,6 @@
 <%- assert_locals method -%>
 # Converts hash and nil to an options object
-options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
 # Customize the options with defaults
 metadata = @config.rpcs.<%= method.name %>.metadata.to_h

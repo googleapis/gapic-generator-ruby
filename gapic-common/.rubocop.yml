@@ -26,7 +26,7 @@ Naming/FileName:
 
 Style/Documentation:
   Exclude:
-    - "lib/gapic/api_call.rb"
+    - "lib/gapic/grpc/stub/api_call.rb"
     - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
 Style/GuardClause:

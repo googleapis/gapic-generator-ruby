@@ -109,7 +109,7 @@ module Google
           # @overload create_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::CreateSessionRequest | Hash]
           #     Creates a new testing session.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_session(session: nil)
@@ -136,7 +136,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::CreateSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_session.metadata.to_h
@@ -162,7 +162,7 @@ module Google
           # @overload get_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::GetSessionRequest | Hash]
           #     Gets a testing session.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_session(name: nil)
@@ -187,7 +187,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::GetSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_session.metadata.to_h
@@ -219,7 +219,7 @@ module Google
           # @overload list_sessions(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListSessionsRequest | Hash]
           #     Lists the current test sessions.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_sessions(page_size: nil, page_token: nil)
@@ -246,7 +246,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListSessionsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_sessions.metadata.to_h
@@ -274,7 +274,7 @@ module Google
           # @overload delete_session(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::DeleteSessionRequest | Hash]
           #     Delete a test session.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_session(name: nil)
@@ -299,7 +299,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_session.metadata.to_h
@@ -335,7 +335,7 @@ module Google
           #     Report on the status of a session.
           #     This generates a report detailing which tests have been completed,
           #     and an overall rollup.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload report_session(name: nil)
@@ -360,7 +360,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ReportSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.report_session.metadata.to_h
@@ -392,7 +392,7 @@ module Google
           # @overload list_tests(request, options = nil)
           #   @param request [Google::Showcase::V1alpha3::ListTestsRequest | Hash]
           #     List the tests of a sessesion.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_tests(parent: nil, page_size: nil, page_token: nil)
@@ -421,7 +421,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::ListTestsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_tests.metadata.to_h
@@ -465,7 +465,7 @@ module Google
           #     attempting to do the test will error.
           #
           #     This method will error if attempting to delete a required test.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_test(name: nil)
@@ -490,7 +490,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::DeleteTestRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_test.metadata.to_h
@@ -528,7 +528,7 @@ module Google
           #
           #     In cases where a test involves registering a final answer at the
           #     end of the test, this method provides the means to do so.
-          #   @param options [Gapic::ApiCall::Options, Hash]
+          #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload verify_test(name: nil, answer: nil, answers: nil)
@@ -557,7 +557,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1alpha3::VerifyTestRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.verify_test.metadata.to_h

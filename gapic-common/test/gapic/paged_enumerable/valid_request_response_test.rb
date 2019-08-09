@@ -33,7 +33,7 @@ class PagedEnumerableValidRequestResponseTest < Minitest::Test
       ],
       next_page_token: "next"
     )
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
       gax_stub, :method_name, request, response, options
     )
@@ -59,7 +59,7 @@ class PagedEnumerableValidRequestResponseTest < Minitest::Test
       ],
       next_page_token: "next"
     )
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
       gax_stub, :method_name, request, response, options
     )

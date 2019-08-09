@@ -14,7 +14,7 @@
 
 require "grpc"
 require "googleauth"
-require "gapic/api_call"
+require "gapic/grpc/stub/api_call"
 
 module Gapic
   module Grpc
@@ -82,8 +82,8 @@ module Gapic
       #
       # @param method_name [Symbol] The RPC method name.
       # @param request [Object] The request object.
-      # @param options [ApiCall::Options, Hash] The options for making the API call. A Hash can be provided to
-      #   customize the options object, using keys that match the arguments for {ApiCall::Options.new}. This object
+      # @param options [Gapic::CallOptions, Hash] The options for making the API call. A Hash can be provided to
+      #   customize the options object, using keys that match the arguments for {Gapic::CallOptions.new}. This object
       #   should only be used once.
       # @param format_response [Proc] A Proc object to format the response object. The Proc should accept response as
       #   an argument, and return a formatted response object. Optional.
@@ -131,7 +131,7 @@ module Gapic
       #   )
       #
       #   request = Google::Showcase::V1alpha3::EchoRequest.new
-      #   options = Gapic::ApiCall::Options.new(
+      #   options = Gapic::CallOptions.new(
       #     retry_policy = {
       #       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
       #     }
@@ -164,7 +164,7 @@ module Gapic
       #
       def call_rpc method_name, request, options: nil, format_response: nil, operation_callback: nil,
                    stream_callback: nil
-        api_call = Gapic::ApiCall.new @grpc_stub.method method_name
+        api_call = ApiCall.new @grpc_stub.method method_name
         api_call.call request, options:            options,
                                format_response:    format_response,
                                operation_callback: operation_callback,

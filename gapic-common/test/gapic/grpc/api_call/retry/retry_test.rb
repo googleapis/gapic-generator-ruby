@@ -45,8 +45,8 @@ class ApiCallRetryTest < Minitest::Test
       OperationStub.new { inner_stub.call(request, **kwargs) }
     end
 
-    api_call = Gapic::ApiCall.new api_meth_stub
-    options = Gapic::ApiCall::Options.new(
+    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    options = Gapic::CallOptions.new(
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
 
@@ -85,7 +85,7 @@ class ApiCallRetryTest < Minitest::Test
       OperationStub.new { inner_stub.call(request, **kwargs) }
     end
 
-    api_call = Gapic::ApiCall.new api_meth_stub
+    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
     custom_policy_count = 0
     custom_policy_sleep = [15, 12, 24, 21]
     custom_policy = lambda do |_error|
@@ -98,7 +98,7 @@ class ApiCallRetryTest < Minitest::Test
         false
       end
     end
-    options = Gapic::ApiCall::Options.new retry_policy: custom_policy
+    options = Gapic::CallOptions.new retry_policy: custom_policy
 
     sleep_mock = Minitest::Mock.new
     custom_policy_sleep.each do |sleep_count|

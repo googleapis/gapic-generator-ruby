@@ -33,7 +33,7 @@ describe Gapic::PagedEnumerable, :format_resource do
       ],
       next_page_token: "next"
     )
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
     upcase_resource = ->(user) { user.name.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
       gax_stub, :method_name, request, response, options, format_resource: upcase_resource
@@ -60,7 +60,7 @@ describe Gapic::PagedEnumerable, :format_resource do
       ],
       next_page_token: "next"
     )
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
     upcase_resource = ->(str) { str.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
       gax_stub, :method_name, request, response, options, format_resource: upcase_resource

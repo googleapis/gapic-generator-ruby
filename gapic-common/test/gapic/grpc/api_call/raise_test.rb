@@ -20,7 +20,7 @@ class ApiCallRaiseTest < Minitest::Test
       raise Gapic::GapicError
     end
 
-    api_call = Gapic::ApiCall.new(
+    api_call = Gapic::Grpc::Stub::ApiCall.new(
       api_meth_stub
     )
 
@@ -35,7 +35,7 @@ class ApiCallRaiseTest < Minitest::Test
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
 
-    api_call = Gapic::ApiCall.new(
+    api_call = Gapic::Grpc::Stub::ApiCall.new(
       api_meth_stub
     )
 
@@ -54,7 +54,7 @@ class ApiCallRaiseTest < Minitest::Test
       raise GRPC::BadStatus.new(2, "unknown")
     end
 
-    api_call = Gapic::ApiCall.new api_meth_stub
+    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
 
     exc = assert_raises Gapic::GapicError do
       api_call.call Object.new
@@ -76,7 +76,7 @@ class ApiCallRaiseTest < Minitest::Test
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
 
-    api_call = Gapic::ApiCall.new api_meth_stub
+    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
 
     assert_raises FakeCodeError do
       api_call.call Object.new

@@ -129,7 +129,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
             #       4096 characters.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil)
@@ -163,7 +163,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product_set.metadata.to_h
@@ -205,7 +205,7 @@ module Google
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil)
@@ -236,7 +236,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_product_sets.metadata.to_h
@@ -278,7 +278,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_product_set(name: nil)
@@ -306,7 +306,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product_set.metadata.to_h
@@ -352,7 +352,7 @@ module Google
             #     * Returns NOT_FOUND if the ProductSet does not exist.
             #     * Returns INVALID_ARGUMENT if display_name is present in update_mask but
             #       missing from the request or longer than 4096 characters.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload update_product_set(product_set: nil, update_mask: nil)
@@ -382,7 +382,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product_set.metadata.to_h
@@ -428,7 +428,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the ProductSet does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_product_set(name: nil)
@@ -456,7 +456,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product_set.metadata.to_h
@@ -502,7 +502,7 @@ module Google
             #       characters.
             #     * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_product(parent: nil, product: nil, product_id: nil)
@@ -537,7 +537,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product.metadata.to_h
@@ -577,7 +577,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_products(parent: nil, page_size: nil, page_token: nil)
@@ -609,7 +609,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products.metadata.to_h
@@ -651,7 +651,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_product(name: nil)
@@ -679,7 +679,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product.metadata.to_h
@@ -739,7 +739,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if description is present in update_mask but is
             #       longer than 4096 characters.
             #     * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload update_product(product: nil, update_mask: nil)
@@ -771,7 +771,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product.metadata.to_h
@@ -819,7 +819,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the product does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_product(name: nil)
@@ -847,7 +847,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product.metadata.to_h
@@ -915,7 +915,7 @@ module Google
             #     * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
             #       compatible with the parent product's product_category is detected.
             #     * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil)
@@ -951,7 +951,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_reference_image.metadata.to_h
@@ -1003,7 +1003,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the reference image does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload delete_reference_image(name: nil)
@@ -1032,7 +1032,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_reference_image.metadata.to_h
@@ -1076,7 +1076,7 @@ module Google
             #     * Returns NOT_FOUND if the parent product does not exist.
             #     * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
             #       than 1.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil)
@@ -1111,7 +1111,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_reference_images.metadata.to_h
@@ -1153,7 +1153,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the specified image does not exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload get_reference_image(name: nil)
@@ -1182,7 +1182,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_reference_image.metadata.to_h
@@ -1228,7 +1228,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload add_product_to_product_set(name: nil, product: nil)
@@ -1261,7 +1261,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
@@ -1301,7 +1301,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload remove_product_from_product_set(name: nil, product: nil)
@@ -1334,7 +1334,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
@@ -1378,7 +1378,7 @@ module Google
             #     Possible errors:
             #
             #     * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil)
@@ -1410,7 +1410,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
@@ -1464,7 +1464,7 @@ module Google
             #     The input source of this method is a csv file on Google Cloud Storage.
             #     For the format of the csv file please see
             #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
-            #   @param options [Gapic::ApiCall::Options, Hash]
+            #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload import_product_sets(parent: nil, input_config: nil)
@@ -1493,7 +1493,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.import_product_sets.metadata.to_h

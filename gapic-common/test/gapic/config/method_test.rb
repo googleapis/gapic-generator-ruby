@@ -80,7 +80,7 @@ class MethodConfigTest < Minitest::Test
     end
 
     assert_raises ArgumentError do
-      config.rpc_method.retry_policy = Gapic::ApiCall::RetryPolicy.new
+      config.rpc_method.retry_policy = Gapic::CallOptions::RetryPolicy.new
     end
   end
 
@@ -144,7 +144,7 @@ class MethodConfigTest < Minitest::Test
     end
 
     assert_raises ArgumentError do
-      config.rpc_method.retry_policy = Gapic::ApiCall::RetryPolicy.new
+      config.rpc_method.retry_policy = Gapic::CallOptions::RetryPolicy.new
     end
   end
 end

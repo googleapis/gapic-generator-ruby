@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/api_call"
+require "gapic/call_options"
 require "gapic/errors"
 require "gapic/headers"
 require "gapic/operation"

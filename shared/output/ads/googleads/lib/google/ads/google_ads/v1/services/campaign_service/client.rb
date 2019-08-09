@@ -110,7 +110,7 @@ module Google
               # @overload get_campaign(request, options = nil)
               #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
               #     Returns the requested campaign in full detail.
-              #   @param options [Gapic::ApiCall::Options, Hash]
+              #   @param options [Gapic::CallOptions, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload get_campaign(resource_name: nil)
@@ -135,7 +135,7 @@ module Google
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+                options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.get_campaign.metadata.to_h
@@ -169,7 +169,7 @@ module Google
               # @overload mutate_campaigns(request, options = nil)
               #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
               #     Creates, updates, or removes campaigns. Operation statuses are returned.
-              #   @param options [Gapic::ApiCall::Options, Hash]
+              #   @param options [Gapic::CallOptions, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
@@ -204,7 +204,7 @@ module Google
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::ApiCall::Options.new options.to_h if options.respond_to? :to_h
+                options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h

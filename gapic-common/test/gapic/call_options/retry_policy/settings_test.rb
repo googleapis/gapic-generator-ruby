@@ -16,7 +16,7 @@ require "test_helper"
 
 class RetryPolicySettingsTest < Minitest::Test
   def test_defaults
-    retry_policy = Gapic::ApiCall::RetryPolicy.new
+    retry_policy = Gapic::CallOptions::RetryPolicy.new
 
     assert_equal [], retry_policy.retry_codes
     assert_equal 1, retry_policy.initial_delay
@@ -25,7 +25,7 @@ class RetryPolicySettingsTest < Minitest::Test
   end
 
   def test_apply_defaults_overrides_default_values
-    retry_policy = Gapic::ApiCall::RetryPolicy.new
+    retry_policy = Gapic::CallOptions::RetryPolicy.new
     retry_policy.apply_defaults(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
       initial_delay: 4, multiplier: 5, max_delay: 6
@@ -41,7 +41,7 @@ class RetryPolicySettingsTest < Minitest::Test
   end
 
   def test_overrides_default_values
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
       initial_delay: 4, multiplier: 5, max_delay: 6
     )
@@ -56,7 +56,7 @@ class RetryPolicySettingsTest < Minitest::Test
   end
 
   def test_apply_defaults_wont_override_custom_values
-    retry_policy = Gapic::ApiCall::RetryPolicy.new(
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNIMPLEMENTED],
       initial_delay: 7, multiplier: 6, max_delay: 5
     )
