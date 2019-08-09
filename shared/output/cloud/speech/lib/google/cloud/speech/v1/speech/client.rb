@@ -286,14 +286,14 @@ module Google
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
-              config_attr :scope,        nil,                                   String, Array, nil
-              config_attr :lib_name,     nil,                                   String, nil
-              config_attr :lib_version,  nil,                                   String, nil
-              config_attr :channel_args, nil,                                   Hash, nil
-              config_attr :interceptors, nil,                                   Array, nil
-              config_attr :timeout,      nil,                                   Numeric, nil
-              config_attr :metadata,     nil,                                   Hash, nil
-              config_attr :retry_policy, nil,                                   Hash, Proc, nil
+              config_attr :scope,        nil, String, Array, nil
+              config_attr :lib_name,     nil, String, nil
+              config_attr :lib_version,  nil, String, nil
+              config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
+              config_attr :interceptors, nil, Array, nil
+              config_attr :timeout,      nil, Numeric, nil
+              config_attr :metadata,     nil, Hash, nil
+              config_attr :retry_policy, nil, Hash, Proc, nil
 
               def initialize parent_config = nil
                 @parent_config = parent_config unless parent_config.nil?

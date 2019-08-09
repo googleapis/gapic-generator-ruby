@@ -253,6 +253,10 @@ class ServicePresenter
     return ServicePresenter.new @api, lro.services.first unless lro.nil?
   end
 
+  def config_channel_args
+    { "grpc.service_config_disable_resolution" => 1 }
+  end
+
   private
 
   def default_config key
