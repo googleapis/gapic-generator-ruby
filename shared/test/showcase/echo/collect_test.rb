@@ -18,49 +18,26 @@ require "test_helper"
 require "google/showcase/v1alpha3/echo"
 require "grpc"
 
-class ChatTest < ShowcaseTest
-  def test_chat
+class CollectTest < ShowcaseTest
+  def test_collect
     client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+      config.credentials = GRPC::Core::Channel.new(
+        "localhost:7469", nil, :this_channel_is_insecure
+      )
     end
-
-    pull_count = 0
 
     stream_input = Gapic::StreamInput.new
 
-    responses = client.chat stream_input
-
     Thread.new do
-      10.times do |n|
-        stream_input.push content: "hello #{n}:1"
+      "well hello there old friend".split(" ").each do |c|
+        stream_input.push content: c
         sleep rand
       end
-    end
-
-    Thread.new do
-      sleep 20
-
       stream_input.close
     end
 
-    responses.each do |response|
-      pull_count += 1
+    response = client.collect stream_input
 
-      if pull_count >= 20
-        stream_input.close
-        break
-      end
-
-      Thread.new do
-        sleep rand
-
-        msg, count = response.content.split ":"
-        count = count.to_i
-        count += 1
-        stream_input.push content: "#{msg}:#{count}"
-      end
-    end
-
-    assert pull_count >= 20, "should have pulled 20 messages by now"
+    assert_equal "well hello there old friend", response.content
   end
 end
