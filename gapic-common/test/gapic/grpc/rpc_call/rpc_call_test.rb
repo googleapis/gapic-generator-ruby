@@ -14,7 +14,7 @@
 
 require "test_helper"
 
-class ApiCallTest < Minitest::Test
+class RpcCallTest < Minitest::Test
   def test_call
     deadline_arg = nil
 
@@ -23,15 +23,15 @@ class ApiCallTest < Minitest::Test
       OperationStub.new { 42 }
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    assert_equal 42, api_call.call(Object.new)
+    assert_equal 42, rpc_call.call(Object.new)
     assert_kind_of Time, deadline_arg
 
     new_deadline = Time.now + 20
     options = Gapic::CallOptions.new timeout: 20
 
-    assert_equal 42, api_call.call(Object.new, options: options)
+    assert_equal 42, rpc_call.call(Object.new, options: options)
     assert_in_delta new_deadline, deadline_arg, 0.9
   end
 
@@ -42,11 +42,11 @@ class ApiCallTest < Minitest::Test
     end
 
     format_response = ->(response) { response.to_s }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    assert_equal 5, api_call.call(3)
-    assert_equal "5", api_call.call(3, format_response: format_response)
-    assert_equal 5, api_call.call(3)
+    assert_equal 5, rpc_call.call(3)
+    assert_equal "5", rpc_call.call(3, format_response: format_response)
+    assert_equal 5, rpc_call.call(3)
   end
 
   def test_call_with_operation_callback
@@ -58,11 +58,11 @@ class ApiCallTest < Minitest::Test
     end
 
     increment_addr = ->(*args) { adder = 5 }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    assert_equal 5, api_call.call(3)
-    assert_equal 5, api_call.call(3, operation_callback: increment_addr)
-    assert_equal 10, api_call.call(3)
+    assert_equal 5, rpc_call.call(3)
+    assert_equal 5, rpc_call.call(3, operation_callback: increment_addr)
+    assert_equal 10, rpc_call.call(3)
   end
 
   def test_call_with_format_response_and_operation_callback
@@ -75,13 +75,13 @@ class ApiCallTest < Minitest::Test
 
     format_response = ->(response) { response.to_s }
     increment_addr = ->(*args) { adder = 5 }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    assert_equal 5, api_call.call(3)
-    assert_equal "5", api_call.call(3, format_response: format_response, operation_callback: increment_addr)
-    assert_equal 10, api_call.call(3)
-    assert_equal "10", api_call.call(3, format_response: format_response, operation_callback: increment_addr)
-    assert_equal 10, api_call.call(3)
+    assert_equal 5, rpc_call.call(3)
+    assert_equal "5", rpc_call.call(3, format_response: format_response, operation_callback: increment_addr)
+    assert_equal 10, rpc_call.call(3)
+    assert_equal "10", rpc_call.call(3, format_response: format_response, operation_callback: increment_addr)
+    assert_equal 10, rpc_call.call(3)
   end
 
   def test_call_with_stream_callback
@@ -93,12 +93,12 @@ class ApiCallTest < Minitest::Test
     end
 
     collect_response = ->(response) { all_responses << response }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    api_call.call([:foo, :bar, :baz].to_enum, stream_callback: collect_response)
+    rpc_call.call([:foo, :bar, :baz].to_enum, stream_callback: collect_response)
     wait_until { all_responses == [:foo, :bar, :baz] }
     assert_equal [:foo, :bar, :baz], all_responses
-    api_call.call([:qux, :quux, :quuz].to_enum, stream_callback: collect_response)
+    rpc_call.call([:qux, :quux, :quuz].to_enum, stream_callback: collect_response)
     wait_until { all_responses == [:foo, :bar, :baz, :qux, :quux, :quuz] }
     assert_equal [:foo, :bar, :baz, :qux, :quux, :quuz], all_responses
   end
@@ -113,12 +113,12 @@ class ApiCallTest < Minitest::Test
 
     collect_response = ->(response) { all_responses << response }
     format_response = ->(response) { response.to_s }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    api_call.call([:foo, :bar, :baz].to_enum, stream_callback: collect_response)
+    rpc_call.call([:foo, :bar, :baz].to_enum, stream_callback: collect_response)
     wait_until { all_responses == [:foo, :bar, :baz] }
     assert_equal [:foo, :bar, :baz], all_responses
-    api_call.call([:qux, :quux, :quuz].to_enum, stream_callback: collect_response, format_response: format_response)
+    rpc_call.call([:qux, :quux, :quuz].to_enum, stream_callback: collect_response, format_response: format_response)
     wait_until { all_responses == [:foo, :bar, :baz, "qux", "quux", "quuz"] }
     assert_equal [:foo, :bar, :baz, "qux", "quux", "quuz"], all_responses
   end
@@ -131,14 +131,14 @@ class ApiCallTest < Minitest::Test
       OperationStub.new { requests.each(&block) }
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    responses = api_call.call [:foo, :bar, :baz].to_enum
+    responses = rpc_call.call [:foo, :bar, :baz].to_enum
     assert_kind_of Enumerable, responses
     all_responses += responses.to_a
     assert_equal [:foo, :bar, :baz], all_responses
 
-    responses = api_call.call [:qux, :quux, :quuz].to_enum
+    responses = rpc_call.call [:qux, :quux, :quuz].to_enum
     assert_kind_of Enumerable, responses
     all_responses += responses.to_a
     assert_equal [:foo, :bar, :baz, :qux, :quux, :quuz], all_responses
@@ -153,14 +153,14 @@ class ApiCallTest < Minitest::Test
     end
 
     format_responses = ->(responses) { responses.lazy.map(&:to_s) }
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    responses = api_call.call [:foo, :bar, :baz].to_enum
+    responses = rpc_call.call [:foo, :bar, :baz].to_enum
     assert_kind_of Enumerable, responses
     all_responses += responses.to_a
     assert_equal [:foo, :bar, :baz], all_responses
 
-    responses = api_call.call [:qux, :quux, :quuz].to_enum, format_response: format_responses
+    responses = rpc_call.call [:qux, :quux, :quuz].to_enum, format_response: format_responses
     assert_kind_of Enumerable, responses
     all_responses += responses.to_a
     assert_equal [:foo, :bar, :baz, "qux", "quux", "quuz"], all_responses

@@ -88,7 +88,7 @@ class <%= service.client_name %>
     end
     <%- end -%>
 
-    @<%= service.stub_name %> = Gapic::Grpc::Stub.new(
+    @<%= service.stub_name %> = Gapic::ServiceStub.new(
       <%= service.proto_service_stub_name_full %>,
       credentials:  credentials,
       endpoint:     @config.endpoint,

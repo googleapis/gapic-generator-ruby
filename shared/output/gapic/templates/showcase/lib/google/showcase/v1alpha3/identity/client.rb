@@ -100,7 +100,7 @@ module Google
             end
 
 
-            @identity_stub = Gapic::Grpc::Stub.new(
+            @identity_stub = Gapic::ServiceStub.new(
               Google::Showcase::V1alpha3::Identity::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,

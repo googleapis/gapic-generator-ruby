@@ -15,8 +15,8 @@
 module Gapic
   class CallOptions
     ##
-    # The policy for retrying failed API calls using an incremental backoff. A new object instance should be used for
-    # every ApiCall invocation.
+    # The policy for retrying failed RPC calls using an incremental backoff. A new object instance should be used for
+    # every RpcCall invocation.
     #
     # Only errors orginating from GRPC will be retried.
     #
@@ -73,7 +73,7 @@ module Gapic
       # values.
       #
       # @param retry_policy [Hash] The policy for error retry. keys must match the arguments for
-      #   {ApiCall::RetryPolicy.new}.
+      #   {RpcCall::RetryPolicy.new}.
       def apply_defaults retry_policy
         return unless retry_policy.is_a? Hash
 

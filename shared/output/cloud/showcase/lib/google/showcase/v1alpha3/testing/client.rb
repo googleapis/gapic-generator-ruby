@@ -92,7 +92,7 @@ module Google
             end
 
 
-            @testing_stub = Gapic::Grpc::Stub.new(
+            @testing_stub = Gapic::ServiceStub.new(
               Google::Showcase::V1alpha3::Testing::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
