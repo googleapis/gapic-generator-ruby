@@ -1,6 +1,6 @@
 <%- assert_locals namespace -%>
 <%= render partial: "shared/license" %>
-<% if @requires %>
+<% if instance_variable_defined? :@requires %>
 <%= @requires %>
 <% end %>
 <%- namespace.split("::").each_with_index do |ns, i| -%>
@@ -10,7 +10,7 @@
 <%- namespace.split("::").count.times do |i| -%>
 <%= indent "end", (namespace.split("::").count-1-i)*2 %>
 <%- end -%>
-<%- if @footer -%>
+<%- if instance_variable_defined? :@footer -%>
 
 <%= @footer %>
 <%- end -%>
