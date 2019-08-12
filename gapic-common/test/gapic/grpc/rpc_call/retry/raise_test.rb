@@ -14,7 +14,7 @@
 
 require "test_helper"
 
-class ApiCallRetryTest < Minitest::Test
+class RpcCallRetryRaiseTest < Minitest::Test
   def test_no_retry_without_codes
     call_count = 0
     api_meth_stub = proc do
@@ -22,11 +22,11 @@ class ApiCallRetryTest < Minitest::Test
       raise GRPC::Unavailable
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     options = Gapic::CallOptions.new # no codes
     assert_raises Gapic::GapicError do
-      api_call.call Object.new, options: options
+      rpc_call.call Object.new, options: options
     end
     assert_equal 1, call_count
   end
@@ -35,13 +35,13 @@ class ApiCallRetryTest < Minitest::Test
     api_meth_stub = proc do
       raise GRPC::Unimplemented
     end
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     options = Gapic::CallOptions.new(
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
     assert_raises Gapic::GapicError do
-      api_call.call Object.new, options: options
+      rpc_call.call Object.new, options: options
     end
   end
 
@@ -50,13 +50,13 @@ class ApiCallRetryTest < Minitest::Test
       raise FakeCodeError.new("Not a real GRPC error",
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     options = Gapic::CallOptions.new(
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
     assert_raises FakeCodeError do
-      api_call.call Object.new, options: options
+      rpc_call.call Object.new, options: options
     end
   end
 
@@ -71,7 +71,7 @@ class ApiCallRetryTest < Minitest::Test
       raise GRPC::Unavailable
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     time_now = Time.now
     time_proc = lambda do
@@ -92,7 +92,7 @@ class ApiCallRetryTest < Minitest::Test
     Kernel.stub :sleep, sleep_proc do
       Time.stub :now, time_proc do
         exc = assert_raises Gapic::GapicError do
-          api_call.call Object.new, options: options
+          rpc_call.call Object.new, options: options
         end
         assert_kind_of GRPC::BadStatus, exc.cause
 
@@ -112,10 +112,10 @@ class ApiCallRetryTest < Minitest::Test
       raise RuntimeError
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_raises RuntimeError do
-      api_call.call Object.new
+      rpc_call.call Object.new
     end
     assert_equal 1, call_count
   end
@@ -127,8 +127,8 @@ class ApiCallRetryTest < Minitest::Test
       OperationStub.new { inner_stub.call(request, **kwargs) }
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    assert_nil api_call.call(Object.new)
+    assert_nil rpc_call.call(Object.new)
   end
 end

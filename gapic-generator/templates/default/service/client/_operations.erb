@@ -69,7 +69,7 @@ class <%= service.operations_name %>
       credentials = Credentials.new credentials, scope: @config.scope
     end
 
-    @<%= service.lro_service.stub_name %> = Gapic::Grpc::Stub.new(
+    @<%= service.lro_service.stub_name %> = Gapic::ServiceStub.new(
       <%= service.lro_service.proto_service_stub_name_full %>,
       credentials:  credentials,
       endpoint:     @config.endpoint,

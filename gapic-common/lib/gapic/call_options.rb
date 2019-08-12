@@ -16,7 +16,7 @@ require "gapic/call_options/retry_policy"
 
 module Gapic
   ##
-  # Encapsulates the overridable settings for a particular API call.
+  # Encapsulates the overridable settings for a particular RPC call.
   #
   # @!attribute [r] metadata
   #   @return [Hash]
@@ -29,7 +29,7 @@ module Gapic
     ##
     # Create a new Options object instance.
     #
-    # @param timeout [Numeric] The client-side timeout for API calls.
+    # @param timeout [Numeric] The client-side timeout for RPC calls.
     # @param metadata [Hash] The request header params.
     # @param retry_policy [Hash, RetryPolicy, Proc] The policy for error retry. A Hash can be provided to
     #   customize the policy object, using keys that match the arguments for {RetryPolicy.new}.
@@ -48,7 +48,7 @@ module Gapic
     end
 
     ##
-    # client-side timeout for API calls
+    # client-side timeout for RPC calls
     #
     # @return [Numeric]
     def timeout
@@ -60,7 +60,7 @@ module Gapic
     # Apply default values to the options object. This does not replace user-provided values, it only overrides
     # empty values.
     #
-    # @param timeout [Numeric] The client-side timeout for API calls.
+    # @param timeout [Numeric] The client-side timeout for RPC calls.
     # @param metadata [Hash] the request header params.
     # @param retry_policy [Hash] the policy for error retry.
     # @param retry_policy [Hash] The policy for error retry. keys must match the arguments for

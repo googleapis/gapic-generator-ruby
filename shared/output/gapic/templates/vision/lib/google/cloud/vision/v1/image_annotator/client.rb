@@ -102,7 +102,7 @@ module Google
                 config.credentials = credentials
               end
 
-              @image_annotator_stub = Gapic::Grpc::Stub.new(
+              @image_annotator_stub = Gapic::ServiceStub.new(
                 Google::Cloud::Vision::V1::ImageAnnotator::Stub,
                 credentials:  credentials,
                 endpoint:     @config.endpoint,

@@ -191,7 +191,7 @@ module Gapic
     ##
     # Cancels the operation.
     #
-    # @param options [Gapic::CallOptions, Hash] The options for making the API call. A Hash can be provided to customize
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
     #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     def cancel options: nil
@@ -204,7 +204,7 @@ module Gapic
     ##
     # Deletes the operation.
     #
-    # @param options [Gapic::CallOptions, Hash] The options for making the API call. A Hash can be provided to customize
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
     #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     def delete options: nil
@@ -217,7 +217,7 @@ module Gapic
     ##
     # Reloads the operation object.
     #
-    # @param options [Gapic::CallOptions, Hash] The options for making the API call. A Hash can be provided to customize
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
     #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     # @return [Gapic::Operation] Since this method changes internal state, it returns itself.

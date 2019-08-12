@@ -94,7 +94,7 @@ module Google
                 config.credentials = credentials
               end
 
-              @speech_stub = Gapic::Grpc::Stub.new(
+              @speech_stub = Gapic::ServiceStub.new(
                 Google::Cloud::Speech::V1::Speech::Stub,
                 credentials:  credentials,
                 endpoint:     @config.endpoint,

@@ -18,7 +18,7 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/gapic/config.rb"
-    - "lib/gapic/grpc/stub.rb"
+    - "lib/gapic/grpc/service_stub.rb"
 
 Naming/FileName:
   Exclude:
@@ -26,12 +26,12 @@ Naming/FileName:
 
 Style/Documentation:
   Exclude:
-    - "lib/gapic/grpc/stub/api_call.rb"
+    - "lib/gapic/grpc/service_stub/rpc_call.rb"
     - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
 Style/GuardClause:
   Exclude:
-    - "lib/gapic/grpc/stub.rb"
+    - "lib/gapic/grpc/service_stub.rb"
 Style/CaseEquality:
   Exclude:
     - "lib/gapic/config.rb"

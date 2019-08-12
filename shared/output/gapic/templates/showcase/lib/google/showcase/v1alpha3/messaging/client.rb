@@ -104,7 +104,7 @@ module Google
               config.credentials = credentials
             end
 
-            @messaging_stub = Gapic::Grpc::Stub.new(
+            @messaging_stub = Gapic::ServiceStub.new(
               Google::Showcase::V1alpha3::Messaging::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
