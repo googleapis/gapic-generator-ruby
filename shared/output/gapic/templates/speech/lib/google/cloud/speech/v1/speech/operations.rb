@@ -96,7 +96,7 @@ module Google
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
-              @operations_stub = Gapic::Grpc::Stub.new(
+              @operations_stub = Gapic::ServiceStub.new(
                 Google::Longrunning::Operations::Stub,
                 credentials:  credentials,
                 endpoint:     @config.endpoint,

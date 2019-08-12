@@ -14,7 +14,7 @@
 
 require "test_helper"
 
-class ApiCallRetryTest < Minitest::Test
+class RpcCallRetryTest < Minitest::Test
   def default_sleep_counts
     [
       1, 1.3, 1.6900000000000002, 2.1970000000000005, 2.856100000000001,
@@ -45,7 +45,7 @@ class ApiCallRetryTest < Minitest::Test
       OperationStub.new { inner_stub.call(request, **kwargs) }
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
     options = Gapic::CallOptions.new(
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
@@ -59,7 +59,7 @@ class ApiCallRetryTest < Minitest::Test
     time_now = Time.now
     Time.stub :now, time_now do
       Kernel.stub :sleep, sleep_proc do
-        assert_equal 1729, api_call.call(Object.new, options: options)
+        assert_equal 1729, rpc_call.call(Object.new, options: options)
         assert_equal 5, inner_attempts
         assert_equal time_now + 300, deadline_arg
       end
@@ -85,7 +85,7 @@ class ApiCallRetryTest < Minitest::Test
       OperationStub.new { inner_stub.call(request, **kwargs) }
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
     custom_policy_count = 0
     custom_policy_sleep = [15, 12, 24, 21]
     custom_policy = lambda do |_error|
@@ -107,7 +107,7 @@ class ApiCallRetryTest < Minitest::Test
     sleep_proc = ->(count) { sleep_mock.sleep count }
 
     Kernel.stub :sleep, sleep_proc do
-      assert_equal 1729, api_call.call(Object.new, options: options)
+      assert_equal 1729, rpc_call.call(Object.new, options: options)
 
       assert_equal 4, custom_policy_count
     end

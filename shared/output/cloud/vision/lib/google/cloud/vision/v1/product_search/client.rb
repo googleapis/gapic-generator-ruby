@@ -94,7 +94,7 @@ module Google
                 config.credentials = credentials
               end
 
-              @product_search_stub = Gapic::Grpc::Stub.new(
+              @product_search_stub = Gapic::ServiceStub.new(
                 Google::Cloud::Vision::V1::ProductSearch::Stub,
                 credentials:  credentials,
                 endpoint:     @config.endpoint,

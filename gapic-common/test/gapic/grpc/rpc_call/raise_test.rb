@@ -14,18 +14,18 @@
 
 require "test_helper"
 
-class ApiCallRaiseTest < Minitest::Test
+class RpcCallRaiseTest < Minitest::Test
   def test_traps_exception
     api_meth_stub = proc do |*_args|
       raise Gapic::GapicError
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new(
+    rpc_call = Gapic::ServiceStub::RpcCall.new(
       api_meth_stub
     )
 
     assert_raises Gapic::GapicError do
-      api_call.call Object.new
+      rpc_call.call Object.new
     end
   end
 
@@ -35,12 +35,12 @@ class ApiCallRaiseTest < Minitest::Test
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new(
+    rpc_call = Gapic::ServiceStub::RpcCall.new(
       api_meth_stub
     )
 
     assert_raises FakeCodeError do
-      api_call.call Object.new
+      rpc_call.call Object.new
     end
   end
 
@@ -54,10 +54,10 @@ class ApiCallRaiseTest < Minitest::Test
       raise GRPC::BadStatus.new(2, "unknown")
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     exc = assert_raises Gapic::GapicError do
-      api_call.call Object.new
+      rpc_call.call Object.new
     end
     assert_kind_of GRPC::BadStatus, exc.cause
 
@@ -76,10 +76,10 @@ class ApiCallRaiseTest < Minitest::Test
                               GRPC::Core::StatusCodes::UNAVAILABLE)
     end
 
-    api_call = Gapic::Grpc::Stub::ApiCall.new api_meth_stub
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_raises FakeCodeError do
-      api_call.call Object.new
+      rpc_call.call Object.new
     end
     assert_kind_of Time, deadline_arg
     assert_equal 1, call_count

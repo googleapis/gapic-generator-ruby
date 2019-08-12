@@ -93,7 +93,7 @@ module Google
                 end
 
 
-                @campaign_service_stub = Gapic::Grpc::Stub.new(
+                @campaign_service_stub = Gapic::ServiceStub.new(
                   Google::Ads::GoogleAds::V1::Services::CampaignService::Stub,
                   credentials:  credentials,
                   endpoint:     @config.endpoint,

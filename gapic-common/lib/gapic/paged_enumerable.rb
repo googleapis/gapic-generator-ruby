@@ -52,7 +52,7 @@ module Gapic
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
     # @param response [Object] The response object.
-    # @param options [Gapic::CallOptions] The options for making the API call.
+    # @param options [Gapic::CallOptions] The options for making the RPC call.
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
     #
@@ -130,7 +130,7 @@ module Gapic
     end
 
     ##
-    # The page token to be used for the next API call.
+    # The page token to be used for the next RPC call.
     #
     # @return [String]
     #
@@ -193,7 +193,7 @@ module Gapic
     # @attribute [r] response
     #   @return [Object] the actual response object.
     # @attribute [r] next_page_token
-    #   @return [Object] the page token to be used for the next API call.
+    #   @return [Object] the page token to be used for the next RPC call.
     class Page
       include Enumerable
       attr_reader :response

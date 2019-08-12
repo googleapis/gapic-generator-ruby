@@ -101,7 +101,7 @@ module Google
               config.credentials = credentials
             end
 
-            @echo_stub = Gapic::Grpc::Stub.new(
+            @echo_stub = Gapic::ServiceStub.new(
               Google::Showcase::V1alpha3::Echo::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
