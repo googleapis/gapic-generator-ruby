@@ -32,8 +32,9 @@ def generate_library_for_test imports, protos
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
-  puts "#{protoc_cmd}"
-  puts `#{protoc_cmd}`
+  puts "#{protoc_cmd}" if ENV["VERBOSE"]
+  protoc_cmd_output = `#{protoc_cmd}`
+  puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
 end
 
@@ -41,13 +42,13 @@ class ShowcaseTest < Minitest::Test
   @showcase_id = begin
     server_id = nil
     if ENV['CI'].nil?
-      puts "Starting showcase server..."
+      puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
         "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!
-      puts "Started with container id: #{server_id}"
+      puts "Started with container id: #{server_id}" if ENV["VERBOSE"]
     end
 
     server_id
@@ -65,7 +66,7 @@ class ShowcaseTest < Minitest::Test
     FileUtils.remove_dir @showcase_library, true
 
     unless @showcase_id.nil?
-      puts "Stopping showcase server (id: #{@showcase_id})..."
+      puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
 
       _, status = Open3.capture2 "docker kill #{@showcase_id}"
       raise "failed to kill showcase" unless status.exitstatus.zero?
