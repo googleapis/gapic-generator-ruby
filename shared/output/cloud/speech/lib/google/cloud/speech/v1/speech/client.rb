@@ -18,6 +18,7 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/speech"
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"
@@ -42,7 +43,7 @@ module Google
             # @return [Client::Configuration]
             #
             def self.configure
-              @configure ||= Client::Configuration.new
+              @configure ||= Client::Configuration.new Google::Cloud::Speech.configure
               yield @configure if block_given?
               @configure
             end

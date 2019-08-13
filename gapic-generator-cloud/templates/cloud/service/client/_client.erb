@@ -1,0 +1,110 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "gapic/common"
+require "gapic/config"
+require "gapic/config/method"
+
+require "<%= service.gem.name.gsub "-", "/" %>"
+require "<%= service.gem.version_require %>"
+require "<%= service.proto_service_require %>"
+require "<%= service.credentials_require %>"
+<%- if service.paths? -%>
+require "<%= service.paths_require %>"
+<%- end -%>
+<%- if service.lro? -%>
+require "<%= service.operations_require %>"
+<%- end -%>
+<% end %>
+# Service that implements <%= service.name %> API.
+class <%= service.client_name %>
+<%- if service.paths? -%>
+  include <%= service.paths_name %>
+
+<%- end -%>
+  # @private
+  attr_reader :<%= service.stub_name %>
+
+  ##
+  # Configuration for the <%= service.name %> <%= service.client_name %> API.
+  #
+  # @yield [config] Configure the <%= service.client_name %> client.
+  # @yieldparam config [<%= service.client_name %>::Configuration]
+  #
+  # @return [<%= service.client_name %>::Configuration]
+  #
+  def self.configure
+    @configure ||= <%= service.client_name %>::Configuration.new <%= service.gem.namespace %>.configure
+    yield @configure if block_given?
+    @configure
+  end
+
+  ##
+  # Configure the <%= service.name %> <%= service.client_name %> instance.
+  #
+  # The configuration is set to the derived mode, meaning that values can be changed,
+  # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+  # should be made on {<%= service.client_name %>.configure}.
+  #
+  # @yield [config] Configure the <%= service.client_name %> client.
+  # @yieldparam config [<%= service.client_name %>::Configuration]
+  #
+  # @return [<%= service.client_name %>::Configuration]
+  #
+  def configure
+    yield @config if block_given?
+    @config
+  end
+
+  ##
+  # Create a new <%= service.client_name %> client object.
+  #
+  # @yield [config] Configure the <%= service.client_name %> client.
+  # @yieldparam config [<%= service.client_name %>::Configuration]
+  #
+  def initialize
+    # These require statements are intentionally placed here to initialize
+    # the gRPC module only when it's required.
+    # See https://github.com/googleapis/toolkit/issues/446
+    require "gapic/grpc"
+    require "<%= service.proto_services_require %>"
+
+    # Create the configuration object
+    @config = Configuration.new <%= service.client_name %>.configure
+
+    # Yield the configuration if needed
+    yield @config if block_given?
+
+    # Create credentials
+    credentials = @config.credentials
+    credentials ||= Credentials.default scope: @config.scope
+    if credentials.is_a?(String) || credentials.is_a?(Hash)
+      credentials = Credentials.new credentials, scope: @config.scope
+    end
+
+    <%- if service.lro? -%>
+    <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
+      config.credentials = credentials
+    end
+    <%- end -%>
+
+    @<%= service.stub_name %> = Gapic::ServiceStub.new(
+      <%= service.proto_service_stub_name_full %>,
+      credentials:  credentials,
+      endpoint:     @config.endpoint,
+      channel_args: @config.channel_args,
+      interceptors: @config.interceptors
+    )
+  end
+
+  # Service calls
+  <%- service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/client/method/def", locals: { method: method }), 2 %>
+  <%- end %>
+
+  <%= indent_tail render(partial: "service/client/config", locals: { service: service }), 2 %>
+end
+
+<% @footer = capture do %>
+<%= render partial: "service/client/helpers", locals: { service: service} %>
+<% end %>
