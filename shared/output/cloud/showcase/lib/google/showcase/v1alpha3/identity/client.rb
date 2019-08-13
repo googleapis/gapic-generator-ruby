@@ -147,8 +147,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_user.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_user.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @identity_stub.call_rpc :create_user, request, options: options, operation_callback: block
@@ -204,8 +203,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_user.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_user.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @identity_stub.call_rpc :get_user, request, options: options, operation_callback: block
@@ -264,8 +262,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.update_user.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.update_user.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @identity_stub.call_rpc :update_user, request, options: options, operation_callback: block
@@ -321,8 +318,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_user.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_user.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @identity_stub.call_rpc :delete_user, request, options: options, operation_callback: block
@@ -377,8 +373,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_users.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_users.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, options }

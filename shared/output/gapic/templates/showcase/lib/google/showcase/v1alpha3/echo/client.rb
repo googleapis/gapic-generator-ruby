@@ -158,8 +158,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.echo.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.echo.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :echo, request, options: options, operation_callback: block
@@ -213,8 +212,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.expand.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.expand.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :expand, request, options: options, operation_callback: block
@@ -268,8 +266,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.collect.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.collect.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :collect, request, options: options, operation_callback: block
@@ -323,8 +320,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.chat.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.chat.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :chat, request, options: options, operation_callback: block
@@ -380,8 +376,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.paged_expand.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.paged_expand.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @echo_stub, :paged_expand, request, response, options }
@@ -442,8 +437,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.wait.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.wait.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }

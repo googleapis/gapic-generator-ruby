@@ -162,8 +162,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_operations.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
@@ -226,8 +225,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_operation.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
@@ -291,8 +289,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_operation.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :delete_operation, request, options: options, operation_callback: block
@@ -366,8 +363,7 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.cancel_operation.retry_policy
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
+            options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :cancel_operation, request, options: options, operation_callback: block
