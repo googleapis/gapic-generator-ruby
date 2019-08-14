@@ -1,9 +1,0 @@
-[submodule "gapic-generator/api-common-protos"]
-	path = shared/api-common-protos
-	url = https://github.com/googleapis/api-common-protos.git
-[submodule "gapic-generator/protobuf"]
-	path = shared/protobuf
-	url = https://github.com/protocolbuffers/protobuf.git
-[submodule "protos/googleapis"]
-	path = shared/googleapis
-	url = https://github.com/googleapis/googleapis.git
