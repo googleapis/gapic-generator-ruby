@@ -1,0 +1,9 @@
+[submodule "shared/api-common-protos"]
+	path = shared/api-common-protos
+	url = git@github.com:googleapis/api-common-protos.git
+[submodule "shared/googleapis"]
+	path = shared/googleapis
+	url = git@github.com:googleapis/googleapis.git
+[submodule "shared/protobuf"]
+	path = shared/protobuf
+	url = git@github.com:protocolbuffers/protobuf.git
