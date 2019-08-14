@@ -154,8 +154,7 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.recognize.retry_policy
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
+              options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @speech_stub.call_rpc :recognize, request, options: options, operation_callback: block
@@ -214,8 +213,7 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.long_running_recognize.retry_policy
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
+              options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
@@ -270,8 +268,7 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.streaming_recognize.retry_policy
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
+              options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @speech_stub.call_rpc :streaming_recognize, request, options: options, operation_callback: block

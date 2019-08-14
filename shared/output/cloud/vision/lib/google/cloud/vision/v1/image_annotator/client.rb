@@ -149,8 +149,7 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.batch_annotate_images.retry_policy
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
+              options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options, operation_callback: block
@@ -210,8 +209,7 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.async_batch_annotate_files.retry_policy
-              options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata,
+              options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
