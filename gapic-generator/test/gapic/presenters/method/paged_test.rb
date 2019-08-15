@@ -20,8 +20,8 @@ class MethodPresenterPagedTest < PresenterTest
   def test_showcase_Expand
     presenter = method_presenter :showcase, "Echo", "Expand"
 
-    assert_equal "Google::Showcase::V1alpha3::ExpandRequest", presenter.request_type
-    assert_equal "Google::Showcase::V1alpha3::EchoResponse", presenter.return_type
+    assert_equal "Google::Showcase::V1beta1::ExpandRequest", presenter.request_type
+    assert_equal "Google::Showcase::V1beta1::EchoResponse", presenter.return_type
 
     refute presenter.paged?
     assert_nil presenter.paged_response_type
@@ -30,10 +30,10 @@ class MethodPresenterPagedTest < PresenterTest
   def test_showcase_PagedExpand
     presenter = method_presenter :showcase, "Echo", "PagedExpand"
 
-    assert_equal "Google::Showcase::V1alpha3::PagedExpandRequest", presenter.request_type
-    assert_equal "Google::Showcase::V1alpha3::PagedExpandResponse", presenter.return_type
+    assert_equal "Google::Showcase::V1beta1::PagedExpandRequest", presenter.request_type
+    assert_equal "Google::Showcase::V1beta1::PagedExpandResponse", presenter.return_type
 
     assert presenter.paged?
-    assert_equal "Google::Showcase::V1alpha3::EchoResponse", presenter.paged_response_type
+    assert_equal "Google::Showcase::V1beta1::EchoResponse", presenter.paged_response_type
   end
 end

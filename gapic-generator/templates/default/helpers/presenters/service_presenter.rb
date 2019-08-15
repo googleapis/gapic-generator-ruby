@@ -176,10 +176,11 @@ class ServicePresenter
 
   def references
     @references ||= begin
-      m = @service.parent.messages.select { |m| m.fields.select(&:resource).any? }
-      pairs = m.map { |m1| [m1.name, m1.fields.map(&:resource).compact.first.pattern] }
-      pairs.sort_by! { |name, tmplt| name }
-      pairs.map { |name, tmplt| ResourcePresenter.new name, tmplt }
+      m = @service.parent.messages.select(&:resource)
+      m.sort_by! { |m1| m1.name }
+      # TODO: ResourceDescriptor#pattern is a list of patterns
+      # How do we handle there being more than one pattern?
+      m.map { |m1| ResourcePresenter.new m1.name, m1.resource.pattern.first }
     end
   end
 

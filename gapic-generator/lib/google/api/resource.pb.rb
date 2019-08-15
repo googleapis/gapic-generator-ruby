@@ -18,8 +18,16 @@ module Google
     ##
     # Message Classes
     #
-    class Resource < ::Protobuf::Message; end
-    class ResourceSet < ::Protobuf::Message; end
+    class ResourceDescriptor < ::Protobuf::Message
+      class History < ::Protobuf::Enum
+        define :HISTORY_UNSPECIFIED, 0
+        define :ORIGINALLY_SINGLE_PATTERN, 1
+        define :FUTURE_MULTI_PATTERN, 2
+      end
+
+    end
+
+    class ResourceReference < ::Protobuf::Message; end
 
 
     ##
@@ -29,22 +37,23 @@ module Google
     set_option :java_outer_classname, "ResourceProto"
     set_option :java_multiple_files, true
     set_option :go_package, "google.golang.org/genproto/googleapis/api/annotations;annotations"
+    set_option :cc_enable_arenas, true
     set_option :objc_class_prefix, "GAPI"
-    set_option :".google.api.resource_definition", [{ :pattern => "projects/{project}", :symbol => "Project" }, { :pattern => "organizations/{organization}", :symbol => "Organization" }]
 
 
     ##
     # Message Fields
     #
-    class Resource
-      optional :string, :pattern, 1
-      optional :string, :symbol, 2
+    class ResourceDescriptor
+      optional :string, :type, 1
+      repeated :string, :pattern, 2
+      optional :string, :name_field, 3
+      optional ::Google::Api::ResourceDescriptor::History, :history, 4
     end
 
-    class ResourceSet
-      optional :string, :symbol, 1
-      repeated ::Google::Api::Resource, :resources, 2
-      repeated :string, :resource_references, 3
+    class ResourceReference
+      optional :string, :type, 1
+      optional :string, :child_type, 2
     end
 
 
@@ -52,13 +61,11 @@ module Google
     # Extended Message Fields
     #
     class ::Google::Protobuf::FieldOptions < ::Protobuf::Message
-      optional ::Google::Api::Resource, :".google.api.resource", 1053, :extension => true
-      optional ::Google::Api::ResourceSet, :".google.api.resource_set", 1054, :extension => true
-      optional :string, :".google.api.resource_reference", 1055, :extension => true
+      optional ::Google::Api::ResourceReference, :".google.api.resource_reference", 1055, :extension => true
     end
 
-    class ::Google::Protobuf::FileOptions < ::Protobuf::Message
-      repeated ::Google::Api::Resource, :".google.api.resource_definition", 1053, :extension => true
+    class ::Google::Protobuf::MessageOptions < ::Protobuf::Message
+      optional ::Google::Api::ResourceDescriptor, :".google.api.resource", 1053, :extension => true
     end
 
   end

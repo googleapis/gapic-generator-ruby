@@ -28,7 +28,7 @@ class VisionImageAnnotatorServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
-    exp_method_names = ["batch_annotate_images", "async_batch_annotate_files"]
+    exp_method_names = ["batch_annotate_images", "batch_annotate_files", "async_batch_annotate_images", "async_batch_annotate_files"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 

@@ -19,6 +19,19 @@ module Google
     module GoogleAds
       module V1
         module Common
+          # Commission is an automatic bidding strategy in which the advertiser pays a
+          # certain portion of the conversion value.
+          # @!attribute [rw] commission_rate_micros
+          #   @return [Google::Protobuf::Int64Value]
+          #     Commission rate defines the portion of the conversion value that the
+          #     advertiser will be billed. A commission rate of x should be passed into
+          #     this field as (x * 1,000,000). For example, 106,000 represents a commission
+          #     rate of 0.106 (10.6%).
+          class Commission
+            include Google::Protobuf::MessageExts
+            extend Google::Protobuf::MessageExts::ClassMethods
+          end
+
           # An automated bidding strategy that raises bids for clicks
           # that seem more likely to lead to a conversion and lowers
           # them for clicks where they seem less likely.

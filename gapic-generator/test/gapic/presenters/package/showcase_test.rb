@@ -17,14 +17,14 @@
 require "test_helper"
 
 class ShowcasePackagePresenterTest < PresenterTest
-  def test_google_showcase_v1alpha3
-    presenter = PackagePresenter.new api(:showcase), "google.showcase.v1alpha3"
+  def test_google_showcase_v1beta1
+    presenter = PackagePresenter.new api(:showcase), "google.showcase.v1beta1"
 
-    assert_equal ["google", "showcase", "v1alpha3"], presenter.address
-    assert_equal "google.showcase.v1alpha3", presenter.name
-    assert_equal "Google::Showcase::V1alpha3", presenter.namespace
-    assert_equal "google/showcase/v1alpha3", presenter.version_require
-    assert_equal "google/showcase/v1alpha3.rb", presenter.version_file_path
+    assert_equal ["google", "showcase", "v1beta1"], presenter.address
+    assert_equal "google.showcase.v1beta1", presenter.name
+    assert_equal "Google::Showcase::V1beta1", presenter.namespace
+    assert_equal "google/showcase/v1beta1", presenter.version_require
+    assert_equal "google/showcase/v1beta1.rb", presenter.version_file_path
 
     assert_kind_of GemPresenter, presenter.gem
 

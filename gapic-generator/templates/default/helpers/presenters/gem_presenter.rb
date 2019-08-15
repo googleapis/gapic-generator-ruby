@@ -52,7 +52,6 @@ class GemPresenter
   end
 
   def name
-    # TODO: Infer the gem name from all the package strings?
     gem_config :name
   end
 

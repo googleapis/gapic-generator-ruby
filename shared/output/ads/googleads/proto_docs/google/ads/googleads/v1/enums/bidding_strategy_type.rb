@@ -32,6 +32,10 @@ module Google
               # Used for return value only. Represents value unknown in this version.
               UNKNOWN = 1
 
+              # Commission is an automatic bidding strategy in which the advertiser pays
+              # a certain portion of the conversion value.
+              COMMISSION = 16
+
               # Enhanced CPC is a bidding strategy that raises bids for clicks
               # that seem more likely to lead to a conversion and lowers
               # them for clicks where they seem less likely.

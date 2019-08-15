@@ -19,7 +19,8 @@ module Google
     module GoogleAds
       module V1
         module Services
-          # Request message for [CampaignService.GetCampaign][google.ads.googleads.v1.services.CampaignService.GetCampaign].
+          # Request message for
+          # [CampaignService.GetCampaign][google.ads.googleads.v1.services.CampaignService.GetCampaign].
           # @!attribute [rw] resource_name
           #   @return [String]
           #     The resource name of the campaign to fetch.
@@ -28,7 +29,8 @@ module Google
             extend Google::Protobuf::MessageExts::ClassMethods
           end
 
-          # Request message for [CampaignService.MutateCampaigns][google.ads.googleads.v1.services.CampaignService.MutateCampaigns].
+          # Request message for
+          # [CampaignService.MutateCampaigns][google.ads.googleads.v1.services.CampaignService.MutateCampaigns].
           # @!attribute [rw] customer_id
           #   @return [String]
           #     The ID of the customer whose campaigns are being modified.

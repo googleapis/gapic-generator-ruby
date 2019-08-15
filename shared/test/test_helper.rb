@@ -44,7 +44,7 @@ class ShowcaseTest < Minitest::Test
     if ENV['CI'].nil?
       puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
+        "gcr.io/gapic-images/gapic-showcase:0.4.0"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!
@@ -57,7 +57,7 @@ class ShowcaseTest < Minitest::Test
   @showcase_library = begin
     library = generate_library_for_test(
       %w[api-common-protos protos],
-      %w[google/showcase/v1alpha3/echo.proto])
+      %w[google/showcase/v1beta1/echo.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library
   end
