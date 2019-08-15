@@ -368,12 +368,6 @@ module Gapic
         options[:ruby_package] if options
       end
 
-      # @return [Google::Api::Package] Packaging information.
-      #   See `google/api/client.proto`.
-      def client_package
-        options[:".google.api.package"] if options
-      end
-
       # @!method name
       #   @return [String] file name, relative to root of source tree.
       # @!method package
