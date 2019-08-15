@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.6.1
-      - image: gcr.io/gapic-showcase/gapic-showcase:0.0.12
+      - image: gcr.io/gapic-images/gapic-showcase:0.4.0
     working_directory: ~/gapic-generator-ruby
     steps:
       - checkout
