@@ -28,7 +28,7 @@ class VisionProductSearchServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
-    exp_method_names = ["create_product_set", "list_product_sets", "get_product_set", "update_product_set", "delete_product_set", "create_product", "list_products", "get_product", "update_product", "delete_product", "create_reference_image", "delete_reference_image", "list_reference_images", "get_reference_image", "add_product_to_product_set", "remove_product_from_product_set", "list_products_in_product_set", "import_product_sets"]
+    exp_method_names = ["create_product_set", "list_product_sets", "get_product_set", "update_product_set", "delete_product_set", "create_product", "list_products", "get_product", "update_product", "delete_product", "create_reference_image", "delete_reference_image", "list_reference_images", "get_reference_image", "add_product_to_product_set", "remove_product_from_product_set", "list_products_in_product_set", "import_product_sets", "purge_products"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 

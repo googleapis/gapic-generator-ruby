@@ -21,20 +21,21 @@ class AnnotationResourceTest < AnnotationTest
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "SimpleGarbage" }
     refute_nil message
-    assert_nil message.options
+    refute_nil message.options
+    assert_kind_of Google::Protobuf::MessageOptions, message.options
 
-    field = message.fields.first
-    assert_equal "name", field.name
-    refute_nil field.options
-    assert_kind_of Google::Protobuf::FieldOptions, field.options
-    resource = field.options[:resource]
-    assert_kind_of Google::Api::Resource, resource
-    assert_equal "projects/{project}/simple_garbage/{garbage}", resource.pattern
+    resource = message.options[:resource]
+    assert_kind_of Google::Api::ResourceDescriptor, resource
+    assert_equal ["projects/{project}/simple_garbage/{garbage}"], resource.pattern
+
+    assert_kind_of Google::Api::ResourceDescriptor, message.resource
+    assert_equal ["projects/{project}/simple_garbage/{garbage}"], message.resource.pattern
 
     assert_equal 1, message.fields.count
-    assert_kind_of Google::Api::Resource, message.fields[0].resource
-    assert_equal "projects/{project}/simple_garbage/{garbage}", message.fields[0].resource.pattern
-    assert_equal "", message.fields[0].resource_reference
+    field = message.fields.first
+    assert_equal "name", field.name
+    assert_nil field.options
+    assert_nil field.resource_reference
   end
 
   def test_garbage_SimpleGarbageItem
@@ -47,14 +48,13 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal "garbage", field.name
     refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
-    assert_equal "SimpleGarbage", field.options[:resource_reference]
+    assert_kind_of Google::Api::ResourceReference, field.options[:resource_reference]
+    assert_equal "endlesstrash.example.net/SimpleGarbage", field.options[:resource_reference].type
 
     assert_equal 3, message.fields.count
-    assert_nil message.fields[0].resource
-    assert_equal "SimpleGarbage", message.fields[0].resource_reference
-    assert_nil message.fields[1].resource
+    assert_kind_of Google::Api::ResourceReference, message.fields[0].resource_reference
+    assert_equal "endlesstrash.example.net/SimpleGarbage", message.fields[0].resource_reference.type
     assert_nil message.fields[1].resource_reference
-    assert_nil message.fields[2].resource
     assert_nil message.fields[2].resource_reference
   end
 
@@ -68,7 +68,6 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil field.options
 
     assert_equal 1, message.fields.count
-    assert_nil message.fields[0].resource
     assert_nil message.fields[0].resource_reference
   end
 
@@ -82,9 +81,7 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil field.options
 
     assert_equal 2, message.fields.count
-    assert_nil message.fields[0].resource
     assert_nil message.fields[0].resource_reference
-    assert_nil message.fields[1].resource
     assert_nil message.fields[1].resource_reference
   end
 
@@ -98,7 +95,6 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil field.options
 
     assert_equal 1, message.fields.count
-    assert_nil message.fields[0].resource
     assert_nil message.fields[0].resource_reference
   end
 
@@ -112,9 +108,7 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil field.options
 
     assert_equal 2, message.fields.count
-    assert_nil message.fields[0].resource
     assert_nil message.fields[0].resource_reference
-    assert_nil message.fields[1].resource
     assert_nil message.fields[1].resource_reference
   end
 end

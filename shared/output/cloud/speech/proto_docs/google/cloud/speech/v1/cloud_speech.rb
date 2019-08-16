@@ -178,6 +178,9 @@ module Google
         #     Note: This is currently offered as an experimental service, complimentary
         #     to all users. In the future this may be exclusively available as a
         #     premium feature.
+        # @!attribute [rw] metadata
+        #   @return [Google::Cloud::Speech::V1::RecognitionMetadata]
+        #     *Optional* Metadata regarding this request.
         # @!attribute [rw] model
         #   @return [String]
         #     *Optional* Which model to select for the given request. Select the model
@@ -216,19 +219,12 @@ module Google
         #   @return [Boolean]
         #     *Optional* Set to true to use an enhanced model for speech recognition.
         #     If `use_enhanced` is set to true and the `model` field is not set, then
-        #     an appropriate enhanced model is chosen if:
-        #     1. project is eligible for requesting enhanced models
-        #     2. an enhanced model exists for the audio
+        #     an appropriate enhanced model is chosen if an enhanced model exists for
+        #     the audio.
         #
         #     If `use_enhanced` is true and an enhanced version of the specified model
         #     does not exist, then the speech is recognized using the standard version
         #     of the specified model.
-        #
-        #     Enhanced speech models require that you opt-in to data logging using
-        #     instructions in the
-        #     [documentation](/speech-to-text/docs/enable-data-logging). If you set
-        #     `use_enhanced` to true and you have not enabled audio logging, then you
-        #     will receive an error.
         class RecognitionConfig
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -297,6 +293,136 @@ module Google
             # is replaced with a single byte containing the block length. Only Speex
             # wideband is supported. `sample_rate_hertz` must be 16000.
             SPEEX_WITH_HEADER_BYTE = 7
+          end
+        end
+
+        # Description of audio data to be recognized.
+        # @!attribute [rw] interaction_type
+        #   @return [ENUM(InteractionType)]
+        #     The use case most closely describing the audio content to be recognized.
+        # @!attribute [rw] industry_naics_code_of_audio
+        #   @return [Integer]
+        #     The industry vertical to which this speech recognition request most
+        #     closely applies. This is most indicative of the topics contained
+        #     in the audio.  Use the 6-digit NAICS code to identify the industry
+        #     vertical - see https://www.naics.com/search/.
+        # @!attribute [rw] microphone_distance
+        #   @return [ENUM(MicrophoneDistance)]
+        #     The audio type that most closely describes the audio being recognized.
+        # @!attribute [rw] original_media_type
+        #   @return [ENUM(OriginalMediaType)]
+        #     The original media the speech was recorded on.
+        # @!attribute [rw] recording_device_type
+        #   @return [ENUM(RecordingDeviceType)]
+        #     The type of device the speech was recorded with.
+        # @!attribute [rw] recording_device_name
+        #   @return [String]
+        #     The device used to make the recording.  Examples 'Nexus 5X' or
+        #     'Polycom SoundStation IP 6000' or 'POTS' or 'VoIP' or
+        #     'Cardioid Microphone'.
+        # @!attribute [rw] original_mime_type
+        #   @return [String]
+        #     Mime type of the original audio file.  For example `audio/m4a`,
+        #     `audio/x-alaw-basic`, `audio/mp3`, `audio/3gpp`.
+        #     A list of possible audio mime types is maintained at
+        #     http://www.iana.org/assignments/media-types/media-types.xhtml#audio
+        # @!attribute [rw] audio_topic
+        #   @return [String]
+        #     Description of the content. Eg. "Recordings of federal supreme court
+        #     hearings from 2012".
+        class RecognitionMetadata
+          include Google::Protobuf::MessageExts
+          extend Google::Protobuf::MessageExts::ClassMethods
+
+          # Use case categories that the audio recognition request can be described
+          # by.
+          module InteractionType
+            # Use case is either unknown or is something other than one of the other
+            # values below.
+            INTERACTION_TYPE_UNSPECIFIED = 0
+
+            # Multiple people in a conversation or discussion. For example in a
+            # meeting with two or more people actively participating. Typically
+            # all the primary people speaking would be in the same room (if not,
+            # see PHONE_CALL)
+            DISCUSSION = 1
+
+            # One or more persons lecturing or presenting to others, mostly
+            # uninterrupted.
+            PRESENTATION = 2
+
+            # A phone-call or video-conference in which two or more people, who are
+            # not in the same room, are actively participating.
+            PHONE_CALL = 3
+
+            # A recorded message intended for another person to listen to.
+            VOICEMAIL = 4
+
+            # Professionally produced audio (eg. TV Show, Podcast).
+            PROFESSIONALLY_PRODUCED = 5
+
+            # Transcribe spoken questions and queries into text.
+            VOICE_SEARCH = 6
+
+            # Transcribe voice commands, such as for controlling a device.
+            VOICE_COMMAND = 7
+
+            # Transcribe speech to text to create a written document, such as a
+            # text-message, email or report.
+            DICTATION = 8
+          end
+
+          # Enumerates the types of capture settings describing an audio file.
+          module MicrophoneDistance
+            # Audio type is not known.
+            MICROPHONE_DISTANCE_UNSPECIFIED = 0
+
+            # The audio was captured from a closely placed microphone. Eg. phone,
+            # dictaphone, or handheld microphone. Generally if there speaker is within
+            # 1 meter of the microphone.
+            NEARFIELD = 1
+
+            # The speaker if within 3 meters of the microphone.
+            MIDFIELD = 2
+
+            # The speaker is more than 3 meters away from the microphone.
+            FARFIELD = 3
+          end
+
+          # The original media the speech was recorded on.
+          module OriginalMediaType
+            # Unknown original media type.
+            ORIGINAL_MEDIA_TYPE_UNSPECIFIED = 0
+
+            # The speech data is an audio recording.
+            AUDIO = 1
+
+            # The speech data originally recorded on a video.
+            VIDEO = 2
+          end
+
+          # The type of device the speech was recorded with.
+          module RecordingDeviceType
+            # The recording device is unknown.
+            RECORDING_DEVICE_TYPE_UNSPECIFIED = 0
+
+            # Speech was recorded on a smartphone.
+            SMARTPHONE = 1
+
+            # Speech was recorded using a personal computer or tablet.
+            PC = 2
+
+            # Speech was recorded over a phone line.
+            PHONE_LINE = 3
+
+            # Speech was recorded in a vehicle.
+            VEHICLE = 4
+
+            # Speech was recorded outdoors.
+            OTHER_OUTDOOR_DEVICE = 5
+
+            # Speech was recorded indoors.
+            OTHER_INDOOR_DEVICE = 6
           end
         end
 
@@ -487,11 +613,21 @@ module Google
         #     (completely unstable) to 1.0 (completely stable).
         #     This field is only provided for interim results (`is_final=false`).
         #     The default of 0.0 is a sentinel value indicating `stability` was not set.
+        # @!attribute [rw] result_end_time
+        #   @return [Google::Protobuf::Duration]
+        #     Output only. Time offset of the end of this result relative to the
+        #     beginning of the audio.
         # @!attribute [rw] channel_tag
         #   @return [Integer]
         #     For multi-channel audio, this is the channel number corresponding to the
         #     recognized result for the audio from that channel.
         #     For audio_channel_count = N, its output values can range from '1' to 'N'.
+        # @!attribute [rw] language_code
+        #   @return [String]
+        #     Output only. The
+        #     [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag of the
+        #     language in this result. This language code was detected to have the most
+        #     likelihood of being spoken in the audio.
         class StreamingRecognitionResult
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods

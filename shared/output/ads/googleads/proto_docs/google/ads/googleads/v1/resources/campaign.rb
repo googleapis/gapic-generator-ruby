@@ -95,6 +95,21 @@ module Google
           # @!attribute [rw] geo_target_type_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::GeoTargetTypeSetting]
           #     The setting for ads geotargeting.
+          # @!attribute [rw] app_campaign_setting
+          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::AppCampaignSetting]
+          #     The setting related to App Campaign.
+          # @!attribute [rw] labels
+          #   @return [Google::Protobuf::StringValue]
+          #     The resource names of labels attached to this campaign.
+          # @!attribute [rw] experiment_type
+          #   @return [ENUM(CampaignExperimentType)]
+          #     The type of campaign: normal, draft, or experiment.
+          # @!attribute [rw] base_campaign
+          #   @return [Google::Protobuf::StringValue]
+          #     The resource name of the base campaign of a draft or experiment campaign.
+          #     For base campaigns, this is equal to `resource_name`.
+          #
+          #     This field is read-only.
           # @!attribute [rw] campaign_budget
           #   @return [Google::Protobuf::StringValue]
           #     The budget of the campaign.
@@ -137,9 +152,16 @@ module Google
           # @!attribute [rw] tracking_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::TrackingSetting]
           #     Campaign level settings for tracking information.
+          # @!attribute [rw] payment_mode
+          #   @return [ENUM(PaymentMode)]
+          #     Payment mode for the campaign.
           # @!attribute [rw] bidding_strategy
           #   @return [Google::Protobuf::StringValue]
           #     Portfolio bidding strategy used by campaign.
+          # @!attribute [rw] commission
+          #   @return [Google::Ads::GoogleAds::V1::Common::Commission]
+          #     Commission is an automatic bidding strategy in which the advertiser pays
+          #     a certain portion of the conversion value.
           # @!attribute [rw] manual_cpc
           #   @return [Google::Ads::GoogleAds::V1::Common::ManualCpc]
           #     Standard Manual CPC bidding strategy.
@@ -219,6 +241,19 @@ module Google
               extend Google::Protobuf::MessageExts::ClassMethods
             end
 
+            # Describes how unbranded pharma ads will be displayed.
+            # @!attribute [rw] vanity_pharma_display_url_mode
+            #   @return [ENUM(VanityPharmaDisplayUrlMode)]
+            #     The display mode for vanity pharma URLs.
+            # @!attribute [rw] vanity_pharma_text
+            #   @return [ENUM(VanityPharmaText)]
+            #     The text that will be displayed in display URL of the text ad when
+            #     website description is the selected display mode for vanity pharma URLs.
+            class VanityPharma
+              include Google::Protobuf::MessageExts
+              extend Google::Protobuf::MessageExts::ClassMethods
+            end
+
             # The setting for controlling Dynamic Search Ads (DSA).
             # @!attribute [rw] domain_name
             #   @return [Google::Protobuf::StringValue]
@@ -234,18 +269,6 @@ module Google
             #   @return [Google::Protobuf::StringValue]
             #     The list of page feeds associated with the campaign.
             class DynamicSearchAdsSetting
-              include Google::Protobuf::MessageExts
-              extend Google::Protobuf::MessageExts::ClassMethods
-            end
-
-            # Represents a collection of settings related to ads geotargeting.
-            # @!attribute [rw] positive_geo_target_type
-            #   @return [ENUM(PositiveGeoTargetType)]
-            #     The setting used for positive geotargeting in this particular campaign.
-            # @!attribute [rw] negative_geo_target_type
-            #   @return [ENUM(NegativeGeoTargetType)]
-            #     The setting used for negative geotargeting in this particular campaign.
-            class GeoTargetTypeSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end
@@ -274,9 +297,17 @@ module Google
             #     3 if set.
             # @!attribute [rw] enable_local
             #   @return [Google::Protobuf::BoolValue]
-            #     Enable local inventory ads. This field may only be set to false for Smart
-            #     Shopping Campaigns.
+            #     Whether to include local products.
             class ShoppingSetting
+              include Google::Protobuf::MessageExts
+              extend Google::Protobuf::MessageExts::ClassMethods
+            end
+
+            # Campaign level settings for tracking information.
+            # @!attribute [rw] tracking_url
+            #   @return [Google::Protobuf::StringValue]
+            #     The url used for dynamic tracking.
+            class TrackingSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end
@@ -291,24 +322,30 @@ module Google
               extend Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # Campaign level settings for tracking information.
-            # @!attribute [rw] tracking_url
+            # Campaign level settings for App Campaigns.
+            # @!attribute [rw] bidding_strategy_goal_type
+            #   @return [ENUM(AppCampaignBiddingStrategyGoalType)]
+            #     Represents the goal which the bidding strategy of this app campaign
+            #     should optimize towards.
+            # @!attribute [rw] app_id
             #   @return [Google::Protobuf::StringValue]
-            #     The url used for dynamic tracking.
-            class TrackingSetting
+            #     A string that uniquely identifies a mobile application.
+            # @!attribute [rw] app_store
+            #   @return [ENUM(AppCampaignAppStore)]
+            #     The application store that distributes this specific app.
+            class AppCampaignSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # Describes how unbranded pharma ads will be displayed.
-            # @!attribute [rw] vanity_pharma_display_url_mode
-            #   @return [ENUM(VanityPharmaDisplayUrlMode)]
-            #     The display mode for vanity pharma URLs.
-            # @!attribute [rw] vanity_pharma_text
-            #   @return [ENUM(VanityPharmaText)]
-            #     The text that will be displayed in display URL of the text ad when
-            #     website description is the selected display mode for vanity pharma URLs.
-            class VanityPharma
+            # Represents a collection of settings related to ads geotargeting.
+            # @!attribute [rw] positive_geo_target_type
+            #   @return [ENUM(PositiveGeoTargetType)]
+            #     The setting used for positive geotargeting in this particular campaign.
+            # @!attribute [rw] negative_geo_target_type
+            #   @return [ENUM(NegativeGeoTargetType)]
+            #     The setting used for negative geotargeting in this particular campaign.
+            class GeoTargetTypeSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end

@@ -38,7 +38,9 @@ module Google
         # @!attribute [rw] product_category
         #   @return [String]
         #     The category for the product identified by the reference image. This should
-        #     be either "homegoods", "apparel", or "toys".
+        #     be either "homegoods-v2", "apparel-v2", or "toys-v2". The legacy categories
+        #     "homegoods", "apparel", and "toys" are still supported, but these should
+        #     not be used for new products.
         #
         #     This field is immutable.
         # @!attribute [rw] product_labels
@@ -51,7 +53,11 @@ module Google
         #     to be supported soon.
         #
         #     Multiple values can be assigned to the same key. One product may have up to
-        #     100 product_labels.
+        #     500 product_labels.
+        #
+        #     Notice that the total number of distinct product_labels over all products
+        #     in one ProductSet cannot exceed 1M, otherwise the product search pipeline
+        #     will refuse to work for that ProductSet.
         class Product
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -90,7 +96,8 @@ module Google
         #   @return [Google::Protobuf::Timestamp]
         #     Output only. The time at which this ProductSet was last indexed. Query
         #     results will reflect all updates before this time. If this ProductSet has
-        #     never been indexed, this field is 0.
+        #     never been indexed, this timestamp is the default value
+        #     "1970-01-01T00:00:00Z".
         #
         #     This field is ignored when creating a ProductSet.
         # @!attribute [rw] index_error
@@ -628,6 +635,39 @@ module Google
             # cancel command are output as specified in the request.
             CANCELLED = 4
           end
+        end
+
+        # Config to control which ProductSet contains the Products to be deleted.
+        # @!attribute [rw] product_set_id
+        #   @return [String]
+        #     The ProductSet that contains the Products to delete. If a Product is a
+        #     member of product_set_id in addition to other ProductSets, the Product will
+        #     still be deleted.
+        class ProductSetPurgeConfig
+          include Google::Protobuf::MessageExts
+          extend Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # Request message for the `PurgeProducts` method.
+        # @!attribute [rw] product_set_purge_config
+        #   @return [Google::Cloud::Vision::V1::ProductSetPurgeConfig]
+        #     Specify which ProductSet contains the Products to be deleted.
+        # @!attribute [rw] delete_orphan_products
+        #   @return [Boolean]
+        #     If delete_orphan_products is true, all Products that are not in any
+        #     ProductSet will be deleted.
+        # @!attribute [rw] parent
+        #   @return [String]
+        #     The project and location in which the Products should be deleted.
+        #
+        #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
+        # @!attribute [rw] force
+        #   @return [Boolean]
+        #     The default value is false. Override this value to true to actually perform
+        #     the purge.
+        class PurgeProductsRequest
+          include Google::Protobuf::MessageExts
+          extend Google::Protobuf::MessageExts::ClassMethods
         end
       end
     end

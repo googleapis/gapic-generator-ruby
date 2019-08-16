@@ -230,14 +230,6 @@ module Gapic
         parent.ruby_package
       end
 
-      # @return [Google::Api::Package] Packaging information.
-      #   See `google/api/client.proto`.
-      def client_package
-        return nil if parent.nil?
-
-        parent.client_package
-      end
-
       # @!method name
       #   @return [String] the unqualified name of the service.
       # @!method options
@@ -376,12 +368,6 @@ module Gapic
         options[:ruby_package] if options
       end
 
-      # @return [Google::Api::Package] Packaging information.
-      #   See `google/api/client.proto`.
-      def client_package
-        options[:".google.api.client_package"] if options
-      end
-
       # @!method name
       #   @return [String] file name, relative to root of source tree.
       # @!method package
@@ -509,6 +495,13 @@ module Gapic
         @nested_enums.each    { |e| e.parent = self }
       end
 
+      # @return [Google::Api::Resource] A representation of the resource.
+      #   This is generally intended to be attached to the "name" field.
+      #   See `google/api/resource.proto`.
+      def resource
+        options[:".google.api.resource"] if options
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the message.
       # @!method oneof_decl
@@ -569,13 +562,6 @@ module Gapic
         return true if @enum
 
         false
-      end
-
-      # @return [Google::Api::Resource] A representation of the resource.
-      #   This is generally intended to be attached to the "name" field.
-      #   See `google/api/resource.proto`.
-      def resource
-        options[:".google.api.resource"] if options
       end
 
       # @return [String] A reference to another resource message or resource

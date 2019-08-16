@@ -99,8 +99,8 @@ module Gapic
     #   callback for every streamed response is returned.
     #
     # @example
-    #   require "google/showcase/v1alpha3/echo_pb"
-    #   require "google/showcase/v1alpha3/echo_services_pb"
+    #   require "google/showcase/v1beta1/echo_pb"
+    #   require "google/showcase/v1beta1/echo_services_pb"
     #   require "gapic"
     #   require "gapic/grpc"
     #
@@ -108,16 +108,16 @@ module Gapic
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(
-    #     Google::Showcase::V1alpha3::Echo::Stub,
+    #     Google::Showcase::V1beta1::Echo::Stub,
     #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #
-    #   request = Google::Showcase::V1alpha3::EchoRequest.new
+    #   request = Google::Showcase::V1beta1::EchoRequest.new
     #   response = echo_stub.call_rpc :echo, request
     #
     # @example Using custom call options:
-    #   require "google/showcase/v1alpha3/echo_pb"
-    #   require "google/showcase/v1alpha3/echo_services_pb"
+    #   require "google/showcase/v1beta1/echo_pb"
+    #   require "google/showcase/v1beta1/echo_services_pb"
     #   require "gapic"
     #   require "gapic/grpc"
     #
@@ -125,11 +125,11 @@ module Gapic
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(
-    #     Google::Showcase::V1alpha3::Echo::Stub,
+    #     Google::Showcase::V1beta1::Echo::Stub,
     #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #
-    #   request = Google::Showcase::V1alpha3::EchoRequest.new
+    #   request = Google::Showcase::V1beta1::EchoRequest.new
     #   options = Gapic::CallOptions.new(
     #     retry_policy = {
     #       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
@@ -139,8 +139,8 @@ module Gapic
     #                                 options: options
     #
     # @example Formatting the response in the call:
-    #   require "google/showcase/v1alpha3/echo_pb"
-    #   require "google/showcase/v1alpha3/echo_services_pb"
+    #   require "google/showcase/v1beta1/echo_pb"
+    #   require "google/showcase/v1beta1/echo_services_pb"
     #   require "gapic"
     #   require "gapic/grpc"
     #
@@ -148,11 +148,11 @@ module Gapic
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(
-    #     Google::Showcase::V1alpha3::Echo::Stub,
+    #     Google::Showcase::V1beta1::Echo::Stub,
     #     endpoint: "localhost:7469", credentials: echo_channel
     #   )
     #
-    #   request = Google::Showcase::V1alpha3::EchoRequest.new
+    #   request = Google::Showcase::V1beta1::EchoRequest.new
     #   content_upcaser = proc do |response|
     #     format_response = response.dup
     #     format_response.content.upcase!

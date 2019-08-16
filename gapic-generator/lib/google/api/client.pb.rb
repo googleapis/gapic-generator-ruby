@@ -16,12 +16,6 @@ module Google
     ::Protobuf::Optionable.inject(self) { ::Google::Protobuf::FileOptions }
 
     ##
-    # Message Classes
-    #
-    class Package < ::Protobuf::Message; end
-
-
-    ##
     # File Options
     #
     set_option :java_package, "com.google.api"
@@ -32,23 +26,8 @@ module Google
 
 
     ##
-    # Message Fields
-    #
-    class Package
-      optional :string, :title, 1
-      repeated :string, :namespace, 2
-      optional :string, :version, 3
-      optional :string, :product_title, 4
-    end
-
-
-    ##
     # Extended Message Fields
     #
-    class ::Google::Protobuf::FileOptions < ::Protobuf::Message
-      optional ::Google::Api::Package, :".google.api.client_package", 1048, :extension => true
-    end
-
     class ::Google::Protobuf::ServiceOptions < ::Protobuf::Message
       optional :string, :".google.api.default_host", 1049, :extension => true
       optional :string, :".google.api.oauth_scopes", 1050, :extension => true

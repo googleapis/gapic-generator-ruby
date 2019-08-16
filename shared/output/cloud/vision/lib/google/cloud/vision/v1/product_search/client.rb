@@ -402,20 +402,12 @@ module Google
             #
             # The actual image files are not deleted from Google Cloud Storage.
             #
-            # Possible errors:
-            #
-            # * Returns NOT_FOUND if the ProductSet does not exist.
-            #
             # @overload delete_product_set(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteProductSetRequest | Hash]
             #     Permanently deletes a ProductSet. Products and ReferenceImages in the
             #     ProductSet are not deleted.
             #
             #     The actual image files are not deleted from Google Cloud Storage.
-            #
-            #     Possible errors:
-            #
-            #     * Returns NOT_FOUND if the ProductSet does not exist.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -787,10 +779,6 @@ module Google
             # search queries against ProductSets containing the product may still work
             # until all related caches are refreshed.
             #
-            # Possible errors:
-            #
-            # * Returns NOT_FOUND if the product does not exist.
-            #
             # @overload delete_product(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteProductRequest | Hash]
             #     Permanently deletes a product and its reference images.
@@ -798,10 +786,6 @@ module Google
             #     Metadata of the product and all its images will be deleted right away, but
             #     search queries against ProductSets containing the product may still work
             #     until all related caches are refreshed.
-            #
-            #     Possible errors:
-            #
-            #     * Returns NOT_FOUND if the product does not exist.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -967,10 +951,6 @@ module Google
             #
             # The actual image files are not deleted from Google Cloud Storage.
             #
-            # Possible errors:
-            #
-            # * Returns NOT_FOUND if the reference image does not exist.
-            #
             # @overload delete_reference_image(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::DeleteReferenceImageRequest | Hash]
             #     Permanently deletes a reference image.
@@ -980,10 +960,6 @@ module Google
             #     caches are refreshed.
             #
             #     The actual image files are not deleted from Google Cloud Storage.
-            #
-            #     Possible errors:
-            #
-            #     * Returns NOT_FOUND if the reference image does not exist.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1267,17 +1243,9 @@ module Google
             ##
             # Removes a Product from the specified ProductSet.
             #
-            # Possible errors:
-            #
-            # * Returns NOT_FOUND If the Product is not found under the ProductSet.
-            #
             # @overload remove_product_from_product_set(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest | Hash]
             #     Removes a Product from the specified ProductSet.
-            #
-            #     Possible errors:
-            #
-            #     * Returns NOT_FOUND If the Product is not found under the ProductSet.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1495,6 +1463,120 @@ module Google
               @product_search_stub.call_rpc :import_product_sets, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
+            ##
+            # Asynchronous API to delete all Products in a ProductSet or all Products
+            # that are in no ProductSet.
+            #
+            # If a Product is a member of the specified ProductSet in addition to other
+            # ProductSets, the Product will still be deleted.
+            #
+            # It is recommended to not delete the specified ProductSet until after this
+            # operation has completed. It is also recommended to not add any of the
+            # Products involved in the batch delete to a new ProductSet while this
+            # operation is running because those Products may still end up deleted.
+            #
+            # It's not possible to undo the PurgeProducts operation. Therefore, it is
+            # recommended to keep the csv files used in ImportProductSets (if that was
+            # how you originally built the Product Set) before starting PurgeProducts, in
+            # case you need to re-import the data after deletion.
+            #
+            # If the plan is to purge all of the Products from a ProductSet and then
+            # re-use the empty ProductSet to re-import new Products into the empty
+            # ProductSet, you must wait until the PurgeProducts operation has finished
+            # for that ProductSet.
+            #
+            # The [google.longrunning.Operation][google.longrunning.Operation] API can be
+            # used to keep track of the progress and results of the request.
+            # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
+            #
+            # @overload purge_products(request, options = nil)
+            #   @param request [Google::Cloud::Vision::V1::PurgeProductsRequest | Hash]
+            #     Asynchronous API to delete all Products in a ProductSet or all Products
+            #     that are in no ProductSet.
+            #
+            #     If a Product is a member of the specified ProductSet in addition to other
+            #     ProductSets, the Product will still be deleted.
+            #
+            #     It is recommended to not delete the specified ProductSet until after this
+            #     operation has completed. It is also recommended to not add any of the
+            #     Products involved in the batch delete to a new ProductSet while this
+            #     operation is running because those Products may still end up deleted.
+            #
+            #     It's not possible to undo the PurgeProducts operation. Therefore, it is
+            #     recommended to keep the csv files used in ImportProductSets (if that was
+            #     how you originally built the Product Set) before starting PurgeProducts, in
+            #     case you need to re-import the data after deletion.
+            #
+            #     If the plan is to purge all of the Products from a ProductSet and then
+            #     re-use the empty ProductSet to re-import new Products into the empty
+            #     ProductSet, you must wait until the PurgeProducts operation has finished
+            #     for that ProductSet.
+            #
+            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be
+            #     used to keep track of the progress and results of the request.
+            #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
+            #   @param options [Gapic::CallOptions, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
+            # @overload purge_products(product_set_purge_config: nil, delete_orphan_products: nil, parent: nil, force: nil)
+            #   @param product_set_purge_config [Google::Cloud::Vision::V1::ProductSetPurgeConfig | Hash]
+            #     Specify which ProductSet contains the Products to be deleted.
+            #   @param delete_orphan_products [Boolean]
+            #     If delete_orphan_products is true, all Products that are not in any
+            #     ProductSet will be deleted.
+            #   @param parent [String]
+            #     The project and location in which the Products should be deleted.
+            #
+            #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
+            #   @param force [Boolean]
+            #     The default value is false. Override this value to true to actually perform
+            #     the purge.
+            #
+            #
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Gapic::Operation]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            #
+            # @return [Gapic::Operation]
+            #
+            # @raise [Gapic::GapicError] if the RPC is aborted.
+            #
+            # @example
+            #   TODO
+            #
+            def purge_products request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
+
+              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::PurgeProductsRequest
+
+              # Converts hash and nil to an options object
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              metadata = @config.rpcs.purge_products.metadata.to_h
+
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Vision::VERSION
+
+              header_params = {
+                "parent" => request.parent
+              }
+              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              metadata[:"x-goog-request-params"] ||= request_params_header
+
+              options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.purge_products.retry_policy
+              options.apply_defaults metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+
+              @product_search_stub.call_rpc :purge_products, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            end
+
             class Configuration
               extend Gapic::Config
 
@@ -1546,6 +1628,7 @@ module Google
                 attr_reader :remove_product_from_product_set
                 attr_reader :list_products_in_product_set
                 attr_reader :import_product_sets
+                attr_reader :purge_products
 
                 def initialize parent_rpcs = nil
                   create_product_set_config = nil
@@ -1602,6 +1685,9 @@ module Google
                   import_product_sets_config = nil
                   import_product_sets_config = parent_rpcs&.import_product_sets if parent_rpcs&.respond_to? :import_product_sets
                   @import_product_sets = Gapic::Config::Method.new import_product_sets_config
+                  purge_products_config = nil
+                  purge_products_config = parent_rpcs&.purge_products if parent_rpcs&.respond_to? :purge_products
+                  @purge_products = Gapic::Config::Method.new purge_products_config
 
                   yield self if block_given?
                 end

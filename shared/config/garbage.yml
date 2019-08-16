@@ -1,3 +1,6 @@
 ---
 :gem:
   :name: google-garbage
+  # :title: Testing Garbage
+  # :namespace: Endless::Trash::Forever
+  # :version: 1.2.3

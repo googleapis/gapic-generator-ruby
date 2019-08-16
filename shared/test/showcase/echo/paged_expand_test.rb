@@ -15,12 +15,12 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo"
+require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class PagedExpandTest < ShowcaseTest
   def test_paged_expand
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     end
 
@@ -36,7 +36,7 @@ class PagedExpandTest < ShowcaseTest
   end
 
   def test_page_size
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
     end
 
@@ -45,7 +45,7 @@ class PagedExpandTest < ShowcaseTest
     response_enum = client.paged_expand content: request_content, page_size: 2
 
     assert_kind_of Gapic::PagedEnumerable, response_enum
-    assert_kind_of Google::Showcase::V1alpha3::PagedExpandResponse, response_enum.page.response
+    assert_kind_of Google::Showcase::V1beta1::PagedExpandResponse, response_enum.page.response
     assert_equal ["The", "quick"], response_enum.page.response.responses.map(&:content)
 
     responses_content_array = response_enum.to_a.map(&:content)

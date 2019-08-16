@@ -41,16 +41,22 @@ module Google
         # @!attribute [rw] product_categories
         #   @return [String]
         #     The list of product categories to search in. Currently, we only consider
-        #     the first category, and either "homegoods", "apparel", or "toys" should be
-        #     specified.
+        #     the first category, and either "homegoods-v2", "apparel-v2", or "toys-v2"
+        #     should be specified. The legacy categories "homegoods", "apparel", and
+        #     "toys" are still supported but will be deprecated. For new products, please
+        #     use "homegoods-v2", "apparel-v2", or "toys-v2" for better product search
+        #     accuracy. It is recommended to migrate existing products to these
+        #     categories as well.
         # @!attribute [rw] filter
         #   @return [String]
         #     The filtering expression. This can be used to restrict search results based
         #     on Product labels. We currently support an AND of OR of key-value
-        #     expressions, where each expression within an OR must have the same key.
+        #     expressions, where each expression within an OR must have the same key. An
+        #     '=' should be used to connect the key and value.
         #
         #     For example, "(color = red OR color = blue) AND brand = Google" is
-        #     acceptable, but not "(color = red OR brand = Google)" or "color: red".
+        #     acceptable, but "(color = red OR brand = Google)" is not acceptable.
+        #     "color: red" is not acceptable because it uses a ':' instead of an '='.
         class ProductSearchParams
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods
@@ -59,8 +65,9 @@ module Google
         # Results for a product search request.
         # @!attribute [rw] index_time
         #   @return [Google::Protobuf::Timestamp]
-        #     Timestamp of the index which provided these results. Changes made after
-        #     this time are not reflected in the current results.
+        #     Timestamp of the index which provided these results. Products added to the
+        #     product set and products removed from the product set after this time are
+        #     not reflected in the current results.
         # @!attribute [rw] results
         #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
         #     List of results, one for each product match.
@@ -91,6 +98,26 @@ module Google
             extend Google::Protobuf::MessageExts::ClassMethods
           end
 
+          # Prediction for what the object in the bounding box is.
+          # @!attribute [rw] mid
+          #   @return [String]
+          #     Object ID that should align with EntityAnnotation mid.
+          # @!attribute [rw] language_code
+          #   @return [String]
+          #     The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+          #     information, see
+          #     http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+          # @!attribute [rw] name
+          #   @return [String]
+          #     Object name, expressed in its `language_code` language.
+          # @!attribute [rw] score
+          #   @return [Float]
+          #     Score of the result. Range [0, 1].
+          class ObjectAnnotation
+            include Google::Protobuf::MessageExts
+            extend Google::Protobuf::MessageExts::ClassMethods
+          end
+
           # Information about the products similar to a single product in a query
           # image.
           # @!attribute [rw] bounding_poly
@@ -99,6 +126,9 @@ module Google
           # @!attribute [rw] results
           #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
           #     List of results, one for each product match.
+          # @!attribute [rw] object_annotations
+          #   @return [Google::Cloud::Vision::V1::ProductSearchResults::ObjectAnnotation]
+          #     List of generic predictions for the object in the bounding box.
           class GroupedResult
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods

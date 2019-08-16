@@ -15,12 +15,12 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo"
+require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class CollectTest < ShowcaseTest
   def test_collect
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
+    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new(
         "localhost:7469", nil, :this_channel_is_insecure
       )

@@ -61,6 +61,19 @@ module Google
 
               # Video campaigns with non-skippable video ads.
               VIDEO_NON_SKIPPABLE = 11
+
+              # App Campaign that allows you to easily promote your Android or iOS app
+              # across Google's top properties including Search, Play, YouTube, and the
+              # Google Display Network.
+              APP_CAMPAIGN = 12
+
+              # App Campaign for engagement, focused on driving re-engagement with the
+              # app across several of Google’s top properties including Search, YouTube,
+              # and the Google Display Network.
+              APP_CAMPAIGN_FOR_ENGAGEMENT = 13
+
+              # Shopping Comparison Listing campaigns.
+              SHOPPING_COMPARISON_LISTING_ADS = 15
             end
           end
         end

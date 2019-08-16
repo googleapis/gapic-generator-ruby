@@ -122,9 +122,22 @@ module Google
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload batch_annotate_images(requests: nil)
+            # @overload batch_annotate_images(requests: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
             #     Individual image annotation requests for this batch.
+            #   @param parent [String]
+            #     Optional. Target project and location to make a call.
+            #
+            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #
+            #     If no parent is specified, a region will be chosen automatically.
+            #
+            #     Supported location-ids:
+            #         `us`: USA country only,
+            #         `asia`: East asia areas, like Japan, Taiwan,
+            #         `eu`: The European Union.
+            #
+            #     Example: `projects/project-A/locations/eu`.
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
@@ -164,6 +177,165 @@ module Google
             end
 
             ##
+            # Service that performs image detection and annotation for a batch of files.
+            # Now only "application/pdf", "image/tiff" and "image/gif" are supported.
+            #
+            # This service will extract at most 5 (customers can specify which 5 in
+            # AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
+            # file provided and perform detection and annotation for each image
+            # extracted.
+            #
+            # @overload batch_annotate_files(request, options = nil)
+            #   @param request [Google::Cloud::Vision::V1::BatchAnnotateFilesRequest | Hash]
+            #     Service that performs image detection and annotation for a batch of files.
+            #     Now only "application/pdf", "image/tiff" and "image/gif" are supported.
+            #
+            #     This service will extract at most 5 (customers can specify which 5 in
+            #     AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
+            #     file provided and perform detection and annotation for each image
+            #     extracted.
+            #   @param options [Gapic::CallOptions, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
+            # @overload batch_annotate_files(requests: nil, parent: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AnnotateFileRequest | Hash]
+            #     The list of file annotation requests. Right now we support only one
+            #     AnnotateFileRequest in BatchAnnotateFilesRequest.
+            #   @param parent [String]
+            #     Optional. Target project and location to make a call.
+            #
+            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #
+            #     If no parent is specified, a region will be chosen automatically.
+            #
+            #     Supported location-ids:
+            #         `us`: USA country only,
+            #         `asia`: East asia areas, like Japan, Taiwan,
+            #         `eu`: The European Union.
+            #
+            #     Example: `projects/project-A/locations/eu`.
+            #
+            #
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            #
+            # @return [Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
+            #
+            # @raise [Gapic::GapicError] if the RPC is aborted.
+            #
+            # @example
+            #   TODO
+            #
+            def batch_annotate_files request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
+
+              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateFilesRequest
+
+              # Converts hash and nil to an options object
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              metadata = @config.rpcs.batch_annotate_files.metadata.to_h
+
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Vision::VERSION
+
+              options.apply_defaults timeout:      @config.rpcs.batch_annotate_files.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.batch_annotate_files.retry_policy
+              options.apply_defaults metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              @image_annotator_stub.call_rpc :batch_annotate_files, request, options: options, operation_callback: block
+            end
+
+            ##
+            # Run asynchronous image detection and annotation for a list of images.
+            #
+            # Progress and results can be retrieved through the
+            # `google.longrunning.Operations` interface.
+            # `Operation.metadata` contains `OperationMetadata` (metadata).
+            # `Operation.response` contains `AsyncBatchAnnotateImagesResponse` (results).
+            #
+            # This service will write image annotation outputs to json files in customer
+            # GCS bucket, each json file containing BatchAnnotateImagesResponse proto.
+            #
+            # @overload async_batch_annotate_images(request, options = nil)
+            #   @param request [Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest | Hash]
+            #     Run asynchronous image detection and annotation for a list of images.
+            #
+            #     Progress and results can be retrieved through the
+            #     `google.longrunning.Operations` interface.
+            #     `Operation.metadata` contains `OperationMetadata` (metadata).
+            #     `Operation.response` contains `AsyncBatchAnnotateImagesResponse` (results).
+            #
+            #     This service will write image annotation outputs to json files in customer
+            #     GCS bucket, each json file containing BatchAnnotateImagesResponse proto.
+            #   @param options [Gapic::CallOptions, Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+            #
+            # @overload async_batch_annotate_images(requests: nil, output_config: nil, parent: nil)
+            #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
+            #     Individual image annotation requests for this batch.
+            #   @param output_config [Google::Cloud::Vision::V1::OutputConfig | Hash]
+            #     Required. The desired output location and metadata (e.g. format).
+            #   @param parent [String]
+            #     Optional. Target project and location to make a call.
+            #
+            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #
+            #     If no parent is specified, a region will be chosen automatically.
+            #
+            #     Supported location-ids:
+            #         `us`: USA country only,
+            #         `asia`: East asia areas, like Japan, Taiwan,
+            #         `eu`: The European Union.
+            #
+            #     Example: `projects/project-A/locations/eu`.
+            #
+            #
+            # @yield [response, operation] Access the result along with the RPC operation
+            # @yieldparam response [Gapic::Operation]
+            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            #
+            # @return [Gapic::Operation]
+            #
+            # @raise [Gapic::GapicError] if the RPC is aborted.
+            #
+            # @example
+            #   TODO
+            #
+            def async_batch_annotate_images request, options = nil, &block
+              raise ArgumentError, "request must be provided" if request.nil?
+
+              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
+
+              # Converts hash and nil to an options object
+              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              metadata = @config.rpcs.async_batch_annotate_images.metadata.to_h
+
+              # Set x-goog-api-client header
+              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: Google::Cloud::Vision::VERSION
+
+              options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_images.timeout,
+                                     metadata:     metadata,
+                                     retry_policy: @config.rpcs.async_batch_annotate_images.retry_policy
+              options.apply_defaults metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+
+              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            end
+
+            ##
             # Run asynchronous image detection and annotation for a list of generic
             # files, such as PDF files, which may contain multiple pages and multiple
             # images per page. Progress and results can be retrieved through the
@@ -182,9 +354,22 @@ module Google
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload async_batch_annotate_files(requests: nil)
+            # @overload async_batch_annotate_files(requests: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
             #     Individual async file annotation requests for this batch.
+            #   @param parent [String]
+            #     Optional. Target project and location to make a call.
+            #
+            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #
+            #     If no parent is specified, a region will be chosen automatically.
+            #
+            #     Supported location-ids:
+            #         `us`: USA country only,
+            #         `asia`: East asia areas, like Japan, Taiwan,
+            #         `eu`: The European Union.
+            #
+            #     Example: `projects/project-A/locations/eu`.
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
@@ -259,12 +444,20 @@ module Google
 
               class Rpcs
                 attr_reader :batch_annotate_images
+                attr_reader :batch_annotate_files
+                attr_reader :async_batch_annotate_images
                 attr_reader :async_batch_annotate_files
 
                 def initialize parent_rpcs = nil
                   batch_annotate_images_config = nil
                   batch_annotate_images_config = parent_rpcs&.batch_annotate_images if parent_rpcs&.respond_to? :batch_annotate_images
                   @batch_annotate_images = Gapic::Config::Method.new batch_annotate_images_config
+                  batch_annotate_files_config = nil
+                  batch_annotate_files_config = parent_rpcs&.batch_annotate_files if parent_rpcs&.respond_to? :batch_annotate_files
+                  @batch_annotate_files = Gapic::Config::Method.new batch_annotate_files_config
+                  async_batch_annotate_images_config = nil
+                  async_batch_annotate_images_config = parent_rpcs&.async_batch_annotate_images if parent_rpcs&.respond_to? :async_batch_annotate_images
+                  @async_batch_annotate_images = Gapic::Config::Method.new async_batch_annotate_images_config
                   async_batch_annotate_files_config = nil
                   async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files if parent_rpcs&.respond_to? :async_batch_annotate_files
                   @async_batch_annotate_files = Gapic::Config::Method.new async_batch_annotate_files_config

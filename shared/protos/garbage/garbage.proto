@@ -11,12 +11,6 @@ import "google/protobuf/timestamp.proto";
 
 option ruby_package = "So::Much::Trash";
 
-option (google.api.client_package) = {
-  title: "Testing Garbage"
-  namespace: ["Endless", "Trash"]
-  version: "Forever"
-};
-
 // Endless trash
 service GarbageService {
   // The address where this API is typically served.
@@ -126,15 +120,19 @@ message GarbageItem {
 
 // A simple garbage resource
 message SimpleGarbage {
-  string name = 1 [(google.api.resource) = {
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/SimpleGarbage"
     pattern: "projects/{project}/simple_garbage/{garbage}"
-  }];
+  };
+
+  string name = 1;
 }
 
 // A simple garbage item resource
 message SimpleGarbageItem {
   string garbage = 1 [
-    (google.api.resource_reference) = "SimpleGarbage"];
+    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
+  ];
   oneof item {
     string a = 2;
     int32  b = 3;

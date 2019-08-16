@@ -47,6 +47,10 @@ module Google
 
               # Video campaigns.
               VIDEO = 6
+
+              # App Campaigns, and App Campaigns for Engagement, that run
+              # across multiple channels.
+              MULTI_CHANNEL = 7
             end
           end
         end
