@@ -18,6 +18,7 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/showcase"
 require "google/showcase/version"
 require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging/credentials"
@@ -44,7 +45,7 @@ module Google
           # @return [Client::Configuration]
           #
           def self.configure
-            @configure ||= Client::Configuration.new
+            @configure ||= Client::Configuration.new Google::Showcase.configure
             yield @configure if block_given?
             @configure
           end

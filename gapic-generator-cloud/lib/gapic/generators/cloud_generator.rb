@@ -38,7 +38,19 @@ module Gapic
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
       def generate
-        super
+        orig_files = super
+
+        cloud_files = []
+
+        gem = gem_presenter @api
+
+        # Additional Gem level files
+        cloud_files << g("gem/dashed.erb",  "lib/#{gem.name}.rb",             gem: gem)
+        cloud_files << g("gem/slashed.erb", "lib/#{gem.name.tr '-', '/'}.rb", gem: gem)
+
+        format_files cloud_files
+
+        orig_files + cloud_files
       end
 
       private

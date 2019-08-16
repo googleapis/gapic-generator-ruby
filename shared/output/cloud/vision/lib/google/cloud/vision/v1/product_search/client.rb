@@ -18,6 +18,7 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/vision"
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search/credentials"
@@ -42,7 +43,7 @@ module Google
             # @return [Client::Configuration]
             #
             def self.configure
-              @configure ||= Client::Configuration.new
+              @configure ||= Client::Configuration.new Google::Cloud::Vision.configure
               yield @configure if block_given?
               @configure
             end
