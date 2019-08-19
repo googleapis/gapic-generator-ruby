@@ -43,7 +43,7 @@ class SpeechGemPresenterTest < PresenterTest
     assert_equal ["Speech"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
 
-    assert_equal ["google/api/http.proto", "google/protobuf/descriptor.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/duration.proto", "google/protobuf/timestamp.proto", "google/cloud/speech/v1/cloud_speech.proto"], presenter.proto_files.map(&:name)
+    assert_equal ["google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/duration.proto", "google/protobuf/timestamp.proto", "google/cloud/speech/v1/cloud_speech.proto"], presenter.proto_files.map(&:name)
     presenter.proto_files.each { |fp| assert_kind_of FilePresenter, fp }
   end
 end

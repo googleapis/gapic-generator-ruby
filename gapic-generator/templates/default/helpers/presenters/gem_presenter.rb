@@ -42,7 +42,9 @@ class GemPresenter
 
   def proto_files
     @proto_files ||= begin
-      files = @api.files.reject { |f| f.messages.empty? && f.enums.empty? }
+      files = @api.files
+      files = files.reject { |f| blacklist_protos.include? f.name }
+      files = files.reject { |f| f.messages.empty? && f.enums.empty? }
       files.map { |f| FilePresenter.new @api, f }
     end
   end
@@ -117,5 +119,18 @@ class GemPresenter
     return unless @api.configuration[:gem]
 
     @api.configuration[:gem][key]
+  end
+
+  def blacklist_protos
+    blacklist = gem_config :blacklist
+
+    return default_blacklist_protos if blacklist.nil?
+    return default_blacklist_protos if blacklist[:protos].nil?
+
+    default_blacklist_protos[:protos]
+  end
+
+  def default_blacklist_protos
+    ["google/api/http.proto", "google/protobuf/descriptor.proto"]
   end
 end
