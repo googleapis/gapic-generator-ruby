@@ -19,12 +19,14 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class ExpandTest < ShowcaseTest
-  def test_expand
-    client = new_client
+  def setup
+    @client = new_client
+  end
 
+  def test_expand
     request_content = "The quick brown fox jumps over the lazy dog"
 
-    response_enum = client.expand content: request_content
+    response_enum = @client.expand content: request_content
 
     assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
   end

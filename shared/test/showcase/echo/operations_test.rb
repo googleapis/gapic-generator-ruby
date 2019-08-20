@@ -19,45 +19,39 @@ require "test_helper"
 require "google/showcase/v1beta1/echo"
 require "grpc"
 
-class EchoTest < ShowcaseTest
-  def test_raise_invalid_get_operation
-    client = new_operations_client
+class OperationsTest < ShowcaseTest
+  def setup
+    @client = new_operations_client
+  end
 
-    assert_raises(Gapic::NotFoundError) { client.get_operation name: "thing1" }
+  def test_raise_invalid_get_operation
+    assert_raises(Gapic::NotFoundError) { @client.get_operation name: "thing1" }
   end
 
   def test_get_operation
-    client = new_operations_client
-
     prefix = "operations/google.showcase.v1beta1.Echo/Wait/"
     wait_type = Google::Showcase::V1beta1::WaitRequest
     wait_request = Base64.encode64(wait_type.encode(wait_type.new(ttl: 200))).chop
-    op = client.get_operation name: prefix + wait_request
+    op = @client.get_operation name: prefix + wait_request
 
     waited = wait_type.decode(Base64.decode64(op.name.delete_prefix(prefix)))
     assert_instance_of wait_type, waited
   end
 
   def test_list_operations
-    client = new_operations_client
-
-    enumerable = client.list_operations name: "a/thing/to/remember"
+    enumerable = @client.list_operations name: "a/thing/to/remember"
 
     assert_equal 1, enumerable.response.operations.count
   end
 
   def test_delete_operation
-    client = new_operations_client
-
-    response = client.delete_operation name: "foo"
+    response = @client.delete_operation name: "foo"
 
     assert_instance_of Google::Protobuf::Empty, response
   end
 
   def test_cancel_operation
-    client = new_operations_client
-
-    response = client.cancel_operation name: "bar"
+    response = @client.cancel_operation name: "bar"
 
     assert_instance_of Google::Protobuf::Empty, response
   end

@@ -19,10 +19,12 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class EchoTest < ShowcaseTest
-  def test_echo
-    client = new_client
+  def setup
+    @client = new_client
+  end
 
-    response = client.echo content: "hi there!"
+  def test_echo
+    response = @client.echo content: "hi there!"
 
     assert_equal "hi there!", response.content
   end
