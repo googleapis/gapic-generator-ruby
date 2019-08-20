@@ -20,7 +20,7 @@ require "grpc"
 
 class WaitTest < ShowcaseTest
   def setup
-    @client = new_client
+    @client = new_echo_client
   end
 
   def test_wait

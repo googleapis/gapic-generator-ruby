@@ -20,7 +20,7 @@ require "grpc"
 
 class PagedExpandTest < ShowcaseTest
   def setup
-    @client = new_client
+    @client = new_echo_client
   end
 
   def test_paged_expand

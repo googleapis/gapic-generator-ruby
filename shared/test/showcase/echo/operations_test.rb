@@ -21,7 +21,7 @@ require "grpc"
 
 class OperationsTest < ShowcaseTest
   def setup
-    @client = new_operations_client
+    @client = new_echo_operations_client
   end
 
   def test_raise_invalid_get_operation
