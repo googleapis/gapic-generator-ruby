@@ -10,9 +10,7 @@
 #
 # @raise [Gapic::GapicError] if the RPC is aborted.
 #
-# @example
-<%= indent method.code_example, "#   " %>
-#
+<%= render partial: "service/client/method/docs/code_examples", locals: { method: method } -%>
 def <%= method.name %> request, options = nil, &block
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 

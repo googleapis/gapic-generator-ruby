@@ -122,8 +122,18 @@ class MethodPresenter
     ]
   end
 
-  def code_example
-    "TODO "
+  #   rpc: Recognize
+  # service: google.cloud.speech.v1.Speech   service: google.cloud.speech.v1.Speech rpc: Recognize
+  def code_examples
+    # raise @api.samples.inspect
+    samples = @api.samples.select { |x| x["service"] == @method.address[0...-1].join(".") && x["rpc"] == @method.name }
+    puts "service: #{@method.address[0...-1].join(".")} rpc: #{@method.name}"
+    samples.map { |s| OpenStruct.new(title: s["title"], code: "# TODO") }
+
+    # @api.samples # Array<Hash> -> SampleGen::Thingie
+    # SampleGen#for MethodPresenter
+    # SampleGen#for service_string, rpc_string
+    # @api.samples.for @method.address[0...-1].join("."), @method.name
   end
 
   def lro?

@@ -1,0 +1,4 @@
+<%- assert_locals method -%>
+<%- method.code_examples.each do |code_example|- %>
+<%= render partial: "service/client/method/docs/code_example", locals: { code_example: code_example } -%>
+<%- end -%>
