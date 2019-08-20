@@ -20,12 +20,10 @@ require "grpc"
 
 class EchoTest < ShowcaseTest
   def test_echo
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
+    client = new_client
 
-    response = client.echo content: 'hi there!'
+    response = client.echo content: "hi there!"
 
-    assert_equal 'hi there!', response.content
+    assert_equal "hi there!", response.content
   end
 end

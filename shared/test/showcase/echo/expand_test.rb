@@ -20,9 +20,7 @@ require "grpc"
 
 class ExpandTest < ShowcaseTest
   def test_expand
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
+    client = new_client
 
     request_content = "The quick brown fox jumps over the lazy dog"
 

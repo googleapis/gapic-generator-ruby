@@ -20,11 +20,7 @@ require "grpc"
 
 class ChatTest < ShowcaseTest
   def test_chat
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new(
-        "localhost:7469", nil, :this_channel_is_insecure
-      )
-    end
+    client = new_client
 
     pull_count = 0
 
