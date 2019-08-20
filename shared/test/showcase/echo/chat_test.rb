@@ -19,18 +19,16 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class ChatTest < ShowcaseTest
-  def test_chat
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new(
-        "localhost:7469", nil, :this_channel_is_insecure
-      )
-    end
+  def setup
+    @client = new_client
+  end
 
+  def test_chat
     pull_count = 0
 
     stream_input = Gapic::StreamInput.new
 
-    responses = client.chat stream_input
+    responses = @client.chat stream_input
 
     Thread.new do
       10.times do |n|

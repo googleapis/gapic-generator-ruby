@@ -19,12 +19,12 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class WaitTest < ShowcaseTest
-  def test_wait
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
+  def setup
+    @client = new_client
+  end
 
-    operation = client.wait ttl: { nanos: 500000 }, success: { content: "hi there!" }
+  def test_wait
+    operation = @client.wait ttl: { nanos: 500000 }, success: { content: "hi there!" }
 
     refute operation.done?
     operation.wait_until_done!
@@ -35,11 +35,7 @@ class WaitTest < ShowcaseTest
   end
 
   def test_wait_error
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
-
-    operation = client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
+    operation = @client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
 
     refute operation.done?
     operation.wait_until_done!

@@ -19,13 +19,11 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class CollectTest < ShowcaseTest
-  def test_collect
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new(
-        "localhost:7469", nil, :this_channel_is_insecure
-      )
-    end
+  def setup
+    @client = new_client
+  end
 
+  def test_collect
     stream_input = Gapic::StreamInput.new
 
     Thread.new do
@@ -36,7 +34,7 @@ class CollectTest < ShowcaseTest
       stream_input.close
     end
 
-    response = client.collect stream_input
+    response = @client.collect stream_input
 
     assert_equal "well hello there old friend", response.content
   end

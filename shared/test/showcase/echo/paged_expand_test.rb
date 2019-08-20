@@ -19,14 +19,14 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class PagedExpandTest < ShowcaseTest
-  def test_paged_expand
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
+  def setup
+    @client = new_client
+  end
 
+  def test_paged_expand
     request_content = "The quick brown fox jumps over the lazy dog"
 
-    response_enum = client.paged_expand content: request_content
+    response_enum = @client.paged_expand content: request_content
 
     assert_kind_of Gapic::PagedEnumerable, response_enum
 
@@ -36,13 +36,9 @@ class PagedExpandTest < ShowcaseTest
   end
 
   def test_page_size
-    client = Google::Showcase::V1beta1::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
-
     request_content = "The quick brown fox jumps over the lazy dog"
 
-    response_enum = client.paged_expand content: request_content, page_size: 2
+    response_enum = @client.paged_expand content: request_content, page_size: 2
 
     assert_kind_of Gapic::PagedEnumerable, response_enum
     assert_kind_of Google::Showcase::V1beta1::PagedExpandResponse, response_enum.page.response
