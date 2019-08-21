@@ -24,7 +24,7 @@ class MethodPresenter
 
   def initialize api, method
     @api = api
-    @method  = method
+    @method = method
   end
 
   def service

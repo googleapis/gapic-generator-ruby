@@ -47,6 +47,11 @@ class FieldPresenter
     end
   end
 
+  def doc_attribute_type
+    mode = @field.output_only? ? "r" : "rw"
+    "@!attribute [#{mode}] #{@field.name}"
+  end
+
   def output_doc_types
     return message_ruby_type @field.message if @field.message?
     doc_types

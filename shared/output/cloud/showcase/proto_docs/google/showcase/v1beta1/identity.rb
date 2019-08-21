@@ -27,10 +27,10 @@ module Google
       # @!attribute [rw] email
       #   @return [String]
       #     The email address of the user.
-      # @!attribute [rw] create_time
+      # @!attribute [r] create_time
       #   @return [Google::Protobuf::Timestamp]
       #     The timestamp at which the user was created.
-      # @!attribute [rw] update_time
+      # @!attribute [r] update_time
       #   @return [Google::Protobuf::Timestamp]
       #     The latest timestamp at which the user was updated.
       class User

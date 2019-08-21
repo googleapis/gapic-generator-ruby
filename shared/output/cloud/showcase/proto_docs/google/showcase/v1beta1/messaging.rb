@@ -27,10 +27,10 @@ module Google
       # @!attribute [rw] description
       #   @return [String]
       #     The description of the chat room.
-      # @!attribute [rw] create_time
+      # @!attribute [r] create_time
       #   @return [Google::Protobuf::Timestamp]
       #     The timestamp at which the room was created.
-      # @!attribute [rw] update_time
+      # @!attribute [r] update_time
       #   @return [Google::Protobuf::Timestamp]
       #     The latest timestamp at which the room was updated.
       class Room
@@ -128,10 +128,10 @@ module Google
       # @!attribute [rw] image
       #   @return [String]
       #     The image content of this blurb.
-      # @!attribute [rw] create_time
+      # @!attribute [r] create_time
       #   @return [Google::Protobuf::Timestamp]
       #     The timestamp at which the blurb was created.
-      # @!attribute [rw] update_time
+      # @!attribute [r] update_time
       #   @return [Google::Protobuf::Timestamp]
       #     The latest timestamp at which the blurb was updated.
       class Blurb
