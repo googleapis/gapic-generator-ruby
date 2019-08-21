@@ -39,13 +39,13 @@ def generate_library_for_test imports, protos
 end
 
 class ShowcaseTest < Minitest::Test
-  def new_client
+  def new_echo_client
     Google::Showcase::V1beta1::Echo::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
     end
   end
 
-  def new_operations_client
+  def new_echo_operations_client
     Google::Showcase::V1beta1::Echo::Operations.new do |config|
       config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
     end
