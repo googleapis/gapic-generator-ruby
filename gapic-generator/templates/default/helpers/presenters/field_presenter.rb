@@ -74,8 +74,7 @@ class FieldPresenter
       "{}"
     elsif @field.enum?
       # TODO: select the first non-0 enum value
-      # ":ENUM"
-      @field.enum.values.first
+      @field.enum.values.first.name
     else
       case @field.type
       when 1, 2                              then "3.14"

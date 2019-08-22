@@ -16,7 +16,7 @@
 
 require "test_helper"
 
-class ShowcaseIdentityFieldTest < PresenterTest
+class FieldPresenterShowcaseTest < PresenterTest
   def presenter method_name
     method_presenter :showcase, "Identity", method_name
   end
