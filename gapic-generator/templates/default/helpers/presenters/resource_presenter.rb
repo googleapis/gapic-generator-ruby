@@ -20,17 +20,16 @@ require "active_support/inflector"
 
 class ResourcePresenter
   def initialize name, path_template
-    @name     = name
+    @name = name
     @path_template = path_template
     @segments = Gapic::PathTemplate.parse path_template
 
     # URI path template verification for expected proto resource usage
-    if positional_args? @segments
-      raise ArgumentError, "only resources with named segments are supported, " \
-                           " not #{path_template}"
-    end
     if named_arg_patterns? @segments
       raise ArgumentError, "only resources without named patterns are supported, " \
+                           " not #{path_template}"
+    elsif positional_args? @segments
+      raise ArgumentError, "only resources with named segments are supported, " \
                            " not #{path_template}"
     end
   end
@@ -49,15 +48,15 @@ class ResourcePresenter
 
   def arguments
     # We only expect that named args are present
-    arg_segments(@segments).map do |arg|
+    arg_structs = arg_segments(@segments).map do |arg|
       OpenStruct.new(
-        name: arg.name,
-        msg: "#{arg.name} cannot contain /",
+        name:   arg.name,
+        msg:    "#{arg.name} cannot contain /",
         regexp: "/([^/]+)/"
       )
-    end.tap do |arg_structs|
-      arg_structs.last.regexp = nil
     end
+    arg_structs.last.regexp = nil
+    arg_structs
   end
 
   def path_string

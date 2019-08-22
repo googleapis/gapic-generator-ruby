@@ -9,13 +9,6 @@ AllCops:
 Documentation:
   Enabled: false
 
-Metrics/AbcSize:
-  Exclude:
-    - lib/gapic/generators/ads_generator.rb
-Metrics/LineLength:
-  Exclude:
-    - lib/gapic/generators/ads_generator.rb
-
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/MethodCallWithArgsParentheses:

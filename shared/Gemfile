@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
+gem "gapic-common", path: "../gapic-common"
 gem "gapic-generator", path: "../gapic-generator"
 gem "gapic-generator-cloud", path: "../gapic-generator-cloud"
-gem "gapic-common", path: "../gapic-common"
 gem "grpc-tools", "~> 1.18"
 gem "minitest", "~> 5.0"
 gem "minitest-autotest", "~> 1.0"
