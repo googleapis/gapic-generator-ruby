@@ -3,22 +3,11 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "gapic-common.gemspec"
     - "test/**/*"
 
-Metrics/AbcSize:
+Metrics/BlockLength:
   Exclude:
-    - "lib/gapic/config.rb"
-Metrics/CyclomaticComplexity:
-  Exclude:
-    - "lib/gapic/config.rb"
-Metrics/MethodLength:
-  Exclude:
-    - "lib/gapic/config.rb"
-Metrics/PerceivedComplexity:
-  Exclude:
-    - "lib/gapic/config.rb"
-    - "lib/gapic/grpc/service_stub.rb"
+    - gapic-common.gemspec
 
 Naming/FileName:
   Exclude:
@@ -29,9 +18,6 @@ Style/Documentation:
     - "lib/gapic/grpc/service_stub/rpc_call.rb"
     - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
-Style/GuardClause:
-  Exclude:
-    - "lib/gapic/grpc/service_stub.rb"
 Style/CaseEquality:
   Exclude:
     - "lib/gapic/config.rb"

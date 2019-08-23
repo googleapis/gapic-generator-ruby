@@ -48,6 +48,6 @@ class FilePresenter
   end
 
   def docs_file_path
-    @file.name.gsub(".proto", ".rb")
+    @file.name.gsub ".proto", ".rb"
   end
 end
