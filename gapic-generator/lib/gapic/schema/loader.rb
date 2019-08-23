@@ -26,9 +26,6 @@ module Gapic
   module Schema
     # Loader
     class Loader
-      # Empty location for things with no comments.
-      EMPTY = Google::Protobuf::SourceCodeInfo::Location.new
-
       # Initializes the loader
       def initialize
         @prior_messages = []
@@ -49,9 +46,7 @@ module Gapic
 
         # Load the docs.
         location = file_descriptor.source_code_info.location
-        docs = location.each_with_object({}) do |l, ans|
-          ans[l.path] = l
-        end
+        docs = location.each_with_object({}) { |l, ans| ans[l.path] = l }
 
         # Load top-level enums.
         enums = file_descriptor.enum_type.each_with_index.map do |e, i|
@@ -109,9 +104,8 @@ module Gapic
 
         # Construct, cache and return enum.
         enum = Enum.new descriptor, address, docs[path], values
-        registry[address.join(".")] = enum
         @prior_enums << enum
-        enum
+        add_to_registry registry, address, enum
       end
 
       # Loads an enum value.
@@ -131,8 +125,7 @@ module Gapic
 
         # Construct and return value.
         enum_value = EnumValue.new descriptor, address, docs[path]
-        registry[address.join(".")] = enum_value
-        enum_value
+        add_to_registry registry, address, enum_value
       end
 
       # Loads a message. As a side effect, this alters @messages and @enums
@@ -166,18 +159,10 @@ module Gapic
         end
 
         # Construct, cache, and return.
-        msg = Message.new(
-          descriptor,
-          address,
-          docs[path],
-          fields,
-          extensions,
-          nested_messages,
-          nested_enums
-        )
-        registry[address.join(".")] = msg
+        msg = Message.new(descriptor, address, docs[path], fields, extensions,
+                          nested_messages, nested_enums)
         @prior_messages << msg
-        msg
+        add_to_registry registry, address, msg
       end
 
       # Loads a field.
@@ -196,15 +181,9 @@ module Gapic
         address = address.clone << descriptor.name
 
         # Construct and return the field.
-        field = Field.new(
-          descriptor,
-          address,
-          docs[path],
-          cached_message(descriptor.type_name),
-          cached_enum(descriptor.type_name)
-        )
-        registry[address.join(".")] = field
-        field
+        field = Field.new(descriptor, address, docs[path],
+                          cached_message(descriptor.type_name), cached_enum(descriptor.type_name))
+        add_to_registry registry, address, field
       end
 
       # Loads a service.
@@ -228,14 +207,8 @@ module Gapic
         end
 
         # Construct and return the service.
-        service = Service.new(
-          descriptor,
-          address,
-          docs[path],
-          methods
-        )
-        registry[address.join(".")] = service
-        service
+        service = Service.new descriptor, address, docs[path], methods
+        add_to_registry registry, address, service
       end
 
       # Loads a method.
@@ -254,15 +227,9 @@ module Gapic
         address = address.clone << descriptor.name
 
         # Construct and return the method.
-        method = Method.new(
-          descriptor,
-          address,
-          docs[path],
-          cached_message(descriptor.input_type),
-          cached_message(descriptor.output_type)
-        )
-        registry[address.join(".")] = method
-        method
+        method = Method.new(descriptor, address, docs[path],
+                            cached_message(descriptor.input_type), cached_message(descriptor.output_type))
+        add_to_registry registry, address, method
       end
 
       # Retrieves an Enum if it has been seen before.
@@ -271,14 +238,7 @@ module Gapic
       # @return [Enum | nil] The enum if it has already been seen or nil if
       #   no enum can be found.
       def cached_enum type_name
-        # Remove leading dot.
-        type_name = type_name[1..-1] if type_name && type_name[0] == "."
-
-        # Create an address from the type.
-        address = type_name.split "."
-
-        # Check cache.
-        @prior_enums.find { |e| e.address == address }
+        cached_obj @prior_enums, type_name
       end
 
       # Retrieves a Message if it has been seen before.
@@ -287,14 +247,22 @@ module Gapic
       # @return [Enum | nil] The message if it has already been seen or nil if
       #   no message can be found.
       def cached_message type_name
+        cached_obj @prior_messages, type_name
+      end
+
+      private
+
+      def add_to_registry registry, address, obj
+        registry[address.join(".")] = obj
+        obj
+      end
+
+      def cached_obj collection, type_name
         # Remove leading dot.
         type_name = type_name[1..-1] if type_name && type_name[0] == "."
 
-        # Create an address from the type.
-        address = type_name.split "."
-
-        # Check cache.
-        @prior_messages.find { |m| m.address == address }
+        # Create an address from the type & check cache.
+        collection.find { |m| m.address == type_name.split(".") }
       end
     end
   end

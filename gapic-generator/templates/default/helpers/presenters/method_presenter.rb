@@ -24,7 +24,7 @@ class MethodPresenter
 
   def initialize api, method
     @api = api
-    @method  = method
+    @method = method
   end
 
   def service
@@ -56,7 +56,7 @@ class MethodPresenter
       .docs
       .leading_comments
       .each_line
-      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
       .join
   end
 
@@ -105,18 +105,18 @@ class MethodPresenter
     if lro?
       return [
         OpenStruct.new(
-          name: "operation",
+          name:      "operation",
           doc_types: "Gapic::Operation"
         )
       ]
     end
     [
       OpenStruct.new(
-        name: "result",
+        name:      "result",
         doc_types: return_type
       ),
       OpenStruct.new(
-        name: "operation",
+        name:      "operation",
         doc_types: "GRPC::ActiveCall::Operation"
       )
     ]
@@ -161,7 +161,7 @@ class MethodPresenter
   #
   def routing_params
     segments = Gapic::PathTemplate.parse method_path
-    segments.select { |s| s.is_a? Gapic::PathTemplate::Segment }.map &:name
+    segments.select { |s| s.is_a? Gapic::PathTemplate::Segment }.map(&:name)
   end
 
   def routing_params?
@@ -219,11 +219,13 @@ class MethodPresenter
 
   def method_path
     return "" if @method.http.nil?
-    return @method.http.get unless @method.http.get.empty?
-    return @method.http.post unless @method.http.post.empty?
-    return @method.http.put unless @method.http.put.empty?
-    return @method.http.patch unless @method.http.patch.empty?
-    return @method.http.delete unless @method.http.delete.empty?
+
+    method = [
+      @method.http.get, @method.http.post, @method.http.put,
+      @method.http.patch, @method.http.delete
+    ].find { |x| !x.empty? }
+    return method unless method.nil?
+
     return @method.http.custom.path unless @method.http.custom.nil?
   end
 
