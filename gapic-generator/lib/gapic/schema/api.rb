@@ -110,19 +110,15 @@ module Gapic
       def samples
         @samples ||= begin
           sam = []
-# raise protoc_options[:samples].inspect
           if protoc_options[:samples]
             require "yaml"
             path = protoc_options[:samples]
-# raise path.inspect
             files = Dir.glob "#{path}/*.yaml"
-# raise files.inspect
             files.each do |file|
               yaml = YAML.load_file file
               sam += yaml["samples"] if yaml["samples"]
             end
           end
-# puts sam.to_yaml
           sam
         end
       end

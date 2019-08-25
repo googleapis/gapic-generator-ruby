@@ -113,7 +113,7 @@ end
 
 task default: :ci
 
-def generate_input_file service, protos, samples = nil  # TODO: support multiple paths
+def generate_input_file service, protos, samples = nil  # TODO: support Array of multiple samples filepaths
   require "tmpdir"
 
   Dir.mktmpdir do |tmp|
@@ -131,8 +131,8 @@ def generate_input_file service, protos, samples = nil  # TODO: support multiple
       "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
       "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin",
     ]
-    puts "--ruby_gapic_opt=samples=../shared/googleapis/#{samples}" unless samples.nil?
-    protoc_cmd <<  "--ruby_gapic_opt=samples=../shared/googleapis/#{samples}" unless samples.nil?
+    # Add optional samples paths
+    protoc_cmd <<  "--ruby_gapic_opt=samples=../gapic-generator/test/data/samples/#{samples}" unless samples.nil?
 
     `#{protoc_cmd.join " "}`
   end

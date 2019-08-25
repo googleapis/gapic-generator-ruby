@@ -18,6 +18,7 @@ require "active_support/inflector"
 require "gapic/path_template"
 require_relative "service_presenter"
 require_relative "field_presenter"
+require_relative "sample_presenter"
 
 class MethodPresenter
   include NamespaceHelper
@@ -122,18 +123,14 @@ class MethodPresenter
     ]
   end
 
-  #   rpc: Recognize
-  # service: google.cloud.speech.v1.Speech   service: google.cloud.speech.v1.Speech rpc: Recognize
-  def code_examples
-    # raise @api.samples.inspect
-    samples = @api.samples.select { |x| x["service"] == @method.address[0...-1].join(".") && x["rpc"] == @method.name }
-    puts "service: #{@method.address[0...-1].join(".")} rpc: #{@method.name}"
-    samples.map { |s| OpenStruct.new(title: s["title"], code: "# TODO") }
-
-    # @api.samples # Array<Hash> -> SampleGen::Thingie
-    # SampleGen#for MethodPresenter
-    # SampleGen#for service_string, rpc_string
-    # @api.samples.for @method.address[0...-1].join("."), @method.name
+  # @api.samples and sample_configs are yaml configuration files such as
+  # speech_transcribe_sync_gcs.yaml
+  def samples
+    sample_configs = @api.samples.select do |sample_config|
+      sample_config["service"] == @method.address[0...-1].join(".") &&
+        sample_config["rpc"] == @method.name
+    end
+    sample_configs.map { |sample_config| SamplePresenter.new @api, sample_config }
   end
 
   def lro?
