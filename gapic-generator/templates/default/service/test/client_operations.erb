@@ -1,0 +1,11 @@
+<%- assert_locals service -%>
+<%= render partial: "service/test/setup", locals: { service: service } %>
+describe <%= service.operations_name_full %> do
+<% service.lro_service.methods.each do |method| %>
+<%= indent render(partial: "service/test/method/#{method.kind}",
+                  locals: { client_name_full: service.operations_name_full, method: method }), 2 %>
+<% if method != service.lro_service.methods.last %>
+
+<% end %>
+<% end %>
+end

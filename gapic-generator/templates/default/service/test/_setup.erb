@@ -1,0 +1,51 @@
+<%- assert_locals service -%>
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+require "minitest/autorun"
+
+require "<%= service.proto_service_require %>"
+require "<%= service.proto_services_require %>"
+require "<%= service.service_require %>"
+
+class CustomTestErrorV1 < StandardError; end
+# Mock for the GRPC::ClientStub class.
+class MockGrpcClientStubV1
+  # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
+  # @param mock_method [Proc] The method that is being mocked.
+  def initialize expected_symbol, mock_method
+    @expected_symbol = expected_symbol
+    @mock_method = mock_method
+  end
+
+  # This overrides the Object#method method to return the mocked method when the mocked method
+  # is being requested. For methods that aren"t being tested, this method returns a proc that
+  # will raise an error when called. This is to assure that only the mocked grpc method is being
+  # called.
+  #
+  # @param symbol [Symbol] The symbol of the method being requested.
+  # @return [Proc] The proc of the requested method. If the requested method is not being mocked
+  #   the proc returned will raise when called.
+  def method symbol
+    return @mock_method if symbol == @expected_symbol
+
+    # The requested method is not being tested, raise if it called.
+    proc do
+      raise "The method #{symbol} was unexpectedly called during the " \
+        "test for #{@expected_symbol}."
+    end
+  end
+end
+
+class Mock<%= service.name %>Credentials<%= service.version %> < <%= service.credentials_name_full %>
+  def initialize method_name
+    @method_name = method_name
+  end
+
+  def updater_proc
+    proc do
+      raise "The method `#{@method_name}` was trying to make a grpc request. This should not " \
+          "happen since the grpc layer is being mocked."
+    end
+  end
+end

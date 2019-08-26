@@ -124,6 +124,10 @@ class VisionProductSearchServiceTest < PresenterTest
     assert_equal "google/cloud/vision/v1/product_search_test.rb", presenter.test_client_file_path
   end
 
+  def test_test_client_operations_file_path
+    assert_equal "google/cloud/vision/v1/product_search_operations_test.rb", presenter.test_client_operations_file_path
+  end
+
   def test_stub_name
     assert_equal "product_search_stub", presenter.stub_name
   end
