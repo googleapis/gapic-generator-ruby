@@ -18,7 +18,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 6 %>
 <%- end -%>
       OpenStruct.new execute: expected_response
     end
@@ -48,7 +48,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 6 %>
 <%- end -%>
       raise custom_error
     end

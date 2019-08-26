@@ -74,14 +74,13 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       parent = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::BatchAnnotateImagesResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::BatchAnnotateImagesResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+      assert_equal parent, request.parent
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
@@ -117,8 +116,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+      assert_equal parent, request.parent
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
@@ -153,14 +152,13 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       parent = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::BatchAnnotateFilesResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::BatchAnnotateFilesResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateFileRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateFileRequest), request.requests
+      assert_equal parent, request.parent
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_files, mock_method
@@ -196,8 +194,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateFileRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateFileRequest), request.requests
+      assert_equal parent, request.parent
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :batch_annotate_files, mock_method
@@ -233,8 +231,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       parent = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -246,9 +243,9 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+      assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
+      assert_equal parent, request.parent
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_images, mock_method
@@ -288,9 +285,9 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+      assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
+      assert_equal parent, request.parent
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_images, mock_method
@@ -321,9 +318,9 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
+      assert_equal Gapic::Protobuf.coerce(output_config, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
+      assert_equal parent, request.parent
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_images, mock_method
@@ -358,8 +355,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       parent = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -371,8 +367,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+      assert_equal parent, request.parent
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
@@ -411,8 +407,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+      assert_equal parent, request.parent
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
@@ -442,8 +438,8 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
+      assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
+      assert_equal parent, request.parent
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method

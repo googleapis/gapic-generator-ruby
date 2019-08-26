@@ -73,13 +73,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       room = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_room, mock_method
@@ -114,7 +113,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_room, mock_method
@@ -148,13 +147,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_room, mock_method
@@ -189,7 +187,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_room, mock_method
@@ -224,14 +222,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
-        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_room, mock_method
@@ -267,8 +264,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
-        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_room, mock_method
@@ -302,13 +299,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_room, mock_method
@@ -343,7 +339,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteRoomRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_room, mock_method
@@ -378,14 +374,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::ListRoomsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::ListRoomsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListRoomsRequest, request
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_rooms, mock_method
@@ -421,8 +416,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListRoomsRequest, request
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_rooms, mock_method
@@ -457,14 +452,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       blurb = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal parent, request.parent
+      assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_blurb, mock_method
@@ -500,8 +494,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal parent, request.parent
+      assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_blurb, mock_method
@@ -535,13 +529,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_blurb, mock_method
@@ -576,7 +569,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_blurb, mock_method
@@ -611,14 +604,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
-        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_blurb, mock_method
@@ -654,8 +646,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
-        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_blurb, mock_method
@@ -689,13 +681,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_blurb, mock_method
@@ -730,7 +721,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteBlurbRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_blurb, mock_method
@@ -766,15 +757,14 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::ListBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::ListBlurbsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal parent, request.parent
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_blurbs, mock_method
@@ -811,9 +801,9 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal parent, request.parent
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_blurbs, mock_method
@@ -850,8 +840,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -863,10 +852,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::SearchBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(query, to: ), request.query
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal query, request.query
+      assert_equal parent, request.parent
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
@@ -907,10 +896,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::SearchBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(query, to: ), request.query
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal query, request.query
+      assert_equal parent, request.parent
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
@@ -942,10 +931,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::SearchBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(query, to: ), request.query
-        assert_equal Gapic::Protobuf.coerce(parent, to: ), request.parent
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal query, request.query
+      assert_equal parent, request.parent
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
@@ -980,13 +969,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       expire_time = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::StreamBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::StreamBlurbsResponse
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::StreamBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+        assert_equal name, request.name
         assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         OpenStruct.new execute: expected_response
       end
@@ -1017,7 +1005,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::StreamBlurbsRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+        assert_equal name, request.name
         assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         raise custom_error
       end
@@ -1052,8 +1040,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::SendBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::SendBlurbsResponse
 
       # Mock Grpc layer
       mock_method = proc do |requests|
@@ -1115,8 +1102,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Showcase::V1beta1::StreamBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::StreamBlurbsResponse
 
       # Mock Grpc layer
       mock_method = proc do |requests|

@@ -982,8 +982,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::StreamBlurbsRequest, request
-      assert_equal name, request.name
-      assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
+        assert_equal name, request.name
+        assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :stream_blurbs, mock_method
@@ -1013,8 +1013,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::StreamBlurbsRequest, request
-      assert_equal name, request.name
-      assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
+        assert_equal name, request.name
+        assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :stream_blurbs, mock_method

@@ -76,8 +76,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::ListOperationsResponse
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::ListOperationsResponse
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -89,10 +88,10 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
-        assert_equal Gapic::Protobuf.coerce(filter, to: ), request.filter
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal name, request.name
+      assert_equal filter, request.filter
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -133,10 +132,10 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
-        assert_equal Gapic::Protobuf.coerce(filter, to: ), request.filter
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal name, request.name
+      assert_equal filter, request.filter
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -168,10 +167,10 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
-        assert_equal Gapic::Protobuf.coerce(filter, to: ), request.filter
-        assert_equal Gapic::Protobuf.coerce(page_size, to: ), request.page_size
-        assert_equal Gapic::Protobuf.coerce(page_token, to: ), request.page_token
+      assert_equal name, request.name
+      assert_equal filter, request.filter
+      assert_equal page_size, request.page_size
+      assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -205,8 +204,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
@@ -218,7 +216,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -256,7 +254,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -285,7 +283,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -319,13 +317,12 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::DeleteOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
@@ -360,7 +357,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::DeleteOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
@@ -394,13 +391,12 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
 
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::CancelOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
@@ -435,7 +431,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::CancelOperationRequest, request
-        assert_equal Gapic::Protobuf.coerce(name, to: ), request.name
+      assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method

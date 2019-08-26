@@ -165,8 +165,8 @@ describe Google::Showcase::V1beta1::Echo::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ExpandRequest, request
-      assert_equal content, request.content
-      assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
+        assert_equal content, request.content
+        assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :expand, mock_method
@@ -196,8 +196,8 @@ describe Google::Showcase::V1beta1::Echo::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ExpandRequest, request
-      assert_equal content, request.content
-      assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
+        assert_equal content, request.content
+        assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :expand, mock_method
