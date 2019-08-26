@@ -10,8 +10,11 @@ describe "<%= method.name %>" do
 <%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
 
     # Create expected grpc response
+<%- if method.return_type.nil? -%>
     expected_response = {}
-    expected_response = Gapic::Protobuf.coerce expected_response, to: <%= method.return_type %>
+<%- else -%>
+    expected_response = Gapic::Protobuf.coerce {}, to: <%= method.return_type %>
+<%- end -%>
     result = Google::Protobuf::Any.new
     result.pack expected_response
     operation = Google::Longrunning::Operation.new(
@@ -24,7 +27,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
 <%- end -%>
       OpenStruct.new execute: operation
     end
@@ -63,7 +66,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
 <%- end -%>
       OpenStruct.new execute: operation
     end
@@ -90,14 +93,17 @@ describe "<%= method.name %>" do
 <%= indent render(partial: "service/test/method/fields", locals: { method: method }), 4 %>
 
     # Create expected grpc response
+<%- if method.return_type.nil? -%>
     expected_response = {}
-    expected_response = Gapic::Protobuf.coerce expected_response, to: <%= method.return_type %>
+<%- else -%>
+    expected_response = Gapic::Protobuf.coerce {}, to: <%= method.return_type %>
+<%- end -%>
 
     # Mock Grpc layer
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
 <%- end -%>
       OpenStruct.new execute: expected_response
     end
@@ -134,7 +140,7 @@ describe "<%= method.name %>" do
     mock_method = proc do |request|
       assert_instance_of <%= method.request_type %>, request
 <%- method.fields.each do |field| -%>
-      assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%= indent render(partial: "service/test/method/assert_field_equal", locals: { field: field }), 4 %>
 <%- end -%>
       raise custom_error
     end

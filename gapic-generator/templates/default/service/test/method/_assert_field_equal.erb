@@ -1,0 +1,6 @@
+<%- assert_locals field -%>
+<%- if field.type_name_full.nil? -%>
+assert_equal <%= field.name %>, request.<%= field.name %>
+<%- else -%>
+assert_equal Gapic::Protobuf.coerce(<%= field.name %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+<%- end -%>
