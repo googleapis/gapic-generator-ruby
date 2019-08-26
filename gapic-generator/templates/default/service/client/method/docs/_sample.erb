@@ -1,26 +1,29 @@
 <%- assert_locals service, sample -%>
-# @example <%= sample.description %>
-#   require "<%= service.service_require %>"
-#
-#   client = <%= service.client_name_full %>.new
-#
+require "<%= service.service_require %>"
+
+client = <%= service.client_name_full %>.new
+
 <%- sample.input_parameters.each do |field| -%>
-#   <%= field.input_parameter %> = <%= field.value %>
+<%= field.input_parameter %> = <%= field.value %>
 <%- end -%>
-#
-#   audio  = {
-#     uri: storage_uri
-#   }
-#   config = {
-#     sample_rate_hertz: 16_000,
-#     language_code: "en-US",
-#     encoding: :LINEAR16
-#   }
-#
-#   response = client.recognize config, audio
-#   <%= sample.response_variable %> = response.results
-#
-#   # First alternative is the most probable result
-#   alternative = result.alternatives[0]
-#   puts "Transcript: #{alternative.transcript}"
-#
+
+audio  = {
+  # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
+  uri: storage_uri
+}
+config = {
+  # Sample rate in Hertz of the audio data sent
+  sample_rate_hertz: 16000,
+  # The language of the supplied audio
+  language_code: "en-US",
+  # Encoding of audio data sent. This sample sets this explicitly.
+  # This field is optional for FLAC and WAV audio formats.
+  encoding: :LINEAR16
+}
+
+response = client.recognize config: config, audio: audio
+<%= sample.response_variable %> = response.results
+
+# First alternative is the most probable result
+alternative = result.alternatives[0]
+puts "Transcript: #{alternative.transcript}"

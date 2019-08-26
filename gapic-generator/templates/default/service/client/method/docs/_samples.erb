@@ -1,4 +1,6 @@
 <%- assert_locals method -%>
 <%- method.samples.each do |sample| -%>
-<%= render(partial: "service/client/method/docs/sample", locals: { service: method.service, sample: sample }) %>
+# @example <%= sample.description %>
+<%= indent render(partial: "service/client/method/docs/sample", locals: { service: method.service, sample: sample }), "#   " %>
+#
 <%- end -%>

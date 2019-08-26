@@ -28,7 +28,9 @@ module DefaultHelper
 
   def indent input, spacing
     spacing = " " * spacing unless spacing.is_a? String
-    prepend_with(input, spacing).rstrip
+    ret = prepend_with(input, spacing)
+    # Remove trailing whitespace from each line end if present
+    ret.split("\n").map(&:rstrip).join("\n")
   end
 
   def indent_tail input, spacing
