@@ -38,6 +38,29 @@ class SamplePresenterTest < PresenterTest
     assert_equal "\"gs://cloud-samples-data/speech/brooklyn_bridge.raw\"", input_parameters[0].value
   end
 
+  def test_fields
+    fields = @presenter.fields
+    assert_equal 2, fields.size
+
+    assert_kind_of Hash, fields["audio"]
+    assert_equal 1, fields["audio"].size
+    assert_kind_of SamplePresenter::RequestField, fields["audio"]["uri"]
+    assert_equal "audio.uri", fields["audio"]["uri"].field
+    assert_equal "\"gs://cloud-samples-data/speech/brooklyn_bridge.raw\"", fields["audio"]["uri"].value
+    assert_equal "storage_uri", fields["audio"]["uri"].input_parameter
+    assert_equal "URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]", fields["audio"]["uri"].comment
+
+    assert_kind_of Hash, fields["config"]
+    assert_equal 3, fields["config"].size
+    assert_kind_of SamplePresenter::RequestField, fields["config"]["sample_rate_hertz"]
+    assert_kind_of SamplePresenter::RequestField, fields["config"]["language_code"]
+    assert_kind_of SamplePresenter::RequestField, fields["config"]["encoding"]
+    assert_equal "config.encoding", fields["config"]["encoding"].field
+    assert_equal ":LINEAR16", fields["config"]["encoding"].value
+    assert_nil fields["config"]["encoding"].input_parameter
+    assert_equal "Encoding of audio data sent. This sample sets this explicitly.\nThis field is optional for FLAC and WAV audio formats.\n", fields["config"]["encoding"].comment
+  end
+
   def test_response_variable
     assert_equal "result", @presenter.response_variable
   end

@@ -30,6 +30,17 @@ class SamplePresenter
     @sample_config["request"].select { |f| f.has_key? "input_parameter" }.map { |f| RequestField.new f }
   end
 
+  def fields
+    dotted_hash = @sample_config["request"].each_with_object({}) do |f, memo|
+      memo[f["field"]] = f
+    end
+    dotted_hash.each_with_object({}) do |(path, f), memo|
+      parts = path.split "."
+      leaf_hash = parts[0...-1].inject(memo) { |h, k| h[k] ||= {} }
+      leaf_hash[parts.last] = RequestField.new f
+    end
+  end
+
   def response_variable
     @sample_config["response"][0]["loop"]["variable"]
   end
@@ -45,10 +56,10 @@ class SamplePresenter
 
     def convert val
       if val.is_a? String
-        return ":#{val}" if val.match /\A[A-Z_]+/ # print constants as symbols
+        return ":#{val}" if val.match(/\A[A-Z_]+/) # print constants as symbols
         "\"#{val}\""
       else
-        val
+        val.to_s
       end
     end
   end

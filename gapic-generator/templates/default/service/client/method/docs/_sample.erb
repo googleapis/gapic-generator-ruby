@@ -7,19 +7,16 @@ client = <%= service.client_name_full %>.new
 <%= field.input_parameter %> = <%= field.value %>
 <%- end -%>
 
-audio  = {
-  # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
-  uri: storage_uri
+<%- sample.fields.each_pair do |k,v| -%>
+<%= k %> = {
+<%- v.each_pair do |k2,v2| -%>
+<%- if v2.comment  -%>
+<%= indent v2.comment, "  # " %>
+<%- end -%>
+  <%= k2 %>: <%= v2.input_parameter ? v2.input_parameter : v2.value %><%= "," unless v2 == v.values.last %>
+<%- end -%>
 }
-config = {
-  # Sample rate in Hertz of the audio data sent
-  sample_rate_hertz: 16000,
-  # The language of the supplied audio
-  language_code: "en-US",
-  # Encoding of audio data sent. This sample sets this explicitly.
-  # This field is optional for FLAC and WAV audio formats.
-  encoding: :LINEAR16
-}
+<%- end -%>
 
 response = client.recognize config: config, audio: audio
 <%= sample.response_variable %> = response.results

@@ -147,7 +147,7 @@ module Google
             #
             #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
             #
-            #   audio  = {
+            #   audio = {
             #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
             #     uri: storage_uri
             #   }
