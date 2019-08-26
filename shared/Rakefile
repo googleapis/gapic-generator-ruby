@@ -63,7 +63,7 @@ namespace :validate do
   protos.each do |name, input|
     desc "Validate the #{name} library (run unit tests)"
     task name.to_sym do
-      install_and_run_unit_tests input
+      install_and_run_unit_tests name, input
     end
   end
 end
@@ -154,11 +154,16 @@ def generate_library_for_test protos
   end
 end
 
-def install_and_run_unit_tests protos
+def install_and_run_unit_tests name, protos
+  require "open3"
+
   generate_library_for_test protos do |dir|
     Bundler.with_clean_env do
       Dir.chdir dir do
-        `bundle install && bundle exec rake test`
+        puts "Validating #{name}..."
+        stdout, stderr, status = Open3.capture3 "bundle install && bundle exec rake test"
+        puts stdout
+        puts stderr unless status.success?
       end
     end
   end
