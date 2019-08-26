@@ -20,9 +20,10 @@ require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/cloud_speech_services_pb"
 require "google/cloud/speech/v1/speech"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestSpeechErrorV1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcSpeechStubV1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -65,7 +66,7 @@ end
 describe Google::Cloud::Speech::V1::Speech::Client do
   describe "recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#recognize."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#recognize."
     end
 
     it "invokes recognize without error" do
@@ -74,7 +75,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
       audio = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Speech::V1::RecognizeResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Speech::V1::RecognizeResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -83,7 +84,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         assert_equal Gapic::Protobuf.coerce(audio, to: Google::Cloud::Speech::V1::RecognitionAudio), request.audio
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "recognize"
@@ -120,7 +121,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         assert_equal Gapic::Protobuf.coerce(audio, to: Google::Cloud::Speech::V1::RecognitionAudio), request.audio
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "recognize"
@@ -143,7 +144,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
 
   describe "long_running_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
     end
 
     it "invokes long_running_recognize without error" do
@@ -152,12 +153,12 @@ describe Google::Cloud::Speech::V1::Speech::Client do
       audio = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/long_running_recognize_test",
-        done: true,
+        name:     "operations/long_running_recognize_test",
+        done:     true,
         response: result
       )
 
@@ -168,7 +169,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         assert_equal Gapic::Protobuf.coerce(audio, to: Google::Cloud::Speech::V1::RecognitionAudio), request.audio
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :long_running_recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :long_running_recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
@@ -196,8 +197,8 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         message: "Operation error for Google::Cloud::Speech::V1::Speech::Client#long_running_recognize."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/long_running_recognize_test",
-        done: true,
+        name:  "operations/long_running_recognize_test",
+        done:  true,
         error: operation_error
       )
 
@@ -208,7 +209,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         assert_equal Gapic::Protobuf.coerce(audio, to: Google::Cloud::Speech::V1::RecognitionAudio), request.audio
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :long_running_recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :long_running_recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
@@ -239,7 +240,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
         assert_equal Gapic::Protobuf.coerce(audio, to: Google::Cloud::Speech::V1::RecognitionAudio), request.audio
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :long_running_recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :long_running_recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "long_running_recognize"
@@ -262,7 +263,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
 
   describe "streaming_recognize" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#streaming_recognize."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Client#streaming_recognize."
     end
 
     it "invokes streaming_recognize without error" do
@@ -270,14 +271,14 @@ describe Google::Cloud::Speech::V1::Speech::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Speech::V1::StreamingRecognizeResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Speech::V1::StreamingRecognizeResponse)
 
       # Mock Grpc layer
       mock_method = proc do |requests|
         request = requests.first
         OpenStruct.new execute: [expected_response]
       end
-      mock_stub = MockGrpcClientStubV1.new :streaming_recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :streaming_recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "streaming_recognize"
@@ -302,7 +303,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
 
       # Mock Grpc layer
       mock_method = proc { raise custom_error }
-      mock_stub = MockGrpcClientStubV1.new :streaming_recognize, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :streaming_recognize, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "streaming_recognize"

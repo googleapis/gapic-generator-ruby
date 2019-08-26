@@ -128,6 +128,12 @@ class ShowcaseEchoServiceTest < PresenterTest
     assert_equal "google/showcase/v1beta1/echo_operations_test.rb", presenter.test_client_operations_file_path
   end
 
+  def test_mock_names
+    assert_equal "MockEchoCredentialsV1beta1", presenter.test_mock_credentials_class_name
+    assert_equal "MockGrpcEchoStubV1beta1", presenter.test_mock_service_stub_class_name
+    assert_equal "CustomTestEchoErrorV1beta1", presenter.test_mock_error_class_name
+  end
+
   def test_stub_name
     assert_equal "echo_stub", presenter.stub_name
   end

@@ -20,9 +20,10 @@ require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search_service_services_pb"
 require "google/cloud/vision/v1/product_search"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestProductSearchErrorV1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcProductSearchStubV1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -65,7 +66,7 @@ end
 describe Google::Cloud::Vision::V1::ProductSearch::Client do
   describe "create_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product_set."
     end
 
     it "invokes create_product_set without error" do
@@ -75,7 +76,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       product_set_id = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ProductSet
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -85,10 +86,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product_set_id, request.product_set_id
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -124,10 +125,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product_set_id, request.product_set_id
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -147,7 +148,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "list_product_sets" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_product_sets."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_product_sets."
     end
 
     it "invokes list_product_sets without error" do
@@ -157,7 +158,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ListProductSetsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ListProductSetsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -167,10 +168,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_product_sets, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_product_sets, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_product_sets"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -206,10 +207,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_product_sets, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_product_sets, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_product_sets"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -229,7 +230,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "get_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product_set."
     end
 
     it "invokes get_product_set without error" do
@@ -237,7 +238,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ProductSet
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -245,10 +246,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -280,10 +281,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -303,7 +304,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "update_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product_set."
     end
 
     it "invokes update_product_set without error" do
@@ -312,7 +313,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ProductSet
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -321,10 +322,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :update_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :update_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "update_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -358,10 +359,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :update_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :update_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "update_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -381,7 +382,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "delete_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product_set."
     end
 
     it "invokes delete_product_set without error" do
@@ -389,7 +390,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -397,10 +398,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -432,10 +433,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -455,7 +456,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "create_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_product."
     end
 
     it "invokes create_product without error" do
@@ -465,7 +466,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       product_id = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::Product
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -475,10 +476,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product_id, request.product_id
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -514,10 +515,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product_id, request.product_id
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -537,7 +538,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "list_products" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products."
     end
 
     it "invokes list_products without error" do
@@ -547,7 +548,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ListProductsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ListProductsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -557,10 +558,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_products, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_products, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_products"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -596,10 +597,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_products, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_products, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_products"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -619,7 +620,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "get_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_product."
     end
 
     it "invokes get_product without error" do
@@ -627,7 +628,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::Product
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -635,10 +636,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -670,10 +671,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -693,7 +694,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "update_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#update_product."
     end
 
     it "invokes update_product without error" do
@@ -702,7 +703,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::Product
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -711,10 +712,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :update_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :update_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "update_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -748,10 +749,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :update_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :update_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "update_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -771,7 +772,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "delete_product" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_product."
     end
 
     it "invokes delete_product without error" do
@@ -779,7 +780,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -787,10 +788,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -822,10 +823,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_product, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_product, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_product"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_product"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -845,7 +846,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "create_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_reference_image."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#create_reference_image."
     end
 
     it "invokes create_reference_image without error" do
@@ -855,7 +856,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       reference_image_id = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ReferenceImage
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ReferenceImage)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -865,10 +866,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal reference_image_id, request.reference_image_id
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -904,10 +905,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal reference_image_id, request.reference_image_id
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :create_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "create_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -927,7 +928,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "delete_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_reference_image."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#delete_reference_image."
     end
 
     it "invokes delete_reference_image without error" do
@@ -935,7 +936,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -943,10 +944,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -978,10 +979,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :delete_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "delete_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1001,7 +1002,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "list_reference_images" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_reference_images."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_reference_images."
     end
 
     it "invokes list_reference_images without error" do
@@ -1011,7 +1012,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ListReferenceImagesResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ListReferenceImagesResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -1021,10 +1022,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_reference_images, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_reference_images, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_reference_images"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_reference_images"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1060,10 +1061,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_reference_images, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_reference_images, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_reference_images"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_reference_images"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1083,7 +1084,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "get_reference_image" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_reference_image."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#get_reference_image."
     end
 
     it "invokes get_reference_image without error" do
@@ -1091,7 +1092,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ReferenceImage
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ReferenceImage)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -1099,10 +1100,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1134,10 +1135,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_reference_image, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :get_reference_image, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_reference_image"
+      mock_credentials = MockProductSearchCredentialsV1.new "get_reference_image"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1157,7 +1158,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "add_product_to_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#add_product_to_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#add_product_to_product_set."
     end
 
     it "invokes add_product_to_product_set without error" do
@@ -1166,7 +1167,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       product = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -1175,10 +1176,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product, request.product
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :add_product_to_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :add_product_to_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "add_product_to_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "add_product_to_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1212,10 +1213,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product, request.product
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :add_product_to_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :add_product_to_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "add_product_to_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "add_product_to_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1235,7 +1236,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "remove_product_from_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#remove_product_from_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#remove_product_from_product_set."
     end
 
     it "invokes remove_product_from_product_set without error" do
@@ -1244,7 +1245,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       product = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -1253,10 +1254,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product, request.product
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :remove_product_from_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :remove_product_from_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "remove_product_from_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "remove_product_from_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1290,10 +1291,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal product, request.product
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :remove_product_from_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :remove_product_from_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "remove_product_from_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "remove_product_from_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1313,7 +1314,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "list_products_in_product_set" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products_in_product_set."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#list_products_in_product_set."
     end
 
     it "invokes list_products_in_product_set without error" do
@@ -1323,7 +1324,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Cloud::Vision::V1::ListProductsInProductSetResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ListProductsInProductSetResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -1333,10 +1334,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_products_in_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_products_in_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_products_in_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_products_in_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1372,10 +1373,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_products_in_product_set, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :list_products_in_product_set, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_products_in_product_set"
+      mock_credentials = MockProductSearchCredentialsV1.new "list_products_in_product_set"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1395,7 +1396,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "import_product_sets" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
     end
 
     it "invokes import_product_sets without error" do
@@ -1404,12 +1405,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       input_config = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/import_product_sets_test",
-        done: true,
+        name:     "operations/import_product_sets_test",
+        done:     true,
         response: result
       )
 
@@ -1420,10 +1421,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :import_product_sets, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
+      mock_credentials = MockProductSearchCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1448,8 +1449,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         message: "Operation error for Google::Cloud::Vision::V1::ProductSearch::Client#import_product_sets."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/import_product_sets_test",
-        done: true,
+        name:  "operations/import_product_sets_test",
+        done:  true,
         error: operation_error
       )
 
@@ -1460,10 +1461,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :import_product_sets, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
+      mock_credentials = MockProductSearchCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1491,10 +1492,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal Gapic::Protobuf.coerce(input_config, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request.input_config
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :import_product_sets, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :import_product_sets, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "import_product_sets"
+      mock_credentials = MockProductSearchCredentialsV1.new "import_product_sets"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1514,7 +1515,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
   describe "purge_products" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#purge_products."
+      CustomTestProductSearchErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ProductSearch::Client#purge_products."
     end
 
     it "invokes purge_products without error" do
@@ -1525,12 +1526,12 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
       force = true
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/purge_products_test",
-        done: true,
+        name:     "operations/purge_products_test",
+        done:     true,
         response: result
       )
 
@@ -1543,10 +1544,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal force, request.force
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :purge_products, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :purge_products, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "purge_products"
+      mock_credentials = MockProductSearchCredentialsV1.new "purge_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1573,8 +1574,8 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         message: "Operation error for Google::Cloud::Vision::V1::ProductSearch::Client#purge_products."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/purge_products_test",
-        done: true,
+        name:  "operations/purge_products_test",
+        done:  true,
         error: operation_error
       )
 
@@ -1587,10 +1588,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal force, request.force
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :purge_products, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :purge_products, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "purge_products"
+      mock_credentials = MockProductSearchCredentialsV1.new "purge_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do
@@ -1622,10 +1623,10 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
         assert_equal force, request.force
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :purge_products, mock_method
+      mock_stub = MockGrpcProductSearchStubV1.new :purge_products, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "purge_products"
+      mock_credentials = MockProductSearchCredentialsV1.new "purge_products"
 
       Google::Cloud::Vision::V1::ProductSearch::Stub.stub :new, mock_stub do
         Google::Cloud::Vision::V1::ProductSearch::Credentials.stub :default, mock_credentials do

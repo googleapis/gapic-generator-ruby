@@ -28,9 +28,10 @@ require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/cloud_speech_services_pb"
 require "google/cloud/speech/v1/speech"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestSpeechErrorV1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcSpeechStubV1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -73,7 +74,7 @@ end
 describe Google::Cloud::Speech::V1::Speech::Operations do
   describe "list_operations" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#list_operations."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#list_operations."
     end
 
     it "invokes list_operations without error" do
@@ -84,12 +85,12 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::ListOperationsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::ListOperationsResponse)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/list_operations_test",
-        done: true,
+        name:     "operations/list_operations_test",
+        done:     true,
         response: result
       )
 
@@ -102,7 +103,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :list_operations, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "list_operations"
@@ -132,8 +133,8 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         message: "Operation error for Google::Cloud::Speech::V1::Speech::Operations#list_operations."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/list_operations_test",
-        done: true,
+        name:  "operations/list_operations_test",
+        done:  true,
         error: operation_error
       )
 
@@ -146,7 +147,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :list_operations, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "list_operations"
@@ -181,7 +182,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :list_operations, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "list_operations"
@@ -204,7 +205,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
 
   describe "get_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#get_operation."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#get_operation."
     end
 
     it "invokes get_operation without error" do
@@ -212,12 +213,12 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/get_operation_test",
-        done: true,
+        name:     "operations/get_operation_test",
+        done:     true,
         response: result
       )
 
@@ -227,7 +228,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :get_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "get_operation"
@@ -254,8 +255,8 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         message: "Operation error for Google::Cloud::Speech::V1::Speech::Operations#get_operation."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/get_operation_test",
-        done: true,
+        name:  "operations/get_operation_test",
+        done:  true,
         error: operation_error
       )
 
@@ -265,7 +266,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :get_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "get_operation"
@@ -294,7 +295,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :get_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "get_operation"
@@ -317,7 +318,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
 
   describe "delete_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#delete_operation."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#delete_operation."
     end
 
     it "invokes delete_operation without error" do
@@ -325,7 +326,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -333,7 +334,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :delete_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "delete_operation"
@@ -368,7 +369,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :delete_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "delete_operation"
@@ -391,7 +392,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
 
   describe "cancel_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#cancel_operation."
+      CustomTestSpeechErrorV1.new "Custom test error for Google::Cloud::Speech::V1::Speech::Operations#cancel_operation."
     end
 
     it "invokes cancel_operation without error" do
@@ -399,7 +400,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -407,7 +408,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :cancel_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "cancel_operation"
@@ -442,7 +443,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
+      mock_stub = MockGrpcSpeechStubV1.new :cancel_operation, mock_method
 
       # Mock auth layer
       mock_credentials = MockSpeechCredentialsV1.new "cancel_operation"
@@ -462,5 +463,4 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       end
     end
   end
-
 end

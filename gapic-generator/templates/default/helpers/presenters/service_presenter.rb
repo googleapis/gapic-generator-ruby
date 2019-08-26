@@ -262,6 +262,18 @@ class ServicePresenter
     { "grpc.service_config_disable_resolution" => 1 }
   end
 
+  def test_mock_credentials_class_name
+    local_mock_class_name prefix: "Mock", suffix: "Credentials"
+  end
+
+  def test_mock_service_stub_class_name
+    local_mock_class_name prefix: "MockGrpc", suffix: "Stub"
+  end
+
+  def test_mock_error_class_name
+    local_mock_class_name prefix: "CustomTest", suffix: "Error"
+  end
+
   private
 
   def default_config key
@@ -269,5 +281,9 @@ class ServicePresenter
     return unless @service.parent.parent.configuration[:defaults][:service]
 
     @service.parent.parent.configuration[:defaults][:service][key]
+  end
+
+  def local_mock_class_name prefix: "", suffix: ""
+    "#{prefix}#{name}#{suffix}#{version}"
   end
 end

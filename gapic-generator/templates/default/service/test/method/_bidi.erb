@@ -1,7 +1,7 @@
-<%- assert_locals method -%>
+<%- assert_locals method, test_mock_error_class_name, test_mock_service_stub_class_name, test_mock_credentials_class_name -%>
 describe "<%= method.name %>" do
   let :custom_error do
-    CustomTestErrorV1.new "Custom test error for <%= method.service.client_name_full %>#<%= method.name %>."
+    <%= test_mock_error_class_name %>.new "Custom test error for <%= method.service.client_name_full %>#<%= method.name %>."
   end
 
   it "invokes <%= method.name %> without error" do
@@ -12,7 +12,7 @@ describe "<%= method.name %>" do
 <%- if method.return_type.nil? -%>
     expected_response = {}
 <%- else -%>
-    expected_response = Gapic::Protobuf.coerce {}, to: <%= method.return_type %>
+    expected_response = Gapic::Protobuf.coerce({}, to: <%= method.return_type %>)
 <%- end -%>
 
     # Mock Grpc layer
@@ -20,10 +20,10 @@ describe "<%= method.name %>" do
       request = requests.first
       OpenStruct.new execute: [expected_response]
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
@@ -45,10 +45,10 @@ describe "<%= method.name %>" do
 
     # Mock Grpc layer
     mock_method = proc { raise custom_error }
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do

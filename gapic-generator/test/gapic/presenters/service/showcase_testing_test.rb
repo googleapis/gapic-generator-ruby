@@ -131,6 +131,12 @@ class ShowcaseTestingServiceTest < PresenterTest
     assert_equal "google/showcase/v1beta1/testing_operations_test.rb", presenter.test_client_operations_file_path
   end
 
+  def test_mock_names
+    assert_equal "MockTestingCredentialsV1beta1", presenter.test_mock_credentials_class_name
+    assert_equal "MockGrpcTestingStubV1beta1", presenter.test_mock_service_stub_class_name
+    assert_equal "CustomTestTestingErrorV1beta1", presenter.test_mock_error_class_name
+  end
+
   def test_stub_name
     assert_equal "testing_stub", presenter.stub_name
   end

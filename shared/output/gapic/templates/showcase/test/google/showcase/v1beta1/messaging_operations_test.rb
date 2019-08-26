@@ -28,9 +28,10 @@ require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging_services_pb"
 require "google/showcase/v1beta1/messaging"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestMessagingErrorV1beta1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcMessagingStubV1beta1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -73,7 +74,7 @@ end
 describe Google::Showcase::V1beta1::Messaging::Operations do
   describe "list_operations" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#list_operations."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#list_operations."
     end
 
     it "invokes list_operations without error" do
@@ -84,12 +85,12 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::ListOperationsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::ListOperationsResponse)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/list_operations_test",
-        done: true,
+        name:     "operations/list_operations_test",
+        done:     true,
         response: result
       )
 
@@ -102,10 +103,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_operations, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_operations"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_operations"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -132,8 +133,8 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         message: "Operation error for Google::Showcase::V1beta1::Messaging::Operations#list_operations."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/list_operations_test",
-        done: true,
+        name:  "operations/list_operations_test",
+        done:  true,
         error: operation_error
       )
 
@@ -146,10 +147,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_operations, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_operations"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_operations"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -181,10 +182,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_operations, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_operations"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_operations"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -204,7 +205,7 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
 
   describe "get_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#get_operation."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#get_operation."
     end
 
     it "invokes get_operation without error" do
@@ -212,12 +213,12 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/get_operation_test",
-        done: true,
+        name:     "operations/get_operation_test",
+        done:     true,
         response: result
       )
 
@@ -227,10 +228,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -254,8 +255,8 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         message: "Operation error for Google::Showcase::V1beta1::Messaging::Operations#get_operation."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/get_operation_test",
-        done: true,
+        name:  "operations/get_operation_test",
+        done:  true,
         error: operation_error
       )
 
@@ -265,10 +266,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -294,10 +295,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -317,7 +318,7 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
 
   describe "delete_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#delete_operation."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#delete_operation."
     end
 
     it "invokes delete_operation without error" do
@@ -325,7 +326,7 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -333,10 +334,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -368,10 +369,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -391,7 +392,7 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
 
   describe "cancel_operation" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#cancel_operation."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Operations#cancel_operation."
     end
 
     it "invokes cancel_operation without error" do
@@ -399,7 +400,7 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -407,10 +408,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :cancel_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "cancel_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "cancel_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -442,10 +443,10 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :cancel_operation, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "cancel_operation"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "cancel_operation"
 
       Google::Longrunning::Operations::Stub.stub :new, mock_stub do
         Google::Longrunning::Operations::Credentials.stub :default, mock_credentials do
@@ -462,5 +463,4 @@ describe Google::Showcase::V1beta1::Messaging::Operations do
       end
     end
   end
-
 end

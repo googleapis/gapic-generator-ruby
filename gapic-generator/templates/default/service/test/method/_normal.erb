@@ -1,8 +1,8 @@
-<%- assert_locals method -%>
+<%- assert_locals method, test_mock_error_class_name, test_mock_service_stub_class_name, test_mock_credentials_class_name -%>
 <%- full_client_name = defined?(client_name_full) ? client_name_full : method.service.client_name_full -%>
 describe "<%= method.name %>" do
   let :custom_error do
-    CustomTestErrorV1.new "Custom test error for <%= full_client_name %>#<%= method.name %>."
+    <%= test_mock_error_class_name %>.new "Custom test error for <%= full_client_name %>#<%= method.name %>."
   end
 
 <%- if method.lro? -%>
@@ -13,7 +13,7 @@ describe "<%= method.name %>" do
 <%- if method.return_type.nil? -%>
     expected_response = {}
 <%- else -%>
-    expected_response = Gapic::Protobuf.coerce {}, to: <%= method.return_type %>
+    expected_response = Gapic::Protobuf.coerce({}, to: <%= method.return_type %>)
 <%- end -%>
     result = Google::Protobuf::Any.new
     result.pack expected_response
@@ -31,10 +31,10 @@ describe "<%= method.name %>" do
 <%- end -%>
       OpenStruct.new execute: operation
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
@@ -70,10 +70,10 @@ describe "<%= method.name %>" do
 <%- end -%>
       OpenStruct.new execute: operation
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
@@ -96,7 +96,7 @@ describe "<%= method.name %>" do
 <%- if method.return_type.nil? -%>
     expected_response = {}
 <%- else -%>
-    expected_response = Gapic::Protobuf.coerce {}, to: <%= method.return_type %>
+    expected_response = Gapic::Protobuf.coerce({}, to: <%= method.return_type %>)
 <%- end -%>
 
     # Mock Grpc layer
@@ -107,10 +107,10 @@ describe "<%= method.name %>" do
 <%- end -%>
       OpenStruct.new execute: expected_response
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
@@ -144,10 +144,10 @@ describe "<%= method.name %>" do
 <%- end -%>
       raise custom_error
     end
-    mock_stub = MockGrpcClientStubV1.new :<%= method.name %>, mock_method
+    mock_stub = <%= test_mock_service_stub_class_name %>.new :<%= method.name %>, mock_method
 
     # Mock auth layer
-    mock_credentials = MockSpeechCredentialsV1.new "<%= method.name %>"
+    mock_credentials = <%= test_mock_credentials_class_name %>.new "<%= method.name %>"
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do

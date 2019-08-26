@@ -20,9 +20,10 @@ require "google/showcase/v1beta1/identity_pb"
 require "google/showcase/v1beta1/identity_services_pb"
 require "google/showcase/v1beta1/identity"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestIdentityErrorV1beta1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcIdentityStubV1beta1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -65,7 +66,7 @@ end
 describe Google::Showcase::V1beta1::Identity::Client do
   describe "create_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#create_user."
+      CustomTestIdentityErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#create_user."
     end
 
     it "invokes create_user without error" do
@@ -73,7 +74,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       user = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::User
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::User)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -81,10 +82,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :create_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "create_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -116,10 +117,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :create_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "create_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -139,7 +140,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
   describe "get_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#get_user."
+      CustomTestIdentityErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#get_user."
     end
 
     it "invokes get_user without error" do
@@ -147,7 +148,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::User
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::User)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -155,10 +156,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :get_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "get_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -190,10 +191,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :get_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "get_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -213,7 +214,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
   describe "update_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#update_user."
+      CustomTestIdentityErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#update_user."
     end
 
     it "invokes update_user without error" do
@@ -222,7 +223,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::User
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::User)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -231,10 +232,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :update_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "update_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -268,10 +269,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :update_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "update_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -291,7 +292,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
   describe "delete_user" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#delete_user."
+      CustomTestIdentityErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#delete_user."
     end
 
     it "invokes delete_user without error" do
@@ -299,7 +300,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -307,10 +308,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :delete_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "delete_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -342,10 +343,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :delete_user, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_user"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "delete_user"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -365,7 +366,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
   describe "list_users" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#list_users."
+      CustomTestIdentityErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Identity::Client#list_users."
     end
 
     it "invokes list_users without error" do
@@ -374,7 +375,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::ListUsersResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::ListUsersResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -383,10 +384,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_users, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :list_users, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_users"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "list_users"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do
@@ -420,10 +421,10 @@ describe Google::Showcase::V1beta1::Identity::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_users, mock_method
+      mock_stub = MockGrpcIdentityStubV1beta1.new :list_users, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_users"
+      mock_credentials = MockIdentityCredentialsV1beta1.new "list_users"
 
       Google::Showcase::V1beta1::Identity::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Identity::Credentials.stub :default, mock_credentials do

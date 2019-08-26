@@ -20,9 +20,10 @@ require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging_services_pb"
 require "google/showcase/v1beta1/messaging"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestMessagingErrorV1beta1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcMessagingStubV1beta1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -65,7 +66,7 @@ end
 describe Google::Showcase::V1beta1::Messaging::Client do
   describe "create_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#create_room."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#create_room."
     end
 
     it "invokes create_room without error" do
@@ -73,7 +74,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       room = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -81,10 +82,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :create_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "create_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -116,10 +117,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(room, to: Google::Showcase::V1beta1::Room), request.room
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :create_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "create_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -139,7 +140,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "get_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#get_room."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#get_room."
     end
 
     it "invokes get_room without error" do
@@ -147,7 +148,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -155,10 +156,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -190,10 +191,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -213,7 +214,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "update_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#update_room."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#update_room."
     end
 
     it "invokes update_room without error" do
@@ -222,7 +223,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Room
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -231,10 +232,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :update_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :update_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "update_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -268,10 +269,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :update_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :update_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "update_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -291,7 +292,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "delete_room" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#delete_room."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#delete_room."
     end
 
     it "invokes delete_room without error" do
@@ -299,7 +300,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -307,10 +308,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -342,10 +343,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_room, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_room, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_room"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_room"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -365,7 +366,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "list_rooms" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#list_rooms."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#list_rooms."
     end
 
     it "invokes list_rooms without error" do
@@ -374,7 +375,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::ListRoomsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::ListRoomsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -383,10 +384,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_rooms, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_rooms, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_rooms"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_rooms"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -420,10 +421,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_rooms, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_rooms, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_rooms"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_rooms"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -443,7 +444,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "create_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#create_blurb."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#create_blurb."
     end
 
     it "invokes create_blurb without error" do
@@ -452,7 +453,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       blurb = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -461,10 +462,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :create_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :create_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "create_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -498,10 +499,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(blurb, to: Google::Showcase::V1beta1::Blurb), request.blurb
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :create_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :create_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "create_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "create_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -521,7 +522,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "get_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#get_blurb."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#get_blurb."
     end
 
     it "invokes get_blurb without error" do
@@ -529,7 +530,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -537,10 +538,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :get_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -572,10 +573,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :get_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :get_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "get_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "get_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -595,7 +596,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "update_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#update_blurb."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#update_blurb."
     end
 
     it "invokes update_blurb without error" do
@@ -604,7 +605,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       update_mask = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::Blurb
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -613,10 +614,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :update_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :update_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "update_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -650,10 +651,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :update_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :update_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "update_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "update_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -673,7 +674,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "delete_blurb" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#delete_blurb."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#delete_blurb."
     end
 
     it "invokes delete_blurb without error" do
@@ -681,7 +682,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       name = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Protobuf::Empty
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Protobuf::Empty)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -689,10 +690,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -724,10 +725,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal name, request.name
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :delete_blurb, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :delete_blurb, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "delete_blurb"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "delete_blurb"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -747,7 +748,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "list_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#list_blurbs."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#list_blurbs."
     end
 
     it "invokes list_blurbs without error" do
@@ -757,7 +758,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::ListBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::ListBlurbsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -767,10 +768,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :list_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -806,10 +807,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :list_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :list_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "list_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "list_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -829,7 +830,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "search_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#search_blurbs."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#search_blurbs."
     end
 
     it "invokes search_blurbs without error" do
@@ -840,12 +841,12 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/search_blurbs_test",
-        done: true,
+        name:     "operations/search_blurbs_test",
+        done:     true,
         response: result
       )
 
@@ -858,10 +859,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :search_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "search_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -888,8 +889,8 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         message: "Operation error for Google::Showcase::V1beta1::Messaging::Client#search_blurbs."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/search_blurbs_test",
-        done: true,
+        name:  "operations/search_blurbs_test",
+        done:  true,
         error: operation_error
       )
 
@@ -902,10 +903,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :search_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "search_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -937,10 +938,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :search_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :search_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "search_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "search_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -960,7 +961,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "stream_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#stream_blurbs."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#stream_blurbs."
     end
 
     it "invokes stream_blurbs without error" do
@@ -969,7 +970,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       expire_time = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::StreamBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::StreamBlurbsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -978,10 +979,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :stream_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :stream_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "stream_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "stream_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -1009,10 +1010,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
         assert_equal Gapic::Protobuf.coerce(expire_time, to: Google::Protobuf::Timestamp), request.expire_time
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :stream_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :stream_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "stream_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "stream_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -1032,7 +1033,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "send_blurbs" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#send_blurbs."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#send_blurbs."
     end
 
     it "invokes send_blurbs without error" do
@@ -1040,17 +1041,17 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::SendBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::SendBlurbsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |requests|
         request = requests.first
         OpenStruct.new execute: [expected_response]
       end
-      mock_stub = MockGrpcClientStubV1.new :send_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :send_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "send_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "send_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -1071,10 +1072,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
       # Mock Grpc layer
       mock_method = proc { raise custom_error }
-      mock_stub = MockGrpcClientStubV1.new :send_blurbs, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :send_blurbs, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "send_blurbs"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "send_blurbs"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -1094,7 +1095,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
   describe "connect" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#connect."
+      CustomTestMessagingErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Messaging::Client#connect."
     end
 
     it "invokes connect without error" do
@@ -1102,17 +1103,17 @@ describe Google::Showcase::V1beta1::Messaging::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::StreamBlurbsResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::StreamBlurbsResponse)
 
       # Mock Grpc layer
       mock_method = proc do |requests|
         request = requests.first
         OpenStruct.new execute: [expected_response]
       end
-      mock_stub = MockGrpcClientStubV1.new :connect, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :connect, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "connect"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "connect"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do
@@ -1134,10 +1135,10 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
       # Mock Grpc layer
       mock_method = proc { raise custom_error }
-      mock_stub = MockGrpcClientStubV1.new :connect, mock_method
+      mock_stub = MockGrpcMessagingStubV1beta1.new :connect, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "connect"
+      mock_credentials = MockMessagingCredentialsV1beta1.new "connect"
 
       Google::Showcase::V1beta1::Messaging::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Messaging::Credentials.stub :default, mock_credentials do

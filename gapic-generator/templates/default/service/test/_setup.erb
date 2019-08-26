@@ -8,9 +8,10 @@ require "<%= service.proto_service_require %>"
 require "<%= service.proto_services_require %>"
 require "<%= service.service_require %>"
 
-class CustomTestErrorV1 < StandardError; end
+class <%= service.test_mock_error_class_name %> < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class <%= service.test_mock_service_stub_class_name %>
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -37,7 +38,7 @@ class MockGrpcClientStubV1
   end
 end
 
-class Mock<%= service.name %>Credentials<%= service.version %> < <%= service.credentials_name_full %>
+class <%= service.test_mock_credentials_class_name %> < <%= service.credentials_name_full %>
   def initialize method_name
     @method_name = method_name
   end

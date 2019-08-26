@@ -78,6 +78,12 @@ class GoogleAdsServiceTest < PresenterTest
                  presenter.test_client_operations_file_path
   end
 
+  def test_mock_names
+    assert_equal "MockCampaignServiceCredentialsServices", presenter.test_mock_credentials_class_name
+    assert_equal "MockGrpcCampaignServiceStubServices", presenter.test_mock_service_stub_class_name
+    assert_equal "CustomTestCampaignServiceErrorServices", presenter.test_mock_error_class_name
+  end
+
   def test_stub_name
     assert_equal "campaign_service_stub", presenter.stub_name
   end

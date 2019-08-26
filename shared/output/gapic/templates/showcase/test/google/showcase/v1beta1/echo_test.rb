@@ -28,9 +28,10 @@ require "google/showcase/v1beta1/echo_pb"
 require "google/showcase/v1beta1/echo_services_pb"
 require "google/showcase/v1beta1/echo"
 
-class CustomTestErrorV1 < StandardError; end
+class CustomTestEchoErrorV1beta1 < StandardError; end
+
 # Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
+class MockGrpcEchoStubV1beta1
   # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
   # @param mock_method [Proc] The method that is being mocked.
   def initialize expected_symbol, mock_method
@@ -73,7 +74,7 @@ end
 describe Google::Showcase::V1beta1::Echo::Client do
   describe "echo" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#echo."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#echo."
     end
 
     it "invokes echo without error" do
@@ -82,7 +83,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
       error = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::EchoResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::EchoResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -91,10 +92,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :echo, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :echo, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "echo"
+      mock_credentials = MockEchoCredentialsV1beta1.new "echo"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -128,10 +129,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :echo, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :echo, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "echo"
+      mock_credentials = MockEchoCredentialsV1beta1.new "echo"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -151,7 +152,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "expand" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#expand."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#expand."
     end
 
     it "invokes expand without error" do
@@ -160,7 +161,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
       error = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::EchoResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::EchoResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -169,10 +170,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :expand, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :expand, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "expand"
+      mock_credentials = MockEchoCredentialsV1beta1.new "expand"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -200,10 +201,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(error, to: Google::Rpc::Status), request.error
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :expand, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :expand, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "expand"
+      mock_credentials = MockEchoCredentialsV1beta1.new "expand"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -223,7 +224,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "collect" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#collect."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#collect."
     end
 
     it "invokes collect without error" do
@@ -231,17 +232,17 @@ describe Google::Showcase::V1beta1::Echo::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::EchoResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::EchoResponse)
 
       # Mock Grpc layer
       mock_method = proc do |requests|
         request = requests.first
         OpenStruct.new execute: [expected_response]
       end
-      mock_stub = MockGrpcClientStubV1.new :collect, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :collect, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "collect"
+      mock_credentials = MockEchoCredentialsV1beta1.new "collect"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -262,10 +263,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
       # Mock Grpc layer
       mock_method = proc { raise custom_error }
-      mock_stub = MockGrpcClientStubV1.new :collect, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :collect, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "collect"
+      mock_credentials = MockEchoCredentialsV1beta1.new "collect"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -285,7 +286,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "chat" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#chat."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#chat."
     end
 
     it "invokes chat without error" do
@@ -293,17 +294,17 @@ describe Google::Showcase::V1beta1::Echo::Client do
       request = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::EchoResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::EchoResponse)
 
       # Mock Grpc layer
       mock_method = proc do |requests|
         request = requests.first
         OpenStruct.new execute: [expected_response]
       end
-      mock_stub = MockGrpcClientStubV1.new :chat, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :chat, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "chat"
+      mock_credentials = MockEchoCredentialsV1beta1.new "chat"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -325,10 +326,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
       # Mock Grpc layer
       mock_method = proc { raise custom_error }
-      mock_stub = MockGrpcClientStubV1.new :chat, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :chat, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "chat"
+      mock_credentials = MockEchoCredentialsV1beta1.new "chat"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -348,7 +349,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "paged_expand" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#paged_expand."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#paged_expand."
     end
 
     it "invokes paged_expand without error" do
@@ -358,7 +359,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
       page_token = "hello world"
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::PagedExpandResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::PagedExpandResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -368,10 +369,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :paged_expand, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :paged_expand, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "paged_expand"
+      mock_credentials = MockEchoCredentialsV1beta1.new "paged_expand"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -407,10 +408,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal page_token, request.page_token
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :paged_expand, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :paged_expand, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "paged_expand"
+      mock_credentials = MockEchoCredentialsV1beta1.new "paged_expand"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -430,7 +431,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "wait" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#wait."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#wait."
     end
 
     it "invokes wait without error" do
@@ -441,12 +442,12 @@ describe Google::Showcase::V1beta1::Echo::Client do
       success = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Longrunning::Operation
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Longrunning::Operation)
       result = Google::Protobuf::Any.new
       result.pack expected_response
       operation = Google::Longrunning::Operation.new(
-        name: "operations/wait_test",
-        done: true,
+        name:     "operations/wait_test",
+        done:     true,
         response: result
       )
 
@@ -459,10 +460,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(success, to: Google::Showcase::V1beta1::WaitResponse), request.success
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :wait, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :wait, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "wait"
+      mock_credentials = MockEchoCredentialsV1beta1.new "wait"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -489,8 +490,8 @@ describe Google::Showcase::V1beta1::Echo::Client do
         message: "Operation error for Google::Showcase::V1beta1::Echo::Client#wait."
       )
       operation = Google::Longrunning::Operation.new(
-        name: "operations/wait_test",
-        done: true,
+        name:  "operations/wait_test",
+        done:  true,
         error: operation_error
       )
 
@@ -503,10 +504,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(success, to: Google::Showcase::V1beta1::WaitResponse), request.success
         OpenStruct.new execute: operation
       end
-      mock_stub = MockGrpcClientStubV1.new :wait, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :wait, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "wait"
+      mock_credentials = MockEchoCredentialsV1beta1.new "wait"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -538,10 +539,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(success, to: Google::Showcase::V1beta1::WaitResponse), request.success
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :wait, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :wait, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "wait"
+      mock_credentials = MockEchoCredentialsV1beta1.new "wait"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -561,7 +562,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
   describe "block" do
     let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#block."
+      CustomTestEchoErrorV1beta1.new "Custom test error for Google::Showcase::V1beta1::Echo::Client#block."
     end
 
     it "invokes block without error" do
@@ -571,7 +572,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
       success = {}
 
       # Create expected grpc response
-      expected_response = Gapic::Protobuf.coerce {}, to: Google::Showcase::V1beta1::BlockResponse
+      expected_response = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::BlockResponse)
 
       # Mock Grpc layer
       mock_method = proc do |request|
@@ -581,10 +582,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(success, to: Google::Showcase::V1beta1::BlockResponse), request.success
         OpenStruct.new execute: expected_response
       end
-      mock_stub = MockGrpcClientStubV1.new :block, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :block, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "block"
+      mock_credentials = MockEchoCredentialsV1beta1.new "block"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
@@ -620,10 +621,10 @@ describe Google::Showcase::V1beta1::Echo::Client do
         assert_equal Gapic::Protobuf.coerce(success, to: Google::Showcase::V1beta1::BlockResponse), request.success
         raise custom_error
       end
-      mock_stub = MockGrpcClientStubV1.new :block, mock_method
+      mock_stub = MockGrpcEchoStubV1beta1.new :block, mock_method
 
       # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "block"
+      mock_credentials = MockEchoCredentialsV1beta1.new "block"
 
       Google::Showcase::V1beta1::Echo::Stub.stub :new, mock_stub do
         Google::Showcase::V1beta1::Echo::Credentials.stub :default, mock_credentials do
