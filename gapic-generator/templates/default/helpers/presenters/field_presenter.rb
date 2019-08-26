@@ -47,6 +47,11 @@ class FieldPresenter
     end
   end
 
+  def doc_attribute_type
+    mode = @field.output_only? ? "r" : "rw"
+    "@!attribute [#{mode}] #{@field.name}"
+  end
+
   def output_doc_types
     return message_ruby_type @field.message if @field.message?
     doc_types
@@ -69,8 +74,7 @@ class FieldPresenter
       "{}"
     elsif @field.enum?
       # TODO: select the first non-0 enum value
-      # ":ENUM"
-      @field.enum.values.first
+      @field.enum.values.first.name
     else
       case @field.type
       when 1, 2                              then "3.14"
