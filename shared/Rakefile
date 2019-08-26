@@ -14,6 +14,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+protos = {
+  speech:    [
+    "google/cloud/speech/v1/cloud_speech.proto"
+  ],
+  vision:    [
+    "google/cloud/vision/v1/geometry.proto",
+    "google/cloud/vision/v1/image_annotator.proto",
+    "google/cloud/vision/v1/product_search.proto",
+    "google/cloud/vision/v1/product_search_service.proto",
+    "google/cloud/vision/v1/text_annotation.proto",
+    "google/cloud/vision/v1/web_detection.proto"
+  ],
+  showcase:  [
+    "google/showcase/v1beta1/echo.proto",
+    "google/showcase/v1beta1/identity.proto",
+    "google/showcase/v1beta1/messaging.proto",
+    "google/showcase/v1beta1/testing.proto"
+  ],
+  garbage:   [
+    "garbage/garbage.proto"
+  ],
+  googleads: [
+    "google/ads/googleads/v1/services/campaign_service.proto"
+  ]
+}
+
 desc "Generate the binary input files"
 task :gen do
   Rake::Task["gen:speech"].invoke
@@ -23,57 +49,24 @@ task :gen do
   Rake::Task["gen:googleads"].invoke
 end
 
-# rubocop:disable Metrics/BlockLength
 namespace :gen do
-  desc "Generate the binary input files for speech"
-  task :speech do
-    speech_protos = [
-      "google/cloud/speech/v1/cloud_speech.proto"
-    ]
-    generate_input_file "speech", speech_protos
-  end
-
-  desc "Generate the binary input files for vision"
-  task :vision do
-    vision_protos = [
-      "google/cloud/vision/v1/geometry.proto",
-      "google/cloud/vision/v1/image_annotator.proto",
-      "google/cloud/vision/v1/product_search.proto",
-      "google/cloud/vision/v1/product_search_service.proto",
-      "google/cloud/vision/v1/text_annotation.proto",
-      "google/cloud/vision/v1/web_detection.proto"
-    ]
-    generate_input_file "vision", vision_protos
-  end
-
-  desc "Generate the binary input files for showcase"
-  task :showcase do
-    showcase_protos = [
-      "google/showcase/v1beta1/echo.proto",
-      "google/showcase/v1beta1/identity.proto",
-      "google/showcase/v1beta1/messaging.proto",
-      "google/showcase/v1beta1/testing.proto"
-    ]
-    generate_input_file "showcase", showcase_protos
-  end
-
-  desc "Generate the binary input files for garbage"
-  task :garbage do
-    garbage_protos = [
-      "garbage/garbage.proto"
-    ]
-    generate_input_file "garbage", garbage_protos
-  end
-
-  desc "Generate the binary input files for Google Ads"
-  task :googleads do
-    googleads_protos = [
-      "google/ads/googleads/v1/services/campaign_service.proto"
-    ]
-    generate_input_file "googleads", googleads_protos
+  protos.each do |name, input|
+    desc "Generate the binary input files for #{name}"
+    task name.to_sym do
+      generate_input_file name, input
+    end
   end
 end
-# rubocop:enable Metrics/BlockLength
+
+# TODO: enable me as part of the CI build!
+namespace :validate do
+  protos.each do |name, input|
+    desc "Validate the #{name} library (run unit tests)"
+    task name.to_sym do
+      install_and_run_unit_tests input
+    end
+  end
+end
 
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
@@ -136,5 +129,37 @@ def generate_input_file service, protos
     ].join " "
 
     `#{protoc_cmd}`
+  end
+end
+
+def generate_library_for_test protos
+  require "tmpdir"
+
+  Dir.mktmpdir do |client_lib|
+    protoc_cmd = [
+      "grpc_tools_ruby_protoc",
+      "--proto_path=api-common-protos/",
+      "--proto_path=googleapis/",
+      "--proto_path=protos/",
+      "--ruby_out=#{client_lib}/lib",
+      "--grpc_out=#{client_lib}/lib",
+      "--ruby_gapic_out=#{client_lib}",
+      "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
+      (protos.join " ").to_s
+    ].join " "
+    puts protoc_cmd.to_s if ENV["VERBOSE"]
+    protoc_cmd_output = `#{protoc_cmd}`
+    puts protoc_cmd_output if ENV["VERBOSE"]
+    yield client_lib
+  end
+end
+
+def install_and_run_unit_tests protos
+  generate_library_for_test protos do |dir|
+    Bundler.with_clean_env do
+      Dir.chdir dir do
+        `bundle install && bundle exec rake test`
+      end
+    end
   end
 end
