@@ -124,6 +124,10 @@ class ShowcaseEchoServiceTest < PresenterTest
     assert_equal "google/showcase/v1beta1/echo_test.rb", presenter.test_client_file_path
   end
 
+  def test_test_client_operations_file_path
+    assert_equal "google/showcase/v1beta1/echo_operations_test.rb", presenter.test_client_operations_file_path
+  end
+
   def test_stub_name
     assert_equal "echo_stub", presenter.stub_name
   end

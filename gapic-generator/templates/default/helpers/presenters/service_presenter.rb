@@ -212,6 +212,10 @@ class ServicePresenter
     service_file_path.sub ".rb", "_test.rb"
   end
 
+  def test_client_operations_file_path
+    service_file_path.sub ".rb", "_operations_test.rb"
+  end
+
   def stub_name
     "#{ActiveSupport::Inflector.underscore name}_stub"
   end
