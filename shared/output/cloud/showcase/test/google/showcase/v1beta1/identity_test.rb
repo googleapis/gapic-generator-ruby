@@ -78,7 +78,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateUserRequest, request
-      assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
+        assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
@@ -113,7 +113,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::CreateUserRequest, request
-      assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
+        assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :create_user, mock_method
@@ -152,7 +152,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetUserRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
@@ -187,7 +187,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::GetUserRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_user, mock_method
@@ -227,8 +227,8 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateUserRequest, request
-      assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
-      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
+        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
@@ -264,8 +264,8 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::UpdateUserRequest, request
-      assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
-      assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
+        assert_equal Gapic::Protobuf.coerce(user, to: Google::Showcase::V1beta1::User), request.user
+        assert_equal Gapic::Protobuf.coerce(update_mask, to: Google::Protobuf::FieldMask), request.update_mask
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :update_user, mock_method
@@ -304,7 +304,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteUserRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
@@ -339,7 +339,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::DeleteUserRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_user, mock_method
@@ -379,8 +379,8 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListUsersRequest, request
-      assert_equal page_size, request.page_size
-      assert_equal page_token, request.page_token
+        assert_equal page_size, request.page_size
+        assert_equal page_token, request.page_token
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :list_users, mock_method
@@ -416,8 +416,8 @@ describe Google::Showcase::V1beta1::Identity::Client do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Showcase::V1beta1::ListUsersRequest, request
-      assert_equal page_size, request.page_size
-      assert_equal page_token, request.page_token
+        assert_equal page_size, request.page_size
+        assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_users, mock_method

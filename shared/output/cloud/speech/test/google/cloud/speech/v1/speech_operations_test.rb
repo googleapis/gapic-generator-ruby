@@ -88,10 +88,10 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-      assert_equal name, request.name
-      assert_equal filter, request.filter
-      assert_equal page_size, request.page_size
-      assert_equal page_token, request.page_token
+        assert_equal name, request.name
+        assert_equal filter, request.filter
+        assert_equal page_size, request.page_size
+        assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -132,10 +132,10 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-      assert_equal name, request.name
-      assert_equal filter, request.filter
-      assert_equal page_size, request.page_size
-      assert_equal page_token, request.page_token
+        assert_equal name, request.name
+        assert_equal filter, request.filter
+        assert_equal page_size, request.page_size
+        assert_equal page_token, request.page_token
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -167,10 +167,10 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::ListOperationsRequest, request
-      assert_equal name, request.name
-      assert_equal filter, request.filter
-      assert_equal page_size, request.page_size
-      assert_equal page_token, request.page_token
+        assert_equal name, request.name
+        assert_equal filter, request.filter
+        assert_equal page_size, request.page_size
+        assert_equal page_token, request.page_token
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :list_operations, mock_method
@@ -216,7 +216,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -254,7 +254,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: operation
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -283,7 +283,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::GetOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :get_operation, mock_method
@@ -322,7 +322,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::DeleteOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
@@ -357,7 +357,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::DeleteOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :delete_operation, mock_method
@@ -396,7 +396,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::CancelOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         OpenStruct.new execute: expected_response
       end
       mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
@@ -431,7 +431,7 @@ describe Google::Cloud::Speech::V1::Speech::Operations do
       # Mock Grpc layer
       mock_method = proc do |request|
         assert_instance_of Google::Longrunning::CancelOperationRequest, request
-      assert_equal name, request.name
+        assert_equal name, request.name
         raise custom_error
       end
       mock_stub = MockGrpcClientStubV1.new :cancel_operation, mock_method
