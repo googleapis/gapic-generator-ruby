@@ -1,28 +1,5 @@
 <%- assert_locals service, sample -%>
-#   require "google/cloud/speech/v1"
-#
-#   speech = Google::Cloud::Speech::V1::Speech::Client.new
-#
-#   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
-#
-#   audio  = {
-#     uri: storage_uri
-#   }
-#   config = {
-#     sample_rate_hertz: 16_000,
-#     language_code: "en-US",
-#     encoding: :LINEAR16
-#   }
-#
-#   response = client.recognize config, audio
-#   result = response.results
-#
-#   # First alternative is the most probable result
-#   alternative = result.alternatives[0]
-#   puts "Transcript: \#{alternative.transcript}"
-#
-#
-#
+# @example <%= sample.description %>
 #   require "<%= service.service_require %>"
 #
 #   client = <%= service.client_name_full %>.new
@@ -46,3 +23,4 @@
 #   # First alternative is the most probable result
 #   alternative = result.alternatives[0]
 #   puts "Transcript: #{alternative.transcript}"
+#
