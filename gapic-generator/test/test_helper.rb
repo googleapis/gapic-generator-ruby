@@ -88,6 +88,13 @@ class PresenterTest < Minitest::Test
     refute_nil method
     MethodPresenter.new api_obj, method
   end
+
+  def field_presenter api_name, message_name, field_name
+    api_obj = api api_name
+    message = api_obj.messages.find { |m| m.address.join(".") == message_name }
+    field = message.fields.find { |f| f.name == field_name }
+    FieldPresenter.new api_obj, message, field
+  end
 end
 
 class GemTest < Minitest::Test
