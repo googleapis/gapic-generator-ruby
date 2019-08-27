@@ -22,13 +22,13 @@ response = client.<%= method.name %> <%= sample.kwargs %>
 <%= sample.response_variable %> = <%= sample.response_collection %>
 
 <%- sample.response_body.each do |b| -%>
-<%- if b.has_key? "comment" -%>
+<%- if b.key? "comment" -%>
 <%= indent b["comment"].join("\n"), "# " %>
 <%- end -%>
-<%- if b.has_key? "define" -%>
+<%- if b.key? "define" -%>
 <%= b["define"] %>
 <%- end -%>
-<%- if b.has_key? "print" -%>
+<%- if b.key? "print" -%>
 puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
 <%- end -%>
 <%- end -%>

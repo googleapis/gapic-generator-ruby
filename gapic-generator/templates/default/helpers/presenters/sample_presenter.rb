@@ -27,7 +27,7 @@ class SamplePresenter
   end
 
   def input_parameters
-    @sample_config["request"].select { |f| f.has_key? "input_parameter" }.map { |f| RequestField.new f }
+    @sample_config["request"].select { |f| f.key? "input_parameter" }.map { |f| RequestField.new f }
   end
 
   def fields
@@ -42,7 +42,7 @@ class SamplePresenter
   end
 
   def kwargs
-    fields.keys.map { |k| "#{k}: #{k}"}.join ", "
+    fields.keys.map { |k| "#{k}: #{k}" }.join ", "
   end
 
   def response_variable
@@ -70,7 +70,7 @@ class SamplePresenter
 
     def convert val
       if val.is_a? String
-        return ":#{val}" if val.match(/\A[A-Z_]+/) # print constants as symbols
+        return ":#{val}" if val =~ /\A[A-Z_]+/ # print constants as symbols
         "\"#{val}\""
       else
         val.to_s
