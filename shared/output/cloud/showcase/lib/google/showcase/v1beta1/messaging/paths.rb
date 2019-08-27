@@ -32,7 +32,7 @@ module Google
           # @return [String]
           def blurb_path room_id:, blurb_id:
             raise ArgumentError, "room_id is required" if room_id.nil?
-            raise ArgumentError, "room_id cannot contain /" unless /([^/]+)/.match room_id
+            raise ArgumentError, "room_id cannot contain /" unless %r{/}.match? room_id
             raise ArgumentError, "blurb_id is required" if blurb_id.nil?
 
             "rooms/#{room_id}/blurbs/#{blurb_id}"
@@ -53,10 +53,8 @@ module Google
 
             "rooms/#{room_id}"
           end
-
         end
       end
     end
   end
 end
-
