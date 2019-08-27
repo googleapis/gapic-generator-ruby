@@ -41,8 +41,20 @@ class SamplePresenter
     end
   end
 
+  def kwargs
+    fields.keys.map { |k| "#{k}: #{k}"}.join ", "
+  end
+
   def response_variable
     @sample_config["response"][0]["loop"]["variable"]
+  end
+
+  def response_collection
+    @sample_config["response"][0]["loop"]["collection"].gsub "$resp", "response"
+  end
+
+  def response_body
+    @sample_config["response"][0]["loop"]["body"]
   end
 
   class RequestField
@@ -53,6 +65,8 @@ class SamplePresenter
       @input_parameter = field["input_parameter"]
       @comment = field["comment"]
     end
+
+    protected
 
     def convert val
       if val.is_a? String

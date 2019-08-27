@@ -161,7 +161,7 @@ module Google
             #     encoding: :LINEAR16
             #   }
             #
-            #   response = client.recognize config: config, audio: audio
+            #   response = client.recognize audio: audio, config: config
             #   result = response.results
             #
             #   # First alternative is the most probable result

@@ -61,7 +61,30 @@ class SamplePresenterTest < PresenterTest
     assert_equal "Encoding of audio data sent. This sample sets this explicitly.\nThis field is optional for FLAC and WAV audio formats.\n", fields["config"]["encoding"].comment
   end
 
+  def test_kwargs
+    assert_equal "audio: audio, config: config", @presenter.kwargs
+  end
+
   def test_response_variable
     assert_equal "result", @presenter.response_variable
+  end
+
+  def test_response_collection
+    assert_equal "response.results", @presenter.response_collection
+  end
+
+  def test_response_body
+    body = @presenter.response_body
+    assert_kind_of Array, body
+    assert_equal 3, body.size
+    assert_kind_of Hash, body[0]
+    assert_equal 1, body[0].size
+    assert_equal ["First alternative is the most probable result"], body[0]["comment"]
+    assert_kind_of Hash, body[1]
+    assert_equal 1, body[1].size
+    assert_equal "alternative = result.alternatives[0]", body[1]["define"]
+    assert_kind_of Hash, body[2]
+    assert_equal 1, body[2].size
+    assert_equal ["Transcript: %s", "alternative.transcript"], body[2]["print"]
   end
 end

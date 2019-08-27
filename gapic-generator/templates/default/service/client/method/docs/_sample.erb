@@ -1,7 +1,7 @@
-<%- assert_locals service, sample -%>
-require "<%= service.service_require %>"
+<%- assert_locals method, sample -%>
+require "<%= method.service.service_require %>"
 
-client = <%= service.client_name_full %>.new
+client = <%= method.service.client_name_full %>.new
 
 <%- sample.input_parameters.each do |field| -%>
 <%= field.input_parameter %> = <%= field.value %>
@@ -18,9 +18,17 @@ client = <%= service.client_name_full %>.new
 }
 <%- end -%>
 
-response = client.recognize config: config, audio: audio
-<%= sample.response_variable %> = response.results
+response = client.<%= method.name %> <%= sample.kwargs %>
+<%= sample.response_variable %> = <%= sample.response_collection %>
 
-# First alternative is the most probable result
-alternative = result.alternatives[0]
-puts "Transcript: #{alternative.transcript}"
+<%- sample.response_body.each do |b| -%>
+<%- if b.has_key? "comment" -%>
+<%= indent b["comment"].join("\n"), "# " %>
+<%- end -%>
+<%- if b.has_key? "define" -%>
+<%= b["define"] %>
+<%- end -%>
+<%- if b.has_key? "print" -%>
+puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
+<%- end -%>
+<%- end -%>
