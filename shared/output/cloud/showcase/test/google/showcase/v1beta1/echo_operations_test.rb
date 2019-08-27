@@ -105,7 +105,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.list_operations name, filter, page_size, page_token
+          response = client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -149,7 +149,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.list_operations name, filter, page_size, page_token
+          response = client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert response.error?
@@ -185,7 +185,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_operations name, filter, page_size, page_token
+            client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -230,7 +230,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.get_operation name
+          response = client.get_operation name: name
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -268,7 +268,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.get_operation name
+          response = client.get_operation name: name
 
           # Verify the response
           assert response.error?
@@ -298,7 +298,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_operation name
+            client.get_operation name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -336,13 +336,13 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.delete_operation name
+          response = client.delete_operation name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_operation name do |resp, operation|
+          client.delete_operation name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -372,7 +372,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_operation name
+            client.delete_operation name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -410,13 +410,13 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          response = client.cancel_operation name
+          response = client.cancel_operation name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.cancel_operation name do |resp, operation|
+          client.cancel_operation name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -446,7 +446,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.cancel_operation name
+            client.cancel_operation name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

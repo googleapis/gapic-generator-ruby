@@ -96,13 +96,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.create_product_set parent, product_set, product_set_id
+          response = client.create_product_set parent: parent, product_set: product_set, product_set_id: product_set_id
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_product_set parent, product_set, product_set_id do |resp, operation|
+          client.create_product_set parent: parent, product_set: product_set, product_set_id: product_set_id do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -136,7 +136,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_product_set parent, product_set, product_set_id
+            client.create_product_set parent: parent, product_set: product_set, product_set_id: product_set_id
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -178,13 +178,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.list_product_sets parent, page_size, page_token
+          response = client.list_product_sets parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_product_sets parent, page_size, page_token do |resp, operation|
+          client.list_product_sets parent: parent, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -218,7 +218,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_product_sets parent, page_size, page_token
+            client.list_product_sets parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -256,13 +256,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.get_product_set name
+          response = client.get_product_set name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_product_set name do |resp, operation|
+          client.get_product_set name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -292,7 +292,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_product_set name
+            client.get_product_set name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -332,13 +332,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.update_product_set product_set, update_mask
+          response = client.update_product_set product_set: product_set, update_mask: update_mask
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.update_product_set product_set, update_mask do |resp, operation|
+          client.update_product_set product_set: product_set, update_mask: update_mask do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -370,7 +370,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.update_product_set product_set, update_mask
+            client.update_product_set product_set: product_set, update_mask: update_mask
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -408,13 +408,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.delete_product_set name
+          response = client.delete_product_set name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_product_set name do |resp, operation|
+          client.delete_product_set name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -444,7 +444,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_product_set name
+            client.delete_product_set name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -486,13 +486,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.create_product parent, product, product_id
+          response = client.create_product parent: parent, product: product, product_id: product_id
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_product parent, product, product_id do |resp, operation|
+          client.create_product parent: parent, product: product, product_id: product_id do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -526,7 +526,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_product parent, product, product_id
+            client.create_product parent: parent, product: product, product_id: product_id
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -568,13 +568,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.list_products parent, page_size, page_token
+          response = client.list_products parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_products parent, page_size, page_token do |resp, operation|
+          client.list_products parent: parent, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -608,7 +608,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_products parent, page_size, page_token
+            client.list_products parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -646,13 +646,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.get_product name
+          response = client.get_product name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_product name do |resp, operation|
+          client.get_product name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -682,7 +682,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_product name
+            client.get_product name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -722,13 +722,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.update_product product, update_mask
+          response = client.update_product product: product, update_mask: update_mask
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.update_product product, update_mask do |resp, operation|
+          client.update_product product: product, update_mask: update_mask do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -760,7 +760,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.update_product product, update_mask
+            client.update_product product: product, update_mask: update_mask
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -798,13 +798,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.delete_product name
+          response = client.delete_product name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_product name do |resp, operation|
+          client.delete_product name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -834,7 +834,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_product name
+            client.delete_product name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -876,13 +876,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.create_reference_image parent, reference_image, reference_image_id
+          response = client.create_reference_image parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_reference_image parent, reference_image, reference_image_id do |resp, operation|
+          client.create_reference_image parent: parent, reference_image: reference_image, reference_image_id: reference_image_id do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -916,7 +916,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_reference_image parent, reference_image, reference_image_id
+            client.create_reference_image parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -954,13 +954,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.delete_reference_image name
+          response = client.delete_reference_image name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_reference_image name do |resp, operation|
+          client.delete_reference_image name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -990,7 +990,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_reference_image name
+            client.delete_reference_image name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1032,13 +1032,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.list_reference_images parent, page_size, page_token
+          response = client.list_reference_images parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_reference_images parent, page_size, page_token do |resp, operation|
+          client.list_reference_images parent: parent, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -1072,7 +1072,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_reference_images parent, page_size, page_token
+            client.list_reference_images parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1110,13 +1110,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.get_reference_image name
+          response = client.get_reference_image name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_reference_image name do |resp, operation|
+          client.get_reference_image name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -1146,7 +1146,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_reference_image name
+            client.get_reference_image name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1186,13 +1186,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.add_product_to_product_set name, product
+          response = client.add_product_to_product_set name: name, product: product
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.add_product_to_product_set name, product do |resp, operation|
+          client.add_product_to_product_set name: name, product: product do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -1224,7 +1224,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.add_product_to_product_set name, product
+            client.add_product_to_product_set name: name, product: product
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1264,13 +1264,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.remove_product_from_product_set name, product
+          response = client.remove_product_from_product_set name: name, product: product
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.remove_product_from_product_set name, product do |resp, operation|
+          client.remove_product_from_product_set name: name, product: product do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -1302,7 +1302,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.remove_product_from_product_set name, product
+            client.remove_product_from_product_set name: name, product: product
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1344,13 +1344,13 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.list_products_in_product_set name, page_size, page_token
+          response = client.list_products_in_product_set name: name, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_products_in_product_set name, page_size, page_token do |resp, operation|
+          client.list_products_in_product_set name: name, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -1384,7 +1384,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_products_in_product_set name, page_size, page_token
+            client.list_products_in_product_set name: name, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1431,7 +1431,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.import_product_sets parent, input_config
+          response = client.import_product_sets parent: parent, input_config: input_config
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -1471,7 +1471,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.import_product_sets parent, input_config
+          response = client.import_product_sets parent: parent, input_config: input_config
 
           # Verify the response
           assert response.error?
@@ -1503,7 +1503,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.import_product_sets parent, input_config
+            client.import_product_sets parent: parent, input_config: input_config
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1554,7 +1554,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.purge_products product_set_purge_config, delete_orphan_products, parent, force
+          response = client.purge_products product_set_purge_config: product_set_purge_config, delete_orphan_products: delete_orphan_products, parent: parent, force: force
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -1598,7 +1598,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          response = client.purge_products product_set_purge_config, delete_orphan_products, parent, force
+          response = client.purge_products product_set_purge_config: product_set_purge_config, delete_orphan_products: delete_orphan_products, parent: parent, force: force
 
           # Verify the response
           assert response.error?
@@ -1634,7 +1634,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.purge_products product_set_purge_config, delete_orphan_products, parent, force
+            client.purge_products product_set_purge_config: product_set_purge_config, delete_orphan_products: delete_orphan_products, parent: parent, force: force
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

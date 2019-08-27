@@ -41,7 +41,7 @@ describe "<%= method.name %>" do
         client = <%= full_client_name %>.new
 
         # Call method
-        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+        response = client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %>
 
         # Verify the response
         assert_equal expected_response, response.response
@@ -80,7 +80,7 @@ describe "<%= method.name %>" do
         client = <%= full_client_name %>.new
 
         # Call method
-        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+        response = client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %>
 
         # Verify the response
         assert response.error?
@@ -117,13 +117,13 @@ describe "<%= method.name %>" do
         client = <%= full_client_name %>.new
 
         # Call method
-        response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+        response = client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %>
 
         # Verify the response
         assert_equal expected_response, response
 
         # Call method with block
-        client.<%= method.name %> <%= method.fields.map(&:name).join ", " %> do |resp, operation|
+        client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %> do |resp, operation|
           # Verify the response
           assert_equal expected_response, resp
           refute_nil operation
@@ -155,7 +155,7 @@ describe "<%= method.name %>" do
 
         # Call method
         err = assert_raises Gapic::GapicError do
-          client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+          client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %>
         end
 
         # Verify the GapicError wrapped the custom error that was raised.

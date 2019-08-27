@@ -97,6 +97,10 @@ class FieldPresenter
     ruby_namespace @api, type_name
   end
 
+  def as_kwarg value: nil
+    "#{name}: #{value || name}"
+  end
+
   protected
 
   def message_ruby_type message

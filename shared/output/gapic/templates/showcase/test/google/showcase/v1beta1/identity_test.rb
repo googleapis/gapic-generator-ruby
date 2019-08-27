@@ -100,13 +100,13 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          response = client.create_user user
+          response = client.create_user user: user
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_user user do |resp, operation|
+          client.create_user user: user do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -136,7 +136,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_user user
+            client.create_user user: user
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -174,13 +174,13 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          response = client.get_user name
+          response = client.get_user name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_user name do |resp, operation|
+          client.get_user name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -210,7 +210,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_user name
+            client.get_user name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -250,13 +250,13 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          response = client.update_user user, update_mask
+          response = client.update_user user: user, update_mask: update_mask
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.update_user user, update_mask do |resp, operation|
+          client.update_user user: user, update_mask: update_mask do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -288,7 +288,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.update_user user, update_mask
+            client.update_user user: user, update_mask: update_mask
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -326,13 +326,13 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          response = client.delete_user name
+          response = client.delete_user name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_user name do |resp, operation|
+          client.delete_user name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -362,7 +362,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_user name
+            client.delete_user name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -402,13 +402,13 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          response = client.list_users page_size, page_token
+          response = client.list_users page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_users page_size, page_token do |resp, operation|
+          client.list_users page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -440,7 +440,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_users page_size, page_token
+            client.list_users page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

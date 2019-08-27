@@ -100,13 +100,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.create_room room
+          response = client.create_room room: room
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_room room do |resp, operation|
+          client.create_room room: room do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -136,7 +136,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_room room
+            client.create_room room: room
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -174,13 +174,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.get_room name
+          response = client.get_room name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_room name do |resp, operation|
+          client.get_room name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -210,7 +210,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_room name
+            client.get_room name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -250,13 +250,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.update_room room, update_mask
+          response = client.update_room room: room, update_mask: update_mask
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.update_room room, update_mask do |resp, operation|
+          client.update_room room: room, update_mask: update_mask do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -288,7 +288,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.update_room room, update_mask
+            client.update_room room: room, update_mask: update_mask
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -326,13 +326,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.delete_room name
+          response = client.delete_room name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_room name do |resp, operation|
+          client.delete_room name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -362,7 +362,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_room name
+            client.delete_room name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -402,13 +402,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.list_rooms page_size, page_token
+          response = client.list_rooms page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_rooms page_size, page_token do |resp, operation|
+          client.list_rooms page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -440,7 +440,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_rooms page_size, page_token
+            client.list_rooms page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -480,13 +480,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.create_blurb parent, blurb
+          response = client.create_blurb parent: parent, blurb: blurb
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_blurb parent, blurb do |resp, operation|
+          client.create_blurb parent: parent, blurb: blurb do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -518,7 +518,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_blurb parent, blurb
+            client.create_blurb parent: parent, blurb: blurb
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -556,13 +556,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.get_blurb name
+          response = client.get_blurb name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_blurb name do |resp, operation|
+          client.get_blurb name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -592,7 +592,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_blurb name
+            client.get_blurb name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -632,13 +632,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.update_blurb blurb, update_mask
+          response = client.update_blurb blurb: blurb, update_mask: update_mask
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.update_blurb blurb, update_mask do |resp, operation|
+          client.update_blurb blurb: blurb, update_mask: update_mask do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -670,7 +670,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.update_blurb blurb, update_mask
+            client.update_blurb blurb: blurb, update_mask: update_mask
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -708,13 +708,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.delete_blurb name
+          response = client.delete_blurb name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_blurb name do |resp, operation|
+          client.delete_blurb name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -744,7 +744,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_blurb name
+            client.delete_blurb name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -786,13 +786,13 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.list_blurbs parent, page_size, page_token
+          response = client.list_blurbs parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_blurbs parent, page_size, page_token do |resp, operation|
+          client.list_blurbs parent: parent, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -826,7 +826,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_blurbs parent, page_size, page_token
+            client.list_blurbs parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -877,7 +877,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.search_blurbs query, parent, page_size, page_token
+          response = client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -921,7 +921,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          response = client.search_blurbs query, parent, page_size, page_token
+          response = client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert response.error?
@@ -957,7 +957,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.search_blurbs query, parent, page_size, page_token
+            client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -1029,7 +1029,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.stream_blurbs name, expire_time
+            client.stream_blurbs name: name, expire_time: expire_time
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

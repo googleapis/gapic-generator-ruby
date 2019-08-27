@@ -63,7 +63,7 @@ describe "<%= method.name %>" do
 
         # Call method
         err = assert_raises Gapic::GapicError do
-          client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
+          client.<%= method.name %> <%= method.fields.map(&:as_kwarg).join ", " %>
         end
 
         # Verify the GapicError wrapped the custom error that was raised.

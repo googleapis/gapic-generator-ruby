@@ -100,13 +100,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.create_session session
+          response = client.create_session session: session
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.create_session session do |resp, operation|
+          client.create_session session: session do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -136,7 +136,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.create_session session
+            client.create_session session: session
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -174,13 +174,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.get_session name
+          response = client.get_session name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.get_session name do |resp, operation|
+          client.get_session name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -210,7 +210,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.get_session name
+            client.get_session name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -250,13 +250,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.list_sessions page_size, page_token
+          response = client.list_sessions page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_sessions page_size, page_token do |resp, operation|
+          client.list_sessions page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -288,7 +288,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_sessions page_size, page_token
+            client.list_sessions page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -326,13 +326,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.delete_session name
+          response = client.delete_session name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_session name do |resp, operation|
+          client.delete_session name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -362,7 +362,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_session name
+            client.delete_session name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -400,13 +400,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.report_session name
+          response = client.report_session name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.report_session name do |resp, operation|
+          client.report_session name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -436,7 +436,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.report_session name
+            client.report_session name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -478,13 +478,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.list_tests parent, page_size, page_token
+          response = client.list_tests parent: parent, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.list_tests parent, page_size, page_token do |resp, operation|
+          client.list_tests parent: parent, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -518,7 +518,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.list_tests parent, page_size, page_token
+            client.list_tests parent: parent, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -556,13 +556,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.delete_test name
+          response = client.delete_test name: name
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.delete_test name do |resp, operation|
+          client.delete_test name: name do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -592,7 +592,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.delete_test name
+            client.delete_test name: name
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -634,13 +634,13 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          response = client.verify_test name, answer, answers
+          response = client.verify_test name: name, answer: answer, answers: answers
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.verify_test name, answer, answers do |resp, operation|
+          client.verify_test name: name, answer: answer, answers: answers do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -674,7 +674,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.verify_test name, answer, answers
+            client.verify_test name: name, answer: answer, answers: answers
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

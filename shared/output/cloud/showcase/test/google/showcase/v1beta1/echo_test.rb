@@ -94,13 +94,13 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          response = client.echo content, error
+          response = client.echo content: content, error: error
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.echo content, error do |resp, operation|
+          client.echo content: content, error: error do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -132,7 +132,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.echo content, error
+            client.echo content: content, error: error
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -204,7 +204,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.expand content, error
+            client.expand content: content, error: error
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -371,13 +371,13 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          response = client.paged_expand content, page_size, page_token
+          response = client.paged_expand content: content, page_size: page_size, page_token: page_token
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.paged_expand content, page_size, page_token do |resp, operation|
+          client.paged_expand content: content, page_size: page_size, page_token: page_token do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -411,7 +411,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.paged_expand content, page_size, page_token
+            client.paged_expand content: content, page_size: page_size, page_token: page_token
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -462,7 +462,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          response = client.wait end_time, ttl, error, success
+          response = client.wait end_time: end_time, ttl: ttl, error: error, success: success
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -506,7 +506,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          response = client.wait end_time, ttl, error, success
+          response = client.wait end_time: end_time, ttl: ttl, error: error, success: success
 
           # Verify the response
           assert response.error?
@@ -542,7 +542,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.wait end_time, ttl, error, success
+            client.wait end_time: end_time, ttl: ttl, error: error, success: success
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -584,13 +584,13 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          response = client.block response_delay, error, success
+          response = client.block response_delay: response_delay, error: error, success: success
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.block response_delay, error, success do |resp, operation|
+          client.block response_delay: response_delay, error: error, success: success do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -624,7 +624,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.block response_delay, error, success
+            client.block response_delay: response_delay, error: error, success: success
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

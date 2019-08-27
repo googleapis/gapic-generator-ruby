@@ -94,13 +94,13 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.batch_annotate_images requests, parent
+          response = client.batch_annotate_images requests: requests, parent: parent
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.batch_annotate_images requests, parent do |resp, operation|
+          client.batch_annotate_images requests: requests, parent: parent do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -132,7 +132,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.batch_annotate_images requests, parent
+            client.batch_annotate_images requests: requests, parent: parent
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -172,13 +172,13 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.batch_annotate_files requests, parent
+          response = client.batch_annotate_files requests: requests, parent: parent
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.batch_annotate_files requests, parent do |resp, operation|
+          client.batch_annotate_files requests: requests, parent: parent do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -210,7 +210,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.batch_annotate_files requests, parent
+            client.batch_annotate_files requests: requests, parent: parent
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -259,7 +259,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.async_batch_annotate_images requests, output_config, parent
+          response = client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -301,7 +301,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.async_batch_annotate_images requests, output_config, parent
+          response = client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent
 
           # Verify the response
           assert response.error?
@@ -335,7 +335,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.async_batch_annotate_images requests, output_config, parent
+            client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -382,7 +382,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.async_batch_annotate_files requests, parent
+          response = client.async_batch_annotate_files requests: requests, parent: parent
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -422,7 +422,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          response = client.async_batch_annotate_files requests, parent
+          response = client.async_batch_annotate_files requests: requests, parent: parent
 
           # Verify the response
           assert response.error?
@@ -454,7 +454,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.async_batch_annotate_files requests, parent
+            client.async_batch_annotate_files requests: requests, parent: parent
           end
 
           # Verify the GapicError wrapped the custom error that was raised.

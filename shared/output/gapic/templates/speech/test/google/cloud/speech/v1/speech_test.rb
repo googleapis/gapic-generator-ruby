@@ -102,13 +102,13 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          response = client.recognize config, audio
+          response = client.recognize config: config, audio: audio
 
           # Verify the response
           assert_equal expected_response, response
 
           # Call method with block
-          client.recognize config, audio do |resp, operation|
+          client.recognize config: config, audio: audio do |resp, operation|
             # Verify the response
             assert_equal expected_response, resp
             refute_nil operation
@@ -140,7 +140,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.recognize config, audio
+            client.recognize config: config, audio: audio
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
@@ -187,7 +187,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          response = client.long_running_recognize config, audio
+          response = client.long_running_recognize config: config, audio: audio
 
           # Verify the response
           assert_equal expected_response, response.response
@@ -227,7 +227,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          response = client.long_running_recognize config, audio
+          response = client.long_running_recognize config: config, audio: audio
 
           # Verify the response
           assert response.error?
@@ -259,7 +259,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
 
           # Call method
           err = assert_raises Gapic::GapicError do
-            client.long_running_recognize config, audio
+            client.long_running_recognize config: config, audio: audio
           end
 
           # Verify the GapicError wrapped the custom error that was raised.
