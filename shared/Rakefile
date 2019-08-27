@@ -30,7 +30,7 @@ namespace :gen do
     speech_protos = [
       "google/cloud/speech/v1/cloud_speech.proto"
     ]
-    generate_input_file "speech", speech_protos, "google/cloud/speech/v1/samples"
+    generate_input_file "speech", speech_protos, "../shared/samples/speech/v1"
   end
 
   desc "Generate the binary input files for vision"
@@ -135,7 +135,7 @@ def generate_input_file service, protos, samples = nil  # TODO: support Array of
       "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin",
     ]
     # Add optional samples paths
-    protoc_cmd <<  "--ruby_gapic_opt=samples=../gapic-generator/test/data/samples/#{samples}" unless samples.nil?
+    protoc_cmd <<  "--ruby_gapic_opt=samples=#{samples}" unless samples.nil?
 
     `#{protoc_cmd.join " "}`
   end

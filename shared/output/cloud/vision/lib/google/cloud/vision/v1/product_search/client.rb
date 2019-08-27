@@ -147,9 +147,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def create_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -219,9 +216,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def list_product_sets request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -287,9 +281,6 @@ module Google
             # @return [Google::Cloud::Vision::V1::ProductSet]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def get_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -363,9 +354,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def update_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -427,9 +415,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def delete_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -508,9 +493,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def create_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -579,9 +561,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def list_products request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -647,9 +626,6 @@ module Google
             # @return [Google::Cloud::Vision::V1::Product]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def get_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -739,9 +715,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def update_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -805,9 +778,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def delete_product request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -909,9 +879,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def create_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -980,9 +947,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def delete_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -1059,9 +1023,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def list_reference_images request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -1128,9 +1089,6 @@ module Google
             # @return [Google::Cloud::Vision::V1::ReferenceImage]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def get_reference_image request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -1207,9 +1165,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def add_product_to_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -1270,9 +1225,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def remove_product_from_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -1345,9 +1297,6 @@ module Google
             # @return [Gapic::PagedEnumerable<Google::Cloud::Vision::V1::Product>]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def list_products_in_product_set request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -1427,9 +1376,6 @@ module Google
             # @return [Gapic::Operation]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def import_product_sets request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -1541,9 +1487,6 @@ module Google
             # @return [Gapic::Operation]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def purge_products request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
