@@ -140,8 +140,33 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
+            # @example Transcribe short audio file from Cloud Storage using synchronous speech recognition
+            #   require "google/cloud/speech/v1/speech"
+            #
+            #   client = Google::Cloud::Speech::V1::Speech::Client.new
+            #
+            #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.raw"
+            #
+            #   audio = {
+            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
+            #     uri: storage_uri
+            #   }
+            #   config = {
+            #     # Sample rate in Hertz of the audio data sent
+            #     sample_rate_hertz: 16000,
+            #     # The language of the supplied audio
+            #     language_code: "en-US",
+            #     # Encoding of audio data sent. This sample sets this explicitly.
+            #     # This field is optional for FLAC and WAV audio formats.
+            #     encoding: :LINEAR16
+            #   }
+            #
+            #   response = client.recognize audio: audio, config: config
+            #   response.results.each do |result|
+            #     # First alternative is the most probable result
+            #     alternative = result.alternatives[0]
+            #     puts "Transcript: #{alternative.transcript}"
+            #   end
             #
             def recognize request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -199,9 +224,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def long_running_recognize request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -245,9 +267,6 @@ module Google
             # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def streaming_recognize request, options = nil, &block
               unless request.is_a? Enumerable

@@ -104,6 +104,25 @@ module Gapic
         end
       end
 
+      # Structured representation of the samples configuration files.
+      # @return [Array<Hash>]
+      #   An array of the sample configuration hashes.
+      def samples
+        @samples ||= begin
+          sam = []
+          if protoc_options[:samples]
+            require "yaml"
+            path = protoc_options[:samples]
+            files = Dir.glob "#{path}/*.yaml"
+            files.each do |file|
+              yaml = YAML.load_file file
+              sam += yaml["samples"] if yaml["samples"]
+            end
+          end
+          sam
+        end
+      end
+
       # Structured Hash representation of the configuration file.
       # @return [Hash]
       #   A Hash of the configuration values.

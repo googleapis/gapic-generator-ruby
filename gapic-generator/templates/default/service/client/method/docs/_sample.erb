@@ -1,0 +1,34 @@
+<%- assert_locals method, sample -%>
+require "<%= method.service.service_require %>"
+
+client = <%= method.service.client_name_full %>.new
+
+<%- sample.input_parameters.each do |field| -%>
+<%= field.input_parameter %> = <%= field.value %>
+<%- end -%>
+
+<%- sample.fields.each_pair do |k,v| -%>
+<%= k %> = {
+<%- v.each_pair do |k2,v2| -%>
+<%- if v2.comment  -%>
+<%= indent v2.comment, "  # " %>
+<%- end -%>
+  <%= k2 %>: <%= v2.input_parameter ? v2.input_parameter : v2.value %><%= "," unless v2 == v.values.last %>
+<%- end -%>
+}
+<%- end -%>
+
+response = client.<%= method.name %> <%= sample.kwargs %>
+<%= sample.response_collection %>.each do |result|
+  <%- sample.response_body.each do |b| -%>
+  <%- if b.key? "comment" -%>
+  <%= indent b["comment"].join("\n"), "# " %>
+  <%- end -%>
+  <%- if b.key? "define" -%>
+  <%= b["define"] %>
+  <%- end -%>
+  <%- if b.key? "print" -%>
+  puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
+  <%- end -%>
+  <%- end -%>
+end

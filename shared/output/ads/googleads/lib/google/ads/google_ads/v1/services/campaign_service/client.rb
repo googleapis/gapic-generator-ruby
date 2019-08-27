@@ -126,9 +126,6 @@ module Google
               #
               # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
               #
-              # @example
-              #   TODO
-              #
               def get_campaign request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
 
@@ -193,9 +190,6 @@ module Google
               # @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               #
               # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
-              #
-              # @example
-              #   TODO
               #
               def mutate_campaigns request, options = nil, &block
                 raise ArgumentError, "request must be provided" if request.nil?
