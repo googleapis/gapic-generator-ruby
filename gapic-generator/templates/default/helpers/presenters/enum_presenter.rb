@@ -32,7 +32,7 @@ class EnumPresenter
       .docs
       .leading_comments
       .each_line
-      .map { |line| (line.start_with? " ") ? line[1..-1] : line }
+      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
       .join
   end
 

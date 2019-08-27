@@ -60,7 +60,13 @@ module Gapic
 
       name_ivar = "@#{name}".to_sym
 
-      # create getter
+      create_getter name_ivar, name, default
+      create_setter name_ivar, name_setter, default, validator
+    end
+
+    private
+
+    def create_getter name_ivar, name, default
       define_method name do
         return instance_variable_get name_ivar if instance_variable_defined? name_ivar
 
@@ -71,8 +77,9 @@ module Gapic
 
         default
       end
+    end
 
-      # create setter
+    def create_setter name_ivar, name_setter, default, validator
       define_method name_setter do |new_value|
         valid_value = validator.call new_value
         if new_value.nil?

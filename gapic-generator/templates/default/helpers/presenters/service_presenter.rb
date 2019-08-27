@@ -139,7 +139,7 @@ class ServicePresenter
   end
 
   def client_proto_name
-    @service.address.join(".")
+    @service.address.join "."
   end
 
   def credentials_name
@@ -177,7 +177,7 @@ class ServicePresenter
   def references
     @references ||= begin
       m = @service.parent.messages.select(&:resource)
-      m.sort_by! { |m1| m1.name }
+      m.sort_by!(&:name)
       # TODO: ResourceDescriptor#pattern is a list of patterns
       # How do we handle there being more than one pattern?
       m.map { |m1| ResourcePresenter.new m1.name, m1.resource.pattern.first }
@@ -210,6 +210,10 @@ class ServicePresenter
 
   def test_client_file_path
     service_file_path.sub ".rb", "_test.rb"
+  end
+
+  def test_client_operations_file_path
+    service_file_path.sub ".rb", "_operations_test.rb"
   end
 
   def stub_name

@@ -73,6 +73,11 @@ class GoogleAdsServiceTest < PresenterTest
     assert_equal "google/ads/google_ads/v1/services/campaign_service_test.rb", presenter.test_client_file_path
   end
 
+  def test_test_client_operations_file_path
+    assert_equal "google/ads/google_ads/v1/services/campaign_service_operations_test.rb",
+                 presenter.test_client_operations_file_path
+  end
+
   def test_stub_name
     assert_equal "campaign_service_stub", presenter.stub_name
   end

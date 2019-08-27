@@ -1,7 +1,8 @@
 <%- assert_locals method -%>
+<%- full_client_name = defined?(client_name_full) ? client_name_full : method.service.client_name_full -%>
 describe "<%= method.name %>" do
   let :custom_error do
-    CustomTestErrorV1.new "Custom test error for <%= method.service.client_name_full %>#<%= method.name %>."
+    CustomTestErrorV1.new "Custom test error for <%= full_client_name %>#<%= method.name %>."
   end
 
 <%- if method.lro? -%>
@@ -34,7 +35,7 @@ describe "<%= method.name %>" do
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
-        client = <%= method.service.client_name_full %>.new
+        client = <%= full_client_name %>.new
 
         # Call method
         response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
@@ -50,7 +51,7 @@ describe "<%= method.name %>" do
 
     # Create expected grpc response
     operation_error = Google::Rpc::Status.new(
-      message: "Operation error for <%= method.service.client_name_full %>#<%= method.name %>."
+      message: "Operation error for <%= full_client_name %>#<%= method.name %>."
     )
     operation = Google::Longrunning::Operation.new(
       name: "operations/<%= method.name %>_test",
@@ -73,7 +74,7 @@ describe "<%= method.name %>" do
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
-        client = <%= method.service.client_name_full %>.new
+        client = <%= full_client_name %>.new
 
         # Call method
         response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
@@ -107,7 +108,7 @@ describe "<%= method.name %>" do
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
-        client = <%= method.service.client_name_full %>.new
+        client = <%= full_client_name %>.new
 
         # Call method
         response = client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
@@ -144,7 +145,7 @@ describe "<%= method.name %>" do
 
     <%= method.service.proto_service_stub_name_full %>.stub :new, mock_stub do
       <%= method.service.credentials_name_full %>.stub :default, mock_credentials do
-        client = <%= method.service.client_name_full %>.new
+        client = <%= full_client_name %>.new
 
         # Call method
         err = assert_raises Gapic::GapicError do

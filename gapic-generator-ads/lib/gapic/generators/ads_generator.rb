@@ -33,6 +33,10 @@ module Gapic
         use_templates! File.join __dir__, "../../../templates/ads"
       end
 
+      # Disable Rubocop because we expect generate to grow and violate more
+      # and more style rules.
+      # rubocop:disable all
+
       # Generates all the files for the API.
       #
       # @return [Array<
@@ -68,6 +72,8 @@ module Gapic
 
         files
       end
+
+      # rubocop:enable all
 
       private
 

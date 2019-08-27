@@ -3,7 +3,7 @@
 <%= indent message.doc_description, "# " %>
 <%- end -%>
 <%- message.fields.each do |field| -%>
-# @!attribute [rw] <%= field.name %>
+<%= indent field.doc_attribute_type, "# " %>
 #   @return [<%= field.output_doc_types %>]
 <%- if field.doc_description -%>
 <%= indent field.doc_description, "#     " %>
