@@ -19,16 +19,16 @@ client = <%= method.service.client_name_full %>.new
 <%- end -%>
 
 response = client.<%= method.name %> <%= sample.kwargs %>
-<%= sample.response_variable %> = <%= sample.response_collection %>
-
-<%- sample.response_body.each do |b| -%>
-<%- if b.key? "comment" -%>
-<%= indent b["comment"].join("\n"), "# " %>
-<%- end -%>
-<%- if b.key? "define" -%>
-<%= b["define"] %>
-<%- end -%>
-<%- if b.key? "print" -%>
-puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
-<%- end -%>
-<%- end -%>
+<%= sample.response_collection %>.each do |result|
+  <%- sample.response_body.each do |b| -%>
+  <%- if b.key? "comment" -%>
+  <%= indent b["comment"].join("\n"), "# " %>
+  <%- end -%>
+  <%- if b.key? "define" -%>
+  <%= b["define"] %>
+  <%- end -%>
+  <%- if b.key? "print" -%>
+  puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
+  <%- end -%>
+  <%- end -%>
+end

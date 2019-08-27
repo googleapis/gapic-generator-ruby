@@ -162,11 +162,11 @@ module Google
             #   }
             #
             #   response = client.recognize audio: audio, config: config
-            #   result = response.results
-            #
-            #   # First alternative is the most probable result
-            #   alternative = result.alternatives[0]
-            #   puts "Transcript: #{alternative.transcript}"
+            #   response.results.each do |result|
+            #     # First alternative is the most probable result
+            #     alternative = result.alternatives[0]
+            #     puts "Transcript: #{alternative.transcript}"
+            #   end
             #
             def recognize request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
