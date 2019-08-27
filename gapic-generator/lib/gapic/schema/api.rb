@@ -105,7 +105,7 @@ module Gapic
       end
 
       # Structured representation of the samples configuration files.
-      # @return [Arra]
+      # @return [Array<Hash>]
       #   An array of the sample configuration hashes.
       def samples
         @samples ||= begin
