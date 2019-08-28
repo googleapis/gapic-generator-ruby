@@ -40,6 +40,14 @@ sources = [
       "google/showcase/v1beta1/messaging.proto",
       "google/showcase/v1beta1/testing.proto"
     ],
+<<<<<<< HEAD
+=======
+    samples: []
+  },
+  {
+    name:    :garbage,
+    protos:  ["garbage/garbage.proto"],
+>>>>>>> {} -> []
     samples: []
   }, {
     id:      :garbage,
