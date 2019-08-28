@@ -129,9 +129,6 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          # @example
-          #   TODO
-          #
           def echo request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
@@ -183,9 +180,6 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          # @example
-          #   TODO
-          #
           def expand request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
@@ -228,9 +222,6 @@ module Google
           # @return [Google::Showcase::V1beta1::EchoResponse]
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
-          #
-          # @example
-          #   TODO
           #
           def collect request, options = nil, &block
             unless request.is_a? Enumerable
@@ -282,9 +273,6 @@ module Google
           # @return [Enumerable<Google::Showcase::V1beta1::EchoResponse>]
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
-          #
-          # @example
-          #   TODO
           #
           def chat request, options = nil, &block
             unless request.is_a? Enumerable
@@ -347,9 +335,6 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          # @example
-          #   TODO
-          #
           def paged_expand request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
@@ -408,9 +393,6 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          # @example
-          #   TODO
-          #
           def wait request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?
 
@@ -468,9 +450,6 @@ module Google
           # @return [Google::Showcase::V1beta1::BlockResponse]
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
-          #
-          # @example
-          #   TODO
           #
           def block request, options = nil, &block
             raise ArgumentError, "request must be provided" if request.nil?

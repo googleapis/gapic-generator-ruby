@@ -135,9 +135,6 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            # @example
-            #   TODO
-            #
             def list_operations request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
@@ -197,9 +194,6 @@ module Google
             # @return [Gapic::Operation]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def get_operation request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -261,9 +255,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def delete_operation request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
@@ -335,9 +326,6 @@ module Google
             # @return [Google::Protobuf::Empty]
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
-            #
-            # @example
-            #   TODO
             #
             def cancel_operation request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
