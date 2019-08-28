@@ -7,34 +7,48 @@ def test_<%= method.name %>
   <%= field.name %> = <%= field.default_value %>
   <%- end -%>
 
-  mock_stub = MiniTest::Mock.new
-  mock_response = {}
-
-  Gapic::ServiceStub.stub :new, mock_stub do
+  Gapic::ServiceStub.stub :new, @mock_stub do
     # Create client
     client = <%= full_client_name %>.new do |config|
       config.credentials = @test_channel
     end
 
-    2.times do
-      mock_stub.expect :call_rpc, mock_response do |name, request, options|
-        name == :<%= method.name %> && !options.nil? &&
-          <%- fields.each do |field| -%>
+    4.times do
+      @mock_stub.expect :call_rpc, @response do |name, request, options|
+        has_name = name == :<%= method.name %>
+        has_options = !options.nil?
+        has_fields = <%- fields.each do |field| -%>
           <%- if field.type_name_full.to_s.empty? -%>
           <%= field.default_value %> == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
           <%- else -%>
           Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>) == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
           <%- end -%>
           <%- end -%>
+
+          puts "invalid method call: #{name} (expected <%= method.name %>)" unless has_name
+          puts "invalid options: #{options} vs #{@options}" unless has_options
+          puts "invalid fields" unless has_fields
+
+          has_name && has_options && has_fields
       end
     end
 
     # Call method
     response = client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %>
-    assert_equal mock_response, response
+    assert_equal @response, response
+
+    # Call method with options
+    response = client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, @options)
+    assert_equal @response, response
 
     # Call method with block
     client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |block_response, operation|
+      assert_equal expected_response, block_response
+      refute_nil operation
+    end
+
+    # Call method with block and options
+    client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %>}, @options) do |block_response, operation|
       assert_equal expected_response, block_response
       refute_nil operation
     end

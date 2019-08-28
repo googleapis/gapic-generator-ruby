@@ -11,9 +11,7 @@ require "<%= service.proto_services_require %>"
 require "<%= service.service_require %>"
 
 class <%= service.operations_name_full %>Test < Minitest::Test
-  def setup
-    @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-  end
+<%= indent render(partial: "service/test/method/setup",), 2 %>
 
 <% service.lro_service.methods.each do |method| %>
 <%= indent render(partial: "service/test/method/#{method.kind}",

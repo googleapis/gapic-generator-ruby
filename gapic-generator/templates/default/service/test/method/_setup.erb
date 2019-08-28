@@ -1,0 +1,6 @@
+def setup
+  @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+  @mock_stub = MiniTest::Mock.new
+  @response = {}
+  @options = {}
+end
