@@ -58,11 +58,9 @@ sources = [
 
 desc "Generate the binary input files"
 task :gen do
-  Rake::Task["gen:speech"].invoke
-  Rake::Task["gen:vision"].invoke
-  Rake::Task["gen:showcase"].invoke
-  Rake::Task["gen:garbage"].invoke
-  Rake::Task["gen:googleads"].invoke
+  test_libraries.each do |name:, protos:, samples:|
+    Rake::Task["gen:#{name}"].invoke
+  end
 end
 
 namespace :gen do

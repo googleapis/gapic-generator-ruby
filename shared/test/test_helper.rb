@@ -20,7 +20,7 @@ require "fileutils"
 require "open3"
 require "tmpdir"
 
-def generate_library_for_test imports, protos
+def generate_library_for_test name, imports, protos
   client_lib = Dir.mktmpdir
 
   protoc_cmd = [
@@ -29,7 +29,7 @@ def generate_library_for_test imports, protos
     "--ruby_out=#{client_lib}/lib",
     "--grpc_out=#{client_lib}/lib",
     "--ruby_gapic_out=#{client_lib}",
-    "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
+    "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
     "#{protos.join " "}",
   ].join " "
   puts "#{protoc_cmd}" if ENV["VERBOSE"]
@@ -68,6 +68,7 @@ class ShowcaseTest < Minitest::Test
 
   @showcase_library = begin
     library = generate_library_for_test(
+      :showcase,
       %w[api-common-protos protos],
       %w[google/showcase/v1beta1/echo.proto])
     $LOAD_PATH.unshift "#{library}/lib"
