@@ -21,11 +21,38 @@ require "rubocop/rake_task"
 require "yard"
 require "yard/rake/yardoc_task"
 
+protos = {
+  showcase: [
+    "google/showcase/v1beta1/echo.proto",
+    "google/showcase/v1beta1/identity.proto",
+    "google/showcase/v1beta1/messaging.proto",
+    "google/showcase/v1beta1/testing.proto"
+  ],
+  garbage:  [
+    "garbage/garbage.proto"
+  ]
+}
+
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
   t.libs << "test"
   t.libs << "lib"
   t.test_files = FileList["test/**/*_test.rb"]
+end
+
+desc "Validate the test libraries (install & run tests)"
+task :validate do
+  Rake::Task["validate:showcase"].invoke
+  # TODO: validate this garbage!
+  # Rake::Task["validate:garbage"].invoke
+end
+namespace :validate do
+  protos.each do |name, input|
+    desc "Validate the #{name} library (install & run tests)"
+    task name.to_sym do
+      install_and_run_unit_tests name, input
+    end
+  end
 end
 
 YARD::Rake::YardocTask.new do |y|
@@ -38,6 +65,8 @@ task :ci do
   Rake::Task[:rubocop].invoke
   puts "\ngapic-generator test\n"
   Rake::Task[:test].invoke
+  puts "\ngapic-generator validate\n"
+  Rake::Task[:validate].invoke
 end
 
 task default: :ci
@@ -103,7 +132,7 @@ def generate_protos
   plugin = "protoc-gen-ruby-protobuf=#{plugin_executable}"
 
   command = []
-  command << "grpc_tools_ruby_protoc"
+  command << "bundle exec grpc_tools_ruby_protoc"
   command << "--plugin=#{plugin}"
   command << "--ruby-protobuf_out=lib"
   command << "-I ../shared/api-common-protos"
@@ -159,6 +188,44 @@ def generate_gem gem_name
       target_file_path = File.join target_path, gem_name, local_file_path
       FileUtils.mkdir_p File.dirname(target_file_path)
       File.write target_file_path, File.read(file)
+    end
+  end
+end
+
+def generate_library_for_test name, protos
+  require "tmpdir"
+
+  Dir.mktmpdir do |client_lib|
+    protoc_cmd = [
+      "bundle exec grpc_tools_ruby_protoc",
+      "--proto_path=../shared/api-common-protos/",
+      "--proto_path=../shared/googleapis/",
+      "--proto_path=../shared/protos/",
+      "--ruby_out=#{client_lib}/lib",
+      "--grpc_out=#{client_lib}/lib",
+      "--ruby_gapic_out=#{client_lib}",
+      "--ruby_gapic_opt=configuration=../shared/config/#{name}.yml",
+      (protos.join " ").to_s
+    ].join " "
+    puts protoc_cmd.to_s if ENV["VERBOSE"]
+    protoc_cmd_output = `#{protoc_cmd}`
+    puts protoc_cmd_output if ENV["VERBOSE"]
+    yield client_lib
+  end
+end
+
+def install_and_run_unit_tests name, protos
+  require "open3"
+
+  generate_library_for_test name, protos do |dir|
+    Bundler.with_clean_env do
+      Dir.chdir dir do
+        `cp -R ${dir} /Users/jbolinger/Desktop`
+        puts "Validating #{name}..."
+        stdout, stderr, status = Open3.capture3 "bundle install && bundle exec rake test"
+        puts stdout
+        puts stderr unless status.success?
+      end
     end
   end
 end

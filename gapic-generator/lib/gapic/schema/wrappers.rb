@@ -556,6 +556,12 @@ module Gapic
         false
       end
 
+      # Whether this field is a repeated field.
+      # @return [Boolean]
+      def repeated?
+        label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED
+      end
+
       # Whether this field is an enum.
       # @return [Boolean]
       def enum?

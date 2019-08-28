@@ -70,6 +70,28 @@ class FieldPresenter
   end
 
   def default_value
+    single = default_singular_value
+    return "[#{single}]" if @field.repeated?
+    single
+  end
+
+  def as_kwarg value: nil
+    "#{name}: #{value || name}"
+  end
+
+  # TODO: remove, only used in tests
+  def type_name
+    @field.type_name
+  end
+
+  def type_name_full
+    return nil if type_name.blank?
+    ruby_namespace @api, type_name
+  end
+
+  protected
+
+  def default_singular_value
     if @field.message?
       "{}"
     elsif @field.enum?
@@ -86,18 +108,6 @@ class FieldPresenter
       end
     end
   end
-
-  # TODO: remove, only used in tests
-  def type_name
-    @field.type_name
-  end
-
-  def type_name_full
-    return nil if type_name.blank?
-    ruby_namespace @api, type_name
-  end
-
-  protected
 
   def message_ruby_type message
     ruby_namespace @api, message.address.join(".")

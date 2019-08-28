@@ -14,6 +14,48 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+sources = [
+  {
+    id:      :speech,
+    protos:  [
+      "google/cloud/speech/v1/cloud_speech.proto"
+    ],
+    samples: Dir.glob("../shared/samples/speech/v1/*.yaml")
+  }, {
+    id:      :vision,
+    protos:  [
+      "google/cloud/vision/v1/geometry.proto",
+      "google/cloud/vision/v1/image_annotator.proto",
+      "google/cloud/vision/v1/product_search.proto",
+      "google/cloud/vision/v1/product_search_service.proto",
+      "google/cloud/vision/v1/text_annotation.proto",
+      "google/cloud/vision/v1/web_detection.proto"
+    ],
+    samples: []
+  }, {
+    id:      :showcase,
+    protos:  [
+      "google/showcase/v1beta1/echo.proto",
+      "google/showcase/v1beta1/identity.proto",
+      "google/showcase/v1beta1/messaging.proto",
+      "google/showcase/v1beta1/testing.proto"
+    ],
+    samples: []
+  }, {
+    id:      :garbage,
+    protos:  [
+      "garbage/garbage.proto"
+    ],
+    samples: []
+  }, {
+    id:      :googleads,
+    protos:  [
+      "google/ads/googleads/v1/services/campaign_service.proto"
+    ],
+    samples: []
+  }
+]
+
 desc "Generate the binary input files"
 task :gen do
   Rake::Task["gen:speech"].invoke
@@ -23,57 +65,17 @@ task :gen do
   Rake::Task["gen:googleads"].invoke
 end
 
-# rubocop:disable Metrics/BlockLength
 namespace :gen do
-  desc "Generate the binary input files for speech"
-  task :speech do
-    speech_protos = [
-      "google/cloud/speech/v1/cloud_speech.proto"
-    ]
-    generate_input_file "speech", speech_protos, Dir.glob("../shared/samples/speech/v1/*.yaml")
-  end
-
-  desc "Generate the binary input files for vision"
-  task :vision do
-    vision_protos = [
-      "google/cloud/vision/v1/geometry.proto",
-      "google/cloud/vision/v1/image_annotator.proto",
-      "google/cloud/vision/v1/product_search.proto",
-      "google/cloud/vision/v1/product_search_service.proto",
-      "google/cloud/vision/v1/text_annotation.proto",
-      "google/cloud/vision/v1/web_detection.proto"
-    ]
-    generate_input_file "vision", vision_protos
-  end
-
-  desc "Generate the binary input files for showcase"
-  task :showcase do
-    showcase_protos = [
-      "google/showcase/v1beta1/echo.proto",
-      "google/showcase/v1beta1/identity.proto",
-      "google/showcase/v1beta1/messaging.proto",
-      "google/showcase/v1beta1/testing.proto"
-    ]
-    generate_input_file "showcase", showcase_protos
-  end
-
-  desc "Generate the binary input files for garbage"
-  task :garbage do
-    garbage_protos = [
-      "garbage/garbage.proto"
-    ]
-    generate_input_file "garbage", garbage_protos
-  end
-
-  desc "Generate the binary input files for Google Ads"
-  task :googleads do
-    googleads_protos = [
-      "google/ads/googleads/v1/services/campaign_service.proto"
-    ]
-    generate_input_file "googleads", googleads_protos
+  sources.each do |input|
+    api = input[:id]
+    protos = input[:protos]
+    samples = input[:samples]
+    desc "Generate the binary input files for #{api}"
+    task api do
+      generate_input_file api, protos, samples
+    end
   end
 end
-# rubocop:enable Metrics/BlockLength
 
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
@@ -135,7 +137,7 @@ def generate_input_file service, protos, samples = nil
       "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin"
     ]
     # Add optional samples paths
-    protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+    protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" unless samples.nil? || samples.empty?
 
     `#{protoc_cmd.join " "}`
   end
