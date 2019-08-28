@@ -48,7 +48,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :echo
           has_options = !options.nil?
@@ -63,25 +63,45 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.echo content: content
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.echo(Google::Showcase::V1beta1::EchoRequest.new(
+                               content: content
+                             ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.echo request = { content: content }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.echo request = Google::Showcase::V1beta1::EchoRequest.new(
+        content: content
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.echo({ content: content }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.echo content: content do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.echo(Google::Showcase::V1beta1::EchoRequest.new(
+                               content: content
+                             ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.echo({ content: content }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.echo request = { content: content }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.echo request = Google::Showcase::V1beta1::EchoRequest.new(
+        content: content
+      ), options = @options
+      assert_equal @response, response
     end
   end
 
@@ -103,7 +123,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :paged_expand
           has_options = !options.nil?
@@ -122,25 +142,45 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.paged_expand content: content, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.paged_expand(Google::Showcase::V1beta1::PagedExpandRequest.new(
+                                       content: content, page_size: page_size, page_token: page_token
+                                     ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.paged_expand request = { content: content, page_size: page_size, page_token: page_token }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.paged_expand request = Google::Showcase::V1beta1::PagedExpandRequest.new(
+        content: content, page_size: page_size, page_token: page_token
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.paged_expand content: content, page_size: page_size, page_token: page_token do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.paged_expand(Google::Showcase::V1beta1::PagedExpandRequest.new(
+                                       content: content, page_size: page_size, page_token: page_token
+                                     ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.paged_expand request = { content: content, page_size: page_size, page_token: page_token }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.paged_expand request = Google::Showcase::V1beta1::PagedExpandRequest.new(
+        content: content, page_size: page_size, page_token: page_token
+      ), options = @options
+      assert_equal @response, response
     end
   end
 
@@ -155,7 +195,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :wait
           has_options = !options.nil?
@@ -172,25 +212,45 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.wait end_time: end_time, error: error
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.wait(Google::Showcase::V1beta1::WaitRequest.new(
+                               end_time: end_time, error: error
+                             ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.wait request = { end_time: end_time, error: error }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.wait request = Google::Showcase::V1beta1::WaitRequest.new(
+        end_time: end_time, error: error
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.wait({ end_time: end_time, error: error }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.wait end_time: end_time, error: error do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.wait(Google::Showcase::V1beta1::WaitRequest.new(
+                               end_time: end_time, error: error
+                             ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.wait({ end_time: end_time, error: error }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.wait request = { end_time: end_time, error: error }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.wait request = Google::Showcase::V1beta1::WaitRequest.new(
+        end_time: end_time, error: error
+      ), options = @options
+      assert_equal @response, response
     end
   end
 
@@ -204,7 +264,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :block
           has_options = !options.nil?
@@ -219,25 +279,45 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.block response_delay: response_delay
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.block(Google::Showcase::V1beta1::BlockRequest.new(
+                                response_delay: response_delay
+                              ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.block request = { response_delay: response_delay }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.block request = Google::Showcase::V1beta1::BlockRequest.new(
+        response_delay: response_delay
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.block({ response_delay: response_delay }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.block response_delay: response_delay do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.block(Google::Showcase::V1beta1::BlockRequest.new(
+                                response_delay: response_delay
+                              ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.block({ response_delay: response_delay }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.block request = { response_delay: response_delay }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.block request = Google::Showcase::V1beta1::BlockRequest.new(
+        response_delay: response_delay
+      ), options = @options
+      assert_equal @response, response
     end
   end
 end

@@ -13,7 +13,7 @@ def test_<%= method.name %>
       config.credentials = @test_channel
     end
 
-    4.times do
+    8.times do
       @mock_stub.expect :call_rpc, @response do |name, request, options|
         has_name = name == :<%= method.name %>
         has_options = !options.nil?
@@ -33,24 +33,40 @@ def test_<%= method.name %>
       end
     end
 
-    # Call method
+    # Call method (positional / hash)
     response = client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %>
     assert_equal @response, response
 
-    # Call method with options
+    # Call method (positional / protobuf type)
+    response = client.<%= method.name %>(<%= method.request_type %>.new(
+    <%= fields.map(&:as_kwarg).join ", " %>))
+    assert_equal @response, response
+
+    # Call method (named / hash)
+    response = client.<%= method.name %> request = { <%= fields.map(&:as_kwarg).join ", " %> }
+    assert_equal @response, response
+
+    # Call method (named / protobuf type)
+    response = client.<%= method.name %> request = <%= method.request_type %>.new(
+      { <%= fields.map(&:as_kwarg).join ", " %> })
+    assert_equal @response, response
+
+    # Call method with options (positional / hash)
     response = client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, @options)
     assert_equal @response, response
 
-    # Call method with block
-    client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |block_response, operation|
-      assert_equal expected_response, block_response
-      refute_nil operation
-    end
+    # Call method with options (positional / protobuf type)
+    response = client.<%= method.name %>(<%= method.request_type %>.new(
+    <%= fields.map(&:as_kwarg).join ", " %>), @options)
+    assert_equal @response, response
 
-    # Call method with block and options
-    client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %>}, @options) do |block_response, operation|
-      assert_equal expected_response, block_response
-      refute_nil operation
-    end
+    # Call method with options (named / hash)
+    response = client.<%= method.name %> request = { <%= fields.map(&:as_kwarg).join ", " %> }, options = @options
+    assert_equal @response, response
+
+    # Call method with options (named / protobuf type)
+    response = client.<%= method.name %> request = <%= method.request_type %>.new(
+      { <%= fields.map(&:as_kwarg).join ", " %> }), options = @options
+    assert_equal @response, response
   end
 end

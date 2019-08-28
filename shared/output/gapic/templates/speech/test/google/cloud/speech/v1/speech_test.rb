@@ -49,7 +49,7 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :recognize
           has_options = !options.nil?
@@ -66,25 +66,45 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.recognize config: config, audio: audio
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.recognize(Google::Cloud::Speech::V1::RecognizeRequest.new(
+                                    config: config, audio: audio
+                                  ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.recognize request = { config: config, audio: audio }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.recognize request = Google::Cloud::Speech::V1::RecognizeRequest.new(
+        config: config, audio: audio
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.recognize({ config: config, audio: audio }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.recognize config: config, audio: audio do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.recognize(Google::Cloud::Speech::V1::RecognizeRequest.new(
+                                    config: config, audio: audio
+                                  ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.recognize({ config: config, audio: audio }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.recognize request = { config: config, audio: audio }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.recognize request = Google::Cloud::Speech::V1::RecognizeRequest.new(
+        config: config, audio: audio
+      ), options = @options
+      assert_equal @response, response
     end
   end
 
@@ -99,7 +119,7 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      4.times do
+      8.times do
         @mock_stub.expect :call_rpc, @response do |name, request, options|
           has_name = name == :long_running_recognize
           has_options = !options.nil?
@@ -116,25 +136,45 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
         end
       end
 
-      # Call method
+      # Call method (positional / hash)
       response = client.long_running_recognize config: config, audio: audio
       assert_equal @response, response
 
-      # Call method with options
+      # Call method (positional / protobuf type)
+      response = client.long_running_recognize(Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new(
+                                                 config: config, audio: audio
+                                               ))
+      assert_equal @response, response
+
+      # Call method (named / hash)
+      response = client.long_running_recognize request = { config: config, audio: audio }
+      assert_equal @response, response
+
+      # Call method (named / protobuf type)
+      response = client.long_running_recognize request = Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new(
+        config: config, audio: audio
+      )
+      assert_equal @response, response
+
+      # Call method with options (positional / hash)
       response = client.long_running_recognize({ config: config, audio: audio }, @options)
       assert_equal @response, response
 
-      # Call method with block
-      client.long_running_recognize config: config, audio: audio do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (positional / protobuf type)
+      response = client.long_running_recognize(Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new(
+                                                 config: config, audio: audio
+                                               ), @options)
+      assert_equal @response, response
 
-      # Call method with block and options
-      client.long_running_recognize({ config: config, audio: audio }, @options) do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+      # Call method with options (named / hash)
+      response = client.long_running_recognize request = { config: config, audio: audio }, options = @options
+      assert_equal @response, response
+
+      # Call method with options (named / protobuf type)
+      response = client.long_running_recognize request = Google::Cloud::Speech::V1::LongRunningRecognizeRequest.new(
+        config: config, audio: audio
+      ), options = @options
+      assert_equal @response, response
     end
   end
 
