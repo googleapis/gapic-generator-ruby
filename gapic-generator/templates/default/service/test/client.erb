@@ -10,8 +10,8 @@ require "<%= service.proto_service_require %>"
 require "<%= service.proto_services_require %>"
 require "<%= service.service_require %>"
 
-describe <%= service.client_name_full %> do
-  before :all do
+class <%= service.client_name_full %>Test < Minitest::Test
+  def setup
     @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
   end
 

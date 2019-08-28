@@ -220,7 +220,6 @@ def install_and_run_unit_tests name, protos
   generate_library_for_test name, protos do |dir|
     Bundler.with_clean_env do
       Dir.chdir dir do
-        `cp -R ${dir} /Users/jbolinger/Desktop`
         puts "Validating #{name}..."
         stdout, stderr, status = Open3.capture3 "bundle install && bundle exec rake test"
         puts stdout

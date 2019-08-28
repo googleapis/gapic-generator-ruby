@@ -136,6 +136,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
+<<<<<<< HEAD
             # @example Transcribe short audio file from Cloud Storage using synchronous speech recognition
             #   require "google/cloud/speech/v1/speech"
             #
@@ -165,6 +166,9 @@ module Google
             #   end
             #
             def recognize request, options = nil
+=======
+            def recognize request, options = nil, &block
+>>>>>>> remove test dsl
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Speech::V1::RecognizeRequest

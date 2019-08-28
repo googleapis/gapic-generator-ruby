@@ -1,45 +1,42 @@
 <%- assert_locals method -%>
 <%- full_client_name = defined?(client_name_full) ? client_name_full : method.service.client_name_full -%>
 <%- fields = method.fields_with_first_oneof -%>
-describe "<%= method.name %>" do
-  it "invokes <%= method.name %> without error" do
+def test_<%= method.name %>
+  # Create request parameters
+  <%- fields.each do |field| -%>
+  <%= field.name %> = <%= field.default_value %>
+  <%- end -%>
 
-    # Create request parameters
-    <%- fields.each do |field| -%>
-    <%= field.name %> = <%= field.default_value %>
-    <%- end -%>
+  mock_stub = MiniTest::Mock.new
+  mock_response = {}
 
-    mock_stub = MiniTest::Mock.new
-    mock_response = {}
+  Gapic::ServiceStub.stub :new, mock_stub do
+    # Create client
+    client = <%= full_client_name %>.new do |config|
+      config.credentials = @test_channel
+    end
 
-    Gapic::ServiceStub.stub :new, mock_stub do
-      # Create client
-      client = <%= full_client_name %>.new do |config|
-        config.credentials = @test_channel
+    2.times do
+      mock_stub.expect :call_rpc, mock_response do |name, request, options|
+        name == :<%= method.name %> && !options.nil? &&
+          <%- fields.each do |field| -%>
+          <%- if field.type_name_full.to_s.empty? -%>
+          <%= field.default_value %> == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
+          <%- else -%>
+          Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>) == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
+          <%- end -%>
+          <%- end -%>
       end
+    end
 
-      2.times do
-        mock_stub.expect :call_rpc, mock_response do |name, request, options|
-          name == :<%= method.name %> && !options.nil? &&
-            <%- fields.each do |field| -%>
-            <%- if field.type_name_full.to_s.empty? -%>
-            <%= field.default_value %> == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
-            <%- else -%>
-            Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>) == request.<%= field.name %> <%= if field != fields.last then "&&" end %>
-            <%- end -%>
-            <%- end -%>
-        end
-      end
+    # Call method
+    response = client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %>
+    assert_equal mock_response, response
 
-      # Call method
-      response = client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %>
-      assert_equal mock_response, response
-
-      # Call method with block
-      client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |block_response, operation|
-        assert_equal expected_response, block_response
-        refute_nil operation
-      end
+    # Call method with block
+    client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |block_response, operation|
+      assert_equal expected_response, block_response
+      refute_nil operation
     end
   end
 end
