@@ -36,6 +36,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
     @mock_stub = MiniTest::Mock.new
     @response = {}
     @options = {}
+    @operation_callback = -> { raise "Operation callback was executed!" }
   end
 
   def test_echo
@@ -48,18 +49,20 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:|
           has_name = name == :echo
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.content == "hello world"
 
-          puts "invalid method call: #{name} (expected echo)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected echo)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -84,24 +87,26 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.echo({ content: content }, @options)
+      response = client.echo({ content: content }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.echo(Google::Showcase::V1beta1::EchoRequest.new(
                                content: content
-                             ), @options)
+                             ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.echo request = { content: content }, options = @options
+      response = client.echo request = { content: content }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.echo request = Google::Showcase::V1beta1::EchoRequest.new(
         content: content
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -123,10 +128,11 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:, format_response:|
           has_name = name == :paged_expand
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.content == "hello world" &&
 
@@ -134,11 +140,12 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
             request.page_token == "hello world"
 
-          puts "invalid method call: #{name} (expected paged_expand)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected paged_expand)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -163,24 +170,26 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, @options)
+      response = client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.paged_expand(Google::Showcase::V1beta1::PagedExpandRequest.new(
                                        content: content, page_size: page_size, page_token: page_token
-                                     ), @options)
+                                     ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.paged_expand request = { content: content, page_size: page_size, page_token: page_token }, options = @options
+      response = client.paged_expand request = { content: content, page_size: page_size, page_token: page_token }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.paged_expand request = Google::Showcase::V1beta1::PagedExpandRequest.new(
         content: content, page_size: page_size, page_token: page_token
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -195,20 +204,22 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:, format_response:|
           has_name = name == :wait
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             Gapic::Protobuf.coerce({}, to: Google::Protobuf::Timestamp) == request.end_time &&
 
             Gapic::Protobuf.coerce({}, to: Google::Rpc::Status) == request.error
 
-          puts "invalid method call: #{name} (expected wait)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected wait)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -233,24 +244,26 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.wait({ end_time: end_time, error: error }, @options)
+      response = client.wait({ end_time: end_time, error: error }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.wait(Google::Showcase::V1beta1::WaitRequest.new(
                                end_time: end_time, error: error
-                             ), @options)
+                             ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.wait request = { end_time: end_time, error: error }, options = @options
+      response = client.wait request = { end_time: end_time, error: error }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.wait request = Google::Showcase::V1beta1::WaitRequest.new(
         end_time: end_time, error: error
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -264,18 +277,20 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:|
           has_name = name == :block
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             Gapic::Protobuf.coerce({}, to: Google::Protobuf::Duration) == request.response_delay
 
-          puts "invalid method call: #{name} (expected block)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected block)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -300,24 +315,26 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.block({ response_delay: response_delay }, @options)
+      response = client.block({ response_delay: response_delay }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.block(Google::Showcase::V1beta1::BlockRequest.new(
                                 response_delay: response_delay
-                              ), @options)
+                              ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.block request = { response_delay: response_delay }, options = @options
+      response = client.block request = { response_delay: response_delay }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.block request = Google::Showcase::V1beta1::BlockRequest.new(
         response_delay: response_delay
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 end

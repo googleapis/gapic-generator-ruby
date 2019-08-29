@@ -36,6 +36,7 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
     @mock_stub = MiniTest::Mock.new
     @response = {}
     @options = {}
+    @operation_callback = -> { raise "Operation callback was executed!" }
   end
 
   def test_list_operations
@@ -51,10 +52,11 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:, format_response:|
           has_name = name == :list_operations
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.name == "hello world" &&
 
@@ -64,11 +66,12 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
 
             request.page_token == "hello world"
 
-          puts "invalid method call: #{name} (expected list_operations)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected list_operations)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -93,24 +96,26 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token }, @options)
+      response = client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.list_operations(Google::Longrunning::ListOperationsRequest.new(
                                           name: name, filter: filter, page_size: page_size, page_token: page_token
-                                        ), @options)
+                                        ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.list_operations request = { name: name, filter: filter, page_size: page_size, page_token: page_token }, options = @options
+      response = client.list_operations request = { name: name, filter: filter, page_size: page_size, page_token: page_token }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.list_operations request = Google::Longrunning::ListOperationsRequest.new(
         name: name, filter: filter, page_size: page_size, page_token: page_token
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -124,18 +129,20 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:, format_response:|
           has_name = name == :get_operation
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.name == "hello world"
 
-          puts "invalid method call: #{name} (expected get_operation)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected get_operation)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -160,24 +167,26 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.get_operation({ name: name }, @options)
+      response = client.get_operation({ name: name }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.get_operation(Google::Longrunning::GetOperationRequest.new(
                                         name: name
-                                      ), @options)
+                                      ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.get_operation request = { name: name }, options = @options
+      response = client.get_operation request = { name: name }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.get_operation request = Google::Longrunning::GetOperationRequest.new(
         name: name
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -191,18 +200,20 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:|
           has_name = name == :delete_operation
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.name == "hello world"
 
-          puts "invalid method call: #{name} (expected delete_operation)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected delete_operation)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -227,24 +238,26 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.delete_operation({ name: name }, @options)
+      response = client.delete_operation({ name: name }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.delete_operation(Google::Longrunning::DeleteOperationRequest.new(
                                            name: name
-                                         ), @options)
+                                         ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.delete_operation request = { name: name }, options = @options
+      response = client.delete_operation request = { name: name }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.delete_operation request = Google::Longrunning::DeleteOperationRequest.new(
         name: name
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 
@@ -258,18 +271,20 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
         config.credentials = @test_channel
       end
 
-      8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options|
+      8.times do |idx|
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, operation_callback:|
           has_name = name == :cancel_operation
           has_options = !options.nil?
+          has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
           has_fields =
             request.name == "hello world"
 
-          puts "invalid method call: #{name} (expected cancel_operation)" unless has_name
-          puts "invalid options: #{options} vs #{@options}" unless has_options
-          puts "invalid fields" unless has_fields
+          assert has_name, "invalid method call: #{name} (expected cancel_operation)"
+          assert has_options, "invalid options: #{options} vs #{@options}"
+          assert has_operation_callback, "invalid operation block"
+          assert has_fields, "invalid field values"
 
-          has_name && has_options && has_fields
+          has_name && has_options && has_operation_callback && has_fields
         end
       end
 
@@ -294,24 +309,26 @@ class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / hash)
-      response = client.cancel_operation({ name: name }, @options)
+      response = client.cancel_operation({ name: name }, @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
       response = client.cancel_operation(Google::Longrunning::CancelOperationRequest.new(
                                            name: name
-                                         ), @options)
+                                         ), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
-      response = client.cancel_operation request = { name: name }, options = @options
+      response = client.cancel_operation request = { name: name }, options = @options, &@operation_callback
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
       response = client.cancel_operation request = Google::Longrunning::CancelOperationRequest.new(
         name: name
-      ), options = @options
+      ), options = @options, &@operation_callback
       assert_equal @response, response
+
+      @mock_stub.verify
     end
   end
 end
