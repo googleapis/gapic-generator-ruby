@@ -1,0 +1,8 @@
+<%- assert_locals fields -%>
+<%- fields.each do |field| -%>
+<%- if field.type_name_full.to_s.empty? -%>
+<%= field.default_value %> == request.<%= field.name %> <%= if field != fields.last then "&&" end -%>
+<%- else -%>
+Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>) == request.<%= field.name %> <%= if field != fields.last then "&&" end -%>
+<%- end -%>
+<%- end -%>

@@ -54,8 +54,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :create_room
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room
 
           assert has_name, "invalid method call: #{name} (expected create_room)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -71,9 +70,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.create_room(Google::Showcase::V1beta1::CreateRoomRequest.new(
-                                      room: room
-                                    ))
+      response = client.create_room Google::Showcase::V1beta1::CreateRoomRequest.new(room: room)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -81,9 +78,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new(
-        room: room
-      )
+      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new room: room
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -91,9 +86,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.create_room(Google::Showcase::V1beta1::CreateRoomRequest.new(
-                                      room: room
-                                    ), @options, &@operation_callback)
+      response = client.create_room(Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -101,11 +94,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new(
-        room: room
-      ), options = @options, &@operation_callback
+      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new room: room, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -125,8 +117,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :get_room
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected get_room)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -142,9 +133,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.get_room(Google::Showcase::V1beta1::GetRoomRequest.new(
-                                   name: name
-                                 ))
+      response = client.get_room Google::Showcase::V1beta1::GetRoomRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -152,9 +141,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new(
-        name: name
-      )
+      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -162,9 +149,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.get_room(Google::Showcase::V1beta1::GetRoomRequest.new(
-                                   name: name
-                                 ), @options, &@operation_callback)
+      response = client.get_room(Google::Showcase::V1beta1::GetRoomRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -172,11 +157,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -197,10 +181,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :update_room
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
 
           assert has_name, "invalid method call: #{name} (expected update_room)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -216,9 +197,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.update_room(Google::Showcase::V1beta1::UpdateRoomRequest.new(
-                                      room: room, update_mask: update_mask
-                                    ))
+      response = client.update_room Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -226,9 +205,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new(
-        room: room, update_mask: update_mask
-      )
+      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new room: room, update_mask: update_mask
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -236,9 +213,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.update_room(Google::Showcase::V1beta1::UpdateRoomRequest.new(
-                                      room: room, update_mask: update_mask
-                                    ), @options, &@operation_callback)
+      response = client.update_room(Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -246,11 +221,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new(
-        room: room, update_mask: update_mask
-      ), options = @options, &@operation_callback
+      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new room: room, update_mask: update_mask, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -270,8 +244,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :delete_room
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected delete_room)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -287,9 +260,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.delete_room(Google::Showcase::V1beta1::DeleteRoomRequest.new(
-                                      name: name
-                                    ))
+      response = client.delete_room Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -297,9 +268,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new(
-        name: name
-      )
+      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -307,9 +276,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_room(Google::Showcase::V1beta1::DeleteRoomRequest.new(
-                                      name: name
-                                    ), @options, &@operation_callback)
+      response = client.delete_room(Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -317,11 +284,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -342,10 +308,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :list_rooms
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_rooms)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -361,9 +324,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_rooms(Google::Showcase::V1beta1::ListRoomsRequest.new(
-                                     page_size: page_size, page_token: page_token
-                                   ))
+      response = client.list_rooms Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -371,9 +332,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new(
-        page_size: page_size, page_token: page_token
-      )
+      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -381,9 +340,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_rooms(Google::Showcase::V1beta1::ListRoomsRequest.new(
-                                     page_size: page_size, page_token: page_token
-                                   ), @options, &@operation_callback)
+      response = client.list_rooms(Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -391,11 +348,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new(
-        page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -416,10 +372,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :create_blurb
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb
+          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb
 
           assert has_name, "invalid method call: #{name} (expected create_blurb)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -435,9 +388,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.create_blurb(Google::Showcase::V1beta1::CreateBlurbRequest.new(
-                                       parent: parent, blurb: blurb
-                                     ))
+      response = client.create_blurb Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -445,9 +396,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new(
-        parent: parent, blurb: blurb
-      )
+      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -455,9 +404,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.create_blurb(Google::Showcase::V1beta1::CreateBlurbRequest.new(
-                                       parent: parent, blurb: blurb
-                                     ), @options, &@operation_callback)
+      response = client.create_blurb(Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -465,11 +412,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new(
-        parent: parent, blurb: blurb
-      ), options = @options, &@operation_callback
+      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -489,8 +435,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :get_blurb
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected get_blurb)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -506,9 +451,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.get_blurb(Google::Showcase::V1beta1::GetBlurbRequest.new(
-                                    name: name
-                                  ))
+      response = client.get_blurb Google::Showcase::V1beta1::GetBlurbRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -516,9 +459,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new(
-        name: name
-      )
+      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -526,9 +467,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.get_blurb(Google::Showcase::V1beta1::GetBlurbRequest.new(
-                                    name: name
-                                  ), @options, &@operation_callback)
+      response = client.get_blurb(Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -536,11 +475,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -561,10 +499,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :update_blurb
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
 
           assert has_name, "invalid method call: #{name} (expected update_blurb)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -580,9 +515,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.update_blurb(Google::Showcase::V1beta1::UpdateBlurbRequest.new(
-                                       blurb: blurb, update_mask: update_mask
-                                     ))
+      response = client.update_blurb Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -590,9 +523,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new(
-        blurb: blurb, update_mask: update_mask
-      )
+      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new blurb: blurb, update_mask: update_mask
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -600,9 +531,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.update_blurb(Google::Showcase::V1beta1::UpdateBlurbRequest.new(
-                                       blurb: blurb, update_mask: update_mask
-                                     ), @options, &@operation_callback)
+      response = client.update_blurb(Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -610,11 +539,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new(
-        blurb: blurb, update_mask: update_mask
-      ), options = @options, &@operation_callback
+      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new blurb: blurb, update_mask: update_mask, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -634,8 +562,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :delete_blurb
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected delete_blurb)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -651,9 +578,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.delete_blurb(Google::Showcase::V1beta1::DeleteBlurbRequest.new(
-                                       name: name
-                                     ))
+      response = client.delete_blurb Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -661,9 +586,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new(
-        name: name
-      )
+      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -671,9 +594,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_blurb(Google::Showcase::V1beta1::DeleteBlurbRequest.new(
-                                       name: name
-                                     ), @options, &@operation_callback)
+      response = client.delete_blurb(Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -681,11 +602,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -707,12 +627,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :list_blurbs
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_blurbs)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -728,9 +643,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_blurbs(Google::Showcase::V1beta1::ListBlurbsRequest.new(
-                                      parent: parent, page_size: page_size, page_token: page_token
-                                    ))
+      response = client.list_blurbs Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -738,9 +651,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      )
+      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new parent: parent, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -748,9 +659,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_blurbs(Google::Showcase::V1beta1::ListBlurbsRequest.new(
-                                      parent: parent, page_size: page_size, page_token: page_token
-                                    ), @options, &@operation_callback)
+      response = client.list_blurbs(Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -758,11 +667,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new parent: parent, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -785,14 +693,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
           has_name = name == :search_blurbs
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.query == "hello world" &&
-
-            request.parent == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.query == "hello world" && request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected search_blurbs)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -808,9 +709,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.search_blurbs(Google::Showcase::V1beta1::SearchBlurbsRequest.new(
-                                        query: query, parent: parent, page_size: page_size, page_token: page_token
-                                      ))
+      response = client.search_blurbs Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -818,9 +717,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new(
-        query: query, parent: parent, page_size: page_size, page_token: page_token
-      )
+      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new query: query, parent: parent, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -828,9 +725,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.search_blurbs(Google::Showcase::V1beta1::SearchBlurbsRequest.new(
-                                        query: query, parent: parent, page_size: page_size, page_token: page_token
-                                      ), @options, &@operation_callback)
+      response = client.search_blurbs(Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -838,11 +733,10 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new(
-        query: query, parent: parent, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new query: query, parent: parent, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end

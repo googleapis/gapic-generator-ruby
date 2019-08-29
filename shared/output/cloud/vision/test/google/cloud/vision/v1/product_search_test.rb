@@ -48,12 +48,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :create_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet) == request.product_set &&
-
-            request.product_set_id == "hello world"
+          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet) == request.product_set && request.product_set_id == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected create_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -69,9 +64,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.create_product_set(Google::Cloud::Vision::V1::CreateProductSetRequest.new(
-                                             parent: parent, product_set: product_set, product_set_id: product_set_id
-                                           ))
+      response = client.create_product_set Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -79,9 +72,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.create_product_set request = Google::Cloud::Vision::V1::CreateProductSetRequest.new(
-        parent: parent, product_set: product_set, product_set_id: product_set_id
-      )
+      response = client.create_product_set request = Google::Cloud::Vision::V1::CreateProductSetRequest.new parent: parent, product_set: product_set, product_set_id: product_set_id
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -89,9 +80,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.create_product_set(Google::Cloud::Vision::V1::CreateProductSetRequest.new(
-                                             parent: parent, product_set: product_set, product_set_id: product_set_id
-                                           ), @options, &@operation_callback)
+      response = client.create_product_set(Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -99,11 +88,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.create_product_set request = Google::Cloud::Vision::V1::CreateProductSetRequest.new(
-        parent: parent, product_set: product_set, product_set_id: product_set_id
-      ), options = @options, &@operation_callback
+      response = client.create_product_set request = Google::Cloud::Vision::V1::CreateProductSetRequest.new parent: parent, product_set: product_set, product_set_id: product_set_id, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -125,12 +113,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :list_product_sets
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_product_sets)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -146,9 +129,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_product_sets(Google::Cloud::Vision::V1::ListProductSetsRequest.new(
-                                            parent: parent, page_size: page_size, page_token: page_token
-                                          ))
+      response = client.list_product_sets Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -156,9 +137,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_product_sets request = Google::Cloud::Vision::V1::ListProductSetsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      )
+      response = client.list_product_sets request = Google::Cloud::Vision::V1::ListProductSetsRequest.new parent: parent, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -166,9 +145,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_product_sets(Google::Cloud::Vision::V1::ListProductSetsRequest.new(
-                                            parent: parent, page_size: page_size, page_token: page_token
-                                          ), @options, &@operation_callback)
+      response = client.list_product_sets(Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -176,11 +153,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_product_sets request = Google::Cloud::Vision::V1::ListProductSetsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_product_sets request = Google::Cloud::Vision::V1::ListProductSetsRequest.new parent: parent, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -200,8 +176,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :get_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected get_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -217,9 +192,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.get_product_set(Google::Cloud::Vision::V1::GetProductSetRequest.new(
-                                          name: name
-                                        ))
+      response = client.get_product_set Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -227,9 +200,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.get_product_set request = Google::Cloud::Vision::V1::GetProductSetRequest.new(
-        name: name
-      )
+      response = client.get_product_set request = Google::Cloud::Vision::V1::GetProductSetRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -237,9 +208,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.get_product_set(Google::Cloud::Vision::V1::GetProductSetRequest.new(
-                                          name: name
-                                        ), @options, &@operation_callback)
+      response = client.get_product_set(Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -247,11 +216,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.get_product_set request = Google::Cloud::Vision::V1::GetProductSetRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.get_product_set request = Google::Cloud::Vision::V1::GetProductSetRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -272,10 +240,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :update_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet) == request.product_set &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSet) == request.product_set && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
 
           assert has_name, "invalid method call: #{name} (expected update_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -291,9 +256,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.update_product_set(Google::Cloud::Vision::V1::UpdateProductSetRequest.new(
-                                             product_set: product_set, update_mask: update_mask
-                                           ))
+      response = client.update_product_set Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -301,9 +264,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.update_product_set request = Google::Cloud::Vision::V1::UpdateProductSetRequest.new(
-        product_set: product_set, update_mask: update_mask
-      )
+      response = client.update_product_set request = Google::Cloud::Vision::V1::UpdateProductSetRequest.new product_set: product_set, update_mask: update_mask
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -311,9 +272,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.update_product_set(Google::Cloud::Vision::V1::UpdateProductSetRequest.new(
-                                             product_set: product_set, update_mask: update_mask
-                                           ), @options, &@operation_callback)
+      response = client.update_product_set(Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -321,11 +280,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.update_product_set request = Google::Cloud::Vision::V1::UpdateProductSetRequest.new(
-        product_set: product_set, update_mask: update_mask
-      ), options = @options, &@operation_callback
+      response = client.update_product_set request = Google::Cloud::Vision::V1::UpdateProductSetRequest.new product_set: product_set, update_mask: update_mask, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -345,8 +303,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :delete_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected delete_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -362,9 +319,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.delete_product_set(Google::Cloud::Vision::V1::DeleteProductSetRequest.new(
-                                             name: name
-                                           ))
+      response = client.delete_product_set Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -372,9 +327,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.delete_product_set request = Google::Cloud::Vision::V1::DeleteProductSetRequest.new(
-        name: name
-      )
+      response = client.delete_product_set request = Google::Cloud::Vision::V1::DeleteProductSetRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -382,9 +335,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_product_set(Google::Cloud::Vision::V1::DeleteProductSetRequest.new(
-                                             name: name
-                                           ), @options, &@operation_callback)
+      response = client.delete_product_set(Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -392,11 +343,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.delete_product_set request = Google::Cloud::Vision::V1::DeleteProductSetRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.delete_product_set request = Google::Cloud::Vision::V1::DeleteProductSetRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -418,12 +368,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :create_product
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product) == request.product &&
-
-            request.product_id == "hello world"
+          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product) == request.product && request.product_id == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected create_product)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -439,9 +384,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.create_product(Google::Cloud::Vision::V1::CreateProductRequest.new(
-                                         parent: parent, product: product, product_id: product_id
-                                       ))
+      response = client.create_product Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -449,9 +392,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.create_product request = Google::Cloud::Vision::V1::CreateProductRequest.new(
-        parent: parent, product: product, product_id: product_id
-      )
+      response = client.create_product request = Google::Cloud::Vision::V1::CreateProductRequest.new parent: parent, product: product, product_id: product_id
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -459,9 +400,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.create_product(Google::Cloud::Vision::V1::CreateProductRequest.new(
-                                         parent: parent, product: product, product_id: product_id
-                                       ), @options, &@operation_callback)
+      response = client.create_product(Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -469,11 +408,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.create_product request = Google::Cloud::Vision::V1::CreateProductRequest.new(
-        parent: parent, product: product, product_id: product_id
-      ), options = @options, &@operation_callback
+      response = client.create_product request = Google::Cloud::Vision::V1::CreateProductRequest.new parent: parent, product: product, product_id: product_id, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -495,12 +433,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :list_products
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_products)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -516,9 +449,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_products(Google::Cloud::Vision::V1::ListProductsRequest.new(
-                                        parent: parent, page_size: page_size, page_token: page_token
-                                      ))
+      response = client.list_products Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -526,9 +457,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_products request = Google::Cloud::Vision::V1::ListProductsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      )
+      response = client.list_products request = Google::Cloud::Vision::V1::ListProductsRequest.new parent: parent, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -536,9 +465,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_products(Google::Cloud::Vision::V1::ListProductsRequest.new(
-                                        parent: parent, page_size: page_size, page_token: page_token
-                                      ), @options, &@operation_callback)
+      response = client.list_products(Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -546,11 +473,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_products request = Google::Cloud::Vision::V1::ListProductsRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_products request = Google::Cloud::Vision::V1::ListProductsRequest.new parent: parent, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -570,8 +496,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :get_product
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected get_product)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -587,9 +512,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.get_product(Google::Cloud::Vision::V1::GetProductRequest.new(
-                                      name: name
-                                    ))
+      response = client.get_product Google::Cloud::Vision::V1::GetProductRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -597,9 +520,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.get_product request = Google::Cloud::Vision::V1::GetProductRequest.new(
-        name: name
-      )
+      response = client.get_product request = Google::Cloud::Vision::V1::GetProductRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -607,9 +528,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.get_product(Google::Cloud::Vision::V1::GetProductRequest.new(
-                                      name: name
-                                    ), @options, &@operation_callback)
+      response = client.get_product(Google::Cloud::Vision::V1::GetProductRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -617,11 +536,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.get_product request = Google::Cloud::Vision::V1::GetProductRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.get_product request = Google::Cloud::Vision::V1::GetProductRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -642,10 +560,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :update_product
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product) == request.product &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::Product) == request.product && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
 
           assert has_name, "invalid method call: #{name} (expected update_product)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -661,9 +576,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.update_product(Google::Cloud::Vision::V1::UpdateProductRequest.new(
-                                         product: product, update_mask: update_mask
-                                       ))
+      response = client.update_product Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -671,9 +584,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.update_product request = Google::Cloud::Vision::V1::UpdateProductRequest.new(
-        product: product, update_mask: update_mask
-      )
+      response = client.update_product request = Google::Cloud::Vision::V1::UpdateProductRequest.new product: product, update_mask: update_mask
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -681,9 +592,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.update_product(Google::Cloud::Vision::V1::UpdateProductRequest.new(
-                                         product: product, update_mask: update_mask
-                                       ), @options, &@operation_callback)
+      response = client.update_product(Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -691,11 +600,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.update_product request = Google::Cloud::Vision::V1::UpdateProductRequest.new(
-        product: product, update_mask: update_mask
-      ), options = @options, &@operation_callback
+      response = client.update_product request = Google::Cloud::Vision::V1::UpdateProductRequest.new product: product, update_mask: update_mask, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -715,8 +623,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :delete_product
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected delete_product)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -732,9 +639,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.delete_product(Google::Cloud::Vision::V1::DeleteProductRequest.new(
-                                         name: name
-                                       ))
+      response = client.delete_product Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -742,9 +647,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.delete_product request = Google::Cloud::Vision::V1::DeleteProductRequest.new(
-        name: name
-      )
+      response = client.delete_product request = Google::Cloud::Vision::V1::DeleteProductRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -752,9 +655,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_product(Google::Cloud::Vision::V1::DeleteProductRequest.new(
-                                         name: name
-                                       ), @options, &@operation_callback)
+      response = client.delete_product(Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -762,11 +663,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.delete_product request = Google::Cloud::Vision::V1::DeleteProductRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.delete_product request = Google::Cloud::Vision::V1::DeleteProductRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -788,12 +688,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :create_reference_image
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ReferenceImage) == request.reference_image &&
-
-            request.reference_image_id == "hello world"
+          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ReferenceImage) == request.reference_image && request.reference_image_id == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected create_reference_image)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -809,9 +704,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.create_reference_image(Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(
-                                                 parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
-                                               ))
+      response = client.create_reference_image Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -819,9 +712,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.create_reference_image request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(
-        parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
-      )
+      response = client.create_reference_image request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -829,9 +720,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.create_reference_image(Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(
-                                                 parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
-                                               ), @options, &@operation_callback)
+      response = client.create_reference_image(Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -839,11 +728,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.create_reference_image request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(
-        parent: parent, reference_image: reference_image, reference_image_id: reference_image_id
-      ), options = @options, &@operation_callback
+      response = client.create_reference_image request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new parent: parent, reference_image: reference_image, reference_image_id: reference_image_id, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -863,8 +751,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :delete_reference_image
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected delete_reference_image)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -880,9 +767,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.delete_reference_image(Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(
-                                                 name: name
-                                               ))
+      response = client.delete_reference_image Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -890,9 +775,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.delete_reference_image request = Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(
-        name: name
-      )
+      response = client.delete_reference_image request = Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -900,9 +783,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_reference_image(Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(
-                                                 name: name
-                                               ), @options, &@operation_callback)
+      response = client.delete_reference_image(Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -910,11 +791,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.delete_reference_image request = Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.delete_reference_image request = Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -936,12 +816,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :list_reference_images
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_reference_images)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -957,9 +832,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_reference_images(Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(
-                                                parent: parent, page_size: page_size, page_token: page_token
-                                              ))
+      response = client.list_reference_images Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -967,9 +840,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_reference_images request = Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      )
+      response = client.list_reference_images request = Google::Cloud::Vision::V1::ListReferenceImagesRequest.new parent: parent, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -977,9 +848,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_reference_images(Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(
-                                                parent: parent, page_size: page_size, page_token: page_token
-                                              ), @options, &@operation_callback)
+      response = client.list_reference_images(Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -987,11 +856,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_reference_images request = Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(
-        parent: parent, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_reference_images request = Google::Cloud::Vision::V1::ListReferenceImagesRequest.new parent: parent, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1011,8 +879,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :get_reference_image
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world"
+          has_fields = request.name == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected get_reference_image)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1028,9 +895,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.get_reference_image(Google::Cloud::Vision::V1::GetReferenceImageRequest.new(
-                                              name: name
-                                            ))
+      response = client.get_reference_image Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1038,9 +903,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.get_reference_image request = Google::Cloud::Vision::V1::GetReferenceImageRequest.new(
-        name: name
-      )
+      response = client.get_reference_image request = Google::Cloud::Vision::V1::GetReferenceImageRequest.new name: name
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1048,9 +911,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.get_reference_image(Google::Cloud::Vision::V1::GetReferenceImageRequest.new(
-                                              name: name
-                                            ), @options, &@operation_callback)
+      response = client.get_reference_image(Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1058,11 +919,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.get_reference_image request = Google::Cloud::Vision::V1::GetReferenceImageRequest.new(
-        name: name
-      ), options = @options, &@operation_callback
+      response = client.get_reference_image request = Google::Cloud::Vision::V1::GetReferenceImageRequest.new name: name, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1083,10 +943,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :add_product_to_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world" &&
-
-            request.product == "hello world"
+          has_fields = request.name == "hello world" && request.product == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected add_product_to_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1102,9 +959,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.add_product_to_product_set(Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(
-                                                     name: name, product: product
-                                                   ))
+      response = client.add_product_to_product_set Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1112,9 +967,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.add_product_to_product_set request = Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(
-        name: name, product: product
-      )
+      response = client.add_product_to_product_set request = Google::Cloud::Vision::V1::AddProductToProductSetRequest.new name: name, product: product
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1122,9 +975,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.add_product_to_product_set(Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(
-                                                     name: name, product: product
-                                                   ), @options, &@operation_callback)
+      response = client.add_product_to_product_set(Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1132,11 +983,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.add_product_to_product_set request = Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(
-        name: name, product: product
-      ), options = @options, &@operation_callback
+      response = client.add_product_to_product_set request = Google::Cloud::Vision::V1::AddProductToProductSetRequest.new name: name, product: product, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1157,10 +1007,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :remove_product_from_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world" &&
-
-            request.product == "hello world"
+          has_fields = request.name == "hello world" && request.product == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected remove_product_from_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1176,9 +1023,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.remove_product_from_product_set(Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(
-                                                          name: name, product: product
-                                                        ))
+      response = client.remove_product_from_product_set Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1186,9 +1031,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.remove_product_from_product_set request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(
-        name: name, product: product
-      )
+      response = client.remove_product_from_product_set request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new name: name, product: product
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1196,9 +1039,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.remove_product_from_product_set(Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(
-                                                          name: name, product: product
-                                                        ), @options, &@operation_callback)
+      response = client.remove_product_from_product_set(Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1206,11 +1047,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.remove_product_from_product_set request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(
-        name: name, product: product
-      ), options = @options, &@operation_callback
+      response = client.remove_product_from_product_set request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new name: name, product: product, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1232,12 +1072,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :list_products_in_product_set
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.name == "hello world" &&
-
-            request.page_size == 42 &&
-
-            request.page_token == "hello world"
+          has_fields = request.name == "hello world" && request.page_size == 42 && request.page_token == "hello world"
 
           assert has_name, "invalid method call: #{name} (expected list_products_in_product_set)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1253,9 +1088,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.list_products_in_product_set(Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(
-                                                       name: name, page_size: page_size, page_token: page_token
-                                                     ))
+      response = client.list_products_in_product_set Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1263,9 +1096,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.list_products_in_product_set request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(
-        name: name, page_size: page_size, page_token: page_token
-      )
+      response = client.list_products_in_product_set request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new name: name, page_size: page_size, page_token: page_token
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1273,9 +1104,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.list_products_in_product_set(Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(
-                                                       name: name, page_size: page_size, page_token: page_token
-                                                     ), @options, &@operation_callback)
+      response = client.list_products_in_product_set(Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1283,11 +1112,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.list_products_in_product_set request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(
-        name: name, page_size: page_size, page_token: page_token
-      ), options = @options, &@operation_callback
+      response = client.list_products_in_product_set request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new name: name, page_size: page_size, page_token: page_token, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1308,10 +1136,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :import_product_sets
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            request.parent == "hello world" &&
-
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig) == request.input_config
+          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ImportProductSetsInputConfig) == request.input_config
 
           assert has_name, "invalid method call: #{name} (expected import_product_sets)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1327,9 +1152,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.import_product_sets(Google::Cloud::Vision::V1::ImportProductSetsRequest.new(
-                                              parent: parent, input_config: input_config
-                                            ))
+      response = client.import_product_sets Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1337,9 +1160,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.import_product_sets request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new(
-        parent: parent, input_config: input_config
-      )
+      response = client.import_product_sets request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new parent: parent, input_config: input_config
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1347,9 +1168,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.import_product_sets(Google::Cloud::Vision::V1::ImportProductSetsRequest.new(
-                                              parent: parent, input_config: input_config
-                                            ), @options, &@operation_callback)
+      response = client.import_product_sets(Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1357,11 +1176,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.import_product_sets request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new(
-        parent: parent, input_config: input_config
-      ), options = @options, &@operation_callback
+      response = client.import_product_sets request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new parent: parent, input_config: input_config, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
@@ -1381,8 +1199,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
           has_name = name == :purge_products
           has_options = !options.nil?
           has_operation_callback = operation_callback == (idx >= 4 ? @operation_callback : nil)
-          has_fields =
-            Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSetPurgeConfig) == request.product_set_purge_config
+          has_fields = Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::ProductSetPurgeConfig) == request.product_set_purge_config
 
           assert has_name, "invalid method call: #{name} (expected purge_products)"
           assert has_options, "invalid options: #{options} vs #{@options}"
@@ -1398,9 +1215,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (positional / protobuf type)
-      response = client.purge_products(Google::Cloud::Vision::V1::PurgeProductsRequest.new(
-                                         product_set_purge_config: product_set_purge_config
-                                       ))
+      response = client.purge_products Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config)
       assert_equal @response, response
 
       # Call method (named / hash)
@@ -1408,9 +1223,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method (named / protobuf type)
-      response = client.purge_products request = Google::Cloud::Vision::V1::PurgeProductsRequest.new(
-        product_set_purge_config: product_set_purge_config
-      )
+      response = client.purge_products request = Google::Cloud::Vision::V1::PurgeProductsRequest.new product_set_purge_config: product_set_purge_config
       assert_equal @response, response
 
       # Call method with options (positional / hash)
@@ -1418,9 +1231,7 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (positional / protobuf type)
-      response = client.purge_products(Google::Cloud::Vision::V1::PurgeProductsRequest.new(
-                                         product_set_purge_config: product_set_purge_config
-                                       ), @options, &@operation_callback)
+      response = client.purge_products(Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config), @options, &@operation_callback)
       assert_equal @response, response
 
       # Call method with options (named / hash)
@@ -1428,11 +1239,10 @@ class Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal @response, response
 
       # Call method with options (named / protobuf type)
-      response = client.purge_products request = Google::Cloud::Vision::V1::PurgeProductsRequest.new(
-        product_set_purge_config: product_set_purge_config
-      ), options = @options, &@operation_callback
+      response = client.purge_products request = Google::Cloud::Vision::V1::PurgeProductsRequest.new product_set_purge_config: product_set_purge_config, options = @options, &@operation_callback
       assert_equal @response, response
 
+      # Verify method calls
       @mock_stub.verify
     end
   end
