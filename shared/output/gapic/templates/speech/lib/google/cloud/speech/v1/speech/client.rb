@@ -250,7 +250,7 @@ module Google
             #
             #   # First alternative is the most probable result
             #   alternative = result.alternatives[0]
-            #   puts "Transcript: %s", alternative.transcript
+            #   puts "Transcript: #{alternative.transcript}"
             #
             #   # Print the start and end time of each word
             #   alternative.words.each do |result|
