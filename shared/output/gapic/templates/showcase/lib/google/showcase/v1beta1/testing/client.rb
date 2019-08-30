@@ -259,7 +259,7 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, options }
+            wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation, options }
 
             @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end
@@ -428,7 +428,7 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, options }
+            wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, operation, options }
 
             @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end

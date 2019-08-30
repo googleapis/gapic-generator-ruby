@@ -22,7 +22,7 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, {}, options
       )
     end
     exp_msg = "#{response.class} must have one repeated field"
@@ -36,7 +36,7 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, {}, options
       )
     end
     exp_msg = "#{response.class} must have one repeated field"
@@ -50,7 +50,7 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, {}, options
       )
     end
     exp_msg = "#{response.class} must have a next_page_token field (String)"
@@ -66,7 +66,7 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, {}, options
       )
     end
     exp_msg = "#{response.class} must have one primary repeated field " \

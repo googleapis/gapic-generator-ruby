@@ -52,11 +52,12 @@ module Gapic
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
     # @param response [Object] The response object.
+    # @param operation [GRPC::ActiveCall::Operation] the current RPC operation.
     # @param options [Gapic::CallOptions] The options for making the RPC call.
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
     #
-    def initialize grpc_stub, method_name, request, response, options, format_resource: nil
+    def initialize grpc_stub, method_name, request, response, operation, options, format_resource: nil
       @grpc_stub = grpc_stub
       @method_name = method_name
       @request = request
@@ -68,7 +69,7 @@ module Gapic
       verify_request!
       verify_response!
 
-      @page = Page.new @response, @resource_field
+      @page = Page.new @response, @resource_field, operation
     end
 
     ##
@@ -83,7 +84,7 @@ module Gapic
 
       each_page do |page|
         page.each do |obj|
-          obj = @format_resource.call obj if @format_resource
+          obj = @format_resource.call obj, page.operation if @format_resource
           yield obj
         end
       end
@@ -124,9 +125,10 @@ module Gapic
 
       next_request = @request.dup
       next_request.page_token = @page.next_page_token
-      next_response = @grpc_stub.call_rpc @method_name, next_request, options: @options
 
-      @page = Page.new next_response, @resource_field
+      operation_callback = ->(next_response, operation) { @page = Page.new next_response, @resource_field, operation }
+      @grpc_stub.call_rpc @method_name, next_request, options: @options, operation_callback: operation_callback
+      @page
     end
 
     ##
@@ -194,17 +196,20 @@ module Gapic
     #   @return [Object] the actual response object.
     # @attribute [r] next_page_token
     #   @return [Object] the page token to be used for the next RPC call.
+    # @attribute [r] operation
+    #   @return [GRPC::ActiveCall::Operation] the current RPC operation.
     class Page
       include Enumerable
-      attr_reader :response
+      attr_reader :response, :operation
 
       ##
       # @param response [Object] The response object for the page.
       # @param resource_field [String] The name of the field in response which holds the resources.
       #
-      def initialize response, resource_field
+      def initialize response, resource_field, operation
         @response = response
         @resource_field = resource_field
+        @operation = operation
       end
 
       ##

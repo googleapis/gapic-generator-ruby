@@ -34,9 +34,9 @@ describe Gapic::PagedEnumerable, :format_resource do
       next_page_token: "next"
     )
     options = Gapic::CallOptions.new
-    upcase_resource = ->(user) { user.name.upcase }
+    upcase_resource = ->(user, _) { user.name.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options, format_resource: upcase_resource
+      gax_stub, :method_name, request, response, {}, options, format_resource: upcase_resource
     )
 
     assert_equal ["FOO", "BAR", "BAZ", "BIF"], paged_enum.each.to_a
@@ -61,9 +61,9 @@ describe Gapic::PagedEnumerable, :format_resource do
       next_page_token: "next"
     )
     options = Gapic::CallOptions.new
-    upcase_resource = ->(str) { str.upcase }
+    upcase_resource = ->(str, _) { str.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options, format_resource: upcase_resource
+      gax_stub, :method_name, request, response, {}, options, format_resource: upcase_resource
     )
 
     page_proc = ->(page) { page.each.map(&:name) }

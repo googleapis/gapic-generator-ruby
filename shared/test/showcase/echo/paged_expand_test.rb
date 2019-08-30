@@ -44,8 +44,29 @@ class PagedExpandTest < ShowcaseTest
     assert_kind_of Google::Showcase::V1beta1::PagedExpandResponse, response_enum.page.response
     assert_equal ["The", "quick"], response_enum.page.response.responses.map(&:content)
 
+    first_operation = response_enum.page.operation
+    assert_instance_of GRPC::ActiveCall::Operation, first_operation
+
     responses_content_array = response_enum.to_a.map(&:content)
 
     assert_equal request_content, responses_content_array.join(" ")
+
+    refute_equal first_operation, response_enum.page.operation
+  end
+
+  def test_page_expand_with_block
+    request_content = "The quick brown fox jumps over the lazy dog".split(" ").reverse.join(" ")
+
+    @client.paged_expand content: request_content, page_size: 2 do |response_enum, operation|
+      assert_kind_of Gapic::PagedEnumerable, response_enum
+      assert_equal ["dog", "lazy"], response_enum.page.response.responses.map(&:content)
+      assert_instance_of GRPC::ActiveCall::Operation, response_enum.page.operation
+      assert_equal operation, response_enum.page.operation
+      assert_equal({}, operation.trailing_metadata)
+
+      responses_content_array = response_enum.to_a.map(&:content)
+      assert_equal request_content, responses_content_array.join(" ")
+      refute_equal operation, response_enum.page.operation
+    end
   end
 end

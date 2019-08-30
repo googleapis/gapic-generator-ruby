@@ -251,7 +251,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, options }
+              wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options }
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -596,7 +596,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, options }
+              wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options }
 
               @product_search_stub.call_rpc :list_products, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -1058,7 +1058,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, options }
+              wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options }
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -1333,7 +1333,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, options }
+              wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options }
 
               @product_search_stub.call_rpc :list_products_in_product_set, request, options: options, operation_callback: block, format_response: wrap_paged_enum
             end
@@ -1412,7 +1412,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response, _operation) { Gapic::Operation.new response, @operations_client }
 
               @product_search_stub.call_rpc :import_product_sets, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
@@ -1523,7 +1523,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response, _operation) { Gapic::Operation.new response, @operations_client }
 
               @product_search_stub.call_rpc :purge_products, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end

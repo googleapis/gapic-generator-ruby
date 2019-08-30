@@ -135,7 +135,7 @@ module Gapic
             Thread.new { operation.execute }
           else
             response = operation.execute
-            response = format_response.call response if format_response
+            response = format_response.call response, operation if format_response
             operation_callback&.call response, operation
             response
           end
@@ -156,7 +156,7 @@ module Gapic
         return unless stream_callback
         return stream_callback unless format_response
 
-        proc { |response| stream_callback.call format_response.call response }
+        proc { |response| stream_callback.call format_response.call(response, nil) }
       end
 
       def calculate_deadline options

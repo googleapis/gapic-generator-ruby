@@ -41,7 +41,7 @@ class RpcCallTest < Minitest::Test
       OperationStub.new { 2 + request }
     end
 
-    format_response = ->(response) { response.to_s }
+    format_response = ->(response, _) { response.to_s }
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_equal 5, rpc_call.call(3)
@@ -73,7 +73,7 @@ class RpcCallTest < Minitest::Test
       OperationStub.new { 2 + request + adder }
     end
 
-    format_response = ->(response) { response.to_s }
+    format_response = ->(response, _) { response.to_s }
     increment_addr = ->(*args) { adder = 5 }
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
@@ -112,7 +112,7 @@ class RpcCallTest < Minitest::Test
     end
 
     collect_response = ->(response) { all_responses << response }
-    format_response = ->(response) { response.to_s }
+    format_response = ->(response, _) { response.to_s }
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     rpc_call.call([:foo, :bar, :baz].to_enum, stream_callback: collect_response)
@@ -152,7 +152,7 @@ class RpcCallTest < Minitest::Test
       OperationStub.new { requests.each(&block) }
     end
 
-    format_responses = ->(responses) { responses.lazy.map(&:to_s) }
+    format_responses = ->(responses, _) { responses.lazy.map(&:to_s) }
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     responses = rpc_call.call [:foo, :bar, :baz].to_enum

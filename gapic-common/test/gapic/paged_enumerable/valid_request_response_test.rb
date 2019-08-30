@@ -35,7 +35,7 @@ class PagedEnumerableValidRequestResponseTest < Minitest::Test
     )
     options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options
+      gax_stub, :method_name, request, response, {}, options
     )
 
     assert_equal %w[foo bar baz bif], paged_enum.map(&:name)
@@ -61,7 +61,7 @@ class PagedEnumerableValidRequestResponseTest < Minitest::Test
     )
     options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options
+      gax_stub, :method_name, request, response, {}, options
     )
 
     assert_equal %w[foo bar baz bif], paged_enum.map(&:name)

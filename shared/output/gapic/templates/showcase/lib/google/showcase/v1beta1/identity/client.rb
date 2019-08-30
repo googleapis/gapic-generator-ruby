@@ -369,7 +369,7 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, options }
+            wrap_paged_enum = ->(response, operation) { Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, operation, options }
 
             @identity_stub.call_rpc :list_users, request, options: options, operation_callback: block, format_response: wrap_paged_enum
           end

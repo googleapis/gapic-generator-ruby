@@ -35,7 +35,7 @@ describe Gapic::PagedEnumerable, :enumerable do
     )
     options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options
+      gax_stub, :method_name, request, response, {}, options
     )
 
     assert_equal %w[foo bar baz bif], paged_enum.each.map(&:name)
@@ -61,7 +61,7 @@ describe Gapic::PagedEnumerable, :enumerable do
     )
     options = Gapic::CallOptions.new
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, options
+      gax_stub, :method_name, request, response, {}, options
     )
 
     assert_equal [2, 2], paged_enum.each_page.map(&:count)

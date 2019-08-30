@@ -44,7 +44,11 @@ class FakeGapicStub
   def initialize *responses
     @responses = responses
   end
-  def call_rpc *args
-    @responses.shift
+
+  def call_rpc *_, **keyword_args
+    result = @responses.shift
+    operation_callback = keyword_args[:operation_callback]
+    operation_callback&.call result, {}
+    result
   end
 end

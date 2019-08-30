@@ -321,7 +321,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response, _operation) { Gapic::Operation.new response, @operations_client }
 
               @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
@@ -393,7 +393,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+              wrap_gax_operation = ->(response, _operation) { Gapic::Operation.new response, @operations_client }
 
               @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
