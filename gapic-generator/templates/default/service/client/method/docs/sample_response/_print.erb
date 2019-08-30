@@ -1,0 +1,6 @@
+<%- assert_locals values -%>
+<%-
+print_values = values.dup
+print_values[0] = print_values[0].inspect
+-%>
+puts <%= print_values.join ", " %>

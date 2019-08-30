@@ -45,16 +45,8 @@ class SamplePresenter
     fields.keys.map { |k| "#{k}: #{k}" }.join ", "
   end
 
-  def response_variable
-    @sample_config["response"][0]["loop"]["variable"]
-  end
-
-  def response_collection
-    @sample_config["response"][0]["loop"]["collection"].gsub "$resp", "response"
-  end
-
-  def response_body
-    @sample_config["response"][0]["loop"]["body"]
+  def response_raw
+    @sample_config["response"]
   end
 
   class RequestField
