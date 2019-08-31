@@ -66,4 +66,34 @@ describe Gapic::PagedEnumerable, :enumerable do
 
     assert_equal [2, 2], paged_enum.each_page.map(&:count)
   end
+
+  it "enumerates all pages with operations" do
+    api_responses = [
+      Gapic::Examples::GoodPagedResponse.new(
+        users: [
+          Gapic::Examples::User.new(name: "baz"),
+          Gapic::Examples::User.new(name: "bif")
+        ]
+      )
+    ]
+    gax_stub = FakeGapicStub.new(*api_responses)
+    request = Gapic::Examples::GoodPagedRequest.new
+    response = Gapic::Examples::GoodPagedResponse.new(
+      users:           [
+        Gapic::Examples::User.new(name: "foo"),
+        Gapic::Examples::User.new(name: "bar")
+      ],
+      next_page_token: "next"
+    )
+    options = Gapic::CallOptions.new
+    paged_enum = Gapic::PagedEnumerable.new(
+      gax_stub, :method_name, request, response, { initial: true }, options
+    )
+
+    operations = []
+    paged_enum.each_page_with_operation do |_, operation|
+      operations << operation
+    end
+    assert_equal [{ initial: true }, { count: 1 }], operations
+  end
 end

@@ -57,7 +57,8 @@ module Gapic
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
     #
-    def initialize grpc_stub, method_name, request, response, operation, options, format_resource: nil
+    def initialize grpc_stub, method_name, request, response, operation, options,
+                   format_resource: nil, operation_callback: nil
       @grpc_stub = grpc_stub
       @method_name = method_name
       @request = request
@@ -65,11 +66,12 @@ module Gapic
       @options = options
       @format_resource = format_resource
       @resource_field = nil # will be set in verify_response!
+      @operation_callback = operation_callback
 
       verify_request!
       verify_response!
 
-      @page = Page.new @response, @resource_field, operation
+      @page = Page.new @response, @resource_field, operation, format_resource: @format_resource
     end
 
     ##
@@ -84,7 +86,6 @@ module Gapic
 
       each_page do |page|
         page.each do |obj|
-          obj = @format_resource.call obj, page.operation if @format_resource
           yield obj
         end
       end
@@ -109,6 +110,25 @@ module Gapic
     end
 
     ##
+    # Iterate over the pages with the operation used to fetch the page.
+    #
+    # @yield [Page] Gives the pages in the stream.
+    #
+    # @raise [GapicError] if it's not started yet.
+    #
+    def each_page_with_operation
+      return enum_for :each_page_with_operation unless block_given?
+
+      yield @page, @page.operation
+
+      loop do
+        break unless next_page?
+        next_page
+        yield @page, @page.operation
+      end
+    end
+
+    ##
     # True if it has the next page.
     #
     def next_page?
@@ -126,8 +146,11 @@ module Gapic
       next_request = @request.dup
       next_request.page_token = @page.next_page_token
 
-      operation_callback = ->(next_response, operation) { @page = Page.new next_response, @resource_field, operation }
-      @grpc_stub.call_rpc @method_name, next_request, options: @options, operation_callback: operation_callback
+      next_operation_callback = lambda do |next_response, next_operation|
+        @operation_callback&.call next_response, next_operation
+        @page = Page.new next_response, @resource_field, next_operation, format_resource: @format_resource
+      end
+      @grpc_stub.call_rpc @method_name, next_request, options: @options, operation_callback: next_operation_callback
       @page
     end
 
@@ -205,11 +228,14 @@ module Gapic
       ##
       # @param response [Object] The response object for the page.
       # @param resource_field [String] The name of the field in response which holds the resources.
+      # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
+      #   argument, and return a formatted resource object. Optional.
       #
-      def initialize response, resource_field, operation
+      def initialize response, resource_field, operation, format_resource: nil
         @response = response
         @resource_field = resource_field
         @operation = operation
+        @format_resource = format_resource
       end
 
       ##
@@ -224,7 +250,9 @@ module Gapic
 
         # We trust that the field exists and is an Enumerable
         @response[@resource_field].each do |resource|
-          yield resource
+          obj = resource
+          obj = @format_resource.call resource if @format_resource
+          yield obj
         end
       end
 
