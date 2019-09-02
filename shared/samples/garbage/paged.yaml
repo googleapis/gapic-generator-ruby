@@ -1,0 +1,24 @@
+type: com.google.api.codegen.samplegen.v1p2.SampleConfigProto
+schema_version: 1.2.0
+samples:
+- region_tag: get_paged_garbage
+  title: Getting garbage
+  description: Getting garbage
+  service: endless.trash.forever.GarbageService
+  rpc: GetPagedGarbage
+  request:
+  - field: garbage
+    value: "Paged Garbage"
+  response:
+  - comment:
+    - Print the garbage resource
+  - print:
+    - "Garbage: %s"
+    - $resp.garbage
+  - loop:
+      collection: $resp.items
+      variable: garbage_item
+      body:
+      - print:
+        - "Garbage item: %s"
+        - garbage_item.garbage

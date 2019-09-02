@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+gemspec
+
+gem "gapic-common", github: "googleapis/gapic-generator-ruby"
+gem "rake", "~> 11.0"

@@ -50,20 +50,22 @@ class SamplePresenter
   end
 
   class RequestField
-    attr_reader :field, :value, :input_parameter, :comment
+    attr_reader :field, :value, :input_parameter, :comment, :value_is_file
     def initialize field
       @field = field["field"]
       @value = convert field["value"]
       @input_parameter = field["input_parameter"]
       @comment = field["comment"]
+      @comment = nil if @comment&.empty?
+      @value_is_file = field["value_is_file"]
     end
 
     protected
 
     def convert val
       if val.is_a? String
-        return ":#{val}" if val =~ /\A[A-Z_]+/ # print constants as symbols
-        "\"#{val}\""
+        return ":#{val}" if val =~ /\A[A-Z_0-9]+\z/ # print constants as symbols
+        val.inspect
       else
         val.to_s
       end

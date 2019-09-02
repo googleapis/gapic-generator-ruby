@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "test_helper"
-require_relative "../../../templates/default/helpers/presenters/sample_presenter"
+require_relative "../../../../templates/default/helpers/presenters/sample_presenter"
 
 class SamplePresenterTest < PresenterTest
   def setup

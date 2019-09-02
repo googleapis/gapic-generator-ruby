@@ -2,23 +2,19 @@
 require "<%= method.service.service_require %>"
 
 client = <%= method.service.client_name_full %>.new
+<%- if sample.input_parameters.any? -%>
 
+<%- end -%>
 <%- sample.input_parameters.each do |field| -%>
+<%- if field.value_is_file -%>
+<%= field.input_parameter %> = File.read <%= field.value %>
+<%- else -%>
 <%= field.input_parameter %> = <%= field.value %>
 <%- end -%>
-
-<%- sample.fields.each_pair do |k,v| -%>
-<%= k %> = {
-<%- v.each_pair do |k2,v2| -%>
-<%- if v2.comment  -%>
-<%= indent v2.comment, "  # " %>
-<%- end -%>
-  <%= k2 %>: <%= v2.input_parameter ? v2.input_parameter : v2.value %><%= "," unless v2 == v.values.last %>
-<%- end -%>
-}
 <%- end -%>
 
-response = client.<%= method.name %> <%= sample.kwargs %>
-<%- sample.response_raw.each do |resp_hash| -%>
-<%= render partial: "service/client/method/docs/sample_response/#{resp_hash.keys.first}", locals: { values: resp_hash.values.first } -%>
+<%- sample.fields.each do |field| -%>
+<%= render partial: "service/client/method/docs/request_field", locals: { field: field } -%>
 <%- end -%>
+
+<%= render partial: "service/client/method/docs/sample_response", locals: { method: method, sample: sample } -%>
