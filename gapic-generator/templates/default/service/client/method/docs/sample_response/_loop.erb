@@ -1,14 +1,6 @@
 <%- assert_locals values -%>
 <%= values["collection"].gsub("$resp", "response") %>.each do |result|
-  <%- values["body"].each do |b| -%>
-  <%- if b.key? "comment" -%>
-  <%= indent b["comment"].join("\n"), "# " %>
-  <%- end -%>
-  <%- if b.key? "define" -%>
-  <%= b["define"] %>
-  <%- end -%>
-  <%- if b.key? "print" -%>
-  puts "<%= b["print"][0].gsub("%s", "\#{%s}") % b["print"][1..-1] %>"
-  <%- end -%>
-  <%- end -%>
+<%- values["body"].each do |b| -%>
+<%= indent render(partial: "service/client/method/docs/sample_response/#{b.keys.first}", locals: { values: b.values.first }), "  " %>
+<%- end -%>
 end
