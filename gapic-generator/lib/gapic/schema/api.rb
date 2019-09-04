@@ -112,8 +112,15 @@ module Gapic
         @samples ||= begin
           protoc_options[:samples].to_s.split(";").flat_map do |sample_path|
             yaml = YAML.load_file sample_path
-            # TODO: Remove use of "1.2.0" magic variable
-            yaml["samples"] if yaml["schema_version"] == "1.2.0"
+            if yaml["schema_version"]
+              # TODO: Remove use of "1.2.0" magic variable
+              if yaml["schema_version"] != "1.2.0"
+                # returns nil
+                warn "Unexpected sample file with version #{yaml['schema_version']} found - ignoring"
+              else
+                yaml["samples"]
+              end
+            end
           end.compact
         end
       end
