@@ -30,7 +30,7 @@ namespace :gen do
     speech_protos = [
       "google/cloud/speech/v1/cloud_speech.proto"
     ]
-    generate_input_file "speech", speech_protos, "../shared/samples/speech/v1"
+    generate_input_file "speech", speech_protos, Dir.glob("../shared/samples/speech/v1/*.yaml")
   end
 
   desc "Generate the binary input files for vision"
@@ -116,7 +116,7 @@ end
 
 task default: :ci
 
-def generate_input_file service, protos, samples = nil  # TODO: support Array of multiple samples filepaths
+def generate_input_file service, protos, samples = nil
   require "tmpdir"
 
   Dir.mktmpdir do |tmp|
@@ -132,10 +132,10 @@ def generate_input_file service, protos, samples = nil  # TODO: support Array of
       # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
       # "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
       "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
-      "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin",
+      "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin"
     ]
     # Add optional samples paths
-    protoc_cmd <<  "--ruby_gapic_opt=samples=#{samples}" unless samples.nil?
+    protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
 
     `#{protoc_cmd.join " "}`
   end

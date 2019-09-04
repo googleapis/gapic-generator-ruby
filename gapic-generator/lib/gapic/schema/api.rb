@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "yaml"
 require "gapic/schema/loader"
 
 module Gapic
@@ -109,17 +110,18 @@ module Gapic
       #   An array of the sample configuration hashes.
       def samples
         @samples ||= begin
-          sam = []
-          if protoc_options[:samples]
-            require "yaml"
-            path = protoc_options[:samples]
-            files = Dir.glob "#{path}/*.yaml"
-            files.each do |file|
-              yaml = YAML.load_file file
-              sam += yaml["samples"] if yaml["samples"]
+          protoc_options[:samples].to_s.split(";").flat_map do |sample_path|
+            yaml = YAML.load_file sample_path
+            if yaml["schema_version"]
+              # TODO: Remove use of "1.2.0" magic variable
+              if yaml["schema_version"] != "1.2.0"
+                # returns nil
+                warn "Unexpected sample file with version #{yaml['schema_version']} found - ignoring"
+              else
+                yaml["samples"]
+              end
             end
-          end
-          sam
+          end.compact
         end
       end
 
@@ -131,8 +133,6 @@ module Gapic
           config = {}
 
           if protoc_options[:configuration]
-            require "yaml"
-
             config = YAML.load_file protoc_options[:configuration]
             config.merge! config
           end

@@ -217,6 +217,41 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
+            # @example Print start and end time of each word spoken in audio file from Cloud Storage
+            #   require "google/cloud/speech/v1/speech"
+            #
+            #   client = Google::Cloud::Speech::V1::Speech::Client.new
+            #
+            #   storage_uri = "gs://cloud-samples-data/speech/brooklyn_bridge.flac"
+            #
+            #   audio = {
+            #     # URI for audio file in Cloud Storage, e.g. gs://[BUCKET]/[FILE]
+            #     uri: storage_uri
+            #   }
+            #   config = {
+            #     # When enabled, the first result returned by the API will include a list
+            #     # of words and the start and end time offsets (timestamps) for those words.
+            #     enable_word_time_offsets: true,
+            #     # The language of the supplied audio
+            #     language_code: "en-US"
+            #   }
+            #
+            #   response = client.long_running_recognize audio: audio, config: config
+            #
+            #   # The first result includes start and end time word offsets
+            #   result = response.results[0]
+            #
+            #   # First alternative is the most probable result
+            #   alternative = result.alternatives[0]
+            #   puts "Transcript: #{alternative.transcript}"
+            #
+            #   # Print the start and end time of each word
+            #   alternative.words.each do |result|
+            #     puts "Word: #{word.word}"
+            #     puts "Start time: #{word.start_time.seconds} seconds #{word.start_time.nanos} nanos"
+            #     puts "End time: #{word.end_time.seconds} seconds #{word.end_time.nanos} nanos"
+            #   end
+            #
             def long_running_recognize request, options = nil, &block
               raise ArgumentError, "request must be provided" if request.nil?
 
