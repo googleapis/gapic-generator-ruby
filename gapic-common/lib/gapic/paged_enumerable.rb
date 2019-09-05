@@ -48,6 +48,7 @@ module Gapic
     attr_reader :page
 
     ##
+    # @private
     # @param grpc_stub [Gapic::GRPC::Stub] The Gapic gRPC stub object.
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
@@ -68,7 +69,7 @@ module Gapic
       verify_request!
       verify_response!
 
-      @page = Page.new @response, @resource_field
+      @page = Page.new @response, @resource_field, format_resource: @format_resource
     end
 
     ##
@@ -83,7 +84,6 @@ module Gapic
 
       each_page do |page|
         page.each do |obj|
-          obj = @format_resource.call obj if @format_resource
           yield obj
         end
       end
@@ -126,7 +126,7 @@ module Gapic
       next_request.page_token = @page.next_page_token
       next_response = @grpc_stub.call_rpc @method_name, next_request, options: @options
 
-      @page = Page.new next_response, @resource_field
+      @page = Page.new next_response, @resource_field, format_resource: @format_resource
     end
 
     ##
@@ -192,19 +192,21 @@ module Gapic
     #
     # @attribute [r] response
     #   @return [Object] the actual response object.
-    # @attribute [r] next_page_token
-    #   @return [Object] the page token to be used for the next RPC call.
     class Page
       include Enumerable
       attr_reader :response
 
       ##
+      # @private
       # @param response [Object] The response object for the page.
       # @param resource_field [String] The name of the field in response which holds the resources.
+      # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
+      #   argument, and return a formatted resource object. Optional.
       #
-      def initialize response, resource_field
+      def initialize response, resource_field, format_resource: nil
         @response = response
         @resource_field = resource_field
+        @format_resource = format_resource
       end
 
       ##
@@ -219,17 +221,27 @@ module Gapic
 
         # We trust that the field exists and is an Enumerable
         @response[@resource_field].each do |resource|
+          resource = @format_resource.call resource if @format_resource
           yield resource
         end
       end
 
+      ##
+      # The page token to be used for the next RPC call.
+      #
+      # @return [String]
+      #
       def next_page_token
         return if @response.nil?
 
         @response.next_page_token
       end
 
+      ##
       # Truthiness of next_page_token.
+      #
+      # @return [Boolean]
+      #
       def next_page_token?
         return if @response.nil?
 
