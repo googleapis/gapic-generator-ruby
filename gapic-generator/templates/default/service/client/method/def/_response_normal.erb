@@ -1,0 +1,5 @@
+<%- assert_locals method -%>
+<%- if method.lro? -%>
+wrap_gax_operation = ->(response) { Gapic::Operation.new(response, <%= method.service.lro_client_ivar %>) }
+<%- end -%>
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block<%- if method.lro? -%>, format_response: wrap_gax_operation<%- end -%>

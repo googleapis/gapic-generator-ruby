@@ -282,7 +282,6 @@ module Google
                                      retry_policy: @config.retry_policy
 
               wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-
               @speech_stub.call_rpc :long_running_recognize, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 

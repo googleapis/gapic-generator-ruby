@@ -259,9 +259,13 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, options }
-
-            @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            paged_response = nil
+            paged_operation_callback = lambda do |response, operation|
+              paged_response = Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation, options
+              yield paged_response, operation if block
+            end
+            @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: paged_operation_callback
+            paged_response
           end
 
           ##
@@ -428,9 +432,13 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, options }
-
-            @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: block, format_response: wrap_paged_enum
+            paged_response = nil
+            paged_operation_callback = lambda do |response, operation|
+              paged_response = Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, operation, options
+              yield paged_response, operation if block
+            end
+            @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: paged_operation_callback
+            paged_response
           end
 
           ##

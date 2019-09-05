@@ -172,9 +172,13 @@ module Google
                                      retry_policy: @config.retry_policy
 
               wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, options, format_resource: wrap_gax_operation }
-
-              @operations_stub.call_rpc :list_operations, request, options: options, operation_callback: block, format_response: wrap_paged_enum
+              paged_response = nil
+              paged_operation_callback = lambda do |response, operation|
+                paged_response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_gax_operation
+                yield paged_response, operation if block
+              end
+              @operations_stub.call_rpc :list_operations, request, options: options, operation_callback: paged_operation_callback
+              paged_response
             end
 
             ##
@@ -232,7 +236,6 @@ module Google
                                      retry_policy: @config.retry_policy
 
               wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-
               @operations_stub.call_rpc :get_operation, request, options: options, operation_callback: block, format_response: wrap_gax_operation
             end
 
