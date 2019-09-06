@@ -1,19 +1,6 @@
 <%- assert_locals method -%>
-<%- if method.lro? -%>
-wrap_gax_operation = ->(response) { Gapic::Operation.new(response, <%= method.service.lro_client_ivar %>) }
-<%- end -%>
 <%- if method.paged? -%>
-<%- if method.lro? -%>
-wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options, format_resource: wrap_gax_operation) }
+<%= render partial: "service/client/method/def/response_paged", locals: { method: method } -%>
 <%- else -%>
-wrap_paged_enum = ->(response) { Gapic::PagedEnumerable.new(@<%= method.service.stub_name %>, :<%= method.name %>, request, response, options) }
-<%- end -%>
-<%- end -%>
-
-<%- if method.paged? -%>
-@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block, format_response: wrap_paged_enum
-<%- elsif method.lro? -%>
-@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block, format_response: wrap_gax_operation
-<%- else -%>
-@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: block
+<%= render partial: "service/client/method/def/response_normal", locals: { method: method } -%>
 <%- end -%>

@@ -1,0 +1,11 @@
+<%- assert_locals method -%>
+<%- if method.lro? -%>
+wrap_gax_operation = ->(response) { Gapic::Operation.new(response, <%= method.service.lro_client_ivar %>) }
+<%- end -%>
+paged_response = nil
+paged_operation_callback = ->(response, operation) do
+  paged_response = Gapic::PagedEnumerable.new @<%= method.service.stub_name %>, :<%= method.name %>, request, response, operation, options<%- if method.lro? -%>, format_resource: wrap_gax_operation<%- end -%>
+  block.call paged_response, operation if block
+end
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options, operation_callback: paged_operation_callback
+paged_response
