@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 class RpcCallRetryTest < Minitest::Test
   def default_sleep_counts

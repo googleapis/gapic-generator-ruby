@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 class RpcCallRetryRaiseTest < Minitest::Test
   def test_no_retry_without_codes
