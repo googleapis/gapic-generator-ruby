@@ -131,7 +131,7 @@ module Gapic
     #   response = echo_stub.call_rpc :echo, request
     #                                 options: options
     #
-    # @example Accessing the request and RPC operation using a block:
+    # @example Accessing the response and RPC operation using a block:
     #   require "google/showcase/v1beta1/echo_pb"
     #   require "google/showcase/v1beta1/echo_services_pb"
     #   require "gapic"
