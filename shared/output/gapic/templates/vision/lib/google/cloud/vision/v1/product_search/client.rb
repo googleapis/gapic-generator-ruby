@@ -154,7 +154,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def create_product_set request, options = nil, &block
+            def create_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
@@ -182,7 +182,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :create_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -223,7 +226,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def list_product_sets request, options = nil, &block
+            def list_product_sets request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
@@ -251,13 +254,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              paged_response = nil
-              paged_operation_callback = lambda do |response, operation|
-                paged_response = Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
-                yield paged_response, operation if block
+              @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
+                response = Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
+                yield response, operation if block_given?
+                return response
               end
-              @product_search_stub.call_rpc :list_product_sets, request, options: options, operation_callback: paged_operation_callback
-              paged_response
             end
 
             ##
@@ -293,7 +294,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def get_product_set request, options = nil, &block
+            def get_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
@@ -321,7 +322,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :get_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -365,7 +369,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def update_product_set request, options = nil, &block
+            def update_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
@@ -393,7 +397,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :update_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :update_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -427,7 +434,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def delete_product_set request, options = nil, &block
+            def delete_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
@@ -455,7 +462,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :delete_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -504,7 +514,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def create_product request, options = nil, &block
+            def create_product request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
@@ -532,7 +542,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :create_product, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_product, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -572,7 +585,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def list_products request, options = nil, &block
+            def list_products request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
@@ -600,13 +613,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              paged_response = nil
-              paged_operation_callback = lambda do |response, operation|
-                paged_response = Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
-                yield paged_response, operation if block
+              @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
+                response = Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
+                yield response, operation if block_given?
+                return response
               end
-              @product_search_stub.call_rpc :list_products, request, options: options, operation_callback: paged_operation_callback
-              paged_response
             end
 
             ##
@@ -642,7 +653,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def get_product request, options = nil, &block
+            def get_product request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
@@ -670,7 +681,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :get_product, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_product, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -730,7 +744,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def update_product request, options = nil, &block
+            def update_product request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
@@ -758,7 +772,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :update_product, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :update_product, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -794,7 +811,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def delete_product request, options = nil, &block
+            def delete_product request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
@@ -822,7 +839,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :delete_product, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_product, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -894,7 +914,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def create_reference_image request, options = nil, &block
+            def create_reference_image request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
@@ -922,7 +942,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :create_reference_image, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :create_reference_image, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -963,7 +986,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def delete_reference_image request, options = nil, &block
+            def delete_reference_image request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
@@ -991,7 +1014,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :delete_reference_image, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :delete_reference_image, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -1038,7 +1064,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def list_reference_images request, options = nil, &block
+            def list_reference_images request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
@@ -1066,13 +1092,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              paged_response = nil
-              paged_operation_callback = lambda do |response, operation|
-                paged_response = Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
-                yield paged_response, operation if block
+              @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
+                response = Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
+                yield response, operation if block_given?
+                return response
               end
-              @product_search_stub.call_rpc :list_reference_images, request, options: options, operation_callback: paged_operation_callback
-              paged_response
             end
 
             ##
@@ -1109,7 +1133,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def get_reference_image request, options = nil, &block
+            def get_reference_image request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
@@ -1137,7 +1161,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :get_reference_image, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :get_reference_image, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -1184,7 +1211,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def add_product_to_product_set request, options = nil, &block
+            def add_product_to_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
@@ -1212,7 +1239,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -1245,7 +1275,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def remove_product_from_product_set request, options = nil, &block
+            def remove_product_from_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
@@ -1273,7 +1303,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options, operation_callback: block
+              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -1317,7 +1350,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def list_products_in_product_set request, options = nil, &block
+            def list_products_in_product_set request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
@@ -1345,13 +1378,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              paged_response = nil
-              paged_operation_callback = lambda do |response, operation|
-                paged_response = Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
-                yield paged_response, operation if block
+              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
+                response = Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
+                yield response, operation if block_given?
+                return response
               end
-              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options, operation_callback: paged_operation_callback
-              paged_response
             end
 
             ##
@@ -1400,7 +1431,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def import_product_sets request, options = nil, &block
+            def import_product_sets request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
@@ -1428,8 +1459,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @product_search_stub.call_rpc :import_product_sets, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -1510,7 +1544,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def purge_products request, options = nil, &block
+            def purge_products request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::PurgeProductsRequest
@@ -1538,8 +1572,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @product_search_stub.call_rpc :purge_products, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             class Configuration

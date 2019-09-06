@@ -126,7 +126,7 @@ module Google
               #
               # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
               #
-              def get_campaign request, options = nil, &block
+              def get_campaign request, options = nil
                 raise ArgumentError, "request must be provided" if request.nil?
 
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
@@ -154,7 +154,10 @@ module Google
                 options.apply_defaults metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @campaign_service_stub.call_rpc :get_campaign, request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :get_campaign, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
                 # rescue Gapic::GapicError => gax_error
                 #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end
@@ -191,7 +194,7 @@ module Google
               #
               # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
               #
-              def mutate_campaigns request, options = nil, &block
+              def mutate_campaigns request, options = nil
                 raise ArgumentError, "request must be provided" if request.nil?
 
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
@@ -219,7 +222,10 @@ module Google
                 options.apply_defaults metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options, operation_callback: block
+                @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options do |response, operation|
+                  yield response, operation if block_given?
+                  return response
+                end
                 # rescue Gapic::GapicError => gax_error
                 #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
               end

@@ -133,7 +133,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def create_user request, options = nil, &block
+          def create_user request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateUserRequest
@@ -155,7 +155,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @identity_stub.call_rpc :create_user, request, options: options, operation_callback: block
+            @identity_stub.call_rpc :create_user, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -180,7 +183,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def get_user request, options = nil, &block
+          def get_user request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetUserRequest
@@ -208,7 +211,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @identity_stub.call_rpc :get_user, request, options: options, operation_callback: block
+            @identity_stub.call_rpc :get_user, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -236,7 +242,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def update_user request, options = nil, &block
+          def update_user request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::UpdateUserRequest
@@ -264,7 +270,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @identity_stub.call_rpc :update_user, request, options: options, operation_callback: block
+            @identity_stub.call_rpc :update_user, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -289,7 +298,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def delete_user request, options = nil, &block
+          def delete_user request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteUserRequest
@@ -317,7 +326,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @identity_stub.call_rpc :delete_user, request, options: options, operation_callback: block
+            @identity_stub.call_rpc :delete_user, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -347,7 +359,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def list_users request, options = nil, &block
+          def list_users request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListUsersRequest
@@ -369,13 +381,11 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            paged_response = nil
-            paged_operation_callback = lambda do |response, operation|
-              paged_response = Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, operation, options
-              yield paged_response, operation if block
+            @identity_stub.call_rpc :list_users, request, options: options do |response, operation|
+              response = Gapic::PagedEnumerable.new @identity_stub, :list_users, request, response, operation, options
+              yield response, operation if block_given?
+              return response
             end
-            @identity_stub.call_rpc :list_users, request, options: options, operation_callback: paged_operation_callback
-            paged_response
           end
 
           class Configuration

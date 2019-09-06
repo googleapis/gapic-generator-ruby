@@ -129,7 +129,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def echo request, options = nil, &block
+          def echo request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::EchoRequest
@@ -151,7 +151,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo_stub.call_rpc :echo, request, options: options, operation_callback: block
+            @echo_stub.call_rpc :echo, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -180,7 +183,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def expand request, options = nil, &block
+          def expand request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ExpandRequest
@@ -202,7 +205,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo_stub.call_rpc :expand, request, options: options, operation_callback: block
+            @echo_stub.call_rpc :expand, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -223,7 +229,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def collect request, options = nil, &block
+          def collect request, options = nil
             unless request.is_a? Enumerable
               if request.respond_to? :to_enum
                 request = request.to_enum
@@ -253,7 +259,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo_stub.call_rpc :collect, request, options: options, operation_callback: block
+            @echo_stub.call_rpc :collect, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -274,7 +283,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def chat request, options = nil, &block
+          def chat request, options = nil
             unless request.is_a? Enumerable
               if request.respond_to? :to_enum
                 request = request.to_enum
@@ -304,7 +313,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo_stub.call_rpc :chat, request, options: options, operation_callback: block
+            @echo_stub.call_rpc :chat, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -335,7 +347,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def paged_expand request, options = nil, &block
+          def paged_expand request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::PagedExpandRequest
@@ -357,13 +369,11 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            paged_response = nil
-            paged_operation_callback = lambda do |response, operation|
-              paged_response = Gapic::PagedEnumerable.new @echo_stub, :paged_expand, request, response, operation, options
-              yield paged_response, operation if block
+            @echo_stub.call_rpc :paged_expand, request, options: options do |response, operation|
+              response = Gapic::PagedEnumerable.new @echo_stub, :paged_expand, request, response, operation, options
+              yield response, operation if block_given?
+              return response
             end
-            @echo_stub.call_rpc :paged_expand, request, options: options, operation_callback: paged_operation_callback
-            paged_response
           end
 
           ##
@@ -397,7 +407,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def wait request, options = nil, &block
+          def wait request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::WaitRequest
@@ -419,8 +429,11 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-            @echo_stub.call_rpc :wait, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+            @echo_stub.call_rpc :wait, request, options: options do |response, operation|
+              response = Gapic::Operation.new response, @operations_client
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -454,7 +467,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def block request, options = nil, &block
+          def block request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::BlockRequest
@@ -476,7 +489,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @echo_stub.call_rpc :block, request, options: options, operation_callback: block
+            @echo_stub.call_rpc :block, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           class Configuration

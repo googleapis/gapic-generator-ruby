@@ -43,19 +43,12 @@ module Gapic
       # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to
       #   customize the options object, using keys that match the arguments for {Gapic::CallOptions.new}. This object
       #   should only be used once.
-      # @param format_response [Proc] A Proc object to format the response object. The Proc should accept response as
-      #   an argument, and return a formatted response object. Optional.
       #
-      #   If `stream_callback` is also provided, the response argument will be an Enumerable of the responses.
-      #   Returning a lazy enumerable that adds the desired formatting is recommended.
-      # @param operation_callback [Proc] A Proc object to provide a callback of the response and operation objects.
-      #   The response will be formatted with `format_response` if that is also provided. Optional.
-      # @param stream_callback [Proc] A Proc object to provide a callback for every streamed response received. The
-      #   Proc will be called with the response object. Should only be used on Bidi and Server streaming RPC calls.
-      #   Optional.
+      # @yield [response, operation] Access the response along with the RPC operation.
+      # @yieldparam response [Object] The response object.
+      # @yieldparam operation [GRPC::ActiveCall::Operation] The RPC operation for the response.
       #
-      # @return [Object, Thread] The response object. Or, when `stream_callback` is provided, a thread running the
-      #   callback for every streamed response is returned.
+      # @return [Object] The response object.
       #
       # @example
       #   require "google/showcase/v1beta1/echo_pb"
@@ -98,7 +91,7 @@ module Gapic
       #   )
       #   response = echo_call.call request, options: options
       #
-      # @example Formatting the response in the call:
+      # @example Accessing the request and RPC operation using a block:
       #   require "google/showcase/v1beta1/echo_pb"
       #   require "google/showcase/v1beta1/echo_services_pb"
       #   require "gapic"
@@ -114,31 +107,21 @@ module Gapic
       #   echo_call = Gapic::ServiceStub::RpcCall.new echo_stub.method :echo
       #
       #   request = Google::Showcase::V1beta1::EchoRequest.new
-      #   content_upcaser = proc do |response|
-      #     format_response = response.dup
-      #     format_response.content.upcase!
-      #     format_response
+      #   echo_call.call request do |response, operation|
+      #     operation.trailing_metadata
       #   end
-      #   response = echo_call.call request, format_response: content_upcaser
       #
-      def call request, options: nil, format_response: nil, operation_callback: nil, stream_callback: nil
+      def call request, options: nil
         # Converts hash and nil to an options object
         options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
-        stream_proc = compose_stream_proc stream_callback: stream_callback, format_response: format_response
         deadline = calculate_deadline options
         metadata = options.metadata
 
         begin
-          operation = stub_method.call request, deadline: deadline, metadata: metadata, return_op: true, &stream_proc
-
-          if stream_proc
-            Thread.new { operation.execute }
-          else
-            response = operation.execute
-            response = format_response.call response if format_response
-            operation_callback&.call response, operation
-            response
-          end
+          operation = stub_method.call request, deadline: deadline, metadata: metadata, return_op: true
+          response = operation.execute
+          yield response, operation if block_given?
+          response
         rescue StandardError => error
           if check_retry? deadline
             retry if options.retry_policy.call error
@@ -151,13 +134,6 @@ module Gapic
       end
 
       private
-
-      def compose_stream_proc stream_callback: nil, format_response: nil
-        return unless stream_callback
-        return stream_callback unless format_response
-
-        proc { |response| stream_callback.call format_response.call response }
-      end
 
       def calculate_deadline options
         Time.now + options.timeout

@@ -128,7 +128,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def create_session request, options = nil, &block
+          def create_session request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateSessionRequest
@@ -150,7 +150,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :create_session, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :create_session, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -175,7 +178,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def get_session request, options = nil, &block
+          def get_session request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetSessionRequest
@@ -203,7 +206,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :get_session, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :get_session, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -230,7 +236,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def list_sessions request, options = nil, &block
+          def list_sessions request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListSessionsRequest
@@ -252,13 +258,11 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            paged_response = nil
-            paged_operation_callback = lambda do |response, operation|
-              paged_response = Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation, options
-              yield paged_response, operation if block
+            @testing_stub.call_rpc :list_sessions, request, options: options do |response, operation|
+              response = Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation, options
+              yield response, operation if block_given?
+              return response
             end
-            @testing_stub.call_rpc :list_sessions, request, options: options, operation_callback: paged_operation_callback
-            paged_response
           end
 
           ##
@@ -283,7 +287,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def delete_session request, options = nil, &block
+          def delete_session request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteSessionRequest
@@ -311,7 +315,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :delete_session, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :delete_session, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -340,7 +347,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def report_session request, options = nil, &block
+          def report_session request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ReportSessionRequest
@@ -368,7 +375,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :report_session, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :report_session, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -397,7 +407,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def list_tests request, options = nil, &block
+          def list_tests request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListTestsRequest
@@ -425,13 +435,11 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            paged_response = nil
-            paged_operation_callback = lambda do |response, operation|
-              paged_response = Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, operation, options
-              yield paged_response, operation if block
+            @testing_stub.call_rpc :list_tests, request, options: options do |response, operation|
+              response = Gapic::PagedEnumerable.new @testing_stub, :list_tests, request, response, operation, options
+              yield response, operation if block_given?
+              return response
             end
-            @testing_stub.call_rpc :list_tests, request, options: options, operation_callback: paged_operation_callback
-            paged_response
           end
 
           ##
@@ -466,7 +474,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def delete_test request, options = nil, &block
+          def delete_test request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteTestRequest
@@ -494,7 +502,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :delete_test, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :delete_test, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           ##
@@ -529,7 +540,7 @@ module Google
           #
           # @raise [Gapic::GapicError] if the RPC is aborted.
           #
-          def verify_test request, options = nil, &block
+          def verify_test request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::VerifyTestRequest
@@ -557,7 +568,10 @@ module Google
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @testing_stub.call_rpc :verify_test, request, options: options, operation_callback: block
+            @testing_stub.call_rpc :verify_test, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
           end
 
           class Configuration

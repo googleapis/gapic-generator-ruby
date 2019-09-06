@@ -53,7 +53,7 @@ module Gapic
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
     # @param response [Object] The response object.
-    # @param operation [GRPC::ActiveCall::Operation] the RPC operation for the response.
+    # @param operation [GRPC::ActiveCall::Operation] The RPC operation for the response.
     # @param options [Gapic::CallOptions] The options for making the RPC call.
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
@@ -100,11 +100,10 @@ module Gapic
     def each_page
       return enum_for :each_page unless block_given?
 
-      yield @page
-
       loop do
-        break unless next_page?
-        yield next_page
+        break if @page.nil?
+        yield @page
+        next_page!
       end
     end
 
@@ -120,16 +119,17 @@ module Gapic
     #
     # @return [Page] the new page object.
     #
-    def next_page
-      return unless next_page?
+    def next_page!
+      unless next_page?
+        @page = nil
+        return @page
+      end
 
       next_request = @request.dup
       next_request.page_token = @page.next_page_token
-
-      next_operation_callback = lambda do |next_response, next_operation|
+      @grpc_stub.call_rpc @method_name, next_request, options: @options do |next_response, next_operation|
         @page = Page.new next_response, @resource_field, next_operation, format_resource: @format_resource
       end
-      @grpc_stub.call_rpc @method_name, next_request, options: @options, operation_callback: next_operation_callback
       @page
     end
 

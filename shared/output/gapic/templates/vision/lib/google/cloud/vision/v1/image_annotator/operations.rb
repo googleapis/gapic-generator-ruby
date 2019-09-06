@@ -143,7 +143,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def list_operations request, options = nil, &block
+            def list_operations request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
@@ -171,14 +171,12 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              paged_response = nil
-              paged_operation_callback = lambda do |response, operation|
-                paged_response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_gax_operation
-                yield paged_response, operation if block
+              @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
+                wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
+                response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_gax_operation
+                yield response, operation if block_given?
+                return response
               end
-              @operations_stub.call_rpc :list_operations, request, options: options, operation_callback: paged_operation_callback
-              paged_response
             end
 
             ##
@@ -207,7 +205,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def get_operation request, options = nil, &block
+            def get_operation request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
@@ -235,8 +233,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @operations_stub.call_rpc :get_operation, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @operations_stub.call_rpc :get_operation, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -267,7 +268,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def delete_operation request, options = nil, &block
+            def delete_operation request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
@@ -295,7 +296,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.call_rpc :delete_operation, request, options: options, operation_callback: block
+              @operations_stub.call_rpc :delete_operation, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -338,7 +342,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def cancel_operation request, options = nil, &block
+            def cancel_operation request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
@@ -366,7 +370,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.call_rpc :cancel_operation, request, options: options, operation_callback: block
+              @operations_stub.call_rpc :cancel_operation, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             class Configuration
