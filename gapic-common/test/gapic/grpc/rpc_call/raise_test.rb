@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 class RpcCallRaiseTest < Minitest::Test
   def test_traps_exception

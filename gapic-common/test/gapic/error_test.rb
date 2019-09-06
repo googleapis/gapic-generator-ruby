@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 describe Gapic::GapicError do
   describe "without cause" do
