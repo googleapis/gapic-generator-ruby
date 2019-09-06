@@ -148,7 +148,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def batch_annotate_images request, options = nil, &block
+            def batch_annotate_images request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateImagesRequest
@@ -170,7 +170,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options, operation_callback: block
+              @image_annotator_stub.call_rpc :batch_annotate_images, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -221,7 +224,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def batch_annotate_files request, options = nil, &block
+            def batch_annotate_files request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::BatchAnnotateFilesRequest
@@ -243,7 +246,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :batch_annotate_files, request, options: options, operation_callback: block
+              @image_annotator_stub.call_rpc :batch_annotate_files, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -299,7 +305,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def async_batch_annotate_images request, options = nil, &block
+            def async_batch_annotate_images request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
@@ -321,8 +327,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -370,7 +379,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def async_batch_annotate_files request, options = nil, &block
+            def async_batch_annotate_files request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
@@ -392,8 +401,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             class Configuration

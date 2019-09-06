@@ -168,7 +168,7 @@ module Google
             #     puts "Transcript: #{alternative.transcript}"
             #   end
             #
-            def recognize request, options = nil, &block
+            def recognize request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Speech::V1::RecognizeRequest
@@ -190,7 +190,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @speech_stub.call_rpc :recognize, request, options: options, operation_callback: block
+              @speech_stub.call_rpc :recognize, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -259,7 +262,7 @@ module Google
             #     puts "End time: #{word.end_time.seconds} seconds #{word.end_time.nanos} nanos"
             #   end
             #
-            def long_running_recognize request, options = nil, &block
+            def long_running_recognize request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
 
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Speech::V1::LongRunningRecognizeRequest
@@ -281,8 +284,11 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              @speech_stub.call_rpc :long_running_recognize, request, options: options, operation_callback: block, format_response: wrap_gax_operation
+              @speech_stub.call_rpc :long_running_recognize, request, options: options do |response, operation|
+                response = Gapic::Operation.new response, @operations_client
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             ##
@@ -302,7 +308,7 @@ module Google
             #
             # @raise [Gapic::GapicError] if the RPC is aborted.
             #
-            def streaming_recognize request, options = nil, &block
+            def streaming_recognize request, options = nil
               unless request.is_a? Enumerable
                 if request.respond_to? :to_enum
                   request = request.to_enum
@@ -332,7 +338,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @speech_stub.call_rpc :streaming_recognize, request, options: options, operation_callback: block
+              @speech_stub.call_rpc :streaming_recognize, request, options: options do |response, operation|
+                yield response, operation if block_given?
+                return response
+              end
             end
 
             class Configuration

@@ -15,7 +15,7 @@
 require "test_helper"
 
 describe Gapic::PagedEnumerable, :format_resource do
-  it "enumerates all resources and formats them" do
+  it "enumerates all resources" do
     api_responses = [
       Gapic::Examples::GoodPagedResponse.new(
         users: [
@@ -36,10 +36,10 @@ describe Gapic::PagedEnumerable, :format_resource do
     options = Gapic::CallOptions.new
     upcase_resource = ->(user) { user.name.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
-      gax_stub, :method_name, request, response, :fake_operation, options, format_resource: upcase_resource
+      gax_stub, :method_name, request, response, :fake_operation, options
     )
 
-    assert_equal ["FOO", "BAR", "BAZ", "BIF"], paged_enum.each.to_a
+    assert_equal ["FOO", "BAR", "BAZ", "BIF"], paged_enum.each.map { |user| user.name.upcase }
   end
 
   it "enumerates all pages and formats the resources" do
