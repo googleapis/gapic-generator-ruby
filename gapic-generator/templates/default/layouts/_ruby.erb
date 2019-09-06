@@ -1,10 +1,12 @@
 <%- assert_locals namespace -%>
-# frozen_string_literal: true
+<%= render partial: "shared/header" -%>
+<%- if instance_variable_defined? :@requires -%>
 
-<%= render partial: "shared/license" %>
-<% if instance_variable_defined? :@requires %>
-<%= @requires %>
-<% end %>
+<%= @requires -%>
+<%- end -%>
+<%- # Two newlines here so YARD won't use the header as documentation -%>
+
+
 <%- namespace.split("::").each_with_index do |ns, i| -%>
 <%= indent "module #{ns}", i*2 %>
 <%- end -%>
@@ -14,5 +16,5 @@
 <%- end -%>
 <%- if instance_variable_defined? :@footer -%>
 
-<%= @footer %>
+<%= @footer -%>
 <%- end -%>

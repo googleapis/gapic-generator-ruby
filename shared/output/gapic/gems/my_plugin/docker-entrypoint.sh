@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # enable extended globbing for flag pattern matching
 shopt -s extglob
 
