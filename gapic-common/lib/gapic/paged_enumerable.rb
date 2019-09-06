@@ -53,7 +53,7 @@ module Gapic
     # @param method_name [Symbol] The RPC method name.
     # @param request [Object] The request object.
     # @param response [Object] The response object.
-    # @param operation [GRPC::ActiveCall::Operation] the current RPC operation.
+    # @param operation [GRPC::ActiveCall::Operation] the RPC operation for the response.
     # @param options [Gapic::CallOptions] The options for making the RPC call.
     # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
     #   argument, and return a formatted resource object. Optional.
@@ -195,9 +195,9 @@ module Gapic
     # resource elements.
     #
     # @attribute [r] response
-    #   @return [Object] the actual response object.
+    #   @return [Object] the response object for the page.
     # @attribute [r] operation
-    #   @return [GRPC::ActiveCall::Operation] the current RPC operation.
+    #   @return [GRPC::ActiveCall::Operation] the RPC operation for the page.
     class Page
       include Enumerable
       attr_reader :response, :operation
@@ -206,7 +206,7 @@ module Gapic
       # @private
       # @param response [Object] The response object for the page.
       # @param resource_field [String] The name of the field in response which holds the resources.
-      # @param operation [GRPC::ActiveCall::Operation] the current RPC operation.
+      # @param operation [GRPC::ActiveCall::Operation] the RPC operation for the page.
       # @param format_resource [Proc] A Proc object to format the resource object. The Proc should accept response as an
       #   argument, and return a formatted resource object. Optional.
       #
