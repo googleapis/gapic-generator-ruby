@@ -18,13 +18,15 @@ module Gapic
   ##
   # Encapsulates the overridable settings for a particular RPC call.
   #
+  # @!attribute [r] timeout
+  #   @return [Numeric, nil]
   # @!attribute [r] metadata
   #   @return [Hash]
   # @!attribute [r] retry_policy
   #   @return [RetryPolicy, Object]
   #
   class CallOptions
-    attr_reader :metadata, :retry_policy
+    attr_reader :timeout, :metadata, :retry_policy
 
     ##
     # Create a new Options object instance.
@@ -45,14 +47,6 @@ module Gapic
       @timeout = timeout # allow to be nil so it can be overridden
       @metadata = metadata.to_h # Ensure always hash, even for nil
       @retry_policy = retry_policy
-    end
-
-    ##
-    # client-side timeout for RPC calls
-    #
-    # @return [Numeric]
-    def timeout
-      @timeout || 300
     end
 
     ##

@@ -18,7 +18,7 @@ class OptionsSettingsTest < Minitest::Test
   def test_defaults
     options = Gapic::CallOptions.new
 
-    assert_equal 300, options.timeout
+    assert_nil options.timeout
     assert_equal({}, options.metadata)
     assert_equal [], options.retry_policy.retry_codes
     assert_equal 1, options.retry_policy.initial_delay
