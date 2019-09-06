@@ -58,7 +58,7 @@ class RpcCallRaiseTest < Minitest::Test
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     exc = assert_raises Gapic::GapicError do
-      rpc_call.call Object.new
+      rpc_call.call Object.new, options: { timeout: 300 }
     end
     assert_kind_of GRPC::BadStatus, exc.cause
 
@@ -80,7 +80,7 @@ class RpcCallRaiseTest < Minitest::Test
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     assert_raises FakeCodeError do
-      rpc_call.call Object.new
+      rpc_call.call Object.new, options: { timeout: 300 }
     end
     assert_kind_of Time, deadline_arg
     assert_equal 1, call_count
