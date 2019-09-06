@@ -1,7 +1,5 @@
 <%- assert_locals package -%>
-# frozen_string_literal: true
-
-<%= render partial: "shared/license" -%>
+<%= render partial: "shared/header" -%>
 
 <% package.services.each do |service| %>
 require "<%= service.service_require %>"
