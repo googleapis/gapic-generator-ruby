@@ -28,4 +28,12 @@ class EchoTest < ShowcaseTest
 
     assert_equal "hi there!", response.content
   end
+
+  def test_echo_with_block
+    @client.echo content: "hello again!" do |response, operation|
+      assert_equal "hello again!", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_equal({}, operation.trailing_metadata)
+    end
+  end
 end
