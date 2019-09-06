@@ -35,6 +35,26 @@ class RpcCallTest < Minitest::Test
     assert_nil deadline_arg
   end
 
+  def test_call_with_negative_timeout
+    deadline_arg = nil
+
+    api_meth_stub = proc do |deadline: nil, **_kwargs|
+      deadline_arg = deadline
+      OperationStub.new { 42 }
+    end
+
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
+
+    assert_equal 42, rpc_call.call(Object.new)
+    assert_nil deadline_arg
+
+    new_deadline = Time.now + 20
+    options = Gapic::CallOptions.new timeout: -1
+
+    assert_equal 42, rpc_call.call(Object.new, options: options)
+    assert_nil deadline_arg
+  end
+
   def test_call_with_timeout
     deadline_arg = nil
 

@@ -137,6 +137,7 @@ module Gapic
 
       def calculate_deadline options
         return if options.timeout.nil?
+        return if options.timeout.negative?
 
         Time.now + options.timeout
       end
