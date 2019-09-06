@@ -43,7 +43,7 @@ class VisionGemPresenterTest < PresenterTest
     assert_equal ["ProductSearch", "ImageAnnotator"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
 
-    assert_equal ["google/api/http.proto", "google/protobuf/descriptor.proto", "google/cloud/vision/v1/geometry.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/field_mask.proto", "google/protobuf/timestamp.proto", "google/cloud/vision/v1/product_search_service.proto", "google/cloud/vision/v1/product_search.proto", "google/cloud/vision/v1/text_annotation.proto", "google/cloud/vision/v1/web_detection.proto", "google/protobuf/wrappers.proto", "google/type/color.proto", "google/type/latlng.proto", "google/cloud/vision/v1/image_annotator.proto"], presenter.proto_files.map(&:name)
+    assert_equal ["google/cloud/vision/v1/geometry.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/field_mask.proto", "google/protobuf/timestamp.proto", "google/cloud/vision/v1/product_search_service.proto", "google/cloud/vision/v1/product_search.proto", "google/cloud/vision/v1/text_annotation.proto", "google/cloud/vision/v1/web_detection.proto", "google/protobuf/wrappers.proto", "google/type/color.proto", "google/type/latlng.proto", "google/cloud/vision/v1/image_annotator.proto"], presenter.proto_files.map(&:name)
     presenter.proto_files.each { |fp| assert_kind_of FilePresenter, fp }
   end
 end
