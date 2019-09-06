@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 class RetryPolicyCallTest < Minitest::Test
   def test_wont_retry_when_unconfigured

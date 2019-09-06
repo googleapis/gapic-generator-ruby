@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 require "google/rpc/error_details_pb"
 require "google/protobuf/timestamp_pb"
 

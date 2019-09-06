@@ -136,10 +136,15 @@ module Gapic
       private
 
       def calculate_deadline options
+        return if options.timeout.nil?
+        return if options.timeout.negative?
+
         Time.now + options.timeout
       end
 
       def check_retry? deadline
+        return true if deadline.nil?
+
         deadline > Time.now
       end
 

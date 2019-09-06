@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "gapic/grpc"
 
 class RpcCallRetryRaiseTest < Minitest::Test
   def test_no_retry_without_codes
@@ -86,6 +87,7 @@ class RpcCallRetryRaiseTest < Minitest::Test
     sleep_proc = ->(count) { sleep_mock.sleep count }
 
     options = Gapic::CallOptions.new(
+      timeout: 300,
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
 
