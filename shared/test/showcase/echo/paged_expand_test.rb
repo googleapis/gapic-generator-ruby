@@ -54,7 +54,7 @@ class PagedExpandTest < ShowcaseTest
     refute_equal response_pages.first.operation, response_pages.last.operation
   end
 
-  def test_page_expand_with_block
+  def test_page_expand_with_block_and_metadata
     request_content = "The quick brown fox jumps over the lazy dog".split(" ").reverse.join(" ")
 
     options = Gapic::CallOptions.new metadata: {

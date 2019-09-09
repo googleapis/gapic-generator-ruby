@@ -31,7 +31,7 @@ class ExpandTest < ShowcaseTest
     assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
   end
 
-  def test_expand_with_options
+  def test_expand_with_metadata
     request_content = "The quick brown fox jumps over the lazy dog"
 
     options = Gapic::CallOptions.new metadata: {

@@ -39,7 +39,7 @@ class CollectTest < ShowcaseTest
     assert_equal "well hello there old friend", response.content
   end
 
-  def test_collect_with_options
+  def test_collect_with_metadata
     stream_input = Gapic::StreamInput.new
 
     Thread.new do
