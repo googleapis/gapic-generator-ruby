@@ -56,16 +56,18 @@ class CollectTest < ShowcaseTest
     }
 
     @client.collect stream_input, options do |response, operation|
-      assert_equal({
-        'showcase-trailer' => ["a", "b"]
-      }, operation.trailing_metadata)
+      assert_equal(
+        { 'showcase-trailer' => ["a", "b"] },
+        operation.trailing_metadata
+      )
 
       assert_equal "well hello there old friend", response.content
       assert_instance_of GRPC::ActiveCall::Operation, operation
 
-      assert_equal({
-        'showcase-trailer' => ["a", "b"]
-      }, operation.trailing_metadata)
+      assert_equal(
+        { 'showcase-trailer' => ["a", "b"] },
+        operation.trailing_metadata
+      )
     end
   end
 end

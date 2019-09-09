@@ -46,9 +46,10 @@ class ExpandTest < ShowcaseTest
       assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
       assert_instance_of GRPC::ActiveCall::Operation, operation
 
-      assert_equal({
-        'showcase-trailer' => ["a", "b"]
-      }, operation.trailing_metadata)
+      assert_equal(
+        { 'showcase-trailer' => ["a", "b"] },
+        operation.trailing_metadata
+      )
     end
   end
 end

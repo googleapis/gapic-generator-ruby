@@ -45,9 +45,10 @@ class EchoTest < ShowcaseTest
     @client.echo({ content: "hi there!" }, options) do |response, operation|
       assert_equal "hi there!", response.content
       assert_instance_of GRPC::ActiveCall::Operation, operation
-      assert_equal({
-        'showcase-trailer' => ["one", "two"]
-      }, operation.trailing_metadata)
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two"] },
+        operation.trailing_metadata
+      )
     end
   end
 end

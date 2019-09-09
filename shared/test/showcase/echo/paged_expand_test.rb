@@ -79,9 +79,10 @@ class PagedExpandTest < ShowcaseTest
       assert_equal operation, response_pages.first.operation
       refute_equal operation, response_pages.last.operation
 
-      assert_equal({
-        'showcase-trailer' => ["one", "two", "zhree"]
-      }, operation.trailing_metadata)
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two", "zhree"] },
+        operation.trailing_metadata
+      )
     end
   end
 end
