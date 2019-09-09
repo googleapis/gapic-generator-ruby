@@ -75,7 +75,7 @@ class ChatTest < ShowcaseTest
     stream_input = Gapic::StreamInput.new
 
     @client.chat stream_input, options do |response_enum, operation|
-      # TODO: confusing? desirable?
+      # TODO: https://github.com/googleapis/gapic-generator-ruby/issues/241
       assert_nil operation.trailing_metadata
 
       chatty_thread = Thread.new do

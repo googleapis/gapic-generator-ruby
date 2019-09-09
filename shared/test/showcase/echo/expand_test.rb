@@ -40,7 +40,7 @@ class ExpandTest < ShowcaseTest
     }
 
     @client.expand({ content: request_content }, options) do |response_enum, operation|
-      # TODO: confusing? desirable?
+      # TODO: https://github.com/googleapis/gapic-generator-ruby/issues/241
       assert_nil operation.trailing_metadata
 
       assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
