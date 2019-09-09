@@ -38,4 +38,34 @@ class CollectTest < ShowcaseTest
 
     assert_equal "well hello there old friend", response.content
   end
+
+  def test_collect_with_options
+    stream_input = Gapic::StreamInput.new
+
+    Thread.new do
+      "well hello there old friend".split(" ").each do |c|
+        stream_input.push content: c
+        sleep rand
+      end
+      stream_input.close
+    end
+
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["a", "b"],
+      garbage:            ["xxx"]
+    }
+
+    @client.collect stream_input, options do |response, operation|
+      assert_equal({
+        'showcase-trailer' => ["a", "b"]
+      }, operation.trailing_metadata)
+
+      assert_equal "well hello there old friend", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+
+      assert_equal({
+        'showcase-trailer' => ["a", "b"]
+      }, operation.trailing_metadata)
+    end
+  end
 end

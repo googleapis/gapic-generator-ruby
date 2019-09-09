@@ -30,4 +30,25 @@ class ExpandTest < ShowcaseTest
 
     assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
   end
+
+  def test_expand_with_options
+    request_content = "The quick brown fox jumps over the lazy dog"
+
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["a", "b"],
+      garbage:            ["xxx"]
+    }
+
+    @client.expand({ content: request_content }, options) do |response_enum, operation|
+      # TODO: confusing? desirable?
+      assert_nil operation.trailing_metadata
+
+      assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+
+      assert_equal({
+        'showcase-trailer' => ["a", "b"]
+      }, operation.trailing_metadata)
+    end
+  end
 end
