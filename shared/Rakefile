@@ -30,7 +30,7 @@ namespace :gen do
     speech_protos = [
       "google/cloud/speech/v1/cloud_speech.proto"
     ]
-    generate_input_file "speech", speech_protos, Dir.glob("../shared/samples/speech/v1/*.yaml")
+    generate_input_file "speech", speech_protos, Dir.glob("../shared/googleapis/google/cloud/speech/v1/samples/*.yaml")
   end
 
   desc "Generate the binary input files for vision"
