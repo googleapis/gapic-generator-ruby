@@ -36,4 +36,19 @@ class EchoTest < ShowcaseTest
       assert_equal({}, operation.trailing_metadata)
     end
   end
+
+  def test_echo_with_metadata
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["one", "two"],
+      garbage:            ["baz"]
+    }
+    @client.echo({ content: "hi there!" }, options) do |response, operation|
+      assert_equal "hi there!", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two"] },
+        operation.trailing_metadata
+      )
+    end
+  end
 end

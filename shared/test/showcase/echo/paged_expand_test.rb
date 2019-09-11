@@ -54,15 +54,19 @@ class PagedExpandTest < ShowcaseTest
     refute_equal response_pages.first.operation, response_pages.last.operation
   end
 
-  def test_page_expand_with_block
+  def test_page_expand_with_block_and_metadata
     request_content = "The quick brown fox jumps over the lazy dog".split(" ").reverse.join(" ")
 
-    @client.paged_expand content: request_content, page_size: 2 do |response_enum, operation|
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["one", "two", "zhree"],
+      garbage:            ["baz"]
+    }
+
+    @client.paged_expand({ content: request_content, page_size: 2 }, options) do |response_enum, operation|
       assert_kind_of Gapic::PagedEnumerable, response_enum
       assert_equal ["dog", "lazy"], response_enum.page.response.responses.map(&:content)
       assert_instance_of GRPC::ActiveCall::Operation, response_enum.page.operation
       assert_equal operation, response_enum.page.operation
-      assert_equal({}, operation.trailing_metadata)
 
       response_pages = response_enum.each_page.to_a
       responses_content_array = response_pages.map { |page| page.map(&:content) }
@@ -74,6 +78,11 @@ class PagedExpandTest < ShowcaseTest
       assert_instance_of GRPC::ActiveCall::Operation, response_pages.last.operation
       assert_equal operation, response_pages.first.operation
       refute_equal operation, response_pages.last.operation
+
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two", "zhree"] },
+        operation.trailing_metadata
+      )
     end
   end
 end
