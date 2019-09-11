@@ -40,14 +40,6 @@ sources = [
       "google/showcase/v1beta1/messaging.proto",
       "google/showcase/v1beta1/testing.proto"
     ],
-<<<<<<< HEAD
-=======
-    samples: []
-  },
-  {
-    name:    :garbage,
-    protos:  ["garbage/garbage.proto"],
->>>>>>> {} -> []
     samples: []
   }, {
     id:      :garbage,
@@ -66,19 +58,16 @@ sources = [
 
 desc "Generate the binary input files"
 task :gen do
-  test_libraries.each do |name:, protos:, samples:|
-    Rake::Task["gen:#{name}"].invoke
+  sources.each do |id:, protos:, samples:|
+    Rake::Task["gen:#{id}"].invoke
   end
 end
 
 namespace :gen do
-  sources.each do |input|
-    api = input[:id]
-    protos = input[:protos]
-    samples = input[:samples]
-    desc "Generate the binary input files for #{api}"
-    task api do
-      generate_input_file api, protos, samples
+  sources.each do |id:, protos:, samples:|
+    desc "Generate the binary input files for #{id}"
+    task id do
+      generate_input_file id, protos, samples
     end
   end
 end
