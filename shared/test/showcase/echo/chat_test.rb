@@ -66,4 +66,33 @@ class ChatTest < ShowcaseTest
 
     assert pull_count >= 20, "should have pulled 20 messages by now"
   end
+
+  def test_chat_with_metadata
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["so", "much", "chat"],
+      quiet:              ["please"]
+    }
+    stream_input = Gapic::StreamInput.new
+
+    @client.chat stream_input, options do |response_enum, operation|
+      # TODO: https://github.com/googleapis/gapic-generator-ruby/issues/241
+      assert_nil operation.trailing_metadata
+
+      chatty_thread = Thread.new do
+        sleep rand
+
+        ["a", "b", "cee"].each { |x| stream_input.push content: x }
+        stream_input.close
+
+        assert_equal ["a", "b", "cee"], response_enum.to_a.map(&:content)
+      end
+
+      chatty_thread.join
+
+      assert_equal(
+        { 'showcase-trailer' => ["so", "much", "chat"] },
+        operation.trailing_metadata
+      )
+    end
+  end
 end

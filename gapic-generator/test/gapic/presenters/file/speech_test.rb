@@ -29,7 +29,7 @@ class SpeechFilePresenterTest < PresenterTest
     assert_equal "Google::Cloud::Speech::V1", fp.namespace
     assert_equal "google/cloud/speech/v1/cloud_speech.rb", fp.docs_file_path
 
-    assert_equal ["RecognizeRequest", "LongRunningRecognizeRequest", "StreamingRecognizeRequest", "StreamingRecognitionConfig", "RecognitionConfig", "RecognitionMetadata", "SpeechContext", "RecognitionAudio", "RecognizeResponse", "LongRunningRecognizeResponse", "LongRunningRecognizeMetadata", "StreamingRecognizeResponse", "StreamingRecognitionResult", "SpeechRecognitionResult", "SpeechRecognitionAlternative", "WordInfo"], fp.messages.map(&:name)
+    assert_equal ["RecognizeRequest", "LongRunningRecognizeRequest", "StreamingRecognizeRequest", "StreamingRecognitionConfig", "RecognitionConfig", "SpeakerDiarizationConfig", "RecognitionMetadata", "SpeechContext", "RecognitionAudio", "RecognizeResponse", "LongRunningRecognizeResponse", "LongRunningRecognizeMetadata", "StreamingRecognizeResponse", "StreamingRecognitionResult", "SpeechRecognitionResult", "SpeechRecognitionAlternative", "WordInfo"], fp.messages.map(&:name)
     fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
 
     assert_equal [], fp.enums.map(&:name)

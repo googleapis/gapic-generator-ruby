@@ -44,4 +44,24 @@ class WaitTest < ShowcaseTest
     assert operation.error?
     assert_equal "nope", operation.error.message
   end
+
+  def test_wait_with_metadata
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["q", "wer", "ty", "!"],
+      junk:               ["zab", "show"]
+    }
+    @client.wait({ ttl: { nanos: 500000 }, success: { content: "hi again!" } }, options) do |operation, grpc_operation|
+      refute operation.done?
+      operation.wait_until_done!
+
+      assert operation.done?
+      assert operation.response?
+      assert_equal "hi again!", operation.response.content
+      assert_instance_of GRPC::ActiveCall::Operation, grpc_operation
+      assert_equal(
+        { 'showcase-trailer' => ["q", "wer", "ty", "!"] },
+        grpc_operation.trailing_metadata
+      )
+    end
+  end
 end
