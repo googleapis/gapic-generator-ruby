@@ -20,7 +20,7 @@ sources = [
     protos:  [
       "google/cloud/speech/v1/cloud_speech.proto"
     ],
-    samples: Dir.glob("../shared/samples/speech/v1/*.yaml")
+    samples: Dir.glob("../shared/googleapis/google/cloud/speech/v1/samples/*.yaml")
   }, {
     id:      :vision,
     protos:  [

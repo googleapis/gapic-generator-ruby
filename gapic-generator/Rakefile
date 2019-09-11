@@ -42,7 +42,7 @@ end
 
 desc "Validate the test libraries (install & run tests)"
 task :validate do
-  Rake::Task["validate:showcase"].invoke
+  # Rake::Task["validate:showcase"].invoke
   # TODO: validate this garbage!
   # Rake::Task["validate:garbage"].invoke
 end
