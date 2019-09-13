@@ -34,69 +34,93 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
   def setup
     @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     @mock_stub = MiniTest::Mock.new
-    @response = {}
+    @mock_page_enum = :mock_page_enum
+    @response = :mock_response
+    @grpc_operation = :mock_grpc_operation
     @options = {}
+  end
+
+  def with_stubs
+    Gapic::ServiceStub.stub :new, @mock_stub do
+      Gapic::PagedEnumerable.stub :new, @mock_page_enum do
+        yield
+      end
+    end
   end
 
   def test_create_room
     # Create request parameters
     room = {}
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :create_room
-          has_options = !options.nil?
-          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :create_room, name
+          refute_nil options
+          refute_nil block
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room), request.room
 
-          assert has_name, "invalid method call: #{name} (expected create_room)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.create_room room: room
-      assert_equal @response, response
+      client.create_room room: room do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.create_room Google::Showcase::V1beta1::CreateRoomRequest.new(room: room)
-      assert_equal @response, response
+      client.create_room(Google::Showcase::V1beta1::CreateRoomRequest.new(room: room)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.create_room request = { room: room }
-      assert_equal @response, response
+      client.create_room request = { room: room } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new room: room
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new({ room: room }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.create_room({ room: room }, @options)
-      assert_equal @response, response
+      client.create_room({ room: room }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.create_room Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), @options
-      assert_equal @response, response
+      client.create_room(Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.create_room request = { room: room }, options = @options
-      assert_equal @response, response
+      client.create_room(request = { room: room }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.create_room request = Google::Showcase::V1beta1::CreateRoomRequest.new room: room, options = @options
-      assert_equal @response, response
+      client.create_room(request = Google::Showcase::V1beta1::CreateRoomRequest.new({ room: room }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -107,61 +131,75 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :get_room
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :get_room, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected get_room)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.get_room name: name
-      assert_equal @response, response
+      client.get_room name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.get_room Google::Showcase::V1beta1::GetRoomRequest.new(name: name)
-      assert_equal @response, response
+      client.get_room(Google::Showcase::V1beta1::GetRoomRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.get_room request = { name: name }
-      assert_equal @response, response
+      client.get_room request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.get_room({ name: name }, @options)
-      assert_equal @response, response
+      client.get_room({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.get_room Google::Showcase::V1beta1::GetRoomRequest.new(name: name), @options
-      assert_equal @response, response
+      client.get_room(Google::Showcase::V1beta1::GetRoomRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.get_room request = { name: name }, options = @options
-      assert_equal @response, response
+      client.get_room(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.get_room request = Google::Showcase::V1beta1::GetRoomRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.get_room(request = Google::Showcase::V1beta1::GetRoomRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -173,61 +211,76 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     room = {}
     update_mask = {}
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :update_room
-          has_options = !options.nil?
-          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room) == request.room && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :update_room, name
+          refute_nil options
+          refute_nil block
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room), request.room
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask), request.update_mask
 
-          assert has_name, "invalid method call: #{name} (expected update_room)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.update_room room: room, update_mask: update_mask
-      assert_equal @response, response
+      client.update_room room: room, update_mask: update_mask do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.update_room Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask)
-      assert_equal @response, response
+      client.update_room(Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.update_room request = { room: room, update_mask: update_mask }
-      assert_equal @response, response
+      client.update_room request = { room: room, update_mask: update_mask } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new room: room, update_mask: update_mask
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new({ room: room, update_mask: update_mask }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.update_room({ room: room, update_mask: update_mask }, @options)
-      assert_equal @response, response
+      client.update_room({ room: room, update_mask: update_mask }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.update_room Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), @options
-      assert_equal @response, response
+      client.update_room(Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.update_room request = { room: room, update_mask: update_mask }, options = @options
-      assert_equal @response, response
+      client.update_room(request = { room: room, update_mask: update_mask }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.update_room request = Google::Showcase::V1beta1::UpdateRoomRequest.new room: room, update_mask: update_mask, options = @options
-      assert_equal @response, response
+      client.update_room(request = Google::Showcase::V1beta1::UpdateRoomRequest.new({ room: room, update_mask: update_mask }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -238,61 +291,75 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :delete_room
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :delete_room, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected delete_room)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.delete_room name: name
-      assert_equal @response, response
+      client.delete_room name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.delete_room Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name)
-      assert_equal @response, response
+      client.delete_room(Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.delete_room request = { name: name }
-      assert_equal @response, response
+      client.delete_room request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.delete_room({ name: name }, @options)
-      assert_equal @response, response
+      client.delete_room({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_room Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), @options
-      assert_equal @response, response
+      client.delete_room(Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.delete_room request = { name: name }, options = @options
-      assert_equal @response, response
+      client.delete_room(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.delete_room request = Google::Showcase::V1beta1::DeleteRoomRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.delete_room(request = Google::Showcase::V1beta1::DeleteRoomRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -304,61 +371,76 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :list_rooms
-          has_options = !options.nil?
-          has_fields = request.page_size == 42 && request.page_token == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :list_rooms, name
+          refute_nil options
+          refute_nil block
+          assert_equal 42, request.page_size
+          assert_equal "hello world", request.page_token
 
-          assert has_name, "invalid method call: #{name} (expected list_rooms)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.list_rooms page_size: page_size, page_token: page_token
-      assert_equal @response, response
+      client.list_rooms page_size: page_size, page_token: page_token do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.list_rooms Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token)
-      assert_equal @response, response
+      client.list_rooms(Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token)) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.list_rooms request = { page_size: page_size, page_token: page_token }
-      assert_equal @response, response
+      client.list_rooms request = { page_size: page_size, page_token: page_token } do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new page_size: page_size, page_token: page_token
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new({ page_size: page_size, page_token: page_token }) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.list_rooms({ page_size: page_size, page_token: page_token }, @options)
-      assert_equal @response, response
+      client.list_rooms({ page_size: page_size, page_token: page_token }, @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.list_rooms Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), @options
-      assert_equal @response, response
+      client.list_rooms(Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.list_rooms request = { page_size: page_size, page_token: page_token }, options = @options
-      assert_equal @response, response
+      client.list_rooms(request = { page_size: page_size, page_token: page_token }, options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.list_rooms request = Google::Showcase::V1beta1::ListRoomsRequest.new page_size: page_size, page_token: page_token, options = @options
-      assert_equal @response, response
+      client.list_rooms(request = Google::Showcase::V1beta1::ListRoomsRequest.new({ page_size: page_size, page_token: page_token }), options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -370,61 +452,76 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     parent = "hello world"
     blurb = {}
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :create_blurb
-          has_options = !options.nil?
-          has_fields = request.parent == "hello world" && Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :create_blurb, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.parent
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb), request.blurb
 
-          assert has_name, "invalid method call: #{name} (expected create_blurb)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.create_blurb parent: parent, blurb: blurb
-      assert_equal @response, response
+      client.create_blurb parent: parent, blurb: blurb do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.create_blurb Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb)
-      assert_equal @response, response
+      client.create_blurb(Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.create_blurb request = { parent: parent, blurb: blurb }
-      assert_equal @response, response
+      client.create_blurb request = { parent: parent, blurb: blurb } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new({ parent: parent, blurb: blurb }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.create_blurb({ parent: parent, blurb: blurb }, @options)
-      assert_equal @response, response
+      client.create_blurb({ parent: parent, blurb: blurb }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.create_blurb Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), @options
-      assert_equal @response, response
+      client.create_blurb(Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.create_blurb request = { parent: parent, blurb: blurb }, options = @options
-      assert_equal @response, response
+      client.create_blurb(request = { parent: parent, blurb: blurb }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.create_blurb request = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb, options = @options
-      assert_equal @response, response
+      client.create_blurb(request = Google::Showcase::V1beta1::CreateBlurbRequest.new({ parent: parent, blurb: blurb }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -435,61 +532,75 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :get_blurb
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :get_blurb, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected get_blurb)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.get_blurb name: name
-      assert_equal @response, response
+      client.get_blurb name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.get_blurb Google::Showcase::V1beta1::GetBlurbRequest.new(name: name)
-      assert_equal @response, response
+      client.get_blurb(Google::Showcase::V1beta1::GetBlurbRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.get_blurb request = { name: name }
-      assert_equal @response, response
+      client.get_blurb request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.get_blurb({ name: name }, @options)
-      assert_equal @response, response
+      client.get_blurb({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.get_blurb Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), @options
-      assert_equal @response, response
+      client.get_blurb(Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.get_blurb request = { name: name }, options = @options
-      assert_equal @response, response
+      client.get_blurb(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.get_blurb request = Google::Showcase::V1beta1::GetBlurbRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.get_blurb(request = Google::Showcase::V1beta1::GetBlurbRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -501,61 +612,76 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     blurb = {}
     update_mask = {}
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :update_blurb
-          has_options = !options.nil?
-          has_fields = Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb) == request.blurb && Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask) == request.update_mask
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :update_blurb, name
+          refute_nil options
+          refute_nil block
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb), request.blurb
+          assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask), request.update_mask
 
-          assert has_name, "invalid method call: #{name} (expected update_blurb)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.update_blurb blurb: blurb, update_mask: update_mask
-      assert_equal @response, response
+      client.update_blurb blurb: blurb, update_mask: update_mask do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.update_blurb Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask)
-      assert_equal @response, response
+      client.update_blurb(Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.update_blurb request = { blurb: blurb, update_mask: update_mask }
-      assert_equal @response, response
+      client.update_blurb request = { blurb: blurb, update_mask: update_mask } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new blurb: blurb, update_mask: update_mask
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new({ blurb: blurb, update_mask: update_mask }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.update_blurb({ blurb: blurb, update_mask: update_mask }, @options)
-      assert_equal @response, response
+      client.update_blurb({ blurb: blurb, update_mask: update_mask }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.update_blurb Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), @options
-      assert_equal @response, response
+      client.update_blurb(Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.update_blurb request = { blurb: blurb, update_mask: update_mask }, options = @options
-      assert_equal @response, response
+      client.update_blurb(request = { blurb: blurb, update_mask: update_mask }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.update_blurb request = Google::Showcase::V1beta1::UpdateBlurbRequest.new blurb: blurb, update_mask: update_mask, options = @options
-      assert_equal @response, response
+      client.update_blurb(request = Google::Showcase::V1beta1::UpdateBlurbRequest.new({ blurb: blurb, update_mask: update_mask }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -566,61 +692,75 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :delete_blurb
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :delete_blurb, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected delete_blurb)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.delete_blurb name: name
-      assert_equal @response, response
+      client.delete_blurb name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.delete_blurb Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name)
-      assert_equal @response, response
+      client.delete_blurb(Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.delete_blurb request = { name: name }
-      assert_equal @response, response
+      client.delete_blurb request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.delete_blurb({ name: name }, @options)
-      assert_equal @response, response
+      client.delete_blurb({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_blurb Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), @options
-      assert_equal @response, response
+      client.delete_blurb(Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.delete_blurb request = { name: name }, options = @options
-      assert_equal @response, response
+      client.delete_blurb(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.delete_blurb request = Google::Showcase::V1beta1::DeleteBlurbRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.delete_blurb(request = Google::Showcase::V1beta1::DeleteBlurbRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -633,61 +773,77 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :list_blurbs
-          has_options = !options.nil?
-          has_fields = request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :list_blurbs, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.parent
+          assert_equal 42, request.page_size
+          assert_equal "hello world", request.page_token
 
-          assert has_name, "invalid method call: #{name} (expected list_blurbs)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.list_blurbs parent: parent, page_size: page_size, page_token: page_token
-      assert_equal @response, response
+      client.list_blurbs parent: parent, page_size: page_size, page_token: page_token do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.list_blurbs Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token)
-      assert_equal @response, response
+      client.list_blurbs(Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token)) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.list_blurbs request = { parent: parent, page_size: page_size, page_token: page_token }
-      assert_equal @response, response
+      client.list_blurbs request = { parent: parent, page_size: page_size, page_token: page_token } do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new parent: parent, page_size: page_size, page_token: page_token
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }, @options)
-      assert_equal @response, response
+      client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }, @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.list_blurbs Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options
-      assert_equal @response, response
+      client.list_blurbs(Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.list_blurbs request = { parent: parent, page_size: page_size, page_token: page_token }, options = @options
-      assert_equal @response, response
+      client.list_blurbs(request = { parent: parent, page_size: page_size, page_token: page_token }, options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.list_blurbs request = Google::Showcase::V1beta1::ListBlurbsRequest.new parent: parent, page_size: page_size, page_token: page_token, options = @options
-      assert_equal @response, response
+      client.list_blurbs(request = Google::Showcase::V1beta1::ListBlurbsRequest.new({ parent: parent, page_size: page_size, page_token: page_token }), options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -701,61 +857,86 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :search_blurbs
-          has_options = !options.nil?
-          has_fields = request.query == "hello world" && request.parent == "hello world" && request.page_size == 42 && request.page_token == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :search_blurbs, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.query
+          assert_equal "hello world", request.parent
+          assert_equal 42, request.page_size
+          assert_equal "hello world", request.page_token
 
-          assert has_name, "invalid method call: #{name} (expected search_blurbs)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token
-      assert_equal @response, response
+      client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.search_blurbs Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token)
-      assert_equal @response, response
+      client.search_blurbs(Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token)) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.search_blurbs request = { query: query, parent: parent, page_size: page_size, page_token: page_token }
-      assert_equal @response, response
+      client.search_blurbs request = { query: query, parent: parent, page_size: page_size, page_token: page_token } do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new query: query, parent: parent, page_size: page_size, page_token: page_token
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new({ query: query, parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }, @options)
-      assert_equal @response, response
+      client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }, @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.search_blurbs Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), @options
-      assert_equal @response, response
+      client.search_blurbs(Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.search_blurbs request = { query: query, parent: parent, page_size: page_size, page_token: page_token }, options = @options
-      assert_equal @response, response
+      client.search_blurbs(request = { query: query, parent: parent, page_size: page_size, page_token: page_token }, options = @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.search_blurbs request = Google::Showcase::V1beta1::SearchBlurbsRequest.new query: query, parent: parent, page_size: page_size, page_token: page_token, options = @options
-      assert_equal @response, response
+      client.search_blurbs(request = Google::Showcase::V1beta1::SearchBlurbsRequest.new({ query: query, parent: parent, page_size: page_size, page_token: page_token }), options = @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify

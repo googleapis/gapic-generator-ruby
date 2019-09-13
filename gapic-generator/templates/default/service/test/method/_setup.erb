@@ -1,6 +1,16 @@
 def setup
   @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
   @mock_stub = MiniTest::Mock.new
-  @response = {}
+  @mock_page_enum = :mock_page_enum
+  @response = :mock_response
+  @grpc_operation = :mock_grpc_operation
   @options = {}
+end
+
+def with_stubs
+  Gapic::ServiceStub.stub :new, @mock_stub do
+    Gapic::PagedEnumerable.stub :new, @mock_page_enum do
+      yield
+    end
+  end
 end

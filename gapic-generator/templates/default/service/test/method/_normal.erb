@@ -7,61 +7,81 @@ def test_<%= method.name %>
   <%= field.name %> = <%= field.default_value %>
   <%- end -%>
 
-  Gapic::ServiceStub.stub :new, @mock_stub do
+  with_stubs do
     # Create client
     client = <%= full_client_name %>.new do |config|
       config.credentials = @test_channel
     end
 
     8.times do
-      @mock_stub.expect :call_rpc, @response do |name, request, options:|
-        has_name = name == :<%= method.name %>
-        has_options = !options.nil?
-        has_fields = <%= render(partial: "service/test/method/expect_fields", locals: { fields: fields }) %>
+      @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+        assert_equal :<%= method.name %>, name
+        refute_nil options
+        refute_nil block
+        <%- fields.each do |field| -%>
+        <%- if field.type_name_full.to_s.empty? -%>
+        assert_equal <%= field.default_value %>, request.<%= field.name %>
+        <%- else -%>
+        assert_equal Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>), request.<%= field.name %>
+        <%- end -%>
+        <%- end -%>
 
-        assert has_name, "invalid method call: #{name} (expected <%= method.name %>)" 
-        assert has_options, "invalid options: #{options} vs #{@options}"
-        assert has_fields, "invalid field values"
+        block.call(@response, @grpc_operation)
 
-        # TODO: what to do with block?
-
-        has_name && has_options && has_fields
+        # hmmm...
+        assert_equal 24, 25
+        
+        true
       end
     end
 
     # Call method (positional / hash)
-    response = client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %>
-    assert_equal @response, response
+    client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method (positional / protobuf type)
-    response = client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>))
-    assert_equal @response, response
+    client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>)) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method (named / hash)
-    response = client.<%= method.name %> request = { <%= fields.map(&:as_kwarg).join ", " %> }
-    assert_equal @response, response
+    client.<%= method.name %> request = { <%= fields.map(&:as_kwarg).join ", " %> } do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method (named / protobuf type)
-    response = client.<%= method.name %> request = <%= method.request_type %>.new({ <%= fields.map(&:as_kwarg).join ", " %> })
-    assert_equal @response, response
-
-    # TODO: add block arg to these tests!?
+    client.<%= method.name %> request = <%= method.request_type %>.new({ <%= fields.map(&:as_kwarg).join ", " %> }) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method with options (positional / hash)
-    response = client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, @options)
-    assert_equal @response, response
+    client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, @options) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method with options (positional / protobuf type)
-    response = client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), @options)
-    assert_equal @response, response
+    client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), @options) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method with options (named / hash)
-    response = client.<%= method.name %>(request = { <%= fields.map(&:as_kwarg).join ", " %> }, options = @options)
-    assert_equal @response, response
+    client.<%= method.name %>(request = { <%= fields.map(&:as_kwarg).join ", " %> }, options = @options) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Call method with options (named / protobuf type)
-    response = client.<%= method.name %>(request = <%= method.request_type %>.new({ <%= fields.map(&:as_kwarg).join ", " %> }), options = @options)
-    assert_equal @response, response
+    client.<%= method.name %>(request = <%= method.request_type %>.new({ <%= fields.map(&:as_kwarg).join ", " %> }), options = @options) do |response, operation|
+      <%= indent_tail render(partial: "service/test/method/assert_response",
+                        locals: { method: method }), 6 %>
+    end
 
     # Verify method calls
     @mock_stub.verify

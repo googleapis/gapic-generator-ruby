@@ -78,7 +78,7 @@ module Gapic
         end
         files << g("proto_docs/readme.erb", "proto_docs/README.md", gem: gem)
 
-        format_files files
+        format_files files.select { |f| !f.name.start_with?('test/') }
 
         files
       end

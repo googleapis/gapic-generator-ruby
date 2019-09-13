@@ -34,8 +34,18 @@ class Google::Cloud::Vision::V1::ImageAnnotator::OperationsTest < Minitest::Test
   def setup
     @test_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     @mock_stub = MiniTest::Mock.new
-    @response = {}
+    @mock_page_enum = :mock_page_enum
+    @response = :mock_response
+    @grpc_operation = :mock_grpc_operation
     @options = {}
+  end
+
+  def with_stubs
+    Gapic::ServiceStub.stub :new, @mock_stub do
+      Gapic::PagedEnumerable.stub :new, @mock_page_enum do
+        yield
+      end
+    end
   end
 
   def test_list_operations
@@ -45,61 +55,78 @@ class Google::Cloud::Vision::V1::ImageAnnotator::OperationsTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :list_operations
-          has_options = !options.nil?
-          has_fields = request.name == "hello world" && request.filter == "hello world" && request.page_size == 42 && request.page_token == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :list_operations, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
+          assert_equal "hello world", request.filter
+          assert_equal 42, request.page_size
+          assert_equal "hello world", request.page_token
 
-          assert has_name, "invalid method call: #{name} (expected list_operations)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token
-      assert_equal @response, response
+      client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.list_operations Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token)
-      assert_equal @response, response
+      client.list_operations(Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token)) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.list_operations request = { name: name, filter: filter, page_size: page_size, page_token: page_token }
-      assert_equal @response, response
+      client.list_operations request = { name: name, filter: filter, page_size: page_size, page_token: page_token } do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.list_operations request = Google::Longrunning::ListOperationsRequest.new name: name, filter: filter, page_size: page_size, page_token: page_token
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.list_operations request = Google::Longrunning::ListOperationsRequest.new({ name: name, filter: filter, page_size: page_size, page_token: page_token }) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token }, @options)
-      assert_equal @response, response
+      client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token }, @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.list_operations Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token), @options
-      assert_equal @response, response
+      client.list_operations(Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token), @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.list_operations request = { name: name, filter: filter, page_size: page_size, page_token: page_token }, options = @options
-      assert_equal @response, response
+      client.list_operations(request = { name: name, filter: filter, page_size: page_size, page_token: page_token }, options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.list_operations request = Google::Longrunning::ListOperationsRequest.new name: name, filter: filter, page_size: page_size, page_token: page_token, options = @options
-      assert_equal @response, response
+      client.list_operations(request = Google::Longrunning::ListOperationsRequest.new({ name: name, filter: filter, page_size: page_size, page_token: page_token }), options = @options) do |response, operation|
+        assert_equal @mock_page_enum, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -110,61 +137,83 @@ class Google::Cloud::Vision::V1::ImageAnnotator::OperationsTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :get_operation
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :get_operation, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected get_operation)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.get_operation name: name
-      assert_equal @response, response
+      client.get_operation name: name do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.get_operation Google::Longrunning::GetOperationRequest.new(name: name)
-      assert_equal @response, response
+      client.get_operation(Google::Longrunning::GetOperationRequest.new(name: name)) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.get_operation request = { name: name }
-      assert_equal @response, response
+      client.get_operation request = { name: name } do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.get_operation request = Google::Longrunning::GetOperationRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.get_operation request = Google::Longrunning::GetOperationRequest.new({ name: name }) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.get_operation({ name: name }, @options)
-      assert_equal @response, response
+      client.get_operation({ name: name }, @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.get_operation Google::Longrunning::GetOperationRequest.new(name: name), @options
-      assert_equal @response, response
+      client.get_operation(Google::Longrunning::GetOperationRequest.new(name: name), @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.get_operation request = { name: name }, options = @options
-      assert_equal @response, response
+      client.get_operation(request = { name: name }, options = @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.get_operation request = Google::Longrunning::GetOperationRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.get_operation(request = Google::Longrunning::GetOperationRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal @response, response.grpc_op
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -175,61 +224,75 @@ class Google::Cloud::Vision::V1::ImageAnnotator::OperationsTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :delete_operation
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :delete_operation, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected delete_operation)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.delete_operation name: name
-      assert_equal @response, response
+      client.delete_operation name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.delete_operation Google::Longrunning::DeleteOperationRequest.new(name: name)
-      assert_equal @response, response
+      client.delete_operation(Google::Longrunning::DeleteOperationRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.delete_operation request = { name: name }
-      assert_equal @response, response
+      client.delete_operation request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.delete_operation request = Google::Longrunning::DeleteOperationRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.delete_operation request = Google::Longrunning::DeleteOperationRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.delete_operation({ name: name }, @options)
-      assert_equal @response, response
+      client.delete_operation({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.delete_operation Google::Longrunning::DeleteOperationRequest.new(name: name), @options
-      assert_equal @response, response
+      client.delete_operation(Google::Longrunning::DeleteOperationRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.delete_operation request = { name: name }, options = @options
-      assert_equal @response, response
+      client.delete_operation(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.delete_operation request = Google::Longrunning::DeleteOperationRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.delete_operation(request = Google::Longrunning::DeleteOperationRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
@@ -240,64 +303,79 @@ class Google::Cloud::Vision::V1::ImageAnnotator::OperationsTest < Minitest::Test
     # Create request parameters
     name = "hello world"
 
-    Gapic::ServiceStub.stub :new, @mock_stub do
+    with_stubs do
       # Create client
       client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new do |config|
         config.credentials = @test_channel
       end
 
       8.times do
-        @mock_stub.expect :call_rpc, @response do |name, request, options:|
-          has_name = name == :cancel_operation
-          has_options = !options.nil?
-          has_fields = request.name == "hello world"
+        @mock_stub.expect :call_rpc, @response do |name, request, options:, &block|
+          assert_equal :cancel_operation, name
+          refute_nil options
+          refute_nil block
+          assert_equal "hello world", request.name
 
-          assert has_name, "invalid method call: #{name} (expected cancel_operation)"
-          assert has_options, "invalid options: #{options} vs #{@options}"
-          assert has_fields, "invalid field values"
+          block.call(@response, @grpc_operation)
 
-          # TODO: what to do with block?
+          # hmmm...
+          assert_equal 24, 25
 
-          has_name && has_options && has_fields
+          true
         end
       end
 
       # Call method (positional / hash)
-      response = client.cancel_operation name: name
-      assert_equal @response, response
+      client.cancel_operation name: name do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (positional / protobuf type)
-      response = client.cancel_operation Google::Longrunning::CancelOperationRequest.new(name: name)
-      assert_equal @response, response
+      client.cancel_operation(Google::Longrunning::CancelOperationRequest.new(name: name)) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / hash)
-      response = client.cancel_operation request = { name: name }
-      assert_equal @response, response
+      client.cancel_operation request = { name: name } do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method (named / protobuf type)
-      response = client.cancel_operation request = Google::Longrunning::CancelOperationRequest.new name: name
-      assert_equal @response, response
-
-      # TODO: add block arg to these tests!?
+      client.cancel_operation request = Google::Longrunning::CancelOperationRequest.new({ name: name }) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / hash)
-      response = client.cancel_operation({ name: name }, @options)
-      assert_equal @response, response
+      client.cancel_operation({ name: name }, @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (positional / protobuf type)
-      response = client.cancel_operation Google::Longrunning::CancelOperationRequest.new(name: name), @options
-      assert_equal @response, response
+      client.cancel_operation(Google::Longrunning::CancelOperationRequest.new(name: name), @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / hash)
-      response = client.cancel_operation request = { name: name }, options = @options
-      assert_equal @response, response
+      client.cancel_operation(request = { name: name }, options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Call method with options (named / protobuf type)
-      response = client.cancel_operation request = Google::Longrunning::CancelOperationRequest.new name: name, options = @options
-      assert_equal @response, response
+      client.cancel_operation(request = Google::Longrunning::CancelOperationRequest.new({ name: name }), options = @options) do |response, operation|
+        assert_equal @response, response
+        assert_equal @grpc_operation, operation
+      end
 
       # Verify method calls
       @mock_stub.verify
     end
   end
+
 end
