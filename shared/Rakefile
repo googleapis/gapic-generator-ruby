@@ -62,7 +62,7 @@ namespace :gen do
     garbage_protos = [
       "garbage/garbage.proto"
     ]
-    generate_input_file "garbage", garbage_protos
+    generate_input_file "garbage", garbage_protos, Dir.glob("../shared/samples/garbage/*.yaml")
   end
 
   desc "Generate the binary input files for Google Ads"

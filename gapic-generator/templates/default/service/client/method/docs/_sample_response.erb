@@ -1,0 +1,24 @@
+<%- assert_locals method, sample -%>
+<%- if method.server_streaming? || method.paged? -%>
+responses = client.<%= method.name %> <%= sample.kwargs %>
+
+responses.each do |response|
+<%- if method.lro? -%>
+  # Wait until the long running operation is done
+  response.wait_until_done!
+<%- end -%>
+<%- sample.response_raw.each do |resp_hash| -%>
+<%= indent render(partial: "service/client/method/docs/sample_response/#{resp_hash.keys.first}", locals: { values: resp_hash.values.first }), "  " %>
+<%- end -%>
+end
+<%- else -%>
+response = client.<%= method.name %> <%= sample.kwargs %>
+<%- if method.lro? -%>
+
+# Wait until the long running operation is done
+response.wait_until_done!
+<%- end -%>
+<%- sample.response_raw.each do |resp_hash| -%>
+<%= render partial: "service/client/method/docs/sample_response/#{resp_hash.keys.first}", locals: { values: resp_hash.values.first } -%>
+<%- end -%>
+<%- end -%>

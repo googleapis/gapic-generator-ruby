@@ -198,7 +198,7 @@ module Google
             #
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   local_file_path = "resources/brooklyn_bridge.raw"
+            #   local_file_path = File.read "resources/brooklyn_bridge.raw"
             #
             #   audio = {
             #     # Path to local audio file, e.g. /path/audio.wav
@@ -226,7 +226,7 @@ module Google
             #
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   local_file_path = "resources/hello.wav"
+            #   local_file_path = File.read "resources/hello.wav"
             #   model = "phone_call"
             #
             #   audio = {
@@ -286,7 +286,7 @@ module Google
             #
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   local_file_path = "resources/multi.wav"
+            #   local_file_path = File.read "resources/multi.wav"
             #
             #   audio = {
             #     # Path to local audio file, e.g. /path/audio.wav
@@ -318,7 +318,7 @@ module Google
             #
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   local_file_path = "resources/hello.wav"
+            #   local_file_path = File.read "resources/hello.wav"
             #
             #   audio = {
             #     # Path to local audio file, e.g. /path/audio.wav
@@ -424,6 +424,9 @@ module Google
             #   }
             #
             #   response = client.long_running_recognize audio: audio, config: config
+            #
+            #   # Wait until the long running operation is done
+            #   response.wait_until_done!
             #   response.results.each do |result|
             #     # First alternative is the most probable result
             #     alternative = result.alternatives[0]
@@ -435,7 +438,7 @@ module Google
             #
             #   client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #   local_file_path = "resources/brooklyn_bridge.raw"
+            #   local_file_path = File.read "resources/brooklyn_bridge.raw"
             #
             #   audio = {
             #     # Path to local audio file, e.g. /path/audio.wav
@@ -452,6 +455,9 @@ module Google
             #   }
             #
             #   response = client.long_running_recognize audio: audio, config: config
+            #
+            #   # Wait until the long running operation is done
+            #   response.wait_until_done!
             #   response.results.each do |result|
             #     # First alternative is the most probable result
             #     alternative = result.alternatives[0]
@@ -479,6 +485,9 @@ module Google
             #
             #   response = client.long_running_recognize audio: audio, config: config
             #
+            #   # Wait until the long running operation is done
+            #   response.wait_until_done!
+            #
             #   # The first result includes start and end time word offsets
             #   result = response.results[0]
             #
@@ -487,7 +496,7 @@ module Google
             #   puts "Transcript: #{alternative.transcript}"
             #
             #   # Print the start and end time of each word
-            #   alternative.words.each do |result|
+            #   alternative.words.each do |word|
             #     puts "Word: #{word.word}"
             #     puts "Start time: #{word.start_time.seconds} seconds #{word.start_time.nanos} nanos"
             #     puts "End time: #{word.end_time.seconds} seconds #{word.end_time.nanos} nanos"
