@@ -1,0 +1,20 @@
+class ClientStub
+  attr_accessor :call_rpc_count
+
+  def initialize response, operation, &block
+    @response = response
+    @operation = operation
+    @block = block
+    @call_rpc_count = 0
+  end
+
+  def call_rpc *args
+    @call_rpc_count += 1
+
+    @block&.call *args
+
+    yield @response, @operation if block_given?
+
+    @response
+  end
+end

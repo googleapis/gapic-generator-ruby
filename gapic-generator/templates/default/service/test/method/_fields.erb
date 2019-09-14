@@ -1,5 +1,0 @@
-<%- assert_locals method -%>
-# Create request parameters
-<%- method.fields.each do |field| -%>
-<%= field.name %> = <%= field.default_value %>
-<%- end -%>
