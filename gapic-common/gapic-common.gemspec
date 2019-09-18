@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "googleapis-common-protos", ">= 1.3.9", "< 2.0"
   spec.add_dependency "googleapis-common-protos-types", ">= 1.0.4", "< 2.0"
   spec.add_dependency "googleauth", ">= 0.6.2", "< 0.10.0"
-  spec.add_dependency "grpc", ">= 1.7.2", "< 2.0"
+  spec.add_dependency "grpc", "1.24.0.pre1"
 
   spec.add_development_dependency "google-style", "~> 0.3.0"
   spec.add_development_dependency "minitest", "~> 5.10"
