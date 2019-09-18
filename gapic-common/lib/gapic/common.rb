@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "grpc/errors"
+require "grpc/core/status_codes"
 
 require "gapic/call_options"
 require "gapic/headers"
