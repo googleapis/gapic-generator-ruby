@@ -186,7 +186,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_operations name, filter, page_size, page_token
           end
 
@@ -300,7 +300,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_operation name
           end
 
@@ -375,7 +375,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_operation name
           end
 
@@ -450,7 +450,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Operations do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.cancel_operation name
           end
 

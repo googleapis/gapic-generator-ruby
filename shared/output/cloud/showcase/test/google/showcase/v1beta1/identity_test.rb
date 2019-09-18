@@ -129,7 +129,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_user user
           end
 
@@ -204,7 +204,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_user name
           end
 
@@ -283,7 +283,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.update_user user, update_mask
           end
 
@@ -358,7 +358,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_user name
           end
 
@@ -437,7 +437,7 @@ describe Google::Showcase::V1beta1::Identity::Client do
           client = Google::Showcase::V1beta1::Identity::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_users page_size, page_token
           end
 

@@ -131,7 +131,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Room]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def create_room request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -181,7 +181,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Room]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def get_room request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -240,7 +240,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Room]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def update_room request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -296,7 +296,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def delete_room request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -357,7 +357,7 @@ module Google
           #
           # @return [Gapic::PagedEnumerable<Google::Showcase::V1beta1::Room>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def list_rooms request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -415,7 +415,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Blurb]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def create_blurb request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -471,7 +471,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Blurb]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def get_blurb request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -530,7 +530,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::Blurb]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def update_blurb request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -586,7 +586,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def delete_blurb request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -652,7 +652,7 @@ module Google
           #
           # @return [Gapic::PagedEnumerable<Google::Showcase::V1beta1::Blurb>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def list_blurbs request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -726,7 +726,7 @@ module Google
           #
           # @return [Gapic::Operation]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def search_blurbs request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -787,7 +787,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1beta1::StreamBlurbsResponse>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def stream_blurbs request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -838,7 +838,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::SendBlurbsResponse]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def send_blurbs request, options = nil
             unless request.is_a? Enumerable
@@ -899,7 +899,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1beta1::StreamBlurbsResponse>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def connect request, options = nil
             unless request.is_a? Enumerable

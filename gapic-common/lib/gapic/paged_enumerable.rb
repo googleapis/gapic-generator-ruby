@@ -95,7 +95,7 @@ module Gapic
     #
     # @yield [Page] Gives the pages in the stream.
     #
-    # @raise [GapicError] if it's not started yet.
+    # @raise if it's not started yet.
     #
     def each_page
       return enum_for :each_page unless block_given?

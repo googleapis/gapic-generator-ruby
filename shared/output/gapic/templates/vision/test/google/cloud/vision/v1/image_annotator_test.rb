@@ -141,7 +141,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.batch_annotate_images requests, parent
           end
 
@@ -220,7 +220,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.batch_annotate_files requests, parent
           end
 
@@ -346,7 +346,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.async_batch_annotate_images requests, output_config, parent
           end
 
@@ -466,7 +466,7 @@ describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
           client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.async_batch_annotate_files requests, parent
           end
 

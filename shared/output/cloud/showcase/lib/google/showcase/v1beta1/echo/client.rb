@@ -130,7 +130,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::EchoResponse]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def echo request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -184,7 +184,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1beta1::EchoResponse>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def expand request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -230,7 +230,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::EchoResponse]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def collect request, options = nil
             unless request.is_a? Enumerable
@@ -284,7 +284,7 @@ module Google
           #
           # @return [Enumerable<Google::Showcase::V1beta1::EchoResponse>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def chat request, options = nil
             unless request.is_a? Enumerable
@@ -348,7 +348,7 @@ module Google
           #
           # @return [Gapic::PagedEnumerable<Google::Showcase::V1beta1::EchoResponse>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def paged_expand request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -408,7 +408,7 @@ module Google
           #
           # @return [Gapic::Operation]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def wait request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -468,7 +468,7 @@ module Google
           #
           # @return [Google::Showcase::V1beta1::BlockResponse]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def block request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?

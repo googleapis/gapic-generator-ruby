@@ -8,7 +8,7 @@
 #
 <%= render partial: "service/client/method/docs/response", locals: { method: method } -%>
 #
-# @raise [Gapic::GapicError] if the RPC is aborted.
+# @raise [GRPC::BadStatus] if the RPC is aborted.
 #
 <%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
 def <%= method.name %> request, options = nil

@@ -129,7 +129,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_room room
           end
 
@@ -204,7 +204,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_room name
           end
 
@@ -283,7 +283,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.update_room room, update_mask
           end
 
@@ -358,7 +358,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_room name
           end
 
@@ -437,7 +437,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_rooms page_size, page_token
           end
 
@@ -516,7 +516,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_blurb parent, blurb
           end
 
@@ -591,7 +591,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_blurb name
           end
 
@@ -670,7 +670,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.update_blurb blurb, update_mask
           end
 
@@ -745,7 +745,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_blurb name
           end
 
@@ -828,7 +828,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_blurbs parent, page_size, page_token
           end
 
@@ -960,7 +960,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.search_blurbs query, parent, page_size, page_token
           end
 
@@ -1033,7 +1033,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.stream_blurbs name, expire_time
           end
 
@@ -1096,7 +1096,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.send_blurbs [request]
           end
 
@@ -1160,7 +1160,7 @@ describe Google::Showcase::V1beta1::Messaging::Client do
           client = Google::Showcase::V1beta1::Messaging::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.connect [request]
           end
 

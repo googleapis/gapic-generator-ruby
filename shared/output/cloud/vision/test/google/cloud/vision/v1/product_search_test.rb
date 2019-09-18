@@ -137,7 +137,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_product_set parent, product_set, product_set_id
           end
 
@@ -220,7 +220,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_product_sets parent, page_size, page_token
           end
 
@@ -295,7 +295,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_product_set name
           end
 
@@ -374,7 +374,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.update_product_set product_set, update_mask
           end
 
@@ -449,7 +449,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_product_set name
           end
 
@@ -532,7 +532,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_product parent, product, product_id
           end
 
@@ -615,7 +615,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_products parent, page_size, page_token
           end
 
@@ -690,7 +690,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_product name
           end
 
@@ -769,7 +769,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.update_product product, update_mask
           end
 
@@ -844,7 +844,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_product name
           end
 
@@ -927,7 +927,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_reference_image parent, reference_image, reference_image_id
           end
 
@@ -1002,7 +1002,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_reference_image name
           end
 
@@ -1085,7 +1085,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_reference_images parent, page_size, page_token
           end
 
@@ -1160,7 +1160,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_reference_image name
           end
 
@@ -1239,7 +1239,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.add_product_to_product_set name, product
           end
 
@@ -1318,7 +1318,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.remove_product_from_product_set name, product
           end
 
@@ -1401,7 +1401,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_products_in_product_set name, page_size, page_token
           end
 
@@ -1521,7 +1521,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.import_product_sets parent, input_config
           end
 
@@ -1653,7 +1653,7 @@ describe Google::Cloud::Vision::V1::ProductSearch::Client do
           client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.purge_products product_set_purge_config, delete_orphan_products, parent, force
           end
 

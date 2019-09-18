@@ -141,7 +141,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.echo content, error
           end
 
@@ -214,7 +214,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.expand content, error
           end
 
@@ -277,7 +277,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.collect [request]
           end
 
@@ -341,7 +341,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.chat [request]
           end
 
@@ -424,7 +424,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.paged_expand content, page_size, page_token
           end
 
@@ -556,7 +556,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.wait end_time, ttl, error, success
           end
 
@@ -639,7 +639,7 @@ describe Google::Showcase::V1beta1::Echo::Client do
           client = Google::Showcase::V1beta1::Echo::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.block response_delay, error, success
           end
 

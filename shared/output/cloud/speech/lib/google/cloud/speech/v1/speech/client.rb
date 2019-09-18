@@ -134,7 +134,7 @@ module Google
             #
             # @return [Google::Cloud::Speech::V1::RecognizeResponse]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             # @example Transcribe a short audio file from Cloud Storage using a specified transcription model
 
@@ -400,7 +400,7 @@ module Google
             #
             # @return [Gapic::Operation]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             # @example Transcribe long audio file from Cloud Storage using asynchronous speech recognition
             #   require "google/cloud/speech/v1/speech"
@@ -546,7 +546,7 @@ module Google
             #
             # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             def streaming_recognize request, options = nil
               unless request.is_a? Enumerable

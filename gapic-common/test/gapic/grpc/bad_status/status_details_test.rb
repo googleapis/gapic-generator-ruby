@@ -17,7 +17,7 @@ require "gapic/grpc"
 require "google/rpc/error_details_pb"
 require "google/protobuf/timestamp_pb"
 
-class GapicErrorStatusDetailsTest < Minitest::Test
+class GrpcBadStatusStatusDetailsTest < Minitest::Test
   def test_deserializes_known_type
     expected_error = Google::Rpc::DebugInfo.new detail: "shoes are untied"
 
@@ -28,9 +28,8 @@ class GapicErrorStatusDetailsTest < Minitest::Test
       "grpc-status-details-bin" => encoded
     }
     error = GRPC::BadStatus.new 1, "", metadata
-    gax_error = wrap_error error
 
-    assert_equal [expected_error], gax_error.status_details
+    assert_equal [expected_error], error.status_details
   end
 
   def test_wont_deserialize_unknown_type
@@ -45,9 +44,8 @@ class GapicErrorStatusDetailsTest < Minitest::Test
       "grpc-status-details-bin" => encoded
     }
     error = GRPC::BadStatus.new 1, "", metadata
-    gax_error = wrap_error error
 
-    assert_equal [any], gax_error.status_details
+    assert_equal [any], error.status_details
   end
 
   def test_wont_deserialize_bad_value
@@ -62,9 +60,8 @@ class GapicErrorStatusDetailsTest < Minitest::Test
       "grpc-status-details-bin" => encoded
     }
     error = GRPC::BadStatus.new 1, "", metadata
-    gax_error = wrap_error error
 
-    assert_equal [any], gax_error.status_details
+    assert_equal [any], error.status_details
   end
 
   def test_deserialize_bad_type_to_empty_object
@@ -81,19 +78,7 @@ class GapicErrorStatusDetailsTest < Minitest::Test
       "grpc-status-details-bin" => encoded
     }
     error = GRPC::BadStatus.new 1, "", metadata
-    gax_error = wrap_error error
 
-    assert_equal [Google::Rpc::DebugInfo.new], gax_error.status_details
-  end
-
-  def wrap_error error
-    raise error
-  rescue => raised_error
-    begin
-      klass = Gapic.from_error raised_error
-      raise klass, raised_error.message
-    rescue Gapic::GapicError => gax_err
-      gax_err
-    end
+    assert_equal [Google::Rpc::DebugInfo.new], error.status_details
   end
 end

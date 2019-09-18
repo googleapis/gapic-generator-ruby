@@ -52,7 +52,7 @@ describe "<%= method.name %>" do
         client = <%= method.service.client_name_full %>.new
 
         # Call method
-        err = assert_raises Gapic::GapicError do
+        err = assert_raises GRPC::BadStatus do
           client.<%= method.name %> [request]
         end
 

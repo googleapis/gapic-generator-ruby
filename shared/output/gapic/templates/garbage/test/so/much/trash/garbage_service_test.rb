@@ -137,7 +137,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_simple_garbage name
           end
 
@@ -256,7 +256,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_specific_garbage name, int32, int64, uint32, uint64, bool, float, double, bytes, msg, enum, nested
           end
 
@@ -371,7 +371,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_nested_garbage name, int32, int64, uint32, uint64, bool, float, double, bytes, msg, enum
           end
 
@@ -486,7 +486,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_repeated_garbage repeated_name, repeated_int32, repeated_int64, repeated_uint32, repeated_uint64, repeated_bool, repeated_float, repeated_double, repeated_bytes, repeated_msg, repeated_enum
           end
 
@@ -609,7 +609,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_typical_garbage name, int32, int64, uint32, uint64, bool, float, double, bytes, timeout, duration, msg, enum
           end
 
@@ -684,7 +684,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_complex_garbage layer1
           end
 
@@ -767,7 +767,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_paged_garbage garbage, page_size, page_token
           end
 
@@ -881,7 +881,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.long_running_garbage garbage
           end
 
@@ -944,7 +944,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.client_garbage [request]
           end
 
@@ -1013,7 +1013,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.server_garbage garbage
           end
 
@@ -1077,7 +1077,7 @@ describe So::Much::Trash::GarbageService::Client do
           client = So::Much::Trash::GarbageService::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.bidi_garbage [request]
           end
 

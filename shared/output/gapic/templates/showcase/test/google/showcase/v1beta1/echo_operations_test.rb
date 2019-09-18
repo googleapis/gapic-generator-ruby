@@ -194,7 +194,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_operations name, filter, page_size, page_token
           end
 
@@ -308,7 +308,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_operation name
           end
 
@@ -383,7 +383,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_operation name
           end
 
@@ -458,7 +458,7 @@ describe Google::Showcase::V1beta1::Echo::Operations do
           client = Google::Showcase::V1beta1::Echo::Operations.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.cancel_operation name
           end
 

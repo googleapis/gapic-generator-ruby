@@ -161,8 +161,8 @@ module Google
                   yield response, operation if block_given?
                   return response
                 end
-                # rescue Gapic::GapicError => gax_error
-                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
+                # rescue GRPC::BadStatus => grpc_error
+                #  raise Doogle::Ads::GoogleAds::Error.new grpc_error.message
               end
 
               ##
@@ -229,8 +229,8 @@ module Google
                   yield response, operation if block_given?
                   return response
                 end
-                # rescue Gapic::GapicError => gax_error
-                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
+                # rescue GRPC::BadStatus => grpc_error
+                #  raise Doogle::Ads::GoogleAds::Error.new grpc_error.message
               end
 
               class Configuration

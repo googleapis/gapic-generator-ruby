@@ -148,7 +148,7 @@ describe "<%= method.name %>" do
         client = <%= full_client_name %>.new
 
         # Call method
-        err = assert_raises Gapic::GapicError do
+        err = assert_raises GRPC::BadStatus do
           client.<%= method.name %> <%= method.fields.map(&:name).join ", " %>
         end
 

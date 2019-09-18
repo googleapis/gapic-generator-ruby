@@ -133,7 +133,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.recognize config, audio
           end
 
@@ -253,7 +253,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.long_running_recognize config, audio
           end
 
@@ -317,7 +317,7 @@ describe Google::Cloud::Speech::V1::Speech::Client do
           client = Google::Cloud::Speech::V1::Speech::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.streaming_recognize [request]
           end
 

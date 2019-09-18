@@ -129,7 +129,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.create_session session
           end
 
@@ -204,7 +204,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.get_session name
           end
 
@@ -283,7 +283,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_sessions page_size, page_token
           end
 
@@ -358,7 +358,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_session name
           end
 
@@ -433,7 +433,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.report_session name
           end
 
@@ -516,7 +516,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.list_tests parent, page_size, page_token
           end
 
@@ -591,7 +591,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.delete_test name
           end
 
@@ -674,7 +674,7 @@ describe Google::Showcase::V1beta1::Testing::Client do
           client = Google::Showcase::V1beta1::Testing::Client.new
 
           # Call method
-          err = assert_raises Gapic::GapicError do
+          err = assert_raises GRPC::BadStatus do
             client.verify_test name, answer, answers
           end
 
