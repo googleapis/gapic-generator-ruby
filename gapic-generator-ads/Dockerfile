@@ -60,4 +60,5 @@ RUN gem install grpc-tools gapic-generator-ads.gem \
 
 # Install the entrypoint.
 COPY ./docker-entrypoint.sh /workspace/entrypoint.sh
+ADD ./config.yml /workspace/config.yml
 ENTRYPOINT ["/workspace/entrypoint.sh"]

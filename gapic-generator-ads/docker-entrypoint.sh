@@ -15,15 +15,16 @@
 
 # enable extended globbing for flag pattern matching
 shopt -s extglob
+set -euxo pipefail
 
 # Parse out options.
-while true; do
-  case "$1" in
-    --ruby-ads* ) echo "Skipping unrecognized ruby-ads flag: $1" >&2; shift ;;
-    --* | +([[:word:][:punct:]]) ) shift ;;
-    * ) break ;;
-  esac
-done
+#while true; do
+#  case "$1" in
+#    --ruby-ads* ) echo "Skipping unrecognized ruby-ads flag: $1" >&2; shift ;;
+#    --* | +([[:word:][:punct:]]) ) shift ;;
+#    * ) break ;;
+#  esac
+#done
 
 mkdir -p /workspace/out/lib
 grpc_tools_ruby_protoc \
