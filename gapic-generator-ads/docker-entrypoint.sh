@@ -52,3 +52,5 @@ find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e "s/requi
 # Fix the protoc-gen-grpc output not respecting ruby_package:
 # See https://github.com/grpc/grpc/issues/19438
 find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/Google::Ads::Googleads::/Google::Ads::GoogleAds::/g' {} \;
+find /workspace/out -type f | xargs -n 1 -I{} chmod 644 {}
+find /workspace/out -type d | xargs -n 1 -I{} chmod 755 {}
