@@ -16,7 +16,6 @@ Naming/FileName:
 Style/Documentation:
   Exclude:
     - "lib/gapic/grpc/service_stub/rpc_call.rb"
-    - "lib/gapic/errors.rb"
     - "lib/gapic/grpc/status_details.rb"
 Style/CaseEquality:
   Exclude:

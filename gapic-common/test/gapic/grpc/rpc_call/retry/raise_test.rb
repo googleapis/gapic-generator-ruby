@@ -26,7 +26,7 @@ class RpcCallRetryRaiseTest < Minitest::Test
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
     options = Gapic::CallOptions.new # no codes
-    assert_raises Gapic::GapicError do
+    assert_raises GRPC::BadStatus do
       rpc_call.call Object.new, options: options
     end
     assert_equal 1, call_count
@@ -41,7 +41,7 @@ class RpcCallRetryRaiseTest < Minitest::Test
     options = Gapic::CallOptions.new(
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
-    assert_raises Gapic::GapicError do
+    assert_raises GRPC::BadStatus do
       rpc_call.call Object.new, options: options
     end
   end
@@ -93,10 +93,9 @@ class RpcCallRetryRaiseTest < Minitest::Test
 
     Kernel.stub :sleep, sleep_proc do
       Time.stub :now, time_proc do
-        exc = assert_raises Gapic::GapicError do
+        exc = assert_raises GRPC::BadStatus do
           rpc_call.call Object.new, options: options
         end
-        assert_kind_of GRPC::BadStatus, exc.cause
 
         assert_equal time_now, deadline_arg
         assert_equal to_attempt, call_count

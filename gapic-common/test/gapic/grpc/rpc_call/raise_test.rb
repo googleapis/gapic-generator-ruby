@@ -18,14 +18,14 @@ require "gapic/grpc"
 class RpcCallRaiseTest < Minitest::Test
   def test_traps_exception
     api_meth_stub = proc do |*_args|
-      raise Gapic::GapicError
+      raise GRPC::Unknown
     end
 
     rpc_call = Gapic::ServiceStub::RpcCall.new(
       api_meth_stub
     )
 
-    assert_raises Gapic::GapicError do
+    assert_raises GRPC::BadStatus do
       rpc_call.call Object.new
     end
   end
@@ -57,10 +57,9 @@ class RpcCallRaiseTest < Minitest::Test
 
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    exc = assert_raises Gapic::GapicError do
+    exc = assert_raises GRPC::BadStatus do
       rpc_call.call Object.new, options: { timeout: 300 }
     end
-    assert_kind_of GRPC::BadStatus, exc.cause
 
     assert_kind_of Time, deadline_arg
     assert_equal 1, call_count

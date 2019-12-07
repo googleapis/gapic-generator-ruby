@@ -13,23 +13,16 @@
 # limitations under the License.
 
 require "grpc"
+require "grpc/errors"
 require "grpc/google_rpc_status_utils"
-require "gapic/errors"
 require "google/protobuf/well_known_types"
 # Required in order to deserialize common error detail proto types
 require "google/rpc/error_details_pb"
 
-module Gapic
-  class GapicError < StandardError
+module GRPC
+  class BadStatus < StandardError
     def status_details
-      return nil.to_a unless cause.is_a? GRPC::BadStatus
-
-      # TODO: The begin and rescue can be removed once BadStatus#to_rpc_status is released.
-      begin
-        rpc_status = GRPC::GoogleRpcStatusUtils.extract_google_rpc_status cause.to_status
-      rescue Google::Protobuf::ParseError
-        rpc_status = nil
-      end
+      rpc_status = to_rpc_status
 
       return nil.to_a if rpc_status.nil?
 
