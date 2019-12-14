@@ -21,7 +21,6 @@ require "gapic/config"
 require "gapic/config/method"
 
 # require "google/ads/google_ads/error"
-
 require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
@@ -127,7 +126,7 @@ module Google
               #
               # @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
               #
-              # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
+              # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
               #
               def get_campaign request, options = nil
                 raise ArgumentError, "request must be provided" if request.nil?
@@ -161,8 +160,8 @@ module Google
                   yield response, operation if block_given?
                   return response
                 end
-                # rescue Gapic::GapicError => gax_error
-                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
+                # rescue GRPC::BadStatus => grpc_error
+                #  raise Google::Ads::GoogleAds::Error.new grpc_error.message
               end
 
               ##
@@ -195,7 +194,7 @@ module Google
               #
               # @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               #
-              # @raise [Google::Ads::GoogleAdsError] if the RPC is aborted.
+              # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
               #
               def mutate_campaigns request, options = nil
                 raise ArgumentError, "request must be provided" if request.nil?
@@ -229,8 +228,8 @@ module Google
                   yield response, operation if block_given?
                   return response
                 end
-                # rescue Gapic::GapicError => gax_error
-                #  raise Doogle::Ads::GoogleAds::Error.new gax_error.message
+                # rescue GRPC::BadStatus => grpc_error
+                #  raise Google::Ads::GoogleAds::Error.new grpc_error.message
               end
 
               class Configuration

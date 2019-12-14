@@ -135,7 +135,7 @@ module Google
           #
           # @return [Gapic::PagedEnumerable<Gapic::Operation>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [Google::Cloud::Error] if the RPC is aborted.
           #
           def list_operations request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -171,6 +171,8 @@ module Google
               yield response, operation if block_given?
               return response
             end
+          rescue GRPC::BadStatus => e
+            raise Google::Cloud::Error.from_error(e)
           end
 
           ##
@@ -197,7 +199,7 @@ module Google
           #
           # @return [Gapic::Operation]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [Google::Cloud::Error] if the RPC is aborted.
           #
           def get_operation request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -232,6 +234,8 @@ module Google
               yield response, operation if block_given?
               return response
             end
+          rescue GRPC::BadStatus => e
+            raise Google::Cloud::Error.from_error(e)
           end
 
           ##
@@ -260,7 +264,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [Google::Cloud::Error] if the RPC is aborted.
           #
           def delete_operation request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -294,6 +298,8 @@ module Google
               yield response, operation if block_given?
               return response
             end
+          rescue GRPC::BadStatus => e
+            raise Google::Cloud::Error.from_error(e)
           end
 
           ##
@@ -334,7 +340,7 @@ module Google
           #
           # @return [Google::Protobuf::Empty]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [Google::Cloud::Error] if the RPC is aborted.
           #
           def cancel_operation request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -368,6 +374,8 @@ module Google
               yield response, operation if block_given?
               return response
             end
+          rescue GRPC::BadStatus => e
+            raise Google::Cloud::Error.from_error(e)
           end
 
           class Configuration

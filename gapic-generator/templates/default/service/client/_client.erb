@@ -4,6 +4,7 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
+<%= render partial: "service/client/requires", locals: { service: service} -%>
 require "<%= service.gem.version_require %>"
 require "<%= service.proto_service_require %>"
 require "<%= service.credentials_require %>"

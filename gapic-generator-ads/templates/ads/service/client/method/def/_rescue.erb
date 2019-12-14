@@ -1,0 +1,3 @@
+<%- assert_locals method -%>
+#rescue GRPC::BadStatus => grpc_error
+#  raise Google::Ads::GoogleAds::Error.new grpc_error.message

@@ -149,7 +149,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             def batch_annotate_images request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
@@ -225,7 +225,7 @@ module Google
             #
             # @return [Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             def batch_annotate_files request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
@@ -306,7 +306,7 @@ module Google
             #
             # @return [Gapic::Operation]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             def async_batch_annotate_images request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
@@ -380,7 +380,7 @@ module Google
             #
             # @return [Gapic::Operation]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [GRPC::BadStatus] if the RPC is aborted.
             #
             def async_batch_annotate_files request, options = nil
               raise ArgumentError, "request must be provided" if request.nil?
