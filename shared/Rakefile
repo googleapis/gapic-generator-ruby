@@ -37,13 +37,6 @@ namespace :gen do
       "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
       "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml"
     ])
-    bad_language_samples = [
-      "../shared/googleapis/google/cloud/language/v1/samples/language_entity_sentiment_gcs.yaml",
-      "../shared/googleapis/google/cloud/language/v1/samples/language_entity_sentiment_text.yaml",
-      "../shared/googleapis/google/cloud/language/v1/samples/language_entities_gcs.yaml",
-      "../shared/googleapis/google/cloud/language/v1/samples/language_entities_text.yaml"
-    ]
-    language_samples -= bad_language_samples
     generate_input_file "language", language_protos, language_samples
   end
 

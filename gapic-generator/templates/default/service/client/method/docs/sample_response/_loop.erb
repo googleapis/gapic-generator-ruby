@@ -1,5 +1,7 @@
 <%- assert_locals values -%>
-<%- if values["variable"] -%>
+<%- if values["map"] -%>
+<%= values["map"].gsub("$resp", "response") %>.each do |<%= values["key"] %>, <%= values["value"] %>|
+<%- elsif values["variable"] -%>
 <%= values["collection"].gsub("$resp", "response") %>.each do |<%= values["variable"] %>|
 <%- else -%>
 <%= values["collection"].gsub("$resp", "response") %>.each do |<%= values["key"] %>, <%= values["value"] %>|
