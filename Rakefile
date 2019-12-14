@@ -57,15 +57,18 @@ task :test do
   end
 end
 
-desc "Runs file generation for binary input files and all gems."
-task :gen do
+desc "Runs file generation for binary input files used by the gems."
+task :bin do
   Dir.chdir "shared" do
     Bundler.with_unbundled_env do
       puts "Running binary input file generation"
       sh "bundle exec rake gen"
     end
   end
+end
 
+desc "Runs file generation for all gems using the binary input files."
+task :gen do
   gem_dirs.each do |gem|
     Dir.chdir gem do
       Bundler.with_unbundled_env do
