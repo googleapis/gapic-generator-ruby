@@ -122,10 +122,10 @@ module Google
             #
             # @overload recognize(config: nil, audio: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
-            #     *Required* Provides information to the recognizer that specifies how to
+            #     Required. Provides information to the recognizer that specifies how to
             #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
-            #     *Required* The audio data to be recognized.
+            #     Required. The audio data to be recognized.
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
@@ -376,6 +376,8 @@ module Google
             # google.longrunning.Operations interface. Returns either an
             # `Operation.error` or an `Operation.response` which contains
             # a `LongRunningRecognizeResponse` message.
+            # For more information on asynchronous speech recognition, see the
+            # [how-to](https://cloud.google.com/speech-to-text/docs/async-recognize).
             #
             # @overload long_running_recognize(request, options = nil)
             #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
@@ -383,15 +385,17 @@ module Google
             #     google.longrunning.Operations interface. Returns either an
             #     `Operation.error` or an `Operation.response` which contains
             #     a `LongRunningRecognizeResponse` message.
+            #     For more information on asynchronous speech recognition, see the
+            #     [how-to](https://cloud.google.com/speech-to-text/docs/async-recognize).
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload long_running_recognize(config: nil, audio: nil)
             #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
-            #     *Required* Provides information to the recognizer that specifies how to
+            #     Required. Provides information to the recognizer that specifies how to
             #     process the request.
             #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
-            #     *Required* The audio data to be recognized.
+            #     Required. The audio data to be recognized.
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
