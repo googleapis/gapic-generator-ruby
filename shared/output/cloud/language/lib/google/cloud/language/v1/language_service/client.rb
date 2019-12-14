@@ -20,7 +20,6 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
-require "google/cloud/language"
 require "google/cloud/errors"
 require "google/cloud/language/version"
 require "google/cloud/language/v1/language_service_pb"
@@ -47,7 +46,13 @@ module Google
             #
             def self.configure
               @configure ||= begin
-                parent_config = Google::Cloud::Language.configure
+                namespace = ["Google", "Cloud", "Language", "V1"]
+                parent_config = while namespace.any?
+                                  parent_name = namespace.join "::"
+                                  parent_const = const_get parent_name
+                                  break parent_const.configure if parent_const&.respond_to? :configure
+                                  namespace.pop
+                                end
                 Client::Configuration.new parent_config
               end
               yield @configure if block_given?

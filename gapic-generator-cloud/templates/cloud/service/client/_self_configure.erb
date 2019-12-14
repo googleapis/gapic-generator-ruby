@@ -1,6 +1,12 @@
 <%- assert_locals service -%>
 @configure ||= begin
-  parent_config = <%= service.gem.namespace %>.configure
+  namespace = <%= service.namespace.split("::").inspect %>
+  parent_config = while namespace.any?
+                    parent_name = namespace.join "::"
+                    parent_const = const_get parent_name
+                    break parent_const.configure if parent_const&.respond_to? :configure
+                    namespace.pop
+                  end
   <%= service.client_name %>::Configuration.new parent_config
 end
 yield @configure if block_given?
