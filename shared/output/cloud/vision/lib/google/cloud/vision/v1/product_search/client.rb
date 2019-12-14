@@ -50,7 +50,10 @@ module Google
             # @return [Client::Configuration]
             #
             def self.configure
-              @configure ||= Client::Configuration.new
+              @configure ||= begin
+                parent_config = Google::Cloud::Vision.configure
+                Client::Configuration.new parent_config
+              end
               yield @configure if block_given?
               @configure
             end

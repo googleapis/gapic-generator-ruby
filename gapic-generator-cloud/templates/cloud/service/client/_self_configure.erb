@@ -1,0 +1,7 @@
+<%- assert_locals service -%>
+@configure ||= begin
+  parent_config = <%= service.gem.namespace %>.configure
+  <%= service.client_name %>::Configuration.new parent_config
+end
+yield @configure if block_given?
+@configure

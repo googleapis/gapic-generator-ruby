@@ -1,0 +1,4 @@
+<%- assert_locals service -%>
+@configure ||= <%= service.client_name %>::Configuration.new
+yield @configure if block_given?
+@configure
