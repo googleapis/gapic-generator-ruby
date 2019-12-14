@@ -16,6 +16,7 @@
 
 desc "Generate the binary input files"
 task :gen do
+  Rake::Task["gen:language"].invoke
   Rake::Task["gen:speech"].invoke
   Rake::Task["gen:vision"].invoke
   Rake::Task["gen:showcase"].invoke
@@ -25,6 +26,20 @@ end
 
 # rubocop:disable Metrics/BlockLength
 namespace :gen do
+  desc "Generate the binary input files for language"
+  task :language do
+    language_protos = [
+      "google/cloud/language/v1/language_service.proto",
+      "google/cloud/language/v1beta1/language_service.proto",
+      "google/cloud/language/v1beta2/language_service.proto"
+    ]
+    language_samples = Dir.glob([
+      "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
+      "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml"
+    ])
+    generate_input_file "language", language_protos, language_samples
+  end
+
   desc "Generate the binary input files for speech"
   task :speech do
     speech_protos = [

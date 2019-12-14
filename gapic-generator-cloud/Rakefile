@@ -41,6 +41,7 @@ end
 namespace :gen do
   desc "Generate the expected output for template tests"
   task :templates do
+    generate_cloud_templates "language"
     generate_cloud_templates "speech"
     generate_cloud_templates "vision"
     generate_cloud_templates "showcase"
