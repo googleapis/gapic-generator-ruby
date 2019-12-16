@@ -70,21 +70,13 @@ class FieldPresenter
   end
 
   def default_value
-    if @field.message?
-      "{}"
-    elsif @field.enum?
-      # TODO: select the first non-0 enum value
-      @field.enum.values.first.name
-    else
-      case @field.type
-      when 1, 2                              then "3.14"
-      when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
-      when 9, 12                             then "\"hello world\""
-      when 8                                 then "true"
-      else
-        "Object"
-      end
-    end
+    single = default_singular_value
+    return "[#{single}]" if @field.repeated?
+    single
+  end
+
+  def as_kwarg value: nil
+    "#{name}: #{value || name}"
   end
 
   # TODO: remove, only used in tests
@@ -97,7 +89,33 @@ class FieldPresenter
     ruby_namespace @api, type_name
   end
 
+  def message?
+    @field.message?
+  end
+
+  def enum?
+    @field.enum?
+  end
+
   protected
+
+  def default_singular_value
+    if @field.message?
+      "{}"
+    elsif @field.enum?
+      # TODO: select the first non-0 enum value
+      ":#{@field.enum.values.first.name}"
+    else
+      case @field.type
+      when 1, 2                              then "3.14"
+      when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
+      when 9, 12                             then "\"hello world\""
+      when 8                                 then "true"
+      else
+        "Object"
+      end
+    end
+  end
 
   def message_ruby_type message
     ruby_namespace @api, message.address.join(".")

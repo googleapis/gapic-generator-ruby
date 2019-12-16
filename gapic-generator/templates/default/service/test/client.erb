@@ -1,6 +1,18 @@
 <%- assert_locals service -%>
-<%= render partial: "service/test/setup", locals: { service: service } %>
-describe <%= service.client_name_full %> do
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+require "minitest/autorun"
+
+require "gapic/grpc/service_stub"
+
+require "<%= service.proto_service_require %>"
+require "<%= service.proto_services_require %>"
+require "<%= service.service_require %>"
+
+class <%= service.client_name_full %>Test < Minitest::Test
+<%= indent render(partial: "service/test/method/setup"), 2 %>
+
 <% service.methods.each do |method| %>
 <%= indent render(partial: "service/test/method/#{method.kind}",
                   locals: { method: method }), 2 %>

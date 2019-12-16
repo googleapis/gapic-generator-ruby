@@ -1,0 +1,10 @@
+<%- assert_locals method -%>
+<%- if method.paged? -%>
+assert_equal @mock_page_enum, response
+<%- elsif method.lro? %>
+assert_kind_of Gapic::Operation, response
+assert_equal grpc_response, response.grpc_op
+<%- else -%>
+assert_equal grpc_response, response
+<%- end -%>
+assert_equal grpc_operation, operation

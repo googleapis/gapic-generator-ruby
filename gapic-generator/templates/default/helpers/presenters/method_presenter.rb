@@ -83,6 +83,21 @@ class MethodPresenter
     @method.input.fields.map { |field| FieldPresenter.new @api, @method.input, field }
   end
 
+  def fields_with_first_oneof
+    return fields if @method.input.oneof_decl.empty?
+
+    selected_fields = []
+    have_oneof = []
+
+    @method.input.fields.each do |field|
+      idx = field.oneof_index
+      selected_fields << field unless have_oneof.include? idx
+      have_oneof << idx
+    end
+
+    selected_fields.map { |field| FieldPresenter.new @api, @method.input, field }
+  end
+
   def request_type
     message_ruby_type @method.input
   end
