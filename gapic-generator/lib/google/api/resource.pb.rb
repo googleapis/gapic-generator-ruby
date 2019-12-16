@@ -49,6 +49,8 @@ module Google
       repeated :string, :pattern, 2
       optional :string, :name_field, 3
       optional ::Google::Api::ResourceDescriptor::History, :history, 4
+      optional :string, :plural, 5
+      optional :string, :singular, 6
     end
 
     class ResourceReference
@@ -62,6 +64,10 @@ module Google
     #
     class ::Google::Protobuf::FieldOptions < ::Protobuf::Message
       optional ::Google::Api::ResourceReference, :".google.api.resource_reference", 1055, :extension => true
+    end
+
+    class ::Google::Protobuf::FileOptions < ::Protobuf::Message
+      repeated ::Google::Api::ResourceDescriptor, :".google.api.resource_definition", 1053, :extension => true
     end
 
     class ::Google::Protobuf::MessageOptions < ::Protobuf::Message

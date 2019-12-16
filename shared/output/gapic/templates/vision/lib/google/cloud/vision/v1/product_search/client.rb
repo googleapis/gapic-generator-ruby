@@ -31,6 +31,7 @@ require "gapic/config/method"
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search/credentials"
+require "google/cloud/vision/v1/product_search/paths"
 require "google/cloud/vision/v1/product_search/operations"
 
 
@@ -41,6 +42,8 @@ module Google
         module ProductSearch
           # Service that implements ProductSearch API.
           class Client
+            include Paths
+
             # @private
             attr_reader :product_search_stub
 
@@ -137,11 +140,11 @@ module Google
             #
             # @overload create_product_set(parent: nil, product_set: nil, product_set_id: nil)
             #   @param parent [String]
-            #     The project in which the ProductSet should be created.
+            #     Required. The project in which the ProductSet should be created.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
-            #     The ProductSet to create.
+            #     Required. The ProductSet to create.
             #   @param product_set_id [String]
             #     A user-supplied resource id for this ProductSet. If set, the server will
             #     attempt to use this value as the resource id. If it is already in use, an
@@ -212,7 +215,7 @@ module Google
             #
             # @overload list_product_sets(parent: nil, page_size: nil, page_token: nil)
             #   @param parent [String]
-            #     The project from which ProductSets should be listed.
+            #     Required. The project from which ProductSets should be listed.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param page_size [Integer]
@@ -283,7 +286,7 @@ module Google
             #
             # @overload get_product_set(name: nil)
             #   @param name [String]
-            #     Resource name of the ProductSet to get.
+            #     Required. Resource name of the ProductSet to get.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOG_ID/productSets/PRODUCT_SET_ID`
@@ -356,7 +359,7 @@ module Google
             #
             # @overload update_product_set(product_set: nil, update_mask: nil)
             #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
-            #     The ProductSet resource which replaces the one on the server.
+            #     Required. The ProductSet resource which replaces the one on the server.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
             #     update.
@@ -423,7 +426,7 @@ module Google
             #
             # @overload delete_product_set(name: nil)
             #   @param name [String]
-            #     Resource name of the ProductSet to delete.
+            #     Required. Resource name of the ProductSet to delete.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
@@ -496,12 +499,12 @@ module Google
             #
             # @overload create_product(parent: nil, product: nil, product_id: nil)
             #   @param parent [String]
-            #     The project in which the Product should be created.
+            #     Required. The project in which the Product should be created.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param product [Google::Cloud::Vision::V1::Product | Hash]
-            #     The product to create.
+            #     Required. The product to create.
             #   @param product_id [String]
             #     A user-supplied resource id for this Product. If set, the server will
             #     attempt to use this value as the resource id. If it is already in use, an
@@ -570,7 +573,7 @@ module Google
             #
             # @overload list_products(parent: nil, page_size: nil, page_token: nil)
             #   @param parent [String]
-            #     The project OR ProductSet from which Products should be listed.
+            #     Required. The project OR ProductSet from which Products should be listed.
             #
             #     Format:
             #     `projects/PROJECT_ID/locations/LOC_ID`
@@ -642,7 +645,7 @@ module Google
             #
             # @overload get_product(name: nil)
             #   @param name [String]
-            #     Resource name of the Product to get.
+            #     Required. Resource name of the Product to get.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
@@ -729,7 +732,7 @@ module Google
             #
             # @overload update_product(product: nil, update_mask: nil)
             #   @param product [Google::Cloud::Vision::V1::Product | Hash]
-            #     The Product resource which replaces the one on the server.
+            #     Required. The Product resource which replaces the one on the server.
             #     product.name is immutable.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
             #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
@@ -800,7 +803,7 @@ module Google
             #
             # @overload delete_product(name: nil)
             #   @param name [String]
-            #     Resource name of product to delete.
+            #     Required. Resource name of product to delete.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
@@ -895,12 +898,12 @@ module Google
             #
             # @overload create_reference_image(parent: nil, reference_image: nil, reference_image_id: nil)
             #   @param parent [String]
-            #     Resource name of the product in which to create the reference image.
+            #     Required. Resource name of the product in which to create the reference image.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
             #   @param reference_image [Google::Cloud::Vision::V1::ReferenceImage | Hash]
-            #     The reference image to create.
+            #     Required. The reference image to create.
             #     If an image ID is specified, it is ignored.
             #   @param reference_image_id [String]
             #     A user-supplied resource id for the ReferenceImage to be added. If set,
@@ -974,7 +977,7 @@ module Google
             #
             # @overload delete_reference_image(name: nil)
             #   @param name [String]
-            #     The resource name of the reference image to delete.
+            #     Required. The resource name of the reference image to delete.
             #
             #     Format is:
             #
@@ -1046,7 +1049,7 @@ module Google
             #
             # @overload list_reference_images(parent: nil, page_size: nil, page_token: nil)
             #   @param parent [String]
-            #     Resource name of the product containing the reference images.
+            #     Required. Resource name of the product containing the reference images.
             #
             #     Format is
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`.
@@ -1121,7 +1124,7 @@ module Google
             #
             # @overload get_reference_image(name: nil)
             #   @param name [String]
-            #     The resource name of the ReferenceImage to get.
+            #     Required. The resource name of the ReferenceImage to get.
             #
             #     Format is:
             #
@@ -1195,12 +1198,12 @@ module Google
             #
             # @overload add_product_to_product_set(name: nil, product: nil)
             #   @param name [String]
-            #     The resource name for the ProductSet to modify.
+            #     Required. The resource name for the ProductSet to modify.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param product [String]
-            #     The resource name for the Product to be added to this ProductSet.
+            #     Required. The resource name for the Product to be added to this ProductSet.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
@@ -1259,12 +1262,12 @@ module Google
             #
             # @overload remove_product_from_product_set(name: nil, product: nil)
             #   @param name [String]
-            #     The resource name for the ProductSet to modify.
+            #     Required. The resource name for the ProductSet to modify.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
             #   @param product [String]
-            #     The resource name for the Product to be removed from this ProductSet.
+            #     Required. The resource name for the Product to be removed from this ProductSet.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
@@ -1335,7 +1338,7 @@ module Google
             #
             # @overload list_products_in_product_set(name: nil, page_size: nil, page_token: nil)
             #   @param name [String]
-            #     The ProductSet resource for which to retrieve Products.
+            #     Required. The ProductSet resource for which to retrieve Products.
             #
             #     Format is:
             #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
@@ -1392,8 +1395,8 @@ module Google
             # Asynchronous API that imports a list of reference images to specified
             # product sets based on a list of image information.
             #
-            # The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            # used to keep track of the progress and results of the request.
+            # The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            # progress and results of the request.
             # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             # `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
@@ -1406,8 +1409,8 @@ module Google
             #     Asynchronous API that imports a list of reference images to specified
             #     product sets based on a list of image information.
             #
-            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            #     used to keep track of the progress and results of the request.
+            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            #     progress and results of the request.
             #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #     `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
@@ -1419,11 +1422,11 @@ module Google
             #
             # @overload import_product_sets(parent: nil, input_config: nil)
             #   @param parent [String]
-            #     The project in which the ProductSets should be imported.
+            #     Required. The project in which the ProductSets should be imported.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param input_config [Google::Cloud::Vision::V1::ImportProductSetsInputConfig | Hash]
-            #     The input content for the list of requests.
+            #     Required. The input content for the list of requests.
             #
             #
             # @yield [response, operation] Access the result along with the RPC operation
@@ -1491,8 +1494,8 @@ module Google
             # ProductSet, you must wait until the PurgeProducts operation has finished
             # for that ProductSet.
             #
-            # The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            # used to keep track of the progress and results of the request.
+            # The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            # progress and results of the request.
             # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #
             # @overload purge_products(request, options = nil)
@@ -1518,8 +1521,8 @@ module Google
             #     ProductSet, you must wait until the PurgeProducts operation has finished
             #     for that ProductSet.
             #
-            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be
-            #     used to keep track of the progress and results of the request.
+            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            #     progress and results of the request.
             #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
@@ -1531,7 +1534,7 @@ module Google
             #     If delete_orphan_products is true, all Products that are not in any
             #     ProductSet will be deleted.
             #   @param parent [String]
-            #     The project and location in which the Products should be deleted.
+            #     Required. The project and location in which the Products should be deleted.
             #
             #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
             #   @param force [Boolean]

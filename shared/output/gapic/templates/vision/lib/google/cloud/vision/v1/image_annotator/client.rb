@@ -127,7 +127,7 @@ module Google
             #
             # @overload batch_annotate_images(requests: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
-            #     Individual image annotation requests for this batch.
+            #     Required. Individual image annotation requests for this batch.
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
@@ -202,7 +202,7 @@ module Google
             #
             # @overload batch_annotate_files(requests: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateFileRequest | Hash]
-            #     The list of file annotation requests. Right now we support only one
+            #     Required. The list of file annotation requests. Right now we support only one
             #     AnnotateFileRequest in BatchAnnotateFilesRequest.
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
@@ -282,7 +282,7 @@ module Google
             #
             # @overload async_batch_annotate_images(requests: nil, output_config: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AnnotateImageRequest | Hash]
-            #     Individual image annotation requests for this batch.
+            #     Required. Individual image annotation requests for this batch.
             #   @param output_config [Google::Cloud::Vision::V1::OutputConfig | Hash]
             #     Required. The desired output location and metadata (e.g. format).
             #   @param parent [String]
@@ -358,7 +358,7 @@ module Google
             #
             # @overload async_batch_annotate_files(requests: nil, parent: nil)
             #   @param requests [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest | Hash]
-            #     Individual async file annotation requests for this batch.
+            #     Required. Individual async file annotation requests for this batch.
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
