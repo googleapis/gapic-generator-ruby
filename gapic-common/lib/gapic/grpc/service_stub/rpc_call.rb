@@ -13,7 +13,6 @@
 # limitations under the License.
 
 require "gapic/call_options"
-require "gapic/errors"
 
 module Gapic
   class ServiceStub
@@ -127,8 +126,6 @@ module Gapic
             retry if options.retry_policy.call error
           end
 
-          error = wrap_error error if wrap_error? error
-
           raise error
         end
       end
@@ -146,14 +143,6 @@ module Gapic
         return true if deadline.nil?
 
         deadline > Time.now
-      end
-
-      def wrap_error? error
-        error.is_a? GRPC::BadStatus
-      end
-
-      def wrap_error error
-        Gapic.from_error(error).new "RPC failed: #{error.message}"
       end
     end
   end

@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "grpc/errors"
+require "grpc/core/status_codes"
+
 require "gapic/call_options"
-require "gapic/errors"
 require "gapic/headers"
 require "gapic/operation"
 require "gapic/paged_enumerable"

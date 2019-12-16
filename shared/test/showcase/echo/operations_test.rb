@@ -25,7 +25,7 @@ class OperationsTest < ShowcaseTest
   end
 
   def test_raise_invalid_get_operation
-    assert_raises(Gapic::NotFoundError) { @client.get_operation name: "thing1" }
+    assert_raises(GRPC::NotFound) { @client.get_operation name: "thing1" }
   end
 
   def test_get_operation
