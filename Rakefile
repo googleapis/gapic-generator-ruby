@@ -18,7 +18,7 @@ desc "Builds all gems."
 task :build do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running build for #{gem}"
         sh "bundle exec rake build"
       end
@@ -30,7 +30,7 @@ desc "Installs all gems."
 task :install do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running install for #{gem}"
         sh "bundle exec rake install"
       end
@@ -41,7 +41,7 @@ end
 desc "Runs tests for all gems."
 task :test do
   Dir.chdir "shared" do
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       puts "Running shared tests"
       sh "bundle exec rake test"
     end
@@ -49,7 +49,7 @@ task :test do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running tests for #{gem}"
         sh "bundle exec rake test"
       end
@@ -60,7 +60,7 @@ end
 desc "Runs file generation for binary input files and all gems."
 task :gen do
   Dir.chdir "shared" do
-    Bundler.with_original_env do
+    Bundler.with_unbundled_env do
       puts "Running binary input file generation"
       sh "bundle exec rake gen"
     end
@@ -68,7 +68,7 @@ task :gen do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running file generation for #{gem}"
         sh "bundle exec rake gen"
       end
@@ -80,7 +80,7 @@ desc "Runs rubocop for all gems."
 task :rubocop do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running rubocop for #{gem}"
         sh "bundle exec rake rubocop"
       end
@@ -91,7 +91,7 @@ end
 desc "Runs CI for all gems."
 task :ci do
   Dir.chdir "shared" do
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       puts "Running CI for shared"
       sh "bundle exec rake ci"
     end
@@ -99,7 +99,7 @@ task :ci do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running CI for #{gem}"
         sh "bundle exec rake ci"
       end
@@ -110,7 +110,7 @@ end
 desc "Runs bundle update for all gems."
 task :update do
   Dir.chdir "shared" do
-    Bundler.with_original_env do
+    Bundler.with_unbundled_env do
       puts "Running bundle update for shared"
       sh "bundle update"
     end
@@ -118,7 +118,7 @@ task :update do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running bundle update for #{gem}"
         sh "bundle update"
       end
