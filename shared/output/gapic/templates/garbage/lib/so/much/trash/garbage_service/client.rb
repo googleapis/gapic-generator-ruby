@@ -138,7 +138,7 @@ module So
           #
           # @return [So::Much::Trash::SimpleGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -257,7 +257,7 @@ module So
           #
           # @return [So::Much::Trash::SpecificGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def get_specific_garbage request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -325,7 +325,7 @@ module So
           #
           # @return [So::Much::Trash::SpecificGarbage::NestedGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def get_nested_garbage request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -393,7 +393,7 @@ module So
           #
           # @return [So::Much::Trash::RepeatedGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def get_repeated_garbage request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -465,7 +465,7 @@ module So
           #
           # @return [So::Much::Trash::TypicalGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage (printing timestamp)
           #   require "so/much/trash/garbage_service"
@@ -571,7 +571,7 @@ module So
           #
           # @return [So::Much::Trash::ComplexGarbage]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -668,7 +668,7 @@ module So
           #
           # @return [Gapic::PagedEnumerable<So::Much::Trash::GarbageItem>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -738,7 +738,7 @@ module So
           #
           # @return [Gapic::Operation]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def long_running_garbage request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
@@ -783,7 +783,7 @@ module So
           #
           # @return [So::Much::Trash::ListGarbageResponse]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def client_garbage request, options = nil
             unless request.is_a? Enumerable
@@ -841,7 +841,7 @@ module So
           #
           # @return [Enumerable<So::Much::Trash::GarbageItem>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -902,7 +902,7 @@ module So
           #
           # @return [Enumerable<So::Much::Trash::GarbageItem>]
           #
-          # @raise [Gapic::GapicError] if the RPC is aborted.
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
           #
           def bidi_garbage request, options = nil
             unless request.is_a? Enumerable

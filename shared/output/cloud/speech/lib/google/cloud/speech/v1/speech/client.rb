@@ -21,6 +21,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/speech"
+require "google/cloud/error"
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"
@@ -46,7 +47,10 @@ module Google
             # @return [Client::Configuration]
             #
             def self.configure
-              @configure ||= Client::Configuration.new Google::Cloud::Speech.configure
+              @configure ||= begin
+                parent_config = Google::Cloud::Speech.configure
+                Client::Configuration.new parent_config
+              end
               yield @configure if block_given?
               @configure
             end
@@ -134,7 +138,7 @@ module Google
             #
             # @return [Google::Cloud::Speech::V1::RecognizeResponse]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [Google::Cloud::Error] if the RPC is aborted.
             #
             # @example Transcribe a short audio file from Cloud Storage using a specified transcription model
 
@@ -369,6 +373,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
+            rescue GRPC::BadStatus => e
+              raise Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -404,7 +410,7 @@ module Google
             #
             # @return [Gapic::Operation]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [Google::Cloud::Error] if the RPC is aborted.
             #
             # @example Transcribe long audio file from Cloud Storage using asynchronous speech recognition
             #   require "google/cloud/speech/v1/speech"
@@ -533,6 +539,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
+            rescue GRPC::BadStatus => e
+              raise Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -550,7 +558,7 @@ module Google
             #
             # @return [Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeResponse>]
             #
-            # @raise [Gapic::GapicError] if the RPC is aborted.
+            # @raise [Google::Cloud::Error] if the RPC is aborted.
             #
             def streaming_recognize request, options = nil
               unless request.is_a? Enumerable
@@ -586,6 +594,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
+            rescue GRPC::BadStatus => e
+              raise Google::Cloud::Error.from_error(e)
             end
 
             class Configuration
