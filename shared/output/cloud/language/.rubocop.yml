@@ -1,0 +1,11 @@
+inherit_gem:
+  google-style: google-style.yml
+
+AllCops:
+  Exclude:
+    - "acceptance/**/*"
+    - "google-cloud-language.gemspec"
+    - "lib/**/*_pb.rb"
+    - "Rakefile"
+    - "support/**/*"
+    - "test/**/*"

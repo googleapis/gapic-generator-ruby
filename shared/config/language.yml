@@ -1,0 +1,8 @@
+---
+:gem:
+  :name: "google-cloud-language"
+:defaults:
+  :service:
+    :default_host: "language.googleapis.com"
+    :oauth_scopes:
+      - https://www.googleapis.com/auth/cloud-platform

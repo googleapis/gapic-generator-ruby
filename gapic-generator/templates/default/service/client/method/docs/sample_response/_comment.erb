@@ -1,5 +1,5 @@
 <%- assert_locals values -%>
 
-<%- values.each do |comment| -%>
+<%- Array(values).each do |comment| -%>
 # <%= comment %>
 <%- end -%>

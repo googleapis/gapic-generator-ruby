@@ -56,6 +56,7 @@ namespace :gen do
 
   desc "Generate the expected output for templates tests"
   task :templates do
+    generate_default_templates "language"
     generate_default_templates "speech"
     generate_default_templates "vision"
     generate_default_templates "showcase"
