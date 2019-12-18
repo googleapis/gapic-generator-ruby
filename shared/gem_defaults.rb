@@ -23,7 +23,8 @@ def gem_defaults
       ],
       samples: Dir.glob([
         "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
-        "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml"
+        "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml",
+        "../shared/samples/language/*.yaml"
       ])
     },
     language_v1beta1: {
@@ -46,7 +47,11 @@ def gem_defaults
       protos: [
         "google/cloud/speech/v1/cloud_speech.proto"
       ],
-      samples: Dir.glob("../shared/googleapis/google/cloud/speech/v1/samples/*.yaml")
+      samples: Dir.glob([
+        "../shared/googleapis/google/cloud/speech/v1/samples/*.yaml",
+        "../shared/googleapis/google/cloud/speech/v1/samples/test/*.yaml",
+        "../shared/samples/speech/*.yaml"
+      ])
     },
     vision_v1: {
       protos: [
@@ -70,7 +75,11 @@ def gem_defaults
       protos: [
         "garbage/garbage.proto"
       ],
-      samples: Dir.glob("../shared/samples/garbage/*.yaml")
+      samples: Dir.glob([
+        "../shared/samples/garbage/*.yaml",
+        "../shared/samples/garbage/test/*.yaml",
+        "../shared/samples/garbage/inline/*.yaml"
+      ])
     },
     googleads: {
       protos: [

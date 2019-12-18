@@ -131,10 +131,10 @@ class MethodPresenter
     ]
   end
 
-  # @api.samples and sample_configs are yaml configuration files such as
+  # @api.incode samples and sample_configs are yaml configuration files such as
   # speech_transcribe_sync_gcs.yaml
   def samples
-    sample_configs = @api.samples.select do |sample_config|
+    sample_configs = @api.incode_samples.select do |sample_config|
       sample_config["service"] == @method.address[0...-1].join(".") &&
         sample_config["rpc"] == @method.name
     end
