@@ -28,7 +28,7 @@ module Google
           #     The resource name of the campaign.
           #     Campaign resource names have the form:
           #
-          #     `customers/{customer_id}/campaigns/{campaign_id}`
+          #     `customers/\\\{customer_id\}/campaigns/\\\{campaign_id\}`
           # @!attribute [rw] id
           #   @return [Google::Protobuf::Int64Value]
           #     The ID of the campaign.

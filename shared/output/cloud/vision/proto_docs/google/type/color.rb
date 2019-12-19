@@ -37,7 +37,7 @@ module Google
     #      import com.google.type.Color;
     #
     #      // ...
-    #      public static java.awt.Color fromProto(Color protocolor) {
+    #      public static java.awt.Color fromProto(Color protocolor) \\\{
     #        float alpha = protocolor.hasAlpha()
     #            ? protocolor.getAlpha().getValue()
     #            : 1.0;
@@ -47,9 +47,9 @@ module Google
     #            protocolor.getGreen(),
     #            protocolor.getBlue(),
     #            alpha);
-    #      }
+    #      \}
     #
-    #      public static Color toProto(java.awt.Color color) {
+    #      public static Color toProto(java.awt.Color color) \\\{
     #        float red = (float) color.getRed();
     #        float green = (float) color.getGreen();
     #        float blue = (float) color.getBlue();
@@ -61,54 +61,54 @@ module Google
     #                .setGreen(green / denominator)
     #                .setBlue(blue / denominator);
     #        int alpha = color.getAlpha();
-    #        if (alpha != 255) {
+    #        if (alpha != 255) \\\{
     #          result.setAlpha(
     #              FloatValue
     #                  .newBuilder()
     #                  .setValue(((float) alpha) / denominator)
     #                  .build());
-    #        }
+    #        \}
     #        return resultBuilder.build();
-    #      }
+    #      \}
     #      // ...
     #
     # Example (iOS / Obj-C):
     #
     #      // ...
-    #      static UIColor* fromProto(Color* protocolor) {
+    #      static UIColor* fromProto(Color* protocolor) \\\{
     #         float red = [protocolor red];
     #         float green = [protocolor green];
     #         float blue = [protocolor blue];
     #         FloatValue* alpha_wrapper = [protocolor alpha];
     #         float alpha = 1.0;
-    #         if (alpha_wrapper != nil) {
+    #         if (alpha_wrapper != nil) \\\{
     #           alpha = [alpha_wrapper value];
-    #         }
+    #         \}
     #         return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-    #      }
+    #      \}
     #
-    #      static Color* toProto(UIColor* color) {
+    #      static Color* toProto(UIColor* color) \\\{
     #          CGFloat red, green, blue, alpha;
-    #          if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) {
+    #          if (![color getRed:&red green:&green blue:&blue alpha:&alpha]) \\\{
     #            return nil;
-    #          }
+    #          \}
     #          Color* result = [[Color alloc] init];
     #          [result setRed:red];
     #          [result setGreen:green];
     #          [result setBlue:blue];
-    #          if (alpha <= 0.9999) {
+    #          if (alpha <= 0.9999) \\\{
     #            [result setAlpha:floatWrapperWithValue(alpha)];
-    #          }
+    #          \}
     #          [result autorelease];
     #          return result;
-    #     }
+    #     \}
     #     // ...
     #
     #  Example (JavaScript):
     #
     #     // ...
     #
-    #     var protoToCssColor = function(rgb_color) {
+    #     var protoToCssColor = function(rgb_color) \\\{
     #        var redFrac = rgb_color.red || 0.0;
     #        var greenFrac = rgb_color.green || 0.0;
     #        var blueFrac = rgb_color.blue || 0.0;
@@ -116,26 +116,26 @@ module Google
     #        var green = Math.floor(greenFrac * 255);
     #        var blue = Math.floor(blueFrac * 255);
     #
-    #        if (!('alpha' in rgb_color)) {
+    #        if (!('alpha' in rgb_color)) \\\{
     #           return rgbToCssColor_(red, green, blue);
-    #        }
+    #        \}
     #
     #        var alphaFrac = rgb_color.alpha.value || 0.0;
     #        var rgbParams = [red, green, blue].join(',');
     #        return ['rgba(', rgbParams, ',', alphaFrac, ')'].join('');
-    #     };
+    #     \};
     #
-    #     var rgbToCssColor_ = function(red, green, blue) {
+    #     var rgbToCssColor_ = function(red, green, blue) \\\{
     #       var rgbNumber = new Number((red << 16) | (green << 8) | blue);
     #       var hexString = rgbNumber.toString(16);
     #       var missingZeros = 6 - hexString.length;
     #       var resultBuilder = ['#'];
-    #       for (var i = 0; i < missingZeros; i++) {
+    #       for (var i = 0; i < missingZeros; i++) \\\{
     #          resultBuilder.push('0');
-    #       }
+    #       \}
     #       resultBuilder.push(hexString);
     #       return resultBuilder.join('');
-    #     };
+    #     \};
     #
     #     // ...
     # @!attribute [rw] red

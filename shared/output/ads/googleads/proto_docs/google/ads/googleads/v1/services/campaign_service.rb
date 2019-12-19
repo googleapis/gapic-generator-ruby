@@ -71,7 +71,7 @@ module Google
           #     Remove operation: A resource name for the removed campaign is
           #     expected, in this format:
           #
-          #     `customers/{customer_id}/campaigns/{campaign_id}`
+          #     `customers/\\\{customer_id\}/campaigns/\\\{campaign_id\}`
           class CampaignOperation
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods

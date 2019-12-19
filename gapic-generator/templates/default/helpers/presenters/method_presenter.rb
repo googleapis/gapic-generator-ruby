@@ -59,6 +59,8 @@ class MethodPresenter
       .each_line
       .map { |line| line.start_with?(" ") ? line[1..-1] : line }
       .join
+      .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
+      .split("}").join("\\}")
   end
 
   def doc_response_type
