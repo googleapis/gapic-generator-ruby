@@ -451,16 +451,24 @@ module Google
 
                 def initialize parent_rpcs = nil
                   batch_annotate_images_config = nil
-                  batch_annotate_images_config = parent_rpcs&.batch_annotate_images if parent_rpcs&.respond_to? :batch_annotate_images
+                  if parent_rpcs&.respond_to? :batch_annotate_images
+                    batch_annotate_images_config = parent_rpcs&.batch_annotate_images
+                  end
                   @batch_annotate_images = Gapic::Config::Method.new batch_annotate_images_config
                   batch_annotate_files_config = nil
-                  batch_annotate_files_config = parent_rpcs&.batch_annotate_files if parent_rpcs&.respond_to? :batch_annotate_files
+                  if parent_rpcs&.respond_to? :batch_annotate_files
+                    batch_annotate_files_config = parent_rpcs&.batch_annotate_files
+                  end
                   @batch_annotate_files = Gapic::Config::Method.new batch_annotate_files_config
                   async_batch_annotate_images_config = nil
-                  async_batch_annotate_images_config = parent_rpcs&.async_batch_annotate_images if parent_rpcs&.respond_to? :async_batch_annotate_images
+                  if parent_rpcs&.respond_to? :async_batch_annotate_images
+                    async_batch_annotate_images_config = parent_rpcs&.async_batch_annotate_images
+                  end
                   @async_batch_annotate_images = Gapic::Config::Method.new async_batch_annotate_images_config
                   async_batch_annotate_files_config = nil
-                  async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files if parent_rpcs&.respond_to? :async_batch_annotate_files
+                  if parent_rpcs&.respond_to? :async_batch_annotate_files
+                    async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files
+                  end
                   @async_batch_annotate_files = Gapic::Config::Method.new async_batch_annotate_files_config
 
                   yield self if block_given?

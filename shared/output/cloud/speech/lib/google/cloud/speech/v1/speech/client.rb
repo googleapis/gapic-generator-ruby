@@ -640,10 +640,14 @@ module Google
                   recognize_config = parent_rpcs&.recognize if parent_rpcs&.respond_to? :recognize
                   @recognize = Gapic::Config::Method.new recognize_config
                   long_running_recognize_config = nil
-                  long_running_recognize_config = parent_rpcs&.long_running_recognize if parent_rpcs&.respond_to? :long_running_recognize
+                  if parent_rpcs&.respond_to? :long_running_recognize
+                    long_running_recognize_config = parent_rpcs&.long_running_recognize
+                  end
                   @long_running_recognize = Gapic::Config::Method.new long_running_recognize_config
                   streaming_recognize_config = nil
-                  streaming_recognize_config = parent_rpcs&.streaming_recognize if parent_rpcs&.respond_to? :streaming_recognize
+                  if parent_rpcs&.respond_to? :streaming_recognize
+                    streaming_recognize_config = parent_rpcs&.streaming_recognize
+                  end
                   @streaming_recognize = Gapic::Config::Method.new streaming_recognize_config
 
                   yield self if block_given?
