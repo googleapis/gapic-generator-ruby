@@ -121,7 +121,9 @@ end
 
 require "yard"
 require "yard/rake/yardoc_task"
-YARD::Rake::YardocTask.new
+YARD::Rake::YardocTask.new do |y|
+  y.options << "--fail-on-warning"
+end
 
 desc "Run yard-doctest example tests."
 task :doctest do
@@ -133,8 +135,8 @@ task :ci do
   header "BUILDING google-cloud-speech"
   header "google-cloud-speech rubocop", "*"
   Rake::Task[:rubocop].invoke
-  header "google-cloud-speech doctest", "*"
-  Rake::Task[:doctest].invoke
+  header "google-cloud-speech yard", "*"
+  Rake::Task[:yard].invoke
   header "google-cloud-speech test", "*"
   Rake::Task[:test].invoke
 end
