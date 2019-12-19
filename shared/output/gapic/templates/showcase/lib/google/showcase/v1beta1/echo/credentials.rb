@@ -34,7 +34,6 @@ module Google
         # Credentials for the Echo API.
         class Credentials < Google::Auth::Credentials
           self.scope = [
-            nil
           ]
           self.env_vars = [
             "SHOWCASE_CREDENTIALS",
