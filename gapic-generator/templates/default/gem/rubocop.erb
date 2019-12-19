@@ -7,3 +7,20 @@ AllCops:
     - "<%= gem.name %>.gemspec"
     - "proto_docs/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+  <%- gem.packages.each do |package| -%>
+  <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path %>"
+  <%- end -%>
+  <%- end -%>
+Metrics/LineLength:
+  Exclude:
+  <%- gem.packages.each do |package| -%>
+  <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path %>"
+  <%- end -%>
+  <%- end -%>
+Style/CaseEquality:
+  Enabled: false

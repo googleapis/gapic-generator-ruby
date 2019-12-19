@@ -4,4 +4,16 @@ inherit_gem:
 AllCops:
   Exclude:
     - "google-cloud-vision.gemspec"
+    - "proto_docs/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/client.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/client.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+Style/CaseEquality:
+  Enabled: false

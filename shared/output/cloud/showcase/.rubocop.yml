@@ -6,6 +6,7 @@ AllCops:
     - "acceptance/**/*"
     - "google-showcase.gemspec"
     - "lib/**/*_pb.rb"
+    - "proto_docs/**/*"
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
