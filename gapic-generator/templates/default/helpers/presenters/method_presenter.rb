@@ -51,16 +51,7 @@ class MethodPresenter
   end
 
   def doc_description
-    return nil if @method.docs.leading_comments.empty?
-
-    @method
-      .docs
-      .leading_comments
-      .each_line
-      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
-      .join
-      .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
-      .split("}").join("\\}")
+    @method.docs_leading_comments
   end
 
   def doc_response_type

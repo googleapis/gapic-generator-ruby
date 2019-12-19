@@ -24,16 +24,7 @@ class EnumValuePresenter
   end
 
   def doc_description
-    return nil if @value.docs.leading_comments.empty?
-
-    @value
-      .docs
-      .leading_comments
-      .each_line
-      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
-      .join
-      .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
-      .split("}").join("\\}")
+    @value.docs_leading_comments
   end
 
   def number

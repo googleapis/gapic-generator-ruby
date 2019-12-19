@@ -35,17 +35,7 @@ class MessagePresenter
   end
 
   def doc_description
-    return nil if @message.docs.nil?
-    return nil if @message.docs.leading_comments.empty?
-
-    @message
-      .docs
-      .leading_comments
-      .each_line
-      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
-      .join
-      .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
-      .split("}").join("\\}")
+    @message.docs_leading_comments
   end
 
   def default_value

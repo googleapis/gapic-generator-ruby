@@ -58,17 +58,7 @@ class FieldPresenter
   end
 
   def doc_description
-    return nil if @field.docs.nil?
-    return nil if @field.docs.leading_comments.empty?
-
-    @field
-      .docs
-      .leading_comments
-      .each_line
-      .map { |line| line.start_with?(" ") ? line[1..-1] : line }
-      .join
-      .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
-      .split("}").join("\\}")
+    @field.docs_leading_comments
   end
 
   def default_value
