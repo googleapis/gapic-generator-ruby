@@ -128,7 +128,7 @@ module Google
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
-            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #     Format: `projects/\\\{project-id\}/locations/\\\{location-id\}`.
             #
             #     If no parent is specified, a region will be chosen automatically.
             #
@@ -206,7 +206,7 @@ module Google
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
-            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #     Format: `projects/\\\{project-id\}/locations/\\\{location-id\}`.
             #
             #     If no parent is specified, a region will be chosen automatically.
             #
@@ -289,7 +289,7 @@ module Google
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
-            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #     Format: `projects/\\\{project-id\}/locations/\\\{location-id\}`.
             #
             #     If no parent is specified, a region will be chosen automatically.
             #
@@ -365,7 +365,7 @@ module Google
             #   @param parent [String]
             #     Optional. Target project and location to make a call.
             #
-            #     Format: `projects/{project-id}/locations/{location-id}`.
+            #     Format: `projects/\\\{project-id\}/locations/\\\{location-id\}`.
             #
             #     If no parent is specified, a region will be chosen automatically.
             #

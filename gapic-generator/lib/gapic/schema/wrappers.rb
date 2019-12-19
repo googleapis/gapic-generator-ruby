@@ -93,6 +93,20 @@ module Gapic
         @docs = docs
       end
 
+      # Gets the cleaned up leading comments documentation
+      def docs_leading_comments
+        return nil if @docs.nil?
+        return nil if @docs.leading_comments.empty?
+
+        @docs
+          .leading_comments
+          .each_line
+          .map { |line| line.start_with?(" ") ? line[1..-1] : line }
+          .join
+          .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
+          .split("}").join("\\}")
+      end
+
       # @!method path
       #   @return [Array<Integer>]
       #     Identifies which part of the FileDescriptorProto was defined at
