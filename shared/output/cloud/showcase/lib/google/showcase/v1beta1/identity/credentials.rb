@@ -25,9 +25,6 @@ module Google
       module Identity
         # Credentials for the Identity API.
         class Credentials < Google::Auth::Credentials
-          self.scope = [
-            nil
-          ]
           self.env_vars = [
             "SHOWCASE_CREDENTIALS",
             "SHOWCASE_KEYFILE",

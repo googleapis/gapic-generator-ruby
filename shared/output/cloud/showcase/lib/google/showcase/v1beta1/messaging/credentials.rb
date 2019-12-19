@@ -25,9 +25,6 @@ module Google
       module Messaging
         # Credentials for the Messaging API.
         class Credentials < Google::Auth::Credentials
-          self.scope = [
-            nil
-          ]
           self.env_vars = [
             "SHOWCASE_CREDENTIALS",
             "SHOWCASE_KEYFILE",
