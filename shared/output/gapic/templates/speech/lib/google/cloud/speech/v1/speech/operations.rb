@@ -379,6 +379,8 @@ module Google
               end
             end
 
+            ##
+            # Configuration class for the Operations API.
             class Configuration
               extend Gapic::Config
 
@@ -411,6 +413,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the Operations API.
               class Rpcs
                 attr_reader :list_operations
                 attr_reader :get_operation

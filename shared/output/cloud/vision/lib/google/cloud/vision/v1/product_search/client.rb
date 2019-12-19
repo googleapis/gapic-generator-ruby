@@ -1620,6 +1620,8 @@ module Google
               raise Google::Cloud::Error.from_error(e)
             end
 
+            ##
+            # Configuration class for the ProductSearch API.
             class Configuration
               extend Gapic::Config
 
@@ -1652,6 +1654,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the ProductSearch API.
               class Rpcs
                 attr_reader :create_product_set
                 attr_reader :list_product_sets

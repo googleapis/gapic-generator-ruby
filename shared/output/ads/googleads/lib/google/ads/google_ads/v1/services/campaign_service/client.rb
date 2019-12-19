@@ -232,6 +232,8 @@ module Google
                 #  raise Google::Ads::GoogleAds::Error.new grpc_error.message
               end
 
+              ##
+              # Configuration class for the CampaignService API.
               class Configuration
                 extend Gapic::Config
 
@@ -264,6 +266,8 @@ module Google
                   end
                 end
 
+                ##
+                # Configuration RPC class for the CampaignService API.
                 class Rpcs
                   attr_reader :get_campaign
                   attr_reader :mutate_campaigns

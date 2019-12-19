@@ -1,5 +1,7 @@
 <%- assert_locals service -%>
 <%- method_service ||= service  -%>
+##
+# Configuration class for the <%= service.name %> API.
 class Configuration
   extend Gapic::Config
 
@@ -34,6 +36,8 @@ class Configuration
     end
   end
 
+  ##
+  # Configuration RPC class for the <%= service.name %> API.
   class Rpcs
   <%- method_service.methods.each do |method| -%>
     attr_reader :<%= method.name %>

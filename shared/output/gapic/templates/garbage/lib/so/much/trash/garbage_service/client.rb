@@ -940,6 +940,8 @@ module So
             end
           end
 
+          ##
+          # Configuration class for the GarbageService API.
           class Configuration
             extend Gapic::Config
 
@@ -972,6 +974,8 @@ module So
               end
             end
 
+            ##
+            # Configuration RPC class for the GarbageService API.
             class Rpcs
               attr_reader :get_simple_garbage
               attr_reader :get_specific_garbage

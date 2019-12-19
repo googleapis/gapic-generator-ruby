@@ -36,6 +36,8 @@ module Google
         @configure
       end
 
+      ##
+      # Configuration class for the google-cloud-vision gem.
       class Configuration
         extend Gapic::Config
 

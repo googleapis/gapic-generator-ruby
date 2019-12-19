@@ -416,6 +416,8 @@ module Google
               raise Google::Cloud::Error.from_error(e)
             end
 
+            ##
+            # Configuration class for the ImageAnnotator API.
             class Configuration
               extend Gapic::Config
 
@@ -448,6 +450,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the ImageAnnotator API.
               class Rpcs
                 attr_reader :batch_annotate_images
                 attr_reader :batch_annotate_files

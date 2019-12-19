@@ -598,6 +598,8 @@ module Google
               raise Google::Cloud::Error.from_error(e)
             end
 
+            ##
+            # Configuration class for the Speech API.
             class Configuration
               extend Gapic::Config
 
@@ -630,6 +632,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the Speech API.
               class Rpcs
                 attr_reader :recognize
                 attr_reader :long_running_recognize
