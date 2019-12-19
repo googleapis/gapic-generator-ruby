@@ -35,6 +35,8 @@ module Google
       @configure
     end
 
+    ##
+    # Configuration class for the google-showcase gem.
     class Configuration
       extend Gapic::Config
 

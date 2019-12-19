@@ -18,12 +18,12 @@ Gem::Specification.new do |gem|
 
   gem.files         = `git ls-files -- lib/*`.split("\n") +
                       `git ls-files -- proto_docs/*`.split("\n") +
-                      ["README.md", "LICENSE", ".yardopts"]
+                      ["README.md", "LICENSE.md", ".yardopts"]
   gem.require_paths = ["lib"]
 
   gem.required_ruby_version = ">= 2.4"
 
-  gem.add_dependency "gapic-common", "~> 0.0.0.dev"
+  gem.add_dependency "gapic-common", "~> 0.0"
 
   gem.add_development_dependency "google-style", "~> 1.24.0"
   gem.add_development_dependency "minitest", "~> 5.10"

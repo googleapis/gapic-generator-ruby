@@ -25,11 +25,17 @@ module Google
       module V1
         module Services
           module CampaignService
+            # Credentials for the CampaignService API.
             class Credentials < Google::Auth::Credentials
-              SCOPE = ["https://www.googleapis.com/auth/adwords"].freeze
-              PATH_ENV_VARS = ["GOOGLEADS_CREDENTIALS", "GOOGLEADS_KEYFILE"].freeze
-              JSON_ENV_VARS = ["GOOGLEADS_CREDENTIALS_JSON", "GOOGLEADS_KEYFILE_JSON"].freeze
-              DEFAULT_PATHS = [].freeze
+              self.scope = [
+                "https://www.googleapis.com/auth/adwords"
+              ]
+              self.env_vars = [
+                "GOOGLEADS_CREDENTIALS",
+                "GOOGLEADS_KEYFILE",
+                "GOOGLEADS_CREDENTIALS_JSON",
+                "GOOGLEADS_KEYFILE_JSON"
+              ]
             end
           end
         end

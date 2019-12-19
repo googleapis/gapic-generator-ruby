@@ -4,4 +4,14 @@ inherit_gem:
 AllCops:
   Exclude:
     - "google-cloud-speech.gemspec"
+    - "proto_docs/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/client.rb"
+Style/CaseEquality:
+  Enabled: false

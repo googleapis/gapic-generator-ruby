@@ -69,6 +69,7 @@ module Gapic
         files << g("gem/gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
         files << g("gem/gemfile.erb",  "Gemfile",                     gem: gem)
         files << g("gem/rakefile.erb", "Rakefile",                    gem: gem)
+        files << g("gem/readme.erb",   "README.md",                   gem: gem)
         files << g("gem/rubocop.erb",  ".rubocop.yml",                gem: gem)
         files << g("gem/yardopts.erb", ".yardopts",                   gem: gem)
         files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)

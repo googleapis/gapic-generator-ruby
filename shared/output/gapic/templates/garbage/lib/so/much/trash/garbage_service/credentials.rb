@@ -31,11 +31,19 @@ module So
   module Much
     module Trash
       module GarbageService
+        # Credentials for the GarbageService API.
         class Credentials < Google::Auth::Credentials
-          SCOPE = ["https://endlesstrash.example.net/garbage-admin", "https://endlesstrash.example.net/garbage-read", "https://endlesstrash.example.net/garbage-write"].freeze
-          PATH_ENV_VARS = ["GARBAGE_CREDENTIALS", "GARBAGE_KEYFILE"].freeze
-          JSON_ENV_VARS = ["GARBAGE_CREDENTIALS_JSON", "GARBAGE_KEYFILE_JSON"].freeze
-          DEFAULT_PATHS = [].freeze
+          self.scope = [
+            "https://endlesstrash.example.net/garbage-admin",
+            "https://endlesstrash.example.net/garbage-read",
+            "https://endlesstrash.example.net/garbage-write"
+          ]
+          self.env_vars = [
+            "GARBAGE_CREDENTIALS",
+            "GARBAGE_KEYFILE",
+            "GARBAGE_CREDENTIALS_JSON",
+            "GARBAGE_KEYFILE_JSON"
+          ]
         end
       end
     end

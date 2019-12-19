@@ -333,6 +333,8 @@ module Google
               end
             end
 
+            ##
+            # Configuration class for the LanguageService API.
             class Configuration
               extend Gapic::Config
 
@@ -365,6 +367,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the LanguageService API.
               class Rpcs
                 attr_reader :analyze_sentiment
                 attr_reader :analyze_entities
@@ -373,7 +377,9 @@ module Google
 
                 def initialize parent_rpcs = nil
                   analyze_sentiment_config = nil
-                  analyze_sentiment_config = parent_rpcs&.analyze_sentiment if parent_rpcs&.respond_to? :analyze_sentiment
+                  if parent_rpcs&.respond_to? :analyze_sentiment
+                    analyze_sentiment_config = parent_rpcs&.analyze_sentiment
+                  end
                   @analyze_sentiment = Gapic::Config::Method.new analyze_sentiment_config
                   analyze_entities_config = nil
                   analyze_entities_config = parent_rpcs&.analyze_entities if parent_rpcs&.respond_to? :analyze_entities

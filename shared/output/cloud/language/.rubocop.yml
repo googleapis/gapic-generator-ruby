@@ -6,6 +6,7 @@ AllCops:
     - "acceptance/**/*"
     - "google-cloud-language.gemspec"
     - "lib/**/*_pb.rb"
+    - "proto_docs/**/*"
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"

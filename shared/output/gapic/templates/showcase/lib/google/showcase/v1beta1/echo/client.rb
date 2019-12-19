@@ -505,6 +505,8 @@ module Google
             end
           end
 
+          ##
+          # Configuration class for the Echo API.
           class Configuration
             extend Gapic::Config
 
@@ -537,6 +539,8 @@ module Google
               end
             end
 
+            ##
+            # Configuration RPC class for the Echo API.
             class Rpcs
               attr_reader :echo
               attr_reader :expand

@@ -232,6 +232,8 @@ module Google
                 #  raise Google::Ads::GoogleAds::Error.new grpc_error.message
               end
 
+              ##
+              # Configuration class for the CampaignService API.
               class Configuration
                 extend Gapic::Config
 
@@ -264,6 +266,8 @@ module Google
                   end
                 end
 
+                ##
+                # Configuration RPC class for the CampaignService API.
                 class Rpcs
                   attr_reader :get_campaign
                   attr_reader :mutate_campaigns
@@ -273,7 +277,9 @@ module Google
                     get_campaign_config = parent_rpcs&.get_campaign if parent_rpcs&.respond_to? :get_campaign
                     @get_campaign = Gapic::Config::Method.new get_campaign_config
                     mutate_campaigns_config = nil
-                    mutate_campaigns_config = parent_rpcs&.mutate_campaigns if parent_rpcs&.respond_to? :mutate_campaigns
+                    if parent_rpcs&.respond_to? :mutate_campaigns
+                      mutate_campaigns_config = parent_rpcs&.mutate_campaigns
+                    end
                     @mutate_campaigns = Gapic::Config::Method.new mutate_campaigns_config
 
                     yield self if block_given?

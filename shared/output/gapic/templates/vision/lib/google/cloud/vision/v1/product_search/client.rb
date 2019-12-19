@@ -1585,6 +1585,8 @@ module Google
               end
             end
 
+            ##
+            # Configuration class for the ProductSearch API.
             class Configuration
               extend Gapic::Config
 
@@ -1617,6 +1619,8 @@ module Google
                 end
               end
 
+              ##
+              # Configuration RPC class for the ProductSearch API.
               class Rpcs
                 attr_reader :create_product_set
                 attr_reader :list_product_sets
@@ -1640,19 +1644,27 @@ module Google
 
                 def initialize parent_rpcs = nil
                   create_product_set_config = nil
-                  create_product_set_config = parent_rpcs&.create_product_set if parent_rpcs&.respond_to? :create_product_set
+                  if parent_rpcs&.respond_to? :create_product_set
+                    create_product_set_config = parent_rpcs&.create_product_set
+                  end
                   @create_product_set = Gapic::Config::Method.new create_product_set_config
                   list_product_sets_config = nil
-                  list_product_sets_config = parent_rpcs&.list_product_sets if parent_rpcs&.respond_to? :list_product_sets
+                  if parent_rpcs&.respond_to? :list_product_sets
+                    list_product_sets_config = parent_rpcs&.list_product_sets
+                  end
                   @list_product_sets = Gapic::Config::Method.new list_product_sets_config
                   get_product_set_config = nil
                   get_product_set_config = parent_rpcs&.get_product_set if parent_rpcs&.respond_to? :get_product_set
                   @get_product_set = Gapic::Config::Method.new get_product_set_config
                   update_product_set_config = nil
-                  update_product_set_config = parent_rpcs&.update_product_set if parent_rpcs&.respond_to? :update_product_set
+                  if parent_rpcs&.respond_to? :update_product_set
+                    update_product_set_config = parent_rpcs&.update_product_set
+                  end
                   @update_product_set = Gapic::Config::Method.new update_product_set_config
                   delete_product_set_config = nil
-                  delete_product_set_config = parent_rpcs&.delete_product_set if parent_rpcs&.respond_to? :delete_product_set
+                  if parent_rpcs&.respond_to? :delete_product_set
+                    delete_product_set_config = parent_rpcs&.delete_product_set
+                  end
                   @delete_product_set = Gapic::Config::Method.new delete_product_set_config
                   create_product_config = nil
                   create_product_config = parent_rpcs&.create_product if parent_rpcs&.respond_to? :create_product
@@ -1670,28 +1682,44 @@ module Google
                   delete_product_config = parent_rpcs&.delete_product if parent_rpcs&.respond_to? :delete_product
                   @delete_product = Gapic::Config::Method.new delete_product_config
                   create_reference_image_config = nil
-                  create_reference_image_config = parent_rpcs&.create_reference_image if parent_rpcs&.respond_to? :create_reference_image
+                  if parent_rpcs&.respond_to? :create_reference_image
+                    create_reference_image_config = parent_rpcs&.create_reference_image
+                  end
                   @create_reference_image = Gapic::Config::Method.new create_reference_image_config
                   delete_reference_image_config = nil
-                  delete_reference_image_config = parent_rpcs&.delete_reference_image if parent_rpcs&.respond_to? :delete_reference_image
+                  if parent_rpcs&.respond_to? :delete_reference_image
+                    delete_reference_image_config = parent_rpcs&.delete_reference_image
+                  end
                   @delete_reference_image = Gapic::Config::Method.new delete_reference_image_config
                   list_reference_images_config = nil
-                  list_reference_images_config = parent_rpcs&.list_reference_images if parent_rpcs&.respond_to? :list_reference_images
+                  if parent_rpcs&.respond_to? :list_reference_images
+                    list_reference_images_config = parent_rpcs&.list_reference_images
+                  end
                   @list_reference_images = Gapic::Config::Method.new list_reference_images_config
                   get_reference_image_config = nil
-                  get_reference_image_config = parent_rpcs&.get_reference_image if parent_rpcs&.respond_to? :get_reference_image
+                  if parent_rpcs&.respond_to? :get_reference_image
+                    get_reference_image_config = parent_rpcs&.get_reference_image
+                  end
                   @get_reference_image = Gapic::Config::Method.new get_reference_image_config
                   add_product_to_product_set_config = nil
-                  add_product_to_product_set_config = parent_rpcs&.add_product_to_product_set if parent_rpcs&.respond_to? :add_product_to_product_set
+                  if parent_rpcs&.respond_to? :add_product_to_product_set
+                    add_product_to_product_set_config = parent_rpcs&.add_product_to_product_set
+                  end
                   @add_product_to_product_set = Gapic::Config::Method.new add_product_to_product_set_config
                   remove_product_from_product_set_config = nil
-                  remove_product_from_product_set_config = parent_rpcs&.remove_product_from_product_set if parent_rpcs&.respond_to? :remove_product_from_product_set
+                  if parent_rpcs&.respond_to? :remove_product_from_product_set
+                    remove_product_from_product_set_config = parent_rpcs&.remove_product_from_product_set
+                  end
                   @remove_product_from_product_set = Gapic::Config::Method.new remove_product_from_product_set_config
                   list_products_in_product_set_config = nil
-                  list_products_in_product_set_config = parent_rpcs&.list_products_in_product_set if parent_rpcs&.respond_to? :list_products_in_product_set
+                  if parent_rpcs&.respond_to? :list_products_in_product_set
+                    list_products_in_product_set_config = parent_rpcs&.list_products_in_product_set
+                  end
                   @list_products_in_product_set = Gapic::Config::Method.new list_products_in_product_set_config
                   import_product_sets_config = nil
-                  import_product_sets_config = parent_rpcs&.import_product_sets if parent_rpcs&.respond_to? :import_product_sets
+                  if parent_rpcs&.respond_to? :import_product_sets
+                    import_product_sets_config = parent_rpcs&.import_product_sets
+                  end
                   @import_product_sets = Gapic::Config::Method.new import_product_sets_config
                   purge_products_config = nil
                   purge_products_config = parent_rpcs&.purge_products if parent_rpcs&.respond_to? :purge_products

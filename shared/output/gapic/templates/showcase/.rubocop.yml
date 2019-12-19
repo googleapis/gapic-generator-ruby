@@ -4,4 +4,20 @@ inherit_gem:
 AllCops:
   Exclude:
     - "google-showcase.gemspec"
+    - "proto_docs/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/client.rb"
+    - "lib/google/showcase/v1beta1/identity/client.rb"
+    - "lib/google/showcase/v1beta1/messaging/client.rb"
+    - "lib/google/showcase/v1beta1/testing/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/client.rb"
+    - "lib/google/showcase/v1beta1/identity/client.rb"
+    - "lib/google/showcase/v1beta1/messaging/client.rb"
+    - "lib/google/showcase/v1beta1/testing/client.rb"
+Style/CaseEquality:
+  Enabled: false

@@ -32,11 +32,17 @@ module Google
     module Language
       module V1beta1
         module LanguageService
+          # Credentials for the LanguageService API.
           class Credentials < Google::Auth::Credentials
-            SCOPE = ["https://www.googleapis.com/auth/cloud-platform"].freeze
-            PATH_ENV_VARS = ["LANGUAGE_CREDENTIALS", "LANGUAGE_KEYFILE"].freeze
-            JSON_ENV_VARS = ["LANGUAGE_CREDENTIALS_JSON", "LANGUAGE_KEYFILE_JSON"].freeze
-            DEFAULT_PATHS = [].freeze
+            self.scope = [
+              "https://www.googleapis.com/auth/cloud-platform"
+            ]
+            self.env_vars = [
+              "LANGUAGE_CREDENTIALS",
+              "LANGUAGE_KEYFILE",
+              "LANGUAGE_CREDENTIALS_JSON",
+              "LANGUAGE_KEYFILE_JSON"
+            ]
           end
         end
       end

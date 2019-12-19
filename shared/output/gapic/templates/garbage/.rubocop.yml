@@ -4,4 +4,14 @@ inherit_gem:
 AllCops:
   Exclude:
     - "google-garbage.gemspec"
+    - "proto_docs/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/client.rb"
+Style/CaseEquality:
+  Enabled: false
