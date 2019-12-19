@@ -10,3 +10,15 @@ AllCops:
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/client.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/google-cloud-speech.rb"
+Style/CaseEquality:
+  Enabled: false
