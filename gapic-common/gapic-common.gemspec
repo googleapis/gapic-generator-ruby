@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.platform =      Gem::Platform::RUBY
 
-  spec.required_ruby_version = ">= 2.4.0"
+  spec.required_ruby_version = ">= 2.4"
 
   spec.add_dependency "google-protobuf", "~> 3.2"
   spec.add_dependency "googleapis-common-protos", ">= 1.3.9", "< 2.0"

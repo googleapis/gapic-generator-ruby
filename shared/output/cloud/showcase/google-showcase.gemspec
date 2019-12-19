@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
                       ["README.md", "LICENSE", ".yardopts"]
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = ">= 2.0.0"
+  gem.required_ruby_version = ">= 2.4"
 
   gem.add_dependency "gapic-common", "~> 0.0.0"
 
