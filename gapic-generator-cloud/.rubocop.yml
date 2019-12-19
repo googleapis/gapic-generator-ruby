@@ -2,6 +2,5 @@ inherit_gem:
   google-style: google-style.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - expected_output/**/*

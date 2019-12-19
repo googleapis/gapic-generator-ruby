@@ -121,12 +121,12 @@ module Gapic
           response = operation.execute
           yield response, operation if block_given?
           response
-        rescue StandardError => error
+        rescue StandardError => e
           if check_retry? deadline
-            retry if options.retry_policy.call error
+            retry if options.retry_policy.call e
           end
 
-          raise error
+          raise e
         end
       end
 

@@ -2,16 +2,12 @@ inherit_gem:
   google-style: google-style.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - lib/**/*.pb.rb
     - expected_output/**/*
     - test/gapic/annotations/**/*
     - test/gapic/presenters/**/*
 
-Metrics/BlockLength:
-  Exclude:
-    - gapic-generator.gemspec
 Metrics/ClassLength:
   Exclude:
     - templates/default/helpers/presenters/**/*
