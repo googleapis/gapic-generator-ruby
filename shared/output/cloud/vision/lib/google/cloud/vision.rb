@@ -21,6 +21,8 @@ require "gapic/config"
 
 module Google
   module Cloud
+    ##
+    # API Client library for Google Cloud Vision API
     module Vision
       ##
       # Default configuration for the google-cloud-vision gem.

@@ -21,6 +21,8 @@ require "gapic/config"
 
 module Google
   module Cloud
+    ##
+    # API Client library for Google Cloud Speech API
     module Speech
       ##
       # Default configuration for the google-cloud-speech gem.

@@ -20,7 +20,9 @@ require "gapic/config"
 
 
 module Google
-  module Showcas
+  ##
+  # API Client library for Google Showcase API
+  module Showcase
     ##
     # Default configuration for the google-showcase gem.
     #
