@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
 
   gem.files         = `git ls-files -- lib/*`.split("\n") +
                       `git ls-files -- proto_docs/*`.split("\n") +
-                      ["README.md", "LICENSE", ".yardopts"]
+                      ["README.md", "LICENSE.md", ".yardopts"]
   gem.require_paths = ["lib"]
 
   gem.required_ruby_version = ">= 2.4"
