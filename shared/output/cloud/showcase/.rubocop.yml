@@ -10,3 +10,21 @@ AllCops:
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/client.rb"
+    - "lib/google/showcase/v1beta1/identity/client.rb"
+    - "lib/google/showcase/v1beta1/messaging/client.rb"
+    - "lib/google/showcase/v1beta1/testing/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/client.rb"
+    - "lib/google/showcase/v1beta1/identity/client.rb"
+    - "lib/google/showcase/v1beta1/messaging/client.rb"
+    - "lib/google/showcase/v1beta1/testing/client.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/google-showcase.rb"
+Style/CaseEquality:
+  Enabled: false

@@ -29,7 +29,6 @@ namespace :test do
 end
 
 desc "Runs the smoke tests."
-desc "Runs the smoke tests."
 Rake::TestTask.new :smoke_test do |t|
   t.test_files = FileList["acceptance/**/*smoke_test.rb"]
   t.warning = false
@@ -107,7 +106,9 @@ end
 
 require "yard"
 require "yard/rake/yardoc_task"
-YARD::Rake::YardocTask.new
+YARD::Rake::YardocTask.new do |y|
+  y.options << "--fail-on-warning"
+end
 
 desc "Run yard-doctest example tests."
 task :doctest do
@@ -119,8 +120,8 @@ task :ci do
   header "BUILDING <%= gem.name %>"
   header "<%= gem.name %> rubocop", "*"
   Rake::Task[:rubocop].invoke
-  header "<%= gem.name %> doctest", "*"
-  Rake::Task[:doctest].invoke
+  header "<%= gem.name %> yard", "*"
+  Rake::Task[:yard].invoke
   header "<%= gem.name %> test", "*"
   Rake::Task[:test].invoke
 end

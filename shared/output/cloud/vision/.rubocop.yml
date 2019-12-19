@@ -10,3 +10,17 @@ AllCops:
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/client.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+Metrics/LineLength:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/client.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/google-cloud-vision.rb"
+Style/CaseEquality:
+  Enabled: false

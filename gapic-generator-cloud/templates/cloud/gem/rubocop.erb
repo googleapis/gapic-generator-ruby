@@ -11,3 +11,23 @@ AllCops:
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
+
+Metrics/ClassLength:
+  Exclude:
+  <%- gem.packages.each do |package| -%>
+  <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path %>"
+  <%- end -%>
+  <%- end -%>
+Metrics/LineLength:
+  Exclude:
+  <%- gem.packages.each do |package| -%>
+  <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path %>"
+  <%- end -%>
+  <%- end -%>
+Naming/FileName:
+  Exclude:
+    - "lib/<%= gem.name %>.rb"
+Style/CaseEquality:
+  Enabled: false

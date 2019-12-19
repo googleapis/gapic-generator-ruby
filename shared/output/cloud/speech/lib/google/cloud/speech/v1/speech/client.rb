@@ -21,7 +21,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/speech"
-require "google/cloud/error"
+require "google/cloud/errors"
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"

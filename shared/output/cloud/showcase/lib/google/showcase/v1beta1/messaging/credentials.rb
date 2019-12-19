@@ -23,11 +23,23 @@ module Google
   module Showcase
     module V1beta1
       module Messaging
+        # Credentials for the Messaging API.
         class Credentials < Google::Auth::Credentials
-          SCOPE = [].freeze
-          PATH_ENV_VARS = ["SHOWCASE_CREDENTIALS", "SHOWCASE_KEYFILE", "GOOGLE_CLOUD_CREDENTIALS", "GOOGLE_CLOUD_KEYFILE", "GCLOUD_KEYFILE"].freeze
-          JSON_ENV_VARS = ["SHOWCASE_CREDENTIALS_JSON", "SHOWCASE_KEYFILE_JSON", "GOOGLE_CLOUD_CREDENTIALS_JSON", "GOOGLE_CLOUD_KEYFILE_JSON", "GCLOUD_KEYFILE_JSON"].freeze
-          DEFAULT_PATHS = ["~/.config/google_cloud/application_default_credentials.json"].freeze
+          self.env_vars = [
+            "SHOWCASE_CREDENTIALS",
+            "SHOWCASE_KEYFILE",
+            "GOOGLE_CLOUD_CREDENTIALS",
+            "GOOGLE_CLOUD_KEYFILE",
+            "GCLOUD_KEYFILE",
+            "SHOWCASE_CREDENTIALS_JSON",
+            "SHOWCASE_KEYFILE_JSON",
+            "GOOGLE_CLOUD_CREDENTIALS_JSON",
+            "GOOGLE_CLOUD_KEYFILE_JSON",
+            "GCLOUD_KEYFILE_JSON"
+          ]
+          self.paths = [
+            "~/.config/google_cloud/application_default_credentials.json"
+          ]
         end
       end
     end
