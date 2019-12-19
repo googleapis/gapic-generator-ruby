@@ -20,7 +20,7 @@ require "gapic/config"
 
 
 module Google
-  module Showcase
+  module Showcas
     ##
     # Default configuration for the google-showcase gem.
     #
