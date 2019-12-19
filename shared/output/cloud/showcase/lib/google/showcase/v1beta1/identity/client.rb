@@ -21,7 +21,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/showcase"
-require "google/cloud/error"
+require "google/cloud/errors"
 require "google/showcase/version"
 require "google/showcase/v1beta1/identity_pb"
 require "google/showcase/v1beta1/identity/credentials"

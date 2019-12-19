@@ -21,7 +21,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/vision"
-require "google/cloud/error"
+require "google/cloud/errors"
 require "google/cloud/vision/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search/credentials"
