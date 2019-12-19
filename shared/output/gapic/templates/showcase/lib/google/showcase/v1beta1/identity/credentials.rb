@@ -31,11 +31,17 @@ module Google
   module Showcase
     module V1beta1
       module Identity
+        # Credentials for the Identity API.
         class Credentials < Google::Auth::Credentials
-          SCOPE = [].freeze
-          PATH_ENV_VARS = ["SHOWCASE_CREDENTIALS", "SHOWCASE_KEYFILE"].freeze
-          JSON_ENV_VARS = ["SHOWCASE_CREDENTIALS_JSON", "SHOWCASE_KEYFILE_JSON"].freeze
-          DEFAULT_PATHS = [].freeze
+          self.scope = [
+            nil
+          ]
+          self.env_vars = [
+            "SHOWCASE_CREDENTIALS",
+            "SHOWCASE_KEYFILE",
+            "SHOWCASE_CREDENTIALS_JSON",
+            "SHOWCASE_KEYFILE_JSON"
+          ]
         end
       end
     end
