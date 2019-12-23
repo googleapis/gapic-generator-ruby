@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require_relative "./gem_defaults"
+
 desc "Generate the binary input files"
 task :gen do
   Rake::Task["gen:language"].invoke
@@ -24,71 +26,37 @@ task :gen do
   Rake::Task["gen:googleads"].invoke
 end
 
-# rubocop:disable Metrics/BlockLength
 namespace :gen do
   desc "Generate the binary input files for language"
   task :language do
-    language_protos = [
-      "google/cloud/language/v1/language_service.proto",
-      "google/cloud/language/v1beta1/language_service.proto",
-      "google/cloud/language/v1beta2/language_service.proto"
-    ]
-    language_samples = Dir.glob([
-      "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
-      "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml"
-    ])
-    generate_input_file "language", language_protos, language_samples
+    generate_input_file :language
   end
 
   desc "Generate the binary input files for speech"
   task :speech do
-    speech_protos = [
-      "google/cloud/speech/v1/cloud_speech.proto"
-    ]
-    generate_input_file "speech", speech_protos, Dir.glob("../shared/googleapis/google/cloud/speech/v1/samples/*.yaml")
+    generate_input_file :speech
   end
 
   desc "Generate the binary input files for vision"
   task :vision do
-    vision_protos = [
-      "google/cloud/vision/v1/geometry.proto",
-      "google/cloud/vision/v1/image_annotator.proto",
-      "google/cloud/vision/v1/product_search.proto",
-      "google/cloud/vision/v1/product_search_service.proto",
-      "google/cloud/vision/v1/text_annotation.proto",
-      "google/cloud/vision/v1/web_detection.proto"
-    ]
-    generate_input_file "vision", vision_protos
+    generate_input_file :vision
   end
 
   desc "Generate the binary input files for showcase"
   task :showcase do
-    showcase_protos = [
-      "google/showcase/v1beta1/echo.proto",
-      "google/showcase/v1beta1/identity.proto",
-      "google/showcase/v1beta1/messaging.proto",
-      "google/showcase/v1beta1/testing.proto"
-    ]
-    generate_input_file "showcase", showcase_protos
+    generate_input_file :showcase
   end
 
   desc "Generate the binary input files for garbage"
   task :garbage do
-    garbage_protos = [
-      "garbage/garbage.proto"
-    ]
-    generate_input_file "garbage", garbage_protos, Dir.glob("../shared/samples/garbage/*.yaml")
+    generate_input_file :garbage
   end
 
   desc "Generate the binary input files for Google Ads"
   task :googleads do
-    googleads_protos = [
-      "google/ads/googleads/v1/services/campaign_service.proto"
-    ]
-    generate_input_file "googleads", googleads_protos
+    generate_input_file :googleads
   end
 end
-# rubocop:enable Metrics/BlockLength
 
 require "rake/testtask"
 desc "Run functional tests for all custom protos"
@@ -131,27 +99,34 @@ end
 
 task default: :ci
 
-def generate_input_file service, protos, samples = nil
+def generate_input_file service
   require "tmpdir"
 
   Dir.mktmpdir do |tmp|
     protoc_cmd = [
-      "bundle exec grpc_tools_ruby_protoc #{Array(protos).join ' '}",
-      "--proto_path=api-common-protos/",
-      "--proto_path=googleapis/",
-      "--proto_path=protos/",
+      "grpc_tools_ruby_protoc",
+      "-I ../shared/api-common-protos",
+      "-I ../shared/googleapis",
+      "-I ../shared/protos",
+      "--ruby_out=#{tmp}/lib",
+      "--grpc_out=#{tmp}/lib",
       "--ruby_gapic_out=#{tmp}",
-      # TODO: invoke a custom runner?
-      # "--ruby_gapic_opt=generator=cloud",
-      # TODO: invoke a custom template path?
-      # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
-      # "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
       "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
-      "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin"
+      "--ruby_gapic_opt=binary_output=../shared/input/#{service}_desc.bin"
     ]
+
     # Add optional samples paths
+    samples = samples_for service
     protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
 
-    `#{protoc_cmd.join " "}`
+    # Add the proto files
+    protos = protos_for service
+    protoc_cmd << protos.join(" ")
+
+    protoc_cmd = protoc_cmd.join " "
+    puts protoc_cmd if ENV["VERBOSE"]
+
+    protoc_cmd_output = `#{protoc_cmd}`
+    puts protoc_cmd_output if ENV["VERBOSE"]
   end
 end

@@ -32,7 +32,7 @@ def generate_library_for_test imports, protos
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
-  puts "#{protoc_cmd}" if ENV["VERBOSE"]
+  puts protoc_cmd if ENV["VERBOSE"]
   protoc_cmd_output = `#{protoc_cmd}`
   puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
