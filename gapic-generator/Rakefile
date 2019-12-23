@@ -20,6 +20,7 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "yard"
 require "yard/rake/yardoc_task"
+require_relative "../shared/gem_defaults"
 
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
@@ -44,23 +45,17 @@ task default: :ci
 
 desc "Generate the expected output for tests"
 task :gen do
-  Rake::Task["gen:protos"].invoke
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:gem_creation"].invoke
 end
 namespace :gen do
-  desc "Generate the protobuf files used in the gem"
-  task :protos do
-    generate_protos
-  end
-
   desc "Generate the expected output for templates tests"
   task :templates do
-    generate_default_templates "language"
-    generate_default_templates "speech"
-    generate_default_templates "vision"
-    generate_default_templates "showcase"
-    generate_default_templates "garbage"
+    generate_default_templates :language
+    generate_default_templates :speech
+    generate_default_templates :vision
+    generate_default_templates :showcase
+    generate_default_templates :garbage
   end
 
   desc "Generate the expected output for gem creation tests"
@@ -77,13 +72,6 @@ task :console do
 
   $LOAD_PATH.unshift "lib"
 
-  require "gapic/schema"
-  def schema service
-    bin_proto = File.binread "proto_input/#{service}_desc.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Gapic::Schema::Api.new request
-  end
-
   ARGV.clear
   IRB.start
 end
@@ -94,51 +82,38 @@ task :image, :name do |_t, args|
   sh "docker build -t #{image_name} ."
 end
 
-def generate_protos
-  require "mkmf" # needed for find_executable
-
-  # Remove old generated files.
-  FileUtils.rm Dir.glob(File.join("lib", "**", "*.pb.rb"))
-
-  plugin_executable = find_executable "protoc-gen-ruby"
-  plugin = "protoc-gen-ruby-protobuf=#{plugin_executable}"
-
-  command = []
-  command << "grpc_tools_ruby_protoc"
-  command << "--plugin=#{plugin}"
-  command << "--ruby-protobuf_out=lib"
-  command << "-I ../shared/api-common-protos"
-  command << "-I ../shared/protobuf/src"
-  command << "../shared/api-common-protos/google/api/annotations.proto"
-  command << "../shared/api-common-protos/google/api/client.proto"
-  command << "../shared/api-common-protos/google/api/field_behavior.proto"
-  command << "../shared/api-common-protos/google/api/resource.proto"
-  command << "../shared/api-common-protos/google/longrunning/operations.proto"
-  command << "../shared/protobuf/src/google/protobuf/descriptor.proto"
-  command << "../shared/protobuf/src/google/protobuf/compiler/plugin.proto"
-  full_command = command.join " "
-
-  puts full_command
-  puts `#{full_command}`
-end
-
 def generate_default_templates service
   require "gapic/schema/api"
   require "gapic/generators/default_generator"
 
-  target_path = File.expand_path File.join("expected_output/templates", service)
+  target_path = File.expand_path File.join("expected_output/templates", String(service))
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
-  bin_proto = File.binread "proto_input/#{service}_desc.bin"
-  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-  api = Gapic::Schema::Api.new request
-  generator = Gapic::Generators::DefaultGenerator.new api
-  generator.generate.each do |file|
-    target_file_path = File.join target_path, file.name
-    FileUtils.mkdir_p File.dirname(target_file_path)
-    File.write target_file_path, file.content
-  end
+  protoc_cmd = [
+    "grpc_tools_ruby_protoc",
+    "-I ../shared/api-common-protos",
+    "-I ../shared/googleapis",
+    "-I ../shared/protos",
+    "--ruby_out=#{target_path}/lib",
+    "--grpc_out=#{target_path}/lib",
+    "--ruby_gapic_out=#{target_path}",
+    "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml"
+  ]
+
+  # Add optional samples paths
+  samples = samples_for service
+  protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+  # Add the proto files
+  protos = protos_for service
+  protoc_cmd << protos.join(" ")
+
+  protoc_cmd = protoc_cmd.join " "
+  puts protoc_cmd if ENV["VERBOSE"]
+
+  protoc_cmd_output = `#{protoc_cmd}`
+  puts protoc_cmd_output if ENV["VERBOSE"]
 end
 
 def generate_gem gem_name
