@@ -27,7 +27,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "name", fp.name
     assert_equal "@!attribute [rw] name", fp.doc_attribute_type
     assert_equal "String", fp.output_doc_types
-    assert_nil fp.doc_description
+    assert_equal fp.doc_description, "The name of this garbage.\n"
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
@@ -40,7 +40,7 @@ class FieldPresenterTest < PresenterTest
       assert_equal field_name, fp.name
       assert_equal "@!attribute [rw] #{field_name}", fp.doc_attribute_type
       assert_equal "Integer", fp.output_doc_types
-      assert_nil fp.doc_description
+      assert_equal fp.doc_description, "The #{field_name} of this garbage.\n"
       assert_equal "42", fp.default_value
       assert_equal "", fp.type_name
       assert_nil fp.type_name_full
@@ -53,7 +53,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "bool", fp.name
     assert_equal "@!attribute [rw] bool", fp.doc_attribute_type
     assert_equal "Boolean", fp.output_doc_types
-    assert_nil fp.doc_description
+    assert_equal fp.doc_description, "The bool of this garbage.\n"
     assert_equal "true", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
@@ -66,7 +66,7 @@ class FieldPresenterTest < PresenterTest
       assert_equal field_name, fp.name
       assert_equal "@!attribute [rw] #{field_name}", fp.doc_attribute_type
       assert_equal "Float", fp.output_doc_types
-      assert_nil fp.doc_description
+      assert_equal fp.doc_description, "The #{field_name} of this garbage.\n"
       assert_equal "3.14", fp.default_value
       assert_equal "", fp.type_name
       assert_nil fp.type_name_full
@@ -79,7 +79,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "bytes", fp.name
     assert_equal "@!attribute [rw] bytes", fp.doc_attribute_type
     assert_equal "String", fp.output_doc_types
-    assert_nil fp.doc_description
+    assert_equal fp.doc_description, "The bytes of this garbage.\n"
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
@@ -91,7 +91,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "msg", fp.name
     assert_equal "@!attribute [r] msg", fp.doc_attribute_type
     assert_equal "So::Much::Trash::GarbageMap", fp.output_doc_types
-    assert_nil fp.doc_description
+    assert_equal fp.doc_description, "The map of this garbage.\n"
     assert_equal "{}", fp.default_value
     assert_equal ".endless.trash.forever.GarbageMap", fp.type_name
     assert_equal "So::Much::Trash::GarbageMap", fp.type_name_full
@@ -103,8 +103,8 @@ class FieldPresenterTest < PresenterTest
     assert_equal "enum", fp.name
     assert_equal "@!attribute [rw] enum", fp.doc_attribute_type
     assert_equal "ENUM(GarbageEnum)", fp.output_doc_types
-    assert_nil fp.doc_description
-    assert_equal "Default", fp.default_value
+    assert_equal fp.doc_description, "The type of this garbage.\n"
+    assert_equal ":Default", fp.default_value
     assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name
     assert_equal "So::Much::Trash::GarbageEnum", fp.type_name_full
   end

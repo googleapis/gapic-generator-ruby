@@ -17,12 +17,13 @@
 require "test_helper"
 
 class MethodPresenterTest < PresenterTest
+
   def test_garbage_GetSimpleGarbage
     presenter = method_presenter :garbage, "GarbageService", "GetSimpleGarbage"
 
     assert_equal "get_simple_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Retrieves a SimpleGarbage resource.\n"
   end
 
   def test_garbage_GetSpecificGarbage
@@ -30,7 +31,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_specific_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Retrieves a SpecificGarbage resource.\n"
   end
 
   def test_garbage_GetNestedGarbage
@@ -38,7 +39,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_nested_garbage", presenter.name
     assert_equal :normal, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Retrieves a NestedGarbage resource.\n"
   end
 
   def test_garbage_GetRepeatedGarbage
@@ -47,7 +48,7 @@ class MethodPresenterTest < PresenterTest
     assert_equal "get_repeated_garbage", presenter.name
     assert_equal :normal, presenter.kind
     refute presenter.lro?
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Retrieves a RepeatedGarbage resource.\n"
   end
 
   def test_garbage_LongRunningGarbage
@@ -56,7 +57,7 @@ class MethodPresenterTest < PresenterTest
     assert_equal "long_running_garbage", presenter.name
     assert_equal :normal, presenter.kind
     assert presenter.lro?
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Performs asynchronous garbage listing. Garbage items are available via the\ngoogle.longrunning.Operations interface.\n"
   end
 
   def test_garbage_ClientGarbage
@@ -64,7 +65,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "client_garbage", presenter.name
     assert_equal :client, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Performs client streaming garbage listing.\n"
   end
 
   def test_garbage_ServerGarbage
@@ -72,7 +73,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "server_garbage", presenter.name
     assert_equal :server, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Performs server streaming garbage listing.\n"
   end
 
   def test_garbage_BidiGarbage
@@ -80,6 +81,6 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "bidi_garbage", presenter.name
     assert_equal :bidi, presenter.kind
-    assert_nil presenter.doc_description
+    assert_equal presenter.doc_description, "Performs bidirectional streaming garbage listing.\n"
   end
 end

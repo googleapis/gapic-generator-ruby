@@ -22,7 +22,7 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
     refute_nil message
 
-    assert_equal 11, message.fields.count
+    assert_equal 13, message.fields.count
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options
@@ -126,19 +126,18 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[8].immutable?
     refute message.fields[8].repeated?
 
-    assert_equal "msg", message.fields[9].name
-    refute_nil message.fields[9].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
+    assert_equal "timeout", message.fields[9].name
+    assert_nil message.fields[9].options
 
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
+    assert_empty message.fields[9].field_behavior
     refute message.fields[9].optional?
     refute message.fields[9].required?
-    assert message.fields[9].output_only?
+    refute message.fields[9].output_only?
     refute message.fields[9].input_only?
     refute message.fields[9].immutable?
     refute message.fields[9].repeated?
 
-    assert_equal "enum", message.fields[10].name
+    assert_equal "duration", message.fields[10].name
     assert_nil message.fields[10].options
 
     assert_empty message.fields[10].field_behavior
@@ -148,6 +147,29 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[10].input_only?
     refute message.fields[10].immutable?
     refute message.fields[10].repeated?
+
+    assert_equal "msg", message.fields[11].name
+    refute_nil message.fields[11].options
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].options[:field_behavior]
+
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].field_behavior
+    refute message.fields[11].optional?
+    refute message.fields[11].required?
+    assert message.fields[11].output_only?
+    refute message.fields[11].input_only?
+    refute message.fields[11].immutable?
+    refute message.fields[11].repeated?
+
+    assert_equal "enum", message.fields[12].name
+    assert_nil message.fields[12].options
+
+    assert_empty message.fields[12].field_behavior
+    refute message.fields[12].optional?
+    refute message.fields[12].required?
+    refute message.fields[12].output_only?
+    refute message.fields[12].input_only?
+    refute message.fields[12].immutable?
+    refute message.fields[12].repeated?
   end
 
   def test_garbage_SpecificGarbage
@@ -285,9 +307,9 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "RepeatedGarbage" }
     refute_nil message
 
-    assert_equal 12, message.fields.count
+    assert_equal 11, message.fields.count
 
-    assert_equal "name", message.fields[0].name
+    assert_equal "repeated_name", message.fields[0].name
     refute_nil message.fields[0].options
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].options[:field_behavior]
 
@@ -297,7 +319,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[0].output_only?
     refute message.fields[0].input_only?
     refute message.fields[0].immutable?
-    refute message.fields[0].repeated?
+    assert message.fields[0].repeated?
 
     assert_equal "repeated_int32", message.fields[1].name
     assert_nil message.fields[1].options
@@ -376,7 +398,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[7].immutable?
     assert message.fields[7].repeated?
 
-    assert_equal "repeated_string", message.fields[8].name
+    assert_equal "repeated_bytes", message.fields[8].name
     assert_nil message.fields[8].options
 
     assert_empty message.fields[8].field_behavior
@@ -387,38 +409,27 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[8].immutable?
     assert message.fields[8].repeated?
 
-    assert_equal "repeated_bytes", message.fields[9].name
-    assert_nil message.fields[9].options
+    assert_equal "repeated_msg", message.fields[9].name
+    refute_nil message.fields[9].options
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
 
-    assert_empty message.fields[9].field_behavior
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
     refute message.fields[9].optional?
     refute message.fields[9].required?
-    refute message.fields[9].output_only?
+    assert message.fields[9].output_only?
     refute message.fields[9].input_only?
     refute message.fields[9].immutable?
     assert message.fields[9].repeated?
 
-    assert_equal "repeated_msg", message.fields[10].name
-    refute_nil message.fields[10].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[10].options[:field_behavior]
+    assert_equal "repeated_enum", message.fields[10].name
+    assert_nil message.fields[10].options
 
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[10].field_behavior
+    assert_empty message.fields[10].field_behavior
     refute message.fields[10].optional?
     refute message.fields[10].required?
-    assert message.fields[10].output_only?
+    refute message.fields[10].output_only?
     refute message.fields[10].input_only?
     refute message.fields[10].immutable?
     assert message.fields[10].repeated?
-
-    assert_equal "repeated_enum", message.fields[11].name
-    assert_nil message.fields[11].options
-
-    assert_empty message.fields[11].field_behavior
-    refute message.fields[11].optional?
-    refute message.fields[11].required?
-    refute message.fields[11].output_only?
-    refute message.fields[11].input_only?
-    refute message.fields[11].immutable?
-    assert message.fields[11].repeated?
   end
 end
