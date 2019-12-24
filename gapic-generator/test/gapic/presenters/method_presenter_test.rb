@@ -17,7 +17,6 @@
 require "test_helper"
 
 class MethodPresenterTest < PresenterTest
-
   def test_garbage_GetSimpleGarbage
     presenter = method_presenter :garbage, "GarbageService", "GetSimpleGarbage"
 
