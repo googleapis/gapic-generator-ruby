@@ -21,6 +21,7 @@ module Google
   module Showcase
     module V1beta1
       module Testing
+        # Path helper methods for the Testing API.
         module Paths
           ##
           # Create a fully-qualified Session resource string.

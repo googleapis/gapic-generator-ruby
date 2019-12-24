@@ -631,28 +631,20 @@ module Google
               attr_reader :verify_test
 
               def initialize parent_rpcs = nil
-                create_session_config = nil
                 create_session_config = parent_rpcs&.create_session if parent_rpcs&.respond_to? :create_session
                 @create_session = Gapic::Config::Method.new create_session_config
-                get_session_config = nil
                 get_session_config = parent_rpcs&.get_session if parent_rpcs&.respond_to? :get_session
                 @get_session = Gapic::Config::Method.new get_session_config
-                list_sessions_config = nil
                 list_sessions_config = parent_rpcs&.list_sessions if parent_rpcs&.respond_to? :list_sessions
                 @list_sessions = Gapic::Config::Method.new list_sessions_config
-                delete_session_config = nil
                 delete_session_config = parent_rpcs&.delete_session if parent_rpcs&.respond_to? :delete_session
                 @delete_session = Gapic::Config::Method.new delete_session_config
-                report_session_config = nil
                 report_session_config = parent_rpcs&.report_session if parent_rpcs&.respond_to? :report_session
                 @report_session = Gapic::Config::Method.new report_session_config
-                list_tests_config = nil
                 list_tests_config = parent_rpcs&.list_tests if parent_rpcs&.respond_to? :list_tests
                 @list_tests = Gapic::Config::Method.new list_tests_config
-                delete_test_config = nil
                 delete_test_config = parent_rpcs&.delete_test if parent_rpcs&.respond_to? :delete_test
                 @delete_test = Gapic::Config::Method.new delete_test_config
-                verify_test_config = nil
                 verify_test_config = parent_rpcs&.verify_test if parent_rpcs&.respond_to? :verify_test
                 @verify_test = Gapic::Config::Method.new verify_test_config
 

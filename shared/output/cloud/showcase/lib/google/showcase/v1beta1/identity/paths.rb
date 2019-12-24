@@ -21,6 +21,7 @@ module Google
   module Showcase
     module V1beta1
       module Identity
+        # Path helper methods for the Identity API.
         module Paths
           ##
           # Create a fully-qualified User resource string.

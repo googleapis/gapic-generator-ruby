@@ -77,8 +77,7 @@ class Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.batch_annotate_images requests: requests, parent: parent do |response, operation|
+      client.batch_annotate_images({ requests: requests, parent: parent }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -137,8 +136,7 @@ class Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.batch_annotate_files requests: requests, parent: parent do |response, operation|
+      client.batch_annotate_files({ requests: requests, parent: parent }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -199,8 +197,7 @@ class Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent do |response, operation|
+      client.async_batch_annotate_images({ requests: requests, output_config: output_config, parent: parent }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -264,8 +261,7 @@ class Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.async_batch_annotate_files requests: requests, parent: parent do |response, operation|
+      client.async_batch_annotate_files({ requests: requests, parent: parent }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation

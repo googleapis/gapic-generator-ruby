@@ -22,6 +22,7 @@ module Google
     module Vision
       module V1
         module ProductSearch
+          # Path helper methods for the ProductSearch API.
           module Paths
             ##
             # Create a fully-qualified Product resource string.

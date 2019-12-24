@@ -29,6 +29,7 @@ module So
   module Much
     module Trash
       module GarbageService
+        # Path helper methods for the GarbageService API.
         module Paths
           ##
           # Create a fully-qualified SimpleGarbage resource string.

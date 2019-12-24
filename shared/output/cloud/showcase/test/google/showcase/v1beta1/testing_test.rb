@@ -67,8 +67,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.create_session session: session do |response, operation|
+      client.create_session({ session: session }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -125,8 +124,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_session name: name do |response, operation|
+      client.get_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -185,8 +183,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.list_sessions page_size: page_size, page_token: page_token do |response, operation|
+      client.list_sessions({ page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end
@@ -243,8 +240,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.delete_session name: name do |response, operation|
+      client.delete_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -301,8 +297,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.report_session name: name do |response, operation|
+      client.report_session({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -363,8 +358,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.list_tests parent: parent, page_size: page_size, page_token: page_token do |response, operation|
+      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end
@@ -421,8 +415,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.delete_test name: name do |response, operation|
+      client.delete_test({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -483,8 +476,7 @@ class Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.verify_test name: name, answer: answer, answers: answers do |response, operation|
+      client.verify_test({ name: name, answer: answer, answers: answers }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

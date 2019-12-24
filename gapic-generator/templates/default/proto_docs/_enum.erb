@@ -6,7 +6,7 @@ module <%= enum.name %>
   <%- enum.values.each do |value| -%>
 
   <%- if value.doc_description -%>
-  <%= indent value.doc_description, "# " %>
+<%= indent value.doc_description, "  # " %>
   <%- end -%>
   <%= value.name %> = <%= value.number %>
   <%- end -%>

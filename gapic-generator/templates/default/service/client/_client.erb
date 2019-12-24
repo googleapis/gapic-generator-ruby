@@ -33,7 +33,7 @@ class <%= service.client_name %>
   # @return [<%= service.client_name %>::Configuration]
   #
   def self.configure
-    <%= indent_tail render(partial: "service/client/self_configure", locals: { service: service }), 4 %>
+<%= indent render(partial: "service/client/self_configure", locals: { service: service }), 4 %>
   end
 
   ##

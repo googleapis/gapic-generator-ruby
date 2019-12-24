@@ -174,8 +174,8 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
-              wrap_gax_operation = ->(response) { Gapic::Operation.new response, @operations_client }
-              response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_gax_operation
+              wrap_lro_operation = ->(op_response) { Gapic::Operation.new op_response, @operations_client }
+              response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_lro_operation
               yield response, operation if block_given?
               return response
             end
@@ -421,16 +421,12 @@ module Google
               attr_reader :cancel_operation
 
               def initialize parent_rpcs = nil
-                list_operations_config = nil
                 list_operations_config = parent_rpcs&.list_operations if parent_rpcs&.respond_to? :list_operations
                 @list_operations = Gapic::Config::Method.new list_operations_config
-                get_operation_config = nil
                 get_operation_config = parent_rpcs&.get_operation if parent_rpcs&.respond_to? :get_operation
                 @get_operation = Gapic::Config::Method.new get_operation_config
-                delete_operation_config = nil
                 delete_operation_config = parent_rpcs&.delete_operation if parent_rpcs&.respond_to? :delete_operation
                 @delete_operation = Gapic::Config::Method.new delete_operation_config
-                cancel_operation_config = nil
                 cancel_operation_config = parent_rpcs&.cancel_operation if parent_rpcs&.respond_to? :cancel_operation
                 @cancel_operation = Gapic::Config::Method.new cancel_operation_config
 

@@ -8,9 +8,7 @@ class Configuration
   config_attr :endpoint,     <%= service.client_endpoint.inspect %>, String
   config_attr :credentials,  nil do |value|
     allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
-    if defined? ::GRPC
-      allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials]
-    end
+    allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
     allowed.any? { |klass| klass === value }
   end
   config_attr :scope,        nil, String, Array, nil
@@ -31,7 +29,7 @@ class Configuration
   def rpcs
     @rpcs ||= begin
       parent_rpcs = nil
-      parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to?(:rpcs)
+      parent_rpcs = @parent_config.rpcs if @parent_config&.respond_to? :rpcs
       Rpcs.new parent_rpcs
     end
   end
@@ -45,10 +43,7 @@ class Configuration
 
     def initialize parent_rpcs = nil
       <%- method_service.methods.each do |method| -%>
-      <%= method.name %>_config = nil
-      if parent_rpcs&.respond_to? :<%= method.name %>
-        <%= method.name %>_config = parent_rpcs&.<%= method.name %>
-      end
+      <%= method.name %>_config = parent_rpcs&.<%= method.name %> if parent_rpcs&.respond_to? :<%= method.name %>
       @<%= method.name %> = Gapic::Config::Method.new <%= method.name %>_config
       <%- end %>
 

@@ -376,18 +376,12 @@ module Google
                 attr_reader :annotate_text
 
                 def initialize parent_rpcs = nil
-                  analyze_sentiment_config = nil
-                  if parent_rpcs&.respond_to? :analyze_sentiment
-                    analyze_sentiment_config = parent_rpcs&.analyze_sentiment
-                  end
+                  analyze_sentiment_config = parent_rpcs&.analyze_sentiment if parent_rpcs&.respond_to? :analyze_sentiment
                   @analyze_sentiment = Gapic::Config::Method.new analyze_sentiment_config
-                  analyze_entities_config = nil
                   analyze_entities_config = parent_rpcs&.analyze_entities if parent_rpcs&.respond_to? :analyze_entities
                   @analyze_entities = Gapic::Config::Method.new analyze_entities_config
-                  analyze_syntax_config = nil
                   analyze_syntax_config = parent_rpcs&.analyze_syntax if parent_rpcs&.respond_to? :analyze_syntax
                   @analyze_syntax = Gapic::Config::Method.new analyze_syntax_config
-                  annotate_text_config = nil
                   annotate_text_config = parent_rpcs&.annotate_text if parent_rpcs&.respond_to? :annotate_text
                   @annotate_text = Gapic::Config::Method.new annotate_text_config
 

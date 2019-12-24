@@ -241,11 +241,8 @@ module Google
           #
           def collect request, options = nil
             unless request.is_a? Enumerable
-              if request.respond_to? :to_enum
-                request = request.to_enum
-              else
-                raise ArgumentError, "request must be an Enumerable"
-              end
+              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+              request = request.to_enum
             end
 
             request = request.lazy.map do |req|
@@ -295,11 +292,8 @@ module Google
           #
           def chat request, options = nil
             unless request.is_a? Enumerable
-              if request.respond_to? :to_enum
-                request = request.to_enum
-              else
-                raise ArgumentError, "request must be an Enumerable"
-              end
+              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+              request = request.to_enum
             end
 
             request = request.lazy.map do |req|
@@ -551,25 +545,18 @@ module Google
               attr_reader :block
 
               def initialize parent_rpcs = nil
-                echo_config = nil
                 echo_config = parent_rpcs&.echo if parent_rpcs&.respond_to? :echo
                 @echo = Gapic::Config::Method.new echo_config
-                expand_config = nil
                 expand_config = parent_rpcs&.expand if parent_rpcs&.respond_to? :expand
                 @expand = Gapic::Config::Method.new expand_config
-                collect_config = nil
                 collect_config = parent_rpcs&.collect if parent_rpcs&.respond_to? :collect
                 @collect = Gapic::Config::Method.new collect_config
-                chat_config = nil
                 chat_config = parent_rpcs&.chat if parent_rpcs&.respond_to? :chat
                 @chat = Gapic::Config::Method.new chat_config
-                paged_expand_config = nil
                 paged_expand_config = parent_rpcs&.paged_expand if parent_rpcs&.respond_to? :paged_expand
                 @paged_expand = Gapic::Config::Method.new paged_expand_config
-                wait_config = nil
                 wait_config = parent_rpcs&.wait if parent_rpcs&.respond_to? :wait
                 @wait = Gapic::Config::Method.new wait_config
-                block_config = nil
                 block_config = parent_rpcs&.block if parent_rpcs&.respond_to? :block
                 @block = Gapic::Config::Method.new block_config
 

@@ -81,8 +81,7 @@ class Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.list_operations name: name, filter: filter, page_size: page_size, page_token: page_token do |response, operation|
+      client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end
@@ -139,8 +138,7 @@ class Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_operation name: name do |response, operation|
+      client.get_operation({ name: name }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -202,8 +200,7 @@ class Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.delete_operation name: name do |response, operation|
+      client.delete_operation({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -260,8 +257,7 @@ class Google::Cloud::Vision::V1::ProductSearch::OperationsTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.cancel_operation name: name do |response, operation|
+      client.cancel_operation({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

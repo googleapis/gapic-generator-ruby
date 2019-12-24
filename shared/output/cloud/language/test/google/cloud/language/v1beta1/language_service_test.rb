@@ -69,8 +69,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.analyze_sentiment document: document, encoding_type: encoding_type do |response, operation|
+      client.analyze_sentiment({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -129,8 +128,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.analyze_entities document: document, encoding_type: encoding_type do |response, operation|
+      client.analyze_entities({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -189,8 +187,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.analyze_syntax document: document, encoding_type: encoding_type do |response, operation|
+      client.analyze_syntax({ document: document, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -251,8 +248,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.annotate_text document: document, features: features, encoding_type: encoding_type do |response, operation|
+      client.annotate_text({ document: document, features: features, encoding_type: encoding_type }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
