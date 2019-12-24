@@ -1,8 +1,0 @@
-inherit_gem:
-  google-style: google-style.yml
-
-AllCops:
-  Exclude:
-    - "protobuf/**/*"
-    - "output/**/*"
-    - "test/**/*"
