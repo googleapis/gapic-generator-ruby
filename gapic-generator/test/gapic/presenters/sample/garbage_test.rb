@@ -26,7 +26,7 @@ class GarbagePresenterTest < PresenterTest
     refute_nil @sample_config
     @presenter = SamplePresenter.new api_obj, @sample_config
   end
-focus
+
   def test_description
     assert_equal @sample_config["description"], @presenter.description
   end
@@ -40,12 +40,12 @@ focus
     fields = @presenter.fields
     assert_equal 1, fields.size
 
-    assert_kind_of SamplePresenter::RequestField, fields["name"]
-    assert_equal "name", fields["name"].field
-    assert_equal "\"Simple Garbage\"", fields["name"].value
+    assert_kind_of SamplePresenter::RequestField, fields["garbage"]
+    assert_equal "garbage", fields["garbage"].field
+    assert_equal "\"Paged Garbage\"", fields["garbage"].value
   end
 
   def test_kwargs
-    assert_equal "name: name", @presenter.kwargs
+    assert_equal "garbage: garbage", @presenter.kwargs
   end
 end

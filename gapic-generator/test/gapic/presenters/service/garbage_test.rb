@@ -28,7 +28,7 @@ class GarbageServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
-    exp_method_names = ["get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage"]
+    exp_method_names = ["get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "get_typical_garbage", "get_complex_garbage", "get_paged_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 

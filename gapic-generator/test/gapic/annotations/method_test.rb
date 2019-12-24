@@ -54,12 +54,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/specific_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
-    expected_signatures = [
-      %w[name int32 bool],
-      ["name", "nested.int64"]
-    ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
-    assert_equal expected_signature_lists, method.options[:method_signature]
+    assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
@@ -70,7 +65,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/specific_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
-    assert_equal expected_signatures, method.signatures
+    assert_empty method.signatures
 
     assert_nil method.operation_info
   end
@@ -87,13 +82,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/nested_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
-    expected_signatures = [
-      %w[name int32 int64],
-      %w[name float double],
-      %w[name bool enum]
-    ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
-    assert_equal expected_signature_lists, method.options[:method_signature]
+    assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
@@ -104,7 +93,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/nested_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
-    assert_equal expected_signatures, method.signatures
+    assert_empty method.signatures
 
     assert_nil method.operation_info
   end
@@ -121,13 +110,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/repeated_garbage:get", method.options[:http][:post]
     assert_equal "*", method.options[:http][:body]
 
-    expected_signatures = [
-      %w[name bool enum],
-      %w[name float double],
-      %w[name int32 int64 uint32 uint64]
-    ]
-    expected_signature_lists = expected_signatures.map { |sigs| sigs.join "," }
-    assert_equal expected_signature_lists, method.options[:method_signature]
+    assert_empty method.options[:method_signature]
 
     assert_nil method.options[:operation_info]
 
@@ -138,7 +121,7 @@ class AnnotationMethodTest < AnnotationTest
     assert_equal "/v1/repeated_garbage:get", method.http.post
     assert_equal "*", method.http.body
 
-    assert_equal expected_signatures, method.signatures
+    assert_empty method.signatures
 
     assert_nil method.operation_info
   end
