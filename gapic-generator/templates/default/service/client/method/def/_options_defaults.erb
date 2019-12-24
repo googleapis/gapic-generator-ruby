@@ -13,7 +13,8 @@ metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
 
 header_params = {
 <%- method.routing_params.each_with_index do |routing_param, index| -%>
-  "<%= routing_param %>" => request.<%= routing_param %><%- if index != method.routing_params.count - 1 -%>,<%- end -%>
+  <%- comma = "," if index != method.routing_params.count - 1 -%>
+  "<%= routing_param %>" => request.<%= routing_param %><%= comma %>
 <%- end -%>
 }
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
