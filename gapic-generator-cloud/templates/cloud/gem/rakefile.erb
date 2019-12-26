@@ -28,82 +28,15 @@ namespace :test do
   end
 end
 
-desc "Runs the smoke tests."
-Rake::TestTask.new :smoke_test do |t|
-  t.test_files = FileList["acceptance/**/*smoke_test.rb"]
-  t.warning = false
-end
-
-namespace :smoke_test do
-  desc "Runs smoke tests with coverage."
-  task :coverage do
-    require "simplecov"
-    SimpleCov.start do
-      command_name "<%= gem.name %>"
-      track_files "lib/**/*.rb"
-      add_filter "test/"
-    end
-
-    Rake::Task[:smoke_test].invoke
-  end
-end
-
-# rubocop:disable Metrics/BlockLength
 # Acceptance tests
 desc "Run the <%= gem.name %> acceptance tests."
-task :acceptance, :project, :keyfile do |_t, args|
-  project = args[:project]
-  project ||=
-    ENV["<%= gem.env_prefix %>_TEST_PROJECT"] ||
-    ENV["GCLOUD_TEST_PROJECT"]
-  keyfile = args[:keyfile]
-  keyfile ||=
-    ENV["<%= gem.env_prefix %>_TEST_KEYFILE"] ||
-    ENV["GCLOUD_TEST_KEYFILE"]
-  if keyfile
-    keyfile = File.read keyfile
-  else
-    keyfile ||=
-      ENV["<%= gem.env_prefix %>_TEST_KEYFILE_JSON"] ||
-      ENV["GCLOUD_TEST_KEYFILE_JSON"]
-  end
-  if project.nil? || keyfile.nil?
-    raise "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or " \
-          "<%= gem.env_prefix %>_TEST_PROJECT=test123 " \
-          "<%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
-  end
-
-  ENV["<%= gem.env_prefix %>_CREDENTIALS"] = nil
-  ENV["<%= gem.env_prefix %>_KEYFILE"] = nil
-  ENV["GOOGLE_CLOUD_CREDENTIALS"] = nil
-  ENV["GOOGLE_CLOUD_KEYFILE"] = nil
-  ENV["GCLOUD_KEYFILE"] = nil
-
-  ENV["<%= gem.env_prefix %>_CREDENTIALS_JSON"] = nil
-  ENV["<%= gem.env_prefix %>_KEYFILE_JSON"] = nil
-  ENV["GOOGLE_CLOUD_CREDENTIALS_JSON"] = nil
-  ENV["GOOGLE_CLOUD_KEYFILE_JSON"] = nil
-  ENV["GCLOUD_KEYFILE_JSON"] = nil
-
-  ENV["<%= gem.env_prefix %>_PROJECT"] = project
-  ENV["<%= gem.env_prefix %>_CREDENTIALS_JSON"] = keyfile
-
-  Rake::Task["acceptance:run"].invoke
+task :acceptance do
+  puts "The <%= gem.name %> gem does not have acceptance tests."
 end
-# rubocop:enable Metrics/BlockLength
 
 namespace :acceptance do
-  Rake::TestTask.new :run do |t|
-    t.libs << "acceptance"
-    t.test_files = FileList["acceptance/**/*_test.rb"]
-    t.warning = false
-  end
-
-  desc "Run acceptance tests with coverage."
   task :coverage do
   end
-
-  desc "Run acceptance cleanup."
   task :cleanup do
   end
 end
@@ -131,15 +64,9 @@ task :ci do
 end
 
 namespace :ci do
-  desc "Run the CI build, with acceptance tests."
   task :acceptance do
-    Rake::Task[:ci].invoke
-    header "<%= gem.name %> acceptance", "*"
-    Rake::Task[:acceptance].invoke
   end
   task :a do
-    # This is a handy shortcut to save typing
-    Rake::Task["ci:acceptance"].invoke
   end
 end
 
