@@ -20,7 +20,6 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
-require "google/cloud/speech"
 require "google/cloud/errors"
 require "google/cloud/speech/version"
 require "google/cloud/speech/v1/cloud_speech_pb"
@@ -48,7 +47,13 @@ module Google
             #
             def self.configure
               @configure ||= begin
-                parent_config = Google::Cloud::Speech.configure
+                namespace = ["Google", "Cloud", "Speech", "V1"]
+                parent_config = while namespace.any?
+                                  parent_name = namespace.join "::"
+                                  parent_const = const_get parent_name
+                                  break parent_const.configure if parent_const&.respond_to? :configure
+                                  namespace.pop
+                                end
                 Client::Configuration.new parent_config
               end
               yield @configure if block_given?

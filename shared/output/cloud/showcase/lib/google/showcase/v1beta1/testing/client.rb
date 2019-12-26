@@ -20,7 +20,6 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
-require "google/showcase"
 require "google/cloud/errors"
 require "google/showcase/version"
 require "google/showcase/v1beta1/testing_pb"
@@ -49,7 +48,13 @@ module Google
           #
           def self.configure
             @configure ||= begin
-              parent_config = Google::Showcase.configure
+              namespace = ["Google", "Showcase", "V1beta1"]
+              parent_config = while namespace.any?
+                                parent_name = namespace.join "::"
+                                parent_const = const_get parent_name
+                                break parent_const.configure if parent_const&.respond_to? :configure
+                                namespace.pop
+                              end
               Client::Configuration.new parent_config
             end
             yield @configure if block_given?
