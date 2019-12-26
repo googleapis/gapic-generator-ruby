@@ -75,8 +75,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.echo content: content do |response, operation|
+      client.echo({ content: content }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -143,8 +142,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.paged_expand content: content, page_size: page_size, page_token: page_token do |response, operation|
+      client.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end
@@ -203,8 +201,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.wait end_time: end_time, error: error do |response, operation|
+      client.wait({ end_time: end_time, error: error }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -266,8 +263,7 @@ class Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.block response_delay: response_delay do |response, operation|
+      client.block({ response_delay: response_delay }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

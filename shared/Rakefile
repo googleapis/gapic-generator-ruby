@@ -70,6 +70,30 @@ namespace :test do
     t.test_files = FileList["test/showcase/**/*_test.rb"]
     t.warning = false
   end
+
+  desc "Runs tests for all expected output gems."
+  task :output do
+    {
+      gapic: [:showcase, :garbage],
+      cloud: [:language, :speech, :vision]
+    }.each do |generator, gems|
+      directory = (generator == :gapic) ? "gapic/templates" : generator
+      gems.each do |gem|
+        Dir.chdir "./output/#{directory}/#{gem}" do
+          puts ""
+          puts "#"*42
+          puts "# Testing output for #{generator}'s #{gem}"
+          puts "#"*42
+
+          Bundler.with_unbundled_env do
+            sh "bundle install"
+            puts "Running rubocop for #{gem}"
+            sh "bundle exec rake rubocop"
+          end
+        end
+      end
+    end
+  end
 end
 
 desc "Start an interactive shell."
@@ -95,6 +119,7 @@ desc "Run the CI build"
 task :ci do
   puts "\nshared test\n"
   Rake::Task[:test].invoke
+  Rake::Task[:"test:output"].invoke
 end
 
 task default: :ci

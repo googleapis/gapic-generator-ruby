@@ -75,8 +75,7 @@ class Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.create_user user: user do |response, operation|
+      client.create_user({ user: user }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -133,8 +132,7 @@ class Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_user name: name do |response, operation|
+      client.get_user({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -193,8 +191,7 @@ class Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.update_user user: user, update_mask: update_mask do |response, operation|
+      client.update_user({ user: user, update_mask: update_mask }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -251,8 +248,7 @@ class Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.delete_user name: name do |response, operation|
+      client.delete_user({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -311,8 +307,7 @@ class Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.list_users page_size: page_size, page_token: page_token do |response, operation|
+      client.list_users({ page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end

@@ -3,15 +3,28 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "google-garbage.gemspec"
+    - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/*.rb"
 Metrics/ClassLength:
   Exclude:
-    - "lib/so/much/trash/garbage_service/client.rb"
+    - "lib/so/much/trash/garbage_service/*.rb"
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/*.rb"
 Metrics/LineLength:
   Exclude:
-    - "lib/so/much/trash/garbage_service/client.rb"
+    - "lib/so/much/trash/garbage_service/*.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/*.rb"
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/so/much/trash/garbage_service/*.rb"
 Style/CaseEquality:
-  Enabled: false
+  Exclude:
+    - "lib/so/much/trash/garbage_service/*.rb"

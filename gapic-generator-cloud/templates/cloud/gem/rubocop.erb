@@ -4,30 +4,60 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "acceptance/**/*"
-    - "<%= gem.name %>.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
-    - "Rakefile"
-    - "support/**/*"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
 Metrics/ClassLength:
   Exclude:
-  <%- gem.packages.each do |package| -%>
-  <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path %>"
-  <%- end -%>
-  <%- end -%>
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
+Metrics/CyclomaticComplexity:
+  Exclude:
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
 Metrics/LineLength:
   Exclude:
-  <%- gem.packages.each do |package| -%>
-  <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path %>"
-  <%- end -%>
-  <%- end -%>
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
+Metrics/MethodLength:
+  Exclude:
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
+Metrics/PerceivedComplexity:
+  Exclude:
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
 Naming/FileName:
   Exclude:
     - "lib/<%= gem.name %>.rb"
 Style/CaseEquality:
-  Enabled: false
+  Exclude:
+    <%- gem.packages.each do |package| -%>
+    <%- package.services.each do |service| -%>
+    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
+    <%- end -%>
+    <%- end -%>
+    - "lib/<%= gem.name.tr "-", "/" %>.rb"

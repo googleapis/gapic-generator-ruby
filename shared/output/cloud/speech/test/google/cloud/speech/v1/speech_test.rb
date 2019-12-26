@@ -69,8 +69,7 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.recognize config: config, audio: audio do |response, operation|
+      client.recognize({ config: config, audio: audio }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -129,8 +128,7 @@ class Google::Cloud::Speech::V1::Speech::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.long_running_recognize config: config, audio: audio do |response, operation|
+      client.long_running_recognize({ config: config, audio: audio }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation

@@ -3,28 +3,53 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "acceptance/**/*"
-    - "google-showcase.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
-    - "Rakefile"
-    - "support/**/*"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
 Metrics/ClassLength:
   Exclude:
-    - "lib/google/showcase/v1beta1/echo/client.rb"
-    - "lib/google/showcase/v1beta1/identity/client.rb"
-    - "lib/google/showcase/v1beta1/messaging/client.rb"
-    - "lib/google/showcase/v1beta1/testing/client.rb"
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
 Metrics/LineLength:
   Exclude:
-    - "lib/google/showcase/v1beta1/echo/client.rb"
-    - "lib/google/showcase/v1beta1/identity/client.rb"
-    - "lib/google/showcase/v1beta1/messaging/client.rb"
-    - "lib/google/showcase/v1beta1/testing/client.rb"
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
 Naming/FileName:
   Exclude:
     - "lib/google-showcase.rb"
 Style/CaseEquality:
-  Enabled: false
+  Exclude:
+    - "lib/google/showcase/v1beta1/echo/*.rb"
+    - "lib/google/showcase/v1beta1/identity/*.rb"
+    - "lib/google/showcase/v1beta1/messaging/*.rb"
+    - "lib/google/showcase/v1beta1/testing/*.rb"
+    - "lib/google/showcase.rb"

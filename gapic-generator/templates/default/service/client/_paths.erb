@@ -1,4 +1,5 @@
 <%- assert_locals service -%>
+# Path helper methods for the <%= service.name %> API.
 module Paths
 <%- service.references.each do |resource| -%>
 <%= indent render(partial: "service/client/resource", locals: { resource: resource }), 2 %>

@@ -3,22 +3,32 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "acceptance/**/*"
-    - "google-cloud-speech.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
-    - "Rakefile"
-    - "support/**/*"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/*.rb"
 Metrics/ClassLength:
   Exclude:
-    - "lib/google/cloud/speech/v1/speech/client.rb"
+    - "lib/google/cloud/speech/v1/speech/*.rb"
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/*.rb"
 Metrics/LineLength:
   Exclude:
-    - "lib/google/cloud/speech/v1/speech/client.rb"
+    - "lib/google/cloud/speech/v1/speech/*.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/*.rb"
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/*.rb"
 Naming/FileName:
   Exclude:
     - "lib/google-cloud-speech.rb"
 Style/CaseEquality:
-  Enabled: false
+  Exclude:
+    - "lib/google/cloud/speech/v1/speech/*.rb"
+    - "lib/google/cloud/speech.rb"

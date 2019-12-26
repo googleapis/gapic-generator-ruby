@@ -4,7 +4,6 @@
 <%= key %> = {
 <%- value.each_with_index do |nested_field, index| -%>
 <%- nested_comma = index != value.count - 1 -%>
-<%- nested_comma = false if value.count < 2 -%>
 <%= indent render(partial: "service/client/method/docs/request_field/hash", locals: { field: nested_field, comma: nested_comma }), "  " %>
 <%- end -%>
 }<%= "," if comma %>

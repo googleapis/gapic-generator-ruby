@@ -3,17 +3,35 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "google-cloud-vision.gemspec"
+    - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
     - "test/**/*"
 
+Metrics/AbcSize:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
 Metrics/ClassLength:
   Exclude:
-    - "lib/google/cloud/vision/v1/product_search/client.rb"
-    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
 Metrics/LineLength:
   Exclude:
-    - "lib/google/cloud/vision/v1/product_search/client.rb"
-    - "lib/google/cloud/vision/v1/image_annotator/client.rb"
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
+Metrics/MethodLength:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"
 Style/CaseEquality:
-  Enabled: false
+  Exclude:
+    - "lib/google/cloud/vision/v1/product_search/*.rb"
+    - "lib/google/cloud/vision/v1/image_annotator/*.rb"

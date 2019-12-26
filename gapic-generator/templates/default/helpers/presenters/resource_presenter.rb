@@ -52,7 +52,7 @@ class ResourcePresenter
       OpenStruct.new(
         name:   arg.name,
         msg:    "#{arg.name} cannot contain /",
-        regexp: '/\//'
+        regexp: "%r{\/}"
       )
     end
     arg_structs.last.regexp = nil

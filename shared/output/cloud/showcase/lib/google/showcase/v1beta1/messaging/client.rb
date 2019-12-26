@@ -870,11 +870,8 @@ module Google
           #
           def send_blurbs request, options = nil
             unless request.is_a? Enumerable
-              if request.respond_to? :to_enum
-                request = request.to_enum
-              else
-                raise ArgumentError, "request must be an Enumerable"
-              end
+              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+              request = request.to_enum
             end
 
             request = request.lazy.map do |req|
@@ -933,11 +930,8 @@ module Google
           #
           def connect request, options = nil
             unless request.is_a? Enumerable
-              if request.respond_to? :to_enum
-                request = request.to_enum
-              else
-                raise ArgumentError, "request must be an Enumerable"
-              end
+              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+              request = request.to_enum
             end
 
             request = request.lazy.map do |req|
@@ -1022,46 +1016,32 @@ module Google
               attr_reader :connect
 
               def initialize parent_rpcs = nil
-                create_room_config = nil
                 create_room_config = parent_rpcs&.create_room if parent_rpcs&.respond_to? :create_room
                 @create_room = Gapic::Config::Method.new create_room_config
-                get_room_config = nil
                 get_room_config = parent_rpcs&.get_room if parent_rpcs&.respond_to? :get_room
                 @get_room = Gapic::Config::Method.new get_room_config
-                update_room_config = nil
                 update_room_config = parent_rpcs&.update_room if parent_rpcs&.respond_to? :update_room
                 @update_room = Gapic::Config::Method.new update_room_config
-                delete_room_config = nil
                 delete_room_config = parent_rpcs&.delete_room if parent_rpcs&.respond_to? :delete_room
                 @delete_room = Gapic::Config::Method.new delete_room_config
-                list_rooms_config = nil
                 list_rooms_config = parent_rpcs&.list_rooms if parent_rpcs&.respond_to? :list_rooms
                 @list_rooms = Gapic::Config::Method.new list_rooms_config
-                create_blurb_config = nil
                 create_blurb_config = parent_rpcs&.create_blurb if parent_rpcs&.respond_to? :create_blurb
                 @create_blurb = Gapic::Config::Method.new create_blurb_config
-                get_blurb_config = nil
                 get_blurb_config = parent_rpcs&.get_blurb if parent_rpcs&.respond_to? :get_blurb
                 @get_blurb = Gapic::Config::Method.new get_blurb_config
-                update_blurb_config = nil
                 update_blurb_config = parent_rpcs&.update_blurb if parent_rpcs&.respond_to? :update_blurb
                 @update_blurb = Gapic::Config::Method.new update_blurb_config
-                delete_blurb_config = nil
                 delete_blurb_config = parent_rpcs&.delete_blurb if parent_rpcs&.respond_to? :delete_blurb
                 @delete_blurb = Gapic::Config::Method.new delete_blurb_config
-                list_blurbs_config = nil
                 list_blurbs_config = parent_rpcs&.list_blurbs if parent_rpcs&.respond_to? :list_blurbs
                 @list_blurbs = Gapic::Config::Method.new list_blurbs_config
-                search_blurbs_config = nil
                 search_blurbs_config = parent_rpcs&.search_blurbs if parent_rpcs&.respond_to? :search_blurbs
                 @search_blurbs = Gapic::Config::Method.new search_blurbs_config
-                stream_blurbs_config = nil
                 stream_blurbs_config = parent_rpcs&.stream_blurbs if parent_rpcs&.respond_to? :stream_blurbs
                 @stream_blurbs = Gapic::Config::Method.new stream_blurbs_config
-                send_blurbs_config = nil
                 send_blurbs_config = parent_rpcs&.send_blurbs if parent_rpcs&.respond_to? :send_blurbs
                 @send_blurbs = Gapic::Config::Method.new send_blurbs_config
-                connect_config = nil
                 connect_config = parent_rpcs&.connect if parent_rpcs&.respond_to? :connect
                 @connect = Gapic::Config::Method.new connect_config
 

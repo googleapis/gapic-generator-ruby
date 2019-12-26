@@ -40,8 +40,7 @@ module Gapic
           write_file dir, file
         end
 
-        system "rubocop --auto-correct #{dir} -o #{dir}/rubocop.out " \
-               "-c #{configuration}"
+        system "rubocop -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
 
         files.each do |file|
           read_file dir, file

@@ -48,9 +48,10 @@ namespace :smoke_test do
   end
 end
 
+# rubocop:disable Metrics/BlockLength
 # Acceptance tests
 desc "Run the <%= gem.name %> acceptance tests."
-task :acceptance, :project, :keyfile do |t, args|
+task :acceptance, :project, :keyfile do |_t, args|
   project = args[:project]
   project ||=
     ENV["<%= gem.env_prefix %>_TEST_PROJECT"] ||
@@ -67,7 +68,9 @@ task :acceptance, :project, :keyfile do |t, args|
       ENV["GCLOUD_TEST_KEYFILE_JSON"]
   end
   if project.nil? || keyfile.nil?
-    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= gem.env_prefix %>_TEST_PROJECT=test123 <%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+    raise "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or " \
+          "<%= gem.env_prefix %>_TEST_PROJECT=test123 " \
+          "<%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
 
   ENV["<%= gem.env_prefix %>_CREDENTIALS"] = nil
@@ -87,6 +90,7 @@ task :acceptance, :project, :keyfile do |t, args|
 
   Rake::Task["acceptance:run"].invoke
 end
+# rubocop:enable Metrics/BlockLength
 
 namespace :acceptance do
   Rake::TestTask.new :run do |t|

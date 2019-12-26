@@ -29,6 +29,7 @@ module Google
   module Showcase
     module V1beta1
       module Messaging
+        # Path helper methods for the Messaging API.
         module Paths
           ##
           # Create a fully-qualified Blurb resource string.

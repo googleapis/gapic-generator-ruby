@@ -75,8 +75,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_simple_garbage name: name do |response, operation|
+      client.get_simple_garbage({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -155,8 +154,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_specific_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
+      client.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -233,8 +231,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_nested_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
+      client.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -311,8 +308,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_repeated_garbage repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum do |response, operation|
+      client.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -393,8 +389,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum do |response, operation|
+      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -451,8 +446,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_complex_garbage layer1: layer1 do |response, operation|
+      client.get_complex_garbage({ layer1: layer1 }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -513,8 +507,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.get_paged_garbage garbage: garbage, page_size: page_size, page_token: page_token do |response, operation|
+      client.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token }) do |response, operation|
         assert_equal @mock_page_enum, response
         assert_equal grpc_operation, operation
       end
@@ -571,8 +564,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      # TODO: parens and curly braces are getting removed by rubocop, plz fix
-      client.long_running_garbage garbage: garbage do |response, operation|
+      client.long_running_garbage({ garbage: garbage }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
