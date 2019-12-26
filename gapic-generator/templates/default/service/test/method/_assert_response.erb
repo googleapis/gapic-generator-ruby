@@ -1,6 +1,7 @@
 <%- assert_locals method -%>
 <%- if method.paged? -%>
-assert_equal @mock_page_enum, response
+assert_kind_of Gapic::PagedEnumerable, response
+assert_equal grpc_response, response.response
 <%- elsif method.lro? %>
 assert_kind_of Gapic::Operation, response
 assert_equal grpc_response, response.grpc_op

@@ -18,11 +18,11 @@ require "minitest/autorun"
 
 require "gapic/grpc/service_stub"
 
-require "google/cloud/speech/v1/cloud_speech_pb"
-require "google/cloud/speech/v1/cloud_speech_services_pb"
-require "google/cloud/speech/v1/speech"
+require "google/showcase/v1beta1/echo_pb"
+require "google/showcase/v1beta1/echo_services_pb"
+require "google/showcase/v1beta1/echo"
 
-class Google::Cloud::Speech::V1::Speech::OperationsTest < Minitest::Test
+class Google::Showcase::V1beta1::Echo::OperationsTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -70,7 +70,7 @@ class Google::Cloud::Speech::V1::Speech::OperationsTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_operations_client_stub do
       # Create client
-      client = Google::Cloud::Speech::V1::Speech::Operations.new do |config|
+      client = Google::Showcase::V1beta1::Echo::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -133,7 +133,7 @@ class Google::Cloud::Speech::V1::Speech::OperationsTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, get_operation_client_stub do
       # Create client
-      client = Google::Cloud::Speech::V1::Speech::Operations.new do |config|
+      client = Google::Showcase::V1beta1::Echo::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -196,7 +196,7 @@ class Google::Cloud::Speech::V1::Speech::OperationsTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, delete_operation_client_stub do
       # Create client
-      client = Google::Cloud::Speech::V1::Speech::Operations.new do |config|
+      client = Google::Showcase::V1beta1::Echo::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -254,7 +254,7 @@ class Google::Cloud::Speech::V1::Speech::OperationsTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, cancel_operation_client_stub do
       # Create client
-      client = Google::Cloud::Speech::V1::Speech::Operations.new do |config|
+      client = Google::Showcase::V1beta1::Echo::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
