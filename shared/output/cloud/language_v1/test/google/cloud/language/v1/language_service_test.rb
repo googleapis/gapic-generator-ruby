@@ -24,19 +24,20 @@ require "google/cloud/language/v1/language_service"
 
 class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   class ClientStub
-    attr_accessor :call_rpc_count
+    attr_accessor :call_rpc_count, :requests
 
     def initialize response, operation, &block
       @response = response
       @operation = operation
       @block = block
       @call_rpc_count = 0
+      @requests = []
     end
 
     def call_rpc *args
       @call_rpc_count += 1
 
-      @block&.call *args
+      @requests << @block&.call(*args)
 
       yield @response, @operation if block_given?
 
@@ -45,18 +46,19 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_analyze_sentiment
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::AnalyzeSentimentResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
     encoding_type = :NONE
 
     analyze_sentiment_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_sentiment, name
+      assert_kind_of Google::Cloud::Language::V1::AnalyzeSentimentRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
@@ -104,18 +106,19 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_analyze_entities
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::AnalyzeEntitiesResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
     encoding_type = :NONE
 
     analyze_entities_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_entities, name
+      assert_kind_of Google::Cloud::Language::V1::AnalyzeEntitiesRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
@@ -163,18 +166,19 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_analyze_entity_sentiment
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::AnalyzeEntitySentimentResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
     encoding_type = :NONE
 
     analyze_entity_sentiment_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_entity_sentiment, name
+      assert_kind_of Google::Cloud::Language::V1::AnalyzeEntitySentimentRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
@@ -222,18 +226,19 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_analyze_syntax
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::AnalyzeSyntaxResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
     encoding_type = :NONE
 
     analyze_syntax_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_syntax, name
+      assert_kind_of Google::Cloud::Language::V1::AnalyzeSyntaxRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
@@ -281,17 +286,18 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_classify_text
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::ClassifyTextResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
 
     classify_text_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :classify_text, name
+      assert_kind_of Google::Cloud::Language::V1::ClassifyTextRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       refute_nil options
     end
@@ -338,19 +344,20 @@ class Google::Cloud::Language::V1::LanguageService::ClientTest < Minitest::Test
   end
 
   def test_annotate_text
-    # Create GRPC objects
+    # Create GRPC objects.
     grpc_response = Google::Cloud::Language::V1::AnnotateTextResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
 
-    # Create request parameters
+    # Create request parameters for a unary method.
     document = {}
     features = {}
     encoding_type = :NONE
 
     annotate_text_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :annotate_text, name
+      assert_kind_of Google::Cloud::Language::V1::AnnotateTextRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::Document), request.document
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1::AnnotateTextRequest::Features), request.features
       assert_equal :NONE, request.encoding_type

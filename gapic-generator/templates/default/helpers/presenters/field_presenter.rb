@@ -89,6 +89,10 @@ class FieldPresenter
     @field.enum?
   end
 
+  def repeated?
+    @field.repeated?
+  end
+
   protected
 
   def default_singular_value
