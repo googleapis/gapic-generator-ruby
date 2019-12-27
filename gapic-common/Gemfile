@@ -3,4 +3,4 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in gapic-common.gemspec
 gemspec
 
-gem "google-cloud-core", github: "blowmage/google-cloud-ruby", branch: "core/config-fixes"
+gem "google-cloud-core", github: "googleapis/google-cloud-ruby"
