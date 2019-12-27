@@ -29,7 +29,6 @@ class RpcCallTest < Minitest::Test
     assert_equal 42, rpc_call.call(Object.new)
     assert_nil deadline_arg
 
-    new_deadline = Time.now + 20
     options = Gapic::CallOptions.new timeout: nil
 
     assert_equal 42, rpc_call.call(Object.new, options: options)
@@ -49,7 +48,6 @@ class RpcCallTest < Minitest::Test
     assert_equal 42, rpc_call.call(Object.new)
     assert_nil deadline_arg
 
-    new_deadline = Time.now + 20
     options = Gapic::CallOptions.new timeout: -1
 
     assert_equal 42, rpc_call.call(Object.new, options: options)

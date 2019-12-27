@@ -34,7 +34,6 @@ describe Gapic::PagedEnumerable, :format_resource do
       next_page_token: "next"
     )
     options = Gapic::CallOptions.new
-    upcase_resource = ->(user) { user.name.upcase }
     paged_enum = Gapic::PagedEnumerable.new(
       gax_stub, :method_name, request, response, :fake_operation, options
     )
