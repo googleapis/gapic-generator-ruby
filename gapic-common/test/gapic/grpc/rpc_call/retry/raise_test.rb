@@ -93,7 +93,7 @@ class RpcCallRetryRaiseTest < Minitest::Test
 
     Kernel.stub :sleep, sleep_proc do
       Time.stub :now, time_proc do
-        exc = assert_raises GRPC::BadStatus do
+        assert_raises GRPC::BadStatus do
           rpc_call.call Object.new, options: options
         end
 

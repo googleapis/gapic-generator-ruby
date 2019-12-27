@@ -57,7 +57,7 @@ class RpcCallRaiseTest < Minitest::Test
 
     rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
 
-    exc = assert_raises GRPC::BadStatus do
+    assert_raises GRPC::BadStatus do
       rpc_call.call Object.new, options: { timeout: 300 }
     end
 
