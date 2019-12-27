@@ -868,12 +868,6 @@ module Google
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: Google::Showcase::VERSION
 
-            header_params = {
-              "parent" => request.parent
-            }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
-
             options.apply_defaults timeout:      @config.rpcs.send_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.send_blurbs.retry_policy
