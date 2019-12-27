@@ -16,5 +16,5 @@
 
 module Gapic
   # Library version
-  VERSION = "0.0.1.dev.1"
+  VERSION = "0.0.1"
 end
