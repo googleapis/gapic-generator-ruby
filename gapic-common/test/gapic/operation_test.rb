@@ -428,7 +428,7 @@ describe Gapic::Operation do
         Time.stub :now, incrementing_time do
           retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
           op.wait_until_done! retry_policy: retry_config
-          op.wont_be :done?
+          _(op).wont_be :done?
         end
       end
 
@@ -464,7 +464,7 @@ describe Gapic::Operation do
         Time.stub :now, incrementing_time do
           retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: (60 * 60) }
           op.wait_until_done! retry_policy: retry_config
-          op.must_be :done?
+          _(op).must_be :done?
         end
       end
 
