@@ -17,24 +17,32 @@
 
 def gem_defaults
   {
-    language: {
+    language_v1: {
       protos: [
-        "google/cloud/language/v1/language_service.proto",
-        "google/cloud/language/v1beta1/language_service.proto",
-        "google/cloud/language/v1beta2/language_service.proto"
+        "google/cloud/language/v1/language_service.proto"
       ],
       samples: Dir.glob([
         "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
         "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml"
       ])
     },
-    speech: {
+    language_v1beta1: {
+      protos: [
+        "google/cloud/language/v1beta1/language_service.proto"
+      ]
+    },
+    language_v1beta2: {
+      protos: [
+        "google/cloud/language/v1beta2/language_service.proto"
+      ]
+    },
+    speech_v1: {
       protos: [
         "google/cloud/speech/v1/cloud_speech.proto"
       ],
       samples: Dir.glob("../shared/googleapis/google/cloud/speech/v1/samples/*.yaml")
     },
-    vision: {
+    vision_v1: {
       protos: [
         "google/cloud/vision/v1/geometry.proto",
         "google/cloud/vision/v1/image_annotator.proto",

@@ -42,11 +42,11 @@ end
 namespace :gen do
   desc "Generate the expected output for template tests"
   task :templates do
-    generate_cloud_templates :language
-    generate_cloud_templates :speech
-    generate_cloud_templates :vision
-    generate_cloud_templates :showcase
-    # generate_cloud_templates :garbage
+    generate_cloud_templates :language_v1
+    generate_cloud_templates :language_v1beta1
+    generate_cloud_templates :language_v1beta2
+    generate_cloud_templates :speech_v1
+    generate_cloud_templates :vision_v1
   end
 end
 
