@@ -41,6 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "googleauth", "~> 0.9"
   spec.add_dependency "grpc", "~> 1.25"
 
+  spec.add_development_dependency "google-cloud-core", "~> 1.1"
   spec.add_development_dependency "google-style", "~> 1.24.0"
   spec.add_development_dependency "minitest", "~> 5.10"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
