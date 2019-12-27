@@ -72,7 +72,7 @@ module Gapic
 
         if instance_variable_defined? :@parent_config
           parent = instance_variable_get :@parent_config
-          return parent.send name if parent&.respond_to? name
+          return parent.__send__ name if parent&.respond_to? name
         end
 
         default
