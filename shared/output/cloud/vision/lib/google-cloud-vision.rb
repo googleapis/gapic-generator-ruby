@@ -1,1 +1,1 @@
-require "google/cloud/vision"
+require "google/cloud/vision/version"

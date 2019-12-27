@@ -1,1 +1,1 @@
-require "google/cloud/language"
+require "google/cloud/language/version"
