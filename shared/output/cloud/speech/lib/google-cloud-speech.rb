@@ -1,1 +1,1 @@
-require "google/cloud/speech"
+require "google/cloud/speech/version"

@@ -1,1 +1,1 @@
-require "google/showcase"
+require "google/showcase/version"
