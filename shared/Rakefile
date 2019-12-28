@@ -21,6 +21,7 @@ task :gen do
   Rake::Task["gen:language_v1"].invoke
   Rake::Task["gen:language_v1beta1"].invoke
   Rake::Task["gen:language_v1beta2"].invoke
+  Rake::Task["gen:secretmanager_v1beta1"].invoke
   Rake::Task["gen:speech_v1"].invoke
   Rake::Task["gen:vision_v1"].invoke
   Rake::Task["gen:showcase"].invoke
@@ -42,6 +43,11 @@ namespace :gen do
   desc "Generate the binary input files for language v1beta2"
   task :language_v1beta2 do
     generate_input_file :language_v1beta2
+  end
+
+  desc "Generate the binary input files for secretmanager v1beta1"
+  task :secretmanager_v1beta1 do
+    generate_input_file :secretmanager_v1beta1
   end
 
   desc "Generate the binary input files for speech v1"
