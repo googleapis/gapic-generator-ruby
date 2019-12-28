@@ -1,6 +1,6 @@
 # Secret Manager V1beta1
 
-google-cloud-secretmanager-v1beta1 is the official library for Secret Manager V1beta1 API.
+google-cloud-secret_manager-v1beta1 is the official library for Secret Manager V1beta1 API.
 
 Stores, manages, and secures access to application secrets.
 
@@ -9,7 +9,7 @@ https://github.com/googleapis/googleapis
 ## Installation
 
 ```
-$ gem install google-cloud-secretmanager-v1beta1
+$ gem install google-cloud-secret_manager-v1beta1
 ```
 
 ## Supported Ruby Versions

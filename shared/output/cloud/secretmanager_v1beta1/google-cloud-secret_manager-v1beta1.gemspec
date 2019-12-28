@@ -1,15 +1,15 @@
 # -*- ruby -*-
 # encoding: utf-8
 
-require File.expand_path("lib/google/cloud/secretmanager/v1beta1/version", __dir__)
+require File.expand_path("lib/google/cloud/secret_manager/v1beta1/version", __dir__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "google-cloud-secretmanager-v1beta1"
+  gem.name          = "google-cloud-secret_manager-v1beta1"
   gem.version       = Google::Cloud::SecretManager::V1beta1::VERSION
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-secretmanager-v1beta1 is the official library for Secret Manager V1beta1 API."
+  gem.description   = "google-cloud-secret_manager-v1beta1 is the official library for Secret Manager V1beta1 API."
   gem.summary       = "Stores, manages, and secures access to application secrets."
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "Apache-2.0"

@@ -34,7 +34,7 @@ namespace :test do
   task :coverage do
     require "simplecov"
     SimpleCov.start do
-      command_name "google-cloud-secretmanager-v1beta1"
+      command_name "google-cloud-secret_manager-v1beta1"
       track_files "lib/**/*.rb"
       add_filter "test/"
     end
@@ -44,9 +44,9 @@ namespace :test do
 end
 
 # Acceptance tests
-desc "Run the google-cloud-secretmanager-v1beta1 acceptance tests."
+desc "Run the google-cloud-secret_manager-v1beta1 acceptance tests."
 task :acceptance do
-  puts "The google-cloud-secretmanager-v1beta1 gem does not have acceptance tests."
+  puts "The google-cloud-secret_manager-v1beta1 gem does not have acceptance tests."
 end
 
 namespace :acceptance do
@@ -64,17 +64,17 @@ end
 
 desc "Run yard-doctest example tests."
 task :doctest do
-  puts "The google-cloud-secretmanager-v1beta1 gem does not have doctest tests."
+  puts "The google-cloud-secret_manager-v1beta1 gem does not have doctest tests."
 end
 
 desc "Run the CI build"
 task :ci do
-  header "BUILDING google-cloud-secretmanager-v1beta1"
-  header "google-cloud-secretmanager-v1beta1 rubocop", "*"
+  header "BUILDING google-cloud-secret_manager-v1beta1"
+  header "google-cloud-secret_manager-v1beta1 rubocop", "*"
   Rake::Task[:rubocop].invoke
-  header "google-cloud-secretmanager-v1beta1 yard", "*"
+  header "google-cloud-secret_manager-v1beta1 yard", "*"
   Rake::Task[:yard].invoke
-  header "google-cloud-secretmanager-v1beta1 test", "*"
+  header "google-cloud-secret_manager-v1beta1 test", "*"
   Rake::Task[:test].invoke
 end
 

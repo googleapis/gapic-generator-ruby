@@ -21,9 +21,9 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/errors"
-require "google/cloud/secretmanager/v1beta1/version"
+require "google/cloud/secret_manager/v1beta1/version"
 require "google/cloud/secrets/v1beta1/service_pb"
-require "google/cloud/secretmanager/v1beta1/secret_manager_service/credentials"
+require "google/cloud/secret_manager/v1beta1/secret_manager_service/credentials"
 
 
 module Google
@@ -1195,7 +1195,7 @@ end
 
 # Once client is loaded, load helpers.rb if it exists.
 begin
-  require "google/cloud/secretmanager/v1beta1/secret_manager_service/helpers"
+  require "google/cloud/secret_manager/v1beta1/secret_manager_service/helpers"
 rescue LoadError
 end
 
