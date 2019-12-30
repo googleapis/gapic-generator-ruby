@@ -36,6 +36,12 @@ def gem_defaults
         "google/cloud/language/v1beta2/language_service.proto"
       ]
     },
+    secretmanager_v1beta1: {
+      protos: [
+        "google/cloud/secrets/v1beta1/resources.proto",
+        "google/cloud/secrets/v1beta1/service.proto"
+      ]
+    },
     speech_v1: {
       protos: [
         "google/cloud/speech/v1/cloud_speech.proto"
