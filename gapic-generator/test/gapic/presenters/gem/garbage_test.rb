@@ -43,7 +43,9 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal ["GarbageService"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
 
-    assert_equal ["google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "google/protobuf/duration.proto", "garbage/garbage.proto"], presenter.proto_files.map(&:name)
+    assert_equal ["google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "google/protobuf/duration.proto", "google/iam/v1/policy.proto", "google/iam/v1/iam_policy.proto", "garbage/garbage.proto"], presenter.proto_files.map(&:name)
     presenter.proto_files.each { |fp| assert_kind_of FilePresenter, fp }
+
+    assert presenter.iam_dependency?
   end
 end
