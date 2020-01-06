@@ -113,6 +113,10 @@ class GemPresenter
     (gem_config(:env_prefix) || name.split("-").last).upcase
   end
 
+  def iam_dependency?
+    @api.files.map(&:name).include? "google/iam/v1/iam_policy.proto"
+  end
+
   private
 
   def gem_config key
