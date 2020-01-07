@@ -20,61 +20,43 @@ require "gapic/generators/cloud_generator"
 class CloudGeneratorTest < GeneratorTest
   def test_language_v1_generate
     generator = Gapic::Generators::CloudGenerator.new api(:language_v1)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:language_v1, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:language_v1, file.name), file.content
     end
   end
 
   def test_language_v1beta1_generate
     generator = Gapic::Generators::CloudGenerator.new api(:language_v1beta1)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:language_v1beta1, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:language_v1beta1, file.name), file.content
     end
   end
 
   def test_language_v1beta2_generate
     generator = Gapic::Generators::CloudGenerator.new api(:language_v1beta2)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:language_v1beta2, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:language_v1beta2, file.name), file.content
     end
   end
 
   def test_secretmanager_v1beta1_generate
     generator = Gapic::Generators::CloudGenerator.new api(:secretmanager_v1beta1)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:secretmanager_v1beta1, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:secretmanager_v1beta1, file.name), file.content
     end
   end
 
   def test_speech_v1_generate
     generator = Gapic::Generators::CloudGenerator.new api(:speech_v1)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:speech_v1, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:speech_v1, file.name), file.content
     end
   end
 
   def test_vision_v1_generate
     generator = Gapic::Generators::CloudGenerator.new api(:vision_v1)
-    test_time = Time.new 2018, 8, 1, 9, 30, 0, "-07:00"
-    Time.stub :now, test_time do
-      generator.generate.each do |file|
-        assert_equal expected_content(:vision_v1, file.name), file.content
-      end
+    generator.generate.each do |file|
+      assert_equal expected_content(:vision_v1, file.name), file.content
     end
   end
 end
