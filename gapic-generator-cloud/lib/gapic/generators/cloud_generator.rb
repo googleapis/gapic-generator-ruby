@@ -45,8 +45,9 @@ module Gapic
         gem = gem_presenter @api
 
         # Additional Gem level files
-        cloud_files << g("gem/repo-metadata.erb", ".repo-metadata.json", gem: gem)
-        cloud_files << g("gem/dashed.erb",        "lib/#{gem.name}.rb",  gem: gem)
+        cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)
+        cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md",   gem: gem)
+        cloud_files << g("gem/dashed.erb",         "lib/#{gem.name}.rb",  gem: gem)
 
         format_files cloud_files
 

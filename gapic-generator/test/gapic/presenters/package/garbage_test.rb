@@ -23,8 +23,8 @@ class GarbagePackagePresenterTest < PresenterTest
     assert_equal ["endless", "trash", "forever"], presenter.address
     assert_equal "endless.trash.forever", presenter.name
     assert_equal "So::Much::Trash", presenter.namespace
-    assert_equal "so/much/trash", presenter.version_require
-    assert_equal "so/much/trash.rb", presenter.version_file_path
+    assert_equal "so/much/trash", presenter.package_require
+    assert_equal "so/much/trash.rb", presenter.package_file_path
 
     assert_kind_of GemPresenter, presenter.gem
 
