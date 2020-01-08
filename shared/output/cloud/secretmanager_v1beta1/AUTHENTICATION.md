@@ -18,7 +18,7 @@ be discovered automatically, but this is only recommended during development.
 2. Set the [environment variable](#environment-variables).
 
 ```sh
-export SECRET_MANAGER_CREDENTIALS=/path/to/json`
+export SECRET_MANAGER_CREDENTIALS=path/to/keyfile.json`
 ```
 
 3. Initialize the client.
