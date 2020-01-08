@@ -62,7 +62,7 @@ environment variable, or the **Credentials JSON** itself can be stored for
 environments such as Docker containers where writing files is difficult or not
 encouraged.
 
-The environment variables that google-cloud-language-v1 checks for credentials are configured on {Google::Cloud::Language::V1::Credentials}:
+The environment variables that google-cloud-language-v1 checks for credentials are configured on the service Credentials class (such as {Google::Cloud::Language::V1::LanguageService::Credentials}):
 
 1. `LANGUAGE_CREDENTIALS` - Path to JSON file, or JSON contents
 2. `LANGUAGE_KEYFILE` - Path to JSON file, or JSON contents
