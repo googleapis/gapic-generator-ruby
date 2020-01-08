@@ -80,7 +80,17 @@ client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
 
 ### Configuration
 
-The **Credentials JSON** can be configured instead of placing them in environment variables or providing them as arguments.
+The **Credentials JSON** can be configured instead of placing them in environment variables. Either on an individual client initialization:
+
+```ruby
+require "google/cloud/secret_manager/v1beta1"
+
+client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
+  config.credentials = "path/to/keyfile.json"
+end
+```
+
+Or configured globally for all clients:
 
 ```ruby
 require "google/cloud/secret_manager/v1beta1"

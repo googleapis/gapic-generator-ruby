@@ -83,7 +83,17 @@ client = <%= service.client_name_full %>.new
 
 ### Configuration
 
-The **Credentials JSON** can be configured instead of placing them in environment variables or providing them as arguments.
+The **Credentials JSON** can be configured instead of placing them in environment variables. Either on an individual client initialization:
+
+```ruby
+require "<%= service.package.package_require %>"
+
+client = <%= service.client_name_full %>.new do |config|
+  config.credentials = "path/to/keyfile.json"
+end
+```
+
+Or configured globally for all clients:
 
 ```ruby
 require "<%= service.package.package_require %>"

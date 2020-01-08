@@ -80,7 +80,17 @@ client = Google::Cloud::Language::V1beta1::LanguageService::Client.new
 
 ### Configuration
 
-The **Credentials JSON** can be configured instead of placing them in environment variables or providing them as arguments.
+The **Credentials JSON** can be configured instead of placing them in environment variables. Either on an individual client initialization:
+
+```ruby
+require "google/cloud/language/v1beta1"
+
+client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+  config.credentials = "path/to/keyfile.json"
+end
+```
+
+Or configured globally for all clients:
 
 ```ruby
 require "google/cloud/language/v1beta1"
