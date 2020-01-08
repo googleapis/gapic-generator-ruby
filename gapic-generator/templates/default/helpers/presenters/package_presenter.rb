@@ -51,11 +51,11 @@ class PackagePresenter
     @package.split "."
   end
 
-  def version_require
+  def package_require
     ruby_file_path @api, namespace
   end
 
-  def version_file_path
-    version_require + ".rb"
+  def package_file_path
+    package_require + ".rb"
   end
 end

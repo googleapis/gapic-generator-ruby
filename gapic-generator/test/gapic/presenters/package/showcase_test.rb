@@ -23,8 +23,8 @@ class ShowcasePackagePresenterTest < PresenterTest
     assert_equal ["google", "showcase", "v1beta1"], presenter.address
     assert_equal "google.showcase.v1beta1", presenter.name
     assert_equal "Google::Showcase::V1beta1", presenter.namespace
-    assert_equal "google/showcase/v1beta1", presenter.version_require
-    assert_equal "google/showcase/v1beta1.rb", presenter.version_file_path
+    assert_equal "google/showcase/v1beta1", presenter.package_require
+    assert_equal "google/showcase/v1beta1.rb", presenter.package_file_path
 
     assert_kind_of GemPresenter, presenter.gem
 
