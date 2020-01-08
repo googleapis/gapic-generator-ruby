@@ -24,7 +24,7 @@ export SECRET_MANAGER_CREDENTIALS=path/to/keyfile.json`
 3. Initialize the client.
 
 ```ruby
-require "google/cloud/secret_manager/v1beta1
+require "google/cloud/secret_manager/v1beta1"
 
 client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
 ```

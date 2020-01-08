@@ -24,7 +24,7 @@ export VISION_CREDENTIALS=path/to/keyfile.json`
 3. Initialize the client.
 
 ```ruby
-require "google/cloud/vision/v1
+require "google/cloud/vision/v1"
 
 client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 ```

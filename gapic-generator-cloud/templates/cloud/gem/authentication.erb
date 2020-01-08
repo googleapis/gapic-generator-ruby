@@ -27,7 +27,7 @@ export <%= gem.env_prefix %>_CREDENTIALS=path/to/keyfile.json`
 3. Initialize the client.
 
 ```ruby
-require "<%= service.package.package_require %>
+require "<%= service.package.package_require %>"
 
 client = <%= service.client_name_full %>.new
 ```

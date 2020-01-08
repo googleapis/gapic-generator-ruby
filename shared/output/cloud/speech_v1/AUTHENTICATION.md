@@ -24,7 +24,7 @@ export SPEECH_CREDENTIALS=path/to/keyfile.json`
 3. Initialize the client.
 
 ```ruby
-require "google/cloud/speech/v1
+require "google/cloud/speech/v1"
 
 client = Google::Cloud::Speech::V1::Speech::Client.new
 ```

@@ -24,7 +24,7 @@ export LANGUAGE_CREDENTIALS=path/to/keyfile.json`
 3. Initialize the client.
 
 ```ruby
-require "google/cloud/language/v1beta1
+require "google/cloud/language/v1beta1"
 
 client = Google::Cloud::Language::V1beta1::LanguageService::Client.new
 ```
