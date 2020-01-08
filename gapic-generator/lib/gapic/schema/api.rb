@@ -19,6 +19,8 @@ require "gapic/schema/loader"
 
 module Gapic
   module Schema
+    # rubocop:disable Metrics/ClassLength
+
     # A representation of a full API.
     #
     # @!attribute [r] files
@@ -107,21 +109,60 @@ module Gapic
 
       # Structured representation of the samples configuration files.
       # @return [Array<Hash>]
-      #   An array of the sample configuration hashes.
+      #   An array of the sample file hashes.
       def samples
         @samples ||= begin
           protoc_options[:samples].to_s.split(";").flat_map do |sample_path|
-            yaml = YAML.load_file sample_path
-            if yaml["schema_version"]
-              # TODO: Remove use of "1.2.0" magic variable
-              if yaml["schema_version"] != "1.2.0"
-                # returns nil
-                warn "Unexpected sample file with version #{yaml['schema_version']} found - ignoring"
-              else
-                yaml["samples"]
-              end
-            end
+            YAML.load_file sample_path
           end.compact
+        end
+      end
+
+      # Structured representation of the standalone samples configuration files.
+      # @return [Array<Hash>]
+      #   An array of the standalone sample configuration hashes.
+      def standalone_samples
+        @standalone_samples ||= begin
+          supported_types = [
+            "com.google.api.codegen.SampleConfigProto",
+            "com.google.api.codegen.samplegen.v1p2.SampleConfigProto"
+          ]
+          supported_sample_types = [nil, "standalone"]
+          samples.select { |sample_file| supported_types.include? sample_file["type"] }
+                 .select { |sample_file| sample_file["schema_version"] == "1.2.0" }
+                 .map { |sample_file| sample_file["samples"] }
+                 .flatten.compact
+                 .select { |sample_config| supported_sample_types.include? sample_config["sample_type"] }
+        end
+      end
+
+      # Structured representation of the standalone test samples configuration files.
+      # @return [Array<Hash>]
+      #   An array of the standalone sample configuration hashes.
+      def standalone_test_samples
+        @standalone_test_samples ||= begin
+          samples.select { |sample| sample["type"] == "test/samples" }
+                 .select { |sample| sample["schema_version"] == "1" || sample["schema_version"] == 1 }
+                 .map { |sample| sample["samples"] }
+                 .flatten.compact
+        end
+      end
+
+      # Structured representation of the inline samples configuration files.
+      # @return [Array<Hash>]
+      #   An array of the incode sample configuration hashes, sorted by sample_type.
+      def incode_samples
+        @incode_samples ||= begin
+          supported_types = [
+            "com.google.api.codegen.SampleConfigProto",
+            "com.google.api.codegen.samplegen.v1p2.SampleConfigProto"
+          ]
+          samples.select { |sample_file| supported_types.include? sample_file["type"] }
+                 .select { |sample_file| sample_file["schema_version"] == "1.2.0" }
+                 .map { |sample_file| sample_file["samples"] }
+                 .flatten.compact
+                 .select { |sample_config| sample_config["sample_type"]&.start_with? "incode/" }
+                 .sort_by { |sample_config| sample_config["sample_type"] }
         end
       end
 
@@ -141,5 +182,7 @@ module Gapic
         end
       end
     end
+
+    # rubocop:enable Metrics/ClassLength
   end
 end

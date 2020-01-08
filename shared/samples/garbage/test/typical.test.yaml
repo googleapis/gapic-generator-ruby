@@ -1,0 +1,12 @@
+type: test/samples
+schema_version: 1
+test:
+  suites:
+  - name: "Getting garbage [code sample tests]"
+    cases:
+
+    - name: get_typical_garbage_timestamp - Getting garbage (printing timestamp)
+      spec:
+      - call: {sample: get_typical_garbage_timestamp}
+      - assert_contains:
+        - {literal: "Garbage: %s (%s)"}

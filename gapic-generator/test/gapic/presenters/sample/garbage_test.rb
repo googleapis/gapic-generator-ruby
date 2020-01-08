@@ -22,7 +22,7 @@ class GarbagePresenterTest < PresenterTest
     api_obj = api :garbage
     service = api_obj.services.find { |s| s.name == "GarbageService" }
     refute_nil service
-    @sample_config = api_obj.samples.find { |s| s["title"] == "Getting garbage" }
+    @sample_config = api_obj.incode_samples.find { |s| s["region_tag"] == "get_paged_garbage" }
     refute_nil @sample_config
     @presenter = SamplePresenter.new api_obj, @sample_config
   end
