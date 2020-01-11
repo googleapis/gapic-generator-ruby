@@ -31,7 +31,7 @@ require "gapic/config/method"
 require "google/showcase/version"
 require "google/showcase/v1beta1/testing_pb"
 require "google/showcase/v1beta1/testing/credentials"
-require "google/showcase/v1beta1/testing/paths"
+require "google/showcase/v1beta1/paths"
 
 
 module Google
@@ -40,7 +40,7 @@ module Google
       module Testing
         # Service that implements Testing API.
         class Client
-          include Paths
+          include Google::Showcase::V1beta1::Paths
 
           # @private
           attr_reader :testing_stub

@@ -1,0 +1,8 @@
+<%- assert_locals package -%>
+# Path helper methods for the <%= package.name %> API.
+module Paths
+<%- package.references.each do |resource| -%>
+<%= indent render(partial: "package/resource", locals: { resource: resource }), 2 %>
+
+<%- end %>
+end

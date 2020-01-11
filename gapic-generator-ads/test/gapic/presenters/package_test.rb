@@ -16,33 +16,30 @@
 
 require "test_helper"
 
-class GarbagePackagePresenterTest < PresenterTest
+class GoogleAdsPackageTest < PresenterTest
   def presenter
-    @presenter ||= PackagePresenter.new api(:garbage), "endless.trash.forever"
+    @presenter ||= PackagePresenter.new api(:googleads), "google.ads.googleads.v1.services"
   end
 
-  def test_endless_trash_forever
-    assert_equal ["endless", "trash", "forever"], presenter.address
-    assert_equal "endless.trash.forever", presenter.name
-    assert_equal "So::Much::Trash", presenter.namespace
-    assert_equal "so/much/trash", presenter.package_require
-    assert_equal "so/much/trash.rb", presenter.package_file_path
+  def test_google_showcase_v1beta1
+    assert_equal ["google", "ads", "googleads", "v1", "services"], presenter.address
+    assert_equal "google.ads.googleads.v1.services", presenter.name
+    assert_equal "Google::Ads::GoogleAds::V1::Services", presenter.namespace
+    assert_equal "google/ads/google_ads/v1/services", presenter.package_require
+    assert_equal "google/ads/google_ads/v1/services.rb", presenter.package_file_path
 
     assert_kind_of GemPresenter, presenter.gem
 
-    assert_equal ["GarbageService"], presenter.services.map(&:name)
+    assert_equal ["CampaignService"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
   end
 
   def test_references
-    refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["SimpleGarbage"], presenter.references.map(&:name)
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], presenter.references.map(&:path_template)
+    assert_empty presenter.references
   end
 
   def test_paths?
-    assert presenter.paths?
+    refute presenter.paths?
   end
 
   def test_paths_name
@@ -50,11 +47,11 @@ class GarbagePackagePresenterTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "So::Much::Trash::Paths", presenter.paths_name_full
+    assert_equal "Google::Ads::GoogleAds::V1::Services::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
-    assert_equal "so/much/trash/paths.rb", presenter.paths_file_path
+    assert_equal "google/ads/google_ads/v1/services/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -62,6 +59,6 @@ class GarbagePackagePresenterTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "so/much/trash/paths", presenter.paths_require
+    assert_equal "google/ads/google_ads/v1/services/paths", presenter.paths_require
   end
 end

@@ -18,7 +18,7 @@ require "<%= service.operations_require %>"
 # Service that implements <%= service.name %> API.
 class <%= service.client_name %>
 <%- if service.paths? -%>
-  include <%= service.paths_name %>
+  include <%= service.paths_name_full %>
 
 <%- end -%>
   # @private

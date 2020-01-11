@@ -31,6 +31,7 @@ require "gapic/config/method"
 require "google/showcase/version"
 require "google/showcase/v1beta1/echo_pb"
 require "google/showcase/v1beta1/echo/credentials"
+require "google/showcase/v1beta1/paths"
 require "google/showcase/v1beta1/echo/operations"
 
 
@@ -40,6 +41,8 @@ module Google
       module Echo
         # Service that implements Echo API.
         class Client
+          include Google::Showcase::V1beta1::Paths
+
           # @private
           attr_reader :echo_stub
 

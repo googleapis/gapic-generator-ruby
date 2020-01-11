@@ -32,10 +32,6 @@ class GoogleAdsServiceTest < PresenterTest
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
-  def test_references
-    assert_empty presenter.references
-  end
-
   def test_proto_methods
     assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService", presenter.proto_service_name_full
     assert_equal "google/ads/googleads/v1/services/campaign_service_pb.rb", presenter.proto_service_file_path
@@ -98,23 +94,11 @@ class GoogleAdsServiceTest < PresenterTest
     refute presenter.paths?
   end
 
-  def test_paths_name
-    assert_equal "Paths", presenter.paths_name
-  end
-
   def test_paths_name_full
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService::Paths", presenter.paths_name_full
-  end
-
-  def test_paths_file_path
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/paths.rb", presenter.paths_file_path
-  end
-
-  def test_paths_file_name
-    assert_equal "paths.rb", presenter.paths_file_name
+    assert_equal "Google::Ads::GoogleAds::V1::Services::Paths", presenter.paths_name_full
   end
 
   def test_paths_require
-    assert_equal "google/ads/google_ads/v1/services/campaign_service/paths", presenter.paths_require
+    assert_equal "google/ads/google_ads/v1/services/paths", presenter.paths_require
   end
 end

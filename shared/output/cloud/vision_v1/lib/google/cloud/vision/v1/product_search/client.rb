@@ -24,7 +24,7 @@ require "google/cloud/errors"
 require "google/cloud/vision/v1/version"
 require "google/cloud/vision/v1/product_search_service_pb"
 require "google/cloud/vision/v1/product_search/credentials"
-require "google/cloud/vision/v1/product_search/paths"
+require "google/cloud/vision/v1/paths"
 require "google/cloud/vision/v1/product_search/operations"
 
 
@@ -35,7 +35,7 @@ module Google
         module ProductSearch
           # Service that implements ProductSearch API.
           class Client
-            include Paths
+            include Google::Cloud::Vision::V1::Paths
 
             # @private
             attr_reader :product_search_stub

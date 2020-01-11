@@ -17,6 +17,7 @@
 require "active_support/inflector"
 require_relative "gem_presenter"
 require_relative "service_presenter"
+require_relative "resource_presenter"
 
 class PackagePresenter
   include FilepathHelper
@@ -57,5 +58,40 @@ class PackagePresenter
 
   def package_file_path
     package_require + ".rb"
+  end
+
+  def references
+    @references ||= begin
+      @api.generate_files
+          .select { |f| f.package == @package }
+          .map { |f| f.messages.select(&:resource) }
+          .flatten
+          .sort_by!(&:name)
+          .map { |r| ResourcePresenter.new r.name, r.resource.pattern.first }
+    end
+  end
+
+  def paths?
+    references.any?
+  end
+
+  def paths_name
+    "Paths"
+  end
+
+  def paths_name_full
+    "#{namespace}::#{paths_name}"
+  end
+
+  def paths_file_path
+    package_require + "/" + paths_file_name
+  end
+
+  def paths_file_name
+    "paths.rb"
+  end
+
+  def paths_require
+    package_require + "/paths"
   end
 end

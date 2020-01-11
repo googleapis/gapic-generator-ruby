@@ -31,7 +31,7 @@ require "gapic/config/method"
 require "google/garbage/version"
 require "garbage/garbage_pb"
 require "so/much/trash/garbage_service/credentials"
-require "so/much/trash/garbage_service/paths"
+require "so/much/trash/paths"
 require "so/much/trash/garbage_service/operations"
 
 
@@ -41,7 +41,7 @@ module So
       module GarbageService
         # Service that implements GarbageService API.
         class Client
-          include Paths
+          include So::Much::Trash::Paths
 
           # @private
           attr_reader :garbage_service_stub

@@ -32,10 +32,6 @@ class ShowcaseEchoServiceTest < PresenterTest
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
-  def test_references
-    assert_empty presenter.references
-  end
-
   def test_proto_service_name_full
     assert_equal "Google::Showcase::V1beta1::Echo", presenter.proto_service_name_full
   end
@@ -149,26 +145,14 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_paths?
-    refute presenter.paths?
-  end
-
-  def test_paths_name
-    assert_equal "Paths", presenter.paths_name
+    assert presenter.paths?
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo::Paths", presenter.paths_name_full
-  end
-
-  def test_paths_file_path
-    assert_equal "google/showcase/v1beta1/echo/paths.rb", presenter.paths_file_path
-  end
-
-  def test_paths_file_name
-    assert_equal "paths.rb", presenter.paths_file_name
+    assert_equal "Google::Showcase::V1beta1::Paths", presenter.paths_name_full
   end
 
   def test_paths_require
-    assert_equal "google/showcase/v1beta1/echo/paths", presenter.paths_require
+    assert_equal "google/showcase/v1beta1/paths", presenter.paths_require
   end
 end

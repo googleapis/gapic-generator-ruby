@@ -31,7 +31,7 @@ require "gapic/config/method"
 require "google/showcase/version"
 require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging/credentials"
-require "google/showcase/v1beta1/messaging/paths"
+require "google/showcase/v1beta1/paths"
 require "google/showcase/v1beta1/messaging/operations"
 
 
@@ -41,7 +41,7 @@ module Google
       module Messaging
         # Service that implements Messaging API.
         class Client
-          include Paths
+          include Google::Showcase::V1beta1::Paths
 
           # @private
           attr_reader :messaging_stub

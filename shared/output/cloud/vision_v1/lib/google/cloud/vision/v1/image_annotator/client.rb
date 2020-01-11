@@ -24,6 +24,7 @@ require "google/cloud/errors"
 require "google/cloud/vision/v1/version"
 require "google/cloud/vision/v1/image_annotator_pb"
 require "google/cloud/vision/v1/image_annotator/credentials"
+require "google/cloud/vision/v1/paths"
 require "google/cloud/vision/v1/image_annotator/operations"
 
 
@@ -34,6 +35,8 @@ module Google
         module ImageAnnotator
           # Service that implements ImageAnnotator API.
           class Client
+            include Google::Cloud::Vision::V1::Paths
+
             # @private
             attr_reader :image_annotator_stub
 

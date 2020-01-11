@@ -32,13 +32,6 @@ class GarbageServiceTest < PresenterTest
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
-  def test_references
-    refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["SimpleGarbage"], presenter.references.map(&:name)
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], presenter.references.map(&:path_template)
-  end
-
   def test_proto_service_name_full
     assert_equal "So::Much::Trash::GarbageService", presenter.proto_service_name_full
   end
@@ -150,27 +143,16 @@ class GarbageServiceTest < PresenterTest
   def test_lro_client_ivar
     assert_equal "@operations_client", presenter.lro_client_ivar
   end
+
   def test_paths?
     assert presenter.paths?
   end
 
-  def test_paths_name
-    assert_equal "Paths", presenter.paths_name
-  end
-
   def test_paths_name_full
-    assert_equal "So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
-  end
-
-  def test_paths_file_path
-    assert_equal "so/much/trash/garbage_service/paths.rb", presenter.paths_file_path
-  end
-
-  def test_paths_file_name
-    assert_equal "paths.rb", presenter.paths_file_name
+    assert_equal "So::Much::Trash::Paths", presenter.paths_name_full
   end
 
   def test_paths_require
-    assert_equal "so/much/trash/garbage_service/paths", presenter.paths_require
+    assert_equal "so/much/trash/paths", presenter.paths_require
   end
 end

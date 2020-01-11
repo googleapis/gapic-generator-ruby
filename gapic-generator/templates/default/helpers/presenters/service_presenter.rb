@@ -174,38 +174,16 @@ class ServicePresenter
     ruby_file_path @api, "#{proto_service_name_full}::Helpers"
   end
 
-  def references
-    @references ||= begin
-      m = @service.parent.messages.select(&:resource)
-      m.sort_by!(&:name)
-      # TODO: ResourceDescriptor#pattern is a list of patterns
-      # How do we handle there being more than one pattern?
-      m.map { |m1| ResourcePresenter.new m1.name, m1.resource.pattern.first }
-    end
-  end
-
   def paths?
-    references.any?
-  end
-
-  def paths_name
-    "Paths"
+    package.paths?
   end
 
   def paths_name_full
-    fix_namespace @api, "#{proto_service_name_full}::#{paths_name}"
-  end
-
-  def paths_file_path
-    paths_require + ".rb"
-  end
-
-  def paths_file_name
-    paths_file_path.split("/").last
+    package.paths_name_full
   end
 
   def paths_require
-    ruby_file_path @api, "#{proto_service_name_full}::#{paths_name}"
+    package.paths_require
   end
 
   def test_client_file_path

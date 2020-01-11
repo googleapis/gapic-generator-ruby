@@ -1,0 +1,6 @@
+<%- assert_locals package -%>
+<%= render partial: "package/paths",
+           layout: "layouts/ruby",
+           locals: { package: package,
+                     namespace: package.namespace }
+%>

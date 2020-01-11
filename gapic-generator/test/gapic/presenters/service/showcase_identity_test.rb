@@ -32,13 +32,6 @@ class ShowcaseIdentityServiceTest < PresenterTest
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
-  def test_references
-    refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["User"], presenter.references.map(&:name)
-    assert_equal ["users/{user_id}"], presenter.references.map(&:path_template)
-  end
-
   def test_proto_service_name_full
     assert_equal "Google::Showcase::V1beta1::Identity", presenter.proto_service_name_full
   end
@@ -151,23 +144,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
     assert presenter.paths?
   end
 
-  def test_paths_name
-    assert_equal "Paths", presenter.paths_name
-  end
-
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1beta1::Identity::Paths", presenter.paths_name_full
-  end
-
-  def test_paths_file_path
-    assert_equal "google/showcase/v1beta1/identity/paths.rb", presenter.paths_file_path
-  end
-
-  def test_paths_file_name
-    assert_equal "paths.rb", presenter.paths_file_name
+    assert_equal "Google::Showcase::V1beta1::Paths", presenter.paths_name_full
   end
 
   def test_paths_require
-    assert_equal "google/showcase/v1beta1/identity/paths", presenter.paths_require
+    assert_equal "google/showcase/v1beta1/paths", presenter.paths_require
   end
 end

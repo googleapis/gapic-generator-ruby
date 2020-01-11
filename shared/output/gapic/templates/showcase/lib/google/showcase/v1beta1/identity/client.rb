@@ -31,7 +31,7 @@ require "gapic/config/method"
 require "google/showcase/version"
 require "google/showcase/v1beta1/identity_pb"
 require "google/showcase/v1beta1/identity/credentials"
-require "google/showcase/v1beta1/identity/paths"
+require "google/showcase/v1beta1/paths"
 
 
 module Google
@@ -40,7 +40,7 @@ module Google
       module Identity
         # Service that implements Identity API.
         class Client
-          include Paths
+          include Google::Showcase::V1beta1::Paths
 
           # @private
           attr_reader :identity_stub

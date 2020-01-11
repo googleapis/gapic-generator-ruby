@@ -50,14 +50,14 @@ module Gapic
 
         gem.packages.each do |package|
           # Package level files
-          files << g("package.erb", "lib/#{package.package_file_path}", package: package)
+          files << g("package.erb",       "lib/#{package.package_file_path}", package: package)
+          files << g("package/paths.erb", "lib/#{package.paths_file_path}",   package: package) if package.paths?
 
           package.services.each do |service|
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
             files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service)
             files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service)
-            files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
             files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro?
             files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service)
             files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro?
