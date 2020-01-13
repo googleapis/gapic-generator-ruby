@@ -18,6 +18,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "gapic/schema/api"
 require "gapic/generator"
 require "gapic/path_template"
+require "gapic/resource_lookup"
 require "action_controller"
 require "action_view"
 
@@ -119,5 +120,26 @@ class PathTemplateTest < Minitest::Test
   def assert_valid_segments segments
     refute segments.any?(nil), "segments won't contain any nil segments"
     refute segments.any?(""), "segments won't contain any empty segments"
+  end
+end
+
+class ResourceLookupTest < Minitest::Test
+  def proto_input service
+    File.binread "proto_input/#{service}_desc.bin"
+  end
+
+  def request service
+    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  end
+
+  def api service
+    Gapic::Schema::Api.new request(service)
+  end
+
+  def service api_name, service_name
+    api_obj = api api_name
+    service_obj = api_obj.services.find { |s| s.name == service_name }
+    refute_nil service_obj
+    service_obj
   end
 end

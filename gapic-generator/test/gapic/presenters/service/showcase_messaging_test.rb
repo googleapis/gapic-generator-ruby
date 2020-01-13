@@ -35,8 +35,8 @@ class ShowcaseMessagingServiceTest < PresenterTest
   def test_references
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["Blurb", "Room"], presenter.references.map(&:name)
-    assert_equal ["rooms/{room_id}/blurbs/{blurb_id}", "rooms/{room_id}"], presenter.references.map(&:path_template)
+    assert_equal ["Blurb", "Room", "User"], presenter.references.map(&:name)
+    assert_equal ["rooms/{room_id}/blurbs/{blurb_id}", "rooms/{room_id}", "users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
 
   def test_proto_service_name_full
