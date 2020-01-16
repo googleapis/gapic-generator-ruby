@@ -32,6 +32,25 @@ module So
         # Path helper methods for the GarbageService API.
         module Paths
           ##
+          # Create a fully-qualified Garbage resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `projects/{project}/simple_garbage/{simple_garbage}`
+          #
+          # @param project [String]
+          # @param simple_garbage [String]
+          #
+          # @return [String]
+          def garbage_path project:, simple_garbage:
+            raise ArgumentError, "project is required" if project.nil?
+            raise ArgumentError, "project cannot contain /" if %r{/}.match? project
+            raise ArgumentError, "simple_garbage is required" if simple_garbage.nil?
+
+            "projects/#{project}/simple_garbage/#{simple_garbage}"
+          end
+
+          ##
           # Create a fully-qualified SimpleGarbage resource string.
           #
           # The resource will be in the following format:
