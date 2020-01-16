@@ -13,12 +13,8 @@
 # @return [String]
 <%- args = resource.patterns.first.arguments.map { |arg| "#{arg}:" }.join ", " -%>
 def <%= resource.path_helper %> <%= args %>
-<%- last_argument_index = resource.patterns.first.arguments.count - 1 -%>
-<%- resource.patterns.first.arguments.each_with_index do |arg, index| -%>
-  raise ArgumentError, "<%= arg %> must be a String" unless <%= arg %>.is_a? String
-<%- if index < last_argument_index -%>
-  raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.include? "/"
-<%- end -%>
+<%- resource.patterns.first.arguments[0...-1].each do |arg| -%>
+  raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.to_s.include? "/"
 <%- end -%>
 
   "<%= resource.patterns.first.path_string %>"

@@ -36,9 +36,7 @@ module Google
             #
             # @return [String]
             def secret_path project:, secret:
-              raise ArgumentError, "project must be a String" unless project.is_a? String
-              raise ArgumentError, "project cannot contain /" if project.include? "/"
-              raise ArgumentError, "secret must be a String" unless secret.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
               "projects/#{project}/secrets/#{secret}"
             end
@@ -56,11 +54,8 @@ module Google
             #
             # @return [String]
             def secret_version_path project:, secret:, secret_version:
-              raise ArgumentError, "project must be a String" unless project.is_a? String
-              raise ArgumentError, "project cannot contain /" if project.include? "/"
-              raise ArgumentError, "secret must be a String" unless secret.is_a? String
-              raise ArgumentError, "secret cannot contain /" if secret.include? "/"
-              raise ArgumentError, "secret_version must be a String" unless secret_version.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "secret cannot contain /" if secret.to_s.include? "/"
 
               "projects/#{project}/secrets/#{secret}/versions/#{secret_version}"
             end

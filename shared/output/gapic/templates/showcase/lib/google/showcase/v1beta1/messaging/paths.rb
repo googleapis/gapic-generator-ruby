@@ -43,9 +43,7 @@ module Google
           #
           # @return [String]
           def blurb_path room_id:, blurb_id:
-            raise ArgumentError, "room_id must be a String" unless room_id.is_a? String
-            raise ArgumentError, "room_id cannot contain /" if room_id.include? "/"
-            raise ArgumentError, "blurb_id must be a String" unless blurb_id.is_a? String
+            raise ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
 
             "rooms/#{room_id}/blurbs/#{blurb_id}"
           end
@@ -61,8 +59,6 @@ module Google
           #
           # @return [String]
           def room_path room_id:
-            raise ArgumentError, "room_id must be a String" unless room_id.is_a? String
-
             "rooms/#{room_id}"
           end
 
@@ -77,8 +73,6 @@ module Google
           #
           # @return [String]
           def user_path user_id:
-            raise ArgumentError, "user_id must be a String" unless user_id.is_a? String
-
             "users/#{user_id}"
           end
         end

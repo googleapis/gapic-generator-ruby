@@ -43,9 +43,7 @@ module So
           #
           # @return [String]
           def garbage_path project:, simple_garbage:
-            raise ArgumentError, "project must be a String" unless project.is_a? String
-            raise ArgumentError, "project cannot contain /" if project.include? "/"
-            raise ArgumentError, "simple_garbage must be a String" unless simple_garbage.is_a? String
+            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/simple_garbage/#{simple_garbage}"
           end
@@ -62,9 +60,7 @@ module So
           #
           # @return [String]
           def simple_garbage_path project:, garbage:
-            raise ArgumentError, "project must be a String" unless project.is_a? String
-            raise ArgumentError, "project cannot contain /" if project.include? "/"
-            raise ArgumentError, "garbage must be a String" unless garbage.is_a? String
+            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/simple_garbage/#{garbage}"
           end

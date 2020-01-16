@@ -37,11 +37,8 @@ module Google
             #
             # @return [String]
             def product_path project:, location:, product:
-              raise ArgumentError, "project must be a String" unless project.is_a? String
-              raise ArgumentError, "project cannot contain /" if project.include? "/"
-              raise ArgumentError, "location must be a String" unless location.is_a? String
-              raise ArgumentError, "location cannot contain /" if location.include? "/"
-              raise ArgumentError, "product must be a String" unless product.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/products/#{product}"
             end
@@ -59,11 +56,8 @@ module Google
             #
             # @return [String]
             def product_set_path project:, location:, product_set:
-              raise ArgumentError, "project must be a String" unless project.is_a? String
-              raise ArgumentError, "project cannot contain /" if project.include? "/"
-              raise ArgumentError, "location must be a String" unless location.is_a? String
-              raise ArgumentError, "location cannot contain /" if location.include? "/"
-              raise ArgumentError, "product_set must be a String" unless product_set.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/productSets/#{product_set}"
             end
@@ -82,13 +76,9 @@ module Google
             #
             # @return [String]
             def reference_image_path project:, location:, product:, reference_image:
-              raise ArgumentError, "project must be a String" unless project.is_a? String
-              raise ArgumentError, "project cannot contain /" if project.include? "/"
-              raise ArgumentError, "location must be a String" unless location.is_a? String
-              raise ArgumentError, "location cannot contain /" if location.include? "/"
-              raise ArgumentError, "product must be a String" unless product.is_a? String
-              raise ArgumentError, "product cannot contain /" if product.include? "/"
-              raise ArgumentError, "reference_image must be a String" unless reference_image.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
+              raise ArgumentError, "product cannot contain /" if product.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/products/#{product}/referenceImages/#{reference_image}"
             end
