@@ -32,7 +32,10 @@ module Gapic
 
     # @private
     def lookup_file_resource_descriptors file
-      file.messages.flat_map { |message| lookup_message_resources_descriptors message }
+      resources = []
+      resources += file.resources.select { |resource| service_resource_types.include? resource.type }
+      resources += file.messages.flat_map { |message| lookup_message_resources_descriptors message }
+      resources
     end
 
     # @private

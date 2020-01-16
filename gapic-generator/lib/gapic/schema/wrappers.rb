@@ -391,6 +391,13 @@ module Gapic
         options[:ruby_package] if options
       end
 
+      # @return [Array<Google::Api::ResourceDescriptor>] A representation of the resource.
+      #   This is generally intended to be attached to the "name" field.
+      #   See `google/api/resource.proto`.
+      def resources
+        options[:".google.api.resource_definition"] if options
+      end
+
       # @!method name
       #   @return [String] file name, relative to root of source tree.
       # @!method package

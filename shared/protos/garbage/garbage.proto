@@ -13,6 +13,12 @@ import "google/iam/v1/iam_policy.proto";
 
 option ruby_package = "So::Much::Trash";
 
+option (google.api.resource_definition) = {
+type: "endlesstrash.example.net/Garbage"
+pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+};
+
+
 // Endless trash
 service GarbageService {
   // The address where this API is typically served.
@@ -135,7 +141,9 @@ message LongRunningGarbageMetadata {
 // The list garbage request message.
 message ListGarbageRequest {
   // The name of the garbage this item belongs to.
-  string garbage = 1;
+  string garbage = 1 [
+    (google.api.resource_reference).type = "endlesstrash.example.net/Garbage"
+  ];
 }
 
 // The list garbage response message.
@@ -148,7 +156,9 @@ message ListGarbageResponse {
 // A literal piece of garbage. Why would you want this? What is wrong with you?
 message GarbageItem {
   // The garbage this item belongs to.
-  string garbage = 1;
+  string garbage = 1 [
+    (google.api.resource_reference).type = "endlesstrash.example.net/Garbage"
+  ];
   // The item, which is either a string or an integer.
   oneof item {
     // The string item.
@@ -292,7 +302,10 @@ message RepeatedGarbage {
 // The request for the GetPagedGarbage method.
 message PagedGarbageRequest {
   // The garbage to page.
-  string garbage = 1 [(google.api.field_behavior) = REQUIRED];
+  string garbage = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
+  ];
 
   // The amount of garbage items to returned in each page.
   int32 page_size = 2;
