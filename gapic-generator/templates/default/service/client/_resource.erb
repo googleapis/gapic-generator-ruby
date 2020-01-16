@@ -4,9 +4,9 @@
 #
 # The resource will be in the following format:
 #
-# `<%= resource.path_template %>`
+# `<%= resource.patterns.first.template %>`
 #
-<%- resource.arguments.each do |arg| -%>
+<%- resource.patterns.first.arguments.each do |arg| -%>
 # @param <%= arg.name %> [String]
 <%- if arg.desc -%>
 #   <%= arg.desc %>
@@ -14,14 +14,14 @@
 <%- end -%>
 #
 # @return [String]
-<%- args = resource.arguments.map { |arg| "#{arg.name}:" } -%>
+<%- args = resource.patterns.first.arguments.map { |arg| "#{arg.name}:" } -%>
 def <%= resource.path_helper %> <%= args.join ", " %>
-<%- resource.arguments.each do |arg| -%>
+<%- resource.patterns.first.arguments.each do |arg| -%>
   raise ArgumentError, "<%= arg.name %> is required" if <%= arg.name %>.nil?
 <%- if arg.regexp -%>
   raise ArgumentError, <%= arg.msg.inspect %> if <%= arg.regexp %>.match? <%= arg.name %>
 <%- end -%>
 <%- end -%>
 
-  "<%= resource.path_string %>"
+  "<%= resource.patterns.first.path_string %>"
 end

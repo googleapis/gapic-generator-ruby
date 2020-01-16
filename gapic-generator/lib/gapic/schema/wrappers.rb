@@ -244,6 +244,15 @@ module Gapic
         parent.ruby_package
       end
 
+      # @return [Array<Google::Api::ResourceDescriptor>] A representation of the resource.
+      #   This is generally intended to be attached to the "name" field.
+      #   See `google/api/resource.proto`.
+      def resources
+        require "gapic/resource_lookup"
+
+        @resources ||= Gapic::ResourceLookup.for_service self
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the service.
       # @!method options
@@ -509,7 +518,7 @@ module Gapic
         @nested_enums.each    { |e| e.parent = self }
       end
 
-      # @return [Google::Api::Resource] A representation of the resource.
+      # @return [Google::Api::ResourceDescriptor] A representation of the resource.
       #   This is generally intended to be attached to the "name" field.
       #   See `google/api/resource.proto`.
       def resource

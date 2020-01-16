@@ -19,36 +19,53 @@ require "ostruct"
 require "active_support/inflector"
 
 class ResourcePresenter
-  def initialize name, path_template
-    @name = name
-    @path_template = path_template
-    @segments = Gapic::PathTemplate.parse path_template
+  # @param resource [Google::Api::ResourceDescriptor]
+  def initialize resource
+    @resource = resource
 
-    # URI path template verification for expected proto resource usage
-    if named_arg_patterns? @segments
-      raise ArgumentError, "only resources without named patterns are supported, " \
-                           " not #{path_template}"
-    elsif positional_args? @segments
-      raise ArgumentError, "only resources with named segments are supported, " \
-                           " not #{path_template}"
+    @patterns = resource.pattern.map do |template|
+      segments = Gapic::PathTemplate.parse template
+      OpenStruct.new(
+        template:    template,
+        segments:    segments,
+        arguments:   arguments_for(segments),
+        path_string: path_string_for(segments)
+      )
+    end
+
+    @patterns.each do |pattern|
+      # URI path template verification for expected proto resource usage
+      if named_arg_patterns? pattern.segments
+        raise ArgumentError, "only resources without named patterns are supported, " \
+                             " not #{pattern.template}"
+      elsif positional_args? pattern.segments
+        raise ArgumentError, "only resources with named segments are supported, " \
+                             " not #{pattern.template}"
+      end
     end
   end
 
   def name
-    @name
+    @resource.type.split("/").delete_if(&:empty?).last
   end
 
-  def path_template
-    @path_template
+  def type
+    @resource.type
+  end
+
+  def patterns
+    @patterns
   end
 
   def path_helper
-    "#{ActiveSupport::Inflector.underscore @name}_path"
+    "#{ActiveSupport::Inflector.underscore name}_path"
   end
 
-  def arguments
+  private
+
+  def arguments_for segments
     # We only expect that named args are present
-    arg_structs = arg_segments(@segments).map do |arg|
+    arg_structs = arg_segments(segments).map do |arg|
       OpenStruct.new(
         name:   arg.name,
         msg:    "#{arg.name} cannot contain /",
@@ -59,8 +76,12 @@ class ResourcePresenter
     arg_structs
   end
 
-  def path_string
-    @segments.map do |segment|
+  def arg_segments segments
+    segments.select { |segment| segment.is_a? Gapic::PathTemplate::Segment }
+  end
+
+  def path_string_for segments
+    segments.map do |segment|
       if segment.is_a? Gapic::PathTemplate::Segment
         "\#{#{segment.name}}"
       else
@@ -68,12 +89,6 @@ class ResourcePresenter
         segment
       end
     end.join
-  end
-
-  private
-
-  def arg_segments segments
-    segments.select { |segment| segment.is_a? Gapic::PathTemplate::Segment }
   end
 
   def positional_args? segments

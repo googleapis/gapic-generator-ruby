@@ -65,6 +65,22 @@ module Google
 
             "rooms/#{room_id}"
           end
+
+          ##
+          # Create a fully-qualified User resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `users/{user_id}`
+          #
+          # @param user_id [String]
+          #
+          # @return [String]
+          def user_path user_id:
+            raise ArgumentError, "user_id is required" if user_id.nil?
+
+            "users/#{user_id}"
+          end
         end
       end
     end

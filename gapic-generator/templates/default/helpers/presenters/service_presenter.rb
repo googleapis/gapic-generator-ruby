@@ -175,13 +175,7 @@ class ServicePresenter
   end
 
   def references
-    @references ||= begin
-      m = @service.parent.messages.select(&:resource)
-      m.sort_by!(&:name)
-      # TODO: ResourceDescriptor#pattern is a list of patterns
-      # How do we handle there being more than one pattern?
-      m.map { |m1| ResourcePresenter.new m1.name, m1.resource.pattern.first }
-    end
+    @references ||= @service.resources.map { |resource| ResourcePresenter.new resource }.sort_by(&:name)
   end
 
   def paths?

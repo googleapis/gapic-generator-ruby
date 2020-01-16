@@ -36,7 +36,7 @@ class GarbageServiceTest < PresenterTest
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
     assert_equal ["SimpleGarbage"], presenter.references.map(&:name)
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], presenter.references.map(&:path_template)
+    assert_equal ["projects/{project}/simple_garbage/{garbage}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
 
   def test_proto_service_name_full
