@@ -36,9 +36,9 @@ module Google
             #
             # @return [String]
             def secret_path project:, secret:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "secret is required" if secret.nil?
+              raise ArgumentError, "project must be a String" unless project.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.include? "/".freeze
+              raise ArgumentError, "secret must be a String" unless secret.is_a? String
 
               "projects/#{project}/secrets/#{secret}"
             end
@@ -56,11 +56,11 @@ module Google
             #
             # @return [String]
             def secret_version_path project:, secret:, secret_version:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "secret is required" if secret.nil?
-              raise ArgumentError, "secret cannot contain /" if %r{/}.match? secret
-              raise ArgumentError, "secret_version is required" if secret_version.nil?
+              raise ArgumentError, "project must be a String" unless project.is_a? String
+              raise ArgumentError, "project cannot contain /" if project.include? "/".freeze
+              raise ArgumentError, "secret must be a String" unless secret.is_a? String
+              raise ArgumentError, "secret cannot contain /" if secret.include? "/".freeze
+              raise ArgumentError, "secret_version must be a String" unless secret_version.is_a? String
 
               "projects/#{project}/secrets/#{secret}/versions/#{secret_version}"
             end

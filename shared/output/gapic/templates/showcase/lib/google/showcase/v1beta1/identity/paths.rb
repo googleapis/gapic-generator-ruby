@@ -42,7 +42,7 @@ module Google
           #
           # @return [String]
           def user_path user_id:
-            raise ArgumentError, "user_id is required" if user_id.nil?
+            raise ArgumentError, "user_id must be a String" unless user_id.is_a? String
 
             "users/#{user_id}"
           end

@@ -64,16 +64,7 @@ class ResourcePresenter
   private
 
   def arguments_for segments
-    # We only expect that named args are present
-    arg_structs = arg_segments(segments).map do |arg|
-      OpenStruct.new(
-        name:   arg.name,
-        msg:    "#{arg.name} cannot contain /",
-        regexp: "%r{\/}"
-      )
-    end
-    arg_structs.last.regexp = nil
-    arg_structs
+    arg_segments(segments).map(&:name)
   end
 
   def arg_segments segments
