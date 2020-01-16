@@ -27,7 +27,8 @@ class GarbageResourceLookupTest < ResourceLookupTest
     resources.each do |resource|
       assert_kind_of Google::Api::ResourceDescriptor, resource
     end
-    assert_equal resources.map(&:type), ["endlesstrash.example.net/SimpleGarbage"]
-    assert_equal resources.map(&:pattern), [["projects/{project}/simple_garbage/{garbage}"]]
+    assert_equal resources.map(&:type), ["endlesstrash.example.net/Garbage", "endlesstrash.example.net/SimpleGarbage"]
+    assert_equal resources.map(&:pattern), [["projects/{project}/simple_garbage/{simple_garbage}"],
+                                            ["projects/{project}/simple_garbage/{garbage}"]]
   end
 end

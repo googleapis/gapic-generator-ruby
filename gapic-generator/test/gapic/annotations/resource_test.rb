@@ -92,10 +92,13 @@ class AnnotationResourceTest < AnnotationTest
     assert_nil message.options
     field = message.fields.first
     assert_equal "garbage", field.name
-    assert_nil field.options
+    refute_nil field.options
+    assert_kind_of Google::Protobuf::FieldOptions, field.options
+    assert_kind_of Google::Api::ResourceReference, field.options[:resource_reference]
+    assert_equal "endlesstrash.example.net/Garbage", field.options[:resource_reference].type
 
     assert_equal 1, message.fields.count
-    assert_nil message.fields[0].resource_reference
+    assert_equal "endlesstrash.example.net/Garbage", message.fields[0].resource_reference.type
   end
 
   def test_garbage_ListGarbageResponse
