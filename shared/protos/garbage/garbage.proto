@@ -16,6 +16,9 @@ option ruby_package = "So::Much::Trash";
 option (google.api.resource_definition) = {
 type: "endlesstrash.example.net/Garbage"
 pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+pattern: "projects/{project}/specific_garbage/{specific_garbage}"
+pattern: "projects/{project}/nested_garbage/{nested_garbage}"
+pattern: "projects/{project}/repeated_garbage/{repeated_garbage}"
 };
 
 

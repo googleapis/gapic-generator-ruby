@@ -34,18 +34,66 @@ module So
           ##
           # Create a fully-qualified Garbage resource string.
           #
-          # The resource will be in the following format:
+          # @overload garbage_path(project:, simple_garbage:)
+          #   The resource will be in the following format:
           #
-          # `projects/{project}/simple_garbage/{simple_garbage}`
+          #   `projects/{project}/simple_garbage/{simple_garbage}`
           #
-          # @param project [String]
-          # @param simple_garbage [String]
+          #   @param project [String]
+          #   @param simple_garbage [String]
+          #
+          # @overload garbage_path(project:, specific_garbage:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/specific_garbage/{specific_garbage}`
+          #
+          #   @param project [String]
+          #   @param specific_garbage [String]
+          #
+          # @overload garbage_path(project:, nested_garbage:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/nested_garbage/{nested_garbage}`
+          #
+          #   @param project [String]
+          #   @param nested_garbage [String]
+          #
+          # @overload garbage_path(project:, repeated_garbage:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/repeated_garbage/{repeated_garbage}`
+          #
+          #   @param project [String]
+          #   @param repeated_garbage [String]
           #
           # @return [String]
-          def garbage_path project:, simple_garbage:
-            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+          def garbage_path **args
+            resources = {
+              "project:simple_garbage"   => (proc do |project:, simple_garbage:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
-            "projects/#{project}/simple_garbage/#{simple_garbage}"
+                "projects/#{project}/simple_garbage/#{simple_garbage}"
+              end),
+              "project:specific_garbage" => (proc do |project:, specific_garbage:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/specific_garbage/#{specific_garbage}"
+              end),
+              "nested_garbage:project"   => (proc do |project:, nested_garbage:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/nested_garbage/#{nested_garbage}"
+              end),
+              "project:repeated_garbage" => (proc do |project:, repeated_garbage:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/repeated_garbage/#{repeated_garbage}"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
           end
 
           ##

@@ -1,0 +1,8 @@
+<%- assert_locals pattern -%>
+The resource will be in the following format:
+
+`<%= pattern.template %>`
+
+<%- pattern.arguments.each do |arg| -%>
+@param <%= arg %> [String]
+<%- end -%>
