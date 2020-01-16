@@ -42,8 +42,6 @@ module Google
           #
           # @return [String]
           def session_path session:
-            raise ArgumentError, "session is required" if session.nil?
-
             "sessions/#{session}"
           end
 
@@ -59,9 +57,7 @@ module Google
           #
           # @return [String]
           def test_path session:, test:
-            raise ArgumentError, "session is required" if session.nil?
-            raise ArgumentError, "session cannot contain /" if %r{/}.match? session
-            raise ArgumentError, "test is required" if test.nil?
+            raise ArgumentError, "session cannot contain /" if session.to_s.include? "/"
 
             "sessions/#{session}/tests/#{test}"
           end

@@ -37,11 +37,8 @@ module Google
             #
             # @return [String]
             def product_path project:, location:, product:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "location is required" if location.nil?
-              raise ArgumentError, "location cannot contain /" if %r{/}.match? location
-              raise ArgumentError, "product is required" if product.nil?
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/products/#{product}"
             end
@@ -59,11 +56,8 @@ module Google
             #
             # @return [String]
             def product_set_path project:, location:, product_set:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "location is required" if location.nil?
-              raise ArgumentError, "location cannot contain /" if %r{/}.match? location
-              raise ArgumentError, "product_set is required" if product_set.nil?
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/productSets/#{product_set}"
             end
@@ -82,13 +76,9 @@ module Google
             #
             # @return [String]
             def reference_image_path project:, location:, product:, reference_image:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "location is required" if location.nil?
-              raise ArgumentError, "location cannot contain /" if %r{/}.match? location
-              raise ArgumentError, "product is required" if product.nil?
-              raise ArgumentError, "product cannot contain /" if %r{/}.match? product
-              raise ArgumentError, "reference_image is required" if reference_image.nil?
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
+              raise ArgumentError, "product cannot contain /" if product.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/products/#{product}/referenceImages/#{reference_image}"
             end

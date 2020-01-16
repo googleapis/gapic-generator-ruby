@@ -37,11 +37,8 @@ module Google
             #
             # @return [String]
             def product_set_path project:, location:, product_set:
-              raise ArgumentError, "project is required" if project.nil?
-              raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-              raise ArgumentError, "location is required" if location.nil?
-              raise ArgumentError, "location cannot contain /" if %r{/}.match? location
-              raise ArgumentError, "product_set is required" if product_set.nil?
+              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
 
               "projects/#{project}/locations/#{location}/productSets/#{product_set}"
             end

@@ -43,9 +43,7 @@ module So
           #
           # @return [String]
           def garbage_path project:, simple_garbage:
-            raise ArgumentError, "project is required" if project.nil?
-            raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-            raise ArgumentError, "simple_garbage is required" if simple_garbage.nil?
+            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/simple_garbage/#{simple_garbage}"
           end
@@ -62,9 +60,7 @@ module So
           #
           # @return [String]
           def simple_garbage_path project:, garbage:
-            raise ArgumentError, "project is required" if project.nil?
-            raise ArgumentError, "project cannot contain /" if %r{/}.match? project
-            raise ArgumentError, "garbage is required" if garbage.nil?
+            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/simple_garbage/#{garbage}"
           end
