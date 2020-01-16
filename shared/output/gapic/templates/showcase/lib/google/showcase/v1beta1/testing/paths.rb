@@ -60,7 +60,7 @@ module Google
           # @return [String]
           def test_path session:, test:
             raise ArgumentError, "session must be a String" unless session.is_a? String
-            raise ArgumentError, "session cannot contain /" if session.include? "/".freeze
+            raise ArgumentError, "session cannot contain /" if session.include? "/"
             raise ArgumentError, "test must be a String" unless test.is_a? String
 
             "sessions/#{session}/tests/#{test}"

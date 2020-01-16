@@ -17,7 +17,7 @@ def <%= resource.path_helper %> <%= args %>
 <%- resource.patterns.first.arguments.each_with_index do |arg, index| -%>
   raise ArgumentError, "<%= arg %> must be a String" unless <%= arg %>.is_a? String
 <%- if index < last_argument_index -%>
-  raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.include? "/".freeze
+  raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.include? "/"
 <%- end -%>
 <%- end -%>
 
