@@ -28,7 +28,10 @@ class GarbageResourceLookupTest < ResourceLookupTest
       assert_kind_of Google::Api::ResourceDescriptor, resource
     end
     assert_equal resources.map(&:type), ["endlesstrash.example.net/Garbage", "endlesstrash.example.net/SimpleGarbage"]
-    assert_equal resources.map(&:pattern), [["projects/{project}/simple_garbage/{simple_garbage}"],
+    assert_equal resources.map(&:pattern), [["projects/{project}/simple_garbage/{simple_garbage}",
+                                             "projects/{project}/specific_garbage/{specific_garbage}",
+                                             "projects/{project}/nested_garbage/{nested_garbage}",
+                                             "projects/{project}/repeated_garbage/{repeated_garbage}"],
                                             ["projects/{project}/simple_garbage/{garbage}"]]
   end
 end

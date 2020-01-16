@@ -34,18 +34,40 @@ module Google
           ##
           # Create a fully-qualified Blurb resource string.
           #
-          # The resource will be in the following format:
+          # @overload blurb_path(room_id:, blurb_id:)
+          #   The resource will be in the following format:
           #
-          # `rooms/{room_id}/blurbs/{blurb_id}`
+          #   `rooms/{room_id}/blurbs/{blurb_id}`
           #
-          # @param room_id [String]
-          # @param blurb_id [String]
+          #   @param room_id [String]
+          #   @param blurb_id [String]
+          #
+          # @overload blurb_path(user_id:, blurb_id:)
+          #   The resource will be in the following format:
+          #
+          #   `user/{user_id}/profile/blurbs/{blurb_id}`
+          #
+          #   @param user_id [String]
+          #   @param blurb_id [String]
           #
           # @return [String]
-          def blurb_path room_id:, blurb_id:
-            raise ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
+          def blurb_path **args
+            resources = {
+              "blurb_id:room_id" => (proc do |room_id:, blurb_id:|
+                raise ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
 
-            "rooms/#{room_id}/blurbs/#{blurb_id}"
+                "rooms/#{room_id}/blurbs/#{blurb_id}"
+              end),
+              "blurb_id:user_id" => (proc do |user_id:, blurb_id:|
+                raise ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
+
+                "user/#{user_id}/profile/blurbs/#{blurb_id}"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
           end
 
           ##

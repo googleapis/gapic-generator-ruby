@@ -1,21 +1,6 @@
 <%- assert_locals resource -%>
-##
-# Create a fully-qualified <%= resource.name %> resource string.
-#
-# The resource will be in the following format:
-#
-# `<%= resource.patterns.first.template %>`
-#
-<%- resource.patterns.first.arguments.each do |arg| -%>
-# @param <%= arg %> [String]
+<%- if resource.patterns.count == 1 -%>
+<%= render partial: "service/client/resource/single", locals: { resource: resource } %>
+<%- else -%>
+<%= render partial: "service/client/resource/multi", locals: { resource: resource } %>
 <%- end -%>
-#
-# @return [String]
-<%- args = resource.patterns.first.arguments.map { |arg| "#{arg}:" }.join ", " -%>
-def <%= resource.path_helper %> <%= args %>
-<%- resource.patterns.first.arguments[0...-1].each do |arg| -%>
-  raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.to_s.include? "/"
-<%- end -%>
-
-  "<%= resource.patterns.first.path_string %>"
-end
