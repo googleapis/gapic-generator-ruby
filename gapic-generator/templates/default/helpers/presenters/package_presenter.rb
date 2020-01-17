@@ -58,4 +58,8 @@ class PackagePresenter
   def package_file_path
     package_require + ".rb"
   end
+
+  def empty?
+    services.empty?
+  end
 end

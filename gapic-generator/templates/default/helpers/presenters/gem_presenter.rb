@@ -29,7 +29,7 @@ class GemPresenter
   def packages
     @packages ||= begin
       packages = @api.generate_files.map(&:package).uniq.sort
-      packages.map { |p| PackagePresenter.new @api, p }
+      packages.map { |p| PackagePresenter.new @api, p }.delete_if(&:empty?)
     end
   end
 
