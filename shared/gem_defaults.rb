@@ -40,7 +40,8 @@ def gem_defaults
     secretmanager_v1beta1: {
       protos: [
         "google/cloud/secrets/v1beta1/resources.proto",
-        "google/cloud/secrets/v1beta1/service.proto"
+        "google/cloud/secrets/v1beta1/service.proto",
+        "google/cloud/common_resources.proto"
       ]
     },
     speech_v1: {
