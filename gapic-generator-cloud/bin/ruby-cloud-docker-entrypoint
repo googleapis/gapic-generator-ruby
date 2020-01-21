@@ -41,10 +41,11 @@ OptionParser.new do |op|
   end
 end.parse! ARGV
 
-parameter_str = parameters.map do |k, v|
-                  v = v.gsub("//", "////////").gsub(",", "////,").gsub("=", "////=")
-                  "#{k}=#{v}"
-                end.join ","
+parameter_strs =
+  parameters.map do |k, v|
+    v = v.gsub("//", "////////").gsub(",", "////,").gsub("=", "////=")
+    "#{k}=#{v}"
+  end
 
 protoc_cmd = [
   "grpc_tools_ruby_protoc",
@@ -52,7 +53,7 @@ protoc_cmd = [
   "--ruby_out=/out/lib",
   "--grpc_out=/out/lib",
   "--ruby_cloud_out=/out/",
-  "--ruby_cloud_opt", parameter_str
+  "--ruby_cloud_opt", parameter_strs.join(",")
 ] + ARGV + `find /in/ -name *.proto`.split
 
 FileUtils.mkdir_p "/out/lib"
