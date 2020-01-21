@@ -25,10 +25,10 @@ class ApiTest < Minitest::Test
   end
 
   def test_configuration_construction
-    parameter = ":a.:b=1,:a.:c=2,:a.:c=3"
+    parameter = ":a.:b=1,:a.:c=2,:a.:c.:d=3"
     request = OpenStruct.new parameter: parameter, proto_file: []
     api = Gapic::Schema::Api.new request
-    assert_equal({ a: { b: "1", c: ["2", "3"] } }, api.configuration)
+    assert_equal({ a: { b: "1", c: { d: "3" } } }, api.configuration)
   end
 
   def test_parameter_reconstruction

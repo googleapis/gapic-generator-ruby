@@ -229,15 +229,6 @@ module Gapic
         left.merge right do |_k, lt, rt|
           if lt.is_a?(Hash) && rt.is_a?(Hash)
             deep_merge lt, rt
-          elsif !lt.is_a?(Hash) && !rt.is_a?(Hash)
-            val = Array(lt) + Array(rt)
-            if val.empty?
-              nil
-            elsif val.size == 1
-              val.first
-            else
-              val
-            end
           else
             rt
           end
