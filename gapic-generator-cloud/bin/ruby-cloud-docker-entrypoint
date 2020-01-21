@@ -43,7 +43,7 @@ end.parse! ARGV
 
 parameter_strs =
   parameters.map do |k, v|
-    v = v.gsub("//", "////////").gsub(",", "////,").gsub("=", "////=")
+    v = v.gsub("\\", "\\\\\\\\").gsub(",", "\\\\,").gsub("=", "\\\\=")
     "#{k}=#{v}"
   end
 
