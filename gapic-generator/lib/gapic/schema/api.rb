@@ -97,14 +97,30 @@ module Gapic
       #   A Hash of the request parameters.
       def protoc_options
         @protoc_options ||= begin
-          parameters = request.parameter.split(",").map do |parameter|
-            key, value = parameter.split "="
+          result = {}
+          parameters = parse_parameter request.parameter
+          parameters.each do |param_array|
+            key = param_array.first
+            next if key.empty?
+            value = param_array[1..-1]
             value = value.first if value.size == 1
-            value = nil if value.empty? # String or Array
-            [key.to_sym, value]
+            value = nil if value.empty?
+            result[str_to_key(key)] = value
           end
-          Hash[parameters]
+          result
         end
+      end
+
+      # Reconstructed string representation of the protoc options
+      # @return [String]
+      def protoc_parameter
+        protoc_options.map do |k, v|
+          v = Array(v).map do |s|
+            s.gsub("\\", "\\\\\\\\").gsub(",", "\\\\,").gsub("=", "\\\\=")
+          end.join("=")
+          k = key_to_str k
+          "#{k}=#{v}"
+        end.join ","
       end
 
       # Structured representation of the samples configuration files.
@@ -112,7 +128,7 @@ module Gapic
       #   An array of the sample file hashes.
       def samples
         @samples ||= begin
-          protoc_options[:samples].to_s.split(";").flat_map do |sample_path|
+          protoc_options["samples"].to_s.split(";").flat_map do |sample_path|
             YAML.load_file sample_path
           end.compact
         end
@@ -171,14 +187,60 @@ module Gapic
       #   A Hash of the configuration values.
       def configuration
         @configuration ||= begin
-          config = {}
-
-          if protoc_options[:configuration]
-            config = YAML.load_file protoc_options[:configuration]
-            config.merge! config
+          config_file = protoc_options["configuration"]
+          config = config_file ? YAML.load_file(config_file) : {}
+          protoc_options.each do |k, v|
+            next if k == "configuration"
+            branch = key_to_str(k).split(".").reverse.inject(v) { |m, s| { str_to_key(s) => m } }
+            config = deep_merge config, branch
           end
-
           config
+        end
+      end
+
+      private
+
+      def parse_parameter str
+        str.scan(/\\.|,|=|[^\\,=]+/)
+           .each_with_object([[String.new]]) do |tok, arr|
+             if tok == ","
+               arr.append [String.new]
+             elsif tok == "="
+               arr.last.append String.new
+             elsif tok.start_with? "\\"
+               arr.last.last << tok[1]
+             else
+               arr.last.last << tok
+             end
+             arr
+           end
+      end
+
+      def str_to_key str
+        str = str.to_s
+        str.start_with?(":") ? str[1..-1].to_sym : str
+      end
+
+      def key_to_str key
+        key.is_a?(::Symbol) ? ":#{key}" : key.to_s
+      end
+
+      def deep_merge left, right
+        left.merge right do |_k, lt, rt|
+          if lt.is_a?(Hash) && rt.is_a?(Hash)
+            deep_merge lt, rt
+          elsif !lt.is_a?(Hash) && !rt.is_a?(Hash)
+            val = Array(lt) + Array(rt)
+            if val.empty?
+              nil
+            elsif val.size == 1
+              val.first
+            else
+              val
+            end
+          else
+            rt
+          end
         end
       end
     end
