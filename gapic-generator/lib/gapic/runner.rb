@@ -34,13 +34,13 @@ module Gapic
     # @param [String] generator_type
     # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
     def run generator_type: nil
-      write_binary_file!
-
       # Create an API Schema from the FileDescriptorProtos
       api = Gapic::Schema::Api.new request
 
+      write_binary_file! api
+
       # Retrieve generator type from protoc_options if not already provided.
-      generator_type ||= protoc_options[:generator]
+      generator_type ||= api.protoc_options["generator"]
       # Find the generator for the generator type.
       generator = Gapic::Generator.find generator_type
 
@@ -62,32 +62,15 @@ module Gapic
 
     private
 
-    def write_binary_file!
-      return unless protoc_options[:binary_output]
+    def write_binary_file! api
+      return unless api.protoc_options["binary_output"]
 
       # First, strip the binary_output parameter out so it doesn't get saved
-      binary_file = protoc_options.delete :binary_output
-      request.parameter = protoc_options.map do |key, value|
-        "#{key}=#{Array(value).join '='}"
-      end.join ","
+      binary_file = api.protoc_options.delete "binary_output"
+      request.parameter = api.protoc_parameter
 
       # Write binary file if the binary_output option is set
       File.binwrite binary_file, request.to_proto
-    end
-
-    # Structured Hash representation of CodeGeneratorRequest#parameter
-    # @return [Hash]
-    #   A Hash of the request parameters.
-    def protoc_options
-      @protoc_options ||= begin
-        parameters = request.parameter.split(",").map do |parameter|
-          key, value = parameter.split "="
-          value = value.first if value.size == 1
-          value = nil if value.empty? # String or Array
-          [key.to_sym, value]
-        end
-        Hash[parameters]
-      end
     end
   end
 end
