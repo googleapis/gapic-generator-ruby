@@ -1,0 +1,15 @@
+.DS_STORE
+/.yardoc/
+/coverage/
+/doc/
+/pkg/
+/test/
+/expected_output
+/proto_input
+/tmp/gapic-generator/.yardoc/
+/tmp/gapic-generator/converage/
+/tmp/gapic-generator/doc/
+/tmp/gapic-generator/pkg/
+/tmp/gapic-generator/test/
+/tmp/gapic-generator/expected_output
+/tmp/gapic-generator/proto_input
