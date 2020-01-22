@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
                        Dir.glob("*.md") +
                        ["LICENSE", "cloud-rubocop.yml"]
   spec.bindir        = "bin"
-  spec.executables   = ["protoc-gen-ruby_cloud"]
+  spec.executables   = ["protoc-gen-ruby_cloud", "ruby-cloud-docker-entrypoint"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionpack", "~> 5.2"
