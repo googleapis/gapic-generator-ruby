@@ -5,7 +5,39 @@ Create Ruby clients from a protocol buffer description of an API.
 **Note** This project is a preview. Please try it out and let us know what you think,
 but there are currently no guarantees of stability or support.
 
-## Usage
+## Getting started using the Docker image
+The easiest way to use the generator is to run it with the Docker image.
+
+### Download the sample protos for the Showcase API
+The [Showcase API](https://github.com/googleapis/gapic-showcase) is a good API to
+play with if you want to start generating your own client libraries. It has several
+services, we'll use `Echo` ([echo.proto](https://github.com/googleapis/gapic-showcase/blob/master/schema/google/showcase/v1beta1/echo.proto)) service as an example.
+
+Download the proto files locally (the following examples work in Linux or macOS):
+
+```sh
+$ curl -L https://github.com/googleapis/gapic-showcase/releases/download/v0.6.1/gapic-showcase-0.6.1-protos.tar.gz | tar xz
+```
+
+### Run the generator using the Docker image
+
+```sh
+$ mkdir showcase-ruby
+$ docker run --rm --user $UID \
+  --mount type=bind,source=`pwd`/google/showcase/v1beta1,destination=/in/google/showcase/v1beta1,readonly \
+  --mount type=bind,source=`pwd`/showcase-ruby,destination=/out \
+  gcr.io/gapic-images/gapic-generator-ruby:latest --ruby-cloud-gem-name=showcase
+```
+
+The resulting files are in `showcase-ruby` folder:
+
+```sh
+$ cd showcase-ruby
+$ bundle install   # install dependencies
+$ bundle exec rake ci  # run unit tests
+```
+
+## Building, installation and API generation without the Docker image
 ### Install the Proto Compiler
 This generator relies on the Protocol Buffer Compiler to [orchestrate] the
 client generation. Install protoc version 3.7 or later.
