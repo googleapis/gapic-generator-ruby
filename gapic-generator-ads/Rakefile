@@ -62,7 +62,7 @@ end
 desc "Build the docker image."
 task :image, :name do |_t, args|
   image_name = args[:name] || "ruby-gapic-generator-ads"
-  sh "docker build -t #{image_name}:$(git rev-parse HEAD) ."
+  sh "docker build --no-cache -t #{image_name}:$(git rev-parse HEAD) ."
 end
 namespace :image do
   desc "Build the docker image using the local base image code"
@@ -73,7 +73,7 @@ namespace :image do
     base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
     rm_rf base_tmp_dir
     cp_r base_source_dir, base_tmp_dir
-    sh "docker build -t #{image_name}:$(git rev-parse HEAD) ."
+    sh "docker build --no-cache -t #{image_name}:$(git rev-parse HEAD) ."
     rm_r base_tmp_dir
   end
 end

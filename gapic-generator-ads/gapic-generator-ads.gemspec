@@ -43,7 +43,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "gapic-generator", "= 0.1.7"
   spec.add_dependency "protobuf", "~> 3.8"
 
-  spec.add_development_dependency "bundler", "~> 2.1"
   spec.add_development_dependency "google-style", "~> 1.24.0"
   spec.add_development_dependency "grpc-tools", "~> 1.19"
   spec.add_development_dependency "minitest", "~> 5.0"
