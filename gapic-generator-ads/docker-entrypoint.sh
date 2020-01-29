@@ -30,6 +30,7 @@ export RUBY_VM_THREAD_VM_STACK_SIZE=8000000
 export RUBY_VM_THREAD_VM_STACK_SIZE_MIN=4000000
 
 mkdir -p /workspace/out/lib
+bash
 for file in $(find /workspace/in -name *.proto)
 do
 grpc_tools_ruby_protoc \
