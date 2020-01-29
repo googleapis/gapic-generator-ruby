@@ -27,14 +27,16 @@ set -euxo pipefail
 #done
 
 mkdir -p /workspace/out/lib
+for file in $(find /workspace/in -name *.proto)
+do
 grpc_tools_ruby_protoc \
   --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
   --ruby_out=/workspace/out/lib \
   --grpc_out=/workspace/out/lib \
   --ruby_ads_out=/workspace/out/ \
   --ruby_ads_opt="configuration=/workspace/config.yml" \
-  `find /workspace/in/ -name *.proto`
-
+  $file
+done
 # Fix file paths
 # Ensure google_ads exists
 mkdir -p /workspace/out/lib/google/ads/google_ads
