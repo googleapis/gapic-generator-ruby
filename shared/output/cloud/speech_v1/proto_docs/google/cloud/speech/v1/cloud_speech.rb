@@ -161,7 +161,7 @@ module Google
         #     with asterisks, e.g. "f***". If set to `false` or omitted, profanities
         #     won't be filtered out.
         # @!attribute [rw] speech_contexts
-        #   @return [Google::Cloud::Speech::V1::SpeechContext]
+        #   @return [Array<Google::Cloud::Speech::V1::SpeechContext>]
         #     Array of [SpeechContext][google.cloud.speech.v1.SpeechContext].
         #     A means to provide context to assist the speech recognition. For more
         #     information, see
@@ -468,7 +468,7 @@ module Google
         # Provides "hints" to the speech recognizer to favor specific words and phrases
         # in the results.
         # @!attribute [rw] phrases
-        #   @return [String]
+        #   @return [Array<String>]
         #     A list of strings containing words and phrases "hints" so that
         #     the speech recognition is more likely to recognize them. This can be used
         #     to improve the accuracy for specific words and phrases, for example, if
@@ -513,7 +513,7 @@ module Google
         # contains the result as zero or more sequential `SpeechRecognitionResult`
         # messages.
         # @!attribute [rw] results
-        #   @return [Google::Cloud::Speech::V1::SpeechRecognitionResult]
+        #   @return [Array<Google::Cloud::Speech::V1::SpeechRecognitionResult>]
         #     Sequential list of transcription results corresponding to
         #     sequential portions of audio.
         class RecognizeResponse
@@ -527,7 +527,7 @@ module Google
         # returned by the `GetOperation` call of the `google::longrunning::Operations`
         # service.
         # @!attribute [rw] results
-        #   @return [Google::Cloud::Speech::V1::SpeechRecognitionResult]
+        #   @return [Array<Google::Cloud::Speech::V1::SpeechRecognitionResult>]
         #     Sequential list of transcription results corresponding to
         #     sequential portions of audio.
         class LongRunningRecognizeResponse
@@ -607,7 +607,7 @@ module Google
         #     If set, returns a [google.rpc.Status][google.rpc.Status] message that
         #     specifies the error for the operation.
         # @!attribute [rw] results
-        #   @return [Google::Cloud::Speech::V1::StreamingRecognitionResult]
+        #   @return [Array<Google::Cloud::Speech::V1::StreamingRecognitionResult>]
         #     This repeated list contains zero or more results that
         #     correspond to consecutive portions of the audio currently being processed.
         #     It contains zero or one `is_final=true` result (the newly settled portion),
@@ -638,7 +638,7 @@ module Google
         # A streaming speech recognition result corresponding to a portion of the audio
         # that is currently being processed.
         # @!attribute [rw] alternatives
-        #   @return [Google::Cloud::Speech::V1::SpeechRecognitionAlternative]
+        #   @return [Array<Google::Cloud::Speech::V1::SpeechRecognitionAlternative>]
         #     May contain one or more recognition hypotheses (up to the
         #     maximum specified in `max_alternatives`).
         #     These alternatives are ordered in terms of accuracy, with the top (first)
@@ -678,7 +678,7 @@ module Google
 
         # A speech recognition result corresponding to a portion of the audio.
         # @!attribute [rw] alternatives
-        #   @return [Google::Cloud::Speech::V1::SpeechRecognitionAlternative]
+        #   @return [Array<Google::Cloud::Speech::V1::SpeechRecognitionAlternative>]
         #     May contain one or more recognition hypotheses (up to the
         #     maximum specified in `max_alternatives`).
         #     These alternatives are ordered in terms of accuracy, with the top (first)
@@ -707,7 +707,7 @@ module Google
         #     to be always provided.
         #     The default of 0.0 is a sentinel value indicating `confidence` was not set.
         # @!attribute [rw] words
-        #   @return [Google::Cloud::Speech::V1::WordInfo]
+        #   @return [Array<Google::Cloud::Speech::V1::WordInfo>]
         #     A list of word-specific information for each recognized word.
         #     Note: When `enable_speaker_diarization` is true, you will see all the words
         #     from the beginning of the audio.

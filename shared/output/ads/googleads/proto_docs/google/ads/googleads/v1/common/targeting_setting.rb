@@ -26,7 +26,7 @@ module Google
           # <a href="https://support.google.com/google-ads/answer/7365594">
           # targeting related features</a>, at Campaign and AdGroup level.
           # @!attribute [rw] target_restrictions
-          #   @return [Google::Ads::GoogleAds::V1::Common::TargetRestriction]
+          #   @return [Array<Google::Ads::GoogleAds::V1::Common::TargetRestriction>]
           #     The per-targeting-dimension setting to restrict the reach of your campaign
           #     or ad group.
           class TargetingSetting

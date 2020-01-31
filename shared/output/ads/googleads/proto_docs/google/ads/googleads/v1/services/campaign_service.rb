@@ -38,7 +38,7 @@ module Google
           #   @return [String]
           #     The ID of the customer whose campaigns are being modified.
           # @!attribute [rw] operations
-          #   @return [Google::Ads::GoogleAds::V1::Services::CampaignOperation]
+          #   @return [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation>]
           #     The list of operations to perform on individual campaigns.
           # @!attribute [rw] partial_failure
           #   @return [Boolean]
@@ -85,7 +85,7 @@ module Google
           #     operations. If any errors occur outside the operations (e.g. auth errors),
           #     we return an RPC level error.
           # @!attribute [rw] results
-          #   @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignResult]
+          #   @return [Array<Google::Ads::GoogleAds::V1::Services::MutateCampaignResult>]
           #     All results for the mutate.
           class MutateCampaignsResponse
             include Google::Protobuf::MessageExts

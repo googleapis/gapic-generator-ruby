@@ -112,7 +112,7 @@ module Google
       # The response message for the google.showcase.v1beta1.Messaging\ListRooms
       # method.
       # @!attribute [rw] rooms
-      #   @return [Google::Showcase::V1beta1::Room]
+      #   @return [Array<Google::Showcase::V1beta1::Room>]
       #     The list of rooms.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -221,7 +221,7 @@ module Google
       # The response message for the google.showcase.v1beta1.Messaging\ListBlurbs
       # method.
       # @!attribute [rw] blurbs
-      #   @return [Google::Showcase::V1beta1::Blurb]
+      #   @return [Array<Google::Showcase::V1beta1::Blurb>]
       #     The list of blurbs.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -273,7 +273,7 @@ module Google
       # The operation response message for the
       # google.showcase.v1beta1.Messaging\SearchBlurbs method.
       # @!attribute [rw] blurbs
-      #   @return [Google::Showcase::V1beta1::Blurb]
+      #   @return [Array<Google::Showcase::V1beta1::Blurb>]
       #     Blurbs that matched the search query.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -329,7 +329,7 @@ module Google
       # The response message for the google.showcase.v1beta1.Messaging\SendBlurbs
       # method.
       # @!attribute [rw] names
-      #   @return [String]
+      #   @return [Array<String>]
       #     The names of successful blurb creations.
       class SendBlurbsResponse
         include Google::Protobuf::MessageExts

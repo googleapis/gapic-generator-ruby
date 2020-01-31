@@ -608,7 +608,9 @@ module Gapic
       # Whether this field is a map
       # @return [Boolean]
       def map?
-        repeated? && @message&.map_entry?
+        return true if repeated? && @message&.map_entry?
+
+        false
       end
 
       # @return [String] A reference to another resource message or resource

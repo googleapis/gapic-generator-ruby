@@ -176,7 +176,7 @@ module Google
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
               #   @param customer_id [String]
               #     The ID of the customer whose campaigns are being modified.
-              #   @param operations [Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash]
+              #   @param operations [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash>]
               #     The list of operations to perform on individual campaigns.
               #   @param partial_failure [Boolean]
               #     If true, successful operations will be carried out and invalid

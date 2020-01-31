@@ -92,7 +92,7 @@ module Google
 
       # Response for the ListSessions method.
       # @!attribute [rw] sessions
-      #   @return [Google::Showcase::V1beta1::Session]
+      #   @return [Array<Google::Showcase::V1beta1::Session>]
       #     The sessions being returned.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -126,7 +126,7 @@ module Google
       #   @return [ENUM(Result)]
       #     The state of the report.
       # @!attribute [rw] test_runs
-      #   @return [Google::Showcase::V1beta1::TestRun]
+      #   @return [Array<Google::Showcase::V1beta1::TestRun>]
       #     The test runs of this session.
       class ReportSessionResponse
         include Google::Protobuf::MessageExts
@@ -159,7 +159,7 @@ module Google
       #   @return [String]
       #     A description of the test.
       # @!attribute [rw] blueprints
-      #   @return [Google::Showcase::V1beta1::Test::Blueprint]
+      #   @return [Array<Google::Showcase::V1beta1::Test::Blueprint>]
       #     The blueprints that will satisfy this test. There may be multiple blueprints
       #     that can signal to the server that this test case is being exercised. Although
       #     multiple blueprints are specified, only a single blueprint needs to be run to
@@ -182,7 +182,7 @@ module Google
         #   @return [Google::Showcase::V1beta1::Test::Blueprint::Invocation]
         #     The initial request to trigger this test.
         # @!attribute [rw] additional_requests
-        #   @return [Google::Showcase::V1beta1::Test::Blueprint::Invocation]
+        #   @return [Array<Google::Showcase::V1beta1::Test::Blueprint::Invocation>]
         #     An ordered list of method calls that can be called to trigger this test.
         class Blueprint
           include Google::Protobuf::MessageExts
@@ -287,7 +287,7 @@ module Google
 
       # The response for the ListTests method.
       # @!attribute [rw] tests
-      #   @return [Google::Showcase::V1beta1::Test]
+      #   @return [Array<Google::Showcase::V1beta1::Test>]
       #     The tests being returned.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -328,7 +328,7 @@ module Google
       #   @return [String]
       #     The answer from the test.
       # @!attribute [rw] answers
-      #   @return [String]
+      #   @return [Array<String>]
       #     The answers from the test if multiple are to be checked
       class VerifyTestRequest
         include Google::Protobuf::MessageExts

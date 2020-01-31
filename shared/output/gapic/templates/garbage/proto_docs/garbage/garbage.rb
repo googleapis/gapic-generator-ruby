@@ -43,7 +43,7 @@ module So
       #   @return [String]
       #     The name of the garbage this item belongs to.
       # @!attribute [rw] items
-      #   @return [So::Much::Trash::GarbageItem]
+      #   @return [Array<So::Much::Trash::GarbageItem>]
       #     The items of garbage.
       class LongRunningGarbageResponse
         include Google::Protobuf::MessageExts
@@ -80,7 +80,7 @@ module So
       #   @return [String]
       #     The name of the garbage this item belongs to.
       # @!attribute [rw] items
-      #   @return [So::Much::Trash::GarbageItem]
+      #   @return [Array<So::Much::Trash::GarbageItem>]
       class ListGarbageResponse
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
@@ -163,7 +163,7 @@ module So
       #   @return [ENUM(GarbageEnum)]
       #     The type of this garbage.
       # @!attribute [rw] amap
-      #   @return [So::Much::Trash::TypicalGarbage::AmapEntry]
+      #   @return [Google::Protobuf::Map{String => String}]
       #     This is a map
       class TypicalGarbage
         include Google::Protobuf::MessageExts
@@ -261,37 +261,37 @@ module So
       end
 
       # @!attribute [rw] repeated_name
-      #   @return [String]
+      #   @return [Array<String>]
       #     The repeated name of this garbage.
       # @!attribute [rw] repeated_int32
-      #   @return [Integer]
+      #   @return [Array<Integer>]
       #     The repeated int32 of this garbage.
       # @!attribute [rw] repeated_int64
-      #   @return [Integer]
+      #   @return [Array<Integer>]
       #     The repeated int64 of this garbage.
       # @!attribute [rw] repeated_uint32
-      #   @return [Integer]
+      #   @return [Array<Integer>]
       #     The repeated uint32 of this garbage.
       # @!attribute [rw] repeated_uint64
-      #   @return [Integer]
+      #   @return [Array<Integer>]
       #     The repeated uint64 of this garbage.
       # @!attribute [rw] repeated_bool
-      #   @return [Boolean]
+      #   @return [Array<Boolean>]
       #     The repeated bool of this garbage.
       # @!attribute [rw] repeated_float
-      #   @return [Float]
+      #   @return [Array<Float>]
       #     The repeated float of this garbage.
       # @!attribute [rw] repeated_double
-      #   @return [Float]
+      #   @return [Array<Float>]
       #     The repeated double of this garbage.
       # @!attribute [rw] repeated_bytes
-      #   @return [String]
+      #   @return [Array<String>]
       #     The repeated bytes of this garbage.
       # @!attribute [r] repeated_msg
-      #   @return [So::Much::Trash::GarbageMap]
+      #   @return [Array<So::Much::Trash::GarbageMap>]
       #     The repeated map of this garbage.
       # @!attribute [rw] repeated_enum
-      #   @return [ENUM(GarbageEnum)]
+      #   @return [Array<ENUM(GarbageEnum)>]
       #     The repeated type of this garbage.
       class RepeatedGarbage
         include Google::Protobuf::MessageExts
@@ -315,7 +315,7 @@ module So
 
       # The response for the GetPagedGarbage method.
       # @!attribute [rw] items
-      #   @return [So::Much::Trash::GarbageItem]
+      #   @return [Array<So::Much::Trash::GarbageItem>]
       #     The words that were expanded.
       # @!attribute [rw] next_page_token
       #   @return [String]
@@ -364,9 +364,9 @@ module So
       # The most recursive garbage ever made. Garbage stacked on garbage stacked on
       # garbage. All the way down.
       # @!attribute [rw] map_string_int32
-      #   @return [So::Much::Trash::GarbageMap::MapStringInt32Entry]
+      #   @return [Google::Protobuf::Map{String => Integer}]
       # @!attribute [rw] map_string_msg
-      #   @return [So::Much::Trash::GarbageMap::MapStringMsgEntry]
+      #   @return [Google::Protobuf::Map{String => So::Much::Trash::SimpleGarbage}]
       class GarbageMap
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods

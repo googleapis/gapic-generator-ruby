@@ -23,25 +23,25 @@ module Google
       module V1
         # Relevant information for the image from the Internet.
         # @!attribute [rw] web_entities
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebEntity]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebEntity>]
         #     Deduced entities from similar images on the Internet.
         # @!attribute [rw] full_matching_images
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebImage>]
         #     Fully matching images from the Internet.
         #     Can include resized copies of the query image.
         # @!attribute [rw] partial_matching_images
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebImage>]
         #     Partial matching images from the Internet.
         #     Those images are similar enough to share some key-point features. For
         #     example an original image will likely have partial matching for its crops.
         # @!attribute [rw] pages_with_matching_images
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebPage]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebPage>]
         #     Web pages containing the matching images from the Internet.
         # @!attribute [rw] visually_similar_images
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebImage>]
         #     The visually similar image results.
         # @!attribute [rw] best_guess_labels
-        #   @return [Google::Cloud::Vision::V1::WebDetection::WebLabel]
+        #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebLabel>]
         #     The service's best guess as to the topic of the request image.
         #     Inferred from similar images on the open web.
         class WebDetection
@@ -87,11 +87,11 @@ module Google
           #   @return [String]
           #     Title for the web page, may contain HTML markups.
           # @!attribute [rw] full_matching_images
-          #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
+          #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebImage>]
           #     Fully matching images on the page.
           #     Can include resized copies of the query image.
           # @!attribute [rw] partial_matching_images
-          #   @return [Google::Cloud::Vision::V1::WebDetection::WebImage]
+          #   @return [Array<Google::Cloud::Vision::V1::WebDetection::WebImage>]
           #     Partial matching images on the page.
           #     Those images are similar enough to share some key-point features. For
           #     example an original image will likely have partial matching for its

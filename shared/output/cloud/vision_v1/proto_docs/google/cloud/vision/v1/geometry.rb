@@ -50,10 +50,10 @@ module Google
 
         # A bounding polygon for the detected image annotation.
         # @!attribute [rw] vertices
-        #   @return [Google::Cloud::Vision::V1::Vertex]
+        #   @return [Array<Google::Cloud::Vision::V1::Vertex>]
         #     The bounding polygon vertices.
         # @!attribute [rw] normalized_vertices
-        #   @return [Google::Cloud::Vision::V1::NormalizedVertex]
+        #   @return [Array<Google::Cloud::Vision::V1::NormalizedVertex>]
         #     The bounding polygon normalized vertices.
         class BoundingPoly
           include Google::Protobuf::MessageExts

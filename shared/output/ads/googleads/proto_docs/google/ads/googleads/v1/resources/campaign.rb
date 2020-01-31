@@ -73,7 +73,7 @@ module Google
           #   @return [Google::Protobuf::StringValue]
           #     The URL template for constructing a tracking URL.
           # @!attribute [rw] url_custom_parameters
-          #   @return [Google::Ads::GoogleAds::V1::Common::CustomParameter]
+          #   @return [Array<Google::Ads::GoogleAds::V1::Common::CustomParameter>]
           #     The list of mappings used to substitute custom parameter tags in a
           #     `tracking_url_template`, `final_urls`, or `mobile_final_urls`.
           # @!attribute [rw] real_time_bidding_setting
@@ -102,7 +102,7 @@ module Google
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::AppCampaignSetting]
           #     The setting related to App Campaign.
           # @!attribute [rw] labels
-          #   @return [Google::Protobuf::StringValue]
+          #   @return [Array<Google::Protobuf::StringValue>]
           #     The resource names of labels attached to this campaign.
           # @!attribute [rw] experiment_type
           #   @return [ENUM(CampaignExperimentType)]
@@ -140,7 +140,7 @@ module Google
           #     Suffix used to append query parameters to landing pages that are served
           #     with parallel tracking.
           # @!attribute [rw] frequency_caps
-          #   @return [Google::Ads::GoogleAds::V1::Common::FrequencyCapEntry]
+          #   @return [Array<Google::Ads::GoogleAds::V1::Common::FrequencyCapEntry>]
           #     A list that limits how often each user will see this campaign's ads.
           # @!attribute [rw] video_brand_safety_suitability
           #   @return [ENUM(BrandSafetySuitability)]
@@ -269,7 +269,7 @@ module Google
             #   @return [Google::Protobuf::BoolValue]
             #     Whether the campaign uses advertiser supplied URLs exclusively.
             # @!attribute [rw] feeds
-            #   @return [Google::Protobuf::StringValue]
+            #   @return [Array<Google::Protobuf::StringValue>]
             #     The list of page feeds associated with the campaign.
             class DynamicSearchAdsSetting
               include Google::Protobuf::MessageExts
@@ -318,7 +318,7 @@ module Google
             # Selective optimization setting for this campaign, which includes a set of
             # conversion actions to optimize this campaign towards.
             # @!attribute [rw] conversion_actions
-            #   @return [Google::Protobuf::StringValue]
+            #   @return [Array<Google::Protobuf::StringValue>]
             #     The selected set of conversion actions for optimizing this campaign.
             class SelectiveOptimization
               include Google::Protobuf::MessageExts
