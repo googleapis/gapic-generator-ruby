@@ -112,7 +112,7 @@ module Google
       # The response message for the google.showcase.v1beta1.Identity\ListUsers
       # method.
       # @!attribute [rw] users
-      #   @return [Google::Showcase::V1beta1::User]
+      #   @return [Array<Google::Showcase::V1beta1::User>]
       #     The list of users.
       # @!attribute [rw] next_page_token
       #   @return [String]

@@ -33,7 +33,7 @@ module Google
         #     Format is:
         #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`.
         # @!attribute [rw] product_categories
-        #   @return [String]
+        #   @return [Array<String>]
         #     The list of product categories to search in. Currently, we only consider
         #     the first category, and either "homegoods-v2", "apparel-v2", "toys-v2",
         #     "packagedgoods-v1", or "general-v1" should be specified. The legacy
@@ -63,10 +63,10 @@ module Google
         #     product set and products removed from the product set after this time are
         #     not reflected in the current results.
         # @!attribute [rw] results
-        #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
+        #   @return [Array<Google::Cloud::Vision::V1::ProductSearchResults::Result>]
         #     List of results, one for each product match.
         # @!attribute [rw] product_grouped_results
-        #   @return [Google::Cloud::Vision::V1::ProductSearchResults::GroupedResult]
+        #   @return [Array<Google::Cloud::Vision::V1::ProductSearchResults::GroupedResult>]
         #     List of results grouped by products detected in the query image. Each entry
         #     corresponds to one bounding polygon in the query image, and contains the
         #     matching products specific to that region. There may be duplicate product
@@ -118,10 +118,10 @@ module Google
           #   @return [Google::Cloud::Vision::V1::BoundingPoly]
           #     The bounding polygon around the product detected in the query image.
           # @!attribute [rw] results
-          #   @return [Google::Cloud::Vision::V1::ProductSearchResults::Result]
+          #   @return [Array<Google::Cloud::Vision::V1::ProductSearchResults::Result>]
           #     List of results, one for each product match.
           # @!attribute [rw] object_annotations
-          #   @return [Google::Cloud::Vision::V1::ProductSearchResults::ObjectAnnotation]
+          #   @return [Array<Google::Cloud::Vision::V1::ProductSearchResults::ObjectAnnotation>]
           #     List of generic predictions for the object in the bounding box.
           class GroupedResult
             include Google::Protobuf::MessageExts

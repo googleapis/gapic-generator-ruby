@@ -80,7 +80,7 @@ module Google
 
       # The response for the PagedExpand method.
       # @!attribute [rw] responses
-      #   @return [Google::Showcase::V1beta1::EchoResponse]
+      #   @return [Array<Google::Showcase::V1beta1::EchoResponse>]
       #     The words that were expanded.
       # @!attribute [rw] next_page_token
       #   @return [String]

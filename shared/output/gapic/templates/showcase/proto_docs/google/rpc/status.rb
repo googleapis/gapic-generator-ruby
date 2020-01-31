@@ -88,7 +88,7 @@ module Google
     #     user-facing error message should be localized and sent in the
     #     [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
     # @!attribute [rw] details
-    #   @return [Google::Protobuf::Any]
+    #   @return [Array<Google::Protobuf::Any>]
     #     A list of messages that carry the error details.  There is a common set of
     #     message types for APIs to use.
     class Status

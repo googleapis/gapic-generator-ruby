@@ -50,7 +50,7 @@ module Google
 
     # Describes additional debugging info.
     # @!attribute [rw] stack_entries
-    #   @return [String]
+    #   @return [Array<String>]
     #     The stack trace entries indicating where the error occurred.
     # @!attribute [rw] detail
     #   @return [String]
@@ -72,7 +72,7 @@ module Google
     # Also see RetryDetail and Help types for other details about handling a
     # quota failure.
     # @!attribute [rw] violations
-    #   @return [Google::Rpc::QuotaFailure::Violation]
+    #   @return [Array<Google::Rpc::QuotaFailure::Violation>]
     #     Describes all quota violations.
     class QuotaFailure
       include Google::Protobuf::MessageExts
@@ -106,7 +106,7 @@ module Google
     # acknowledged, it could list the terms of service violation in the
     # PreconditionFailure message.
     # @!attribute [rw] violations
-    #   @return [Google::Rpc::PreconditionFailure::Violation]
+    #   @return [Array<Google::Rpc::PreconditionFailure::Violation>]
     #     Describes all precondition violations.
     class PreconditionFailure
       include Google::Protobuf::MessageExts
@@ -138,7 +138,7 @@ module Google
     # Describes violations in a client request. This error type focuses on the
     # syntactic aspects of the request.
     # @!attribute [rw] field_violations
-    #   @return [Google::Rpc::BadRequest::FieldViolation]
+    #   @return [Array<Google::Rpc::BadRequest::FieldViolation>]
     #     Describes all violations in a client request.
     class BadRequest
       include Google::Protobuf::MessageExts
@@ -206,7 +206,7 @@ module Google
     # project hasn't enabled the accessed service, this can contain a URL pointing
     # directly to the right place in the developer console to flip the bit.
     # @!attribute [rw] links
-    #   @return [Google::Rpc::Help::Link]
+    #   @return [Array<Google::Rpc::Help::Link>]
     #     URL(s) pointing to additional information on handling the current error.
     class Help
       include Google::Protobuf::MessageExts

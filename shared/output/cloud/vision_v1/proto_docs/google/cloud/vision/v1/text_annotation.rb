@@ -29,7 +29,7 @@ module Google
         # to the [TextAnnotation.TextProperty][google.cloud.vision.v1.TextAnnotation.TextProperty] message definition below for more
         # detail.
         # @!attribute [rw] pages
-        #   @return [Google::Cloud::Vision::V1::Page]
+        #   @return [Array<Google::Cloud::Vision::V1::Page>]
         #     List of pages detected by OCR.
         # @!attribute [rw] text
         #   @return [String]
@@ -88,7 +88,7 @@ module Google
 
           # Additional information detected on the structural component.
           # @!attribute [rw] detected_languages
-          #   @return [Google::Cloud::Vision::V1::TextAnnotation::DetectedLanguage]
+          #   @return [Array<Google::Cloud::Vision::V1::TextAnnotation::DetectedLanguage>]
           #     A list of detected languages together with confidence.
           # @!attribute [rw] detected_break
           #   @return [Google::Cloud::Vision::V1::TextAnnotation::DetectedBreak]
@@ -112,7 +112,7 @@ module Google
         #     Page height. For PDFs the unit is points. For images (including
         #     TIFFs) the unit is pixels.
         # @!attribute [rw] blocks
-        #   @return [Google::Cloud::Vision::V1::Block]
+        #   @return [Array<Google::Cloud::Vision::V1::Block>]
         #     List of blocks of text, images etc on this page.
         # @!attribute [rw] confidence
         #   @return [Float]
@@ -149,7 +149,7 @@ module Google
         #
         #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] paragraphs
-        #   @return [Google::Cloud::Vision::V1::Paragraph]
+        #   @return [Array<Google::Cloud::Vision::V1::Paragraph>]
         #     List of paragraphs in this block (if this blocks is of type text).
         # @!attribute [rw] block_type
         #   @return [ENUM(BlockType)]
@@ -205,7 +205,7 @@ module Google
         #          1----0
         #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] words
-        #   @return [Google::Cloud::Vision::V1::Word]
+        #   @return [Array<Google::Cloud::Vision::V1::Word>]
         #     List of all words in this paragraph.
         # @!attribute [rw] confidence
         #   @return [Float]
@@ -237,7 +237,7 @@ module Google
         #          1----0
         #       and the vertex order will still be (0, 1, 2, 3).
         # @!attribute [rw] symbols
-        #   @return [Google::Cloud::Vision::V1::Symbol]
+        #   @return [Array<Google::Cloud::Vision::V1::Symbol>]
         #     List of symbols in the word.
         #     The order of the symbols follows the natural reading order.
         # @!attribute [rw] confidence

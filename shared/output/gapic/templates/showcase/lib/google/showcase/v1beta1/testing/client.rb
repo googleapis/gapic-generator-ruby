@@ -538,7 +538,7 @@ module Google
           #     The test to have an answer registered to it.
           #   @param answer [String]
           #     The answer from the test.
-          #   @param answers [String]
+          #   @param answers [Array<String>]
           #     The answers from the test if multiple are to be checked
           #
           #

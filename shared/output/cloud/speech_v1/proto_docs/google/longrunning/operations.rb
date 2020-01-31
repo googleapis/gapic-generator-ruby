@@ -84,7 +84,7 @@ module Google
 
     # The response message for [Operations.ListOperations][google.longrunning.Operations.ListOperations].
     # @!attribute [rw] operations
-    #   @return [Google::Longrunning::Operation]
+    #   @return [Array<Google::Longrunning::Operation>]
     #     A list of operations that matches the specified filter in the request.
     # @!attribute [rw] next_page_token
     #   @return [String]

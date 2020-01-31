@@ -365,25 +365,25 @@ module So
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_repeated_garbage(repeated_name: nil, repeated_int32: nil, repeated_int64: nil, repeated_uint32: nil, repeated_uint64: nil, repeated_bool: nil, repeated_float: nil, repeated_double: nil, repeated_bytes: nil, repeated_enum: nil)
-          #   @param repeated_name [String]
+          #   @param repeated_name [Array<String>]
           #     The repeated name of this garbage.
-          #   @param repeated_int32 [Integer]
+          #   @param repeated_int32 [Array<Integer>]
           #     The repeated int32 of this garbage.
-          #   @param repeated_int64 [Integer]
+          #   @param repeated_int64 [Array<Integer>]
           #     The repeated int64 of this garbage.
-          #   @param repeated_uint32 [Integer]
+          #   @param repeated_uint32 [Array<Integer>]
           #     The repeated uint32 of this garbage.
-          #   @param repeated_uint64 [Integer]
+          #   @param repeated_uint64 [Array<Integer>]
           #     The repeated uint64 of this garbage.
-          #   @param repeated_bool [Boolean]
+          #   @param repeated_bool [Array<Boolean>]
           #     The repeated bool of this garbage.
-          #   @param repeated_float [Float]
+          #   @param repeated_float [Array<Float>]
           #     The repeated float of this garbage.
-          #   @param repeated_double [Float]
+          #   @param repeated_double [Array<Float>]
           #     The repeated double of this garbage.
-          #   @param repeated_bytes [String]
+          #   @param repeated_bytes [Array<String>]
           #     The repeated bytes of this garbage.
-          #   @param repeated_enum [ENUM(GarbageEnum)]
+          #   @param repeated_enum [Array<ENUM(GarbageEnum)>]
           #     The repeated type of this garbage.
           #
           #
@@ -432,7 +432,7 @@ module So
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil)
+          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil)
           #   @param name [String]
           #     The name of this garbage.
           #   @param int32 [Integer]
@@ -457,6 +457,8 @@ module So
           #     Time limit for this garbage. If not defined, the garbage endures forever.
           #   @param enum [ENUM(GarbageEnum)]
           #     The type of this garbage.
+          #   @param amap [Hash{String => String}]
+          #     This is a map
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation

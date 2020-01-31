@@ -63,6 +63,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :duration, :message, 11, "google.protobuf.Duration"
       optional :msg, :message, 12, "endless.trash.forever.GarbageMap"
       optional :enum, :enum, 13, "endless.trash.forever.GarbageEnum"
+      map :amap, :string, :string, 14
     end
     add_message "endless.trash.forever.SpecificGarbage" do
       optional :name, :string, 1

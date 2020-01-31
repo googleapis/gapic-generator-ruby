@@ -45,7 +45,7 @@ module Google
         #     "homegoods", "apparel", and "toys" are still supported, but these should
         #     not be used for new products.
         # @!attribute [rw] product_labels
-        #   @return [Google::Cloud::Vision::V1::Product::KeyValue]
+        #   @return [Array<Google::Cloud::Vision::V1::Product::KeyValue>]
         #     Key-value pairs that can be attached to a product. At query time,
         #     constraints can be specified based on the product_labels.
         #
@@ -129,7 +129,7 @@ module Google
         #
         #     The URI must start with `gs://`.
         # @!attribute [rw] bounding_polys
-        #   @return [Google::Cloud::Vision::V1::BoundingPoly]
+        #   @return [Array<Google::Cloud::Vision::V1::BoundingPoly>]
         #     Optional. Bounding polygons around the areas of interest in the reference image.
         #     If this field is empty, the system will try to detect regions of
         #     interest. At most 10 bounding polygons will be used.
@@ -184,7 +184,7 @@ module Google
 
         # Response message for the `ListProducts` method.
         # @!attribute [rw] products
-        #   @return [Google::Cloud::Vision::V1::Product]
+        #   @return [Array<Google::Cloud::Vision::V1::Product>]
         #     List of products.
         # @!attribute [rw] next_page_token
         #   @return [String]
@@ -275,7 +275,7 @@ module Google
 
         # Response message for the `ListProductSets` method.
         # @!attribute [rw] product_sets
-        #   @return [Google::Cloud::Vision::V1::ProductSet]
+        #   @return [Array<Google::Cloud::Vision::V1::ProductSet>]
         #     List of ProductSets.
         # @!attribute [rw] next_page_token
         #   @return [String]
@@ -370,7 +370,7 @@ module Google
 
         # Response message for the `ListReferenceImages` method.
         # @!attribute [rw] reference_images
-        #   @return [Google::Cloud::Vision::V1::ReferenceImage]
+        #   @return [Array<Google::Cloud::Vision::V1::ReferenceImage>]
         #     The list of reference images.
         # @!attribute [rw] page_size
         #   @return [Integer]
@@ -465,7 +465,7 @@ module Google
 
         # Response message for the `ListProductsInProductSet` method.
         # @!attribute [rw] products
-        #   @return [Google::Cloud::Vision::V1::Product]
+        #   @return [Array<Google::Cloud::Vision::V1::Product>]
         #     The list of Products.
         # @!attribute [rw] next_page_token
         #   @return [String]
@@ -576,10 +576,10 @@ module Google
         # [google.longrunning.Operations.GetOperation][google.longrunning.Operations.GetOperation] method in the returned
         # [google.longrunning.Operation.response][google.longrunning.Operation.response] field.
         # @!attribute [rw] reference_images
-        #   @return [Google::Cloud::Vision::V1::ReferenceImage]
+        #   @return [Array<Google::Cloud::Vision::V1::ReferenceImage>]
         #     The list of reference_images that are imported successfully.
         # @!attribute [rw] statuses
-        #   @return [Google::Rpc::Status]
+        #   @return [Array<Google::Rpc::Status>]
         #     The rpc status for each ImportProductSet request, including both successes
         #     and errors.
         #

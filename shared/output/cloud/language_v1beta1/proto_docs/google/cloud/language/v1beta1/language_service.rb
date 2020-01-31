@@ -88,7 +88,7 @@ module Google
         #   @return [ENUM(Type)]
         #     The entity type.
         # @!attribute [rw] metadata
-        #   @return [Google::Cloud::Language::V1beta1::Entity::MetadataEntry]
+        #   @return [Google::Protobuf::Map{String => String}]
         #     Metadata associated with the entity.
         #
         #     Currently, Wikipedia URLs and Knowledge Graph MIDs are provided, if
@@ -102,7 +102,7 @@ module Google
         #     Scores closer to 0 are less salient, while scores closer to 1.0 are highly
         #     salient.
         # @!attribute [rw] mentions
-        #   @return [Google::Cloud::Language::V1beta1::EntityMention]
+        #   @return [Array<Google::Cloud::Language::V1beta1::EntityMention>]
         #     The mentions of this entity in the input document. The API currently
         #     supports proper noun mentions.
         class Entity
@@ -830,7 +830,7 @@ module Google
         #     See [Document.language][google.cloud.language.v1beta1.Document.language]
         #     field for more details.
         # @!attribute [rw] sentences
-        #   @return [Google::Cloud::Language::V1beta1::Sentence]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
         #     The sentiment for all the sentences in the document.
         class AnalyzeSentimentResponse
           include Google::Protobuf::MessageExts
@@ -851,7 +851,7 @@ module Google
 
         # The entity analysis response message.
         # @!attribute [rw] entities
-        #   @return [Google::Cloud::Language::V1beta1::Entity]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Entity>]
         #     The recognized entities in the input document.
         # @!attribute [rw] language
         #   @return [String]
@@ -878,10 +878,10 @@ module Google
 
         # The syntax analysis response message.
         # @!attribute [rw] sentences
-        #   @return [Google::Cloud::Language::V1beta1::Sentence]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
         #     Sentences in the input document.
         # @!attribute [rw] tokens
-        #   @return [Google::Cloud::Language::V1beta1::Token]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Token>]
         #     Tokens, along with their syntactic information, in the input document.
         # @!attribute [rw] language
         #   @return [String]
@@ -928,16 +928,16 @@ module Google
 
         # The text annotations response message.
         # @!attribute [rw] sentences
-        #   @return [Google::Cloud::Language::V1beta1::Sentence]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
         #     Sentences in the input document. Populated if the user enables
         #     [AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_syntax].
         # @!attribute [rw] tokens
-        #   @return [Google::Cloud::Language::V1beta1::Token]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Token>]
         #     Tokens, along with their syntactic information, in the input document.
         #     Populated if the user enables
         #     [AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_syntax].
         # @!attribute [rw] entities
-        #   @return [Google::Cloud::Language::V1beta1::Entity]
+        #   @return [Array<Google::Cloud::Language::V1beta1::Entity>]
         #     Entities, along with their semantic information, in the input document.
         #     Populated if the user enables
         #     [AnnotateTextRequest.Features.extract_entities][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_entities].

@@ -156,7 +156,7 @@ module Google
         #     landmarker results, only on the initial face detection, hence
         #     the <code>fd</code> (face detection) prefix.
         # @!attribute [rw] landmarks
-        #   @return [Google::Cloud::Vision::V1::FaceAnnotation::Landmark]
+        #   @return [Array<Google::Cloud::Vision::V1::FaceAnnotation::Landmark>]
         #     Detected face landmarks.
         # @!attribute [rw] roll_angle
         #   @return [Float]
@@ -386,14 +386,14 @@ module Google
         #     Image region to which this entity belongs. Not produced
         #     for `LABEL_DETECTION` features.
         # @!attribute [rw] locations
-        #   @return [Google::Cloud::Vision::V1::LocationInfo]
+        #   @return [Array<Google::Cloud::Vision::V1::LocationInfo>]
         #     The location information for the detected entity. Multiple
         #     `LocationInfo` elements can be present because one location may
         #     indicate the location of the scene in the image, and another location
         #     may indicate the location of the place where the image was taken.
         #     Location information is usually present for landmarks.
         # @!attribute [rw] properties
-        #   @return [Google::Cloud::Vision::V1::Property]
+        #   @return [Array<Google::Cloud::Vision::V1::Property>]
         #     Some entities may have optional user-supplied `Property` (name/value)
         #     fields, such a score or string that qualifies the entity.
         class EntityAnnotation
@@ -509,7 +509,7 @@ module Google
 
         # Set of dominant colors and their corresponding scores.
         # @!attribute [rw] colors
-        #   @return [Google::Cloud::Vision::V1::ColorInfo]
+        #   @return [Array<Google::Cloud::Vision::V1::ColorInfo>]
         #     RGB color values with their score and pixel fraction.
         class DominantColorsAnnotation
           include Google::Protobuf::MessageExts
@@ -544,7 +544,7 @@ module Google
 
         # Set of crop hints that are used to generate new crops when serving images.
         # @!attribute [rw] crop_hints
-        #   @return [Google::Cloud::Vision::V1::CropHint]
+        #   @return [Array<Google::Cloud::Vision::V1::CropHint>]
         #     Crop hint results.
         class CropHintsAnnotation
           include Google::Protobuf::MessageExts
@@ -553,7 +553,7 @@ module Google
 
         # Parameters for crop hints annotation request.
         # @!attribute [rw] aspect_ratios
-        #   @return [Float]
+        #   @return [Array<Float>]
         #     Aspect ratios in floats, representing the ratio of the width to the height
         #     of the image. For example, if the desired aspect ratio is 4/3, the
         #     corresponding float value should be 1.33333.  If not specified, the
@@ -579,7 +579,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::LatLongRect]
         #     Not used.
         # @!attribute [rw] language_hints
-        #   @return [String]
+        #   @return [Array<String>]
         #     List of languages to use for TEXT_DETECTION. In most cases, an empty value
         #     yields the best results since it enables automatic language detection. For
         #     languages based on the Latin alphabet, setting `language_hints` is not
@@ -608,7 +608,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::Image]
         #     The image to be processed.
         # @!attribute [rw] features
-        #   @return [Google::Cloud::Vision::V1::Feature]
+        #   @return [Array<Google::Cloud::Vision::V1::Feature>]
         #     Requested features.
         # @!attribute [rw] image_context
         #   @return [Google::Cloud::Vision::V1::ImageContext]
@@ -634,23 +634,23 @@ module Google
 
         # Response to an image annotation request.
         # @!attribute [rw] face_annotations
-        #   @return [Google::Cloud::Vision::V1::FaceAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::FaceAnnotation>]
         #     If present, face detection has completed successfully.
         # @!attribute [rw] landmark_annotations
-        #   @return [Google::Cloud::Vision::V1::EntityAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::EntityAnnotation>]
         #     If present, landmark detection has completed successfully.
         # @!attribute [rw] logo_annotations
-        #   @return [Google::Cloud::Vision::V1::EntityAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::EntityAnnotation>]
         #     If present, logo detection has completed successfully.
         # @!attribute [rw] label_annotations
-        #   @return [Google::Cloud::Vision::V1::EntityAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::EntityAnnotation>]
         #     If present, label detection has completed successfully.
         # @!attribute [rw] localized_object_annotations
-        #   @return [Google::Cloud::Vision::V1::LocalizedObjectAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::LocalizedObjectAnnotation>]
         #     If present, localized object detection has completed successfully.
         #     This will be sorted descending by confidence score.
         # @!attribute [rw] text_annotations
-        #   @return [Google::Cloud::Vision::V1::EntityAnnotation]
+        #   @return [Array<Google::Cloud::Vision::V1::EntityAnnotation>]
         #     If present, text (OCR) detection has completed successfully.
         # @!attribute [rw] full_text_annotation
         #   @return [Google::Cloud::Vision::V1::TextAnnotation]
@@ -689,7 +689,7 @@ module Google
 
         # Multiple image annotation requests are batched into a single service call.
         # @!attribute [rw] requests
-        #   @return [Google::Cloud::Vision::V1::AnnotateImageRequest]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateImageRequest>]
         #     Required. Individual image annotation requests for this batch.
         # @!attribute [rw] parent
         #   @return [String]
@@ -712,7 +712,7 @@ module Google
 
         # Response to a batch image annotation request.
         # @!attribute [rw] responses
-        #   @return [Google::Cloud::Vision::V1::AnnotateImageResponse]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateImageResponse>]
         #     Individual responses to image annotation requests within the batch.
         class BatchAnnotateImagesResponse
           include Google::Protobuf::MessageExts
@@ -724,13 +724,13 @@ module Google
         #   @return [Google::Cloud::Vision::V1::InputConfig]
         #     Required. Information about the input file.
         # @!attribute [rw] features
-        #   @return [Google::Cloud::Vision::V1::Feature]
+        #   @return [Array<Google::Cloud::Vision::V1::Feature>]
         #     Required. Requested features.
         # @!attribute [rw] image_context
         #   @return [Google::Cloud::Vision::V1::ImageContext]
         #     Additional context that may accompany the image(s) in the file.
         # @!attribute [rw] pages
-        #   @return [Integer]
+        #   @return [Array<Integer>]
         #     Pages of the file to perform image annotation.
         #
         #     Pages starts from 1, we assume the first page of the file is page 1.
@@ -756,7 +756,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::InputConfig]
         #     Information about the file for which this response is generated.
         # @!attribute [rw] responses
-        #   @return [Google::Cloud::Vision::V1::AnnotateImageResponse]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateImageResponse>]
         #     Individual responses to images found within the file. This field will be
         #     empty if the `error` field is set.
         # @!attribute [rw] total_pages
@@ -773,7 +773,7 @@ module Google
 
         # A list of requests to annotate files using the BatchAnnotateFiles API.
         # @!attribute [rw] requests
-        #   @return [Google::Cloud::Vision::V1::AnnotateFileRequest]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateFileRequest>]
         #     Required. The list of file annotation requests. Right now we support only one
         #     AnnotateFileRequest in BatchAnnotateFilesRequest.
         # @!attribute [rw] parent
@@ -797,7 +797,7 @@ module Google
 
         # A list of file annotation responses.
         # @!attribute [rw] responses
-        #   @return [Google::Cloud::Vision::V1::AnnotateFileResponse]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateFileResponse>]
         #     The list of file annotation responses, each response corresponding to each
         #     AnnotateFileRequest in BatchAnnotateFilesRequest.
         class BatchAnnotateFilesResponse
@@ -810,7 +810,7 @@ module Google
         #   @return [Google::Cloud::Vision::V1::InputConfig]
         #     Required. Information about the input file.
         # @!attribute [rw] features
-        #   @return [Google::Cloud::Vision::V1::Feature]
+        #   @return [Array<Google::Cloud::Vision::V1::Feature>]
         #     Required. Requested features.
         # @!attribute [rw] image_context
         #   @return [Google::Cloud::Vision::V1::ImageContext]
@@ -834,7 +834,7 @@ module Google
 
         # Request for async image annotation for a list of images.
         # @!attribute [rw] requests
-        #   @return [Google::Cloud::Vision::V1::AnnotateImageRequest]
+        #   @return [Array<Google::Cloud::Vision::V1::AnnotateImageRequest>]
         #     Required. Individual image annotation requests for this batch.
         # @!attribute [rw] output_config
         #   @return [Google::Cloud::Vision::V1::OutputConfig]
@@ -870,7 +870,7 @@ module Google
         # Multiple async file annotation requests are batched into a single service
         # call.
         # @!attribute [rw] requests
-        #   @return [Google::Cloud::Vision::V1::AsyncAnnotateFileRequest]
+        #   @return [Array<Google::Cloud::Vision::V1::AsyncAnnotateFileRequest>]
         #     Required. Individual async file annotation requests for this batch.
         # @!attribute [rw] parent
         #   @return [String]
@@ -893,7 +893,7 @@ module Google
 
         # Response to an async batch file annotation request.
         # @!attribute [rw] responses
-        #   @return [Google::Cloud::Vision::V1::AsyncAnnotateFileResponse]
+        #   @return [Array<Google::Cloud::Vision::V1::AsyncAnnotateFileResponse>]
         #     The list of file annotation responses, one for each request in
         #     AsyncBatchAnnotateFilesRequest.
         class AsyncBatchAnnotateFilesResponse
