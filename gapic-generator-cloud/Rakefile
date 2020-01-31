@@ -72,14 +72,34 @@ namespace :image do
   desc "Build the docker image using the local base image code"
   task :local, :name do |_t, args|
     image_name = args[:name] || "ruby-gapic-generator-cloud"
-    mkdir_p "tmp"
-    base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
-    base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
-    rm_rf base_tmp_dir
-    cp_r base_source_dir, base_tmp_dir
+    prepare_embedded_gapic_generator_directory
     sh "docker build -t #{image_name} ."
     rm_r base_tmp_dir
   end
+
+  task :release do
+    require_relative "lib/gapic/generator/cloud/version.rb"
+    version = ENV["RELEASE_VERSION"] || Gapic::Generator::Cloud::VERSION
+    match = /^((\d+)\.\d+)\.\d+$/.match version
+    raise "Bad version format: #{version}" unless match
+    version_minor = match[1]
+    version_major = match[2]
+    project = ENV["PROJECT_ID"] || "gapic-images"
+    image_url = "gcr.io/#{project}/gapic-generator-ruby"
+    prepare_embedded_gapic_generator_directory
+    sh "gcloud builds submit --project=#{project} --config=cloudbuild.yaml" \
+       " --substitutions=_IMAGE_URL=#{image_url},_VERSION=#{version} ."
+    sh "gcloud container images add-tag --quiet #{image_url}:#{version}" \
+       " #{image_url}:#{version_minor} #{image_url}:#{version_major} #{image_url}:latest"
+  end
+end
+
+def prepare_embedded_gapic_generator_directory
+  FileUtils.mkdir_p "tmp"
+  base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
+  base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
+  FileUtils.rm_rf base_tmp_dir
+  FileUtils.cp_r base_source_dir, base_tmp_dir
 end
 
 def generate_cloud_templates service

@@ -4,3 +4,4 @@ inherit_gem:
 AllCops:
   Exclude:
     - expected_output/**/*
+    - tmp/**/*
