@@ -130,6 +130,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       map :map_string_int32, :string, :int32, 1
       map :map_string_msg, :string, :message, 2, "endless.trash.forever.SimpleGarbage"
     end
+    add_message "endless.trash.forever.GarbageNode" do
+      optional :data, :string, 1
+      optional :parent, :message, 2, "endless.trash.forever.GarbageNode"
+    end
     add_enum "endless.trash.forever.GarbageEnum" do
       value :Default, 0
       value :Bag, 1
@@ -161,6 +165,7 @@ module So
       ComplexGarbage::Layer2Garbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer2Garbage").msgclass
       ComplexGarbage::Layer3Garbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer3Garbage").msgclass
       GarbageMap = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageMap").msgclass
+      GarbageNode = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageNode").msgclass
       GarbageEnum = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageEnum").enummodule
     end
   end

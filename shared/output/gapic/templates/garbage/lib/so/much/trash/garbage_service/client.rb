@@ -647,6 +647,56 @@ module So
           end
 
           ##
+          # Retrieves a GarbageNode resource.
+          #
+          # @overload get_garbage_node(request, options = nil)
+          #   @param request [So::Much::Trash::GarbageNode | Hash]
+          #     Retrieves a GarbageNode resource.
+          #   @param options [Gapic::CallOptions, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload get_garbage_node(data: nil, parent: nil)
+          #   @param data [String]
+          #   @param parent [So::Much::Trash::GarbageNode | Hash]
+          #
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [So::Much::Trash::GarbageNode]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          #
+          # @return [So::Much::Trash::GarbageNode]
+          #
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          #
+          def get_garbage_node request, options = nil
+            raise ArgumentError, "request must be provided" if request.nil?
+
+            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::GarbageNode
+
+            # Converts hash and nil to an options object
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.get_garbage_node.metadata.to_h
+
+            # Set x-goog-api-client header
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Garbage::VERSION
+
+            options.apply_defaults timeout:      @config.rpcs.get_garbage_node.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_garbage_node.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @garbage_service_stub.call_rpc :get_garbage_node, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # Performs paged garbage listing.
           #
           # @overload get_paged_garbage(request, options = nil)
@@ -979,6 +1029,7 @@ module So
               attr_reader :get_repeated_garbage
               attr_reader :get_typical_garbage
               attr_reader :get_complex_garbage
+              attr_reader :get_garbage_node
               attr_reader :get_paged_garbage
               attr_reader :long_running_garbage
               attr_reader :client_garbage
@@ -998,6 +1049,8 @@ module So
                 @get_typical_garbage = Gapic::Config::Method.new get_typical_garbage_config
                 get_complex_garbage_config = parent_rpcs&.get_complex_garbage if parent_rpcs&.respond_to? :get_complex_garbage
                 @get_complex_garbage = Gapic::Config::Method.new get_complex_garbage_config
+                get_garbage_node_config = parent_rpcs&.get_garbage_node if parent_rpcs&.respond_to? :get_garbage_node
+                @get_garbage_node = Gapic::Config::Method.new get_garbage_node_config
                 get_paged_garbage_config = parent_rpcs&.get_paged_garbage if parent_rpcs&.respond_to? :get_paged_garbage
                 @get_paged_garbage = Gapic::Config::Method.new get_paged_garbage_config
                 long_running_garbage_config = parent_rpcs&.long_running_garbage if parent_rpcs&.respond_to? :long_running_garbage

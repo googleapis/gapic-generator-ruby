@@ -48,13 +48,17 @@ module Gapic
     end
 
     # @private
-    def message_resource_types message
+    def message_resource_types message, seen_messages = []
+      return [] if seen_messages.include? message
+      seen_messages << message
       resource_types = []
       resource_types << message.resource.type if message.resource
-      resource_types += message.nested_messages.map { |nested_message| message_resource_types nested_message }
+      resource_types += message.nested_messages.map do |nested_message|
+        message_resource_types nested_message, seen_messages
+      end
       message.fields.each do |field|
         resource_types << field.resource_reference.type if field.resource_reference
-        resource_types += message_resource_types field.message if field.message?
+        resource_types += message_resource_types field.message, seen_messages if field.message?
       end
       resource_types.flatten
     end

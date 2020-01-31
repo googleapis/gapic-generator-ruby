@@ -74,6 +74,13 @@ service GarbageService {
       body: "*"
     };
   }
+  // Retrieves a GarbageNode resource.
+  rpc GetGarbageNode(GarbageNode) returns (GarbageNode) {
+    option (google.api.http) = {
+      post: "/v1/garbage_node:get"
+      body: "*"
+    };
+  }
   // Performs paged garbage listing.
   rpc GetPagedGarbage(PagedGarbageRequest) returns (PagedGarbageResponse) {
     option (google.api.http) = {
@@ -370,4 +377,10 @@ enum GarbageEnum {
 message GarbageMap {
   map<string, int32> map_string_int32 = 1;
   map<string, SimpleGarbage> map_string_msg = 2;
+}
+
+// A real recursive data structure.
+message GarbageNode {
+  string data = 1;
+  GarbageNode parent = 2;
 }
