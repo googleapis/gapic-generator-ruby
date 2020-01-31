@@ -25,15 +25,15 @@ $ export PROTOBUF_VERSION=3.7.1
 # export PROTOBUF_SYSTEM=osx-x86_64
 $ export PROTOBUF_SYSTEM=linux-x86_64
 
-# Get the precompiled protobuf compiler.
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
+# Get the precompiled protobuf compiler
+$ mkdir /usr/src/protoc
+$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip --output /usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
 $ cd /usr/src/protoc/
 $ unzip protoc-${PROTOBUF_VERSION}.zip
 $ rm protoc-${PROTOBUF_VERSION}.zip
 
 # Link the protoc to the path.
 $ ln -s /usr/src/protoc/bin/protoc /usr/local/bin/protoc
-$ mkdir -p /protos/
 
 # Move the common protobuf files to the local include folder.
 $ cp -R /usr/src/protoc/include/* /usr/local/include/
