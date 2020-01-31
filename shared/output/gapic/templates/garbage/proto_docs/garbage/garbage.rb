@@ -162,9 +162,21 @@ module So
       # @!attribute [rw] enum
       #   @return [ENUM(GarbageEnum)]
       #     The type of this garbage.
+      # @!attribute [rw] amap
+      #   @return [So::Much::Trash::TypicalGarbage::AmapEntry]
+      #     This is a map
       class TypicalGarbage
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods
+
+        # @!attribute [rw] key
+        #   @return [String]
+        # @!attribute [rw] value
+        #   @return [String]
+        class AmapEntry
+          include Google::Protobuf::MessageExts
+          extend Google::Protobuf::MessageExts::ClassMethods
+        end
       end
 
       # This is one specific garbage, man.

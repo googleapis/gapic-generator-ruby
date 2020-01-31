@@ -221,6 +221,8 @@ message TypicalGarbage {
   GarbageMap msg = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The type of this garbage.
   GarbageEnum enum = 13;
+  // This is a map
+  map<string, string> amap = 14;
 }
 
 // This is one specific garbage, man.

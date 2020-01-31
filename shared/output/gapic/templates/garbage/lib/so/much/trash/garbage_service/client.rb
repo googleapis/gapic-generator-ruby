@@ -432,7 +432,7 @@ module So
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil)
+          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil)
           #   @param name [String]
           #     The name of this garbage.
           #   @param int32 [Integer]
@@ -457,6 +457,8 @@ module So
           #     Time limit for this garbage. If not defined, the garbage endures forever.
           #   @param enum [ENUM(GarbageEnum)]
           #     The type of this garbage.
+          #   @param amap [So::Much::Trash::TypicalGarbage::AmapEntry | Hash]
+          #     This is a map
           #
           #
           # @yield [response, operation] Access the result along with the RPC operation

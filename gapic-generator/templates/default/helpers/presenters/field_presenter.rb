@@ -63,7 +63,7 @@ class FieldPresenter
 
   def default_value
     single = default_singular_value
-    return "[#{single}]" if @field.repeated?
+    return "[#{single}]" if @field.repeated? && !@field.map?
     single
   end
 

@@ -532,6 +532,11 @@ module Gapic
         options[:".google.api.resource"] if options
       end
 
+      # @return [Boolean] whether this type is a map entry
+      def map_entry?
+        descriptor.options&.map_entry
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the message.
       # @!method oneof_decl
@@ -598,6 +603,12 @@ module Gapic
         return true if @enum
 
         false
+      end
+
+      # Whether this field is a map
+      # @return [Boolean]
+      def map?
+        repeated? && @message&.map_entry?
       end
 
       # @return [String] A reference to another resource message or resource
