@@ -54,7 +54,7 @@ protoc_cmd = [
   "--grpc_out=/out/lib",
   "--ruby_cloud_out=/out/",
   "--ruby_cloud_opt", parameter_strs.join(",")
-] + ARGV + `find /in/ -name *.proto`.split
+] + ARGV + Dir.glob("/in/**/*.proto").sort
 
 FileUtils.mkdir_p "/out/lib"
 exec(*protoc_cmd)
