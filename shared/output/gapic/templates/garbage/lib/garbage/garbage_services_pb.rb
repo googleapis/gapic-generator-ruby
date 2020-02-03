@@ -29,6 +29,8 @@ module So
           rpc :GetTypicalGarbage, So::Much::Trash::TypicalGarbage, So::Much::Trash::TypicalGarbage
           # Retrieves a ComplexGarbage resource.
           rpc :GetComplexGarbage, So::Much::Trash::ComplexGarbage, So::Much::Trash::ComplexGarbage
+          # Retrieves a GarbageNode resource.
+          rpc :GetGarbageNode, So::Much::Trash::GarbageNode, So::Much::Trash::GarbageNode
           # Performs paged garbage listing.
           rpc :GetPagedGarbage, So::Much::Trash::PagedGarbageRequest, So::Much::Trash::PagedGarbageResponse
           # Performs asynchronous garbage listing. Garbage items are available via the

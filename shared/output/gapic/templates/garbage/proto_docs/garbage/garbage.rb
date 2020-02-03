@@ -390,6 +390,16 @@ module So
         end
       end
 
+      # A real recursive data structure.
+      # @!attribute [rw] data
+      #   @return [String]
+      # @!attribute [rw] parent
+      #   @return [So::Much::Trash::GarbageNode]
+      class GarbageNode
+        include Google::Protobuf::MessageExts
+        extend Google::Protobuf::MessageExts::ClassMethods
+      end
+
       # The type of garbage you are dealing with.
       #
       # All garbage is not treated equal. Some garbage is better than others.
