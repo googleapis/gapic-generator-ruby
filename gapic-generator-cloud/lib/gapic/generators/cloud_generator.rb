@@ -46,9 +46,7 @@ module Gapic
 
         # Additional Gem level files
         cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)
-        unless gem.services.empty?
-          cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md",   gem: gem)
-        end
+        cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md",   gem: gem) unless gem.services.empty?
         cloud_files << g("gem/dashed.erb",         "lib/#{gem.name}.rb",  gem: gem)
 
         format_files cloud_files
