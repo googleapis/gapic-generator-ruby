@@ -48,11 +48,28 @@ task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:gem_creation"].invoke
 end
+
 namespace :gen do
   desc "Generate the expected output for templates tests"
   task :templates do
+    Rake::Task["gen:showcase"].invoke
+    Rake::Task["gen:garbage"].invoke
+    Rake::Task["gen:grpc_service_config"].invoke
+  end
+
+  desc "Generate the expected output for showcase"
+  task :showcase do
     generate_default_templates :showcase
+  end
+
+  desc "Generate the expected output for garbage"
+  task :garbage do
     generate_default_templates :garbage
+  end
+
+  desc "Generate the expected output for testing/grpc_service_config"
+  task :grpc_service_config do
+    generate_default_templates :grpc_service_config
   end
 
   desc "Generate the expected output for gem creation tests"
