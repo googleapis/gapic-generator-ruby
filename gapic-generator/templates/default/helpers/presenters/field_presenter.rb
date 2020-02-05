@@ -78,6 +78,10 @@ class FieldPresenter
     @field.repeated?
   end
 
+  def map?
+    @field.map?
+  end
+
   protected
 
   def field_doc_types field, output
