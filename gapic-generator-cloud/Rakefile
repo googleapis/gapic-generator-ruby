@@ -48,6 +48,7 @@ namespace :gen do
     generate_cloud_templates :secretmanager_v1beta1
     generate_cloud_templates :speech_v1
     generate_cloud_templates :vision_v1
+    generate_cloud_templates :noservice
   end
 end
 
