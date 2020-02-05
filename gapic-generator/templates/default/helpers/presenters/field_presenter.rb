@@ -78,6 +78,10 @@ class FieldPresenter
     @field.repeated?
   end
 
+  def map?
+    @field.map?
+  end
+
   protected
 
   def field_doc_types field, output
@@ -126,7 +130,7 @@ class FieldPresenter
       ":#{@field.enum.values.first.name}"
     else
       case @field.type
-      when 1, 2                              then "3.14"
+      when 1, 2                              then "3.5"
       when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
       when 9, 12                             then "\"hello world\""
       when 8                                 then "true"

@@ -125,8 +125,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     uint32 = 42
     uint64 = 42
     bool = true
-    float = 3.14
-    double = 3.14
+    float = 3.5
+    double = 3.5
     bytes = "hello world"
     msg = {}
     enum = :Default
@@ -141,8 +141,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal 42, request.uint32
       assert_equal 42, request.uint64
       assert_equal true, request.bool
-      assert_equal 3.14, request.float
-      assert_equal 3.14, request.double
+      assert_equal 3.5, request.float
+      assert_equal 3.5, request.double
       assert_equal "hello world", request.bytes
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
       assert_equal :Default, request.enum
@@ -205,8 +205,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     uint32 = 42
     uint64 = 42
     bool = true
-    float = 3.14
-    double = 3.14
+    float = 3.5
+    double = 3.5
     bytes = "hello world"
     msg = {}
     enum = :Default
@@ -220,8 +220,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal 42, request.uint32
       assert_equal 42, request.uint64
       assert_equal true, request.bool
-      assert_equal 3.14, request.float
-      assert_equal 3.14, request.double
+      assert_equal 3.5, request.float
+      assert_equal 3.5, request.double
       assert_equal "hello world", request.bytes
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
       assert_equal :Default, request.enum
@@ -283,8 +283,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     repeated_uint32 = [42]
     repeated_uint64 = [42]
     repeated_bool = [true]
-    repeated_float = [3.14]
-    repeated_double = [3.14]
+    repeated_float = [3.5]
+    repeated_double = [3.5]
     repeated_bytes = ["hello world"]
     repeated_msg = [{}]
     repeated_enum = [:Default]
@@ -298,8 +298,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal [42], request.repeated_uint32
       assert_equal [42], request.repeated_uint64
       assert_equal [true], request.repeated_bool
-      assert_equal [3.14], request.repeated_float
-      assert_equal [3.14], request.repeated_double
+      assert_equal [3.5], request.repeated_float
+      assert_equal [3.5], request.repeated_double
       assert_equal ["hello world"], request.repeated_bytes
       assert_kind_of So::Much::Trash::GarbageMap, request.repeated_msg.first
       assert_equal [:Default], request.repeated_enum
@@ -361,8 +361,8 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     uint32 = 42
     uint64 = 42
     bool = true
-    float = 3.14
-    double = 3.14
+    float = 3.5
+    double = 3.5
     bytes = "hello world"
     timeout = {}
     duration = {}
@@ -379,14 +379,14 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal 42, request.uint32
       assert_equal 42, request.uint64
       assert_equal true, request.bool
-      assert_equal 3.14, request.float
-      assert_equal 3.14, request.double
+      assert_equal 3.5, request.float
+      assert_equal 3.5, request.double
       assert_equal "hello world", request.bytes
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Timestamp), request.timeout
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Duration), request.duration
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
       assert_equal :Default, request.enum
-      assert_kind_of So::Much::Trash::TypicalGarbage::AmapEntry, request.amap.first
+      assert_equal({}, request.amap.to_h)
       refute_nil options
     end
 

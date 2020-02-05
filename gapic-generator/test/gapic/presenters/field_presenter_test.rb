@@ -67,7 +67,7 @@ class FieldPresenterTest < PresenterTest
       assert_equal "@!attribute [rw] #{field_name}", fp.doc_attribute_type
       assert_equal "Float", fp.output_doc_types
       assert_equal fp.doc_description, "The #{field_name} of this garbage.\n"
-      assert_equal "3.14", fp.default_value
+      assert_equal "3.5", fp.default_value
       assert_equal "", fp.type_name
       assert_nil fp.type_name_full
     end
