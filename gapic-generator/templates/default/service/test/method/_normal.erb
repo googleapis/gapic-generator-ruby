@@ -19,6 +19,8 @@ def test_<%= method.name %>
     <%- fields.each do |field| -%>
     <%- if field.message? && field.repeated? && !field.map? -%>
     assert_kind_of <%= field.type_name_full %>, request.<%= field.name %>.first
+    <%- elsif field.map? -%>
+    assert_equal(<%= field.default_value %>, request.<%= field.name %>.to_h)
     <%- elsif field.message? -%>
     assert_equal Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>), request.<%= field.name %>
     <%- else -%>

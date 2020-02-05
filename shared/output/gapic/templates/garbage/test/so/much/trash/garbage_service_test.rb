@@ -386,7 +386,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Duration), request.duration
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
       assert_equal :Default, request.enum
-      assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::TypicalGarbage::AmapEntry), request.amap
+      assert_equal({}, request.amap.to_h)
       refute_nil options
     end
 
