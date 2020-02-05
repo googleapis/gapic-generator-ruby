@@ -82,6 +82,11 @@ def gem_defaults
         "../shared/samples/garbage/inline/*.yaml"
       ])
     },
+    noservice: {
+      protos: [
+        "garbage/noservice.proto"
+      ]
+    },
     googleads: {
       protos: [
         "google/ads/googleads/v1/services/campaign_service.proto"
