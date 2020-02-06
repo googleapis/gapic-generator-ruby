@@ -6,13 +6,13 @@ option ruby_package = "Testing::GrpcServiceConfig";
 
 import "google/api/client.proto";
 
-service GrpcServiceConfigNoRetry {
+service ServiceNoRetry {
   option (google.api.default_host) = "grpcserviceconfig.example.com";
 
   rpc NoRetryMethod(Request) returns(Response);
 }
 
-service GrpcServiceConfig {
+service ServiceWithRetries {
   option (google.api.default_host) = "grpcserviceconfig.example.com";
 
   rpc ServiceLevelRetryMethod(Request) returns(Response);
