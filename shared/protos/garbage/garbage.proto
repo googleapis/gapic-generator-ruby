@@ -32,6 +32,13 @@ service GarbageService {
                                      "https://endlesstrash.example.net/garbage-read,"
                                      "https://endlesstrash.example.net/garbage-write";
 
+  // Retrieves an EmptyGarbage resource
+  rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
+    option (google.api.http) = {
+      post: "/v1/empty_garbage:get"
+      body: "*"
+    };
+  }
   // Retrieves a SimpleGarbage resource.
   rpc GetSimpleGarbage(SimpleGarbage) returns (SimpleGarbage) {
     option (google.api.http) = {
@@ -176,6 +183,11 @@ message GarbageItem {
     // The integer item.
     int32  b = 3;
   }
+}
+
+// an empty garbage message
+message EmptyGarbage {
+  
 }
 
 // A simple garbage resource

@@ -41,11 +41,13 @@ def test_<%= method.name %>
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
+    <%- if fields.any? -%>
     # Use named arguments
     client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
+    <%- end -%>
     # Use protobuf object
     client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>) do |response, operation|
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
@@ -62,6 +64,6 @@ def test_<%= method.name %>
     end
 
     # Verify method calls
-    assert_equal 5, <%= method.name %>_client_stub.call_rpc_count
+    assert_equal <%= fields.any? ? 5 : 4 %>, <%= method.name %>_client_stub.call_rpc_count
   end
 end

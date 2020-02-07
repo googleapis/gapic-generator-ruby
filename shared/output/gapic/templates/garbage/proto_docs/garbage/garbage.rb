@@ -101,6 +101,12 @@ module So
         extend Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # an empty garbage message
+      class EmptyGarbage
+        include Google::Protobuf::MessageExts
+        extend Google::Protobuf::MessageExts::ClassMethods
+      end
+
       # A simple garbage resource
       # @!attribute [rw] name
       #   @return [String]

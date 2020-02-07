@@ -39,6 +39,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
         optional :b, :int32, 3
       end
     end
+    add_message "endless.trash.forever.EmptyGarbage" do
+    end
     add_message "endless.trash.forever.SimpleGarbage" do
       optional :name, :string, 1
     end
@@ -152,6 +154,7 @@ module So
       ListGarbageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageRequest").msgclass
       ListGarbageResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageResponse").msgclass
       GarbageItem = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageItem").msgclass
+      EmptyGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.EmptyGarbage").msgclass
       SimpleGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbage").msgclass
       SimpleGarbageItem = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbageItem").msgclass
       TypicalGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.TypicalGarbage").msgclass

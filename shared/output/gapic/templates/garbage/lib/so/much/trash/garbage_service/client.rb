@@ -119,6 +119,52 @@ module So
           # Service calls
 
           ##
+          # Retrieves an EmptyGarbage resource
+          #
+          # @overload get_empty_garbage(request, options = nil)
+          #   @param request [So::Much::Trash::EmptyGarbage | Hash]
+          #     Retrieves an EmptyGarbage resource
+          #   @param options [Gapic::CallOptions, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [So::Much::Trash::EmptyGarbage]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          #
+          # @return [So::Much::Trash::EmptyGarbage]
+          #
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          #
+          def get_empty_garbage request, options = nil
+            raise ArgumentError, "request must be provided" if request.nil?
+
+            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::EmptyGarbage
+
+            # Converts hash and nil to an options object
+            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.get_empty_garbage.metadata.to_h
+
+            # Set x-goog-api-client header
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: Google::Garbage::VERSION
+
+            options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.get_empty_garbage.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @garbage_service_stub.call_rpc :get_empty_garbage, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # Retrieves a SimpleGarbage resource.
           #
           # @overload get_simple_garbage(request, options = nil)
@@ -1023,6 +1069,7 @@ module So
             ##
             # Configuration RPC class for the GarbageService API.
             class Rpcs
+              attr_reader :get_empty_garbage
               attr_reader :get_simple_garbage
               attr_reader :get_specific_garbage
               attr_reader :get_nested_garbage
@@ -1037,6 +1084,8 @@ module So
               attr_reader :bidi_garbage
 
               def initialize parent_rpcs = nil
+                get_empty_garbage_config = parent_rpcs&.get_empty_garbage if parent_rpcs&.respond_to? :get_empty_garbage
+                @get_empty_garbage = Gapic::Config::Method.new get_empty_garbage_config
                 get_simple_garbage_config = parent_rpcs&.get_simple_garbage if parent_rpcs&.respond_to? :get_simple_garbage
                 @get_simple_garbage = Gapic::Config::Method.new get_simple_garbage_config
                 get_specific_garbage_config = parent_rpcs&.get_specific_garbage if parent_rpcs&.respond_to? :get_specific_garbage
