@@ -39,7 +39,6 @@ service GarbageService {
       body: "*"
     };
   }
-
   // Retrieves a SimpleGarbage resource.
   rpc GetSimpleGarbage(SimpleGarbage) returns (SimpleGarbage) {
     option (google.api.http) = {
