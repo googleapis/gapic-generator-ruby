@@ -80,12 +80,6 @@ class Testing::GrpcServiceConfig::ServiceNoRetry::ClientTest < Minitest::Test
         assert_equal grpc_operation, operation
       end
 
-      # Use named arguments
-      client.no_retry_method do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
       # Use protobuf object
       client.no_retry_method Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
@@ -105,7 +99,7 @@ class Testing::GrpcServiceConfig::ServiceNoRetry::ClientTest < Minitest::Test
       end
 
       # Verify method calls
-      assert_equal 5, no_retry_method_client_stub.call_rpc_count
+      assert_equal 4, no_retry_method_client_stub.call_rpc_count
     end
   end
 end

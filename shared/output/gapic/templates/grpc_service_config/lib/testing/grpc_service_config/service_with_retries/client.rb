@@ -116,8 +116,6 @@ module Testing
         #   @param options [Gapic::CallOptions, Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
         #
-        # @overload service_level_retry_method()
-        #
         #
         # @yield [response, operation] Access the result along with the RPC operation
         # @yieldparam response [Testing::GrpcServiceConfig::Response]
@@ -160,8 +158,6 @@ module Testing
         #   @param request [Testing::GrpcServiceConfig::Request | Hash]
         #   @param options [Gapic::CallOptions, Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
-        #
-        # @overload method_level_retry_method()
         #
         #
         # @yield [response, operation] Access the result along with the RPC operation

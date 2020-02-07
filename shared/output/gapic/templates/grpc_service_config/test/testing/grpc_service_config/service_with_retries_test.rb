@@ -80,12 +80,6 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
         assert_equal grpc_operation, operation
       end
 
-      # Use named arguments
-      client.service_level_retry_method do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
       # Use protobuf object
       client.service_level_retry_method Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
@@ -105,7 +99,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Verify method calls
-      assert_equal 5, service_level_retry_method_client_stub.call_rpc_count
+      assert_equal 4, service_level_retry_method_client_stub.call_rpc_count
     end
   end
 
@@ -136,12 +130,6 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
         assert_equal grpc_operation, operation
       end
 
-      # Use named arguments
-      client.method_level_retry_method do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
       # Use protobuf object
       client.method_level_retry_method Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
@@ -161,7 +149,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Verify method calls
-      assert_equal 5, method_level_retry_method_client_stub.call_rpc_count
+      assert_equal 4, method_level_retry_method_client_stub.call_rpc_count
     end
   end
 end
