@@ -17,6 +17,8 @@ module So
           self.unmarshal_class_method = :decode
           self.service_name = 'endless.trash.forever.GarbageService'
 
+          # Retrieves an EmptyGarbage resource
+          rpc :GetEmptyGarbage, So::Much::Trash::EmptyGarbage, So::Much::Trash::EmptyGarbage
           # Retrieves a SimpleGarbage resource.
           rpc :GetSimpleGarbage, So::Much::Trash::SimpleGarbage, So::Much::Trash::SimpleGarbage
           # Retrieves a SpecificGarbage resource.
