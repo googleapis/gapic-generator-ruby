@@ -127,8 +127,6 @@ module So
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_empty_garbage()
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::EmptyGarbage]

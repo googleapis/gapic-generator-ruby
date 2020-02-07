@@ -41,7 +41,6 @@ def test_<%= method.name %>
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
-    <%# for a request message with no field we can not generate named argument call %>
     <%- if fields.any? -%>
     # Use named arguments
     client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |response, operation|
@@ -64,7 +63,6 @@ def test_<%= method.name %>
       <%= indent_tail render(partial: "service/test/method/assert_response", locals: { method: method }), 6 %>
     end
 
-    <%# for a request message with no fields we will only make 4 calls, instead of 5 %>
     # Verify method calls
     assert_equal <%= fields.any? ? 5 : 4 %>, <%= method.name %>_client_stub.call_rpc_count
   end

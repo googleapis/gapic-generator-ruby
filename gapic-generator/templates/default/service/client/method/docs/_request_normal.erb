@@ -6,6 +6,7 @@
 <%- end -%>
 #   @param options [Gapic::CallOptions, Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+<%-if method.arguments.any?-%>
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
 # @overload <%= method.name %>(<%= arg_list %>)
@@ -13,6 +14,7 @@
 #   @param <%= arg.name %> [<%= arg.doc_types %>]
 <%- if arg.doc_description -%>
 <%= indent arg.doc_description, "#     " %>
+<%- end -%>
 <%- end -%>
 <%- end -%>
 #
