@@ -6,7 +6,7 @@ Create Ruby clients from a protocol buffer description of an API.
 but there are currently no guarantees of stability or support.
 
 ## Getting started using the Docker image
-The easiest way to use the generator is to run it with the Docker image.
+The easiest way to use the generator is to run it with the Docker image. There are several docker images containing various flavors of gapic generators, we are going to use the `gapic-generator-ruby` image which is generating code using the [gapic-generator-cloud](https://github.com/googleapis/gapic-generator-ruby/tree/master/gapic-generator-cloud).
 
 ### Download the sample protos for the Showcase API
 The [Showcase API](https://github.com/googleapis/gapic-showcase) is a good API to
@@ -26,8 +26,10 @@ $ mkdir showcase-ruby
 $ docker run --rm --user $UID \
   --mount type=bind,source=`pwd`/google/showcase/v1beta1,destination=/in/google/showcase/v1beta1,readonly \
   --mount type=bind,source=`pwd`/showcase-ruby,destination=/out \
-  gcr.io/gapic-images/gapic-generator-ruby:latest --ruby-cloud-gem-name=showcase
+  gcr.io/gapic-images/gapic-generator-ruby:latest --ruby-cloud-gem-name=google-showcase
 ```
+
+NB: `ruby-cloud-gem-name` currently has to partialy (excluding version) match the package option from the proto files. For showcase the package is `google.showcase.v1beta1` and so the `ruby-cloud-gem-name` has to be `google-showcase`
 
 The resulting files are in `showcase-ruby` folder:
 
@@ -57,7 +59,7 @@ $ export PROTOBUF_VERSION=3.7.1
 # export PROTOBUF_SYSTEM=osx-x86_64
 $ export PROTOBUF_SYSTEM=linux-x86_64
 
-# Get the precompiled protobuf compiler
+# Get the precompiled protobuf compiler.
 $ mkdir /usr/src/protoc
 $ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip --output /usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
 $ cd /usr/src/protoc/
