@@ -150,7 +150,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
                                    metadata:     metadata,
@@ -249,7 +249,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_simple_garbage.timeout,
                                    metadata:     metadata,
@@ -319,7 +319,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_specific_garbage.timeout,
                                    metadata:     metadata,
@@ -387,7 +387,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_nested_garbage.timeout,
                                    metadata:     metadata,
@@ -455,7 +455,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_repeated_garbage.timeout,
                                    metadata:     metadata,
@@ -585,7 +585,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage.timeout,
                                    metadata:     metadata,
@@ -678,7 +678,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_complex_garbage.timeout,
                                    metadata:     metadata,
@@ -728,7 +728,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_garbage_node.timeout,
                                    metadata:     metadata,
@@ -799,7 +799,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.get_paged_garbage.timeout,
                                    metadata:     metadata,
@@ -852,7 +852,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.long_running_garbage.timeout,
                                    metadata:     metadata,
@@ -902,7 +902,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.client_garbage.timeout,
                                    metadata:     metadata,
@@ -969,7 +969,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.server_garbage.timeout,
                                    metadata:     metadata,
@@ -1018,7 +1018,7 @@ module So
             # Set x-goog-api-client header
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: Google::Garbage::VERSION
+              gapic_version: ::Google::Garbage::VERSION
 
             options.apply_defaults timeout:      @config.rpcs.bidi_garbage.timeout,
                                    metadata:     metadata,
