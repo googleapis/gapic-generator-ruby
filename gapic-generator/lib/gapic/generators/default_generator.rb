@@ -40,13 +40,14 @@ module Gapic
 
       # Generates all the files for the API.
       #
+      # @param kwargs [keywords] Arguments
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
+      def generate **kwargs
         files = []
 
-        gem = gem_presenter @api
+        gem = kwargs[:gem_presenter] || gem_presenter(@api)
 
         gem.packages.each do |package|
           # Package level files

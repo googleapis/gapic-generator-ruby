@@ -33,11 +33,12 @@ module Gapic
 
       # Generates all the files for the API.
       #
+      # @param kwargs [keywords] Arguments
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
-        raise "must implement"
+      def generate **kwargs
+        raise "must implement (passed #{kwargs.inspect})"
       end
 
       private

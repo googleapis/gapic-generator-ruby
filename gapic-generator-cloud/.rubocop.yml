@@ -5,3 +5,8 @@ AllCops:
   Exclude:
     - expected_output/**/*
     - tmp/**/*
+
+Style/Documentation:
+  Exclude:
+    - test/**/*
+    - templates/cloud/helpers/**/*

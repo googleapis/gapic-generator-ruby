@@ -30,19 +30,23 @@ module Gapic
 
         # Configure to use prefer Google Cloud templates
         use_templates! File.join __dir__, "../../../templates/cloud"
+
+        # Additional presenters specific to cloud
+        use_helpers! :cloud_gem_presenter
       end
 
       # Generates all the files for the API.
       #
+      # @param _kwargs [keywords] Arguments
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
-        orig_files = super
+      def generate **kwargs
+        gem = kwargs[:gem_presenter] || cloud_gem_presenter(@api)
+
+        orig_files = super gem_presenter: gem
 
         cloud_files = []
-
-        gem = gem_presenter @api
 
         # Additional Gem level files
         cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)
