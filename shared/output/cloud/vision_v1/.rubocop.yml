@@ -23,6 +23,7 @@ Metrics/LineLength:
   Exclude:
     - "lib/google/cloud/vision/v1/product_search/*.rb"
     - "lib/google/cloud/vision/v1/image_annotator/*.rb"
+    - "google-cloud-vision-v1.gemspec"
 Metrics/MethodLength:
   Exclude:
     - "lib/google/cloud/vision/v1/product_search/*.rb"

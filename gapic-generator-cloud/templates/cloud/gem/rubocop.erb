@@ -36,6 +36,7 @@ Metrics/LineLength:
     - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
     <%- end -%>
     <%- end -%>
+    - "<%= gem.name %>.gemspec"
 Metrics/MethodLength:
   Exclude:
     <%- gem.packages.each do |package| -%>
