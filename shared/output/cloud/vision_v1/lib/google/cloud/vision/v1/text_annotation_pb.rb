@@ -78,17 +78,17 @@ module Google
   module Cloud
     module Vision
       module V1
-        TextAnnotation = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation").msgclass
-        TextAnnotation::DetectedLanguage = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedLanguage").msgclass
-        TextAnnotation::DetectedBreak = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedBreak").msgclass
-        TextAnnotation::DetectedBreak::BreakType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedBreak.BreakType").enummodule
-        TextAnnotation::TextProperty = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.TextProperty").msgclass
-        Page = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Page").msgclass
-        Block = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Block").msgclass
-        Block::BlockType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Block.BlockType").enummodule
-        Paragraph = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Paragraph").msgclass
-        Word = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Word").msgclass
-        Symbol = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Symbol").msgclass
+        TextAnnotation = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation").msgclass
+        TextAnnotation::DetectedLanguage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedLanguage").msgclass
+        TextAnnotation::DetectedBreak = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedBreak").msgclass
+        TextAnnotation::DetectedBreak::BreakType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.DetectedBreak.BreakType").enummodule
+        TextAnnotation::TextProperty = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.TextAnnotation.TextProperty").msgclass
+        Page = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Page").msgclass
+        Block = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Block").msgclass
+        Block::BlockType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Block.BlockType").enummodule
+        Paragraph = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Paragraph").msgclass
+        Word = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Word").msgclass
+        Symbol = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Symbol").msgclass
       end
     end
   end
