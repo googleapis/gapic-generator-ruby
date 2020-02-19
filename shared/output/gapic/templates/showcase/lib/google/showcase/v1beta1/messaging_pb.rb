@@ -120,29 +120,29 @@ end
 module Google
   module Showcase
     module V1beta1
-      Room = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.Room").msgclass
-      CreateRoomRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateRoomRequest").msgclass
-      GetRoomRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetRoomRequest").msgclass
-      UpdateRoomRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateRoomRequest").msgclass
-      DeleteRoomRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteRoomRequest").msgclass
-      ListRoomsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListRoomsRequest").msgclass
-      ListRoomsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListRoomsResponse").msgclass
-      Blurb = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.Blurb").msgclass
-      CreateBlurbRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateBlurbRequest").msgclass
-      GetBlurbRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetBlurbRequest").msgclass
-      UpdateBlurbRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateBlurbRequest").msgclass
-      DeleteBlurbRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteBlurbRequest").msgclass
-      ListBlurbsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListBlurbsRequest").msgclass
-      ListBlurbsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListBlurbsResponse").msgclass
-      SearchBlurbsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsRequest").msgclass
-      SearchBlurbsMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsMetadata").msgclass
-      SearchBlurbsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsResponse").msgclass
-      StreamBlurbsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsRequest").msgclass
-      StreamBlurbsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsResponse").msgclass
-      StreamBlurbsResponse::Action = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsResponse.Action").enummodule
-      SendBlurbsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SendBlurbsResponse").msgclass
-      ConnectRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ConnectRequest").msgclass
-      ConnectRequest::ConnectConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ConnectRequest.ConnectConfig").msgclass
+      Room = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.Room").msgclass
+      CreateRoomRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateRoomRequest").msgclass
+      GetRoomRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetRoomRequest").msgclass
+      UpdateRoomRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateRoomRequest").msgclass
+      DeleteRoomRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteRoomRequest").msgclass
+      ListRoomsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListRoomsRequest").msgclass
+      ListRoomsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListRoomsResponse").msgclass
+      Blurb = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.Blurb").msgclass
+      CreateBlurbRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateBlurbRequest").msgclass
+      GetBlurbRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetBlurbRequest").msgclass
+      UpdateBlurbRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateBlurbRequest").msgclass
+      DeleteBlurbRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteBlurbRequest").msgclass
+      ListBlurbsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListBlurbsRequest").msgclass
+      ListBlurbsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListBlurbsResponse").msgclass
+      SearchBlurbsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsRequest").msgclass
+      SearchBlurbsMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsMetadata").msgclass
+      SearchBlurbsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SearchBlurbsResponse").msgclass
+      StreamBlurbsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsRequest").msgclass
+      StreamBlurbsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsResponse").msgclass
+      StreamBlurbsResponse::Action = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.StreamBlurbsResponse.Action").enummodule
+      SendBlurbsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.SendBlurbsResponse").msgclass
+      ConnectRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ConnectRequest").msgclass
+      ConnectRequest::ConnectConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ConnectRequest.ConnectConfig").msgclass
     end
   end
 end
