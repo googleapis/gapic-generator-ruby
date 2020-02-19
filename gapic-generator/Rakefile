@@ -29,6 +29,15 @@ Rake::TestTask.new :test do |t|
   t.test_files = FileList["test/**/*_test.rb"]
 end
 
+namespace :test do
+  desc "Run tests on grpc_service_config gapic only"
+  Rake::TestTask.new :grpc_service_config do |t| 
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/**/*grpc_service_config*_test.rb"]
+  end
+end
+
 YARD::Rake::YardocTask.new do |y|
   # y.options << "--fail-on-warning"
 end
@@ -118,6 +127,10 @@ def generate_default_templates service
   # Add optional samples paths
   samples = samples_for service
   protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+  # Add optional grpc service config
+  grpc_service_config = grpc_service_config_for service
+  protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config}'" if grpc_service_config
 
   # Add the proto files
   protos = protos_for service

@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "yaml"
+require "json"
 require "gapic/schema/loader"
 
 module Gapic
@@ -195,6 +196,20 @@ module Gapic
             config = deep_merge config, branch
           end
           config
+        end
+      end
+
+      # TBD
+      def grpc_service_config 
+        @grpc_service_config ||= begin
+          grpc_service_config_filename = protoc_options["grpc_service_config"]
+
+          if grpc_service_config_filename 
+            file = ::File.read(grpc_service_config_filename)
+            JSON.load(file)
+          else
+            {}
+          end
         end
       end
 

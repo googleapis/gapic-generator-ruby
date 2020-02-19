@@ -3,7 +3,7 @@
     {
       "name": [
         {
-          "service": "testing.grpcserviceconfig.GrpcServiceConfig"
+          "service": "testing.grpcserviceconfig.ServiceWithRetries"
         }
       ],
       "timeout": "20s",
@@ -17,7 +17,7 @@
     {
       "name": [
         {
-          "service": "testing.grpcserviceconfig.GrpcServiceConfig",
+          "service": "testing.grpcserviceconfig.ServiceWithRetries",
           "method": "MethodLevelRetryMethod"
         }
       ],
