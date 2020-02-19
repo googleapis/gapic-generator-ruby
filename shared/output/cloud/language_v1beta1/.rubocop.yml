@@ -19,6 +19,7 @@ Metrics/CyclomaticComplexity:
 Metrics/LineLength:
   Exclude:
     - "lib/google/cloud/language/v1beta1/language_service/*.rb"
+    - "google-cloud-language-v1beta1.gemspec"
 Metrics/MethodLength:
   Exclude:
     - "lib/google/cloud/language/v1beta1/language_service/*.rb"

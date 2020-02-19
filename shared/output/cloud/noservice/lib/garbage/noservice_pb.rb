@@ -12,5 +12,5 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
 end
 
 module Noservice
-  Hello = Google::Protobuf::DescriptorPool.generated_pool.lookup("noservice.Hello").msgclass
+  Hello = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("noservice.Hello").msgclass
 end

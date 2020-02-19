@@ -15,6 +15,7 @@ Metrics/CyclomaticComplexity:
   Exclude:
 Metrics/LineLength:
   Exclude:
+    - "google-garbage-noservice.gemspec"
 Metrics/MethodLength:
   Exclude:
 Metrics/PerceivedComplexity:

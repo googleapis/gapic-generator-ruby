@@ -46,13 +46,13 @@ end
 module Google
   module Showcase
     module V1beta1
-      User = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.User").msgclass
-      CreateUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateUserRequest").msgclass
-      GetUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetUserRequest").msgclass
-      UpdateUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateUserRequest").msgclass
-      DeleteUserRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteUserRequest").msgclass
-      ListUsersRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListUsersRequest").msgclass
-      ListUsersResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListUsersResponse").msgclass
+      User = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.User").msgclass
+      CreateUserRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.CreateUserRequest").msgclass
+      GetUserRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.GetUserRequest").msgclass
+      UpdateUserRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.UpdateUserRequest").msgclass
+      DeleteUserRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.DeleteUserRequest").msgclass
+      ListUsersRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListUsersRequest").msgclass
+      ListUsersResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ListUsersResponse").msgclass
     end
   end
 end
