@@ -44,11 +44,11 @@ module Google
   module Cloud
     module Vision
       module V1
-        ProductSearchParams = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchParams").msgclass
-        ProductSearchResults = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults").msgclass
-        ProductSearchResults::Result = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.Result").msgclass
-        ProductSearchResults::ObjectAnnotation = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.ObjectAnnotation").msgclass
-        ProductSearchResults::GroupedResult = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.GroupedResult").msgclass
+        ProductSearchParams = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchParams").msgclass
+        ProductSearchResults = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults").msgclass
+        ProductSearchResults::Result = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.Result").msgclass
+        ProductSearchResults::ObjectAnnotation = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.ObjectAnnotation").msgclass
+        ProductSearchResults::GroupedResult = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSearchResults.GroupedResult").msgclass
       end
     end
   end
