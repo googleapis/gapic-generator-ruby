@@ -41,11 +41,11 @@ module Google
   module Cloud
     module Vision
       module V1
-        WebDetection = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection").msgclass
-        WebDetection::WebEntity = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebEntity").msgclass
-        WebDetection::WebImage = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebImage").msgclass
-        WebDetection::WebPage = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebPage").msgclass
-        WebDetection::WebLabel = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebLabel").msgclass
+        WebDetection = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection").msgclass
+        WebDetection::WebEntity = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebEntity").msgclass
+        WebDetection::WebImage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebImage").msgclass
+        WebDetection::WebPage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebPage").msgclass
+        WebDetection::WebLabel = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.WebDetection.WebLabel").msgclass
       end
     end
   end
