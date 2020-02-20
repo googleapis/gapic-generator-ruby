@@ -26,6 +26,9 @@ module Gapic
       # @param api [Gapic::Schema::Api] The API model/context to
       #   generate.
       def initialize api
+        gem_config = api.configuration[:gem] ||= {}
+        gem_config[:homepage] ||= "https://github.com/googleapis/google-cloud-ruby"
+
         super
 
         # Configure to use prefer Google Cloud templates

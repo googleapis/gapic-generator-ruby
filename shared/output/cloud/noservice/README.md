@@ -4,7 +4,7 @@ google-garbage-noservice is the official library for Google Garbage Noservice AP
 
 API Client library for Google Garbage Noservice API
 
-https://github.com/googleapis/googleapis
+https://github.com/googleapis/google-cloud-ruby
 
 ## Installation
 
