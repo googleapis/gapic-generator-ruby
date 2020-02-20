@@ -4,7 +4,7 @@ google-cloud-language-v1beta1 is the official library for Google Cloud Language 
 
 API Client library for Google Cloud Language V1beta1 API
 
-https://github.com/googleapis/googleapis
+https://github.com/googleapis/google-cloud-ruby
 
 ## Installation
 
