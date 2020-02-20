@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.email         = "googleapis-packages@google.com"
   gem.description   = "google-cloud-language-v1beta1 is the official library for Google Cloud Language V1beta1 API."
   gem.summary       = "API Client library for Google Cloud Language V1beta1 API"
-  gem.homepage      = "https://github.com/googleapis/googleapis"
+  gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"
 
   gem.platform      = Gem::Platform::RUBY

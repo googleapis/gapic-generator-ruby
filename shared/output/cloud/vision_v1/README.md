@@ -4,7 +4,7 @@ google-cloud-vision-v1 is the official library for Google Cloud Vision V1 API.
 
 API Client library for Google Cloud Vision V1 API
 
-https://github.com/googleapis/googleapis
+https://github.com/googleapis/google-cloud-ruby
 
 ## Installation
 
