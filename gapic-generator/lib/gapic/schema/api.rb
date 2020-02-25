@@ -17,6 +17,7 @@
 require "yaml"
 require "json"
 require "gapic/schema/loader"
+require "grpc/serviceconfig/service_config_pb"
 
 module Gapic
   module Schema
@@ -200,17 +201,18 @@ module Gapic
       end
 
       # TBD
-      def grpc_service_config 
-        @grpc_service_config ||= begin
+      def grpc_service_config_raw 
+        @grpc_service_config_raw ||= begin
           grpc_service_config_filename = protoc_options["grpc_service_config"]
-
           if grpc_service_config_filename 
             file = ::File.read(grpc_service_config_filename)
             JSON.load(file)
           else
-            {}
+            nil
           end
         end
+
+        @grpc_service_config_raw
       end
 
       private
