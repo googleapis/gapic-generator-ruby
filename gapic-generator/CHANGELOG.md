@@ -1,12 +1,14 @@
 # Release History for gapic-generator
 
+### 0.0.5 / 2020-02-25
+
+* Require simplecov explicitly from generated test files
+
 ### 0.0.4 / 2020-02-19
 
 * Fixed generation of methods with empty requests.
 * Fixed references to the gem version constant if the library name doesn't match the proto path.
-* Add documentation link to the generated repo-metadata.json.
 * Disable line length cop for the generated gemspec file.
-* Set google-cloud-ruby Github repo as the default homepage.
 
 ### 0.0.3 / 2020-02-05
 
