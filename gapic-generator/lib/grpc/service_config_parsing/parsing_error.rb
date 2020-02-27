@@ -13,15 +13,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+module Grpc
+  module ServiceConfigParsing
+    class ParsingError < StandardError
 
-require "test_helper"
-require "gapic/generators/default_generator"
-
-class DefaultGeneratorTestGrpcServiceConfig < GeneratorTest
-  def test_grpc_service_config_generate
-    generator = Gapic::Generators::DefaultGenerator.new api_with_service_config(:grpc_service_config, "protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    generator.generate.each do |file|
-      assert_equal expected_content(:garbage, file.name), file.content
     end
   end
 end

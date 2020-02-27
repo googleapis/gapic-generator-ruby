@@ -14,14 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "test_helper"
-require "gapic/generators/default_generator"
+##
+# The parameters for creatig a policy for retrying operation as parsed from the grpc service config json
+#
+module Grpc
+  module ServiceConfigParsing
+    class ParsedMethodConfig
+      attr_reader :timeout_seconds, :retry_policy
 
-class DefaultGeneratorTestGrpcServiceConfig < GeneratorTest
-  def test_grpc_service_config_generate
-    generator = Gapic::Generators::DefaultGenerator.new api_with_service_config(:grpc_service_config, "protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    generator.generate.each do |file|
-      assert_equal expected_content(:garbage, file.name), file.content
+      ##
+      # Create new ParsedMethodConfig.
+      #
+      def initialize timeout_seconds, retry_policy
+        @timeout_seconds = timeout_seconds
+        @retry_policy    = retry_policy
+      end
     end
   end
 end

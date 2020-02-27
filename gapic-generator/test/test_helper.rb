@@ -38,6 +38,12 @@ class GeneratorTest < Minitest::Test
     Gapic::Schema::Api.new request(service)
   end
 
+  def api_with_service_config service, grpc_service_config
+    base_api = api service
+    base_api.protoc_options["grpc_service_config"] = grpc_service_config
+    base_api
+  end
+
   def expected_content type, filename
     File.read "expected_output/templates/#{type}/#{filename}"
   end

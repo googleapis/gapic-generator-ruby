@@ -14,14 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "test_helper"
-require "gapic/generators/default_generator"
+module Grpc
+  module ServiceConfigParsing
+    class ParsedGrpcServiceConfig
+      attr_reader :service_level_configs, :service_method_level_configs
 
-class DefaultGeneratorTestGrpcServiceConfig < GeneratorTest
-  def test_grpc_service_config_generate
-    generator = Gapic::Generators::DefaultGenerator.new api_with_service_config(:grpc_service_config, "protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    generator.generate.each do |file|
-      assert_equal expected_content(:garbage, file.name), file.content
+      def initialize service_level_configs, service_method_level_configs
+        @service_level_configs = service_level_configs
+        @service_method_level_configs = service_method_level_configs
+      end
     end
   end
 end
