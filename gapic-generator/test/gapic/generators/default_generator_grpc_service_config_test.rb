@@ -21,7 +21,7 @@ class DefaultGeneratorTestGrpcServiceConfig < GeneratorTest
   def test_grpc_service_config_generate
     generator = Gapic::Generators::DefaultGenerator.new api_with_service_config(:grpc_service_config, "protofiles_input/testing/grpc_service_config/grpc_service_config.json")
     generator.generate.each do |file|
-      assert_equal expected_content(:garbage, file.name), file.content
+      assert_equal expected_content(:grpc_service_config, file.name), file.content
     end
   end
 end

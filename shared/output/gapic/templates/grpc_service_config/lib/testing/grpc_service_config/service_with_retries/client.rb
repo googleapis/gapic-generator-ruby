@@ -50,7 +50,27 @@ module Testing
         # @return [Client::Configuration]
         #
         def self.configure
-          @configure ||= Client::Configuration.new
+          @configure ||= begin
+            default_config = Client::Configuration.new
+
+            default_config.timeout = 20.0
+            default_config.retry_policy = {
+              initial_delay: 0.5,
+              max_delay:     5.0,
+              multiplier:    2.0,
+              retry_codes:   ["DEADLINE_EXCEEDED", "RESOURCE_EXHAUSTED"]
+            }
+
+            default_config.rpcs.method_level_retry_method.timeout = 60.0
+            default_config.rpcs.method_level_retry_method.retry_policy = {
+              initial_delay: 1.0,
+              max_delay:     10.0,
+              multiplier:    3.0,
+              retry_codes:   ["UNAVAILABLE"]
+            }
+
+            default_config
+          end
           yield @configure if block_given?
           @configure
         end

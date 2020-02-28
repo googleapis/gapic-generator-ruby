@@ -183,6 +183,18 @@ class MethodPresenter
     routing_params.any?
   end
 
+  def grpc_service_config
+    if @api.grpc_service_config&.service_method_level_configs&.key?(service.grpc_full_name) && @api.grpc_service_config.service_method_level_configs[service.grpc_full_name]&.key?(grpc_method_name)
+      @api.grpc_service_config.service_method_level_configs[service.grpc_full_name][grpc_method_name]
+    else
+      nil
+    end
+  end
+
+  def grpc_method_name
+    @method.name
+  end
+
   protected
 
   def message_ruby_type message

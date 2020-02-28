@@ -50,7 +50,11 @@ module Testing
         # @return [Client::Configuration]
         #
         def self.configure
-          @configure ||= Client::Configuration.new
+          @configure ||= begin
+            default_config = Client::Configuration.new
+
+            default_config
+          end
           yield @configure if block_given?
           @configure
         end

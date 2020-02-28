@@ -1,0 +1,15 @@
+<%- assert_locals retry_policy -%>
+{
+  <%-if retry_policy.initial_delay_seconds -%>
+  initial_delay: <%= retry_policy.initial_delay_seconds =%>,
+  <%-end-%>
+  <%-if retry_policy.max_delay_seconds -%>
+  max_delay: <%= retry_policy.max_delay_seconds =%>,
+  <%-end-%>
+  <%-if retry_policy.multiplier -%>
+  multiplier: <%= retry_policy.multiplier =%>,
+  <%-end-%>
+  <%-if retry_policy.status_codes -%>
+  retry_codes: <%= retry_policy.status_codes =%>
+  <%-end-%>
+}

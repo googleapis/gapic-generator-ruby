@@ -31,6 +31,10 @@ module Grpc
         @multiplier            = multiplier
         @status_codes          = status_codes
       end
+
+      def empty?
+        @initial_delay_seconds.nil? && @max_delay_seconds.nil? && @multiplier.nil? && status_codes.to_a.empty?
+      end
     end
   end
 end

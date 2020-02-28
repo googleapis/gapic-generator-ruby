@@ -29,6 +29,10 @@ module Grpc
         @timeout_seconds = timeout_seconds
         @retry_policy    = retry_policy
       end
+
+      def empty? 
+        @timeout_seconds.nil? && @retry_policy.empty?
+      end
     end
   end
 end
