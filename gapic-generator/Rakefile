@@ -31,14 +31,14 @@ end
 
 namespace :test do
   desc "Run tests on generated grpc_service_config gapic only"
-  Rake::TestTask.new :grpc_service_config do |t| 
+  Rake::TestTask.new :grpc_service_config do |t|
     t.libs << "test"
     t.libs << "lib"
     t.test_files = FileList["test/**/*grpc_service_config*_test.rb"]
   end
 
   desc "Run tests on parsing the grpc_service_config json"
-  Rake::TestTask.new :grpc_service_config_parsing do |t| 
+  Rake::TestTask.new :grpc_service_config_parsing do |t|
     t.libs << "test"
     t.libs << "lib"
     t.test_files = FileList["test/grpc/service_config_parsing/*_test.rb"]

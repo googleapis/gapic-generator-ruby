@@ -14,11 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##
-# The parameters for creatig a policy for retrying operation as parsed from the grpc service config json
-#
 module Grpc
   module ServiceConfigParsing
+    ##
+    # [TODO:viacheslav-rostovtsev]
+    #
     class ParsedMethodConfig
       attr_reader :timeout_seconds, :retry_policy
 
@@ -30,7 +30,7 @@ module Grpc
         @retry_policy    = retry_policy
       end
 
-      def empty? 
+      def empty?
         @timeout_seconds.nil? && @retry_policy.empty?
       end
     end

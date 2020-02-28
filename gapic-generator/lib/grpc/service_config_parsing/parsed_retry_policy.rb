@@ -14,11 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##
-# The parameters for creatig a policy for retrying operation as parsed from the grpc service config json
-#
 module Grpc
   module ServiceConfigParsing
+    ##
+    # The parameters for creatig a policy for retrying operation as parsed
+    # from the grpc service config json
+    #
     class ParsedRetryPolicy
       attr_reader :initial_delay_seconds, :max_delay_seconds, :multiplier, :status_codes
 
@@ -27,7 +28,7 @@ module Grpc
       #
       def initialize initial_delay_seconds, max_delay_seconds, multiplier, status_codes
         @initial_delay_seconds = initial_delay_seconds
-        @max_delay_seconds     = max_delay_seconds     
+        @max_delay_seconds     = max_delay_seconds
         @multiplier            = multiplier
         @status_codes          = status_codes
       end

@@ -16,6 +16,9 @@
 
 module Grpc
   module ServiceConfigParsing
+    ##
+    # [TODO:viacheslav-rostovtsev]
+    #
     class ParsedGrpcServiceConfig
       attr_reader :service_level_configs, :service_method_level_configs
 

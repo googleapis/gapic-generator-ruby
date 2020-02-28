@@ -15,8 +15,10 @@
 # limitations under the License.
 module Grpc
   module ServiceConfigParsing
+    ##
+    # [TODO:viacheslav-rostovtsev]
+    #
     class ParsingError < StandardError
-
     end
   end
 end

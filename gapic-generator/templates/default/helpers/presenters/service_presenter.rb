@@ -257,15 +257,13 @@ class ServicePresenter
   end
 
   def grpc_service_config
-    if @api.grpc_service_config&.service_level_configs&.key?(grpc_full_name)
-      @api.grpc_service_config.service_level_configs[grpc_full_name]
-    else
+    @api.grpc_service_config&.service_level_configs&.key? grpc_full_name ? 
+      @api.grpc_service_config.service_level_configs[grpc_full_name] : 
       nil
-    end
   end
 
   def grpc_full_name
-    @service.address.join(".")
+    @service.address.join "."
   end
 
   private

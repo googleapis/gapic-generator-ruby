@@ -201,12 +201,12 @@ module Gapic
       end
 
       # TBD
-      def grpc_service_config_raw 
+      def grpc_service_config_raw
         @grpc_service_config_raw ||= begin
           grpc_service_config_filename = protoc_options["grpc_service_config"]
-          if grpc_service_config_filename 
-            file = ::File.read(grpc_service_config_filename)
-            JSON.load(file)
+          if grpc_service_config_filename
+            file = ::File.read grpc_service_config_filename
+            JSON.parse file
           else
             {}
           end
@@ -215,8 +215,8 @@ module Gapic
         @grpc_service_config_raw
       end
 
-      def grpc_service_config 
-        @grpc_service_config ||= begin 
+      def grpc_service_config
+        @grpc_service_config ||= begin
           Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse grpc_service_config_raw
         end
       end

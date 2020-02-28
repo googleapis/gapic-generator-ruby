@@ -14,19 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'grpc/service_config_parsing/parsed_grpc_service_config'
-require 'grpc/service_config_parsing/parsed_method_config'
-require 'grpc/service_config_parsing/parsed_retry_policy'
-require 'grpc/service_config_parsing/parsing_error'
-
-require 'grpc/service_config_parsing/interval'
+require "grpc/service_config_parsing/parsed_grpc_service_config"
+require "grpc/service_config_parsing/parsed_method_config"
+require "grpc/service_config_parsing/parsed_retry_policy"
+require "grpc/service_config_parsing/parsing_error"
 
 module Grpc
   module ServiceConfigParsing
+    ##
+    # [TODO:viacheslav-rostovtsev]
+    #
     module GrpcServiceConfigParser
       METHOD_CONFIG_JSON_KEY = "method_config"
       RETRY_POLICY_JSON_KEY = "retry_policy"
-      
+
       NAMES_JSON_KEY = "name"
       SERVICE_NAME_JSON_KEY = "service"
       METHOD_NAME_JSON_KEY = "method"
@@ -44,8 +45,8 @@ module Grpc
 
         if !service_config_json.nil? && service_config_json.key?(METHOD_CONFIG_JSON_KEY)
           method_configs_json = service_config_json[METHOD_CONFIG_JSON_KEY]
-         
-          method_configs_json.each do |method_config_json| 
+
+          method_configs_json.each do |method_config_json|
             method_config = parse_config method_config_json
             service_names = parse_service_names method_config_json[NAMES_JSON_KEY]
             service_method_names = filter_service_method_names method_config_json[NAMES_JSON_KEY]
@@ -54,39 +55,38 @@ module Grpc
               service_level_result[service_name] = method_config
             end
 
-            service_method_names.each do |service_method_name| 
+            service_method_names.each do |service_method_name|
               service_name = service_method_name[SERVICE_NAME_JSON_KEY]
               method_name = service_method_name[METHOD_NAME_JSON_KEY]
 
-              if !service_method_level_result.key? service_name
-                service_method_level_result[service_name] = {}
-              end
-
+              service_method_level_result[service_name] = {} unless service_method_level_result.key? service_name
               service_method_level_result[service_name][method_name] = method_config
             end
           end
         end
 
-        ParsedGrpcServiceConfig.new(service_level_result, service_method_level_result)
+        ParsedGrpcServiceConfig.new service_level_result, service_method_level_result
       end
 
       def self.parse_service_names method_config_json_names
-        method_config_json_names.select { |names_json| 
+        service_names_jsons = method_config_json_names.select do |names_json|
           names_json.size == 1 && names_json.key?(SERVICE_NAME_JSON_KEY)
-        }.map {|names_json| names_json[SERVICE_NAME_JSON_KEY]}
+        end
+
+        service_names_jsons.map { |names_json| names_json[SERVICE_NAME_JSON_KEY] }
       end
 
       def self.filter_service_method_names method_config_json_names
-        method_config_json_names.select { |names_json| 
+        method_config_json_names.select do |names_json|
           names_json.size == 2 && names_json.key?(SERVICE_NAME_JSON_KEY) && names_json.key?(METHOD_NAME_JSON_KEY)
-        }
+        end
       end
 
       def self.parse_config method_config_json
         timeout_seconds = parse_interval_seconds method_config_json[TIMEOUT_JSON_KEY]
         retry_policy = parse_retry_policy method_config_json[RETRY_POLICY_JSON_KEY]
 
-        ParsedMethodConfig.new(timeout_seconds, retry_policy)
+        ParsedMethodConfig.new timeout_seconds, retry_policy
       end
 
       def self.parse_retry_policy retry_policy_json
@@ -98,7 +98,7 @@ module Grpc
           multiplier = retry_policy_json[MULTIPLIER_JSON_KEY]
           status_codes = retry_policy_json[STATUS_CODES_JSON_KEY]
 
-          ParsedRetryPolicy.new(initial_delay_seconds, max_delay_seconds, multiplier, status_codes)
+          ParsedRetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
         end
       end
 
@@ -106,19 +106,20 @@ module Grpc
         if timestring.empty?
           nil
         else
-          timestring_nos = timestring.delete_suffix('s')
-          if !valid_float?(timestring_nos)
-            raise ParsingError "Was not able to convert the string `#{timestring}` to a time interval when parsing a grpc service config"
+          timestring_nos = timestring.delete_suffix "s"
+          unless valid_float? timestring_nos
+            error_text = "Was not able to convert the string `#{timestring}` " \
+                        "to a time interval when parsing a grpc service config"
+            raise ParsingError error_text
           end
           time_seconds = Float(timestring_nos)
           time_seconds
-        end    
+        end
       end
 
-      def self.valid_float?(str)
+      def self.valid_float? str
         !!Float(str) rescue false
       end
-
     end
   end
 end
