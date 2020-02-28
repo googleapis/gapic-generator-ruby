@@ -118,7 +118,9 @@ module Grpc
       end
 
       def self.valid_float? str
+        # rubocop:disable Style/DoubleNegation
         !!Float(str) rescue false
+        # rubocop:enable Style/DoubleNegation
       end
     end
   end

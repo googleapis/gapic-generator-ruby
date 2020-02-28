@@ -257,9 +257,8 @@ class ServicePresenter
   end
 
   def grpc_service_config
-    @api.grpc_service_config&.service_level_configs&.key? grpc_full_name ? 
-      @api.grpc_service_config.service_level_configs[grpc_full_name] : 
-      nil
+    return unless @api.grpc_service_config&.service_level_configs&.key? grpc_full_name
+    @api.grpc_service_config.service_level_configs[grpc_full_name]
   end
 
   def grpc_full_name

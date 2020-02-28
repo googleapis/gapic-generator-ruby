@@ -31,7 +31,7 @@ class ServiceConfigParsingTest < Minitest::Test
   end
 
   def test_varied_config_service
-    config_json = JSON.parse(::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json"))
+    config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
     service_config = ::Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse config_json
 
     service_with_retries_config = service_config.service_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
@@ -43,13 +43,14 @@ class ServiceConfigParsingTest < Minitest::Test
     assert_equal 2, service_with_retries_config.retry_policy.status_codes.count
     assert service_with_retries_config.retry_policy.status_codes.include?("DEADLINE_EXCEEDED")
     assert service_with_retries_config.retry_policy.status_codes.include?("RESOURCE_EXHAUSTED")
+  end
 
   def test_varied_config_method
-    config_json = JSON.parse(::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json"))
+    config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
     service_config = ::Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse config_json
 
-    service_with_retries_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
-    method_level_retry_config = service_with_retries_method_configs["MethodLevelRetryMethod"]
+    service_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
+    method_level_retry_config = service_method_configs["MethodLevelRetryMethod"]
 
     assert_equal 60, method_level_retry_config.timeout_seconds
     assert_equal 1, method_level_retry_config.retry_policy.initial_delay_seconds
