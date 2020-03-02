@@ -36,6 +36,9 @@ OptionParser.new do |op|
   op.on "--ruby-cloud-summary VAL" do |val|
     parameters[":gem.:summary"] = val
   end
+  op.on "--ruby-cloud-homepage VAL" do |val|
+    parameters[":gem.:homepage"] = val
+  end
   op.on "--ruby-cloud-env-prefix VAL" do |val|
     parameters[":gem.:env_prefix"] = val
   end
