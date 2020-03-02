@@ -27,6 +27,17 @@ class <%= service.client_name %>
   ##
   # Configuration for the <%= service.name %> <%= service.client_name %> API.
   #
+  # See {<%= service.client_name_full %>::Configuration}
+  # for a description of the configuration fields.
+  #
+  # ## Example
+  #
+  # To modify the configuration for the <%= service.name %> client:
+  #
+  #     <%= service.client_name_full %>.configure do |config|
+  #       config.timeout = 10_000
+  #     end
+  #
   # @yield [config] Configure the <%= service.client_name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]
   #
@@ -43,6 +54,9 @@ class <%= service.client_name %>
   # but structural changes (adding new fields, etc.) are not allowed. Structural changes
   # should be made on {<%= service.client_name %>.configure}.
   #
+  # See {<%= service.client_name_full %>::Configuration}
+  # for a description of the configuration fields.
+  #
   # @yield [config] Configure the <%= service.client_name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]
   #
@@ -55,6 +69,20 @@ class <%= service.client_name %>
 
   ##
   # Create a new <%= service.client_name %> client object.
+  #
+  # ## Examples
+  #
+  # To create a new <%= service.client_name %> client with the default
+  # configuration:
+  #
+  #     client = <%= service.client_name_full %>.new
+  #
+  # To create a new <%= service.client_name %> client with a custom
+  # configuration:
+  #
+  #     client = <%= service.client_name_full %>.new do |config|
+  #       config.timeout = 10_000
+  #     end
   #
   # @yield [config] Configure the <%= service.client_name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]

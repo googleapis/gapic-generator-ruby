@@ -48,6 +48,17 @@ module Google
           ##
           # Configuration for the Testing Client API.
           #
+          # See {Google::Showcase::V1beta1::Testing::Client::Configuration}
+          # for a description of the configuration fields.
+          #
+          # ## Example
+          #
+          # To modify the configuration for the Testing client:
+          #
+          #     Google::Showcase::V1beta1::Testing::Client.configure do |config|
+          #       config.timeout = 10_000
+          #     end
+          #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
           #
@@ -66,6 +77,9 @@ module Google
           # but structural changes (adding new fields, etc.) are not allowed. Structural changes
           # should be made on {Client.configure}.
           #
+          # See {Google::Showcase::V1beta1::Testing::Client::Configuration}
+          # for a description of the configuration fields.
+          #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
           #
@@ -78,6 +92,20 @@ module Google
 
           ##
           # Create a new Client client object.
+          #
+          # ## Examples
+          #
+          # To create a new Client client with the default
+          # configuration:
+          #
+          #     client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          # To create a new Client client with a custom
+          # configuration:
+          #
+          #     client = Google::Showcase::V1beta1::Testing::Client.new do |config|
+          #       config.timeout = 10_000
+          #     end
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
@@ -586,6 +614,81 @@ module Google
 
           ##
           # Configuration class for the Testing API.
+          #
+          # This class represents the configuration for Testing,
+          # providing control over timeouts, retry behavior, logging, transport
+          # parameters, and other low-level controls. Certain parameters can also be
+          # applied individually to specific RPCs. See
+          # {Google::Showcase::V1beta1::Testing::Client::Configuration::Rpcs}
+          # for a list of RPCs that can be configured independently.
+          #
+          # Configuration can be applied globally to all clients, or to a single client
+          # on construction.
+          #
+          # # Examples
+          #
+          # To modify the global config, setting the timeout for create_session
+          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #
+          #     Google::Showcase::V1beta1::Testing::Client.configure do |config|
+          #       config.timeout = 10_000
+          #       config.rpcs.create_session.timeout = 20_000
+          #     end
+          #
+          # To apply the above configuration only to a new client:
+          #
+          #     client = Google::Showcase::V1beta1::Testing::Client.new do |config|
+          #       config.timeout = 10_000
+          #       config.rpcs.create_session.timeout = 20_000
+          #     end
+          #
+          # @!attribute [rw] endpoint
+          #   The hostname or hostname:port of the service endpoint.
+          #   Defaults to `"localhost:7469"`.
+          #   @return [String]
+          # @!attribute [rw] credentials
+          #   Credentials to send with calls. You may provide any of the following types:
+          #    *  (`String`) The path to a service account key file in JSON format
+          #    *  (`Hash`) A service account key as a Hash
+          #    *  (`Google::Auth::Credentials`) A googleauth credentials object
+          #       (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+          #    *  (`Signet::OAuth2::Client`) A signet oauth2 client object
+          #       (see the [signet docs](https://googleapis.dev/ruby/signet/latest/Signet/OAuth2/Client.html))
+          #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
+          #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
+          #    *  (`nil`) indicating no credentials
+          #   @return [Object]
+          # @!attribute [rw] scope
+          #   The OAuth scopes
+          #   @return [Array<String>]
+          # @!attribute [rw] lib_name
+          #   The library name as recorded in instrumentation and logging
+          #   @return [String]
+          # @!attribute [rw] lib_version
+          #   The library version as recorded in instrumentation and logging
+          #   @return [String]
+          # @!attribute [rw] channel_args
+          #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
+          #   `GRPC::Core::Channel` object is provided as the credential.
+          #   @return [Hash]
+          # @!attribute [rw] interceptors
+          #   An array of interceptors that are run before calls are executed.
+          #   @return [Array<GRPC::ClientInterceptor>]
+          # @!attribute [rw] timeout
+          #   The call timeout in milliseconds.
+          #   @return [Numeric]
+          # @!attribute [rw] metadata
+          #   Additional gRPC headers to be sent with the call.
+          #   @return [Hash{Symbol=>String}]
+          # @!attribute [rw] retry_policy
+          #   The retry policy. The value is a hash with the following keys:
+          #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+          #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+          #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+          #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+          #       trigger a retry.
+          #   @return [Hash]
+          #
           class Configuration
             extend Gapic::Config
 
@@ -604,12 +707,17 @@ module Google
             config_attr :metadata,     nil, Hash, nil
             config_attr :retry_policy, nil, Hash, Proc, nil
 
+            # @private
             def initialize parent_config = nil
               @parent_config = parent_config unless parent_config.nil?
 
               yield self if block_given?
             end
 
+            ##
+            # Configurations for individual RPCs
+            # @return [Rpcs]
+            #
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
@@ -620,16 +728,64 @@ module Google
 
             ##
             # Configuration RPC class for the Testing API.
+            #
+            # Includes fields providing the configuration for each RPC in this service.
+            # Each configuration object is of type `Gapic::Config::Method` and includes
+            # the following configuration fields:
+            #
+            #  *  `timeout` (*type:* `Numeric`) - The call timeout in milliseconds
+            #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional gRPC headers
+            #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+            #     include the following keys:
+            #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #         trigger a retry.
+            #
             class Rpcs
+              ##
+              # RPC-specific configuration for `create_session`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :create_session
+              ##
+              # RPC-specific configuration for `get_session`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :get_session
+              ##
+              # RPC-specific configuration for `list_sessions`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :list_sessions
+              ##
+              # RPC-specific configuration for `delete_session`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :delete_session
+              ##
+              # RPC-specific configuration for `report_session`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :report_session
+              ##
+              # RPC-specific configuration for `list_tests`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :list_tests
+              ##
+              # RPC-specific configuration for `delete_test`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :delete_test
+              ##
+              # RPC-specific configuration for `verify_test`
+              # @return [Gapic::Config::Method]
+              #
               attr_reader :verify_test
 
+              # @private
               def initialize parent_rpcs = nil
                 create_session_config = parent_rpcs&.create_session if parent_rpcs&.respond_to? :create_session
                 @create_session = Gapic::Config::Method.new create_session_config
