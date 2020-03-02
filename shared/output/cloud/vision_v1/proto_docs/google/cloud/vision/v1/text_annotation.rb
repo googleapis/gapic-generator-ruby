@@ -54,7 +54,7 @@ module Google
 
           # Detected start or end of a structural component.
           # @!attribute [rw] type
-          #   @return [ENUM(BreakType)]
+          #   @return [Google::Cloud::Vision::V1::TextAnnotation::DetectedBreak::BreakType]
           #     Detected break type.
           # @!attribute [rw] is_prefix
           #   @return [Boolean]
@@ -152,7 +152,7 @@ module Google
         #   @return [Array<Google::Cloud::Vision::V1::Paragraph>]
         #     List of paragraphs in this block (if this blocks is of type text).
         # @!attribute [rw] block_type
-        #   @return [ENUM(BlockType)]
+        #   @return [Google::Cloud::Vision::V1::Block::BlockType]
         #     Detected block type (text, image etc) for this block.
         # @!attribute [rw] confidence
         #   @return [Float]

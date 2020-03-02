@@ -92,7 +92,7 @@ class FieldPresenter
         output ? type : "#{type} | Hash"
       elsif field.enum?
         # TODO: handle when arg message is nil and enum is the type
-        "ENUM(#{field.enum.name})"
+        message_ruby_type field.enum
       else
         case field.type
         when 1, 2                              then "Float"
