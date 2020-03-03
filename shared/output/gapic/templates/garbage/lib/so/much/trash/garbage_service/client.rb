@@ -319,7 +319,7 @@ module So
           #     The double of this garbage.
           #   @param bytes [String]
           #     The bytes of this garbage.
-          #   @param enum [ENUM(GarbageEnum)]
+          #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
           #   @param nested [So::Much::Trash::SpecificGarbage::NestedGarbage | Hash]
           #     The nested garbage resource of this garbage.
@@ -389,7 +389,7 @@ module So
           #     The double of this garbage.
           #   @param bytes [String]
           #     The bytes of this garbage.
-          #   @param enum [ENUM(GarbageEnum)]
+          #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
           #
           #
@@ -457,7 +457,7 @@ module So
           #     The repeated double of this garbage.
           #   @param repeated_bytes [Array<String>]
           #     The repeated bytes of this garbage.
-          #   @param repeated_enum [Array<ENUM(GarbageEnum)>]
+          #   @param repeated_enum [Array<So::Much::Trash::GarbageEnum>]
           #     The repeated type of this garbage.
           #
           #
@@ -529,7 +529,7 @@ module So
           #     When the garbage was first activated.
           #   @param duration [Google::Protobuf::Duration | Hash]
           #     Time limit for this garbage. If not defined, the garbage endures forever.
-          #   @param enum [ENUM(GarbageEnum)]
+          #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
           #   @param amap [Hash{String => String}]
           #     This is a map

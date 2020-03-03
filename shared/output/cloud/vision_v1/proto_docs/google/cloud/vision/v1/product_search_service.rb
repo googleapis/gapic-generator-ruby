@@ -596,7 +596,7 @@ module Google
         # This is included in the `metadata` field of the `Operation` returned by the
         # `GetOperation` call of the `google::longrunning::Operations` service.
         # @!attribute [rw] state
-        #   @return [ENUM(State)]
+        #   @return [Google::Cloud::Vision::V1::BatchOperationMetadata::State]
         #     The current state of the batch operation.
         # @!attribute [rw] submit_time
         #   @return [Google::Protobuf::Timestamp]

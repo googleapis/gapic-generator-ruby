@@ -38,7 +38,7 @@ module Google
       #     The name of the session. The ID must conform to ^[a-z]+$
       #     If this is not provided, Showcase chooses one at random.
       # @!attribute [rw] version
-      #   @return [ENUM(Version)]
+      #   @return [Google::Showcase::V1beta1::Session::Version]
       #     Required. The version this session is using.
       class Session
         include Google::Protobuf::MessageExts
@@ -123,7 +123,7 @@ module Google
 
       # Response message for reporting on a session.
       # @!attribute [rw] result
-      #   @return [ENUM(Result)]
+      #   @return [Google::Showcase::V1beta1::ReportSessionResponse::Result]
       #     The state of the report.
       # @!attribute [rw] test_runs
       #   @return [Array<Google::Showcase::V1beta1::TestRun>]
@@ -153,7 +153,7 @@ module Google
       #     The tests/* portion of the names are hard-coded, and do not change
       #     from session to session.
       # @!attribute [rw] expectation_level
-      #   @return [ENUM(ExpectationLevel)]
+      #   @return [Google::Showcase::V1beta1::Test::ExpectationLevel]
       #     The expectation level for this test.
       # @!attribute [rw] description
       #   @return [String]
@@ -231,10 +231,10 @@ module Google
 
       # An issue found in the test.
       # @!attribute [rw] type
-      #   @return [ENUM(Type)]
+      #   @return [Google::Showcase::V1beta1::Issue::Type]
       #     The type of the issue.
       # @!attribute [rw] severity
-      #   @return [ENUM(Severity)]
+      #   @return [Google::Showcase::V1beta1::Issue::Severity]
       #     The severity of the issue.
       # @!attribute [rw] description
       #   @return [String]

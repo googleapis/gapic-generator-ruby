@@ -39,14 +39,14 @@ module Google
           # A group of fields used as keys for a frequency cap.
           # There can be no more than one frequency cap with the same key.
           # @!attribute [rw] level
-          #   @return [ENUM(FrequencyCapLevel)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapLevelEnum::FrequencyCapLevel]
           #     The level on which the cap is to be applied (e.g. ad group ad, ad group).
           #     The cap is applied to all the entities of this level.
           # @!attribute [rw] event_type
-          #   @return [ENUM(FrequencyCapEventType)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapEventTypeEnum::FrequencyCapEventType]
           #     The type of event that the cap applies to (e.g. impression).
           # @!attribute [rw] time_unit
-          #   @return [ENUM(FrequencyCapTimeUnit)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapTimeUnitEnum::FrequencyCapTimeUnit]
           #     Unit of time the cap is defined at (e.g. day, week).
           # @!attribute [rw] time_length
           #   @return [Google::Protobuf::Int32Value]

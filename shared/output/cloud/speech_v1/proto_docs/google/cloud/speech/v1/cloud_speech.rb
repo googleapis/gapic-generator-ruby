@@ -106,7 +106,7 @@ module Google
         # Provides information to the recognizer that specifies how to process the
         # request.
         # @!attribute [rw] encoding
-        #   @return [ENUM(AudioEncoding)]
+        #   @return [Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding]
         #     Encoding of audio data sent in all `RecognitionAudio` messages.
         #     This field is optional for `FLAC` and `WAV` audio files and required
         #     for all other audio formats. For details, see [AudioEncoding][google.cloud.speech.v1.RecognitionConfig.AudioEncoding].
@@ -337,7 +337,7 @@ module Google
 
         # Description of audio data to be recognized.
         # @!attribute [rw] interaction_type
-        #   @return [ENUM(InteractionType)]
+        #   @return [Google::Cloud::Speech::V1::RecognitionMetadata::InteractionType]
         #     The use case most closely describing the audio content to be recognized.
         # @!attribute [rw] industry_naics_code_of_audio
         #   @return [Integer]
@@ -346,13 +346,13 @@ module Google
         #     in the audio.  Use the 6-digit NAICS code to identify the industry
         #     vertical - see https://www.naics.com/search/.
         # @!attribute [rw] microphone_distance
-        #   @return [ENUM(MicrophoneDistance)]
+        #   @return [Google::Cloud::Speech::V1::RecognitionMetadata::MicrophoneDistance]
         #     The audio type that most closely describes the audio being recognized.
         # @!attribute [rw] original_media_type
-        #   @return [ENUM(OriginalMediaType)]
+        #   @return [Google::Cloud::Speech::V1::RecognitionMetadata::OriginalMediaType]
         #     The original media the speech was recorded on.
         # @!attribute [rw] recording_device_type
-        #   @return [ENUM(RecordingDeviceType)]
+        #   @return [Google::Cloud::Speech::V1::RecognitionMetadata::RecordingDeviceType]
         #     The type of device the speech was recorded with.
         # @!attribute [rw] recording_device_name
         #   @return [String]
@@ -613,7 +613,7 @@ module Google
         #     It contains zero or one `is_final=true` result (the newly settled portion),
         #     followed by zero or more `is_final=false` results (the interim results).
         # @!attribute [rw] speech_event_type
-        #   @return [ENUM(SpeechEventType)]
+        #   @return [Google::Cloud::Speech::V1::StreamingRecognizeResponse::SpeechEventType]
         #     Indicates the type of speech event.
         class StreamingRecognizeResponse
           include Google::Protobuf::MessageExts
