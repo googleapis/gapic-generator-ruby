@@ -44,14 +44,14 @@ module Google
           attr_reader :echo_stub
 
           ##
-          # Configuration for the Echo Client API.
+          # Configure the Echo Client class.
           #
           # See {Google::Showcase::V1beta1::Echo::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
-          # To modify the configuration for the Echo client:
+          # To modify the configuration for all Echo clients:
           #
           #     Google::Showcase::V1beta1::Echo::Client.configure do |config|
           #       config.timeout = 10_000
@@ -89,23 +89,23 @@ module Google
           end
 
           ##
-          # Create a new Client client object.
+          # Create a new Echo client object.
           #
           # ## Examples
           #
-          # To create a new Client client with the default
+          # To create a new Echo client with the default
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Echo::Client.new
           #
-          # To create a new Client client with a custom
+          # To create a new Echo client with a custom
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Echo::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
-          # @yield [config] Configure the Client client.
+          # @yield [config] Configure the Echo client.
           # @yieldparam config [Client::Configuration]
           #
           def initialize

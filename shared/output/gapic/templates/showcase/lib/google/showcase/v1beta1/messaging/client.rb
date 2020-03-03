@@ -47,14 +47,14 @@ module Google
           attr_reader :messaging_stub
 
           ##
-          # Configuration for the Messaging Client API.
+          # Configure the Messaging Client class.
           #
           # See {Google::Showcase::V1beta1::Messaging::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
-          # To modify the configuration for the Messaging client:
+          # To modify the configuration for all Messaging clients:
           #
           #     Google::Showcase::V1beta1::Messaging::Client.configure do |config|
           #       config.timeout = 10_000
@@ -92,23 +92,23 @@ module Google
           end
 
           ##
-          # Create a new Client client object.
+          # Create a new Messaging client object.
           #
           # ## Examples
           #
-          # To create a new Client client with the default
+          # To create a new Messaging client with the default
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Messaging::Client.new
           #
-          # To create a new Client client with a custom
+          # To create a new Messaging client with a custom
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
-          # @yield [config] Configure the Client client.
+          # @yield [config] Configure the Messaging client.
           # @yieldparam config [Client::Configuration]
           #
           def initialize

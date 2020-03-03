@@ -41,14 +41,14 @@ module Google
             attr_reader :image_annotator_stub
 
             ##
-            # Configuration for the ImageAnnotator Client API.
+            # Configure the ImageAnnotator Client class.
             #
             # See {Google::Cloud::Vision::V1::ImageAnnotator::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
-            # To modify the configuration for the ImageAnnotator client:
+            # To modify the configuration for all ImageAnnotator clients:
             #
             #     Google::Cloud::Vision::V1::ImageAnnotator::Client.configure do |config|
             #       config.timeout = 10_000
@@ -95,23 +95,23 @@ module Google
             end
 
             ##
-            # Create a new Client client object.
+            # Create a new ImageAnnotator client object.
             #
             # ## Examples
             #
-            # To create a new Client client with the default
+            # To create a new ImageAnnotator client with the default
             # configuration:
             #
             #     client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
             #
-            # To create a new Client client with a custom
+            # To create a new ImageAnnotator client with a custom
             # configuration:
             #
             #     client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
-            # @yield [config] Configure the Client client.
+            # @yield [config] Configure the ImageAnnotator client.
             # @yieldparam config [Client::Configuration]
             #
             def initialize

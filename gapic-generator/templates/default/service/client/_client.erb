@@ -25,14 +25,14 @@ class <%= service.client_name %>
   attr_reader :<%= service.stub_name %>
 
   ##
-  # Configuration for the <%= service.name %> <%= service.client_name %> API.
+  # Configure the <%= service.name %> <%= service.client_name %> class.
   #
   # See {<%= service.client_name_full %>::Configuration}
   # for a description of the configuration fields.
   #
   # ## Example
   #
-  # To modify the configuration for the <%= service.name %> client:
+  # To modify the configuration for all <%= service.name %> clients:
   #
   #     <%= service.client_name_full %>.configure do |config|
   #       config.timeout = 10_000
@@ -68,23 +68,23 @@ class <%= service.client_name %>
   end
 
   ##
-  # Create a new <%= service.client_name %> client object.
+  # Create a new <%= service.name %> client object.
   #
   # ## Examples
   #
-  # To create a new <%= service.client_name %> client with the default
+  # To create a new <%= service.name %> client with the default
   # configuration:
   #
   #     client = <%= service.client_name_full %>.new
   #
-  # To create a new <%= service.client_name %> client with a custom
+  # To create a new <%= service.name %> client with a custom
   # configuration:
   #
   #     client = <%= service.client_name_full %>.new do |config|
   #       config.timeout = 10_000
   #     end
   #
-  # @yield [config] Configure the <%= service.client_name %> client.
+  # @yield [config] Configure the <%= service.name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]
   #
   def initialize

@@ -38,14 +38,14 @@ module Google
               attr_reader :campaign_service_stub
 
               ##
-              # Configuration for the CampaignService Client API.
+              # Configure the CampaignService Client class.
               #
               # See {Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration}
               # for a description of the configuration fields.
               #
               # ## Example
               #
-              # To modify the configuration for the CampaignService client:
+              # To modify the configuration for all CampaignService clients:
               #
               #     Google::Ads::GoogleAds::V1::Services::CampaignService::Client.configure do |config|
               #       config.timeout = 10_000
@@ -83,23 +83,23 @@ module Google
               end
 
               ##
-              # Create a new Client client object.
+              # Create a new CampaignService client object.
               #
               # ## Examples
               #
-              # To create a new Client client with the default
+              # To create a new CampaignService client with the default
               # configuration:
               #
               #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
               #
-              # To create a new Client client with a custom
+              # To create a new CampaignService client with a custom
               # configuration:
               #
               #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new do |config|
               #       config.timeout = 10_000
               #     end
               #
-              # @yield [config] Configure the Client client.
+              # @yield [config] Configure the CampaignService client.
               # @yieldparam config [Client::Configuration]
               #
               def initialize

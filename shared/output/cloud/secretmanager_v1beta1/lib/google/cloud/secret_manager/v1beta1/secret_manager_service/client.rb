@@ -40,14 +40,14 @@ module Google
             attr_reader :secret_manager_service_stub
 
             ##
-            # Configuration for the SecretManagerService Client API.
+            # Configure the SecretManagerService Client class.
             #
             # See {Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
-            # To modify the configuration for the SecretManagerService client:
+            # To modify the configuration for all SecretManagerService clients:
             #
             #     Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.configure do |config|
             #       config.timeout = 10_000
@@ -94,23 +94,23 @@ module Google
             end
 
             ##
-            # Create a new Client client object.
+            # Create a new SecretManagerService client object.
             #
             # ## Examples
             #
-            # To create a new Client client with the default
+            # To create a new SecretManagerService client with the default
             # configuration:
             #
             #     client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
             #
-            # To create a new Client client with a custom
+            # To create a new SecretManagerService client with a custom
             # configuration:
             #
             #     client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
-            # @yield [config] Configure the Client client.
+            # @yield [config] Configure the SecretManagerService client.
             # @yieldparam config [Client::Configuration]
             #
             def initialize

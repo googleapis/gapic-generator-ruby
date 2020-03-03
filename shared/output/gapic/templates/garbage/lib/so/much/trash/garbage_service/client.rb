@@ -47,14 +47,14 @@ module So
           attr_reader :garbage_service_stub
 
           ##
-          # Configuration for the GarbageService Client API.
+          # Configure the GarbageService Client class.
           #
           # See {So::Much::Trash::GarbageService::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
-          # To modify the configuration for the GarbageService client:
+          # To modify the configuration for all GarbageService clients:
           #
           #     So::Much::Trash::GarbageService::Client.configure do |config|
           #       config.timeout = 10_000
@@ -92,23 +92,23 @@ module So
           end
 
           ##
-          # Create a new Client client object.
+          # Create a new GarbageService client object.
           #
           # ## Examples
           #
-          # To create a new Client client with the default
+          # To create a new GarbageService client with the default
           # configuration:
           #
           #     client = So::Much::Trash::GarbageService::Client.new
           #
-          # To create a new Client client with a custom
+          # To create a new GarbageService client with a custom
           # configuration:
           #
           #     client = So::Much::Trash::GarbageService::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
-          # @yield [config] Configure the Client client.
+          # @yield [config] Configure the GarbageService client.
           # @yieldparam config [Client::Configuration]
           #
           def initialize

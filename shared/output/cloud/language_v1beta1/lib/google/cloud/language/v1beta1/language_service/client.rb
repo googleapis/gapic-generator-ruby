@@ -37,14 +37,14 @@ module Google
             attr_reader :language_service_stub
 
             ##
-            # Configuration for the LanguageService Client API.
+            # Configure the LanguageService Client class.
             #
             # See {Google::Cloud::Language::V1beta1::LanguageService::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
-            # To modify the configuration for the LanguageService client:
+            # To modify the configuration for all LanguageService clients:
             #
             #     Google::Cloud::Language::V1beta1::LanguageService::Client.configure do |config|
             #       config.timeout = 10_000
@@ -91,23 +91,23 @@ module Google
             end
 
             ##
-            # Create a new Client client object.
+            # Create a new LanguageService client object.
             #
             # ## Examples
             #
-            # To create a new Client client with the default
+            # To create a new LanguageService client with the default
             # configuration:
             #
             #     client = Google::Cloud::Language::V1beta1::LanguageService::Client.new
             #
-            # To create a new Client client with a custom
+            # To create a new LanguageService client with a custom
             # configuration:
             #
             #     client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
-            # @yield [config] Configure the Client client.
+            # @yield [config] Configure the LanguageService client.
             # @yieldparam config [Client::Configuration]
             #
             def initialize

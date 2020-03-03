@@ -46,14 +46,14 @@ module Google
           attr_reader :identity_stub
 
           ##
-          # Configuration for the Identity Client API.
+          # Configure the Identity Client class.
           #
           # See {Google::Showcase::V1beta1::Identity::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
-          # To modify the configuration for the Identity client:
+          # To modify the configuration for all Identity clients:
           #
           #     Google::Showcase::V1beta1::Identity::Client.configure do |config|
           #       config.timeout = 10_000
@@ -91,23 +91,23 @@ module Google
           end
 
           ##
-          # Create a new Client client object.
+          # Create a new Identity client object.
           #
           # ## Examples
           #
-          # To create a new Client client with the default
+          # To create a new Identity client with the default
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Identity::Client.new
           #
-          # To create a new Client client with a custom
+          # To create a new Identity client with a custom
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Identity::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
-          # @yield [config] Configure the Client client.
+          # @yield [config] Configure the Identity client.
           # @yieldparam config [Client::Configuration]
           #
           def initialize

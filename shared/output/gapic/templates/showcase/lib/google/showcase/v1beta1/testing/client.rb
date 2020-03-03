@@ -46,14 +46,14 @@ module Google
           attr_reader :testing_stub
 
           ##
-          # Configuration for the Testing Client API.
+          # Configure the Testing Client class.
           #
           # See {Google::Showcase::V1beta1::Testing::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
-          # To modify the configuration for the Testing client:
+          # To modify the configuration for all Testing clients:
           #
           #     Google::Showcase::V1beta1::Testing::Client.configure do |config|
           #       config.timeout = 10_000
@@ -91,23 +91,23 @@ module Google
           end
 
           ##
-          # Create a new Client client object.
+          # Create a new Testing client object.
           #
           # ## Examples
           #
-          # To create a new Client client with the default
+          # To create a new Testing client with the default
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Testing::Client.new
           #
-          # To create a new Client client with a custom
+          # To create a new Testing client with a custom
           # configuration:
           #
           #     client = Google::Showcase::V1beta1::Testing::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
-          # @yield [config] Configure the Client client.
+          # @yield [config] Configure the Testing client.
           # @yieldparam config [Client::Configuration]
           #
           def initialize

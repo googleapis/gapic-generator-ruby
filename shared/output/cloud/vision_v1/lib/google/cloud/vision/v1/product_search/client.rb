@@ -41,14 +41,14 @@ module Google
             attr_reader :product_search_stub
 
             ##
-            # Configuration for the ProductSearch Client API.
+            # Configure the ProductSearch Client class.
             #
             # See {Google::Cloud::Vision::V1::ProductSearch::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
-            # To modify the configuration for the ProductSearch client:
+            # To modify the configuration for all ProductSearch clients:
             #
             #     Google::Cloud::Vision::V1::ProductSearch::Client.configure do |config|
             #       config.timeout = 10_000
@@ -95,23 +95,23 @@ module Google
             end
 
             ##
-            # Create a new Client client object.
+            # Create a new ProductSearch client object.
             #
             # ## Examples
             #
-            # To create a new Client client with the default
+            # To create a new ProductSearch client with the default
             # configuration:
             #
             #     client = Google::Cloud::Vision::V1::ProductSearch::Client.new
             #
-            # To create a new Client client with a custom
+            # To create a new ProductSearch client with a custom
             # configuration:
             #
             #     client = Google::Cloud::Vision::V1::ProductSearch::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
-            # @yield [config] Configure the Client client.
+            # @yield [config] Configure the ProductSearch client.
             # @yieldparam config [Client::Configuration]
             #
             def initialize

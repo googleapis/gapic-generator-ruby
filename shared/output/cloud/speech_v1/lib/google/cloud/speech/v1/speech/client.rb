@@ -38,14 +38,14 @@ module Google
             attr_reader :speech_stub
 
             ##
-            # Configuration for the Speech Client API.
+            # Configure the Speech Client class.
             #
             # See {Google::Cloud::Speech::V1::Speech::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
-            # To modify the configuration for the Speech client:
+            # To modify the configuration for all Speech clients:
             #
             #     Google::Cloud::Speech::V1::Speech::Client.configure do |config|
             #       config.timeout = 10_000
@@ -92,23 +92,23 @@ module Google
             end
 
             ##
-            # Create a new Client client object.
+            # Create a new Speech client object.
             #
             # ## Examples
             #
-            # To create a new Client client with the default
+            # To create a new Speech client with the default
             # configuration:
             #
             #     client = Google::Cloud::Speech::V1::Speech::Client.new
             #
-            # To create a new Client client with a custom
+            # To create a new Speech client with a custom
             # configuration:
             #
             #     client = Google::Cloud::Speech::V1::Speech::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
-            # @yield [config] Configure the Client client.
+            # @yield [config] Configure the Speech client.
             # @yieldparam config [Client::Configuration]
             #
             def initialize
