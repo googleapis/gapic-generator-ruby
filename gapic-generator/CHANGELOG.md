@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.0.6 / 2020-03-03
+
+* Generated config classes now have full yardoc
+* Yardoc types for enums reference the fully namespaced module
+
 ### 0.0.5 / 2020-02-25
 
 * Require simplecov explicitly from generated test files
