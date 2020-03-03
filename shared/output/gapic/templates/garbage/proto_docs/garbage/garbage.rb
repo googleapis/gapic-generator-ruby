@@ -166,7 +166,7 @@ module So
       #   @return [So::Much::Trash::GarbageMap]
       #     The map of this garbage.
       # @!attribute [rw] enum
-      #   @return [ENUM(GarbageEnum)]
+      #   @return [So::Much::Trash::GarbageEnum]
       #     The type of this garbage.
       # @!attribute [rw] amap
       #   @return [Google::Protobuf::Map{String => String}]
@@ -217,7 +217,7 @@ module So
       #   @return [So::Much::Trash::GarbageMap]
       #     The map of this garbage.
       # @!attribute [rw] enum
-      #   @return [ENUM(GarbageEnum)]
+      #   @return [So::Much::Trash::GarbageEnum]
       #     The type of this garbage.
       # @!attribute [rw] nested
       #   @return [So::Much::Trash::SpecificGarbage::NestedGarbage]
@@ -258,7 +258,7 @@ module So
         #   @return [So::Much::Trash::GarbageMap]
         #     The map of this garbage.
         # @!attribute [rw] enum
-        #   @return [ENUM(GarbageEnum)]
+        #   @return [So::Much::Trash::GarbageEnum]
         #     The type of this garbage.
         class NestedGarbage
           include Google::Protobuf::MessageExts
@@ -297,7 +297,7 @@ module So
       #   @return [Array<So::Much::Trash::GarbageMap>]
       #     The repeated map of this garbage.
       # @!attribute [rw] repeated_enum
-      #   @return [Array<ENUM(GarbageEnum)>]
+      #   @return [Array<So::Much::Trash::GarbageEnum>]
       #     The repeated type of this garbage.
       class RepeatedGarbage
         include Google::Protobuf::MessageExts

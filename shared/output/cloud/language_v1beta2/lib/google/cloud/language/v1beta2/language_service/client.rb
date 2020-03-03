@@ -126,7 +126,7 @@ module Google
             # @overload analyze_sentiment(document: nil, encoding_type: nil)
             #   @param document [Google::Cloud::Language::V1beta2::Document | Hash]
             #     Required. Input document.
-            #   @param encoding_type [ENUM(EncodingType)]
+            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate sentence offsets for the
             #     sentence sentiment.
             #
@@ -185,7 +185,7 @@ module Google
             # @overload analyze_entities(document: nil, encoding_type: nil)
             #   @param document [Google::Cloud::Language::V1beta2::Document | Hash]
             #     Required. Input document.
-            #   @param encoding_type [ENUM(EncodingType)]
+            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             #
@@ -241,7 +241,7 @@ module Google
             # @overload analyze_entity_sentiment(document: nil, encoding_type: nil)
             #   @param document [Google::Cloud::Language::V1beta2::Document | Hash]
             #     Required. Input document.
-            #   @param encoding_type [ENUM(EncodingType)]
+            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             #
@@ -299,7 +299,7 @@ module Google
             # @overload analyze_syntax(document: nil, encoding_type: nil)
             #   @param document [Google::Cloud::Language::V1beta2::Document | Hash]
             #     Required. Input document.
-            #   @param encoding_type [ENUM(EncodingType)]
+            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             #
@@ -409,7 +409,7 @@ module Google
             #     Required. Input document.
             #   @param features [Google::Cloud::Language::V1beta2::AnnotateTextRequest::Features | Hash]
             #     Required. The enabled features.
-            #   @param encoding_type [ENUM(EncodingType)]
+            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             #

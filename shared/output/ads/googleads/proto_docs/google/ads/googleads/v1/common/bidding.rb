@@ -88,7 +88,7 @@ module Google
           # An automated bidding strategy which sets CPC bids to target impressions on
           # page one, or page one promoted slots on google.com.
           # @!attribute [rw] strategy_goal
-          #   @return [ENUM(PageOnePromotedStrategyGoal)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::PageOnePromotedStrategyGoalEnum::PageOnePromotedStrategyGoal]
           #     The strategy goal of where impressions are desired to be shown on
           #     search result pages.
           # @!attribute [rw] cpc_bid_ceiling_micros
@@ -151,7 +151,7 @@ module Google
           # location).
           # Next Id = 4
           # @!attribute [rw] location
-          #   @return [ENUM(TargetImpressionShareLocation)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::TargetImpressionShareLocationEnum::TargetImpressionShareLocation]
           #     The targeted location on the search results page.
           # @!attribute [rw] location_fraction_micros
           #   @return [Google::Protobuf::Int64Value]

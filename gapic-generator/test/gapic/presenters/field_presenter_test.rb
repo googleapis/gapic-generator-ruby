@@ -102,7 +102,7 @@ class FieldPresenterTest < PresenterTest
 
     assert_equal "enum", fp.name
     assert_equal "@!attribute [rw] enum", fp.doc_attribute_type
-    assert_equal "ENUM(GarbageEnum)", fp.output_doc_types
+    assert_equal "So::Much::Trash::GarbageEnum", fp.output_doc_types
     assert_equal fp.doc_description, "The type of this garbage.\n"
     assert_equal ":Default", fp.default_value
     assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name

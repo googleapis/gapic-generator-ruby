@@ -25,7 +25,7 @@ module Google
         # number of results to return for that type. Multiple `Feature` objects can
         # be specified in the `features` list.
         # @!attribute [rw] type
-        #   @return [ENUM(Type)]
+        #   @return [Google::Cloud::Vision::V1::Feature::Type]
         #     The feature type.
         # @!attribute [rw] max_results
         #   @return [Integer]
@@ -179,25 +179,25 @@ module Google
         #   @return [Float]
         #     Face landmarking confidence. Range [0, 1].
         # @!attribute [rw] joy_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Joy likelihood.
         # @!attribute [rw] sorrow_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Sorrow likelihood.
         # @!attribute [rw] anger_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Anger likelihood.
         # @!attribute [rw] surprise_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Surprise likelihood.
         # @!attribute [rw] under_exposed_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Under-exposed likelihood.
         # @!attribute [rw] blurred_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Blurred likelihood.
         # @!attribute [rw] headwear_likelihood
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Headwear likelihood.
         class FaceAnnotation
           include Google::Protobuf::MessageExts
@@ -205,7 +205,7 @@ module Google
 
           # A face-specific landmark (for example, a face feature).
           # @!attribute [rw] type
-          #   @return [ENUM(Type)]
+          #   @return [Google::Cloud::Vision::V1::FaceAnnotation::Landmark::Type]
           #     Face landmark type.
           # @!attribute [rw] position
           #   @return [Google::Cloud::Vision::V1::Position]
@@ -428,23 +428,23 @@ module Google
         # methods over safe-search verticals (for example, adult, spoof, medical,
         # violence).
         # @!attribute [rw] adult
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Represents the adult content likelihood for the image. Adult content may
         #     contain elements such as nudity, pornographic images or cartoons, or
         #     sexual activities.
         # @!attribute [rw] spoof
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Spoof likelihood. The likelihood that an modification
         #     was made to the image's canonical version to make it appear
         #     funny or offensive.
         # @!attribute [rw] medical
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Likelihood that this is a medical image.
         # @!attribute [rw] violence
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Likelihood that this image contains violent content.
         # @!attribute [rw] racy
-        #   @return [ENUM(Likelihood)]
+        #   @return [Google::Cloud::Vision::V1::Likelihood]
         #     Likelihood that the request image contains racy content. Racy content may
         #     include (but is not limited to) skimpy or sheer clothing, strategically
         #     covered nudity, lewd or provocative poses, or close-ups of sensitive
@@ -986,7 +986,7 @@ module Google
 
         # Contains metadata for the BatchAnnotateImages operation.
         # @!attribute [rw] state
-        #   @return [ENUM(State)]
+        #   @return [Google::Cloud::Vision::V1::OperationMetadata::State]
         #     Current state of the batch operation.
         # @!attribute [rw] create_time
         #   @return [Google::Protobuf::Timestamp]

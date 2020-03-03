@@ -25,7 +25,7 @@ module Google
         #
         # Represents the input to API methods.
         # @!attribute [rw] type
-        #   @return [ENUM(Type)]
+        #   @return [Google::Cloud::Language::V1beta1::Document::Type]
         #     Required. If the type is not set or is `TYPE_UNSPECIFIED`,
         #     returns an `INVALID_ARGUMENT` error.
         # @!attribute [rw] content
@@ -85,7 +85,7 @@ module Google
         #   @return [String]
         #     The representative name for the entity.
         # @!attribute [rw] type
-        #   @return [ENUM(Type)]
+        #   @return [Google::Cloud::Language::V1beta1::Entity::Type]
         #     The entity type.
         # @!attribute [rw] metadata
         #   @return [Google::Protobuf::Map{String => String}]
@@ -187,40 +187,40 @@ module Google
 
         # Represents part of speech information for a token.
         # @!attribute [rw] tag
-        #   @return [ENUM(Tag)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Tag]
         #     The part of speech tag.
         # @!attribute [rw] aspect
-        #   @return [ENUM(Aspect)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Aspect]
         #     The grammatical aspect.
         # @!attribute [rw] case
-        #   @return [ENUM(Case)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Case]
         #     The grammatical case.
         # @!attribute [rw] form
-        #   @return [ENUM(Form)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Form]
         #     The grammatical form.
         # @!attribute [rw] gender
-        #   @return [ENUM(Gender)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Gender]
         #     The grammatical gender.
         # @!attribute [rw] mood
-        #   @return [ENUM(Mood)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Mood]
         #     The grammatical mood.
         # @!attribute [rw] number
-        #   @return [ENUM(Number)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Number]
         #     The grammatical number.
         # @!attribute [rw] person
-        #   @return [ENUM(Person)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Person]
         #     The grammatical person.
         # @!attribute [rw] proper
-        #   @return [ENUM(Proper)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Proper]
         #     The grammatical properness.
         # @!attribute [rw] reciprocity
-        #   @return [ENUM(Reciprocity)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Reciprocity]
         #     The grammatical reciprocity.
         # @!attribute [rw] tense
-        #   @return [ENUM(Tense)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Tense]
         #     The grammatical tense.
         # @!attribute [rw] voice
-        #   @return [ENUM(Voice)]
+        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Voice]
         #     The grammatical voice.
         class PartOfSpeech
           include Google::Protobuf::MessageExts
@@ -525,7 +525,7 @@ module Google
         #     by the API method. If this token is a root token, then the
         #     `head_token_index` is its own index.
         # @!attribute [rw] label
-        #   @return [ENUM(Label)]
+        #   @return [Google::Cloud::Language::V1beta1::DependencyEdge::Label]
         #     The parse label for the token.
         class DependencyEdge
           include Google::Protobuf::MessageExts
@@ -772,7 +772,7 @@ module Google
         #   @return [Google::Cloud::Language::V1beta1::TextSpan]
         #     The mention text.
         # @!attribute [rw] type
-        #   @return [ENUM(Type)]
+        #   @return [Google::Cloud::Language::V1beta1::EntityMention::Type]
         #     The type of the entity mention.
         class EntityMention
           include Google::Protobuf::MessageExts
@@ -811,7 +811,7 @@ module Google
         #   @return [Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [ENUM(EncodingType)]
+        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate sentence offsets for the
         #     sentence sentiment.
         class AnalyzeSentimentRequest
@@ -842,7 +842,7 @@ module Google
         #   @return [Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [ENUM(EncodingType)]
+        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnalyzeEntitiesRequest
           include Google::Protobuf::MessageExts
@@ -869,7 +869,7 @@ module Google
         #   @return [Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [ENUM(EncodingType)]
+        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnalyzeSyntaxRequest
           include Google::Protobuf::MessageExts
@@ -903,7 +903,7 @@ module Google
         #   @return [Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features]
         #     The enabled features.
         # @!attribute [rw] encoding_type
-        #   @return [ENUM(EncodingType)]
+        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnnotateTextRequest
           include Google::Protobuf::MessageExts

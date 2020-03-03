@@ -305,7 +305,7 @@ module Google
       #   @return [Google::Showcase::V1beta1::Blurb]
       #     The blurb that was either created, updated, or deleted.
       # @!attribute [rw] action
-      #   @return [ENUM(Action)]
+      #   @return [Google::Showcase::V1beta1::StreamBlurbsResponse::Action]
       #     The action that triggered the blurb to be returned.
       class StreamBlurbsResponse
         include Google::Protobuf::MessageExts

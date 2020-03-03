@@ -42,18 +42,18 @@ module Google
           #     It must not contain any null (code point 0x0), NL line feed
           #     (code point 0xA) or carriage return (code point 0xD) characters.
           # @!attribute [rw] status
-          #   @return [ENUM(CampaignStatus)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::CampaignStatusEnum::CampaignStatus]
           #     The status of the campaign.
           #
           #     When a new campaign is added, the status defaults to ENABLED.
           # @!attribute [rw] serving_status
-          #   @return [ENUM(CampaignServingStatus)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::CampaignServingStatusEnum::CampaignServingStatus]
           #     The ad serving status of the campaign.
           # @!attribute [rw] ad_serving_optimization_status
-          #   @return [ENUM(AdServingOptimizationStatus)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::AdServingOptimizationStatusEnum::AdServingOptimizationStatus]
           #     The ad serving optimization status of the campaign.
           # @!attribute [rw] advertising_channel_type
-          #   @return [ENUM(AdvertisingChannelType)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::AdvertisingChannelTypeEnum::AdvertisingChannelType]
           #     The primary serving target for ads within the campaign.
           #     The targeting options can be refined in `network_settings`.
           #
@@ -63,7 +63,7 @@ module Google
           #     Can be set only when creating campaigns.
           #     After the campaign is created, the field can not be changed.
           # @!attribute [rw] advertising_channel_sub_type
-          #   @return [ENUM(AdvertisingChannelSubType)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::AdvertisingChannelSubTypeEnum::AdvertisingChannelSubType]
           #     Optional refinement to `advertising_channel_type`.
           #     Must be a valid sub-type of the parent channel type.
           #
@@ -105,7 +105,7 @@ module Google
           #   @return [Array<Google::Protobuf::StringValue>]
           #     The resource names of labels attached to this campaign.
           # @!attribute [rw] experiment_type
-          #   @return [ENUM(CampaignExperimentType)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::CampaignExperimentTypeEnum::CampaignExperimentType]
           #     The type of campaign: normal, draft, or experiment.
           # @!attribute [rw] base_campaign
           #   @return [Google::Protobuf::StringValue]
@@ -117,7 +117,7 @@ module Google
           #   @return [Google::Protobuf::StringValue]
           #     The budget of the campaign.
           # @!attribute [rw] bidding_strategy_type
-          #   @return [ENUM(BiddingStrategyType)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::BiddingStrategyTypeEnum::BiddingStrategyType]
           #     The type of bidding strategy.
           #
           #     A bidding strategy can be created by setting either the bidding scheme to
@@ -143,7 +143,7 @@ module Google
           #   @return [Array<Google::Ads::GoogleAds::V1::Common::FrequencyCapEntry>]
           #     A list that limits how often each user will see this campaign's ads.
           # @!attribute [rw] video_brand_safety_suitability
-          #   @return [ENUM(BrandSafetySuitability)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::BrandSafetySuitabilityEnum::BrandSafetySuitability]
           #     3-Tier Brand Safety setting for the campaign.
           # @!attribute [rw] vanity_pharma
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::VanityPharma]
@@ -156,7 +156,7 @@ module Google
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::TrackingSetting]
           #     Campaign level settings for tracking information.
           # @!attribute [rw] payment_mode
-          #   @return [ENUM(PaymentMode)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::PaymentModeEnum::PaymentMode]
           #     Payment mode for the campaign.
           # @!attribute [rw] bidding_strategy
           #   @return [Google::Protobuf::StringValue]
@@ -246,10 +246,10 @@ module Google
 
             # Describes how unbranded pharma ads will be displayed.
             # @!attribute [rw] vanity_pharma_display_url_mode
-            #   @return [ENUM(VanityPharmaDisplayUrlMode)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::VanityPharmaDisplayUrlModeEnum::VanityPharmaDisplayUrlMode]
             #     The display mode for vanity pharma URLs.
             # @!attribute [rw] vanity_pharma_text
-            #   @return [ENUM(VanityPharmaText)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::VanityPharmaTextEnum::VanityPharmaText]
             #     The text that will be displayed in display URL of the text ad when
             #     website description is the selected display mode for vanity pharma URLs.
             class VanityPharma
@@ -327,14 +327,14 @@ module Google
 
             # Campaign level settings for App Campaigns.
             # @!attribute [rw] bidding_strategy_goal_type
-            #   @return [ENUM(AppCampaignBiddingStrategyGoalType)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignBiddingStrategyGoalTypeEnum::AppCampaignBiddingStrategyGoalType]
             #     Represents the goal which the bidding strategy of this app campaign
             #     should optimize towards.
             # @!attribute [rw] app_id
             #   @return [Google::Protobuf::StringValue]
             #     A string that uniquely identifies a mobile application.
             # @!attribute [rw] app_store
-            #   @return [ENUM(AppCampaignAppStore)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignAppStoreEnum::AppCampaignAppStore]
             #     The application store that distributes this specific app.
             class AppCampaignSetting
               include Google::Protobuf::MessageExts
@@ -343,10 +343,10 @@ module Google
 
             # Represents a collection of settings related to ads geotargeting.
             # @!attribute [rw] positive_geo_target_type
-            #   @return [ENUM(PositiveGeoTargetType)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::PositiveGeoTargetTypeEnum::PositiveGeoTargetType]
             #     The setting used for positive geotargeting in this particular campaign.
             # @!attribute [rw] negative_geo_target_type
-            #   @return [ENUM(NegativeGeoTargetType)]
+            #   @return [Google::Ads::GoogleAds::V1::Enums::NegativeGeoTargetTypeEnum::NegativeGeoTargetType]
             #     The setting used for negative geotargeting in this particular campaign.
             class GeoTargetTypeSetting
               include Google::Protobuf::MessageExts

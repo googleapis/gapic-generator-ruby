@@ -36,7 +36,7 @@ module Google
 
           # The list of per-targeting-dimension targeting settings.
           # @!attribute [rw] targeting_dimension
-          #   @return [ENUM(TargetingDimension)]
+          #   @return [Google::Ads::GoogleAds::V1::Enums::TargetingDimensionEnum::TargetingDimension]
           #     The targeting dimension that these settings apply to.
           # @!attribute [rw] bid_only
           #   @return [Google::Protobuf::BoolValue]
