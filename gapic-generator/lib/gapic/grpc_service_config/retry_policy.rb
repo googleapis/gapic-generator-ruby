@@ -25,6 +25,7 @@ module Gapic
 
       ##
       # Create new ParsedRetryPolicy.
+      #
       # @param initial_delay_seconds [Float, nil] the value of initial retry delay in seconds if provided
       # @param max_delay_seconds [Float, nil] the value of max retry delay in seconds if provided
       # @param multiplier [Float, nil] the value of retry multiplier if provided
@@ -38,8 +39,9 @@ module Gapic
       end
 
       ##
-      # Returns whether retry policy is empty (does not contain any values)
-      # @return [Boolean]
+      # Returns whether RetryPolicy is empty (does not contain any values)
+      #
+      # @return [Boolean] whether RetryPolicy is empty
       #
       def empty?
         @initial_delay_seconds.nil? && @max_delay_seconds.nil? && @multiplier.nil? && status_codes.to_a.empty?

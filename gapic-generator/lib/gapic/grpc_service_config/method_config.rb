@@ -27,6 +27,7 @@ module Gapic
 
       ##
       # Create new MethodConfig
+      #
       # @param timeout_seconds [Float, nil] the value of timeout in seconds if provided
       # @param retry_policy [Gapic::GrpcServiceConfig::RetryPolicy] the retry policy
       #
@@ -36,8 +37,9 @@ module Gapic
       end
       
       ##
-      # Returns whether method config is empty (does not contain any values)
-      # @return [Boolean]
+      # Returns whether MethodConfig is empty (does not contain any values)
+      #
+      # @return [Boolean] whether MethodConfig is empty
       #
       def empty?
         @timeout_seconds.nil? && @retry_policy.empty?

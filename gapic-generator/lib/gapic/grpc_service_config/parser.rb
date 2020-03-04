@@ -22,7 +22,7 @@ require "gapic/grpc_service_config/parsing_error"
 module Gapic
   module GrpcServiceConfig
     ##
-    # Takes a json of a GRPC Service Config and parses it into the form
+    # Takes a json of a GRPC service Config and parses it into the form
     # usable by the microgenerator templates
     #
     module Parser
@@ -40,6 +40,14 @@ module Gapic
       MULTIPLIER_JSON_KEY = "backoff_multiplier"
       STATUS_CODES_JSON_KEY = "retryable_status_codes"
 
+
+      ##
+      # Parses ServiceConfig from a json of a GRPC service config
+      #
+      # @param service_config_json [Hash] a hash that results from JSON.parse
+      #
+      # @return [Gapic::GrpcServiceConfig::ServiceConfig] parsed ServiceConfig
+      #
       def self.parse service_config_json
         service_level_result = {}
         service_method_level_result = {}
@@ -69,6 +77,19 @@ module Gapic
         ServiceConfig.new service_level_result, service_method_level_result
       end
 
+      ##
+      # Parses the names of the services for which the service-level
+      # config is defined from the GRPC service config json.
+      # Within the json the names are arranged in hashes. Each hash contains a 
+      # required "service" key and an optional "method" key. Here we select only
+      # the hashes WITHOUT the optional key -- meaning that the config will be
+      # applied on a service-level -- and return just the service names.
+      #
+      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes from 
+      #   the GRPC service config
+      #
+      # @return [Array<String>] parsed names of services
+      #
       private_class_method def self.parse_service_names method_config_json_names
         service_names_jsons = method_config_json_names.select do |names_json|
           names_json.size == 1 && names_json.key?(SERVICE_NAME_JSON_KEY)
@@ -77,12 +98,33 @@ module Gapic
         service_names_jsons.map { |names_json| names_json[SERVICE_NAME_JSON_KEY] }
       end
 
+      ##
+      # Filters the "name" hashes from the GRPC service config json
+      # to exclude service-level names
+      # Within the json the names are arranged in hashes. Each hash contains a 
+      # required "service" key and an optional "method" key. Here we select only
+      # the hashes WITH the optional key -- meaning that the config will be
+      # applied on a method-level -- and return the hashes in full.
+      #
+      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes  
+      #   from the GRPC service config
+      #
+      # @return [Array<Hash<String, String>>] filtered hashes for methods
+      #
       private_class_method def self.filter_service_method_names method_config_json_names
         method_config_json_names.select do |names_json|
           names_json.size == 2 && names_json.key?(SERVICE_NAME_JSON_KEY) && names_json.key?(METHOD_NAME_JSON_KEY)
         end
       end
 
+      ##
+      # Parses MethodConfig from the GRPC service config json
+      #
+      # @param method_config_json [Hash] a hash of a single "method_config"
+      #   from the GRPC service config
+      #
+      # @return [Gapic::GrpcServiceConfig::MethodConfig] parsed MethodConfig
+      #
       private_class_method def self.parse_config method_config_json
         timeout_seconds = parse_interval_seconds method_config_json[TIMEOUT_JSON_KEY]
         retry_policy = parse_retry_policy method_config_json[RETRY_POLICY_JSON_KEY]
@@ -90,6 +132,14 @@ module Gapic
         MethodConfig.new timeout_seconds, retry_policy
       end
 
+      ##
+      # Parses RetryPolicy from the GRPC service config json
+      #
+      # @param retry_policy_json [Hash<String, String>] a hash of a single "retry_policy"
+      #   from the GRPC service config
+      #
+      # @return [Gapic::GrpcServiceConfig::RetryPolicy] parsed RetryPolicy
+      #
       private_class_method def self.parse_retry_policy retry_policy_json
         if retry_policy_json.nil? || retry_policy_json.empty?
           nil
@@ -103,6 +153,18 @@ module Gapic
         end
       end
 
+      ##
+      # Parses time expressed in secondds from the GRPC service config json
+      # The time is encoded is a string as float or integer with a letter 's' afterwards
+      # If given a nil or an empty string returns nil for 'not set' semantic
+      # If a string sans the 's' cannot be converted throws a ParsingError
+      #
+      # @param timestring [String, nil] a string of a time inerval from the GRPC service config
+      #
+      # @raise [ParsingError] if the time interval string could not be converted
+      #
+      # @return [Float, nil] converted time interval or nil for 'not set'
+      #
       private_class_method def self.parse_interval_seconds timestring
         if timestring.empty?
           nil
@@ -118,6 +180,13 @@ module Gapic
         end
       end
 
+      ##
+      # Determines if a given string can be converted to a float
+      # 
+      # @param str [String, nil] a given string, can be nil
+      #
+      # @return [Boolean] true, if converstion to float is possible
+      #
       private_class_method def self.valid_float? str
         Float(str)
         true
