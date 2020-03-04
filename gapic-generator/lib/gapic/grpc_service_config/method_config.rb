@@ -14,22 +14,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Grpc
-  module ServiceConfigParsing
+module Gapic
+  module GrpcServiceConfig
     ##
-    # [TODO:viacheslav-rostovtsev]
+    # Method config represents a combination of a timeout and
+    # a retry policy, both of which can be optional
+    # It is applied during a GRPC method call and governs the
+    # client-side timeout/retry policy
     #
-    class ParsedMethodConfig
+    class MethodConfig
       attr_reader :timeout_seconds, :retry_policy
 
       ##
-      # Create new ParsedMethodConfig.
+      # Create new MethodConfig
+      # @param timeout_seconds [Float, nil] the value of timeout in seconds if provided
+      # @param retry_policy [Gapic::GrpcServiceConfig::RetryPolicy] the retry policy
       #
       def initialize timeout_seconds, retry_policy
         @timeout_seconds = timeout_seconds
         @retry_policy    = retry_policy
       end
-
+      
+      ##
+      # Returns whether method config is empty (does not contain any values)
+      # @return [Boolean]
+      #
       def empty?
         @timeout_seconds.nil? && @retry_policy.empty?
       end

@@ -14,17 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "grpc/service_config_parsing/parsed_grpc_service_config"
-require "grpc/service_config_parsing/parsed_method_config"
-require "grpc/service_config_parsing/parsed_retry_policy"
-require "grpc/service_config_parsing/parsing_error"
+require "gapic/grpc_service_config/service_config"
+require "gapic/grpc_service_config/method_config"
+require "gapic/grpc_service_config/retry_policy"
+require "gapic/grpc_service_config/parsing_error"
 
-module Grpc
-  module ServiceConfigParsing
+module Gapic
+  module GrpcServiceConfig
     ##
-    # [TODO:viacheslav-rostovtsev]
+    # Takes a json of a GRPC Service Config and parses it into the form
+    # usable by the microgenerator templates
     #
-    module GrpcServiceConfigParser
+    module Parser
       METHOD_CONFIG_JSON_KEY = "method_config"
       RETRY_POLICY_JSON_KEY = "retry_policy"
 
@@ -59,16 +60,16 @@ module Grpc
               service_name = service_method_name[SERVICE_NAME_JSON_KEY]
               method_name = service_method_name[METHOD_NAME_JSON_KEY]
 
-              service_method_level_result[service_name] = {} unless service_method_level_result.key? service_name
+              service_method_level_result[service_name] ||= {}
               service_method_level_result[service_name][method_name] = method_config
             end
           end
         end
 
-        ParsedGrpcServiceConfig.new service_level_result, service_method_level_result
+        ServiceConfig.new service_level_result, service_method_level_result
       end
 
-      def self.parse_service_names method_config_json_names
+      private_class_method def self.parse_service_names method_config_json_names
         service_names_jsons = method_config_json_names.select do |names_json|
           names_json.size == 1 && names_json.key?(SERVICE_NAME_JSON_KEY)
         end
@@ -76,20 +77,20 @@ module Grpc
         service_names_jsons.map { |names_json| names_json[SERVICE_NAME_JSON_KEY] }
       end
 
-      def self.filter_service_method_names method_config_json_names
+      private_class_method def self.filter_service_method_names method_config_json_names
         method_config_json_names.select do |names_json|
           names_json.size == 2 && names_json.key?(SERVICE_NAME_JSON_KEY) && names_json.key?(METHOD_NAME_JSON_KEY)
         end
       end
 
-      def self.parse_config method_config_json
+      private_class_method def self.parse_config method_config_json
         timeout_seconds = parse_interval_seconds method_config_json[TIMEOUT_JSON_KEY]
         retry_policy = parse_retry_policy method_config_json[RETRY_POLICY_JSON_KEY]
 
-        ParsedMethodConfig.new timeout_seconds, retry_policy
+        MethodConfig.new timeout_seconds, retry_policy
       end
 
-      def self.parse_retry_policy retry_policy_json
+      private_class_method def self.parse_retry_policy retry_policy_json
         if retry_policy_json.nil? || retry_policy_json.empty?
           nil
         else
@@ -98,18 +99,18 @@ module Grpc
           multiplier = retry_policy_json[MULTIPLIER_JSON_KEY]
           status_codes = retry_policy_json[STATUS_CODES_JSON_KEY]
 
-          ParsedRetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
+          RetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
         end
       end
 
-      def self.parse_interval_seconds timestring
+      private_class_method def self.parse_interval_seconds timestring
         if timestring.empty?
           nil
         else
           timestring_nos = timestring.delete_suffix "s"
           unless valid_float? timestring_nos
             error_text = "Was not able to convert the string `#{timestring}` " \
-                        "to a time interval when parsing a grpc service config"
+                         "to a time interval when parsing a grpc service config"
             raise ParsingError error_text
           end
           time_seconds = Float(timestring_nos)
@@ -117,10 +118,11 @@ module Grpc
         end
       end
 
-      def self.valid_float? str
-        # rubocop:disable Style/DoubleNegation
-        !!Float(str) rescue false
-        # rubocop:enable Style/DoubleNegation
+      private_class_method def self.valid_float? str
+        Float(str)
+        true
+      rescue ::ArgumentError, ::TypeError
+        false
       end
     end
   end

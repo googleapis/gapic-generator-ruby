@@ -17,7 +17,7 @@
 require "yaml"
 require "json"
 require "gapic/schema/loader"
-require "grpc/service_config_parsing/grpc_service_config_parser"
+require "gapic/grpc_service_config/parser"
 
 module Gapic
   module Schema
@@ -200,7 +200,8 @@ module Gapic
         end
       end
 
-      # TBD
+      # Raw parsed json of the grpc service config if provided 
+      # or an empty hash if config was not provided
       def grpc_service_config_raw
         @grpc_service_config_raw ||= begin
           grpc_service_config_filename = protoc_options["grpc_service_config"]
@@ -215,9 +216,10 @@ module Gapic
         @grpc_service_config_raw
       end
 
+      # Parsed grpc service config
       def grpc_service_config
         @grpc_service_config ||= begin
-          Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse grpc_service_config_raw
+          Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
         end
       end
 

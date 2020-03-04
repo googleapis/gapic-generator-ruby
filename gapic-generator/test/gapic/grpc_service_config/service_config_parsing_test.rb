@@ -14,25 +14,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "minitest/autorun"
 require "json"
-require "grpc/service_config_parsing/grpc_service_config_parser"
+require "minitest/autorun"
+require "gapic/grpc_service_config/parser"
 
 ##
 # Test for GRPC ServiceConfig parsing
 #
 class ServiceConfigParsingTest < Minitest::Test
+
+  ##
+  # Testing that the empty hash (default raw value for the absent config 
+  # in Gapic::Schema::Api) will result in a correct empty config
+  #
   def test_empty_config
     config_json = {}
-    service_config = ::Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse config_json
+    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
     assert_equal({}, service_config.service_level_configs)
     assert_equal({}, service_config.service_method_level_configs)
   end
 
+  ##
+  # Testing that the service-level config is populated correctly from a sample json
+  #
   def test_varied_config_service
     config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    service_config = ::Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse config_json
+    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
     service_with_retries_config = service_config.service_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
 
@@ -45,9 +53,12 @@ class ServiceConfigParsingTest < Minitest::Test
     assert service_with_retries_config.retry_policy.status_codes.include?("RESOURCE_EXHAUSTED")
   end
 
+  ##
+  # Testing that the method-level config is populated correctly from a sample json
+  #
   def test_varied_config_method
     config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    service_config = ::Grpc::ServiceConfigParsing::GrpcServiceConfigParser.parse config_json
+    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
     service_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
     method_level_retry_config = service_method_configs["MethodLevelRetryMethod"]

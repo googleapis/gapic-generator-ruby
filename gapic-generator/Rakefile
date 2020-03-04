@@ -41,7 +41,7 @@ namespace :test do
   Rake::TestTask.new :grpc_service_config_parsing do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/grpc/service_config_parsing/*_test.rb"]
+    t.test_files = FileList["test/gapic/grpc_service_config/*_test.rb"]
   end
 end
 

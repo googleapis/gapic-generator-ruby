@@ -14,14 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Grpc
-  module ServiceConfigParsing
+module Gapic
+  module GrpcServiceConfig
     ##
-    # [TODO:viacheslav-rostovtsev]
+    # Representation of a GRPC service config split into the configurations
+    # applied on the service level (to all the methods) and the configurations
+    # applied to the specific methods
     #
-    class ParsedGrpcServiceConfig
+    class ServiceConfig
       attr_reader :service_level_configs, :service_method_level_configs
 
+      ##
+      # Create new ServiceConfig.
+      # @param service_level_configs [Hash<String, Gapic::GrpcServiceConfig::MethodConfig>] service-level configs
+      #   in a lookup hash by the service full grpc name
+      # @param service_method_level_configs [Hash<String, Hash<String, Gapic::GrpcServiceConfig::MethodConfig>>] 
+      #   method-level configs in a double lookup hash, first by the service full grpc name then by the method name
+      #
       def initialize service_level_configs, service_method_level_configs
         @service_level_configs = service_level_configs
         @service_method_level_configs = service_method_level_configs

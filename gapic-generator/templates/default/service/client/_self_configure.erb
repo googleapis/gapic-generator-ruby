@@ -1,27 +1,27 @@
 <%- assert_locals service -%>
-<%- method_service ||= service  -%>
+<%- method_service ||= service -%>
 @configure ||= begin
   default_config = <%= service.client_name %>::Configuration.new
   <%- if service.grpc_service_config && !service.grpc_service_config.empty? -%>
 
-    <%- if service.grpc_service_config.timeout_seconds %>
-      default_config.timeout = <%=service.grpc_service_config.timeout_seconds%>
-    <%- end %>
-    <%- if service.grpc_service_config.retry_policy %>
+    <%- if service.grpc_service_config.timeout_seconds -%>
+      default_config.timeout = <%= service.grpc_service_config.timeout_seconds %>
+    <%- end -%>
+    <%- if service.grpc_service_config.retry_policy -%>
       default_config.retry_policy = <%= indent_tail render(partial: "service/client/self_configure_retry_policy", locals: { retry_policy: service.grpc_service_config.retry_policy }), 2 %>
-    <%- end %>
+    <%- end -%>
   <%- end -%>
   <%- method_service.methods.each do |method| -%>
     <%- if method.grpc_service_config && !method.grpc_service_config.empty? -%>
 
-      <%- if method.grpc_service_config.timeout_seconds %>
-        default_config.rpcs.<%= method.name %>.timeout = <%=method.grpc_service_config.timeout_seconds%>
-      <%- end %>
-      <%- if method.grpc_service_config.retry_policy %>
+      <%- if method.grpc_service_config.timeout_seconds -%>
+        default_config.rpcs.<%= method.name %>.timeout = <%= method.grpc_service_config.timeout_seconds %>
+      <%- end -%>
+      <%- if method.grpc_service_config.retry_policy -%>
         default_config.rpcs.<%= method.name %>.retry_policy =<%= indent_tail render(partial: "service/client/self_configure_retry_policy", locals: { retry_policy: method.grpc_service_config.retry_policy }), 2 %>
-      <%- end %>
-    <%- end %>
-  <%- end %>
+      <%- end -%>
+    <%- end -%>
+  <%- end -%>
 
   default_config
 end
