@@ -165,7 +165,7 @@ module Gapic
       #
       def self.parse_interval_seconds timestring
         return nil if timestring.empty?
-        
+
         timestring_nos = timestring.delete_suffix "s"
         unless valid_float? timestring_nos
           error_text = "Was not able to convert the string `#{timestring}` " \
