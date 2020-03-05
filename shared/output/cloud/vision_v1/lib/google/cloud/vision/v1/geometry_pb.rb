@@ -30,10 +30,10 @@ module Google
   module Cloud
     module Vision
       module V1
-        Vertex = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Vertex").msgclass
-        NormalizedVertex = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.NormalizedVertex").msgclass
-        BoundingPoly = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BoundingPoly").msgclass
-        Position = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Position").msgclass
+        Vertex = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Vertex").msgclass
+        NormalizedVertex = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.NormalizedVertex").msgclass
+        BoundingPoly = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BoundingPoly").msgclass
+        Position = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Position").msgclass
       end
     end
   end

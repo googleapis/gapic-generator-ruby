@@ -169,39 +169,39 @@ module Google
   module Cloud
     module Vision
       module V1
-        Product = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Product").msgclass
-        Product::KeyValue = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Product.KeyValue").msgclass
-        ProductSet = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSet").msgclass
-        ReferenceImage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ReferenceImage").msgclass
-        CreateProductRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateProductRequest").msgclass
-        ListProductsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsRequest").msgclass
-        ListProductsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsResponse").msgclass
-        GetProductRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetProductRequest").msgclass
-        UpdateProductRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.UpdateProductRequest").msgclass
-        DeleteProductRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteProductRequest").msgclass
-        CreateProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateProductSetRequest").msgclass
-        ListProductSetsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductSetsRequest").msgclass
-        ListProductSetsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductSetsResponse").msgclass
-        GetProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetProductSetRequest").msgclass
-        UpdateProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.UpdateProductSetRequest").msgclass
-        DeleteProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteProductSetRequest").msgclass
-        CreateReferenceImageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateReferenceImageRequest").msgclass
-        ListReferenceImagesRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListReferenceImagesRequest").msgclass
-        ListReferenceImagesResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListReferenceImagesResponse").msgclass
-        GetReferenceImageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetReferenceImageRequest").msgclass
-        DeleteReferenceImageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteReferenceImageRequest").msgclass
-        AddProductToProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.AddProductToProductSetRequest").msgclass
-        RemoveProductFromProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.RemoveProductFromProductSetRequest").msgclass
-        ListProductsInProductSetRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsInProductSetRequest").msgclass
-        ListProductsInProductSetResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsInProductSetResponse").msgclass
-        ImportProductSetsGcsSource = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsGcsSource").msgclass
-        ImportProductSetsInputConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsInputConfig").msgclass
-        ImportProductSetsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsRequest").msgclass
-        ImportProductSetsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsResponse").msgclass
-        BatchOperationMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BatchOperationMetadata").msgclass
-        BatchOperationMetadata::State = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BatchOperationMetadata.State").enummodule
-        ProductSetPurgeConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSetPurgeConfig").msgclass
-        PurgeProductsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.PurgeProductsRequest").msgclass
+        Product = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Product").msgclass
+        Product::KeyValue = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.Product.KeyValue").msgclass
+        ProductSet = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSet").msgclass
+        ReferenceImage = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ReferenceImage").msgclass
+        CreateProductRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateProductRequest").msgclass
+        ListProductsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsRequest").msgclass
+        ListProductsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsResponse").msgclass
+        GetProductRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetProductRequest").msgclass
+        UpdateProductRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.UpdateProductRequest").msgclass
+        DeleteProductRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteProductRequest").msgclass
+        CreateProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateProductSetRequest").msgclass
+        ListProductSetsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductSetsRequest").msgclass
+        ListProductSetsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductSetsResponse").msgclass
+        GetProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetProductSetRequest").msgclass
+        UpdateProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.UpdateProductSetRequest").msgclass
+        DeleteProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteProductSetRequest").msgclass
+        CreateReferenceImageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.CreateReferenceImageRequest").msgclass
+        ListReferenceImagesRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListReferenceImagesRequest").msgclass
+        ListReferenceImagesResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListReferenceImagesResponse").msgclass
+        GetReferenceImageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.GetReferenceImageRequest").msgclass
+        DeleteReferenceImageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.DeleteReferenceImageRequest").msgclass
+        AddProductToProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.AddProductToProductSetRequest").msgclass
+        RemoveProductFromProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.RemoveProductFromProductSetRequest").msgclass
+        ListProductsInProductSetRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsInProductSetRequest").msgclass
+        ListProductsInProductSetResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ListProductsInProductSetResponse").msgclass
+        ImportProductSetsGcsSource = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsGcsSource").msgclass
+        ImportProductSetsInputConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsInputConfig").msgclass
+        ImportProductSetsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsRequest").msgclass
+        ImportProductSetsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ImportProductSetsResponse").msgclass
+        BatchOperationMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BatchOperationMetadata").msgclass
+        BatchOperationMetadata::State = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.BatchOperationMetadata.State").enummodule
+        ProductSetPurgeConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.ProductSetPurgeConfig").msgclass
+        PurgeProductsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.vision.v1.PurgeProductsRequest").msgclass
       end
     end
   end

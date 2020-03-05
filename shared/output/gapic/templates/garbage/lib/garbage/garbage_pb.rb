@@ -148,28 +148,28 @@ end
 module So
   module Much
     module Trash
-      LongRunningGarbageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageRequest").msgclass
-      LongRunningGarbageResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageResponse").msgclass
-      LongRunningGarbageMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageMetadata").msgclass
-      ListGarbageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageRequest").msgclass
-      ListGarbageResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageResponse").msgclass
-      GarbageItem = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageItem").msgclass
-      EmptyGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.EmptyGarbage").msgclass
-      SimpleGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbage").msgclass
-      SimpleGarbageItem = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbageItem").msgclass
-      TypicalGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.TypicalGarbage").msgclass
-      SpecificGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SpecificGarbage").msgclass
-      SpecificGarbage::NestedGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SpecificGarbage.NestedGarbage").msgclass
-      RepeatedGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.RepeatedGarbage").msgclass
-      PagedGarbageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.PagedGarbageRequest").msgclass
-      PagedGarbageResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.PagedGarbageResponse").msgclass
-      ComplexGarbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage").msgclass
-      ComplexGarbage::Layer1Garbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer1Garbage").msgclass
-      ComplexGarbage::Layer2Garbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer2Garbage").msgclass
-      ComplexGarbage::Layer3Garbage = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer3Garbage").msgclass
-      GarbageMap = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageMap").msgclass
-      GarbageNode = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageNode").msgclass
-      GarbageEnum = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageEnum").enummodule
+      LongRunningGarbageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageRequest").msgclass
+      LongRunningGarbageResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageResponse").msgclass
+      LongRunningGarbageMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageMetadata").msgclass
+      ListGarbageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageRequest").msgclass
+      ListGarbageResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ListGarbageResponse").msgclass
+      GarbageItem = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageItem").msgclass
+      EmptyGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.EmptyGarbage").msgclass
+      SimpleGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbage").msgclass
+      SimpleGarbageItem = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimpleGarbageItem").msgclass
+      TypicalGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.TypicalGarbage").msgclass
+      SpecificGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SpecificGarbage").msgclass
+      SpecificGarbage::NestedGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SpecificGarbage.NestedGarbage").msgclass
+      RepeatedGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.RepeatedGarbage").msgclass
+      PagedGarbageRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.PagedGarbageRequest").msgclass
+      PagedGarbageResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.PagedGarbageResponse").msgclass
+      ComplexGarbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage").msgclass
+      ComplexGarbage::Layer1Garbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer1Garbage").msgclass
+      ComplexGarbage::Layer2Garbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer2Garbage").msgclass
+      ComplexGarbage::Layer3Garbage = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexGarbage.Layer3Garbage").msgclass
+      GarbageMap = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageMap").msgclass
+      GarbageNode = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageNode").msgclass
+      GarbageEnum = Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GarbageEnum").enummodule
     end
   end
 end

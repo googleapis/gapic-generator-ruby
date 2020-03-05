@@ -323,41 +323,41 @@ module Google
   module Cloud
     module Language
       module V1beta1
-        Document = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Document").msgclass
-        Document::Type = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Document.Type").enummodule
-        Sentence = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Sentence").msgclass
-        Entity = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Entity").msgclass
-        Entity::Type = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Entity.Type").enummodule
-        Token = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Token").msgclass
-        Sentiment = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Sentiment").msgclass
-        PartOfSpeech = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech").msgclass
-        PartOfSpeech::Tag = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Tag").enummodule
-        PartOfSpeech::Aspect = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Aspect").enummodule
-        PartOfSpeech::Case = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Case").enummodule
-        PartOfSpeech::Form = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Form").enummodule
-        PartOfSpeech::Gender = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Gender").enummodule
-        PartOfSpeech::Mood = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Mood").enummodule
-        PartOfSpeech::Number = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Number").enummodule
-        PartOfSpeech::Person = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Person").enummodule
-        PartOfSpeech::Proper = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Proper").enummodule
-        PartOfSpeech::Reciprocity = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Reciprocity").enummodule
-        PartOfSpeech::Tense = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Tense").enummodule
-        PartOfSpeech::Voice = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Voice").enummodule
-        DependencyEdge = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.DependencyEdge").msgclass
-        DependencyEdge::Label = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.DependencyEdge.Label").enummodule
-        EntityMention = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EntityMention").msgclass
-        EntityMention::Type = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EntityMention.Type").enummodule
-        TextSpan = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.TextSpan").msgclass
-        AnalyzeSentimentRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSentimentRequest").msgclass
-        AnalyzeSentimentResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSentimentResponse").msgclass
-        AnalyzeEntitiesRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeEntitiesRequest").msgclass
-        AnalyzeEntitiesResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeEntitiesResponse").msgclass
-        AnalyzeSyntaxRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSyntaxRequest").msgclass
-        AnalyzeSyntaxResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSyntaxResponse").msgclass
-        AnnotateTextRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextRequest").msgclass
-        AnnotateTextRequest::Features = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextRequest.Features").msgclass
-        AnnotateTextResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextResponse").msgclass
-        EncodingType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EncodingType").enummodule
+        Document = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Document").msgclass
+        Document::Type = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Document.Type").enummodule
+        Sentence = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Sentence").msgclass
+        Entity = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Entity").msgclass
+        Entity::Type = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Entity.Type").enummodule
+        Token = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Token").msgclass
+        Sentiment = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.Sentiment").msgclass
+        PartOfSpeech = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech").msgclass
+        PartOfSpeech::Tag = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Tag").enummodule
+        PartOfSpeech::Aspect = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Aspect").enummodule
+        PartOfSpeech::Case = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Case").enummodule
+        PartOfSpeech::Form = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Form").enummodule
+        PartOfSpeech::Gender = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Gender").enummodule
+        PartOfSpeech::Mood = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Mood").enummodule
+        PartOfSpeech::Number = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Number").enummodule
+        PartOfSpeech::Person = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Person").enummodule
+        PartOfSpeech::Proper = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Proper").enummodule
+        PartOfSpeech::Reciprocity = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Reciprocity").enummodule
+        PartOfSpeech::Tense = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Tense").enummodule
+        PartOfSpeech::Voice = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.PartOfSpeech.Voice").enummodule
+        DependencyEdge = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.DependencyEdge").msgclass
+        DependencyEdge::Label = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.DependencyEdge.Label").enummodule
+        EntityMention = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EntityMention").msgclass
+        EntityMention::Type = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EntityMention.Type").enummodule
+        TextSpan = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.TextSpan").msgclass
+        AnalyzeSentimentRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSentimentRequest").msgclass
+        AnalyzeSentimentResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSentimentResponse").msgclass
+        AnalyzeEntitiesRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeEntitiesRequest").msgclass
+        AnalyzeEntitiesResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeEntitiesResponse").msgclass
+        AnalyzeSyntaxRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSyntaxRequest").msgclass
+        AnalyzeSyntaxResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnalyzeSyntaxResponse").msgclass
+        AnnotateTextRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextRequest").msgclass
+        AnnotateTextRequest::Features = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextRequest.Features").msgclass
+        AnnotateTextResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.AnnotateTextResponse").msgclass
+        EncodingType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta1.EncodingType").enummodule
       end
     end
   end

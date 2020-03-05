@@ -164,29 +164,29 @@ module Google
   module Cloud
     module Speech
       module V1
-        RecognizeRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognizeRequest").msgclass
-        LongRunningRecognizeRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeRequest").msgclass
-        StreamingRecognizeRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeRequest").msgclass
-        StreamingRecognitionConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognitionConfig").msgclass
-        RecognitionConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionConfig").msgclass
-        RecognitionConfig::AudioEncoding = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionConfig.AudioEncoding").enummodule
-        SpeakerDiarizationConfig = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeakerDiarizationConfig").msgclass
-        RecognitionMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata").msgclass
-        RecognitionMetadata::InteractionType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.InteractionType").enummodule
-        RecognitionMetadata::MicrophoneDistance = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.MicrophoneDistance").enummodule
-        RecognitionMetadata::OriginalMediaType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.OriginalMediaType").enummodule
-        RecognitionMetadata::RecordingDeviceType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.RecordingDeviceType").enummodule
-        SpeechContext = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechContext").msgclass
-        RecognitionAudio = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionAudio").msgclass
-        RecognizeResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognizeResponse").msgclass
-        LongRunningRecognizeResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeResponse").msgclass
-        LongRunningRecognizeMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeMetadata").msgclass
-        StreamingRecognizeResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeResponse").msgclass
-        StreamingRecognizeResponse::SpeechEventType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeResponse.SpeechEventType").enummodule
-        StreamingRecognitionResult = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognitionResult").msgclass
-        SpeechRecognitionResult = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechRecognitionResult").msgclass
-        SpeechRecognitionAlternative = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechRecognitionAlternative").msgclass
-        WordInfo = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.WordInfo").msgclass
+        RecognizeRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognizeRequest").msgclass
+        LongRunningRecognizeRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeRequest").msgclass
+        StreamingRecognizeRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeRequest").msgclass
+        StreamingRecognitionConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognitionConfig").msgclass
+        RecognitionConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionConfig").msgclass
+        RecognitionConfig::AudioEncoding = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionConfig.AudioEncoding").enummodule
+        SpeakerDiarizationConfig = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeakerDiarizationConfig").msgclass
+        RecognitionMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata").msgclass
+        RecognitionMetadata::InteractionType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.InteractionType").enummodule
+        RecognitionMetadata::MicrophoneDistance = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.MicrophoneDistance").enummodule
+        RecognitionMetadata::OriginalMediaType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.OriginalMediaType").enummodule
+        RecognitionMetadata::RecordingDeviceType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionMetadata.RecordingDeviceType").enummodule
+        SpeechContext = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechContext").msgclass
+        RecognitionAudio = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognitionAudio").msgclass
+        RecognizeResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.RecognizeResponse").msgclass
+        LongRunningRecognizeResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeResponse").msgclass
+        LongRunningRecognizeMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.LongRunningRecognizeMetadata").msgclass
+        StreamingRecognizeResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeResponse").msgclass
+        StreamingRecognizeResponse::SpeechEventType = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognizeResponse.SpeechEventType").enummodule
+        StreamingRecognitionResult = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.StreamingRecognitionResult").msgclass
+        SpeechRecognitionResult = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechRecognitionResult").msgclass
+        SpeechRecognitionAlternative = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.SpeechRecognitionAlternative").msgclass
+        WordInfo = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.speech.v1.WordInfo").msgclass
       end
     end
   end

@@ -66,16 +66,16 @@ end
 module Google
   module Showcase
     module V1beta1
-      EchoRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.EchoRequest").msgclass
-      EchoResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.EchoResponse").msgclass
-      ExpandRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ExpandRequest").msgclass
-      PagedExpandRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandRequest").msgclass
-      PagedExpandResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandResponse").msgclass
-      WaitRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitRequest").msgclass
-      WaitResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitResponse").msgclass
-      WaitMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitMetadata").msgclass
-      BlockRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockRequest").msgclass
-      BlockResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockResponse").msgclass
+      EchoRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.EchoRequest").msgclass
+      EchoResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.EchoResponse").msgclass
+      ExpandRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ExpandRequest").msgclass
+      PagedExpandRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandRequest").msgclass
+      PagedExpandResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandResponse").msgclass
+      WaitRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitRequest").msgclass
+      WaitResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitResponse").msgclass
+      WaitMetadata = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitMetadata").msgclass
+      BlockRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockRequest").msgclass
+      BlockResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockResponse").msgclass
     end
   end
 end

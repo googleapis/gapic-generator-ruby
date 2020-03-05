@@ -42,11 +42,11 @@ module Google
     module GoogleAds
       module V1
         module Services
-          GetCampaignRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.GetCampaignRequest").msgclass
-          MutateCampaignsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignsRequest").msgclass
-          CampaignOperation = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.CampaignOperation").msgclass
-          MutateCampaignsResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignsResponse").msgclass
-          MutateCampaignResult = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignResult").msgclass
+          GetCampaignRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.GetCampaignRequest").msgclass
+          MutateCampaignsRequest = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignsRequest").msgclass
+          CampaignOperation = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.CampaignOperation").msgclass
+          MutateCampaignsResponse = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignsResponse").msgclass
+          MutateCampaignResult = Google::Protobuf::DescriptorPool.generated_pool.lookup("google.ads.googleads.v1.services.MutateCampaignResult").msgclass
         end
       end
     end

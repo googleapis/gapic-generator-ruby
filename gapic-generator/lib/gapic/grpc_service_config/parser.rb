@@ -164,17 +164,15 @@ module Gapic
       # @return [Float, nil] converted time interval or nil for 'not set'
       #
       def self.parse_interval_seconds timestring
-        if timestring.empty?
-          nil
-        else
-          timestring_nos = timestring.delete_suffix "s"
-          unless valid_float? timestring_nos
-            error_text = "Was not able to convert the string `#{timestring}` " \
-                         "to a time interval when parsing a grpc service config"
-            raise ParsingError, error_text
-          end
-          Float(timestring_nos)
+        return nil if timestring.empty?
+        
+        timestring_nos = timestring.delete_suffix "s"
+        unless valid_float? timestring_nos
+          error_text = "Was not able to convert the string `#{timestring}` " \
+                        "to a time interval when parsing a grpc service config"
+          raise ParsingError, error_text
         end
+        Float(timestring_nos)
       end
 
       ##
@@ -192,7 +190,7 @@ module Gapic
       end
 
       private_class_method :parse_service_names, :filter_service_method_names, :parse_config,
-                           :parse_retry_policy, :valid_float?
+                           :parse_retry_policy, :parse_interval_seconds, :valid_float?
     end
   end
 end
