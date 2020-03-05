@@ -30,7 +30,7 @@ module Gapic
       # @param service_level_configs [Hash<String, Gapic::GrpcServiceConfig::MethodConfig>] service-level configs
       #   in a lookup hash by the service full grpc name
       #
-      # @param service_method_level_configs [Hash<String, Hash<String, Gapic::GrpcServiceConfig::MethodConfig>>] 
+      # @param service_method_level_configs [Hash<String, Hash<String, Gapic::GrpcServiceConfig::MethodConfig>>]
       #   method-level configs in a double lookup hash, first by the service full grpc name then by the method name
       #
       def initialize service_level_configs, service_method_level_configs

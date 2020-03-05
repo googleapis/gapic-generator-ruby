@@ -200,7 +200,7 @@ module Gapic
         end
       end
 
-      # Raw parsed json of the grpc service config if provided 
+      # Raw parsed json of the grpc service config if provided
       # or an empty hash if config was not provided
       def grpc_service_config_raw
         @grpc_service_config_raw ||= begin
@@ -212,8 +212,6 @@ module Gapic
             {}
           end
         end
-
-        @grpc_service_config_raw
       end
 
       # Parsed grpc service config

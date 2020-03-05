@@ -35,7 +35,7 @@ module Gapic
         @timeout_seconds = timeout_seconds
         @retry_policy    = retry_policy
       end
-      
+
       ##
       # Returns whether MethodConfig is empty (does not contain any values)
       #

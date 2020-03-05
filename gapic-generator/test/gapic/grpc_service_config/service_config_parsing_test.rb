@@ -22,9 +22,8 @@ require "gapic/grpc_service_config/parser"
 # Test for GRPC ServiceConfig parsing
 #
 class ServiceConfigParsingTest < Minitest::Test
-
   ##
-  # Testing that the empty hash (default raw value for the absent config 
+  # Testing that the empty hash (default raw value for the absent config
   # in Gapic::Schema::Api) will result in a correct empty config
   #
   def test_empty_config
@@ -49,8 +48,8 @@ class ServiceConfigParsingTest < Minitest::Test
     assert_equal 5, service_with_retries_config.retry_policy.max_delay_seconds
     assert_equal 2.0, service_with_retries_config.retry_policy.multiplier
     assert_equal 2, service_with_retries_config.retry_policy.status_codes.count
-    assert service_with_retries_config.retry_policy.status_codes.include?("DEADLINE_EXCEEDED")
-    assert service_with_retries_config.retry_policy.status_codes.include?("RESOURCE_EXHAUSTED")
+    assert_includes service_with_retries_config.retry_policy.status_codes, "DEADLINE_EXCEEDED"
+    assert_includes service_with_retries_config.retry_policy.status_codes, "RESOURCE_EXHAUSTED"
   end
 
   ##
@@ -68,6 +67,6 @@ class ServiceConfigParsingTest < Minitest::Test
     assert_equal 10, method_level_retry_config.retry_policy.max_delay_seconds
     assert_equal 3.0, method_level_retry_config.retry_policy.multiplier
     assert_equal 1, method_level_retry_config.retry_policy.status_codes.count
-    assert method_level_retry_config.retry_policy.status_codes.include?("UNAVAILABLE")
+    assert_includes method_level_retry_config.retry_policy.status_codes, "UNAVAILABLE"
   end
 end

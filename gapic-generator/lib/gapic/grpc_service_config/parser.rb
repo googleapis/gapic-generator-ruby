@@ -80,17 +80,17 @@ module Gapic
       ##
       # Parses the names of the services for which the service-level
       # config is defined from the GRPC service config json.
-      # Within the json the names are arranged in hashes. Each hash contains a 
+      # Within the json the names are arranged in hashes. Each hash contains a
       # required "service" key and an optional "method" key. Here we select only
       # the hashes WITHOUT the optional key -- meaning that the config will be
       # applied on a service-level -- and return just the service names.
       #
-      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes from 
+      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes from
       #   the GRPC service config
       #
       # @return [Array<String>] parsed names of services
       #
-      private_class_method def self.parse_service_names method_config_json_names
+      def self.parse_service_names method_config_json_names
         service_names_jsons = method_config_json_names.select do |names_json|
           names_json.size == 1 && names_json.key?(SERVICE_NAME_JSON_KEY)
         end
@@ -101,17 +101,17 @@ module Gapic
       ##
       # Filters the "name" hashes from the GRPC service config json
       # to exclude service-level names
-      # Within the json the names are arranged in hashes. Each hash contains a 
+      # Within the json the names are arranged in hashes. Each hash contains a
       # required "service" key and an optional "method" key. Here we select only
       # the hashes WITH the optional key -- meaning that the config will be
       # applied on a method-level -- and return the hashes in full.
       #
-      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes  
+      # @param method_config_json_names [Array<Hash<String, String>>] "name" hashes
       #   from the GRPC service config
       #
       # @return [Array<Hash<String, String>>] filtered hashes for methods
       #
-      private_class_method def self.filter_service_method_names method_config_json_names
+      def self.filter_service_method_names method_config_json_names
         method_config_json_names.select do |names_json|
           names_json.size == 2 && names_json.key?(SERVICE_NAME_JSON_KEY) && names_json.key?(METHOD_NAME_JSON_KEY)
         end
@@ -125,7 +125,7 @@ module Gapic
       #
       # @return [Gapic::GrpcServiceConfig::MethodConfig] parsed MethodConfig
       #
-      private_class_method def self.parse_config method_config_json
+      def self.parse_config method_config_json
         timeout_seconds = parse_interval_seconds method_config_json[TIMEOUT_JSON_KEY]
         retry_policy = parse_retry_policy method_config_json[RETRY_POLICY_JSON_KEY]
 
@@ -140,17 +140,15 @@ module Gapic
       #
       # @return [Gapic::GrpcServiceConfig::RetryPolicy] parsed RetryPolicy
       #
-      private_class_method def self.parse_retry_policy retry_policy_json
-        if retry_policy_json.nil? || retry_policy_json.empty?
-          nil
-        else
-          initial_delay_seconds = parse_interval_seconds retry_policy_json[INITIAL_DELAY_JSON_KEY]
-          max_delay_seconds = parse_interval_seconds retry_policy_json[MAX_DELAY_JSON_KEY]
-          multiplier = retry_policy_json[MULTIPLIER_JSON_KEY]
-          status_codes = retry_policy_json[STATUS_CODES_JSON_KEY]
+      def self.parse_retry_policy retry_policy_json
+        return nil if retry_policy_json.nil? || retry_policy_json.empty?
 
-          RetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
-        end
+        initial_delay_seconds = parse_interval_seconds retry_policy_json[INITIAL_DELAY_JSON_KEY]
+        max_delay_seconds = parse_interval_seconds retry_policy_json[MAX_DELAY_JSON_KEY]
+        multiplier = retry_policy_json[MULTIPLIER_JSON_KEY]
+        status_codes = retry_policy_json[STATUS_CODES_JSON_KEY]
+
+        RetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
       end
 
       ##
@@ -165,7 +163,7 @@ module Gapic
       #
       # @return [Float, nil] converted time interval or nil for 'not set'
       #
-      private_class_method def self.parse_interval_seconds timestring
+      def self.parse_interval_seconds timestring
         if timestring.empty?
           nil
         else
@@ -173,26 +171,28 @@ module Gapic
           unless valid_float? timestring_nos
             error_text = "Was not able to convert the string `#{timestring}` " \
                          "to a time interval when parsing a grpc service config"
-            raise ParsingError error_text
+            raise ParsingError, error_text
           end
-          time_seconds = Float(timestring_nos)
-          time_seconds
+          Float(timestring_nos)
         end
       end
 
       ##
       # Determines if a given string can be converted to a float
-      # 
+      #
       # @param str [String, nil] a given string, can be nil
       #
       # @return [Boolean] true, if converstion to float is possible
       #
-      private_class_method def self.valid_float? str
+      def self.valid_float? str
         Float(str)
         true
       rescue ::ArgumentError, ::TypeError
         false
       end
+
+      private_class_method :parse_service_names, :filter_service_method_names, :parse_config,
+                           :parse_retry_policy, :valid_float?
     end
   end
 end
