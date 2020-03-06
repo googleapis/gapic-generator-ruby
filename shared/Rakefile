@@ -74,6 +74,11 @@ namespace :gen do
   task :googleads do
     generate_input_file :googleads
   end
+
+  desc "Generate the binary input files for grpc_service_config"
+  task :grpc_service_config do
+    generate_input_file :grpc_service_config
+  end
 end
 
 require "rake/testtask"

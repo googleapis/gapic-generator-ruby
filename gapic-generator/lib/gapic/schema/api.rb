@@ -15,7 +15,9 @@
 # limitations under the License.
 
 require "yaml"
+require "json"
 require "gapic/schema/loader"
+require "gapic/grpc_service_config/parser"
 
 module Gapic
   module Schema
@@ -195,6 +197,27 @@ module Gapic
             config = deep_merge config, branch
           end
           config
+        end
+      end
+
+      # Raw parsed json of the grpc service config if provided
+      # or an empty hash if config was not provided
+      def grpc_service_config_raw
+        @grpc_service_config_raw ||= begin
+          grpc_service_config_filename = protoc_options["grpc_service_config"]
+          if grpc_service_config_filename
+            file = ::File.read grpc_service_config_filename
+            JSON.parse file
+          else
+            {}
+          end
+        end
+      end
+
+      # Parsed grpc service config
+      def grpc_service_config
+        @grpc_service_config ||= begin
+          Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
         end
       end
 

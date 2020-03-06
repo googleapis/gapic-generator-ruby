@@ -256,6 +256,15 @@ class ServicePresenter
     { "grpc.service_config_disable_resolution" => 1 }
   end
 
+  def grpc_service_config
+    return unless @api.grpc_service_config&.service_level_configs&.key? grpc_full_name
+    @api.grpc_service_config.service_level_configs[grpc_full_name]
+  end
+
+  def grpc_full_name
+    @service.address.join "."
+  end
+
   private
 
   def default_config key

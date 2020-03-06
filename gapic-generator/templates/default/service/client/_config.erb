@@ -140,14 +140,14 @@ class Configuration
     # @return [Gapic::Config::Method]
     #
     attr_reader :<%= method.name %>
-  <%- end %>
+  <%- end -%>
 
     # @private
     def initialize parent_rpcs = nil
       <%- method_service.methods.each do |method| -%>
       <%= method.name %>_config = parent_rpcs&.<%= method.name %> if parent_rpcs&.respond_to? :<%= method.name %>
       @<%= method.name %> = Gapic::Config::Method.new <%= method.name %>_config
-      <%- end %>
+      <%- end -%>
 
       yield self if block_given?
     end
