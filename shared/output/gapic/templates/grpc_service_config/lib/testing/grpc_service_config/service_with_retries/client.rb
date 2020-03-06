@@ -184,10 +184,13 @@ module Testing
           # Customize the options with defaults
           metadata = @config.rpcs.service_level_retry_method.metadata.to_h
 
-          # Set x-goog-api-client header
+          # Set x-goog-api-client and x-goog-user-project headers
           metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Testing::GrpcServiceConfig::VERSION
+          unless @service_with_retries_stub.quota_project_id.nil?
+            metadata[:"x-goog-user-project"] = @service_with_retries_stub.quota_project_id
+          end
 
           options.apply_defaults timeout:      @config.rpcs.service_level_retry_method.timeout,
                                  metadata:     metadata,
@@ -227,10 +230,13 @@ module Testing
           # Customize the options with defaults
           metadata = @config.rpcs.method_level_retry_method.metadata.to_h
 
-          # Set x-goog-api-client header
+          # Set x-goog-api-client and x-goog-user-project headers
           metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Testing::GrpcServiceConfig::VERSION
+          unless @service_with_retries_stub.quota_project_id.nil?
+            metadata[:"x-goog-user-project"] = @service_with_retries_stub.quota_project_id
+          end
 
           options.apply_defaults timeout:      @config.rpcs.method_level_retry_method.timeout,
                                  metadata:     metadata,

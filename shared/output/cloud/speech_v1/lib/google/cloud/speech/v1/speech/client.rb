@@ -391,10 +391,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @speech_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @speech_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
                                      metadata:     metadata,
@@ -556,10 +559,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.long_running_recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @speech_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @speech_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
                                      metadata:     metadata,
@@ -609,10 +615,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.streaming_recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @speech_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @speech_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
                                      metadata:     metadata,

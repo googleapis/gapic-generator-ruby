@@ -195,10 +195,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.batch_annotate_images.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @image_annotator_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @image_annotator_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.batch_annotate_images.timeout,
                                      metadata:     metadata,
@@ -273,10 +276,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.batch_annotate_files.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @image_annotator_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @image_annotator_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.batch_annotate_files.timeout,
                                      metadata:     metadata,
@@ -356,10 +362,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.async_batch_annotate_images.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @image_annotator_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @image_annotator_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_images.timeout,
                                      metadata:     metadata,
@@ -432,10 +441,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.async_batch_annotate_files.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @image_annotator_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @image_annotator_stub.quota_project_id
+              end
 
               options.apply_defaults timeout:      @config.rpcs.async_batch_annotate_files.timeout,
                                      metadata:     metadata,

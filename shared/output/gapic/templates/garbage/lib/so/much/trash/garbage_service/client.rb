@@ -179,10 +179,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_empty_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
                                    metadata:     metadata,
@@ -278,10 +281,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_simple_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_simple_garbage.timeout,
                                    metadata:     metadata,
@@ -348,10 +354,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_specific_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_specific_garbage.timeout,
                                    metadata:     metadata,
@@ -416,10 +425,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_nested_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_nested_garbage.timeout,
                                    metadata:     metadata,
@@ -484,10 +496,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_repeated_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_repeated_garbage.timeout,
                                    metadata:     metadata,
@@ -614,10 +629,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_typical_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage.timeout,
                                    metadata:     metadata,
@@ -707,10 +725,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_complex_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_complex_garbage.timeout,
                                    metadata:     metadata,
@@ -757,10 +778,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_garbage_node.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_garbage_node.timeout,
                                    metadata:     metadata,
@@ -828,10 +852,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.get_paged_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.get_paged_garbage.timeout,
                                    metadata:     metadata,
@@ -881,10 +908,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.long_running_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.long_running_garbage.timeout,
                                    metadata:     metadata,
@@ -931,10 +961,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.client_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.client_garbage.timeout,
                                    metadata:     metadata,
@@ -998,10 +1031,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.server_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.server_garbage.timeout,
                                    metadata:     metadata,
@@ -1047,10 +1083,13 @@ module So
             # Customize the options with defaults
             metadata = @config.rpcs.bidi_garbage.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
+            unless @garbage_service_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @garbage_service_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.bidi_garbage.timeout,
                                    metadata:     metadata,

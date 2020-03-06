@@ -149,10 +149,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_operations.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @operations_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @operations_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -213,10 +216,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @operations_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @operations_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -278,10 +284,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @operations_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @operations_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -354,10 +363,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.cancel_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              unless @operations_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @operations_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name

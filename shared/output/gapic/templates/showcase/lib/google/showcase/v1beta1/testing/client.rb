@@ -181,10 +181,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.create_session.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.create_session.timeout,
                                    metadata:     metadata,
@@ -231,10 +234,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.get_session.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -289,10 +295,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.list_sessions.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.list_sessions.timeout,
                                    metadata:     metadata,
@@ -340,10 +349,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.delete_session.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -400,10 +412,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.report_session.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -460,10 +475,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.list_tests.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "parent" => request.parent
@@ -527,10 +545,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.delete_test.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -593,10 +614,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.verify_test.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @testing_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @testing_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name

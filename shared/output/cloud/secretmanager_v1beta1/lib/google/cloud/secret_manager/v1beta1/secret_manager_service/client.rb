@@ -186,10 +186,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_secrets.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -250,10 +253,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_secret.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -313,10 +319,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.add_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -371,10 +380,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_secret.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -431,10 +443,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.update_secret.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "secret.name" => request.secret.name
@@ -490,10 +505,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_secret.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -559,10 +577,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_secret_versions.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -627,10 +648,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -692,10 +716,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.access_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -757,10 +784,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.disable_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -822,10 +852,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.enable_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -889,10 +922,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.destroy_secret_version.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -962,10 +998,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.set_iam_policy.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "resource" => request.resource
@@ -1024,10 +1063,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_iam_policy.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "resource" => request.resource
@@ -1101,10 +1143,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.test_iam_permissions.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
+              unless @secret_manager_service_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @secret_manager_service_stub.quota_project_id
+              end
 
               header_params = {
                 "resource" => request.resource

@@ -183,10 +183,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.create_room.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
                                    metadata:     metadata,
@@ -233,10 +236,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.get_room.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -292,10 +298,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.update_room.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "room.name" => request.room.name
@@ -348,10 +357,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.delete_room.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -409,10 +421,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.list_rooms.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
                                    metadata:     metadata,
@@ -467,10 +482,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.create_blurb.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "parent" => request.parent
@@ -523,10 +541,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.get_blurb.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -582,10 +603,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.update_blurb.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "blurb.name" => request.blurb.name
@@ -638,10 +662,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.delete_blurb.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -704,10 +731,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.list_blurbs.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "parent" => request.parent
@@ -778,10 +808,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.search_blurbs.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "parent" => request.parent
@@ -839,10 +872,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.stream_blurbs.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             header_params = {
               "name" => request.name
@@ -895,10 +931,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.send_blurbs.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.send_blurbs.timeout,
                                    metadata:     metadata,
@@ -947,10 +986,13 @@ module Google
             # Customize the options with defaults
             metadata = @config.rpcs.connect.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Showcase::VERSION
+            unless @messaging_stub.quota_project_id.nil?
+              metadata[:"x-goog-user-project"] = @messaging_stub.quota_project_id
+            end
 
             options.apply_defaults timeout:      @config.rpcs.connect.timeout,
                                    metadata:     metadata,

@@ -201,10 +201,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -275,10 +278,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_product_sets.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -345,10 +351,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -422,10 +431,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.update_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "product_set.name" => request.product_set.name
@@ -489,10 +501,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -571,10 +586,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_product.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -644,10 +662,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_products.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -714,10 +735,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_product.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -807,10 +831,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.update_product.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "product.name" => request.product.name
@@ -876,10 +903,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -981,10 +1011,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.create_reference_image.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -1055,10 +1088,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.delete_reference_image.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -1135,10 +1171,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_reference_images.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -1206,10 +1245,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.get_reference_image.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -1286,10 +1328,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -1352,10 +1397,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -1429,10 +1477,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "name" => request.name
@@ -1512,10 +1563,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.import_product_sets.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
@@ -1627,10 +1681,13 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.purge_products.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
+              unless @product_search_stub.quota_project_id.nil?
+                metadata[:"x-goog-user-project"] = @product_search_stub.quota_project_id
+              end
 
               header_params = {
                 "parent" => request.parent
