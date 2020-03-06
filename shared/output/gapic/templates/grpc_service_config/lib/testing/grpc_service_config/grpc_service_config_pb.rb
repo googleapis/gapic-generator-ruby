@@ -15,7 +15,7 @@ end
 
 module Testing
   module GrpcServiceConfig
-    Request = Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.grpcserviceconfig.Request").msgclass
-    Response = Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.grpcserviceconfig.Response").msgclass
+    Request = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.grpcserviceconfig.Request").msgclass
+    Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.grpcserviceconfig.Response").msgclass
   end
 end
