@@ -27,6 +27,7 @@ module Gapic
   #
   class ServiceStub
     attr_reader :grpc_stub
+    attr_reader :quota_project_id
 
     ##
     # Creates a Gapic gRPC stub object.
@@ -65,15 +66,12 @@ module Gapic
                      grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
                                                                 interceptors: interceptors
                    else
-                     updater_proc = credentials.updater_proc if credentials.respond_to? :updater_proc
-                     updater_proc ||= credentials if credentials.is_a? Proc
-                     raise ArgumentError, "invalid credentials (#{credentials.class})" if updater_proc.nil?
-
-                     call_creds = GRPC::Core::CallCredentials.new updater_proc
-                     chan_creds = GRPC::Core::ChannelCredentials.new.compose call_creds
+                     chan_creds = create_channel_creds credentials
                      grpc_stub_class.new endpoint, chan_creds, channel_args: channel_args,
                                                                interceptors: interceptors
                    end
+
+      @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
     end
 
     ##
@@ -153,6 +151,17 @@ module Gapic
     def call_rpc method_name, request, options: nil, &block
       rpc_call = RpcCall.new @grpc_stub.method method_name
       rpc_call.call request, options: options, &block
+    end
+
+    private
+
+    def create_channel_creds credentials
+      updater_proc = credentials.updater_proc if credentials.respond_to? :updater_proc
+      updater_proc ||= credentials if credentials.is_a? Proc
+      raise ArgumentError, "invalid credentials (#{credentials.class})" if updater_proc.nil?
+
+      call_creds = GRPC::Core::CallCredentials.new updater_proc
+      GRPC::Core::ChannelCredentials.new.compose call_creds
     end
   end
 end

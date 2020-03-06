@@ -44,6 +44,10 @@ class GrpcStubTest < Minitest::Spec
     def updater_proc
       ->{}
     end
+
+    def quota_project_id
+      "the_quota_project_id"
+    end
   end
 
   def test_with_channel
@@ -65,9 +69,11 @@ class GrpcStubTest < Minitest::Spec
     mock.expect :nil?, false
     mock.expect :new, nil, ["service:port", fake_channel_creds, channel_args: {}, interceptors: []]
 
-    Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel_creds
+    stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel_creds
 
     mock.verify
+
+    assert_nil stub.quota_project_id
   end
 
   def test_with_credentials
@@ -77,9 +83,11 @@ class GrpcStubTest < Minitest::Spec
         mock.expect :nil?, false
         mock.expect :new, nil, ["service:port", FakeCallCredentials, channel_args: {}, interceptors: []]
 
-        Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: FakeCredentials.new
+        stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: FakeCredentials.new
 
         mock.verify
+
+        assert_equal "the_quota_project_id", stub.quota_project_id
       end
     end
   end
