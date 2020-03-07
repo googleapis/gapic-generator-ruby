@@ -129,7 +129,7 @@ module Google
               if credentials.is_a?(String) || credentials.is_a?(Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
-
+              @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
               @language_service_stub = Gapic::ServiceStub.new(
                 Google::Cloud::Language::V1::LanguageService::Stub,
@@ -256,10 +256,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_sentiment.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.analyze_sentiment.timeout,
                                      metadata:     metadata,
@@ -417,10 +418,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_entities.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.analyze_entities.timeout,
                                      metadata:     metadata,
@@ -584,10 +586,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_entity_sentiment.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.analyze_entity_sentiment.timeout,
                                      metadata:     metadata,
@@ -755,10 +758,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_syntax.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.analyze_syntax.timeout,
                                      metadata:     metadata,
@@ -871,10 +875,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.classify_text.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.classify_text.timeout,
                                      metadata:     metadata,
@@ -929,10 +934,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.annotate_text.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.annotate_text.timeout,
                                      metadata:     metadata,

@@ -130,6 +130,7 @@ module Google
               if credentials.is_a?(String) || credentials.is_a?(Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
+              @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
               @operations_client = Operations.new do |config|
                 config.credentials = credentials
@@ -391,10 +392,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.recognize.timeout,
                                      metadata:     metadata,
@@ -556,10 +558,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.long_running_recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.long_running_recognize.timeout,
                                      metadata:     metadata,
@@ -609,10 +612,11 @@ module Google
               # Customize the options with defaults
               metadata = @config.rpcs.streaming_recognize.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Speech::V1::VERSION
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.streaming_recognize.timeout,
                                      metadata:     metadata,
