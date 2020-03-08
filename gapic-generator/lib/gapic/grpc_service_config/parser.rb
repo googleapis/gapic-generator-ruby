@@ -26,8 +26,8 @@ module Gapic
     # usable by the microgenerator templates
     #
     module Parser
-      METHOD_CONFIG_JSON_KEY = "method_config"
-      RETRY_POLICY_JSON_KEY = "retry_policy"
+      METHOD_CONFIG_JSON_KEY = "methodConfig"
+      RETRY_POLICY_JSON_KEY = "retryPolicy"
 
       NAMES_JSON_KEY = "name"
       SERVICE_NAME_JSON_KEY = "service"
@@ -35,10 +35,10 @@ module Gapic
 
       TIMEOUT_JSON_KEY = "timeout"
 
-      INITIAL_DELAY_JSON_KEY = "initial_backoff"
-      MAX_DELAY_JSON_KEY = "max_backoff"
-      MULTIPLIER_JSON_KEY = "backoff_multiplier"
-      STATUS_CODES_JSON_KEY = "retryable_status_codes"
+      INITIAL_DELAY_JSON_KEY = "initialBackoff"
+      MAX_DELAY_JSON_KEY = "maxBackoff"
+      MULTIPLIER_JSON_KEY = "backoffMultiplier"
+      STATUS_CODES_JSON_KEY = "retryableStatusCodes"
 
 
       ##
@@ -52,21 +52,21 @@ module Gapic
         service_level_result = {}
         service_method_level_result = {}
 
-        if !service_config_json.nil? && service_config_json.key?(METHOD_CONFIG_JSON_KEY)
-          method_configs_json = service_config_json[METHOD_CONFIG_JSON_KEY]
+        if !service_config_json.nil? && key?(service_config_json, METHOD_CONFIG_JSON_KEY)
+          method_configs_json = get service_config_json, METHOD_CONFIG_JSON_KEY
 
           method_configs_json.each do |method_config_json|
             method_config = parse_config method_config_json
-            service_names = parse_service_names method_config_json[NAMES_JSON_KEY]
-            service_method_names = filter_service_method_names method_config_json[NAMES_JSON_KEY]
+            service_names = parse_service_names get(method_config_json, NAMES_JSON_KEY)
+            service_method_names = filter_service_method_names get(method_config_json, NAMES_JSON_KEY)
 
             service_names.each do |service_name|
               service_level_result[service_name] = method_config
             end
 
             service_method_names.each do |service_method_name|
-              service_name = service_method_name[SERVICE_NAME_JSON_KEY]
-              method_name = service_method_name[METHOD_NAME_JSON_KEY]
+              service_name = get service_method_name, SERVICE_NAME_JSON_KEY
+              method_name = get service_method_name, METHOD_NAME_JSON_KEY
 
               service_method_level_result[service_name] ||= {}
               service_method_level_result[service_name][method_name] = method_config
@@ -92,10 +92,10 @@ module Gapic
       #
       def self.parse_service_names method_config_json_names
         service_names_jsons = method_config_json_names.select do |names_json|
-          names_json.size == 1 && names_json.key?(SERVICE_NAME_JSON_KEY)
+          names_json.size == 1 && key?(names_json, SERVICE_NAME_JSON_KEY)
         end
 
-        service_names_jsons.map { |names_json| names_json[SERVICE_NAME_JSON_KEY] }
+        service_names_jsons.map { |names_json| get names_json, SERVICE_NAME_JSON_KEY }
       end
 
       ##
@@ -113,7 +113,7 @@ module Gapic
       #
       def self.filter_service_method_names method_config_json_names
         method_config_json_names.select do |names_json|
-          names_json.size == 2 && names_json.key?(SERVICE_NAME_JSON_KEY) && names_json.key?(METHOD_NAME_JSON_KEY)
+          names_json.size == 2 && key?(names_json, SERVICE_NAME_JSON_KEY) && key?(names_json, METHOD_NAME_JSON_KEY)
         end
       end
 
@@ -126,8 +126,8 @@ module Gapic
       # @return [Gapic::GrpcServiceConfig::MethodConfig] parsed MethodConfig
       #
       def self.parse_config method_config_json
-        timeout_seconds = parse_interval_seconds method_config_json[TIMEOUT_JSON_KEY]
-        retry_policy = parse_retry_policy method_config_json[RETRY_POLICY_JSON_KEY]
+        timeout_seconds = parse_interval_seconds get(method_config_json, TIMEOUT_JSON_KEY)
+        retry_policy = parse_retry_policy get(method_config_json, RETRY_POLICY_JSON_KEY)
 
         MethodConfig.new timeout_seconds, retry_policy
       end
@@ -143,10 +143,10 @@ module Gapic
       def self.parse_retry_policy retry_policy_json
         return nil if retry_policy_json.nil? || retry_policy_json.empty?
 
-        initial_delay_seconds = parse_interval_seconds retry_policy_json[INITIAL_DELAY_JSON_KEY]
-        max_delay_seconds = parse_interval_seconds retry_policy_json[MAX_DELAY_JSON_KEY]
-        multiplier = retry_policy_json[MULTIPLIER_JSON_KEY]
-        status_codes = retry_policy_json[STATUS_CODES_JSON_KEY]
+        initial_delay_seconds = parse_interval_seconds get(retry_policy_json, INITIAL_DELAY_JSON_KEY)
+        max_delay_seconds = parse_interval_seconds get(retry_policy_json, MAX_DELAY_JSON_KEY)
+        multiplier = get retry_policy_json, MULTIPLIER_JSON_KEY
+        status_codes = get retry_policy_json, STATUS_CODES_JSON_KEY
 
         RetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
       end
@@ -173,6 +173,28 @@ module Gapic
           raise ParsingError, error_text
         end
         Float(timestring_nos)
+      end
+
+      ##
+      # Determines if the key or its underscore form exists
+      #
+      # @param hash [Hash] hash structure
+      # @param key [String] lowerCamelCase string
+      # @return [Boolean]
+      #
+      def self.key? hash, key
+        hash.key?(key) || hash.key?(ActiveSupport::Inflector.underscore(key))
+      end
+
+      ##
+      # Look up a key including checking its underscore form
+      #
+      # @param hash [Hash] hash structure
+      # @param key [String] lowerCamelCase string
+      # @return [Object] the result, or `nil` if not found
+      #
+      def self.get hash, key
+        hash[key] || hash[ActiveSupport::Inflector.underscore(key)]
       end
 
       ##
