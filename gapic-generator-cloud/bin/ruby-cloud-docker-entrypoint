@@ -27,6 +27,9 @@ OptionParser.new do |op|
   op.on "--ruby-cloud-samples FILE", "--samples FILE" do |val|
     parameters["samples"] = val
   end
+  op.on "--ruby-cloud-grpc-service-config FILE" do |val|
+    parameters["grpc_service_config"] = val
+  end
   op.on "--ruby-cloud-gem-name NAME" do |val|
     parameters[":gem.:name"] = val
   end
