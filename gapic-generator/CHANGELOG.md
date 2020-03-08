@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.1.0 / 2020-03-07
+
+* Generate default timeout and retry configs based on GRPC service configs.
+* Send x-goog-user-project header based on quota_project_id.
+
 ### 0.0.6 / 2020-03-03
 
 * Generated config classes now have full yardoc

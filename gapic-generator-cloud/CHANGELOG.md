@@ -1,10 +1,13 @@
 # Release History for gapic-generator-cloud
 
+### 0.1.0 / 2020-03-07
+
+* Includes fixes from gapic-generator 0.1.0
+
 ### 0.0.6 / 2020-03-03
 
-* Includes fixes from gapic-generator 0.0.5
+* Includes fixes from gapic-generator 0.0.6
 * Gem homepage can be overridden from the docker command line
-
 
 ### 0.0.5 / 2020-02-25
 
