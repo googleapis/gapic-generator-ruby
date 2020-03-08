@@ -25,10 +25,14 @@ OptionParser.new do |op|
     parameters["configuration"] = val
   end
   op.on "--ruby-cloud-samples FILE", "--samples FILE" do |val|
-    parameters["samples"] = val
+    paths = val.split(";")
+               .map { |path| File.expand_path path, "/in" }
+               .join(";")
+    parameters["samples"] = paths
   end
   op.on "--ruby-cloud-grpc-service-config FILE" do |val|
-    parameters["grpc_service_config"] = val
+    path = File.expand_path val, "/in"
+    parameters["grpc_service_config"] = path
   end
   op.on "--ruby-cloud-gem-name NAME" do |val|
     parameters[":gem.:name"] = val
