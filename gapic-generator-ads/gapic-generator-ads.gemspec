@@ -48,5 +48,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "grpc-tools", "~> 1.19"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", ">= 12.0"
 end
