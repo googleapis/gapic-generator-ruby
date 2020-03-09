@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "fileutils"
+
 require "bundler/gem_tasks"
 require "rubocop/rake_task"
 require "rake/testtask"
@@ -104,7 +106,6 @@ def prepare_embedded_gapic_generator_directory
 end
 
 def generate_cloud_templates service
-  require "fileutils"
   require "gapic/generators/cloud_generator"
 
   target_path = File.expand_path File.join("expected_output", String(service))
@@ -127,9 +128,12 @@ def generate_cloud_templates service
   samples = samples_for service
   protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
 
+  # Add optional grpc service config
+  grpc_service_config = grpc_service_config_for service
+  protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config}'" if grpc_service_config
+
   # Add the proto files
-  protos = protos_for service
-  protoc_cmd << protos.join(" ")
+  protoc_cmd << protos_for(service).join(" ")
 
   protoc_cmd = protoc_cmd.join " "
   puts protoc_cmd if ENV["VERBOSE"]

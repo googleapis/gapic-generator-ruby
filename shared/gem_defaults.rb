@@ -25,7 +25,8 @@ def gem_defaults
         "../shared/googleapis/google/cloud/language/v1/samples/*.yaml",
         "../shared/googleapis/google/cloud/language/v1/samples/test/*.yaml",
         "../shared/samples/language/*.yaml"
-      ])
+      ]),
+      grpc_service_config: "../shared/protos/testing/grpc_service_config/language_grpc_service_config.json"
     },
     language_v1beta1: {
       protos: [
