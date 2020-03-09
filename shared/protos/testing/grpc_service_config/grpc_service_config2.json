@@ -1,0 +1,19 @@
+{
+  "method_config": [
+    {
+      "name": [
+        {
+          "service": "testing.grpcserviceconfig.ServiceWithRetries",
+          "method": "MethodLevelRetryMethod"
+        }
+      ],
+      "timeout": "60s",
+      "retry_policy": {
+        "initial_backoff": "1s",
+        "max_backoff": "10s",
+        "backoff_multiplier": 3.0,
+        "retryable_status_codes": [ "UNAVAILABLE" ]
+      }
+    }
+  ]
+}

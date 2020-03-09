@@ -56,7 +56,7 @@ class ServiceConfigParsingTest < Minitest::Test
   # Testing that the method-level config is populated correctly from a sample json
   #
   def test_varied_config_method
-    config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
+    config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config2.json")
     service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
     service_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]

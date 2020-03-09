@@ -112,6 +112,11 @@ task :image, :name do |_t, args|
   sh "docker build -t #{image_name} ."
 end
 
+task :release_gem do
+  Rake::Task["build"].invoke
+  Rake::Task["release:rubygem_push"].invoke
+end
+
 def generate_default_templates service
   require "gapic/schema/api"
   require "gapic/generators/default_generator"
@@ -137,7 +142,9 @@ def generate_default_templates service
 
   # Add optional grpc service config
   grpc_service_config = grpc_service_config_for service
-  protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config}'" if grpc_service_config
+  unless grpc_service_config.empty?
+    protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
+  end
 
   # Add the proto files
   protos = protos_for service

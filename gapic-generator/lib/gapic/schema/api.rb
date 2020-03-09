@@ -200,16 +200,14 @@ module Gapic
         end
       end
 
-      # Raw parsed json of the grpc service config if provided
-      # or an empty hash if config was not provided
+      # Raw parsed json of the combined grpc service config files if provided
+      # or an empty hash if no config was provided
       def grpc_service_config_raw
         @grpc_service_config_raw ||= begin
-          grpc_service_config_filename = protoc_options["grpc_service_config"]
-          if grpc_service_config_filename
-            file = ::File.read grpc_service_config_filename
-            JSON.parse file
-          else
-            {}
+          filenames = protoc_options["grpc_service_config"].to_s.split ";"
+          filenames.inject({}) do |running_hash, filename|
+            file_hash = JSON.parse ::File.read filename
+            deep_merge running_hash, file_hash
           end
         end
       end
@@ -252,6 +250,8 @@ module Gapic
         left.merge right do |_k, lt, rt|
           if lt.is_a?(Hash) && rt.is_a?(Hash)
             deep_merge lt, rt
+          elsif lt.is_a?(Array) && rt.is_a?(Array)
+            lt + rt
           else
             rt
           end
