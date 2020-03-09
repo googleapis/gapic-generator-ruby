@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.1.1 / 2020-03-09
+
+* Relax rake dependency.
+
 ### 0.1.0 / 2020-03-07
 
 * Generate default timeout and retry configs based on GRPC service configs.

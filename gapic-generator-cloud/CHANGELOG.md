@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.1.1 / 2020-03-09
+
+* Includes fixes from gapic-generator 0.1.1
+* Add grpc_service_config changes to the cloud templates.
+
 ### 0.1.0 / 2020-03-07
 
 * Includes fixes from gapic-generator 0.1.0
