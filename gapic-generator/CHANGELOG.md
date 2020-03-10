@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.1.2 / 2020-03-09
+
+* Support multiple grpc service config files
+
 ### 0.1.1 / 2020-03-09
 
 * Relax rake dependency.
