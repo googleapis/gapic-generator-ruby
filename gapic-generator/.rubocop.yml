@@ -7,6 +7,7 @@ AllCops:
     - expected_output/**/*
     - test/gapic/annotations/**/*
     - test/gapic/presenters/**/*
+    - Rakefile
 
 Metrics/ClassLength:
   Exclude:

@@ -97,7 +97,10 @@ def gem_defaults
       protos: [
         "testing/grpc_service_config/grpc_service_config.proto"
       ],
-      grpc_service_config: "../shared/protos/testing/grpc_service_config/grpc_service_config.json"
+      grpc_service_config: [
+        "../shared/protos/testing/grpc_service_config/grpc_service_config.json",
+        "../shared/protos/testing/grpc_service_config/grpc_service_config2.json"
+      ]
     }
   }
 end
@@ -111,5 +114,5 @@ def samples_for service
 end
 
 def grpc_service_config_for service
-  gem_defaults[service][:grpc_service_config]
+  Array(gem_defaults[service][:grpc_service_config])
 end

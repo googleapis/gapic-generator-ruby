@@ -6,3 +6,4 @@ AllCops:
     - expected_output/**/*
     - tmp/**/*
     - bin/*
+    - Rakefile
