@@ -72,7 +72,7 @@ module Testing
               retry_codes:   ["DEADLINE_EXCEEDED", "RESOURCE_EXHAUSTED"]
             }
 
-            default_config.rpcs.method_level_retry_method.timeout = 60.0
+            default_config.rpcs.method_level_retry_method.timeout = 86_400.0
             default_config.rpcs.method_level_retry_method.retry_policy = {
               initial_delay: 1.0,
               max_delay:     10.0,

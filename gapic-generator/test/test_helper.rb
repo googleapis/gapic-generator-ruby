@@ -63,6 +63,7 @@ class AnnotationTest < Minitest::Test
   end
 end
 
+require_relative "../templates/default/helpers/default_helper"
 require_relative "../templates/default/helpers/filepath_helper"
 require_relative "../templates/default/helpers/namespace_helper"
 require_relative "../templates/default/helpers/presenter_helper"
