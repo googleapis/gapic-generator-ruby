@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.1.3 / 2020-03-11
+
+* Generated numeric constants are formatted with underscores if necessary.
+
 ### 0.1.2 / 2020-03-09
 
 * Support multiple grpc service config files
