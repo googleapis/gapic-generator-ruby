@@ -62,7 +62,7 @@ class ServiceConfigParsingTest < Minitest::Test
     service_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
     method_level_retry_config = service_method_configs["MethodLevelRetryMethod"]
 
-    assert_equal 60, method_level_retry_config.timeout_seconds
+    assert_equal 86_400, method_level_retry_config.timeout_seconds
     assert_equal 1, method_level_retry_config.retry_policy.initial_delay_seconds
     assert_equal 10, method_level_retry_config.retry_policy.max_delay_seconds
     assert_equal 3.0, method_level_retry_config.retry_policy.multiplier

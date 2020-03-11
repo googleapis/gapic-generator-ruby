@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "bigdecimal"
 require "active_support/inflector"
 
 module DefaultHelper
@@ -37,6 +38,16 @@ module DefaultHelper
     return input if input.lines.count < 2
 
     input.lines[0] + indent(input.lines[1..-1].join, spacing)
+  end
+
+  def format_number value
+    return value.to_s if value.abs < 10_000
+    str = value.is_a?(Integer) ? value.to_s : BigDecimal(value.to_f.to_s).to_s("F")
+    re = /^(-?\d+)(\d\d\d)([_\.][_\.\d]+)?$/
+    while (m = re.match str)
+      str = "#{m[1]}_#{m[2]}#{m[3]}"
+    end
+    str
   end
 
   def assert_locals *locals

@@ -7,7 +7,7 @@
           "method": "MethodLevelRetryMethod"
         }
       ],
-      "timeout": "60s",
+      "timeout": "86400s",
       "retry_policy": {
         "initial_backoff": "1s",
         "max_backoff": "10s",
