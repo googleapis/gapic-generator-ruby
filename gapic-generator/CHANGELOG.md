@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.1.4 / 2020-03-12
+
+* Fixed over-escaping of curly braces in preformatted blocks in the yardocs.
+* Fixed typo in authentication document.
+
 ### 0.1.3 / 2020-03-11
 
 * Generated numeric constants are formatted with underscores if necessary.
