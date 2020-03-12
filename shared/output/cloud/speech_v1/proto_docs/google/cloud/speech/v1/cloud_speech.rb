@@ -562,27 +562,27 @@ module Google
         # Here's an example of a series of ten `StreamingRecognizeResponse`s that might
         # be returned while processing audio:
         #
-        # 1. results \\\{ alternatives \\\{ transcript: "tube" \} stability: 0.01 \}
+        # 1. results { alternatives { transcript: "tube" } stability: 0.01 }
         #
-        # 2. results \\\{ alternatives \\\{ transcript: "to be a" \} stability: 0.01 \}
+        # 2. results { alternatives { transcript: "to be a" } stability: 0.01 }
         #
-        # 3. results \\\{ alternatives \\\{ transcript: "to be" \} stability: 0.9 \}
-        #    results \\\{ alternatives \\\{ transcript: " or not to be" \} stability: 0.01 \}
+        # 3. results { alternatives { transcript: "to be" } stability: 0.9 }
+        #    results { alternatives { transcript: " or not to be" } stability: 0.01 }
         #
-        # 4. results \\\{ alternatives \\\{ transcript: "to be or not to be"
-        #                             confidence: 0.92 \}
-        #              alternatives \\\{ transcript: "to bee or not to bee" \}
-        #              is_final: true \}
+        # 4. results { alternatives { transcript: "to be or not to be"
+        #                             confidence: 0.92 }
+        #              alternatives { transcript: "to bee or not to bee" }
+        #              is_final: true }
         #
-        # 5. results \\\{ alternatives \\\{ transcript: " that's" \} stability: 0.01 \}
+        # 5. results { alternatives { transcript: " that's" } stability: 0.01 }
         #
-        # 6. results \\\{ alternatives \\\{ transcript: " that is" \} stability: 0.9 \}
-        #    results \\\{ alternatives \\\{ transcript: " the question" \} stability: 0.01 \}
+        # 6. results { alternatives { transcript: " that is" } stability: 0.9 }
+        #    results { alternatives { transcript: " the question" } stability: 0.01 }
         #
-        # 7. results \\\{ alternatives \\\{ transcript: " that is the question"
-        #                             confidence: 0.98 \}
-        #              alternatives \\\{ transcript: " that was the question" \}
-        #              is_final: true \}
+        # 7. results { alternatives { transcript: " that is the question"
+        #                             confidence: 0.98 }
+        #              alternatives { transcript: " that was the question" }
+        #              is_final: true }
         #
         # Notes:
         #

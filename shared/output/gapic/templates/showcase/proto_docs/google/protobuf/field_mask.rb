@@ -47,14 +47,14 @@ module Google
     # specified in the mask. For example, if the mask in the previous
     # example is applied to a response message as follows:
     #
-    #     f \\\{
+    #     f {
     #       a : 22
-    #       b \\\{
+    #       b {
     #         d : 1
     #         x : 2
-    #       \}
+    #       }
     #       y : 13
-    #     \}
+    #     }
     #     z: 8
     #
     # The result will not contain specific values for fields x,y and z
@@ -62,12 +62,12 @@ module Google
     # output):
     #
     #
-    #     f \\\{
+    #     f {
     #       a : 22
-    #       b \\\{
+    #       b {
     #         d : 1
-    #       \}
-    #     \}
+    #       }
+    #     }
     #
     # A repeated field is not allowed except at the last position of a
     # paths string.
@@ -105,22 +105,22 @@ module Google
     #
     # For example, given the target message:
     #
-    #     f \\\{
-    #       b \\\{
+    #     f {
+    #       b {
     #         d: 1
     #         x: 2
-    #       \}
+    #       }
     #       c: [1]
-    #     \}
+    #     }
     #
     # And an update message:
     #
-    #     f \\\{
-    #       b \\\{
+    #     f {
+    #       b {
     #         d: 10
-    #       \}
+    #       }
     #       c: [2]
-    #     \}
+    #     }
     #
     # then if the field mask is:
     #
@@ -128,13 +128,13 @@ module Google
     #
     # then the result will be:
     #
-    #     f \\\{
-    #       b \\\{
+    #     f {
+    #       b {
     #         d: 10
     #         x: 2
-    #       \}
+    #       }
     #       c: [1, 2]
-    #     \}
+    #     }
     #
     # An implementation may provide options to override this default behavior for
     # repeated and message fields.
@@ -172,51 +172,51 @@ module Google
     #
     # As an example, consider the following message declarations:
     #
-    #     message Profile \\\{
+    #     message Profile {
     #       User user = 1;
     #       Photo photo = 2;
-    #     \}
-    #     message User \\\{
+    #     }
+    #     message User {
     #       string display_name = 1;
     #       string address = 2;
-    #     \}
+    #     }
     #
     # In proto a field mask for `Profile` may look as such:
     #
-    #     mask \\\{
+    #     mask {
     #       paths: "user.display_name"
     #       paths: "photo"
-    #     \}
+    #     }
     #
     # In JSON, the same mask is represented as below:
     #
-    #     \\\{
+    #     {
     #       mask: "user.displayName,photo"
-    #     \}
+    #     }
     #
     # # Field Masks and Oneof Fields
     #
     # Field masks treat fields in oneofs just as regular fields. Consider the
     # following message:
     #
-    #     message SampleMessage \\\{
-    #       oneof test_oneof \\\{
+    #     message SampleMessage {
+    #       oneof test_oneof {
     #         string name = 4;
     #         SubMessage sub_message = 9;
-    #       \}
-    #     \}
+    #       }
+    #     }
     #
     # The field mask can be:
     #
-    #     mask \\\{
+    #     mask {
     #       paths: "name"
-    #     \}
+    #     }
     #
     # Or:
     #
-    #     mask \\\{
+    #     mask {
     #       paths: "sub_message"
-    #     \}
+    #     }
     #
     # Note that oneof type names ("test_oneof" in this case) cannot be used in
     # paths.
