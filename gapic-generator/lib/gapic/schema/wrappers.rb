@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/formatting_utils"
+
 module Gapic
   module Schema
     # Base class for all generic proto types including: enums, messages,
@@ -98,13 +100,10 @@ module Gapic
         return nil if @docs.nil?
         return nil if @docs.leading_comments.empty?
 
-        @docs
-          .leading_comments
-          .each_line
-          .map { |line| line.start_with?(" ") ? line[1..-1] : line }
-          .join
-          .split("{").join("\\\\\\{") # The only safe way to replace with \ characters...
-          .split("}").join("\\}")
+        lines = @docs.leading_comments.each_line.to_a
+        lines.map! { |line| line.start_with?(" ") ? line[1..-1] : line }
+        lines = FormattingUtils.escape_braces lines
+        lines.join
       end
 
       # @!method path
