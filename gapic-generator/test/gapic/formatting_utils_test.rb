@@ -33,6 +33,11 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["hello \\\\{ruby} world\n"], result
   end
 
+  def test_escape_braces_simple_brace_onechar_line
+    result = Gapic::FormattingUtils.escape_braces ["hello {r} world\n"]
+    assert_equal ["hello \\\\{r} world\n"], result
+  end
+
   def test_escape_braces_backtick_brace_line
     result = Gapic::FormattingUtils.escape_braces ["hello `{ruby}` world\n"]
     assert_equal ["hello `{ruby}` world\n"], result
@@ -210,6 +215,48 @@ class FormattingUtilsTest < Minitest::Test
       "\n",
       "    hello \\\\{ruby3}\n"
     ], result
+  end
+
+  # the other escape method is space after the bracket: { something}
+  def test_dont_escape_open_space_bracket
+    result = Gapic::FormattingUtils.escape_braces ["hello { ruby world}\n"]
+    assert_equal ["hello { ruby world}\n"], result
+  end
+
+  # yard will fail these separators unescaped whether the first word is capitalized or not
+  def test_escape_braces_separators
+    separators = ["-", "|", "%", "$", "^", "~", "*", ":"]
+
+    separators.each do |separator|
+      result = Gapic::FormattingUtils.escape_braces ["hello {ruby#{separator}world}\n"]
+      assert_equal ["hello \\\\{ruby#{separator}world}\n"], result
+    end
+  end
+
+  # yard will fail these separators unescaped but only if the first word in the sequence is capitalized
+  # e.g. {Ruby::world} will fail but {ruby::world} will not (at the current version)
+  def test_escape_braces_separators_capitalized
+    separators = ["#", "::"]
+
+    separators.each do |separator|
+      result = Gapic::FormattingUtils.escape_braces ["hello {Ruby#{separator}world}\n"]
+      assert_equal ["hello \\\\{Ruby#{separator}world}\n"], result
+    end
+  end
+
+  def test_escape_braces_yardexample_object
+    result = Gapic::FormattingUtils.escape_braces ["hello {ObjectName#method OPTIONAL_TITLE}\n"]
+    assert_equal ["hello \\\\{ObjectName#method OPTIONAL_TITLE}\n"], result
+  end
+
+  def test_escape_braces_yardexample_class
+    result = Gapic::FormattingUtils.escape_braces ["hello {Class::CONSTANT My constant's title}\n"]
+    assert_equal ["hello \\\\{Class::CONSTANT My constant's title}\n"], result
+  end
+  
+  def test_escape_braces_yardexample_method
+    result = Gapic::FormattingUtils.escape_braces ["hello {#method_inside_current_namespace}\n"]
+    assert_equal ["hello \\\\{#method_inside_current_namespace}\n"], result
   end
 
   def test_format_number_small_integer
