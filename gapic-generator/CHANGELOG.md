@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.1.5 / 2020-03-13
+
+* More improvements to escaping of curly braces.
+
 ### 0.1.4 / 2020-03-12
 
 * Fixed over-escaping of curly braces in preformatted blocks in the yardocs.
