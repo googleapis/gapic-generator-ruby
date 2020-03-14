@@ -21,7 +21,7 @@ module Gapic
   # Various string formatting utils
   #
   module FormattingUtils
-    @brace_detector = /\A([^`]*(`[^`]*`[^`]*)*[^`\\])?\{([\w,]+)\}(.*)\z/m
+    @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
     @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
 
     class << self
@@ -100,7 +100,7 @@ module Gapic
 
       def escape_line_braces line
         while (m = @brace_detector.match line)
-          line = "#{m[1]}\\\\{#{m[3]}}#{m[4]}"
+          line = "#{m[:pre]}\\\\{#{m[:inside]}}#{m[:post]}"
         end
         line
       end
