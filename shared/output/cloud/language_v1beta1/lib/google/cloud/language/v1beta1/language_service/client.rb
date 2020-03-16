@@ -175,7 +175,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_sentiment.metadata.to_h
@@ -234,7 +234,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_entities.metadata.to_h
@@ -293,7 +293,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_syntax.metadata.to_h
@@ -352,7 +352,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta1::AnnotateTextRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.annotate_text.metadata.to_h

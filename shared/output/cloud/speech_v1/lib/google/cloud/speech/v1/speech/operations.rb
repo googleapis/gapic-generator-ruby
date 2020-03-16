@@ -144,7 +144,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_operations.metadata.to_h
@@ -209,7 +209,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_operation.metadata.to_h
@@ -275,7 +275,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_operation.metadata.to_h
@@ -352,7 +352,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.cancel_operation.metadata.to_h
