@@ -71,7 +71,7 @@ module Google
         # @!attribute [rw] sentiment
         #   @return [Google::Cloud::Language::V1beta1::Sentiment]
         #     For calls to [AnalyzeSentiment][] or if
-        #     [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_document_sentiment]
+        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}
         #     is set to true, this field will contain the sentiment for the sentence.
         class Sentence
           include Google::Protobuf::MessageExts
@@ -799,7 +799,7 @@ module Google
         #   @return [Integer]
         #     The API calculates the beginning offset of the content in the original
         #     document according to the
-        #     [EncodingType][google.cloud.language.v1beta1.EncodingType] specified in the
+        #     {Google::Cloud::Language::V1beta1::EncodingType EncodingType} specified in the
         #     API request.
         class TextSpan
           include Google::Protobuf::MessageExts
@@ -827,7 +827,7 @@ module Google
         #   @return [String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See [Document.language][google.cloud.language.v1beta1.Document.language]
+        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         # @!attribute [rw] sentences
         #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
@@ -857,7 +857,7 @@ module Google
         #   @return [String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See [Document.language][google.cloud.language.v1beta1.Document.language]
+        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnalyzeEntitiesResponse
           include Google::Protobuf::MessageExts
@@ -887,7 +887,7 @@ module Google
         #   @return [String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See [Document.language][google.cloud.language.v1beta1.Document.language]
+        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnalyzeSyntaxResponse
           include Google::Protobuf::MessageExts
@@ -930,26 +930,26 @@ module Google
         # @!attribute [rw] sentences
         #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
         #     Sentences in the input document. Populated if the user enables
-        #     [AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_syntax].
+        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
         # @!attribute [rw] tokens
         #   @return [Array<Google::Cloud::Language::V1beta1::Token>]
         #     Tokens, along with their syntactic information, in the input document.
         #     Populated if the user enables
-        #     [AnnotateTextRequest.Features.extract_syntax][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_syntax].
+        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
         # @!attribute [rw] entities
         #   @return [Array<Google::Cloud::Language::V1beta1::Entity>]
         #     Entities, along with their semantic information, in the input document.
         #     Populated if the user enables
-        #     [AnnotateTextRequest.Features.extract_entities][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_entities].
+        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_entities AnnotateTextRequest.Features.extract_entities}.
         # @!attribute [rw] document_sentiment
         #   @return [Google::Cloud::Language::V1beta1::Sentiment]
         #     The overall sentiment for the document. Populated if the user enables
-        #     [AnnotateTextRequest.Features.extract_document_sentiment][google.cloud.language.v1beta1.AnnotateTextRequest.Features.extract_document_sentiment].
+        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}.
         # @!attribute [rw] language
         #   @return [String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See [Document.language][google.cloud.language.v1beta1.Document.language]
+        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnnotateTextResponse
           include Google::Protobuf::MessageExts

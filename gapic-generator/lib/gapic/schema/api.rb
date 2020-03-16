@@ -53,6 +53,14 @@ module Gapic
         @files.each { |f| f.parent = self }
       end
 
+      def containing_api
+        self
+      end
+
+      def containing_file
+        nil
+      end
+
       def lookup address
         address = address.join "." if address.is_a? Array
         @files.each do |f|

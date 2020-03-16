@@ -214,7 +214,7 @@ module Google
         #     product.name is immutable.
         # @!attribute [rw] update_mask
         #   @return [Google::Protobuf::FieldMask]
-        #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
+        #     The {Google::Protobuf::FieldMask FieldMask} that specifies which fields
         #     to update.
         #     If update_mask isn't specified, all mutable fields are to be updated.
         #     Valid mask paths include `product_labels`, `display_name`, and
@@ -304,7 +304,7 @@ module Google
         #     Required. The ProductSet resource which replaces the one on the server.
         # @!attribute [rw] update_mask
         #   @return [Google::Protobuf::FieldMask]
-        #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
+        #     The {Google::Protobuf::FieldMask FieldMask} that specifies which fields to
         #     update.
         #     If update_mask isn't specified, all mutable fields are to be updated.
         #     Valid mask path is `display_name`.
@@ -503,16 +503,16 @@ module Google
         #     `product-id` values does not exist, then the system will create a new
         #     `ProductSet` or `Product` for the image. In this case, the
         #     `product-display-name` column refers to
-        #     [display_name][google.cloud.vision.v1.Product.display_name], the
+        #     {Google::Cloud::Vision::V1::Product#display_name display_name}, the
         #     `product-category` column refers to
-        #     [product_category][google.cloud.vision.v1.Product.product_category], and the
-        #     `labels` column refers to [product_labels][google.cloud.vision.v1.Product.product_labels].
+        #     {Google::Cloud::Vision::V1::Product#product_category product_category}, and the
+        #     `labels` column refers to {Google::Cloud::Vision::V1::Product#product_labels product_labels}.
         #
         #     The `image-id` column is optional but must be unique if provided. If it is
         #     empty, the system will automatically assign a unique id to the image.
         #
         #     The `product-display-name` column is optional. If it is empty, the system
-        #     sets the [display_name][google.cloud.vision.v1.Product.display_name] field for the product to a
+        #     sets the {Google::Cloud::Vision::V1::Product#display_name display_name} field for the product to a
         #     space (" "). You can update the `display_name` later by using the API.
         #
         #     If a `Product` with the specified `product-id` already exists, then the
@@ -573,8 +573,8 @@ module Google
         # Response message for the `ImportProductSets` method.
         #
         # This message is returned by the
-        # [google.longrunning.Operations.GetOperation][google.longrunning.Operations.GetOperation] method in the returned
-        # [google.longrunning.Operation.response][google.longrunning.Operation.response] field.
+        # `google.longrunning.Operations.GetOperation` method in the returned
+        # {Google::Longrunning::Operation#response google.longrunning.Operation.response} field.
         # @!attribute [rw] reference_images
         #   @return [Array<Google::Cloud::Vision::V1::ReferenceImage>]
         #     The list of reference_images that are imported successfully.
@@ -604,7 +604,7 @@ module Google
         # @!attribute [rw] end_time
         #   @return [Google::Protobuf::Timestamp]
         #     The time when the batch request is finished and
-        #     [google.longrunning.Operation.done][google.longrunning.Operation.done] is set to true.
+        #     {Google::Longrunning::Operation#done google.longrunning.Operation.done} is set to true.
         class BatchOperationMetadata
           include Google::Protobuf::MessageExts
           extend Google::Protobuf::MessageExts::ClassMethods

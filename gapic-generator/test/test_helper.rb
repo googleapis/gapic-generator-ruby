@@ -21,6 +21,7 @@ require "gapic/path_template"
 require "gapic/resource_lookup"
 require "action_controller"
 require "action_view"
+require "ostruct"
 
 require "minitest/autorun"
 require "minitest/focus"
@@ -148,5 +149,115 @@ class ResourceLookupTest < Minitest::Test
     service_obj = api_obj.services.find { |s| s.name == service_name }
     refute_nil service_obj
     service_obj
+  end
+end
+
+# A fake api class for creating test fixtures
+class FakeApi
+  def initialize
+    @files = []
+    yield self if block_given?
+  end
+
+  def add_file! package, ruby_package = nil
+    @cur_registry = {}
+    @cur_messages = []
+    @cur_enums = []
+    @cur_services = []
+    @cur_address = package.split "."
+    yield if block_given?
+    descriptor = OpenStruct.new options: { ruby_package: ruby_package }, package: package
+    file = Gapic::Schema::File.new descriptor, @cur_address, nil, @cur_messages, @cur_enums,
+                                   @cur_services, nil, @cur_registry
+    @files << file
+    @cur_messages = @cur_enums = @cur_services = @cur_registry = @cur_address = nil
+    self
+  end
+
+  def add_message! name
+    old_address = @cur_address
+    @cur_address += [name]
+    @cur_fields = []
+    yield if block_given?
+    descriptor = OpenStruct.new name: name
+    message = Gapic::Schema::Message.new descriptor, @cur_address, nil, @cur_fields, nil, nil, nil
+    @cur_messages << message
+    @cur_registry[@cur_address.join "."] = message
+    @cur_address = old_address
+    @cur_fields = nil
+    self
+  end
+
+  def add_field! name
+    old_address = @cur_address
+    @cur_address += [name]
+    descriptor = OpenStruct.new name: name
+    field = Gapic::Schema::Field.new descriptor, @cur_address, nil, nil, nil
+    @cur_fields << field
+    @cur_registry[@cur_address.join "."] = field
+    @cur_address = old_address
+    self
+  end
+
+  def add_service! name
+    old_address = @cur_address
+    @cur_address += [name]
+    @cur_methods = []
+    yield if block_given?
+    descriptor = OpenStruct.new name: name
+    service = Gapic::Schema::Service.new descriptor, @cur_address, nil, @cur_methods
+    @cur_services << service
+    @cur_registry[@cur_address.join "."] = service
+    @cur_address = old_address
+    @cur_methods = nil
+    self
+  end
+
+  def add_method! name
+    old_address = @cur_address
+    @cur_address += [name]
+    descriptor = OpenStruct.new name: name
+    method = Gapic::Schema::Method.new descriptor, @cur_address, nil, nil, nil
+    @cur_methods << method
+    @cur_registry[@cur_address.join "."] = method
+    @cur_address = old_address
+    self
+  end
+
+  def add_enum! name
+    old_address = @cur_address
+    @cur_address += [name]
+    @cur_values = []
+    yield if block_given?
+    descriptor = OpenStruct.new name: name
+    enum = Gapic::Schema::Enum.new descriptor, @cur_address, nil, @cur_values
+    @cur_enums << enum
+    @cur_registry[@cur_address.join "."] = enum
+    @cur_address = old_address
+    @cur_values = nil
+    self
+  end
+
+  def add_value! name
+    old_address = @cur_address
+    @cur_address += [name]
+    descriptor = OpenStruct.new name: name
+    value = Gapic::Schema::EnumValue.new descriptor, @cur_address, nil
+    @cur_values << value
+    @cur_registry[@cur_address.join "."] = value
+    @cur_address = old_address
+    self
+  end
+
+  def lookup address
+    @files.each do |file|
+      object = file.lookup address
+      return object unless object.nil?
+    end
+    nil
+  end
+
+  def fix_namespace name
+    name
   end
 end

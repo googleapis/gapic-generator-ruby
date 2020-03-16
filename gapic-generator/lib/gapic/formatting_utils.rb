@@ -22,25 +22,21 @@ module Gapic
   #
   module FormattingUtils
     @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
+    @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\.]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
 
     class << self
       ##
-      # Given an enumerable of lines, escape braces that look like yardoc type
-      # links. Tries to be smart about handling only braces that would be
-      # interpreted by yard (i.e. those that are not part of preformatted text
-      # blocks).
+      # Given an enumerable of lines, performs yardoc formatting, including:
+      # * Interpreting cross-references identified as described in AIP 192
+      # * Escaping literal braces that look like yardoc type links
+      #
+      # Tries to be smart about exempting preformatted text blocks.
       #
       # @param lines [Enumerable<String>]
       # @return [Enumerable<String>]
       #
-      def escape_braces lines
-        # This looks for braces that:
-        # * Are opened and closed on the same line
-        # * Are not nested
-        # * Are not located between backticks
-        # * Are not in a preformatted block
-        #
+      def format_doc_lines api, lines
         # To detect preformatted blocks, this tracks the "expected" base indent
         # according to Markdown. Specifically, this is the effective indent of
         # previous block, which is normally 0 except if we're in a list item.
@@ -55,7 +51,10 @@ module Gapic
             in_block = nil
           else
             in_block, base_indent = update_indent_state in_block, base_indent, line, indent
-            line = escape_line_braces line if in_block == false
+            if in_block == false
+              line = escape_line_braces line
+              line = format_line_xrefs api, line
+            end
           end
           line
         end
@@ -103,6 +102,42 @@ module Gapic
           line = "#{m[:pre]}\\\\{#{m[:inside]}}#{m[:post]}"
         end
         line
+      end
+
+      def format_line_xrefs api, line
+        while (m = @xref_detector.match line)
+          entity = api.lookup m[:addr]
+          file = entity&.containing_file
+          return line if file.nil?
+          transformed_xref = transform_xref api, entity, file, m[:text]
+          return line if transformed_xref.nil?
+          line = "#{m[:pre]}#{transformed_xref}#{m[:post]}"
+        end
+        line
+      end
+
+      def transform_xref api, entity, file, text
+        return "`#{text}`" if entity.address[0, 3] == ["google", "longrunning", "Operations"]
+        case entity
+        when Gapic::Schema::Service
+          ruby_namespace = convert_address_to_ruby api, file, entity.address
+          "{#{ruby_namespace}::Client #{text}}"
+        when Gapic::Schema::Method
+          ruby_namespace = convert_address_to_ruby api, file, entity.parent.address
+          "{#{ruby_namespace}::Client##{entity.name.underscore} #{text}}"
+        when Gapic::Schema::Message, Gapic::Schema::Enum, Gapic::Schema::EnumValue
+          ruby_namespace = convert_address_to_ruby api, file, entity.address
+          "{#{ruby_namespace} #{text}}"
+        when Gapic::Schema::Field
+          ruby_namespace = convert_address_to_ruby api, file, entity.parent.address
+          "{#{ruby_namespace}##{entity.name} #{text}}"
+        end
+      end
+
+      def convert_address_to_ruby api, file, address
+        address = address.join "." if address.is_a? Array
+        address = address.sub file.package, file.ruby_package if file.ruby_package&.present?
+        address.split(".").reject(&:empty?).map(&:camelize).map { |node| api.fix_namespace node }.join("::")
       end
     end
   end

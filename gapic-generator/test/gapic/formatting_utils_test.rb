@@ -19,57 +19,57 @@ require "gapic/formatting_utils"
 
 class FormattingUtilsTest < Minitest::Test
   def test_escape_braces_empty
-    result = Gapic::FormattingUtils.escape_braces []
+    result = Gapic::FormattingUtils.format_doc_lines nil, []
     assert_equal [], result
   end
 
   def test_escape_braces_no_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello world\n"]
     assert_equal ["hello world\n"], result
   end
 
   def test_escape_braces_simple_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello {ruby} world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ruby} world\n"]
     assert_equal ["hello \\\\{ruby} world\n"], result
   end
 
   def test_escape_braces_simple_brace_onechar_line
-    result = Gapic::FormattingUtils.escape_braces ["hello {r} world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {r} world\n"]
     assert_equal ["hello \\\\{r} world\n"], result
   end
 
   def test_escape_braces_backtick_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello `{ruby}` world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello `{ruby}` world\n"]
     assert_equal ["hello `{ruby}` world\n"], result
   end
 
   def test_escape_braces_unmatched_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello {ruby world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ruby world\n"]
     assert_equal ["hello {ruby world\n"], result
   end
 
   def test_escape_braces_escaped_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello \\{ruby world}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello \\{ruby world}\n"]
     assert_equal ["hello \\{ruby world}\n"], result
   end
 
   def test_escape_braces_multiple_backtick_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello `stuff` `{ruby}` world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello `stuff` `{ruby}` world\n"]
     assert_equal ["hello `stuff` `{ruby}` world\n"], result
   end
 
   def test_escape_braces_multiple_brace_line
-    result = Gapic::FormattingUtils.escape_braces ["hello {ruby} {world} with {cheese}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ruby} {world} with {cheese}\n"]
     assert_equal ["hello \\\\{ruby} \\\\{world} with \\\\{cheese}\n"], result
   end
 
   def test_escape_braces_line_starting_with_brace
-    result = Gapic::FormattingUtils.escape_braces ["{hello} world\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["{hello} world\n"]
     assert_equal ["\\\\{hello} world\n"], result
   end
 
   def test_escape_braces_with_normal_blocks
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "hello {ruby}\n",
       "     hello {world}\n",
       "this {works}\n"
@@ -82,7 +82,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_pre_and_normal_blocks
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "hello {ruby}\n",
       "\n",
       "    hello {world}\n",
@@ -97,7 +97,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_list_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "* hello {ruby}\n",
       "\n",
       "    hello {ruby3}\n"
@@ -110,7 +110,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_list_and_pre_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "* hello {ruby}\n",
       "\n",
       "        hello {ruby3}\n"
@@ -123,7 +123,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_indented_list_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       " * hello {ruby}\n",
       "\n",
       "       hello {ruby3}\n"
@@ -136,7 +136,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_indented_list_and_pre_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       " * hello {ruby}\n",
       "\n",
       "        hello {ruby3}\n"
@@ -149,7 +149,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_nested_list_blocks
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "* hello {ruby}\n",
       " * hello {ruby2}\n",
       "\n",
@@ -164,7 +164,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_nested_list_and_pre_blocks
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "* hello {ruby}\n",
       " * hello {ruby2}\n",
       "\n",
@@ -179,7 +179,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_plus_list_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "+ hello {ruby}\n",
       "\n",
       "    hello {ruby3}\n"
@@ -192,7 +192,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_minus_list_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "- hello {ruby}\n",
       "\n",
       "    hello {ruby3}\n"
@@ -205,7 +205,7 @@ class FormattingUtilsTest < Minitest::Test
   end
 
   def test_escape_braces_with_ordered_list_block
-    result = Gapic::FormattingUtils.escape_braces [
+    result = Gapic::FormattingUtils.format_doc_lines nil, [
       "12. hello {ruby}\n",
       "\n",
       "    hello {ruby3}\n"
@@ -219,7 +219,7 @@ class FormattingUtilsTest < Minitest::Test
 
   # the other escape method is space after the bracket: { something}
   def test_dont_escape_open_space_bracket
-    result = Gapic::FormattingUtils.escape_braces ["hello { ruby world}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello { ruby world}\n"]
     assert_equal ["hello { ruby world}\n"], result
   end
 
@@ -228,7 +228,7 @@ class FormattingUtilsTest < Minitest::Test
     separators = ["-", "|", "%", "$", "^", "~", "*", ":"]
 
     separators.each do |separator|
-      result = Gapic::FormattingUtils.escape_braces ["hello {ruby#{separator}world}\n"]
+      result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ruby#{separator}world}\n"]
       assert_equal ["hello \\\\{ruby#{separator}world}\n"], result
     end
   end
@@ -239,24 +239,110 @@ class FormattingUtilsTest < Minitest::Test
     separators = ["#", "::"]
 
     separators.each do |separator|
-      result = Gapic::FormattingUtils.escape_braces ["hello {Ruby#{separator}world}\n"]
+      result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {Ruby#{separator}world}\n"]
       assert_equal ["hello \\\\{Ruby#{separator}world}\n"], result
     end
   end
 
   def test_escape_braces_yardexample_object
-    result = Gapic::FormattingUtils.escape_braces ["hello {ObjectName#method OPTIONAL_TITLE}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {ObjectName#method OPTIONAL_TITLE}\n"]
     assert_equal ["hello \\\\{ObjectName#method OPTIONAL_TITLE}\n"], result
   end
 
   def test_escape_braces_yardexample_class
-    result = Gapic::FormattingUtils.escape_braces ["hello {Class::CONSTANT My constant's title}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {Class::CONSTANT My constant's title}\n"]
     assert_equal ["hello \\\\{Class::CONSTANT My constant's title}\n"], result
   end
   
   def test_escape_braces_yardexample_method
-    result = Gapic::FormattingUtils.escape_braces ["hello {#method_inside_current_namespace}\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, ["hello {#method_inside_current_namespace}\n"]
     assert_equal ["hello \\\\{#method_inside_current_namespace}\n"], result
+  end
+
+  def test_xref_message
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth World}!\n"], result
+  end
+
+  def test_xref_message_with_ruby_package
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example", "Google::Cloud::MyExample" do
+        api.add_message! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {Google::Cloud::MyExample::Earth World}!\n"], result
+  end
+
+  def test_xref_multiple_messages
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth"
+        api.add_message! "Ruby"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api,
+      ["Hello, [Ruby][google.cloud.example.Ruby] [World][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Ruby Ruby} {Google::Cloud::Example::Earth World}!\n"], result
+  end
+
+  def test_xref_proto_not_found
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [Ruby][google.cloud.example.Ruby]!\n"]
+    assert_equal ["Hello, [Ruby][google.cloud.example.Ruby]!\n"], result
+  end
+
+  def test_xref_service
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth::Client World}!\n"], result
+  end
+
+  def test_xref_with_method
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "Earth" do
+          api.add_method! "get_name"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.get_name]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth::Client#get_name World}!\n"], result
+  end
+
+  def test_xref_operations_service
+    api = FakeApi.new do |api|
+      api.add_file! "google.longrunning" do
+        api.add_service! "Operations"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.longrunning.Operations]!\n"]
+    assert_equal ["Hello, `World`!\n"], result
+  end
+
+  def test_xref_operations_method
+    api = FakeApi.new do |api|
+      api.add_file! "google.longrunning" do
+        api.add_service! "Operations" do
+          api.add_method! "get_operation"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.longrunning.Operations.get_operation]!\n"]
+    assert_equal ["Hello, `World`!\n"], result
   end
 
   def test_format_number_small_integer

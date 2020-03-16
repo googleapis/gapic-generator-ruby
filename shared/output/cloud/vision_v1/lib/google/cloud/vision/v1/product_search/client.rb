@@ -403,7 +403,7 @@ module Google
             #   @param product_set [Google::Cloud::Vision::V1::ProductSet | Hash]
             #     Required. The ProductSet resource which replaces the one on the server.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
-            #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields to
+            #     The {Google::Protobuf::FieldMask FieldMask} that specifies which fields to
             #     update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask path is `display_name`.
@@ -792,7 +792,7 @@ module Google
             #     Required. The Product resource which replaces the one on the server.
             #     product.name is immutable.
             #   @param update_mask [Google::Protobuf::FieldMask | Hash]
-            #     The [FieldMask][google.protobuf.FieldMask] that specifies which fields
+            #     The {Google::Protobuf::FieldMask FieldMask} that specifies which fields
             #     to update.
             #     If update_mask isn't specified, all mutable fields are to be updated.
             #     Valid mask paths include `product_labels`, `display_name`, and
@@ -1479,28 +1479,28 @@ module Google
             # Asynchronous API that imports a list of reference images to specified
             # product sets based on a list of image information.
             #
-            # The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            # The {Google::Longrunning::Operation google.longrunning.Operation} API can be used to keep track of the
             # progress and results of the request.
             # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             # `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
             # The input source of this method is a csv file on Google Cloud Storage.
             # For the format of the csv file please see
-            # [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
+            # {Google::Cloud::Vision::V1::ImportProductSetsGcsSource#csv_file_uri ImportProductSetsGcsSource.csv_file_uri}.
             #
             # @overload import_product_sets(request, options = nil)
             #   @param request [Google::Cloud::Vision::V1::ImportProductSetsRequest | Hash]
             #     Asynchronous API that imports a list of reference images to specified
             #     product sets based on a list of image information.
             #
-            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            #     The {Google::Longrunning::Operation google.longrunning.Operation} API can be used to keep track of the
             #     progress and results of the request.
             #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #     `Operation.response` contains `ImportProductSetsResponse`. (results)
             #
             #     The input source of this method is a csv file on Google Cloud Storage.
             #     For the format of the csv file please see
-            #     [ImportProductSetsGcsSource.csv_file_uri][google.cloud.vision.v1.ImportProductSetsGcsSource.csv_file_uri].
+            #     {Google::Cloud::Vision::V1::ImportProductSetsGcsSource#csv_file_uri ImportProductSetsGcsSource.csv_file_uri}.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
@@ -1581,7 +1581,7 @@ module Google
             # ProductSet, you must wait until the PurgeProducts operation has finished
             # for that ProductSet.
             #
-            # The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            # The {Google::Longrunning::Operation google.longrunning.Operation} API can be used to keep track of the
             # progress and results of the request.
             # `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #
@@ -1608,7 +1608,7 @@ module Google
             #     ProductSet, you must wait until the PurgeProducts operation has finished
             #     for that ProductSet.
             #
-            #     The [google.longrunning.Operation][google.longrunning.Operation] API can be used to keep track of the
+            #     The {Google::Longrunning::Operation google.longrunning.Operation} API can be used to keep track of the
             #     progress and results of the request.
             #     `Operation.metadata` contains `BatchOperationMetadata`. (progress)
             #   @param options [Gapic::CallOptions, Hash]

@@ -489,12 +489,12 @@ module Google
             end
 
             ##
-            # Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1.LanguageService.AnalyzeEntities] in the text and analyzes
+            # Finds entities, similar to {Google::Cloud::Language::V1::LanguageService::Client#analyze_entities AnalyzeEntities} in the text and analyzes
             # sentiment associated with each entity and its mentions.
             #
             # @overload analyze_entity_sentiment(request, options = nil)
             #   @param request [Google::Cloud::Language::V1::AnalyzeEntitySentimentRequest | Hash]
-            #     Finds entities, similar to [AnalyzeEntities][google.cloud.language.v1.LanguageService.AnalyzeEntities] in the text and analyzes
+            #     Finds entities, similar to {Google::Cloud::Language::V1::LanguageService::Client#analyze_entities AnalyzeEntities} in the text and analyzes
             #     sentiment associated with each entity and its mentions.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.

@@ -95,6 +95,18 @@ module Gapic
         @docs = docs
       end
 
+      # Returns the "root" of this schema.
+      # @return [Gapic::Schema::Api]
+      def containing_api
+        parent&.containing_api
+      end
+
+      # Returns the file containing this proto entity
+      # @return [Gapic::Schema::File]
+      def containing_file
+        parent&.containing_file
+      end
+
       # Gets the cleaned up leading comments documentation
       def docs_leading_comments
         return nil if @docs.nil?
@@ -102,7 +114,7 @@ module Gapic
 
         lines = @docs.leading_comments.each_line.to_a
         lines.map! { |line| line.start_with?(" ") ? line[1..-1] : line }
-        lines = FormattingUtils.escape_braces lines
+        lines = FormattingUtils.format_doc_lines containing_api, lines
         lines.join
       end
 
@@ -374,6 +386,10 @@ module Gapic
         @messages.each { |m| m.parent = self }
         @enums.each    { |m| m.parent = self }
         @services.each { |m| m.parent = self }
+      end
+
+      def containing_file
+        self
       end
 
       def lookup address
