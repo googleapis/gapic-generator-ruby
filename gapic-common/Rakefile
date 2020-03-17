@@ -37,6 +37,11 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+task :release_gem do
+  Rake::Task["build"].invoke
+  Rake::Task["release:rubygem_push"].invoke
+end
+
 task default: :ci
 
 task :gen do

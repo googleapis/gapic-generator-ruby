@@ -23,7 +23,7 @@ module Google
       module V1
         module Services
           # Request message for
-          # [CampaignService.GetCampaign][google.ads.googleads.v1.services.CampaignService.GetCampaign].
+          # {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#get_campaign CampaignService.GetCampaign}.
           # @!attribute [rw] resource_name
           #   @return [String]
           #     The resource name of the campaign to fetch.
@@ -33,7 +33,7 @@ module Google
           end
 
           # Request message for
-          # [CampaignService.MutateCampaigns][google.ads.googleads.v1.services.CampaignService.MutateCampaigns].
+          # {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#mutate_campaigns CampaignService.MutateCampaigns}.
           # @!attribute [rw] customer_id
           #   @return [String]
           #     The ID of the customer whose campaigns are being modified.

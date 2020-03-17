@@ -26,7 +26,7 @@ module Google
         #     TextAnnotation -> Page -> Block -> Paragraph -> Word -> Symbol
         # Each structural component, starting from Page, may further have their own
         # properties. Properties describe detected languages, breaks etc.. Please refer
-        # to the [TextAnnotation.TextProperty][google.cloud.vision.v1.TextAnnotation.TextProperty] message definition below for more
+        # to the {Google::Cloud::Vision::V1::TextAnnotation::TextProperty TextAnnotation.TextProperty} message definition below for more
         # detail.
         # @!attribute [rw] pages
         #   @return [Array<Google::Cloud::Vision::V1::Page>]
