@@ -179,7 +179,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_room.metadata.to_h
@@ -230,7 +230,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_room.metadata.to_h
@@ -290,7 +290,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::UpdateRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_room.metadata.to_h
@@ -347,7 +347,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteRoomRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_room.metadata.to_h
@@ -409,7 +409,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListRoomsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_rooms.metadata.to_h
@@ -468,7 +468,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_blurb.metadata.to_h
@@ -525,7 +525,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_blurb.metadata.to_h
@@ -585,7 +585,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::UpdateBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_blurb.metadata.to_h
@@ -642,7 +642,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteBlurbRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_blurb.metadata.to_h
@@ -709,7 +709,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_blurbs.metadata.to_h
@@ -784,7 +784,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::SearchBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.search_blurbs.metadata.to_h
@@ -846,7 +846,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::StreamBlurbsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.stream_blurbs.metadata.to_h
@@ -903,7 +903,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.send_blurbs.metadata.to_h
@@ -956,7 +956,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.connect.metadata.to_h

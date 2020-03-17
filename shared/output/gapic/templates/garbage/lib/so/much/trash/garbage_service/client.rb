@@ -175,7 +175,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::EmptyGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_empty_garbage.metadata.to_h
@@ -275,7 +275,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SimpleGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_simple_garbage.metadata.to_h
@@ -346,7 +346,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SpecificGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_specific_garbage.metadata.to_h
@@ -415,7 +415,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SpecificGarbage::NestedGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_nested_garbage.metadata.to_h
@@ -484,7 +484,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::RepeatedGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_repeated_garbage.metadata.to_h
@@ -615,7 +615,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::TypicalGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_typical_garbage.metadata.to_h
@@ -709,7 +709,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::ComplexGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_complex_garbage.metadata.to_h
@@ -760,7 +760,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::GarbageNode
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_garbage_node.metadata.to_h
@@ -832,7 +832,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::PagedGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_paged_garbage.metadata.to_h
@@ -886,7 +886,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::LongRunningGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.long_running_garbage.metadata.to_h
@@ -937,7 +937,7 @@ module So
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.client_garbage.metadata.to_h
@@ -1005,7 +1005,7 @@ module So
             request = Gapic::Protobuf.coerce request, to: So::Much::Trash::ListGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.server_garbage.metadata.to_h
@@ -1055,7 +1055,7 @@ module So
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.bidi_garbage.metadata.to_h

@@ -178,7 +178,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::EchoRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.echo.metadata.to_h
@@ -233,7 +233,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ExpandRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.expand.metadata.to_h
@@ -285,7 +285,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.collect.metadata.to_h
@@ -337,7 +337,7 @@ module Google
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.chat.metadata.to_h
@@ -394,7 +394,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::PagedExpandRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.paged_expand.metadata.to_h
@@ -455,7 +455,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::WaitRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.wait.metadata.to_h
@@ -516,7 +516,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::BlockRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.block.metadata.to_h

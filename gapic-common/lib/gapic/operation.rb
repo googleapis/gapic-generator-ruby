@@ -196,7 +196,7 @@ module Gapic
     #
     def cancel options: nil
       # Converts hash and nil to an options object
-      options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+      options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
       @client.cancel_operation({ name: @grpc_op.name }, options)
     end
@@ -209,7 +209,7 @@ module Gapic
     #
     def delete options: nil
       # Converts hash and nil to an options object
-      options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+      options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
       @client.delete_operation({ name: @grpc_op.name }, options)
     end
@@ -224,7 +224,7 @@ module Gapic
     #
     def reload! options: nil
       # Converts hash and nil to an options object
-      options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+      options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
       gax_op = @client.get_operation({ name: @grpc_op.name }, options)
       @grpc_op = gax_op.grpc_op

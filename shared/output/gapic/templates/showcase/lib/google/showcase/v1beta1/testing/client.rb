@@ -176,7 +176,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_session.metadata.to_h
@@ -227,7 +227,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_session.metadata.to_h
@@ -286,7 +286,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListSessionsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_sessions.metadata.to_h
@@ -338,7 +338,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_session.metadata.to_h
@@ -399,7 +399,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ReportSessionRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.report_session.metadata.to_h
@@ -460,7 +460,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListTestsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_tests.metadata.to_h
@@ -528,7 +528,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteTestRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_test.metadata.to_h
@@ -595,7 +595,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::VerifyTestRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.verify_test.metadata.to_h

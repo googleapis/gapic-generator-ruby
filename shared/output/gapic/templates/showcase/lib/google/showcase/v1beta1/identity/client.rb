@@ -174,7 +174,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::CreateUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.create_user.metadata.to_h
@@ -225,7 +225,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::GetUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_user.metadata.to_h
@@ -285,7 +285,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::UpdateUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.update_user.metadata.to_h
@@ -342,7 +342,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::DeleteUserRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_user.metadata.to_h
@@ -404,7 +404,7 @@ module Google
             request = Gapic::Protobuf.coerce request, to: Google::Showcase::V1beta1::ListUsersRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_users.metadata.to_h

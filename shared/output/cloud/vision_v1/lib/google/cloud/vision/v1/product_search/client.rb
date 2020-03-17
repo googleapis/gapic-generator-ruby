@@ -199,7 +199,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product_set.metadata.to_h
@@ -274,7 +274,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_product_sets.metadata.to_h
@@ -345,7 +345,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product_set.metadata.to_h
@@ -423,7 +423,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product_set.metadata.to_h
@@ -491,7 +491,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product_set.metadata.to_h
@@ -574,7 +574,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_product.metadata.to_h
@@ -648,7 +648,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products.metadata.to_h
@@ -719,7 +719,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_product.metadata.to_h
@@ -813,7 +813,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::UpdateProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_product.metadata.to_h
@@ -883,7 +883,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteProductRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_product.metadata.to_h
@@ -989,7 +989,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::CreateReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_reference_image.metadata.to_h
@@ -1064,7 +1064,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::DeleteReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_reference_image.metadata.to_h
@@ -1145,7 +1145,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListReferenceImagesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_reference_images.metadata.to_h
@@ -1217,7 +1217,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::GetReferenceImageRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_reference_image.metadata.to_h
@@ -1298,7 +1298,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::AddProductToProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.add_product_to_product_set.metadata.to_h
@@ -1365,7 +1365,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.remove_product_from_product_set.metadata.to_h
@@ -1443,7 +1443,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_products_in_product_set.metadata.to_h
@@ -1527,7 +1527,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::ImportProductSetsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.import_product_sets.metadata.to_h
@@ -1643,7 +1643,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::Vision::V1::PurgeProductsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.purge_products.metadata.to_h
