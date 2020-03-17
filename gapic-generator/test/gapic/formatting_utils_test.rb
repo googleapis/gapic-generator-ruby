@@ -291,6 +291,30 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {Google::Cloud::Example::Ruby Ruby} {Google::Cloud::Example::Earth World}!\n"], result
   end
 
+  def test_xref_nested_message
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth" do
+          api.add_message! "Continent"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.Continent]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth::Continent World}!\n"], result
+  end
+
+  def test_xref_field
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth" do
+          api.add_field! "population"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.population]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth#population World}!\n"], result
+  end
+
   def test_xref_proto_not_found
     api = FakeApi.new do |api|
       api.add_file! "google.cloud.example" do
