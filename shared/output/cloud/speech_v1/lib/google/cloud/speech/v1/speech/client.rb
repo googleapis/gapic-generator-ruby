@@ -573,7 +573,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @speech_stub.call_rpc :long_running_recognize, request, options: options do |response, operation|
-                response = Gapic::Operation.new response, @operations_client
+                response = Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
               end

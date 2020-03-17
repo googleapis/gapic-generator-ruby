@@ -1551,7 +1551,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
-                response = Gapic::Operation.new response, @operations_client
+                response = Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
               end
@@ -1667,7 +1667,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|
-                response = Gapic::Operation.new response, @operations_client
+                response = Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
               end

@@ -84,6 +84,7 @@ module Gapic
     # @param metadata_type [Class] The class type to be unpacked from the metadata. If not provided the class type
     #   will be looked up. Optional.
     # @param options [Gapic::CallOptions] call options for this operation
+    #
     def initialize grpc_op, client, result_type: nil, metadata_type: nil, options: {}
       @grpc_op = grpc_op
       @client = client
@@ -229,7 +230,6 @@ module Gapic
                 else
                   @options.to_h
                 end
-
       options = Gapic::CallOptions.new(**options)
       gax_op = @client.get_operation({ name: @grpc_op.name }, options)
       @grpc_op = gax_op.grpc_op

@@ -374,7 +374,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
-                response = Gapic::Operation.new response, @operations_client
+                response = Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
               end
@@ -451,7 +451,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
-                response = Gapic::Operation.new response, @operations_client
+                response = Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
               end
