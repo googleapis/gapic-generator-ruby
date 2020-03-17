@@ -107,34 +107,45 @@ module Gapic
       def format_line_xrefs api, line
         while (m = @xref_detector.match line)
           entity = api.lookup m[:addr]
-          file = entity&.containing_file
-          return line if file.nil?
-          transformed_xref = transform_xref api, entity, file, m[:text]
-          return line if transformed_xref.nil?
-          line = "#{m[:pre]}#{transformed_xref}#{m[:post]}"
+          return line if entity.nil?
+          yard_link = yard_link_for_entity entity, m[:text]
+          return line if yard_link.nil?
+          line = "#{m[:pre]}#{yard_link}#{m[:post]}"
         end
         line
       end
 
-      def transform_xref api, entity, file, text
-        return "`#{text}`" if entity.address[0, 3] == ["google", "longrunning", "Operations"]
+      ##
+      # Generate a YARD-style cross-reference for the given entity.
+      #
+      # @param entity [Gapic::Schema::Proto] the entity to link to
+      # @param text [String] the text for the link
+      # @return [String] YARD cross-reference syntax
+      #
+      def yard_link_for_entity entity, text
+        # As a special case, omit the service "google.longrunning.Operations"
+        # and its methods. This is because the generator creates
+        # service-specific copies of the operations client, rather than a
+        # Google::Longrunning::Operations::Client class, and there is in
+        # general no way to tell what the actual service-specific namespace is.
+        return text if entity.address[0, 3] == ["google", "longrunning", "Operations"]
+
         case entity
         when Gapic::Schema::Service
-          ruby_namespace = convert_address_to_ruby api, file, entity.address
-          "{#{ruby_namespace}::Client #{text}}"
+          "{#{convert_address_to_ruby entity}::Client #{text}}"
         when Gapic::Schema::Method
-          ruby_namespace = convert_address_to_ruby api, file, entity.parent.address
-          "{#{ruby_namespace}::Client##{entity.name.underscore} #{text}}"
+          "{#{convert_address_to_ruby entity.parent}::Client##{entity.name.underscore} #{text}}"
         when Gapic::Schema::Message, Gapic::Schema::Enum, Gapic::Schema::EnumValue
-          ruby_namespace = convert_address_to_ruby api, file, entity.address
-          "{#{ruby_namespace} #{text}}"
+          "{#{convert_address_to_ruby entity} #{text}}"
         when Gapic::Schema::Field
-          ruby_namespace = convert_address_to_ruby api, file, entity.parent.address
-          "{#{ruby_namespace}##{entity.name} #{text}}"
+          "{#{convert_address_to_ruby entity.parent}##{entity.name} #{text}}"
         end
       end
 
-      def convert_address_to_ruby api, file, address
+      def convert_address_to_ruby entity
+        file = entity.containing_file
+        api = file.containing_api
+        address = entity.address
         address = address.join "." if address.is_a? Array
         address = address.sub file.package, file.ruby_package if file.ruby_package&.present?
         address.split(".").reject(&:empty?).map(&:camelize).map { |node| api.fix_namespace node }.join("::")

@@ -573,7 +573,7 @@ module Google
         # Response message for the `ImportProductSets` method.
         #
         # This message is returned by the
-        # `google.longrunning.Operations.GetOperation` method in the returned
+        # google.longrunning.Operations.GetOperation method in the returned
         # {Google::Longrunning::Operation#response google.longrunning.Operation.response} field.
         # @!attribute [rw] reference_images
         #   @return [Array<Google::Cloud::Vision::V1::ReferenceImage>]

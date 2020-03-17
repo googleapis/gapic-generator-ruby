@@ -330,7 +330,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.longrunning.Operations]!\n"]
-    assert_equal ["Hello, `World`!\n"], result
+    assert_equal ["Hello, World!\n"], result
   end
 
   def test_xref_operations_method
@@ -342,7 +342,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.longrunning.Operations.get_operation]!\n"]
-    assert_equal ["Hello, `World`!\n"], result
+    assert_equal ["Hello, World!\n"], result
   end
 
   def test_format_number_small_integer

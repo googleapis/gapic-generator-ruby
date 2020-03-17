@@ -169,6 +169,7 @@ class FakeApi
     descriptor = OpenStruct.new options: { ruby_package: ruby_package }, package: package
     file = Gapic::Schema::File.new descriptor, @cur_address, nil, @cur_messages, @cur_enums,
                                    @cur_services, nil, @cur_registry
+    file.parent = self
     @files << file
     @cur_messages = @cur_enums = @cur_services = @cur_registry = @cur_address = nil
     self
@@ -255,6 +256,10 @@ class FakeApi
       return object unless object.nil?
     end
     nil
+  end
+
+  def containing_api
+    self
   end
 
   def fix_namespace name
