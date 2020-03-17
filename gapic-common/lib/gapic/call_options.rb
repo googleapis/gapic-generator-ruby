@@ -64,5 +64,13 @@ module Gapic
       @metadata = metadata.merge @metadata if metadata
       @retry_policy.apply_defaults retry_policy if @retry_policy.respond_to? :apply_defaults
     end
+
+    def to_h
+      {
+        timeout:      timeout,
+        metadata:     metadata,
+        retry_policy: retry_policy
+      }
+    end
   end
 end
