@@ -109,7 +109,7 @@ module Google
         #   @return [Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding]
         #     Encoding of audio data sent in all `RecognitionAudio` messages.
         #     This field is optional for `FLAC` and `WAV` audio files and required
-        #     for all other audio formats. For details, see [AudioEncoding][google.cloud.speech.v1.RecognitionConfig.AudioEncoding].
+        #     for all other audio formats. For details, see {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
         # @!attribute [rw] sample_rate_hertz
         #   @return [Integer]
         #     Sample rate in Hertz of the audio data sent in all
@@ -118,7 +118,7 @@ module Google
         #     source to 16000 Hz. If that's not possible, use the native sample rate of
         #     the audio source (instead of re-sampling).
         #     This field is optional for FLAC and WAV audio files, but is
-        #     required for all other audio formats. For details, see [AudioEncoding][google.cloud.speech.v1.RecognitionConfig.AudioEncoding].
+        #     required for all other audio formats. For details, see {Google::Cloud::Speech::V1::RecognitionConfig::AudioEncoding AudioEncoding}.
         # @!attribute [rw] audio_channel_count
         #   @return [Integer]
         #     The number of channels in the input audio data.
@@ -162,7 +162,7 @@ module Google
         #     won't be filtered out.
         # @!attribute [rw] speech_contexts
         #   @return [Array<Google::Cloud::Speech::V1::SpeechContext>]
-        #     Array of [SpeechContext][google.cloud.speech.v1.SpeechContext].
+        #     Array of {Google::Cloud::Speech::V1::SpeechContext SpeechContext}.
         #     A means to provide context to assist the speech recognition. For more
         #     information, see
         #     [speech
@@ -604,7 +604,7 @@ module Google
         #     one or more (repeated) `results`.
         # @!attribute [rw] error
         #   @return [Google::Rpc::Status]
-        #     If set, returns a [google.rpc.Status][google.rpc.Status] message that
+        #     If set, returns a {Google::Rpc::Status google.rpc.Status} message that
         #     specifies the error for the operation.
         # @!attribute [rw] results
         #   @return [Array<Google::Cloud::Speech::V1::StreamingRecognitionResult>]

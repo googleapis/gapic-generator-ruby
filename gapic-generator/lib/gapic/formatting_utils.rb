@@ -22,25 +22,21 @@ module Gapic
   #
   module FormattingUtils
     @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
+    @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\.]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
 
     class << self
       ##
-      # Given an enumerable of lines, escape braces that look like yardoc type
-      # links. Tries to be smart about handling only braces that would be
-      # interpreted by yard (i.e. those that are not part of preformatted text
-      # blocks).
+      # Given an enumerable of lines, performs yardoc formatting, including:
+      # * Interpreting cross-references identified as described in AIP 192
+      # * Escaping literal braces that look like yardoc type links
+      #
+      # Tries to be smart about exempting preformatted text blocks.
       #
       # @param lines [Enumerable<String>]
       # @return [Enumerable<String>]
       #
-      def escape_braces lines
-        # This looks for braces that:
-        # * Are opened and closed on the same line
-        # * Are not nested
-        # * Are not located between backticks
-        # * Are not in a preformatted block
-        #
+      def format_doc_lines api, lines
         # To detect preformatted blocks, this tracks the "expected" base indent
         # according to Markdown. Specifically, this is the effective indent of
         # previous block, which is normally 0 except if we're in a list item.
@@ -55,7 +51,10 @@ module Gapic
             in_block = nil
           else
             in_block, base_indent = update_indent_state in_block, base_indent, line, indent
-            line = escape_line_braces line if in_block == false
+            if in_block == false
+              line = escape_line_braces line
+              line = format_line_xrefs api, line
+            end
           end
           line
         end
@@ -103,6 +102,53 @@ module Gapic
           line = "#{m[:pre]}\\\\{#{m[:inside]}}#{m[:post]}"
         end
         line
+      end
+
+      def format_line_xrefs api, line
+        while (m = @xref_detector.match line)
+          entity = api.lookup m[:addr]
+          return line if entity.nil?
+          yard_link = yard_link_for_entity entity, m[:text]
+          return line if yard_link.nil?
+          line = "#{m[:pre]}#{yard_link}#{m[:post]}"
+        end
+        line
+      end
+
+      ##
+      # Generate a YARD-style cross-reference for the given entity.
+      #
+      # @param entity [Gapic::Schema::Proto] the entity to link to
+      # @param text [String] the text for the link
+      # @return [String] YARD cross-reference syntax
+      #
+      def yard_link_for_entity entity, text
+        # As a special case, omit the service "google.longrunning.Operations"
+        # and its methods. This is because the generator creates
+        # service-specific copies of the operations client, rather than a
+        # Google::Longrunning::Operations::Client class, and there is in
+        # general no way to tell what the actual service-specific namespace is.
+        return text if entity.address[0, 3] == ["google", "longrunning", "Operations"]
+
+        case entity
+        when Gapic::Schema::Service
+          "{#{convert_address_to_ruby entity}::Client #{text}}"
+        when Gapic::Schema::Method
+          "{#{convert_address_to_ruby entity.parent}::Client##{entity.name.underscore} #{text}}"
+        when Gapic::Schema::Message, Gapic::Schema::Enum, Gapic::Schema::EnumValue
+          "{#{convert_address_to_ruby entity} #{text}}"
+        when Gapic::Schema::Field
+          "{#{convert_address_to_ruby entity.parent}##{entity.name} #{text}}"
+        end
+      end
+
+      def convert_address_to_ruby entity
+        file = entity.containing_file
+        api = file.containing_api
+        address = entity.address
+        address = address.join "." if address.is_a? Array
+        address = address.sub file.package, file.ruby_package if file.ruby_package&.present?
+        address.split(".").reject(&:empty?).map(&:camelize).map { |node| api.fix_namespace node }.join("::")
       end
     end
   end

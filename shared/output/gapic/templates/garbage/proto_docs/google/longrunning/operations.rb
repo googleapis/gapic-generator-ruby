@@ -63,7 +63,7 @@ module Google
       extend Google::Protobuf::MessageExts::ClassMethods
     end
 
-    # The request message for [Operations.GetOperation][google.longrunning.Operations.GetOperation].
+    # The request message for Operations.GetOperation.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource.
@@ -72,7 +72,7 @@ module Google
       extend Google::Protobuf::MessageExts::ClassMethods
     end
 
-    # The request message for [Operations.ListOperations][google.longrunning.Operations.ListOperations].
+    # The request message for Operations.ListOperations.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation collection.
@@ -90,7 +90,7 @@ module Google
       extend Google::Protobuf::MessageExts::ClassMethods
     end
 
-    # The response message for [Operations.ListOperations][google.longrunning.Operations.ListOperations].
+    # The response message for Operations.ListOperations.
     # @!attribute [rw] operations
     #   @return [Array<Google::Longrunning::Operation>]
     #     A list of operations that matches the specified filter in the request.
@@ -102,7 +102,7 @@ module Google
       extend Google::Protobuf::MessageExts::ClassMethods
     end
 
-    # The request message for [Operations.CancelOperation][google.longrunning.Operations.CancelOperation].
+    # The request message for Operations.CancelOperation.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource to be cancelled.
@@ -111,7 +111,7 @@ module Google
       extend Google::Protobuf::MessageExts::ClassMethods
     end
 
-    # The request message for [Operations.DeleteOperation][google.longrunning.Operations.DeleteOperation].
+    # The request message for Operations.DeleteOperation.
     # @!attribute [rw] name
     #   @return [String]
     #     The name of the operation resource to be deleted.

@@ -8,6 +8,7 @@ AllCops:
     - test/gapic/annotations/**/*
     - test/gapic/presenters/**/*
     - test/gapic/*.rb
+    - test/test_helper.rb
     - Rakefile
 
 Metrics/ClassLength:
