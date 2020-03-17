@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.1.6 / 2020-03-17
+
+* Generated libraries now depend on gapic-common 0.2
+* Convert cross-reference syntax in proto docs to YARD cross-reference links.
+* Preserve call options in LROs
+* Fix implicit kwarg warnings under Ruby 2.7
+
 ### 0.1.5 / 2020-03-13
 
 * More improvements to escaping of curly braces.
