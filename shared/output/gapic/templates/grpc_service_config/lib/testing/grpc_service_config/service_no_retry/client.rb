@@ -163,7 +163,7 @@ module Testing
           request = Gapic::Protobuf.coerce request, to: Testing::GrpcServiceConfig::Request
 
           # Converts hash and nil to an options object
-          options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+          options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
           # Customize the options with defaults
           metadata = @config.rpcs.no_retry_method.metadata.to_h

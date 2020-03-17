@@ -42,7 +42,7 @@ module Gapic
     #
     def initialize timeout: nil, metadata: nil, retry_policy: nil
       # Converts hash and nil to a policy object
-      retry_policy = RetryPolicy.new retry_policy.to_h if retry_policy.respond_to? :to_h
+      retry_policy = RetryPolicy.new(**retry_policy.to_h) if retry_policy.respond_to? :to_h
 
       @timeout = timeout # allow to be nil so it can be overridden
       @metadata = metadata.to_h # Ensure always hash, even for nil

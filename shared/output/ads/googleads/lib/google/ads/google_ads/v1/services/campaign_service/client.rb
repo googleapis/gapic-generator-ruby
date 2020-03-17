@@ -166,7 +166,7 @@ module Google
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+                options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.get_campaign.metadata.to_h
@@ -235,7 +235,7 @@ module Google
                 request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+                options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h

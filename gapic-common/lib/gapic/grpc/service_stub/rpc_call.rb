@@ -112,7 +112,7 @@ module Gapic
       #
       def call request, options: nil
         # Converts hash and nil to an options object
-        options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+        options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
         deadline = calculate_deadline options
         metadata = options.metadata
 

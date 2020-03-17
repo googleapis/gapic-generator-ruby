@@ -183,7 +183,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::ListSecretsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_secrets.metadata.to_h
@@ -248,7 +248,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::CreateSecretRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.create_secret.metadata.to_h
@@ -312,7 +312,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.add_secret_version.metadata.to_h
@@ -371,7 +371,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::GetSecretRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_secret.metadata.to_h
@@ -432,7 +432,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.update_secret.metadata.to_h
@@ -492,7 +492,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.delete_secret.metadata.to_h
@@ -562,7 +562,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.list_secret_versions.metadata.to_h
@@ -631,7 +631,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_secret_version.metadata.to_h
@@ -697,7 +697,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.access_secret_version.metadata.to_h
@@ -763,7 +763,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.disable_secret_version.metadata.to_h
@@ -829,7 +829,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.enable_secret_version.metadata.to_h
@@ -897,7 +897,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.destroy_secret_version.metadata.to_h
@@ -971,7 +971,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::SetIamPolicyRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.set_iam_policy.metadata.to_h
@@ -1034,7 +1034,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::GetIamPolicyRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.get_iam_policy.metadata.to_h
@@ -1112,7 +1112,7 @@ module Google
               request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::TestIamPermissionsRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new options.to_h if options.respond_to? :to_h
+              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.test_iam_permissions.metadata.to_h
