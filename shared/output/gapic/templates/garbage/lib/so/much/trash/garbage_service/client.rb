@@ -904,7 +904,7 @@ module So
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :long_running_garbage, request, options: options do |response, operation|
-              response = Gapic::Operation.new response, @operations_client
+              response = Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
               return response
             end
