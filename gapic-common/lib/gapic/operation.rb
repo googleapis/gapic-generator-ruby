@@ -225,11 +225,22 @@ module Gapic
     # @return [Gapic::Operation] Since this method changes internal state, it returns itself.
     #
     def reload! options: nil
+<<<<<<< HEAD
       options = if options.respond_to? :to_h
                   options.to_h.merge @options.to_h
                 else
                   @options.to_h
                 end
+=======
+      # Converts hash and nil to an options object
+      options = if options.respond_to? :to_h
+                  options.to_h
+                else
+                  {}
+                end
+      options.merge!(@options.to_h)
+
+>>>>>>> test
       options = Gapic::CallOptions.new(**options)
       gax_op = @client.get_operation({ name: @grpc_op.name }, options)
       @grpc_op = gax_op.grpc_op
