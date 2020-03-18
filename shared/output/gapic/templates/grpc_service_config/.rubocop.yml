@@ -35,3 +35,5 @@ Style/CaseEquality:
   Exclude:
     - "lib/testing/grpc_service_config/service_no_retry/*.rb"
     - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+Style/ModuleFunction:
+  Enabled: false

@@ -26,3 +26,5 @@ Naming/FileName:
 Style/CaseEquality:
   Exclude:
     - "lib/google/garbage/noservice.rb"
+Style/ModuleFunction:
+  Enabled: false

@@ -33,3 +33,5 @@ Style/CaseEquality:
   Exclude:
     - "lib/google/cloud/speech/v1/speech/*.rb"
     - "lib/google/cloud/speech/v1.rb"
+Style/ModuleFunction:
+  Enabled: false

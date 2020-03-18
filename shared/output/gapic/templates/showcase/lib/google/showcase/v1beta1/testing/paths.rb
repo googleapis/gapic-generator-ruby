@@ -61,6 +61,8 @@ module Google
 
             "sessions/#{session}/tests/#{test}"
           end
+
+          extend self
         end
       end
     end
