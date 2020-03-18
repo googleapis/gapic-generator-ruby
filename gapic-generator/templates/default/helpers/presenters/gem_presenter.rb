@@ -114,7 +114,7 @@ class GemPresenter
   end
 
   def iam_dependency?
-    @api.files.map(&:name).include? "google/iam/v1/iam_policy.proto"
+    @api.files.map(&:name).any? { |f| f.start_with? "google/iam/v1/" }
   end
 
   private
