@@ -112,6 +112,8 @@ module So
 
             "projects/#{project}/simple_garbage/#{garbage}"
           end
+
+          extend self
         end
       end
     end

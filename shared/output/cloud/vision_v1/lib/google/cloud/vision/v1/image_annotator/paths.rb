@@ -42,6 +42,8 @@ module Google
 
               "projects/#{project}/locations/#{location}/productSets/#{product_set}"
             end
+
+            extend self
           end
         end
       end

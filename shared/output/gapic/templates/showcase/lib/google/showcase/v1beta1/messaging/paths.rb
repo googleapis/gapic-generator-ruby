@@ -97,6 +97,8 @@ module Google
           def user_path user_id:
             "users/#{user_id}"
           end
+
+          extend self
         end
       end
     end

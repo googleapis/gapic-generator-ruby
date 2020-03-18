@@ -82,6 +82,8 @@ module Google
 
               "projects/#{project}/locations/#{location}/products/#{product}/referenceImages/#{reference_image}"
             end
+
+            extend self
           end
         end
       end
