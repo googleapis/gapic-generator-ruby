@@ -28,3 +28,5 @@ Metrics/PerceivedComplexity:
 Style/CaseEquality:
   Exclude:
     - "lib/so/much/trash/garbage_service/*.rb"
+Style/ModuleFunction:
+  Enabled: false

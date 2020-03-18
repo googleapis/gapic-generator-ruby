@@ -40,3 +40,5 @@ Style/CaseEquality:
     - "lib/google/cloud/vision/v1/product_search/*.rb"
     - "lib/google/cloud/vision/v1/image_annotator/*.rb"
     - "lib/google/cloud/vision/v1.rb"
+Style/ModuleFunction:
+  Enabled: false
