@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.1.7 / 2020-03-18
+
+* Path modules extend self so helpers can be invoked on them directly
+* Trigger IAM dependency for IAM V1 files other than iam_policy.proto
+
 ### 0.1.6 / 2020-03-17
 
 * Generated libraries now depend on gapic-common 0.2
