@@ -32,6 +32,25 @@ module Google
         # Path helper methods for the Testing API.
         module Paths
           ##
+          # Create a fully-qualified Blueprint resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `sessions/{session}/tests/{test}/blueprints/{blueprint}`
+          #
+          # @param session [String]
+          # @param test [String]
+          # @param blueprint [String]
+          #
+          # @return [String]
+          def blueprint_path session:, test:, blueprint:
+            raise ArgumentError, "session cannot contain /" if session.to_s.include? "/"
+            raise ArgumentError, "test cannot contain /" if test.to_s.include? "/"
+
+            "sessions/#{session}/tests/#{test}/blueprints/#{blueprint}"
+          end
+
+          ##
           # Create a fully-qualified Session resource string.
           #
           # The resource will be in the following format:

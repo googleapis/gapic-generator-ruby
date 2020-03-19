@@ -42,7 +42,9 @@ module Gapic
     def service_resource_types
       @service_resource_types ||= begin
         @service.methods.flat_map do |method|
-          message_resource_types method.input
+          input_resource_types = message_resource_types method.input
+          output_resource_types = message_resource_types method.output
+          input_resource_types.concat output_resource_types
         end.uniq
       end
     end
