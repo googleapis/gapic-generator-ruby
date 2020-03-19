@@ -18,7 +18,7 @@ require "test_helper"
 
 class GarbagePackagePresenterTest < PresenterTest
   def test_endless_trash_forever
-    presenter = PackagePresenter.new api(:garbage), "endless.trash.forever"
+    presenter = Gapic::Presenters::PackagePresenter.new api(:garbage), "endless.trash.forever"
 
     assert_equal ["endless", "trash", "forever"], presenter.address
     assert_equal "endless.trash.forever", presenter.name
@@ -26,9 +26,9 @@ class GarbagePackagePresenterTest < PresenterTest
     assert_equal "so/much/trash", presenter.package_require
     assert_equal "so/much/trash.rb", presenter.package_file_path
 
-    assert_kind_of GemPresenter, presenter.gem
+    assert_kind_of Gapic::Presenters::GemPresenter, presenter.gem
 
     assert_equal ["GarbageService"], presenter.services.map(&:name)
-    presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
+    presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
 end

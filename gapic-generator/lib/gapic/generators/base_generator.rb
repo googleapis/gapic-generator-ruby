@@ -55,7 +55,7 @@ module Gapic
           controller.class.all_helpers_from_path helpers_path
       end
 
-      def use_helpers! *helper_methods
+      def _use_helpers! *helper_methods
         helper_methods.each do |helper_method|
           define_singleton_method helper_method do |*args|
             controller.class.helpers.method(helper_method).call(*args)

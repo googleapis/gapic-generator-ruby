@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/generators/base_generator"
+require "gapic/presenters"
 
 module Gapic
   module Generators
@@ -29,9 +30,6 @@ module Gapic
 
         # Configure to use a custom templates directory
         use_templates! File.join __dir__, "../../../templates/default"
-
-        # Configure these helper method to be used by the generator
-        use_helpers! :gem_presenter
       end
 
       # Disable Rubocop because we expect generate to grow and violate more
@@ -46,7 +44,7 @@ module Gapic
       def generate
         files = []
 
-        gem = gem_presenter @api
+        gem = Gapic::Presenters.gem_presenter @api
 
         gem.packages.each do |package|
           # Package level files

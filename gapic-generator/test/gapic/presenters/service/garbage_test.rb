@@ -27,14 +27,14 @@ class GarbageServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["get_empty_garbage", "get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "get_typical_garbage", "get_complex_garbage", "get_garbage_node", "get_paged_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["Garbage", "SimpleGarbage"], presenter.references.map(&:name)
     assert_equal ["projects/{project}/simple_garbage/{simple_garbage}", "projects/{project}/simple_garbage/{garbage}"],
                  presenter.references.map(&:patterns).map(&:first).map(&:template)
@@ -141,7 +141,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of ServicePresenter, presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
   end
 
   def test_lro_client_var

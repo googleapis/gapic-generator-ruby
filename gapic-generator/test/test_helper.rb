@@ -18,6 +18,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "gapic/schema/api"
 require "gapic/generator"
 require "gapic/path_template"
+require "gapic/presenters"
 require "gapic/resource_lookup"
 require "action_controller"
 require "action_view"
@@ -64,11 +65,6 @@ class AnnotationTest < Minitest::Test
   end
 end
 
-require_relative "../templates/default/helpers/default_helper"
-require_relative "../templates/default/helpers/filepath_helper"
-require_relative "../templates/default/helpers/namespace_helper"
-require_relative "../templates/default/helpers/presenter_helper"
-
 class PresenterTest < Minitest::Test
   def proto_input service
     File.binread "proto_input/#{service}_desc.bin"
@@ -86,7 +82,7 @@ class PresenterTest < Minitest::Test
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
-    ServicePresenter.new api_obj, service
+    Gapic::Presenters::ServicePresenter.new api_obj, service
   end
 
   def method_presenter api_name, service_name, method_name
@@ -95,14 +91,14 @@ class PresenterTest < Minitest::Test
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    MethodPresenter.new api_obj, method
+    Gapic::Presenters::MethodPresenter.new api_obj, method
   end
 
   def field_presenter api_name, message_name, field_name
     api_obj = api api_name
     message = api_obj.messages.find { |m| m.address.join(".") == message_name }
     field = message.fields.find { |f| f.name == field_name }
-    FieldPresenter.new api_obj, message, field
+    Gapic::Presenters::FieldPresenter.new api_obj, message, field
   end
 end
 

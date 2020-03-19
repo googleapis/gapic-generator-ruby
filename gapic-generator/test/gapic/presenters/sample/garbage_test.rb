@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "test_helper"
-require_relative "../../../../templates/default/helpers/presenters/sample_presenter"
 
 class GarbagePresenterTest < PresenterTest
   def setup
@@ -24,7 +23,7 @@ class GarbagePresenterTest < PresenterTest
     refute_nil service
     @sample_config = api_obj.incode_samples.find { |s| s["region_tag"] == "get_paged_garbage" }
     refute_nil @sample_config
-    @presenter = SamplePresenter.new api_obj, @sample_config
+    @presenter = Gapic::Presenters::SamplePresenter.new api_obj, @sample_config
   end
 
   def test_description
@@ -40,7 +39,7 @@ class GarbagePresenterTest < PresenterTest
     fields = @presenter.fields
     assert_equal 1, fields.size
 
-    assert_kind_of SamplePresenter::RequestField, fields["garbage"]
+    assert_kind_of Gapic::Presenters::SamplePresenter::RequestField, fields["garbage"]
     assert_equal "garbage", fields["garbage"].field
     assert_equal "\"Paged Garbage\"", fields["garbage"].value
   end

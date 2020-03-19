@@ -13,12 +13,13 @@ AllCops:
 
 Metrics/ClassLength:
   Exclude:
-    - templates/default/helpers/presenters/**/*
+    - lib/gapic/presenters/**/*
 
 Style/Documentation:
   Exclude:
     - test/**/*
     - templates/default/helpers/**/*
+    - lib/gapic/helpers/**/*
 
 Style/Alias:
   EnforcedStyle: prefer_alias_method

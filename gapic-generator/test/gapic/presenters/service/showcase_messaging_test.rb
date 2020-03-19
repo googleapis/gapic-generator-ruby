@@ -27,14 +27,14 @@ class ShowcaseMessagingServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["create_room", "get_room", "update_room", "delete_room", "list_rooms", "create_blurb", "get_blurb", "update_blurb", "delete_blurb", "list_blurbs", "search_blurbs", "stream_blurbs", "send_blurbs", "connect"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["Blurb", "Room", "User"], presenter.references.map(&:name)
     assert_equal ["rooms/{room_id}/blurbs/{blurb_id}", "rooms/{room_id}", "users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
@@ -140,7 +140,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of ServicePresenter, presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
   end
 
   def test_lro_client_var
