@@ -25,25 +25,6 @@ module Google
           # Path helper methods for the ImageAnnotator API.
           module Paths
             ##
-            # Create a fully-qualified Product resource string.
-            #
-            # The resource will be in the following format:
-            #
-            # `projects/{project}/locations/{location}/products/{product}`
-            #
-            # @param project [String]
-            # @param location [String]
-            # @param product [String]
-            #
-            # @return [String]
-            def product_path project:, location:, product:
-              raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
-              raise ArgumentError, "location cannot contain /" if location.to_s.include? "/"
-
-              "projects/#{project}/locations/#{location}/products/#{product}"
-            end
-
-            ##
             # Create a fully-qualified ProductSet resource string.
             #
             # The resource will be in the following format:

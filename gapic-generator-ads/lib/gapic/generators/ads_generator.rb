@@ -29,6 +29,9 @@ module Gapic
       def initialize api
         super
 
+        # if not specified otherwise in configuration, generate path helpers for the output messages in ads
+        api.generate_path_helpers_output = true unless api.generate_path_helpers_output_defined?
+
         # Configure to use prefer Ads templates
         use_templates! File.join __dir__, "../../../templates/ads"
       end

@@ -35,8 +35,8 @@ class ShowcaseTestingServiceTest < PresenterTest
   def test_references
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["Blueprint", "Session", "Test"], presenter.references.map(&:name)
-    assert_equal ["sessions/{session}/tests/{test}/blueprints/{blueprint}", "sessions/{session}", "sessions/{session}/tests/{test}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
+    assert_equal ["Session", "Test"], presenter.references.map(&:name)
+    assert_equal ["sessions/{session}", "sessions/{session}/tests/{test}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
 
   def test_proto_service_name_full
