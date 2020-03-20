@@ -29,11 +29,11 @@ option_map = {
   ":gem.:migration_version" => "ruby-cloud-migration-version",
   ":gem.:product_documentation_url" => "ruby-cloud-product-url",
   ":gem.:api_id" => "ruby-cloud-api-id",
-  ":gem.:product_flags" => "ruby-cloud-product-flags",
+  ":gem.:product_flags" => "ruby-cloud-product-flags"
 }
-path_option_map {
+path_option_map = {
   "samples" => ["ruby-cloud-samples", "samples"],
-  "grpc_service_config" => "ruby-cloud-grpc-service-config",
+  "grpc_service_config" => "ruby-cloud-grpc-service-config"
 }
 
 parameters = {}
