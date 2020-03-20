@@ -4,6 +4,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - "<%= gem.name %>.gemspec"
     - "Rakefile"
     - "acceptance/**/*"
     - "test/**/*"

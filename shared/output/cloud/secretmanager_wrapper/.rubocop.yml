@@ -3,6 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - "google-cloud-secret_manager.gemspec"
     - "Rakefile"
     - "acceptance/**/*"
     - "test/**/*"
