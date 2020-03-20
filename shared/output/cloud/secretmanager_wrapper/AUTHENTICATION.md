@@ -1,9 +1,6 @@
-<%- assert_locals gem -%>
-<%- service = gem.services.first -%>
-<%- assert_locals service -%>
 # Authentication
 
-In general, the <%= gem.name %> library uses
+In general, the google-cloud-secret_manager library uses
 [Service Account](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
 credentials to connect to Google Cloud services. When running within
 [Google Cloud Platform environments](#google-cloud-platform-environments) the
@@ -22,20 +19,20 @@ during development.
 2. Set the [environment variable](#environment-variables).
 
 ```sh
-export <%= gem.env_prefix %>_CREDENTIALS=path/to/keyfile.json
+export SECRET_MANAGER_CREDENTIALS=path/to/keyfile.json
 ```
 
 3. Initialize the client.
 
 ```ruby
-require "<%= gem.entrypoint_require %>"
+require "google/cloud/secret_manager"
 
-client = <%= service.create_client_call %>
+client = Google::Cloud::SecretManager.secret_manager_service
 ```
 
 ## Credential Lookup
 
-The <%= gem.name %> library aims to make authentication
+The google-cloud-secret_manager library aims to make authentication
 as simple as possible, and provides several mechanisms to configure your system
 without **Service Account Credentials** directly in code.
 
@@ -65,22 +62,22 @@ the READMEs for the individual service gems for details.) The path to the
 **Credentials JSON** itself can be stored for environments such as Docker
 containers where writing files is difficult or not encouraged.
 
-The environment variables that <%= gem.name %>
+The environment variables that google-cloud-secret_manager
 checks for credentials are configured on the service Credentials class (such as
-{<%= service.credentials_name_full %>}):
+{Google::Cloud::SecretManager::V1beta1::SecretManagerService::Credentials}):
 
-1. `<%= gem.env_prefix %>_CREDENTIALS` - Path to JSON file, or JSON contents
-2. `<%= gem.env_prefix %>_KEYFILE` - Path to JSON file, or JSON contents
+1. `SECRET_MANAGER_CREDENTIALS` - Path to JSON file, or JSON contents
+2. `SECRET_MANAGER_KEYFILE` - Path to JSON file, or JSON contents
 3. `GOOGLE_CLOUD_CREDENTIALS` - Path to JSON file, or JSON contents
 4. `GOOGLE_CLOUD_KEYFILE` - Path to JSON file, or JSON contents
 5. `GOOGLE_APPLICATION_CREDENTIALS` - Path to JSON file
 
 ```ruby
-require "<%= gem.entrypoint_require %>"
+require "google/cloud/secret_manager"
 
-ENV["<%= gem.env_prefix %>_CREDENTIALS"] = "path/to/keyfile.json"
+ENV["SECRET_MANAGER_CREDENTIALS"] = "path/to/keyfile.json"
 
-client = <%= service.create_client_call %>
+client = Google::Cloud::SecretManager.secret_manager_service
 ```
 
 ### Configuration
@@ -89,9 +86,9 @@ The **Credentials JSON** can be configured instead of placing them in
 environment variables. Either on an individual client initialization:
 
 ```ruby
-require "<%= gem.entrypoint_require %>"
+require "google/cloud/secret_manager"
 
-client = <%= service.create_client_call %> do |config|
+client = Google::Cloud::SecretManager.secret_manager_service do |config|
   config.credentials = "path/to/keyfile.json"
 end
 ```
@@ -99,13 +96,13 @@ end
 Or configured globally for all clients:
 
 ```ruby
-require "<%= gem.entrypoint_require %>"
+require "google/cloud/secret_manager"
 
-<%= service.configure_client_call %> do |config|
+Google::Cloud::SecretManager.configure do |config|
   config.credentials = "path/to/keyfile.json"
 end
 
-client = <%= service.create_client_call %>
+client = Google::Cloud::SecretManager.secret_manager_service
 ```
 
 ### Cloud SDK
@@ -136,7 +133,7 @@ To configure your system for this, simply:
 
 Google Cloud requires **Service Account Credentials** to
 connect to the APIs. You will use the **JSON key file** to
-connect to most services with <%= gem.name %>.
+connect to most services with google-cloud-secret_manager.
 
 If you are not running this client within [Google Cloud Platform
 environments](#google-cloud-platform-environments), you need a Google

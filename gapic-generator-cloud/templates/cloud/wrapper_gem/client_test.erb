@@ -1,0 +1,22 @@
+<%- assert_locals gem -%>
+<%= render partial: "shared/header" -%>
+
+require "helper"
+require "<%= gem.namespace_require %>"
+require "gapic/common"
+require "gapic/grpc"
+
+class <%= gem.namespace %>::ClientConstructionMinitest < Minitest::Test
+<%- gem.services.each do |service| -%>
+  def test_<%= service.factory_method_name %>
+    Gapic::ServiceStub.stub :new, :stub do
+      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+      client = <%= gem.namespace %>.<%= service.factory_method_name %> do |config|
+        config.credentials = grpc_channel
+      end
+      assert_kind_of <%= gem.namespaced_class "#{service.name}::Client", version: gem.default_version %>, client
+    end
+  end
+
+<%- end -%>
+end

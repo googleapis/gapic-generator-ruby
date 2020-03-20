@@ -18,38 +18,40 @@
 require "optparse"
 require "fileutils"
 
+option_map = {
+  "configuration" => "ruby-cloud-config",
+  ":gem.:name" => "ruby-cloud-gem-name",
+  ":gem.:title" => "ruby-cloud-title",
+  ":gem.:summary" => "ruby-cloud-summary",
+  ":gem.:homepage" => "ruby-cloud-homepage",
+  ":gem.:env_prefix" => "ruby-cloud-env-prefix",
+  ":gem.:version_dependencies" => "ruby-cloud-wrapper-of",
+  ":gem.:migration_version" => "ruby-cloud-migration-version",
+  ":gem.:product_documentation_url" => "ruby-cloud-product-url",
+  ":gem.:api_id" => "ruby-cloud-api-id",
+  ":gem.:product_flags" => "ruby-cloud-product-flags",
+}
+path_option_map {
+  "samples" => ["ruby-cloud-samples", "samples"],
+  "grpc_service_config" => "ruby-cloud-grpc-service-config",
+}
+
 parameters = {}
 
 OptionParser.new do |op|
-  op.on "--ruby-cloud-config FILE" do |val|
-    parameters["configuration"] = val
+  option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} VAL" }
+    op.on(*flags) do |val|
+      parameters[key] = val
+    end
   end
-  op.on "--ruby-cloud-samples FILE", "--samples FILE" do |val|
-    paths = val.split(";")
-               .map { |path| File.expand_path path, "/in" }
-               .join(";")
-    parameters["samples"] = paths
-  end
-  op.on "--ruby-cloud-grpc-service-config FILE" do |val|
-    paths = val.split(";")
-               .map { |path| File.expand_path path, "/in" }
-               .join(";")
-    parameters["grpc_service_config"] = paths
-  end
-  op.on "--ruby-cloud-gem-name NAME" do |val|
-    parameters[":gem.:name"] = val
-  end
-  op.on "--ruby-cloud-title NAME" do |val|
-    parameters[":gem.:title"] = val
-  end
-  op.on "--ruby-cloud-summary VAL" do |val|
-    parameters[":gem.:summary"] = val
-  end
-  op.on "--ruby-cloud-homepage VAL" do |val|
-    parameters[":gem.:homepage"] = val
-  end
-  op.on "--ruby-cloud-env-prefix VAL" do |val|
-    parameters[":gem.:env_prefix"] = val
+  path_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} PATH" }
+    op.on(*flags) do |paths|
+      parameters[key] = paths.split(";")
+                             .map { |path| File.expand_path path, "/in" }
+                             .join(";")
+    end
   end
 end.parse! ARGV
 
@@ -59,11 +61,17 @@ parameter_strs =
     "#{k}=#{v}"
   end
 
+ruby_plugin_args =
+  if parameters[":gem.:version_dependencies"]
+    []
+  else
+    ["--ruby_out=/out/lib", "--grpc_out=/out/lib"]
+  end
+
 protoc_cmd = [
   "grpc_tools_ruby_protoc",
-  "--proto_path=/protos/", "--proto_path=/in/",
-  "--ruby_out=/out/lib",
-  "--grpc_out=/out/lib",
+  "--proto_path=/protos/", "--proto_path=/in/"
+] + ruby_plugin_args + [
   "--ruby_cloud_out=/out/",
   "--ruby_cloud_opt", parameter_strs.join(",")
 ] + ARGV + Dir.glob("/in/**/*.proto").sort

@@ -121,6 +121,14 @@ module Gapic
         fix_namespace @api, "#{proto_service_name_full}::#{client_name}"
       end
 
+      def create_client_call
+        "#{client_name_full}.new"
+      end
+
+      def configure_client_call
+        "#{client_name_full}.configure"
+      end
+
       def client_require
         ruby_file_path @api, client_name_full
       end

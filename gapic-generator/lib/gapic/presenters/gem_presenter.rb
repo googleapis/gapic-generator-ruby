@@ -121,6 +121,30 @@ module Gapic
         @api.files.map(&:name).any? { |f| f.start_with? "google/iam/v1/" }
       end
 
+      def library_documentation_url
+        gem_config(:library_documentation_url) || "https://googleapis.dev/ruby/#{name}/latest"
+      end
+
+      def product_documentation_url
+        gem_config :product_documentation_url
+      end
+
+      def api_id
+        gem_config :api_id
+      end
+
+      def product_flags
+        gem_config(:product_flags).to_s.split(";")
+      end
+
+      def free_tier?
+        product_flags.include? "free_tier"
+      end
+
+      def entrypoint_require
+        packages.first.package_require
+      end
+
       private
 
       def gem_config key
