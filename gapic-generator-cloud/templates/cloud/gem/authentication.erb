@@ -37,7 +37,7 @@ client = <%= service.create_client_call %>
 
 The <%= gem.name %> library aims to make authentication
 as simple as possible, and provides several mechanisms to configure your system
-without **Service Account Credentials** directly in code.
+without requiring **Service Account Credentials** directly in code.
 
 **Credentials** are discovered in the following order:
 
@@ -67,7 +67,7 @@ containers where writing files is difficult or not encouraged.
 
 The environment variables that <%= gem.name %>
 checks for credentials are configured on the service Credentials class (such as
-{<%= service.credentials_name_full %>}):
+<%= service.credentials_class_xref %>):
 
 1. `<%= gem.env_prefix %>_CREDENTIALS` - Path to JSON file, or JSON contents
 2. `<%= gem.env_prefix %>_KEYFILE` - Path to JSON file, or JSON contents

@@ -8,9 +8,9 @@ require "<%= gem.name %>"
 ##
 # Create a new `<%= service.name %>::Client` object.
 #
-# @param version [String, Symbol] The API version of the client instance. Optional.
+# @param version [String, Symbol] The API version to connect to. Optional.
 #   If not provided, defaults to `:<%= gem.default_version %>`, which will return an instance of
-#   <%= gem.docs_link version: gem.default_version, class_name: "#{service.name}::Client" %>
+#   <%= gem.docs_link version: gem.default_version, class_name: "#{service.name}::Client" %>.
 # @return [<%= service.name %>::Client] A client object for the specified version.
 #
 def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>, &block

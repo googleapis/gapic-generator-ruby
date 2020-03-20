@@ -18,7 +18,11 @@
 require "optparse"
 require "fileutils"
 
-option_map = {
+bool_option_map = {
+  ":gem.:free_tier" => "ruby-cloud-free-tier",
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict"
+}
+value_option_map = {
   "configuration" => "ruby-cloud-config",
   ":gem.:name" => "ruby-cloud-gem-name",
   ":gem.:title" => "ruby-cloud-title",
@@ -39,7 +43,13 @@ path_option_map = {
 parameters = {}
 
 OptionParser.new do |op|
-  option_map.each do |key, flags|
+  bool_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f}" }
+    op.on(*flags) do
+      parameters[key] = "true"
+    end
+  end
+  value_option_map.each do |key, flags|
     flags = Array(flags).map { |f| "--#{f} VAL" }
     op.on(*flags) do |val|
       parameters[key] = val

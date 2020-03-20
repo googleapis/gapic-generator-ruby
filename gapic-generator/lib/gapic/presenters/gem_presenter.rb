@@ -133,12 +133,12 @@ module Gapic
         gem_config :api_id
       end
 
-      def product_flags
-        gem_config(:product_flags).to_s.split(";")
+      def free_tier?
+        gem_config(:free_tier) ? true : false
       end
 
-      def free_tier?
-        product_flags.include? "free_tier"
+      def yard_strict?
+        gem_config(:yard_strict) ? true : false
       end
 
       def entrypoint_require

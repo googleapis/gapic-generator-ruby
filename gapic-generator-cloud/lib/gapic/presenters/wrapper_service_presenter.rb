@@ -37,6 +37,10 @@ module Gapic
       def configure_client_call
         "#{gem.namespace}.configure"
       end
+
+      def credentials_class_xref
+        "`#{credentials_name_full}`"
+      end
     end
   end
 end

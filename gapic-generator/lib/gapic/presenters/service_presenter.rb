@@ -161,6 +161,10 @@ module Gapic
         fix_namespace @api, "#{proto_service_name_full}::#{credentials_name}"
       end
 
+      def credentials_class_xref
+        "{#{credentials_name_full}}"
+      end
+
       def credentials_file_path
         credentials_require + ".rb"
       end

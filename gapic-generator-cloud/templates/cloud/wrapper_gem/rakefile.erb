@@ -85,7 +85,11 @@ end
 
 namespace :acceptance do
   task :run do
-    Rake::Task[:smoke_test].invoke
+    if File.directory? "acceptance"
+      Rake::Task[:smoke_test].invoke
+    else
+      puts "The <%= gem.name %> gem has no acceptance tests."
+    end
   end
 
   desc "Run acceptance tests with coverage."
@@ -112,7 +116,7 @@ namespace :samples do
         end
       end
     else
-      puts "No samples to test"
+      puts "The <%= gem.name %> gem has no samples to test."
     end
   end
 
@@ -126,14 +130,18 @@ namespace :samples do
         end
       end
     else
-      puts "No samples to test"
+      puts "The <%= gem.name %> gem has no samples to test."
     end
   end
 end
 
 require "yard"
 require "yard/rake/yardoc_task"
-YARD::Rake::YardocTask.new
+YARD::Rake::YardocTask.new do |y|
+<%- if gem.yard_strict? -%>
+  y.options << "--fail-on-warning"
+<%- end -%>
+end
 
 desc "Run yard-doctest example tests."
 task :doctest do
