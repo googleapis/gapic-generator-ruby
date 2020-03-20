@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.2.0 / 2020-03-23
+
+* Includes changes from gapic-generator 0.2.0
+* Generate path helpers from both input and output resources by default.
+
 ### 0.1.7 / 2020-03-18
 
 * Includes changes from gapic-generator 0.1.7

@@ -1,5 +1,24 @@
 # Release History for gapic-generator
 
+### 0.2.0 / 2020-03-23
+
+Generation updates:
+
+* Proto service documentation is rendered into client class YARD docs.
+* Generated Apache license is now well-formatted markdown.
+* YARD titles updated with the word "API".
+* Tweaks to the default summary and description text.
+* Generated rakefiles can run acceptance tests if present.
+* Switch the order of summary and description in the readmes.
+* Exempt a few more files (notably gemspec and rakefile) from rubocop.
+* Several formatting tweaks, including removal of redundant whitespace.
+
+Internal changes:
+
+* New configuration allows path helpers to be generated from outputs.
+* Moved presenters into lib so they can be changed/subclassed more easily.
+* Several additions to GemPresenter to support new features.
+
 ### 0.1.7 / 2020-03-18
 
 * Path modules extend self so helpers can be invoked on them directly
