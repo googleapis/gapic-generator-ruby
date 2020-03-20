@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 require "gapic/generators/default_generator"
+require "gapic/presenters"
 
 module Gapic
   module Generators
@@ -45,7 +45,7 @@ module Gapic
       def generate
         files = []
 
-        gem = gem_presenter @api
+        gem = Gapic::Presenters.gem_presenter @api
 
         gem.packages.each do |package|
           # Package level files

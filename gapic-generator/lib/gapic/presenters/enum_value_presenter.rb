@@ -14,22 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require_relative "enum_value_presenter"
+module Gapic
+  module Presenters
+    ##
+    # A presenter for proto enum values.
+    #
+    class EnumValuePresenter
+      def initialize value
+        @value = value
+      end
 
-class EnumPresenter
-  def initialize enum
-    @enum = enum
-  end
+      def name
+        @value.name
+      end
 
-  def name
-    @enum.name
-  end
+      def doc_description
+        @value.docs_leading_comments
+      end
 
-  def doc_description
-    @enum.docs_leading_comments
-  end
-
-  def values
-    @values ||= @enum.values.map { |v| EnumValuePresenter.new v }
+      def number
+        @value.number
+      end
+    end
   end
 end

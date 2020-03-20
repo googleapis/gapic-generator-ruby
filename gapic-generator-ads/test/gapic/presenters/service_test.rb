@@ -27,7 +27,7 @@ class GoogleAdsServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["get_campaign", "mutate_campaigns"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end

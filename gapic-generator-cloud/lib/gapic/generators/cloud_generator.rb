@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/generators/default_generator"
+require "gapic/presenters"
 
 module Gapic
   module Generators
@@ -45,7 +46,7 @@ module Gapic
 
         cloud_files = []
 
-        gem = gem_presenter @api
+        gem = Gapic::Presenters.gem_presenter @api
 
         # Additional Gem level files
         cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)

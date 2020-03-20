@@ -14,20 +14,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class EnumValuePresenter
-  def initialize value
-    @value = value
-  end
+module Gapic
+  module Presenters
+    ##
+    # A presenter for proto enums.
+    #
+    class EnumPresenter
+      def initialize enum
+        @enum = enum
+      end
 
-  def name
-    @value.name
-  end
+      def name
+        @enum.name
+      end
 
-  def doc_description
-    @value.docs_leading_comments
-  end
+      def doc_description
+        @enum.docs_leading_comments
+      end
 
-  def number
-    @value.number
+      def values
+        @values ||= @enum.values.map { |v| EnumValuePresenter.new v }
+      end
+    end
   end
 end

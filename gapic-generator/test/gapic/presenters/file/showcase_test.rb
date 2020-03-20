@@ -23,61 +23,61 @@ class ShowcaseFilePresenterTest < PresenterTest
 
   def test_echo
     file = schema.files.find { |f| f.name == "google/showcase/v1beta1/echo.proto" }
-    fp = FilePresenter.new schema, file
+    fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["google", "showcase", "v1beta1"], fp.address
     assert_equal "Google::Showcase::V1beta1", fp.namespace
     assert_equal "google/showcase/v1beta1/echo.rb", fp.docs_file_path
 
     assert_equal ["EchoRequest", "EchoResponse", "ExpandRequest", "PagedExpandRequest", "PagedExpandResponse", "WaitRequest", "WaitResponse", "WaitMetadata", "BlockRequest", "BlockResponse"], fp.messages.map(&:name)
-    fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
+    fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal [], fp.enums.map(&:name)
-    fp.enums.each { |ep| assert_kind_of EnumPresenter, ep }
+    fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 
   def test_identity
     file = schema.files.find { |f| f.name == "google/showcase/v1beta1/identity.proto" }
-    fp = FilePresenter.new schema, file
+    fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["google", "showcase", "v1beta1"], fp.address
     assert_equal "Google::Showcase::V1beta1", fp.namespace
     assert_equal "google/showcase/v1beta1/identity.rb", fp.docs_file_path
 
     assert_equal ["User", "CreateUserRequest", "GetUserRequest", "UpdateUserRequest", "DeleteUserRequest", "ListUsersRequest", "ListUsersResponse"], fp.messages.map(&:name)
-    fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
+    fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal [], fp.enums.map(&:name)
-    fp.enums.each { |ep| assert_kind_of EnumPresenter, ep }
+    fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 
   def test_messaging
     file = schema.files.find { |f| f.name == "google/showcase/v1beta1/messaging.proto" }
-    fp = FilePresenter.new schema, file
+    fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["google", "showcase", "v1beta1"], fp.address
     assert_equal "Google::Showcase::V1beta1", fp.namespace
     assert_equal "google/showcase/v1beta1/messaging.rb", fp.docs_file_path
 
     assert_equal ["Room", "CreateRoomRequest", "GetRoomRequest", "UpdateRoomRequest", "DeleteRoomRequest", "ListRoomsRequest", "ListRoomsResponse", "Blurb", "CreateBlurbRequest", "GetBlurbRequest", "UpdateBlurbRequest", "DeleteBlurbRequest", "ListBlurbsRequest", "ListBlurbsResponse", "SearchBlurbsRequest", "SearchBlurbsMetadata", "SearchBlurbsResponse", "StreamBlurbsRequest", "StreamBlurbsResponse", "SendBlurbsResponse", "ConnectRequest"], fp.messages.map(&:name)
-    fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
+    fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal [], fp.enums.map(&:name)
-    fp.enums.each { |ep| assert_kind_of EnumPresenter, ep }
+    fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 
   def test_testing
     file = schema.files.find { |f| f.name == "google/showcase/v1beta1/testing.proto" }
-    fp = FilePresenter.new schema, file
+    fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["google", "showcase", "v1beta1"], fp.address
     assert_equal "Google::Showcase::V1beta1", fp.namespace
     assert_equal "google/showcase/v1beta1/testing.rb", fp.docs_file_path
 
     assert_equal ["Session", "CreateSessionRequest", "GetSessionRequest", "ListSessionsRequest", "ListSessionsResponse", "DeleteSessionRequest", "ReportSessionRequest", "ReportSessionResponse", "Test", "Issue", "ListTestsRequest", "ListTestsResponse", "TestRun", "DeleteTestRequest", "VerifyTestRequest", "VerifyTestResponse"], fp.messages.map(&:name)
-    fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
+    fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal [], fp.enums.map(&:name)
-    fp.enums.each { |ep| assert_kind_of EnumPresenter, ep }
+    fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 end

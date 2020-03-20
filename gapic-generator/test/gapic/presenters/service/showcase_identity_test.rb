@@ -27,14 +27,14 @@ class ShowcaseIdentityServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["create_user", "get_user", "update_user", "delete_user", "list_users"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["User"], presenter.references.map(&:name)
     assert_equal ["users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
   end

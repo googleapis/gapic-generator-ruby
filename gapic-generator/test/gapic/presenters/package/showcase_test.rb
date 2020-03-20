@@ -18,7 +18,7 @@ require "test_helper"
 
 class ShowcasePackagePresenterTest < PresenterTest
   def test_google_showcase_v1beta1
-    presenter = PackagePresenter.new api(:showcase), "google.showcase.v1beta1"
+    presenter = Gapic::Presenters::PackagePresenter.new api(:showcase), "google.showcase.v1beta1"
 
     assert_equal ["google", "showcase", "v1beta1"], presenter.address
     assert_equal "google.showcase.v1beta1", presenter.name
@@ -26,9 +26,9 @@ class ShowcasePackagePresenterTest < PresenterTest
     assert_equal "google/showcase/v1beta1", presenter.package_require
     assert_equal "google/showcase/v1beta1.rb", presenter.package_file_path
 
-    assert_kind_of GemPresenter, presenter.gem
+    assert_kind_of Gapic::Presenters::GemPresenter, presenter.gem
 
     assert_equal ["Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
-    presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
+    presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
 end

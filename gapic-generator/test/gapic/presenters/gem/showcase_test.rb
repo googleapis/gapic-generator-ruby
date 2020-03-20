@@ -18,7 +18,7 @@ require "test_helper"
 
 class ShowcaseGemPresenterTest < PresenterTest
   def presenter
-    GemPresenter.new api :showcase
+    Gapic::Presenters::GemPresenter.new api :showcase
   end
 
   def test_showcase
@@ -38,13 +38,13 @@ class ShowcaseGemPresenterTest < PresenterTest
     assert_equal "SHOWCASE", presenter.env_prefix
 
     assert_equal ["google.showcase.v1beta1"], presenter.packages.map(&:name)
-    presenter.packages.each { |pp| assert_kind_of PackagePresenter, pp }
+    presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
     assert_equal ["Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
-    presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
+    presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
     assert_equal ["google/api/field_behavior.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/duration.proto", "google/protobuf/timestamp.proto", "google/showcase/v1beta1/echo.proto", "google/api/resource.proto", "google/protobuf/field_mask.proto", "google/showcase/v1beta1/identity.proto", "google/rpc/error_details.proto", "google/showcase/v1beta1/messaging.proto", "google/showcase/v1beta1/testing.proto"], presenter.proto_files.map(&:name)
-    presenter.proto_files.each { |fp| assert_kind_of FilePresenter, fp }
+    presenter.proto_files.each { |fp| assert_kind_of Gapic::Presenters::FilePresenter, fp }
 
     refute presenter.iam_dependency?
   end
