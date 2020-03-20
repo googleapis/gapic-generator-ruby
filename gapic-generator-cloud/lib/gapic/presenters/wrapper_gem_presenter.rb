@@ -57,7 +57,7 @@ module Gapic
       end
 
       def extra_files
-        files = ["README.md", "AUTHENTICATION.md", "LICENSE", ".yardopts"]
+        files = ["README.md", "AUTHENTICATION.md", "LICENSE.md", ".yardopts"]
         files << "MIGRATING.md" if migration?
         files
       end

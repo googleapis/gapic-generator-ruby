@@ -145,6 +145,10 @@ module Gapic
         packages.first.package_require
       end
 
+      def needs_dashed_ruby_file?
+        name != namespace_file_path
+      end
+
       private
 
       def gem_config key

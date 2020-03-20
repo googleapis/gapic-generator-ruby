@@ -1,4 +1,9 @@
 <%- assert_locals gem -%>
+<% @requires = capture do %>
+<%- if gem.needs_dashed_ruby_file? -%>
+require "<%= gem.name %>"
+<%- end -%>
+<% end %>
 <%- gem.services.each do |service| -%>
 ##
 # Create a new `<%= service.name %>::Client` object.
