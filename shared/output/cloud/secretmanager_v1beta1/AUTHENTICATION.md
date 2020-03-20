@@ -34,7 +34,7 @@ client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
 
 The google-cloud-secret_manager-v1beta1 library aims to make authentication
 as simple as possible, and provides several mechanisms to configure your system
-without **Service Account Credentials** directly in code.
+without requiring **Service Account Credentials** directly in code.
 
 **Credentials** are discovered in the following order:
 

@@ -34,7 +34,6 @@ require "google/showcase/v1beta1/messaging/credentials"
 require "google/showcase/v1beta1/messaging/paths"
 require "google/showcase/v1beta1/messaging/operations"
 
-
 module Google
   module Showcase
     module V1beta1

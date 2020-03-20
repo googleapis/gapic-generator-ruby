@@ -25,7 +25,6 @@ require "google/cloud/language/v1beta2/version"
 require "google/cloud/language/v1beta2/language_service_pb"
 require "google/cloud/language/v1beta2/language_service/credentials"
 
-
 module Google
   module Cloud
     module Language

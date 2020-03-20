@@ -23,7 +23,6 @@ require "google/cloud/vision/v1/version"
 require "google/cloud/vision/v1/image_annotator/client"
 require "google/longrunning/operations_pb"
 
-
 module Google
   module Cloud
     module Vision

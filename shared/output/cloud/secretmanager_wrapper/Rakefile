@@ -27,7 +27,7 @@ desc "Run tests."
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList["test/**/*_test.rb"]
-  t.warning = false
+  t.warning = true
 end
 
 namespace :test do
@@ -98,7 +98,11 @@ end
 
 namespace :acceptance do
   task :run do
-    Rake::Task[:smoke_test].invoke
+    if File.directory? "acceptance"
+      Rake::Task[:smoke_test].invoke
+    else
+      puts "The google-cloud-secret_manager gem has no acceptance tests."
+    end
   end
 
   desc "Run acceptance tests with coverage."
@@ -125,7 +129,7 @@ namespace :samples do
         end
       end
     else
-      puts "No samples to test"
+      puts "The google-cloud-secret_manager gem has no samples to test."
     end
   end
 
@@ -139,14 +143,15 @@ namespace :samples do
         end
       end
     else
-      puts "No samples to test"
+      puts "The google-cloud-secret_manager gem has no samples to test."
     end
   end
 end
 
 require "yard"
 require "yard/rake/yardoc_task"
-YARD::Rake::YardocTask.new
+YARD::Rake::YardocTask.new do |y|
+end
 
 desc "Run yard-doctest example tests."
 task :doctest do

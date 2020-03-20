@@ -26,7 +26,6 @@
 
 require "googleauth"
 
-
 module So
   module Much
     module Trash

@@ -27,7 +27,6 @@ require "google/cloud/vision/v1/image_annotator/credentials"
 require "google/cloud/vision/v1/image_annotator/paths"
 require "google/cloud/vision/v1/image_annotator/operations"
 
-
 module Google
   module Cloud
     module Vision

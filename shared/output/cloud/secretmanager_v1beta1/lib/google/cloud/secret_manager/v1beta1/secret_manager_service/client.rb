@@ -26,7 +26,6 @@ require "google/cloud/secrets/v1beta1/service_pb"
 require "google/cloud/secret_manager/v1beta1/secret_manager_service/credentials"
 require "google/cloud/secret_manager/v1beta1/secret_manager_service/paths"
 
-
 module Google
   module Cloud
     module SecretManager

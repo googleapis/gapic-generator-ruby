@@ -21,7 +21,7 @@ require "google/cloud" unless defined? Google::Cloud.new
 require "google/cloud/config"
 require "googleauth"
 
-# Set the default configuation
+# Set the default configuration
 Google::Cloud.configure.add_config! :secret_manager do |config|
   config.add_field! :credentials,  nil, match: [String, Hash, Google::Auth::Credentials]
   config.add_field! :lib_name,     nil, match: String

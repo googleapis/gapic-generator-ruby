@@ -7,3 +7,8 @@ AllCops:
     - tmp/**/*
     - bin/*
     - Rakefile
+
+Style/Documentation:
+  Exclude:
+    - lib/gapic/presenters/**/*
+    - test/**/*

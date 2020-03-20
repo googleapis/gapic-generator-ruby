@@ -27,7 +27,6 @@ require "google/cloud/vision/v1/product_search/credentials"
 require "google/cloud/vision/v1/product_search/paths"
 require "google/cloud/vision/v1/product_search/operations"
 
-
 module Google
   module Cloud
     module Vision
