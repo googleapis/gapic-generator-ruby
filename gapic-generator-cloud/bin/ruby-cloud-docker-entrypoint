@@ -20,7 +20,8 @@ require "fileutils"
 
 bool_option_map = {
   ":gem.:free_tier" => "ruby-cloud-free-tier",
-  ":gem.:yard_strict" => "ruby-cloud-yard-strict"
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict",
+  ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
 }
 value_option_map = {
   "configuration" => "ruby-cloud-config",

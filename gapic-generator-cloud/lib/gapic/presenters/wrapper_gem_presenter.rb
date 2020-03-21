@@ -62,6 +62,10 @@ module Gapic
         files
       end
 
+      def factory_method_suffix
+        gem_config(:factory_method_suffix).to_s
+      end
+
       def version_dependencies
         gem_config(:version_dependencies).to_s.split(";").map { |str| str.split ":" }
       end

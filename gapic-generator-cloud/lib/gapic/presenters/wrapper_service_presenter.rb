@@ -27,7 +27,10 @@ module Gapic
       end
 
       def factory_method_name
-        ActiveSupport::Inflector.underscore name
+        method_name = ActiveSupport::Inflector.underscore name
+        suffix = gem.factory_method_suffix
+        method_name = "#{method_name}#{suffix}" unless method_name.end_with? suffix
+        method_name
       end
 
       def create_client_call
