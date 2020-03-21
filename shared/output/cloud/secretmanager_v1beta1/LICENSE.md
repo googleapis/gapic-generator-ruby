@@ -4,7 +4,7 @@ Apache License
 * Version 2.0, January 2004
 * https://www.apache.org/licenses/
 
-## TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+### TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
  1. Definitions.
 
@@ -93,19 +93,19 @@ Apache License
     modifications, and in Source or Object form, provided that You
     meet the following conditions:
 
-     a. You must give any other recipients of the Work or
+     *  **(a)** You must give any other recipients of the Work or
         Derivative Works a copy of this License; and
 
-     b. You must cause any modified files to carry prominent notices
+     *  **(b)** You must cause any modified files to carry prominent notices
         stating that You changed the files; and
 
-     c. You must retain, in the Source form of any Derivative Works
+     *  **(c)** You must retain, in the Source form of any Derivative Works
         that You distribute, all copyright, patent, trademark, and
         attribution notices from the Source form of the Work,
         excluding those notices that do not pertain to any part of
         the Derivative Works; and
 
-     d. If the Work includes a "NOTICE" text file as part of its
+     *  **(d)** If the Work includes a "NOTICE" text file as part of its
         distribution, then any Derivative Works that You distribute must
         include a readable copy of the attribution notices contained
         within such NOTICE file, excluding those notices that do not
@@ -177,7 +177,7 @@ Apache License
 
 _END OF TERMS AND CONDITIONS_
 
-## APPENDIX: How to apply the Apache License to your work.
+### APPENDIX: How to apply the Apache License to your work.
 
 To apply the Apache License to your work, attach the following
 boilerplate notice, with the fields enclosed by brackets "`[]`"
@@ -194,7 +194,7 @@ identification within third-party archives.
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-      https://www.apache.org/licenses/LICENSE-2.0
+        https://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
