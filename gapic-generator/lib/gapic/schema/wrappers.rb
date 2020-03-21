@@ -107,14 +107,21 @@ module Gapic
         parent&.containing_file
       end
 
+      ##
       # Gets the cleaned up leading comments documentation
-      def docs_leading_comments
+      #
+      # @param disable_xrefs [Boolean] (default is `false`) Disable linking to
+      #   cross-references, and render them simply as text. This can be used if
+      #   it is known that the targets are not present in the current library.
+      # @return [String]
+      #
+      def docs_leading_comments disable_xrefs: false
         return nil if @docs.nil?
         return nil if @docs.leading_comments.empty?
 
         lines = @docs.leading_comments.each_line.to_a
         lines.map! { |line| line.start_with?(" ") ? line[1..-1] : line }
-        lines = FormattingUtils.format_doc_lines containing_api, lines
+        lines = FormattingUtils.format_doc_lines containing_api, lines, disable_xrefs: disable_xrefs
         lines.join
       end
 

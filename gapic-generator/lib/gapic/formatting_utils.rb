@@ -33,10 +33,14 @@ module Gapic
       #
       # Tries to be smart about exempting preformatted text blocks.
       #
+      # @param api [Gapic::Schema::Api]
       # @param lines [Enumerable<String>]
+      # @param disable_xrefs [Boolean] (default is `false`) Disable linking to
+      #   cross-references, and render them simply as text. This can be used if
+      #   it is known that the targets are not present in the current library.
       # @return [Enumerable<String>]
       #
-      def format_doc_lines api, lines
+      def format_doc_lines api, lines, disable_xrefs: false
         # To detect preformatted blocks, this tracks the "expected" base indent
         # according to Markdown. Specifically, this is the effective indent of
         # previous block, which is normally 0 except if we're in a list item.
@@ -53,7 +57,7 @@ module Gapic
             in_block, base_indent = update_indent_state in_block, base_indent, line, indent
             if in_block == false
               line = escape_line_braces line
-              line = format_line_xrefs api, line
+              line = format_line_xrefs api, line, disable_xrefs
             end
           end
           line
@@ -104,11 +108,12 @@ module Gapic
         line
       end
 
-      def format_line_xrefs api, line
+      def format_line_xrefs api, line, disable_xrefs
         while (m = @xref_detector.match line)
           entity = api.lookup m[:addr]
           return line if entity.nil?
-          yard_link = yard_link_for_entity entity, m[:text]
+          text = m[:text]
+          yard_link = disable_xrefs ? text : yard_link_for_entity(entity, text)
           return line if yard_link.nil?
           line = "#{m[:pre]}#{yard_link}#{m[:post]}"
         end

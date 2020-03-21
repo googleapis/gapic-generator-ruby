@@ -65,6 +65,10 @@ module Gapic
         ActiveSupport::Inflector.camelize @service.address[-2]
       end
 
+      def doc_description disable_xrefs: false
+        @service.docs_leading_comments disable_xrefs: disable_xrefs
+      end
+
       def name
         @service.name
       end

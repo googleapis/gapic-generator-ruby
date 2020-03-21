@@ -6,11 +6,24 @@ require "<%= gem.name %>"
 <% end %>
 <%- gem.services.each do |service| -%>
 ##
-# Create a new `<%= service.name %>::Client` object.
+# Create a new client object for <%= service.name %>.
 #
+# By default, this returns an instance of
+# <%= gem.docs_link version: gem.default_version, class_name: "#{service.name}::Client" %>
+# for version <%= gem.default_version.capitalize %> of the API.
+# However, you can specify specify a different API version by passing it in the
+# `version` parameter. If the <%= service.name %> service is
+# supported by that API version, and the corresponding gem is available, the
+# appropriate versioned client will be returned.
+#
+<%- if service.doc_description -%>
+# ---
+#
+<%= indent service.doc_description(disable_xrefs: true), "# " %>
+#
+<%- end -%>
 # @param version [String, Symbol] The API version to connect to. Optional.
-#   If not provided, defaults to `:<%= gem.default_version %>`, which will return an instance of
-#   <%= gem.docs_link version: gem.default_version, class_name: "#{service.name}::Client" %>.
+#   Defaults to `:<%= gem.default_version %>`.
 # @return [<%= service.name %>::Client] A client object for the specified version.
 #
 def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>, &block
