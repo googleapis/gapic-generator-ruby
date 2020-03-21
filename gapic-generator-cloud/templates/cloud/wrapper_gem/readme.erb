@@ -15,8 +15,10 @@ for this library, <%= gem.name %>, to see the convenience methods for
 constructing client objects. Reference documentation for the client objects
 themselves can be found in the client library documentation for the versioned
 client gems:
-<%- gem.versioned_gems.each do |name| -%>
-[<%= name %>](https://googleapis.dev/ruby/<%= name %>/latest)
+<%- last_index = gem.versioned_gems.size - 1 -%>
+<%- gem.versioned_gems.each_with_index do |name, i| -%>
+<%- sep = i == last_index ? "." : "," -%>
+[<%= name %>](https://googleapis.dev/ruby/<%= name %>/latest)<%= sep %>
 <%- end -%>
 
 <%- if gem.product_documentation_url -%>

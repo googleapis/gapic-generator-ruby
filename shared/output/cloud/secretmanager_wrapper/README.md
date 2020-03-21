@@ -15,7 +15,8 @@ for this library, google-cloud-secret_manager, to see the convenience methods fo
 constructing client objects. Reference documentation for the client objects
 themselves can be found in the client library documentation for the versioned
 client gems:
-[google-cloud-secret_manager-v1beta1](https://googleapis.dev/ruby/google-cloud-secret_manager-v1beta1/latest)
+[google-cloud-secret_manager-v1](https://googleapis.dev/ruby/google-cloud-secret_manager-v1/latest),
+[google-cloud-secret_manager-v1beta1](https://googleapis.dev/ruby/google-cloud-secret_manager-v1beta1/latest).
 
 See also the [Product Documentation](https://cloud.google.com/secret-manager/docs)
 for more usage information.
