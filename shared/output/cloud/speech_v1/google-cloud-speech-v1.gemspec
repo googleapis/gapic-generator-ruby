@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-speech-v1 is the official library for Google Cloud Speech V1 API."
-  gem.summary       = "API Client library for Google Cloud Speech V1 API"
+  gem.description   = "google-cloud-speech-v1 is the official library for the Google Cloud Speech V1 API."
+  gem.summary       = "API Client library for the Google Cloud Speech V1 API"
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"
 

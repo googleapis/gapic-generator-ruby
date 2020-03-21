@@ -100,12 +100,12 @@ module Gapic
 
       def description
         gem_config(:description) ||
-          "#{name} is the official library for #{title} API."
+          "#{name} is the official library for the #{title} API."
       end
 
       def summary
         gem_config(:summary) ||
-          "API Client library for #{title} API"
+          "API Client library for the #{title} API"
       end
 
       def homepage
