@@ -37,7 +37,14 @@ module Google
   module Showcase
     module V1beta1
       module Echo
-        # Service that implements Echo API.
+        ##
+        # Client for the Echo service.
+        #
+        # This service is used showcase the four main types of rpcs - unary, server
+        # side streaming, client side streaming, and bidirectional streaming. This
+        # service also exposes methods that explicitly implement server delay, and
+        # paginated calls.
+        #
         class Client
           # @private
           attr_reader :echo_stub

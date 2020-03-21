@@ -31,7 +31,11 @@ module Google
     module Speech
       module V1
         module Speech
-          # Service that implements Speech API.
+          ##
+          # Client for the Speech service.
+          #
+          # Service that implements Google Cloud Speech API.
+          #
           class Client
             # @private
             attr_reader :speech_stub

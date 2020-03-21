@@ -30,7 +30,12 @@ module Google
     module Language
       module V1beta1
         module LanguageService
-          # Service that implements LanguageService API.
+          ##
+          # Client for the LanguageService service.
+          #
+          # Provides text analysis operations such as sentiment analysis and entity
+          # recognition.
+          #
           class Client
             # @private
             attr_reader :language_service_stub

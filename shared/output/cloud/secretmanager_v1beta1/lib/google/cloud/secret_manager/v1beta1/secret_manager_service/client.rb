@@ -31,7 +31,17 @@ module Google
     module SecretManager
       module V1beta1
         module SecretManagerService
-          # Service that implements SecretManagerService API.
+          ##
+          # Client for the SecretManagerService service.
+          #
+          # Secret Manager Service
+          #
+          # Manages secrets and operations using those secrets. Implements a REST
+          # model with the following objects:
+          #
+          # * {Google::Cloud::SecretManager::V1beta1::Secret Secret}
+          # * {Google::Cloud::SecretManager::V1beta1::SecretVersion SecretVersion}
+          #
           class Client
             include Paths
 
