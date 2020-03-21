@@ -20,8 +20,7 @@ require "fileutils"
 
 bool_option_map = {
   ":gem.:free_tier" => "ruby-cloud-free-tier",
-  ":gem.:yard_strict" => "ruby-cloud-yard-strict",
-  ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict"
 }
 value_option_map = {
   "configuration" => "ruby-cloud-config",
@@ -34,6 +33,7 @@ value_option_map = {
   ":gem.:migration_version" => "ruby-cloud-migration-version",
   ":gem.:product_documentation_url" => "ruby-cloud-product-url",
   ":gem.:api_id" => "ruby-cloud-api-id",
+  ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
 }
 path_option_map = {
   "samples" => ["ruby-cloud-samples", "samples"],
