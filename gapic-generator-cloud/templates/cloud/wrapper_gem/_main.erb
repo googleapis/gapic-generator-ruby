@@ -17,7 +17,7 @@ require "<%= gem.name %>"
 # appropriate versioned client will be returned.
 #
 <%- if service.doc_description -%>
-# ---
+# ## About <%= service.name %>
 #
 <%= indent service.doc_description(disable_xrefs: true), "# " %>
 #

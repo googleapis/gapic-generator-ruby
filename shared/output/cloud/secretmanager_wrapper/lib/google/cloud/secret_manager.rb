@@ -32,7 +32,7 @@ module Google
       # supported by that API version, and the corresponding gem is available, the
       # appropriate versioned client will be returned.
       #
-      # ---
+      # ## About SecretManagerService
       #
       # Secret Manager Service
       #
