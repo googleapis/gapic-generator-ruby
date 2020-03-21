@@ -72,8 +72,8 @@ task :acceptance, :project, :keyfile do |t, args|
   if project.nil? || keyfile.nil?
     fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= gem.env_prefix %>_TEST_PROJECT=test123 <%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
   end
-  require "<%= service.client_require %>/credentials"
-  <%= service.client_name_full %>::Credentials.env_vars.each do |path|
+  require "<%= service.credentials_require %>"
+  <%= service.credentials_name_full %>.env_vars.each do |path|
     ENV[path] = nil
   end
   ENV["<%= gem.env_prefix %>_PROJECT"] = project

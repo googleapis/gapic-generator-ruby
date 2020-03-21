@@ -135,9 +135,9 @@ Google Cloud requires **Service Account Credentials** to
 connect to the APIs. You will use the **JSON key file** to
 connect to most services with google-cloud-speech-v1.
 
-If you are not running this client within [Google Cloud Platform
-environments](#google-cloud-platform-environments), you need a Google
-Developers service account.
+If you are not running this client within
+[Google Cloud Platform environments](#google-cloud-platform-environments), you
+need a Google Developers service account.
 
 1. Visit the [Google Developers Console][dev-console].
 2. Create a new project or click on an existing project.
