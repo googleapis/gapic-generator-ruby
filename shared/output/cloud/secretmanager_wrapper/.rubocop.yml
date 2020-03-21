@@ -8,6 +8,8 @@ AllCops:
     - "acceptance/**/*"
     - "test/**/*"
 
+Bundler/OrderedGems:
+  Enabled: false
 Documentation:
   Enabled: false
 
