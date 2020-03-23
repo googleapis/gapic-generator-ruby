@@ -32,8 +32,8 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal "Google::Garbage::VERSION", presenter.version_name_full
     assert_equal ["Google LLC"], presenter.authors
     assert_equal "googleapis-packages@google.com", presenter.email
-    assert_equal "google-garbage is the official library for Google Garbage API.", presenter.description
-    assert_equal "API Client library for Google Garbage API", presenter.summary
+    assert_equal "google-garbage is the official client library for the Google Garbage API.", presenter.description
+    assert_equal "API Client library for the Google Garbage API", presenter.summary
     assert_equal "https://github.com/googleapis/googleapis", presenter.homepage
     assert_equal "GARBAGE", presenter.env_prefix
 

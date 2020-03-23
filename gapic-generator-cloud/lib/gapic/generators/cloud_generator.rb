@@ -16,6 +16,7 @@
 
 require "gapic/generators/default_generator"
 require "gapic/presenters"
+require "gapic/presenters/wrapper_gem_presenter"
 
 module Gapic
   module Generators
@@ -42,6 +43,9 @@ module Gapic
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
       def generate
+        gem_config = @api.configuration[:gem] ||= {}
+        return generate_wrapper if gem_config[:version_dependencies]
+
         orig_files = super
 
         cloud_files = []
@@ -57,6 +61,45 @@ module Gapic
 
         orig_files + cloud_files
       end
+
+      # Disable Rubocop because we expect generate to grow and violate more
+      # and more style rules.
+      # rubocop:disable all
+
+      # Generates the files for a wrapper.
+      #
+      # @return [Array<Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
+      #   The files that were generated for the API.
+      #
+      def generate_wrapper
+        files = []
+
+        gem = Gapic::Presenters.wrapper_gem_presenter @api
+
+        files << g("gem/gitignore.erb",            ".gitignore",                                    gem: gem)
+        files << g("gem/repo-metadata.erb",        ".repo-metadata.json",                           gem: gem)
+        files << g("wrapper_gem/rubocop.erb",      ".rubocop.yml",                                  gem: gem)
+        files << g("wrapper_gem/yardopts.erb",     ".yardopts",                                     gem: gem)
+        files << g("gem/authentication.erb",       "AUTHENTICATION.md",                             gem: gem)
+        files << g("gem/changelog.erb",            "CHANGELOG.md",                                  gem: gem)
+        files << g("wrapper_gem/gemfile.erb",      "Gemfile",                                       gem: gem)
+        files << g("gem/license.erb",              "LICENSE.md",                                    gem: gem)
+        files << g("wrapper_gem/rakefile.erb",     "Rakefile",                                      gem: gem)
+        files << g("wrapper_gem/readme.erb",       "README.md",                                     gem: gem)
+        files << g("wrapper_gem/gemspec.erb",      "#{gem.name}.gemspec",                           gem: gem)
+        files << g("wrapper_gem/dashed.erb",       "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_dashed_ruby_file?
+        files << g("wrapper_gem/main.erb",         "lib/#{gem.namespace_file_path}",                gem: gem)
+        files << g("gem/version.erb",              "lib/#{gem.version_file_path}",                  gem: gem)
+        files << g("wrapper_gem/test_helper.erb",  "test/helper.rb",                                gem: gem)
+        files << g("wrapper_gem/client_test.erb",  "test/#{gem.namespace_require}/client_test.rb",  gem: gem)
+        files << g("wrapper_gem/version_test.erb", "test/#{gem.namespace_require}/version_test.rb", gem: gem)
+
+        format_files files
+
+        files
+      end
+
+      # rubocop:enable all
 
       private
 

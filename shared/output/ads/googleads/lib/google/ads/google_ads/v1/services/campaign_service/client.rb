@@ -25,7 +25,6 @@ require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
 
-
 module Google
   module Ads
     module GoogleAds

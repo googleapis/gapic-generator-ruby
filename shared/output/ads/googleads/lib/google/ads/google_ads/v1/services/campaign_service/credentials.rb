@@ -18,7 +18,6 @@
 
 require "googleauth"
 
-
 module Google
   module Ads
     module GoogleAds

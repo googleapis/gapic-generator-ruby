@@ -1,6 +1,6 @@
 # Secret Manager V1beta1
 
-google-cloud-secret_manager-v1beta1 is the official library for Secret Manager V1beta1 API.
+google-cloud-secret_manager-v1beta1 is the official client library for the Secret Manager V1beta1 API.
 
 Stores, manages, and secures access to application secrets.
 

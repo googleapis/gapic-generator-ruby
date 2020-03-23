@@ -1,8 +1,8 @@
 # Google Cloud Language V1beta2
 
-google-cloud-language-v1beta2 is the official library for Google Cloud Language V1beta2 API.
+google-cloud-language-v1beta2 is the official client library for the Google Cloud Language V1beta2 API.
 
-API Client library for Google Cloud Language V1beta2 API
+API Client library for the Google Cloud Language V1beta2 API
 
 https://github.com/googleapis/google-cloud-ruby
 

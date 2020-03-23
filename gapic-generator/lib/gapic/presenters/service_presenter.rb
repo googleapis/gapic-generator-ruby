@@ -65,6 +65,10 @@ module Gapic
         ActiveSupport::Inflector.camelize @service.address[-2]
       end
 
+      def doc_description disable_xrefs: false
+        @service.docs_leading_comments disable_xrefs: disable_xrefs
+      end
+
       def name
         @service.name
       end
@@ -121,6 +125,14 @@ module Gapic
         fix_namespace @api, "#{proto_service_name_full}::#{client_name}"
       end
 
+      def create_client_call
+        "#{client_name_full}.new"
+      end
+
+      def configure_client_call
+        "#{client_name_full}.configure"
+      end
+
       def client_require
         ruby_file_path @api, client_name_full
       end
@@ -151,6 +163,10 @@ module Gapic
 
       def credentials_name_full
         fix_namespace @api, "#{proto_service_name_full}::#{credentials_name}"
+      end
+
+      def credentials_class_xref
+        "{#{credentials_name_full}}"
       end
 
       def credentials_file_path

@@ -1,0 +1,15 @@
+<%- assert_locals gem -%>
+--no-private
+--title=<%= gem.title %> API
+--exclude _pb\.rb$
+--markup markdown
+--markup-provider redcarpet
+
+./lib/**/*.rb
+-
+README.md
+AUTHENTICATION.md
+<%- if gem.migration? -%>
+MIGRATING.md
+<%- end -%>
+LICENSE.md

@@ -3,6 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - "google-cloud-language-v1beta1.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
     - "test/**/*"

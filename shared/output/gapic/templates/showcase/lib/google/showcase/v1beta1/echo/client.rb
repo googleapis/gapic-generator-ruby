@@ -33,7 +33,6 @@ require "google/showcase/v1beta1/echo_pb"
 require "google/showcase/v1beta1/echo/credentials"
 require "google/showcase/v1beta1/echo/operations"
 
-
 module Google
   module Showcase
     module V1beta1

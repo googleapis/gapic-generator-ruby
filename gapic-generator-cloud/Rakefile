@@ -48,6 +48,7 @@ namespace :gen do
     generate_cloud_templates :language_v1beta1
     generate_cloud_templates :language_v1beta2
     generate_cloud_templates :secretmanager_v1beta1
+    generate_cloud_templates :secretmanager_wrapper, wrapper: true
     generate_cloud_templates :speech_v1
     generate_cloud_templates :vision_v1
     generate_cloud_templates :noservice
@@ -110,21 +111,21 @@ def prepare_embedded_gapic_generator_directory
   FileUtils.cp_r base_source_dir, base_tmp_dir
 end
 
-def generate_cloud_templates service
+def generate_cloud_templates service, wrapper: false
   require "gapic/generators/cloud_generator"
 
   target_path = File.expand_path File.join("expected_output", String(service))
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
+  ruby_plugin_args = wrapper ? [] : ["--ruby_out=#{target_path}/lib", "--grpc_out=#{target_path}/lib"]
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
     "-I ../shared/api-common-protos",
     "-I ../shared/googleapis",
     "-I ../shared/protos",
-    "--ruby_gapic_opt=generator=cloud",
-    "--ruby_out=#{target_path}/lib",
-    "--grpc_out=#{target_path}/lib",
+    "--ruby_gapic_opt=generator=cloud"
+  ] + ruby_plugin_args + [
     "--ruby_gapic_out=#{target_path}",
     "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml"
   ]

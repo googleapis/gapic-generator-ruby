@@ -34,7 +34,6 @@ require "so/much/trash/garbage_service/credentials"
 require "so/much/trash/garbage_service/paths"
 require "so/much/trash/garbage_service/operations"
 
-
 module So
   module Much
     module Trash

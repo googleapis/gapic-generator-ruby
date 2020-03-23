@@ -23,7 +23,6 @@ require "google/cloud/speech/v1/version"
 require "google/cloud/speech/v1/speech/client"
 require "google/longrunning/operations_pb"
 
-
 module Google
   module Cloud
     module Speech

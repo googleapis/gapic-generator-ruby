@@ -3,6 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
+    - "google-garbage-noservice.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
     - "test/**/*"

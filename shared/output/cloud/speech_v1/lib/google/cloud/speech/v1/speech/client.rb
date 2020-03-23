@@ -26,7 +26,6 @@ require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"
 require "google/cloud/speech/v1/speech/operations"
 
-
 module Google
   module Cloud
     module Speech

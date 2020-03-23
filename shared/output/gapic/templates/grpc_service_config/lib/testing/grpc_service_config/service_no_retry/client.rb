@@ -32,7 +32,6 @@ require "testing/grpc_service_config/version"
 require "testing/grpc_service_config/grpc_service_config_pb"
 require "testing/grpc_service_config/service_no_retry/credentials"
 
-
 module Testing
   module GrpcServiceConfig
     module ServiceNoRetry
