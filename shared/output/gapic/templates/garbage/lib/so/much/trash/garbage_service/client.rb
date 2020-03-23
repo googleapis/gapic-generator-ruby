@@ -34,12 +34,15 @@ require "so/much/trash/garbage_service/credentials"
 require "so/much/trash/garbage_service/paths"
 require "so/much/trash/garbage_service/operations"
 
-
 module So
   module Much
     module Trash
       module GarbageService
-        # Service that implements GarbageService API.
+        ##
+        # Client for the GarbageService service.
+        #
+        # Endless trash
+        #
         class Client
           include Paths
 

@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "testing-grpc_service_config is the official library for Testing GrpcServiceConfig API."
-  gem.summary       = "API Client library for Testing GrpcServiceConfig API"
+  gem.description   = "testing-grpc_service_config is the official client library for the Testing GrpcServiceConfig API."
+  gem.summary       = "API Client library for the Testing GrpcServiceConfig API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 

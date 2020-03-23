@@ -27,13 +27,29 @@ require "google/cloud/vision/v1/product_search/credentials"
 require "google/cloud/vision/v1/product_search/paths"
 require "google/cloud/vision/v1/product_search/operations"
 
-
 module Google
   module Cloud
     module Vision
       module V1
         module ProductSearch
-          # Service that implements ProductSearch API.
+          ##
+          # Client for the ProductSearch service.
+          #
+          # Manages Products and ProductSets of reference images for use in product
+          # search. It uses the following resource model:
+          #
+          # - The API has a collection of {Google::Cloud::Vision::V1::ProductSet ProductSet} resources, named
+          # `projects/*/locations/*/productSets/*`, which acts as a way to put different
+          # products into groups to limit identification.
+          #
+          # In parallel,
+          #
+          # - The API has a collection of {Google::Cloud::Vision::V1::Product Product} resources, named
+          #   `projects/*/locations/*/products/*`
+          #
+          # - Each {Google::Cloud::Vision::V1::Product Product} has a collection of {Google::Cloud::Vision::V1::ReferenceImage ReferenceImage} resources, named
+          #   `projects/*/locations/*/products/*/referenceImages/*`
+          #
           class Client
             include Paths
 

@@ -33,12 +33,16 @@ require "google/showcase/v1beta1/testing_pb"
 require "google/showcase/v1beta1/testing/credentials"
 require "google/showcase/v1beta1/testing/paths"
 
-
 module Google
   module Showcase
     module V1beta1
       module Testing
-        # Service that implements Testing API.
+        ##
+        # Client for the Testing service.
+        #
+        # A service to facilitate running discrete sets of tests
+        # against Showcase.
+        #
         class Client
           include Paths
 

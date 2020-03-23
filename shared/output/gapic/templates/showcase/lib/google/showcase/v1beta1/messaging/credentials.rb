@@ -26,7 +26,6 @@
 
 require "googleauth"
 
-
 module Google
   module Showcase
     module V1beta1

@@ -25,14 +25,17 @@ require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
 
-
 module Google
   module Ads
     module GoogleAds
       module V1
         module Services
           module CampaignService
-            # Service that implements CampaignService API.
+            ##
+            # Client for the CampaignService service.
+            #
+            # Service to manage campaigns.
+            #
             class Client
               # @private
               attr_reader :campaign_service_stub

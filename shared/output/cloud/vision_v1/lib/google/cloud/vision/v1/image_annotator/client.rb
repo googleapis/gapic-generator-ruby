@@ -27,13 +27,18 @@ require "google/cloud/vision/v1/image_annotator/credentials"
 require "google/cloud/vision/v1/image_annotator/paths"
 require "google/cloud/vision/v1/image_annotator/operations"
 
-
 module Google
   module Cloud
     module Vision
       module V1
         module ImageAnnotator
-          # Service that implements ImageAnnotator API.
+          ##
+          # Client for the ImageAnnotator service.
+          #
+          # Service that performs Google Cloud Vision API detection tasks over client
+          # images, such as face, landmark, logo, label, and text detection. The
+          # ImageAnnotator service returns detected entities from the images.
+          #
           class Client
             include Paths
 

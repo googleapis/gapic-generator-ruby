@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-showcase is the official library for Google Showcase API."
-  gem.summary       = "API Client library for Google Showcase API"
+  gem.description   = "google-showcase is the official client library for the Google Showcase API."
+  gem.summary       = "API Client library for the Google Showcase API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 

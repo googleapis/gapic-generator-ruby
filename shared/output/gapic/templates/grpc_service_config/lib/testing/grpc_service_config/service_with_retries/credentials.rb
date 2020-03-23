@@ -26,7 +26,6 @@
 
 require "googleauth"
 
-
 module Testing
   module GrpcServiceConfig
     module ServiceWithRetries

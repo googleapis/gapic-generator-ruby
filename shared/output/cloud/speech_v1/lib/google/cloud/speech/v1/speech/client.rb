@@ -26,13 +26,16 @@ require "google/cloud/speech/v1/cloud_speech_pb"
 require "google/cloud/speech/v1/speech/credentials"
 require "google/cloud/speech/v1/speech/operations"
 
-
 module Google
   module Cloud
     module Speech
       module V1
         module Speech
-          # Service that implements Speech API.
+          ##
+          # Client for the Speech service.
+          #
+          # Service that implements Google Cloud Speech API.
+          #
           class Client
             # @private
             attr_reader :speech_stub

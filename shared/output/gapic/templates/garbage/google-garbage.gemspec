@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-garbage is the official library for Google Garbage API."
-  gem.summary       = "API Client library for Google Garbage API"
+  gem.description   = "google-garbage is the official client library for the Google Garbage API."
+  gem.summary       = "API Client library for the Google Garbage API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 

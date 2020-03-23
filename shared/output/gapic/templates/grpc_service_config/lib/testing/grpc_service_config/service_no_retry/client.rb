@@ -32,11 +32,12 @@ require "testing/grpc_service_config/version"
 require "testing/grpc_service_config/grpc_service_config_pb"
 require "testing/grpc_service_config/service_no_retry/credentials"
 
-
 module Testing
   module GrpcServiceConfig
     module ServiceNoRetry
-      # Service that implements ServiceNoRetry API.
+      ##
+      # Client for the ServiceNoRetry service.
+      #
       class Client
         # @private
         attr_reader :service_no_retry_stub

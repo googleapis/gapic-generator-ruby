@@ -33,12 +33,15 @@ require "google/showcase/v1beta1/identity_pb"
 require "google/showcase/v1beta1/identity/credentials"
 require "google/showcase/v1beta1/identity/paths"
 
-
 module Google
   module Showcase
     module V1beta1
       module Identity
-        # Service that implements Identity API.
+        ##
+        # Client for the Identity service.
+        #
+        # A simple identity service.
+        #
         class Client
           include Paths
 

@@ -15,7 +15,13 @@ require "<%= service.paths_require %>"
 require "<%= service.operations_require %>"
 <%- end -%>
 <% end %>
-# Service that implements <%= service.name %> API.
+##
+# Client for the <%= service.name %> service.
+#
+<%- if service.doc_description -%>
+<%= indent service.doc_description, "# " %>
+#
+<%- end -%>
 class <%= service.client_name %>
 <%- if service.paths? -%>
   include <%= service.paths_name %>

@@ -45,6 +45,13 @@ def gem_defaults
         "google/cloud/common_resources.proto"
       ]
     },
+    secretmanager_wrapper: {
+      protos: [
+        "google/cloud/secrets/v1beta1/resources.proto",
+        "google/cloud/secrets/v1beta1/service.proto",
+        "google/cloud/common_resources.proto"
+      ]
+    },
     speech_v1: {
       protos: [
         "google/cloud/speech/v1/cloud_speech.proto"

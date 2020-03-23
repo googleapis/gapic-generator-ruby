@@ -100,12 +100,12 @@ module Gapic
 
       def description
         gem_config(:description) ||
-          "#{name} is the official library for #{title} API."
+          "#{name} is the official client library for the #{title} API."
       end
 
       def summary
         gem_config(:summary) ||
-          "API Client library for #{title} API"
+          "API Client library for the #{title} API"
       end
 
       def homepage
@@ -119,6 +119,30 @@ module Gapic
 
       def iam_dependency?
         @api.files.map(&:name).any? { |f| f.start_with? "google/iam/v1/" }
+      end
+
+      def library_documentation_url
+        gem_config(:library_documentation_url) || "https://googleapis.dev/ruby/#{name}/latest"
+      end
+
+      def product_documentation_url
+        gem_config :product_documentation_url
+      end
+
+      def api_id
+        gem_config :api_id
+      end
+
+      def free_tier?
+        gem_config(:free_tier) ? true : false
+      end
+
+      def yard_strict?
+        gem_config(:yard_strict) ? true : false
+      end
+
+      def entrypoint_require
+        packages.first.package_require
       end
 
       private

@@ -31,7 +31,6 @@ require "google/garbage/version"
 require "so/much/trash/garbage_service/client"
 require "google/longrunning/operations_pb"
 
-
 module So
   module Much
     module Trash

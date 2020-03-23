@@ -31,7 +31,6 @@ require "google/showcase/version"
 require "google/showcase/v1beta1/echo/client"
 require "google/longrunning/operations_pb"
 
-
 module Google
   module Showcase
     module V1beta1

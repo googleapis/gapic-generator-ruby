@@ -1,8 +1,8 @@
 # Google Garbage
 
-google-garbage is the official library for Google Garbage API.
+API Client library for the Google Garbage API
 
-API Client library for Google Garbage API
+google-garbage is the official client library for the Google Garbage API.
 
 https://github.com/googleapis/googleapis
 
