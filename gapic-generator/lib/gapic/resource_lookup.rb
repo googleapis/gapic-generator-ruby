@@ -42,7 +42,14 @@ module Gapic
     def service_resource_types
       @service_resource_types ||= begin
         @service.methods.flat_map do |method|
-          message_resource_types method.input
+          input_resource_types = message_resource_types method.input
+
+          if @api.generate_path_helpers_output?
+            output_resource_types = message_resource_types method.output
+            input_resource_types + output_resource_types
+          else
+            input_resource_types
+          end
         end.uniq
       end
     end

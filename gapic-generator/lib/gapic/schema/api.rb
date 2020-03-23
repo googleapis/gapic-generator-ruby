@@ -208,6 +208,22 @@ module Gapic
         end
       end
 
+      # Whether the generate_path_helpers_output parameter was given in the configuration
+      def generate_path_helpers_output_defined?
+        configuration.key? :generate_path_helpers_output
+      end
+
+      # Sets the generate_path_helpers_output parameter in the configuration
+      def generate_path_helpers_output= value
+        configuration[:generate_path_helpers_output] = value
+      end
+
+      # Whether to generate path helpers for output as well as input messages
+      def generate_path_helpers_output?
+        # if not set in configuration, false by default
+        configuration[:generate_path_helpers_output] ||= false
+      end
+
       # Raw parsed json of the combined grpc service config files if provided
       # or an empty hash if no config was provided
       def grpc_service_config_raw
