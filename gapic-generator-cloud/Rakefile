@@ -96,7 +96,17 @@ namespace :image do
   end
 
   task :release do
-    Rake::Task["image:push"].invoke
+    require_relative "lib/gapic/generator/cloud/version.rb"
+    version = ENV["RELEASE_VERSION"] || Gapic::Generator::Cloud::VERSION
+    match = /^((\d+)\.\d+)\.\d+$/.match version
+    raise "Bad version format: #{version}" unless match
+    version_minor = match[1]
+    version_major = match[2]
+    project = ENV["PROJECT_ID"] || "gapic-images"
+    image_url = "gcr.io/#{project}/gapic-generator-ruby"
+    prepare_embedded_gapic_generator_directory
+    sh "gcloud builds submit --project=#{project} --config=cloudbuild.yaml" \
+       " --substitutions=_IMAGE_URL=#{image_url},_VERSION=#{version} ."
     sh "gcloud container images add-tag --quiet #{image_url}:#{version}" \
        " #{image_url}:#{version_minor} #{image_url}:#{version_major} #{image_url}:latest"
   end
