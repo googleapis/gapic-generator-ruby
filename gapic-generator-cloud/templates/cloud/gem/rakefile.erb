@@ -1,4 +1,5 @@
 <%- assert_locals gem -%>
+<%- service = gem.services.first -%>
 <%= render partial: "shared/header" -%>
 
 require "bundler/setup"
@@ -28,15 +29,74 @@ namespace :test do
   end
 end
 
+desc "Runs the smoke tests."
+Rake::TestTask.new :smoke_test do |t|
+  t.test_files = FileList["acceptance/**/*smoke_test.rb"]
+  t.warning = false
+end
+
+namespace :smoke_test do
+  desc "Runs smoke tests with coverage."
+  task :coverage do
+    require "simplecov"
+    SimpleCov.start do
+      command_name "<%= gem.name %>"
+      track_files "lib/**/*.rb"
+      add_filter "test/"
+    end
+
+    Rake::Task[:smoke_test].invoke
+  end
+end
+
 # Acceptance tests
 desc "Run the <%= gem.name %> acceptance tests."
-task :acceptance do
-  puts "The <%= gem.name %> gem does not have acceptance tests."
+task :acceptance, :project, :keyfile do |t, args|
+  <%- if service -%>
+  project = args[:project]
+  project ||=
+    ENV["<%= gem.env_prefix %>_TEST_PROJECT"] ||
+    ENV["GCLOUD_TEST_PROJECT"]
+  keyfile = args[:keyfile]
+  keyfile ||=
+    ENV["<%= gem.env_prefix %>_TEST_KEYFILE"] ||
+    ENV["GCLOUD_TEST_KEYFILE"]
+  if keyfile
+    keyfile = File.read keyfile
+  else
+    keyfile ||=
+      ENV["<%= gem.env_prefix %>_TEST_KEYFILE_JSON"] ||
+      ENV["GCLOUD_TEST_KEYFILE_JSON"]
+  end
+  if project.nil? || keyfile.nil?
+    fail "You must provide a project and keyfile. e.g. rake acceptance[test123, /path/to/keyfile.json] or <%= gem.env_prefix %>_TEST_PROJECT=test123 <%= gem.env_prefix %>_TEST_KEYFILE=/path/to/keyfile.json rake acceptance"
+  end
+  require "<%= service.credentials_require %>"
+  <%= service.credentials_name_full %>.env_vars.each do |path|
+    ENV[path] = nil
+  end
+  ENV["<%= gem.env_prefix %>_PROJECT"] = project
+  ENV["<%= gem.env_prefix %>_TEST_PROJECT"] = project
+  ENV["<%= gem.env_prefix %>_KEYFILE_JSON"] = keyfile
+  <%- end -%>
+
+  Rake::Task["acceptance:run"].invoke
 end
 
 namespace :acceptance do
+  task :run do
+    if File.directory? "acceptance"
+      Rake::Task[:smoke_test].invoke
+    else
+      puts "The <%= gem.name %> gem has no acceptance tests."
+    end
+  end
+
+  desc "Run acceptance tests with coverage."
   task :coverage do
   end
+
+  desc "Run acceptance cleanup."
   task :cleanup do
   end
 end
@@ -64,9 +124,21 @@ task :ci do
 end
 
 namespace :ci do
+  desc "Run the CI build, with smoke tests."
+  task :smoke_test do
+    Rake::Task[:ci].invoke
+    header "<%= gem.name %> smoke_test", "*"
+    Rake::Task[:smoke_test].invoke
+  end
+  desc "Run the CI build, with acceptance tests."
   task :acceptance do
+    Rake::Task[:ci].invoke
+    header "<%= gem.name %> acceptance", "*"
+    Rake::Task[:acceptance].invoke
   end
   task :a do
+    # This is a handy shortcut to save typing
+    Rake::Task["ci:acceptance"].invoke
   end
 end
 

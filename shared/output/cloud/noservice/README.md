@@ -1,8 +1,8 @@
 # Google Garbage Noservice
 
-google-garbage-noservice is the official client library for the Google Garbage Noservice API.
-
 API Client library for the Google Garbage Noservice API
+
+google-garbage-noservice is the official client library for the Google Garbage Noservice API.
 
 https://github.com/googleapis/google-cloud-ruby
 

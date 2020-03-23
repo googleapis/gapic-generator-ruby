@@ -38,7 +38,11 @@ module So
   module Much
     module Trash
       module GarbageService
-        # Service that implements GarbageService API.
+        ##
+        # Client for the GarbageService service.
+        #
+        # Endless trash
+        #
         class Client
           include Paths
 

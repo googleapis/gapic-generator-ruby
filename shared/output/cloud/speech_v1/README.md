@@ -1,8 +1,8 @@
 # Google Cloud Speech V1
 
-google-cloud-speech-v1 is the official client library for the Google Cloud Speech V1 API.
-
 API Client library for the Google Cloud Speech V1 API
+
+google-cloud-speech-v1 is the official client library for the Google Cloud Speech V1 API.
 
 https://github.com/googleapis/google-cloud-ruby
 

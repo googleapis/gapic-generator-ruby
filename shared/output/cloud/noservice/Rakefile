@@ -43,15 +43,46 @@ namespace :test do
   end
 end
 
+desc "Runs the smoke tests."
+Rake::TestTask.new :smoke_test do |t|
+  t.test_files = FileList["acceptance/**/*smoke_test.rb"]
+  t.warning = false
+end
+
+namespace :smoke_test do
+  desc "Runs smoke tests with coverage."
+  task :coverage do
+    require "simplecov"
+    SimpleCov.start do
+      command_name "google-garbage-noservice"
+      track_files "lib/**/*.rb"
+      add_filter "test/"
+    end
+
+    Rake::Task[:smoke_test].invoke
+  end
+end
+
 # Acceptance tests
 desc "Run the google-garbage-noservice acceptance tests."
-task :acceptance do
-  puts "The google-garbage-noservice gem does not have acceptance tests."
+task :acceptance, :project, :keyfile do |t, args|
+  Rake::Task["acceptance:run"].invoke
 end
 
 namespace :acceptance do
+  task :run do
+    if File.directory? "acceptance"
+      Rake::Task[:smoke_test].invoke
+    else
+      puts "The google-garbage-noservice gem has no acceptance tests."
+    end
+  end
+
+  desc "Run acceptance tests with coverage."
   task :coverage do
   end
+
+  desc "Run acceptance cleanup."
   task :cleanup do
   end
 end
@@ -79,9 +110,21 @@ task :ci do
 end
 
 namespace :ci do
+  desc "Run the CI build, with smoke tests."
+  task :smoke_test do
+    Rake::Task[:ci].invoke
+    header "google-garbage-noservice smoke_test", "*"
+    Rake::Task[:smoke_test].invoke
+  end
+  desc "Run the CI build, with acceptance tests."
   task :acceptance do
+    Rake::Task[:ci].invoke
+    header "google-garbage-noservice acceptance", "*"
+    Rake::Task[:acceptance].invoke
   end
   task :a do
+    # This is a handy shortcut to save typing
+    Rake::Task["ci:acceptance"].invoke
   end
 end
 

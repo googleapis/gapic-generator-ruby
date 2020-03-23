@@ -31,7 +31,11 @@ module Google
       module V1
         module Services
           module CampaignService
-            # Service that implements CampaignService API.
+            ##
+            # Client for the CampaignService service.
+            #
+            # Service to manage campaigns.
+            #
             class Client
               # @private
               attr_reader :campaign_service_stub

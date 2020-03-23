@@ -35,7 +35,9 @@ require "testing/grpc_service_config/service_with_retries/credentials"
 module Testing
   module GrpcServiceConfig
     module ServiceWithRetries
-      # Service that implements ServiceWithRetries API.
+      ##
+      # Client for the ServiceWithRetries service.
+      #
       class Client
         # @private
         attr_reader :service_with_retries_stub
