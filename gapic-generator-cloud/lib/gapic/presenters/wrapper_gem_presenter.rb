@@ -42,6 +42,10 @@ module Gapic
         "#{namespace_require}.rb"
       end
 
+      def needs_dashed_ruby_file?
+        name != namespace_file_path
+      end
+
       def migration_version
         gem_config :migration_version
       end
