@@ -8,6 +8,7 @@ AllCops:
     - "proto_docs/**/*"
     - "test/**/*"
     - "acceptance/**/*"
+    - "Rakefile"
 
 Metrics/AbcSize:
   Exclude:
