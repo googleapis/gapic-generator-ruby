@@ -46,7 +46,7 @@ module Gapic
 
           if @api.generate_path_helpers_output?
             output_resource_types = message_resource_types method.output
-            input_resource_types.concat output_resource_types
+            input_resource_types + output_resource_types
           else
             input_resource_types
           end
