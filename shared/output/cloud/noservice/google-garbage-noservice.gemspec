@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-garbage-noservice is the official library for the Google Garbage Noservice API."
+  gem.description   = "google-garbage-noservice is the official client library for the Google Garbage Noservice API."
   gem.summary       = "API Client library for the Google Garbage Noservice API"
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"

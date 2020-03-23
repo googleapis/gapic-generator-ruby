@@ -1,6 +1,6 @@
 # Google Cloud Language V1
 
-google-cloud-language-v1 is the official library for the Google Cloud Language V1 API.
+google-cloud-language-v1 is the official client library for the Google Cloud Language V1 API.
 
 API Client library for the Google Cloud Language V1 API
 

@@ -1,6 +1,6 @@
 # Google Cloud Vision V1
 
-google-cloud-vision-v1 is the official library for the Google Cloud Vision V1 API.
+google-cloud-vision-v1 is the official client library for the Google Cloud Vision V1 API.
 
 API Client library for the Google Cloud Vision V1 API
 

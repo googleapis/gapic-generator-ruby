@@ -1,6 +1,6 @@
 # Testing GrpcServiceConfig
 
-testing-grpc_service_config is the official library for the Testing GrpcServiceConfig API.
+testing-grpc_service_config is the official client library for the Testing GrpcServiceConfig API.
 
 API Client library for the Testing GrpcServiceConfig API
 

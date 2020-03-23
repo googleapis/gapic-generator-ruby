@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-vision-v1 is the official library for the Google Cloud Vision V1 API."
+  gem.description   = "google-cloud-vision-v1 is the official client library for the Google Cloud Vision V1 API."
   gem.summary       = "API Client library for the Google Cloud Vision V1 API"
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"

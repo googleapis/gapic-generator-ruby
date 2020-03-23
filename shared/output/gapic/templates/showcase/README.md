@@ -1,6 +1,6 @@
 # Google Showcase
 
-google-showcase is the official library for the Google Showcase API.
+google-showcase is the official client library for the Google Showcase API.
 
 API Client library for the Google Showcase API
 
