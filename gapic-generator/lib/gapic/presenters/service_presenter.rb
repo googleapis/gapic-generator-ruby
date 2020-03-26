@@ -268,15 +268,8 @@ module Gapic
       end
 
       def lro_service
-        unless defined? @lro_service
-          lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
-          if !lro.nil? && lro?
-            @lro_service = ServicePresenter.new @api, lro.services.first, parent_service: self
-          else
-            @lro_service = nil
-          end
-        end
-        @lro_service
+        lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
+        return ServicePresenter.new @api, lro.services.first, parent_service: self unless lro.nil?
       end
 
       def config_channel_args
