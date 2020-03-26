@@ -27,9 +27,10 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
-      def initialize api, service
+      def initialize api, service, parent_service: nil
         @api = api
         @service = service
+        @parent_service = parent_service
       end
 
       def gem
@@ -146,6 +147,7 @@ module Gapic
       end
 
       def client_endpoint
+        return @parent_service.client_endpoint if @parent_service
         @service.host || default_config(:default_host) || "localhost"
       end
 
@@ -267,8 +269,7 @@ module Gapic
 
       def lro_service
         lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
-
-        return ServicePresenter.new @api, lro.services.first unless lro.nil?
+        return ServicePresenter.new @api, lro.services.first, parent_service: self unless lro.nil?
       end
 
       def config_channel_args
