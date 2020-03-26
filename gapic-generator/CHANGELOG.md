@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.2.1 / 2020-03-26
+
+* Fix service address for LRO operation clients.
+* Tweak sample task names for wrapper-gem Rakefiles.
+
 ### 0.2.0 / 2020-03-23
 
 Generation updates:
