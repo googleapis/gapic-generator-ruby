@@ -413,7 +413,7 @@ module So
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
-          #   Defaults to `"localhost"`.
+          #   Defaults to `"endlesstrash.example.net"`.
           #   @return [String]
           # @!attribute [rw] credentials
           #   Credentials to send with calls. You may provide any of the following types:
@@ -461,7 +461,7 @@ module So
           class Configuration
             extend Gapic::Config
 
-            config_attr :endpoint,     "localhost", String
+            config_attr :endpoint,     "endlesstrash.example.net", String
             config_attr :credentials,  nil do |value|
               allowed = [::String, ::Hash, ::Proc, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
