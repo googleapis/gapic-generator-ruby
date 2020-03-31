@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.2.2 / 2020-03-31
+
+* Updates to common protos, especially core types which were more than a year old.
+
 ### 0.2.1 / 2020-03-26
 
 * Fix service address for LRO operation clients.
