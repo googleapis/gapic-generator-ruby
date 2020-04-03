@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.2.3 / 2020-04-06
+
+* No changes
+
 ### 0.2.2 / 2020-03-31
 
 * Updates to common protos, especially core types which were more than a year old.
