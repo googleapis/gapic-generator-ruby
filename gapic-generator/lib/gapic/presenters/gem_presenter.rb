@@ -134,11 +134,11 @@ module Gapic
       end
 
       def free_tier?
-        gem_config(:free_tier) ? true : false
+        gem_config(:free_tier) == "true"
       end
 
       def yard_strict?
-        gem_config(:yard_strict) ? true : false
+        gem_config(:yard_strict) != "false"
       end
 
       def entrypoint_require
