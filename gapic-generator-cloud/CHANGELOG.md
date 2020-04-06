@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.2.3 / 2020-04-06
+
+* Includes changes from gapic-generator 0.2.3
+* Namespace and path overrides can be set from the docker command line.
+* Temporary hack disabling paging for two specific google.cloud.talent RPCs.
+
 ### 0.2.2 / 2020-03-31
 
 * Includes changes from gapic-generator 0.2.2
