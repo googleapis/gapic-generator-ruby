@@ -161,7 +161,7 @@ module Gapic
       def paged?
         return false if server_streaming? # Cannot page a streaming response
 
-        # HACK: Two specific RPCs should not be paged.
+        # HACK(dazuma, 2020-04-06): Two specific RPCs should not be paged.
         # This is an intentionally hard-coded exception (and a temporary one,
         # to be removed when these methods no longer conform to AIP-4233.) For
         # detailed information, see internal link go/actools-talent-pagination.

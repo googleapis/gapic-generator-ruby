@@ -134,10 +134,12 @@ module Gapic
       end
 
       def free_tier?
+        # Default to false unless the config is explicitly set to "true"
         gem_config(:free_tier) == "true"
       end
 
       def yard_strict?
+        # Default to true unless the config is explicitly set to "false"
         gem_config(:yard_strict) != "false"
       end
 
