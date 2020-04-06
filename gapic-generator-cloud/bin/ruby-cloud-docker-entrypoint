@@ -40,14 +40,19 @@ path_option_map = {
   "samples" => ["ruby-cloud-samples", "samples"],
   "grpc_service_config" => "ruby-cloud-grpc-service-config"
 }
+map_option_map = {
+  ":overrides.:file_path" => "ruby-cloud-path-override",
+  ":overrides.:namespace" => "ruby-cloud-namespace-override"
+}
 
 parameters = {}
 
 OptionParser.new do |op|
   bool_option_map.each do |key, flags|
-    flags = Array(flags).map { |f| "--#{f}" }
-    op.on(*flags) do
-      parameters[key] = "true"
+    flags = Array(flags).map { |f| "--#{f} BOOL" }
+    op.on(*flags) do |val|
+      val = val.downcase
+      parameters[key] = val if ["true", "false"].include? val
     end
   end
   value_option_map.each do |key, flags|
@@ -57,11 +62,18 @@ OptionParser.new do |op|
     end
   end
   path_option_map.each do |key, flags|
-    flags = Array(flags).map { |f| "--#{f} PATH" }
+    flags = Array(flags).map { |f| "--#{f} PATHS" }
     op.on(*flags) do |paths|
       parameters[key] = paths.split(";")
                              .map { |path| File.expand_path path, "/in" }
                              .join(";")
+    end
+  end
+  map_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} MAPPING" }
+    op.on(*flags) do |mapping|
+      mapping_key, mapping_val = mapping.split("=", 2)
+      parameters["#{key}.#{mapping_key}"] = mapping_val if mapping_val
     end
   end
 end.parse! ARGV

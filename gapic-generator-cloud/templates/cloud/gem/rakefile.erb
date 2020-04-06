@@ -104,7 +104,9 @@ end
 require "yard"
 require "yard/rake/yardoc_task"
 YARD::Rake::YardocTask.new do |y|
+<%- if gem.yard_strict? -%>
   y.options << "--fail-on-warning"
+<%- end -%>
 end
 
 desc "Run yard-doctest example tests."
