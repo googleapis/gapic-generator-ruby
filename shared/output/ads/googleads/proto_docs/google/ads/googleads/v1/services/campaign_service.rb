@@ -22,24 +22,22 @@ module Google
     module GoogleAds
       module V1
         module Services
-          # Request message for
-          # {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#get_campaign CampaignService.GetCampaign}.
+          # Request message for {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#get_campaign CampaignService.GetCampaign}.
           # @!attribute [rw] resource_name
           #   @return [String]
-          #     The resource name of the campaign to fetch.
+          #     Required. The resource name of the campaign to fetch.
           class GetCampaignRequest
             include Google::Protobuf::MessageExts
             extend Google::Protobuf::MessageExts::ClassMethods
           end
 
-          # Request message for
-          # {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#mutate_campaigns CampaignService.MutateCampaigns}.
+          # Request message for {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#mutate_campaigns CampaignService.MutateCampaigns}.
           # @!attribute [rw] customer_id
           #   @return [String]
-          #     The ID of the customer whose campaigns are being modified.
+          #     Required. The ID of the customer whose campaigns are being modified.
           # @!attribute [rw] operations
           #   @return [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation>]
-          #     The list of operations to perform on individual campaigns.
+          #     Required. The list of operations to perform on individual campaigns.
           # @!attribute [rw] partial_failure
           #   @return [Boolean]
           #     If true, successful operations will be carried out and invalid
