@@ -35,9 +35,15 @@ class GarbageServiceTest < PresenterTest
   def test_references
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
-    assert_equal ["Garbage", "SimpleGarbage"], presenter.references.map(&:name)
-    assert_equal ["projects/{project}/simple_garbage/{simple_garbage}", "projects/{project}/simple_garbage/{garbage}"],
-                 presenter.references.map(&:patterns).map(&:first).map(&:template)
+    assert_equal ["Project", "SimpleGarbage", "SpecificGarbage", "TypicalGarbage"],
+                 presenter.references.map(&:name).sort
+    expected_templates = [
+      "projects/{project}",
+      "projects/{project}/simple_garbage/{simple_garbage}",
+      "projects/{project}/specific_garbage/{specific_garbage}",
+      "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+    ]
+    assert_equal expected_templates, presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
 
   def test_proto_service_name_full

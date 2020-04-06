@@ -407,37 +407,11 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
     # Create request parameters for a unary method.
     name = "hello world"
-    int32 = 42
-    int64 = 42
-    uint32 = 42
-    uint64 = 42
-    bool = true
-    float = 3.5
-    double = 3.5
-    bytes = "hello world"
-    timeout = {}
-    duration = {}
-    msg = {}
-    enum = :Default
-    amap = {}
 
     get_typical_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_typical_garbage, name
-      assert_kind_of So::Much::Trash::TypicalGarbage, request
+      assert_kind_of So::Much::Trash::GetTypicalGarbageRequest, request
       assert_equal "hello world", request.name
-      assert_equal 42, request.int32
-      assert_equal 42, request.int64
-      assert_equal 42, request.uint32
-      assert_equal 42, request.uint64
-      assert_equal true, request.bool
-      assert_equal 3.5, request.float
-      assert_equal 3.5, request.double
-      assert_equal "hello world", request.bytes
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Timestamp), request.timeout
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Duration), request.duration
-      assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
-      assert_equal :Default, request.enum
-      assert_equal({}, request.amap.to_h)
       refute_nil options
     end
 
@@ -448,31 +422,31 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap }) do |response, operation|
+      client.get_typical_garbage({ name: name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap do |response, operation|
+      client.get_typical_garbage name: name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_typical_garbage So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap) do |response, operation|
+      client.get_typical_garbage So::Much::Trash::GetTypicalGarbageRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap }, grpc_options) do |response, operation|
+      client.get_typical_garbage({ name: name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_typical_garbage So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap), grpc_options do |response, operation|
+      client.get_typical_garbage So::Much::Trash::GetTypicalGarbageRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

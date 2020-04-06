@@ -357,16 +357,19 @@ module Gapic
     # Wrapper for a protobuf file.
     #
     # @!attribute [r] messages
-    #   @ return [Enumerable<Message>] The top level messages contained in
+    #   @return [Enumerable<Message>] The top level messages contained in
     #     this file.
     # @!attribute [r] enums
-    #   @ return [Enumerable<Enum>] The top level enums contained in this
+    #   @return [Enumerable<Enum>] The top level enums contained in this
     #     file.
     # @!attribute [r] services
-    #   @ return [Enumerable<Service>] The services contained in this file.
+    #   @return [Enumerable<Service>] The services contained in this file.
+    # @!attribute [r] resources
+    #   @return [Enumerable<Resource>] The top level resources contained in
+    #     this file.
     class File < Proto
       extend Forwardable
-      attr_reader :messages, :enums, :services, :registry
+      attr_reader :messages, :enums, :services, :resources, :registry
 
       # Initializes a message object.
       # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -379,20 +382,23 @@ module Gapic
       #   file.
       # @param enums [Enumerable<Enum>] The top level enums of this file.
       # @param services [Enumerable<Service>] The services of this file.
+      # @param resources [Enumerable<Resource>] The resources from this file.
       # @param generate [Boolean] Whether this file should be generated.
       def initialize descriptor, address, docs, messages, enums, services,
-                     generate, registry
+                     resources, generate, registry
         super descriptor, address, docs
         @messages = messages || []
         @enums = enums || []
         @services = services || []
+        @resources = resources || []
         @generate = generate
         @registry = registry
 
         # Apply parent
         @messages.each { |m| m.parent = self }
-        @enums.each    { |m| m.parent = self }
+        @enums.each { |m| m.parent = self }
         @services.each { |m| m.parent = self }
+        @resources.each { |m| m.parent = self }
       end
 
       def containing_file
@@ -411,13 +417,6 @@ module Gapic
       # @return [String] Ruby Package
       def ruby_package
         options[:ruby_package] if options
-      end
-
-      # @return [Array<Google::Api::ResourceDescriptor>] A representation of the resource.
-      #   This is generally intended to be attached to the "name" field.
-      #   See `google/api/resource.proto`.
-      def resources
-        options[:".google.api.resource_definition"] if options
       end
 
       # @!method name
@@ -511,6 +510,8 @@ module Gapic
     #   @ return [Enumerable<Field>] The fields of a message.
     # @!attribute [r] extensions
     #   @ return [Enumerable<Field>] The extensions of a message.
+    # @!attribute [r] extensions
+    #   @ return [Resource,nil] A representation of the resource.
     # @!attribute [r] nested_messages
     #   @ return [Enumerable<Message>] The nested message declarations of a
     #      message.
@@ -518,7 +519,7 @@ module Gapic
     #   @ return [Enumerable<Enum>] The nested enum declarations of a message.
     class Message < Proto
       extend Forwardable
-      attr_reader :fields, :extensions, :nested_messages, :nested_enums
+      attr_reader :fields, :extensions, :resource, :nested_messages, :nested_enums
 
       # Initializes a message object.
       # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -529,15 +530,17 @@ module Gapic
       #   of the proto. See #docs for more info.
       # @param fields [Enumerable<Field>] The fields of this message.
       # @param extensions [Enumerable<Field>] The extensions of this message.
+      # @param resource [Resource,nil] The resource, or nil if none.
       # @param nested_messages [Enumerable<Message>] The nested message
       #   declarations of this message.
       # @param nested_enums [Enumerable<Enum>] The nested enum declarations
       #   of this message.
-      def initialize descriptor, address, docs, fields, extensions,
+      def initialize descriptor, address, docs, fields, extensions, resource,
                      nested_messages, nested_enums
         super descriptor, address, docs
         @fields = fields || []
         @extensions = extensions || []
+        @resource = resource
         @nested_messages = nested_messages || []
         @nested_enums = nested_enums || []
 
@@ -545,13 +548,7 @@ module Gapic
         @extensions.each      { |x| x.parent = self }
         @nested_messages.each { |m| m.parent = self }
         @nested_enums.each    { |e| e.parent = self }
-      end
-
-      # @return [Google::Api::ResourceDescriptor] A representation of the resource.
-      #   This is generally intended to be attached to the "name" field.
-      #   See `google/api/resource.proto`.
-      def resource
-        options[:".google.api.resource"] if options
+        @resource.parent = self if @resource
       end
 
       # @return [Boolean] whether this type is a map entry
@@ -734,6 +731,72 @@ module Gapic
         :oneof_index,
         :json_name,
         :options
+      )
+    end
+
+    # Wrapper for a protobuf Resource.
+    #
+    # @!attribute [rw] parent
+    #   @return [Gapic::Schema::File,Gapic::Schema::Message] The parent object.
+    # @!attribute [r] descriptor
+    #   @return [Array<Gapic::Schema::ResourceDescriptor>] The resource
+    #     descriptor.
+    # @!attribute [r] parsed_patterns
+    #   @return [Array<Array<String>>] Parsed patterns.
+    # @!attribute [r] parent_resources
+    #   @return [Array<Gapic::Schema::Resource>] Parent resources
+    class Resource
+      extend Forwardable
+      attr_reader :descriptor, :parsed_patterns, :parent_resources
+      attr_accessor :parent
+
+      # Initializes a resource object.
+      # @param descriptor [Google::Protobuf::ResourceDescriptor] the protobuf
+      #   representation of this resource.
+      def initialize descriptor
+        @parent = nil
+        @descriptor = descriptor
+        @parsed_patterns = descriptor.pattern.map do |pattern|
+          pattern.split("/").map do |segment|
+            segment =~ %r{\{[^/\}]+(=[^\}]+)?\}} ? "*" : segment
+          end.freeze
+        end.freeze
+        @parent_resources = []
+      end
+
+      # Returns the "root" of this schema.
+      # @return [Gapic::Schema::Api]
+      def containing_api
+        parent&.containing_api
+      end
+
+      # Returns the file containing this proto entity
+      # @return [Gapic::Schema::File]
+      def containing_file
+        parent&.containing_file
+      end
+
+      # Returns parsed patterns for the expected parents.
+      # @return [Array<Array<String>>]
+      def parsed_parent_patterns
+        @parsed_patterns.map do |pat|
+          parent = pat.last =~ /^\*\*?$/ ? pat[0...-2] : pat[0...-1]
+          parent.empty? ? nil : parent
+        end.compact.uniq
+      end
+
+      # @!method type
+      #   @return [String] the resource type string.
+      # @!method pattern
+      #   @return [Array<String>] the set of patterns.
+      # @!method name_field
+      #   @return [String] the field on the resource that designates the
+      #     resource name field. If omitted, this is assumed to be "name".
+      def_delegators(
+        :descriptor,
+        :type,
+        :pattern,
+        :name_field
       )
     end
   end

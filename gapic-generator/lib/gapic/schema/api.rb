@@ -51,6 +51,7 @@ module Gapic
           loader.load_file fd, request.file_to_generate.include?(fd.name)
         end
         @files.each { |f| f.parent = self }
+        analyze_resources
       end
 
       def containing_api
@@ -243,7 +244,41 @@ module Gapic
         end
       end
 
+      # Get a resource given its type string
+      def lookup_resource_type resource_type
+        @resource_types[resource_type]
+      end
+
       private
+
+      def analyze_resources
+        @resource_types = {}
+        patterns = {}
+        @files.each do |file|
+          file.resources.each { |resource| analyze_resource resource, patterns }
+          file.messages.each { |message| analyze_message_resources message, patterns }
+        end
+        @resource_types.each do |_type, resource|
+          parents = resource.parsed_parent_patterns
+                            .map { |pat| patterns[pat] }
+                            .compact.uniq
+          resource.parent_resources.replace parents
+        end
+      end
+
+      def analyze_resource resource, patterns
+        @resource_types[resource.type] = resource
+        resource.parsed_patterns.each do |pat|
+          patterns[pat] = resource
+        end
+      end
+
+      def analyze_message_resources message, patterns
+        analyze_resource message.resource, patterns if message.resource
+        message.nested_messages.each do |nested|
+          analyze_message_resources nested, patterns
+        end
+      end
 
       def parse_parameter str
         str.scan(/\\.|,|=|[^\\,=]+/)

@@ -29,7 +29,27 @@ class GarbageFilePresenterTest < PresenterTest
     assert_equal "So::Much::Trash", fp.namespace
     assert_equal "garbage/garbage.rb", fp.docs_file_path
 
-    assert_equal ["LongRunningGarbageRequest", "LongRunningGarbageResponse", "LongRunningGarbageMetadata", "ListGarbageRequest", "ListGarbageResponse", "GarbageItem", "EmptyGarbage", "SimpleGarbage", "SimpleGarbageItem", "TypicalGarbage", "SpecificGarbage", "RepeatedGarbage", "PagedGarbageRequest", "PagedGarbageResponse", "ComplexGarbage", "GarbageMap", "GarbageNode"], fp.messages.map(&:name)
+    expected_messages = [
+      "GetTypicalGarbageRequest",
+      "LongRunningGarbageRequest",
+      "LongRunningGarbageResponse",
+      "LongRunningGarbageMetadata",
+      "ListGarbageRequest",
+      "ListGarbageResponse",
+      "GarbageItem",
+      "EmptyGarbage",
+      "SimpleGarbage",
+      "SimpleGarbageItem",
+      "TypicalGarbage",
+      "SpecificGarbage",
+      "RepeatedGarbage",
+      "PagedGarbageRequest",
+      "PagedGarbageResponse",
+      "ComplexGarbage",
+      "GarbageMap",
+      "GarbageNode"
+    ]
+    assert_equal expected_messages, fp.messages.map(&:name)
     fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal ["GarbageEnum"], fp.enums.map(&:name)

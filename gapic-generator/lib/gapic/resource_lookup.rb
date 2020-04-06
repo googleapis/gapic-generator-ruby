@@ -26,64 +26,38 @@ module Gapic
 
     # @private
     def lookup!
-      resources = @api.files.flat_map { |file| lookup_file_resource_descriptors file }
-      resources.compact.uniq
-    end
-
-    # @private
-    def lookup_file_resource_descriptors file
       resources = []
-      resources += file.resources.select { |resource| service_resource_types.include? resource.type }
-      resources += file.messages.flat_map { |message| lookup_message_resources_descriptors message }
-      resources
-    end
-
-    # @private
-    def service_resource_types
-      @service_resource_types ||= begin
-        @service.methods.flat_map do |method|
-          input_resource_types = message_resource_types method.input
-
-          if @api.generate_path_helpers_output?
-            output_resource_types = message_resource_types method.output
-            input_resource_types + output_resource_types
-          else
-            input_resource_types
-          end
-        end.uniq
+      @service.methods.each do |method|
+        add_message_resources method.input, resources
+        add_message_resources method.output, resources if @api.generate_path_helpers_output?
       end
+      resources.uniq
     end
 
     # @private
-    def message_resource_types message, seen_messages = []
-      return [] if seen_messages.include? message
+    def add_message_resources message, resources, seen_messages = []
+      return resources if seen_messages.include? message
       seen_messages << message
-      resource_types = []
-      resource_types << message.resource.type if message.resource
-      resource_types += message.nested_messages.map do |nested_message|
-        message_resource_types nested_message, seen_messages
+      resources << message.resource if message.resource
+      message.nested_messages.each do |nested_message|
+        add_message_resources nested_message, resources, seen_messages
       end
       message.fields.each do |field|
-        resource_types << field.resource_reference.type if field.resource_reference
-        resource_types += message_resource_types field.message, seen_messages if field.message?
+        add_reference field.resource_reference, resources if field.resource_reference
+        add_message_resources field.message, resources, seen_messages if field.message?
       end
-      resource_types.flatten
+      resources
     end
 
     # @private
-    def lookup_message_resources_descriptors message
-      resources = []
-
-      # We don't expect service_resource_types to iclude nil, so we can use message.resource&.type
-      resources << message.resource if service_resource_types.include? message.resource&.type
-
-      if message.nested_messages
-        resources += message.nested_messages.flat_map do |nested_message|
-          lookup_message_resources_descriptors nested_message
-        end
+    def add_reference reference, resources
+      if (type = reference.type) && !type.empty?
+        resource = @api.lookup_resource_type type
+        resources << resource if resource
+      elsif (child_type = reference.child_type) && !child_type.empty?
+        child_resource = @api.lookup_resource_type child_type
+        resources.concat child_resource.parent_resources if child_resource
       end
-
-      resources
     end
 
     # Lookup all resources for a given service.

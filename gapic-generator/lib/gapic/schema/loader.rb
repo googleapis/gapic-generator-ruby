@@ -64,9 +64,13 @@ module Gapic
           load_service registry, s, address, docs, [6, i]
         end
 
+        # Load top-level resources
+        resource_descriptors = file_descriptor.options[:".google.api.resource_definition"] if file_descriptor.options
+        resources = Array(resource_descriptors).map { |descriptor| Resource.new descriptor }
+
         # Construct and return the file.
         File.new file_descriptor, address, docs[path], messages, enums,
-                 services, file_to_generate, registry
+                 services, resources, file_to_generate, registry
       end
 
       # Updates the fields of a message and it's nested messages.
@@ -158,9 +162,12 @@ module Gapic
           load_field registry, e, address, docs, path + [6, i]
         end
 
+        resource_descriptor = descriptor.options[:".google.api.resource"] if descriptor.options
+        resource = resource_descriptor ? Resource.new(resource_descriptor) : nil
+
         # Construct, cache, and return.
         msg = Message.new(descriptor, address, docs[path], fields, extensions,
-                          nested_messages, nested_enums)
+                          resource, nested_messages, nested_enums)
         @prior_messages << msg
         add_to_registry registry, address, msg
       end
