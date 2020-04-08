@@ -24,6 +24,7 @@ require "gapic/config/method"
 require "google/ads/google_ads/version"
 require "google/ads/googleads/v1/services/campaign_service_pb"
 require "google/ads/google_ads/v1/services/campaign_service/credentials"
+require "google/ads/google_ads/v1/services/campaign_service/paths"
 
 module Google
   module Ads
@@ -37,6 +38,8 @@ module Google
             # Service to manage campaigns.
             #
             class Client
+              include Paths
+
               # @private
               attr_reader :campaign_service_stub
 
@@ -152,7 +155,7 @@ module Google
               #
               # @overload get_campaign(resource_name: nil)
               #   @param resource_name [String]
-              #     The resource name of the campaign to fetch.
+              #     Required. The resource name of the campaign to fetch.
               #
               #
               # @yield [response, operation] Access the result along with the RPC operation
@@ -211,9 +214,9 @@ module Google
               #
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
               #   @param customer_id [String]
-              #     The ID of the customer whose campaigns are being modified.
+              #     Required. The ID of the customer whose campaigns are being modified.
               #   @param operations [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash>]
-              #     The list of operations to perform on individual campaigns.
+              #     Required. The list of operations to perform on individual campaigns.
               #   @param partial_failure [Boolean]
               #     If true, successful operations will be carried out and invalid
               #     operations will return errors. If false, all operations will be carried

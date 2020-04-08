@@ -22,9 +22,9 @@ module Google
     module GoogleAds
       module V1
         module Common
-          # Settings for the
-          # <a href="https://support.google.com/google-ads/answer/7365594">
-          # targeting related features</a>, at Campaign and AdGroup level.
+          # Settings for the targeting-related features, at the campaign and ad group
+          # levels. For more details about the targeting setting, visit
+          # https://support.google.com/google-ads/answer/7365594
           # @!attribute [rw] target_restrictions
           #   @return [Array<Google::Ads::GoogleAds::V1::Common::TargetRestriction>]
           #     The per-targeting-dimension setting to restrict the reach of your campaign
@@ -43,8 +43,8 @@ module Google
           #     Indicates whether to restrict your ads to show only for the criteria you
           #     have selected for this targeting_dimension, or to target all values for
           #     this targeting_dimension and show ads based on your targeting in other
-          #     TargetingDimensions. A value of 'true' means that these criteria will only
-          #     apply bid modifiers, and not affect targeting. A value of 'false' means
+          #     TargetingDimensions. A value of `true` means that these criteria will only
+          #     apply bid modifiers, and not affect targeting. A value of `false` means
           #     that these criteria will restrict targeting as well as applying bid
           #     modifiers.
           class TargetRestriction

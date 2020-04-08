@@ -64,6 +64,7 @@ module Google
 
               # Page-One Promoted bidding scheme, which sets max cpc bids to
               # target impressions on page one or page one promoted slots on google.com.
+              # This enum value is deprecated.
               PAGE_ONE_PROMOTED = 5
 
               # Percent Cpc is bidding strategy where bids are a fraction of the
@@ -88,6 +89,7 @@ module Google
               # Target Outrank Share is an automated bidding strategy that sets bids
               # based on the target fraction of auctions where the advertiser
               # should outrank a specific competitor.
+              # This enum value is deprecated.
               TARGET_OUTRANK_SHARE = 7
 
               # Target ROAS is an automated bidding strategy

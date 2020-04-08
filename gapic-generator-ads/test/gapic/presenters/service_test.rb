@@ -33,7 +33,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_references
-    assert_empty presenter.references
+    refute_empty presenter.references
   end
 
   def test_proto_methods
@@ -95,7 +95,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_paths?
-    refute presenter.paths?
+    assert presenter.paths?
   end
 
   def test_paths_name

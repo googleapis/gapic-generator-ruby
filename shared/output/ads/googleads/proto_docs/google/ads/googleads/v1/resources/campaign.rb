@@ -25,13 +25,13 @@ module Google
           # A campaign.
           # @!attribute [rw] resource_name
           #   @return [String]
-          #     The resource name of the campaign.
+          #     Immutable. The resource name of the campaign.
           #     Campaign resource names have the form:
           #
           #     `customers/{customer_id}/campaigns/{campaign_id}`
-          # @!attribute [rw] id
+          # @!attribute [r] id
           #   @return [Google::Protobuf::Int64Value]
-          #     The ID of the campaign.
+          #     Output only. The ID of the campaign.
           # @!attribute [rw] name
           #   @return [Google::Protobuf::StringValue]
           #     The name of the campaign.
@@ -46,15 +46,15 @@ module Google
           #     The status of the campaign.
           #
           #     When a new campaign is added, the status defaults to ENABLED.
-          # @!attribute [rw] serving_status
+          # @!attribute [r] serving_status
           #   @return [Google::Ads::GoogleAds::V1::Enums::CampaignServingStatusEnum::CampaignServingStatus]
-          #     The ad serving status of the campaign.
+          #     Output only. The ad serving status of the campaign.
           # @!attribute [rw] ad_serving_optimization_status
           #   @return [Google::Ads::GoogleAds::V1::Enums::AdServingOptimizationStatusEnum::AdServingOptimizationStatus]
           #     The ad serving optimization status of the campaign.
           # @!attribute [rw] advertising_channel_type
           #   @return [Google::Ads::GoogleAds::V1::Enums::AdvertisingChannelTypeEnum::AdvertisingChannelType]
-          #     The primary serving target for ads within the campaign.
+          #     Immutable. The primary serving target for ads within the campaign.
           #     The targeting options can be refined in `network_settings`.
           #
           #     This field is required and should not be empty when creating new
@@ -64,7 +64,7 @@ module Google
           #     After the campaign is created, the field can not be changed.
           # @!attribute [rw] advertising_channel_sub_type
           #   @return [Google::Ads::GoogleAds::V1::Enums::AdvertisingChannelSubTypeEnum::AdvertisingChannelSubType]
-          #     Optional refinement to `advertising_channel_type`.
+          #     Immutable. Optional refinement to `advertising_channel_type`.
           #     Must be a valid sub-type of the parent channel type.
           #
           #     Can be set only when creating campaigns.
@@ -85,7 +85,7 @@ module Google
           #     The network settings for the campaign.
           # @!attribute [rw] hotel_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::HotelSettingInfo]
-          #     The hotel setting for the campaign.
+          #     Immutable. The hotel setting for the campaign.
           # @!attribute [rw] dynamic_search_ads_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::DynamicSearchAdsSetting]
           #     The setting for controlling Dynamic Search Ads (DSA).
@@ -101,24 +101,24 @@ module Google
           # @!attribute [rw] app_campaign_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::AppCampaignSetting]
           #     The setting related to App Campaign.
-          # @!attribute [rw] labels
+          # @!attribute [r] labels
           #   @return [Array<Google::Protobuf::StringValue>]
-          #     The resource names of labels attached to this campaign.
-          # @!attribute [rw] experiment_type
+          #     Output only. The resource names of labels attached to this campaign.
+          # @!attribute [r] experiment_type
           #   @return [Google::Ads::GoogleAds::V1::Enums::CampaignExperimentTypeEnum::CampaignExperimentType]
-          #     The type of campaign: normal, draft, or experiment.
-          # @!attribute [rw] base_campaign
+          #     Output only. The type of campaign: normal, draft, or experiment.
+          # @!attribute [r] base_campaign
           #   @return [Google::Protobuf::StringValue]
-          #     The resource name of the base campaign of a draft or experiment campaign.
+          #     Output only. The resource name of the base campaign of a draft or experiment campaign.
           #     For base campaigns, this is equal to `resource_name`.
           #
           #     This field is read-only.
           # @!attribute [rw] campaign_budget
           #   @return [Google::Protobuf::StringValue]
           #     The budget of the campaign.
-          # @!attribute [rw] bidding_strategy_type
+          # @!attribute [r] bidding_strategy_type
           #   @return [Google::Ads::GoogleAds::V1::Enums::BiddingStrategyTypeEnum::BiddingStrategyType]
-          #     The type of bidding strategy.
+          #     Output only. The type of bidding strategy.
           #
           #     A bidding strategy can be created by setting either the bidding scheme to
           #     create a standard bidding strategy or the `bidding_strategy` field to
@@ -142,9 +142,9 @@ module Google
           # @!attribute [rw] frequency_caps
           #   @return [Array<Google::Ads::GoogleAds::V1::Common::FrequencyCapEntry>]
           #     A list that limits how often each user will see this campaign's ads.
-          # @!attribute [rw] video_brand_safety_suitability
+          # @!attribute [r] video_brand_safety_suitability
           #   @return [Google::Ads::GoogleAds::V1::Enums::BrandSafetySuitabilityEnum::BrandSafetySuitability]
-          #     3-Tier Brand Safety setting for the campaign.
+          #     Output only. 3-Tier Brand Safety setting for the campaign.
           # @!attribute [rw] vanity_pharma
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::VanityPharma]
           #     Describes how unbranded pharma ads will be displayed.
@@ -152,9 +152,9 @@ module Google
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::SelectiveOptimization]
           #     Selective optimization setting for this campaign, which includes a set of
           #     conversion actions to optimize this campaign towards.
-          # @!attribute [rw] tracking_setting
+          # @!attribute [r] tracking_setting
           #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign::TrackingSetting]
-          #     Campaign level settings for tracking information.
+          #     Output only. Campaign-level settings for tracking information.
           # @!attribute [rw] payment_mode
           #   @return [Google::Ads::GoogleAds::V1::Enums::PaymentModeEnum::PaymentMode]
           #     Payment mode for the campaign.
@@ -174,9 +174,9 @@ module Google
           #     Standard Manual CPM bidding strategy.
           #     Manual impression-based bidding where user pays per thousand
           #     impressions.
-          # @!attribute [rw] manual_cpv
+          # @!attribute [r] manual_cpv
           #   @return [Google::Ads::GoogleAds::V1::Common::ManualCpv]
-          #     A bidding strategy that pays a configurable amount per video view.
+          #     Output only. A bidding strategy that pays a configurable amount per video view.
           # @!attribute [rw] maximize_conversions
           #   @return [Google::Ads::GoogleAds::V1::Common::MaximizeConversions]
           #     Standard Maximize Conversions bidding strategy that automatically
@@ -238,8 +238,43 @@ module Google
             # Campaign-level settings for hotel ads.
             # @!attribute [rw] hotel_center_id
             #   @return [Google::Protobuf::Int64Value]
-            #     The linked Hotel Center account.
+            #     Immutable. The linked Hotel Center account.
             class HotelSettingInfo
+              include Google::Protobuf::MessageExts
+              extend Google::Protobuf::MessageExts::ClassMethods
+            end
+
+            # Campaign-level settings for App Campaigns.
+            # @!attribute [rw] bidding_strategy_goal_type
+            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignBiddingStrategyGoalTypeEnum::AppCampaignBiddingStrategyGoalType]
+            #     Represents the goal which the bidding strategy of this app campaign
+            #     should optimize towards.
+            # @!attribute [rw] app_id
+            #   @return [Google::Protobuf::StringValue]
+            #     Immutable. A string that uniquely identifies a mobile application.
+            # @!attribute [rw] app_store
+            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignAppStoreEnum::AppCampaignAppStore]
+            #     Immutable. The application store that distributes this specific app.
+            class AppCampaignSetting
+              include Google::Protobuf::MessageExts
+              extend Google::Protobuf::MessageExts::ClassMethods
+            end
+
+            # The setting for controlling Dynamic Search Ads (DSA).
+            # @!attribute [rw] domain_name
+            #   @return [Google::Protobuf::StringValue]
+            #     The Internet domain name that this setting represents, e.g., "google.com"
+            #     or "www.google.com".
+            # @!attribute [rw] language_code
+            #   @return [Google::Protobuf::StringValue]
+            #     The language code specifying the language of the domain, e.g., "en".
+            # @!attribute [rw] use_supplied_urls_only
+            #   @return [Google::Protobuf::BoolValue]
+            #     Whether the campaign uses advertiser supplied URLs exclusively.
+            # @!attribute [r] feeds
+            #   @return [Array<Google::Protobuf::StringValue>]
+            #     Output only. The list of page feeds associated with the campaign.
+            class DynamicSearchAdsSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end
@@ -257,36 +292,17 @@ module Google
               extend Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # The setting for controlling Dynamic Search Ads (DSA).
-            # @!attribute [rw] domain_name
-            #   @return [Google::Protobuf::StringValue]
-            #     The Internet domain name that this setting represents, e.g., "google.com"
-            #     or "www.google.com".
-            # @!attribute [rw] language_code
-            #   @return [Google::Protobuf::StringValue]
-            #     The language code specifying the language of the domain, e.g., "en".
-            # @!attribute [rw] use_supplied_urls_only
-            #   @return [Google::Protobuf::BoolValue]
-            #     Whether the campaign uses advertiser supplied URLs exclusively.
-            # @!attribute [rw] feeds
-            #   @return [Array<Google::Protobuf::StringValue>]
-            #     The list of page feeds associated with the campaign.
-            class DynamicSearchAdsSetting
-              include Google::Protobuf::MessageExts
-              extend Google::Protobuf::MessageExts::ClassMethods
-            end
-
             # The setting for Shopping campaigns. Defines the universe of products that
             # can be advertised by the campaign, and how this campaign interacts with
             # other Shopping campaigns.
             # @!attribute [rw] merchant_id
             #   @return [Google::Protobuf::Int64Value]
-            #     ID of the Merchant Center account.
+            #     Immutable. ID of the Merchant Center account.
             #     This field is required for create operations. This field is immutable for
             #     Shopping campaigns.
             # @!attribute [rw] sales_country
             #   @return [Google::Protobuf::StringValue]
-            #     Sales country of products to include in the campaign.
+            #     Immutable. Sales country of products to include in the campaign.
             #     This field is required for Shopping campaigns. This field is immutable.
             #     This field is optional for non-Shopping campaigns, but it must be equal
             #     to 'ZZ' if set.
@@ -306,37 +322,11 @@ module Google
               extend Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # Campaign level settings for tracking information.
-            # @!attribute [rw] tracking_url
+            # Campaign-level settings for tracking information.
+            # @!attribute [r] tracking_url
             #   @return [Google::Protobuf::StringValue]
-            #     The url used for dynamic tracking.
+            #     Output only. The url used for dynamic tracking.
             class TrackingSetting
-              include Google::Protobuf::MessageExts
-              extend Google::Protobuf::MessageExts::ClassMethods
-            end
-
-            # Selective optimization setting for this campaign, which includes a set of
-            # conversion actions to optimize this campaign towards.
-            # @!attribute [rw] conversion_actions
-            #   @return [Array<Google::Protobuf::StringValue>]
-            #     The selected set of conversion actions for optimizing this campaign.
-            class SelectiveOptimization
-              include Google::Protobuf::MessageExts
-              extend Google::Protobuf::MessageExts::ClassMethods
-            end
-
-            # Campaign level settings for App Campaigns.
-            # @!attribute [rw] bidding_strategy_goal_type
-            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignBiddingStrategyGoalTypeEnum::AppCampaignBiddingStrategyGoalType]
-            #     Represents the goal which the bidding strategy of this app campaign
-            #     should optimize towards.
-            # @!attribute [rw] app_id
-            #   @return [Google::Protobuf::StringValue]
-            #     A string that uniquely identifies a mobile application.
-            # @!attribute [rw] app_store
-            #   @return [Google::Ads::GoogleAds::V1::Enums::AppCampaignAppStoreEnum::AppCampaignAppStore]
-            #     The application store that distributes this specific app.
-            class AppCampaignSetting
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end
@@ -349,6 +339,16 @@ module Google
             #   @return [Google::Ads::GoogleAds::V1::Enums::NegativeGeoTargetTypeEnum::NegativeGeoTargetType]
             #     The setting used for negative geotargeting in this particular campaign.
             class GeoTargetTypeSetting
+              include Google::Protobuf::MessageExts
+              extend Google::Protobuf::MessageExts::ClassMethods
+            end
+
+            # Selective optimization setting for this campaign, which includes a set of
+            # conversion actions to optimize this campaign towards.
+            # @!attribute [rw] conversion_actions
+            #   @return [Array<Google::Protobuf::StringValue>]
+            #     The selected set of conversion actions for optimizing this campaign.
+            class SelectiveOptimization
               include Google::Protobuf::MessageExts
               extend Google::Protobuf::MessageExts::ClassMethods
             end

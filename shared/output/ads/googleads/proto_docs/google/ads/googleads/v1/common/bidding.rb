@@ -87,6 +87,7 @@ module Google
 
           # An automated bidding strategy which sets CPC bids to target impressions on
           # page one, or page one promoted slots on google.com.
+          # This strategy is deprecated.
           # @!attribute [rw] strategy_goal
           #   @return [Google::Ads::GoogleAds::V1::Enums::PageOnePromotedStrategyGoalEnum::PageOnePromotedStrategyGoal]
           #     The strategy goal of where impressions are desired to be shown on
@@ -169,6 +170,7 @@ module Google
 
           # An automated bidding strategy that sets bids based on the target fraction of
           # auctions where the advertiser should outrank a specific competitor.
+          # This strategy is deprecated.
           # @!attribute [rw] target_outrank_share_micros
           #   @return [Google::Protobuf::Int32Value]
           #     The target fraction of auctions where the advertiser should outrank the
