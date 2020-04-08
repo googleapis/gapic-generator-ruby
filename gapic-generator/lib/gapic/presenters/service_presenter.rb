@@ -114,6 +114,10 @@ module Gapic
         service_file_path.split("/").last
       end
 
+      def service_directory_name
+        service_require.split("/").last
+      end
+
       def service_require
         ruby_file_path @api, proto_service_name_full
       end

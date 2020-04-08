@@ -55,7 +55,6 @@ module Gapic
         # Additional Gem level files
         cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)
         cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md",   gem: gem) unless gem.services.empty?
-        cloud_files << g("gem/dashed.erb",         "lib/#{gem.name}.rb",  gem: gem)
 
         format_files cloud_files
 
@@ -87,7 +86,7 @@ module Gapic
         files << g("wrapper_gem/rakefile.erb",     "Rakefile",                                      gem: gem)
         files << g("wrapper_gem/readme.erb",       "README.md",                                     gem: gem)
         files << g("wrapper_gem/gemspec.erb",      "#{gem.name}.gemspec",                           gem: gem)
-        files << g("wrapper_gem/dashed.erb",       "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_dashed_ruby_file?
+        files << g("wrapper_gem/entrypoint.erb",   "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_entrypoint?
         files << g("wrapper_gem/main.erb",         "lib/#{gem.namespace_file_path}",                gem: gem)
         files << g("gem/version.erb",              "lib/#{gem.version_file_path}",                  gem: gem)
         files << g("wrapper_gem/test_helper.erb",  "test/helper.rb",                                gem: gem)

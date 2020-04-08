@@ -43,6 +43,9 @@ Metrics/PerceivedComplexity:
     - "lib/google/showcase/v1beta1/identity/*.rb"
     - "lib/google/showcase/v1beta1/messaging/*.rb"
     - "lib/google/showcase/v1beta1/testing/*.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/google-showcase.rb"
 Style/CaseEquality:
   Exclude:
     - "lib/google/showcase/v1beta1/echo/*.rb"

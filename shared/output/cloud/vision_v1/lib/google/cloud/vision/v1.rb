@@ -18,3 +18,4 @@
 
 require "google/cloud/vision/v1/product_search"
 require "google/cloud/vision/v1/image_annotator"
+require "google/cloud/vision/v1/version"

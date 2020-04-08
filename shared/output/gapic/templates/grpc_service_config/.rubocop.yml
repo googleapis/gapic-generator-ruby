@@ -31,6 +31,9 @@ Metrics/PerceivedComplexity:
   Exclude:
     - "lib/testing/grpc_service_config/service_no_retry/*.rb"
     - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/testing-grpc_service_config.rb"
 Style/CaseEquality:
   Exclude:
     - "lib/testing/grpc_service_config/service_no_retry/*.rb"

@@ -1,6 +1,7 @@
 <%- assert_locals package -%>
 <%= render partial: "shared/header" -%>
 
-<% package.services.each do |service| %>
+<%- package.services.each do |service| -%>
 require "<%= service.service_require %>"
-<% end %>
+<%- end -%>
+require "<%= package.gem.version_require %>"
