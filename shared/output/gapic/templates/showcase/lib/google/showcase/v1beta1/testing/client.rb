@@ -154,17 +154,24 @@ module Google
           # Creates a new testing session.
           #
           # @overload create_session(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::CreateSessionRequest | Hash]
-          #     Creates a new testing session.
+          #   Pass arguments to `create_session` via a request object, either of type
+          #   {Google::Showcase::V1beta1::CreateSessionRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::CreateSessionRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_session(session: nil)
-          #   @param session [Google::Showcase::V1beta1::Session | Hash]
+          #   Pass arguments to `create_session` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param session [Google::Showcase::V1beta1::Session, Hash]
           #     The session to be created.
           #     Sessions are immutable once they are created (although they can
           #     be deleted).
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::Session]
@@ -207,15 +214,22 @@ module Google
           # Gets a testing session.
           #
           # @overload get_session(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::GetSessionRequest | Hash]
-          #     Gets a testing session.
+          #   Pass arguments to `get_session` via a request object, either of type
+          #   {Google::Showcase::V1beta1::GetSessionRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::GetSessionRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_session(name: nil)
+          #   Pass arguments to `get_session` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The session to be retrieved.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::Session]
@@ -264,17 +278,24 @@ module Google
           # Lists the current test sessions.
           #
           # @overload list_sessions(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::ListSessionsRequest | Hash]
-          #     Lists the current test sessions.
+          #   Pass arguments to `list_sessions` via a request object, either of type
+          #   {Google::Showcase::V1beta1::ListSessionsRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::ListSessionsRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_sessions(page_size: nil, page_token: nil)
+          #   Pass arguments to `list_sessions` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param page_size [Integer]
           #     The maximum number of sessions to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1beta1::Session>]
@@ -318,15 +339,22 @@ module Google
           # Delete a test session.
           #
           # @overload delete_session(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::DeleteSessionRequest | Hash]
-          #     Delete a test session.
+          #   Pass arguments to `delete_session` via a request object, either of type
+          #   {Google::Showcase::V1beta1::DeleteSessionRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::DeleteSessionRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_session(name: nil)
+          #   Pass arguments to `delete_session` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The session to be deleted.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -377,17 +405,22 @@ module Google
           # and an overall rollup.
           #
           # @overload report_session(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::ReportSessionRequest | Hash]
-          #     Report on the status of a session.
-          #     This generates a report detailing which tests have been completed,
-          #     and an overall rollup.
+          #   Pass arguments to `report_session` via a request object, either of type
+          #   {Google::Showcase::V1beta1::ReportSessionRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::ReportSessionRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload report_session(name: nil)
+          #   Pass arguments to `report_session` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The session to be reported on.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::ReportSessionResponse]
@@ -436,19 +469,26 @@ module Google
           # List the tests of a sessesion.
           #
           # @overload list_tests(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::ListTestsRequest | Hash]
-          #     List the tests of a sessesion.
+          #   Pass arguments to `list_tests` via a request object, either of type
+          #   {Google::Showcase::V1beta1::ListTestsRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::ListTestsRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_tests(parent: nil, page_size: nil, page_token: nil)
+          #   Pass arguments to `list_tests` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param parent [String]
           #     The session.
           #   @param page_size [Integer]
           #     The maximum number of tests to return per page.
           #   @param page_token [String]
           #     The page token, for retrieving subsequent pages.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1beta1::Test>]
@@ -503,20 +543,22 @@ module Google
           # This method will error if attempting to delete a required test.
           #
           # @overload delete_test(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::DeleteTestRequest | Hash]
-          #     Explicitly decline to implement a test.
+          #   Pass arguments to `delete_test` via a request object, either of type
+          #   {Google::Showcase::V1beta1::DeleteTestRequest} or an equivalent Hash.
           #
-          #     This removes the test from subsequent `ListTests` calls, and
-          #     attempting to do the test will error.
-          #
-          #     This method will error if attempting to delete a required test.
+          #   @param request [Google::Showcase::V1beta1::DeleteTestRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_test(name: nil)
+          #   Pass arguments to `delete_test` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The test to be deleted.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -568,22 +610,26 @@ module Google
           # end of the test, this method provides the means to do so.
           #
           # @overload verify_test(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::VerifyTestRequest | Hash]
-          #     Register a response to a test.
+          #   Pass arguments to `verify_test` via a request object, either of type
+          #   {Google::Showcase::V1beta1::VerifyTestRequest} or an equivalent Hash.
           #
-          #     In cases where a test involves registering a final answer at the
-          #     end of the test, this method provides the means to do so.
+          #   @param request [Google::Showcase::V1beta1::VerifyTestRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload verify_test(name: nil, answer: nil, answers: nil)
+          #   Pass arguments to `verify_test` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The test to have an answer registered to it.
           #   @param answer [String]
           #     The answer from the test.
           #   @param answers [Array<String>]
           #     The answers from the test if multiple are to be checked
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::VerifyTestResponse]

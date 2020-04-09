@@ -158,17 +158,24 @@ module Google
           # This method simply echos the request. This method is showcases unary rpcs.
           #
           # @overload echo(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::EchoRequest | Hash]
-          #     This method simply echos the request. This method is showcases unary rpcs.
+          #   Pass arguments to `echo` via a request object, either of type
+          #   {Google::Showcase::V1beta1::EchoRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::EchoRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload echo(content: nil, error: nil)
+          #   Pass arguments to `echo` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param content [String]
           #     The content to be echoed by the server.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   @param error [Google::Rpc::Status, Hash]
           #     The error to be thrown by the server.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::EchoResponse]
@@ -212,18 +219,24 @@ module Google
           # through the stream. This method showcases server-side streaming rpcs.
           #
           # @overload expand(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::ExpandRequest | Hash]
-          #     This method split the given content into words and will pass each word back
-          #     through the stream. This method showcases server-side streaming rpcs.
+          #   Pass arguments to `expand` via a request object, either of type
+          #   {Google::Showcase::V1beta1::ExpandRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::ExpandRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload expand(content: nil, error: nil)
+          #   Pass arguments to `expand` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param content [String]
           #     The content that will be split into words and returned on the stream.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   @param error [Google::Rpc::Status, Hash]
           #     The error that is thrown after all words are sent on the stream.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<Google::Showcase::V1beta1::EchoResponse>]
@@ -267,7 +280,7 @@ module Google
           # by the client, this method will return the a concatenation of the strings
           # passed to it. This method showcases client-side streaming rpcs.
           #
-          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1beta1::EchoRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1beta1::EchoRequest, Hash>]
           #   An enumerable of {Google::Showcase::V1beta1::EchoRequest} instances.
           # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
@@ -319,7 +332,7 @@ module Google
           # be passed  back on the stream. This method showcases bidirectional
           # streaming rpcs.
           #
-          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1beta1::EchoRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<Google::Showcase::V1beta1::EchoRequest, Hash>]
           #   An enumerable of {Google::Showcase::V1beta1::EchoRequest} instances.
           # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
@@ -371,20 +384,26 @@ module Google
           # expanded words, this method returns a paged list of expanded words.
           #
           # @overload paged_expand(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::PagedExpandRequest | Hash]
-          #     This is similar to the Expand method but instead of returning a stream of
-          #     expanded words, this method returns a paged list of expanded words.
+          #   Pass arguments to `paged_expand` via a request object, either of type
+          #   {Google::Showcase::V1beta1::PagedExpandRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::PagedExpandRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload paged_expand(content: nil, page_size: nil, page_token: nil)
+          #   Pass arguments to `paged_expand` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param content [String]
           #     The string to expand.
           #   @param page_size [Integer]
           #     The amount of words to returned in each page.
           #   @param page_token [String]
           #     The position of the page to be returned.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1beta1::EchoResponse>]
@@ -429,23 +448,29 @@ module Google
           # This method showcases how a client handles a request timing out.
           #
           # @overload wait(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::WaitRequest | Hash]
-          #     This method will wait the requested amount of and then return.
-          #     This method showcases how a client handles a request timing out.
+          #   Pass arguments to `wait` via a request object, either of type
+          #   {Google::Showcase::V1beta1::WaitRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::WaitRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload wait(end_time: nil, ttl: nil, error: nil, success: nil)
-          #   @param end_time [Google::Protobuf::Timestamp | Hash]
+          #   Pass arguments to `wait` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param end_time [Google::Protobuf::Timestamp, Hash]
           #     The time that this operation will complete.
-          #   @param ttl [Google::Protobuf::Duration | Hash]
+          #   @param ttl [Google::Protobuf::Duration, Hash]
           #     The duration of this operation.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   @param error [Google::Rpc::Status, Hash]
           #     The error that will be returned by the server. If this code is specified
           #     to be the OK rpc code, an empty response will be returned.
-          #   @param success [Google::Showcase::V1beta1::WaitResponse | Hash]
+          #   @param success [Google::Showcase::V1beta1::WaitResponse, Hash]
           #     The response to be returned on operation completion.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::Operation]
@@ -491,22 +516,27 @@ module Google
           # This method showcases how a client handles delays or retries.
           #
           # @overload block(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::BlockRequest | Hash]
-          #     This method will block (wait) for the requested amount of time
-          #     and then return the response or error.
-          #     This method showcases how a client handles delays or retries.
+          #   Pass arguments to `block` via a request object, either of type
+          #   {Google::Showcase::V1beta1::BlockRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::BlockRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload block(response_delay: nil, error: nil, success: nil)
-          #   @param response_delay [Google::Protobuf::Duration | Hash]
+          #   Pass arguments to `block` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param response_delay [Google::Protobuf::Duration, Hash]
           #     The amount of time to block before returning a response.
-          #   @param error [Google::Rpc::Status | Hash]
+          #   @param error [Google::Rpc::Status, Hash]
           #     The error that will be returned by the server. If this code is specified
           #     to be the OK rpc code, an empty response will be returned.
-          #   @param success [Google::Showcase::V1beta1::BlockResponse | Hash]
+          #   @param success [Google::Showcase::V1beta1::BlockResponse, Hash]
           #     The response to be returned that will signify successful method call.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::BlockResponse]
