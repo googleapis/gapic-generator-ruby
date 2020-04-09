@@ -1,15 +1,15 @@
-# Ruby Client for the Google Cloud Speech V1 API
+# Ruby Client for the <%= gem.title %> API
 
-API Client library for the Google Cloud Speech V1 API
+<%= gem.summary %>
 
-google-cloud-speech-v1 is the official client library for the Google Cloud Speech V1 API.
+<%= gem.description %>
 
-https://github.com/googleapis/google-cloud-ruby
+<%= gem.homepage %>
 
 ## Installation
 
 ```
-$ gem install google-cloud-speech-v1
+$ gem install <%= gem.name %>
 ```
 
 ## Before You Begin
@@ -17,22 +17,44 @@ $ gem install google-cloud-speech-v1
 In order to use this library, you first need to go through the following steps:
 
 1. [Select or create a Cloud Platform project.](https://console.cloud.google.com/project)
+<%- if gem.free_tier? -%>
+1. This API has a free tier. You may not need to
+   [enable billing](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
+   to get started.
+<%- else -%>
 1. [Enable billing for your project.](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
+<%- end -%>
+<%- if gem.api_id -%>
+1. [Enable the API.](https://console.cloud.google.com/apis/library/<%= gem.api_id %>.googleapis.com)
+<%- end -%>
 1. {file:AUTHENTICATION.md Set up authentication.}
 
 ## Quick Start
 
+<%- if gem.packages? -%>
 ```ruby
-require "google/cloud/speech/v1"
+require "<%= gem.entrypoint_require %>"
+<%- service = gem.packages.first.services.first -%>
+<%- method = service&.methods.first -%>
+<%- if service && method -%>
 
-client = Google::Cloud::Speech::V1::Speech::Client.new
+client = <%= service.create_client_call %>
 request = my_create_request
-response = client.recognize request
+response = client.<%= method.name %> request
+<%- end -%>
 ```
 
-View the [Client Library Documentation](https://googleapis.dev/ruby/google-cloud-speech-v1/latest)
+<%- end -%>
+<%- unless gem.library_documentation_url.to_s.empty? -%>
+View the [Client Library Documentation](<%= gem.library_documentation_url %>)
 for class and method documentation.
 
+<%- end -%>
+<%- if gem.product_documentation_url -%>
+See also the [Product Documentation](<%= gem.product_documentation_url %>)
+for general usage information.
+
+<%- end -%>
 ## Enabling Logging
 
 To enable logging for this library, set the logger for the underlying [gRPC](https://github.com/grpc/grpc/tree/master/src/ruby) library.
