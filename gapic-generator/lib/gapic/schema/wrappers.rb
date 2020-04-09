@@ -510,7 +510,7 @@ module Gapic
     #   @ return [Enumerable<Field>] The fields of a message.
     # @!attribute [r] extensions
     #   @ return [Enumerable<Field>] The extensions of a message.
-    # @!attribute [r] extensions
+    # @!attribute [r] resource
     #   @ return [Resource,nil] A representation of the resource.
     # @!attribute [r] nested_messages
     #   @ return [Enumerable<Message>] The nested message declarations of a
@@ -530,7 +530,7 @@ module Gapic
       #   of the proto. See #docs for more info.
       # @param fields [Enumerable<Field>] The fields of this message.
       # @param extensions [Enumerable<Field>] The extensions of this message.
-      # @param resource [Resource,nil] The resource, or nil if none.
+      # @param resource [Resource,nil] The resource of this message, or nil if none.
       # @param nested_messages [Enumerable<Message>] The nested message
       #   declarations of this message.
       # @param nested_enums [Enumerable<Enum>] The nested enum declarations
@@ -736,13 +736,37 @@ module Gapic
 
     # Wrapper for a protobuf Resource.
     #
+    # Unlike most wrappers, this does not subclass the {Proto} wrapper because
+    # it does not use the fields exposed by that wrapper (`address`, `docs`,
+    # etc.) This is here principally to augment the resource definition with
+    # information about resource parent-child relationships.
+    #
+    # Resource parentage is defined implicitly by path patterns. The algorithm
+    # is as follows:
+    # * If the final segment of a pattern is an ID segment (i.e. `*` or some
+    #   `{name}`) then remove it and the previous segment (which we assume to
+    #   be the corresponding collection identifier, as described in AIP-122.)
+    #   The resulting pattern is what we expect a parent to have.
+    # * If the final segment is static, then assume the pattern represents a
+    #   singleton resource (AIP-156) and remove only that one segment. The
+    #   resulting pattern is what we expect a parent to have.
+    #
+    # The {Resource#parsed_parent_patterns} method returns the set of patterns
+    # we expect of parents. It is then possible to search for resources with
+    # those patterns to determine what the parents are.
+    #
     # @!attribute [rw] parent
     #   @return [Gapic::Schema::File,Gapic::Schema::Message] The parent object.
     # @!attribute [r] descriptor
     #   @return [Array<Gapic::Schema::ResourceDescriptor>] The resource
     #     descriptor.
     # @!attribute [r] parsed_patterns
-    #   @return [Array<Array<String>>] Parsed patterns.
+    #   @return [Array<Array<String>>] The normalized, segmented forms of the
+    #     patterns. Normalized means all ID segments are replaced by asterisks
+    #     to remove non-structural differences due to different names being
+    #     used. Segmented means simply split on slashes.
+    #     For example, if a pattern is `"projects/{project}""`, the
+    #     corresponding parsed pattern would be `["projects", "*"]`.
     # @!attribute [r] parent_resources
     #   @return [Array<Gapic::Schema::Resource>] Parent resources
     class Resource

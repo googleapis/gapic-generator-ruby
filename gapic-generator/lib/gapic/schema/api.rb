@@ -51,7 +51,7 @@ module Gapic
           loader.load_file fd, request.file_to_generate.include?(fd.name)
         end
         @files.each { |f| f.parent = self }
-        analyze_resources
+        @resource_types = analyze_resources
       end
 
       def containing_api
@@ -251,32 +251,43 @@ module Gapic
 
       private
 
+      # Does a pre-analysis of all resources defined in the job. This has
+      # two effects:
+      # * Side effect: each resource has its parent_resources field set.
+      # * A mapping from resource type to resource wrapper is returned.
       def analyze_resources
-        @resource_types = {}
+        # In order to set parent_resources, we first populate a mapping from
+        # parsed pattern to resource mapping (in the patterns variable). This
+        # is done in one pass along with populating the resource type mapping.
+        # Then, we go through all resources again, get its expected parent
+        # patterns, and anything that shows up in the patterns mapping is taken
+        # to be a parent.
+        types = {}
         patterns = {}
         @files.each do |file|
-          file.resources.each { |resource| analyze_resource resource, patterns }
-          file.messages.each { |message| analyze_message_resources message, patterns }
+          file.resources.each { |resource| populate_resource_lookups resource, types, patterns }
+          file.messages.each { |message| populate_message_resource_lookups message, types, patterns }
         end
-        @resource_types.each do |_type, resource|
+        types.each do |_type, resource|
           parents = resource.parsed_parent_patterns
                             .map { |pat| patterns[pat] }
                             .compact.uniq
           resource.parent_resources.replace parents
         end
+        types
       end
 
-      def analyze_resource resource, patterns
-        @resource_types[resource.type] = resource
+      def populate_resource_lookups resource, types, patterns
+        types[resource.type] = resource
         resource.parsed_patterns.each do |pat|
           patterns[pat] = resource
         end
       end
 
-      def analyze_message_resources message, patterns
-        analyze_resource message.resource, patterns if message.resource
+      def populate_message_resource_lookups message, types, patterns
+        populate_resource_lookups message.resource, types, patterns if message.resource
         message.nested_messages.each do |nested|
-          analyze_message_resources nested, patterns
+          populate_message_resource_lookups nested, types, patterns
         end
       end
 

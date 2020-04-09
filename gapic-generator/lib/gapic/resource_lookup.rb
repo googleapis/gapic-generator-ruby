@@ -28,35 +28,39 @@ module Gapic
     def lookup!
       resources = []
       @service.methods.each do |method|
-        add_message_resources method.input, resources
-        add_message_resources method.output, resources if @api.generate_path_helpers_output?
+        resources.concat resources_for_message(method.input)
+        resources.concat resources_for_message(method.output) if @api.generate_path_helpers_output?
       end
       resources.uniq
     end
 
     # @private
-    def add_message_resources message, resources, seen_messages = []
+    def resources_for_message message, seen_messages = []
+      resources = []
       return resources if seen_messages.include? message
       seen_messages << message
       resources << message.resource if message.resource
       message.nested_messages.each do |nested_message|
-        add_message_resources nested_message, resources, seen_messages
+        resources.concat resources_for_message(nested_message, seen_messages)
       end
       message.fields.each do |field|
-        add_reference field.resource_reference, resources if field.resource_reference
-        add_message_resources field.message, resources, seen_messages if field.message?
+        resources.concat resources_for_reference(field.resource_reference) if field.resource_reference
+        resources.concat resources_for_message(field.message, seen_messages) if field.message?
       end
       resources
     end
 
     # @private
-    def add_reference reference, resources
+    # Given a reference (either a type or child type), return the corresponding
+    # resources.
+    def resources_for_reference reference
       if (type = reference.type) && !type.empty?
-        resource = @api.lookup_resource_type type
-        resources << resource if resource
+        Array(@api.lookup_resource_type(type))
       elsif (child_type = reference.child_type) && !child_type.empty?
         child_resource = @api.lookup_resource_type child_type
-        resources.concat child_resource.parent_resources if child_resource
+        child_resource ? child_resource.parent_resources : []
+      else
+        []
       end
     end
 
