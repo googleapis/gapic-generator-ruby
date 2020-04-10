@@ -155,10 +155,14 @@ module Testing
 
         ##
         # @overload service_level_retry_method(request, options = nil)
-        #   @param request [Testing::GrpcServiceConfig::Request | Hash]
+        #   Pass arguments to `service_level_retry_method` via a request object, either of type
+        #   {Testing::GrpcServiceConfig::Request} or an equivalent Hash.
+        #
+        #   @param request [Testing::GrpcServiceConfig::Request, Hash]
+        #     A request object representing the call parameters. Required. To specify no
+        #     parameters, or to keep all the default parameter values, pass an empty Hash.
         #   @param options [Gapic::CallOptions, Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
-        #
         #
         # @yield [response, operation] Access the result along with the RPC operation
         # @yieldparam response [Testing::GrpcServiceConfig::Response]
@@ -199,10 +203,14 @@ module Testing
 
         ##
         # @overload method_level_retry_method(request, options = nil)
-        #   @param request [Testing::GrpcServiceConfig::Request | Hash]
+        #   Pass arguments to `method_level_retry_method` via a request object, either of type
+        #   {Testing::GrpcServiceConfig::Request} or an equivalent Hash.
+        #
+        #   @param request [Testing::GrpcServiceConfig::Request, Hash]
+        #     A request object representing the call parameters. Required. To specify no
+        #     parameters, or to keep all the default parameter values, pass an empty Hash.
         #   @param options [Gapic::CallOptions, Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
-        #
         #
         # @yield [response, operation] Access the result along with the RPC operation
         # @yieldparam response [Testing::GrpcServiceConfig::Response]
