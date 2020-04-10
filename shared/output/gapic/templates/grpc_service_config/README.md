@@ -1,4 +1,4 @@
-# Testing GrpcServiceConfig
+# Ruby Client for the Testing GrpcServiceConfig API
 
 API Client library for the Testing GrpcServiceConfig API
 
@@ -10,6 +10,16 @@ https://github.com/googleapis/googleapis
 
 ```
 $ gem install testing-grpc_service_config
+```
+
+## Quick Start
+
+```ruby
+require "testing/grpc_service_config"
+
+client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+request = my_create_request
+response = client.no_retry_method request
 ```
 
 ## Supported Ruby Versions

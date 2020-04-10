@@ -37,6 +37,10 @@ module Gapic
         end
       end
 
+      def packages?
+        !packages.empty?
+      end
+
       def services
         @services ||= begin
           files = @api.generate_files
