@@ -538,7 +538,7 @@ module So
           #
           # @overload get_typical_garbage(request, options = nil)
           #   Pass arguments to `get_typical_garbage` via a request object, either of type
-          #   {So::Much::Trash::TypicalGarbage} or an equivalent Hash.
+          #   {So::Much::Trash::GetTypicalGarbageRequest} or an equivalent Hash.
           #
           #   @param request [So::Much::Trash::GetTypicalGarbageRequest, Hash]
           #     A request object representing the call parameters. Required. To specify no
