@@ -1,5 +1,16 @@
 # Release History for gapic-generator
 
+### 0.3.0 / 2020-04-10
+
+* Detect when a resource is referenced implicitly via child_type, and generate path helpers.
+* Update grpc-google-iam-v1 dependency to require the latest version.
+* Generated require graph is more sane and does not include cycles.
+* The bundler entrypoint now loads the entire gem for wrapper gems.
+* Generated readmes are more useful and include a quickstart.
+* Package and service modules now have basic documentation.
+* Overloads for methods now have basic explanatory documentation, including how to pass an empty request.
+* Request object documentation no longer duplicates the method documentation.
+
 ### 0.2.3 / 2020-04-06
 
 * No changes

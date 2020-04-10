@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.3.0 / 2020-04-10
+
+* Includes changes from gapic-generator 0.3.0
+* Generated readmes include quickstart, project/auth/billing setup instructions, and logging instructions.
+
 ### 0.2.3 / 2020-04-06
 
 * Includes changes from gapic-generator 0.2.3
