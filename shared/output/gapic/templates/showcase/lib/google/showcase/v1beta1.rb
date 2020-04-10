@@ -29,3 +29,16 @@ require "google/showcase/v1beta1/identity"
 require "google/showcase/v1beta1/messaging"
 require "google/showcase/v1beta1/testing"
 require "google/showcase/version"
+
+module Google
+  module Showcase
+    ##
+    # To load this package, including all its services, and instantiate a client:
+    #
+    #     require "google/showcase/v1beta1"
+    #     client = Google::Showcase::V1beta1::Echo::Client.new
+    #
+    module V1beta1
+    end
+  end
+end

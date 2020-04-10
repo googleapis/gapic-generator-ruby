@@ -1,19 +1,6 @@
 <%- assert_locals service -%>
-<%= render partial: "shared/header" -%>
-
-require "gapic/common"
-require "gapic/config"
-require "gapic/config/method"
-
-require "<%= service.gem.version_require %>"
-
-require "<%= service.credentials_require %>"
-<%- if service.paths? -%>
-require "<%= service.paths_require %>"
-<%- end -%>
-<%- if service.lro? -%>
-require "<%= service.operations_require %>"
-<%- end -%>
-require "<%= service.client_require %>"
-
-<%= render partial: "service/helpers", locals: { service: service} -%>
+<%= render partial: "lib/service",
+           layout: "layouts/ruby",
+           locals: { service: service,
+                     namespace: service.namespace }
+%>

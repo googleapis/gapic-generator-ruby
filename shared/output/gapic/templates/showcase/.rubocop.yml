@@ -8,49 +8,23 @@ AllCops:
     - "test/**/*"
 
 Metrics/AbcSize:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Metrics/ClassLength:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Metrics/LineLength:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Metrics/MethodLength:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
 Naming/FileName:
   Exclude:
     - "lib/google-showcase.rb"
 Style/CaseEquality:
-  Exclude:
-    - "lib/google/showcase/v1beta1/echo/*.rb"
-    - "lib/google/showcase/v1beta1/identity/*.rb"
-    - "lib/google/showcase/v1beta1/messaging/*.rb"
-    - "lib/google/showcase/v1beta1/testing/*.rb"
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false

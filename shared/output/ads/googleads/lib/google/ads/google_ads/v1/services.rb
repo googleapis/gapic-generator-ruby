@@ -18,3 +18,20 @@
 
 require "google/ads/google_ads/v1/services/campaign_service"
 require "google/ads/google_ads/version"
+
+module Google
+  module Ads
+    module GoogleAds
+      module V1
+        ##
+        # To load this package, including all its services, and instantiate a client:
+        #
+        #     require "google/ads/google_ads/v1/services"
+        #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
+        #
+        module Services
+        end
+      end
+    end
+  end
+end

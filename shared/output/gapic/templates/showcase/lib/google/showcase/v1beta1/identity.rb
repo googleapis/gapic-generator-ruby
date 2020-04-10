@@ -34,5 +34,22 @@ require "google/showcase/v1beta1/identity/credentials"
 require "google/showcase/v1beta1/identity/paths"
 require "google/showcase/v1beta1/identity/client"
 
+module Google
+  module Showcase
+    module V1beta1
+      ##
+      # A simple identity service.
+      #
+      # To load this service and instantiate a client:
+      #
+      #     require "google/showcase/v1beta1/identity"
+      #     client = Google::Showcase::V1beta1::Identity::Client.new
+      #
+      module Identity
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "identity", "helpers.rb"
 require "google/showcase/v1beta1/identity/helpers" if ::File.file? helper_path

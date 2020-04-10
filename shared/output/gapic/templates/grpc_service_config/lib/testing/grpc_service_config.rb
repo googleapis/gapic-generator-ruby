@@ -27,3 +27,14 @@
 require "testing/grpc_service_config/service_no_retry"
 require "testing/grpc_service_config/service_with_retries"
 require "testing/grpc_service_config/version"
+
+module Testing
+  ##
+  # To load this package, including all its services, and instantiate a client:
+  #
+  #     require "testing/grpc_service_config"
+  #     client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+  #
+  module GrpcServiceConfig
+  end
+end

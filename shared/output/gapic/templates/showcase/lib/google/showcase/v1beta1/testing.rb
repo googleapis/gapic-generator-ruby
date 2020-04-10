@@ -34,5 +34,23 @@ require "google/showcase/v1beta1/testing/credentials"
 require "google/showcase/v1beta1/testing/paths"
 require "google/showcase/v1beta1/testing/client"
 
+module Google
+  module Showcase
+    module V1beta1
+      ##
+      # A service to facilitate running discrete sets of tests
+      # against Showcase.
+      #
+      # To load this service and instantiate a client:
+      #
+      #     require "google/showcase/v1beta1/testing"
+      #     client = Google::Showcase::V1beta1::Testing::Client.new
+      #
+      module Testing
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "testing", "helpers.rb"
 require "google/showcase/v1beta1/testing/helpers" if ::File.file? helper_path

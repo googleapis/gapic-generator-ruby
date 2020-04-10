@@ -1,0 +1,17 @@
+<%- assert_locals package -%>
+<% @requires = capture do %>
+<%- package.services.each do |service| -%>
+require "<%= service.service_require %>"
+<%- end -%>
+require "<%= package.gem.version_require %>"
+<% end %>
+<%- unless package.empty? -%>
+##
+# To load this package, including all its services, and instantiate a client:
+#
+#     require "<%= package.package_require %>"
+#     client = <%= package.services.first.create_client_call %>
+#
+<%- end -%>
+module <%= package.module_name %>
+end

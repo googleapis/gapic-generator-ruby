@@ -34,5 +34,25 @@ require "google/showcase/v1beta1/echo/credentials"
 require "google/showcase/v1beta1/echo/operations"
 require "google/showcase/v1beta1/echo/client"
 
+module Google
+  module Showcase
+    module V1beta1
+      ##
+      # This service is used showcase the four main types of rpcs - unary, server
+      # side streaming, client side streaming, and bidirectional streaming. This
+      # service also exposes methods that explicitly implement server delay, and
+      # paginated calls.
+      #
+      # To load this service and instantiate a client:
+      #
+      #     require "google/showcase/v1beta1/echo"
+      #     client = Google::Showcase::V1beta1::Echo::Client.new
+      #
+      module Echo
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "echo", "helpers.rb"
 require "google/showcase/v1beta1/echo/helpers" if ::File.file? helper_path

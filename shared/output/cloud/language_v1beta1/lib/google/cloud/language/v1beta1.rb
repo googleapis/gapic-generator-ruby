@@ -18,3 +18,18 @@
 
 require "google/cloud/language/v1beta1/language_service"
 require "google/cloud/language/v1beta1/version"
+
+module Google
+  module Cloud
+    module Language
+      ##
+      # To load this package, including all its services, and instantiate a client:
+      #
+      #     require "google/cloud/language/v1beta1"
+      #     client = Google::Cloud::Language::V1beta1::LanguageService::Client.new
+      #
+      module V1beta1
+      end
+    end
+  end
+end
