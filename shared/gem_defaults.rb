@@ -82,7 +82,8 @@ def gem_defaults
     },
     garbage: {
       protos: [
-        "garbage/garbage.proto"
+        "garbage/garbage.proto",
+        "google/cloud/common_resources.proto"
       ],
       samples: Dir.glob([
         "../shared/samples/garbage/*.yaml",

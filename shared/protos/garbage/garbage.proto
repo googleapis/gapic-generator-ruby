@@ -16,6 +16,8 @@ option ruby_package = "So::Much::Trash";
 option (google.api.resource_definition) = {
 type: "endlesstrash.example.net/Garbage"
 pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
 pattern: "projects/{project}/specific_garbage/{specific_garbage}"
 pattern: "projects/{project}/nested_garbage/{nested_garbage}"
 pattern: "projects/{project}/repeated_garbage/{repeated_garbage}"
@@ -68,7 +70,7 @@ service GarbageService {
     };
   }
   // Retrieves a TypicalGarbage resource.
-  rpc GetTypicalGarbage(TypicalGarbage) returns (TypicalGarbage) {
+  rpc GetTypicalGarbage(GetTypicalGarbageRequest) returns (TypicalGarbage) {
     option (google.api.http) = {
       post: "/v1/typical_garbage:get"
       body: "*"
@@ -127,6 +129,14 @@ service GarbageService {
   rpc BidiGarbage(stream ListGarbageRequest) returns (stream GarbageItem);
 }
 
+// The get typical garbage request message.
+message GetTypicalGarbageRequest {
+  // The name of the garbage.
+  string name = 1 [
+    (google.api.resource_reference).type = "endlesstrash.example.net/TypicalGarbage"
+  ];
+}
+
 // The top-level message sent by the client for the `LongRunningGarbage`
 // method.
 message LongRunningGarbageRequest {
@@ -159,7 +169,7 @@ message LongRunningGarbageMetadata {
 message ListGarbageRequest {
   // The name of the garbage this item belongs to.
   string garbage = 1 [
-    (google.api.resource_reference).type = "endlesstrash.example.net/Garbage"
+    (google.api.resource_reference).child_type = "endlesstrash.example.net/Garbage"
   ];
 }
 
@@ -194,7 +204,7 @@ message EmptyGarbage {
 message SimpleGarbage {
   option (google.api.resource) = {
     type: "endlesstrash.example.net/SimpleGarbage"
-    pattern: "projects/{project}/simple_garbage/{garbage}"
+    pattern: "projects/{project}/simple_garbage/{simple_garbage}"
   };
 
   // The name of this garbage.
@@ -214,6 +224,12 @@ message SimpleGarbageItem {
 }
 
 message TypicalGarbage {
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/TypicalGarbage"
+    pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+    pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
+  };
+
   // The name of this garbage.
   string name = 1 [(google.api.field_behavior) = REQUIRED];
   // The int32 of this garbage.
@@ -246,6 +262,11 @@ message TypicalGarbage {
 
 // This is one specific garbage, man.
 message SpecificGarbage {
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/SpecificGarbage"
+    pattern: "projects/{project}/specific_garbage/{specific_garbage}"
+  };
+
   // The name of this garbage.
   string name = 1 [(google.api.field_behavior) = REQUIRED];
   // The int32 of this garbage.

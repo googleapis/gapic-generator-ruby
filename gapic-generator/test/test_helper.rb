@@ -164,7 +164,7 @@ class FakeApi
     yield if block_given?
     descriptor = OpenStruct.new options: { ruby_package: ruby_package }, package: package
     file = Gapic::Schema::File.new descriptor, @cur_address, nil, @cur_messages, @cur_enums,
-                                   @cur_services, nil, @cur_registry
+                                   @cur_services, [], nil, @cur_registry
     file.parent = self
     @files << file
     @cur_messages = @cur_enums = @cur_services = @cur_registry = @cur_address = nil
@@ -177,7 +177,7 @@ class FakeApi
     @cur_fields = []
     yield if block_given?
     descriptor = OpenStruct.new name: name
-    message = Gapic::Schema::Message.new descriptor, @cur_address, nil, @cur_fields, nil, nil, nil
+    message = Gapic::Schema::Message.new descriptor, @cur_address, nil, @cur_fields, nil, nil, nil, nil
     @cur_messages << message
     @cur_registry[@cur_address.join "."] = message
     @cur_address = old_address

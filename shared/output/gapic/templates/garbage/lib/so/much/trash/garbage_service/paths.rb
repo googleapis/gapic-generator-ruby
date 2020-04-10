@@ -32,68 +32,17 @@ module So
         # Path helper methods for the GarbageService API.
         module Paths
           ##
-          # Create a fully-qualified Garbage resource string.
+          # Create a fully-qualified Project resource string.
           #
-          # @overload garbage_path(project:, simple_garbage:)
-          #   The resource will be in the following format:
+          # The resource will be in the following format:
           #
-          #   `projects/{project}/simple_garbage/{simple_garbage}`
+          # `projects/{project}`
           #
-          #   @param project [String]
-          #   @param simple_garbage [String]
-          #
-          # @overload garbage_path(project:, specific_garbage:)
-          #   The resource will be in the following format:
-          #
-          #   `projects/{project}/specific_garbage/{specific_garbage}`
-          #
-          #   @param project [String]
-          #   @param specific_garbage [String]
-          #
-          # @overload garbage_path(project:, nested_garbage:)
-          #   The resource will be in the following format:
-          #
-          #   `projects/{project}/nested_garbage/{nested_garbage}`
-          #
-          #   @param project [String]
-          #   @param nested_garbage [String]
-          #
-          # @overload garbage_path(project:, repeated_garbage:)
-          #   The resource will be in the following format:
-          #
-          #   `projects/{project}/repeated_garbage/{repeated_garbage}`
-          #
-          #   @param project [String]
-          #   @param repeated_garbage [String]
+          # @param project [String]
           #
           # @return [String]
-          def garbage_path **args
-            resources = {
-              "project:simple_garbage"   => (proc do |project:, simple_garbage:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
-
-                "projects/#{project}/simple_garbage/#{simple_garbage}"
-              end),
-              "project:specific_garbage" => (proc do |project:, specific_garbage:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
-
-                "projects/#{project}/specific_garbage/#{specific_garbage}"
-              end),
-              "nested_garbage:project"   => (proc do |project:, nested_garbage:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
-
-                "projects/#{project}/nested_garbage/#{nested_garbage}"
-              end),
-              "project:repeated_garbage" => (proc do |project:, repeated_garbage:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
-
-                "projects/#{project}/repeated_garbage/#{repeated_garbage}"
-              end)
-            }
-
-            resource = resources[args.keys.sort.join(":")]
-            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
-            resource.call(**args)
+          def project_path project:
+            "projects/#{project}"
           end
 
           ##
@@ -101,16 +50,72 @@ module So
           #
           # The resource will be in the following format:
           #
-          # `projects/{project}/simple_garbage/{garbage}`
+          # `projects/{project}/simple_garbage/{simple_garbage}`
           #
           # @param project [String]
-          # @param garbage [String]
+          # @param simple_garbage [String]
           #
           # @return [String]
-          def simple_garbage_path project:, garbage:
+          def simple_garbage_path project:, simple_garbage:
             raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
-            "projects/#{project}/simple_garbage/#{garbage}"
+            "projects/#{project}/simple_garbage/#{simple_garbage}"
+          end
+
+          ##
+          # Create a fully-qualified SpecificGarbage resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `projects/{project}/specific_garbage/{specific_garbage}`
+          #
+          # @param project [String]
+          # @param specific_garbage [String]
+          #
+          # @return [String]
+          def specific_garbage_path project:, specific_garbage:
+            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+            "projects/#{project}/specific_garbage/#{specific_garbage}"
+          end
+
+          ##
+          # Create a fully-qualified TypicalGarbage resource string.
+          #
+          # @overload typical_garbage_path(project:, typical_garbage_1:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/typical_garbage_1/{typical_garbage_1}`
+          #
+          #   @param project [String]
+          #   @param typical_garbage_1 [String]
+          #
+          # @overload typical_garbage_path(project:, typical_garbage_2:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/typical_garbage_2/{typical_garbage_2}`
+          #
+          #   @param project [String]
+          #   @param typical_garbage_2 [String]
+          #
+          # @return [String]
+          def typical_garbage_path **args
+            resources = {
+              "project:typical_garbage_1" => (proc do |project:, typical_garbage_1:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/typical_garbage_1/#{typical_garbage_1}"
+              end),
+              "project:typical_garbage_2" => (proc do |project:, typical_garbage_2:|
+                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/typical_garbage_2/#{typical_garbage_2}"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
           end
 
           extend self

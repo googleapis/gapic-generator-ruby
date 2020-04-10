@@ -25,13 +25,14 @@ class GarbageResourceLookupTest < ResourceLookupTest
     resources = Gapic::ResourceLookup.for_service garbage_service
     refute_empty resources
     resources.each do |resource|
-      assert_kind_of Google::Api::ResourceDescriptor, resource
+      assert_kind_of Gapic::Schema::Resource, resource
     end
-    assert_equal resources.map(&:type), ["endlesstrash.example.net/Garbage", "endlesstrash.example.net/SimpleGarbage"]
-    assert_equal resources.map(&:pattern), [["projects/{project}/simple_garbage/{simple_garbage}",
-                                             "projects/{project}/specific_garbage/{specific_garbage}",
-                                             "projects/{project}/nested_garbage/{nested_garbage}",
-                                             "projects/{project}/repeated_garbage/{repeated_garbage}"],
-                                            ["projects/{project}/simple_garbage/{garbage}"]]
+    expected_types = [
+      "cloudresourcemanager.googleapis.com/Project",
+      "endlesstrash.example.net/SimpleGarbage",
+      "endlesstrash.example.net/SpecificGarbage",
+      "endlesstrash.example.net/TypicalGarbage"
+    ]
+    assert_equal expected_types, resources.map(&:type).sort
   end
 end

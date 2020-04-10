@@ -13,6 +13,9 @@ require 'google/protobuf/duration_pb'
 require 'google/iam/v1/iam_policy_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("garbage/garbage.proto", :syntax => :proto3) do
+    add_message "endless.trash.forever.GetTypicalGarbageRequest" do
+      optional :name, :string, 1
+    end
     add_message "endless.trash.forever.LongRunningGarbageRequest" do
       optional :garbage, :string, 1
     end
@@ -148,6 +151,7 @@ end
 module So
   module Much
     module Trash
+      GetTypicalGarbageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.GetTypicalGarbageRequest").msgclass
       LongRunningGarbageRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageRequest").msgclass
       LongRunningGarbageResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageResponse").msgclass
       LongRunningGarbageMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.LongRunningGarbageMetadata").msgclass

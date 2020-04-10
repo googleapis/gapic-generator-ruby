@@ -17,6 +17,33 @@
 require "test_helper"
 
 class AnnotationResourceTest < AnnotationTest
+  def test_garbage_Common
+    garbage = api :garbage
+    file = garbage.files.find { |f| f.address == ["google", "cloud"] }
+    assert_equal 5, file.resources.size
+
+    resource = garbage.lookup_resource_type "cloudresourcemanager.googleapis.com/Project"
+    assert_equal 0, resource.parent_resources.size
+  end
+
+  def test_garbage_Garbage
+    garbage = api :garbage
+    file = garbage.file_for "endless.trash.forever.GarbageService"
+
+    resources = file.resources
+    assert_equal 1, resources.size
+
+    resource = resources.first
+    assert_equal 6, resource.pattern.size
+    assert_equal "endlesstrash.example.net/Garbage", resource.type
+    assert_equal resource, garbage.lookup_resource_type("endlesstrash.example.net/Garbage")
+
+    parents = resource.parent_resources
+    assert_equal 1, parents.size
+    assert_equal ["projects/{project}"], parents.first.pattern
+    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+  end
+
   def test_garbage_SimpleGarbage
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "SimpleGarbage" }
@@ -26,10 +53,17 @@ class AnnotationResourceTest < AnnotationTest
 
     resource = message.options[:resource]
     assert_kind_of Google::Api::ResourceDescriptor, resource
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], resource.pattern
+    assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], resource.pattern
 
-    assert_kind_of Google::Api::ResourceDescriptor, message.resource
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], message.resource.pattern
+    assert_kind_of Gapic::Schema::Resource, message.resource
+    assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], message.resource.pattern
+    assert_equal [["projects", "*", "simple_garbage", "*"]], message.resource.parsed_patterns
+    assert_equal message.resource, garbage.lookup_resource_type("endlesstrash.example.net/SimpleGarbage")
+
+    parents = message.resource.parent_resources
+    assert_equal 1, parents.size
+    assert_equal ["projects/{project}"], parents.first.pattern
+    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
 
     assert_equal 1, message.fields.count
     field = message.fields.first
@@ -95,10 +129,10 @@ class AnnotationResourceTest < AnnotationTest
     refute_nil field.options
     assert_kind_of Google::Protobuf::FieldOptions, field.options
     assert_kind_of Google::Api::ResourceReference, field.options[:resource_reference]
-    assert_equal "endlesstrash.example.net/Garbage", field.options[:resource_reference].type
+    assert_equal "endlesstrash.example.net/Garbage", field.options[:resource_reference].child_type
 
     assert_equal 1, message.fields.count
-    assert_equal "endlesstrash.example.net/Garbage", message.fields[0].resource_reference.type
+    assert_equal "endlesstrash.example.net/Garbage", message.fields[0].resource_reference.child_type
   end
 
   def test_garbage_ListGarbageResponse

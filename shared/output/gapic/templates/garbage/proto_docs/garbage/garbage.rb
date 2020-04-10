@@ -28,6 +28,15 @@
 module So
   module Much
     module Trash
+      # The get typical garbage request message.
+      # @!attribute [rw] name
+      #   @return [String]
+      #     The name of the garbage.
+      class GetTypicalGarbageRequest
+        include Google::Protobuf::MessageExts
+        extend Google::Protobuf::MessageExts::ClassMethods
+      end
+
       # The top-level message sent by the client for the `LongRunningGarbage`
       # method.
       # @!attribute [rw] garbage

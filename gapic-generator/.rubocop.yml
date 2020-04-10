@@ -11,9 +11,14 @@ AllCops:
     - test/test_helper.rb
     - Rakefile
 
+Metrics/AbcSize:
+  Exclude:
+    - lib/gapic/schema/loader.rb
+
 Metrics/ClassLength:
   Exclude:
     - lib/gapic/presenters/**/*
+    - lib/gapic/schema/loader.rb
 
 Style/Documentation:
   Exclude:

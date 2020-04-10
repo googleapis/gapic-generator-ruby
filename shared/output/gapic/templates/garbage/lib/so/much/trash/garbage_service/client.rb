@@ -538,45 +538,21 @@ module So
           #
           # @overload get_typical_garbage(request, options = nil)
           #   Pass arguments to `get_typical_garbage` via a request object, either of type
-          #   {So::Much::Trash::TypicalGarbage} or an equivalent Hash.
+          #   {So::Much::Trash::GetTypicalGarbageRequest} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::TypicalGarbage, Hash]
+          #   @param request [So::Much::Trash::GetTypicalGarbageRequest, Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil)
+          # @overload get_typical_garbage(name: nil)
           #   Pass arguments to `get_typical_garbage` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param name [String]
-          #     The name of this garbage.
-          #   @param int32 [Integer]
-          #     The int32 of this garbage.
-          #   @param int64 [Integer]
-          #     The int64 of this garbage.
-          #   @param uint32 [Integer]
-          #     The uint32 of this garbage.
-          #   @param uint64 [Integer]
-          #     The uint64 of this garbage.
-          #   @param bool [Boolean]
-          #     The bool of this garbage.
-          #   @param float [Float]
-          #     The float of this garbage.
-          #   @param double [Float]
-          #     The double of this garbage.
-          #   @param bytes [String]
-          #     The bytes of this garbage.
-          #   @param timeout [Google::Protobuf::Timestamp, Hash]
-          #     When the garbage was first activated.
-          #   @param duration [Google::Protobuf::Duration, Hash]
-          #     Time limit for this garbage. If not defined, the garbage endures forever.
-          #   @param enum [So::Much::Trash::GarbageEnum]
-          #     The type of this garbage.
-          #   @param amap [Hash{String => String}]
-          #     This is a map
+          #     The name of the garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::TypicalGarbage]
@@ -645,7 +621,7 @@ module So
           def get_typical_garbage request, options = nil
             raise ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::TypicalGarbage
+            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::GetTypicalGarbageRequest
 
             # Converts hash and nil to an options object
             options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
