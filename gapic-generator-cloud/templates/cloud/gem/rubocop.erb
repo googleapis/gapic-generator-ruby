@@ -12,58 +12,23 @@ AllCops:
     - "Rakefile"
 
 Metrics/AbcSize:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
+  Enabled: false
 Metrics/ClassLength:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
+  Enabled: false
 Metrics/LineLength:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
-    - "<%= gem.name %>.gemspec"
+  Enabled: false
 Metrics/MethodLength:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
+  Enabled: false
 Naming/FileName:
   Exclude:
     - "lib/<%= gem.name %>.rb"
 Style/CaseEquality:
-  Exclude:
-    <%- gem.packages.each do |package| -%>
-    <%- package.services.each do |service| -%>
-    - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
-    <%- end -%>
-    <%- end -%>
-    - "lib/<%= gem.name.tr "-", "/" %>.rb"
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false

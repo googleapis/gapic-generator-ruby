@@ -8,35 +8,23 @@ AllCops:
     - "test/**/*"
 
 Metrics/AbcSize:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Metrics/ClassLength:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Metrics/LineLength:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Metrics/MethodLength:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
 Naming/FileName:
   Exclude:
     - "lib/testing-grpc_service_config.rb"
 Style/CaseEquality:
-  Exclude:
-    - "lib/testing/grpc_service_config/service_no_retry/*.rb"
-    - "lib/testing/grpc_service_config/service_with_retries/*.rb"
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false

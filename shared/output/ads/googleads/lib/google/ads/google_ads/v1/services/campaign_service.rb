@@ -26,5 +26,26 @@ require "google/ads/google_ads/v1/services/campaign_service/credentials"
 require "google/ads/google_ads/v1/services/campaign_service/paths"
 require "google/ads/google_ads/v1/services/campaign_service/client"
 
+module Google
+  module Ads
+    module GoogleAds
+      module V1
+        module Services
+          ##
+          # Service to manage campaigns.
+          #
+          # To load this service and instantiate a client:
+          #
+          #     require "google/ads/google_ads/v1/services/campaign_service"
+          #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
+          #
+          module CampaignService
+          end
+        end
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "campaign_service", "helpers.rb"
 require "google/ads/google_ads/v1/services/campaign_service/helpers" if ::File.file? helper_path

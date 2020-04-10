@@ -78,6 +78,10 @@ module Gapic
         fix_namespace @api, "#{namespace}::#{name}"
       end
 
+      def module_name
+        proto_service_name_full.split("::").last
+      end
+
       def proto_service_file_path
         @service.parent.name.sub ".proto", "_pb.rb"
       end

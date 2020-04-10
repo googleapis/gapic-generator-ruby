@@ -8,28 +8,23 @@ AllCops:
     - "test/**/*"
 
 Metrics/AbcSize:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Metrics/ClassLength:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Metrics/LineLength:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Metrics/MethodLength:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
 Naming/FileName:
   Exclude:
     - "lib/google-garbage.rb"
 Style/CaseEquality:
-  Exclude:
-    - "lib/so/much/trash/garbage_service/*.rb"
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false

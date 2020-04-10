@@ -11,23 +11,23 @@ AllCops:
     - "Rakefile"
 
 Metrics/AbcSize:
-  Exclude:
+  Enabled: false
 Metrics/ClassLength:
-  Exclude:
+  Enabled: false
 Metrics/CyclomaticComplexity:
-  Exclude:
+  Enabled: false
 Metrics/LineLength:
-  Exclude:
-    - "google-garbage-noservice.gemspec"
+  Enabled: false
 Metrics/MethodLength:
-  Exclude:
+  Enabled: false
 Metrics/PerceivedComplexity:
-  Exclude:
+  Enabled: false
 Naming/FileName:
   Exclude:
     - "lib/google-garbage-noservice.rb"
 Style/CaseEquality:
-  Exclude:
-    - "lib/google/garbage/noservice.rb"
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 Style/ModuleFunction:
   Enabled: false

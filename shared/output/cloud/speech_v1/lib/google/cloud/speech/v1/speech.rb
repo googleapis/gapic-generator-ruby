@@ -26,5 +26,24 @@ require "google/cloud/speech/v1/speech/credentials"
 require "google/cloud/speech/v1/speech/operations"
 require "google/cloud/speech/v1/speech/client"
 
+module Google
+  module Cloud
+    module Speech
+      module V1
+        ##
+        # Service that implements Google Cloud Speech API.
+        #
+        # To load this service and instantiate a client:
+        #
+        #     require "google/cloud/speech/v1/speech"
+        #     client = Google::Cloud::Speech::V1::Speech::Client.new
+        #
+        module Speech
+        end
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "speech", "helpers.rb"
 require "google/cloud/speech/v1/speech/helpers" if ::File.file? helper_path

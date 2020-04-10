@@ -33,5 +33,18 @@ require "testing/grpc_service_config/version"
 require "testing/grpc_service_config/service_with_retries/credentials"
 require "testing/grpc_service_config/service_with_retries/client"
 
+module Testing
+  module GrpcServiceConfig
+    ##
+    # To load this service and instantiate a client:
+    #
+    #     require "testing/grpc_service_config/service_with_retries"
+    #     client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
+    #
+    module ServiceWithRetries
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "service_with_retries", "helpers.rb"
 require "testing/grpc_service_config/service_with_retries/helpers" if ::File.file? helper_path

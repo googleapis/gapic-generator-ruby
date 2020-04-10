@@ -25,5 +25,25 @@ require "google/cloud/language/v1/version"
 require "google/cloud/language/v1/language_service/credentials"
 require "google/cloud/language/v1/language_service/client"
 
+module Google
+  module Cloud
+    module Language
+      module V1
+        ##
+        # Provides text analysis operations such as sentiment analysis and entity
+        # recognition.
+        #
+        # To load this service and instantiate a client:
+        #
+        #     require "google/cloud/language/v1/language_service"
+        #     client = Google::Cloud::Language::V1::LanguageService::Client.new
+        #
+        module LanguageService
+        end
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "language_service", "helpers.rb"
 require "google/cloud/language/v1/language_service/helpers" if ::File.file? helper_path

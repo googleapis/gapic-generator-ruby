@@ -35,5 +35,22 @@ require "so/much/trash/garbage_service/paths"
 require "so/much/trash/garbage_service/operations"
 require "so/much/trash/garbage_service/client"
 
+module So
+  module Much
+    module Trash
+      ##
+      # Endless trash
+      #
+      # To load this service and instantiate a client:
+      #
+      #     require "so/much/trash/garbage_service"
+      #     client = So::Much::Trash::GarbageService::Client.new
+      #
+      module GarbageService
+      end
+    end
+  end
+end
+
 helper_path = ::File.join __dir__, "garbage_service", "helpers.rb"
 require "so/much/trash/garbage_service/helpers" if ::File.file? helper_path

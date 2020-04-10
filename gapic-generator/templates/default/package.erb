@@ -1,7 +1,6 @@
 <%- assert_locals package -%>
-<%= render partial: "shared/header" -%>
-
-<%- package.services.each do |service| -%>
-require "<%= service.service_require %>"
-<%- end -%>
-require "<%= package.gem.version_require %>"
+<%= render partial: "lib/package",
+           layout: "layouts/ruby",
+           locals: { package: package,
+                     namespace: package.parent_namespace }
+%>

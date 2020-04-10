@@ -45,6 +45,14 @@ module Gapic
         ruby_namespace_for_address address
       end
 
+      def parent_namespace
+        namespace.split("::")[0...-1].join("::")
+      end
+
+      def module_name
+        namespace.split("::").last
+      end
+
       def services
         @services ||= begin
           files = @api.generate_files.select { |f| f.package == @package }
