@@ -1,4 +1,4 @@
-# Google Garbage
+# Ruby Client for the Google Garbage API
 
 API Client library for the Google Garbage API
 
@@ -10,6 +10,16 @@ https://github.com/googleapis/googleapis
 
 ```
 $ gem install google-garbage
+```
+
+## Quick Start
+
+```ruby
+require "so/much/trash"
+
+client = So::Much::Trash::GarbageService::Client.new
+request = my_create_request
+response = client.get_empty_garbage request
 ```
 
 ## Supported Ruby Versions

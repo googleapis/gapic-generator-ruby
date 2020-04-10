@@ -1,4 +1,4 @@
-# Google Showcase
+# Ruby Client for the Google Showcase API
 
 API Client library for the Google Showcase API
 
@@ -10,6 +10,16 @@ https://github.com/googleapis/googleapis
 
 ```
 $ gem install google-showcase
+```
+
+## Quick Start
+
+```ruby
+require "google/showcase/v1beta1"
+
+client = Google::Showcase::V1beta1::Echo::Client.new
+request = my_create_request
+response = client.echo request
 ```
 
 ## Supported Ruby Versions
