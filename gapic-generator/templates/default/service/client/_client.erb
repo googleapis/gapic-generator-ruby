@@ -1,19 +1,7 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-require "gapic/common"
-require "gapic/config"
-require "gapic/config/method"
-
 <%= render partial: "service/client/requires", locals: { service: service} -%>
-require "<%= service.gem.version_require %>"
 require "<%= service.proto_service_require %>"
-require "<%= service.credentials_require %>"
-<%- if service.paths? -%>
-require "<%= service.paths_require %>"
-<%- end -%>
-<%- if service.lro? -%>
-require "<%= service.operations_require %>"
-<%- end -%>
 <% end %>
 ##
 # Client for the <%= service.name %> service.
@@ -137,7 +125,3 @@ class <%= service.client_name %>
 
   <%= indent_tail render(partial: "service/client/config", locals: { service: service }), 2 %>
 end
-
-<% @footer = capture do %>
-<%= render partial: "service/client/helpers", locals: { service: service} %>
-<% end %>

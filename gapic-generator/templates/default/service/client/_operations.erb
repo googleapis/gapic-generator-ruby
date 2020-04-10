@@ -1,10 +1,6 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-require "gapic/common"
 require "gapic/operation"
-
-require "<%= service.gem.version_require %>"
-require "<%= service.client_require %>"
 require "<%= service.lro_service.proto_service_require %>"
 <% end %>
 # Service that implements Longrunning Operations API.

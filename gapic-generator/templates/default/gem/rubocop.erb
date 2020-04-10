@@ -50,6 +50,9 @@ Metrics/PerceivedComplexity:
     - "lib/<%= service.client_file_path.sub "client.rb", "*.rb" %>"
     <%- end -%>
     <%- end -%>
+Naming/FileName:
+  Exclude:
+    - "lib/<%= gem.name %>.rb"
 Style/CaseEquality:
   Exclude:
     <%- gem.packages.each do |package| -%>
