@@ -153,15 +153,22 @@ module Google
           # Creates a user.
           #
           # @overload create_user(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::CreateUserRequest | Hash]
-          #     Creates a user.
+          #   Pass arguments to `create_user` via a request object, either of type
+          #   {Google::Showcase::V1beta1::CreateUserRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::CreateUserRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload create_user(user: nil)
-          #   @param user [Google::Showcase::V1beta1::User | Hash]
-          #     The user to create.
+          #   Pass arguments to `create_user` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
           #
+          #   @param user [Google::Showcase::V1beta1::User, Hash]
+          #     The user to create.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::User]
@@ -204,15 +211,22 @@ module Google
           # Retrieves the User with the given uri.
           #
           # @overload get_user(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::GetUserRequest | Hash]
-          #     Retrieves the User with the given uri.
+          #   Pass arguments to `get_user` via a request object, either of type
+          #   {Google::Showcase::V1beta1::GetUserRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::GetUserRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_user(name: nil)
+          #   Pass arguments to `get_user` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The resource name of the requested user.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::User]
@@ -261,18 +275,25 @@ module Google
           # Updates a user.
           #
           # @overload update_user(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::UpdateUserRequest | Hash]
-          #     Updates a user.
+          #   Pass arguments to `update_user` via a request object, either of type
+          #   {Google::Showcase::V1beta1::UpdateUserRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::UpdateUserRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload update_user(user: nil, update_mask: nil)
-          #   @param user [Google::Showcase::V1beta1::User | Hash]
+          #   Pass arguments to `update_user` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param user [Google::Showcase::V1beta1::User, Hash]
           #     The user to update.
-          #   @param update_mask [Google::Protobuf::FieldMask | Hash]
+          #   @param update_mask [Google::Protobuf::FieldMask, Hash]
           #     The field mask to determine wich fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Showcase::V1beta1::User]
@@ -321,15 +342,22 @@ module Google
           # Deletes a user, their profile, and all of their authored messages.
           #
           # @overload delete_user(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::DeleteUserRequest | Hash]
-          #     Deletes a user, their profile, and all of their authored messages.
+          #   Pass arguments to `delete_user` via a request object, either of type
+          #   {Google::Showcase::V1beta1::DeleteUserRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::DeleteUserRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_user(name: nil)
+          #   Pass arguments to `delete_user` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The resource name of the user to delete.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Google::Protobuf::Empty]
@@ -378,12 +406,20 @@ module Google
           # Lists all users.
           #
           # @overload list_users(request, options = nil)
-          #   @param request [Google::Showcase::V1beta1::ListUsersRequest | Hash]
-          #     Lists all users.
+          #   Pass arguments to `list_users` via a request object, either of type
+          #   {Google::Showcase::V1beta1::ListUsersRequest} or an equivalent Hash.
+          #
+          #   @param request [Google::Showcase::V1beta1::ListUsersRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_users(page_size: nil, page_token: nil)
+          #   Pass arguments to `list_users` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param page_size [Integer]
           #     The maximum number of users to return. Server may return fewer users
           #     than requested. If unspecified, server will pick an appropriate default.
@@ -391,7 +427,6 @@ module Google
           #     The value of google.showcase.v1beta1.ListUsersResponse.next_page_token
           #     returned from the previous call to
           #     `google.showcase.v1beta1.Identity\ListUsers` method.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::PagedEnumerable<Google::Showcase::V1beta1::User>]

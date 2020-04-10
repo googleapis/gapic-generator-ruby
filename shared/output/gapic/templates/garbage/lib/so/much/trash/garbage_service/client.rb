@@ -158,11 +158,14 @@ module So
           # Retrieves an EmptyGarbage resource
           #
           # @overload get_empty_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::EmptyGarbage | Hash]
-          #     Retrieves an EmptyGarbage resource
+          #   Pass arguments to `get_empty_garbage` via a request object, either of type
+          #   {So::Much::Trash::EmptyGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::EmptyGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::EmptyGarbage]
@@ -205,15 +208,22 @@ module So
           # Retrieves a SimpleGarbage resource.
           #
           # @overload get_simple_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::SimpleGarbage | Hash]
-          #     Retrieves a SimpleGarbage resource.
+          #   Pass arguments to `get_simple_garbage` via a request object, either of type
+          #   {So::Much::Trash::SimpleGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::SimpleGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_simple_garbage(name: nil)
+          #   Pass arguments to `get_simple_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The name of this garbage.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::SimpleGarbage]
@@ -305,12 +315,20 @@ module So
           # Retrieves a SpecificGarbage resource.
           #
           # @overload get_specific_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::SpecificGarbage | Hash]
-          #     Retrieves a SpecificGarbage resource.
+          #   Pass arguments to `get_specific_garbage` via a request object, either of type
+          #   {So::Much::Trash::SpecificGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::SpecificGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_specific_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil, nested: nil)
+          #   Pass arguments to `get_specific_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The name of this garbage.
           #   @param int32 [Integer]
@@ -331,9 +349,8 @@ module So
           #     The bytes of this garbage.
           #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
-          #   @param nested [So::Much::Trash::SpecificGarbage::NestedGarbage | Hash]
+          #   @param nested [So::Much::Trash::SpecificGarbage::NestedGarbage, Hash]
           #     The nested garbage resource of this garbage.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::SpecificGarbage]
@@ -376,12 +393,20 @@ module So
           # Retrieves a NestedGarbage resource.
           #
           # @overload get_nested_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::SpecificGarbage::NestedGarbage | Hash]
-          #     Retrieves a NestedGarbage resource.
+          #   Pass arguments to `get_nested_garbage` via a request object, either of type
+          #   {So::Much::Trash::SpecificGarbage::NestedGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::SpecificGarbage::NestedGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_nested_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil)
+          #   Pass arguments to `get_nested_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The name of this garbage.
           #   @param int32 [Integer]
@@ -402,7 +427,6 @@ module So
           #     The bytes of this garbage.
           #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::SpecificGarbage::NestedGarbage]
@@ -445,12 +469,20 @@ module So
           # Retrieves a RepeatedGarbage resource.
           #
           # @overload get_repeated_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::RepeatedGarbage | Hash]
-          #     Retrieves a RepeatedGarbage resource.
+          #   Pass arguments to `get_repeated_garbage` via a request object, either of type
+          #   {So::Much::Trash::RepeatedGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::RepeatedGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_repeated_garbage(repeated_name: nil, repeated_int32: nil, repeated_int64: nil, repeated_uint32: nil, repeated_uint64: nil, repeated_bool: nil, repeated_float: nil, repeated_double: nil, repeated_bytes: nil, repeated_enum: nil)
+          #   Pass arguments to `get_repeated_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param repeated_name [Array<String>]
           #     The repeated name of this garbage.
           #   @param repeated_int32 [Array<Integer>]
@@ -471,7 +503,6 @@ module So
           #     The repeated bytes of this garbage.
           #   @param repeated_enum [Array<So::Much::Trash::GarbageEnum>]
           #     The repeated type of this garbage.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::RepeatedGarbage]
@@ -514,12 +545,20 @@ module So
           # Retrieves a TypicalGarbage resource.
           #
           # @overload get_typical_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::TypicalGarbage | Hash]
-          #     Retrieves a TypicalGarbage resource.
+          #   Pass arguments to `get_typical_garbage` via a request object, either of type
+          #   {So::Much::Trash::TypicalGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::TypicalGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil)
+          #   Pass arguments to `get_typical_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param name [String]
           #     The name of this garbage.
           #   @param int32 [Integer]
@@ -538,15 +577,14 @@ module So
           #     The double of this garbage.
           #   @param bytes [String]
           #     The bytes of this garbage.
-          #   @param timeout [Google::Protobuf::Timestamp | Hash]
+          #   @param timeout [Google::Protobuf::Timestamp, Hash]
           #     When the garbage was first activated.
-          #   @param duration [Google::Protobuf::Duration | Hash]
+          #   @param duration [Google::Protobuf::Duration, Hash]
           #     Time limit for this garbage. If not defined, the garbage endures forever.
           #   @param enum [So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
           #   @param amap [Hash{String => String}]
           #     This is a map
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::TypicalGarbage]
@@ -645,15 +683,22 @@ module So
           # Retrieves a ComplexGarbage resource.
           #
           # @overload get_complex_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::ComplexGarbage | Hash]
-          #     Retrieves a ComplexGarbage resource.
+          #   Pass arguments to `get_complex_garbage` via a request object, either of type
+          #   {So::Much::Trash::ComplexGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::ComplexGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_complex_garbage(layer1: nil)
-          #   @param layer1 [So::Much::Trash::ComplexGarbage::Layer1Garbage | Hash]
-          #     The first step to total and complete garbage.
+          #   Pass arguments to `get_complex_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
           #
+          #   @param layer1 [So::Much::Trash::ComplexGarbage::Layer1Garbage, Hash]
+          #     The first step to total and complete garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::ComplexGarbage]
@@ -739,15 +784,22 @@ module So
           # Retrieves a GarbageNode resource.
           #
           # @overload get_garbage_node(request, options = nil)
-          #   @param request [So::Much::Trash::GarbageNode | Hash]
-          #     Retrieves a GarbageNode resource.
+          #   Pass arguments to `get_garbage_node` via a request object, either of type
+          #   {So::Much::Trash::GarbageNode} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::GarbageNode, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_garbage_node(data: nil, parent: nil)
-          #   @param data [String]
-          #   @param parent [So::Much::Trash::GarbageNode | Hash]
+          #   Pass arguments to `get_garbage_node` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
           #
+          #   @param data [String]
+          #   @param parent [So::Much::Trash::GarbageNode, Hash]
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [So::Much::Trash::GarbageNode]
@@ -790,19 +842,26 @@ module So
           # Performs paged garbage listing.
           #
           # @overload get_paged_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::PagedGarbageRequest | Hash]
-          #     Performs paged garbage listing.
+          #   Pass arguments to `get_paged_garbage` via a request object, either of type
+          #   {So::Much::Trash::PagedGarbageRequest} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::PagedGarbageRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_paged_garbage(garbage: nil, page_size: nil, page_token: nil)
+          #   Pass arguments to `get_paged_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param garbage [String]
           #     The garbage to page.
           #   @param page_size [Integer]
           #     The amount of garbage items to returned in each page.
           #   @param page_token [String]
           #     The position of the page to be returned.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::PagedEnumerable<So::Much::Trash::GarbageItem>]
@@ -864,16 +923,22 @@ module So
           # google.longrunning.Operations interface.
           #
           # @overload long_running_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::LongRunningGarbageRequest | Hash]
-          #     Performs asynchronous garbage listing. Garbage items are available via the
-          #     google.longrunning.Operations interface.
+          #   Pass arguments to `long_running_garbage` via a request object, either of type
+          #   {So::Much::Trash::LongRunningGarbageRequest} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::LongRunningGarbageRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload long_running_garbage(garbage: nil)
+          #   Pass arguments to `long_running_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param garbage [String]
           #     The name of the garbage this item belongs to.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Gapic::Operation]
@@ -916,7 +981,7 @@ module So
           ##
           # Performs client streaming garbage listing.
           #
-          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest, Hash>]
           #   An enumerable of {So::Much::Trash::ListGarbageRequest} instances.
           # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
@@ -967,15 +1032,22 @@ module So
           # Performs server streaming garbage listing.
           #
           # @overload server_garbage(request, options = nil)
-          #   @param request [So::Much::Trash::ListGarbageRequest | Hash]
-          #     Performs server streaming garbage listing.
+          #   Pass arguments to `server_garbage` via a request object, either of type
+          #   {So::Much::Trash::ListGarbageRequest} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::ListGarbageRequest, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [Gapic::CallOptions, Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload server_garbage(garbage: nil)
+          #   Pass arguments to `server_garbage` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
           #   @param garbage [String]
           #     The name of the garbage this item belongs to.
-          #
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [Enumerable<So::Much::Trash::GarbageItem>]
@@ -1034,7 +1106,7 @@ module So
           ##
           # Performs bidirectional streaming garbage listing.
           #
-          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest | Hash>]
+          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest, Hash>]
           #   An enumerable of {So::Much::Trash::ListGarbageRequest} instances.
           # @param options [Gapic::CallOptions, Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.

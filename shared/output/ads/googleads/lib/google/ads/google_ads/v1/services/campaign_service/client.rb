@@ -148,15 +148,22 @@ module Google
               # Returns the requested campaign in full detail.
               #
               # @overload get_campaign(request, options = nil)
-              #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest | Hash]
-              #     Returns the requested campaign in full detail.
+              #   Pass arguments to `get_campaign` via a request object, either of type
+              #   {Google::Ads::GoogleAds::V1::Services::GetCampaignRequest} or an equivalent Hash.
+              #
+              #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, Hash]
+              #     A request object representing the call parameters. Required. To specify no
+              #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [Gapic::CallOptions, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload get_campaign(resource_name: nil)
+              #   Pass arguments to `get_campaign` via keyword arguments. Note that at
+              #   least one keyword argument is required. To specify no parameters, or to keep all
+              #   the default parameter values, pass an empty Hash as a request object (see above).
+              #
               #   @param resource_name [String]
               #     Required. The resource name of the campaign to fetch.
-              #
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::GoogleAds::V1::Resources::Campaign]
@@ -207,15 +214,23 @@ module Google
               # Creates, updates, or removes campaigns. Operation statuses are returned.
               #
               # @overload mutate_campaigns(request, options = nil)
-              #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest | Hash]
-              #     Creates, updates, or removes campaigns. Operation statuses are returned.
+              #   Pass arguments to `mutate_campaigns` via a request object, either of type
+              #   {Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest} or an equivalent Hash.
+              #
+              #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, Hash]
+              #     A request object representing the call parameters. Required. To specify no
+              #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [Gapic::CallOptions, Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
+              #   Pass arguments to `mutate_campaigns` via keyword arguments. Note that at
+              #   least one keyword argument is required. To specify no parameters, or to keep all
+              #   the default parameter values, pass an empty Hash as a request object (see above).
+              #
               #   @param customer_id [String]
               #     Required. The ID of the customer whose campaigns are being modified.
-              #   @param operations [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation | Hash>]
+              #   @param operations [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation, Hash>]
               #     Required. The list of operations to perform on individual campaigns.
               #   @param partial_failure [Boolean]
               #     If true, successful operations will be carried out and invalid
@@ -225,7 +240,6 @@ module Google
               #   @param validate_only [Boolean]
               #     If true, the request is validated but not executed. Only errors are
               #     returned, not results.
-              #
               #
               # @yield [response, operation] Access the result along with the RPC operation
               # @yieldparam response [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]

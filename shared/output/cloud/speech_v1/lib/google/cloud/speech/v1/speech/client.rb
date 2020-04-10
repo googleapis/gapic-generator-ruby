@@ -157,19 +157,25 @@ module Google
             # has been sent and processed.
             #
             # @overload recognize(request, options = nil)
-            #   @param request [Google::Cloud::Speech::V1::RecognizeRequest | Hash]
-            #     Performs synchronous speech recognition: receive results after all audio
-            #     has been sent and processed.
+            #   Pass arguments to `recognize` via a request object, either of type
+            #   {Google::Cloud::Speech::V1::RecognizeRequest} or an equivalent Hash.
+            #
+            #   @param request [Google::Cloud::Speech::V1::RecognizeRequest, Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload recognize(config: nil, audio: nil)
-            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   Pass arguments to `recognize` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig, Hash]
             #     Required. Provides information to the recognizer that specifies how to
             #     process the request.
-            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio, Hash]
             #     Required. The audio data to be recognized.
-            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Google::Cloud::Speech::V1::RecognizeResponse]
@@ -426,23 +432,25 @@ module Google
             # [how-to](https://cloud.google.com/speech-to-text/docs/async-recognize).
             #
             # @overload long_running_recognize(request, options = nil)
-            #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest | Hash]
-            #     Performs asynchronous speech recognition: receive results via the
-            #     google.longrunning.Operations interface. Returns either an
-            #     `Operation.error` or an `Operation.response` which contains
-            #     a `LongRunningRecognizeResponse` message.
-            #     For more information on asynchronous speech recognition, see the
-            #     [how-to](https://cloud.google.com/speech-to-text/docs/async-recognize).
+            #   Pass arguments to `long_running_recognize` via a request object, either of type
+            #   {Google::Cloud::Speech::V1::LongRunningRecognizeRequest} or an equivalent Hash.
+            #
+            #   @param request [Google::Cloud::Speech::V1::LongRunningRecognizeRequest, Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [Gapic::CallOptions, Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload long_running_recognize(config: nil, audio: nil)
-            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig | Hash]
+            #   Pass arguments to `long_running_recognize` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param config [Google::Cloud::Speech::V1::RecognitionConfig, Hash]
             #     Required. Provides information to the recognizer that specifies how to
             #     process the request.
-            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio | Hash]
+            #   @param audio [Google::Cloud::Speech::V1::RecognitionAudio, Hash]
             #     Required. The audio data to be recognized.
-            #
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [Gapic::Operation]
@@ -588,7 +596,7 @@ module Google
             # Performs bidirectional streaming speech recognition: receive results while
             # sending audio. This method is only available via the gRPC API (not REST).
             #
-            # @param request [Gapic::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest | Hash>]
+            # @param request [Gapic::StreamInput, Enumerable<Google::Cloud::Speech::V1::StreamingRecognizeRequest, Hash>]
             #   An enumerable of {Google::Cloud::Speech::V1::StreamingRecognizeRequest} instances.
             # @param options [Gapic::CallOptions, Hash]
             #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
