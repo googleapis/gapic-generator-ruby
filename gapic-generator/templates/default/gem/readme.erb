@@ -1,4 +1,4 @@
-# <%= gem.title %>
+# Ruby Client for the <%= gem.title %> API
 
 <%= gem.summary %>
 
@@ -10,6 +10,20 @@
 
 ```
 $ gem install <%= gem.name %>
+```
+
+## Quick Start
+
+```ruby
+require "<%= gem.entrypoint_require %>"
+<%- service = gem.packages.first&.services.first -%>
+<%- method = service&.methods.first -%>
+<%- if service && method -%>
+
+client = <%= service.create_client_call %>
+request = my_create_request
+response = client.<%= method.name %> request
+<%- end -%>
 ```
 
 ## Supported Ruby Versions

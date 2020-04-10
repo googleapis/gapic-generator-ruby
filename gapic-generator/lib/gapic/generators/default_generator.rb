@@ -63,16 +63,17 @@ module Gapic
         end
 
         # Gem level files
-        files << g("gem/gitignore.erb", ".gitignore",                   gem: gem)
-        files << g("gem/version.erb",   "lib/#{gem.version_file_path}", gem: gem)
-        files << g("gem/gemspec.erb",   "#{gem.name}.gemspec",          gem: gem)
-        files << g("gem/gemfile.erb",   "Gemfile",                      gem: gem)
-        files << g("gem/rakefile.erb",  "Rakefile",                     gem: gem)
-        files << g("gem/readme.erb",    "README.md",                    gem: gem)
-        files << g("gem/changelog.erb", "CHANGELOG.md",                 gem: gem)
-        files << g("gem/rubocop.erb",   ".rubocop.yml",                 gem: gem)
-        files << g("gem/yardopts.erb",  ".yardopts",                    gem: gem)
-        files << g("gem/license.erb",   "LICENSE.md",                   gem: gem)
+        files << g("gem/gitignore.erb",  ".gitignore",                   gem: gem)
+        files << g("gem/version.erb",    "lib/#{gem.version_file_path}", gem: gem)
+        files << g("gem/gemspec.erb",    "#{gem.name}.gemspec",          gem: gem)
+        files << g("gem/gemfile.erb",    "Gemfile",                      gem: gem)
+        files << g("gem/rakefile.erb",   "Rakefile",                     gem: gem)
+        files << g("gem/readme.erb",     "README.md",                    gem: gem)
+        files << g("gem/changelog.erb",  "CHANGELOG.md",                 gem: gem)
+        files << g("gem/rubocop.erb",    ".rubocop.yml",                 gem: gem)
+        files << g("gem/yardopts.erb",   ".yardopts",                    gem: gem)
+        files << g("gem/license.erb",    "LICENSE.md",                   gem: gem)
+        files << g("gem/entrypoint.erb", "lib/#{gem.name}.rb",           gem: gem)
 
         gem.proto_files.each do |proto_file|
           files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)

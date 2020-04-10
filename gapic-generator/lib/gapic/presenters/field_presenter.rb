@@ -95,7 +95,7 @@ module Gapic
         base_type =
           if field.message?
             type = message_ruby_type field.message
-            output ? type : "#{type} | Hash"
+            output ? type : "#{type}, Hash"
           elsif field.enum?
             # TODO: handle when arg message is nil and enum is the type
             message_ruby_type field.enum

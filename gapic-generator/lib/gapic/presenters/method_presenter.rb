@@ -214,7 +214,7 @@ module Gapic
 
       def doc_types_for arg
         if arg.message?
-          "#{message_ruby_type arg.message} | Hash"
+          "#{message_ruby_type arg.message}, Hash"
         elsif arg.enum?
           # TODO: handle when arg message is nil and enum is the type
           message_ruby_type arg.enum

@@ -1,0 +1,8 @@
+<%- assert_locals gem -%>
+<%= render partial: "shared/header" -%>
+
+# This gem does not autoload during Bundler.require. To load this gem,
+# issue explicit require statements for the packages desired, e.g.:
+<%- gem.packages.each do |package| -%>
+# require "<%= package.package_require %>"
+<%- end -%>

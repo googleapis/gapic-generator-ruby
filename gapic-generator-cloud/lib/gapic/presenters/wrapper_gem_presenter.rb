@@ -42,8 +42,12 @@ module Gapic
         "#{namespace_require}.rb"
       end
 
-      def needs_dashed_ruby_file?
+      def needs_entrypoint?
         name != namespace_file_path
+      end
+
+      def needs_default_config_block?
+        needs_entrypoint? && !google_cloud_short_name.nil?
       end
 
       def migration_version

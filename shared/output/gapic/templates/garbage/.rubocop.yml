@@ -25,6 +25,9 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/so/much/trash/garbage_service/*.rb"
+Naming/FileName:
+  Exclude:
+    - "lib/google-garbage.rb"
 Style/CaseEquality:
   Exclude:
     - "lib/so/much/trash/garbage_service/*.rb"
