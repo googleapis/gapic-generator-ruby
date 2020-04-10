@@ -4,33 +4,15 @@
 
 <%= gem.description %>
 
-Actual client classes for the various versions of this API are defined in
-_versioned_ client gems, with names of the form `<%= gem.name %>-v*`.
-The gem `<%= gem.name %>` is a convenience wrapper library that brings the
-verisoned gems in as dependencies, and provides high-level methods for
-constructing clients.
+<%= gem.homepage %>
 
-View the [Client Library Documentation](<%= gem.library_documentation_url %>)
-for this library, <%= gem.name %>, to see the convenience methods for
-constructing client objects. Reference documentation for the client objects
-themselves can be found in the client library documentation for the versioned
-client gems:
-<%- last_index = gem.versioned_gems.size - 1 -%>
-<%- gem.versioned_gems.each_with_index do |name, i| -%>
-<%- sep = i == last_index ? "." : "," -%>
-[<%= name %>](https://googleapis.dev/ruby/<%= name %>/latest)<%= sep %>
-<%- end -%>
-
-<%- if gem.product_documentation_url -%>
-See also the [Product Documentation](<%= gem.product_documentation_url %>)
-for more usage information.
-
-<%- end -%>
-## Quick Start
+## Installation
 
 ```
 $ gem install <%= gem.name %>
 ```
+
+## Before You Begin
 
 In order to use this library, you first need to go through the following steps:
 
@@ -47,14 +29,30 @@ In order to use this library, you first need to go through the following steps:
 <%- end -%>
 1. {file:AUTHENTICATION.md Set up authentication.}
 
-<%- if gem.migration? %>
-## Migrating from <%= gem.pre_migration_version %> versions
+## Quick Start
 
-The <%= gem.migration_version %> release of the <%= gem.name %> client is a significant upgrade
-based on a [next-gen code generator](https://github.com/googleapis/gapic-generator-ruby),
-and includes substantial interface changes. Existing code written for earlier
-versions of this library will likely require updates to use this version.
-See the {file:MIGRATING.md MIGRATING.md} document for more information.
+<%- if gem.packages? -%>
+```ruby
+require "<%= gem.entrypoint_require %>"
+<%- service = gem.packages.first.services.first -%>
+<%- method = service&.methods.first -%>
+<%- if service && method -%>
+
+client = <%= service.create_client_call %>
+request = my_create_request
+response = client.<%= method.name %> request
+<%- end -%>
+```
+
+<%- end -%>
+<%- unless gem.library_documentation_url.to_s.empty? -%>
+View the [Client Library Documentation](<%= gem.library_documentation_url %>)
+for class and method documentation.
+
+<%- end -%>
+<%- if gem.product_documentation_url -%>
+See also the [Product Documentation](<%= gem.product_documentation_url %>)
+for general usage information.
 
 <%- end -%>
 ## Enabling Logging
