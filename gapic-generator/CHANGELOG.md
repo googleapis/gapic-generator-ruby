@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.3.1 / 2020-04-11
+
+* Disable ModuleLength metric for generated code.
+* Omit nonconforming resource patterns instead of crashing.
+
 ### 0.3.0 / 2020-04-10
 
 * Detect when a resource is referenced implicitly via child_type, and generate path helpers.
