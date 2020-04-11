@@ -38,15 +38,9 @@ module Gapic
           )
         end
 
-        @patterns.each do |pattern|
-          # URI path template verification for expected proto resource usage
-          if named_arg_patterns? pattern.segments
-            raise ArgumentError, "only resources without named patterns are supported, " \
-                                " not #{pattern.template}"
-          elsif positional_args? pattern.segments
-            raise ArgumentError, "only resources with named segments are supported, " \
-                                " not #{pattern.template}"
-          end
+        # Keep only patterns that can be used to create path helpers
+        @patterns.reject! do |pattern|
+          named_arg_patterns?(pattern.segments) || positional_args?(pattern.segments)
         end
       end
 
