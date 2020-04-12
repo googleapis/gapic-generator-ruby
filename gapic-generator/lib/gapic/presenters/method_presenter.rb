@@ -166,8 +166,9 @@ module Gapic
         # to be removed when these methods no longer conform to AIP-4233.) For
         # detailed information, see internal link go/actools-talent-pagination.
         address = @method.address.join "."
-        return false if address == "google.cloud.talent.v4beta1.SearchProfiles"
-        return false if address == "google.cloud.talent.v4beta1.SearchJobs"
+        return false if address == "google.cloud.talent.v4beta1.ProfileService.SearchProfiles"
+        return false if address == "google.cloud.talent.v4beta1.JobService.SearchJobs"
+        return false if address == "google.cloud.talent.v4beta1.JobService.SearchJobsForAlert"
 
         paged_request?(@method.input) && paged_response?(@method.output)
       end
