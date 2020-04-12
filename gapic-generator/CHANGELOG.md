@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.3.2 / 2020-04-12
+
+* Fix the talent.v4beta1 hack.
+
 ### 0.3.1 / 2020-04-11
 
 * Disable ModuleLength metric for generated code.
