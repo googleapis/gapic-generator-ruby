@@ -315,6 +315,30 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {Google::Cloud::Example::Earth#population World}!\n"], result
   end
 
+  def test_xref_enum
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_enum! "CloudProvider" do
+          api.add_value! "GOOGLE_CLOUD_PLATFORM"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [GCP][google.cloud.example.CloudProvider]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::CloudProvider GCP}!\n"], result
+  end
+
+  def test_xref_enum_value
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_enum! "CloudProvider" do
+          api.add_value! "GOOGLE_CLOUD_PLATFORM"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [GCP][google.cloud.example.CloudProvider.GOOGLE_CLOUD_PLATFORM]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::CloudProvider::GOOGLE_CLOUD_PLATFORM GCP}!\n"], result
+  end
+
   def test_xref_proto_not_found
     api = FakeApi.new do |api|
       api.add_file! "google.cloud.example" do

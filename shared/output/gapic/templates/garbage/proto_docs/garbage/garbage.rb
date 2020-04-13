@@ -418,18 +418,19 @@ module So
       # The type of garbage you are dealing with.
       #
       # All garbage is not treated equal. Some garbage is better than others.
+      # I personally like {So::Much::Trash::GarbageEnum::GARBAGE_HEAP heaps}.
       module GarbageEnum
         # The typical garbage. It is everywhere.
-        Default = 0
+        DEFAULT_GARBAGE = 0
 
         # Sometimes it is given to you in a bag.
-        Bag = 1
+        GARBAGE_BAG = 1
 
         # Have you ever turned a corner and seen a heap of garbage in your way?
-        Heap = 2
+        GARBAGE_HEAP = 2
 
         # When this is on fire it resembles politics.
-        Dumpster = 3
+        DUMPSTER = 3
       end
     end
   end

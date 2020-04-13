@@ -140,10 +140,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :parent, :message, 2, "endless.trash.forever.GarbageNode"
     end
     add_enum "endless.trash.forever.GarbageEnum" do
-      value :Default, 0
-      value :Bag, 1
-      value :Heap, 2
-      value :Dumpster, 3
+      value :DEFAULT_GARBAGE, 0
+      value :GARBAGE_BAG, 1
+      value :GARBAGE_HEAP, 2
+      value :DUMPSTER, 3
     end
   end
 end
