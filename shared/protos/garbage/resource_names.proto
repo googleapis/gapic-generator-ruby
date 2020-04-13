@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package endless.trash.forever;
+
+option ruby_package = "So::Much::Trash";
+
+import "google/api/client.proto";
+import "google/api/resource.proto";
+import "google/protobuf/wrappers.proto";
+
+service ResourceNames {
+  option (google.api.default_host) = "endlesstrash.example.net";
+
+  rpc SinglePatternMethod(SinglePattern) returns(Response) {
+    option (google.api.method_signature) = "real_name, ref, repeated_ref, value_ref, repeated_value_ref";
+  }
+  rpc NonSlashPatternMethod(NonSlashMultiPattern) returns(Response) {
+    option (google.api.method_signature) = "real_name, ref, repeated_ref, value_ref, repeated_value_ref";
+  }
+}
+
+message SinglePattern {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/SinglePattern"
+    pattern: "items/{item_id}"
+    name_field: "real_name"
+  };
+  string real_name = 1; // Test non-standard field name.
+  string ref = 2 [(google.api.resource_reference).type = "resourcenames.example.com/SinglePattern"];
+  repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/SinglePattern"];
+  google.protobuf.StringValue value_ref = 4 [(google.api.resource_reference).type = "resourcenames.example.com/SinglePattern"];
+  repeated google.protobuf.StringValue repeated_value_ref = 5 [(google.api.resource_reference).type = "resourcenames.example.com/SinglePattern"];
+}
+
+message NonSlashMultiPattern {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/NonSlashMultiPattern"
+    pattern: "customers/{customer}/adGroupAds/{ad_group_id}~{ad_id}"
+    pattern: "customers/{customer_1}-{customer_2}/adGroupAds/{ad_group_id}~{ad_id}_{third_id}"
+    name_field: "real_name"
+  };
+  string real_name = 1; // Test non-standard field name.
+  string ref = 2 [(google.api.resource_reference).type = "resourcenames.example.com/NonSlashMultiPattern"];
+  repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/NonSlashMultiPattern"];
+  google.protobuf.StringValue value_ref = 4 [(google.api.resource_reference).type = "resourcenames.example.com/NonSlashMultiPattern"];
+  repeated google.protobuf.StringValue repeated_value_ref = 5 [(google.api.resource_reference).type = "resourcenames.example.com/NonSlashMultiPattern"];
+}
+
+
+message Response { }
