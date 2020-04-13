@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.3.3 / 2020-04-13
+
+* Fix cross-reference links to multi-word enum values.
+
 ### 0.3.2 / 2020-04-12
 
 * Fix the talent.v4beta1 hack.
