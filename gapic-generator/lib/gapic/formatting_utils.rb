@@ -140,8 +140,10 @@ module Gapic
           "{#{convert_address_to_ruby entity}::Client #{text}}"
         when Gapic::Schema::Method
           "{#{convert_address_to_ruby entity.parent}::Client##{entity.name.underscore} #{text}}"
-        when Gapic::Schema::Message, Gapic::Schema::Enum, Gapic::Schema::EnumValue
+        when Gapic::Schema::Message, Gapic::Schema::Enum
           "{#{convert_address_to_ruby entity} #{text}}"
+        when Gapic::Schema::EnumValue
+          "{#{convert_address_to_ruby entity.parent}::#{entity.name} #{text}}"
         when Gapic::Schema::Field
           "{#{convert_address_to_ruby entity.parent}##{entity.name} #{text}}"
         end

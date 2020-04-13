@@ -180,7 +180,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     double = 3.5
     bytes = "hello world"
     msg = {}
-    enum = :Default
+    enum = :DEFAULT_GARBAGE
     nested = {}
 
     get_specific_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
@@ -196,7 +196,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal 3.5, request.double
       assert_equal "hello world", request.bytes
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
-      assert_equal :Default, request.enum
+      assert_equal :DEFAULT_GARBAGE, request.enum
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::SpecificGarbage::NestedGarbage), request.nested
       refute_nil options
     end
@@ -260,7 +260,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     double = 3.5
     bytes = "hello world"
     msg = {}
-    enum = :Default
+    enum = :DEFAULT_GARBAGE
 
     get_nested_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_nested_garbage, name
@@ -275,7 +275,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal 3.5, request.double
       assert_equal "hello world", request.bytes
       assert_equal Gapic::Protobuf.coerce({}, to: So::Much::Trash::GarbageMap), request.msg
-      assert_equal :Default, request.enum
+      assert_equal :DEFAULT_GARBAGE, request.enum
       refute_nil options
     end
 
@@ -338,7 +338,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     repeated_double = [3.5]
     repeated_bytes = ["hello world"]
     repeated_msg = [{}]
-    repeated_enum = [:Default]
+    repeated_enum = [:DEFAULT_GARBAGE]
 
     get_repeated_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_repeated_garbage, name
@@ -353,7 +353,7 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal [3.5], request.repeated_double
       assert_equal ["hello world"], request.repeated_bytes
       assert_kind_of So::Much::Trash::GarbageMap, request.repeated_msg.first
-      assert_equal [:Default], request.repeated_enum
+      assert_equal [:DEFAULT_GARBAGE], request.repeated_enum
       refute_nil options
     end
 
