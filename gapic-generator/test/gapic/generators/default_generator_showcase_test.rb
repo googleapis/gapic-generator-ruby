@@ -17,18 +17,11 @@
 require "test_helper"
 require "gapic/generators/default_generator"
 
-class DefaultGeneratorTest < GeneratorTest
+class DefaultGeneratorShowcaseTest < GeneratorTest
   def test_showcase_generate
     generator = Gapic::Generators::DefaultGenerator.new api(:showcase)
     generator.generate.each do |file|
       assert_equal expected_content(:showcase, file.name), file.content
-    end
-  end
-
-  def test_garbage_generate
-    generator = Gapic::Generators::DefaultGenerator.new api(:garbage)
-    generator.generate.each do |file|
-      assert_equal expected_content(:garbage, file.name), file.content
     end
   end
 end

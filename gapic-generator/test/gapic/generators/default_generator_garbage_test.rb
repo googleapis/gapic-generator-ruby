@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2020 Google LLC
+# Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,16 +17,11 @@
 require "test_helper"
 require "gapic/generators/default_generator"
 
-class DefaultGeneratorGrpcServiceConfigTest < GeneratorTest
-  def test_grpc_service_config_generate
-    service_config_path = [
-      "protofiles_input/testing/grpc_service_config/grpc_service_config.json",
-      "protofiles_input/testing/grpc_service_config/grpc_service_config2.json"
-    ]
-    api_request = api_with_service_config :grpc_service_config, service_config_path.join(";")
-    generator = Gapic::Generators::DefaultGenerator.new api_request
+class DefaultGeneratorGarbageTest < GeneratorTest
+  def test_garbage_generate
+    generator = Gapic::Generators::DefaultGenerator.new api(:garbage)
     generator.generate.each do |file|
-      assert_equal expected_content(:grpc_service_config, file.name), file.content
+      assert_equal expected_content(:garbage, file.name), file.content
     end
   end
 end
