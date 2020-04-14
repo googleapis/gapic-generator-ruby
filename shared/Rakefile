@@ -27,6 +27,7 @@ task :gen do
   Rake::Task["gen:showcase"].invoke
   Rake::Task["gen:garbage"].invoke
   Rake::Task["gen:googleads"].invoke
+  Rake::Task["gen:grpc_service_config"].invoke
 end
 
 namespace :gen do
