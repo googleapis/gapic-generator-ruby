@@ -30,7 +30,21 @@ Rake::TestTask.new :test do |t|
 end
 
 namespace :test do
-  desc "Run tests on generated grpc_service_config gapic only"
+  desc "Run tests on garbage-specific generation only"
+  Rake::TestTask.new :garbage do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/**/*garbage*_test.rb"]
+  end
+
+  desc "Run tests on showcase-specific generation only"
+  Rake::TestTask.new :showcase do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/**/*showcase*_test.rb"]
+  end
+
+  desc "Run tests on grpc_service_config generation only"
   Rake::TestTask.new :grpc_service_config do |t|
     t.libs << "test"
     t.libs << "lib"
