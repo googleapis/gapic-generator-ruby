@@ -1,5 +1,14 @@
 # Release History for gapic-generator
 
+### 0.4.0 / 2020-04-20
+
+* Support generating clients of "common" interfaces by delegating to another service config.
+* Added an accessor for the long-running-operation client from the main client.
+* Generate tests for the configure method and operations client accessor.
+* Prevent generation of RPC or factory methods with reserved names.
+* Fixed: LRO clients weren't inheriting custom endpoints from the main client.
+* Fixed: Cross-references weren't interpreted if the text included backticks, spaces, or hyphens.
+
 ### 0.3.3 / 2020-04-13
 
 * Fix cross-reference links to multi-word enum values.

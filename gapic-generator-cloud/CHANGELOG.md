@@ -1,5 +1,13 @@
 # Release History for gapic-generator-cloud
 
+### 0.4.0 / 2020-04-20
+
+* Includes changes from gapic-generator 0.4.0
+* Apply overrides to client namespaces but not proto namespaces.
+* Remove common resources proto from generated files.
+* Multiple overrides can be specified in the docker interface.
+* Fixed: The pre-migration versions in wrapper readmes were malformed if the migration version was still 0.x.
+
 ### 0.3.3 / 2020-04-13
 
 * Includes changes from gapic-generator 0.3.3
