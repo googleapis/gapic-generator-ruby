@@ -19,10 +19,15 @@ service ResourceNames {
   }
 }
 
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/Customer"
+  pattern: "customers/{customer}"
+};
+
 message SinglePattern {
   option (google.api.resource) = {
     type: "resourcenames.example.com/SinglePattern"
-    pattern: "items/{item_id}"
+    pattern: "customers/{customer}/foo/{foo_id}"
     name_field: "real_name"
   };
   string real_name = 1; // Test non-standard field name.
