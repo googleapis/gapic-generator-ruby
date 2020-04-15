@@ -22,6 +22,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :value_ref, :message, 4, "google.protobuf.StringValue"
       repeated :repeated_value_ref, :message, 5, "google.protobuf.StringValue"
     end
+    add_message "endless.trash.forever.NsaSinglePattern" do
+      optional :real_name, :string, 1
+    end
+    add_message "endless.trash.forever.NsaNonSlashMultiPattern" do
+      optional :real_name, :string, 1
+    end
     add_message "endless.trash.forever.Response" do
     end
   end
@@ -32,6 +38,8 @@ module So
     module Trash
       SinglePattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SinglePattern").msgclass
       NonSlashMultiPattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NonSlashMultiPattern").msgclass
+      NsaSinglePattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NsaSinglePattern").msgclass
+      NsaNonSlashMultiPattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NsaNonSlashMultiPattern").msgclass
       Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.Response").msgclass
     end
   end

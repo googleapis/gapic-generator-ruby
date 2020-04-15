@@ -83,13 +83,16 @@ module So
           #
           # The resource will be in the following format:
           #
-          # `items/{item_id}`
+          # `customers/{customer}/foo/{foo_id}`
           #
-          # @param item_id [String]
+          # @param customer [String]
+          # @param foo_id [String]
           #
           # @return [String]
-          def single_pattern_path item_id:
-            "items/#{item_id}"
+          def single_pattern_path customer:, foo_id:
+            raise ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+
+            "customers/#{customer}/foo/#{foo_id}"
           end
 
           extend self

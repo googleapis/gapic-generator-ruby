@@ -51,5 +51,35 @@ message NonSlashMultiPattern {
   repeated google.protobuf.StringValue repeated_value_ref = 5 [(google.api.resource_reference).type = "resourcenames.example.com/NonSlashMultiPattern"];
 }
 
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/NonSlashAncestorFoo"
+  pattern: "ancestors/{ancestor_foo}-{ancestor_bar}~{ancestor_baz}"
+};
+
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/NonSlashAncestorQux"
+  pattern: "ancestors/{ancestor_qux}-{ancestor_quuz}"
+};
+
+message NsaSinglePattern {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/NsaSinglePattern"
+    pattern: "ancestors/{ancestor_1}-{ancestor_2}~{ancestor_3}/patterns/{pattern_id}"
+    name_field: "real_name"
+  };
+
+  string real_name = 1;
+}
+
+message NsaNonSlashMultiPattern {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/NsaNonSlashMultiPattern"
+    pattern: "ancestors/{ancestor_1}-{ancestor_2}~{ancestor_3}/patterns/{pattern_group_id}-{pattern_id}"
+    pattern: "ancestors/{ancestor_1}-{ancestor_2}/patterns/{pattern_group_id}~{pattern_id}_{third_id}"
+    name_field: "real_name"
+  };
+
+  string real_name = 1;
+}
 
 message Response { }

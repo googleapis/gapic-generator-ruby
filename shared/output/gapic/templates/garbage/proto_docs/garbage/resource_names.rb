@@ -58,6 +58,20 @@ module So
         extend Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # @!attribute [rw] real_name
+      #   @return [String]
+      class NsaSinglePattern
+        include Google::Protobuf::MessageExts
+        extend Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # @!attribute [rw] real_name
+      #   @return [String]
+      class NsaNonSlashMultiPattern
+        include Google::Protobuf::MessageExts
+        extend Google::Protobuf::MessageExts::ClassMethods
+      end
+
       class Response
         include Google::Protobuf::MessageExts
         extend Google::Protobuf::MessageExts::ClassMethods

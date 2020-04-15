@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "awesome_print"
 
 class AnnotationResourceTest < AnnotationTest
   def test_garbage_Common
@@ -27,6 +28,7 @@ class AnnotationResourceTest < AnnotationTest
   end
 
   def test_garbage_Garbage
+
     garbage = api :garbage
     file = garbage.file_for "endless.trash.forever.GarbageService"
 
@@ -42,7 +44,87 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal 1, parents.size
     assert_equal ["projects/{project}"], parents.first.pattern
     assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+
   end
+
+  def print_resource resource_name, resource
+    STDERR.puts "-----------------------------------------------"
+    STDERR.puts "#{resource_name}.type:"
+    STDERR.puts resource.type
+    STDERR.puts "#{resource_name}.pattern:"
+    STDERR.puts resource.pattern
+    STDERR.puts "#{resource_name}.parsed_patterns:"
+    STDERR.puts resource.parsed_patterns.awesome_inspect
+    STDERR.puts "#{resource_name}.parent_resources.length:"
+    STDERR.puts resource.parent_resources.length 
+
+    if resource.parent_resources.length 
+      resource.parent_resources.each_with_index do |presource, index|
+        STDERR.puts "#{resource_name}.parent_resources[#{index}].type:" 
+        STDERR.puts presource.type
+        STDERR.puts "#{resource_name}.parent_resources[#{index}].pattern:"
+        STDERR.puts presource.pattern
+      end
+    end
+    STDERR.puts "-----------------------------------------------"
+  end
+
+  def test_garbage_Resources
+
+    garbage = api :garbage
+    file = garbage.file_for "endless.trash.forever.ResourceNames"
+
+    STDERR.puts "==============================================="
+    STDERR.puts "debugging is supposed to start"
+    STDERR.puts "==============================================="
+
+    STDERR.puts "-----------------------------------------------"
+    STDERR.puts "file.resources.size"
+    STDERR.puts file.resources.size
+    STDERR.puts "-----------------------------------------------"
+
+    if file.resources.size
+      file.resources.each_with_index do |resource, index|
+        print_resource "file.resources[#{index}]", resource
+      end
+    end
+
+    STDERR.puts "-----------------------------------------------"
+    STDERR.puts "file.messages.size"
+    STDERR.puts file.messages.size
+    STDERR.puts "-----------------------------------------------"
+
+    if file.messages.size 
+      file.messages.each_with_index do |message, index|
+        STDERR.puts "-----------------------------------------------"
+        STDERR.puts "file.messages[#{index}].name:"
+        STDERR.puts message.name
+
+        if message.resource
+          print_resource "file.messages[#{index}].resource", message.resource
+        end
+      end
+    end
+
+    require 'pry'
+    binding.pry
+    abort
+
+    resources = file.resources
+    assert_equal 1, resources.size
+
+    resource = resources.first
+    assert_equal 6, resource.pattern.size
+    assert_equal "endlesstrash.example.net/Garbage", resource.type
+    assert_equal resource, garbage.lookup_resource_type("endlesstrash.example.net/Garbage")
+
+    parents = resource.parent_resources
+    assert_equal 1, parents.size
+    assert_equal ["projects/{project}"], parents.first.pattern
+    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+
+  end
+
 
   def test_garbage_SimpleGarbage
     garbage = api :garbage
