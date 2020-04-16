@@ -83,6 +83,7 @@ def gem_defaults
     garbage: {
       protos: [
         "garbage/garbage.proto",
+        "google/iam/v1/iam_policy.proto",
         "google/cloud/common_resources.proto"
       ],
       samples: Dir.glob([

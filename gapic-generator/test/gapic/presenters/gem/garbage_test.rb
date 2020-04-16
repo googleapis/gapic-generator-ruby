@@ -40,10 +40,10 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal ["endless.trash.forever"], presenter.packages.map(&:name)
     presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
-    assert_equal ["GarbageService"], presenter.services.map(&:name)
+    assert_equal ["GarbageService", "IAMPolicy"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
-    assert_equal ["google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "google/protobuf/duration.proto", "google/iam/v1/policy.proto", "google/iam/v1/iam_policy.proto", "garbage/garbage.proto"], presenter.proto_files.map(&:name)
+    assert_equal ["google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "google/protobuf/duration.proto", "garbage/garbage.proto", "google/iam/v1/policy.proto", "google/iam/v1/iam_policy.proto"], presenter.proto_files.map(&:name)
     presenter.proto_files.each { |fp| assert_kind_of Gapic::Presenters::FilePresenter, fp }
 
     assert presenter.iam_dependency?

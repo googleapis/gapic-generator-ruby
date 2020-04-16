@@ -46,6 +46,10 @@ class GarbageServiceTest < PresenterTest
     assert_equal expected_templates, presenter.references.map(&:patterns).map(&:first).map(&:template)
   end
 
+  def test_proto_namespace
+    assert_equal "So::Much::Trash", presenter.proto_namespace
+  end
+
   def test_proto_service_name_full
     assert_equal "So::Much::Trash::GarbageService", presenter.proto_service_name_full
   end
@@ -76,6 +80,30 @@ class GarbageServiceTest < PresenterTest
 
   def test_proto_service_stub_name_full
     assert_equal "So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
+  end
+
+  def test_namespace
+    assert_equal "So::Much::Trash", presenter.namespace
+  end
+
+  def test_service_name_full
+    assert_equal "So::Much::Trash::GarbageService", presenter.service_name_full
+  end
+
+  def test_service_require
+    assert_equal "so/much/trash/garbage_service", presenter.service_require
+  end
+
+  def test_service_file_path
+    assert_equal "so/much/trash/garbage_service.rb", presenter.service_file_path
+  end
+
+  def test_service_file_name
+    assert_equal "garbage_service.rb", presenter.service_file_name
+  end
+
+  def test_service_directory_name
+    assert_equal "garbage_service", presenter.service_directory_name
   end
 
   def test_credentials_name
@@ -157,6 +185,7 @@ class GarbageServiceTest < PresenterTest
   def test_lro_client_ivar
     assert_equal "@operations_client", presenter.lro_client_ivar
   end
+
   def test_paths?
     assert presenter.paths?
   end

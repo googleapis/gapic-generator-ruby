@@ -31,6 +31,8 @@ module Gapic
 
         # if not specified otherwise in configuration, generate path helpers for the output messages in ads
         api.generate_path_helpers_output = true unless api.generate_path_helpers_output_defined?
+        # if not specified otherwise in configuration, apply overrides to proto namespaces in ads
+        api.override_proto_namespaces = true unless api.override_proto_namespaces_defined?
 
         # Configure to use prefer Ads templates
         use_templates! File.join __dir__, "../../../templates/ads"
