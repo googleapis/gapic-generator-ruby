@@ -133,6 +133,7 @@ module So
 
             @operations_client = Operations.new do |config|
               config.credentials = credentials
+              config.endpoint = @config.endpoint
             end
 
             @garbage_service_stub = Gapic::ServiceStub.new(
@@ -143,6 +144,13 @@ module So
               interceptors: @config.interceptors
             )
           end
+
+          ##
+          # Get the associated client for long-running operations.
+          #
+          # @return [So::Much::Trash::GarbageService::Operations]
+          #
+          attr_reader :operations_client
 
           # Service calls
 

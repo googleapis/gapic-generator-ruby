@@ -17,8 +17,8 @@ class <%= service.operations_name_full %>Test < Minitest::Test
 <% service.lro_service.methods.each do |method| %>
 <%= indent render(partial: "service/test/method/#{method.kind}",
                   locals: { client_name_full: service.operations_name_full, method: method }), 2 %>
-<% if method != service.lro_service.methods.last %>
 
 <% end %>
-<% end %>
+<%= indent render(partial: "service/test/method/configure",
+                  locals: { service: service, client_name_full: service.operations_name_full }), 2 %>
 end
