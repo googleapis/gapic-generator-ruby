@@ -105,6 +105,7 @@ class <%= service.client_name %>
     <%- if service.lro? -%>
     <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
       config.credentials = credentials
+      config.endpoint = @config.endpoint
     end
 
     <%- end -%>
@@ -117,6 +118,15 @@ class <%= service.client_name %>
     )
   end
 
+<%- if service.lro? -%>
+  ##
+  # Get the associated client for long-running operations.
+  #
+  # @return [<%= service.operations_name_full %>]
+  #
+  attr_reader :<%= service.lro_client_var %>
+
+<%- end -%>
   # Service calls
   <%- service.methods.each do |method| -%>
 
