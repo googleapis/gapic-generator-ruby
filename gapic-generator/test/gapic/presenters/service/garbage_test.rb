@@ -28,7 +28,7 @@ class GarbageServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
-    exp_method_names = ["get_empty_garbage", "get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "get_typical_garbage", "get_complex_garbage", "get_garbage_node", "get_paged_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage"]
+    exp_method_names = ["get_empty_garbage", "get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "get_typical_garbage", "get_complex_garbage", "get_garbage_node", "get_paged_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage", "call_send"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
