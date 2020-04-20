@@ -4,3 +4,5 @@
   # :title: Testing Garbage
   # :namespace: Endless::Trash::Forever
   # :version: 1.2.3
+:common_services:
+  google.iam.v1.IAMPolicy: endless.trash.forever.GarbageService

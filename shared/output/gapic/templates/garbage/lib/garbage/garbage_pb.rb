@@ -10,7 +10,6 @@ require 'google/api/resource_pb'
 require 'google/longrunning/operations_pb'
 require 'google/protobuf/timestamp_pb'
 require 'google/protobuf/duration_pb'
-require 'google/iam/v1/iam_policy_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("garbage/garbage.proto", :syntax => :proto3) do
     add_message "endless.trash.forever.GetTypicalGarbageRequest" do

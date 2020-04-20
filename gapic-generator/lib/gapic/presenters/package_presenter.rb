@@ -53,10 +53,17 @@ module Gapic
         namespace.split("::").last
       end
 
+      # Services whose clients should be generated in this package namespace.
       def services
         @services ||= begin
           files = @api.generate_files.select { |f| f.package == @package }
-          files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
+          services = files.map(&:services).flatten
+          # Omit common services in this package. Common service clients do not
+          # go into their own package.
+          normal_services = services.select { |s| @api.delegate_service_for(s).nil? }
+          # But include common services that delegate to normal services in this package.
+          common_services = normal_services.flat_map { |s| @api.common_services_for s }
+          (normal_services + common_services).map { |s| ServicePresenter.new @api, s }
         end
       end
 

@@ -202,7 +202,7 @@ module Gapic
           config = config_file ? YAML.load_file(config_file) : {}
           protoc_options.each do |k, v|
             next if k == "configuration"
-            branch = key_to_str(k).split(".").reverse.inject(v) { |m, s| { str_to_key(s) => m } }
+            branch = parse_key(key_to_str(k)).reverse.inject(v) { |m, s| { str_to_key(s) => m } }
             config = deep_merge config, branch
           end
           config
@@ -223,6 +223,21 @@ module Gapic
       def generate_path_helpers_output?
         # if not set in configuration, false by default
         configuration[:generate_path_helpers_output] ||= false
+      end
+
+      # Whether the override_proto_namespaces parameter was given in the configuration
+      def override_proto_namespaces_defined?
+        configuration.key? :override_proto_namespaces
+      end
+
+      # Sets the override_proto_namespaces parameter in the configuration
+      def override_proto_namespaces= value
+        configuration[:override_proto_namespaces] = value
+      end
+
+      # Whether namespace overrides apply to proto/grpc class references
+      def override_proto_namespaces?
+        configuration[:override_proto_namespaces] ||= false
       end
 
       # Raw parsed json of the combined grpc service config files if provided
@@ -247,6 +262,28 @@ module Gapic
       # Get a resource given its type string
       def lookup_resource_type resource_type
         @resource_types[resource_type]
+      end
+
+      # Given a service, find all common services that use it as a delegate.
+      def common_services_for delegate
+        @delegate_to_common ||= begin
+          (configuration[:common_services] || {}).each_with_object({}) do |(c, d), mapping|
+            (mapping[d] ||= []) << c
+          end
+        end
+        all_services = services
+        @delegate_to_common.fetch(delegate.address.join("."), []).map do |addr|
+          addr = addr.split "."
+          all_services.find { |s| s.address == addr }
+        end.compact.uniq
+      end
+
+      # Given a common service, return its delegate.
+      def delegate_service_for common
+        addr = (configuration[:common_services] || {})[common.address.join "."]
+        return nil unless addr
+        addr = addr.split "."
+        services.find { |s| s.address == addr }
       end
 
       private
@@ -291,6 +328,8 @@ module Gapic
         end
       end
 
+      # Parse a comma-delimited list of equals-delimited lists of strings, while
+      # mapping backslash-escaped commas and equal signs to literal characters.
       def parse_parameter str
         str.scan(/\\.|,|=|[^\\,=]+/)
            .each_with_object([[String.new]]) do |tok, arr|
@@ -302,6 +341,22 @@ module Gapic
                arr.last.last << tok[1]
              else
                arr.last.last << tok
+             end
+             arr
+           end
+      end
+
+      # split the string on periods, but map backslash-escaped periods to
+      # literal periods.
+      def parse_key str
+        str.scan(/\.|\\.|[^\.\\]+/)
+           .each_with_object([String.new]) do |tok, arr|
+             if tok == "."
+               arr.append String.new
+             elsif tok.start_with? "\\"
+               arr.last << tok[1]
+             else
+               arr.last << tok
              end
              arr
            end

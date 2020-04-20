@@ -18,10 +18,13 @@
 require "optparse"
 require "fileutils"
 
+# Boolean options may have values "true" or "false" (as strings)
 bool_option_map = {
   ":gem.:free_tier" => "ruby-cloud-free-tier",
   ":gem.:yard_strict" => "ruby-cloud-yard-strict"
 }
+
+# Value options always take string values.
 value_option_map = {
   "configuration" => "ruby-cloud-config",
   ":gem.:name" => "ruby-cloud-gem-name",
@@ -36,14 +39,27 @@ value_option_map = {
   ":gem.:api_id" => "ruby-cloud-api-id",
   ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
 }
+
+# Path options take one or more file paths delimited by semicolons.
 path_option_map = {
   "samples" => ["ruby-cloud-samples", "samples"],
   "grpc_service_config" => "ruby-cloud-grpc-service-config"
 }
+
+# Map options take one or more mappings delimited by semicolons. Each mapping
+# must be of the form "key=value". Note that periods in keys are treated as
+# literal periods, not subkey delimiters.
 map_option_map = {
+  ":common_services" => "ruby-cloud-common-services",
   ":overrides.:file_path" => "ruby-cloud-path-override",
   ":overrides.:namespace" => "ruby-cloud-namespace-override"
 }
+
+# A set of files that, if generated, should be removed.
+remove_paths = [
+  "lib/google/iam/v1/iam_policy_pb.rb",
+  "lib/google/cloud/common_resources_pb.rb"
+]
 
 parameters = {}
 
@@ -72,8 +88,11 @@ OptionParser.new do |op|
   map_option_map.each do |key, flags|
     flags = Array(flags).map { |f| "--#{f} MAPPING" }
     op.on(*flags) do |mapping|
-      mapping_key, mapping_val = mapping.split("=", 2)
-      parameters["#{key}.#{mapping_key}"] = mapping_val if mapping_val
+      mapping.split(";").each do |mapping_kv|
+        mapping_key, mapping_val = mapping_kv.split("=", 2)
+        mapping_key.gsub!(".", "\\\\\\\\.")
+        parameters["#{key}.#{mapping_key}"] = mapping_val if mapping_val
+      end
     end
   end
 end.parse! ARGV
@@ -93,11 +112,18 @@ ruby_plugin_args =
 
 protoc_cmd = [
   "grpc_tools_ruby_protoc",
-  "--proto_path=/protos/", "--proto_path=/in/"
+  # It is important for /in to come before /protos because all input files
+  # come from /in, and protoc will complain if any of those are also found
+  # earlier in the proto path.
+  "--proto_path=/in/", "--proto_path=/protos/"
 ] + ruby_plugin_args + [
   "--ruby_cloud_out=/out/",
   "--ruby_cloud_opt", parameter_strs.join(",")
 ] + ARGV + Dir.glob("/in/**/*.proto").sort
 
 FileUtils.mkdir_p "/out/lib"
-exec(*protoc_cmd)
+system(*protoc_cmd)
+
+remove_paths.each do |path|
+  FileUtils.rm_f Dir.glob "/out/#{path}"
+end

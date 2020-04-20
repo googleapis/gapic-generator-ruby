@@ -55,7 +55,25 @@ module Gapic
         @service.address
       end
 
+      # Returns a presenter for this service's delegate (if it is a common service)
+      # otherwise returns `nil`.
+      def common_service_delegate
+        unless defined? @common_service_delegate
+          delegate = @api.delegate_service_for @service
+          @common_service_delegate = delegate ? ServicePresenter.new(@api, delegate) : nil
+        end
+        @common_service_delegate
+      end
+
+      # The namespace of the client. Normally this is the version module. This
+      # may be different from the proto namespace for a common service.
       def namespace
+        # If this service is a common service, its client should go into its
+        # delegate's namespace rather than its own. For example, KMS includes
+        # the common IAMPolicy service, but that service's client should go
+        # into the KMS namespace.
+        return common_service_delegate.namespace if common_service_delegate
+
         return @service.ruby_package if @service.ruby_package.present?
 
         namespace = ruby_namespace_for_address @service.address[0...-1]
@@ -74,12 +92,22 @@ module Gapic
         @service.name
       end
 
+      # The namespace of the protos. This may be different from the client
+      # namespace for a common service.
+      def proto_namespace
+        return @service.ruby_package if @service.ruby_package.present?
+
+        namespace = ruby_namespace_for_address @service.address[0...-1]
+        @api.override_proto_namespaces? ? fix_namespace(@api, namespace) : namespace
+      end
+
       def proto_service_name_full
-        fix_namespace @api, "#{namespace}::#{name}"
+        name_full = "#{proto_namespace}::#{name}"
+        @api.override_proto_namespaces? ? fix_namespace(@api, name_full) : name_full
       end
 
       def module_name
-        proto_service_name_full.split("::").last
+        service_name_full.split("::").last
       end
 
       def proto_service_file_path
@@ -110,6 +138,10 @@ module Gapic
         "#{proto_service_name_full}::Stub"
       end
 
+      def service_name_full
+        fix_namespace @api, "#{namespace}::#{name}"
+      end
+
       def service_file_path
         service_require + ".rb"
       end
@@ -123,7 +155,7 @@ module Gapic
       end
 
       def service_require
-        ruby_file_path @api, proto_service_name_full
+        ruby_file_path @api, service_name_full
       end
 
       def client_name
@@ -131,7 +163,7 @@ module Gapic
       end
 
       def client_name_full
-        fix_namespace @api, "#{proto_service_name_full}::#{client_name}"
+        fix_namespace @api, "#{service_name_full}::#{client_name}"
       end
 
       def create_client_call
@@ -155,12 +187,17 @@ module Gapic
       end
 
       def client_endpoint
-        return @parent_service.client_endpoint if @parent_service
-        @service.host || default_config(:default_host) || "localhost"
+        @parent_service&.client_endpoint ||
+          common_service_delegate&.client_endpoint ||
+          @service.host ||
+          default_config(:default_host) ||
+          "localhost"
       end
 
       def client_scopes
-        @service.scopes || default_config(:oauth_scopes)
+        common_service_delegate&.client_scopes ||
+          @service.scopes ||
+          default_config(:oauth_scopes)
       end
 
       def client_proto_name
@@ -172,7 +209,7 @@ module Gapic
       end
 
       def credentials_name_full
-        fix_namespace @api, "#{proto_service_name_full}::#{credentials_name}"
+        fix_namespace @api, "#{service_name_full}::#{credentials_name}"
       end
 
       def credentials_class_xref
@@ -200,7 +237,7 @@ module Gapic
       end
 
       def helpers_require
-        ruby_file_path @api, "#{proto_service_name_full}::Helpers"
+        ruby_file_path @api, "#{service_name_full}::Helpers"
       end
 
       def references
@@ -216,7 +253,7 @@ module Gapic
       end
 
       def paths_name_full
-        fix_namespace @api, "#{proto_service_name_full}::#{paths_name}"
+        fix_namespace @api, "#{service_name_full}::#{paths_name}"
       end
 
       def paths_file_path
@@ -228,7 +265,7 @@ module Gapic
       end
 
       def paths_require
-        ruby_file_path @api, "#{proto_service_name_full}::#{paths_name}"
+        ruby_file_path @api, "#{service_name_full}::#{paths_name}"
       end
 
       def test_client_file_path
@@ -260,7 +297,7 @@ module Gapic
       end
 
       def operations_name_full
-        fix_namespace @api, "#{proto_service_name_full}::#{operations_name}"
+        fix_namespace @api, "#{service_name_full}::#{operations_name}"
       end
 
       def operations_file_path
@@ -272,7 +309,7 @@ module Gapic
       end
 
       def operations_require
-        ruby_file_path @api, "#{proto_service_name_full}::#{operations_name}"
+        ruby_file_path @api, "#{service_name_full}::#{operations_name}"
       end
 
       def lro_service
