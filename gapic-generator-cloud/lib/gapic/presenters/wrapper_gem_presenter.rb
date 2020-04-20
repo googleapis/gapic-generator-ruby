@@ -58,7 +58,7 @@ module Gapic
         match = /^(\d)+\./.match migration_version.to_s
         if match
           major = match[1].to_i
-          return "#{major - 1}.x" if major > 0
+          return "#{major - 1}.x" if major.positive?
         end
         "pre-#{migration_version}"
       end
