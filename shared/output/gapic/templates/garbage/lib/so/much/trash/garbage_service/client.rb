@@ -1130,6 +1130,56 @@ module So
           end
 
           ##
+          # A method that collides with a Ruby method
+          #
+          # @overload call_send(request, options = nil)
+          #   Pass arguments to `call_send` via a request object, either of type
+          #   {So::Much::Trash::EmptyGarbage} or an equivalent Hash.
+          #
+          #   @param request [So::Much::Trash::EmptyGarbage, Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [Gapic::CallOptions, Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [So::Much::Trash::EmptyGarbage]
+          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          #
+          # @return [So::Much::Trash::EmptyGarbage]
+          #
+          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          #
+          def call_send request, options = nil
+            raise ArgumentError, "request must be provided" if request.nil?
+
+            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::EmptyGarbage
+
+            # Converts hash and nil to an options object
+            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.call_send.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Garbage::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.call_send.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.call_send.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @garbage_service_stub.call_rpc :call_send, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # Configuration class for the GarbageService API.
           #
           # This class represents the configuration for GarbageService,
@@ -1326,6 +1376,11 @@ module So
               # @return [Gapic::Config::Method]
               #
               attr_reader :bidi_garbage
+              ##
+              # RPC-specific configuration for `call_send`
+              # @return [Gapic::Config::Method]
+              #
+              attr_reader :call_send
 
               # @private
               def initialize parent_rpcs = nil
@@ -1355,6 +1410,8 @@ module So
                 @server_garbage = Gapic::Config::Method.new server_garbage_config
                 bidi_garbage_config = parent_rpcs&.bidi_garbage if parent_rpcs&.respond_to? :bidi_garbage
                 @bidi_garbage = Gapic::Config::Method.new bidi_garbage_config
+                call_send_config = parent_rpcs&.call_send if parent_rpcs&.respond_to? :call_send
+                @call_send = Gapic::Config::Method.new call_send_config
 
                 yield self if block_given?
               end

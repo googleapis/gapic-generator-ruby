@@ -16,6 +16,7 @@
 
 require "active_support/inflector"
 require "gapic/path_template"
+require "gapic/ruby_info"
 require "gapic/helpers/namespace_helper"
 
 module Gapic
@@ -36,7 +37,11 @@ module Gapic
       end
 
       def name
-        ActiveSupport::Inflector.underscore @method.name
+        @name ||= begin
+          candidate = ActiveSupport::Inflector.underscore @method.name
+          candidate = "call_#{candidate}" if Gapic::RubyInfo.excluded_method_names.include? candidate
+          candidate
+        end
       end
 
       def kind
