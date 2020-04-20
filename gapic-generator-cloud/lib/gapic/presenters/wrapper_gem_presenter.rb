@@ -55,9 +55,12 @@ module Gapic
       end
 
       def pre_migration_version
-        m = /^(\d)+\./.match migration_version.to_s
-        return nil unless m
-        "#{m[1].to_i - 1}.x"
+        match = /^(\d)+\./.match migration_version.to_s
+        if match
+          major = match[1].to_i
+          return "#{major - 1}.x" if major > 0
+        end
+        "pre-#{migration_version}"
       end
 
       def migration?
