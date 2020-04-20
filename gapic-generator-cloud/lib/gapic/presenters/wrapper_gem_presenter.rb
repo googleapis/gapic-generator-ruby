@@ -54,10 +54,16 @@ module Gapic
         gem_config :migration_version
       end
 
+      # A description of the versions prior to the migration version.
+      # Could be "a.x" if the migration version is 1.0 or later, otherwise
+      # falls back to "pre-a.b".
       def pre_migration_version
-        m = /^(\d)+\./.match migration_version.to_s
-        return nil unless m
-        "#{m[1].to_i - 1}.x"
+        match = /^(\d)+\.0/.match migration_version.to_s
+        if match
+          major = match[1].to_i
+          return "#{major - 1}.x" if major.positive?
+        end
+        "pre-#{migration_version}"
       end
 
       def migration?
