@@ -393,6 +393,16 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, World!\n"], result
   end
 
+  def test_xref_text_characters
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_message! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [`One` and two-three][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {Google::Cloud::Example::Earth `One` and two-three}!\n"], result
+  end
+
   def test_format_number_small_integer
     str = Gapic::FormattingUtils.format_number 1
     assert_equal "1", str

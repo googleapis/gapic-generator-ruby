@@ -22,7 +22,7 @@ module Gapic
   #
   module FormattingUtils
     @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
-    @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\.]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
+    @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\. `-]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
 
     class << self
