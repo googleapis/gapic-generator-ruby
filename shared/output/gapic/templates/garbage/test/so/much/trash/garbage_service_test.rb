@@ -941,6 +941,56 @@ class So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     end
   end
 
+  def test_call_send
+    # Create GRPC objects.
+    grpc_response = So::Much::Trash::EmptyGarbage.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+
+    call_send_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :call_send, name
+      assert_kind_of So::Much::Trash::EmptyGarbage, request
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, call_send_client_stub do
+      # Create client
+      client = So::Much::Trash::GarbageService::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.call_send({}) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.call_send So::Much::Trash::EmptyGarbage.new() do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.call_send({}, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.call_send So::Much::Trash::EmptyGarbage.new(), grpc_options do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 4, call_send_client_stub.call_rpc_count
+    end
+  end
+
   def test_configure
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 

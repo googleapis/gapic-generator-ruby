@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/presenters"
+require "gapic/ruby_info"
 
 module Gapic
   module Presenters
@@ -27,10 +28,13 @@ module Gapic
       end
 
       def factory_method_name
-        method_name = ActiveSupport::Inflector.underscore name
-        suffix = gem.factory_method_suffix
-        method_name = "#{method_name}#{suffix}" unless method_name.end_with? suffix
-        method_name
+        @factory_method_name ||= begin
+          method_name = ActiveSupport::Inflector.underscore name
+          suffix = gem.factory_method_suffix
+          method_name = "#{method_name}#{suffix}" unless method_name.end_with? suffix
+          method_name = "#{method_name}_client" if Gapic::RubyInfo.excluded_method_names.include? method_name
+          method_name
+        end
       end
 
       def create_client_call

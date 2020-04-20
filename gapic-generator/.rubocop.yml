@@ -20,6 +20,10 @@ Metrics/ClassLength:
     - lib/gapic/presenters/**/*
     - lib/gapic/schema/loader.rb
 
+Metrics/MethodLength:
+  Exclude:
+    - lib/gapic/ruby_info.rb
+
 Style/Documentation:
   Exclude:
     - test/**/*
