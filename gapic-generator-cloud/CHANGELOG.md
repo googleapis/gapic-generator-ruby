@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.4.1 / 2020-04-23
+
+* Wrapper templates honor overridden namespaces.
+* Support setting the gem namespace from the docker interface.
+
 ### 0.4.0 / 2020-04-20
 
 * Includes changes from gapic-generator 0.4.0
