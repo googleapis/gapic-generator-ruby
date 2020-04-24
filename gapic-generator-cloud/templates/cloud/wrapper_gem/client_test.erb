@@ -14,7 +14,7 @@ class <%= gem.namespace %>::ClientConstructionMinitest < Minitest::Test
       client = <%= gem.namespace %>.<%= service.factory_method_name %> do |config|
         config.credentials = grpc_channel
       end
-      assert_kind_of <%= gem.namespaced_class "#{service.name}::Client", version: gem.default_version %>, client
+      assert_kind_of <%= gem.namespaced_class "#{service.module_name}::Client", version: gem.default_version %>, client
     end
   end
 

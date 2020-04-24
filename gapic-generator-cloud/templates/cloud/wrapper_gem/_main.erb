@@ -21,25 +21,25 @@ end
 <% end %>
 <%- gem.services.each do |service| -%>
 ##
-# Create a new client object for <%= service.name %>.
+# Create a new client object for <%= service.module_name %>.
 #
 # By default, this returns an instance of
-# <%= gem.docs_link version: gem.default_version, class_name: "#{service.name}::Client" %>
+# <%= gem.docs_link version: gem.default_version, class_name: "#{service.module_name}::Client" %>
 # for version <%= gem.default_version.capitalize %> of the API.
 # However, you can specify specify a different API version by passing it in the
-# `version` parameter. If the <%= service.name %> service is
+# `version` parameter. If the <%= service.module_name %> service is
 # supported by that API version, and the corresponding gem is available, the
 # appropriate versioned client will be returned.
 #
 <%- if service.doc_description -%>
-# ## About <%= service.name %>
+# ## About <%= service.module_name %>
 #
 <%= indent service.doc_description(disable_xrefs: true), "# " %>
 #
 <%- end -%>
 # @param version [String, Symbol] The API version to connect to. Optional.
 #   Defaults to `:<%= gem.default_version %>`.
-# @return [<%= service.name %>::Client] A client object for the specified version.
+# @return [<%= service.module_name %>::Client] A client object for the specified version.
 #
 def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>, &block
   require "<%= gem.namespace_require %>/#{version.to_s.downcase}"
@@ -49,7 +49,7 @@ def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>
                   .select { |sym| sym.to_s.downcase == version.to_s.downcase.tr("_", "") }
                   .first
   package_module = <%= gem.namespace %>.const_get package_name
-  package_module.const_get(:<%= service.name %>).const_get(:Client).new(&block)
+  package_module.const_get(:<%= service.module_name %>).const_get(:Client).new(&block)
 end
 
 <%- end -%>
