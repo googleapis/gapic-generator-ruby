@@ -28,6 +28,7 @@ bool_option_map = {
 value_option_map = {
   "configuration" => "ruby-cloud-config",
   ":gem.:name" => "ruby-cloud-gem-name",
+  ":gem.:namespace" => "ruby-cloud-gem-namespace",
   ":gem.:title" => "ruby-cloud-title",
   ":gem.:description" => "ruby-cloud-description",
   ":gem.:summary" => "ruby-cloud-summary",
