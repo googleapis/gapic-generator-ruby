@@ -29,7 +29,7 @@ class <%= service.client_name %>
   # To modify the configuration for all <%= service.name %> clients:
   #
   #     <%= service.client_name_full %>.configure do |config|
-  #       config.timeout = 10_000
+  #       config.timeout = 10.0
   #     end
   #
   # @yield [config] Configure the <%= service.client_name %> client.
@@ -75,7 +75,7 @@ class <%= service.client_name %>
   # configuration:
   #
   #     client = <%= service.client_name_full %>.new do |config|
-  #       config.timeout = 10_000
+  #       config.timeout = 10.0
   #     end
   #
   # @yield [config] Configure the <%= service.name %> client.
