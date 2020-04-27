@@ -1,6 +1,6 @@
 <%- assert_locals service -%>
 @configure ||= begin
-  namespace = <%= service.namespace.split("::").inspect %>
+  namespace = <%= service.namespace.split("::").reject(&:empty?).inspect %>
   parent_config = while namespace.any?
                     parent_name = namespace.join "::"
                     parent_const = const_get parent_name

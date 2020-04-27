@@ -4,7 +4,7 @@
 #
 <%= indent render(partial: "service/client/resource/doc", locals: { pattern: resource.patterns.first }), "# " %>
 #
-# @return [String]
+# @return [::String]
 <%- args = resource.patterns.first.arguments.map { |arg| "#{arg}:" }.join ", " -%>
 def <%= resource.path_helper %> <%= args %>
 <%= indent render(partial: "service/client/resource/def", locals: { pattern: resource.patterns.first }), 2 %>

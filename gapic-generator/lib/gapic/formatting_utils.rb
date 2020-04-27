@@ -137,15 +137,15 @@ module Gapic
 
         case entity
         when Gapic::Schema::Service
-          "{#{convert_address_to_ruby entity}::Client #{text}}"
+          "{::#{convert_address_to_ruby entity}::Client #{text}}"
         when Gapic::Schema::Method
-          "{#{convert_address_to_ruby entity.parent}::Client##{entity.name.underscore} #{text}}"
+          "{::#{convert_address_to_ruby entity.parent}::Client##{entity.name.underscore} #{text}}"
         when Gapic::Schema::Message, Gapic::Schema::Enum
-          "{#{convert_address_to_ruby entity} #{text}}"
+          "{::#{convert_address_to_ruby entity} #{text}}"
         when Gapic::Schema::EnumValue
-          "{#{convert_address_to_ruby entity.parent}::#{entity.name} #{text}}"
+          "{::#{convert_address_to_ruby entity.parent}::#{entity.name} #{text}}"
         when Gapic::Schema::Field
-          "{#{convert_address_to_ruby entity.parent}##{entity.name} #{text}}"
+          "{::#{convert_address_to_ruby entity.parent}##{entity.name} #{text}}"
         end
       end
 
@@ -155,7 +155,7 @@ module Gapic
         address = entity.address
         address = address.join "." if address.is_a? Array
         address = address.sub file.package, file.ruby_package if file.ruby_package&.present?
-        address.split(".").reject(&:empty?).map(&:camelize).map { |node| api.fix_namespace node }.join("::")
+        address.split(/\.|::/).reject(&:empty?).map(&:camelize).map { |node| api.fix_namespace node }.join("::")
       end
     end
   end

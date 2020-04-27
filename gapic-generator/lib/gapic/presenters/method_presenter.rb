@@ -64,13 +64,13 @@ module Gapic
 
       def doc_response_type
         ret = return_type
-        ret = "Gapic::Operation" if lro?
+        ret = "::Gapic::Operation" if lro?
         if server_streaming?
-          ret = "Enumerable<#{ret}>"
+          ret = "::Enumerable<#{ret}>"
         elsif paged?
           paged_type = paged_response_type
-          paged_type = "Gapic::Operation" if paged_type == "Google::Longrunning::Operation"
-          ret = "Gapic::PagedEnumerable<#{paged_type}>"
+          paged_type = "::Gapic::Operation" if paged_type == "::Google::Longrunning::Operation"
+          ret = "::Gapic::PagedEnumerable<#{paged_type}>"
         end
         ret
       end
@@ -123,7 +123,7 @@ module Gapic
           return [
             OpenStruct.new(
               name:      "operation",
-              doc_types: "Gapic::Operation"
+              doc_types: "::Gapic::Operation"
             )
           ]
         end
@@ -134,7 +134,7 @@ module Gapic
           ),
           OpenStruct.new(
             name:      "operation",
-            doc_types: "GRPC::ActiveCall::Operation"
+            doc_types: "::GRPC::ActiveCall::Operation"
           )
         ]
       end
@@ -150,9 +150,9 @@ module Gapic
       end
 
       def lro?
-        return paged_response_type == "Google::Longrunning::Operation" if paged?
+        return paged_response_type == "::Google::Longrunning::Operation" if paged?
 
-        message_ruby_type(@method.output) == "Google::Longrunning::Operation"
+        message_ruby_type(@method.output) == "::Google::Longrunning::Operation"
       end
 
       def client_streaming?
@@ -226,12 +226,12 @@ module Gapic
           message_ruby_type arg.enum
         else
           case arg.type
-          when 1, 2                              then "Float"
-          when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "Integer"
-          when 9, 12                             then "String"
-          when 8                                 then "Boolean"
+          when 1, 2                              then "::Float"
+          when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "::Integer"
+          when 9, 12                             then "::String"
+          when 8                                 then "::Boolean"
           else
-            "Object"
+            "::Object"
           end
         end
       end
@@ -256,7 +256,7 @@ module Gapic
           when 9, 12                             then "\"hello world\""
           when 8                                 then "true"
           else
-            "Object"
+            "::Object"
           end
         end
       end

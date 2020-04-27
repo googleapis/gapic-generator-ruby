@@ -3,10 +3,10 @@
 #   Pass arguments to `<%= method.name %>` via a request object, either of type
 #   {<%= method.request_type %>} or an equivalent Hash.
 #
-#   @param request [<%= method.request_type %>, Hash]
+#   @param request [<%= method.request_type %>, ::Hash]
 #     A request object representing the call parameters. Required. To specify no
 #     parameters, or to keep all the default parameter values, pass an empty Hash.
-#   @param options [Gapic::CallOptions, Hash]
+#   @param options [::Gapic::CallOptions, ::Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
 <%-if method.arguments.any?-%>
 #

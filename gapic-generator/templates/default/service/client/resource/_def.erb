@@ -1,6 +1,6 @@
 <%- assert_locals pattern -%>
 <%- pattern.arguments[0...-1].each do |arg| -%>
-raise ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.to_s.include? "/"
+raise ::ArgumentError, "<%= arg %> cannot contain /" if <%= arg %>.to_s.include? "/"
 <%- end -%>
 
 "<%= pattern.path_string %>"

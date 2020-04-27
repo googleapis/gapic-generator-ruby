@@ -25,6 +25,7 @@ module Gapic
       ##
       # Converts a ruby namespace string to a file path string.
       def ruby_file_path api, namespace
+        namespace = namespace.sub(/^::/, "")
         file_path = ruby_file_path_for_namespace namespace
         fix_file_path api, file_path
       end

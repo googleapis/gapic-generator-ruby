@@ -10,8 +10,8 @@
 <%- end -%>
 <%- end -%>
 class <%= message.name %>
-  include Google::Protobuf::MessageExts
-  extend Google::Protobuf::MessageExts::ClassMethods
+  include ::Google::Protobuf::MessageExts
+  extend ::Google::Protobuf::MessageExts::ClassMethods
   <%- message.nested_messages.each do |submsg| -%>
 
   <%= indent_tail render(partial: "proto_docs/message", locals: { message: submsg }), 2 %>

@@ -8,7 +8,7 @@
 <%= indent render(partial: "service/client/resource/doc", locals: { pattern: pattern }), "#   " %>
 #
 <%- end -%>
-# @return [String]
+# @return [::String]
 def <%= resource.path_helper %> **args
   resources = {
 <%- last_pattern_index = resource.patterns.count - 1 -%>
@@ -23,6 +23,6 @@ def <%= resource.path_helper %> **args
   }
 
   resource = resources[args.keys.sort.join(":")]
-  raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+  raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
   resource.call(**args)
 end

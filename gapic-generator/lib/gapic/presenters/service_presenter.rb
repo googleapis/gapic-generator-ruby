@@ -74,7 +74,7 @@ module Gapic
         # into the KMS namespace.
         return common_service_delegate.namespace if common_service_delegate
 
-        return @service.ruby_package if @service.ruby_package.present?
+        return ensure_absolute_namespace @service.ruby_package if @service.ruby_package.present?
 
         namespace = ruby_namespace_for_address @service.address[0...-1]
         fix_namespace @api, namespace
@@ -95,7 +95,7 @@ module Gapic
       # The namespace of the protos. This may be different from the client
       # namespace for a common service.
       def proto_namespace
-        return @service.ruby_package if @service.ruby_package.present?
+        return ensure_absolute_namespace @service.ruby_package if @service.ruby_package.present?
 
         namespace = ruby_namespace_for_address @service.address[0...-1]
         @api.override_proto_namespaces? ? fix_namespace(@api, namespace) : namespace

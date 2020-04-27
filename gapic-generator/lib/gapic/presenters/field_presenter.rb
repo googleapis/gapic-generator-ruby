@@ -95,21 +95,21 @@ module Gapic
         base_type =
           if field.message?
             type = message_ruby_type field.message
-            output ? type : "#{type}, Hash"
+            output ? type : "#{type}, ::Hash"
           elsif field.enum?
             # TODO: handle when arg message is nil and enum is the type
             message_ruby_type field.enum
           else
             case field.type
-            when 1, 2                              then "Float"
-            when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "Integer"
-            when 9, 12                             then "String"
-            when 8                                 then "Boolean"
+            when 1, 2                              then "::Float"
+            when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "::Integer"
+            when 9, 12                             then "::String"
+            when 8                                 then "::Boolean"
             else
-              "Object"
+              "::Object"
             end
           end
-        field.repeated? ? "Array<#{base_type}>" : base_type
+        field.repeated? ? "::Array<#{base_type}>" : base_type
       end
 
       def field_map_type entry_message, output
@@ -118,7 +118,7 @@ module Gapic
           key_field = field if field.name == "key"
           value_field = field if field.name == "value"
         end
-        class_name = output ? "Google::Protobuf::Map" : "Hash"
+        class_name = output ? "::Google::Protobuf::Map" : "::Hash"
         if key_field && value_field
           key_type = field_doc_types key_field, output
           value_type = field_doc_types value_field, output
@@ -141,7 +141,7 @@ module Gapic
           when 9, 12                             then "\"hello world\""
           when 8                                 then "true"
           else
-            "Object"
+            "::Object"
           end
         end
       end
