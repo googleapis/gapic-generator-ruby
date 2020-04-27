@@ -40,7 +40,7 @@ module Google
           #
           # @param session [String]
           #
-          # @return [String]
+          # @return [::String]
           def session_path session:
             "sessions/#{session}"
           end
@@ -55,9 +55,9 @@ module Google
           # @param session [String]
           # @param test [String]
           #
-          # @return [String]
+          # @return [::String]
           def test_path session:, test:
-            raise ArgumentError, "session cannot contain /" if session.to_s.include? "/"
+            raise ::ArgumentError, "session cannot contain /" if session.to_s.include? "/"
 
             "sessions/#{session}/tests/#{test}"
           end

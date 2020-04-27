@@ -25,8 +25,8 @@ module Google
           # Container for enum describing possible strategy goals: where impressions are
           # desired to be shown on search result pages.
           class PageOnePromotedStrategyGoalEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible strategy goals.
             module PageOnePromotedStrategyGoal

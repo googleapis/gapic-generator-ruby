@@ -37,7 +37,7 @@ module Google
           # To load this service and instantiate a client:
           #
           #     require "google/ads/google_ads/v1/services/campaign_service"
-          #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
+          #     client = ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
           #
           module CampaignService
           end

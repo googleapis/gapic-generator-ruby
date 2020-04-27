@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing campaign experiment type.
           class CampaignExperimentTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Indicates if this campaign is a normal campaign,
             # a draft campaign, or an experiment campaign.

@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing possible statuses of a campaign.
           class CampaignStatusEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Possible statuses of a campaign.
             module CampaignStatus

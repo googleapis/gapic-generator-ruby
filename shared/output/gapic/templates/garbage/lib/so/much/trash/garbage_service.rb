@@ -44,7 +44,7 @@ module So
       # To load this service and instantiate a client:
       #
       #     require "so/much/trash/garbage_service"
-      #     client = So::Much::Trash::GarbageService::Client.new
+      #     client = ::So::Much::Trash::GarbageService::Client.new
       #
       module GarbageService
       end

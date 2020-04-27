@@ -31,7 +31,7 @@ require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging_services_pb"
 require "google/showcase/v1beta1/messaging"
 
-class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
+class ::Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -56,7 +56,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
   def test_list_operations
     # Create GRPC objects.
-    grpc_response = Google::Longrunning::ListOperationsResponse.new
+    grpc_response = ::Google::Longrunning::ListOperationsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -69,7 +69,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     list_operations_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_operations, name
-      assert_kind_of Google::Longrunning::ListOperationsRequest, request
+      assert_kind_of ::Google::Longrunning::ListOperationsRequest, request
       assert_equal "hello world", request.name
       assert_equal "hello world", request.filter
       assert_equal 42, request.page_size
@@ -79,7 +79,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_operations_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Operations.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -98,7 +98,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_operations Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_operations ::Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -112,7 +112,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.list_operations Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_operations ::Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -125,7 +125,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
   def test_get_operation
     # Create GRPC objects.
-    grpc_response = Google::Longrunning::Operation.new
+    grpc_response = ::Google::Longrunning::Operation.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -135,14 +135,14 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     get_operation_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_operation, name
-      assert_kind_of Google::Longrunning::GetOperationRequest, request
+      assert_kind_of ::Google::Longrunning::GetOperationRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, get_operation_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Operations.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -161,7 +161,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.get_operation Google::Longrunning::GetOperationRequest.new(name: name) do |response, operation|
+      client.get_operation ::Google::Longrunning::GetOperationRequest.new(name: name) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -175,7 +175,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_operation Google::Longrunning::GetOperationRequest.new(name: name), grpc_options do |response, operation|
+      client.get_operation ::Google::Longrunning::GetOperationRequest.new(name: name), grpc_options do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -188,7 +188,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
   def test_delete_operation
     # Create GRPC objects.
-    grpc_response = Google::Protobuf::Empty.new
+    grpc_response = ::Google::Protobuf::Empty.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -198,14 +198,14 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     delete_operation_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_operation, name
-      assert_kind_of Google::Longrunning::DeleteOperationRequest, request
+      assert_kind_of ::Google::Longrunning::DeleteOperationRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, delete_operation_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Operations.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -222,7 +222,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.delete_operation Google::Longrunning::DeleteOperationRequest.new(name: name) do |response, operation|
+      client.delete_operation ::Google::Longrunning::DeleteOperationRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -234,7 +234,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_operation Google::Longrunning::DeleteOperationRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_operation ::Google::Longrunning::DeleteOperationRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -246,7 +246,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
   def test_cancel_operation
     # Create GRPC objects.
-    grpc_response = Google::Protobuf::Empty.new
+    grpc_response = ::Google::Protobuf::Empty.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -256,14 +256,14 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     cancel_operation_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :cancel_operation, name
-      assert_kind_of Google::Longrunning::CancelOperationRequest, request
+      assert_kind_of ::Google::Longrunning::CancelOperationRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, cancel_operation_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Operations.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Operations.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -280,7 +280,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.cancel_operation Google::Longrunning::CancelOperationRequest.new(name: name) do |response, operation|
+      client.cancel_operation ::Google::Longrunning::CancelOperationRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -292,7 +292,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.cancel_operation Google::Longrunning::CancelOperationRequest.new(name: name), grpc_options do |response, operation|
+      client.cancel_operation ::Google::Longrunning::CancelOperationRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -307,7 +307,7 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
     client = block_config = config = nil
     Gapic::ServiceStub.stub :new, nil do
-      client = Google::Showcase::V1beta1::Messaging::Operations.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Operations.new do |config|
         config.credentials = grpc_channel
       end
     end
@@ -317,6 +317,6 @@ class Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
     end
 
     assert_same block_config, config
-    assert_kind_of Google::Showcase::V1beta1::Messaging::Operations::Configuration, config
+    assert_kind_of ::Google::Showcase::V1beta1::Messaging::Operations::Configuration, config
   end
 end

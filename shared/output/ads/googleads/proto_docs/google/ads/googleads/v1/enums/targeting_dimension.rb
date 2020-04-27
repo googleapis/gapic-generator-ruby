@@ -24,8 +24,8 @@ module Google
         module Enums
           # The dimensions that can be targeted.
           class TargetingDimensionEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible targeting dimensions.
             module TargetingDimension

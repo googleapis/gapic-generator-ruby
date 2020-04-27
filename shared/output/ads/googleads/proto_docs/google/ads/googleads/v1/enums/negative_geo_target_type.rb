@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing possible negative geo target types.
           class NegativeGeoTargetTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # The possible negative geo target types.
             module NegativeGeoTargetType

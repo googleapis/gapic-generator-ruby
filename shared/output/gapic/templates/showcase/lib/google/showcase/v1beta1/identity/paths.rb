@@ -40,7 +40,7 @@ module Google
           #
           # @param user_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def user_path user_id:
             "users/#{user_id}"
           end

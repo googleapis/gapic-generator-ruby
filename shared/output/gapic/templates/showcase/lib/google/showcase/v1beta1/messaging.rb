@@ -47,7 +47,7 @@ module Google
       # To load this service and instantiate a client:
       #
       #     require "google/showcase/v1beta1/messaging"
-      #     client = Google::Showcase::V1beta1::Messaging::Client.new
+      #     client = ::Google::Showcase::V1beta1::Messaging::Client.new
       #
       module Messaging
       end

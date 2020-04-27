@@ -25,8 +25,8 @@ module Google
           # Container for enum describing goal towards which the bidding strategy of an
           # app campaign should optimize for.
           class AppCampaignBiddingStrategyGoalTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Goal type of App campaign BiddingStrategy.
             module AppCampaignBiddingStrategyGoalType

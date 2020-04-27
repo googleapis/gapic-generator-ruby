@@ -24,8 +24,8 @@ module Google
         module Enums
           # The display mode for vanity pharma URLs.
           class VanityPharmaDisplayUrlModeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible display modes for vanity pharma URLs.
             module VanityPharmaDisplayUrlMode

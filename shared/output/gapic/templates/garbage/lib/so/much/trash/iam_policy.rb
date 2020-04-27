@@ -66,7 +66,7 @@ module So
       # To load this service and instantiate a client:
       #
       #     require "so/much/trash/iam_policy"
-      #     client = So::Much::Trash::IAMPolicy::Client.new
+      #     client = ::So::Much::Trash::IAMPolicy::Client.new
       #
       module IAMPolicy
       end

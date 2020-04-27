@@ -31,7 +31,7 @@ module So
     module Trash
       module IAMPolicy
         # Credentials for the IAMPolicy API.
-        class Credentials < Google::Auth::Credentials
+        class Credentials < ::Google::Auth::Credentials
           self.scope = [
             "https://endlesstrash.example.net/garbage-admin",
             "https://endlesstrash.example.net/garbage-read",

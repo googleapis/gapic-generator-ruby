@@ -37,8 +37,8 @@ module Google
     #
     # The JSON representation for `Empty` is empty JSON object `{}`.
     class Empty
-      include Google::Protobuf::MessageExts
-      extend Google::Protobuf::MessageExts::ClassMethods
+      include ::Google::Protobuf::MessageExts
+      extend ::Google::Protobuf::MessageExts::ClassMethods
     end
   end
 end

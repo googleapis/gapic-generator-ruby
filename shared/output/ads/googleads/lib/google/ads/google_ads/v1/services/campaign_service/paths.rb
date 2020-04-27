@@ -35,9 +35,9 @@ module Google
               # @param customer [String]
               # @param campaign [String]
               #
-              # @return [String]
+              # @return [::String]
               def campaign_path customer:, campaign:
-                raise ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
                 "customers/#{customer}/campaigns/#{campaign}"
               end

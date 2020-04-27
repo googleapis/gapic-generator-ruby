@@ -43,7 +43,7 @@ module Google
       # To load this service and instantiate a client:
       #
       #     require "google/showcase/v1beta1/identity"
-      #     client = Google::Showcase::V1beta1::Identity::Client.new
+      #     client = ::Google::Showcase::V1beta1::Identity::Client.new
       #
       module Identity
       end

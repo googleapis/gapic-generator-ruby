@@ -26,8 +26,8 @@ module Google
           # automated bidding system should target impressions for the
           # TargetImpressionShare bidding strategy.
           class TargetImpressionShareLocationEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible goals.
             module TargetImpressionShareLocation

@@ -31,7 +31,7 @@ require "google/showcase/v1beta1/messaging_pb"
 require "google/showcase/v1beta1/messaging_services_pb"
 require "google/showcase/v1beta1/messaging"
 
-class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
+class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -56,7 +56,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_create_room
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Room.new
+    grpc_response = ::Google::Showcase::V1beta1::Room.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -66,14 +66,14 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     create_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :create_room, name
-      assert_kind_of Google::Showcase::V1beta1::CreateRoomRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room), request.room
+      assert_kind_of ::Google::Showcase::V1beta1::CreateRoomRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request.room
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, create_room_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -90,7 +90,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.create_room Google::Showcase::V1beta1::CreateRoomRequest.new(room: room) do |response, operation|
+      client.create_room ::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -102,7 +102,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.create_room Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), grpc_options do |response, operation|
+      client.create_room ::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -114,7 +114,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_get_room
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Room.new
+    grpc_response = ::Google::Showcase::V1beta1::Room.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -124,14 +124,14 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     get_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_room, name
-      assert_kind_of Google::Showcase::V1beta1::GetRoomRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::GetRoomRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, get_room_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -148,7 +148,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.get_room Google::Showcase::V1beta1::GetRoomRequest.new(name: name) do |response, operation|
+      client.get_room ::Google::Showcase::V1beta1::GetRoomRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -160,7 +160,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_room Google::Showcase::V1beta1::GetRoomRequest.new(name: name), grpc_options do |response, operation|
+      client.get_room ::Google::Showcase::V1beta1::GetRoomRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -172,7 +172,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_update_room
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Room.new
+    grpc_response = ::Google::Showcase::V1beta1::Room.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -183,15 +183,15 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     update_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :update_room, name
-      assert_kind_of Google::Showcase::V1beta1::UpdateRoomRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Room), request.room
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_kind_of ::Google::Showcase::V1beta1::UpdateRoomRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request.update_mask
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, update_room_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -208,7 +208,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.update_room Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask) do |response, operation|
+      client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -220,7 +220,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.update_room Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), grpc_options do |response, operation|
+      client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -232,7 +232,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_delete_room
     # Create GRPC objects.
-    grpc_response = Google::Protobuf::Empty.new
+    grpc_response = ::Google::Protobuf::Empty.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -242,14 +242,14 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     delete_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_room, name
-      assert_kind_of Google::Showcase::V1beta1::DeleteRoomRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::DeleteRoomRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, delete_room_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -266,7 +266,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.delete_room Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name) do |response, operation|
+      client.delete_room ::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -278,7 +278,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_room Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_room ::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -290,7 +290,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_list_rooms
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::ListRoomsResponse.new
+    grpc_response = ::Google::Showcase::V1beta1::ListRoomsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -301,7 +301,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     list_rooms_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_rooms, name
-      assert_kind_of Google::Showcase::V1beta1::ListRoomsRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::ListRoomsRequest, request
       assert_equal 42, request.page_size
       assert_equal "hello world", request.page_token
       refute_nil options
@@ -309,7 +309,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_rooms_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -328,7 +328,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_rooms Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -342,7 +342,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.list_rooms Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), grpc_options do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -355,7 +355,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_create_blurb
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Blurb.new
+    grpc_response = ::Google::Showcase::V1beta1::Blurb.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -366,15 +366,15 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     create_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :create_blurb, name
-      assert_kind_of Google::Showcase::V1beta1::CreateBlurbRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::CreateBlurbRequest, request
       assert_equal "hello world", request.parent
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request.blurb
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, create_blurb_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -391,7 +391,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.create_blurb Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb) do |response, operation|
+      client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -403,7 +403,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.create_blurb Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), grpc_options do |response, operation|
+      client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -415,7 +415,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_get_blurb
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Blurb.new
+    grpc_response = ::Google::Showcase::V1beta1::Blurb.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -425,14 +425,14 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     get_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_blurb, name
-      assert_kind_of Google::Showcase::V1beta1::GetBlurbRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::GetBlurbRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, get_blurb_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -449,7 +449,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.get_blurb Google::Showcase::V1beta1::GetBlurbRequest.new(name: name) do |response, operation|
+      client.get_blurb ::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -461,7 +461,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_blurb Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), grpc_options do |response, operation|
+      client.get_blurb ::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -473,7 +473,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_update_blurb
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::Blurb.new
+    grpc_response = ::Google::Showcase::V1beta1::Blurb.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -484,15 +484,15 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     update_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :update_blurb, name
-      assert_kind_of Google::Showcase::V1beta1::UpdateBlurbRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb), request.blurb
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::FieldMask), request.update_mask
+      assert_kind_of ::Google::Showcase::V1beta1::UpdateBlurbRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request.update_mask
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, update_blurb_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -509,7 +509,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.update_blurb Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask) do |response, operation|
+      client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -521,7 +521,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.update_blurb Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), grpc_options do |response, operation|
+      client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -533,7 +533,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_delete_blurb
     # Create GRPC objects.
-    grpc_response = Google::Protobuf::Empty.new
+    grpc_response = ::Google::Protobuf::Empty.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -543,14 +543,14 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     delete_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_blurb, name
-      assert_kind_of Google::Showcase::V1beta1::DeleteBlurbRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::DeleteBlurbRequest, request
       assert_equal "hello world", request.name
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, delete_blurb_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -567,7 +567,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.delete_blurb Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name) do |response, operation|
+      client.delete_blurb ::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -579,7 +579,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_blurb Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_blurb ::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -591,7 +591,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_list_blurbs
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::ListBlurbsResponse.new
+    grpc_response = ::Google::Showcase::V1beta1::ListBlurbsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -603,7 +603,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     list_blurbs_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_blurbs, name
-      assert_kind_of Google::Showcase::V1beta1::ListBlurbsRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::ListBlurbsRequest, request
       assert_equal "hello world", request.parent
       assert_equal 42, request.page_size
       assert_equal "hello world", request.page_token
@@ -612,7 +612,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, list_blurbs_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -631,7 +631,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_blurbs Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -645,7 +645,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.list_blurbs Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -658,7 +658,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_search_blurbs
     # Create GRPC objects.
-    grpc_response = Google::Longrunning::Operation.new
+    grpc_response = ::Google::Longrunning::Operation.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -671,7 +671,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     search_blurbs_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :search_blurbs, name
-      assert_kind_of Google::Showcase::V1beta1::SearchBlurbsRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::SearchBlurbsRequest, request
       assert_equal "hello world", request.query
       assert_equal "hello world", request.parent
       assert_equal 42, request.page_size
@@ -681,7 +681,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, search_blurbs_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -700,7 +700,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.search_blurbs Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -714,7 +714,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.search_blurbs Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -727,7 +727,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_stream_blurbs
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::StreamBlurbsResponse.new
+    grpc_response = ::Google::Showcase::V1beta1::StreamBlurbsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -738,15 +738,15 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     stream_blurbs_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
       assert_equal :stream_blurbs, name
-      assert_kind_of Google::Showcase::V1beta1::StreamBlurbsRequest, request
+      assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsRequest, request
       assert_equal "hello world", request.name
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::Timestamp), request.expire_time
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Timestamp), request.expire_time
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, stream_blurbs_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -754,7 +754,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       client.stream_blurbs({ name: name, expire_time: expire_time }) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
@@ -763,16 +763,16 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       client.stream_blurbs name: name, expire_time: expire_time do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.stream_blurbs Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time) do |response, operation|
+      client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
@@ -781,16 +781,16 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       client.stream_blurbs({ name: name, expire_time: expire_time }, grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.stream_blurbs Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time), grpc_options do |response, operation|
+      client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time), grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
@@ -802,7 +802,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_send_blurbs
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::SendBlurbsResponse.new
+    grpc_response = ::Google::Showcase::V1beta1::SendBlurbsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -820,13 +820,13 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, send_blurbs_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use enumerable object with hash and protobuf object.
       request_hash = { parent: parent, blurb: blurb }
-      request_proto = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
+      request_proto = ::Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
       enum_input = [request_hash, request_proto].to_enum
       client.send_blurbs enum_input do |response, operation|
         assert_equal grpc_response, response
@@ -835,7 +835,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use stream input object (from gapic-common).
       request_hash = { parent: parent, blurb: blurb }
-      request_proto = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
+      request_proto = ::Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
       stream_input = Gapic::StreamInput.new
       client.send_blurbs stream_input do |response, operation|
         assert_equal grpc_response, response
@@ -847,7 +847,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use enumerable object with hash and protobuf object with options.
       request_hash = { parent: parent, blurb: blurb }
-      request_proto = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
+      request_proto = ::Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
       enum_input = [request_hash, request_proto].to_enum
       client.send_blurbs enum_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -856,7 +856,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use stream input object (from gapic-common) with options.
       request_hash = { parent: parent, blurb: blurb }
-      request_proto = Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
+      request_proto = ::Google::Showcase::V1beta1::CreateBlurbRequest.new parent: parent, blurb: blurb
       stream_input = Gapic::StreamInput.new
       client.send_blurbs stream_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -870,9 +870,9 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal 4, send_blurbs_client_stub.call_rpc_count
       send_blurbs_client_stub.requests.each do |request|
         request.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::CreateBlurbRequest, r
+          assert_kind_of ::Google::Showcase::V1beta1::CreateBlurbRequest, r
           assert_equal "hello world", r.parent
-          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::Blurb), r.blurb
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), r.blurb
         end
       end
     end
@@ -880,7 +880,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
   def test_connect
     # Create GRPC objects.
-    grpc_response = Google::Showcase::V1beta1::StreamBlurbsResponse.new
+    grpc_response = ::Google::Showcase::V1beta1::StreamBlurbsResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -897,30 +897,30 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     Gapic::ServiceStub.stub :new, connect_client_stub do
       # Create client
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
 
       # Use enumerable object with hash and protobuf object.
       request_hash = { config: config }
-      request_proto = Google::Showcase::V1beta1::ConnectRequest.new config: config
+      request_proto = ::Google::Showcase::V1beta1::ConnectRequest.new config: config
       enum_input = [request_hash, request_proto].to_enum
       client.connect enum_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
 
       # Use stream input object (from gapic-common).
       request_hash = { config: config }
-      request_proto = Google::Showcase::V1beta1::ConnectRequest.new config: config
+      request_proto = ::Google::Showcase::V1beta1::ConnectRequest.new config: config
       stream_input = Gapic::StreamInput.new
       client.connect stream_input do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
@@ -930,24 +930,24 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use enumerable object with hash and protobuf object with options.
       request_hash = { config: config }
-      request_proto = Google::Showcase::V1beta1::ConnectRequest.new config: config
+      request_proto = ::Google::Showcase::V1beta1::ConnectRequest.new config: config
       enum_input = [request_hash, request_proto].to_enum
       client.connect enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
 
       # Use stream input object (from gapic-common) with options.
       request_hash = { config: config }
-      request_proto = Google::Showcase::V1beta1::ConnectRequest.new config: config
+      request_proto = ::Google::Showcase::V1beta1::ConnectRequest.new config: config
       stream_input = Gapic::StreamInput.new
       client.connect stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::StreamBlurbsResponse, r
+          assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r
         end
         assert_equal grpc_operation, operation
       end
@@ -959,8 +959,8 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       assert_equal 4, connect_client_stub.call_rpc_count
       connect_client_stub.requests.each do |request|
         request.to_a.each do |r|
-          assert_kind_of Google::Showcase::V1beta1::ConnectRequest, r
-          assert_equal Gapic::Protobuf.coerce({}, to: Google::Showcase::V1beta1::ConnectRequest::ConnectConfig), r.config
+          assert_kind_of ::Google::Showcase::V1beta1::ConnectRequest, r
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::ConnectRequest::ConnectConfig), r.config
         end
       end
     end
@@ -971,7 +971,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     client = block_config = config = nil
     Gapic::ServiceStub.stub :new, nil do
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
     end
@@ -981,7 +981,7 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     end
 
     assert_same block_config, config
-    assert_kind_of Google::Showcase::V1beta1::Messaging::Client::Configuration, config
+    assert_kind_of ::Google::Showcase::V1beta1::Messaging::Client::Configuration, config
   end
 
   def test_operations_client
@@ -989,11 +989,11 @@ class Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
     client = nil
     Gapic::ServiceStub.stub :new, nil do
-      client = Google::Showcase::V1beta1::Messaging::Client.new do |config|
+      client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
         config.credentials = grpc_channel
       end
     end
 
-    assert_kind_of Google::Showcase::V1beta1::Messaging::Operations, client.operations_client
+    assert_kind_of ::Google::Showcase::V1beta1::Messaging::Operations, client.operations_client
   end
 end

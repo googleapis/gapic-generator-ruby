@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing the level on which the cap is to be applied.
           class FrequencyCapLevelEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # The level on which the cap is to be applied (e.g ad group ad, ad group).
             # Cap is applied to all the resources of this level.

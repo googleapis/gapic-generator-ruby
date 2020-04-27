@@ -24,8 +24,8 @@ module Google
         module Enums
           # Message describing Campaign serving statuses.
           class CampaignServingStatusEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Possible serving statuses of a campaign.
             module CampaignServingStatus

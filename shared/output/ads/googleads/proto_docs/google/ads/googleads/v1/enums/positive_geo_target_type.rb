@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing possible positive geo target types.
           class PositiveGeoTargetTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # The possible positive geo target types.
             module PositiveGeoTargetType

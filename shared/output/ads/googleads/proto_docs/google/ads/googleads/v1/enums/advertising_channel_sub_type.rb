@@ -24,8 +24,8 @@ module Google
         module Enums
           # An immutable specialization of an Advertising Channel.
           class AdvertisingChannelSubTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing the different channel subtypes.
             module AdvertisingChannelSubType

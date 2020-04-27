@@ -24,8 +24,8 @@ module Google
         module Enums
           # The channel type a campaign may target to serve on.
           class AdvertisingChannelTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing the various advertising channel types.
             module AdvertisingChannelType

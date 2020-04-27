@@ -26,20 +26,20 @@ module Google
           # levels. For more details about the targeting setting, visit
           # https://support.google.com/google-ads/answer/7365594
           # @!attribute [rw] target_restrictions
-          #   @return [Array<Google::Ads::GoogleAds::V1::Common::TargetRestriction>]
+          #   @return [::Array<::Google::Ads::GoogleAds::V1::Common::TargetRestriction>]
           #     The per-targeting-dimension setting to restrict the reach of your campaign
           #     or ad group.
           class TargetingSetting
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # The list of per-targeting-dimension targeting settings.
           # @!attribute [rw] targeting_dimension
-          #   @return [Google::Ads::GoogleAds::V1::Enums::TargetingDimensionEnum::TargetingDimension]
+          #   @return [::Google::Ads::GoogleAds::V1::Enums::TargetingDimensionEnum::TargetingDimension]
           #     The targeting dimension that these settings apply to.
           # @!attribute [rw] bid_only
-          #   @return [Google::Protobuf::BoolValue]
+          #   @return [::Google::Protobuf::BoolValue]
           #     Indicates whether to restrict your ads to show only for the criteria you
           #     have selected for this targeting_dimension, or to target all values for
           #     this targeting_dimension and show ads based on your targeting in other
@@ -48,8 +48,8 @@ module Google
           #     that these criteria will restrict targeting as well as applying bid
           #     modifiers.
           class TargetRestriction
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
       end

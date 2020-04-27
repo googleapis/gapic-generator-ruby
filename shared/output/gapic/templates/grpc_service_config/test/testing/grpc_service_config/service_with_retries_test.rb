@@ -31,7 +31,7 @@ require "testing/grpc_service_config/grpc_service_config_pb"
 require "testing/grpc_service_config/grpc_service_config_services_pb"
 require "testing/grpc_service_config/service_with_retries"
 
-class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Test
+class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -56,7 +56,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
 
   def test_service_level_retry_method
     # Create GRPC objects.
-    grpc_response = Testing::GrpcServiceConfig::Response.new
+    grpc_response = ::Testing::GrpcServiceConfig::Response.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -65,13 +65,13 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
 
     service_level_retry_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :service_level_retry_method, name
-      assert_kind_of Testing::GrpcServiceConfig::Request, request
+      assert_kind_of ::Testing::GrpcServiceConfig::Request, request
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, service_level_retry_method_client_stub do
       # Create client
-      client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+      client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -82,7 +82,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Use protobuf object
-      client.service_level_retry_method Testing::GrpcServiceConfig::Request.new() do |response, operation|
+      client.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -94,7 +94,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Use protobuf object with options
-      client.service_level_retry_method Testing::GrpcServiceConfig::Request.new(), grpc_options do |response, operation|
+      client.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new(), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -106,7 +106,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
 
   def test_method_level_retry_method
     # Create GRPC objects.
-    grpc_response = Testing::GrpcServiceConfig::Response.new
+    grpc_response = ::Testing::GrpcServiceConfig::Response.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -115,13 +115,13 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
 
     method_level_retry_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :method_level_retry_method, name
-      assert_kind_of Testing::GrpcServiceConfig::Request, request
+      assert_kind_of ::Testing::GrpcServiceConfig::Request, request
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, method_level_retry_method_client_stub do
       # Create client
-      client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+      client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -132,7 +132,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Use protobuf object
-      client.method_level_retry_method Testing::GrpcServiceConfig::Request.new() do |response, operation|
+      client.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -144,7 +144,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
       end
 
       # Use protobuf object with options
-      client.method_level_retry_method Testing::GrpcServiceConfig::Request.new(), grpc_options do |response, operation|
+      client.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new(), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -159,7 +159,7 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
 
     client = block_config = config = nil
     Gapic::ServiceStub.stub :new, nil do
-      client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+      client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         config.credentials = grpc_channel
       end
     end
@@ -169,6 +169,6 @@ class Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Tes
     end
 
     assert_same block_config, config
-    assert_kind_of Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration, config
+    assert_kind_of ::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration, config
   end
 end

@@ -23,7 +23,7 @@ require "google/cloud/language/v1beta1/language_service_pb"
 require "google/cloud/language/v1beta1/language_service_services_pb"
 require "google/cloud/language/v1beta1/language_service"
 
-class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::Test
+class ::Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -48,7 +48,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
   def test_analyze_sentiment
     # Create GRPC objects.
-    grpc_response = Google::Cloud::Language::V1beta1::AnalyzeSentimentResponse.new
+    grpc_response = ::Google::Cloud::Language::V1beta1::AnalyzeSentimentResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -59,15 +59,15 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
     analyze_sentiment_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_sentiment, name
-      assert_kind_of Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1beta1::Document), request.document
+      assert_kind_of ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Language::V1beta1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, analyze_sentiment_client_stub do
       # Create client
-      client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -84,7 +84,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object
-      client.analyze_sentiment Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      client.analyze_sentiment ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -96,7 +96,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object with options
-      client.analyze_sentiment Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
+      client.analyze_sentiment ::Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -108,7 +108,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
   def test_analyze_entities
     # Create GRPC objects.
-    grpc_response = Google::Cloud::Language::V1beta1::AnalyzeEntitiesResponse.new
+    grpc_response = ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -119,15 +119,15 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
     analyze_entities_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_entities, name
-      assert_kind_of Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1beta1::Document), request.document
+      assert_kind_of ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Language::V1beta1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, analyze_entities_client_stub do
       # Create client
-      client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -144,7 +144,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object
-      client.analyze_entities Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      client.analyze_entities ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -156,7 +156,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object with options
-      client.analyze_entities Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
+      client.analyze_entities ::Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -168,7 +168,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
   def test_analyze_syntax
     # Create GRPC objects.
-    grpc_response = Google::Cloud::Language::V1beta1::AnalyzeSyntaxResponse.new
+    grpc_response = ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -179,15 +179,15 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
     analyze_syntax_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :analyze_syntax, name
-      assert_kind_of Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1beta1::Document), request.document
+      assert_kind_of ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Language::V1beta1::Document), request.document
       assert_equal :NONE, request.encoding_type
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, analyze_syntax_client_stub do
       # Create client
-      client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -204,7 +204,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object
-      client.analyze_syntax Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
+      client.analyze_syntax ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -216,7 +216,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object with options
-      client.analyze_syntax Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
+      client.analyze_syntax ::Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -228,7 +228,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
   def test_annotate_text
     # Create GRPC objects.
-    grpc_response = Google::Cloud::Language::V1beta1::AnnotateTextResponse.new
+    grpc_response = ::Google::Cloud::Language::V1beta1::AnnotateTextResponse.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -240,16 +240,16 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
     annotate_text_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :annotate_text, name
-      assert_kind_of Google::Cloud::Language::V1beta1::AnnotateTextRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1beta1::Document), request.document
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features), request.features
+      assert_kind_of ::Google::Cloud::Language::V1beta1::AnnotateTextRequest, request
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Language::V1beta1::Document), request.document
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features), request.features
       assert_equal :NONE, request.encoding_type
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, annotate_text_client_stub do
       # Create client
-      client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -266,7 +266,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object
-      client.annotate_text Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type) do |response, operation|
+      client.annotate_text ::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -278,7 +278,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
       end
 
       # Use protobuf object with options
-      client.annotate_text Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type), grpc_options do |response, operation|
+      client.annotate_text ::Google::Cloud::Language::V1beta1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -293,7 +293,7 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
 
     client = block_config = config = nil
     Gapic::ServiceStub.stub :new, nil do
-      client = Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
+      client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new do |config|
         config.credentials = grpc_channel
       end
     end
@@ -303,6 +303,6 @@ class Google::Cloud::Language::V1beta1::LanguageService::ClientTest < Minitest::
     end
 
     assert_same block_config, config
-    assert_kind_of Google::Cloud::Language::V1beta1::LanguageService::Client::Configuration, config
+    assert_kind_of ::Google::Cloud::Language::V1beta1::LanguageService::Client::Configuration, config
   end
 end

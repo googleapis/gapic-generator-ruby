@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing possible payment modes.
           class PaymentModeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible payment modes.
             module PaymentMode

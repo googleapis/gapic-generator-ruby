@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing the type of event that the cap applies to.
           class FrequencyCapEventTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # The type of event that the cap applies to (e.g. impression).
             module FrequencyCapEventType

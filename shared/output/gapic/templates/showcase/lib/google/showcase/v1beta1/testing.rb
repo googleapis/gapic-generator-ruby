@@ -44,7 +44,7 @@ module Google
       # To load this service and instantiate a client:
       #
       #     require "google/showcase/v1beta1/testing"
-      #     client = Google::Showcase::V1beta1::Testing::Client.new
+      #     client = ::Google::Showcase::V1beta1::Testing::Client.new
       #
       module Testing
       end

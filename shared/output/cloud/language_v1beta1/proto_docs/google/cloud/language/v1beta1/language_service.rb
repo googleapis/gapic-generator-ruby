@@ -25,20 +25,20 @@ module Google
         #
         # Represents the input to API methods.
         # @!attribute [rw] type
-        #   @return [Google::Cloud::Language::V1beta1::Document::Type]
+        #   @return [::Google::Cloud::Language::V1beta1::Document::Type]
         #     Required. If the type is not set or is `TYPE_UNSPECIFIED`,
         #     returns an `INVALID_ARGUMENT` error.
         # @!attribute [rw] content
-        #   @return [String]
+        #   @return [::String]
         #     The content of the input in string format.
         # @!attribute [rw] gcs_content_uri
-        #   @return [String]
+        #   @return [::String]
         #     The Google Cloud Storage URI where the file content is located.
         #     This URI must be of the form: gs://bucket_name/object_name. For more
         #     details, see https://cloud.google.com/storage/docs/reference-uris.
         #     NOTE: Cloud Storage object versioning is not supported.
         # @!attribute [rw] language
-        #   @return [String]
+        #   @return [::String]
         #     The language of the document (if not specified, the language is
         #     automatically detected). Both ISO and BCP-47 language codes are
         #     accepted.<br>
@@ -48,8 +48,8 @@ module Google
         #     specified by the caller or automatically detected) is not supported by the
         #     called API method, an `INVALID_ARGUMENT` error is returned.
         class Document
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # The document types enum.
           module Type
@@ -66,35 +66,35 @@ module Google
 
         # Represents a sentence in the input document.
         # @!attribute [rw] text
-        #   @return [Google::Cloud::Language::V1beta1::TextSpan]
+        #   @return [::Google::Cloud::Language::V1beta1::TextSpan]
         #     The sentence text.
         # @!attribute [rw] sentiment
-        #   @return [Google::Cloud::Language::V1beta1::Sentiment]
+        #   @return [::Google::Cloud::Language::V1beta1::Sentiment]
         #     For calls to [AnalyzeSentiment][] or if
-        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}
+        #     {::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}
         #     is set to true, this field will contain the sentiment for the sentence.
         class Sentence
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # Represents a phrase in the text that is a known entity, such as
         # a person, an organization, or location. The API associates information, such
         # as salience and mentions, with entities.
         # @!attribute [rw] name
-        #   @return [String]
+        #   @return [::String]
         #     The representative name for the entity.
         # @!attribute [rw] type
-        #   @return [Google::Cloud::Language::V1beta1::Entity::Type]
+        #   @return [::Google::Cloud::Language::V1beta1::Entity::Type]
         #     The entity type.
         # @!attribute [rw] metadata
-        #   @return [Google::Protobuf::Map{String => String}]
+        #   @return [::Google::Protobuf::Map{::String => ::String}]
         #     Metadata associated with the entity.
         #
         #     Currently, Wikipedia URLs and Knowledge Graph MIDs are provided, if
         #     available. The associated keys are "wikipedia_url" and "mid", respectively.
         # @!attribute [rw] salience
-        #   @return [Float]
+        #   @return [::Float]
         #     The salience score associated with the entity in the [0, 1.0] range.
         #
         #     The salience score for an entity provides information about the
@@ -102,20 +102,20 @@ module Google
         #     Scores closer to 0 are less salient, while scores closer to 1.0 are highly
         #     salient.
         # @!attribute [rw] mentions
-        #   @return [Array<Google::Cloud::Language::V1beta1::EntityMention>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::EntityMention>]
         #     The mentions of this entity in the input document. The API currently
         #     supports proper noun mentions.
         class Entity
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # @!attribute [rw] key
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] value
-          #   @return [String]
+          #   @return [::String]
           class MetadataEntry
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # The type of the entity.
@@ -148,83 +148,83 @@ module Google
 
         # Represents the smallest syntactic building block of the text.
         # @!attribute [rw] text
-        #   @return [Google::Cloud::Language::V1beta1::TextSpan]
+        #   @return [::Google::Cloud::Language::V1beta1::TextSpan]
         #     The token text.
         # @!attribute [rw] part_of_speech
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech]
         #     Parts of speech tag for this token.
         # @!attribute [rw] dependency_edge
-        #   @return [Google::Cloud::Language::V1beta1::DependencyEdge]
+        #   @return [::Google::Cloud::Language::V1beta1::DependencyEdge]
         #     Dependency tree parse for this token.
         # @!attribute [rw] lemma
-        #   @return [String]
+        #   @return [::String]
         #     [Lemma](https://en.wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
         class Token
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # Represents the feeling associated with the entire text or entities in
         # the text.
         # @!attribute [rw] polarity
-        #   @return [Float]
+        #   @return [::Float]
         #     DEPRECATED FIELD - This field is being deprecated in
         #     favor of score. Please refer to our documentation at
         #     https://cloud.google.com/natural-language/docs for more information.
         # @!attribute [rw] magnitude
-        #   @return [Float]
+        #   @return [::Float]
         #     A non-negative number in the [0, +inf) range, which represents
         #     the absolute magnitude of sentiment regardless of score (positive or
         #     negative).
         # @!attribute [rw] score
-        #   @return [Float]
+        #   @return [::Float]
         #     Sentiment score between -1.0 (negative sentiment) and 1.0
         #     (positive sentiment).
         class Sentiment
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # Represents part of speech information for a token.
         # @!attribute [rw] tag
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Tag]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Tag]
         #     The part of speech tag.
         # @!attribute [rw] aspect
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Aspect]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Aspect]
         #     The grammatical aspect.
         # @!attribute [rw] case
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Case]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Case]
         #     The grammatical case.
         # @!attribute [rw] form
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Form]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Form]
         #     The grammatical form.
         # @!attribute [rw] gender
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Gender]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Gender]
         #     The grammatical gender.
         # @!attribute [rw] mood
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Mood]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Mood]
         #     The grammatical mood.
         # @!attribute [rw] number
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Number]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Number]
         #     The grammatical number.
         # @!attribute [rw] person
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Person]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Person]
         #     The grammatical person.
         # @!attribute [rw] proper
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Proper]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Proper]
         #     The grammatical properness.
         # @!attribute [rw] reciprocity
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Reciprocity]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Reciprocity]
         #     The grammatical reciprocity.
         # @!attribute [rw] tense
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Tense]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Tense]
         #     The grammatical tense.
         # @!attribute [rw] voice
-        #   @return [Google::Cloud::Language::V1beta1::PartOfSpeech::Voice]
+        #   @return [::Google::Cloud::Language::V1beta1::PartOfSpeech::Voice]
         #     The grammatical voice.
         class PartOfSpeech
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # The part of speech tags enum.
           module Tag
@@ -518,18 +518,18 @@ module Google
 
         # Represents dependency parse tree information for a token.
         # @!attribute [rw] head_token_index
-        #   @return [Integer]
+        #   @return [::Integer]
         #     Represents the head of this token in the dependency tree.
         #     This is the index of the token which has an arc going to this token.
         #     The index is the position of the token in the array of tokens returned
         #     by the API method. If this token is a root token, then the
         #     `head_token_index` is its own index.
         # @!attribute [rw] label
-        #   @return [Google::Cloud::Language::V1beta1::DependencyEdge::Label]
+        #   @return [::Google::Cloud::Language::V1beta1::DependencyEdge::Label]
         #     The parse label for the token.
         class DependencyEdge
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # The parse label enum for the token.
           module Label
@@ -769,14 +769,14 @@ module Google
         # Represents a mention for an entity in the text. Currently, proper noun
         # mentions are supported.
         # @!attribute [rw] text
-        #   @return [Google::Cloud::Language::V1beta1::TextSpan]
+        #   @return [::Google::Cloud::Language::V1beta1::TextSpan]
         #     The mention text.
         # @!attribute [rw] type
-        #   @return [Google::Cloud::Language::V1beta1::EntityMention::Type]
+        #   @return [::Google::Cloud::Language::V1beta1::EntityMention::Type]
         #     The type of the entity mention.
         class EntityMention
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # The supported types of mentions.
           module Type
@@ -793,167 +793,167 @@ module Google
 
         # Represents an output piece of text.
         # @!attribute [rw] content
-        #   @return [String]
+        #   @return [::String]
         #     The content of the output text.
         # @!attribute [rw] begin_offset
-        #   @return [Integer]
+        #   @return [::Integer]
         #     The API calculates the beginning offset of the content in the original
         #     document according to the
-        #     {Google::Cloud::Language::V1beta1::EncodingType EncodingType} specified in the
+        #     {::Google::Cloud::Language::V1beta1::EncodingType EncodingType} specified in the
         #     API request.
         class TextSpan
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The sentiment analysis request message.
         # @!attribute [rw] document
-        #   @return [Google::Cloud::Language::V1beta1::Document]
+        #   @return [::Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
+        #   @return [::Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate sentence offsets for the
         #     sentence sentiment.
         class AnalyzeSentimentRequest
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The sentiment analysis response message.
         # @!attribute [rw] document_sentiment
-        #   @return [Google::Cloud::Language::V1beta1::Sentiment]
+        #   @return [::Google::Cloud::Language::V1beta1::Sentiment]
         #     The overall sentiment of the input document.
         # @!attribute [rw] language
-        #   @return [String]
+        #   @return [::String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
+        #     See {::Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         # @!attribute [rw] sentences
-        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Sentence>]
         #     The sentiment for all the sentences in the document.
         class AnalyzeSentimentResponse
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The entity analysis request message.
         # @!attribute [rw] document
-        #   @return [Google::Cloud::Language::V1beta1::Document]
+        #   @return [::Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
+        #   @return [::Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnalyzeEntitiesRequest
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The entity analysis response message.
         # @!attribute [rw] entities
-        #   @return [Array<Google::Cloud::Language::V1beta1::Entity>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Entity>]
         #     The recognized entities in the input document.
         # @!attribute [rw] language
-        #   @return [String]
+        #   @return [::String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
+        #     See {::Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnalyzeEntitiesResponse
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The syntax analysis request message.
         # @!attribute [rw] document
-        #   @return [Google::Cloud::Language::V1beta1::Document]
+        #   @return [::Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] encoding_type
-        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
+        #   @return [::Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnalyzeSyntaxRequest
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The syntax analysis response message.
         # @!attribute [rw] sentences
-        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Sentence>]
         #     Sentences in the input document.
         # @!attribute [rw] tokens
-        #   @return [Array<Google::Cloud::Language::V1beta1::Token>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Token>]
         #     Tokens, along with their syntactic information, in the input document.
         # @!attribute [rw] language
-        #   @return [String]
+        #   @return [::String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
+        #     See {::Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnalyzeSyntaxResponse
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # The request message for the text annotation API, which can perform multiple
         # analysis types (sentiment, entities, and syntax) in one call.
         # @!attribute [rw] document
-        #   @return [Google::Cloud::Language::V1beta1::Document]
+        #   @return [::Google::Cloud::Language::V1beta1::Document]
         #     Input document.
         # @!attribute [rw] features
-        #   @return [Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features]
+        #   @return [::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features]
         #     The enabled features.
         # @!attribute [rw] encoding_type
-        #   @return [Google::Cloud::Language::V1beta1::EncodingType]
+        #   @return [::Google::Cloud::Language::V1beta1::EncodingType]
         #     The encoding type used by the API to calculate offsets.
         class AnnotateTextRequest
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # All available features for sentiment, syntax, and semantic analysis.
           # Setting each one to true will enable that specific analysis for the input.
           # @!attribute [rw] extract_syntax
-          #   @return [Boolean]
+          #   @return [::Boolean]
           #     Extract syntax information.
           # @!attribute [rw] extract_entities
-          #   @return [Boolean]
+          #   @return [::Boolean]
           #     Extract entities.
           # @!attribute [rw] extract_document_sentiment
-          #   @return [Boolean]
+          #   @return [::Boolean]
           #     Extract document-level sentiment.
           class Features
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
 
         # The text annotations response message.
         # @!attribute [rw] sentences
-        #   @return [Array<Google::Cloud::Language::V1beta1::Sentence>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Sentence>]
         #     Sentences in the input document. Populated if the user enables
-        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
+        #     {::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
         # @!attribute [rw] tokens
-        #   @return [Array<Google::Cloud::Language::V1beta1::Token>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Token>]
         #     Tokens, along with their syntactic information, in the input document.
         #     Populated if the user enables
-        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
+        #     {::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_syntax AnnotateTextRequest.Features.extract_syntax}.
         # @!attribute [rw] entities
-        #   @return [Array<Google::Cloud::Language::V1beta1::Entity>]
+        #   @return [::Array<::Google::Cloud::Language::V1beta1::Entity>]
         #     Entities, along with their semantic information, in the input document.
         #     Populated if the user enables
-        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_entities AnnotateTextRequest.Features.extract_entities}.
+        #     {::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_entities AnnotateTextRequest.Features.extract_entities}.
         # @!attribute [rw] document_sentiment
-        #   @return [Google::Cloud::Language::V1beta1::Sentiment]
+        #   @return [::Google::Cloud::Language::V1beta1::Sentiment]
         #     The overall sentiment for the document. Populated if the user enables
-        #     {Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}.
+        #     {::Google::Cloud::Language::V1beta1::AnnotateTextRequest::Features#extract_document_sentiment AnnotateTextRequest.Features.extract_document_sentiment}.
         # @!attribute [rw] language
-        #   @return [String]
+        #   @return [::String]
         #     The language of the text, which will be the same as the language specified
         #     in the request or, if not specified, the automatically-detected language.
-        #     See {Google::Cloud::Language::V1beta1::Document#language Document.language}
+        #     See {::Google::Cloud::Language::V1beta1::Document#language Document.language}
         #     field for more details.
         class AnnotateTextResponse
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # Represents the text encoding that the caller uses to process the output.

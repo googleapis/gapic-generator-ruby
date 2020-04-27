@@ -39,14 +39,14 @@ module Testing
         ##
         # Configure the ServiceWithRetries Client class.
         #
-        # See {Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
+        # See {::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
         # for a description of the configuration fields.
         #
         # ## Example
         #
         # To modify the configuration for all ServiceWithRetries clients:
         #
-        #     Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
         #       config.timeout = 10_000
         #     end
         #
@@ -88,7 +88,7 @@ module Testing
         # but structural changes (adding new fields, etc.) are not allowed. Structural changes
         # should be made on {Client.configure}.
         #
-        # See {Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
+        # See {::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
         # for a description of the configuration fields.
         #
         # @yield [config] Configure the Client client.
@@ -109,12 +109,12 @@ module Testing
         # To create a new ServiceWithRetries client with the default
         # configuration:
         #
-        #     client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
+        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
         #
         # To create a new ServiceWithRetries client with a custom
         # configuration:
         #
-        #     client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         #       config.timeout = 10_000
         #     end
         #
@@ -142,8 +142,8 @@ module Testing
           end
           @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
-          @service_with_retries_stub = Gapic::ServiceStub.new(
-            Testing::GrpcServiceConfig::ServiceWithRetries::Stub,
+          @service_with_retries_stub = ::Gapic::ServiceStub.new(
+            ::Testing::GrpcServiceConfig::ServiceWithRetries::Stub,
             credentials:  credentials,
             endpoint:     @config.endpoint,
             channel_args: @config.channel_args,
@@ -156,35 +156,35 @@ module Testing
         ##
         # @overload service_level_retry_method(request, options = nil)
         #   Pass arguments to `service_level_retry_method` via a request object, either of type
-        #   {Testing::GrpcServiceConfig::Request} or an equivalent Hash.
+        #   {::Testing::GrpcServiceConfig::Request} or an equivalent Hash.
         #
-        #   @param request [Testing::GrpcServiceConfig::Request, Hash]
+        #   @param request [::Testing::GrpcServiceConfig::Request, ::Hash]
         #     A request object representing the call parameters. Required. To specify no
         #     parameters, or to keep all the default parameter values, pass an empty Hash.
-        #   @param options [Gapic::CallOptions, Hash]
+        #   @param options [::Gapic::CallOptions, ::Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
         #
         # @yield [response, operation] Access the result along with the RPC operation
-        # @yieldparam response [Testing::GrpcServiceConfig::Response]
-        # @yieldparam operation [GRPC::ActiveCall::Operation]
+        # @yieldparam response [::Testing::GrpcServiceConfig::Response]
+        # @yieldparam operation [::GRPC::ActiveCall::Operation]
         #
-        # @return [Testing::GrpcServiceConfig::Response]
+        # @return [::Testing::GrpcServiceConfig::Response]
         #
-        # @raise [GRPC::BadStatus] if the RPC is aborted.
+        # @raise [::GRPC::BadStatus] if the RPC is aborted.
         #
         def service_level_retry_method request, options = nil
-          raise ArgumentError, "request must be provided" if request.nil?
+          raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = Gapic::Protobuf.coerce request, to: Testing::GrpcServiceConfig::Request
+          request = ::Gapic::Protobuf.coerce request, to: ::Testing::GrpcServiceConfig::Request
 
           # Converts hash and nil to an options object
-          options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
           # Customize the options with defaults
           metadata = @config.rpcs.service_level_retry_method.metadata.to_h
 
           # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Testing::GrpcServiceConfig::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -204,35 +204,35 @@ module Testing
         ##
         # @overload method_level_retry_method(request, options = nil)
         #   Pass arguments to `method_level_retry_method` via a request object, either of type
-        #   {Testing::GrpcServiceConfig::Request} or an equivalent Hash.
+        #   {::Testing::GrpcServiceConfig::Request} or an equivalent Hash.
         #
-        #   @param request [Testing::GrpcServiceConfig::Request, Hash]
+        #   @param request [::Testing::GrpcServiceConfig::Request, ::Hash]
         #     A request object representing the call parameters. Required. To specify no
         #     parameters, or to keep all the default parameter values, pass an empty Hash.
-        #   @param options [Gapic::CallOptions, Hash]
+        #   @param options [::Gapic::CallOptions, ::Hash]
         #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
         #
         # @yield [response, operation] Access the result along with the RPC operation
-        # @yieldparam response [Testing::GrpcServiceConfig::Response]
-        # @yieldparam operation [GRPC::ActiveCall::Operation]
+        # @yieldparam response [::Testing::GrpcServiceConfig::Response]
+        # @yieldparam operation [::GRPC::ActiveCall::Operation]
         #
-        # @return [Testing::GrpcServiceConfig::Response]
+        # @return [::Testing::GrpcServiceConfig::Response]
         #
-        # @raise [GRPC::BadStatus] if the RPC is aborted.
+        # @raise [::GRPC::BadStatus] if the RPC is aborted.
         #
         def method_level_retry_method request, options = nil
-          raise ArgumentError, "request must be provided" if request.nil?
+          raise ::ArgumentError, "request must be provided" if request.nil?
 
-          request = Gapic::Protobuf.coerce request, to: Testing::GrpcServiceConfig::Request
+          request = ::Gapic::Protobuf.coerce request, to: ::Testing::GrpcServiceConfig::Request
 
           # Converts hash and nil to an options object
-          options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
           # Customize the options with defaults
           metadata = @config.rpcs.method_level_retry_method.metadata.to_h
 
           # Set x-goog-api-client and x-goog-user-project headers
-          metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
             lib_name: @config.lib_name, lib_version: @config.lib_version,
             gapic_version: ::Testing::GrpcServiceConfig::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -256,7 +256,7 @@ module Testing
         # providing control over timeouts, retry behavior, logging, transport
         # parameters, and other low-level controls. Certain parameters can also be
         # applied individually to specific RPCs. See
-        # {Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration::Rpcs}
+        # {::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration::Rpcs}
         # for a list of RPCs that can be configured independently.
         #
         # Configuration can be applied globally to all clients, or to a single client
@@ -267,14 +267,14 @@ module Testing
         # To modify the global config, setting the timeout for service_level_retry_method
         # to 20 seconds, and all remaining timeouts to 10 seconds:
         #
-        #     Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
         #       config.timeout = 10_000
         #       config.rpcs.service_level_retry_method.timeout = 20_000
         #     end
         #
         # To apply the above configuration only to a new client:
         #
-        #     client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
         #       config.timeout = 10_000
         #       config.rpcs.service_level_retry_method.timeout = 20_000
         #     end
@@ -282,7 +282,7 @@ module Testing
         # @!attribute [rw] endpoint
         #   The hostname or hostname:port of the service endpoint.
         #   Defaults to `"grpcserviceconfig.example.com"`.
-        #   @return [String]
+        #   @return [::String]
         # @!attribute [rw] credentials
         #   Credentials to send with calls. You may provide any of the following types:
         #    *  (`String`) The path to a service account key file in JSON format
@@ -294,29 +294,29 @@ module Testing
         #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
         #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
         #    *  (`nil`) indicating no credentials
-        #   @return [Object]
+        #   @return [::Object]
         # @!attribute [rw] scope
         #   The OAuth scopes
-        #   @return [Array<String>]
+        #   @return [::Array<::String>]
         # @!attribute [rw] lib_name
         #   The library name as recorded in instrumentation and logging
-        #   @return [String]
+        #   @return [::String]
         # @!attribute [rw] lib_version
         #   The library version as recorded in instrumentation and logging
-        #   @return [String]
+        #   @return [::String]
         # @!attribute [rw] channel_args
         #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
         #   `GRPC::Core::Channel` object is provided as the credential.
-        #   @return [Hash]
+        #   @return [::Hash]
         # @!attribute [rw] interceptors
         #   An array of interceptors that are run before calls are executed.
-        #   @return [Array<GRPC::ClientInterceptor>]
+        #   @return [::Array<::GRPC::ClientInterceptor>]
         # @!attribute [rw] timeout
         #   The call timeout in milliseconds.
-        #   @return [Numeric]
+        #   @return [::Numeric]
         # @!attribute [rw] metadata
         #   Additional gRPC headers to be sent with the call.
-        #   @return [Hash{Symbol=>String}]
+        #   @return [::Hash{::Symbol=>::String}]
         # @!attribute [rw] retry_policy
         #   The retry policy. The value is a hash with the following keys:
         #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -324,10 +324,10 @@ module Testing
         #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
         #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
         #       trigger a retry.
-        #   @return [Hash]
+        #   @return [::Hash]
         #
         class Configuration
-          extend Gapic::Config
+          extend ::Gapic::Config
 
           config_attr :endpoint,     "grpcserviceconfig.example.com", String
           config_attr :credentials,  nil do |value|
@@ -335,14 +335,14 @@ module Testing
             allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
             allowed.any? { |klass| klass === value }
           end
-          config_attr :scope,        nil, String, Array, nil
-          config_attr :lib_name,     nil, String, nil
-          config_attr :lib_version,  nil, String, nil
-          config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-          config_attr :interceptors, nil, Array, nil
-          config_attr :timeout,      nil, Numeric, nil
-          config_attr :metadata,     nil, Hash, nil
-          config_attr :retry_policy, nil, Hash, Proc, nil
+          config_attr :scope,        nil, ::String, ::Array, nil
+          config_attr :lib_name,     nil, ::String, nil
+          config_attr :lib_version,  nil, ::String, nil
+          config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+          config_attr :interceptors, nil, ::Array, nil
+          config_attr :timeout,      nil, ::Numeric, nil
+          config_attr :metadata,     nil, ::Hash, nil
+          config_attr :retry_policy, nil, ::Hash, Proc, nil
 
           # @private
           def initialize parent_config = nil
@@ -383,21 +383,21 @@ module Testing
           class Rpcs
             ##
             # RPC-specific configuration for `service_level_retry_method`
-            # @return [Gapic::Config::Method]
+            # @return [::Gapic::Config::Method]
             #
             attr_reader :service_level_retry_method
             ##
             # RPC-specific configuration for `method_level_retry_method`
-            # @return [Gapic::Config::Method]
+            # @return [::Gapic::Config::Method]
             #
             attr_reader :method_level_retry_method
 
             # @private
             def initialize parent_rpcs = nil
               service_level_retry_method_config = parent_rpcs&.service_level_retry_method if parent_rpcs&.respond_to? :service_level_retry_method
-              @service_level_retry_method = Gapic::Config::Method.new service_level_retry_method_config
+              @service_level_retry_method = ::Gapic::Config::Method.new service_level_retry_method_config
               method_level_retry_method_config = parent_rpcs&.method_level_retry_method if parent_rpcs&.respond_to? :method_level_retry_method
-              @method_level_retry_method = Gapic::Config::Method.new method_level_retry_method_config
+              @method_level_retry_method = ::Gapic::Config::Method.new method_level_retry_method_config
 
               yield self if block_given?
             end

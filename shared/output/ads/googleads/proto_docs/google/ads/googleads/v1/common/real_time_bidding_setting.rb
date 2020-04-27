@@ -25,11 +25,11 @@ module Google
           # Settings for Real-Time Bidding, a feature only available for campaigns
           # targeting the Ad Exchange network.
           # @!attribute [rw] opt_in
-          #   @return [Google::Protobuf::BoolValue]
+          #   @return [::Google::Protobuf::BoolValue]
           #     Whether the campaign is opted in to real-time bidding.
           class RealTimeBiddingSetting
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
       end

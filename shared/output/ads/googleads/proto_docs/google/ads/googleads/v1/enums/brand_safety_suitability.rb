@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum with 3-Tier brand safety suitability control.
           class BrandSafetySuitabilityEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # 3-Tier brand safety suitability control.
             module BrandSafetySuitability

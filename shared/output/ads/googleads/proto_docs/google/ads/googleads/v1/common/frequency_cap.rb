@@ -25,35 +25,35 @@ module Google
           # A rule specifying the maximum number of times an ad (or some set of ads) can
           # be shown to a user over a particular time period.
           # @!attribute [rw] key
-          #   @return [Google::Ads::GoogleAds::V1::Common::FrequencyCapKey]
+          #   @return [::Google::Ads::GoogleAds::V1::Common::FrequencyCapKey]
           #     The key of a particular frequency cap. There can be no more
           #     than one frequency cap with the same key.
           # @!attribute [rw] cap
-          #   @return [Google::Protobuf::Int32Value]
+          #   @return [::Google::Protobuf::Int32Value]
           #     Maximum number of events allowed during the time range by this cap.
           class FrequencyCapEntry
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # A group of fields used as keys for a frequency cap.
           # There can be no more than one frequency cap with the same key.
           # @!attribute [rw] level
-          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapLevelEnum::FrequencyCapLevel]
+          #   @return [::Google::Ads::GoogleAds::V1::Enums::FrequencyCapLevelEnum::FrequencyCapLevel]
           #     The level on which the cap is to be applied (e.g. ad group ad, ad group).
           #     The cap is applied to all the entities of this level.
           # @!attribute [rw] event_type
-          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapEventTypeEnum::FrequencyCapEventType]
+          #   @return [::Google::Ads::GoogleAds::V1::Enums::FrequencyCapEventTypeEnum::FrequencyCapEventType]
           #     The type of event that the cap applies to (e.g. impression).
           # @!attribute [rw] time_unit
-          #   @return [Google::Ads::GoogleAds::V1::Enums::FrequencyCapTimeUnitEnum::FrequencyCapTimeUnit]
+          #   @return [::Google::Ads::GoogleAds::V1::Enums::FrequencyCapTimeUnitEnum::FrequencyCapTimeUnit]
           #     Unit of time the cap is defined at (e.g. day, week).
           # @!attribute [rw] time_length
-          #   @return [Google::Protobuf::Int32Value]
+          #   @return [::Google::Protobuf::Int32Value]
           #     Number of time units the cap lasts.
           class FrequencyCapKey
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
       end

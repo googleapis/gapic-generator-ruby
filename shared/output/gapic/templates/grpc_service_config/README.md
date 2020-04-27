@@ -17,7 +17,7 @@ $ gem install testing-grpc_service_config
 ```ruby
 require "testing/grpc_service_config"
 
-client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
 request = my_create_request
 response = client.no_retry_method request
 ```
