@@ -1,4 +1,4 @@
 <%- assert_locals gem -%>
 <%= render partial: "shared/header" -%>
 
-require "<%= gem.namespace_require %>"
+require "<%= gem.namespace_require %>" unless defined? <%= gem.namespace %>::VERSION
