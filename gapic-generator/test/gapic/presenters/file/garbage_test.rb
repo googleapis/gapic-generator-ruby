@@ -26,7 +26,7 @@ class GarbageFilePresenterTest < PresenterTest
     fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["endless", "trash", "forever"], fp.address
-    assert_equal "So::Much::Trash", fp.namespace
+    assert_equal "::So::Much::Trash", fp.namespace
     assert_equal "garbage/garbage.rb", fp.docs_file_path
 
     expected_messages = [

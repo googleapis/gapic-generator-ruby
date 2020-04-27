@@ -37,7 +37,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_proto_service_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo", presenter.proto_service_name_full
+    assert_equal "::Google::Showcase::V1beta1::Echo", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
@@ -65,7 +65,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Showcase::V1beta1::Echo::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -73,7 +73,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Showcase::V1beta1::Echo::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
@@ -93,7 +93,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo::Operations", presenter.operations_name_full
+    assert_equal "::Google::Showcase::V1beta1::Echo::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
@@ -157,7 +157,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1beta1::Echo::Paths", presenter.paths_name_full
+    assert_equal "::Google::Showcase::V1beta1::Echo::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path

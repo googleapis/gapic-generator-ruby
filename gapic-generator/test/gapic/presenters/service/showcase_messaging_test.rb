@@ -40,7 +40,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_proto_service_name_full
-    assert_equal "Google::Showcase::V1beta1::Messaging", presenter.proto_service_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
@@ -68,7 +68,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Google::Showcase::V1beta1::Messaging::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -76,7 +76,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Google::Showcase::V1beta1::Messaging::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
@@ -96,7 +96,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Google::Showcase::V1beta1::Messaging::Operations", presenter.operations_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
@@ -160,7 +160,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1beta1::Messaging::Paths", presenter.paths_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
