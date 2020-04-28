@@ -1,6 +1,11 @@
 <%- assert_locals gem -%>
 <% @requires = capture do %>
+# Require this file early so that the version constant gets defined before
+# requiring "google/cloud". This is because google-cloud-core will load the
+# entrypoint (gem name) file, which in turn re-requires this file (hence
+# causing a require cycle) unless the version constant is already defined.
 require "<%= gem.version_require %>"
+
 require "googleauth"
 <%- if gem.needs_default_config_block? -%>
 gem "google-cloud-core"
