@@ -53,7 +53,7 @@ module Google
           # To modify the configuration for all Testing clients:
           #
           #     ::Google::Showcase::V1beta1::Testing::Client.configure do |config|
-          #       config.timeout = 10_000
+          #       config.timeout = 10.0
           #     end
           #
           # @yield [config] Configure the Client client.
@@ -105,7 +105,7 @@ module Google
           # configuration:
           #
           #     client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
-          #       config.timeout = 10_000
+          #       config.timeout = 10.0
           #     end
           #
           # @yield [config] Configure the Testing client.
@@ -686,15 +686,15 @@ module Google
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
           #     ::Google::Showcase::V1beta1::Testing::Client.configure do |config|
-          #       config.timeout = 10_000
-          #       config.rpcs.create_session.timeout = 20_000
+          #       config.timeout = 10.0
+          #       config.rpcs.create_session.timeout = 20.0
           #     end
           #
           # To apply the above configuration only to a new client:
           #
           #     client = ::Google::Showcase::V1beta1::Testing::Client.new do |config|
-          #       config.timeout = 10_000
-          #       config.rpcs.create_session.timeout = 20_000
+          #       config.timeout = 10.0
+          #       config.rpcs.create_session.timeout = 20.0
           #     end
           #
           # @!attribute [rw] endpoint
@@ -730,7 +730,7 @@ module Google
           #   An array of interceptors that are run before calls are executed.
           #   @return [::Array<::GRPC::ClientInterceptor>]
           # @!attribute [rw] timeout
-          #   The call timeout in milliseconds.
+          #   The call timeout in seconds.
           #   @return [::Numeric]
           # @!attribute [rw] metadata
           #   Additional gRPC headers to be sent with the call.

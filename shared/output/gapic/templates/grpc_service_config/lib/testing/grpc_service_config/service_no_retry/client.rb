@@ -47,7 +47,7 @@ module Testing
         # To modify the configuration for all ServiceNoRetry clients:
         #
         #     ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.configure do |config|
-        #       config.timeout = 10_000
+        #       config.timeout = 10.0
         #     end
         #
         # @yield [config] Configure the Client client.
@@ -99,7 +99,7 @@ module Testing
         # configuration:
         #
         #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new do |config|
-        #       config.timeout = 10_000
+        #       config.timeout = 10.0
         #     end
         #
         # @yield [config] Configure the ServiceNoRetry client.
@@ -204,15 +204,15 @@ module Testing
         # to 20 seconds, and all remaining timeouts to 10 seconds:
         #
         #     ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.configure do |config|
-        #       config.timeout = 10_000
-        #       config.rpcs.no_retry_method.timeout = 20_000
+        #       config.timeout = 10.0
+        #       config.rpcs.no_retry_method.timeout = 20.0
         #     end
         #
         # To apply the above configuration only to a new client:
         #
         #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new do |config|
-        #       config.timeout = 10_000
-        #       config.rpcs.no_retry_method.timeout = 20_000
+        #       config.timeout = 10.0
+        #       config.rpcs.no_retry_method.timeout = 20.0
         #     end
         #
         # @!attribute [rw] endpoint
@@ -248,7 +248,7 @@ module Testing
         #   An array of interceptors that are run before calls are executed.
         #   @return [::Array<::GRPC::ClientInterceptor>]
         # @!attribute [rw] timeout
-        #   The call timeout in milliseconds.
+        #   The call timeout in seconds.
         #   @return [::Numeric]
         # @!attribute [rw] metadata
         #   Additional gRPC headers to be sent with the call.
