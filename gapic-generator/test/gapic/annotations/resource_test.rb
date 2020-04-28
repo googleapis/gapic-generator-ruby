@@ -69,7 +69,7 @@ class AnnotationResourceTest < AnnotationTest
     STDERR.puts "-----------------------------------------------"
   end
 
-  def test_garbage_Resources
+  def garbage_Resources
 
     garbage = api :garbage
     file = garbage.file_for "endless.trash.forever.ResourceNames"
@@ -124,7 +124,6 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
 
   end
-
 
   def test_garbage_SimpleGarbage
     garbage = api :garbage

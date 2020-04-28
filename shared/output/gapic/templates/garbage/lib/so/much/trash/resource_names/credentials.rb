@@ -31,7 +31,7 @@ module So
     module Trash
       module ResourceNames
         # Credentials for the ResourceNames API.
-        class Credentials < Google::Auth::Credentials
+        class Credentials < ::Google::Auth::Credentials
           self.env_vars = [
             "GARBAGE_CREDENTIALS",
             "GARBAGE_KEYFILE",

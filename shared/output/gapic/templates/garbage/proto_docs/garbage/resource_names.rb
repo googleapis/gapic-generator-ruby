@@ -29,52 +29,52 @@ module So
   module Much
     module Trash
       # @!attribute [rw] real_name
-      #   @return [String]
+      #   @return [::String]
       # @!attribute [rw] ref
-      #   @return [String]
+      #   @return [::String]
       # @!attribute [rw] repeated_ref
-      #   @return [Array<String>]
+      #   @return [::Array<::String>]
       # @!attribute [rw] value_ref
-      #   @return [Google::Protobuf::StringValue]
+      #   @return [::Google::Protobuf::StringValue]
       # @!attribute [rw] repeated_value_ref
-      #   @return [Array<Google::Protobuf::StringValue>]
+      #   @return [::Array<::Google::Protobuf::StringValue>]
       class SinglePattern
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # @!attribute [rw] real_name
-      #   @return [String]
+      #   @return [::String]
       # @!attribute [rw] ref
-      #   @return [String]
+      #   @return [::String]
       # @!attribute [rw] repeated_ref
-      #   @return [Array<String>]
+      #   @return [::Array<::String>]
       # @!attribute [rw] value_ref
-      #   @return [Google::Protobuf::StringValue]
+      #   @return [::Google::Protobuf::StringValue]
       # @!attribute [rw] repeated_value_ref
-      #   @return [Array<Google::Protobuf::StringValue>]
+      #   @return [::Array<::Google::Protobuf::StringValue>]
       class NonSlashMultiPattern
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # @!attribute [rw] real_name
-      #   @return [String]
+      #   @return [::String]
       class NsaSinglePattern
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # @!attribute [rw] real_name
-      #   @return [String]
+      #   @return [::String]
       class NsaNonSlashMultiPattern
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       class Response
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
     end
   end

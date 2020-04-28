@@ -31,7 +31,7 @@ require "garbage/resource_names_pb"
 require "garbage/resource_names_services_pb"
 require "so/much/trash/resource_names"
 
-class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
+class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_rpc_count, :requests
 
@@ -56,7 +56,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
   def test_single_pattern_method
     # Create GRPC objects.
-    grpc_response = So::Much::Trash::Response.new
+    grpc_response = ::So::Much::Trash::Response.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -70,18 +70,18 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     single_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :single_pattern_method, name
-      assert_kind_of So::Much::Trash::SinglePattern, request
+      assert_kind_of ::So::Much::Trash::SinglePattern, request
       assert_equal "hello world", request.real_name
       assert_equal "hello world", request.ref
       assert_equal ["hello world"], request.repeated_ref
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::StringValue), request.value_ref
-      assert_kind_of Google::Protobuf::StringValue, request.repeated_value_ref.first
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::StringValue), request.value_ref
+      assert_kind_of ::Google::Protobuf::StringValue, request.repeated_value_ref.first
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, single_pattern_method_client_stub do
       # Create client
-      client = So::Much::Trash::ResourceNames::Client.new do |config|
+      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -98,7 +98,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.single_pattern_method So::Much::Trash::SinglePattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref) do |response, operation|
+      client.single_pattern_method ::So::Much::Trash::SinglePattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -110,7 +110,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.single_pattern_method So::Much::Trash::SinglePattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref), grpc_options do |response, operation|
+      client.single_pattern_method ::So::Much::Trash::SinglePattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -122,7 +122,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
   def test_non_slash_pattern_method
     # Create GRPC objects.
-    grpc_response = So::Much::Trash::Response.new
+    grpc_response = ::So::Much::Trash::Response.new
     grpc_operation = GRPC::ActiveCall::Operation.new nil
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     grpc_options = {}
@@ -136,18 +136,18 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
     non_slash_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :non_slash_pattern_method, name
-      assert_kind_of So::Much::Trash::NonSlashMultiPattern, request
+      assert_kind_of ::So::Much::Trash::NonSlashMultiPattern, request
       assert_equal "hello world", request.real_name
       assert_equal "hello world", request.ref
       assert_equal ["hello world"], request.repeated_ref
-      assert_equal Gapic::Protobuf.coerce({}, to: Google::Protobuf::StringValue), request.value_ref
-      assert_kind_of Google::Protobuf::StringValue, request.repeated_value_ref.first
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::StringValue), request.value_ref
+      assert_kind_of ::Google::Protobuf::StringValue, request.repeated_value_ref.first
       refute_nil options
     end
 
     Gapic::ServiceStub.stub :new, non_slash_pattern_method_client_stub do
       # Create client
-      client = So::Much::Trash::ResourceNames::Client.new do |config|
+      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
         config.credentials = grpc_channel
       end
 
@@ -164,7 +164,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.non_slash_pattern_method So::Much::Trash::NonSlashMultiPattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref) do |response, operation|
+      client.non_slash_pattern_method ::So::Much::Trash::NonSlashMultiPattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -176,7 +176,7 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.non_slash_pattern_method So::Much::Trash::NonSlashMultiPattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref), grpc_options do |response, operation|
+      client.non_slash_pattern_method ::So::Much::Trash::NonSlashMultiPattern.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref, value_ref: value_ref, repeated_value_ref: repeated_value_ref), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -184,5 +184,23 @@ class So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       # Verify method calls
       assert_equal 5, non_slash_pattern_method_client_stub.call_rpc_count
     end
+  end
+
+  def test_configure
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+
+    client = block_config = config = nil
+    Gapic::ServiceStub.stub :new, nil do
+      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+    end
+
+    config = client.configure do |c|
+      block_config = c
+    end
+
+    assert_same block_config, config
+    assert_kind_of ::So::Much::Trash::ResourceNames::Client::Configuration, config
   end
 end

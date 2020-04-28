@@ -54,27 +54,27 @@ module So
           #   @param ad_id [String]
           #   @param third_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def non_slash_multi_pattern_path **args
             resources = {
               "ad_group_id:ad_id:customer"                       => (proc do |customer:, ad_group_id:, ad_id:|
-                raise ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
-                raise ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
+                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+                raise ::ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
 
                 "customers/#{customer}/adGroupAds/#{ad_group_id}~#{ad_id}"
               end),
               "ad_group_id:ad_id:customer_1:customer_2:third_id" => (proc do |customer_1:, customer_2:, ad_group_id:, ad_id:, third_id:|
-                raise ArgumentError, "customer_1 cannot contain /" if customer_1.to_s.include? "/"
-                raise ArgumentError, "customer_2 cannot contain /" if customer_2.to_s.include? "/"
-                raise ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
-                raise ArgumentError, "ad_id cannot contain /" if ad_id.to_s.include? "/"
+                raise ::ArgumentError, "customer_1 cannot contain /" if customer_1.to_s.include? "/"
+                raise ::ArgumentError, "customer_2 cannot contain /" if customer_2.to_s.include? "/"
+                raise ::ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
+                raise ::ArgumentError, "ad_id cannot contain /" if ad_id.to_s.include? "/"
 
                 "customers/#{customer_1}-#{customer_2}/adGroupAds/#{ad_group_id}~#{ad_id}_#{third_id}"
               end)
             }
 
             resource = resources[args.keys.sort.join(":")]
-            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
             resource.call(**args)
           end
 
@@ -88,9 +88,9 @@ module So
           # @param customer [String]
           # @param foo_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def single_pattern_path customer:, foo_id:
-            raise ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+            raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
             "customers/#{customer}/foo/#{foo_id}"
           end

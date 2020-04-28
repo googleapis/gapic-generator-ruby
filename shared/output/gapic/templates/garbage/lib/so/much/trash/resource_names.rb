@@ -41,7 +41,7 @@ module So
       # To load this service and instantiate a client:
       #
       #     require "so/much/trash/resource_names"
-      #     client = So::Much::Trash::ResourceNames::Client.new
+      #     client = ::So::Much::Trash::ResourceNames::Client.new
       #
       module ResourceNames
       end

@@ -42,14 +42,14 @@ module So
           ##
           # Configure the ResourceNames Client class.
           #
-          # See {So::Much::Trash::ResourceNames::Client::Configuration}
+          # See {::So::Much::Trash::ResourceNames::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
           # To modify the configuration for all ResourceNames clients:
           #
-          #     So::Much::Trash::ResourceNames::Client.configure do |config|
+          #     ::So::Much::Trash::ResourceNames::Client.configure do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -75,7 +75,7 @@ module So
           # but structural changes (adding new fields, etc.) are not allowed. Structural changes
           # should be made on {Client.configure}.
           #
-          # See {So::Much::Trash::ResourceNames::Client::Configuration}
+          # See {::So::Much::Trash::ResourceNames::Client::Configuration}
           # for a description of the configuration fields.
           #
           # @yield [config] Configure the Client client.
@@ -96,12 +96,12 @@ module So
           # To create a new ResourceNames client with the default
           # configuration:
           #
-          #     client = So::Much::Trash::ResourceNames::Client.new
+          #     client = ::So::Much::Trash::ResourceNames::Client.new
           #
           # To create a new ResourceNames client with a custom
           # configuration:
           #
-          #     client = So::Much::Trash::ResourceNames::Client.new do |config|
+          #     client = ::So::Much::Trash::ResourceNames::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -129,8 +129,8 @@ module So
             end
             @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
-            @resource_names_stub = Gapic::ServiceStub.new(
-              So::Much::Trash::ResourceNames::Stub,
+            @resource_names_stub = ::Gapic::ServiceStub.new(
+              ::So::Much::Trash::ResourceNames::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
@@ -143,12 +143,12 @@ module So
           ##
           # @overload single_pattern_method(request, options = nil)
           #   Pass arguments to `single_pattern_method` via a request object, either of type
-          #   {So::Much::Trash::SinglePattern} or an equivalent Hash.
+          #   {::So::Much::Trash::SinglePattern} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::SinglePattern, Hash]
+          #   @param request [::So::Much::Trash::SinglePattern, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload single_pattern_method(real_name: nil, ref: nil, repeated_ref: nil, value_ref: nil, repeated_value_ref: nil)
@@ -156,33 +156,33 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param real_name [String]
-          #   @param ref [String]
-          #   @param repeated_ref [Array<String>]
-          #   @param value_ref [Google::Protobuf::StringValue, Hash]
-          #   @param repeated_value_ref [Array<Google::Protobuf::StringValue, Hash>]
+          #   @param real_name [::String]
+          #   @param ref [::String]
+          #   @param repeated_ref [::Array<::String>]
+          #   @param value_ref [::Google::Protobuf::StringValue, ::Hash]
+          #   @param repeated_value_ref [::Array<::Google::Protobuf::StringValue, ::Hash>]
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::Response]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::Response]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::Response]
+          # @return [::So::Much::Trash::Response]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def single_pattern_method request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SinglePattern
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SinglePattern
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.single_pattern_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -202,12 +202,12 @@ module So
           ##
           # @overload non_slash_pattern_method(request, options = nil)
           #   Pass arguments to `non_slash_pattern_method` via a request object, either of type
-          #   {So::Much::Trash::NonSlashMultiPattern} or an equivalent Hash.
+          #   {::So::Much::Trash::NonSlashMultiPattern} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::NonSlashMultiPattern, Hash]
+          #   @param request [::So::Much::Trash::NonSlashMultiPattern, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload non_slash_pattern_method(real_name: nil, ref: nil, repeated_ref: nil, value_ref: nil, repeated_value_ref: nil)
@@ -215,33 +215,33 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param real_name [String]
-          #   @param ref [String]
-          #   @param repeated_ref [Array<String>]
-          #   @param value_ref [Google::Protobuf::StringValue, Hash]
-          #   @param repeated_value_ref [Array<Google::Protobuf::StringValue, Hash>]
+          #   @param real_name [::String]
+          #   @param ref [::String]
+          #   @param repeated_ref [::Array<::String>]
+          #   @param value_ref [::Google::Protobuf::StringValue, ::Hash]
+          #   @param repeated_value_ref [::Array<::Google::Protobuf::StringValue, ::Hash>]
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::Response]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::Response]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::Response]
+          # @return [::So::Much::Trash::Response]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def non_slash_pattern_method request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::NonSlashMultiPattern
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::NonSlashMultiPattern
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.non_slash_pattern_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -265,7 +265,7 @@ module So
           # providing control over timeouts, retry behavior, logging, transport
           # parameters, and other low-level controls. Certain parameters can also be
           # applied individually to specific RPCs. See
-          # {So::Much::Trash::ResourceNames::Client::Configuration::Rpcs}
+          # {::So::Much::Trash::ResourceNames::Client::Configuration::Rpcs}
           # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
@@ -276,14 +276,14 @@ module So
           # To modify the global config, setting the timeout for single_pattern_method
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
-          #     So::Much::Trash::ResourceNames::Client.configure do |config|
+          #     ::So::Much::Trash::ResourceNames::Client.configure do |config|
           #       config.timeout = 10_000
           #       config.rpcs.single_pattern_method.timeout = 20_000
           #     end
           #
           # To apply the above configuration only to a new client:
           #
-          #     client = So::Much::Trash::ResourceNames::Client.new do |config|
+          #     client = ::So::Much::Trash::ResourceNames::Client.new do |config|
           #       config.timeout = 10_000
           #       config.rpcs.single_pattern_method.timeout = 20_000
           #     end
@@ -291,7 +291,7 @@ module So
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
           #   Defaults to `"endlesstrash.example.net"`.
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] credentials
           #   Credentials to send with calls. You may provide any of the following types:
           #    *  (`String`) The path to a service account key file in JSON format
@@ -303,29 +303,29 @@ module So
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
-          #   @return [Object]
+          #   @return [::Object]
           # @!attribute [rw] scope
           #   The OAuth scopes
-          #   @return [Array<String>]
+          #   @return [::Array<::String>]
           # @!attribute [rw] lib_name
           #   The library name as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] lib_version
           #   The library version as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] channel_args
           #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
           #   `GRPC::Core::Channel` object is provided as the credential.
-          #   @return [Hash]
+          #   @return [::Hash]
           # @!attribute [rw] interceptors
           #   An array of interceptors that are run before calls are executed.
-          #   @return [Array<GRPC::ClientInterceptor>]
+          #   @return [::Array<::GRPC::ClientInterceptor>]
           # @!attribute [rw] timeout
           #   The call timeout in milliseconds.
-          #   @return [Numeric]
+          #   @return [::Numeric]
           # @!attribute [rw] metadata
           #   Additional gRPC headers to be sent with the call.
-          #   @return [Hash{Symbol=>String}]
+          #   @return [::Hash{::Symbol=>::String}]
           # @!attribute [rw] retry_policy
           #   The retry policy. The value is a hash with the following keys:
           #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -333,10 +333,10 @@ module So
           #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
           #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
           #       trigger a retry.
-          #   @return [Hash]
+          #   @return [::Hash]
           #
           class Configuration
-            extend Gapic::Config
+            extend ::Gapic::Config
 
             config_attr :endpoint,     "endlesstrash.example.net", String
             config_attr :credentials,  nil do |value|
@@ -344,14 +344,14 @@ module So
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
               allowed.any? { |klass| klass === value }
             end
-            config_attr :scope,        nil, String, Array, nil
-            config_attr :lib_name,     nil, String, nil
-            config_attr :lib_version,  nil, String, nil
-            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-            config_attr :interceptors, nil, Array, nil
-            config_attr :timeout,      nil, Numeric, nil
-            config_attr :metadata,     nil, Hash, nil
-            config_attr :retry_policy, nil, Hash, Proc, nil
+            config_attr :scope,        nil, ::String, ::Array, nil
+            config_attr :lib_name,     nil, ::String, nil
+            config_attr :lib_version,  nil, ::String, nil
+            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr :interceptors, nil, ::Array, nil
+            config_attr :timeout,      nil, ::Numeric, nil
+            config_attr :metadata,     nil, ::Hash, nil
+            config_attr :retry_policy, nil, ::Hash, Proc, nil
 
             # @private
             def initialize parent_config = nil
@@ -392,21 +392,21 @@ module So
             class Rpcs
               ##
               # RPC-specific configuration for `single_pattern_method`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :single_pattern_method
               ##
               # RPC-specific configuration for `non_slash_pattern_method`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :non_slash_pattern_method
 
               # @private
               def initialize parent_rpcs = nil
                 single_pattern_method_config = parent_rpcs&.single_pattern_method if parent_rpcs&.respond_to? :single_pattern_method
-                @single_pattern_method = Gapic::Config::Method.new single_pattern_method_config
+                @single_pattern_method = ::Gapic::Config::Method.new single_pattern_method_config
                 non_slash_pattern_method_config = parent_rpcs&.non_slash_pattern_method if parent_rpcs&.respond_to? :non_slash_pattern_method
-                @non_slash_pattern_method = Gapic::Config::Method.new non_slash_pattern_method_config
+                @non_slash_pattern_method = ::Gapic::Config::Method.new non_slash_pattern_method_config
 
                 yield self if block_given?
               end
