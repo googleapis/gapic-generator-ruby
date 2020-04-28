@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.4.2 / 2020-04-28
+
+* Prepend double-colon to absolute/global namespaces to prevent conflicts.
+* Eliminate a circular require in generated wrappers.
+* Fix documentation/examples of timeouts to clarify they are in seconds.
+
 ### 0.4.0 / 2020-04-20
 
 * Support generating clients of "common" interfaces by delegating to another service config.

@@ -1,5 +1,9 @@
 # Release History for gapic-generator-cloud
 
+### 0.4.2 / 2020-04-28
+
+* Includes changes from gapic-generator 0.4.2
+
 ### 0.4.1 / 2020-04-23
 
 * Wrapper templates honor overridden namespaces.
