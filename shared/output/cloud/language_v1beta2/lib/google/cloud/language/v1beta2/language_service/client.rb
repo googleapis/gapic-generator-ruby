@@ -37,14 +37,14 @@ module Google
             ##
             # Configure the LanguageService Client class.
             #
-            # See {Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration}
+            # See {::Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration}
             # for a description of the configuration fields.
             #
             # ## Example
             #
             # To modify the configuration for all LanguageService clients:
             #
-            #     Google::Cloud::Language::V1beta2::LanguageService::Client.configure do |config|
+            #     ::Google::Cloud::Language::V1beta2::LanguageService::Client.configure do |config|
             #       config.timeout = 10_000
             #     end
             #
@@ -77,7 +77,7 @@ module Google
             # but structural changes (adding new fields, etc.) are not allowed. Structural changes
             # should be made on {Client.configure}.
             #
-            # See {Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration}
+            # See {::Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration}
             # for a description of the configuration fields.
             #
             # @yield [config] Configure the Client client.
@@ -98,12 +98,12 @@ module Google
             # To create a new LanguageService client with the default
             # configuration:
             #
-            #     client = Google::Cloud::Language::V1beta2::LanguageService::Client.new
+            #     client = ::Google::Cloud::Language::V1beta2::LanguageService::Client.new
             #
             # To create a new LanguageService client with a custom
             # configuration:
             #
-            #     client = Google::Cloud::Language::V1beta2::LanguageService::Client.new do |config|
+            #     client = ::Google::Cloud::Language::V1beta2::LanguageService::Client.new do |config|
             #       config.timeout = 10_000
             #     end
             #
@@ -131,8 +131,8 @@ module Google
               end
               @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
-              @language_service_stub = Gapic::ServiceStub.new(
-                Google::Cloud::Language::V1beta2::LanguageService::Stub,
+              @language_service_stub = ::Gapic::ServiceStub.new(
+                ::Google::Cloud::Language::V1beta2::LanguageService::Stub,
                 credentials:  credentials,
                 endpoint:     @config.endpoint,
                 channel_args: @config.channel_args,
@@ -147,12 +147,12 @@ module Google
             #
             # @overload analyze_sentiment(request, options = nil)
             #   Pass arguments to `analyze_sentiment` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload analyze_sentiment(document: nil, encoding_type: nil)
@@ -160,33 +160,33 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
-            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
+            #   @param encoding_type [::Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate sentence offsets for the
             #     sentence sentiment.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::AnalyzeSentimentResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::AnalyzeSentimentResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::AnalyzeSentimentResponse]
+            # @return [::Google::Cloud::Language::V1beta2::AnalyzeSentimentResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def analyze_sentiment request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_sentiment.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -201,8 +201,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -212,12 +212,12 @@ module Google
             #
             # @overload analyze_entities(request, options = nil)
             #   Pass arguments to `analyze_entities` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload analyze_entities(document: nil, encoding_type: nil)
@@ -225,32 +225,32 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
-            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
+            #   @param encoding_type [::Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::AnalyzeEntitiesResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::AnalyzeEntitiesResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::AnalyzeEntitiesResponse]
+            # @return [::Google::Cloud::Language::V1beta2::AnalyzeEntitiesResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def analyze_entities request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitiesRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_entities.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -265,22 +265,22 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
-            # Finds entities, similar to {Google::Cloud::Language::V1beta2::LanguageService::Client#analyze_entities AnalyzeEntities} in the text and analyzes
+            # Finds entities, similar to {::Google::Cloud::Language::V1beta2::LanguageService::Client#analyze_entities AnalyzeEntities} in the text and analyzes
             # sentiment associated with each entity and its mentions.
             #
             # @overload analyze_entity_sentiment(request, options = nil)
             #   Pass arguments to `analyze_entity_sentiment` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload analyze_entity_sentiment(document: nil, encoding_type: nil)
@@ -288,32 +288,32 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
-            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
+            #   @param encoding_type [::Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentResponse]
+            # @return [::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def analyze_entity_sentiment request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_entity_sentiment.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -328,8 +328,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -339,12 +339,12 @@ module Google
             #
             # @overload analyze_syntax(request, options = nil)
             #   Pass arguments to `analyze_syntax` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload analyze_syntax(document: nil, encoding_type: nil)
@@ -352,32 +352,32 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
-            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
+            #   @param encoding_type [::Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::AnalyzeSyntaxResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::AnalyzeSyntaxResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::AnalyzeSyntaxResponse]
+            # @return [::Google::Cloud::Language::V1beta2::AnalyzeSyntaxResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def analyze_syntax request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeSyntaxRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.analyze_syntax.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -392,8 +392,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -401,12 +401,12 @@ module Google
             #
             # @overload classify_text(request, options = nil)
             #   Pass arguments to `classify_text` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::ClassifyTextRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::ClassifyTextRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::ClassifyTextRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::ClassifyTextRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload classify_text(document: nil)
@@ -414,30 +414,30 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::ClassifyTextResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::ClassifyTextResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::ClassifyTextResponse]
+            # @return [::Google::Cloud::Language::V1beta2::ClassifyTextResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def classify_text request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::ClassifyTextRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::ClassifyTextRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.classify_text.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -452,8 +452,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -462,12 +462,12 @@ module Google
             #
             # @overload annotate_text(request, options = nil)
             #   Pass arguments to `annotate_text` via a request object, either of type
-            #   {Google::Cloud::Language::V1beta2::AnnotateTextRequest} or an equivalent Hash.
+            #   {::Google::Cloud::Language::V1beta2::AnnotateTextRequest} or an equivalent Hash.
             #
-            #   @param request [Google::Cloud::Language::V1beta2::AnnotateTextRequest, Hash]
+            #   @param request [::Google::Cloud::Language::V1beta2::AnnotateTextRequest, ::Hash]
             #     A request object representing the call parameters. Required. To specify no
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
-            #   @param options [Gapic::CallOptions, Hash]
+            #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
             # @overload annotate_text(document: nil, features: nil, encoding_type: nil)
@@ -475,34 +475,34 @@ module Google
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
-            #   @param document [Google::Cloud::Language::V1beta2::Document, Hash]
+            #   @param document [::Google::Cloud::Language::V1beta2::Document, ::Hash]
             #     Required. Input document.
-            #   @param features [Google::Cloud::Language::V1beta2::AnnotateTextRequest::Features, Hash]
+            #   @param features [::Google::Cloud::Language::V1beta2::AnnotateTextRequest::Features, ::Hash]
             #     Required. The enabled features.
-            #   @param encoding_type [Google::Cloud::Language::V1beta2::EncodingType]
+            #   @param encoding_type [::Google::Cloud::Language::V1beta2::EncodingType]
             #     The encoding type used by the API to calculate offsets.
             #
             # @yield [response, operation] Access the result along with the RPC operation
-            # @yieldparam response [Google::Cloud::Language::V1beta2::AnnotateTextResponse]
-            # @yieldparam operation [GRPC::ActiveCall::Operation]
+            # @yieldparam response [::Google::Cloud::Language::V1beta2::AnnotateTextResponse]
+            # @yieldparam operation [::GRPC::ActiveCall::Operation]
             #
-            # @return [Google::Cloud::Language::V1beta2::AnnotateTextResponse]
+            # @return [::Google::Cloud::Language::V1beta2::AnnotateTextResponse]
             #
-            # @raise [Google::Cloud::Error] if the RPC is aborted.
+            # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
             def annotate_text request, options = nil
-              raise ArgumentError, "request must be provided" if request.nil?
+              raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = Gapic::Protobuf.coerce request, to: Google::Cloud::Language::V1beta2::AnnotateTextRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnnotateTextRequest
 
               # Converts hash and nil to an options object
-              options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
               metadata = @config.rpcs.annotate_text.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Cloud::Language::V1beta2::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -517,8 +517,8 @@ module Google
                 yield response, operation if block_given?
                 return response
               end
-            rescue GRPC::BadStatus => e
-              raise Google::Cloud::Error.from_error(e)
+            rescue ::GRPC::BadStatus => e
+              raise ::Google::Cloud::Error.from_error(e)
             end
 
             ##
@@ -528,7 +528,7 @@ module Google
             # providing control over timeouts, retry behavior, logging, transport
             # parameters, and other low-level controls. Certain parameters can also be
             # applied individually to specific RPCs. See
-            # {Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration::Rpcs}
+            # {::Google::Cloud::Language::V1beta2::LanguageService::Client::Configuration::Rpcs}
             # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
@@ -539,14 +539,14 @@ module Google
             # To modify the global config, setting the timeout for analyze_sentiment
             # to 20 seconds, and all remaining timeouts to 10 seconds:
             #
-            #     Google::Cloud::Language::V1beta2::LanguageService::Client.configure do |config|
+            #     ::Google::Cloud::Language::V1beta2::LanguageService::Client.configure do |config|
             #       config.timeout = 10_000
             #       config.rpcs.analyze_sentiment.timeout = 20_000
             #     end
             #
             # To apply the above configuration only to a new client:
             #
-            #     client = Google::Cloud::Language::V1beta2::LanguageService::Client.new do |config|
+            #     client = ::Google::Cloud::Language::V1beta2::LanguageService::Client.new do |config|
             #       config.timeout = 10_000
             #       config.rpcs.analyze_sentiment.timeout = 20_000
             #     end
@@ -554,7 +554,7 @@ module Google
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
             #   Defaults to `"language.googleapis.com"`.
-            #   @return [String]
+            #   @return [::String]
             # @!attribute [rw] credentials
             #   Credentials to send with calls. You may provide any of the following types:
             #    *  (`String`) The path to a service account key file in JSON format
@@ -566,29 +566,29 @@ module Google
             #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
             #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
             #    *  (`nil`) indicating no credentials
-            #   @return [Object]
+            #   @return [::Object]
             # @!attribute [rw] scope
             #   The OAuth scopes
-            #   @return [Array<String>]
+            #   @return [::Array<::String>]
             # @!attribute [rw] lib_name
             #   The library name as recorded in instrumentation and logging
-            #   @return [String]
+            #   @return [::String]
             # @!attribute [rw] lib_version
             #   The library version as recorded in instrumentation and logging
-            #   @return [String]
+            #   @return [::String]
             # @!attribute [rw] channel_args
             #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
             #   `GRPC::Core::Channel` object is provided as the credential.
-            #   @return [Hash]
+            #   @return [::Hash]
             # @!attribute [rw] interceptors
             #   An array of interceptors that are run before calls are executed.
-            #   @return [Array<GRPC::ClientInterceptor>]
+            #   @return [::Array<::GRPC::ClientInterceptor>]
             # @!attribute [rw] timeout
             #   The call timeout in milliseconds.
-            #   @return [Numeric]
+            #   @return [::Numeric]
             # @!attribute [rw] metadata
             #   Additional gRPC headers to be sent with the call.
-            #   @return [Hash{Symbol=>String}]
+            #   @return [::Hash{::Symbol=>::String}]
             # @!attribute [rw] retry_policy
             #   The retry policy. The value is a hash with the following keys:
             #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -596,10 +596,10 @@ module Google
             #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
             #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
             #       trigger a retry.
-            #   @return [Hash]
+            #   @return [::Hash]
             #
             class Configuration
-              extend Gapic::Config
+              extend ::Gapic::Config
 
               config_attr :endpoint,     "language.googleapis.com", String
               config_attr :credentials,  nil do |value|
@@ -607,14 +607,14 @@ module Google
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
-              config_attr :scope,        nil, String, Array, nil
-              config_attr :lib_name,     nil, String, nil
-              config_attr :lib_version,  nil, String, nil
-              config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-              config_attr :interceptors, nil, Array, nil
-              config_attr :timeout,      nil, Numeric, nil
-              config_attr :metadata,     nil, Hash, nil
-              config_attr :retry_policy, nil, Hash, Proc, nil
+              config_attr :scope,        nil, ::String, ::Array, nil
+              config_attr :lib_name,     nil, ::String, nil
+              config_attr :lib_version,  nil, ::String, nil
+              config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+              config_attr :interceptors, nil, ::Array, nil
+              config_attr :timeout,      nil, ::Numeric, nil
+              config_attr :metadata,     nil, ::Hash, nil
+              config_attr :retry_policy, nil, ::Hash, Proc, nil
 
               # @private
               def initialize parent_config = nil
@@ -655,49 +655,49 @@ module Google
               class Rpcs
                 ##
                 # RPC-specific configuration for `analyze_sentiment`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :analyze_sentiment
                 ##
                 # RPC-specific configuration for `analyze_entities`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :analyze_entities
                 ##
                 # RPC-specific configuration for `analyze_entity_sentiment`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :analyze_entity_sentiment
                 ##
                 # RPC-specific configuration for `analyze_syntax`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :analyze_syntax
                 ##
                 # RPC-specific configuration for `classify_text`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :classify_text
                 ##
                 # RPC-specific configuration for `annotate_text`
-                # @return [Gapic::Config::Method]
+                # @return [::Gapic::Config::Method]
                 #
                 attr_reader :annotate_text
 
                 # @private
                 def initialize parent_rpcs = nil
                   analyze_sentiment_config = parent_rpcs&.analyze_sentiment if parent_rpcs&.respond_to? :analyze_sentiment
-                  @analyze_sentiment = Gapic::Config::Method.new analyze_sentiment_config
+                  @analyze_sentiment = ::Gapic::Config::Method.new analyze_sentiment_config
                   analyze_entities_config = parent_rpcs&.analyze_entities if parent_rpcs&.respond_to? :analyze_entities
-                  @analyze_entities = Gapic::Config::Method.new analyze_entities_config
+                  @analyze_entities = ::Gapic::Config::Method.new analyze_entities_config
                   analyze_entity_sentiment_config = parent_rpcs&.analyze_entity_sentiment if parent_rpcs&.respond_to? :analyze_entity_sentiment
-                  @analyze_entity_sentiment = Gapic::Config::Method.new analyze_entity_sentiment_config
+                  @analyze_entity_sentiment = ::Gapic::Config::Method.new analyze_entity_sentiment_config
                   analyze_syntax_config = parent_rpcs&.analyze_syntax if parent_rpcs&.respond_to? :analyze_syntax
-                  @analyze_syntax = Gapic::Config::Method.new analyze_syntax_config
+                  @analyze_syntax = ::Gapic::Config::Method.new analyze_syntax_config
                   classify_text_config = parent_rpcs&.classify_text if parent_rpcs&.respond_to? :classify_text
-                  @classify_text = Gapic::Config::Method.new classify_text_config
+                  @classify_text = ::Gapic::Config::Method.new classify_text_config
                   annotate_text_config = parent_rpcs&.annotate_text if parent_rpcs&.respond_to? :annotate_text
-                  @annotate_text = Gapic::Config::Method.new annotate_text_config
+                  @annotate_text = ::Gapic::Config::Method.new annotate_text_config
 
                   yield self if block_given?
                 end

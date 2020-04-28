@@ -66,14 +66,14 @@ module So
           ##
           # Configure the IAMPolicy Client class.
           #
-          # See {So::Much::Trash::IAMPolicy::Client::Configuration}
+          # See {::So::Much::Trash::IAMPolicy::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
           # To modify the configuration for all IAMPolicy clients:
           #
-          #     So::Much::Trash::IAMPolicy::Client.configure do |config|
+          #     ::So::Much::Trash::IAMPolicy::Client.configure do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -99,7 +99,7 @@ module So
           # but structural changes (adding new fields, etc.) are not allowed. Structural changes
           # should be made on {Client.configure}.
           #
-          # See {So::Much::Trash::IAMPolicy::Client::Configuration}
+          # See {::So::Much::Trash::IAMPolicy::Client::Configuration}
           # for a description of the configuration fields.
           #
           # @yield [config] Configure the Client client.
@@ -120,12 +120,12 @@ module So
           # To create a new IAMPolicy client with the default
           # configuration:
           #
-          #     client = So::Much::Trash::IAMPolicy::Client.new
+          #     client = ::So::Much::Trash::IAMPolicy::Client.new
           #
           # To create a new IAMPolicy client with a custom
           # configuration:
           #
-          #     client = So::Much::Trash::IAMPolicy::Client.new do |config|
+          #     client = ::So::Much::Trash::IAMPolicy::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -153,8 +153,8 @@ module So
             end
             @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
-            @iam_policy_stub = Gapic::ServiceStub.new(
-              Google::Iam::V1::IAMPolicy::Stub,
+            @iam_policy_stub = ::Gapic::ServiceStub.new(
+              ::Google::Iam::V1::IAMPolicy::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
@@ -170,12 +170,12 @@ module So
           #
           # @overload set_iam_policy(request, options = nil)
           #   Pass arguments to `set_iam_policy` via a request object, either of type
-          #   {Google::Iam::V1::SetIamPolicyRequest} or an equivalent Hash.
+          #   {::Google::Iam::V1::SetIamPolicyRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Iam::V1::SetIamPolicyRequest, Hash]
+          #   @param request [::Google::Iam::V1::SetIamPolicyRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload set_iam_policy(resource: nil, policy: nil)
@@ -183,37 +183,37 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param resource [String]
+          #   @param resource [::String]
           #     REQUIRED: The resource for which the policy is being specified.
           #     `resource` is usually specified as a path. For example, a Project
           #     resource is specified as `projects/{project}`.
-          #   @param policy [Google::Iam::V1::Policy, Hash]
+          #   @param policy [::Google::Iam::V1::Policy, ::Hash]
           #     REQUIRED: The complete policy to be applied to the `resource`. The size of
           #     the policy is limited to a few 10s of KB. An empty policy is a
           #     valid policy but certain Cloud Platform services (such as Projects)
           #     might reject them.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Iam::V1::Policy]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Google::Iam::V1::Policy]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Iam::V1::Policy]
+          # @return [::Google::Iam::V1::Policy]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def set_iam_policy request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::SetIamPolicyRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::SetIamPolicyRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.set_iam_policy.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -243,12 +243,12 @@ module So
           #
           # @overload get_iam_policy(request, options = nil)
           #   Pass arguments to `get_iam_policy` via a request object, either of type
-          #   {Google::Iam::V1::GetIamPolicyRequest} or an equivalent Hash.
+          #   {::Google::Iam::V1::GetIamPolicyRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Iam::V1::GetIamPolicyRequest, Hash]
+          #   @param request [::Google::Iam::V1::GetIamPolicyRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_iam_policy(resource: nil)
@@ -256,32 +256,32 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param resource [String]
+          #   @param resource [::String]
           #     REQUIRED: The resource for which the policy is being requested.
           #     `resource` is usually specified as a path. For example, a Project
           #     resource is specified as `projects/{project}`.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Iam::V1::Policy]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Google::Iam::V1::Policy]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Iam::V1::Policy]
+          # @return [::Google::Iam::V1::Policy]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_iam_policy request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::GetIamPolicyRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::GetIamPolicyRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_iam_policy.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -311,12 +311,12 @@ module So
           #
           # @overload test_iam_permissions(request, options = nil)
           #   Pass arguments to `test_iam_permissions` via a request object, either of type
-          #   {Google::Iam::V1::TestIamPermissionsRequest} or an equivalent Hash.
+          #   {::Google::Iam::V1::TestIamPermissionsRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Iam::V1::TestIamPermissionsRequest, Hash]
+          #   @param request [::Google::Iam::V1::TestIamPermissionsRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload test_iam_permissions(resource: nil, permissions: nil)
@@ -324,37 +324,37 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param resource [String]
+          #   @param resource [::String]
           #     REQUIRED: The resource for which the policy detail is being requested.
           #     `resource` is usually specified as a path. For example, a Project
           #     resource is specified as `projects/{project}`.
-          #   @param permissions [Array<String>]
+          #   @param permissions [::Array<::String>]
           #     The set of permissions to check for the `resource`. Permissions with
           #     wildcards (such as '*' or 'storage.*') are not allowed. For more
           #     information see
           #     [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Iam::V1::TestIamPermissionsResponse]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Google::Iam::V1::TestIamPermissionsResponse]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Iam::V1::TestIamPermissionsResponse]
+          # @return [::Google::Iam::V1::TestIamPermissionsResponse]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def test_iam_permissions request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Iam::V1::TestIamPermissionsRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Iam::V1::TestIamPermissionsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.test_iam_permissions.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -384,7 +384,7 @@ module So
           # providing control over timeouts, retry behavior, logging, transport
           # parameters, and other low-level controls. Certain parameters can also be
           # applied individually to specific RPCs. See
-          # {So::Much::Trash::IAMPolicy::Client::Configuration::Rpcs}
+          # {::So::Much::Trash::IAMPolicy::Client::Configuration::Rpcs}
           # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
@@ -395,14 +395,14 @@ module So
           # To modify the global config, setting the timeout for set_iam_policy
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
-          #     So::Much::Trash::IAMPolicy::Client.configure do |config|
+          #     ::So::Much::Trash::IAMPolicy::Client.configure do |config|
           #       config.timeout = 10_000
           #       config.rpcs.set_iam_policy.timeout = 20_000
           #     end
           #
           # To apply the above configuration only to a new client:
           #
-          #     client = So::Much::Trash::IAMPolicy::Client.new do |config|
+          #     client = ::So::Much::Trash::IAMPolicy::Client.new do |config|
           #       config.timeout = 10_000
           #       config.rpcs.set_iam_policy.timeout = 20_000
           #     end
@@ -410,7 +410,7 @@ module So
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
           #   Defaults to `"endlesstrash.example.net"`.
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] credentials
           #   Credentials to send with calls. You may provide any of the following types:
           #    *  (`String`) The path to a service account key file in JSON format
@@ -422,29 +422,29 @@ module So
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
-          #   @return [Object]
+          #   @return [::Object]
           # @!attribute [rw] scope
           #   The OAuth scopes
-          #   @return [Array<String>]
+          #   @return [::Array<::String>]
           # @!attribute [rw] lib_name
           #   The library name as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] lib_version
           #   The library version as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] channel_args
           #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
           #   `GRPC::Core::Channel` object is provided as the credential.
-          #   @return [Hash]
+          #   @return [::Hash]
           # @!attribute [rw] interceptors
           #   An array of interceptors that are run before calls are executed.
-          #   @return [Array<GRPC::ClientInterceptor>]
+          #   @return [::Array<::GRPC::ClientInterceptor>]
           # @!attribute [rw] timeout
           #   The call timeout in milliseconds.
-          #   @return [Numeric]
+          #   @return [::Numeric]
           # @!attribute [rw] metadata
           #   Additional gRPC headers to be sent with the call.
-          #   @return [Hash{Symbol=>String}]
+          #   @return [::Hash{::Symbol=>::String}]
           # @!attribute [rw] retry_policy
           #   The retry policy. The value is a hash with the following keys:
           #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -452,10 +452,10 @@ module So
           #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
           #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
           #       trigger a retry.
-          #   @return [Hash]
+          #   @return [::Hash]
           #
           class Configuration
-            extend Gapic::Config
+            extend ::Gapic::Config
 
             config_attr :endpoint,     "endlesstrash.example.net", String
             config_attr :credentials,  nil do |value|
@@ -463,14 +463,14 @@ module So
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
               allowed.any? { |klass| klass === value }
             end
-            config_attr :scope,        nil, String, Array, nil
-            config_attr :lib_name,     nil, String, nil
-            config_attr :lib_version,  nil, String, nil
-            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-            config_attr :interceptors, nil, Array, nil
-            config_attr :timeout,      nil, Numeric, nil
-            config_attr :metadata,     nil, Hash, nil
-            config_attr :retry_policy, nil, Hash, Proc, nil
+            config_attr :scope,        nil, ::String, ::Array, nil
+            config_attr :lib_name,     nil, ::String, nil
+            config_attr :lib_version,  nil, ::String, nil
+            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr :interceptors, nil, ::Array, nil
+            config_attr :timeout,      nil, ::Numeric, nil
+            config_attr :metadata,     nil, ::Hash, nil
+            config_attr :retry_policy, nil, ::Hash, Proc, nil
 
             # @private
             def initialize parent_config = nil
@@ -511,28 +511,28 @@ module So
             class Rpcs
               ##
               # RPC-specific configuration for `set_iam_policy`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :set_iam_policy
               ##
               # RPC-specific configuration for `get_iam_policy`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_iam_policy
               ##
               # RPC-specific configuration for `test_iam_permissions`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :test_iam_permissions
 
               # @private
               def initialize parent_rpcs = nil
                 set_iam_policy_config = parent_rpcs&.set_iam_policy if parent_rpcs&.respond_to? :set_iam_policy
-                @set_iam_policy = Gapic::Config::Method.new set_iam_policy_config
+                @set_iam_policy = ::Gapic::Config::Method.new set_iam_policy_config
                 get_iam_policy_config = parent_rpcs&.get_iam_policy if parent_rpcs&.respond_to? :get_iam_policy
-                @get_iam_policy = Gapic::Config::Method.new get_iam_policy_config
+                @get_iam_policy = ::Gapic::Config::Method.new get_iam_policy_config
                 test_iam_permissions_config = parent_rpcs&.test_iam_permissions if parent_rpcs&.respond_to? :test_iam_permissions
-                @test_iam_permissions = Gapic::Config::Method.new test_iam_permissions_config
+                @test_iam_permissions = ::Gapic::Config::Method.new test_iam_permissions_config
 
                 yield self if block_given?
               end

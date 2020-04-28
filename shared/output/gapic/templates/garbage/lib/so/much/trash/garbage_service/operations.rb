@@ -93,8 +93,8 @@ module So
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @operations_stub = Gapic::ServiceStub.new(
-              Google::Longrunning::Operations::Stub,
+            @operations_stub = ::Gapic::ServiceStub.new(
+              ::Google::Longrunning::Operations::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
@@ -113,12 +113,12 @@ module So
           #
           # @overload list_operations(request, options = nil)
           #   Pass arguments to `list_operations` via a request object, either of type
-          #   {Google::Longrunning::ListOperationsRequest} or an equivalent Hash.
+          #   {::Google::Longrunning::ListOperationsRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Longrunning::ListOperationsRequest, Hash]
+          #   @param request [::Google::Longrunning::ListOperationsRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
@@ -126,36 +126,36 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of the operation collection.
-          #   @param filter [String]
+          #   @param filter [::String]
           #     The standard list filter.
-          #   @param page_size [Integer]
+          #   @param page_size [::Integer]
           #     The standard list page size.
-          #   @param page_token [String]
+          #   @param page_token [::String]
           #     The standard list page token.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Gapic::PagedEnumerable<Gapic::Operation>]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Gapic::PagedEnumerable<::Gapic::Operation>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Gapic::PagedEnumerable<Gapic::Operation>]
+          # @return [::Gapic::PagedEnumerable<::Gapic::Operation>]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def list_operations request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Longrunning::ListOperationsRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Longrunning::ListOperationsRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.list_operations.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -173,8 +173,8 @@ module So
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
-              wrap_lro_operation = ->(op_response) { Gapic::Operation.new op_response, @operations_client }
-              response = Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_lro_operation
+              wrap_lro_operation = ->(op_response) { ::Gapic::Operation.new op_response, @operations_client }
+              response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_lro_operation
               yield response, operation if block_given?
               return response
             end
@@ -187,12 +187,12 @@ module So
           #
           # @overload get_operation(request, options = nil)
           #   Pass arguments to `get_operation` via a request object, either of type
-          #   {Google::Longrunning::GetOperationRequest} or an equivalent Hash.
+          #   {::Google::Longrunning::GetOperationRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Longrunning::GetOperationRequest, Hash]
+          #   @param request [::Google::Longrunning::GetOperationRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_operation(name: nil)
@@ -200,30 +200,30 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of the operation resource.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Gapic::Operation]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Gapic::Operation]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Gapic::Operation]
+          # @return [::Gapic::Operation]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_operation request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Longrunning::GetOperationRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Longrunning::GetOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_operation.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -241,7 +241,7 @@ module So
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :get_operation, request, options: options do |response, operation|
-              response = Gapic::Operation.new response, @operations_client, options: options
+              response = ::Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
               return response
             end
@@ -255,12 +255,12 @@ module So
           #
           # @overload delete_operation(request, options = nil)
           #   Pass arguments to `delete_operation` via a request object, either of type
-          #   {Google::Longrunning::DeleteOperationRequest} or an equivalent Hash.
+          #   {::Google::Longrunning::DeleteOperationRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Longrunning::DeleteOperationRequest, Hash]
+          #   @param request [::Google::Longrunning::DeleteOperationRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload delete_operation(name: nil)
@@ -268,30 +268,30 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of the operation resource to be deleted.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Protobuf::Empty]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Google::Protobuf::Empty]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Protobuf::Empty]
+          # @return [::Google::Protobuf::Empty]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def delete_operation request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Longrunning::DeleteOperationRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Longrunning::DeleteOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.delete_operation.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -323,17 +323,17 @@ module So
           # other methods to check whether the cancellation succeeded or whether the
           # operation completed despite cancellation. On successful cancellation,
           # the operation is not deleted; instead, it becomes an operation with
-          # an {Google::Longrunning::Operation#error Operation.error} value with a {Google::Rpc::Status#code google.rpc.Status.code} of 1,
+          # an {::Google::Longrunning::Operation#error Operation.error} value with a {::Google::Rpc::Status#code google.rpc.Status.code} of 1,
           # corresponding to `Code.CANCELLED`.
           #
           # @overload cancel_operation(request, options = nil)
           #   Pass arguments to `cancel_operation` via a request object, either of type
-          #   {Google::Longrunning::CancelOperationRequest} or an equivalent Hash.
+          #   {::Google::Longrunning::CancelOperationRequest} or an equivalent Hash.
           #
-          #   @param request [Google::Longrunning::CancelOperationRequest, Hash]
+          #   @param request [::Google::Longrunning::CancelOperationRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload cancel_operation(name: nil)
@@ -341,30 +341,30 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of the operation resource to be cancelled.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Google::Protobuf::Empty]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Google::Protobuf::Empty]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Google::Protobuf::Empty]
+          # @return [::Google::Protobuf::Empty]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def cancel_operation request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: Google::Longrunning::CancelOperationRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::Google::Longrunning::CancelOperationRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.cancel_operation.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -394,7 +394,7 @@ module So
           # providing control over timeouts, retry behavior, logging, transport
           # parameters, and other low-level controls. Certain parameters can also be
           # applied individually to specific RPCs. See
-          # {Google::Longrunning::Operations::Client::Configuration::Rpcs}
+          # {::Google::Longrunning::Operations::Client::Configuration::Rpcs}
           # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
@@ -405,14 +405,14 @@ module So
           # To modify the global config, setting the timeout for list_operations
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
-          #     Google::Longrunning::Operations::Client.configure do |config|
+          #     ::Google::Longrunning::Operations::Client.configure do |config|
           #       config.timeout = 10_000
           #       config.rpcs.list_operations.timeout = 20_000
           #     end
           #
           # To apply the above configuration only to a new client:
           #
-          #     client = Google::Longrunning::Operations::Client.new do |config|
+          #     client = ::Google::Longrunning::Operations::Client.new do |config|
           #       config.timeout = 10_000
           #       config.rpcs.list_operations.timeout = 20_000
           #     end
@@ -420,7 +420,7 @@ module So
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
           #   Defaults to `"endlesstrash.example.net"`.
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] credentials
           #   Credentials to send with calls. You may provide any of the following types:
           #    *  (`String`) The path to a service account key file in JSON format
@@ -432,29 +432,29 @@ module So
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
-          #   @return [Object]
+          #   @return [::Object]
           # @!attribute [rw] scope
           #   The OAuth scopes
-          #   @return [Array<String>]
+          #   @return [::Array<::String>]
           # @!attribute [rw] lib_name
           #   The library name as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] lib_version
           #   The library version as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] channel_args
           #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
           #   `GRPC::Core::Channel` object is provided as the credential.
-          #   @return [Hash]
+          #   @return [::Hash]
           # @!attribute [rw] interceptors
           #   An array of interceptors that are run before calls are executed.
-          #   @return [Array<GRPC::ClientInterceptor>]
+          #   @return [::Array<::GRPC::ClientInterceptor>]
           # @!attribute [rw] timeout
           #   The call timeout in milliseconds.
-          #   @return [Numeric]
+          #   @return [::Numeric]
           # @!attribute [rw] metadata
           #   Additional gRPC headers to be sent with the call.
-          #   @return [Hash{Symbol=>String}]
+          #   @return [::Hash{::Symbol=>::String}]
           # @!attribute [rw] retry_policy
           #   The retry policy. The value is a hash with the following keys:
           #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -462,10 +462,10 @@ module So
           #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
           #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
           #       trigger a retry.
-          #   @return [Hash]
+          #   @return [::Hash]
           #
           class Configuration
-            extend Gapic::Config
+            extend ::Gapic::Config
 
             config_attr :endpoint,     "endlesstrash.example.net", String
             config_attr :credentials,  nil do |value|
@@ -473,14 +473,14 @@ module So
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
               allowed.any? { |klass| klass === value }
             end
-            config_attr :scope,        nil, String, Array, nil
-            config_attr :lib_name,     nil, String, nil
-            config_attr :lib_version,  nil, String, nil
-            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-            config_attr :interceptors, nil, Array, nil
-            config_attr :timeout,      nil, Numeric, nil
-            config_attr :metadata,     nil, Hash, nil
-            config_attr :retry_policy, nil, Hash, Proc, nil
+            config_attr :scope,        nil, ::String, ::Array, nil
+            config_attr :lib_name,     nil, ::String, nil
+            config_attr :lib_version,  nil, ::String, nil
+            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr :interceptors, nil, ::Array, nil
+            config_attr :timeout,      nil, ::Numeric, nil
+            config_attr :metadata,     nil, ::Hash, nil
+            config_attr :retry_policy, nil, ::Hash, Proc, nil
 
             # @private
             def initialize parent_config = nil
@@ -521,35 +521,35 @@ module So
             class Rpcs
               ##
               # RPC-specific configuration for `list_operations`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :list_operations
               ##
               # RPC-specific configuration for `get_operation`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_operation
               ##
               # RPC-specific configuration for `delete_operation`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :delete_operation
               ##
               # RPC-specific configuration for `cancel_operation`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :cancel_operation
 
               # @private
               def initialize parent_rpcs = nil
                 list_operations_config = parent_rpcs&.list_operations if parent_rpcs&.respond_to? :list_operations
-                @list_operations = Gapic::Config::Method.new list_operations_config
+                @list_operations = ::Gapic::Config::Method.new list_operations_config
                 get_operation_config = parent_rpcs&.get_operation if parent_rpcs&.respond_to? :get_operation
-                @get_operation = Gapic::Config::Method.new get_operation_config
+                @get_operation = ::Gapic::Config::Method.new get_operation_config
                 delete_operation_config = parent_rpcs&.delete_operation if parent_rpcs&.respond_to? :delete_operation
-                @delete_operation = Gapic::Config::Method.new delete_operation_config
+                @delete_operation = ::Gapic::Config::Method.new delete_operation_config
                 cancel_operation_config = parent_rpcs&.cancel_operation if parent_rpcs&.respond_to? :cancel_operation
-                @cancel_operation = Gapic::Config::Method.new cancel_operation_config
+                @cancel_operation = ::Gapic::Config::Method.new cancel_operation_config
 
                 yield self if block_given?
               end

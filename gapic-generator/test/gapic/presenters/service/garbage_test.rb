@@ -47,11 +47,11 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_proto_namespace
-    assert_equal "So::Much::Trash", presenter.proto_namespace
+    assert_equal "::So::Much::Trash", presenter.proto_namespace
   end
 
   def test_proto_service_name_full
-    assert_equal "So::Much::Trash::GarbageService", presenter.proto_service_name_full
+    assert_equal "::So::Much::Trash::GarbageService", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
@@ -79,15 +79,15 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_namespace
-    assert_equal "So::Much::Trash", presenter.namespace
+    assert_equal "::So::Much::Trash", presenter.namespace
   end
 
   def test_service_name_full
-    assert_equal "So::Much::Trash::GarbageService", presenter.service_name_full
+    assert_equal "::So::Much::Trash::GarbageService", presenter.service_name_full
   end
 
   def test_service_require
@@ -111,7 +111,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "So::Much::Trash::GarbageService::Credentials", presenter.credentials_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
@@ -131,7 +131,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "So::Much::Trash::GarbageService::Operations", presenter.operations_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
@@ -195,7 +195,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path

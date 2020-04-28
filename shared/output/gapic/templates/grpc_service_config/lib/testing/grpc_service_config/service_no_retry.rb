@@ -39,7 +39,7 @@ module Testing
     # To load this service and instantiate a client:
     #
     #     require "testing/grpc_service_config/service_no_retry"
-    #     client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+    #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
     #
     module ServiceNoRetry
     end

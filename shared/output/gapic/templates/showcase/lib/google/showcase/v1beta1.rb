@@ -36,7 +36,7 @@ module Google
     # To load this package, including all its services, and instantiate a client:
     #
     #     require "google/showcase/v1beta1"
-    #     client = Google::Showcase::V1beta1::Echo::Client.new
+    #     client = ::Google::Showcase::V1beta1::Echo::Client.new
     #
     module V1beta1
     end

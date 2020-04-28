@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing the unit of time the cap is defined at.
           class FrequencyCapTimeUnitEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Unit of time the cap is defined at (e.g. day, week).
             module FrequencyCapTimeUnit

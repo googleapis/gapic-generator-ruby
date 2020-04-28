@@ -34,15 +34,15 @@ module Google
       # A session defines tests it may expect, based on which version of the
       # code generation spec is in use.
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The name of the session. The ID must conform to ^[a-z]+$
       #     If this is not provided, Showcase chooses one at random.
       # @!attribute [rw] version
-      #   @return [Google::Showcase::V1beta1::Session::Version]
+      #   @return [::Google::Showcase::V1beta1::Session::Version]
       #     Required. The version this session is using.
       class Session
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
 
         # The specification versions understood by Showcase.
         module Version
@@ -60,77 +60,77 @@ module Google
 
       # The request for the CreateSession method.
       # @!attribute [rw] session
-      #   @return [Google::Showcase::V1beta1::Session]
+      #   @return [::Google::Showcase::V1beta1::Session]
       #     The session to be created.
       #     Sessions are immutable once they are created (although they can
       #     be deleted).
       class CreateSessionRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request for the GetSession method.
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The session to be retrieved.
       class GetSessionRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request for the ListSessions method.
       # @!attribute [rw] page_size
-      #   @return [Integer]
+      #   @return [::Integer]
       #     The maximum number of sessions to return per page.
       # @!attribute [rw] page_token
-      #   @return [String]
+      #   @return [::String]
       #     The page token, for retrieving subsequent pages.
       class ListSessionsRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # Response for the ListSessions method.
       # @!attribute [rw] sessions
-      #   @return [Array<Google::Showcase::V1beta1::Session>]
+      #   @return [::Array<::Google::Showcase::V1beta1::Session>]
       #     The sessions being returned.
       # @!attribute [rw] next_page_token
-      #   @return [String]
+      #   @return [::String]
       #     The next page token, if any.
       #     An empty value here means the last page has been reached.
       class ListSessionsResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # Request for the DeleteSession method.
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The session to be deleted.
       class DeleteSessionRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # Request message for reporting on a session.
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The session to be reported on.
       class ReportSessionRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # Response message for reporting on a session.
       # @!attribute [rw] result
-      #   @return [Google::Showcase::V1beta1::ReportSessionResponse::Result]
+      #   @return [::Google::Showcase::V1beta1::ReportSessionResponse::Result]
       #     The state of the report.
       # @!attribute [rw] test_runs
-      #   @return [Array<Google::Showcase::V1beta1::TestRun>]
+      #   @return [::Array<::Google::Showcase::V1beta1::TestRun>]
       #     The test runs of this session.
       class ReportSessionResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
 
         # The topline state of the report.
         module Result
@@ -148,56 +148,56 @@ module Google
       end
 
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The name of the test.
       #     The tests/* portion of the names are hard-coded, and do not change
       #     from session to session.
       # @!attribute [rw] expectation_level
-      #   @return [Google::Showcase::V1beta1::Test::ExpectationLevel]
+      #   @return [::Google::Showcase::V1beta1::Test::ExpectationLevel]
       #     The expectation level for this test.
       # @!attribute [rw] description
-      #   @return [String]
+      #   @return [::String]
       #     A description of the test.
       # @!attribute [rw] blueprints
-      #   @return [Array<Google::Showcase::V1beta1::Test::Blueprint>]
+      #   @return [::Array<::Google::Showcase::V1beta1::Test::Blueprint>]
       #     The blueprints that will satisfy this test. There may be multiple blueprints
       #     that can signal to the server that this test case is being exercised. Although
       #     multiple blueprints are specified, only a single blueprint needs to be run to
       #     signal that the test case was exercised.
       class Test
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
 
         # A blueprint is an explicit definition of methods and requests that are needed
         # to be made to test this specific test case. Ideally this would be represented
         # by something more robust like CEL, but as of writing this, I am unsure if CEL
         # is ready.
         # @!attribute [rw] name
-        #   @return [String]
+        #   @return [::String]
         #     The name of this blueprint.
         # @!attribute [rw] description
-        #   @return [String]
+        #   @return [::String]
         #     A description of this blueprint.
         # @!attribute [rw] request
-        #   @return [Google::Showcase::V1beta1::Test::Blueprint::Invocation]
+        #   @return [::Google::Showcase::V1beta1::Test::Blueprint::Invocation]
         #     The initial request to trigger this test.
         # @!attribute [rw] additional_requests
-        #   @return [Array<Google::Showcase::V1beta1::Test::Blueprint::Invocation>]
+        #   @return [::Array<::Google::Showcase::V1beta1::Test::Blueprint::Invocation>]
         #     An ordered list of method calls that can be called to trigger this test.
         class Blueprint
-          include Google::Protobuf::MessageExts
-          extend Google::Protobuf::MessageExts::ClassMethods
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
 
           # A message representing a method invocation.
           # @!attribute [rw] method
-          #   @return [String]
+          #   @return [::String]
           #     The fully qualified name of the showcase method to be invoked.
           # @!attribute [rw] serialized_request
-          #   @return [String]
+          #   @return [::String]
           #     The request to be made if a specific request is necessary.
           class Invocation
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
 
@@ -231,17 +231,17 @@ module Google
 
       # An issue found in the test.
       # @!attribute [rw] type
-      #   @return [Google::Showcase::V1beta1::Issue::Type]
+      #   @return [::Google::Showcase::V1beta1::Issue::Type]
       #     The type of the issue.
       # @!attribute [rw] severity
-      #   @return [Google::Showcase::V1beta1::Issue::Severity]
+      #   @return [::Google::Showcase::V1beta1::Issue::Severity]
       #     The severity of the issue.
       # @!attribute [rw] description
-      #   @return [String]
+      #   @return [::String]
       #     A description of the issue.
       class Issue
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
 
         # The different potential types of issues.
         module Type
@@ -272,75 +272,75 @@ module Google
 
       # The request for the ListTests method.
       # @!attribute [rw] parent
-      #   @return [String]
+      #   @return [::String]
       #     The session.
       # @!attribute [rw] page_size
-      #   @return [Integer]
+      #   @return [::Integer]
       #     The maximum number of tests to return per page.
       # @!attribute [rw] page_token
-      #   @return [String]
+      #   @return [::String]
       #     The page token, for retrieving subsequent pages.
       class ListTestsRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The response for the ListTests method.
       # @!attribute [rw] tests
-      #   @return [Array<Google::Showcase::V1beta1::Test>]
+      #   @return [::Array<::Google::Showcase::V1beta1::Test>]
       #     The tests being returned.
       # @!attribute [rw] next_page_token
-      #   @return [String]
+      #   @return [::String]
       #     The next page token, if any.
       #     An empty value here means the last page has been reached.
       class ListTestsResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # A TestRun is the result of running a Test.
       # @!attribute [rw] test
-      #   @return [String]
+      #   @return [::String]
       #     The name of the test.
       #     The tests/* portion of the names are hard-coded, and do not change
       #     from session to session.
       # @!attribute [rw] issue
-      #   @return [Google::Showcase::V1beta1::Issue]
+      #   @return [::Google::Showcase::V1beta1::Issue]
       #     An issue found with the test run. If empty, this test run was successful.
       class TestRun
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # Request message for deleting a test.
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The test to be deleted.
       class DeleteTestRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # @!attribute [rw] name
-      #   @return [String]
+      #   @return [::String]
       #     The test to have an answer registered to it.
       # @!attribute [rw] answer
-      #   @return [String]
+      #   @return [::String]
       #     The answer from the test.
       # @!attribute [rw] answers
-      #   @return [Array<String>]
+      #   @return [::Array<::String>]
       #     The answers from the test if multiple are to be checked
       class VerifyTestRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # @!attribute [rw] issue
-      #   @return [Google::Showcase::V1beta1::Issue]
+      #   @return [::Google::Showcase::V1beta1::Issue]
       #     An issue if check answer was unsuccessful. This will be empty if the check answer succeeded.
       class VerifyTestResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
     end
   end

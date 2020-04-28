@@ -25,8 +25,8 @@ module Google
           # The text that will be displayed in display URL of the text ad when website
           # description is the selected display mode for vanity pharma URLs.
           class VanityPharmaTextEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible text.
             module VanityPharmaText

@@ -32,125 +32,125 @@ module Google
       # is set in this message then the request will succeed. If status is set in
       # this message then the status will be returned as an error.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     The content to be echoed by the server.
       # @!attribute [rw] error
-      #   @return [Google::Rpc::Status]
+      #   @return [::Google::Rpc::Status]
       #     The error to be thrown by the server.
       class EchoRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The response message for the Echo methods.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     The content specified in the request.
       class EchoResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request message for the Expand method.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     The content that will be split into words and returned on the stream.
       # @!attribute [rw] error
-      #   @return [Google::Rpc::Status]
+      #   @return [::Google::Rpc::Status]
       #     The error that is thrown after all words are sent on the stream.
       class ExpandRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request for the PagedExpand method.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     The string to expand.
       # @!attribute [rw] page_size
-      #   @return [Integer]
+      #   @return [::Integer]
       #     The amount of words to returned in each page.
       # @!attribute [rw] page_token
-      #   @return [String]
+      #   @return [::String]
       #     The position of the page to be returned.
       class PagedExpandRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The response for the PagedExpand method.
       # @!attribute [rw] responses
-      #   @return [Array<Google::Showcase::V1beta1::EchoResponse>]
+      #   @return [::Array<::Google::Showcase::V1beta1::EchoResponse>]
       #     The words that were expanded.
       # @!attribute [rw] next_page_token
-      #   @return [String]
+      #   @return [::String]
       #     The next page token.
       class PagedExpandResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request for Wait method.
       # @!attribute [rw] end_time
-      #   @return [Google::Protobuf::Timestamp]
+      #   @return [::Google::Protobuf::Timestamp]
       #     The time that this operation will complete.
       # @!attribute [rw] ttl
-      #   @return [Google::Protobuf::Duration]
+      #   @return [::Google::Protobuf::Duration]
       #     The duration of this operation.
       # @!attribute [rw] error
-      #   @return [Google::Rpc::Status]
+      #   @return [::Google::Rpc::Status]
       #     The error that will be returned by the server. If this code is specified
       #     to be the OK rpc code, an empty response will be returned.
       # @!attribute [rw] success
-      #   @return [Google::Showcase::V1beta1::WaitResponse]
+      #   @return [::Google::Showcase::V1beta1::WaitResponse]
       #     The response to be returned on operation completion.
       class WaitRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The result of the Wait operation.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     This content of the result.
       class WaitResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The metadata for Wait operation.
       # @!attribute [rw] end_time
-      #   @return [Google::Protobuf::Timestamp]
+      #   @return [::Google::Protobuf::Timestamp]
       #     The time that this operation will complete.
       class WaitMetadata
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The request for Block method.
       # @!attribute [rw] response_delay
-      #   @return [Google::Protobuf::Duration]
+      #   @return [::Google::Protobuf::Duration]
       #     The amount of time to block before returning a response.
       # @!attribute [rw] error
-      #   @return [Google::Rpc::Status]
+      #   @return [::Google::Rpc::Status]
       #     The error that will be returned by the server. If this code is specified
       #     to be the OK rpc code, an empty response will be returned.
       # @!attribute [rw] success
-      #   @return [Google::Showcase::V1beta1::BlockResponse]
+      #   @return [::Google::Showcase::V1beta1::BlockResponse]
       #     The response to be returned that will signify successful method call.
       class BlockRequest
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
       # The response for Block method.
       # @!attribute [rw] content
-      #   @return [String]
+      #   @return [::String]
       #     This content can contain anything, the server will not depend on a value
       #     here.
       class BlockResponse
-        include Google::Protobuf::MessageExts
-        extend Google::Protobuf::MessageExts::ClassMethods
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
       end
     end
   end

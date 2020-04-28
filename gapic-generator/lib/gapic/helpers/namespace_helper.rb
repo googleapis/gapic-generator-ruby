@@ -38,7 +38,14 @@ module Gapic
       # Ruby double-semicolon separators.
       def ruby_namespace_for_address address
         address = address.split "." if address.is_a? String
-        address.reject(&:empty?).map(&:camelize).join "::"
+        ensure_absolute_namespace address.reject(&:empty?).map(&:camelize).join("::")
+      end
+
+      ##
+      # Returns the given namespace, ensuring double colons are prepended
+      #
+      def ensure_absolute_namespace namespace
+        namespace.start_with?("::") ? namespace : "::#{namespace}"
       end
 
       ##

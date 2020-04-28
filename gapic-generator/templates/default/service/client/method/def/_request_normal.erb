@@ -1,4 +1,4 @@
 <%- assert_locals method -%>
-raise ArgumentError, "request must be provided" if request.nil?
+raise ::ArgumentError, "request must be provided" if request.nil?
 
-request = Gapic::Protobuf.coerce request, to: <%= method.request_type %>
+request = ::Gapic::Protobuf.coerce request, to: <%= method.request_type %>

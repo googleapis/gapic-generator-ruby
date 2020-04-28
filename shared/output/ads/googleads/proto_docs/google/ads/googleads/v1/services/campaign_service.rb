@@ -22,81 +22,81 @@ module Google
     module GoogleAds
       module V1
         module Services
-          # Request message for {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#get_campaign CampaignService.GetCampaign}.
+          # Request message for {::Google::Ads::GoogleAds::V1::Services::CampaignService::Client#get_campaign CampaignService.GetCampaign}.
           # @!attribute [rw] resource_name
-          #   @return [String]
+          #   @return [::String]
           #     Required. The resource name of the campaign to fetch.
           class GetCampaignRequest
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
-          # Request message for {Google::Ads::GoogleAds::V1::Services::CampaignService::Client#mutate_campaigns CampaignService.MutateCampaigns}.
+          # Request message for {::Google::Ads::GoogleAds::V1::Services::CampaignService::Client#mutate_campaigns CampaignService.MutateCampaigns}.
           # @!attribute [rw] customer_id
-          #   @return [String]
+          #   @return [::String]
           #     Required. The ID of the customer whose campaigns are being modified.
           # @!attribute [rw] operations
-          #   @return [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation>]
+          #   @return [::Array<::Google::Ads::GoogleAds::V1::Services::CampaignOperation>]
           #     Required. The list of operations to perform on individual campaigns.
           # @!attribute [rw] partial_failure
-          #   @return [Boolean]
+          #   @return [::Boolean]
           #     If true, successful operations will be carried out and invalid
           #     operations will return errors. If false, all operations will be carried
           #     out in one transaction if and only if they are all valid.
           #     Default is false.
           # @!attribute [rw] validate_only
-          #   @return [Boolean]
+          #   @return [::Boolean]
           #     If true, the request is validated but not executed. Only errors are
           #     returned, not results.
           class MutateCampaignsRequest
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # A single operation (create, update, remove) on a campaign.
           # @!attribute [rw] update_mask
-          #   @return [Google::Protobuf::FieldMask]
+          #   @return [::Google::Protobuf::FieldMask]
           #     FieldMask that determines which resource fields are modified in an update.
           # @!attribute [rw] create
-          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
+          #   @return [::Google::Ads::GoogleAds::V1::Resources::Campaign]
           #     Create operation: No resource name is expected for the new campaign.
           # @!attribute [rw] update
-          #   @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
+          #   @return [::Google::Ads::GoogleAds::V1::Resources::Campaign]
           #     Update operation: The campaign is expected to have a valid
           #     resource name.
           # @!attribute [rw] remove
-          #   @return [String]
+          #   @return [::String]
           #     Remove operation: A resource name for the removed campaign is
           #     expected, in this format:
           #
           #     `customers/{customer_id}/campaigns/{campaign_id}`
           class CampaignOperation
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # Response message for campaign mutate.
           # @!attribute [rw] partial_failure_error
-          #   @return [Google::Rpc::Status]
+          #   @return [::Google::Rpc::Status]
           #     Errors that pertain to operation failures in the partial failure mode.
           #     Returned only when partial_failure = true and all errors occur inside the
           #     operations. If any errors occur outside the operations (e.g. auth errors),
           #     we return an RPC level error.
           # @!attribute [rw] results
-          #   @return [Array<Google::Ads::GoogleAds::V1::Services::MutateCampaignResult>]
+          #   @return [::Array<::Google::Ads::GoogleAds::V1::Services::MutateCampaignResult>]
           #     All results for the mutate.
           class MutateCampaignsResponse
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
 
           # The result for the campaign mutate.
           # @!attribute [rw] resource_name
-          #   @return [String]
+          #   @return [::String]
           #     Returned for successful operations.
           class MutateCampaignResult
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
       end

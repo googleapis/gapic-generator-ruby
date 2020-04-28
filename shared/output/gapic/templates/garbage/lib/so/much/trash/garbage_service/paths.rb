@@ -40,7 +40,7 @@ module So
           #
           # @param project [String]
           #
-          # @return [String]
+          # @return [::String]
           def project_path project:
             "projects/#{project}"
           end
@@ -55,9 +55,9 @@ module So
           # @param project [String]
           # @param simple_garbage [String]
           #
-          # @return [String]
+          # @return [::String]
           def simple_garbage_path project:, simple_garbage:
-            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+            raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/simple_garbage/#{simple_garbage}"
           end
@@ -72,9 +72,9 @@ module So
           # @param project [String]
           # @param specific_garbage [String]
           #
-          # @return [String]
+          # @return [::String]
           def specific_garbage_path project:, specific_garbage:
-            raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+            raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
             "projects/#{project}/specific_garbage/#{specific_garbage}"
           end
@@ -98,23 +98,23 @@ module So
           #   @param project [String]
           #   @param typical_garbage_2 [String]
           #
-          # @return [String]
+          # @return [::String]
           def typical_garbage_path **args
             resources = {
               "project:typical_garbage_1" => (proc do |project:, typical_garbage_1:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+                raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
                 "projects/#{project}/typical_garbage_1/#{typical_garbage_1}"
               end),
               "project:typical_garbage_2" => (proc do |project:, typical_garbage_2:|
-                raise ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+                raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
 
                 "projects/#{project}/typical_garbage_2/#{typical_garbage_2}"
               end)
             }
 
             resource = resources[args.keys.sort.join(":")]
-            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
             resource.call(**args)
           end
 

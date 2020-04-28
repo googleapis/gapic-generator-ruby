@@ -31,7 +31,7 @@ module Google
     module V1beta1
       module Testing
         # Credentials for the Testing API.
-        class Credentials < Google::Auth::Credentials
+        class Credentials < ::Google::Auth::Credentials
           self.env_vars = [
             "SHOWCASE_CREDENTIALS",
             "SHOWCASE_KEYFILE",

@@ -39,14 +39,14 @@ module Google
               ##
               # Configure the CampaignService Client class.
               #
-              # See {Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration}
+              # See {::Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration}
               # for a description of the configuration fields.
               #
               # ## Example
               #
               # To modify the configuration for all CampaignService clients:
               #
-              #     Google::Ads::GoogleAds::V1::Services::CampaignService::Client.configure do |config|
+              #     ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.configure do |config|
               #       config.timeout = 10_000
               #     end
               #
@@ -72,7 +72,7 @@ module Google
               # but structural changes (adding new fields, etc.) are not allowed. Structural changes
               # should be made on {Client.configure}.
               #
-              # See {Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration}
+              # See {::Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration}
               # for a description of the configuration fields.
               #
               # @yield [config] Configure the Client client.
@@ -93,12 +93,12 @@ module Google
               # To create a new CampaignService client with the default
               # configuration:
               #
-              #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
+              #     client = ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
               #
               # To create a new CampaignService client with a custom
               # configuration:
               #
-              #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new do |config|
+              #     client = ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new do |config|
               #       config.timeout = 10_000
               #     end
               #
@@ -126,8 +126,8 @@ module Google
                 end
                 @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
 
-                @campaign_service_stub = Gapic::ServiceStub.new(
-                  Google::Ads::GoogleAds::V1::Services::CampaignService::Stub,
+                @campaign_service_stub = ::Gapic::ServiceStub.new(
+                  ::Google::Ads::GoogleAds::V1::Services::CampaignService::Stub,
                   credentials:  credentials,
                   endpoint:     @config.endpoint,
                   channel_args: @config.channel_args,
@@ -142,12 +142,12 @@ module Google
               #
               # @overload get_campaign(request, options = nil)
               #   Pass arguments to `get_campaign` via a request object, either of type
-              #   {Google::Ads::GoogleAds::V1::Services::GetCampaignRequest} or an equivalent Hash.
+              #   {::Google::Ads::GoogleAds::V1::Services::GetCampaignRequest} or an equivalent Hash.
               #
-              #   @param request [Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, Hash]
+              #   @param request [::Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, ::Hash]
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
-              #   @param options [Gapic::CallOptions, Hash]
+              #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload get_campaign(resource_name: nil)
@@ -155,30 +155,30 @@ module Google
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
-              #   @param resource_name [String]
+              #   @param resource_name [::String]
               #     Required. The resource name of the campaign to fetch.
               #
               # @yield [response, operation] Access the result along with the RPC operation
-              # @yieldparam response [Google::Ads::GoogleAds::V1::Resources::Campaign]
-              # @yieldparam operation [GRPC::ActiveCall::Operation]
+              # @yieldparam response [::Google::Ads::GoogleAds::V1::Resources::Campaign]
+              # @yieldparam operation [::GRPC::ActiveCall::Operation]
               #
-              # @return [Google::Ads::GoogleAds::V1::Resources::Campaign]
+              # @return [::Google::Ads::GoogleAds::V1::Resources::Campaign]
               #
               # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
               #
               def get_campaign request, options = nil
-                raise ArgumentError, "request must be provided" if request.nil?
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-                request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Ads::GoogleAds::V1::Services::GetCampaignRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.get_campaign.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -208,12 +208,12 @@ module Google
               #
               # @overload mutate_campaigns(request, options = nil)
               #   Pass arguments to `mutate_campaigns` via a request object, either of type
-              #   {Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest} or an equivalent Hash.
+              #   {::Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest} or an equivalent Hash.
               #
-              #   @param request [Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, Hash]
+              #   @param request [::Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, ::Hash]
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
-              #   @param options [Gapic::CallOptions, Hash]
+              #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               #
               # @overload mutate_campaigns(customer_id: nil, operations: nil, partial_failure: nil, validate_only: nil)
@@ -221,40 +221,40 @@ module Google
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
-              #   @param customer_id [String]
+              #   @param customer_id [::String]
               #     Required. The ID of the customer whose campaigns are being modified.
-              #   @param operations [Array<Google::Ads::GoogleAds::V1::Services::CampaignOperation, Hash>]
+              #   @param operations [::Array<::Google::Ads::GoogleAds::V1::Services::CampaignOperation, ::Hash>]
               #     Required. The list of operations to perform on individual campaigns.
-              #   @param partial_failure [Boolean]
+              #   @param partial_failure [::Boolean]
               #     If true, successful operations will be carried out and invalid
               #     operations will return errors. If false, all operations will be carried
               #     out in one transaction if and only if they are all valid.
               #     Default is false.
-              #   @param validate_only [Boolean]
+              #   @param validate_only [::Boolean]
               #     If true, the request is validated but not executed. Only errors are
               #     returned, not results.
               #
               # @yield [response, operation] Access the result along with the RPC operation
-              # @yieldparam response [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
-              # @yieldparam operation [GRPC::ActiveCall::Operation]
+              # @yieldparam response [::Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
+              # @yieldparam operation [::GRPC::ActiveCall::Operation]
               #
-              # @return [Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
+              # @return [::Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse]
               #
               # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
               #
               def mutate_campaigns request, options = nil
-                raise ArgumentError, "request must be provided" if request.nil?
+                raise ::ArgumentError, "request must be provided" if request.nil?
 
-                request = Gapic::Protobuf.coerce request, to: Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest
 
                 # Converts hash and nil to an options object
-                options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
                 metadata = @config.rpcs.mutate_campaigns.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -286,7 +286,7 @@ module Google
               # providing control over timeouts, retry behavior, logging, transport
               # parameters, and other low-level controls. Certain parameters can also be
               # applied individually to specific RPCs. See
-              # {Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration::Rpcs}
+              # {::Google::Ads::GoogleAds::V1::Services::CampaignService::Client::Configuration::Rpcs}
               # for a list of RPCs that can be configured independently.
               #
               # Configuration can be applied globally to all clients, or to a single client
@@ -297,14 +297,14 @@ module Google
               # To modify the global config, setting the timeout for get_campaign
               # to 20 seconds, and all remaining timeouts to 10 seconds:
               #
-              #     Google::Ads::GoogleAds::V1::Services::CampaignService::Client.configure do |config|
+              #     ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.configure do |config|
               #       config.timeout = 10_000
               #       config.rpcs.get_campaign.timeout = 20_000
               #     end
               #
               # To apply the above configuration only to a new client:
               #
-              #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new do |config|
+              #     client = ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new do |config|
               #       config.timeout = 10_000
               #       config.rpcs.get_campaign.timeout = 20_000
               #     end
@@ -312,7 +312,7 @@ module Google
               # @!attribute [rw] endpoint
               #   The hostname or hostname:port of the service endpoint.
               #   Defaults to `"googleads.googleapis.com"`.
-              #   @return [String]
+              #   @return [::String]
               # @!attribute [rw] credentials
               #   Credentials to send with calls. You may provide any of the following types:
               #    *  (`String`) The path to a service account key file in JSON format
@@ -324,29 +324,29 @@ module Google
               #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
               #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
               #    *  (`nil`) indicating no credentials
-              #   @return [Object]
+              #   @return [::Object]
               # @!attribute [rw] scope
               #   The OAuth scopes
-              #   @return [Array<String>]
+              #   @return [::Array<::String>]
               # @!attribute [rw] lib_name
               #   The library name as recorded in instrumentation and logging
-              #   @return [String]
+              #   @return [::String]
               # @!attribute [rw] lib_version
               #   The library version as recorded in instrumentation and logging
-              #   @return [String]
+              #   @return [::String]
               # @!attribute [rw] channel_args
               #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
               #   `GRPC::Core::Channel` object is provided as the credential.
-              #   @return [Hash]
+              #   @return [::Hash]
               # @!attribute [rw] interceptors
               #   An array of interceptors that are run before calls are executed.
-              #   @return [Array<GRPC::ClientInterceptor>]
+              #   @return [::Array<::GRPC::ClientInterceptor>]
               # @!attribute [rw] timeout
               #   The call timeout in milliseconds.
-              #   @return [Numeric]
+              #   @return [::Numeric]
               # @!attribute [rw] metadata
               #   Additional gRPC headers to be sent with the call.
-              #   @return [Hash{Symbol=>String}]
+              #   @return [::Hash{::Symbol=>::String}]
               # @!attribute [rw] retry_policy
               #   The retry policy. The value is a hash with the following keys:
               #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -354,10 +354,10 @@ module Google
               #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
               #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
               #       trigger a retry.
-              #   @return [Hash]
+              #   @return [::Hash]
               #
               class Configuration
-                extend Gapic::Config
+                extend ::Gapic::Config
 
                 config_attr :endpoint,     "googleads.googleapis.com", String
                 config_attr :credentials,  nil do |value|
@@ -365,14 +365,14 @@ module Google
                   allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                   allowed.any? { |klass| klass === value }
                 end
-                config_attr :scope,        nil, String, Array, nil
-                config_attr :lib_name,     nil, String, nil
-                config_attr :lib_version,  nil, String, nil
-                config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-                config_attr :interceptors, nil, Array, nil
-                config_attr :timeout,      nil, Numeric, nil
-                config_attr :metadata,     nil, Hash, nil
-                config_attr :retry_policy, nil, Hash, Proc, nil
+                config_attr :scope,        nil, ::String, ::Array, nil
+                config_attr :lib_name,     nil, ::String, nil
+                config_attr :lib_version,  nil, ::String, nil
+                config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+                config_attr :interceptors, nil, ::Array, nil
+                config_attr :timeout,      nil, ::Numeric, nil
+                config_attr :metadata,     nil, ::Hash, nil
+                config_attr :retry_policy, nil, ::Hash, Proc, nil
 
                 # @private
                 def initialize parent_config = nil
@@ -413,21 +413,21 @@ module Google
                 class Rpcs
                   ##
                   # RPC-specific configuration for `get_campaign`
-                  # @return [Gapic::Config::Method]
+                  # @return [::Gapic::Config::Method]
                   #
                   attr_reader :get_campaign
                   ##
                   # RPC-specific configuration for `mutate_campaigns`
-                  # @return [Gapic::Config::Method]
+                  # @return [::Gapic::Config::Method]
                   #
                   attr_reader :mutate_campaigns
 
                   # @private
                   def initialize parent_rpcs = nil
                     get_campaign_config = parent_rpcs&.get_campaign if parent_rpcs&.respond_to? :get_campaign
-                    @get_campaign = Gapic::Config::Method.new get_campaign_config
+                    @get_campaign = ::Gapic::Config::Method.new get_campaign_config
                     mutate_campaigns_config = parent_rpcs&.mutate_campaigns if parent_rpcs&.respond_to? :mutate_campaigns
-                    @mutate_campaigns = Gapic::Config::Method.new mutate_campaigns_config
+                    @mutate_campaigns = ::Gapic::Config::Method.new mutate_campaigns_config
 
                     yield self if block_given?
                   end

@@ -30,7 +30,7 @@ class FieldPresenterShowcaseTest < PresenterTest
 
     assert_equal "name", fp.name
     assert_equal "@!attribute [rw] name", fp.doc_attribute_type
-    assert_equal "String", fp.output_doc_types
+    assert_equal "::String", fp.output_doc_types
     assert_equal "The resource name of the user.\n", fp.doc_description
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
@@ -42,11 +42,11 @@ class FieldPresenterShowcaseTest < PresenterTest
 
     assert_equal "create_time", fp.name
     assert_equal "@!attribute [r] create_time", fp.doc_attribute_type
-    assert_equal "Google::Protobuf::Timestamp", fp.output_doc_types
+    assert_equal "::Google::Protobuf::Timestamp", fp.output_doc_types
     assert_equal "The timestamp at which the user was created.\n", fp.doc_description
     assert_equal "{}", fp.default_value
     assert_equal ".google.protobuf.Timestamp", fp.type_name
-    assert_equal "Google::Protobuf::Timestamp", fp.type_name_full
+    assert_equal "::Google::Protobuf::Timestamp", fp.type_name_full
   end
 
   def test_showcase_CreateUser_fields
@@ -56,11 +56,11 @@ class FieldPresenterShowcaseTest < PresenterTest
     fp = presenter_for_field mp, "user"
     assert_equal "user", fp.name
     assert_equal "@!attribute [rw] user", fp.doc_attribute_type
-    assert_equal "Google::Showcase::V1beta1::User", fp.output_doc_types
+    assert_equal "::Google::Showcase::V1beta1::User", fp.output_doc_types
     assert_equal "The user to create.\n", fp.doc_description
     assert_equal "{}", fp.default_value
     assert_equal ".google.showcase.v1beta1.User", fp.type_name
-    assert_equal "Google::Showcase::V1beta1::User", fp.type_name_full
+    assert_equal "::Google::Showcase::V1beta1::User", fp.type_name_full
   end
 
   def test_showcase_ListUsers_fields
@@ -70,7 +70,7 @@ class FieldPresenterShowcaseTest < PresenterTest
     fp = presenter_for_field mp, "page_size"
     assert_equal "page_size", fp.name
     assert_equal "@!attribute [rw] page_size", fp.doc_attribute_type
-    assert_equal "Integer", fp.output_doc_types
+    assert_equal "::Integer", fp.output_doc_types
     assert_equal %q(The maximum number of users to return. Server may return fewer users
 than requested. If unspecified, server will pick an appropriate default.
 ), fp.doc_description
@@ -81,7 +81,7 @@ than requested. If unspecified, server will pick an appropriate default.
     fp = presenter_for_field mp, "page_token"
     assert_equal "page_token", fp.name
     assert_equal "@!attribute [rw] page_token", fp.doc_attribute_type
-    assert_equal "String", fp.output_doc_types
+    assert_equal "::String", fp.output_doc_types
     assert_equal %q(The value of google.showcase.v1beta1.ListUsersResponse.next_page_token
 returned from the previous call to
 `google.showcase.v1beta1.Identity\\ListUsers` method.

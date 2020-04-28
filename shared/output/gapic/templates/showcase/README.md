@@ -17,7 +17,7 @@ $ gem install google-showcase
 ```ruby
 require "google/showcase/v1beta1"
 
-client = Google::Showcase::V1beta1::Echo::Client.new
+client = ::Google::Showcase::V1beta1::Echo::Client.new
 request = my_create_request
 response = client.echo request
 ```

@@ -1,9 +1,9 @@
 <%- assert_locals method -%>
-unless request.is_a? Enumerable
-  raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+unless request.is_a? ::Enumerable
+  raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
   request = request.to_enum
 end
 
 request = request.lazy.map do |req|
-  Gapic::Protobuf.coerce req, to: <%= method.request_type %>
+  ::Gapic::Protobuf.coerce req, to: <%= method.request_type %>
 end

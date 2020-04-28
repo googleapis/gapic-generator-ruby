@@ -24,8 +24,8 @@ module Google
         module Enums
           # Container for enum describing possible bidding strategy types.
           class BiddingStrategyTypeEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible bidding strategy types.
             module BiddingStrategyType

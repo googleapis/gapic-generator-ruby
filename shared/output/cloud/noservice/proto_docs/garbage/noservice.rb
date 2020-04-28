@@ -19,9 +19,9 @@
 
 module Noservice
   # @!attribute [rw] name
-  #   @return [String]
+  #   @return [::String]
   class Hello
-    include Google::Protobuf::MessageExts
-    extend Google::Protobuf::MessageExts::ClassMethods
+    include ::Google::Protobuf::MessageExts
+    extend ::Google::Protobuf::MessageExts::ClassMethods
   end
 end

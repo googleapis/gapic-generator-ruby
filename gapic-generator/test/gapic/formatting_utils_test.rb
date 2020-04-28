@@ -266,7 +266,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth World}!\n"], result
   end
 
   def test_xref_message_with_ruby_package
@@ -276,7 +276,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {Google::Cloud::MyExample::Earth World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::MyExample::Earth World}!\n"], result
   end
 
   def test_xref_multiple_messages
@@ -288,7 +288,7 @@ class FormattingUtilsTest < Minitest::Test
     end
     result = Gapic::FormattingUtils.format_doc_lines api,
       ["Hello, [Ruby][google.cloud.example.Ruby] [World][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Ruby Ruby} {Google::Cloud::Example::Earth World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Ruby Ruby} {::Google::Cloud::Example::Earth World}!\n"], result
   end
 
   def test_xref_nested_message
@@ -300,7 +300,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.Continent]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth::Continent World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth::Continent World}!\n"], result
   end
 
   def test_xref_field
@@ -312,7 +312,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.population]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth#population World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth#population World}!\n"], result
   end
 
   def test_xref_enum
@@ -324,7 +324,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [GCP][google.cloud.example.CloudProvider]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::CloudProvider GCP}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::CloudProvider GCP}!\n"], result
   end
 
   def test_xref_enum_value
@@ -336,7 +336,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [GCP][google.cloud.example.CloudProvider.GOOGLE_CLOUD_PLATFORM]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::CloudProvider::GOOGLE_CLOUD_PLATFORM GCP}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::CloudProvider::GOOGLE_CLOUD_PLATFORM GCP}!\n"], result
   end
 
   def test_xref_proto_not_found
@@ -356,7 +356,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth::Client World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth::Client World}!\n"], result
   end
 
   def test_xref_with_method
@@ -368,7 +368,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.get_name]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth::Client#get_name World}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth::Client#get_name World}!\n"], result
   end
 
   def test_xref_operations_service
@@ -400,7 +400,7 @@ class FormattingUtilsTest < Minitest::Test
       end
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [`One` and two-three][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {Google::Cloud::Example::Earth `One` and two-three}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth `One` and two-three}!\n"], result
   end
 
   def test_format_number_small_integer

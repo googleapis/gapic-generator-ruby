@@ -39,7 +39,7 @@ module Testing
     # To load this service and instantiate a client:
     #
     #     require "testing/grpc_service_config/service_with_retries"
-    #     client = Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
+    #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
     #
     module ServiceWithRetries
     end

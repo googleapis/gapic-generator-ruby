@@ -44,14 +44,14 @@ module So
           ##
           # Configure the GarbageService Client class.
           #
-          # See {So::Much::Trash::GarbageService::Client::Configuration}
+          # See {::So::Much::Trash::GarbageService::Client::Configuration}
           # for a description of the configuration fields.
           #
           # ## Example
           #
           # To modify the configuration for all GarbageService clients:
           #
-          #     So::Much::Trash::GarbageService::Client.configure do |config|
+          #     ::So::Much::Trash::GarbageService::Client.configure do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -77,7 +77,7 @@ module So
           # but structural changes (adding new fields, etc.) are not allowed. Structural changes
           # should be made on {Client.configure}.
           #
-          # See {So::Much::Trash::GarbageService::Client::Configuration}
+          # See {::So::Much::Trash::GarbageService::Client::Configuration}
           # for a description of the configuration fields.
           #
           # @yield [config] Configure the Client client.
@@ -98,12 +98,12 @@ module So
           # To create a new GarbageService client with the default
           # configuration:
           #
-          #     client = So::Much::Trash::GarbageService::Client.new
+          #     client = ::So::Much::Trash::GarbageService::Client.new
           #
           # To create a new GarbageService client with a custom
           # configuration:
           #
-          #     client = So::Much::Trash::GarbageService::Client.new do |config|
+          #     client = ::So::Much::Trash::GarbageService::Client.new do |config|
           #       config.timeout = 10_000
           #     end
           #
@@ -136,8 +136,8 @@ module So
               config.endpoint = @config.endpoint
             end
 
-            @garbage_service_stub = Gapic::ServiceStub.new(
-              So::Much::Trash::GarbageService::Stub,
+            @garbage_service_stub = ::Gapic::ServiceStub.new(
+              ::So::Much::Trash::GarbageService::Stub,
               credentials:  credentials,
               endpoint:     @config.endpoint,
               channel_args: @config.channel_args,
@@ -148,7 +148,7 @@ module So
           ##
           # Get the associated client for long-running operations.
           #
-          # @return [So::Much::Trash::GarbageService::Operations]
+          # @return [::So::Much::Trash::GarbageService::Operations]
           #
           attr_reader :operations_client
 
@@ -159,35 +159,35 @@ module So
           #
           # @overload get_empty_garbage(request, options = nil)
           #   Pass arguments to `get_empty_garbage` via a request object, either of type
-          #   {So::Much::Trash::EmptyGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::EmptyGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::EmptyGarbage, Hash]
+          #   @param request [::So::Much::Trash::EmptyGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::EmptyGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::EmptyGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::EmptyGarbage]
+          # @return [::So::Much::Trash::EmptyGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_empty_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::EmptyGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::EmptyGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_empty_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -209,12 +209,12 @@ module So
           #
           # @overload get_simple_garbage(request, options = nil)
           #   Pass arguments to `get_simple_garbage` via a request object, either of type
-          #   {So::Much::Trash::SimpleGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::SimpleGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::SimpleGarbage, Hash]
+          #   @param request [::So::Much::Trash::SimpleGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_simple_garbage(name: nil)
@@ -222,21 +222,21 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of this garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::SimpleGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::SimpleGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::SimpleGarbage]
+          # @return [::So::Much::Trash::SimpleGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   name = "Simple Garbage"
           #
@@ -251,7 +251,7 @@ module So
           # @example Getting garbage from file using variable
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   # Get the garbage name from a file.
           #   name = File.read "path/to/garbage-name.txt"
@@ -267,7 +267,7 @@ module So
           # @example Getting garbage from file using variable
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   garbage_name = File.read "path/to/garbage-name.txt"
           #
@@ -283,18 +283,18 @@ module So
           #   puts "Garbage: #{garbage.name}"
           #
           def get_simple_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SimpleGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SimpleGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_simple_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -316,12 +316,12 @@ module So
           #
           # @overload get_specific_garbage(request, options = nil)
           #   Pass arguments to `get_specific_garbage` via a request object, either of type
-          #   {So::Much::Trash::SpecificGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::SpecificGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::SpecificGarbage, Hash]
+          #   @param request [::So::Much::Trash::SpecificGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_specific_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil, nested: nil)
@@ -329,50 +329,50 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of this garbage.
-          #   @param int32 [Integer]
+          #   @param int32 [::Integer]
           #     The int32 of this garbage.
-          #   @param int64 [Integer]
+          #   @param int64 [::Integer]
           #     The int64 of this garbage.
-          #   @param uint32 [Integer]
+          #   @param uint32 [::Integer]
           #     The uint32 of this garbage.
-          #   @param uint64 [Integer]
+          #   @param uint64 [::Integer]
           #     The uint64 of this garbage.
-          #   @param bool [Boolean]
+          #   @param bool [::Boolean]
           #     The bool of this garbage.
-          #   @param float [Float]
+          #   @param float [::Float]
           #     The float of this garbage.
-          #   @param double [Float]
+          #   @param double [::Float]
           #     The double of this garbage.
-          #   @param bytes [String]
+          #   @param bytes [::String]
           #     The bytes of this garbage.
-          #   @param enum [So::Much::Trash::GarbageEnum]
+          #   @param enum [::So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
-          #   @param nested [So::Much::Trash::SpecificGarbage::NestedGarbage, Hash]
+          #   @param nested [::So::Much::Trash::SpecificGarbage::NestedGarbage, ::Hash]
           #     The nested garbage resource of this garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::SpecificGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::SpecificGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::SpecificGarbage]
+          # @return [::So::Much::Trash::SpecificGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_specific_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SpecificGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SpecificGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_specific_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -394,12 +394,12 @@ module So
           #
           # @overload get_nested_garbage(request, options = nil)
           #   Pass arguments to `get_nested_garbage` via a request object, either of type
-          #   {So::Much::Trash::SpecificGarbage::NestedGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::SpecificGarbage::NestedGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::SpecificGarbage::NestedGarbage, Hash]
+          #   @param request [::So::Much::Trash::SpecificGarbage::NestedGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_nested_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil)
@@ -407,48 +407,48 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of this garbage.
-          #   @param int32 [Integer]
+          #   @param int32 [::Integer]
           #     The int32 of this garbage.
-          #   @param int64 [Integer]
+          #   @param int64 [::Integer]
           #     The int64 of this garbage.
-          #   @param uint32 [Integer]
+          #   @param uint32 [::Integer]
           #     The uint32 of this garbage.
-          #   @param uint64 [Integer]
+          #   @param uint64 [::Integer]
           #     The uint64 of this garbage.
-          #   @param bool [Boolean]
+          #   @param bool [::Boolean]
           #     The bool of this garbage.
-          #   @param float [Float]
+          #   @param float [::Float]
           #     The float of this garbage.
-          #   @param double [Float]
+          #   @param double [::Float]
           #     The double of this garbage.
-          #   @param bytes [String]
+          #   @param bytes [::String]
           #     The bytes of this garbage.
-          #   @param enum [So::Much::Trash::GarbageEnum]
+          #   @param enum [::So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::SpecificGarbage::NestedGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::SpecificGarbage::NestedGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::SpecificGarbage::NestedGarbage]
+          # @return [::So::Much::Trash::SpecificGarbage::NestedGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_nested_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::SpecificGarbage::NestedGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SpecificGarbage::NestedGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_nested_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -470,12 +470,12 @@ module So
           #
           # @overload get_repeated_garbage(request, options = nil)
           #   Pass arguments to `get_repeated_garbage` via a request object, either of type
-          #   {So::Much::Trash::RepeatedGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::RepeatedGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::RepeatedGarbage, Hash]
+          #   @param request [::So::Much::Trash::RepeatedGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_repeated_garbage(repeated_name: nil, repeated_int32: nil, repeated_int64: nil, repeated_uint32: nil, repeated_uint64: nil, repeated_bool: nil, repeated_float: nil, repeated_double: nil, repeated_bytes: nil, repeated_enum: nil)
@@ -483,48 +483,48 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param repeated_name [Array<String>]
+          #   @param repeated_name [::Array<::String>]
           #     The repeated name of this garbage.
-          #   @param repeated_int32 [Array<Integer>]
+          #   @param repeated_int32 [::Array<::Integer>]
           #     The repeated int32 of this garbage.
-          #   @param repeated_int64 [Array<Integer>]
+          #   @param repeated_int64 [::Array<::Integer>]
           #     The repeated int64 of this garbage.
-          #   @param repeated_uint32 [Array<Integer>]
+          #   @param repeated_uint32 [::Array<::Integer>]
           #     The repeated uint32 of this garbage.
-          #   @param repeated_uint64 [Array<Integer>]
+          #   @param repeated_uint64 [::Array<::Integer>]
           #     The repeated uint64 of this garbage.
-          #   @param repeated_bool [Array<Boolean>]
+          #   @param repeated_bool [::Array<::Boolean>]
           #     The repeated bool of this garbage.
-          #   @param repeated_float [Array<Float>]
+          #   @param repeated_float [::Array<::Float>]
           #     The repeated float of this garbage.
-          #   @param repeated_double [Array<Float>]
+          #   @param repeated_double [::Array<::Float>]
           #     The repeated double of this garbage.
-          #   @param repeated_bytes [Array<String>]
+          #   @param repeated_bytes [::Array<::String>]
           #     The repeated bytes of this garbage.
-          #   @param repeated_enum [Array<So::Much::Trash::GarbageEnum>]
+          #   @param repeated_enum [::Array<::So::Much::Trash::GarbageEnum>]
           #     The repeated type of this garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::RepeatedGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::RepeatedGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::RepeatedGarbage]
+          # @return [::So::Much::Trash::RepeatedGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_repeated_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::RepeatedGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::RepeatedGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_repeated_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -546,12 +546,12 @@ module So
           #
           # @overload get_typical_garbage(request, options = nil)
           #   Pass arguments to `get_typical_garbage` via a request object, either of type
-          #   {So::Much::Trash::GetTypicalGarbageRequest} or an equivalent Hash.
+          #   {::So::Much::Trash::GetTypicalGarbageRequest} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::GetTypicalGarbageRequest, Hash]
+          #   @param request [::So::Much::Trash::GetTypicalGarbageRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_typical_garbage(name: nil)
@@ -559,21 +559,21 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param name [String]
+          #   @param name [::String]
           #     The name of the garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::TypicalGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::TypicalGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::TypicalGarbage]
+          # @return [::So::Much::Trash::TypicalGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage (printing timestamp)
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   name = "Typical Garbage"
           #   int32 = 42
@@ -593,7 +593,7 @@ module So
           # @example Getting garbage (printing timestamp)
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   name = "Typical Garbage"
           #   int32 = 42
@@ -613,7 +613,7 @@ module So
           # @example Getting garbage (printing msg hash)
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   name = "Typical Garbage"
           #   int32 = 42
@@ -627,18 +627,18 @@ module So
           #   end
           #
           def get_typical_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::GetTypicalGarbageRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::GetTypicalGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_typical_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -660,12 +660,12 @@ module So
           #
           # @overload get_complex_garbage(request, options = nil)
           #   Pass arguments to `get_complex_garbage` via a request object, either of type
-          #   {So::Much::Trash::ComplexGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::ComplexGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::ComplexGarbage, Hash]
+          #   @param request [::So::Much::Trash::ComplexGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_complex_garbage(layer1: nil)
@@ -673,21 +673,21 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param layer1 [So::Much::Trash::ComplexGarbage::Layer1Garbage, Hash]
+          #   @param layer1 [::So::Much::Trash::ComplexGarbage::Layer1Garbage, ::Hash]
           #     The first step to total and complete garbage.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::ComplexGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::ComplexGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::ComplexGarbage]
+          # @return [::So::Much::Trash::ComplexGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   layer1 = {
           #     layer2 = {
@@ -710,7 +710,7 @@ module So
           # @example Getting garbage (write a file)
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   layer1 = {
           #     layer2 = {
@@ -728,18 +728,18 @@ module So
           #   File.write "path/to/garbage_name.txt", response.layer1.layer2.layer3.garbage.name
           #
           def get_complex_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::ComplexGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ComplexGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_complex_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -761,12 +761,12 @@ module So
           #
           # @overload get_garbage_node(request, options = nil)
           #   Pass arguments to `get_garbage_node` via a request object, either of type
-          #   {So::Much::Trash::GarbageNode} or an equivalent Hash.
+          #   {::So::Much::Trash::GarbageNode} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::GarbageNode, Hash]
+          #   @param request [::So::Much::Trash::GarbageNode, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_garbage_node(data: nil, parent: nil)
@@ -774,30 +774,30 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param data [String]
-          #   @param parent [So::Much::Trash::GarbageNode, Hash]
+          #   @param data [::String]
+          #   @param parent [::So::Much::Trash::GarbageNode, ::Hash]
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::GarbageNode]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::GarbageNode]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::GarbageNode]
+          # @return [::So::Much::Trash::GarbageNode]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_garbage_node request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::GarbageNode
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::GarbageNode
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_garbage_node.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -819,12 +819,12 @@ module So
           #
           # @overload get_paged_garbage(request, options = nil)
           #   Pass arguments to `get_paged_garbage` via a request object, either of type
-          #   {So::Much::Trash::PagedGarbageRequest} or an equivalent Hash.
+          #   {::So::Much::Trash::PagedGarbageRequest} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::PagedGarbageRequest, Hash]
+          #   @param request [::So::Much::Trash::PagedGarbageRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload get_paged_garbage(garbage: nil, page_size: nil, page_token: nil)
@@ -832,25 +832,25 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param garbage [String]
+          #   @param garbage [::String]
           #     The garbage to page.
-          #   @param page_size [Integer]
+          #   @param page_size [::Integer]
           #     The amount of garbage items to returned in each page.
-          #   @param page_token [String]
+          #   @param page_token [::String]
           #     The position of the page to be returned.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Gapic::PagedEnumerable<So::Much::Trash::GarbageItem>]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Gapic::PagedEnumerable<::So::Much::Trash::GarbageItem>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Gapic::PagedEnumerable<So::Much::Trash::GarbageItem>]
+          # @return [::Gapic::PagedEnumerable<::So::Much::Trash::GarbageItem>]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   garbage = "Paged Garbage"
           #
@@ -865,18 +865,18 @@ module So
           #   end
           #
           def get_paged_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::PagedGarbageRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::PagedGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.get_paged_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -888,7 +888,7 @@ module So
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_paged_garbage, request, options: options do |response, operation|
-              response = Gapic::PagedEnumerable.new @garbage_service_stub, :get_paged_garbage, request, response, operation, options
+              response = ::Gapic::PagedEnumerable.new @garbage_service_stub, :get_paged_garbage, request, response, operation, options
               yield response, operation if block_given?
               return response
             end
@@ -900,12 +900,12 @@ module So
           #
           # @overload long_running_garbage(request, options = nil)
           #   Pass arguments to `long_running_garbage` via a request object, either of type
-          #   {So::Much::Trash::LongRunningGarbageRequest} or an equivalent Hash.
+          #   {::So::Much::Trash::LongRunningGarbageRequest} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::LongRunningGarbageRequest, Hash]
+          #   @param request [::So::Much::Trash::LongRunningGarbageRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload long_running_garbage(garbage: nil)
@@ -913,30 +913,30 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param garbage [String]
+          #   @param garbage [::String]
           #     The name of the garbage this item belongs to.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Gapic::Operation]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Gapic::Operation]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Gapic::Operation]
+          # @return [::Gapic::Operation]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def long_running_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::LongRunningGarbageRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::LongRunningGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.long_running_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -948,7 +948,7 @@ module So
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :long_running_garbage, request, options: options do |response, operation|
-              response = Gapic::Operation.new response, @operations_client, options: options
+              response = ::Gapic::Operation.new response, @operations_client, options: options
               yield response, operation if block_given?
               return response
             end
@@ -957,37 +957,37 @@ module So
           ##
           # Performs client streaming garbage listing.
           #
-          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest, Hash>]
-          #   An enumerable of {So::Much::Trash::ListGarbageRequest} instances.
-          # @param options [Gapic::CallOptions, Hash]
+          # @param request [::Gapic::StreamInput, ::Enumerable<::So::Much::Trash::ListGarbageRequest, ::Hash>]
+          #   An enumerable of {::So::Much::Trash::ListGarbageRequest} instances.
+          # @param options [::Gapic::CallOptions, ::Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::ListGarbageResponse]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::ListGarbageResponse]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::ListGarbageResponse]
+          # @return [::So::Much::Trash::ListGarbageResponse]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def client_garbage request, options = nil
-            unless request.is_a? Enumerable
-              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+            unless request.is_a? ::Enumerable
+              raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
               request = request.to_enum
             end
 
             request = request.lazy.map do |req|
-              Gapic::Protobuf.coerce req, to: So::Much::Trash::ListGarbageRequest
+              ::Gapic::Protobuf.coerce req, to: ::So::Much::Trash::ListGarbageRequest
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.client_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -1009,12 +1009,12 @@ module So
           #
           # @overload server_garbage(request, options = nil)
           #   Pass arguments to `server_garbage` via a request object, either of type
-          #   {So::Much::Trash::ListGarbageRequest} or an equivalent Hash.
+          #   {::So::Much::Trash::ListGarbageRequest} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::ListGarbageRequest, Hash]
+          #   @param request [::So::Much::Trash::ListGarbageRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @overload server_garbage(garbage: nil)
@@ -1022,21 +1022,21 @@ module So
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
-          #   @param garbage [String]
+          #   @param garbage [::String]
           #     The name of the garbage this item belongs to.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Enumerable<So::Much::Trash::GarbageItem>]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Enumerable<::So::Much::Trash::GarbageItem>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<So::Much::Trash::GarbageItem>]
+          # @return [::Enumerable<::So::Much::Trash::GarbageItem>]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
           #
-          #   client = So::Much::Trash::GarbageService::Client.new
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
           #   garbage = "Server Garbage"
           #
@@ -1051,18 +1051,18 @@ module So
           #   end
           #
           def server_garbage request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::ListGarbageRequest
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ListGarbageRequest
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.server_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -1082,37 +1082,37 @@ module So
           ##
           # Performs bidirectional streaming garbage listing.
           #
-          # @param request [Gapic::StreamInput, Enumerable<So::Much::Trash::ListGarbageRequest, Hash>]
-          #   An enumerable of {So::Much::Trash::ListGarbageRequest} instances.
-          # @param options [Gapic::CallOptions, Hash]
+          # @param request [::Gapic::StreamInput, ::Enumerable<::So::Much::Trash::ListGarbageRequest, ::Hash>]
+          #   An enumerable of {::So::Much::Trash::ListGarbageRequest} instances.
+          # @param options [::Gapic::CallOptions, ::Hash]
           #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [Enumerable<So::Much::Trash::GarbageItem>]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::Enumerable<::So::Much::Trash::GarbageItem>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [Enumerable<So::Much::Trash::GarbageItem>]
+          # @return [::Enumerable<::So::Much::Trash::GarbageItem>]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def bidi_garbage request, options = nil
-            unless request.is_a? Enumerable
-              raise ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+            unless request.is_a? ::Enumerable
+              raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
               request = request.to_enum
             end
 
             request = request.lazy.map do |req|
-              Gapic::Protobuf.coerce req, to: So::Much::Trash::ListGarbageRequest
+              ::Gapic::Protobuf.coerce req, to: ::So::Much::Trash::ListGarbageRequest
             end
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.bidi_garbage.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -1134,35 +1134,35 @@ module So
           #
           # @overload call_send(request, options = nil)
           #   Pass arguments to `call_send` via a request object, either of type
-          #   {So::Much::Trash::EmptyGarbage} or an equivalent Hash.
+          #   {::So::Much::Trash::EmptyGarbage} or an equivalent Hash.
           #
-          #   @param request [So::Much::Trash::EmptyGarbage, Hash]
+          #   @param request [::So::Much::Trash::EmptyGarbage, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [Gapic::CallOptions, Hash]
+          #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
           # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [So::Much::Trash::EmptyGarbage]
-          # @yieldparam operation [GRPC::ActiveCall::Operation]
+          # @yieldparam response [::So::Much::Trash::EmptyGarbage]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
           #
-          # @return [So::Much::Trash::EmptyGarbage]
+          # @return [::So::Much::Trash::EmptyGarbage]
           #
-          # @raise [GRPC::BadStatus] if the RPC is aborted.
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def call_send request, options = nil
-            raise ArgumentError, "request must be provided" if request.nil?
+            raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = Gapic::Protobuf.coerce request, to: So::Much::Trash::EmptyGarbage
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::EmptyGarbage
 
             # Converts hash and nil to an options object
-            options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
             metadata = @config.rpcs.call_send.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
@@ -1186,7 +1186,7 @@ module So
           # providing control over timeouts, retry behavior, logging, transport
           # parameters, and other low-level controls. Certain parameters can also be
           # applied individually to specific RPCs. See
-          # {So::Much::Trash::GarbageService::Client::Configuration::Rpcs}
+          # {::So::Much::Trash::GarbageService::Client::Configuration::Rpcs}
           # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
@@ -1197,14 +1197,14 @@ module So
           # To modify the global config, setting the timeout for get_empty_garbage
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
-          #     So::Much::Trash::GarbageService::Client.configure do |config|
+          #     ::So::Much::Trash::GarbageService::Client.configure do |config|
           #       config.timeout = 10_000
           #       config.rpcs.get_empty_garbage.timeout = 20_000
           #     end
           #
           # To apply the above configuration only to a new client:
           #
-          #     client = So::Much::Trash::GarbageService::Client.new do |config|
+          #     client = ::So::Much::Trash::GarbageService::Client.new do |config|
           #       config.timeout = 10_000
           #       config.rpcs.get_empty_garbage.timeout = 20_000
           #     end
@@ -1212,7 +1212,7 @@ module So
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
           #   Defaults to `"endlesstrash.example.net"`.
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] credentials
           #   Credentials to send with calls. You may provide any of the following types:
           #    *  (`String`) The path to a service account key file in JSON format
@@ -1224,29 +1224,29 @@ module So
           #    *  (`GRPC::Core::Channel`) a gRPC channel with included credentials
           #    *  (`GRPC::Core::ChannelCredentials`) a gRPC credentails object
           #    *  (`nil`) indicating no credentials
-          #   @return [Object]
+          #   @return [::Object]
           # @!attribute [rw] scope
           #   The OAuth scopes
-          #   @return [Array<String>]
+          #   @return [::Array<::String>]
           # @!attribute [rw] lib_name
           #   The library name as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] lib_version
           #   The library version as recorded in instrumentation and logging
-          #   @return [String]
+          #   @return [::String]
           # @!attribute [rw] channel_args
           #   Extra parameters passed to the gRPC channel. Note: this is ignored if a
           #   `GRPC::Core::Channel` object is provided as the credential.
-          #   @return [Hash]
+          #   @return [::Hash]
           # @!attribute [rw] interceptors
           #   An array of interceptors that are run before calls are executed.
-          #   @return [Array<GRPC::ClientInterceptor>]
+          #   @return [::Array<::GRPC::ClientInterceptor>]
           # @!attribute [rw] timeout
           #   The call timeout in milliseconds.
-          #   @return [Numeric]
+          #   @return [::Numeric]
           # @!attribute [rw] metadata
           #   Additional gRPC headers to be sent with the call.
-          #   @return [Hash{Symbol=>String}]
+          #   @return [::Hash{::Symbol=>::String}]
           # @!attribute [rw] retry_policy
           #   The retry policy. The value is a hash with the following keys:
           #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
@@ -1254,10 +1254,10 @@ module So
           #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
           #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
           #       trigger a retry.
-          #   @return [Hash]
+          #   @return [::Hash]
           #
           class Configuration
-            extend Gapic::Config
+            extend ::Gapic::Config
 
             config_attr :endpoint,     "endlesstrash.example.net", String
             config_attr :credentials,  nil do |value|
@@ -1265,14 +1265,14 @@ module So
               allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
               allowed.any? { |klass| klass === value }
             end
-            config_attr :scope,        nil, String, Array, nil
-            config_attr :lib_name,     nil, String, nil
-            config_attr :lib_version,  nil, String, nil
-            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, Hash, nil)
-            config_attr :interceptors, nil, Array, nil
-            config_attr :timeout,      nil, Numeric, nil
-            config_attr :metadata,     nil, Hash, nil
-            config_attr :retry_policy, nil, Hash, Proc, nil
+            config_attr :scope,        nil, ::String, ::Array, nil
+            config_attr :lib_name,     nil, ::String, nil
+            config_attr :lib_version,  nil, ::String, nil
+            config_attr(:channel_args, { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr :interceptors, nil, ::Array, nil
+            config_attr :timeout,      nil, ::Numeric, nil
+            config_attr :metadata,     nil, ::Hash, nil
+            config_attr :retry_policy, nil, ::Hash, Proc, nil
 
             # @private
             def initialize parent_config = nil
@@ -1313,105 +1313,105 @@ module So
             class Rpcs
               ##
               # RPC-specific configuration for `get_empty_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_empty_garbage
               ##
               # RPC-specific configuration for `get_simple_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_simple_garbage
               ##
               # RPC-specific configuration for `get_specific_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_specific_garbage
               ##
               # RPC-specific configuration for `get_nested_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_nested_garbage
               ##
               # RPC-specific configuration for `get_repeated_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_repeated_garbage
               ##
               # RPC-specific configuration for `get_typical_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_typical_garbage
               ##
               # RPC-specific configuration for `get_complex_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_complex_garbage
               ##
               # RPC-specific configuration for `get_garbage_node`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_garbage_node
               ##
               # RPC-specific configuration for `get_paged_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :get_paged_garbage
               ##
               # RPC-specific configuration for `long_running_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :long_running_garbage
               ##
               # RPC-specific configuration for `client_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :client_garbage
               ##
               # RPC-specific configuration for `server_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :server_garbage
               ##
               # RPC-specific configuration for `bidi_garbage`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :bidi_garbage
               ##
               # RPC-specific configuration for `call_send`
-              # @return [Gapic::Config::Method]
+              # @return [::Gapic::Config::Method]
               #
               attr_reader :call_send
 
               # @private
               def initialize parent_rpcs = nil
                 get_empty_garbage_config = parent_rpcs&.get_empty_garbage if parent_rpcs&.respond_to? :get_empty_garbage
-                @get_empty_garbage = Gapic::Config::Method.new get_empty_garbage_config
+                @get_empty_garbage = ::Gapic::Config::Method.new get_empty_garbage_config
                 get_simple_garbage_config = parent_rpcs&.get_simple_garbage if parent_rpcs&.respond_to? :get_simple_garbage
-                @get_simple_garbage = Gapic::Config::Method.new get_simple_garbage_config
+                @get_simple_garbage = ::Gapic::Config::Method.new get_simple_garbage_config
                 get_specific_garbage_config = parent_rpcs&.get_specific_garbage if parent_rpcs&.respond_to? :get_specific_garbage
-                @get_specific_garbage = Gapic::Config::Method.new get_specific_garbage_config
+                @get_specific_garbage = ::Gapic::Config::Method.new get_specific_garbage_config
                 get_nested_garbage_config = parent_rpcs&.get_nested_garbage if parent_rpcs&.respond_to? :get_nested_garbage
-                @get_nested_garbage = Gapic::Config::Method.new get_nested_garbage_config
+                @get_nested_garbage = ::Gapic::Config::Method.new get_nested_garbage_config
                 get_repeated_garbage_config = parent_rpcs&.get_repeated_garbage if parent_rpcs&.respond_to? :get_repeated_garbage
-                @get_repeated_garbage = Gapic::Config::Method.new get_repeated_garbage_config
+                @get_repeated_garbage = ::Gapic::Config::Method.new get_repeated_garbage_config
                 get_typical_garbage_config = parent_rpcs&.get_typical_garbage if parent_rpcs&.respond_to? :get_typical_garbage
-                @get_typical_garbage = Gapic::Config::Method.new get_typical_garbage_config
+                @get_typical_garbage = ::Gapic::Config::Method.new get_typical_garbage_config
                 get_complex_garbage_config = parent_rpcs&.get_complex_garbage if parent_rpcs&.respond_to? :get_complex_garbage
-                @get_complex_garbage = Gapic::Config::Method.new get_complex_garbage_config
+                @get_complex_garbage = ::Gapic::Config::Method.new get_complex_garbage_config
                 get_garbage_node_config = parent_rpcs&.get_garbage_node if parent_rpcs&.respond_to? :get_garbage_node
-                @get_garbage_node = Gapic::Config::Method.new get_garbage_node_config
+                @get_garbage_node = ::Gapic::Config::Method.new get_garbage_node_config
                 get_paged_garbage_config = parent_rpcs&.get_paged_garbage if parent_rpcs&.respond_to? :get_paged_garbage
-                @get_paged_garbage = Gapic::Config::Method.new get_paged_garbage_config
+                @get_paged_garbage = ::Gapic::Config::Method.new get_paged_garbage_config
                 long_running_garbage_config = parent_rpcs&.long_running_garbage if parent_rpcs&.respond_to? :long_running_garbage
-                @long_running_garbage = Gapic::Config::Method.new long_running_garbage_config
+                @long_running_garbage = ::Gapic::Config::Method.new long_running_garbage_config
                 client_garbage_config = parent_rpcs&.client_garbage if parent_rpcs&.respond_to? :client_garbage
-                @client_garbage = Gapic::Config::Method.new client_garbage_config
+                @client_garbage = ::Gapic::Config::Method.new client_garbage_config
                 server_garbage_config = parent_rpcs&.server_garbage if parent_rpcs&.respond_to? :server_garbage
-                @server_garbage = Gapic::Config::Method.new server_garbage_config
+                @server_garbage = ::Gapic::Config::Method.new server_garbage_config
                 bidi_garbage_config = parent_rpcs&.bidi_garbage if parent_rpcs&.respond_to? :bidi_garbage
-                @bidi_garbage = Gapic::Config::Method.new bidi_garbage_config
+                @bidi_garbage = ::Gapic::Config::Method.new bidi_garbage_config
                 call_send_config = parent_rpcs&.call_send if parent_rpcs&.respond_to? :call_send
-                @call_send = Gapic::Config::Method.new call_send_config
+                @call_send = ::Gapic::Config::Method.new call_send_config
 
                 yield self if block_given?
               end

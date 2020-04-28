@@ -30,7 +30,7 @@ module Testing
   module GrpcServiceConfig
     module ServiceWithRetries
       # Credentials for the ServiceWithRetries API.
-      class Credentials < Google::Auth::Credentials
+      class Credentials < ::Google::Auth::Credentials
         self.env_vars = [
           "GRPC_SERVICE_CONFIG_CREDENTIALS",
           "GRPC_SERVICE_CONFIG_KEYFILE",

@@ -27,7 +27,7 @@ module Google
         # To load this package, including all its services, and instantiate a client:
         #
         #     require "google/ads/google_ads/v1/services"
-        #     client = Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
+        #     client = ::Google::Ads::GoogleAds::V1::Services::CampaignService::Client.new
         #
         module Services
         end

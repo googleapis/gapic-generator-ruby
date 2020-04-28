@@ -24,8 +24,8 @@ module Google
         module Enums
           # Possible ad serving statuses of a campaign.
           class AdServingOptimizationStatusEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing possible serving statuses.
             module AdServingOptimizationStatus

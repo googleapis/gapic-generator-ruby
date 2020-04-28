@@ -25,14 +25,14 @@ module Google
           # A mapping that can be used by custom parameter tags in a
           # `tracking_url_template`, `final_urls`, or `mobile_final_urls`.
           # @!attribute [rw] key
-          #   @return [Google::Protobuf::StringValue]
+          #   @return [::Google::Protobuf::StringValue]
           #     The key matching the parameter tag name.
           # @!attribute [rw] value
-          #   @return [Google::Protobuf::StringValue]
+          #   @return [::Google::Protobuf::StringValue]
           #     The value to be substituted.
           class CustomParameter
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
           end
         end
       end

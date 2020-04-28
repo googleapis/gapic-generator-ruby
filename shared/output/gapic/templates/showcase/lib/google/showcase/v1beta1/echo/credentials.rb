@@ -31,7 +31,7 @@ module Google
     module V1beta1
       module Echo
         # Credentials for the Echo API.
-        class Credentials < Google::Auth::Credentials
+        class Credentials < ::Google::Auth::Credentials
           self.env_vars = [
             "SHOWCASE_CREDENTIALS",
             "SHOWCASE_KEYFILE",

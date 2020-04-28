@@ -24,8 +24,8 @@ module Google
         module Enums
           # The application store that distributes mobile applications.
           class AppCampaignAppStoreEnum
-            include Google::Protobuf::MessageExts
-            extend Google::Protobuf::MessageExts::ClassMethods
+            include ::Google::Protobuf::MessageExts
+            extend ::Google::Protobuf::MessageExts::ClassMethods
 
             # Enum describing app campaign app store.
             module AppCampaignAppStore

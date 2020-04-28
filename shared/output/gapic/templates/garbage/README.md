@@ -17,7 +17,7 @@ $ gem install google-garbage
 ```ruby
 require "so/much/trash"
 
-client = So::Much::Trash::GarbageService::Client.new
+client = ::So::Much::Trash::GarbageService::Client.new
 request = my_create_request
 response = client.get_empty_garbage request
 ```

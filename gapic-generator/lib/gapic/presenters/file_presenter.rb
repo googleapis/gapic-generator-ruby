@@ -39,7 +39,7 @@ module Gapic
       end
 
       def namespace
-        return @file.ruby_package if @file.ruby_package.present?
+        return ensure_absolute_namespace @file.ruby_package if @file.ruby_package.present?
         ruby_namespace_for_address address
       end
 

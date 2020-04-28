@@ -50,23 +50,23 @@ module Google
           #   @param user_id [String]
           #   @param blurb_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def blurb_path **args
             resources = {
               "blurb_id:room_id" => (proc do |room_id:, blurb_id:|
-                raise ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
+                raise ::ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
 
                 "rooms/#{room_id}/blurbs/#{blurb_id}"
               end),
               "blurb_id:user_id" => (proc do |user_id:, blurb_id:|
-                raise ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
+                raise ::ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
 
                 "user/#{user_id}/profile/blurbs/#{blurb_id}"
               end)
             }
 
             resource = resources[args.keys.sort.join(":")]
-            raise ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
             resource.call(**args)
           end
 
@@ -79,7 +79,7 @@ module Google
           #
           # @param room_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def room_path room_id:
             "rooms/#{room_id}"
           end
@@ -93,7 +93,7 @@ module Google
           #
           # @param user_id [String]
           #
-          # @return [String]
+          # @return [::String]
           def user_path user_id:
             "users/#{user_id}"
           end
