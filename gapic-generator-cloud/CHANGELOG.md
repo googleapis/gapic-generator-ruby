@@ -3,6 +3,7 @@
 ### 0.4.2 / 2020-04-28
 
 * Includes changes from gapic-generator 0.4.2
+* Eliminate a circular require in generated wrappers.
 
 ### 0.4.1 / 2020-04-23
 
