@@ -7,31 +7,47 @@ option ruby_package = "So::Much::Trash";
 import "google/api/client.proto";
 import "google/api/resource.proto";
 
+// A resource that is referenced in a message but not an ancestor to the message
+// Is expected to generate the path helpers but not to show up in the ancestor chains
+// Has a simple path pattern
 option (google.api.resource_definition) = {
   type: "resourcenames.example.com/SimplePatternNonParentResource"
   pattern: "locations/{location}"
 };
 
+// A resource that is referenced in a message but not an ancestor to the message
+// Is expected to generate the path helpers but not to show up in the ancestor chains
+// Has a complex path pattern
 option (google.api.resource_definition) = {
   type: "resourcenames.example.com/ComplexPatternNonParentResource"
   pattern: "orders/{order_a}~{order_b}"
 };
 
+// A resource that is referenced in a message and also an ancestor to the message 
+// Is expected to generate the path helpers and to show up in the ancestor chains
+// Has a simple path pattern
 option (google.api.resource_definition) = {
   type: "resourcenames.example.com/SimplePatternResource"
   pattern: "customers/{customer}"
 };
 
+// A resource that is referenced in a message and also an ancestor to the message 
+// Is expected to generate the path helpers and to show up in the ancestor chains
+// Has a complex path pattern
 option (google.api.resource_definition) = {
   type: "resourcenames.example.com/ComplexPatternResource"
   pattern: "customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}"
 };
 
+// A resource that is not referenced in a message but is an ancestor to the message 
+// Is expected to show up in the ancestor chains but not to generate the path helpers
+// Has a complex path pattern
 option (google.api.resource_definition) = {
   type: "resourcenames.example.com/ComplexPatternIntermediateResource"
   pattern: "customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}"
 };
 
+// A service that exposes the messages testing various combinations of path patterns
 service ResourceNames {
   option (google.api.default_host) = "endlesstrash.example.net";
 
@@ -42,6 +58,7 @@ service ResourceNames {
   }
 }
 
+// A message with a simple pattern
 message SimplePatternRequest {
   option (google.api.resource) = {
     type: "resourcenames.example.com/SimplePatternRequest"
@@ -54,6 +71,7 @@ message SimplePatternRequest {
   repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/SimplePatternNonParentResource"];
 }
 
+// A message with multiple path patterns, one of which is complex
 message ComplexPatternRequest {
   option (google.api.resource) = {
     type: "resourcenames.example.com/ComplexPatternRequest"

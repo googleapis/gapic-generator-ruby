@@ -28,6 +28,7 @@
 module So
   module Much
     module Trash
+      # A message with a simple pattern
       # @!attribute [rw] real_name
       #   @return [::String]
       # @!attribute [rw] ref
@@ -39,6 +40,7 @@ module So
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # A message with multiple path patterns, one of which is complex
       # @!attribute [rw] real_name
       #   @return [::String]
       # @!attribute [rw] ref

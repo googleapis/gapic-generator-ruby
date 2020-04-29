@@ -38,6 +38,8 @@ module So
   module Much
     module Trash
       ##
+      # A service that exposes the messages testing various combinations of path patterns
+      #
       # To load this service and instantiate a client:
       #
       #     require "so/much/trash/resource_names"

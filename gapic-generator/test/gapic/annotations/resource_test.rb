@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "test_helper"
-require "awesome_print"
 
 class AnnotationResourceTest < AnnotationTest
   def test_garbage_Common
@@ -28,7 +27,6 @@ class AnnotationResourceTest < AnnotationTest
   end
 
   def test_garbage_Garbage
-
     garbage = api :garbage
     file = garbage.file_for "endless.trash.forever.GarbageService"
 
@@ -44,9 +42,12 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal 1, parents.size
     assert_equal ["projects/{project}"], parents.first.pattern
     assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
-
   end
 
+  ##
+  # Make sure that the resources with complex patterns (multi-variate resource IDs) construct resource chains correctly
+  # Resources with simple patterns are as controls here
+  #
   def test_garbage_ResourceNames
     garbage = api :garbage
     file = garbage.file_for "endless.trash.forever.ResourceNames"
@@ -72,9 +73,9 @@ class AnnotationResourceTest < AnnotationTest
 
     resource_type_chain = construct_resource_type_chain resource
     expected_type_chain = [
-      "resourcenames.example.com/ComplexPatternRequest",
-      "resourcenames.example.com/ComplexPatternDetailsResource",
-      "resourcenames.example.com/ComplexPatternResource",
+      "resourcenames.example.com/ComplexPatternRequest", 
+      "resourcenames.example.com/ComplexPatternIntermediateResource", 
+      "resourcenames.example.com/ComplexPatternResource", 
       "resourcenames.example.com/SimplePatternResource"
     ]
     assert_equal expected_type_chain, resource_type_chain

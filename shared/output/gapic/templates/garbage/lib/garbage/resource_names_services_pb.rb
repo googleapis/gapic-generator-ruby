@@ -8,6 +8,7 @@ module So
   module Much
     module Trash
       module ResourceNames
+        # A service that exposes the messages testing various combinations of path patterns
         class Service
 
           include GRPC::GenericService
