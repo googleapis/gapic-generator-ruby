@@ -28,7 +28,7 @@ class GarbagePackagePresenterTest < PresenterTest
 
     assert_kind_of Gapic::Presenters::GemPresenter, presenter.gem
 
-    assert_equal ["GarbageService", "IAMPolicy"], presenter.services.map(&:name)
+    assert_equal ["GarbageService", "ResourceNames", "IAMPolicy"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
 end

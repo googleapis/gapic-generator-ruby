@@ -44,6 +44,43 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
   end
 
+  ##
+  # Make sure that the resources with complex patterns (multi-variate resource IDs) construct resource chains correctly
+  # Resources with simple patterns are as controls here
+  #
+  def test_garbage_ResourceNames
+    garbage = api :garbage
+    file = garbage.file_for "endless.trash.forever.ResourceNames"
+
+    simple_req_message = file.messages.find { |s| s.name == "SimplePatternRequest" }
+    refute_nil simple_req_message
+
+    resource = simple_req_message.resource
+    refute_nil resource
+
+    resource_type_chain = construct_resource_type_chain resource
+    expected_type_chain = [
+      "resourcenames.example.com/SimplePatternRequest",
+      "resourcenames.example.com/SimplePatternResource"
+    ]
+    assert_equal expected_type_chain, resource_type_chain
+
+    complex_req_message = file.messages.find { |s| s.name == "ComplexPatternRequest" }
+    refute_nil complex_req_message
+
+    resource = complex_req_message.resource
+    refute_nil resource
+
+    resource_type_chain = construct_resource_type_chain resource
+    expected_type_chain = [
+      "resourcenames.example.com/ComplexPatternRequest", 
+      "resourcenames.example.com/ComplexPatternIntermediateResource", 
+      "resourcenames.example.com/ComplexPatternResource", 
+      "resourcenames.example.com/SimplePatternResource"
+    ]
+    assert_equal expected_type_chain, resource_type_chain
+  end
+
   def test_garbage_SimpleGarbage
     garbage = api :garbage
     message = garbage.messages.find { |s| s.name == "SimpleGarbage" }
@@ -147,5 +184,19 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal 2, message.fields.count
     assert_nil message.fields[0].resource_reference
     assert_nil message.fields[1].resource_reference
+  end
+
+  private
+
+  def construct_resource_type_chain resource
+    resource_type_chain = [resource.type]
+
+    while resource.parent_resources.count > 0
+      assert_equal resource.parent_resources.count, 1
+      resource = resource.parent_resources[0]
+      resource_type_chain.append resource.type
+    end
+
+    return resource_type_chain
   end
 end
