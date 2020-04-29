@@ -16,8 +16,8 @@ module So
           self.unmarshal_class_method = :decode
           self.service_name = 'endless.trash.forever.ResourceNames'
 
-          rpc :SinglePatternMethod, So::Much::Trash::SinglePattern, So::Much::Trash::Response
-          rpc :NonSlashPatternMethod, So::Much::Trash::NonSlashMultiPattern, So::Much::Trash::Response
+          rpc :SimplePatternMethod, So::Much::Trash::SimplePatternRequest, So::Much::Trash::Response
+          rpc :ComplexPatternMethod, So::Much::Trash::ComplexPatternRequest, So::Much::Trash::Response
         end
 
         Stub = Service.rpc_stub_class

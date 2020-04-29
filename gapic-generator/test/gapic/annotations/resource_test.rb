@@ -47,82 +47,37 @@ class AnnotationResourceTest < AnnotationTest
 
   end
 
-  def print_resource resource_name, resource
-    STDERR.puts "-----------------------------------------------"
-    STDERR.puts "#{resource_name}.type:"
-    STDERR.puts resource.type
-    STDERR.puts "#{resource_name}.pattern:"
-    STDERR.puts resource.pattern
-    STDERR.puts "#{resource_name}.parsed_patterns:"
-    STDERR.puts resource.parsed_patterns.awesome_inspect
-    STDERR.puts "#{resource_name}.parent_resources.length:"
-    STDERR.puts resource.parent_resources.length 
-
-    if resource.parent_resources.length 
-      resource.parent_resources.each_with_index do |presource, index|
-        STDERR.puts "#{resource_name}.parent_resources[#{index}].type:" 
-        STDERR.puts presource.type
-        STDERR.puts "#{resource_name}.parent_resources[#{index}].pattern:"
-        STDERR.puts presource.pattern
-      end
-    end
-    STDERR.puts "-----------------------------------------------"
-  end
-
-  def garbage_Resources
-
+  def test_garbage_ResourceNames
     garbage = api :garbage
     file = garbage.file_for "endless.trash.forever.ResourceNames"
 
-    STDERR.puts "==============================================="
-    STDERR.puts "debugging is supposed to start"
-    STDERR.puts "==============================================="
+    simple_req_message = file.messages.find { |s| s.name == "SimplePatternRequest" }
+    refute_nil simple_req_message
 
-    STDERR.puts "-----------------------------------------------"
-    STDERR.puts "file.resources.size"
-    STDERR.puts file.resources.size
-    STDERR.puts "-----------------------------------------------"
+    resource = simple_req_message.resource
+    refute_nil resource
 
-    if file.resources.size
-      file.resources.each_with_index do |resource, index|
-        print_resource "file.resources[#{index}]", resource
-      end
-    end
+    resource_type_chain = construct_resource_type_chain resource
+    expected_type_chain = [
+      "resourcenames.example.com/SimplePatternRequest",
+      "resourcenames.example.com/SimplePatternResource"
+    ]
+    assert_equal expected_type_chain, resource_type_chain
 
-    STDERR.puts "-----------------------------------------------"
-    STDERR.puts "file.messages.size"
-    STDERR.puts file.messages.size
-    STDERR.puts "-----------------------------------------------"
+    complex_req_message = file.messages.find { |s| s.name == "ComplexPatternRequest" }
+    refute_nil complex_req_message
 
-    if file.messages.size 
-      file.messages.each_with_index do |message, index|
-        STDERR.puts "-----------------------------------------------"
-        STDERR.puts "file.messages[#{index}].name:"
-        STDERR.puts message.name
+    resource = complex_req_message.resource
+    refute_nil resource
 
-        if message.resource
-          print_resource "file.messages[#{index}].resource", message.resource
-        end
-      end
-    end
-
-    require 'pry'
-    binding.pry
-    abort
-
-    resources = file.resources
-    assert_equal 1, resources.size
-
-    resource = resources.first
-    assert_equal 6, resource.pattern.size
-    assert_equal "endlesstrash.example.net/Garbage", resource.type
-    assert_equal resource, garbage.lookup_resource_type("endlesstrash.example.net/Garbage")
-
-    parents = resource.parent_resources
-    assert_equal 1, parents.size
-    assert_equal ["projects/{project}"], parents.first.pattern
-    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
-
+    resource_type_chain = construct_resource_type_chain resource
+    expected_type_chain = [
+      "resourcenames.example.com/ComplexPatternRequest",
+      "resourcenames.example.com/ComplexPatternDetailsResource",
+      "resourcenames.example.com/ComplexPatternResource",
+      "resourcenames.example.com/SimplePatternResource"
+    ]
+    assert_equal expected_type_chain, resource_type_chain
   end
 
   def test_garbage_SimpleGarbage
@@ -228,5 +183,19 @@ class AnnotationResourceTest < AnnotationTest
     assert_equal 2, message.fields.count
     assert_nil message.fields[0].resource_reference
     assert_nil message.fields[1].resource_reference
+  end
+
+  private
+
+  def construct_resource_type_chain resource
+    resource_type_chain = [resource.type]
+
+    while resource.parent_resources.count > 0
+      assert_equal resource.parent_resources.count, 1
+      resource = resource.parent_resources[0]
+      resource_type_chain.append resource.type
+    end
+
+    return resource_type_chain
   end
 end

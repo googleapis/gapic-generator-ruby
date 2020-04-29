@@ -34,11 +34,7 @@ module So
       #   @return [::String]
       # @!attribute [rw] repeated_ref
       #   @return [::Array<::String>]
-      # @!attribute [rw] value_ref
-      #   @return [::Google::Protobuf::StringValue]
-      # @!attribute [rw] repeated_value_ref
-      #   @return [::Array<::Google::Protobuf::StringValue>]
-      class SinglePattern
+      class SimplePatternRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
@@ -49,25 +45,7 @@ module So
       #   @return [::String]
       # @!attribute [rw] repeated_ref
       #   @return [::Array<::String>]
-      # @!attribute [rw] value_ref
-      #   @return [::Google::Protobuf::StringValue]
-      # @!attribute [rw] repeated_value_ref
-      #   @return [::Array<::Google::Protobuf::StringValue>]
-      class NonSlashMultiPattern
-        include ::Google::Protobuf::MessageExts
-        extend ::Google::Protobuf::MessageExts::ClassMethods
-      end
-
-      # @!attribute [rw] real_name
-      #   @return [::String]
-      class NsaSinglePattern
-        include ::Google::Protobuf::MessageExts
-        extend ::Google::Protobuf::MessageExts::ClassMethods
-      end
-
-      # @!attribute [rw] real_name
-      #   @return [::String]
-      class NsaNonSlashMultiPattern
+      class ComplexPatternRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end

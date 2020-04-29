@@ -32,44 +32,65 @@ module So
         # Path helper methods for the ResourceNames API.
         module Paths
           ##
-          # Create a fully-qualified NonSlashMultiPattern resource string.
+          # Create a fully-qualified ComplexPatternNonParentResource resource string.
           #
-          # @overload non_slash_multi_pattern_path(customer:, ad_group_id:, ad_id:)
-          #   The resource will be in the following format:
+          # The resource will be in the following format:
           #
-          #   `customers/{customer}/adGroupAds/{ad_group_id}~{ad_id}`
+          # `orders/{order_a}~{order_b}`
           #
-          #   @param customer [String]
-          #   @param ad_group_id [String]
-          #   @param ad_id [String]
-          #
-          # @overload non_slash_multi_pattern_path(customer_1:, customer_2:, ad_group_id:, ad_id:, third_id:)
-          #   The resource will be in the following format:
-          #
-          #   `customers/{customer_1}-{customer_2}/adGroupAds/{ad_group_id}~{ad_id}_{third_id}`
-          #
-          #   @param customer_1 [String]
-          #   @param customer_2 [String]
-          #   @param ad_group_id [String]
-          #   @param ad_id [String]
-          #   @param third_id [String]
+          # @param order_a [String]
+          # @param order_b [String]
           #
           # @return [::String]
-          def non_slash_multi_pattern_path **args
+          def complex_pattern_non_parent_resource_path order_a:, order_b:
+            raise ::ArgumentError, "order_a cannot contain /" if order_a.to_s.include? "/"
+
+            "orders/#{order_a}~#{order_b}"
+          end
+
+          ##
+          # Create a fully-qualified ComplexPatternRequest resource string.
+          #
+          # @overload complex_pattern_request_path(customer:, item_a_id:, item_b_id:, items_c_id:, details_a_id:, details_b_id:, details_c_id:, extra_id:)
+          #   The resource will be in the following format:
+          #
+          #   `customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}/extra/{extra_id}`
+          #
+          #   @param customer [String]
+          #   @param item_a_id [String]
+          #   @param item_b_id [String]
+          #   @param items_c_id [String]
+          #   @param details_a_id [String]
+          #   @param details_b_id [String]
+          #   @param details_c_id [String]
+          #   @param extra_id [String]
+          #
+          # @overload complex_pattern_request_path(customer:, extra_id:)
+          #   The resource will be in the following format:
+          #
+          #   `as/customers/{customer}/extras/{extra_id}`
+          #
+          #   @param customer [String]
+          #   @param extra_id [String]
+          #
+          # @return [::String]
+          def complex_pattern_request_path **args
             resources = {
-              "ad_group_id:ad_id:customer"                       => (proc do |customer:, ad_group_id:, ad_id:|
+              "customer:details_a_id:details_b_id:details_c_id:extra_id:item_a_id:item_b_id:items_c_id" => (proc do |customer:, item_a_id:, item_b_id:, items_c_id:, details_a_id:, details_b_id:, details_c_id:, extra_id:|
                 raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
-                raise ::ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
+                raise ::ArgumentError, "item_a_id cannot contain /" if item_a_id.to_s.include? "/"
+                raise ::ArgumentError, "item_b_id cannot contain /" if item_b_id.to_s.include? "/"
+                raise ::ArgumentError, "items_c_id cannot contain /" if items_c_id.to_s.include? "/"
+                raise ::ArgumentError, "details_a_id cannot contain /" if details_a_id.to_s.include? "/"
+                raise ::ArgumentError, "details_b_id cannot contain /" if details_b_id.to_s.include? "/"
+                raise ::ArgumentError, "details_c_id cannot contain /" if details_c_id.to_s.include? "/"
 
-                "customers/#{customer}/adGroupAds/#{ad_group_id}~#{ad_id}"
+                "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}/details/#{details_a_id}_#{details_b_id}-#{details_c_id}/extra/#{extra_id}"
               end),
-              "ad_group_id:ad_id:customer_1:customer_2:third_id" => (proc do |customer_1:, customer_2:, ad_group_id:, ad_id:, third_id:|
-                raise ::ArgumentError, "customer_1 cannot contain /" if customer_1.to_s.include? "/"
-                raise ::ArgumentError, "customer_2 cannot contain /" if customer_2.to_s.include? "/"
-                raise ::ArgumentError, "ad_group_id cannot contain /" if ad_group_id.to_s.include? "/"
-                raise ::ArgumentError, "ad_id cannot contain /" if ad_id.to_s.include? "/"
+              "customer:extra_id"                                                                       => (proc do |customer:, extra_id:|
+                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
-                "customers/#{customer_1}-#{customer_2}/adGroupAds/#{ad_group_id}~#{ad_id}_#{third_id}"
+                "as/customers/#{customer}/extras/#{extra_id}"
               end)
             }
 
@@ -79,20 +100,69 @@ module So
           end
 
           ##
-          # Create a fully-qualified SinglePattern resource string.
+          # Create a fully-qualified ComplexPatternResource resource string.
           #
           # The resource will be in the following format:
           #
-          # `customers/{customer}/foo/{foo_id}`
+          # `customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}`
           #
           # @param customer [String]
-          # @param foo_id [String]
+          # @param item_a_id [String]
+          # @param item_b_id [String]
+          # @param items_c_id [String]
           #
           # @return [::String]
-          def single_pattern_path customer:, foo_id:
+          def complex_pattern_resource_path customer:, item_a_id:, item_b_id:, items_c_id:
+            raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+            raise ::ArgumentError, "item_a_id cannot contain /" if item_a_id.to_s.include? "/"
+            raise ::ArgumentError, "item_b_id cannot contain /" if item_b_id.to_s.include? "/"
+
+            "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}"
+          end
+
+          ##
+          # Create a fully-qualified SimplePatternNonParentResource resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `locations/{location}`
+          #
+          # @param location [String]
+          #
+          # @return [::String]
+          def simple_pattern_non_parent_resource_path location:
+            "locations/#{location}"
+          end
+
+          ##
+          # Create a fully-qualified SimplePatternRequest resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `customers/{customer}/things/{thing}`
+          #
+          # @param customer [String]
+          # @param thing [String]
+          #
+          # @return [::String]
+          def simple_pattern_request_path customer:, thing:
             raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
-            "customers/#{customer}/foo/#{foo_id}"
+            "customers/#{customer}/things/#{thing}"
+          end
+
+          ##
+          # Create a fully-qualified SimplePatternResource resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `customers/{customer}`
+          #
+          # @param customer [String]
+          #
+          # @return [::String]
+          def simple_pattern_resource_path customer:
+            "customers/#{customer}"
           end
 
           extend self

@@ -5,28 +5,17 @@ require 'google/protobuf'
 
 require 'google/api/client_pb'
 require 'google/api/resource_pb'
-require 'google/protobuf/wrappers_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("garbage/resource_names.proto", :syntax => :proto3) do
-    add_message "endless.trash.forever.SinglePattern" do
+    add_message "endless.trash.forever.SimplePatternRequest" do
       optional :real_name, :string, 1
       optional :ref, :string, 2
       repeated :repeated_ref, :string, 3
-      optional :value_ref, :message, 4, "google.protobuf.StringValue"
-      repeated :repeated_value_ref, :message, 5, "google.protobuf.StringValue"
     end
-    add_message "endless.trash.forever.NonSlashMultiPattern" do
+    add_message "endless.trash.forever.ComplexPatternRequest" do
       optional :real_name, :string, 1
       optional :ref, :string, 2
       repeated :repeated_ref, :string, 3
-      optional :value_ref, :message, 4, "google.protobuf.StringValue"
-      repeated :repeated_value_ref, :message, 5, "google.protobuf.StringValue"
-    end
-    add_message "endless.trash.forever.NsaSinglePattern" do
-      optional :real_name, :string, 1
-    end
-    add_message "endless.trash.forever.NsaNonSlashMultiPattern" do
-      optional :real_name, :string, 1
     end
     add_message "endless.trash.forever.Response" do
     end
@@ -36,10 +25,8 @@ end
 module So
   module Much
     module Trash
-      SinglePattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SinglePattern").msgclass
-      NonSlashMultiPattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NonSlashMultiPattern").msgclass
-      NsaSinglePattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NsaSinglePattern").msgclass
-      NsaNonSlashMultiPattern = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NsaNonSlashMultiPattern").msgclass
+      SimplePatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimplePatternRequest").msgclass
+      ComplexPatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexPatternRequest").msgclass
       Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.Response").msgclass
     end
   end

@@ -141,26 +141,24 @@ module So
           # Service calls
 
           ##
-          # @overload single_pattern_method(request, options = nil)
-          #   Pass arguments to `single_pattern_method` via a request object, either of type
-          #   {::So::Much::Trash::SinglePattern} or an equivalent Hash.
+          # @overload simple_pattern_method(request, options = nil)
+          #   Pass arguments to `simple_pattern_method` via a request object, either of type
+          #   {::So::Much::Trash::SimplePatternRequest} or an equivalent Hash.
           #
-          #   @param request [::So::Much::Trash::SinglePattern, ::Hash]
+          #   @param request [::So::Much::Trash::SimplePatternRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload single_pattern_method(real_name: nil, ref: nil, repeated_ref: nil, value_ref: nil, repeated_value_ref: nil)
-          #   Pass arguments to `single_pattern_method` via keyword arguments. Note that at
+          # @overload simple_pattern_method(real_name: nil, ref: nil, repeated_ref: nil)
+          #   Pass arguments to `simple_pattern_method` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param real_name [::String]
           #   @param ref [::String]
           #   @param repeated_ref [::Array<::String>]
-          #   @param value_ref [::Google::Protobuf::StringValue, ::Hash]
-          #   @param repeated_value_ref [::Array<::Google::Protobuf::StringValue, ::Hash>]
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::So::Much::Trash::Response]
@@ -170,16 +168,16 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
-          def single_pattern_method request, options = nil
+          def simple_pattern_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SinglePattern
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SimplePatternRequest
 
             # Converts hash and nil to an options object
             options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.rpcs.single_pattern_method.metadata.to_h
+            metadata = @config.rpcs.simple_pattern_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -187,39 +185,37 @@ module So
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.single_pattern_method.timeout,
+            options.apply_defaults timeout:      @config.rpcs.simple_pattern_method.timeout,
                                    metadata:     metadata,
-                                   retry_policy: @config.rpcs.single_pattern_method.retry_policy
+                                   retry_policy: @config.rpcs.simple_pattern_method.retry_policy
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :single_pattern_method, request, options: options do |response, operation|
+            @resource_names_stub.call_rpc :simple_pattern_method, request, options: options do |response, operation|
               yield response, operation if block_given?
               return response
             end
           end
 
           ##
-          # @overload non_slash_pattern_method(request, options = nil)
-          #   Pass arguments to `non_slash_pattern_method` via a request object, either of type
-          #   {::So::Much::Trash::NonSlashMultiPattern} or an equivalent Hash.
+          # @overload complex_pattern_method(request, options = nil)
+          #   Pass arguments to `complex_pattern_method` via a request object, either of type
+          #   {::So::Much::Trash::ComplexPatternRequest} or an equivalent Hash.
           #
-          #   @param request [::So::Much::Trash::NonSlashMultiPattern, ::Hash]
+          #   @param request [::So::Much::Trash::ComplexPatternRequest, ::Hash]
           #     A request object representing the call parameters. Required. To specify no
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload non_slash_pattern_method(real_name: nil, ref: nil, repeated_ref: nil, value_ref: nil, repeated_value_ref: nil)
-          #   Pass arguments to `non_slash_pattern_method` via keyword arguments. Note that at
+          # @overload complex_pattern_method(real_name: nil, ref: nil, repeated_ref: nil)
+          #   Pass arguments to `complex_pattern_method` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param real_name [::String]
           #   @param ref [::String]
           #   @param repeated_ref [::Array<::String>]
-          #   @param value_ref [::Google::Protobuf::StringValue, ::Hash]
-          #   @param repeated_value_ref [::Array<::Google::Protobuf::StringValue, ::Hash>]
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::So::Much::Trash::Response]
@@ -229,16 +225,16 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
-          def non_slash_pattern_method request, options = nil
+          def complex_pattern_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::NonSlashMultiPattern
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::ComplexPatternRequest
 
             # Converts hash and nil to an options object
             options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
-            metadata = @config.rpcs.non_slash_pattern_method.metadata.to_h
+            metadata = @config.rpcs.complex_pattern_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
             metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -246,13 +242,13 @@ module So
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            options.apply_defaults timeout:      @config.rpcs.non_slash_pattern_method.timeout,
+            options.apply_defaults timeout:      @config.rpcs.complex_pattern_method.timeout,
                                    metadata:     metadata,
-                                   retry_policy: @config.rpcs.non_slash_pattern_method.retry_policy
+                                   retry_policy: @config.rpcs.complex_pattern_method.retry_policy
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :non_slash_pattern_method, request, options: options do |response, operation|
+            @resource_names_stub.call_rpc :complex_pattern_method, request, options: options do |response, operation|
               yield response, operation if block_given?
               return response
             end
@@ -273,19 +269,19 @@ module So
           #
           # # Examples
           #
-          # To modify the global config, setting the timeout for single_pattern_method
+          # To modify the global config, setting the timeout for simple_pattern_method
           # to 20 seconds, and all remaining timeouts to 10 seconds:
           #
           #     ::So::Much::Trash::ResourceNames::Client.configure do |config|
           #       config.timeout = 10_000
-          #       config.rpcs.single_pattern_method.timeout = 20_000
+          #       config.rpcs.simple_pattern_method.timeout = 20_000
           #     end
           #
           # To apply the above configuration only to a new client:
           #
           #     client = ::So::Much::Trash::ResourceNames::Client.new do |config|
           #       config.timeout = 10_000
-          #       config.rpcs.single_pattern_method.timeout = 20_000
+          #       config.rpcs.simple_pattern_method.timeout = 20_000
           #     end
           #
           # @!attribute [rw] endpoint
@@ -391,22 +387,22 @@ module So
             #
             class Rpcs
               ##
-              # RPC-specific configuration for `single_pattern_method`
+              # RPC-specific configuration for `simple_pattern_method`
               # @return [::Gapic::Config::Method]
               #
-              attr_reader :single_pattern_method
+              attr_reader :simple_pattern_method
               ##
-              # RPC-specific configuration for `non_slash_pattern_method`
+              # RPC-specific configuration for `complex_pattern_method`
               # @return [::Gapic::Config::Method]
               #
-              attr_reader :non_slash_pattern_method
+              attr_reader :complex_pattern_method
 
               # @private
               def initialize parent_rpcs = nil
-                single_pattern_method_config = parent_rpcs&.single_pattern_method if parent_rpcs&.respond_to? :single_pattern_method
-                @single_pattern_method = ::Gapic::Config::Method.new single_pattern_method_config
-                non_slash_pattern_method_config = parent_rpcs&.non_slash_pattern_method if parent_rpcs&.respond_to? :non_slash_pattern_method
-                @non_slash_pattern_method = ::Gapic::Config::Method.new non_slash_pattern_method_config
+                simple_pattern_method_config = parent_rpcs&.simple_pattern_method if parent_rpcs&.respond_to? :simple_pattern_method
+                @simple_pattern_method = ::Gapic::Config::Method.new simple_pattern_method_config
+                complex_pattern_method_config = parent_rpcs&.complex_pattern_method if parent_rpcs&.respond_to? :complex_pattern_method
+                @complex_pattern_method = ::Gapic::Config::Method.new complex_pattern_method_config
 
                 yield self if block_given?
               end
