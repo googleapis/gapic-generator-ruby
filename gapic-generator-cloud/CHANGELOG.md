@@ -1,5 +1,9 @@
 # Release History for gapic-generator-cloud
 
+### 0.4.3 / 2020-05-01
+
+* Unpin minitest in the generated wrappers.
+
 ### 0.4.2 / 2020-04-28
 
 * Includes changes from gapic-generator 0.4.2
