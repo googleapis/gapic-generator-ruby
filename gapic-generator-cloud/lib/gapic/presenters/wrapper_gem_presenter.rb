@@ -38,6 +38,14 @@ module Gapic
         ruby_file_path @api, namespace
       end
 
+      def main_directory_name
+        namespace_require.split("/").last
+      end
+
+      def helpers_require
+        "#{namespace_require}/helpers"
+      end
+
       def namespace_file_path
         "#{namespace_require}.rb"
       end
