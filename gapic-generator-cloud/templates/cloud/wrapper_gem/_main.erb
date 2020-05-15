@@ -93,6 +93,7 @@ def self.configure
   ::Google::Cloud.configure.<%= gem.google_cloud_short_name %>
 end
 <%- end -%>
-
+<% @footer = capture do %>
 helper_path = ::File.join __dir__, "<%= gem.main_directory_name %>", "helpers.rb"
 require "<%= gem.helpers_require %>" if ::File.file? helper_path
+<% end %>
