@@ -100,7 +100,8 @@ class <%= service.client_name %>
     if credentials.is_a?(String) || credentials.is_a?(Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
-    @quota_project_id = credentials.respond_to?(:quota_project_id) ? credentials.quota_project_id : nil
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
     <%- if service.lro? -%>
     <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
