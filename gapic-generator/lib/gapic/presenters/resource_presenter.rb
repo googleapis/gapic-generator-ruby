@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "gapic/path_template"
-require "ostruct"
 require "active_support/inflector"
 
 module Gapic
