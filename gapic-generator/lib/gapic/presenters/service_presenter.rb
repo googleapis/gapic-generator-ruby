@@ -272,6 +272,10 @@ module Gapic
         service_file_path.sub ".rb", "_test.rb"
       end
 
+      def test_paths_file_path
+        service_file_path.sub ".rb", "_paths_test.rb"
+      end
+
       def test_client_operations_file_path
         service_file_path.sub ".rb", "_operations_test.rb"
       end

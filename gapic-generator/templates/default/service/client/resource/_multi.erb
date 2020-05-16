@@ -3,8 +3,7 @@
 # Create a fully-qualified <%= resource.name %> resource string.
 #
 <%- resource.patterns.each do |pattern| -%>
-<%- args_doc_sig = pattern.arguments.map { |arg| "#{arg}:" }.join ", " -%>
-# @overload <%= resource.path_helper %>(<%= args_doc_sig %>)
+# @overload <%= resource.path_helper %>(<%= pattern.formal_arguments %>)
 <%= indent render(partial: "service/client/resource/doc", locals: { pattern: pattern }), "#   " %>
 #
 <%- end -%>
@@ -14,9 +13,7 @@ def <%= resource.path_helper %> **args
 <%- last_pattern_index = resource.patterns.count - 1 -%>
 <%- resource.patterns.each_with_index do |pattern, index| -%>
 <%- comma = last_pattern_index == index ? "" : "," -%>
-<%- args_key = pattern.arguments.sort.join(":").inspect -%>
-<%- args_sig = pattern.arguments.map { |arg| "#{arg}:" }.join ", " -%>
-    <%= args_key %> => (proc do |<%= args_sig %>|
+    <%= pattern.arguments_key.inspect %> => (proc do |<%= pattern.formal_arguments %>|
 <%= indent render(partial: "service/client/resource/def", locals: { pattern: pattern }), 6 %>
     end)<%= comma %>
 <%- end -%>

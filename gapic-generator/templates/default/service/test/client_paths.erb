@@ -1,0 +1,18 @@
+<%- assert_locals service -%>
+# frozen_string_literal: true
+
+<%= render partial: "shared/license" %>
+require "simplecov"
+require "minitest/autorun"
+
+require "gapic/grpc/service_stub"
+
+require "<%= service.service_require %>"
+
+class <%= service.client_name_full %>PathsTest < Minitest::Test
+<%- service.references.each do |resource| -%>
+<%= indent render(partial: "service/test/resource",
+                  locals: { resource: resource, service: service }), 2 %>
+
+<%- end %>
+end
