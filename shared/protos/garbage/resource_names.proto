@@ -56,6 +56,9 @@ service ResourceNames {
 
   rpc ComplexPatternMethod(ComplexPatternRequest) returns(Response) {
   }
+
+  rpc StarPatternMethod(StarPatternRequest) returns(Response) {
+  }
 }
 
 // A message with a simple pattern
@@ -82,6 +85,16 @@ message ComplexPatternRequest {
   string real_name = 1;
   string ref = 2 [(google.api.resource_reference).type = "resourcenames.example.com/ComplexPatternResource"];
   repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/ComplexPatternNonParentResource"];
+}
+
+// A message with a pattern that includes a segment with a star pattern
+message StarPatternRequest {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/StarPatternRequest"
+    pattern: "customers/{customer}/path/{path=**}"
+  };
+
+  string name = 1;
 }
 
 message Response { }
