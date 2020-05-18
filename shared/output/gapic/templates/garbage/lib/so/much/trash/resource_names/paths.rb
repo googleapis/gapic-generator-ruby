@@ -165,6 +165,23 @@ module So
             "customers/#{customer}"
           end
 
+          ##
+          # Create a fully-qualified StarPatternRequest resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `customers/{customer}/path/{path=**}`
+          #
+          # @param customer [String]
+          # @param path [String]
+          #
+          # @return [::String]
+          def star_pattern_request_path customer:, path:
+            raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+
+            "customers/#{customer}/path/#{path}"
+          end
+
           extend self
         end
       end

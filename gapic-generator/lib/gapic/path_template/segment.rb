@@ -56,6 +56,13 @@ module Gapic
         !@pattern.nil?
       end
 
+      # Determines if the segment has a nontrivial pattern (i.e. not `*` or `**`).
+      #
+      # @return [Boolean]
+      def nontrivial_pattern?
+        @pattern && @pattern != "*" && @pattern != "**"
+      end
+
       # @private
       def == other
         return false unless other.is_a? self.class

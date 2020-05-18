@@ -19,6 +19,7 @@ module So
 
           rpc :SimplePatternMethod, So::Much::Trash::SimplePatternRequest, So::Much::Trash::Response
           rpc :ComplexPatternMethod, So::Much::Trash::ComplexPatternRequest, So::Much::Trash::Response
+          rpc :StarPatternMethod, So::Much::Trash::StarPatternRequest, So::Much::Trash::Response
         end
 
         Stub = Service.rpc_stub_class

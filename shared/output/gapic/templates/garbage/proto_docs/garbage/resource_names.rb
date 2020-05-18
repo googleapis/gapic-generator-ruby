@@ -52,6 +52,14 @@ module So
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # A message with a pattern that includes a segment with a star pattern
+      # @!attribute [rw] name
+      #   @return [::String]
+      class StarPatternRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
       class Response
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
