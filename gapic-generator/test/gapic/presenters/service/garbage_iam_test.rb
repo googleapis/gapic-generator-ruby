@@ -16,7 +16,7 @@
 
 require "test_helper"
 
-class GarbageServiceTest < PresenterTest
+class GarbageServiceIamTest < PresenterTest
   def presenter
     service_presenter :garbage, "IAMPolicy"
   end

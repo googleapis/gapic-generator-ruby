@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "gapic/path_template"
-require "ostruct"
 require "active_support/inflector"
 
 module Gapic
@@ -28,20 +27,10 @@ module Gapic
       def initialize resource
         @resource = resource
 
-        @patterns = resource.pattern.map do |template|
-          segments = Gapic::PathTemplate.parse template
-          OpenStruct.new(
-            template:    template,
-            segments:    segments,
-            arguments:   arguments_for(segments),
-            path_string: path_string_for(segments)
-          )
-        end
+        @patterns = resource.pattern.map { |template| PatternPresenter.new template }
 
         # Keep only patterns that can be used to create path helpers
-        @patterns.reject! do |pattern|
-          named_arg_patterns?(pattern.segments) || positional_args?(pattern.segments)
-        end
+        @patterns.filter!(&:useful_for_helpers?)
       end
 
       def name
@@ -60,33 +49,64 @@ module Gapic
         "#{ActiveSupport::Inflector.underscore name}_path"
       end
 
-      private
+      ##
+      # A presenter for a particular pattern
+      #
+      class PatternPresenter
+        def initialize template
+          @template = template
+          @segments = Gapic::PathTemplate.parse template
+          @arguments = arg_segments.map(&:name)
+          @path_string = build_path_string
+        end
 
-      def arguments_for segments
-        arg_segments(segments).map(&:name)
-      end
+        attr_reader :template, :segments, :arguments, :path_string
 
-      def arg_segments segments
-        segments.select { |segment| segment.is_a? Gapic::PathTemplate::Segment }
-      end
+        def useful_for_helpers?
+          arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)
+        end
 
-      def path_string_for segments
-        segments.map do |segment|
-          if segment.is_a? Gapic::PathTemplate::Segment
-            "\#{#{segment.name}}"
-          else
-            # Should be a String
-            segment
-          end
-        end.join
-      end
+        def formal_arguments
+          arguments.map { |arg| "#{arg}:" }.join ", "
+        end
 
-      def positional_args? segments
-        arg_segments(segments).any?(&:positional?)
-      end
+        def arguments_key
+          arguments.sort.join ":"
+        end
 
-      def named_arg_patterns? segments
-        arg_segments(segments).any?(&:nontrivial_pattern?)
+        def arguments_with_dummy_values
+          arguments.each_with_index.map { |arg, index| "#{arg}: \"value#{index}\"" }.join ", "
+        end
+
+        def expected_path_for_dummy_values
+          index = -1
+          segments.map do |segment|
+            if segment.is_a? Gapic::PathTemplate::Segment
+              index += 1
+              "value#{index}"
+            else
+              # Should be a String
+              segment
+            end
+          end.join
+        end
+
+        private
+
+        def arg_segments
+          segments.select { |segment| segment.is_a? Gapic::PathTemplate::Segment }
+        end
+
+        def build_path_string
+          segments.map do |segment|
+            if segment.is_a? Gapic::PathTemplate::Segment
+              "\#{#{segment.name}}"
+            else
+              # Should be a String
+              segment
+            end
+          end.join
+        end
       end
     end
   end

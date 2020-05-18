@@ -58,6 +58,7 @@ module Gapic
             files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
             files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro?
             files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service)
+            files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
             files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro?
           end
         end
