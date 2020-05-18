@@ -119,6 +119,8 @@ class PathTemplateTest < Minitest::Test
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments
+
+    act_segments
   end
 
   def assert_valid_segments segments

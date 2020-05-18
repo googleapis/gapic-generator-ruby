@@ -18,22 +18,35 @@ require "test_helper"
 
 class NamedPathTemplateTest < PathTemplateTest
   def test_simple_path_template
-    assert_path_template(
+    segments = assert_path_template(
       "foo/{bar}/baz/{bif}",
       "foo/",
       Gapic::PathTemplate::Segment.new("bar", nil),
       "/baz/",
       Gapic::PathTemplate::Segment.new("bif", nil)
     )
+    assert segments[1].named?
+    refute segments[1].positional?
+    refute segments[1].pattern?
+    refute segments[1].nontrivial_pattern?
   end
 
   def test_pattern_path_template
-    assert_path_template(
-      "hello/{name=foo/*/bar/**}/world",
+    segments = assert_path_template(
+      "hello/{name=foo*bar}/world/{trailer=**}",
       "hello/",
-      Gapic::PathTemplate::Segment.new("name", "foo/*/bar/**"),
-      "/world"
+      Gapic::PathTemplate::Segment.new("name", "foo*bar"),
+      "/world/",
+      Gapic::PathTemplate::Segment.new("trailer", "**")
     )
+    assert segments[1].named?
+    refute segments[1].positional?
+    assert segments[1].pattern?
+    assert segments[1].nontrivial_pattern?
+    assert segments[3].named?
+    refute segments[3].positional?
+    assert segments[3].pattern?
+    refute segments[3].nontrivial_pattern?
   end
 
   def test_prefix_path_template

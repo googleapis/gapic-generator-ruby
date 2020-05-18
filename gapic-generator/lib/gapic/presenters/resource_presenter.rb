@@ -86,7 +86,7 @@ module Gapic
       end
 
       def named_arg_patterns? segments
-        arg_segments(segments).any?(&:pattern)
+        arg_segments(segments).any?(&:nontrivial_pattern?)
       end
     end
   end
