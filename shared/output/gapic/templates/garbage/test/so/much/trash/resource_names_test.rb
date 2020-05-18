@@ -178,6 +178,64 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     end
   end
 
+  def test_star_pattern_method
+    # Create GRPC objects.
+    grpc_response = ::So::Much::Trash::Response.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    name = "hello world"
+
+    star_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :star_pattern_method, name
+      assert_kind_of ::So::Much::Trash::StarPatternRequest, request
+      assert_equal "hello world", request.name
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, star_pattern_method_client_stub do
+      # Create client
+      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.star_pattern_method({ name: name }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.star_pattern_method name: name do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.star_pattern_method ::So::Much::Trash::StarPatternRequest.new(name: name) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.star_pattern_method({ name: name }, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.star_pattern_method ::So::Much::Trash::StarPatternRequest.new(name: name), grpc_options do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, star_pattern_method_client_stub.call_rpc_count
+    end
+  end
+
   def test_configure
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 

@@ -258,6 +258,61 @@ module So
           end
 
           ##
+          # @overload star_pattern_method(request, options = nil)
+          #   Pass arguments to `star_pattern_method` via a request object, either of type
+          #   {::So::Much::Trash::StarPatternRequest} or an equivalent Hash.
+          #
+          #   @param request [::So::Much::Trash::StarPatternRequest, ::Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [::Gapic::CallOptions, ::Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload star_pattern_method(name: nil)
+          #   Pass arguments to `star_pattern_method` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param name [::String]
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::So::Much::Trash::Response]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::So::Much::Trash::Response]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          def star_pattern_method request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::StarPatternRequest
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.star_pattern_method.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Garbage::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.star_pattern_method.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.star_pattern_method.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @resource_names_stub.call_rpc :star_pattern_method, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # Configuration class for the ResourceNames API.
           #
           # This class represents the configuration for ResourceNames,
@@ -403,6 +458,11 @@ module So
               # @return [::Gapic::Config::Method]
               #
               attr_reader :complex_pattern_method
+              ##
+              # RPC-specific configuration for `star_pattern_method`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :star_pattern_method
 
               # @private
               def initialize parent_rpcs = nil
@@ -410,6 +470,8 @@ module So
                 @simple_pattern_method = ::Gapic::Config::Method.new simple_pattern_method_config
                 complex_pattern_method_config = parent_rpcs&.complex_pattern_method if parent_rpcs&.respond_to? :complex_pattern_method
                 @complex_pattern_method = ::Gapic::Config::Method.new complex_pattern_method_config
+                star_pattern_method_config = parent_rpcs&.star_pattern_method if parent_rpcs&.respond_to? :star_pattern_method
+                @star_pattern_method = ::Gapic::Config::Method.new star_pattern_method_config
 
                 yield self if block_given?
               end
