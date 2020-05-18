@@ -113,9 +113,9 @@ module Google
 
         ::Google::Cloud.configure.secret_manager
       end
-
-      helper_path = ::File.join __dir__, "secret_manager", "helpers.rb"
-      require "google/cloud/secret_manager/helpers" if ::File.file? helper_path
     end
   end
 end
+
+helper_path = ::File.join __dir__, "secret_manager", "helpers.rb"
+require "google/cloud/secret_manager/helpers" if ::File.file? helper_path
