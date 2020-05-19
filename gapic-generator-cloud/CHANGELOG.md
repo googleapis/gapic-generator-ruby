@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.5.0 / 2020-05-19
+
+* Includes changes from gapic-generator 0.5.0
+* Wrappers now support partial-gapic helpers.
+* Generated configs for wrappers now include endpoint and scope.
+
 ### 0.4.3 / 2020-05-01
 
 * Unpin minitest in the generated wrappers.

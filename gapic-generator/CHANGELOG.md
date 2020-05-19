@@ -1,5 +1,13 @@
 # Release History for gapic-generator
 
+### 0.5.0 / 2020-05-19
+
+* Add quota_project to the generated configs.
+* Allow resource patterns with a star as a segment template.
+* Generate tests for resource path helpers.
+* Pin protobuf dependency for Ruby < 2.5.
+* Create a test helper in for generated tests.
+
 ### 0.4.2 / 2020-04-28
 
 * Prepend double-colon to absolute/global namespaces to prevent conflicts.
