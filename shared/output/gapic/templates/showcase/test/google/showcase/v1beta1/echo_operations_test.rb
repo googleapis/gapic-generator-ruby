@@ -22,8 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "simplecov"
-require "minitest/autorun"
+require "helper"
 
 require "gapic/grpc/service_stub"
 

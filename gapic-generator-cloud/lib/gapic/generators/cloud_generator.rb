@@ -89,7 +89,7 @@ module Gapic
         files << g("wrapper_gem/entrypoint.erb",   "lib/#{gem.name}.rb",                            gem: gem) if gem.needs_entrypoint?
         files << g("wrapper_gem/main.erb",         "lib/#{gem.namespace_file_path}",                gem: gem)
         files << g("gem/version.erb",              "lib/#{gem.version_file_path}",                  gem: gem)
-        files << g("wrapper_gem/test_helper.erb",  "test/helper.rb",                                gem: gem)
+        files << g("gem/test_helper.erb",          "test/helper.rb",                                gem: gem)
         files << g("wrapper_gem/client_test.erb",  "test/#{gem.namespace_require}/client_test.rb",  gem: gem)
         files << g("wrapper_gem/version_test.erb", "test/#{gem.namespace_require}/version_test.rb", gem: gem)
 
