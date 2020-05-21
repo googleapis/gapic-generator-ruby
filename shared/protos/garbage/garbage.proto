@@ -135,6 +135,24 @@ service GarbageService {
   }
 }
 
+service RenamedService {
+  // The address where this API is typically served.
+  option (google.api.default_host) = "endlesstrash.example.net";
+
+  // The OAuth scopes needed to make requests to this API.
+  option (google.api.oauth_scopes) = "https://endlesstrash.example.net/garbage-admin,"
+                                     "https://endlesstrash.example.net/garbage-read,"
+                                     "https://endlesstrash.example.net/garbage-write";
+
+  // Retrieves an EmptyGarbage resource
+  rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
+    option (google.api.http) = {
+      post: "/v1/empty_garbage:get"
+      body: "*"
+    };
+  }
+}
+
 // The get typical garbage request message.
 message GetTypicalGarbageRequest {
   // The name of the garbage.

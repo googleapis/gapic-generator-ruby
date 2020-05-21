@@ -91,6 +91,13 @@ module Gapic
         configuration[:overrides][:namespace].fetch str, str
       end
 
+      def fix_service_name str
+        str = String str
+        return str if configuration[:overrides].nil?
+        return str if configuration[:overrides][:service].nil?
+        configuration[:overrides][:service].fetch str, str
+      end
+
       def generate_files
         @files.select(&:generate?)
       end

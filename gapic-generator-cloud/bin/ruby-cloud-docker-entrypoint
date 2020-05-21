@@ -53,7 +53,8 @@ path_option_map = {
 map_option_map = {
   ":common_services" => "ruby-cloud-common-services",
   ":overrides.:file_path" => "ruby-cloud-path-override",
-  ":overrides.:namespace" => "ruby-cloud-namespace-override"
+  ":overrides.:namespace" => "ruby-cloud-namespace-override",
+  ":overrides.:service" => "ruby-cloud-service-override"
 }
 
 # A set of files that, if generated, should be removed.
