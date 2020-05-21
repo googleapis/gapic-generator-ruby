@@ -50,6 +50,21 @@ module So
 
         Stub = Service.rpc_stub_class
       end
+      module RenamedService
+        class Service
+
+          include GRPC::GenericService
+
+          self.marshal_class_method = :encode
+          self.unmarshal_class_method = :decode
+          self.service_name = 'endless.trash.forever.RenamedService'
+
+          # Retrieves an EmptyGarbage resource
+          rpc :GetEmptyGarbage, So::Much::Trash::EmptyGarbage, So::Much::Trash::EmptyGarbage
+        end
+
+        Stub = Service.rpc_stub_class
+      end
     end
   end
 end

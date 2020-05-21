@@ -89,7 +89,7 @@ module Gapic
       end
 
       def name
-        @service.name
+        @api.fix_service_name @service.name
       end
 
       # The namespace of the protos. This may be different from the client
@@ -102,7 +102,7 @@ module Gapic
       end
 
       def proto_service_name_full
-        name_full = "#{proto_namespace}::#{name}"
+        name_full = "#{proto_namespace}::#{@service.name}"
         @api.override_proto_namespaces? ? fix_namespace(@api, name_full) : name_full
       end
 
@@ -198,10 +198,6 @@ module Gapic
         common_service_delegate&.client_scopes ||
           @service.scopes ||
           default_config(:oauth_scopes)
-      end
-
-      def client_proto_name
-        @service.address.join "."
       end
 
       def credentials_name
