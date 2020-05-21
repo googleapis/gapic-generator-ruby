@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.5.1 / 2020-05-21
+
+* Support a configuration for overriding service module names.
+* Operations client honors the quota_project setting.
+
 ### 0.5.0 / 2020-05-19
 
 * Add quota_project to the generated configs.
