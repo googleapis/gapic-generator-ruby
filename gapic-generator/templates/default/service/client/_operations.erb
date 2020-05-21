@@ -64,6 +64,8 @@ class <%= service.operations_name %>
     if credentials.is_a?(String) || credentials.is_a?(Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
     @<%= service.lro_service.stub_name %> = ::Gapic::ServiceStub.new(
       <%= service.lro_service.proto_service_stub_name_full %>,
