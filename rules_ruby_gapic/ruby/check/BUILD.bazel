@@ -1,0 +1,5 @@
+load (":check_ruby_versions.bzl", "check_ruby_gemver")
+
+check_ruby_gemver (
+  name = "ruby_gem_ver"
+)
