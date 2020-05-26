@@ -17,7 +17,7 @@ filegroup(
 filegroup(
   name = "ruby_libroots",
   srcs = glob([
-    "lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot"
+    "lib/**/.ruby_bazel_libroot",
   ]),
   visibility = ["//visibility:public"],
 )

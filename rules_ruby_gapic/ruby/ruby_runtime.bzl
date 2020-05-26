@@ -3,17 +3,17 @@ Creating the ruby runtime workspace
 """
 
 load(
-  ":internal/build_bazel_template.bzl",
+  ":templates/build_bazel_template.bzl",
   build_bazel_template = "build_bazel_template",
 )
 
 load(
-  ":internal/copy_ruby_runtime_template.bzl",
+  ":templates/copy_ruby_runtime_template.bzl",
   copy_ruby_runtime_template = "copy_ruby_runtime_template",
   )
 
 load(
-  ":internal/utils.bzl",
+  ":private/utils.bzl",
   _execute_and_check_result = "execute_and_check_result",
 )
 
@@ -111,6 +111,9 @@ def _ruby_runtime_impl(ctx):
 
     # nothing special about make install
     _execute_and_check_result(ctx, ["make", "install"], working_directory = srcs_dir, quiet = False)
+
+  # adding a libroot file to mark the root of the ruby standard library
+  ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
 
   copy_ruby_runtime_bzl = create_copy_ruby_runtime_bzl()
   ctx.file("copy_ruby_runtime.bzl", copy_ruby_runtime_bzl)

@@ -1,1 +1,9 @@
-""" must exist to make this folder addressable"""
+load(":ruby_context.bzl", "ruby_context")
+
+ruby_context(
+  name = "ruby_context",
+  visibility = ["//visibility:public"],
+  ruby_bin = "@ruby_runtime//:bin/ruby",
+  ruby_libfiles = "@ruby_runtime//:ruby_libs_allfiles",
+  ruby_libroots = "@ruby_runtime//:ruby_libroots",
+)
