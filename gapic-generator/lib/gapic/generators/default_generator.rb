@@ -54,7 +54,7 @@ module Gapic
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
             files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service)
-            files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service)
+            files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
             files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
             files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro?
             files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service)
