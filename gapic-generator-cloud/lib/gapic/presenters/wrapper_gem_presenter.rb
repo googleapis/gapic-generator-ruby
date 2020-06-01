@@ -51,7 +51,7 @@ module Gapic
       end
 
       def needs_entrypoint?
-        name != namespace_file_path
+        name != namespace_require
       end
 
       def needs_default_config_block?
