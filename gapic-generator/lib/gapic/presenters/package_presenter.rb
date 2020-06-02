@@ -27,13 +27,14 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
-      def initialize api, package
+      def initialize gem_presenter, api, package
+        @gem_presenter = gem_presenter
         @api = api
         @package = package
       end
 
       def gem
-        GemPresenter.new @api
+        @gem_presenter
       end
 
       def name
@@ -63,7 +64,7 @@ module Gapic
           normal_services = services.select { |s| @api.delegate_service_for(s).nil? }
           # But include common services that delegate to normal services in this package.
           common_services = normal_services.flat_map { |s| @api.common_services_for s }
-          (normal_services + common_services).map { |s| ServicePresenter.new @api, s }
+          (normal_services + common_services).map { |s| ServicePresenter.new @gem_presenter, @api, s }
         end
       end
 

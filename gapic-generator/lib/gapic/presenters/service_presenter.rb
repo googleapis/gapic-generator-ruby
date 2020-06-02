@@ -27,14 +27,15 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
-      def initialize api, service, parent_service: nil
+      def initialize gem_presenter, api, service, parent_service: nil
+        @gem_presenter = gem_presenter
         @api = api
         @service = service
         @parent_service = parent_service
       end
 
       def gem
-        GemPresenter.new @api
+        @gem_presenter
       end
 
       def file
@@ -42,12 +43,12 @@ module Gapic
       end
 
       def package
-        PackagePresenter.new @api, @service.parent.package
+        PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
       def methods
         @methods ||= begin
-          @service.methods.map { |m| MethodPresenter.new @api, m }
+          @service.methods.map { |m| MethodPresenter.new self, @api, m }
         end
       end
 
@@ -60,7 +61,7 @@ module Gapic
       def common_service_delegate
         unless defined? @common_service_delegate
           delegate = @api.delegate_service_for @service
-          @common_service_delegate = delegate ? ServicePresenter.new(@api, delegate) : nil
+          @common_service_delegate = delegate ? ServicePresenter.new(@gem_presenter, @api, delegate) : nil
         end
         @common_service_delegate
       end
@@ -314,7 +315,7 @@ module Gapic
 
       def lro_service
         lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
-        return ServicePresenter.new @api, lro.services.first, parent_service: self unless lro.nil?
+        return ServicePresenter.new @gem_presenter, @api, lro.services.first, parent_service: self unless lro.nil?
       end
 
       def config_channel_args

@@ -16,6 +16,7 @@
 
 require "gapic/generators/default_generator"
 require "gapic/presenters"
+require "gapic/presenters/cloud_gem_presenter"
 require "gapic/presenters/wrapper_gem_presenter"
 
 module Gapic
@@ -42,17 +43,15 @@ module Gapic
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
+      def generate gem_presenter: nil
         gem_config = @api.configuration[:gem] ||= {}
         return generate_wrapper if gem_config[:version_dependencies]
 
-        orig_files = super
-
-        cloud_files = []
-
-        gem = Gapic::Presenters.gem_presenter @api
+        gem = gem_presenter || Gapic::Presenters.cloud_gem_presenter(@api)
+        orig_files = super gem_presenter: gem
 
         # Additional Gem level files
+        cloud_files = []
         cloud_files << g("gem/repo-metadata.erb",  ".repo-metadata.json", gem: gem)
         cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md",   gem: gem) unless gem.services.empty?
 
