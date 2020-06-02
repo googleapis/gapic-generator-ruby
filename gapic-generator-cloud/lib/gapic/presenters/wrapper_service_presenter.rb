@@ -23,10 +23,6 @@ module Gapic
     # A presenter for wrapper services.
     #
     class WrapperServicePresenter < ServicePresenter
-      def gem
-        WrapperGemPresenter.new @api
-      end
-
       def factory_method_name
         @factory_method_name ||= begin
           method_name = ActiveSupport::Inflector.underscore name

@@ -41,10 +41,10 @@ module Gapic
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
+      def generate gem_presenter: nil
         files = []
 
-        gem = Gapic::Presenters.gem_presenter @api
+        gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
         gem.packages.each do |package|
           # Package level files

@@ -27,13 +27,14 @@ module Gapic
     class MethodPresenter
       include Gapic::Helpers::NamespaceHelper
 
-      def initialize api, method
+      def initialize service_presenter, api, method
+        @service_presenter = service_presenter
         @api = api
         @method = method
       end
 
       def service
-        ServicePresenter.new @api, @method.parent
+        @service_presenter
       end
 
       def name
