@@ -28,6 +28,7 @@ module Gapic
       end
 
       def extra_files
+        return ["README.md", "LICENSE.md", ".yardopts"] if generic_endpoint?
         ["README.md", "LICENSE.md", "AUTHENTICATION.md", ".yardopts"]
       end
 

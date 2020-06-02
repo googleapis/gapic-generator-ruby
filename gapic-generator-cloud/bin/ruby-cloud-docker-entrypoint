@@ -21,7 +21,8 @@ require "fileutils"
 # Boolean options may have values "true" or "false" (as strings)
 bool_option_map = {
   ":gem.:free_tier" => "ruby-cloud-free-tier",
-  ":gem.:yard_strict" => "ruby-cloud-yard-strict"
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict",
+  ":gem.:generic_endpoint" => "ruby-cloud-generic-endpoint"
 }
 
 # Value options always take string values.

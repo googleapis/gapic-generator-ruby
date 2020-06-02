@@ -147,6 +147,10 @@ module Gapic
         gem_config(:yard_strict) != "false"
       end
 
+      def generic_endpoint?
+        gem_config(:generic_endpoint) == "true"
+      end
+
       def entrypoint_require
         packages.first.package_require
       end

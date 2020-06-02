@@ -188,11 +188,16 @@ module Gapic
       end
 
       def client_endpoint
+        return nil if generic_endpoint?
         @parent_service&.client_endpoint ||
           common_service_delegate&.client_endpoint ||
           @service.host ||
           default_config(:default_host) ||
           "localhost"
+      end
+
+      def generic_endpoint?
+        gem.generic_endpoint?
       end
 
       def client_scopes

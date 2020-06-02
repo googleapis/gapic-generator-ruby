@@ -12,6 +12,7 @@
 $ gem install <%= gem.name %>
 ```
 
+<%- unless gem.generic_endpoint? -%>
 ## Before You Begin
 
 In order to use this library, you first need to go through the following steps:
@@ -29,6 +30,7 @@ In order to use this library, you first need to go through the following steps:
 <%- end -%>
 1. {file:AUTHENTICATION.md Set up authentication.}
 
+<%- end -%>
 ## Quick Start
 
 <%- if gem.packages? -%>

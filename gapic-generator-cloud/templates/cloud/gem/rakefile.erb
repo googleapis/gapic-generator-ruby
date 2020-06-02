@@ -53,7 +53,7 @@ end
 # Acceptance tests
 desc "Run the <%= gem.name %> acceptance tests."
 task :acceptance, :project, :keyfile do |t, args|
-  <%- if service -%>
+  <%- if service && !gem.generic_endpoint? -%>
   project = args[:project]
   project ||=
     ENV["<%= gem.env_prefix %>_TEST_PROJECT"] ||
@@ -79,8 +79,8 @@ task :acceptance, :project, :keyfile do |t, args|
   ENV["<%= gem.env_prefix %>_PROJECT"] = project
   ENV["<%= gem.env_prefix %>_TEST_PROJECT"] = project
   ENV["<%= gem.env_prefix %>_KEYFILE_JSON"] = keyfile
-  <%- end -%>
 
+  <%- end -%>
   Rake::Task["acceptance:run"].invoke
 end
 
