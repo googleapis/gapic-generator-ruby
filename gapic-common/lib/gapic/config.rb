@@ -88,7 +88,7 @@ module Gapic
           valid_value ||= begin
             # Allow nil if parent config has the getter method.
             parent = instance_variable_get :@parent_config if instance_variable_defined? :@parent_config
-            parent&.respond_to? name
+            parent&.respond_to? name_setter
           end
         end
         raise ArgumentError unless valid_value
