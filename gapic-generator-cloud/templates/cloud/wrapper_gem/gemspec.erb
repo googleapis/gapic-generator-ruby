@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.description   = <%= gem.description.inspect %>
   gem.summary       = <%= gem.summary.inspect %>
   gem.homepage      = <%= gem.homepage.inspect %>
-  gem.license       = "Apache-2.0"
+  gem.license       = <%= gem.license_name.inspect %>
 
   gem.platform      = Gem::Platform::RUBY
 
@@ -23,9 +23,8 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.4"
 
-  gem.add_dependency "google-cloud-core", "~> 1.5"
-  <%- gem.gem_version_dependencies.each do |name, requirement| -%>
-  gem.add_dependency "<%= name %>", "~> <%= requirement %>"
+  <%- gem.dependency_list.each do |name, requirements| -%>
+  gem.add_dependency <%= name.inspect %>, <%= requirements.map { |v| v.inspect }.join ", " %>
   <%- end -%>
 
   gem.add_development_dependency "google-style", "~> 1.24.0"

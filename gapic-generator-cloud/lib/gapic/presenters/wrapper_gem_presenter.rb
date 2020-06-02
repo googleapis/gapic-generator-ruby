@@ -22,7 +22,7 @@ module Gapic
     ##
     # A presenter for wrapper gems.
     #
-    class WrapperGemPresenter < GemPresenter
+    class WrapperGemPresenter < CloudGemPresenter
       def entrypoint_require
         namespace_require
       end
@@ -30,7 +30,7 @@ module Gapic
       def services
         @services ||= begin
           files = @api.generate_files
-          files.map(&:services).flatten.map { |s| WrapperServicePresenter.new @api, s }
+          files.map(&:services).flatten.map { |s| WrapperServicePresenter.new self, @api, s }
         end
       end
 
@@ -92,17 +92,22 @@ module Gapic
         gem_config(:version_dependencies).to_s.split(";").map { |str| str.split ":" }
       end
 
-      def gem_version_dependencies
-        version_dependencies.sort_by { |version, _requirement| version }
-                            .map { |version, requirement| ["#{name}-#{version}", requirement] }
-      end
-
       def versioned_gems
-        gem_version_dependencies.map { |name, _requirement| name }
+        version_dependencies.map { |version, _requirement| "#{name}-#{version}" }.sort
       end
 
       def default_version
         version_dependencies.first&.first
+      end
+
+      def dependencies
+        deps = { "google-cloud-core" => "~> 1.5" }
+        version_dependencies.each do |version, requirement|
+          deps["#{name}-#{version}"] = "~> #{requirement}"
+        end
+        extra_deps = gem_config :extra_dependencies
+        deps.merge! extra_deps if extra_deps
+        deps
       end
 
       def google_cloud_short_name
