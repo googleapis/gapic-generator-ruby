@@ -21,7 +21,8 @@ require "fileutils"
 # Boolean options may have values "true" or "false" (as strings)
 bool_option_map = {
   ":gem.:free_tier" => "ruby-cloud-free-tier",
-  ":gem.:yard_strict" => "ruby-cloud-yard-strict"
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict",
+  ":gem.:generic_endpoint" => "ruby-cloud-generic-endpoint"
 }
 
 # Value options always take string values.
@@ -54,7 +55,8 @@ map_option_map = {
   ":common_services" => "ruby-cloud-common-services",
   ":overrides.:file_path" => "ruby-cloud-path-override",
   ":overrides.:namespace" => "ruby-cloud-namespace-override",
-  ":overrides.:service" => "ruby-cloud-service-override"
+  ":overrides.:service" => "ruby-cloud-service-override",
+  ":gem.:extra_dependencies" => "ruby-cloud-extra-dependencies"
 }
 
 # A set of files that, if generated, should be removed.
