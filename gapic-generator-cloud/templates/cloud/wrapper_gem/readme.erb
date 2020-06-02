@@ -32,6 +32,7 @@ for more usage information.
 $ gem install <%= gem.name %>
 ```
 
+<%- unless gem.generic_endpoint? -%>
 In order to use this library, you first need to go through the following steps:
 
 1. [Select or create a Cloud Platform project.](https://console.cloud.google.com/project)
@@ -47,6 +48,7 @@ In order to use this library, you first need to go through the following steps:
 <%- end -%>
 1. {file:AUTHENTICATION.md Set up authentication.}
 
+<%- end -%>
 <%- if gem.migration? %>
 ## Migrating from <%= gem.pre_migration_version %> versions
 
