@@ -27,7 +27,7 @@ module Gapic
       def initialize resource
         @resource = resource
 
-        @patterns = resource.pattern.map { |template| PatternPresenter.new template }
+        @patterns = resource.pattern.map { |pattern| PatternPresenter.new pattern }
 
         # Keep only patterns that can be used to create path helpers
         @patterns.filter!(&:useful_for_helpers?)
@@ -53,14 +53,14 @@ module Gapic
       # A presenter for a particular pattern
       #
       class PatternPresenter
-        def initialize template
-          @template = template
-          @segments = Gapic::PathPattern.parse template
+        def initialize pattern
+          @pattern = pattern
+          @segments = Gapic::PathPattern.parse pattern
           @arguments = arg_segments.map(&:name)
           @path_string = build_path_string
         end
 
-        attr_reader :template, :segments, :arguments, :path_string
+        attr_reader :pattern, :segments, :arguments, :path_string
 
         def useful_for_helpers?
           arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)

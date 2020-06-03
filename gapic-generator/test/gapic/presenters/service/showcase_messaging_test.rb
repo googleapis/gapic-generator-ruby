@@ -36,7 +36,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
     refute_empty presenter.references
     presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["Blurb", "Room", "User"], presenter.references.map(&:name)
-    assert_equal ["rooms/{room_id}/blurbs/{blurb_id}", "rooms/{room_id}", "users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:template)
+    assert_equal ["rooms/{room_id}/blurbs/{blurb_id}", "rooms/{room_id}", "users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_service_name_full

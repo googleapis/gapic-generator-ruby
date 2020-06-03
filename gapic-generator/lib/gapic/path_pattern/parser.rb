@@ -18,31 +18,29 @@ require "gapic/path_pattern/segment"
 
 module Gapic
   module PathPattern
-    # A URI path template parser.
-    #
-    # @see https://tools.ietf.org/html/rfc6570 URI Template
+    # A path pattern parser.
+    # see https://google.aip.dev/122, https://google.aip.dev/123
     #
     # @!attribute [r] path_pattern
-    #   @return [String] The URI path template to be parsed.
+    #   @return [String] The path pattern to be parsed.
     # @!attribute [r] segments
-    #   @return [Array<Segment|String>] The segments of the parsed URI path
-    #     template.
+    #   @return [Array<Segment|String>] The segments of the parsed path pattern.
     class Parser
       # @private
-      # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
+      # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<pattern>.+?))?})/
       PATH_PATTERN = %r{
         (
           (?<positional>\*\*?)
           |
-          {(?<name>[^\/]+?)(?:=(?<template>.+?))?}
+          {(?<name>[^\/]+?)(?:=(?<pattern>.+?))?}
         )
       }x.freeze
 
       attr_reader :path_pattern, :segments
 
-      # Create a new URI path template parser.
+      # Create a new path pattern parser.
       #
-      # @param path_pattern [String] The URI path template to be parsed.
+      # @param path_pattern [String] The path pattern to be parsed.
       def initialize path_pattern
         @path_pattern = path_pattern
         @segments = parse! path_pattern
@@ -75,7 +73,7 @@ module Gapic
         if match[:positional]
           [Segment.new(pos, match[:positional]), pos + 1]
         else
-          [Segment.new(match[:name], match[:template]), pos]
+          [Segment.new(match[:name], match[:pattern]), pos]
         end
       end
     end
