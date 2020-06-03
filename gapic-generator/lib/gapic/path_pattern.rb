@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,13 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "test_helper"
+require "gapic/path_pattern/parser"
 
-class EmptyPathTemplateTest < PathTemplateTest
-  def test_empty_path_template
-    assert_path_template(
-      "hello/world",
-      "hello/world"
-    )
+module Gapic
+  # TODO: Enter docs
+  # Dooooooooocs!!!
+  module PathPattern
+    # Parse a URI path template.
+    #
+    # @see https://tools.ietf.org/html/rfc6570 URI Template
+    #
+    # @param path_template [String] The URI path template to be parsed.
+    #
+    # @return [Array<PathTemplate::Segment|String>] The segments of the URI
+    #   path template.
+    def self.parse path_pattern
+      Parser.new(path_pattern).segments
+    end
   end
 end

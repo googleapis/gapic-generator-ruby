@@ -14,10 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/path_template/segment"
+require "gapic/path_pattern/segment"
 
 module Gapic
-  module PathTemplate
+  module PathPattern
     # A URI path template parser.
     #
     # @see https://tools.ietf.org/html/rfc6570 URI Template

@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/path_template"
+require "gapic/path_pattern"
 require "active_support/inflector"
 
 module Gapic
@@ -55,7 +55,7 @@ module Gapic
       class PatternPresenter
         def initialize template
           @template = template
-          @segments = Gapic::PathTemplate.parse template
+          @segments = Gapic::PathPattern.parse template
           @arguments = arg_segments.map(&:name)
           @path_string = build_path_string
         end
@@ -81,7 +81,7 @@ module Gapic
         def expected_path_for_dummy_values
           index = -1
           segments.map do |segment|
-            if segment.is_a? Gapic::PathTemplate::Segment
+            if segment.is_a? Gapic::PathPattern::Segment
               index += 1
               "value#{index}"
             else
@@ -94,12 +94,12 @@ module Gapic
         private
 
         def arg_segments
-          segments.select { |segment| segment.is_a? Gapic::PathTemplate::Segment }
+          segments.select { |segment| segment.is_a? Gapic::PathPattern::Segment }
         end
 
         def build_path_string
           segments.map do |segment|
-            if segment.is_a? Gapic::PathTemplate::Segment
+            if segment.is_a? Gapic::PathPattern::Segment
               "\#{#{segment.name}}"
             else
               # Should be a String

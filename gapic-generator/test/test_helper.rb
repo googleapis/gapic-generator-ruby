@@ -17,7 +17,7 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "gapic/schema/api"
 require "gapic/generator"
-require "gapic/path_template"
+require "gapic/path_pattern"
 require "gapic/presenters"
 require "gapic/resource_lookup"
 require "action_controller"
@@ -113,9 +113,9 @@ end
 #
 # @see https://tools.ietf.org/html/rfc6570 URI Template
 #
-class PathTemplateTest < Minitest::Test
-  def assert_path_template path_template, *exp_segments
-    act_segments = Gapic::PathTemplate.parse path_template
+class PathPatternTest < Minitest::Test
+  def assert_path_pattern path_pattern, *exp_segments
+    act_segments = Gapic::PathPattern.parse path_pattern
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments

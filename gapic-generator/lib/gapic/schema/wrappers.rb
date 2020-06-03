@@ -775,7 +775,7 @@ module Gapic
       attr_accessor :parent
 
       # Initializes a resource object.
-      # @param descriptor [Google::Protobuf::ResourceDescriptor] the protobuf
+      # @param descriptor [Google::Api::ResourceDescriptor] the protobuf
       #   representation of this resource.
       def initialize descriptor
         @parent = nil
