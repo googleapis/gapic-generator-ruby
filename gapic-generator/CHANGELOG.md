@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.6.0 / 2020-06-02
+
+* Support for clients with generic endpoint and credentials.
+* Support for adding extra dependencies.
+* Fixed a Ruby warning when looking up RPC-scoped configs with no parent.
+* Internal: Presenters reference their parent rather than creating new objects.
+
 ### 0.5.1 / 2020-05-21
 
 * Support a configuration for overriding service module names.

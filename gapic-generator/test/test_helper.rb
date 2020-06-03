@@ -82,7 +82,8 @@ class PresenterTest < Minitest::Test
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
-    Gapic::Presenters::ServicePresenter.new api_obj, service
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
   end
 
   def method_presenter api_name, service_name, method_name
@@ -91,7 +92,9 @@ class PresenterTest < Minitest::Test
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    Gapic::Presenters::MethodPresenter.new api_obj, method
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    service_presenter = Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
+    Gapic::Presenters::MethodPresenter.new service_presenter, api_obj, method
   end
 
   def field_presenter api_name, message_name, field_name

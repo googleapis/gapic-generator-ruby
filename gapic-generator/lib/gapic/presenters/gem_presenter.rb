@@ -33,7 +33,7 @@ module Gapic
       def packages
         @packages ||= begin
           packages = @api.generate_files.map(&:package).uniq.sort
-          packages.map { |p| PackagePresenter.new @api, p }.delete_if(&:empty?)
+          packages.map { |p| PackagePresenter.new self, @api, p }.delete_if(&:empty?)
         end
       end
 
@@ -44,7 +44,7 @@ module Gapic
       def services
         @services ||= begin
           files = @api.generate_files
-          files.map(&:services).flatten.map { |s| ServicePresenter.new @api, s }
+          files.map(&:services).flatten.map { |s| ServicePresenter.new self, @api, s }
         end
       end
 
@@ -147,8 +147,34 @@ module Gapic
         gem_config(:yard_strict) != "false"
       end
 
+      def generic_endpoint?
+        gem_config(:generic_endpoint) == "true"
+      end
+
       def entrypoint_require
         packages.first.package_require
+      end
+
+      def license_name
+        "MIT"
+      end
+
+      def extra_files
+        ["README.md", "LICENSE.md", ".yardopts"]
+      end
+
+      def dependencies
+        deps = { "gapic-common" => "~> 0.2" }
+        deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.0"] if iam_dependency?
+        extra_deps = gem_config :extra_dependencies
+        deps.merge! extra_deps if extra_deps
+        deps
+      end
+
+      def dependency_list
+        dependencies.to_a
+                    .map { |name, requirements| [name, Array(requirements)] }
+                    .sort_by { |name, _requirements| name }
       end
 
       private

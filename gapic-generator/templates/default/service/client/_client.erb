@@ -96,10 +96,12 @@ class <%= service.client_name %>
 
     # Create credentials
     credentials = @config.credentials
+    <%- unless service.generic_endpoint? -%>
     credentials ||= Credentials.default scope: @config.scope
     if credentials.is_a?(String) || credentials.is_a?(Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
+    <%- end -%>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 

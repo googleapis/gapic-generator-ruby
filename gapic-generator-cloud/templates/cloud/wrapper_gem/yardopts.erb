@@ -8,7 +8,9 @@
 ./lib/**/*.rb
 -
 README.md
+<%- unless gem.generic_endpoint? -%>
 AUTHENTICATION.md
+<%- end -%>
 <%- if gem.migration? -%>
 MIGRATING.md
 <%- end -%>

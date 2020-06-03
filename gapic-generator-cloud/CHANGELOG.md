@@ -1,5 +1,13 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.0 / 2020-06-02
+
+* Includes changes from gapic-generator 0.6.0.
+* Support for clients with generic endpoint and credentials.
+* Support for adding extra dependencies.
+* Fix the logic determining whether a wrapper needs a separate entrypoint file.
+* Disable Metrics/BlockLength check for all sample tests.
+
 ### 0.5.1 / 2020-05-21
 
 * Includes changes from gapic-generator 0.5.1
