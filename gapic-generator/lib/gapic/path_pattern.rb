@@ -24,7 +24,7 @@ module Gapic
     #
     # @see https://tools.ietf.org/html/rfc6570 URI Template
     #
-    # @param path_template [String] The URI path template to be parsed.
+    # @param path_pattern [String] The URI path template to be parsed.
     #
     # @return [Array<PathTemplate::Segment|String>] The segments of the URI
     #   path template.

@@ -22,7 +22,7 @@ module Gapic
     #
     # @see https://tools.ietf.org/html/rfc6570 URI Template
     #
-    # @!attribute [r] path_template
+    # @!attribute [r] path_pattern
     #   @return [String] The URI path template to be parsed.
     # @!attribute [r] segments
     #   @return [Array<Segment|String>] The segments of the parsed URI path
@@ -30,7 +30,7 @@ module Gapic
     class Parser
       # @private
       # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
-      PATH_TEMPLATE = %r{
+      PATH_PATTERN = %r{
         (
           (?<positional>\*\*?)
           |
@@ -38,35 +38,35 @@ module Gapic
         )
       }x.freeze
 
-      attr_reader :path_template, :segments
+      attr_reader :path_pattern, :segments
 
       # Create a new URI path template parser.
       #
-      # @param path_template [String] The URI path template to be parsed.
-      def initialize path_template
-        @path_template = path_template
-        @segments = parse! path_template
+      # @param path_pattern [String] The URI path template to be parsed.
+      def initialize path_pattern
+        @path_pattern = path_pattern
+        @segments = parse! path_pattern
       end
 
       protected
 
-      def parse! path_template
+      def parse! path_pattern
         # segments contain either Strings or segment objects
         segments = []
         segment_pos = 0
 
-        while (match = PATH_TEMPLATE.match path_template)
+        while (match = PATH_PATTERN.match path_pattern)
           # The String before the match needs to be added to the segments
           segments << match.pre_match unless match.pre_match.empty?
 
           segment, segment_pos = segment_and_pos_from_match match, segment_pos
           segments << segment
 
-          path_template = match.post_match
+          path_pattern = match.post_match
         end
 
         # Whatever String is unmatched needs to be added to the segments
-        segments << path_template unless path_template.empty?
+        segments << path_pattern unless path_pattern.empty?
 
         segments
       end
