@@ -1,5 +1,11 @@
-load (":check_ruby_versions.bzl", "check_ruby_gemver")
+load (":check_ruby_versions.bzl", "check_ruby_binver")
 
-check_ruby_gemver (
-  name = "ruby_gem_ver"
+check_ruby_binver (
+  name = "ruby_gem_ver",
+  dependency = "@ruby_runtime//:bin/gem",
+)
+
+check_ruby_binver (
+  name = "ruby_ver",
+  dependency = "@ruby_runtime//:bin/ruby",
 )

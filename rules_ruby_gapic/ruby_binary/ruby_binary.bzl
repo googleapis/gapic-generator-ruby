@@ -35,12 +35,13 @@ def _ruby_binary_impl(ctx):
 
   # From this depset we extract two things:
   # 1. We take all the lib directories and ext directories and add them to the path
-  deps_import_strings = ["-I " + entrypoint_dir]
+  deps_strings = [entrypoint_dir]
   for dep in deps_set.to_list():
-    deps_import_strings.append("-I " + dep.lib_path.dirname)
+    deps_strings.append(dep.lib_path.dirname)
     if dep.ext_path:
-      deps_import_strings.append("-I " + dep.ext_path.dirname)
-  import_paths_string = " ".join(deps_import_strings)
+      deps_strings.append(dep.ext_path.dirname)
+
+  import_paths_string = "-I " + " -I ".join(deps_strings)
 
   # 2. all the library files join the program sources in the set of inputs
   all_inputs = ctx.files.srcs[:]
@@ -48,20 +49,38 @@ def _ruby_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
+  echo_import_command = "echo -n '-I '$(readlink -f " + ")' ' >> {ruby_run_result}; echo -n '-I '$(readlink -f ".join(deps_strings) +")' ' >> {ruby_run_result};"
+  echo_import_command = echo_import_command.format(
+    ruby_run_result = run_result_file.path,
+  )
+  command="echo -n $(readlink -f {ruby_bin}) > {ruby_run_result}; echo -n ' -W0 ' >> {ruby_run_result}; {echo_import_command} echo $(readlink -f {entrypoint}) >> {ruby_run_result}".format(
+    ruby_bin = ruby_bin_path, 
+    echo_import_command = echo_import_command, 
+    entrypoint = entrypoint_path,
+    ruby_run_result = run_result_file.path)
+
+  print(command)
+
   #~
   # now we can run the application
   ctx.actions.run_shell(
     tools = [ruby_bin], 
     inputs = all_inputs,
-    command="{ruby_bin} -W0 -I $(pwd) {imports} {entrypoint} > {ruby_run_result}".format(
-      ruby_bin = ruby_bin_path, 
-      imports = import_paths_string, 
-      entrypoint = entrypoint_path,
-      ruby_run_result = run_result_file.path), 
-    outputs=[run_result_file])
+    command = command, 
+    outputs=[run_result_file],
+    execution_requirements = {
+      "no-sandbox": "1",
+      "no-cache": "1",
+      "no-remote": "1",
+      "local": "1",
+    },)
 
-  # exec_text = """#!/bin/bash\n{ruby_bin} {import_path} {entrypoint}""".format(ruby_bin = ctx.file.ruby_bin.path, import_path = import_path, entrypoint = ctx.file.entrypoint.path)
-  # ctx.actions.write(executable, exec_text)
+  # exec_text = "{ruby_bin} -W0 -I $(pwd) {imports} {entrypoint}".format(
+  #     ruby_bin = ruby_bin_path, 
+  #     imports = import_paths_string, 
+  #     entrypoint = entrypoint_path)
+
+  # ctx.actions.write(run_result_file, exec_text)
 
   direct = ctx.files.srcs[:]
   direct.append(run_result_file)
@@ -81,5 +100,5 @@ ruby_binary = rule(
       providers = [RubyLibraryInfo],
     ),
   },
-  # executable = True,
+  executable = True,
 )

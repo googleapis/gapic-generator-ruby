@@ -5,3 +5,8 @@ ruby_binary (
   name = "ruby_hellolib_sh",
   entrypoint = ":hello_ruby_lib.rb",
 )
+
+# sh_binary(
+#   name = "ruby_hellolib_shb",
+#   srcs = [":ruby_hellolib_sh"],
+# )

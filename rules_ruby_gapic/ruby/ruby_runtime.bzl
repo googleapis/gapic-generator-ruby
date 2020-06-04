@@ -34,6 +34,9 @@ def create_build_bazel(srcs_dir):
 # Implementation for a ruby_runtime rule
 # 
 def _ruby_runtime_impl(ctx):
+  # grabbing the path to the root of the dynamic workspace
+  root_path = ctx.path(".")
+
   # a folder to extract the sources into
   srcs_dir = "srcs"
   
@@ -60,17 +63,17 @@ def _ruby_runtime_impl(ctx):
     include_path_str =  "%s" % include_path.realpath
     ctx.file("includepath.log", include_path_str)
     res = ctx.execute(["bin/ruby", "--version"], environment={"LD_LIBRARY_PATH" : include_path_str}, working_directory = tmp)
-    #_execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
+    _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
     if res.return_code == 0:
       ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix)
       working_prebuild_located = True
-      prebuilt_selection_log += "Prebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen.".format(prebuilt_ruby = prebuilt_ruby)
+      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen.".format(prebuilt_ruby = prebuilt_ruby)
+      break
     else:
-      prebuilt_selection_log += "Prebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
+      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
 
-  ctx.file("prebuilt_selection.log", prebuilt_selection_log)
+  ctx.file("prebuilt_selection.log", prebuilt_selection_log+"\n")
   if not working_prebuild_located:
-    fail(include_path_str)
     ctx.download_and_extract(
       url = ctx.attr.urls,
       stripPrefix = ctx.attr.strip_prefix,
@@ -78,8 +81,8 @@ def _ruby_runtime_impl(ctx):
     )
 
     # configuring with shared library support, no docs and installing inside our workspace
-    root_path = ctx.path(".")
     configure_opts = ["./configure",
+      "--enable-load-relative", # this forces the path to libruby{version}.so to be relative instead of absolute allowing for prebuiltization
       #"--build=x86_64-linux-gnu",
       "--enable-shared",
       "--disable-install-doc",
@@ -104,7 +107,7 @@ def _ruby_runtime_impl(ctx):
       if int(num_proc) > 1:
         make_opts.extend(["-j", num_proc])
 
-    make_opts_log +=  "\n" + " ".join(make_opts)
+    make_opts_log += "\n" + " ".join(make_opts)
     ctx.file("make_opts.log", make_opts_log)
     
     _execute_and_check_result(ctx, make_opts, working_directory = srcs_dir, quiet = False)
@@ -118,8 +121,13 @@ def _ruby_runtime_impl(ctx):
   copy_ruby_runtime_bzl = create_copy_ruby_runtime_bzl()
   ctx.file("copy_ruby_runtime.bzl", copy_ruby_runtime_bzl)
 
-  build_bazel = create_build_bazel(srcs_dir)
-  ctx.file("BUILD.bazel", build_bazel)
+  # build_bazel = create_build_bazel(srcs_dir)
+  # ctx.file("BUILD.bazel", build_bazel)
+  ctx.template(
+    "BUILD.bazel",
+    ctx.attr._build_tpl,
+    substitutions = {"{srcs_dir}": srcs_dir,},
+  )
 
 ##
 # Creates a workspace with ruby runtime, including
@@ -135,5 +143,8 @@ ruby_runtime = repository_rule(
     "urls": attr.string_list(),
     "strip_prefix": attr.string(),
     "prebuilt_rubys": attr.label_list(allow_files = True, mandatory = False),
+    "_build_tpl": attr.label(
+      default = ":templates/BUILD.dist.bazel.tpl"
+    ),
   }
 )

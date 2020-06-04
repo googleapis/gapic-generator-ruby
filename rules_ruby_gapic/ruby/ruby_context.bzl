@@ -17,7 +17,7 @@ def _ruby_context_impl(ctx):
         srcs = ruby_libfiles,
         lib_path = lib_root,
       ),
-      bin = ruby_bin
+      bin = ruby_bin,
     ),
     RubyLibraryInfo(
       info = struct(

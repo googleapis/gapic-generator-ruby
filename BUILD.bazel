@@ -1,0 +1,12 @@
+load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
+
+# Running the hello world file with a dependency on a Ruby StandardLib
+ruby_binary (
+  name = "ruby_hellolib_sh",
+  entrypoint = ":hello_ruby_lib.rb",
+)
+
+sh_binary(
+  name = "ruby_hellolib_shb",
+  srcs = [":ruby_hellolib_sh"],
+)
