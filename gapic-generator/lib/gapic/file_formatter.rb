@@ -26,7 +26,6 @@ module Gapic
     ##
     # Create a new file formatter object
     #
-    # @param path_template [String] The URI path template to be parsed.
     def initialize configuration, files
       @configuration = configuration
       @files = format! configuration, files

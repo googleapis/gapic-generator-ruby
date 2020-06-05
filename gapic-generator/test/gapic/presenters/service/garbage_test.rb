@@ -37,13 +37,13 @@ class GarbageServiceTest < PresenterTest
     presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["Project", "SimpleGarbage", "SpecificGarbage", "TypicalGarbage"],
                  presenter.references.map(&:name).sort
-    expected_templates = [
+    expected_patterns = [
       "projects/{project}",
       "projects/{project}/simple_garbage/{simple_garbage}",
       "projects/{project}/specific_garbage/{specific_garbage}",
       "projects/{project}/typical_garbage_1/{typical_garbage_1}"
     ]
-    assert_equal expected_templates, presenter.references.map(&:patterns).map(&:first).map(&:template)
+    assert_equal expected_patterns, presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_namespace
