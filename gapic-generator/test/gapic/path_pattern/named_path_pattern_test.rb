@@ -81,15 +81,4 @@ class NamedPathPatternTest < PathPatternTest
       "/world"
     )
   end
-
-  # def test_correct_multivariate_path_pattern
-  #   # This is a bad URI path template, it can be parsed but not matched
-  #   assert_path_pattern(
-  #     "hello/{foo}~{bar}/world",
-  #     "hello/",
-  #     Gapic::PathPattern::Segment.new("foo", nil),
-  #     Gapic::PathPattern::Segment.new("bar", nil),
-  #     "/world"
-  #   )
-  # end
 end
