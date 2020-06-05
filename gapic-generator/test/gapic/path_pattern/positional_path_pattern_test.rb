@@ -16,46 +16,46 @@
 
 require "test_helper"
 
-class PositionalPathTemplateTest < PathTemplateTest
-  def test_simple_path_template
-    assert_path_template(
+class PositionalPathPatternTest < PathPatternTest
+  def test_simple_path_pattern
+    assert_path_pattern(
       "hello/*/world/**",
       "hello/",
-      Gapic::PathTemplate::Segment.new(0, "*"),
+      Gapic::PathPattern::Segment.new(0, "*"),
       "/world/",
-      Gapic::PathTemplate::Segment.new(1, "**")
+      Gapic::PathPattern::Segment.new(1, "**")
     )
   end
 
-  def test_prefix_path_template
-    assert_path_template(
+  def test_prefix_path_pattern
+    assert_path_pattern(
       "*/bar/*/bif/*",
-      Gapic::PathTemplate::Segment.new(0, "*"),
+      Gapic::PathPattern::Segment.new(0, "*"),
       "/bar/",
-      Gapic::PathTemplate::Segment.new(1, "*"),
+      Gapic::PathPattern::Segment.new(1, "*"),
       "/bif/",
-      Gapic::PathTemplate::Segment.new(2, "*")
+      Gapic::PathPattern::Segment.new(2, "*")
     )
   end
 
-  def test_trailing_path_template
-    assert_path_template(
+  def test_trailing_path_pattern
+    assert_path_pattern(
       "foo/*/baz/*/qux",
       "foo/",
-      Gapic::PathTemplate::Segment.new(0, "*"),
+      Gapic::PathPattern::Segment.new(0, "*"),
       "/baz/",
-      Gapic::PathTemplate::Segment.new(1, "*"),
+      Gapic::PathPattern::Segment.new(1, "*"),
       "/qux"
     )
   end
 
-  def test_more_than_two_stars_path_template
+  def test_more_than_two_stars_path_pattern
     # This is a bad URI path template, it can be parsed but not matched
-    assert_path_template(
+    assert_path_pattern(
       "hello/***/world",
       "hello/",
-      Gapic::PathTemplate::Segment.new(0, "**"),
-      Gapic::PathTemplate::Segment.new(1, "*"),
+      Gapic::PathPattern::Segment.new(0, "**"),
+      Gapic::PathPattern::Segment.new(1, "*"),
       "/world"
     )
   end
