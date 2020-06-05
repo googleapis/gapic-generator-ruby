@@ -16,14 +16,14 @@
 
 require "test_helper"
 
-class NamedPathTemplateTest < PathTemplateTest
-  def test_simple_path_template
-    segments = assert_path_template(
+class NamedPathPatternTest < PathPatternTest
+  def test_simple_path_pattern
+    segments = assert_path_pattern(
       "foo/{bar}/baz/{bif}",
       "foo/",
-      Gapic::PathTemplate::Segment.new("bar", nil),
+      Gapic::PathPattern::Segment.new("bar", nil),
       "/baz/",
-      Gapic::PathTemplate::Segment.new("bif", nil)
+      Gapic::PathPattern::Segment.new("bif", nil)
     )
     assert segments[1].named?
     refute segments[1].positional?
@@ -31,13 +31,13 @@ class NamedPathTemplateTest < PathTemplateTest
     refute segments[1].nontrivial_pattern?
   end
 
-  def test_pattern_path_template
-    segments = assert_path_template(
+  def test_pattern_path_pattern
+    segments = assert_path_pattern(
       "hello/{name=foo*bar}/world/{trailer=**}",
       "hello/",
-      Gapic::PathTemplate::Segment.new("name", "foo*bar"),
+      Gapic::PathPattern::Segment.new("name", "foo*bar"),
       "/world/",
-      Gapic::PathTemplate::Segment.new("trailer", "**")
+      Gapic::PathPattern::Segment.new("trailer", "**")
     )
     assert segments[1].named?
     refute segments[1].positional?
@@ -49,35 +49,35 @@ class NamedPathTemplateTest < PathTemplateTest
     refute segments[3].nontrivial_pattern?
   end
 
-  def test_prefix_path_template
-    assert_path_template(
+  def test_prefix_path_pattern
+    assert_path_pattern(
       "{foo}/bar/{baz}/bif/{qux}",
-      Gapic::PathTemplate::Segment.new("foo", nil),
+      Gapic::PathPattern::Segment.new("foo", nil),
       "/bar/",
-      Gapic::PathTemplate::Segment.new("baz", nil),
+      Gapic::PathPattern::Segment.new("baz", nil),
       "/bif/",
-      Gapic::PathTemplate::Segment.new("qux", nil)
+      Gapic::PathPattern::Segment.new("qux", nil)
     )
   end
 
-  def test_trailing_path_template
-    assert_path_template(
+  def test_trailing_path_pattern
+    assert_path_pattern(
       "foo/{bar}/baz/{bif}/qux",
       "foo/",
-      Gapic::PathTemplate::Segment.new("bar", nil),
+      Gapic::PathPattern::Segment.new("bar", nil),
       "/baz/",
-      Gapic::PathTemplate::Segment.new("bif", nil),
+      Gapic::PathPattern::Segment.new("bif", nil),
       "/qux"
     )
   end
 
-  def test_more_than_two_names_path_template
+  def test_more_than_two_names_path_pattern
     # This is a bad URI path template, it can be parsed but not matched
-    assert_path_template(
+    assert_path_pattern(
       "hello/{foo}{bar}/world",
       "hello/",
-      Gapic::PathTemplate::Segment.new("foo", nil),
-      Gapic::PathTemplate::Segment.new("bar", nil),
+      Gapic::PathPattern::Segment.new("foo", nil),
+      Gapic::PathPattern::Segment.new("bar", nil),
       "/world"
     )
   end

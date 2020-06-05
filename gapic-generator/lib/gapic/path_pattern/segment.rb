@@ -15,7 +15,7 @@
 # limitations under the License.
 
 module Gapic
-  module PathTemplate
+  module PathPattern
     # A segment in a URI path template.
     #
     # @see https://tools.ietf.org/html/rfc6570 URI Template
