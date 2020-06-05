@@ -75,6 +75,35 @@ $ cp -R /usr/src/protoc/include/* /usr/local/include/
 
 [orchestrate]: https://developers.google.com/protocol-buffers/docs/reference/ruby-generated
 
+### Set Up Your Ruby Environment
+
+If you are a Ruby developer, then please skip ahead to the next section.
+
+Install gem.
+
+```sh
+# Linux
+$ sudo apt-get install gem
+# Mac
+$ brew install gem
+```
+
+Add the following to your `~/.bashrc`, then do `source ~/.bashrc`.
+
+```sh
+export GEM_HOME=$HOME/.gem
+export GEM_PATH=$HOME/.gem
+export PATH=$PATH:$GOPATH/bin:$GEM_PATH/bin/ruby/2.5.0/bin
+```
+
+Install and set up Bundler.
+
+```sh
+$ gem install bundler
+$ bundle install
+$ BUNDLE_PATH=~/.gems
+```
+
 ### Build and Install the Generator
 This tool is in pre-alpha so it is not yet released to RubyGems. You will have to
 build the generator from scratch.
