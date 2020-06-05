@@ -53,59 +53,48 @@ module Gapic
       # A presenter for a particular pattern
       #
       class PatternPresenter
-        def initialize pattern
-          @pattern = pattern
-          @segments = Gapic::PathPattern.parse pattern
-          @arguments = arg_segments.map(&:name)
+        def initialize pattern_string
+          @pattern = Gapic::PathPattern.parse pattern_string
           @path_string = build_path_string
         end
 
-        attr_reader :pattern, :segments, :arguments, :path_string
+        attr_reader :pattern, :path_string
 
         def useful_for_helpers?
-          arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)
+          # arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)
+          !@pattern.has_positional_segments? && !pattern.has_nontrivial_pattern_segments?
         end
 
         def formal_arguments
-          arguments.map { |arg| "#{arg}:" }.join ", "
+          # arguments.map { |arg| "#{arg}:" }.join ", "
+          @pattern.arguments.map { |name| "#{name}:" }.join ", "
         end
 
         def arguments_key
-          arguments.sort.join ":"
+          #arguments.sort.join ":"
+          @pattern.arguments.sort.join ":"
         end
 
         def arguments_with_dummy_values
-          arguments.each_with_index.map { |arg, index| "#{arg}: \"value#{index}\"" }.join ", "
+          @pattern.arguments.each_with_index.map { |name, index| "#{name}: \"value#{index}\"" }.join ", "
         end
 
         def expected_path_for_dummy_values
           index = -1
-          segments.map do |segment|
-            if segment.is_a? Gapic::PathPattern::Segment
+          @pattern.segments.map do |segment|
+            if segment.provides_arguments?
               index += 1
               "value#{index}"
             else
-              # Should be a String
-              segment
+              segment.pattern
             end
-          end.join
+          end.join "/"
         end
 
         private
 
-        def arg_segments
-          segments.select { |segment| segment.is_a? Gapic::PathPattern::Segment }
-        end
-
         def build_path_string
-          segments.map do |segment|
-            if segment.is_a? Gapic::PathPattern::Segment
-              "\#{#{segment.name}}"
-            else
-              # Should be a String
-              segment
-            end
-          end.join
+          segments.select{|segment| segment.respond_to? :path_string}.map(&:path_string).join "/"
         end
       end
     end

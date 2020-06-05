@@ -16,58 +16,173 @@
 
 module Gapic
   module PathPattern
-    # A segment in a URI path template.
-    #
-    # @see https://tools.ietf.org/html/rfc6570 URI Template
-    #
-    # @!attribute [r] name
-    #   @return [String, Integer] The name of a named segment, or the position
-    #     of a positional segment.
-    # @!attribute [r] pattern
-    #   @return [String, nil] The pattern of the segment, nil if not set.
-    class Segment
-      attr_reader :name, :pattern
-
-      def initialize name, pattern
-        @name    = name
-        @pattern = pattern
+    class PositionalSegment
+      attr_reader :type, :position, :pattern, :wildcard_pattern
+      def initialize position, pattern, wildcard_pattern
+        @type       = :positional
+        @position   = position
+        @pattern    = pattern
+        @wildcard_pattern  = wildcard_pattern
       end
 
-      # Determines if the segment is positional (has a number for a name).
-      #
-      # @return [Boolean]
       def positional?
-        name.is_a? Integer
+        true
       end
 
-      # Determines if the segment is named (has a string for a name).
-      #
-      # @return [Boolean]
-      def named?
-        !positional?
+      def has_resource_pattern?
+        true
       end
 
-      # Determines if the segment has a pattern. Positional segments always
-      # have a pattern. Named segments may have a pattern if provided in the
-      # URI path template.
-      #
-      # @return [Boolean]
-      def pattern?
-        !@pattern.nil?
+      def has_nontrivial_resource_pattern?
+        false
       end
 
-      # Determines if the segment has a nontrivial pattern (i.e. not `*` or `**`).
-      #
-      # @return [Boolean]
-      def nontrivial_pattern?
-        @pattern && @pattern != "*" && @pattern != "**"
+      def provides_arguments?
+        true
+      end
+
+      def arguments
+        [position]
+      end
+
+      def self.create_simple position, wildcards
+        PositionalSegment.new position, wildcards, wildcards
       end
 
       # @private
       def == other
         return false unless other.is_a? self.class
 
-        (name == other.name) && (pattern == other.pattern)
+        (pattern == other.pattern && position == other.position)
+      end
+    end
+
+    # A segment in a path template.
+    #
+    # @!attribute [r] name
+    #   @return [String, Integer] The name of a named segment, or the position
+    #     of a positional segment.
+    # @!attribute [r] pattern
+    #   @return [String, nil] The pattern of the segment, nil if not set.
+    class ResourceIdSegment
+      attr_reader :type, :pattern, :resource_names, :resource_patterns
+
+      def initialize type, pattern, resource_names, resource_patterns = []
+        @type              = type
+        @pattern           = pattern
+        @resource_names    = resource_names
+        @resource_patterns = resource_patterns || []
+      end
+
+      # Determines if the segment is positional (has a number for a name).
+      #
+      # @return [Boolean]
+      def positional?
+        false
+      end
+
+      def provides_arguments?
+        true
+      end
+
+      def arguments
+        resource_names
+      end
+
+      def has_resource_pattern?
+        resource_patterns.any?
+      end
+
+      def has_nontrivial_resource_pattern?
+        resource_patterns.any?{|res_pattern| !res_pattern.match?(/^\*+$/)}
+      end
+
+      def path_string
+        type == :simple_resource_id ? "\#{#{resource_names[0]}}" : segment.pattern.sub("{", "\#{")
+      end
+
+      def self.create_simple name
+        ResourceIdSegment.new :simple_resource_id, "{#{name}}", [name]
+      end
+
+      # @private
+      def == other
+        return false unless other.is_a? self.class
+
+        (type == other.type && pattern == other.pattern && resource_names == other.resource_names && resource_patterns == other.resource_patterns)
+      end
+    end
+    
+    class CollectionIdSegment
+      attr_reader :type, :pattern
+
+      def initialize pattern
+        @type     = :collection_id
+        @pattern  = pattern
+      end
+
+      def positional?
+        false
+      end
+
+      def provides_arguments?
+        false
+      end
+
+      def has_resource_pattern?
+        false
+      end
+
+      def has_nontrivial_resource_pattern?
+        false
+      end
+
+      def path_string
+        pattern
+      end
+
+      # @private
+      def == other
+        return false unless other.is_a? self.class
+
+        (pattern == other.pattern)
+      end
+    end
+
+    module Segment
+      def self.parse segment_pattern, position
+        # check for the wildcard capture -- either * or **
+        all_capture_regex = /^(?<pattern>\*\*|\*)$/ 
+        if all_capture_regex.match? segment_pattern
+          match = all_capture_regex.match segment_pattern 
+          wildcard_pattern = match[:pattern]
+
+          return PositionalSegment.new position, segment_pattern, wildcard_pattern
+        end
+
+        # check for the complex resource id segment -- {<name_first>}<separator>{<name_second>} etc, e.g. {foo}-{bar}_{baz}
+        # see AIP-4231 Parsing resource names, Complex resource ID path segments
+        complex_resource_id_regex =  /^{(?<name_first>[^\/}]+?)}(?:(?<separator>[_-~\.]){(?<name_seq>[^\/}]+?)})+$/
+        if complex_resource_id_regex.match? segment_pattern
+          resource_name_regex = /{(?<name>[^\/}]+?)}/
+          resource_names = segment_pattern.scan(resource_name_regex).flatten
+          
+          return ResourceIdSegment.new :complex_resource_id, segment_pattern, resource_names
+        end
+
+        # check for the simple resource id segment -- {<name>}, e.g. {foo} with an optional pattern, e.g. {foo=**} or {foo=bar}
+        simple_resource_id_regex = /^{(?<resource_name>[^\/}]+?)(?:=(?<resource_pattern>[^\/}]+))?}$/
+        if simple_resource_id_regex.match? segment_pattern
+          match = simple_resource_id_regex.match segment_pattern
+          resource_name = match[:resource_name]
+          resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
+          resource_patterns = [resource_pattern] unless resource_pattern.nil?
+
+          return ResourceIdSegment.new :simple_resource_id, segment_pattern, [resource_name], resource_patterns
+        end
+
+        # if nothing else fits, it's the collection id
+        CollectionIdSegment.new segment_pattern
       end
     end
   end

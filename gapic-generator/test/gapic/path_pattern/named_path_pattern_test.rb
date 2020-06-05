@@ -16,69 +16,69 @@
 
 require "test_helper"
 
+
 class NamedPathPatternTest < PathPatternTest
   def test_simple_path_pattern
     segments = assert_path_pattern(
       "foo/{bar}/baz/{bif}",
-      "foo/",
-      Gapic::PathPattern::Segment.new("bar", nil),
-      "/baz/",
-      Gapic::PathPattern::Segment.new("bif", nil)
-    )
-    assert segments[1].named?
+      Gapic::PathPattern::CollectionIdSegment.new("foo"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("bar"),
+      Gapic::PathPattern::CollectionIdSegment.new("baz"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("bif"),
+    ).segments
+
     refute segments[1].positional?
-    refute segments[1].pattern?
-    refute segments[1].nontrivial_pattern?
+    assert segments[1].provides_arguments?
+    refute segments[1].has_resource_pattern?
   end
 
   def test_pattern_path_pattern
     segments = assert_path_pattern(
       "hello/{name=foo*bar}/world/{trailer=**}",
-      "hello/",
-      Gapic::PathPattern::Segment.new("name", "foo*bar"),
-      "/world/",
-      Gapic::PathPattern::Segment.new("trailer", "**")
-    )
-    assert segments[1].named?
+      Gapic::PathPattern::CollectionIdSegment.new("hello"),
+      Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{name=foo*bar}", ["name"], ["foo*bar"]),
+      Gapic::PathPattern::CollectionIdSegment.new("world"),
+      Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{trailer=**}", ["trailer"], ["**"])
+    ).segments
+
+    
     refute segments[1].positional?
-    assert segments[1].pattern?
-    assert segments[1].nontrivial_pattern?
-    assert segments[3].named?
+    assert segments[1].has_resource_pattern?
+    assert segments[1].has_nontrivial_resource_pattern?
+    
     refute segments[3].positional?
-    assert segments[3].pattern?
-    refute segments[3].nontrivial_pattern?
+    assert segments[3].has_resource_pattern?
+    refute segments[3].has_nontrivial_resource_pattern?
   end
 
   def test_prefix_path_pattern
     assert_path_pattern(
       "{foo}/bar/{baz}/bif/{qux}",
-      Gapic::PathPattern::Segment.new("foo", nil),
-      "/bar/",
-      Gapic::PathPattern::Segment.new("baz", nil),
-      "/bif/",
-      Gapic::PathPattern::Segment.new("qux", nil)
+      Gapic::PathPattern::ResourceIdSegment.create_simple("foo"),
+      Gapic::PathPattern::CollectionIdSegment.new("bar"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("baz"),
+      Gapic::PathPattern::CollectionIdSegment.new("bif"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("qux")
     )
   end
 
   def test_trailing_path_pattern
     assert_path_pattern(
       "foo/{bar}/baz/{bif}/qux",
-      "foo/",
-      Gapic::PathPattern::Segment.new("bar", nil),
-      "/baz/",
-      Gapic::PathPattern::Segment.new("bif", nil),
-      "/qux"
+      Gapic::PathPattern::CollectionIdSegment.new("foo"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("bar"),
+      Gapic::PathPattern::CollectionIdSegment.new("baz"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("bif"),
+      Gapic::PathPattern::CollectionIdSegment.new("qux")
     )
   end
 
-  def test_more_than_two_names_path_pattern
-    # This is a bad URI path template, it can be parsed but not matched
+  def test_correct_multivariate_path_pattern
     assert_path_pattern(
-      "hello/{foo}{bar}/world",
-      "hello/",
-      Gapic::PathPattern::Segment.new("foo", nil),
-      Gapic::PathPattern::Segment.new("bar", nil),
-      "/world"
+      "hello/{foo}~{bar}/world",
+      Gapic::PathPattern::CollectionIdSegment.new("hello"),
+      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{foo}~{bar}", ["foo", "bar"]),
+      Gapic::PathPattern::CollectionIdSegment.new("world")
     )
   end
 end

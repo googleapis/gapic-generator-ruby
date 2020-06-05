@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/path_pattern/segment"
+require "gapic/path_pattern/pattern"
 
 module Gapic
   module PathPattern
@@ -25,56 +26,12 @@ module Gapic
     #   @return [String] The path pattern to be parsed.
     # @!attribute [r] segments
     #   @return [Array<Segment|String>] The segments of the parsed path pattern.
-    class Parser
-      # @private
-      # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<pattern>.+?))?})/
-      PATH_PATTERN = %r{
-        (
-          (?<positional>\*\*?)
-          |
-          {(?<name>[^\/]+?)(?:=(?<pattern>.+?))?}
-        )
-      }x.freeze
+    module Parser
+      def self.parse path_pattern
+        segment_strings = path_pattern.split("/")
+        segments = segment_strings.map.with_index {|segment_string, position| Segment.parse segment_string, position}
 
-      attr_reader :path_pattern, :segments
-
-      # Create a new path pattern parser.
-      #
-      # @param path_pattern [String] The path pattern to be parsed.
-      def initialize path_pattern
-        @path_pattern = path_pattern
-        @segments = parse! path_pattern
-      end
-
-      protected
-
-      def parse! path_pattern
-        # segments contain either Strings or segment objects
-        segments = []
-        segment_pos = 0
-
-        while (match = PATH_PATTERN.match path_pattern)
-          # The String before the match needs to be added to the segments
-          segments << match.pre_match unless match.pre_match.empty?
-
-          segment, segment_pos = segment_and_pos_from_match match, segment_pos
-          segments << segment
-
-          path_pattern = match.post_match
-        end
-
-        # Whatever String is unmatched needs to be added to the segments
-        segments << path_pattern unless path_pattern.empty?
-
-        segments
-      end
-
-      def segment_and_pos_from_match match, pos
-        if match[:positional]
-          [Segment.new(pos, match[:positional]), pos + 1]
-        else
-          [Segment.new(match[:name], match[:pattern]), pos]
-        end
+        Pattern.new path_pattern, segments
       end
     end
   end

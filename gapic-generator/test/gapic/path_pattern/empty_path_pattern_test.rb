@@ -20,7 +20,8 @@ class EmptyPathPatternTest < PathPatternTest
   def test_empty_path_pattern
     assert_path_pattern(
       "hello/world",
-      "hello/world"
+      Gapic::PathPattern::CollectionIdSegment.new("hello"),
+      Gapic::PathPattern::CollectionIdSegment.new("world")
     )
   end
 end

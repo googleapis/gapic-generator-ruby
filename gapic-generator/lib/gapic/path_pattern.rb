@@ -29,7 +29,7 @@ module Gapic
     # @return [Array<PathTemplate::Segment|String>] The segments of the URI
     #   path template.
     def self.parse path_pattern
-      Parser.new(path_pattern).segments
+      Parser.parse(path_pattern)
     end
   end
 end

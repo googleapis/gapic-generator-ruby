@@ -118,12 +118,13 @@ end
 #
 class PathPatternTest < Minitest::Test
   def assert_path_pattern path_pattern, *exp_segments
-    act_segments = Gapic::PathPattern.parse path_pattern
+    pattern = Gapic::PathPattern.parse path_pattern
+    act_segments = pattern.segments
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments
 
-    act_segments
+    pattern
   end
 
   def assert_valid_segments segments
