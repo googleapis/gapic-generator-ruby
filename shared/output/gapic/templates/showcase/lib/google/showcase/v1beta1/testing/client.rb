@@ -441,12 +441,6 @@ module Google
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {
-              "name" => request.name
-            }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
-
             options.apply_defaults timeout:      @config.rpcs.report_session.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.report_session.retry_policy
@@ -651,7 +645,7 @@ module Google
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             header_params = {
-              "name" => request.name
+              "2" => request.2
             }
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header
@@ -760,7 +754,7 @@ module Google
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  {"grpc.service_config_disable_resolution"=>1}, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -873,3 +867,4 @@ module Google
     end
   end
 end
+

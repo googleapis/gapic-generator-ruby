@@ -194,8 +194,8 @@ module Gapic
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        segments = Gapic::PathPattern.parse method_path
-        segments.select { |s| s.is_a? Gapic::PathPattern::Segment }.map(&:name)
+        pattern = Gapic::PathPattern.parse method_path
+        pattern.arguments
       end
 
       def routing_params?

@@ -45,13 +45,13 @@ module So
           def complex_pattern_non_parent_resource_path order_a:, order_b:
             raise ::ArgumentError, "order_a cannot contain /" if order_a.to_s.include? "/"
 
-            "orders/#{order_a}~#{order_b}"
+            "orders/#{order_a}~{order_b}"
           end
 
           ##
           # Create a fully-qualified ComplexPatternRequest resource string.
           #
-          # @overload complex_pattern_request_path(customer:, item_a_id:, item_b_id:, items_c_id:, details_a_id:, details_b_id:, details_c_id:, extra_id:)
+          # @overload complex_pattern_request_path(customer:, item_a_id:, item_b_id:, items_c_id:, extra_id:)
           #   The resource will be in the following format:
           #
           #   `customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}/extra/{extra_id}`
@@ -60,9 +60,6 @@ module So
           #   @param item_a_id [String]
           #   @param item_b_id [String]
           #   @param items_c_id [String]
-          #   @param details_a_id [String]
-          #   @param details_b_id [String]
-          #   @param details_c_id [String]
           #   @param extra_id [String]
           #
           # @overload complex_pattern_request_path(customer:, extra_id:)
@@ -76,18 +73,15 @@ module So
           # @return [::String]
           def complex_pattern_request_path **args
             resources = {
-              "customer:details_a_id:details_b_id:details_c_id:extra_id:item_a_id:item_b_id:items_c_id" => (proc do |customer:, item_a_id:, item_b_id:, items_c_id:, details_a_id:, details_b_id:, details_c_id:, extra_id:|
+              "customer:extra_id:item_a_id:item_b_id:items_c_id" => (proc do |customer:, item_a_id:, item_b_id:, items_c_id:, extra_id:|
                 raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
                 raise ::ArgumentError, "item_a_id cannot contain /" if item_a_id.to_s.include? "/"
                 raise ::ArgumentError, "item_b_id cannot contain /" if item_b_id.to_s.include? "/"
                 raise ::ArgumentError, "items_c_id cannot contain /" if items_c_id.to_s.include? "/"
-                raise ::ArgumentError, "details_a_id cannot contain /" if details_a_id.to_s.include? "/"
-                raise ::ArgumentError, "details_b_id cannot contain /" if details_b_id.to_s.include? "/"
-                raise ::ArgumentError, "details_c_id cannot contain /" if details_c_id.to_s.include? "/"
 
-                "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}/details/#{details_a_id}_#{details_b_id}-#{details_c_id}/extra/#{extra_id}"
+                "customers/#{customer}/items/#{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}/extra/#{extra_id}"
               end),
-              "customer:extra_id"                                                                       => (proc do |customer:, extra_id:|
+              "customer:extra_id"                                => (proc do |customer:, extra_id:|
                 raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
                 "as/customers/#{customer}/extras/#{extra_id}"
@@ -117,7 +111,7 @@ module So
             raise ::ArgumentError, "item_a_id cannot contain /" if item_a_id.to_s.include? "/"
             raise ::ArgumentError, "item_b_id cannot contain /" if item_b_id.to_s.include? "/"
 
-            "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}"
+            "customers/#{customer}/items/#{item_a_id}.{item_b_id}~{items_c_id}"
           end
 
           ##

@@ -54,7 +54,8 @@ module Gapic
       #
       class PatternPresenter
         def initialize pattern_string
-          @pattern = Gapic::PathPattern.parse pattern_string
+          @pattern = pattern_string
+          @parsed_pattern = Gapic::PathPattern.parse pattern_string
           @path_string = build_path_string
         end
 
@@ -62,26 +63,30 @@ module Gapic
 
         def useful_for_helpers?
           # arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)
-          !@pattern.has_positional_segments? && !pattern.has_nontrivial_pattern_segments?
+          !@parsed_pattern.has_positional_segments? && !@parsed_pattern.has_nontrivial_pattern_segments?
+        end
+
+        def arguments
+          @parsed_pattern.arguments
         end
 
         def formal_arguments
           # arguments.map { |arg| "#{arg}:" }.join ", "
-          @pattern.arguments.map { |name| "#{name}:" }.join ", "
+          @parsed_pattern.arguments.map { |name| "#{name}:" }.join ", "
         end
 
         def arguments_key
           #arguments.sort.join ":"
-          @pattern.arguments.sort.join ":"
+          @parsed_pattern.arguments.sort.join ":"
         end
 
         def arguments_with_dummy_values
-          @pattern.arguments.each_with_index.map { |name, index| "#{name}: \"value#{index}\"" }.join ", "
+          @parsed_pattern.arguments.each_with_index.map { |name, index| "#{name}: \"value#{index}\"" }.join ", "
         end
 
         def expected_path_for_dummy_values
           index = -1
-          @pattern.segments.map do |segment|
+          @parsed_pattern.segments.map do |segment|
             if segment.provides_arguments?
               index += 1
               "value#{index}"
@@ -94,7 +99,7 @@ module Gapic
         private
 
         def build_path_string
-          segments.select{|segment| segment.respond_to? :path_string}.map(&:path_string).join "/"
+          @parsed_pattern.segments.select{|segment| segment.respond_to? :path_string}.map(&:path_string).join "/"
         end
       end
     end

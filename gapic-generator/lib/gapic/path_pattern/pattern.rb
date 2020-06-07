@@ -11,15 +11,15 @@ module Gapic
       end
 
       def arguments
-        @segments.select(&:provides_argument).map(&:arguments).flatten
+        @segments.select(&:provides_arguments?).map(&:arguments).flatten
       end
 
       def has_positional_segments?
-        @segments.any(&:positional?)
+        @segments.any?(&:positional?)
       end
 
       def has_nontrivial_pattern_segments?
-        @segments.any(&:has_nontrivial_resource_pattern?)
+        @segments.any?(&:has_nontrivial_resource_pattern?)
       end
     end
   end

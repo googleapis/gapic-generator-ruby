@@ -16,32 +16,57 @@
 
 require "test_helper"
 
-
 class NamedPathPatternTest < PathPatternTest
   def test_simple_path_pattern
-    segments = assert_path_pattern(
+    pattern = assert_path_pattern(
       "foo/{bar}/baz/{bif}",
       Gapic::PathPattern::CollectionIdSegment.new("foo"),
       Gapic::PathPattern::ResourceIdSegment.create_simple("bar"),
       Gapic::PathPattern::CollectionIdSegment.new("baz"),
       Gapic::PathPattern::ResourceIdSegment.create_simple("bif"),
-    ).segments
+    )
+    segments = pattern.segments
 
     refute segments[1].positional?
     assert segments[1].provides_arguments?
+    assert_equal ["bar"], segments[1].arguments
     refute segments[1].has_resource_pattern?
+
+    refute pattern.has_positional_segments?
+    refute pattern.has_nontrivial_pattern_segments?
+    assert_equal ["bar", "bif"], pattern.arguments
+  end
+
+  def test_showcase_pattern_path_pattern
+    pattern = assert_path_pattern(
+      "v1beta1/{parent=rooms/*}/blurbs",
+      Gapic::PathPattern::CollectionIdSegment.new("v1beta1"),
+      Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{parent=rooms/*}", ["parent"], ["rooms/*"]),
+      Gapic::PathPattern::CollectionIdSegment.new("blurbs"),
+    )
+    segments = pattern.segments
+
+    refute segments[1].positional?
+    assert segments[1].has_resource_pattern?
+    assert segments[1].has_nontrivial_resource_pattern?
+    assert segments[1].provides_arguments?
+    assert_equal ["parent"], segments[1].arguments
+
+    refute pattern.has_positional_segments?
+    assert pattern.has_nontrivial_pattern_segments?
+    assert_equal ["parent"], pattern.arguments
   end
 
   def test_pattern_path_pattern
-    segments = assert_path_pattern(
+    pattern = assert_path_pattern(
       "hello/{name=foo*bar}/world/{trailer=**}",
       Gapic::PathPattern::CollectionIdSegment.new("hello"),
       Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{name=foo*bar}", ["name"], ["foo*bar"]),
       Gapic::PathPattern::CollectionIdSegment.new("world"),
       Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{trailer=**}", ["trailer"], ["**"])
-    ).segments
+    )
+    segments = pattern.segments
 
-    
     refute segments[1].positional?
     assert segments[1].has_resource_pattern?
     assert segments[1].has_nontrivial_resource_pattern?
@@ -49,6 +74,10 @@ class NamedPathPatternTest < PathPatternTest
     refute segments[3].positional?
     assert segments[3].has_resource_pattern?
     refute segments[3].has_nontrivial_resource_pattern?
+
+    refute pattern.has_positional_segments?
+    assert pattern.has_nontrivial_pattern_segments?
+    assert_equal ["name", "trailer"], pattern.arguments
   end
 
   def test_prefix_path_pattern
@@ -74,11 +103,22 @@ class NamedPathPatternTest < PathPatternTest
   end
 
   def test_correct_multivariate_path_pattern
-    assert_path_pattern(
-      "hello/{foo}~{bar}/world",
+    pattern = assert_path_pattern(
+      "hello/{foo}~{bar}/worlds/{world}",
       Gapic::PathPattern::CollectionIdSegment.new("hello"),
       Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{foo}~{bar}", ["foo", "bar"]),
-      Gapic::PathPattern::CollectionIdSegment.new("world")
+      Gapic::PathPattern::CollectionIdSegment.new("worlds"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("world")
     )
+    segments = pattern.segments
+
+    refute segments[1].positional?
+    refute segments[1].has_resource_pattern?
+    assert segments[1].provides_arguments?
+    assert_equal ["foo", "bar"], segments[1].arguments
+
+    refute pattern.has_positional_segments?
+    refute pattern.has_nontrivial_pattern_segments?
+    assert_equal ["foo", "bar", "world"], pattern.arguments
   end
 end

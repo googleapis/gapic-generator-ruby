@@ -28,8 +28,20 @@ module Gapic
     #   @return [Array<Segment|String>] The segments of the parsed path pattern.
     module Parser
       def self.parse path_pattern
-        segment_strings = path_pattern.split("/")
-        segments = segment_strings.map.with_index {|segment_string, position| Segment.parse segment_string, position}
+        starts_with_slash = path_pattern.start_with? "/"
+        ends_with_slash = path_pattern.end_with? "/"
+
+        remainder = path_pattern
+        remainder[0] = "" if starts_with_slash
+        remainder[remainder.length-1] = "" if ends_with_slash
+
+        segments = []
+        position = 0
+        until remainder.empty?
+          segment, remainder = Segment.parse_first_segment remainder, position
+          segments << segment
+          position += 1
+        end
 
         Pattern.new path_pattern, segments
       end

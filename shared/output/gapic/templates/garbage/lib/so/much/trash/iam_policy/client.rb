@@ -219,12 +219,6 @@ module So
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {
-              "resource" => request.resource
-            }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
-
             options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.set_iam_policy.retry_policy
@@ -286,12 +280,6 @@ module So
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
-
-            header_params = {
-              "resource" => request.resource
-            }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
                                    metadata:     metadata,
@@ -359,12 +347,6 @@ module So
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
-
-            header_params = {
-              "resource" => request.resource
-            }
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,
                                    metadata:     metadata,

@@ -64,6 +64,27 @@ namespace :test do
     t.libs << "lib"
     t.test_files = FileList["test/gapic/annotations/resource_test.rb"]
   end
+
+  desc "Run tests on pattern parsing"
+  Rake::TestTask.new :pattern do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/path_pattern/**/*_test.rb"]
+  end
+
+  desc "Run tests on presenters"
+  Rake::TestTask.new :presenters do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/presenters/**/*_test.rb"]
+  end
+
+  desc "Run tests on generators"
+  Rake::TestTask.new :generators do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/generators/**/*_test.rb"]
+  end
 end
 
 YARD::Rake::YardocTask.new do |y|
