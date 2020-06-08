@@ -29,7 +29,6 @@ class NamedPathPatternTest < PathPatternTest
 
     refute segments[1].positional?
     assert segments[1].provides_arguments?
-    assert_equal ["bar"], segments[1].arguments
     refute segments[1].resource_pattern?
 
     refute pattern.positional_segments?
@@ -50,7 +49,6 @@ class NamedPathPatternTest < PathPatternTest
     assert segments[1].resource_pattern?
     assert segments[1].nontrivial_resource_pattern?
     assert segments[1].provides_arguments?
-    assert_equal ["parent"], segments[1].arguments
 
     refute pattern.positional_segments?
     assert pattern.nontrivial_pattern_segments?
@@ -119,17 +117,28 @@ class NamedPathPatternTest < PathPatternTest
     refute segments[1].positional?
     refute segments[1].resource_pattern?
     assert segments[1].provides_arguments?
-    assert_equal ["foo", "bar"], segments[1].arguments
     assert segments[1].provides_path_string?
     assert_equal "\#{foo}~\#{bar}", segments[1].path_string
 
-    assert_equal :simple_resource_id, segments[3].type
     assert segments[3].provides_arguments?
-    assert_equal ["world"], segments[3].arguments
 
     refute pattern.positional_segments?
     refute pattern.nontrivial_pattern_segments?
     assert_equal ["foo", "bar", "world"], pattern.arguments
   end
   # rubocop:enable Metrics/AbcSize
+
+  def test_lengty_pattern_all_separators
+    pattern = assert_path_pattern(
+      "customers/{customer}/item_triads/{item_a}.{item_b}~{items_c}/detail_triads/{detail_a}_{detail_b}-{detail_c}",
+      Gapic::PathPattern::CollectionIdSegment.new("customers"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("customer"),
+      Gapic::PathPattern::CollectionIdSegment.new("item_triads"),
+      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{item_a}.{item_b}~{items_c}", ["item_a", "item_b", "items_c"]),
+      Gapic::PathPattern::CollectionIdSegment.new("detail_triads"),
+      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{detail_a}_{detail_b}-{detail_c}", ["detail_a", "detail_b", "detail_c"])
+    )
+
+    assert_equal ["customer", "item_a", "item_b", "items_c", "detail_a", "detail_b", "detail_c"], pattern.arguments
+  end
 end

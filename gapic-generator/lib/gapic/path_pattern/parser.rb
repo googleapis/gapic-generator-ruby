@@ -66,7 +66,7 @@ module Gapic
         # {<name_first>}<separator>{<name_second>} etc, e.g. {foo}-{bar}_{baz}
         # see AIP-4231 Parsing resource names, Complex resource ID path segments
         complex_resource_id_regex =
-          /^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_-~\.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
+          /^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_\-~\.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
         if complex_resource_id_regex.match? url_pattern
           match = complex_resource_id_regex.match url_pattern
           segment_pattern = match[:segment_pattern]
