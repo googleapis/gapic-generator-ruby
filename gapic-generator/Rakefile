@@ -59,7 +59,7 @@ namespace :test do
   end
 
   desc "Run tests on annotations"
-  Rake::TestTask.new :resource do |t|
+  Rake::TestTask.new :annotations do |t|
     t.libs << "test"
     t.libs << "lib"
     t.test_files = FileList["test/gapic/annotations/**/*_test.rb"]
