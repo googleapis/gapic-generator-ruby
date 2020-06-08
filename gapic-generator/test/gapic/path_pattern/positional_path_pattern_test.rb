@@ -21,9 +21,9 @@ class PositionalPathPatternTest < PathPatternTest
     assert_path_pattern(
       "hello/*/world/**",
       Gapic::PathPattern::CollectionIdSegment.new("hello"),
-      Gapic::PathPattern::PositionalSegment.new(1, "*"),
+      Gapic::PathPattern::PositionalSegment.new(0, "*"),
       Gapic::PathPattern::CollectionIdSegment.new("world"),
-      Gapic::PathPattern::PositionalSegment.new(3, "**")
+      Gapic::PathPattern::PositionalSegment.new(1, "**")
     )
   end
 
@@ -32,9 +32,9 @@ class PositionalPathPatternTest < PathPatternTest
       "*/bar/*/bif/*",
       Gapic::PathPattern::PositionalSegment.new(0, "*"),
       Gapic::PathPattern::CollectionIdSegment.new("bar"),
-      Gapic::PathPattern::PositionalSegment.new(2, "*"),
+      Gapic::PathPattern::PositionalSegment.new(1, "*"),
       Gapic::PathPattern::CollectionIdSegment.new("bif"),
-      Gapic::PathPattern::PositionalSegment.new(4, "*")
+      Gapic::PathPattern::PositionalSegment.new(2, "*")
     )
   end
 
@@ -42,9 +42,9 @@ class PositionalPathPatternTest < PathPatternTest
     assert_path_pattern(
       "foo/*/baz/*/qux",
       Gapic::PathPattern::CollectionIdSegment.new("foo"),
-      Gapic::PathPattern::PositionalSegment.new(1, "*"),
+      Gapic::PathPattern::PositionalSegment.new(0, "*"),
       Gapic::PathPattern::CollectionIdSegment.new("baz"),
-      Gapic::PathPattern::PositionalSegment.new(3, "*"),
+      Gapic::PathPattern::PositionalSegment.new(1, "*"),
       Gapic::PathPattern::CollectionIdSegment.new("qux")
     )
   end

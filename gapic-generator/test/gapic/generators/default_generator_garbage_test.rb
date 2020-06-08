@@ -20,22 +20,22 @@ require "gapic/generators/default_generator"
 class DefaultGeneratorGarbageTest < GeneratorTest
   def test_garbage_generate
     generator = Gapic::Generators::DefaultGenerator.new api(:garbage)
-    
+
     failed_files = []
 
     generator.generate.each do |file|
-      expected = expected_content(:garbage, file.name)
+      expected = expected_content :garbage, file.name
       actual = file.content
 
-      if (expected != actual)
-        STDERR.puts "Generated file #{file.name} differs from expected"
-        failed_files << file
+      next if expected == actual
 
-        fname = file.name.gsub('/', '_')
+      warn "Generated file #{file.name} differs from expected"
+      failed_files << file
 
-        File.write("/tmp/filecomp/exp_#{fname}", expected)
-        File.write("/tmp/filecomp/act_#{fname}", actual)
-      end
+      fname = file.name.gsub "/", "_"
+
+      File.write "/tmp/filecomp/exp_#{fname}", expected
+      File.write "tmp/filecomp/act_#{fname}", actual
     end
 
     assert_empty failed_files, "#{failed_files.length} files are different from expected: \n" + failed_files.join("\n")

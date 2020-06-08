@@ -14,22 +14,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/path_pattern/parser"
+require "gapic/uri_template/parser"
 
 module Gapic
   # TODO: Enter docs
   # Dooooooooocs!!!
-  module PathPattern
-    # Parse a URI path template.
+  module UriTemplate
+    # Parse arguments from a URI template.
     #
     # @see https://tools.ietf.org/html/rfc6570 URI Template
     #
-    # @param path_pattern [String] The URI path template to be parsed.
+    # @param uri_template [String] The URI template to be parsed.
     #
-    # @return [Array<PathTemplate::Segment|String>] The segments of the URI
-    #   path template.
-    def self.parse path_pattern
-      Parser.parse path_pattern
+    # @return [Array<PathTemplate::Segment|String>] The arguments of the
+    #  URI template.
+    def self.parse_arguments uri_template
+      Parser.parse_arguments uri_template
     end
   end
 end

@@ -101,7 +101,15 @@ class PresenterTest < Minitest::Test
     api_obj = api api_name
     message = api_obj.messages.find { |m| m.address.join(".") == message_name }
     field = message.fields.find { |f| f.name == field_name }
+
     Gapic::Presenters::FieldPresenter.new api_obj, message, field
+  end
+
+  def resource_presenter api_name, message_name
+    api_obj = api api_name
+    message = api_obj.messages.find { |m| m.address.join(".") == message_name }
+
+    Gapic::Presenters::ResourcePresenter.new message.resource
   end
 end
 

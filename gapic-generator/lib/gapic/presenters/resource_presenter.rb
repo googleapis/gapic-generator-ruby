@@ -62,8 +62,7 @@ module Gapic
         attr_reader :pattern, :path_string
 
         def useful_for_helpers?
-          # arg_segments.none?(&:nontrivial_pattern?) && arg_segments.none?(&:positional?)
-          !@parsed_pattern.has_positional_segments? && !@parsed_pattern.has_nontrivial_pattern_segments?
+          !@parsed_pattern.positional_segments? && !@parsed_pattern.nontrivial_pattern_segments?
         end
 
         def arguments
@@ -71,12 +70,10 @@ module Gapic
         end
 
         def formal_arguments
-          # arguments.map { |arg| "#{arg}:" }.join ", "
           @parsed_pattern.arguments.map { |name| "#{name}:" }.join ", "
         end
 
         def arguments_key
-          #arguments.sort.join ":"
           @parsed_pattern.arguments.sort.join ":"
         end
 
@@ -85,11 +82,12 @@ module Gapic
         end
 
         def expected_path_for_dummy_values
-          index = -1
+          index = 0
           @parsed_pattern.segments.map do |segment|
             if segment.provides_arguments?
-              index += 1
-              "value#{index}"
+              segment_dummy_path = segment.expected_path_for_dummy_values index
+              index += segment.arguments.length
+              segment_dummy_path
             else
               segment.pattern
             end
@@ -99,7 +97,7 @@ module Gapic
         private
 
         def build_path_string
-          @parsed_pattern.segments.select{|segment| segment.respond_to? :path_string}.map(&:path_string).join "/"
+          @parsed_pattern.segments.select(&:provides_path_string?).map(&:path_string).join "/"
         end
       end
     end

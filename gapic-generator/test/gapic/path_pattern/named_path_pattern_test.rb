@@ -23,17 +23,17 @@ class NamedPathPatternTest < PathPatternTest
       Gapic::PathPattern::CollectionIdSegment.new("foo"),
       Gapic::PathPattern::ResourceIdSegment.create_simple("bar"),
       Gapic::PathPattern::CollectionIdSegment.new("baz"),
-      Gapic::PathPattern::ResourceIdSegment.create_simple("bif"),
+      Gapic::PathPattern::ResourceIdSegment.create_simple("bif")
     )
     segments = pattern.segments
 
     refute segments[1].positional?
     assert segments[1].provides_arguments?
     assert_equal ["bar"], segments[1].arguments
-    refute segments[1].has_resource_pattern?
+    refute segments[1].resource_pattern?
 
-    refute pattern.has_positional_segments?
-    refute pattern.has_nontrivial_pattern_segments?
+    refute pattern.positional_segments?
+    refute pattern.nontrivial_pattern_segments?
     assert_equal ["bar", "bif"], pattern.arguments
   end
 
@@ -42,21 +42,22 @@ class NamedPathPatternTest < PathPatternTest
       "v1beta1/{parent=rooms/*}/blurbs",
       Gapic::PathPattern::CollectionIdSegment.new("v1beta1"),
       Gapic::PathPattern::ResourceIdSegment.new(:simple_resource_id, "{parent=rooms/*}", ["parent"], ["rooms/*"]),
-      Gapic::PathPattern::CollectionIdSegment.new("blurbs"),
+      Gapic::PathPattern::CollectionIdSegment.new("blurbs")
     )
     segments = pattern.segments
 
     refute segments[1].positional?
-    assert segments[1].has_resource_pattern?
-    assert segments[1].has_nontrivial_resource_pattern?
+    assert segments[1].resource_pattern?
+    assert segments[1].nontrivial_resource_pattern?
     assert segments[1].provides_arguments?
     assert_equal ["parent"], segments[1].arguments
 
-    refute pattern.has_positional_segments?
-    assert pattern.has_nontrivial_pattern_segments?
+    refute pattern.positional_segments?
+    assert pattern.nontrivial_pattern_segments?
     assert_equal ["parent"], pattern.arguments
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_pattern_path_pattern
     pattern = assert_path_pattern(
       "hello/{name=foo*bar}/world/{trailer=**}",
@@ -68,17 +69,18 @@ class NamedPathPatternTest < PathPatternTest
     segments = pattern.segments
 
     refute segments[1].positional?
-    assert segments[1].has_resource_pattern?
-    assert segments[1].has_nontrivial_resource_pattern?
-    
-    refute segments[3].positional?
-    assert segments[3].has_resource_pattern?
-    refute segments[3].has_nontrivial_resource_pattern?
+    assert segments[1].resource_pattern?
+    assert segments[1].nontrivial_resource_pattern?
 
-    refute pattern.has_positional_segments?
-    assert pattern.has_nontrivial_pattern_segments?
+    refute segments[3].positional?
+    assert segments[3].resource_pattern?
+    refute segments[3].nontrivial_resource_pattern?
+
+    refute pattern.positional_segments?
+    assert pattern.nontrivial_pattern_segments?
     assert_equal ["name", "trailer"], pattern.arguments
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_prefix_path_pattern
     assert_path_pattern(
@@ -102,6 +104,7 @@ class NamedPathPatternTest < PathPatternTest
     )
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_correct_multivariate_path_pattern
     pattern = assert_path_pattern(
       "hello/{foo}~{bar}/worlds/{world}",
@@ -112,13 +115,21 @@ class NamedPathPatternTest < PathPatternTest
     )
     segments = pattern.segments
 
+    assert_equal :complex_resource_id, segments[1].type
     refute segments[1].positional?
-    refute segments[1].has_resource_pattern?
+    refute segments[1].resource_pattern?
     assert segments[1].provides_arguments?
     assert_equal ["foo", "bar"], segments[1].arguments
+    assert segments[1].provides_path_string?
+    assert_equal "\#{foo}~\#{bar}", segments[1].path_string
 
-    refute pattern.has_positional_segments?
-    refute pattern.has_nontrivial_pattern_segments?
+    assert_equal :simple_resource_id, segments[3].type
+    assert segments[3].provides_arguments?
+    assert_equal ["world"], segments[3].arguments
+
+    refute pattern.positional_segments?
+    refute pattern.nontrivial_pattern_segments?
     assert_equal ["foo", "bar", "world"], pattern.arguments
   end
+  # rubocop:enable Metrics/AbcSize
 end
