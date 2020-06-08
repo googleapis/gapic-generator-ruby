@@ -22,12 +22,12 @@ module Gapic
   module UriTemplate
     # Parse arguments from a URI template.
     # @see https://tools.ietf.org/html/rfc6570 URI Template
-    # 
+    #
     # used to satisfy AIP-4222 Routing headers
     # @see https://google.aip.dev/client-libraries/4222
     #
     # @param uri_template [String] The URI template to be parsed.
-    # 
+    #
     # @return [Array<PathTemplate::Segment|String>] The arguments of the
     #  URI template.
     def self.parse_arguments uri_template
