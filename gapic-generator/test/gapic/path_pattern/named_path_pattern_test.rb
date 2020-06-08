@@ -110,7 +110,6 @@ class NamedPathPatternTest < PathPatternTest
 
     assert_equal :complex_resource_id, segments[1].type
     refute segments[1].resource_pattern?
-    assert segments[1].provides_path_string?
     assert_equal "\#{foo}~\#{bar}", segments[1].path_string
 
     refute pattern.positional_segments?

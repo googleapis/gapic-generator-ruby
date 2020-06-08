@@ -43,7 +43,7 @@ class PatternPresenterTest < PresenterTest
     presenter = Gapic::Presenters::ResourcePresenter::PatternPresenter.new pattern
 
     refute presenter.useful_for_helpers?
-    assert_equal [0, 1], presenter.arguments
+    assert_equal ["0", "1"], presenter.arguments
     assert_equal "0:, 1:", presenter.formal_arguments
     assert_equal "0:1", presenter.arguments_key
     assert_equal "0: \"value0\", 1: \"value1\"", presenter.arguments_with_dummy_values

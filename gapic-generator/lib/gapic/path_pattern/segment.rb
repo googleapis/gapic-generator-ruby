@@ -16,13 +16,18 @@
 
 module Gapic
   module PathPattern
-    # A segment in a path template.
+    ##
+    # A positional segment in a path pattern.
+    #  positional segments have a pattern of wildcards and do not carry a name
     #
-    # @!attribute [r] name
-    #   @return [String, Integer] The name of a named segment, or the position
-    #     of a positional segment.
+    # @!attribure [r] type
+    #   @return [String] The type of this segment
+    # @!attribute [r] position
+    #   @return [Integer] The argument position of this segment i.e.
+    #     it's position if we remove all non-positional segments from the pattern
     # @!attribute [r] pattern
-    #   @return [String, nil] The pattern of the segment, nil if not set.
+    #   @return [String] The pattern of the segment, for the positional segment it is also
+    #     a pattern of its resource
     class PositionalSegment
       attr_reader :type, :position, :pattern
       def initialize position, pattern
@@ -31,36 +36,62 @@ module Gapic
         @pattern    = pattern
       end
 
+      ##
+      # Whether the segment is positional
+      # @return [Boolean]
       def positional?
         true
       end
 
+      ##
+      # Whether the segment provides a resource pattern
+      # @return [Boolean]
       def resource_pattern?
         true
       end
 
+      ##
+      # Whether the segment provides a nontrivial resource pattern
+      # @return [Boolean]
       def nontrivial_resource_pattern?
         false
       end
 
+      ##
+      # Whether the segment provides arguments
+      # @return [Boolean]
       def provides_arguments?
         true
       end
 
+      ##
+      # Names of the segment's arguments
+      # @return [Array<String>]
       def arguments
-        [position]
+        [position.to_s]
       end
 
+      ##
+      # Returns a segment's pattern filled with dummy values
+      #   names of the values are generated starting from the index provided
+      # @param start_index [Integer] a starting index for dummy value generation
+      # @return [String] a pattern filled with dummy values
       def expected_path_for_dummy_values start_index
         "value#{start_index}"
       end
 
-      def provides_path_string?
-        true
-      end
-
+      ##
+      # Path string for this segment
+      # @return [String]
       def path_string
         "\#{#{position}}"
+      end
+
+      ##
+      # A pattern template for this segment
+      # @return [String]
+      def pattern_template
+        pattern
       end
 
       # @private
@@ -71,13 +102,20 @@ module Gapic
       end
     end
 
-    # A segment in a path template.
+    # A ResourceId segment in a path pattern.
+    #  ResourceId segments can be simple, with one resource name
+    #  or complex, with multiple resource names divided by separators
     #
-    # @!attribute [r] name
-    #   @return [String, Integer] The name of a named segment, or the position
-    #     of a positional segment.
+    # @!attribure [r] type
+    #   @return [String] The type of this segment
     # @!attribute [r] pattern
-    #   @return [String, nil] The pattern of the segment, nil if not set.
+    #   @return [String] The pattern of the segment, for the positional segment it is also
+    #     a pattern of its resource
+    # @!attribute [r] resource_names
+    #   @return [Array<String>] The resource names in this segment
+    # @!attribute [r] resource_patterns
+    #   @return [Array<String>] The resource patterns associated with
+    #     the resource_names of this segment
     class ResourceIdSegment
       attr_reader :type, :pattern, :resource_names, :resource_patterns
 
@@ -88,21 +126,46 @@ module Gapic
         @resource_patterns = resource_patterns || []
       end
 
-      # Determines if the segment is positional (has a number for a name).
-      #
+      ##
+      # Whether the segment is positional
       # @return [Boolean]
       def positional?
         false
       end
 
+      ##
+      # Whether the segment provides a resource pattern
+      # @return [Boolean]
+      def resource_pattern?
+        resource_patterns.any?
+      end
+
+      ##
+      # Whether the segment provides a nontrivial resource pattern
+      # @return [Boolean]
+      def nontrivial_resource_pattern?
+        resource_patterns.any? { |res_pattern| !res_pattern.match?(/^\*+$/) }
+      end
+
+      ##
+      # Whether the segment provides arguments
+      # @return [Boolean]
       def provides_arguments?
         true
       end
 
+      ##
+      # Names of the segment's arguments
+      # @return [Array<String>]
       def arguments
         resource_names
       end
 
+      ##
+      # Returns a segment's pattern filled with dummy values
+      #   names of the values are generated starting from the index provided
+      # @param start_index [Integer] a starting index for dummy value generation
+      # @return [String] a pattern filled with dummy values
       def expected_path_for_dummy_values start_index
         return "value#{start_index}" if type == :simple_resource_id
 
@@ -111,22 +174,24 @@ module Gapic
         end
       end
 
-      def resource_pattern?
-        resource_patterns.any?
-      end
-
-      def nontrivial_resource_pattern?
-        resource_patterns.any? { |res_pattern| !res_pattern.match?(/^\*+$/) }
-      end
-
-      def provides_path_string?
-        true
-      end
-
+      ##
+      # Path string for this segment
+      # @return [String]
       def path_string
         type == :simple_resource_id ? "\#{#{resource_names[0]}}" : pattern.gsub("{", "\#{")
       end
 
+      ##
+      # A pattern template for this segment
+      # @return [String]
+      def pattern_template
+        "*"
+      end
+
+      ##
+      # Initialization helper to create a simple resource without a pattern
+      # @param name [String] resource name
+      # @return [ResourceIdSegment]
       def self.create_simple name
         ResourceIdSegment.new :simple_resource_id, "{#{name}}", [name]
       end
@@ -141,13 +206,15 @@ module Gapic
       end
     end
 
-    # A segment in a path template.
+    ##
+    # A CollectionId segment in a path template.
+    #  CollectionId segments are basically string literals
     #
-    # @!attribute [r] name
-    #   @return [String, Integer] The name of a named segment, or the position
-    #     of a positional segment.
+    # @!attribure [r] type
+    #   @return [String] The type of this segment
     # @!attribute [r] pattern
-    #   @return [String, nil] The pattern of the segment, nil if not set.
+    #   @return [String] The pattern of the segment, for the positional segment it is also
+    #     a pattern of its resource
     class CollectionIdSegment
       attr_reader :type, :pattern
 
@@ -156,27 +223,45 @@ module Gapic
         @pattern  = pattern
       end
 
+      ##
+      # Whether the segment is positional
+      # @return [Boolean]
       def positional?
         false
       end
 
-      def provides_arguments?
-        false
-      end
-
+      ##
+      # Whether the segment provides a resource pattern
+      # @return [Boolean]
       def resource_pattern?
         false
       end
 
+      ##
+      # Whether the segment provides a nontrivial resource pattern
+      # @return [Boolean]
       def nontrivial_resource_pattern?
         false
       end
 
-      def provides_path_string?
-        true
+      ##
+      # Whether the segment provides arguments
+      # @return [Boolean]
+      def provides_arguments?
+        false
       end
 
+      ##
+      # Path string for this segment
+      # @return [String]
       def path_string
+        pattern
+      end
+
+      ##
+      # A pattern template for this segment
+      # @return [String]
+      def pattern_template
         pattern
       end
 

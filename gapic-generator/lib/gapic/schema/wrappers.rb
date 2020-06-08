@@ -768,11 +768,13 @@ module Gapic
     #     used. Segmented means simply split on slashes.
     #     For example, if a pattern is `"projects/{project}""`, the
     #     corresponding parsed pattern would be `["projects", "*"]`.
+    # @!attribure [r] parsed_parent_patterns
+    #   return [Array<String>] Parsed patterns for the expected parents.
     # @!attribute [r] parent_resources
     #   @return [Array<Gapic::Schema::Resource>] Parent resources
     class Resource
       extend Forwardable
-      attr_reader :descriptor, :parsed_patterns, :parent_resources
+      attr_reader :descriptor, :parsed_patterns, :parsed_parent_patterns, :parent_resources
       attr_accessor :parent
 
       # Initializes a resource object.
@@ -781,9 +783,11 @@ module Gapic
       def initialize descriptor
         @parent = nil
         @descriptor = descriptor
-        @parsed_patterns = descriptor.pattern.map do |pattern|
+        patterns = descriptor.pattern.map do |pattern|
           Gapic::PathPattern.parse pattern
         end.freeze
+        @parsed_patterns = patterns.map(&:template).freeze
+        @parsed_parent_patterns = patterns.map(&:parent_template).freeze
         @parent_resources = []
       end
 
@@ -801,9 +805,9 @@ module Gapic
 
       # Returns parsed patterns for the expected parents.
       # @return [Array<Array<String>>]
-      def parsed_parent_patterns
-        @parsed_patterns.map(&:parent_pattern).compact.uniq
-      end
+      # def parsed_parent_patterns
+      #   @parsed_patterns.map(&:parent_pattern).compact.uniq
+      # end
 
       # @!method type
       #   @return [String] the resource type string.

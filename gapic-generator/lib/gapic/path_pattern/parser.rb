@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,21 +19,23 @@ require "gapic/path_pattern/pattern"
 
 module Gapic
   module PathPattern
+    ##
     # A path pattern parser.
-    # see https://google.aip.dev/122, https://google.aip.dev/123
+    # takes a pattern and transforms it into a collection of parsed segments
+    # @see https://google.aip.dev/122
+    # @see https://google.aip.dev/123
     #
-    # @!attribute [r] path_pattern
-    #   @return [String] The path pattern to be parsed.
-    # @!attribute [r] segments
-    #   @return [Array<Segment|String>] The segments of the parsed path pattern.
     module Parser
+      ##
+      # @param path_pattern [String] The path pattern to be parsed
+      # @return [Gapic::PathPattern::Pattern]
       def self.parse path_pattern
         starts_with_slash = path_pattern.start_with? "/"
         ends_with_slash = path_pattern.end_with? "/"
 
         remainder = path_pattern
         remainder[0] = "" if starts_with_slash
-        remainder[remainder.length - 1] = "" if ends_with_slash
+        remainder[-1] = "" if ends_with_slash
 
         segments = []
         position = 0

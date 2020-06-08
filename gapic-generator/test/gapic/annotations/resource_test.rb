@@ -94,7 +94,8 @@ class AnnotationResourceTest < AnnotationTest
 
     assert_kind_of Gapic::Schema::Resource, message.resource
     assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], message.resource.pattern
-    assert_equal [["projects", "*", "simple_garbage", "*"]], message.resource.parsed_patterns
+    assert_equal ["projects/*/simple_garbage/*"], message.resource.parsed_patterns
+    assert_equal ["projects/*"], message.resource.parsed_parent_patterns
     assert_equal message.resource, garbage.lookup_resource_type("endlesstrash.example.net/SimpleGarbage")
 
     parents = message.resource.parent_resources

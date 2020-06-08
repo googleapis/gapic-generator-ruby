@@ -97,7 +97,7 @@ module Gapic
         private
 
         def build_path_string
-          @parsed_pattern.segments.select(&:provides_path_string?).map(&:path_string).join "/"
+          @parsed_pattern.segments.map(&:path_string).join "/"
         end
       end
     end
