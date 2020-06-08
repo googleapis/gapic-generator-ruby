@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/formatting_utils"
+require "gapic/path_pattern"
 
 module Gapic
   module Schema
@@ -781,9 +782,7 @@ module Gapic
         @parent = nil
         @descriptor = descriptor
         @parsed_patterns = descriptor.pattern.map do |pattern|
-          pattern.split("/").map do |segment|
-            segment =~ %r{\{[^/\}]+(=[^\}]+)?\}} ? "*" : segment
-          end.freeze
+          Gapic::PathPattern.parse pattern
         end.freeze
         @parent_resources = []
       end
@@ -803,10 +802,7 @@ module Gapic
       # Returns parsed patterns for the expected parents.
       # @return [Array<Array<String>>]
       def parsed_parent_patterns
-        @parsed_patterns.map do |pat|
-          parent = pat.last =~ /^\*\*?$/ ? pat[0...-2] : pat[0...-1]
-          parent.empty? ? nil : parent
-        end.compact.uniq
+        @parsed_patterns.map(&:parent_pattern).compact.uniq
       end
 
       # @!method type

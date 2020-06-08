@@ -28,6 +28,14 @@ module Gapic
       def nontrivial_pattern_segments?
         @segments.any?(&:nontrivial_resource_pattern?)
       end
+
+      def parent_pattern
+        return nil if segments.length <= 2
+
+        last_segment = segments[-1]
+        parent_pattern_segents = last_segment.provides_arguments? ? segments[0...-2] : segments[0...-1]
+        parent_pattern_segents.map(&:pattern).join("/")
+      end
     end
   end
 end

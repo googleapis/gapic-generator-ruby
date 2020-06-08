@@ -137,7 +137,7 @@ class PathPatternTest < Minitest::Test
 
   def assert_valid_segments segments
     refute segments.any?(nil), "segments won't contain any nil segments"
-    refute segments.any?(""), "segments won't contain any empty segments"
+    refute segments.any?{|segment| segment.pattern.empty?}, "segments won't contain any empty segments"
   end
 end
 

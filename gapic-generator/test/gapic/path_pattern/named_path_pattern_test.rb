@@ -55,7 +55,6 @@ class NamedPathPatternTest < PathPatternTest
     assert_equal ["parent"], pattern.arguments
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_pattern_path_pattern
     pattern = assert_path_pattern(
       "hello/{name=foo*bar}/world/{trailer=**}",
@@ -67,18 +66,15 @@ class NamedPathPatternTest < PathPatternTest
     segments = pattern.segments
 
     refute segments[1].positional?
-    assert segments[1].resource_pattern?
     assert segments[1].nontrivial_resource_pattern?
 
     refute segments[3].positional?
-    assert segments[3].resource_pattern?
     refute segments[3].nontrivial_resource_pattern?
 
     refute pattern.positional_segments?
     assert pattern.nontrivial_pattern_segments?
     assert_equal ["name", "trailer"], pattern.arguments
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_prefix_path_pattern
     assert_path_pattern(
@@ -102,8 +98,7 @@ class NamedPathPatternTest < PathPatternTest
     )
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def test_correct_multivariate_path_pattern
+  def test_multivariate_path_pattern
     pattern = assert_path_pattern(
       "hello/{foo}~{bar}/worlds/{world}",
       Gapic::PathPattern::CollectionIdSegment.new("hello"),
@@ -114,19 +109,14 @@ class NamedPathPatternTest < PathPatternTest
     segments = pattern.segments
 
     assert_equal :complex_resource_id, segments[1].type
-    refute segments[1].positional?
     refute segments[1].resource_pattern?
-    assert segments[1].provides_arguments?
     assert segments[1].provides_path_string?
     assert_equal "\#{foo}~\#{bar}", segments[1].path_string
-
-    assert segments[3].provides_arguments?
 
     refute pattern.positional_segments?
     refute pattern.nontrivial_pattern_segments?
     assert_equal ["foo", "bar", "world"], pattern.arguments
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_lengty_pattern_all_separators
     pattern = assert_path_pattern(
@@ -134,11 +124,12 @@ class NamedPathPatternTest < PathPatternTest
       Gapic::PathPattern::CollectionIdSegment.new("customers"),
       Gapic::PathPattern::ResourceIdSegment.create_simple("customer"),
       Gapic::PathPattern::CollectionIdSegment.new("item_triads"),
-      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{item_a}.{item_b}~{items_c}", ["item_a", "item_b", "items_c"]),
+      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{item_a}.{item_b}~{items_c}",
+                                                ["item_a", "item_b", "items_c"]),
       Gapic::PathPattern::CollectionIdSegment.new("detail_triads"),
-      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{detail_a}_{detail_b}-{detail_c}", ["detail_a", "detail_b", "detail_c"])
+      Gapic::PathPattern::ResourceIdSegment.new(:complex_resource_id, "{detail_a}_{detail_b}-{detail_c}",
+                                                ["detail_a", "detail_b", "detail_c"])
     )
-
     assert_equal ["customer", "item_a", "item_b", "items_c", "detail_a", "detail_b", "detail_c"], pattern.arguments
   end
 end
