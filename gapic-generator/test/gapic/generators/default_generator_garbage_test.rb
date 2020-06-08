@@ -21,13 +21,8 @@ class DefaultGeneratorGarbageTest < GeneratorTest
   def test_garbage_generate
     generator = Gapic::Generators::DefaultGenerator.new api(:garbage)
 
-    failed_files = []
-
     generator.generate.each do |file|
-      expected = expected_content :garbage, file.name
-      actual = file.content
-
-      assert_equal expected, actual, "Generated content for file '#{file.name}' is different from expected"
+      assert_equal expected_content(:garbage, file.name), file.content
     end
   end
 end

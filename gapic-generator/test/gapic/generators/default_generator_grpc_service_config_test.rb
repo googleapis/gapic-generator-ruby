@@ -27,10 +27,7 @@ class DefaultGeneratorGrpcServiceConfigTest < GeneratorTest
     generator = Gapic::Generators::DefaultGenerator.new api_request
     
     generator.generate.each do |file|
-      expected = expected_content :grpc_service_config, file.name
-      actual = file.content
-
-      assert_equal expected, actual, "Generated content for file '#{file.name}' is different from expected"
+      assert_equal expected_content(:grpc_service_config, file.name), file.content
     end
   end
 end
