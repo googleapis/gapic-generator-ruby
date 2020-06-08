@@ -20,13 +20,14 @@ module Gapic
   # TODO: Enter docs
   # Dooooooooocs!!!
   module PathPattern
-    # Parse a URI path template.
+    # Parse a URI path pattern.
     #
-    # @see https://tools.ietf.org/html/rfc6570 URI Template
+    # @see https://google.aip.dev/122 AIP-122 Resource names
+    # @see https://google.aip.dev/123 AIP-123 Resource types
     #
     # @param path_pattern [String] The URI path template to be parsed.
     #
-    # @return [Array<PathTemplate::Segment|String>] The segments of the URI
+    # @return [PathPattern::Pattern] The parsed pattern
     #   path template.
     def self.parse path_pattern
       Parser.parse path_pattern

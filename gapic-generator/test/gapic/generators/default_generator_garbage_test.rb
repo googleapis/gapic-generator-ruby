@@ -20,7 +20,6 @@ require "gapic/generators/default_generator"
 class DefaultGeneratorGarbageTest < GeneratorTest
   def test_garbage_generate
     generator = Gapic::Generators::DefaultGenerator.new api(:garbage)
-
     generator.generate.each do |file|
       assert_equal expected_content(:garbage, file.name), file.content
     end

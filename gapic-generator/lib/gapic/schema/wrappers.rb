@@ -762,12 +762,12 @@ module Gapic
     #   @return [Array<Gapic::Schema::ResourceDescriptor>] The resource
     #     descriptor.
     # @!attribute [r] parsed_patterns
-    #   @return [Array<Array<String>>] The normalized, segmented forms of the
-    #     patterns. Normalized means all ID segments are replaced by asterisks
+    #   @return [Arrayy<String>] The template form of the
+    #     patterns. Template means all ID segments are replaced by asterisks
     #     to remove non-structural differences due to different names being
-    #     used. Segmented means simply split on slashes.
+    #     used.
     #     For example, if a pattern is `"projects/{project}""`, the
-    #     corresponding parsed pattern would be `["projects", "*"]`.
+    #     corresponding parsed pattern would be `"projects/*"]`.
     # @!attribure [r] parsed_parent_patterns
     #   return [Array<String>] Parsed patterns for the expected parents.
     # @!attribute [r] parent_resources
@@ -802,12 +802,6 @@ module Gapic
       def containing_file
         parent&.containing_file
       end
-
-      # Returns parsed patterns for the expected parents.
-      # @return [Array<Array<String>>]
-      # def parsed_parent_patterns
-      #   @parsed_patterns.map(&:parent_pattern).compact.uniq
-      # end
 
       # @!method type
       #   @return [String] the resource type string.

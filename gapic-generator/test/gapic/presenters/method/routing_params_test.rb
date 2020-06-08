@@ -54,6 +54,7 @@ class MethodPresenterRoutingParamsTest < PresenterTest
 
   def test_showcase_CreateBlurb
     presenter = method_presenter :showcase, "Messaging", "CreateBlurb"
+
     assert presenter.routing_params?
     assert_equal ["parent"], presenter.routing_params
   end

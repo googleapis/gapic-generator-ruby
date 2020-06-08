@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ module Gapic
     #
     # @param uri_template [String] The URI template to be parsed.
     #
-    # @return [Array<PathTemplate::Segment|String>] The arguments of the
-    #  URI template.
+    # @return [Array<String>] The arguments of the URI template.
     def self.parse_arguments uri_template
       Parser.parse_arguments uri_template
     end
