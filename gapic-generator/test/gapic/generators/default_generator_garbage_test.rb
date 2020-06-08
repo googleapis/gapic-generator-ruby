@@ -27,17 +27,7 @@ class DefaultGeneratorGarbageTest < GeneratorTest
       expected = expected_content :garbage, file.name
       actual = file.content
 
-      next if expected == actual
-
-      warn "Generated file #{file.name} differs from expected"
-      failed_files << file
-
-      fname = file.name.gsub "/", "_"
-
-      File.write "/tmp/filecomp/exp_#{fname}", expected
-      File.write "tmp/filecomp/act_#{fname}", actual
+      assert_equal expected, actual, "Generated content for file '#{file.name}' is different from expected"
     end
-
-    assert_empty failed_files, "#{failed_files.length} files are different from expected: \n" + failed_files.join("\n")
   end
 end

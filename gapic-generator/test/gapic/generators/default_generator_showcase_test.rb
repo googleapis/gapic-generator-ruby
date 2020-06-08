@@ -21,7 +21,10 @@ class DefaultGeneratorShowcaseTest < GeneratorTest
   def test_showcase_generate
     generator = Gapic::Generators::DefaultGenerator.new api(:showcase)
     generator.generate.each do |file|
-      assert_equal expected_content(:showcase, file.name), file.content
+      expected = expected_content :showcase, file.name
+      actual = file.content
+
+      assert_equal expected, actual, "Generated content for file '#{file.name}' is different from expected"
     end
   end
 end
