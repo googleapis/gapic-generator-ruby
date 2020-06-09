@@ -786,8 +786,8 @@ module Gapic
         patterns = descriptor.pattern.map do |pattern|
           Gapic::PathPattern.parse pattern
         end.freeze
-        @parsed_patterns = patterns.map(&:template).freeze
-        @parsed_parent_patterns = patterns.map(&:parent_template).freeze
+        @parsed_patterns = patterns.map(&:template).uniq.freeze
+        @parsed_parent_patterns = patterns.map(&:parent_template).uniq.freeze
         @parent_resources = []
       end
 

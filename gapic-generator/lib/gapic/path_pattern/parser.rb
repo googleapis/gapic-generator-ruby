@@ -67,7 +67,7 @@ module Gapic
       # The wildcard segment can be either * or **
       # @private
       def self.try_capture_wildcard_segment url_pattern, position
-        wildcard_capture_regex = %r{^(?<pattern>\*\*|\*)(?:\/|$)}
+        wildcard_capture_regex = %r{^(?<pattern>\*\*|\*)(?:/|$)}
         return nil, url_pattern unless wildcard_capture_regex.match? url_pattern
 
         match = wildcard_capture_regex.match url_pattern
@@ -132,7 +132,7 @@ module Gapic
       # except the path separator /
       # @private
       def self.capture_collection_id_segment url_pattern
-        collection_id_regex = %r{^(?<collection_name>[^\/]+?)(?:\/|$)}
+        collection_id_regex = %r{^(?<collection_name>[^/]+?)(?:/|$)}
         match = collection_id_regex.match url_pattern
 
         collection_name = match[:collection_name]
