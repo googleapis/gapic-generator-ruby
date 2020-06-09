@@ -71,9 +71,9 @@ module Gapic
       # @return [String]
       def parent_template
         return "" if segments.length <= 2
-        last_segment = segments[-1]
-        parent_pattern_segents = last_segment.provides_arguments? ? segments[0...-2] : segments[0...-1]
-        parent_pattern_segents.map(&:pattern_template).join("/")
+        last_segment = segments.last
+        parent_pattern_segments = last_segment.provides_arguments? ? segments[0...-2] : segments[0...-1]
+        parent_pattern_segments.map(&:pattern_template).join("/")
       end
     end
   end

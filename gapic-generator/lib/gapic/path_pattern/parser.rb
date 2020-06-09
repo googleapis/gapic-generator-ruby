@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2020 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,12 +30,7 @@ module Gapic
       # @param path_pattern [String] The path pattern to be parsed
       # @return [Gapic::PathPattern::Pattern]
       def self.parse path_pattern
-        starts_with_slash = path_pattern.start_with? "/"
-        ends_with_slash = path_pattern.end_with? "/"
-
-        remainder = path_pattern
-        remainder[0] = "" if starts_with_slash
-        remainder[-1] = "" if ends_with_slash
+        remainder = path_pattern.sub(%r{^\/}, "").sub(%r{\/$}, "")
 
         segments = []
         position = 0
@@ -48,69 +43,104 @@ module Gapic
       end
 
       # @private
-      # rubocop:disable Metrics/AbcSize
-      # rubocop:disable Metrics/MethodLength
-      # rubocop:disable Style/RegexpLiteral
       def self.parse_first_segment_with_position url_pattern, position
-        # check for the w ildcard capture -- either * or **
-        wildcard_capture_regex = /^(?<pattern>\*\*|\*)(?:\/|$)/
-        if wildcard_capture_regex.match? url_pattern
-          match = wildcard_capture_regex.match url_pattern
+        # check for the wildcard segment -- either * or **
+        # wildcard segments are positional, so the position counter is used and updated
+        segment, remainder = try_capture_wildcard_segment url_pattern, position
+        return [segment, position + 1, remainder] if segment
 
-          wildcard_pattern = match[:pattern]
+        # check for the complex resource id segment, e.g. {foo}-{bar}_{baz}
+        segment, remainder = try_capture_complex_resource_id_segment url_pattern
+        return [segment, position, remainder] if segment
 
-          segment = PositionalSegment.new position, wildcard_pattern
-          remainder = match.post_match
-          return segment, position + 1, remainder
-        end
+        # check for the simple resource id segment, e.g. {foo} or {foo=some/pattern/*}
+        segment, remainder = try_capture_simple_resource_id_segment url_pattern
+        return [segment, position, remainder] if segment
 
-        # check for the complex resource id segment --
-        # {<name_first>}<separator>{<name_second>} etc, e.g. {foo}-{bar}_{baz}
-        # see AIP-4231 Parsing resource names, Complex resource ID path segments
+        # if nothing else fits, it's the collection id segment
+        segment, remainder = capture_collection_id_segment url_pattern
+        [segment, position, remainder]
+      end
+
+      ##
+      # Tries to capture the first segment of the pattern as a wildcard segment
+      # The wildcard segment can be either * or **
+      # @private
+      def self.try_capture_wildcard_segment url_pattern, position
+        wildcard_capture_regex = %r{^(?<pattern>\*\*|\*)(?:\/|$)}
+        return nil, url_pattern unless wildcard_capture_regex.match? url_pattern
+
+        match = wildcard_capture_regex.match url_pattern
+
+        wildcard_pattern = match[:pattern]
+
+        segment = PositionalSegment.new position, wildcard_pattern
+        remainder = match.post_match
+        [segment, remainder]
+      end
+
+      ##
+      # Tries to capture the first segment of the pattern as a complex resource id segment
+      # The pattern for the complex resource id segments is:
+      # {<name_first>}<separator>{<name_second>} etc, e.g. {foo}-{bar}_{baz}
+      # see AIP-4231 Parsing resource names, Complex resource ID path segments
+      # @private
+      def self.try_capture_complex_resource_id_segment url_pattern
         complex_resource_id_regex =
-          /^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_\-~\.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
-        if complex_resource_id_regex.match? url_pattern
-          match = complex_resource_id_regex.match url_pattern
-          segment_pattern = match[:segment_pattern]
+          %r/^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_\-~\.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
 
-          resource_name_regex = /{(?<name>[^\/}]+?)}/
-          resource_names = segment_pattern.scan(resource_name_regex).flatten
+        return nil, url_pattern unless complex_resource_id_regex.match? url_pattern
 
-          segment = ResourceIdSegment.new :complex_resource_id, segment_pattern, resource_names
-          remainder = match.post_match
-          return segment, position, remainder
-        end
+        match = complex_resource_id_regex.match url_pattern
+        segment_pattern = match[:segment_pattern]
 
-        # check for the simple resource id segment -- {<name>},
-        # e.g. {foo} with an optional pattern, e.g. {foo=**} or {foo=bar}
+        resource_name_regex = %r/{(?<name>[^\/}]+?)}/
+        resource_names = segment_pattern.scan(resource_name_regex).flatten
+
+        segment = ResourceIdSegment.new :complex_resource_id, segment_pattern, resource_names
+        remainder = match.post_match
+        [segment, remainder]
+      end
+
+      ##
+      # Tries to capture the first segment of the pattern as a simple resource id segment
+      # The pattern for the simple resource id segments is:
+      # {<name>} or with an optional resource name pattern {<name>=<pattern>}
+      # e.g. {foo} or with an optional pattern, e.g. {foo=**} or {foo=bar}
+      # notably here the pattern between the = and } *can* contain the path separator /
+      # @private
+      def self.try_capture_simple_resource_id_segment url_pattern
         simple_resource_id_regex =
-          /^(?<segment_pattern>{(?<resource_name>[^\/}]+?)(?:=(?<resource_pattern>.+?))?})(?:\/|$)/
-        if simple_resource_id_regex.match? url_pattern
-          match = simple_resource_id_regex.match url_pattern
-          segment_pattern = match[:segment_pattern]
+          %r/^(?<segment_pattern>{(?<resource_name>[^\/}]+?)(?:=(?<resource_pattern>.+?))?})(?:\/|$)/
+        return nil, url_pattern unless simple_resource_id_regex.match? url_pattern
 
-          resource_name = match[:resource_name]
-          resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
-          resource_patterns = [resource_pattern] unless resource_pattern.nil?
+        match = simple_resource_id_regex.match url_pattern
+        segment_pattern = match[:segment_pattern]
 
-          segment = ResourceIdSegment.new :simple_resource_id, segment_pattern, [resource_name], resource_patterns
-          remainder = match.post_match
-          return segment, position, remainder
-        end
+        resource_name = match[:resource_name]
+        resource_pattern = match[:resource_pattern] if match.names.include? "resource_pattern"
+        resource_patterns = resource_pattern.nil? ? [] : [resource_pattern]
 
-        # if nothing else fits, it's the collection id
-        collection_id_regex = /^(?<collection_name>[^\/]+?)(?:\/|$)/
+        segment = ResourceIdSegment.new :simple_resource_id, segment_pattern, [resource_name], resource_patterns
+        remainder = match.post_match
+        [segment, remainder]
+      end
+
+      ##
+      # Captures the first segment of the pattern as a collection id segment
+      # This is used as a catch-all, so the collection id segment can contain anything
+      # except the path separator /
+      # @private
+      def self.capture_collection_id_segment url_pattern
+        collection_id_regex = %r{^(?<collection_name>[^\/]+?)(?:\/|$)}
         match = collection_id_regex.match url_pattern
 
         collection_name = match[:collection_name]
 
         segment = CollectionIdSegment.new collection_name
         remainder = match.post_match
-        [segment, position, remainder]
+        [segment, remainder]
       end
-      # rubocop:enable Metrics/AbcSize
-      # rubocop:enable Metrics/MethodLength
-      # rubocop:enable Style/RegexpLiteral
     end
   end
 end

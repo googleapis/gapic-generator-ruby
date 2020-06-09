@@ -762,7 +762,7 @@ module Gapic
     #   @return [Array<Gapic::Schema::ResourceDescriptor>] The resource
     #     descriptor.
     # @!attribute [r] parsed_patterns
-    #   @return [Arrayy<String>] The template form of the
+    #   @return [Array<String>] The template form of the
     #     patterns. Template means all ID segments are replaced by asterisks
     #     to remove non-structural differences due to different names being
     #     used.

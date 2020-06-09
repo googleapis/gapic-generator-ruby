@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2020 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -123,7 +123,7 @@ module Gapic
         @type              = type
         @pattern           = pattern
         @resource_names    = resource_names
-        @resource_patterns = resource_patterns || []
+        @resource_patterns = resource_patterns
       end
 
       ##
