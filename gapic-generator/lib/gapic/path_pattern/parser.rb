@@ -30,7 +30,7 @@ module Gapic
       # @param path_pattern [String] The path pattern to be parsed
       # @return [Gapic::PathPattern::Pattern]
       def self.parse path_pattern
-        remainder = path_pattern.sub(%r{^\/}, "").sub(%r{\/$}, "")
+        remainder = path_pattern.sub(%r{^/}, "").sub(%r{/$}, "")
 
         segments = []
         position = 0
