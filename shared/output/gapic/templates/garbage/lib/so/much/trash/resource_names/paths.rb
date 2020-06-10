@@ -32,6 +32,23 @@ module So
         # Path helper methods for the ResourceNames API.
         module Paths
           ##
+          # Create a fully-qualified ComplexPatternLogParent resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `returns/{return_order}~{return_item}`
+          #
+          # @param return_order [String]
+          # @param return_item [String]
+          #
+          # @return [::String]
+          def complex_pattern_log_parent_path return_order:, return_item:
+            raise ::ArgumentError, "return_order cannot contain /" if return_order.to_s.include? "/"
+
+            "returns/#{return_order}~#{return_item}"
+          end
+
+          ##
           # Create a fully-qualified ComplexPatternNonParentResource resource string.
           #
           # The resource will be in the following format:
@@ -65,13 +82,12 @@ module So
           #   @param details_c_id [String]
           #   @param extra_id [String]
           #
-          # @overload complex_pattern_request_path(customer:, extra_id:)
+          # @overload complex_pattern_request_path(request:)
           #   The resource will be in the following format:
           #
-          #   `as/customers/{customer}/extras/{extra_id}`
+          #   `complexrequests/{request}`
           #
-          #   @param customer [String]
-          #   @param extra_id [String]
+          #   @param request [String]
           #
           # @return [::String]
           def complex_pattern_request_path **args
@@ -87,10 +103,8 @@ module So
 
                 "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}/details/#{details_a_id}_#{details_b_id}-#{details_c_id}/extra/#{extra_id}"
               end),
-              "customer:extra_id"                                                                       => (proc do |customer:, extra_id:|
-                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
-
-                "as/customers/#{customer}/extras/#{extra_id}"
+              "request"                                                                                 => (proc do |request:|
+                "complexrequests/#{request}"
               end)
             }
 
@@ -104,20 +118,70 @@ module So
           #
           # The resource will be in the following format:
           #
-          # `customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}`
+          # `customers/{customer}/items/{item_a}.{item_b}~{items_c}`
           #
           # @param customer [String]
-          # @param item_a_id [String]
-          # @param item_b_id [String]
-          # @param items_c_id [String]
+          # @param item_a [String]
+          # @param item_b [String]
+          # @param items_c [String]
           #
           # @return [::String]
-          def complex_pattern_resource_path customer:, item_a_id:, item_b_id:, items_c_id:
+          def complex_pattern_resource_path customer:, item_a:, item_b:, items_c:
             raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
-            raise ::ArgumentError, "item_a_id cannot contain /" if item_a_id.to_s.include? "/"
-            raise ::ArgumentError, "item_b_id cannot contain /" if item_b_id.to_s.include? "/"
+            raise ::ArgumentError, "item_a cannot contain /" if item_a.to_s.include? "/"
+            raise ::ArgumentError, "item_b cannot contain /" if item_b.to_s.include? "/"
 
-            "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}"
+            "customers/#{customer}/items/#{item_a}.#{item_b}~#{items_c}"
+          end
+
+          ##
+          # Create a fully-qualified ResourceNamePatternRequest resource string.
+          #
+          # @overload resource_name_pattern_request_path(customer:, path:)
+          #   The resource will be in the following format:
+          #
+          #   `customers/{customer}/path/{path=**}`
+          #
+          #   @param customer [String]
+          #   @param path [String]
+          #
+          # @overload resource_name_pattern_request_path(request:)
+          #   The resource will be in the following format:
+          #
+          #   `patternrequests/{request}`
+          #
+          #   @param request [String]
+          #
+          # @return [::String]
+          def resource_name_pattern_request_path **args
+            resources = {
+              "customer:path" => (proc do |customer:, path:|
+                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+
+                "customers/#{customer}/path/#{path}"
+              end),
+              "request"       => (proc do |request:|
+                "patternrequests/#{request}"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
+          end
+
+          ##
+          # Create a fully-qualified SimplePatternLogParent resource string.
+          #
+          # The resource will be in the following format:
+          #
+          # `transactions/{transaction}`
+          #
+          # @param transaction [String]
+          #
+          # @return [::String]
+          def simple_pattern_log_parent_path transaction:
+            "transactions/#{transaction}"
           end
 
           ##
@@ -137,18 +201,37 @@ module So
           ##
           # Create a fully-qualified SimplePatternRequest resource string.
           #
-          # The resource will be in the following format:
+          # @overload simple_pattern_request_path(customer:, thing:)
+          #   The resource will be in the following format:
           #
-          # `customers/{customer}/things/{thing}`
+          #   `customers/{customer}/things/{thing}`
           #
-          # @param customer [String]
-          # @param thing [String]
+          #   @param customer [String]
+          #   @param thing [String]
+          #
+          # @overload simple_pattern_request_path(request:)
+          #   The resource will be in the following format:
+          #
+          #   `simplerequests/{request}`
+          #
+          #   @param request [String]
           #
           # @return [::String]
-          def simple_pattern_request_path customer:, thing:
-            raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
+          def simple_pattern_request_path **args
+            resources = {
+              "customer:thing" => (proc do |customer:, thing:|
+                raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
 
-            "customers/#{customer}/things/#{thing}"
+                "customers/#{customer}/things/#{thing}"
+              end),
+              "request"        => (proc do |request:|
+                "simplerequests/#{request}"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
           end
 
           ##
@@ -163,23 +246,6 @@ module So
           # @return [::String]
           def simple_pattern_resource_path customer:
             "customers/#{customer}"
-          end
-
-          ##
-          # Create a fully-qualified StarPatternRequest resource string.
-          #
-          # The resource will be in the following format:
-          #
-          # `customers/{customer}/path/{path=**}`
-          #
-          # @param customer [String]
-          # @param path [String]
-          #
-          # @return [::String]
-          def star_pattern_request_path customer:, path:
-            raise ::ArgumentError, "customer cannot contain /" if customer.to_s.include? "/"
-
-            "customers/#{customer}/path/#{path}"
           end
 
           extend self
