@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2018 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,14 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "test_helper"
+require "gapic/uri_template/parser"
 
-class EmptyPathPatternTest < PathPatternTest
-  def test_empty_path_pattern
-    assert_path_pattern(
-      "hello/world",
-      Gapic::PathPattern::CollectionIdSegment.new("hello"),
-      Gapic::PathPattern::CollectionIdSegment.new("world")
-    )
+module Gapic
+  # TODO: Enter docs
+  # Dooooooooocs!!!
+  module UriTemplate
+    # Parse arguments from a URI template.
+    # @see https://tools.ietf.org/html/rfc6570 URI Template
+    #
+    # used to satisfy AIP-4222 Routing headers
+    # @see https://google.aip.dev/client-libraries/4222
+    #
+    # @param uri_template [String] The URI template to be parsed.
+    #
+    # @return [Array<String>] The arguments of the URI template.
+    def self.parse_arguments uri_template
+      Parser.parse_arguments uri_template
+    end
   end
 end

@@ -103,6 +103,12 @@ class PresenterTest < Minitest::Test
     field = message.fields.find { |f| f.name == field_name }
     Gapic::Presenters::FieldPresenter.new api_obj, message, field
   end
+
+  def resource_presenter api_name, message_name
+    api_obj = api api_name
+    message = api_obj.messages.find { |m| m.address.join(".") == message_name }
+    Gapic::Presenters::ResourcePresenter.new message.resource
+  end
 end
 
 class GemTest < Minitest::Test
@@ -112,23 +118,25 @@ class GemTest < Minitest::Test
 end
 
 ##
-# Test for URI path template parsing.
+# Test for URI path pattern parsing
 #
-# @see https://tools.ietf.org/html/rfc6570 URI Template
+# @see https://google.aip.dev/122 AIP-122 Resource names
+# @see https://google.aip.dev/123 AIP-123 Resource types
 #
 class PathPatternTest < Minitest::Test
   def assert_path_pattern path_pattern, *exp_segments
-    act_segments = Gapic::PathPattern.parse path_pattern
+    pattern = Gapic::PathPattern.parse path_pattern
+    act_segments = pattern.segments
 
     assert_valid_segments act_segments
     assert_equal exp_segments, act_segments
 
-    act_segments
+    pattern
   end
 
   def assert_valid_segments segments
     refute segments.any?(nil), "segments won't contain any nil segments"
-    refute segments.any?(""), "segments won't contain any empty segments"
+    refute segments.any?{|segment| segment.pattern.empty?}, "segments won't contain any empty segments"
   end
 end
 

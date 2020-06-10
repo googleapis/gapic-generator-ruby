@@ -20,43 +20,32 @@ class PositionalPathPatternTest < PathPatternTest
   def test_simple_path_pattern
     assert_path_pattern(
       "hello/*/world/**",
-      "hello/",
-      Gapic::PathPattern::Segment.new(0, "*"),
-      "/world/",
-      Gapic::PathPattern::Segment.new(1, "**")
+      Gapic::PathPattern::CollectionIdSegment.new("hello"),
+      Gapic::PathPattern::PositionalSegment.new(0, "*"),
+      Gapic::PathPattern::CollectionIdSegment.new("world"),
+      Gapic::PathPattern::PositionalSegment.new(1, "**")
     )
   end
 
   def test_prefix_path_pattern
     assert_path_pattern(
       "*/bar/*/bif/*",
-      Gapic::PathPattern::Segment.new(0, "*"),
-      "/bar/",
-      Gapic::PathPattern::Segment.new(1, "*"),
-      "/bif/",
-      Gapic::PathPattern::Segment.new(2, "*")
+      Gapic::PathPattern::PositionalSegment.new(0, "*"),
+      Gapic::PathPattern::CollectionIdSegment.new("bar"),
+      Gapic::PathPattern::PositionalSegment.new(1, "*"),
+      Gapic::PathPattern::CollectionIdSegment.new("bif"),
+      Gapic::PathPattern::PositionalSegment.new(2, "*")
     )
   end
 
   def test_trailing_path_pattern
     assert_path_pattern(
       "foo/*/baz/*/qux",
-      "foo/",
-      Gapic::PathPattern::Segment.new(0, "*"),
-      "/baz/",
-      Gapic::PathPattern::Segment.new(1, "*"),
-      "/qux"
-    )
-  end
-
-  def test_more_than_two_stars_path_pattern
-    # This is a bad URI path template, it can be parsed but not matched
-    assert_path_pattern(
-      "hello/***/world",
-      "hello/",
-      Gapic::PathPattern::Segment.new(0, "**"),
-      Gapic::PathPattern::Segment.new(1, "*"),
-      "/world"
+      Gapic::PathPattern::CollectionIdSegment.new("foo"),
+      Gapic::PathPattern::PositionalSegment.new(0, "*"),
+      Gapic::PathPattern::CollectionIdSegment.new("baz"),
+      Gapic::PathPattern::PositionalSegment.new(1, "*"),
+      Gapic::PathPattern::CollectionIdSegment.new("qux")
     )
   end
 end

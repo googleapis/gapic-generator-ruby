@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "gapic/path_pattern"
+require "gapic/uri_template"
 require "gapic/ruby_info"
 require "gapic/helpers/namespace_helper"
 
@@ -194,8 +194,7 @@ module Gapic
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        segments = Gapic::PathPattern.parse method_path
-        segments.select { |s| s.is_a? Gapic::PathPattern::Segment }.map(&:name)
+        Gapic::UriTemplate.parse_arguments method_path
       end
 
       def routing_params?

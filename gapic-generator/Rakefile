@@ -55,14 +55,35 @@ namespace :test do
   Rake::TestTask.new :grpc_service_config_parsing do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/gapic/grpc_service_config/*_test.rb"]
+    t.test_files = FileList["test/gapic/grpc_service_config/**/*_test.rb"]
   end
 
-  desc "Run tests on resources"
-  Rake::TestTask.new :resource do |t|
+  desc "Run tests on annotations"
+  Rake::TestTask.new :annotations do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/gapic/annotations/resource_test.rb"]
+    t.test_files = FileList["test/gapic/annotations/**/*_test.rb"]
+  end
+
+  desc "Run tests on pattern parsing"
+  Rake::TestTask.new :pattern do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/path_pattern/**/*_test.rb", "test/gapic/uri_template/**/*_test.rb"]
+  end
+
+  desc "Run tests on presenters"
+  Rake::TestTask.new :presenters do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/presenters/**/*_test.rb"]
+  end
+
+  desc "Run tests on generators"
+  Rake::TestTask.new :generators do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/generators/**/*_test.rb"]
   end
 end
 

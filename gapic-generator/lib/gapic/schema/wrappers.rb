@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/formatting_utils"
+require "gapic/path_pattern"
 
 module Gapic
   module Schema
@@ -761,17 +762,19 @@ module Gapic
     #   @return [Array<Gapic::Schema::ResourceDescriptor>] The resource
     #     descriptor.
     # @!attribute [r] parsed_patterns
-    #   @return [Array<Array<String>>] The normalized, segmented forms of the
-    #     patterns. Normalized means all ID segments are replaced by asterisks
+    #   @return [Array<String>] The template form of the
+    #     patterns. Template means all ID segments are replaced by asterisks
     #     to remove non-structural differences due to different names being
-    #     used. Segmented means simply split on slashes.
+    #     used.
     #     For example, if a pattern is `"projects/{project}""`, the
-    #     corresponding parsed pattern would be `["projects", "*"]`.
+    #     corresponding parsed pattern would be `"projects/*"]`.
+    # @!attribure [r] parsed_parent_patterns
+    #   return [Array<String>] Parsed patterns for the expected parents.
     # @!attribute [r] parent_resources
     #   @return [Array<Gapic::Schema::Resource>] Parent resources
     class Resource
       extend Forwardable
-      attr_reader :descriptor, :parsed_patterns, :parent_resources
+      attr_reader :descriptor, :parsed_patterns, :parsed_parent_patterns, :parent_resources
       attr_accessor :parent
 
       # Initializes a resource object.
@@ -780,11 +783,11 @@ module Gapic
       def initialize descriptor
         @parent = nil
         @descriptor = descriptor
-        @parsed_patterns = descriptor.pattern.map do |pattern|
-          pattern.split("/").map do |segment|
-            segment =~ %r{\{[^/\}]+(=[^\}]+)?\}} ? "*" : segment
-          end.freeze
+        patterns = descriptor.pattern.map do |pattern|
+          Gapic::PathPattern.parse pattern
         end.freeze
+        @parsed_patterns = patterns.map(&:template).compact.uniq.freeze
+        @parsed_parent_patterns = patterns.map(&:parent_template).compact.uniq.freeze
         @parent_resources = []
       end
 
@@ -798,15 +801,6 @@ module Gapic
       # @return [Gapic::Schema::File]
       def containing_file
         parent&.containing_file
-      end
-
-      # Returns parsed patterns for the expected parents.
-      # @return [Array<Array<String>>]
-      def parsed_parent_patterns
-        @parsed_patterns.map do |pat|
-          parent = pat.last =~ /^\*\*?$/ ? pat[0...-2] : pat[0...-1]
-          parent.empty? ? nil : parent
-        end.compact.uniq
       end
 
       # @!method type

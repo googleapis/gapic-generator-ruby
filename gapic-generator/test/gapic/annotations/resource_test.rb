@@ -94,13 +94,16 @@ class AnnotationResourceTest < AnnotationTest
 
     assert_kind_of Gapic::Schema::Resource, message.resource
     assert_equal ["projects/{project}/simple_garbage/{simple_garbage}"], message.resource.pattern
-    assert_equal [["projects", "*", "simple_garbage", "*"]], message.resource.parsed_patterns
+    assert_equal ["projects/*/simple_garbage/*"], message.resource.parsed_patterns
+    assert_equal ["projects/*"], message.resource.parsed_parent_patterns
     assert_equal message.resource, garbage.lookup_resource_type("endlesstrash.example.net/SimpleGarbage")
 
     parents = message.resource.parent_resources
     assert_equal 1, parents.size
-    assert_equal ["projects/{project}"], parents.first.pattern
-    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+    parent = parents.first
+    assert_equal parent, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+    assert_equal ["projects/{project}"], parent.pattern
+    assert_equal [], parent.parsed_parent_patterns
 
     assert_equal 1, message.fields.count
     field = message.fields.first
