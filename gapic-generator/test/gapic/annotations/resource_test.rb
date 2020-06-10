@@ -100,8 +100,10 @@ class AnnotationResourceTest < AnnotationTest
 
     parents = message.resource.parent_resources
     assert_equal 1, parents.size
-    assert_equal ["projects/{project}"], parents.first.pattern
-    assert_equal parents.first, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+    parent = parents.first
+    assert_equal parent, garbage.lookup_resource_type("cloudresourcemanager.googleapis.com/Project")
+    assert_equal ["projects/{project}"], parent.pattern
+    assert_equal [], parent.parsed_parent_patterns
 
     assert_equal 1, message.fields.count
     field = message.fields.first

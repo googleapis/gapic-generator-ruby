@@ -1,6 +1,12 @@
 require "gapic/path_pattern"
 
 class PathPatternAncestryTest < Minitest::Test
+  def test_simple_pattern_without_parent
+    pattern = Gapic::PathPattern.parse "foo/{bar}"
+    assert "foo/*", pattern.template
+    assert_nil pattern.parent_template
+  end
+
   def test_named_simple_path_pattern
     pattern = Gapic::PathPattern.parse "foo/{bar}/baz/{bif}"
     assert "foo/*/bar/*", pattern.template

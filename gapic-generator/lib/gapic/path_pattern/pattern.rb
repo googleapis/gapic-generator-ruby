@@ -70,7 +70,7 @@ module Gapic
       # can not have a parent (too short)
       # @return [String]
       def parent_template
-        return "" if segments.length <= 2
+        return nil if segments.length <= 2
         last_segment = segments.last
         parent_pattern_segments = last_segment.provides_arguments? ? segments[0...-2] : segments[0...-1]
         parent_pattern_segments.map(&:pattern_template).join("/")
