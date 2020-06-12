@@ -41,6 +41,8 @@ module So
       end
 
       # A message with multiple path patterns, one of which is complex
+      # A deliberate difference is introduced here between its pattern and its parent (ComplexPatternIntermediateResource)'s pattern:
+      # resource names are different. It is expected that the ancestry will be established despite difference
       # @!attribute [rw] real_name
       #   @return [::String]
       # @!attribute [rw] ref
@@ -52,10 +54,18 @@ module So
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
-      # A message with a pattern that includes a segment with a star pattern
+      # A message with a pattern that includes a segment with a pattern
       # @!attribute [rw] name
       #   @return [::String]
-      class StarPatternRequest
+      class ResourceNamePatternRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # A message that references multiple potential resources via the child_type
+      # @!attribute [rw] parent
+      #   @return [::String]
+      class MultiparentRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end

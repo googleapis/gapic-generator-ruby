@@ -8,7 +8,7 @@ module So
   module Much
     module Trash
       module ResourceNames
-        # A service that exposes the messages testing various combinations of path patterns
+        # A service that exposes the messages that test the various combinations of path patterns
         class Service
 
           include GRPC::GenericService
@@ -19,7 +19,8 @@ module So
 
           rpc :SimplePatternMethod, So::Much::Trash::SimplePatternRequest, So::Much::Trash::Response
           rpc :ComplexPatternMethod, So::Much::Trash::ComplexPatternRequest, So::Much::Trash::Response
-          rpc :StarPatternMethod, So::Much::Trash::StarPatternRequest, So::Much::Trash::Response
+          rpc :ResourceNamePatternMethod, So::Much::Trash::ResourceNamePatternRequest, So::Much::Trash::Response
+          rpc :MultiparentMethod, So::Much::Trash::MultiparentRequest, So::Much::Trash::Response
         end
 
         Stub = Service.rpc_stub_class

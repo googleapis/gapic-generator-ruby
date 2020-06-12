@@ -17,8 +17,11 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :ref, :string, 2
       repeated :repeated_ref, :string, 3
     end
-    add_message "endless.trash.forever.StarPatternRequest" do
+    add_message "endless.trash.forever.ResourceNamePatternRequest" do
       optional :name, :string, 1
+    end
+    add_message "endless.trash.forever.MultiparentRequest" do
+      optional :parent, :string, 1
     end
     add_message "endless.trash.forever.Response" do
     end
@@ -30,7 +33,8 @@ module So
     module Trash
       SimplePatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.SimplePatternRequest").msgclass
       ComplexPatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexPatternRequest").msgclass
-      StarPatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.StarPatternRequest").msgclass
+      ResourceNamePatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ResourceNamePatternRequest").msgclass
+      MultiparentRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.MultiparentRequest").msgclass
       Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.Response").msgclass
     end
   end

@@ -38,7 +38,7 @@ module So
   module Much
     module Trash
       ##
-      # A service that exposes the messages testing various combinations of path patterns
+      # A service that exposes the messages that test the various combinations of path patterns
       #
       # To load this service and instantiate a client:
       #
