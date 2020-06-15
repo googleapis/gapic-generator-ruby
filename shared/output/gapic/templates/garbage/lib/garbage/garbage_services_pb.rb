@@ -24,7 +24,7 @@ module So
           # Retrieves a SpecificGarbage resource.
           rpc :GetSpecificGarbage, So::Much::Trash::SpecificGarbage, So::Much::Trash::SpecificGarbage
           # Retrieves a NestedGarbage resource.
-          rpc :GetNestedGarbage, So::Much::Trash::NestedGarbage, So::Much::Trash::NestedGarbage
+          rpc :GetNestedGarbage, So::Much::Trash::SpecificGarbage::NestedGarbage, So::Much::Trash::SpecificGarbage::NestedGarbage
           # Retrieves a RepeatedGarbage resource.
           rpc :GetRepeatedGarbage, So::Much::Trash::RepeatedGarbage, So::Much::Trash::RepeatedGarbage
           # Retrieves a TypicalGarbage resource.

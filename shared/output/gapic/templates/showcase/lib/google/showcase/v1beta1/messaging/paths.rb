@@ -34,6 +34,23 @@ module Google
           ##
           # Create a fully-qualified Blurb resource string.
           #
+          # @overload blurb_path(user_id:, legacy_user_id:, blurb_id:)
+          #   The resource will be in the following format:
+          #
+          #   `users/{user_id}/profile/blurbs/legacy/{legacy_user_id}~{blurb_id}`
+          #
+          #   @param user_id [String]
+          #   @param legacy_user_id [String]
+          #   @param blurb_id [String]
+          #
+          # @overload blurb_path(user_id:, blurb_id:)
+          #   The resource will be in the following format:
+          #
+          #   `users/{user_id}/profile/blurbs/{blurb_id}`
+          #
+          #   @param user_id [String]
+          #   @param blurb_id [String]
+          #
           # @overload blurb_path(room_id:, blurb_id:)
           #   The resource will be in the following format:
           #
@@ -42,26 +59,39 @@ module Google
           #   @param room_id [String]
           #   @param blurb_id [String]
           #
-          # @overload blurb_path(user_id:, blurb_id:)
+          # @overload blurb_path(room_id:, legacy_room_id:, blurb_id:)
           #   The resource will be in the following format:
           #
-          #   `user/{user_id}/profile/blurbs/{blurb_id}`
+          #   `rooms/{room_id}/blurbs/legacy/{legacy_room_id}.{blurb_id}`
           #
-          #   @param user_id [String]
+          #   @param room_id [String]
+          #   @param legacy_room_id [String]
           #   @param blurb_id [String]
           #
           # @return [::String]
           def blurb_path **args
             resources = {
-              "blurb_id:room_id" => (proc do |room_id:, blurb_id:|
+              "blurb_id:legacy_user_id:user_id" => (proc do |user_id:, legacy_user_id:, blurb_id:|
+                raise ::ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
+                raise ::ArgumentError, "legacy_user_id cannot contain /" if legacy_user_id.to_s.include? "/"
+
+                "users/#{user_id}/profile/blurbs/legacy/#{legacy_user_id}~#{blurb_id}"
+              end),
+              "blurb_id:user_id"                => (proc do |user_id:, blurb_id:|
+                raise ::ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
+
+                "users/#{user_id}/profile/blurbs/#{blurb_id}"
+              end),
+              "blurb_id:room_id"                => (proc do |room_id:, blurb_id:|
                 raise ::ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
 
                 "rooms/#{room_id}/blurbs/#{blurb_id}"
               end),
-              "blurb_id:user_id" => (proc do |user_id:, blurb_id:|
-                raise ::ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
+              "blurb_id:legacy_room_id:room_id" => (proc do |room_id:, legacy_room_id:, blurb_id:|
+                raise ::ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
+                raise ::ArgumentError, "legacy_room_id cannot contain /" if legacy_room_id.to_s.include? "/"
 
-                "user/#{user_id}/profile/blurbs/#{blurb_id}"
+                "rooms/#{room_id}/blurbs/legacy/#{legacy_room_id}.#{blurb_id}"
               end)
             }
 

@@ -44,6 +44,24 @@ module Google
       # @!attribute [r] update_time
       #   @return [::Google::Protobuf::Timestamp]
       #     The latest timestamp at which the user was updated.
+      # @!attribute [rw] age
+      #   @return [::Integer]
+      #     The age of the use in years.
+      # @!attribute [rw] height_feet
+      #   @return [::Float]
+      #     The height of the user in feet.
+      # @!attribute [rw] nickname
+      #   @return [::String]
+      #     The nickname of the user.
+      #
+      #     (-- aip.dev/not-precedent: An empty string is a valid nickname.
+      #         Ordinarily, proto3_optional should not be used on a `string` field. --)
+      # @!attribute [rw] enable_notifications
+      #   @return [::Boolean]
+      #     Enables the receiving of notifications. The default is true if unset.
+      #
+      #     (-- aip.dev/not-precedent: The default for the feature is true.
+      #         Ordinarily, the default for a `bool` field should be false. --)
       class User
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

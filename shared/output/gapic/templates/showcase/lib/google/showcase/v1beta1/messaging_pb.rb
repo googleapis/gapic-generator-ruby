@@ -51,6 +51,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
         optional :text, :string, 3
         optional :image, :bytes, 4
       end
+      oneof :legacy_id do
+        optional :legacy_room_id, :string, 7
+        optional :legacy_user_id, :string, 8
+      end
     end
     add_message "google.showcase.v1beta1.CreateBlurbRequest" do
       optional :parent, :string, 1

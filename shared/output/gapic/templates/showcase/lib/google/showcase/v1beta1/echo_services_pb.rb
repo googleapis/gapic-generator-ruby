@@ -26,7 +26,8 @@ module Google
         # This service is used showcase the four main types of rpcs - unary, server
         # side streaming, client side streaming, and bidirectional streaming. This
         # service also exposes methods that explicitly implement server delay, and
-        # paginated calls.
+        # paginated calls. Set the 'showcase-trailer' metadata key on any method
+        # to have the values echoed in the response trailers.
         class Service
 
           include GRPC::GenericService
@@ -54,7 +55,7 @@ module Google
           # This method will wait the requested amount of and then return.
           # This method showcases how a client handles a request timing out.
           rpc :Wait, WaitRequest, Google::Longrunning::Operation
-          # This method will block (wait) for the requested amount of time
+          # This method will block (wait) for the requested amount of time 
           # and then return the response or error.
           # This method showcases how a client handles delays or retries.
           rpc :Block, BlockRequest, BlockResponse

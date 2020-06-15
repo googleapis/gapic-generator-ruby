@@ -18,6 +18,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :email, :string, 3
       optional :create_time, :message, 4, "google.protobuf.Timestamp"
       optional :update_time, :message, 5, "google.protobuf.Timestamp"
+      proto3_optional :age, :int32, 6
+      proto3_optional :height_feet, :double, 7
+      proto3_optional :nickname, :string, 8
+      proto3_optional :enable_notifications, :bool, 9
     end
     add_message "google.showcase.v1beta1.CreateUserRequest" do
       optional :user, :message, 1, "google.showcase.v1beta1.User"
