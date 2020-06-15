@@ -169,6 +169,7 @@ def generate_default_templates service
 
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
+    "--experimental_allow_proto3_optional=1",
     "-I ../shared/api-common-protos",
     "-I ../shared/googleapis",
     "-I ../shared/protos",

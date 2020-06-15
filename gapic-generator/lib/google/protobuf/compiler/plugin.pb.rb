@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 ##
-# This file is auto-generated. DO NOT EDIT!
+# This file was auto-generated initially but now is hand-edited to add support 
+# for response features and proto3_optional
 #
 require 'protobuf'
 
@@ -54,6 +55,8 @@ module Google
       end
 
       class CodeGeneratorResponse
+        FEATURE_PROTO3_OPTIONAL = 1
+
         class File
           optional :string, :name, 1
           optional :string, :insertion_point, 2
@@ -61,6 +64,7 @@ module Google
         end
 
         optional :string, :error, 1
+        optional :int32, :supported_features, 2
         repeated ::Google::Protobuf::Compiler::CodeGeneratorResponse::File, :file, 15
       end
 

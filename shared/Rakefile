@@ -161,6 +161,7 @@ def generate_input_file service
   Dir.mktmpdir do |tmp|
     protoc_cmd = [
       "grpc_tools_ruby_protoc",
+      "--experimental_allow_proto3_optional=1",
       "-I ../shared/api-common-protos",
       "-I ../shared/googleapis",
       "-I ../shared/protos",
