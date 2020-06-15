@@ -134,7 +134,17 @@ module Gapic
       end
 
       def api_id
-        gem_config :api_id
+        raw_id = gem_config :api_id
+        return nil unless raw_id
+        raw_id.include?(".") ? raw_id : "#{raw_id}.googleapis.com"
+      end
+
+      def api_shortname
+        gem_config :api_shortname
+      end
+
+      def issue_tracker_url
+        gem_config :issue_tracker_url
       end
 
       def free_tier?
