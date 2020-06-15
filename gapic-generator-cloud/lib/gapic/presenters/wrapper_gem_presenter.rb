@@ -79,8 +79,9 @@ module Gapic
       end
 
       def extra_files
-        files = ["README.md", "AUTHENTICATION.md", "LICENSE.md", ".yardopts"]
-        files << "MIGRATING.md" if migration?
+        files = ["README.md", "LICENSE.md", ".yardopts"]
+        files.insert 1, "AUTHENTICATION.md" unless generic_endpoint?
+        files.append "MIGRATING.md" if migration?
         files
       end
 
