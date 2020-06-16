@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.6.1 / 2020-06-16
+
+* Add auto-generated disclaimer to generated tests.
+* Support shortname and issue tracker URL configs.
+* Refactors and minor fixes around resource template parsing.
+
 ### 0.6.0 / 2020-06-02
 
 * Support for clients with generic endpoint and credentials.

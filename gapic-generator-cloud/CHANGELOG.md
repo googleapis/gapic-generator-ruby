@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.1 / 2020-06-16
+
+* Includes changes from gapic-generator 0.6.1.
+* Populate additional repo-metadata fields.
+* Remove authentication file from the gemspec for generic wrappers.
+
 ### 0.6.0 / 2020-06-02
 
 * Includes changes from gapic-generator 0.6.0.
