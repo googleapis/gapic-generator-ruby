@@ -655,6 +655,15 @@ module Gapic
         field_behavior.include? Google::Api::FieldBehavior::OPTIONAL
       end
 
+      # Denotes a field as a part of oneof.
+      # oneof_index is an int field so it'll be 0 by default for every field
+      # and an index in the message's oneof table for the oneof fields
+      # but since the indexes in the message's oneof table start with 0 as well
+      # we need this to determine whether the field is a part of the oneof
+      def oneof?
+        @descriptor.field? :oneof_index
+      end
+
       # Denotes a field as required. This indicates that the field **must** be
       # provided as part of the request, and failure to do so will cause an
       # error (usually `INVALID_ARGUMENT`).

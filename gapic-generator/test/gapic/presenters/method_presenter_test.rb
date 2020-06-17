@@ -33,6 +33,14 @@ class MethodPresenterTest < PresenterTest
     assert_equal presenter.doc_description, "Retrieves a SpecificGarbage resource.\n"
   end
 
+  def test_garbage_GetTypical
+    presenter = method_presenter :garbage, "GarbageService", "GetTypicalGarbage"
+
+    assert_equal "get_typical_garbage", presenter.name
+    assert_equal 21, presenter.fields.length
+    assert_equal 17, presenter.fields_with_first_oneof.length
+  end
+
   def test_garbage_GetNestedGarbage
     presenter = method_presenter :garbage, "GarbageService", "GetNestedGarbage"
 
