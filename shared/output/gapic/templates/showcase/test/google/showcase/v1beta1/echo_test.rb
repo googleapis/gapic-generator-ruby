@@ -493,11 +493,13 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     # Create request parameters for a unary method.
     response_delay = {}
+    error = {}
 
     block_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :block, name
       assert_kind_of ::Google::Showcase::V1beta1::BlockRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Duration), request.response_delay
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Rpc::Status), request.error
       refute_nil options
     end
 
@@ -508,31 +510,31 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.block({ response_delay: response_delay }) do |response, operation|
+      client.block({ response_delay: response_delay, error: error }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.block response_delay: response_delay do |response, operation|
+      client.block response_delay: response_delay, error: error do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay) do |response, operation|
+      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.block({ response_delay: response_delay }, grpc_options) do |response, operation|
+      client.block({ response_delay: response_delay, error: error }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay), grpc_options do |response, operation|
+      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

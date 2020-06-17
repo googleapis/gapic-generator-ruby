@@ -179,7 +179,28 @@ module So
       #     The type of this garbage.
       # @!attribute [rw] amap
       #   @return [::Google::Protobuf::Map{::String => ::String}]
-      #     This is a map
+      #     This is a map.
+      # @!attribute [rw] oneof_singular_str
+      #   @return [::String]
+      #     This is a one-field oneof's string field.
+      # @!attribute [rw] oneof_pair_int32
+      #   @return [::Integer]
+      #     This is a pair oneof's int32 field.
+      # @!attribute [rw] oneof_pair_float
+      #   @return [::Float]
+      #     This is a pair oneof's float field.
+      # @!attribute [rw] oneof_multiple_message
+      #   @return [::So::Much::Trash::SimpleGarbageItem]
+      #     This is a multiple-field oneof's message field.
+      # @!attribute [rw] oneof_multiple_bytes
+      #   @return [::String]
+      #     This is a multiple-field oneof's bytes field.
+      # @!attribute [rw] oneof_multiple_enum
+      #   @return [::So::Much::Trash::GarbageEnum]
+      #     This is a multiple-field oneof's enum field.
+      # @!attribute [rw] oneof_multiple_double
+      #   @return [::Float]
+      #     This is a multiple-field oneof's double field.
       class TypicalGarbage
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

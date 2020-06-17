@@ -88,6 +88,10 @@ module Gapic
         @field.map?
       end
 
+      def oneof?
+        @field.oneof?
+      end
+
       protected
 
       def field_doc_types field, output

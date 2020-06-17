@@ -92,6 +92,11 @@ module Gapic
         have_oneof = []
 
         @method.input.fields.each do |field|
+          unless field.oneof?
+            selected_fields << field
+            next
+          end
+
           idx = field.oneof_index
           selected_fields << field unless have_oneof.include? idx
           have_oneof << idx

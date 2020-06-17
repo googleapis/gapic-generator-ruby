@@ -68,6 +68,19 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :msg, :message, 12, "endless.trash.forever.GarbageMap"
       optional :enum, :enum, 13, "endless.trash.forever.GarbageEnum"
       map :amap, :string, :string, 14
+      oneof :oneof_singular do
+        optional :oneof_singular_str, :string, 15
+      end
+      oneof :oneof_pair do
+        optional :oneof_pair_int32, :int32, 16
+        optional :oneof_pair_float, :float, 17
+      end
+      oneof :oneof_multiple do
+        optional :oneof_multiple_message, :message, 18, "endless.trash.forever.SimpleGarbageItem"
+        optional :oneof_multiple_bytes, :bytes, 19
+        optional :oneof_multiple_enum, :enum, 20, "endless.trash.forever.GarbageEnum"
+        optional :oneof_multiple_double, :double, 21
+      end
     end
     add_message "endless.trash.forever.SpecificGarbage" do
       optional :name, :string, 1

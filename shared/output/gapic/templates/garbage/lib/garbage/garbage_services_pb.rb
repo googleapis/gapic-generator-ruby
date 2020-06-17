@@ -28,7 +28,9 @@ module So
           # Retrieves a RepeatedGarbage resource.
           rpc :GetRepeatedGarbage, So::Much::Trash::RepeatedGarbage, So::Much::Trash::RepeatedGarbage
           # Retrieves a TypicalGarbage resource.
-          rpc :GetTypicalGarbage, So::Much::Trash::GetTypicalGarbageRequest, So::Much::Trash::TypicalGarbage
+          rpc :GetTypicalGarbage, So::Much::Trash::TypicalGarbage, So::Much::Trash::TypicalGarbage
+          # Retrieves a TypicalGarbage resource by a request.
+          rpc :GetTypicalGarbageByRequest, So::Much::Trash::GetTypicalGarbageRequest, So::Much::Trash::TypicalGarbage
           # Retrieves a ComplexGarbage resource.
           rpc :GetComplexGarbage, So::Much::Trash::ComplexGarbage, So::Much::Trash::ComplexGarbage
           # Retrieves a GarbageNode resource.

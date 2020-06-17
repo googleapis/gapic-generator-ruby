@@ -67,6 +67,25 @@ task :bin do
   end
 end
 
+namespace :bin do 
+  task :garbage do
+    Dir.chdir "shared" do
+      Bundler.with_unbundled_env do
+        puts "Running binary input file generation for garbage"
+        sh "bundle exec rake gen:garbage"
+      end
+    end
+  end
+  task :showcase do
+    Dir.chdir "shared" do
+      Bundler.with_unbundled_env do
+        puts "Running binary input file generation for showcase"
+        sh "bundle exec rake gen:showcase"
+      end
+    end
+  end
+end
+
 desc "Runs file generation for all gems using the binary input files."
 task :gen do
   gem_dirs.each do |gem|
@@ -74,6 +93,25 @@ task :gen do
       Bundler.with_unbundled_env do
         puts "Running file generation for #{gem}"
         sh "bundle exec rake gen"
+      end
+    end
+  end
+end
+
+namespace :gen do 
+  task :garbage do
+    Dir.chdir "gapic-generator" do
+      Bundler.with_unbundled_env do
+        puts "Running file generation for garbage"
+        sh "bundle exec rake gen:garbage"
+      end
+    end
+  end
+  task :showcase do
+    Dir.chdir "gapic-generator" do
+      Bundler.with_unbundled_env do
+        puts "Running file generation for showcase"
+        sh "bundle exec rake gen:showcase"
       end
     end
   end

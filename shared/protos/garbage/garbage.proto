@@ -69,9 +69,16 @@ service GarbageService {
     };
   }
   // Retrieves a TypicalGarbage resource.
-  rpc GetTypicalGarbage(GetTypicalGarbageRequest) returns (TypicalGarbage) {
+  rpc GetTypicalGarbage(TypicalGarbage) returns (TypicalGarbage) {
     option (google.api.http) = {
       post: "/v1/typical_garbage:get"
+      body: "*"
+    };
+  }
+  // Retrieves a TypicalGarbage resource by a request.
+  rpc GetTypicalGarbageByRequest(GetTypicalGarbageRequest) returns (TypicalGarbage) {
+    option (google.api.http) = {
+      post: "/v1/typical_garbage_by_request:get"
       body: "*"
     };
   }
@@ -280,8 +287,31 @@ message TypicalGarbage {
   GarbageMap msg = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
   // The type of this garbage.
   GarbageEnum enum = 13;
-  // This is a map
+  // This is a map.
   map<string, string> amap = 14;
+  // This is a oneof with one field.
+  oneof oneof_singular {
+    // This is a one-field oneof's string field.
+    string oneof_singular_str = 15;
+  }
+  // This is a oneof with a pair of fields.
+  oneof oneof_pair {
+    // This is a pair oneof's int32 field.
+    int32 oneof_pair_int32 = 16;
+    // This is a pair oneof's float field.
+    float oneof_pair_float = 17;
+  }
+  // This is a oneof with multiple fields.
+  oneof oneof_multiple {
+    // This is a multiple-field oneof's message field.
+    SimpleGarbageItem oneof_multiple_message = 18;
+    // This is a multiple-field oneof's bytes field.
+    bytes oneof_multiple_bytes = 19;
+    // This is a multiple-field oneof's enum field.
+    GarbageEnum oneof_multiple_enum = 20;
+    // This is a multiple-field oneof's double field.
+    double oneof_multiple_double = 21;
+  }
 }
 
 // This is one specific garbage, man.

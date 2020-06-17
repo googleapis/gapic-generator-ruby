@@ -31,6 +31,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
+    refute fp.oneof?
   end
 
   def test_typical_garbage_int_fields
@@ -44,6 +45,7 @@ class FieldPresenterTest < PresenterTest
       assert_equal "42", fp.default_value
       assert_equal "", fp.type_name
       assert_nil fp.type_name_full
+      refute fp.oneof?
     end
   end
 
@@ -57,6 +59,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "true", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
+    refute fp.oneof?
   end
 
   def test_typical_garbage_numeric_fields
@@ -70,6 +73,7 @@ class FieldPresenterTest < PresenterTest
       assert_equal "3.5", fp.default_value
       assert_equal "", fp.type_name
       assert_nil fp.type_name_full
+      refute fp.oneof?
     end
   end
 
@@ -83,6 +87,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
+    refute fp.oneof?
   end
 
   def test_typical_garbage_msg_field
@@ -95,6 +100,7 @@ class FieldPresenterTest < PresenterTest
     assert_equal "{}", fp.default_value
     assert_equal ".endless.trash.forever.GarbageMap", fp.type_name
     assert_equal "::So::Much::Trash::GarbageMap", fp.type_name_full
+    refute fp.oneof?
   end
 
   def test_typical_garbage_enum_field
@@ -107,5 +113,31 @@ class FieldPresenterTest < PresenterTest
     assert_equal ":DEFAULT_GARBAGE", fp.default_value
     assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name
     assert_equal "::So::Much::Trash::GarbageEnum", fp.type_name_full
+    refute fp.oneof?
+  end
+
+  def test_typical_garbage_oneof_singular_field
+    fp = typical_garbage "oneof_singular_str"
+    assert_equal "oneof_singular_str", fp.name
+    assert_equal "@!attribute [rw] oneof_singular_str", fp.doc_attribute_type
+    assert_equal "::String", fp.output_doc_types
+    assert_equal fp.doc_description, "This is a one-field oneof's string field.\n"
+    assert_equal "\"hello world\"", fp.default_value
+    assert_equal "", fp.type_name
+    assert_nil fp.type_name_full
+    assert fp.oneof?
+  end
+
+  def test_typical_garbage_enum_field
+    fp = typical_garbage "oneof_multiple_enum"
+
+    assert_equal "oneof_multiple_enum", fp.name
+    assert_equal "@!attribute [rw] oneof_multiple_enum", fp.doc_attribute_type
+    assert_equal "::So::Much::Trash::GarbageEnum", fp.output_doc_types
+    assert_equal fp.doc_description, "This is a multiple-field oneof's enum field.\n"
+    assert_equal ":DEFAULT_GARBAGE", fp.default_value
+    assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name
+    assert_equal "::So::Much::Trash::GarbageEnum", fp.type_name_full
+    assert fp.oneof?
   end
 end
