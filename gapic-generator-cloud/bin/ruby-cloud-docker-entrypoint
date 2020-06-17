@@ -38,7 +38,9 @@ value_option_map = {
   ":gem.:version_dependencies" => "ruby-cloud-wrapper-of",
   ":gem.:migration_version" => "ruby-cloud-migration-version",
   ":gem.:product_documentation_url" => "ruby-cloud-product-url",
+  ":gem.:issue_tracker_url" => "ruby-cloud-issues-url",
   ":gem.:api_id" => "ruby-cloud-api-id",
+  ":gem.:api_shortname" => "ruby-cloud-api-shortname",
   ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
 }
 
