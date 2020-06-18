@@ -80,6 +80,10 @@ module Gapic
         @field.enum?
       end
 
+      def proto3_optional?
+        @field.proto3_optional?
+      end
+
       def repeated?
         @field.repeated?
       end

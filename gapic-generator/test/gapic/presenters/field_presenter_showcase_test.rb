@@ -35,6 +35,11 @@ class FieldPresenterShowcaseTest < PresenterTest
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
+
+    fpa = field_presenter :showcase, "google.showcase.v1beta1.User", "age"
+    require 'pry'
+    binding.pry
+    abort
   end
 
   def test_showcase_User_create_time_field

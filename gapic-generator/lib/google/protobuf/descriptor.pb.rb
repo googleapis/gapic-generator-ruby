@@ -190,6 +190,7 @@ module Google
       optional :int32, :oneof_index, 9
       optional :string, :json_name, 10
       optional ::Google::Protobuf::FieldOptions, :options, 8
+      optional :bool, :proto3_optional, 17
     end
 
     class OneofDescriptorProto

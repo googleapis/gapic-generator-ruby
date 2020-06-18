@@ -44,6 +44,10 @@ class MethodPresenterTest < PresenterTest
   def test_garbage_GetNestedGarbage
     presenter = method_presenter :garbage, "GarbageService", "GetNestedGarbage"
 
+    require 'pry'
+    binding.pry
+    abort
+
     assert_equal "get_nested_garbage", presenter.name
     assert_equal :normal, presenter.kind
     assert_equal presenter.doc_description, "Retrieves a NestedGarbage resource.\n"
