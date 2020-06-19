@@ -6,5 +6,3 @@ gemspec
 <%- gem.versioned_gems.each do |name| -%>
 gem "<%= name %>", path: "../<%= name %>"
 <%- end -%>
-
-gem "google-protobuf", "~> 3.12.2"
