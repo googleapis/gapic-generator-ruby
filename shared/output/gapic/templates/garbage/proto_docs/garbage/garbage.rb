@@ -201,6 +201,8 @@ module So
       # @!attribute [rw] oneof_multiple_double
       #   @return [::Float]
       #     This is a multiple-field oneof's double field.
+      # @!attribute [rw] optional_int32
+      #   @return [::Integer]
       class TypicalGarbage
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

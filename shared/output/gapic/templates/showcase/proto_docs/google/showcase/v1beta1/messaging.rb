@@ -145,6 +145,14 @@ module Google
       # @!attribute [r] update_time
       #   @return [::Google::Protobuf::Timestamp]
       #     The latest timestamp at which the blurb was updated.
+      # @!attribute [rw] legacy_room_id
+      #   @return [::String]
+      #     The legacy id of the room. This field is used to signal
+      #     the use of the compound resource pattern `rooms/{room_id}/blurbs/legacy/{legacy_room_id}.{blurb_id}`
+      # @!attribute [rw] legacy_user_id
+      #   @return [::String]
+      #     The legacy id of the user. This field is used to signal
+      #     the use of the compound resource pattern `users/{user_id}/profile/blurbs/legacy/{legacy_user_id}~{blurb_id}`
       class Blurb
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

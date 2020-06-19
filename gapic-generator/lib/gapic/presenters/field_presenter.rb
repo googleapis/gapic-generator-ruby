@@ -80,6 +80,10 @@ module Gapic
         @field.enum?
       end
 
+      def proto3_optional?
+        @field.proto3_optional?
+      end
+
       def repeated?
         @field.repeated?
       end
@@ -90,6 +94,10 @@ module Gapic
 
       def oneof?
         @field.oneof?
+      end
+
+      def oneof_name
+        @message.oneof_decl[@field.oneof_index].name
       end
 
       protected

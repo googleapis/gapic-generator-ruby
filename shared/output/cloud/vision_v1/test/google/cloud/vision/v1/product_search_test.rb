@@ -1170,6 +1170,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal :purge_products, name
       assert_kind_of ::Google::Cloud::Vision::V1::PurgeProductsRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ProductSetPurgeConfig), request.product_set_purge_config
+      assert_equal :product_set_purge_config, request.target
       assert_equal "hello world", request.parent
       assert_equal true, request.force
       refute_nil options

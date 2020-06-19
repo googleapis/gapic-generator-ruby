@@ -69,6 +69,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal :echo, name
       assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, request
       assert_equal "hello world", request.content
+      assert_equal :content, request.response
       refute_nil options
     end
 
@@ -259,6 +260,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         request.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, r
           assert_equal "hello world", r.content
+          assert_equal :content, r.response
         end
       end
     end
@@ -347,6 +349,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
         request.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, r
           assert_equal "hello world", r.content
+          assert_equal :content, r.response
         end
       end
     end
@@ -434,7 +437,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_equal :wait, name
       assert_kind_of ::Google::Showcase::V1beta1::WaitRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Timestamp), request.end_time
+      assert_equal :end_time, request.end
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Rpc::Status), request.error
+      assert_equal :error, request.response
       refute_nil options
     end
 
@@ -500,6 +505,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       assert_kind_of ::Google::Showcase::V1beta1::BlockRequest, request
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Duration), request.response_delay
       assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Rpc::Status), request.error
+      assert_equal :error, request.response
       refute_nil options
     end
 

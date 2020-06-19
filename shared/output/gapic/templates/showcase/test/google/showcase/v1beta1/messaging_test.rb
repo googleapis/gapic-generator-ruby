@@ -962,6 +962,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
         request.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::ConnectRequest, r
           assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::ConnectRequest::ConnectConfig), r.config
+          assert_equal :config, r.request
         end
       end
     end

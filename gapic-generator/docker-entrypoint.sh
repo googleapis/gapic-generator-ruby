@@ -27,6 +27,7 @@ done
 
 mkdir -p /workspace/out/lib
 exec grpc_tools_ruby_protoc \
+        --experimental_allow_proto3_optional=1 \
         --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
         --ruby_out=/workspace/out/lib \
         --grpc_out=/workspace/out/lib \

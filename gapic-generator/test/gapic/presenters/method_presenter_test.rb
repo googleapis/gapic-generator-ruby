@@ -36,9 +36,13 @@ class MethodPresenterTest < PresenterTest
   def test_garbage_GetTypical
     presenter = method_presenter :garbage, "GarbageService", "GetTypicalGarbage"
 
+    non_oneof_fields = 14
+    oneof_fields = 8
+    oneof_groups = 4
+
     assert_equal "get_typical_garbage", presenter.name
-    assert_equal 21, presenter.fields.length
-    assert_equal 17, presenter.fields_with_first_oneof.length
+    assert_equal (non_oneof_fields + oneof_fields), presenter.fields.length
+    assert_equal (non_oneof_fields + oneof_groups), presenter.fields_with_first_oneof.length
   end
 
   def test_garbage_GetNestedGarbage

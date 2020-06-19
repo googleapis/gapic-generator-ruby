@@ -68,6 +68,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :msg, :message, 12, "endless.trash.forever.GarbageMap"
       optional :enum, :enum, 13, "endless.trash.forever.GarbageEnum"
       map :amap, :string, :string, 14
+      proto3_optional :optional_int32, :int32, 22
       oneof :oneof_singular do
         optional :oneof_singular_str, :string, 15
       end

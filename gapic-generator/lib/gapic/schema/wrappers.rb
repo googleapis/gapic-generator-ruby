@@ -740,7 +740,8 @@ module Gapic
         :default_value,
         :oneof_index,
         :json_name,
-        :options
+        :options,
+        :proto3_optional?
       )
     end
 

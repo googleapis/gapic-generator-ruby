@@ -48,8 +48,10 @@ module Gapic
       output_files = generator.new(api).generate
 
       # Create and write the response
-      Google::Protobuf::Compiler::CodeGeneratorResponse.new \
+      response = Google::Protobuf::Compiler::CodeGeneratorResponse.new \
         file: output_files
+      response.supported_features = Google::Protobuf::Compiler::CodeGeneratorResponse::FEATURE_PROTO3_OPTIONAL
+      response
     end
 
     # Run protoc generation.

@@ -1,5 +1,9 @@
 # Release History
 
+### 0.3.0 / 2020-06-18
+
+* Update the dependency on google-protobuf to 3.12.2
+
 ### 0.2.1 / 2020-06-02
 
 * Fix a crash when resetting a config field to nil when it has a parent but no default
