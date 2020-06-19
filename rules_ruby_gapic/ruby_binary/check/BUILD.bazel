@@ -3,7 +3,9 @@ load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
 # Running the hello world file with a dependency on a Ruby StandardLib
 ruby_binary (
   name = "ruby_hellolib_sh",
-  entrypoint = ":hello_ruby_lib.rb",
+  entrypoint = ":srcs/hello_ruby.rb",
+  srcs = [":srcs/hello_ruby.rb", ":srcs/lib/hello_ruby_lib.rb"],
+  src_base = ":srcs"
 )
 
 # sh_binary(
