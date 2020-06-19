@@ -424,6 +424,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     oneof_singular_str = "hello world"
     oneof_pair_int32 = 42
     oneof_multiple_message = {}
+    optional_int32 = 42
 
     get_typical_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_typical_garbage, name
@@ -443,8 +444,13 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       assert_equal :DEFAULT_GARBAGE, request.enum
       assert_equal({}, request.amap.to_h)
       assert_equal "hello world", request.oneof_singular_str
+      assert_equal :oneof_singular_str, request.oneof_singular
       assert_equal 42, request.oneof_pair_int32
+      assert_equal :oneof_pair_int32, request.oneof_pair
       assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::SimpleGarbageItem), request.oneof_multiple_message
+      assert_equal :oneof_multiple_message, request.oneof_multiple
+      assert_equal 42, request.optional_int32
+      assert request.has_optional_int32?
       refute_nil options
     end
 
@@ -455,31 +461,31 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message }) do |response, operation|
+      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message do |response, operation|
+      client.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message) do |response, operation|
+      client.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message }, grpc_options) do |response, operation|
+      client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message), grpc_options do |response, operation|
+      client.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32), grpc_options do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

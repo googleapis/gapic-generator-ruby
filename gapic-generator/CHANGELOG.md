@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.6.2 / 2020-06-18
+
+* Support for the proto3_optional
+* Fixed an issue where tests for the oneof fields were not generating correctly
+* Removed ruby <2.5 pin for the protobuf dependency since new protobuf supports it again
+* Generated libraries now depend on gapic-common 0.3
+
 ### 0.6.1 / 2020-06-16
 
 * Add auto-generated disclaimer to generated tests.

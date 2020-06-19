@@ -25,6 +25,7 @@ def generate_library_for_test imports, protos
 
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
+    "--experimental_allow_proto3_optional=1",
     "#{imports.map {|x| "-I#{x}"}.join " "}",
     "--ruby_out=#{client_lib}/lib",
     "--grpc_out=#{client_lib}/lib",
@@ -45,6 +46,12 @@ class ShowcaseTest < Minitest::Test
     end
   end
 
+  def new_identity_client
+    Google::Showcase::V1beta1::Identity::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
+    end
+  end
+
   def new_echo_operations_client
     Google::Showcase::V1beta1::Echo::Operations.new do |config|
       config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
@@ -56,7 +63,7 @@ class ShowcaseTest < Minitest::Test
     if ENV['CI'].nil?
       puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-images/gapic-showcase:0.5.0"
+        "gcr.io/gapic-images/gapic-showcase:0.11.0"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!
@@ -69,7 +76,7 @@ class ShowcaseTest < Minitest::Test
   @showcase_library = begin
     library = generate_library_for_test(
       %w[api-common-protos protos],
-      %w[google/showcase/v1beta1/echo.proto])
+      %w[google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library
   end

@@ -125,10 +125,12 @@ class FieldPresenterTest < PresenterTest
     assert_equal "\"hello world\"", fp.default_value
     assert_equal "", fp.type_name
     assert_nil fp.type_name_full
+    refute fp.proto3_optional?
     assert fp.oneof?
+    assert_equal "oneof_singular", fp.oneof_name
   end
 
-  def test_typical_garbage_enum_field
+  def test_typical_garbage_oneof_enum_field
     fp = typical_garbage "oneof_multiple_enum"
 
     assert_equal "oneof_multiple_enum", fp.name
@@ -138,6 +140,23 @@ class FieldPresenterTest < PresenterTest
     assert_equal ":DEFAULT_GARBAGE", fp.default_value
     assert_equal ".endless.trash.forever.GarbageEnum", fp.type_name
     assert_equal "::So::Much::Trash::GarbageEnum", fp.type_name_full
+    refute fp.proto3_optional?
     assert fp.oneof?
+    assert_equal "oneof_multiple", fp.oneof_name
+  end
+
+  def test_typical_garbage_proto3_optional_field
+    fp = typical_garbage "optional_int32"
+
+    assert_equal "optional_int32", fp.name
+    assert_equal "@!attribute [rw] optional_int32", fp.doc_attribute_type
+    assert_equal "::Integer", fp.output_doc_types
+    assert_nil fp.doc_description
+    assert_equal "42", fp.default_value
+    assert_equal "", fp.type_name
+    assert_nil fp.type_name_full
+    assert fp.proto3_optional?
+    assert fp.oneof?
+    assert_equal "_optional_int32", fp.oneof_name
   end
 end

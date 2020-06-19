@@ -312,6 +312,8 @@ message TypicalGarbage {
     // This is a multiple-field oneof's double field.
     double oneof_multiple_double = 21;
   }
+
+  optional int32 optional_int32 = 22;
 }
 
 // This is one specific garbage, man.

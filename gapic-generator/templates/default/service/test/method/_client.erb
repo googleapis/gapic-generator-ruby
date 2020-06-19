@@ -77,6 +77,12 @@ def test_<%= method.name %>
         <%- else -%>
         assert_equal <%= field.default_value %>, r.<%= field.name %>
         <%- end -%>
+        <%- if field.oneof? && !field.proto3_optional? -%>
+        assert_equal :<%= field.name %>, r.<%= field.oneof_name %>
+        <%- end -%>
+        <%- if field.proto3_optional? -%>
+        assert r.has_<%= field.name %>?
+        <%- end -%>
         <%- end -%>
       end
     end

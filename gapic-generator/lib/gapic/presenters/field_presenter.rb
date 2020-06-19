@@ -96,6 +96,10 @@ module Gapic
         @field.oneof?
       end
 
+      def oneof_name
+        @message.oneof_decl[@field.oneof_index].name
+      end
+
       protected
 
       def field_doc_types field, output

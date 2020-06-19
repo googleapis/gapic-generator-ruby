@@ -555,7 +555,7 @@ module So
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil, oneof_singular_str: nil, oneof_pair_int32: nil, oneof_pair_float: nil, oneof_multiple_message: nil, oneof_multiple_bytes: nil, oneof_multiple_enum: nil, oneof_multiple_double: nil)
+          # @overload get_typical_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, timeout: nil, duration: nil, enum: nil, amap: nil, oneof_singular_str: nil, oneof_pair_int32: nil, oneof_pair_float: nil, oneof_multiple_message: nil, oneof_multiple_bytes: nil, oneof_multiple_enum: nil, oneof_multiple_double: nil, optional_int32: nil)
           #   Pass arguments to `get_typical_garbage` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -600,6 +600,7 @@ module So
           #     This is a multiple-field oneof's enum field.
           #   @param oneof_multiple_double [::Float]
           #     This is a multiple-field oneof's double field.
+          #   @param optional_int32 [::Integer]
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::So::Much::Trash::TypicalGarbage]

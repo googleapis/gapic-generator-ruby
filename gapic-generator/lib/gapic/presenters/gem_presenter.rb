@@ -174,7 +174,7 @@ module Gapic
       end
 
       def dependencies
-        deps = { "gapic-common" => "~> 0.2" }
+        deps = { "gapic-common" => "~> 0.3" }
         deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.0"] if iam_dependency?
         extra_deps = gem_config :extra_dependencies
         deps.merge! extra_deps if extra_deps
