@@ -22,7 +22,7 @@ def _check_ruby_binver_impl(ctx):
 # Does not need the sources to be built but currently there is no alternative.
 #
 check_ruby_binver = rule(
-  implementation = _check_ruby_binver_impl,
+  _check_ruby_binver_impl,
   attrs = {
     "dependency": attr.label(
       allow_single_file = True,

@@ -85,6 +85,9 @@ def _ruby_runtime_impl(ctx):
       "--enable-load-relative", # this forces the path to libruby{version}.so to be relative instead of absolute allowing for prebuiltization
       #"--build=x86_64-linux-gnu",
       "--enable-shared",
+      "--with-openssl-dir=/usr",
+      "--with-zlib-dir=/usr",
+      "--with-readline-dir=/usr",
       "--disable-install-doc",
       "--prefix=%s" % root_path.realpath,
       "--with-ruby-version=ruby_bazel_libroot"]
@@ -115,6 +118,28 @@ def _ruby_runtime_impl(ctx):
     # nothing special about make install
     _execute_and_check_result(ctx, ["make", "install"], working_directory = srcs_dir, quiet = False)
 
+  ctx.report_progress("=======================================")
+  ctx.report_progress("Installing gems")
+
+
+  for gem, version in  ctx.attr.gems_to_install.items():
+    ctx.report_progress("-------------------------------------")
+    ctx.report_progress("Installing gem: {gem} version {version}".format(gem=gem, version=version))
+
+    #gem_path = "./vendor/cache/{gem}".format(gem=gem)
+    #res = ctx.execute(["bin/gem", "install", "--force", "--local", gem_path], working_directory = ".")
+
+    res = ctx.execute(["bin/gem", "install", gem, "-v={version}".format(version=version)], working_directory = ".")
+
+    if res.return_code != 0:
+      ctx.report_progress("failed to install")
+      log_path = "err_gem_install_{gem}.log".format(gem=gem)
+      ctx.file(log_path, "Gem {gem} install failed code {res_code}; Error:\n{err}".format(gem=gem, res_code=res.return_code, err=res.stderr))
+    else:
+      ctx.report_progress("install successful")
+
+  ctx.report_progress("=======================================")
+
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
 
@@ -143,6 +168,7 @@ ruby_runtime = repository_rule(
     "urls": attr.string_list(),
     "strip_prefix": attr.string(),
     "prebuilt_rubys": attr.label_list(allow_files = True, mandatory = False),
+    "gems_to_install": attr.string_dict(),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.dist.bazel.tpl"
     ),

@@ -8,19 +8,19 @@ def _ruby_binary_impl(ctx):
   print("= {cname}".format(cname = ctx.attr.name))
   print("---------------------")
 
-  src_dir = ctx.actions.declare_directory("src")
+  # src_dir = ctx.actions.declare_directory("src")
   src_base_path = ctx.file.src_base.path
 
-  command = "cp -r {src_base_path}/* {src_dir}".format(
-    src_base_path = src_base_path,
-    src_dir = src_dir.path
-  )
+  # command = "cp -r {src_base_path}/* {src_dir}".format(
+  #   src_base_path = src_base_path,
+  #   src_dir = src_dir.path
+  # )
 
-  ctx.actions.run_shell(
-    inputs = ctx.files.srcs,
-    outputs = [src_dir],
-    command = command,
-  )
+  # ctx.actions.run_shell(
+  #   inputs = ctx.files.srcs,
+  #   outputs = [src_dir],
+  #   command = command,
+  # )
 
   # the result of our invocation is dumped into this file
   run_result_file_path = "{name}".format(name = ctx.label.name)
@@ -63,12 +63,12 @@ def _ruby_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
-  exec_text = """tree;{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}""".format(
-      src_dir = src_dir.path,
+  exec_text = """{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}""".format(
+      src_dir = src_base_path,
       ruby_bin = ruby_bin_path, 
       imports = import_paths_string, 
       entrypoint = entrypoint_path)
-  exec_text = exec_text + "\n"
+  exec_text = "#!/bin/bash\n" + exec_text + "\n"
 
   ctx.actions.write(run_result_file, exec_text)
 

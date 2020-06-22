@@ -1,4 +1,5 @@
 load (":check_ruby_versions.bzl", "check_ruby_binver")
+load (":check_ruby_nativelibs.bzl", "check_ruby_require")
 
 check_ruby_binver (
   name = "ruby_gem_ver",
@@ -8,4 +9,9 @@ check_ruby_binver (
 check_ruby_binver (
   name = "ruby_ver",
   dependency = "@ruby_runtime//:bin/ruby",
+)
+
+check_ruby_require (
+  name = "check_ruby_require",
+  ruby_bin = "@ruby_runtime//:bin/ruby",
 )
