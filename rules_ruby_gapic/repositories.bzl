@@ -39,7 +39,7 @@ def gapic_generator_ruby():
     strip_prefix = "ruby-2.6.6",
     prebuilt_rubys = [
       #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
-      "//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
+      #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
     ],
   )
 
