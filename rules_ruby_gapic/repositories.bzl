@@ -1,6 +1,8 @@
 """Loading the dependencies for gapic_generator_ruby"""
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("//rules_ruby_gapic:gapic_src_repo.bzl", "gapic_generator_src")
+load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
+
 def gapic_generator_ruby():
   _protobuf_version = "3.11.2"
   _protobuf_version_in_link = "v%s" % _protobuf_version
@@ -24,6 +26,23 @@ def gapic_generator_ruby():
     strip_prefix = "gapic-generator-b32c73219d617f90de70bfa6ff0ea0b0dd638dfe",
     urls = ["https://github.com/googleapis/gapic-generator/archive/b32c73219d617f90de70bfa6ff0ea0b0dd638dfe.zip"],
   )
+
+  _maybe(
+    gapic_generator_src,
+    name = "gapic_generator_src",
+  )
+
+  # Create the ruby runtime
+  ruby_runtime (
+    name = "ruby_runtime",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
+    strip_prefix = "ruby-2.6.6",
+    prebuilt_rubys = [
+      #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
+      "//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
+    ],
+  )
+
 
 def _maybe(repo_rule, name, strip_repo_prefix = "", **kwargs):
   if not name.startswith(strip_repo_prefix):

@@ -1,0 +1,9 @@
+load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
+
+ruby_binary (
+  name = "gapic_generator_ruby",
+  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator/bin/protoc-gen-ruby_gapic",
+  #entrypoint = "@gapic_generator_src//:gen_src/gapic-generator/bin/gapic-generator",
+  srcs = ["@gapic_generator_src//:gen_src"],
+  src_base = "@gapic_generator_src//:gen_src"
+)

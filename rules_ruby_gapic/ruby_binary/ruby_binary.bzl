@@ -63,38 +63,12 @@ def _ruby_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
-  # echo_import_command = "echo -n '-I '$(readlink -f " + ")' ' >> {ruby_run_result}; echo -n '-I '$(readlink -f ".join(deps_strings) +")' ' >> {ruby_run_result};"
-  # echo_import_command = echo_import_command.format(
-  #   ruby_run_result = run_result_file.path,
-  # )
-  # command="echo -n $(readlink -f {ruby_bin}) > {ruby_run_result}; echo -n ' -W0 ' >> {ruby_run_result}; {echo_import_command} echo $(readlink -f {entrypoint}) >> {ruby_run_result}".format(
-  #   ruby_bin = ruby_bin_path, 
-  #   echo_import_command = echo_import_command, 
-  #   entrypoint = entrypoint_path,
-  #   ruby_run_result = run_result_file.path)
-
-  # print(command)
-
-  #~
-  # now we can run the application
-  # ctx.actions.run_shell(
-  #   tools = [ruby_bin], 
-  #   inputs = all_inputs,
-  #   command = command, 
-  #   outputs=[run_result_file],
-  #   execution_requirements = {
-  #     "no-sandbox": "1",
-  #     "no-cache": "1",
-  #     "no-remote": "1",
-  #     "local": "1",
-  #   },)
-
-  exec_text = """tree;{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}
-""".format(
+  exec_text = """tree;{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}""".format(
       src_dir = src_dir.path,
       ruby_bin = ruby_bin_path, 
       imports = import_paths_string, 
       entrypoint = entrypoint_path)
+  exec_text = exec_text + "\n"
 
   ctx.actions.write(run_result_file, exec_text)
 

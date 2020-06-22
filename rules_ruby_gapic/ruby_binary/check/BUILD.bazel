@@ -7,8 +7,3 @@ ruby_binary (
   srcs = [":srcs/hello_ruby.rb", ":srcs/lib/hello_ruby_lib.rb"],
   src_base = ":srcs"
 )
-
-# sh_binary(
-#   name = "ruby_hellolib_shb",
-#   srcs = [":ruby_hellolib_sh"],
-# )
