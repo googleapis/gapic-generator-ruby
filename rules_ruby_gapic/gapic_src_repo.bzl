@@ -1,7 +1,4 @@
-load(
-  "//rules_ruby_gapic/ruby:private/utils.bzl",
-  _execute_and_check_result = "execute_and_check_result",
-)
+load("//rules_ruby_gapic/ruby:private/utils.bzl", _execute_and_check_result = "execute_and_check_result")
 
 def _gapic_generator_src_impl(ctx):
     ctx.download_and_extract(
@@ -12,7 +9,7 @@ def _gapic_generator_src_impl(ctx):
     )
     ctx.file(
         "BUILD.bazel",
-        """exports_files(glob(include = ["gen_src/**", "gen_src/README.md"], exclude_directories = 0))""",
+        """exports_files(glob(include = ["gen_src/**"], exclude_directories = 0))""",
     )
     _execute_and_check_result(ctx, ["rm", "gen_src/gapic-generator/expected_output"], quiet = False)
     _execute_and_check_result(ctx, ["rm", "gen_src/gapic-generator/proto_input"], quiet = False)

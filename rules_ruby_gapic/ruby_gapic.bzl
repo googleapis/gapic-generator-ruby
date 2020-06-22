@@ -19,12 +19,12 @@ def ruby_gapic_library(name, srcs, **kwargs):
   srcjar_output_suffix = ".srcjar"
 
   proto_custom_library(
-      name = srcjar_target_name,
-      deps = srcs,
-      plugin = Label("//rules_ruby_gapic:gapic_generator_ruby"),
-      plugin_args = [],
-      plugin_file_args = {},
-      output_type = "ruby",
-      output_suffix = srcjar_output_suffix,
-      **kwargs
+    name = srcjar_target_name,
+    deps = srcs,
+    plugin = Label(":gapic_generator_ruby"),
+    plugin_args = [],
+    plugin_file_args = {},
+    output_type = "ruby",
+    output_suffix = srcjar_output_suffix,
+    **kwargs
   )
