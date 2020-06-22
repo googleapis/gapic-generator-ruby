@@ -21,7 +21,7 @@ def ruby_gapic_library(name, srcs, **kwargs):
   proto_custom_library(
     name = srcjar_target_name,
     deps = srcs,
-    plugin = Label("//gapic_generator_ruby/rules_ruby_gapic:gapic_generator_ruby"),
+    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
     plugin_args = [],
     plugin_file_args = {},
     output_type = "ruby",
