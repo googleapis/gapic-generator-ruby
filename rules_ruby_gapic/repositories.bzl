@@ -23,8 +23,8 @@ def gapic_generator_ruby():
   _maybe(
     http_archive,
     name = "com_google_api_codegen",
-    strip_prefix = "gapic-generator-b32c73219d617f90de70bfa6ff0ea0b0dd638dfe",
-    urls = ["https://github.com/googleapis/gapic-generator/archive/b32c73219d617f90de70bfa6ff0ea0b0dd638dfe.zip"],
+    strip_prefix = "gapic-generator-720e000e68a85161e7179b7aad560653dbb518bb",
+    urls = ["https://github.com/googleapis/gapic-generator/archive/720e000e68a85161e7179b7aad560653dbb518bb.zip"],
   )
 
   _maybe(
