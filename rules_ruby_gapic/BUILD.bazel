@@ -9,5 +9,6 @@ ruby_binary (
   entrypoint = "@gapic_generator_src//:gen_src/gapic-generator/bin/protoc-gen-ruby_gapic",
   #entrypoint = "@gapic_generator_src//:gen_src/gapic-generator/bin/gapic-generator",
   srcs = ["@gapic_generator_src//:gen_src"],
-  src_base = "@gapic_generator_src//:gen_src"
+  src_base = "@gapic_generator_src//:gen_src",
+  visibility = ["//visibility:public"],
 )
