@@ -16,15 +16,15 @@ def gapic_generator_ruby():
   _maybe(
     http_archive,
     name = "bazel_skylib",
-    strip_prefix = "bazel-skylib-2169ae1c374aab4a09aa90e65efe1a3aad4e279b",
     urls = ["https://github.com/bazelbuild/bazel-skylib/archive/2169ae1c374aab4a09aa90e65efe1a3aad4e279b.tar.gz"],
+    strip_prefix = "bazel-skylib-2169ae1c374aab4a09aa90e65efe1a3aad4e279b",
   )
 
   _maybe(
     http_archive,
     name = "com_google_api_codegen",
-    strip_prefix = "gapic-generator-720e000e68a85161e7179b7aad560653dbb518bb",
-    urls = ["https://github.com/googleapis/gapic-generator/archive/720e000e68a85161e7179b7aad560653dbb518bb.zip"],
+    urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator/archive/0076bc6f5e7aaa9f8cf2c62f441610510369baea.zip"],
+    strip_prefix = "gapic-generator-0076bc6f5e7aaa9f8cf2c62f441610510369baea",
   )
 
   _maybe(
