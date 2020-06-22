@@ -3,7 +3,7 @@ load("//rules_ruby_gapic/ruby:private/utils.bzl", _execute_and_check_result = "e
 def _gapic_generator_src_impl(ctx):
     ctx.download_and_extract(
         url = "https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/03f31cdd56411b6eb532546366ad67eda0595d0a.zip",
-        stripPrefix = "gapic-generator-03f31cdd56411b6eb532546366ad67eda0595d0a",
+        stripPrefix = "gapic-generator-ruby-03f31cdd56411b6eb532546366ad67eda0595d0a",
         #sha256 = "8565fa6d4f18833958d61ba843a00c618715ecf8b820182c4ade9be648803b55",
         output = "gen_src",
     )
