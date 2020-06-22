@@ -14,11 +14,17 @@
 
 load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
 
-def _ruby_gapic_library(ctx):
+def ruby_gapic_library(name, srcs, **kwargs):
+  srcjar_target_name = name
+  srcjar_output_suffix = ".srcjar"
+
   proto_custom_library(
-      name = name,
+      name = srcjar_target_name,
       deps = srcs,
+      plugin = Label("//rules_ruby_gapic:gapic_generator_ruby"),
+      plugin_args = [],
+      plugin_file_args = {},
       output_type = "ruby",
-      output_suffix = ".zip",
+      output_suffix = srcjar_output_suffix,
       **kwargs
   )
