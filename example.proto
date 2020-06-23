@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package testing.google.example;
+option ruby_package = "Testing::Google::Example";
+
+service Example {
+    rpc ExampleMethod(Request) returns(Response);
+}
+
+message Request {
+    string name = 1;
+}
+
+message Response {
+}
