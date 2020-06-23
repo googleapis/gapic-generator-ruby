@@ -68,7 +68,7 @@ def _ruby_binary_impl(ctx):
       ruby_bin = ruby_bin_path, 
       imports = import_paths_string, 
       entrypoint = entrypoint_path)
-  exec_text = "#!/bin/bash\n" + exec_text + "\n"
+  exec_text = "#!/bin/bash\n" + "export LANG=en_US.UTF-8\n" + "export LANGUAGE=en_US:en\n" + exec_text + "\n"
 
   ctx.actions.write(run_result_file, exec_text)
 
