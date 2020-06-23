@@ -17,7 +17,7 @@
 
 
 gem "gapic-generator"
-require 'gapic/generator/version'
+require "gapic/generator/version"
 require "gapic/runner"
 require "google/protobuf/compiler/plugin.pb"
 
