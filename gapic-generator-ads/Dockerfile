@@ -42,7 +42,7 @@ FROM ruby:2.6-stretch
 WORKDIR /workspace
 
 # Install common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/common-protos/
+COPY --from=gcr.io/gapic-images/api-common-protos:latest /protos/ /workspace/common-protos/
 
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /workspace/
