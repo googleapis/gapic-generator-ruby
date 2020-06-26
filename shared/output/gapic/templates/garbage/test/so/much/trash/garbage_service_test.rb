@@ -1150,7 +1150,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
           assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Duration), r.duration
           assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::GarbageMap), r.msg
           assert_equal :DEFAULT_GARBAGE, r.enum
-          assert_kind_of ::So::Much::Trash::TypicalGarbage::AmapEntry, request.amap.first
+          assert_equal({}, r.amap.to_h)
           assert_equal "hello world", r.oneof_singular_str
           assert_equal :oneof_singular_str, r.oneof_singular
           assert_equal 42, r.oneof_pair_int32
