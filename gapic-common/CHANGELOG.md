@@ -1,5 +1,9 @@
 # Release History
 
+### 0.3.1 / 2020-06-19
+
+* Fix file permissions
+
 ### 0.3.0 / 2020-06-18
 
 * Update the dependency on google-protobuf to 3.12.2
