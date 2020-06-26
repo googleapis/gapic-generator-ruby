@@ -17,15 +17,6 @@
 shopt -s extglob
 set -euxo pipefail
 
-# Parse out options.
-while true; do
-  case "$1" in
-    --ruby-ads* ) echo "Skipping unrecognized ruby-ads flag: $1" >&2; shift ;;
-    --* | +([[:word:][:punct:]]) ) shift ;;
-    * ) break ;;
-  esac
-done
-
 export RUBY_VM_THREAD_VM_STACK_SIZE=8000000
 export RUBY_VM_THREAD_VM_STACK_SIZE_MIN=4000000
 
