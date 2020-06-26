@@ -42,7 +42,7 @@ FROM ruby:2.6-stretch
 WORKDIR /workspace
 
 # Install common protos.
-COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/common-protos/
+COPY --from=gcr.io/gapic-images/api-common-protos:latest /protos/ /workspace/common-protos/
 
 # Copy gems from the builder.
 COPY --from=builder /workspace/*.gem /workspace/
@@ -60,4 +60,5 @@ RUN gem install --pre grpc-tools gapic-generator-ads.gem \
 
 # Install the entrypoint.
 COPY ./docker-entrypoint.sh /workspace/entrypoint.sh
+COPY ./config.yml /workspace/config.yml
 ENTRYPOINT ["/workspace/entrypoint.sh"]
