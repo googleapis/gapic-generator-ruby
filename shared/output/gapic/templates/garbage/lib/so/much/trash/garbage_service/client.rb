@@ -1228,6 +1228,56 @@ module So
           end
 
           ##
+          # Performs bidirectional streaming with all typical garbage.
+          #
+          # @param request [::Gapic::StreamInput, ::Enumerable<::So::Much::Trash::TypicalGarbage, ::Hash>]
+          #   An enumerable of {::So::Much::Trash::TypicalGarbage} instances.
+          # @param options [::Gapic::CallOptions, ::Hash]
+          #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::Enumerable<::So::Much::Trash::TypicalGarbage>]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::Enumerable<::So::Much::Trash::TypicalGarbage>]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          def bidi_typical_garbage request, options = nil
+            unless request.is_a? ::Enumerable
+              raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
+              request = request.to_enum
+            end
+
+            request = request.lazy.map do |req|
+              ::Gapic::Protobuf.coerce req, to: ::So::Much::Trash::TypicalGarbage
+            end
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.bidi_typical_garbage.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Garbage::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.bidi_typical_garbage.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.bidi_typical_garbage.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @garbage_service_stub.call_rpc :bidi_typical_garbage, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # A method that collides with a Ruby method
           #
           # @overload call_send(request, options = nil)
@@ -1484,6 +1534,11 @@ module So
               #
               attr_reader :bidi_garbage
               ##
+              # RPC-specific configuration for `bidi_typical_garbage`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :bidi_typical_garbage
+              ##
               # RPC-specific configuration for `call_send`
               # @return [::Gapic::Config::Method]
               #
@@ -1519,6 +1574,8 @@ module So
                 @server_garbage = ::Gapic::Config::Method.new server_garbage_config
                 bidi_garbage_config = parent_rpcs&.bidi_garbage if parent_rpcs&.respond_to? :bidi_garbage
                 @bidi_garbage = ::Gapic::Config::Method.new bidi_garbage_config
+                bidi_typical_garbage_config = parent_rpcs&.bidi_typical_garbage if parent_rpcs&.respond_to? :bidi_typical_garbage
+                @bidi_typical_garbage = ::Gapic::Config::Method.new bidi_typical_garbage_config
                 call_send_config = parent_rpcs&.call_send if parent_rpcs&.respond_to? :call_send
                 @call_send = ::Gapic::Config::Method.new call_send_config
 

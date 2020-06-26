@@ -1038,6 +1038,132 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
     end
   end
 
+  def test_bidi_typical_garbage
+    # Create GRPC objects.
+    grpc_response = ::So::Much::Trash::TypicalGarbage.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a bidi streaming method.
+    name = "hello world"
+    int32 = 42
+    int64 = 42
+    uint32 = 42
+    uint64 = 42
+    bool = true
+    float = 3.5
+    double = 3.5
+    bytes = "hello world"
+    timeout = {}
+    duration = {}
+    msg = {}
+    enum = :DEFAULT_GARBAGE
+    amap = {}
+    oneof_singular_str = "hello world"
+    oneof_pair_int32 = 42
+    oneof_multiple_message = {}
+    optional_int32 = 42
+
+    bidi_typical_garbage_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
+      assert_equal :bidi_typical_garbage, name
+      assert_kind_of Enumerable, request
+      refute_nil options
+      request
+    end
+
+    Gapic::ServiceStub.stub :new, bidi_typical_garbage_client_stub do
+      # Create client
+      client = ::So::Much::Trash::GarbageService::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use enumerable object with hash and protobuf object.
+      request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
+      request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+      enum_input = [request_hash, request_proto].to_enum
+      client.bidi_typical_garbage enum_input do |response, operation|
+        assert_kind_of Enumerable, response
+        response.to_a.each do |r|
+          assert_kind_of ::So::Much::Trash::TypicalGarbage, r
+        end
+        assert_equal grpc_operation, operation
+      end
+
+      # Use stream input object (from gapic-common).
+      request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
+      request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+      stream_input = Gapic::StreamInput.new
+      client.bidi_typical_garbage stream_input do |response, operation|
+        assert_kind_of Enumerable, response
+        response.to_a.each do |r|
+          assert_kind_of ::So::Much::Trash::TypicalGarbage, r
+        end
+        assert_equal grpc_operation, operation
+      end
+      stream_input << request_hash
+      stream_input << request_proto
+      stream_input.close
+
+      # Use enumerable object with hash and protobuf object with options.
+      request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
+      request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+      enum_input = [request_hash, request_proto].to_enum
+      client.bidi_typical_garbage enum_input, grpc_options do |response, operation|
+        assert_kind_of Enumerable, response
+        response.to_a.each do |r|
+          assert_kind_of ::So::Much::Trash::TypicalGarbage, r
+        end
+        assert_equal grpc_operation, operation
+      end
+
+      # Use stream input object (from gapic-common) with options.
+      request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
+      request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+      stream_input = Gapic::StreamInput.new
+      client.bidi_typical_garbage stream_input, grpc_options do |response, operation|
+        assert_kind_of Enumerable, response
+        response.to_a.each do |r|
+          assert_kind_of ::So::Much::Trash::TypicalGarbage, r
+        end
+        assert_equal grpc_operation, operation
+      end
+      stream_input << request_hash
+      stream_input << request_proto
+      stream_input.close
+
+      # Verify method calls
+      assert_equal 4, bidi_typical_garbage_client_stub.call_rpc_count
+      bidi_typical_garbage_client_stub.requests.each do |request|
+        request.to_a.each do |r|
+          assert_kind_of ::So::Much::Trash::TypicalGarbage, r
+          assert_equal "hello world", r.name
+          assert_equal 42, r.int32
+          assert_equal 42, r.int64
+          assert_equal 42, r.uint32
+          assert_equal 42, r.uint64
+          assert_equal true, r.bool
+          assert_equal 3.5, r.float
+          assert_equal 3.5, r.double
+          assert_equal "hello world", r.bytes
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Timestamp), r.timeout
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Duration), r.duration
+          assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::GarbageMap), r.msg
+          assert_equal :DEFAULT_GARBAGE, r.enum
+          assert_kind_of ::So::Much::Trash::TypicalGarbage::AmapEntry, request.amap.first
+          assert_equal "hello world", r.oneof_singular_str
+          assert_equal :oneof_singular_str, r.oneof_singular
+          assert_equal 42, r.oneof_pair_int32
+          assert_equal :oneof_pair_int32, r.oneof_pair
+          assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::SimpleGarbageItem), r.oneof_multiple_message
+          assert_equal :oneof_multiple_message, r.oneof_multiple
+          assert_equal 42, r.optional_int32
+          assert r.has_optional_int32?
+        end
+      end
+    end
+  end
+
   def test_call_send
     # Create GRPC objects.
     grpc_response = ::So::Much::Trash::EmptyGarbage.new

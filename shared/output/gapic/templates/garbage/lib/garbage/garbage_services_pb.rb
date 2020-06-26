@@ -46,6 +46,8 @@ module So
           rpc :ServerGarbage, So::Much::Trash::ListGarbageRequest, stream(So::Much::Trash::GarbageItem)
           # Performs bidirectional streaming garbage listing.
           rpc :BidiGarbage, stream(So::Much::Trash::ListGarbageRequest), stream(So::Much::Trash::GarbageItem)
+          # Performs bidirectional streaming with all typical garbage.
+          rpc :BidiTypicalGarbage, stream(So::Much::Trash::TypicalGarbage), stream(So::Much::Trash::TypicalGarbage)
           # A method that collides with a Ruby method
           rpc :Send, So::Much::Trash::EmptyGarbage, So::Much::Trash::EmptyGarbage
         end
