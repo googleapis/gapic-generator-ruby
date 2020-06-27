@@ -78,6 +78,11 @@ namespace :image do
   end
 end
 
+task :release_gem do
+  Rake::Task["build"].invoke
+  Rake::Task["release:rubygem_push"].invoke
+end
+
 def generate_ads_templates service
   require "fileutils"
   require "gapic/generators/ads_generator"
