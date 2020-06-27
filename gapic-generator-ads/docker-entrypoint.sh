@@ -15,15 +15,10 @@
 
 # enable extended globbing for flag pattern matching
 shopt -s extglob
+set -euxo pipefail
 
-# Parse out options.
-while true; do
-  case "$1" in
-    --ruby-ads* ) echo "Skipping unrecognized ruby-ads flag: $1" >&2; shift ;;
-    --* | +([[:word:][:punct:]]) ) shift ;;
-    * ) break ;;
-  esac
-done
+export RUBY_VM_THREAD_VM_STACK_SIZE=8000000
+export RUBY_VM_THREAD_VM_STACK_SIZE_MIN=4000000
 
 mkdir -p /workspace/out/lib
 grpc_tools_ruby_protoc \
@@ -52,3 +47,7 @@ find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e "s/requi
 # Fix the protoc-gen-grpc output not respecting ruby_package:
 # See https://github.com/grpc/grpc/issues/19438
 find /workspace/out/lib/google/ads -name "*.rb" -type f -exec sed -i -e 's/Google::Ads::Googleads::/Google::Ads::GoogleAds::/g' {} \;
+
+# fix permissions for generated files
+find /workspace/out -type f | xargs -n 1 -I{} chmod 644 {}
+find /workspace/out -type d | xargs -n 1 -I{} chmod 755 {}
