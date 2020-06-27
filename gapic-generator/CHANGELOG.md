@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.6.3 / 2020-06-27
+
+* Fixes for generated tests for some cases involving proto maps.
+* Fix a Ruby 2.7 keyword arguments warning in generated tests.
+* Clean up bundler references in gemspecs and Gemfiles.
+
 ### 0.6.2 / 2020-06-18
 
 * Support for the proto3_optional

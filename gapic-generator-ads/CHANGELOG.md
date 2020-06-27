@@ -1,5 +1,13 @@
 # Release History for gapic-generator-ads
 
+### 0.6.3 / 2020-06-27
+
+* Includes changes from gapic-generator 0.6.3.
+* Ensure docker builds always use the latest base images, dependencies, and common protos.
+* Provide a config.yml for ads generation.
+* Fix permissions for generated ads files.
+* Adjust stack sizes for ads generator.
+
 ### 0.6.2 / 2020-06-18
 
 * Includes changes from gapic-generator 0.6.2.
