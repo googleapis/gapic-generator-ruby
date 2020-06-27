@@ -133,6 +133,8 @@ service GarbageService {
   }
   // Performs bidirectional streaming garbage listing.
   rpc BidiGarbage(stream ListGarbageRequest) returns (stream GarbageItem);
+  // Performs bidirectional streaming with all typical garbage.
+  rpc BidiTypicalGarbage(stream TypicalGarbage) returns (stream TypicalGarbage);
   // A method that collides with a Ruby method
   rpc Send(EmptyGarbage) returns (EmptyGarbage) {
     option (google.api.http) = {

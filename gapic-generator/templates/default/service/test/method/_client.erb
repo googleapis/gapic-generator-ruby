@@ -70,8 +70,10 @@ def test_<%= method.name %>
       request.to_a.each do |r|
         assert_kind_of <%= method.request_type %>, r
         <%- fields.each do |field| -%>
-        <%- if field.message? && field.repeated? -%>
-        assert_kind_of <%= field.type_name_full %>, request.<%= field.name %>.first
+        <%- if field.message? && field.repeated? && !field.map? -%>
+        assert_kind_of <%= field.type_name_full %>, r.<%= field.name %>.first
+        <%- elsif field.map? -%>
+        assert_equal(<%= field.default_value %>, r.<%= field.name %>.to_h)
         <%- elsif field.message? -%>
         assert_equal Gapic::Protobuf.coerce(<%= field.default_value %>, to: <%= field.type_name_full %>), r.<%= field.name %>
         <%- else -%>
