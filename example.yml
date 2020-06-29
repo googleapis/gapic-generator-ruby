@@ -1,4 +1,0 @@
----
-  :skip_credentials: true
-  :gem:
-    :name: testing-google-example

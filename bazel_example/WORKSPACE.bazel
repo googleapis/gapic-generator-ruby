@@ -50,8 +50,8 @@ rules_proto_toolchains()
 http_archive(
     name = "com_googleapis_gapic_generator_ruby",
     #sha256 = "432f708c7107a8dffcf293af03df2114e5072abb57beb04423561603ee91b432",
-    urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/eaf43bc24043d81e6e647dcc28573844aab2f3a3.zip"],
-    strip_prefix = "gapic-generator-ruby-eaf43bc24043d81e6e647dcc28573844aab2f3a3",
+    urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/ddfa9ee302cbeecce6d1433b25e74155ea1124c4.zip"],
+    strip_prefix = "gapic-generator-ruby-ddfa9ee302cbeecce6d1433b25e74155ea1124c4",
 )
 
 load("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:repositories.bzl", "gapic_generator_ruby")

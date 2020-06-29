@@ -14,11 +14,12 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
 
 ### Requirement: system has git to get the gapic repo
 ### Requirement: system has make to build ruby
-### Requirement: system has zlib and zlib-dev, openssl and openssl-dev, all needed for rubygems to work
+### Requirement: system has zlib and zlib-dev, libreadline and libreadline-dev, openssl and openssl-dev, all needed for rubygems to work
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         make \
         zlib1g-dev \
+        libreadline-dev \
         libssl-dev \ 
     && rm -rf /var/lib/apt/lists/*
 

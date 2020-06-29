@@ -25,10 +25,8 @@ def ruby_gapic_library(name, srcs, **kwargs):
     plugin_args = [],
     plugin_file_args = {},
     opt_file_args = {
-      "//:example.yml":"configuration"
+      "//:example.yml" : "configuration"
     },
-    #plugin_args = ["--ruby_gapic_opt"],
-    #plugin_file_args = {confyml: "configuration"},
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
     **kwargs

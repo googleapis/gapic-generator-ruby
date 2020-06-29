@@ -1,8 +1,10 @@
 syntax = "proto3";
 
-package example;
+package testing.google.example;
+option ruby_package = "Testing::Google::Example";
 
 service Example {
+    option (google.api.default_host) = "grpcserviceconfig.example.com";
     rpc ExampleMethod(Request) returns(Response);
 }
 
