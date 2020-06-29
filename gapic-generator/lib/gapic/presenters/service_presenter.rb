@@ -203,7 +203,7 @@ module Gapic
       def client_scopes
         common_service_delegate&.client_scopes ||
           @service.scopes ||
-          default_config(:oauth_scopes) || 
+          default_config(:oauth_scopes) ||
           []
       end
 
