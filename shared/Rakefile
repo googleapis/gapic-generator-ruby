@@ -115,11 +115,8 @@ namespace :test do
             sh "bundle exec rake rubocop"
             puts "Running yard for #{gem}"
             sh "bundle exec rake yard"
-            # Skip garbage due to grpc/grpc#21561
-            unless gem == :garbage
-              puts "Running test for #{gem}"
-              sh "bundle exec rake test"
-            end
+            puts "Running test for #{gem}"
+            sh "bundle exec rake test"
           end
         end
       end
