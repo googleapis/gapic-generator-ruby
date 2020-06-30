@@ -11,17 +11,6 @@ def _ruby_binary_impl(ctx):
   # src_dir = ctx.actions.declare_directory("src")
   src_base_path = ctx.file.src_base.path
 
-  # command = "cp -r {src_base_path}/* {src_dir}".format(
-  #   src_base_path = src_base_path,
-  #   src_dir = src_dir.path
-  # )
-
-  # ctx.actions.run_shell(
-  #   inputs = ctx.files.srcs,
-  #   outputs = [src_dir],
-  #   command = command,
-  # )
-
   # the result of our invocation is dumped into this file
   run_result_file_path = "{name}".format(name = ctx.label.name)
   run_result_file = ctx.actions.declare_file(run_result_file_path)

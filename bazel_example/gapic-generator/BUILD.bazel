@@ -26,7 +26,7 @@ proto_library(
 ruby_gapic_library(
   name = "example_gapic_library",
   srcs = ["example_src",],
-  yml_file_labels = ["//:example.yml"]
+  yml_file_labels = ["//gapic-generator:example.yml"]
 )
 
 # just the protoc ruby output

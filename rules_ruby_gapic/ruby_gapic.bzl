@@ -71,3 +71,27 @@ def ruby_grpc_library(name, srcs, deps, **kwargs):
     output_suffix = ".srcjar",
     **kwargs
   )
+
+def ruby_gapic_ads_library(name, srcs, yml_file_labels, **kwargs):
+  srcjar_target_name = name
+  srcjar_output_suffix = ".srcjar"
+
+  name_srcjar = "{name}_srcjar".format(name = name)
+
+  opt_yml_files = {}
+  for file_label in yml_file_labels:
+    opt_yml_files[file_label] = "configuration"
+
+  proto_custom_library(
+    name = name_srcjar,
+    deps = srcs,
+    plugin = Label("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
+    opt_file_args = opt_yml_files,
+    output_type = "ruby_gapic",
+    output_suffix = srcjar_output_suffix,
+    **kwargs
+  )
+  _ruby_gapic_library_add_gapicinfo(
+    name = name,
+    output = ":{name_srcjar}".format(name_srcjar = name_srcjar),
+  )
