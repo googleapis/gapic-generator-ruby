@@ -27,21 +27,21 @@ _ruby_gapic_library_add_gapicinfo = rule(
   }
 )
 
-def ruby_gapic_library(name, srcs, **kwargs):
+def ruby_gapic_library(name, srcs, yml_file_labels,  **kwargs):
   srcjar_target_name = name
   srcjar_output_suffix = ".srcjar"
 
   name_srcjar = "{name}_srcjar".format(name = name)
 
+  opt_yml_files = {}
+  for file_label in yml_file_labels:
+    opt_yml_files[file_label] = "configuration"
+
   proto_custom_library(
     name = name_srcjar,
     deps = srcs,
     plugin = Label("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
-    plugin_args = [],
-    plugin_file_args = {},
-    opt_file_args = {
-      "//:example.yml" : "configuration"
-    },
+    opt_file_args = opt_yml_files,
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
     **kwargs

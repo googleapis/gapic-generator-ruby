@@ -25,11 +25,6 @@ def _ruby_gapic_assembly_pkg_impl(ctx):
       else:
           extras = extras + dep.files.to_list()
 
-  print("====================ffffff")
-  print(gapic_zip)
-  print(extras)
-  print("====================ffffffq")
-
   ctx.actions.run_shell(
     inputs = [gapic_zip] + extras,
     outputs = [out_dir, out_tar],

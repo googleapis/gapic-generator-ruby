@@ -25,10 +25,8 @@ proto_library(
 # just the gapic-generator-ruby output
 ruby_gapic_library(
   name = "example_gapic_library",
-  #confyml = "//:example.yml",
   srcs = ["example_src",],
-  #  "ruby-cloud-gem-name": "example",
-  #  --ruby_gapic_opt="ruby-cloud-gem-name=example"
+  yml_file_labels = ["//:example.yml"]
 )
 
 # just the protoc ruby output
