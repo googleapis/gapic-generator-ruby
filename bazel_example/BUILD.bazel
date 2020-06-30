@@ -4,6 +4,8 @@ proto_library(
     name = "example_src",
     srcs = [
         "example.proto",
+        "google/api/client.proto",
+        "google/protobuf/descriptor.proto"
     ],
 )
 

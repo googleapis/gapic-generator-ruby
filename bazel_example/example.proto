@@ -1,11 +1,13 @@
 syntax = "proto3";
 
-package testing.google.example;
-option ruby_package = "Testing::Google::Example";
+package google.example;
+option ruby_package = "Google::Bazel::Example";
 
-service Example {
-    option (google.api.default_host) = "grpcserviceconfig.example.com";
-    rpc ExampleMethod(Request) returns(Response);
+import "google/api/client.proto";
+
+service TestService {
+    option (google.api.default_host) = "google.bazel.example.com";
+    rpc TestCall(Request) returns(Response);
 }
 
 message Request {
