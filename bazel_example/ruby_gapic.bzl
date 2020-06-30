@@ -12,14 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
+load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library", "GapicInfo")
+
+def _ruby_gapic_library_add_gapicinfo_impl(ctx):
+  return [
+    DefaultInfo(files = depset(direct = [ctx.file.output])),
+    GapicInfo(),
+  ]
+
+_ruby_gapic_library_add_gapicinfo = rule(
+  _ruby_gapic_library_add_gapicinfo_impl,
+  attrs = {
+    "output": attr.label(allow_single_file = True)
+  }
+)
 
 def ruby_gapic_library(name, srcs, **kwargs):
   srcjar_target_name = name
   srcjar_output_suffix = ".srcjar"
 
+  name_srcjar = "{name}_srcjar".format(name = name)
+
   proto_custom_library(
-    name = srcjar_target_name,
+    name = name_srcjar,
     deps = srcs,
     plugin = Label("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
     plugin_args = [],
@@ -29,5 +44,30 @@ def ruby_gapic_library(name, srcs, **kwargs):
     },
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
+    **kwargs
+  )
+  _ruby_gapic_library_add_gapicinfo(
+    name = name,
+    output = ":{name_srcjar}".format(name_srcjar = name_srcjar),
+  )
+
+def ruby_proto_library(name, deps, **kwargs):
+  # Build zip file of protoc output
+  proto_custom_library(
+    name = name,
+    deps = deps,
+    output_type = "ruby",
+    output_suffix = ".srcjar",
+    **kwargs
+  )
+
+def ruby_grpc_library(name, srcs, deps, **kwargs):
+  # Build zip file of grpc output
+  proto_custom_library(
+    name = name,
+    deps = srcs,
+    plugin = Label("@com_github_grpc_grpc//src/compiler:grpc_ruby_plugin"),
+    output_type = "grpc",
+    output_suffix = ".srcjar",
     **kwargs
   )

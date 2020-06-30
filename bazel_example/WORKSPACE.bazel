@@ -1,10 +1,18 @@
 workspace(name = "gapic_generator_ruby_example")
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# googleapis for the common protos
+http_archive(
+    name = "com_google_googleapis",
+    strip_prefix = "googleapis-cf41866c6f14f10a07aa1e2a1260fc0a2727d889",
+    urls = ["https://github.com/googleapis/googleapis/archive/cf41866c6f14f10a07aa1e2a1260fc0a2727d889.zip"],
+)
+load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
+switched_rules_by_language(name = "com_google_googleapis_imports", gapic = True)
 
 ##
 # protobuf
 #
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 http_archive(
     name = "com_google_protobuf",
     sha256 = "e5265d552e12c1f39c72842fa91d84941726026fa056d914ea6a25cd58d7bbf8",
