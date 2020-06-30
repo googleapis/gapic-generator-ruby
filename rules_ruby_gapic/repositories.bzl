@@ -90,6 +90,47 @@ def gapic_generator_ruby():
     },
   )
 
+def gapic_generator_ruby_customgems(list_of_gems):
+  _protobuf_version = "3.11.2"
+  _protobuf_version_in_link = "v%s" % _protobuf_version
+  _maybe(
+    http_archive,
+    name = "com_google_protobuf",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/%s.zip" % _protobuf_version_in_link],
+    strip_prefix = "protobuf-%s" % _protobuf_version,
+  )
+
+  _maybe(
+    http_archive,
+    name = "bazel_skylib",
+    urls = ["https://github.com/bazelbuild/bazel-skylib/archive/2169ae1c374aab4a09aa90e65efe1a3aad4e279b.tar.gz"],
+    strip_prefix = "bazel-skylib-2169ae1c374aab4a09aa90e65efe1a3aad4e279b",
+  )
+
+  _maybe(
+    http_archive,
+    name = "com_google_api_codegen",
+    strip_prefix = "gapic-generator-2.4.0",
+    urls = ["https://github.com/googleapis/gapic-generator/archive/v2.4.0.zip"],
+  )
+
+  _maybe(
+    gapic_generator_src,
+    name = "gapic_generator_src",
+  )
+
+  # Create the ruby runtime
+  ruby_runtime (
+    name = "ruby_runtime",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
+    strip_prefix = "ruby-2.6.6",
+    prebuilt_rubys = [
+      #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
+      #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
+    ],
+    gems_to_install = list_of_gems,
+  )
+
 
 def _maybe(repo_rule, name, strip_repo_prefix = "", **kwargs):
   if not name.startswith(strip_repo_prefix):
