@@ -3,11 +3,6 @@
 load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyContext")
 
 def _ruby_binary_impl(ctx):
-  print("==========================================")
-  print("=! building ruby binary")  
-  print("= {cname}".format(cname = ctx.attr.name))
-  print("---------------------")
-
   # src_dir = ctx.actions.declare_directory("src")
   src_base_path = ctx.file.src_base.path
 

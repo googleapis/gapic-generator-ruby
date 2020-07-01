@@ -40,7 +40,7 @@ def ruby_gapic_library(name, srcs, yml_file_labels,  **kwargs):
   proto_custom_library(
     name = name_srcjar,
     deps = srcs,
-    plugin = Label("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
+    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
     opt_file_args = opt_yml_files,
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
@@ -85,7 +85,7 @@ def ruby_gapic_ads_library(name, srcs, yml_file_labels, **kwargs):
   proto_custom_library(
     name = name_srcjar,
     deps = srcs,
-    plugin = Label("@com_googleapis_gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
+    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
     opt_file_args = opt_yml_files,
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,

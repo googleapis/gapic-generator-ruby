@@ -3,7 +3,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//rules_ruby_gapic:gapic_src_repo.bzl", "gapic_generator_src")
 load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
 
-def gapic_generator_ruby():
+def gapic_generator_ruby_repositories():
   _protobuf_version = "3.11.2"
   _protobuf_version_in_link = "v%s" % _protobuf_version
   _maybe(
