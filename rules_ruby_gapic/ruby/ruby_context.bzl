@@ -7,6 +7,7 @@ load("//rules_ruby_gapic:private/providers.bzl", "RubyContext", "RubyLibraryInfo
 
 def _ruby_context_impl(ctx):
   ruby_bin = ctx.file.ruby_bin
+  all_bins = ctx.files.all_bins
   ruby_libfiles = ctx.files.ruby_libfiles
   lib_root = ctx.files.ruby_libroots[0]
 
@@ -18,6 +19,7 @@ def _ruby_context_impl(ctx):
         lib_path = lib_root,
       ),
       bin = ruby_bin,
+      all_bins = all_bins,
     ),
     RubyLibraryInfo(
       info = struct(
@@ -37,6 +39,7 @@ ruby_context = rule(
       executable = True,
       cfg = "host"
     ),
+    "all_bins": attr.label(),
     "ruby_libfiles": attr.label(),
     "ruby_libroots": attr.label(),
   }

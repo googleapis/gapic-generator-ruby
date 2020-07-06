@@ -2,6 +2,14 @@ exports_files(glob(include = ["{srcs_dir}/bin/**", "bin/*", "lib/**"], exclude_d
 load(":copy_ruby_runtime.bzl", "copy_ruby_runtime")
 
 filegroup(
+  name = "ruby_bins_allfiles",
+  srcs = glob([
+    "bin/**/*"
+  ]),
+  visibility = ["//visibility:public"],
+)
+
+filegroup(
   name = "ruby_libs_allfiles",
   srcs = glob([
     "lib/**/*"

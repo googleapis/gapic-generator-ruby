@@ -3,9 +3,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 # googleapis for the common protos
 http_archive(
-    name = "com_google_googleapis",
-    strip_prefix = "googleapis-cf41866c6f14f10a07aa1e2a1260fc0a2727d889",
-    urls = ["https://github.com/googleapis/googleapis/archive/cf41866c6f14f10a07aa1e2a1260fc0a2727d889.zip"],
+  name = "com_google_googleapis",
+  strip_prefix = "googleapis-cf41866c6f14f10a07aa1e2a1260fc0a2727d889",
+  urls = ["https://github.com/googleapis/googleapis/archive/cf41866c6f14f10a07aa1e2a1260fc0a2727d889.zip"],
 )
 load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
 switched_rules_by_language(name = "com_google_googleapis_imports", gapic = True)
@@ -14,10 +14,10 @@ switched_rules_by_language(name = "com_google_googleapis_imports", gapic = True)
 # protobuf
 #
 http_archive(
-    name = "com_google_protobuf",
-    sha256 = "e5265d552e12c1f39c72842fa91d84941726026fa056d914ea6a25cd58d7bbf8",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.12.3.zip"],
-    strip_prefix = "protobuf-3.12.3",
+  name = "com_google_protobuf",
+  sha256 = "e5265d552e12c1f39c72842fa91d84941726026fa056d914ea6a25cd58d7bbf8",
+  urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.12.3.zip"],
+  strip_prefix = "protobuf-3.12.3",
 )
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 protobuf_deps()
@@ -26,10 +26,10 @@ protobuf_deps()
 # grpc
 #
 http_archive(
-    name = "com_github_grpc_grpc",
-    strip_prefix = "grpc-1.29.1",
-    sha256 = "2afd3e20fd1d52d3d1a605a74befcdcb048a9213a4903880d9267856b063ae60",
-    urls = ["https://github.com/grpc/grpc/archive/v1.29.1.zip"],
+  name = "com_github_grpc_grpc",
+  strip_prefix = "grpc-1.29.1",
+  sha256 = "2afd3e20fd1d52d3d1a605a74befcdcb048a9213a4903880d9267856b063ae60",
+  urls = ["https://github.com/grpc/grpc/archive/v1.29.1.zip"],
 )
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
 grpc_deps()
@@ -57,12 +57,11 @@ rules_proto_toolchains()
 #
 # http_archive(
 #     name = "gapic_generator_ruby",
-#     #sha256 = "432f708c7107a8dffcf293af03df2114e5072abb57beb04423561603ee91b432",
-#     urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/2ece896148c84a231387e9afa94895468ce3c94e.zip"],
-#     strip_prefix = "gapic-generator-ruby-2ece896148c84a231387e9afa94895468ce3c94e",
+#     urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/bea87e2ec0459310e56b3db3c3198d8accf2ff4b.zip"],
+#     strip_prefix = "gapic-generator-ruby-bea87e2ec0459310e56b3db3c3198d8accf2ff4b",
 # )
 
-##
+#~
 # Use the following to use the bazel rules defined locally, rather than fetched from github.
 #
 local_repository(

@@ -19,3 +19,11 @@ ruby_binary (
   src_base = "@gapic_generator_src//:gen_src",
   visibility = ["//visibility:public"],
 )
+
+ruby_binary (
+  name = "gapic_generator_cloud",
+  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator-cloud/bin/protoc-gen-ruby_cloud",
+  srcs = ["@gapic_generator_src//:gen_src"],
+  src_base = "@gapic_generator_src//:gen_src",
+  visibility = ["//visibility:public"],
+)

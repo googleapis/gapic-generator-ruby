@@ -3,11 +3,6 @@ Creating the ruby runtime workspace
 """
 
 load(
-  ":templates/build_bazel_template.bzl",
-  build_bazel_template = "build_bazel_template",
-)
-
-load(
   ":templates/copy_ruby_runtime_template.bzl",
   copy_ruby_runtime_template = "copy_ruby_runtime_template",
   )
@@ -22,13 +17,6 @@ load(
 #
 def create_copy_ruby_runtime_bzl():
   return copy_ruby_runtime_template
-
-###
-# 
-#
-def create_build_bazel(srcs_dir):
-  # dynamically generate a build file for the new workspace
-  return build_bazel_template.format(srcs_dir = srcs_dir)
 
 ##
 # Implementation for a ruby_runtime rule
@@ -146,8 +134,6 @@ def _ruby_runtime_impl(ctx):
   copy_ruby_runtime_bzl = create_copy_ruby_runtime_bzl()
   ctx.file("copy_ruby_runtime.bzl", copy_ruby_runtime_bzl)
 
-  # build_bazel = create_build_bazel(srcs_dir)
-  # ctx.file("BUILD.bazel", build_bazel)
   ctx.template(
     "BUILD.bazel",
     ctx.attr._build_tpl,

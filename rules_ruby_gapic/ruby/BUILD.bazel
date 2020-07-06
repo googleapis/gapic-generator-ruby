@@ -4,6 +4,7 @@ ruby_context(
   name = "ruby_context",
   visibility = ["//visibility:public"],
   ruby_bin = "@ruby_runtime//:bin/ruby",
+  all_bins = "@ruby_runtime//:ruby_bins_allfiles",
   ruby_libfiles = "@ruby_runtime//:ruby_libs_allfiles",
   ruby_libroots = "@ruby_runtime//:ruby_libroots",
 )

@@ -12,6 +12,7 @@ RubyLibraryInfo = provider (
 RubyContext = provider(
   fields = {
     "bin" : "bin",
+    "all_bins" : "all_bins",
     "info" : "info",
   }
 )

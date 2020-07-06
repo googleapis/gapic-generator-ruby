@@ -19,6 +19,8 @@ def _ruby_binary_impl(ctx):
   ruby_context = ctx.attr.ruby_context[RubyContext]
   ruby_bin = ruby_context.bin
   ruby_bin_path = ruby_bin.path
+  ruby_bin_dirpath = ruby_bin.dirname
+  ruby_all_bins = ruby_context.all_bins
 
   # Same dependency also contains the Ruby StandardLibrary info packaged as RubyLibraryInfo
   ruby_standard_lib = ctx.attr.ruby_context[RubyLibraryInfo]
@@ -47,18 +49,24 @@ def _ruby_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
-  exec_text = """{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}""".format(
-      src_dir = src_base_path,
-      ruby_bin = ruby_bin_path, 
-      imports = import_paths_string, 
-      entrypoint = entrypoint_path)
-  exec_text = "#!/bin/bash\n" + "export LANG=en_US.UTF-8\n" + "export LANGUAGE=en_US:en\n" + exec_text + "\n"
+  cmd_text = """{ruby_bin} -W0 -I {src_dir} {imports} {entrypoint}""".format(
+    src_dir = src_base_path,
+    ruby_bin = ruby_bin_path, 
+    imports = import_paths_string, 
+    entrypoint = entrypoint_path)
+
+  exec_text = "#!/bin/bash{newline}export PATH=$PATH:{ruby_bin_dirpath}{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{cmd_text}{newline}".format(
+    newline = "\n",
+    cmd_text = cmd_text,
+    ruby_bin_dirpath = ruby_bin_dirpath,
+  )
 
   ctx.actions.write(run_result_file, exec_text)
 
   direct = ctx.files.srcs[:]
   direct.append(run_result_file)
   direct.append(ruby_bin)
+  direct = direct + ruby_all_bins
 
   runfiles = ctx.runfiles(files=[run_result_file, ruby_bin] + ctx.files.srcs)
 
