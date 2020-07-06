@@ -55,7 +55,7 @@ def _ruby_binary_impl(ctx):
     imports = import_paths_string, 
     entrypoint = entrypoint_path)
 
-  exec_text = "#!/bin/bash{newline}export PATH=$PATH:{ruby_bin_dirpath}{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{cmd_text}{newline}".format(
+  exec_text = "#!/bin/bash{newline}export PATH=$PATH:{ruby_bin_dirpath}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{cmd_text}{newline}".format(
     newline = "\n",
     cmd_text = cmd_text,
     ruby_bin_dirpath = ruby_bin_dirpath,
