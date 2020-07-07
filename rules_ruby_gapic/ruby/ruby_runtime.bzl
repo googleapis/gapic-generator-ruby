@@ -60,7 +60,7 @@ def _ruby_runtime_impl(ctx):
     else:
       prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
 
-  ctx.file("prebuilt_selection.log", prebuilt_selection_log+"\n")
+  ctx.file("logs/prebuilt_selection.log", prebuilt_selection_log+"\n")
   if not working_prebuild_located:
     ctx.download_and_extract(
       url = ctx.attr.urls,
@@ -109,24 +109,52 @@ def _ruby_runtime_impl(ctx):
   ctx.report_progress("=======================================")
   ctx.report_progress("Installing gems")
 
+  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
+  ctx.file("logs/gem_list_pre.log", res.stdout)
 
+  gem_log = []
   for gem, version in  ctx.attr.gems_to_install.items():
+    gem_located = False
+    if working_prebuild_located:
+      ctx.report_progress("-------------------------------------")
+      ctx.report_progress("Checking for gem: {gem} version {version}".format(gem = gem, version = version))
+      cmd_arr = ["bin/gem", "list", "-i", '{gem}'.format(gem = gem), "-v", '{version}'.format(version = version)]
+      res = ctx.execute(cmd_arr, working_directory = ".")
+      if res.return_code == 0:
+        gem_located = True
+      else:
+        log_path = "logs/err_gem_verify_{gem}.log".format(gem = gem, version = version)
+        report = "Gem {gem} version {version} install failed code {res_code}\nCmd: {cmd}\nStdOut:\n{stdout}\nStdErr:\n{stderr}".format(gem = gem, version = version, res_code = res.return_code, cmd = " ".join(cmd_arr), stdout = res.stdout, stderr = res.stderr)
+        ctx.report_progress(report)
+        ctx.file(log_path, report)
+
+    if gem_located:
+      report = "Gem {gem} version {version} located installed".format(gem = gem, version = version)
+      ctx.report_progress(report)
+      gem_log.append(report)
+      continue
+
     ctx.report_progress("-------------------------------------")
-    ctx.report_progress("Installing gem: {gem} version {version}".format(gem=gem, version=version))
+    ctx.report_progress("Installing gem: {gem} version {version}".format(gem = gem, version = version))
 
-    #gem_path = "./vendor/cache/{gem}".format(gem=gem)
-    #res = ctx.execute(["bin/gem", "install", "--force", "--local", gem_path], working_directory = ".")
-
-    res = ctx.execute(["bin/gem", "install", gem, "-v={version}".format(version=version)], working_directory = ".")
-
+    res = ctx.execute(["bin/gem", "install", gem, "-v={version}".format(version = version)], working_directory = ".")
     if res.return_code != 0:
       ctx.report_progress("failed to install")
-      log_path = "err_gem_install_{gem}.log".format(gem=gem)
-      ctx.file(log_path, "Gem {gem} install failed code {res_code}; Error:\n{err}".format(gem=gem, res_code=res.return_code, err=res.stderr))
+      log_path = "logs/err_gem_install_{gem}.log".format(gem = gem)
+      report = "Gem {gem} version {version} install failed code {res_code}; StdErr:\n{stderr}".format(gem = gem, version = version, res_code = res.return_code, stderr = res.stderr)
+      ctx.file(log_path, report)
+      gem_log.append(report)
     else:
-      ctx.report_progress("install successful")
-
+      report = "Gem {gem} version {version} install successful".format(gem = gem, version = version)
+      ctx.report_progress(report)
+      gem_log.append(report)
   ctx.report_progress("=======================================")
+
+  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
+  ctx.file("logs/gem_list_post.log", res.stdout)
+
+  gem_report_path = "logs/gem_report.log"
+  ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
 
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
