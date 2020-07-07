@@ -90,11 +90,10 @@ def gapic_generator_ruby_customgems(list_of_gems):
     strip_prefix = "ruby-2.6.6",
     prebuilt_rubys = [
       "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
-      #"//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
     ],
     gems_to_install = list_of_gems,
   )
-
 
 def _maybe(repo_rule, name, strip_repo_prefix = "", **kwargs):
   if not name.startswith(strip_repo_prefix):
