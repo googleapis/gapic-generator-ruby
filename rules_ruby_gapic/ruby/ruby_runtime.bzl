@@ -50,7 +50,7 @@ def _ruby_runtime_impl(ctx):
     include_path = ctx.path("./{tmp}/lib".format(tmp = tmp))
     include_path_str =  "%s" % include_path.realpath
     ctx.file("includepath.log", include_path_str)
-    res = ctx.execute(["bin/ruby", "--version"], environment={"LD_LIBRARY_PATH" : include_path_str}, working_directory = tmp)
+    res = ctx.execute(["bin/ruby", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"], environment={"LD_LIBRARY_PATH" : include_path_str}, working_directory = tmp)
     _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
     if res.return_code == 0:
       ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix)

@@ -1,5 +1,9 @@
-## Alternatively, start from stretch and install bazel
 FROM buildpack-deps:stretch
+## Alternatively, start from buildpack-deps:xenial
+## FROM buildpack-deps:xenial
+## Alternatively, start from bazel image and install dev tools
+## FROM l.gcr.io/google/bazel:latest
+
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends apt-transport-https
@@ -9,8 +13,6 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y --no-install-recommends bazel
 
-### Start from bazel and install some dev tools
-# FROM l.gcr.io/google/bazel:latest
 
 ### Requirement: system has git to get the gapic repo
 ### Requirement: system has make to build ruby

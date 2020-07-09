@@ -21,9 +21,9 @@ def gapic_generator_ruby_repositories():
     "googleapis-common-protos": "1.3.9",
     "googleapis-common-protos-types": "1.0.4",
     "googleauth": "0.11.0",
-    "google-protobuf": "3.11.4",
+    #"google-protobuf": "3.11.4",
     "google-style": "1.24.0",
-    "grpc": "1.27.0",
+    #"grpc": "1.27.0",
     "i18n": "1.8.2",
     "jaro_winkler": "1.5.4",
     "jwt": "2.2.1",
@@ -89,8 +89,8 @@ def gapic_generator_ruby_customgems(list_of_gems):
     urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
     strip_prefix = "ruby-2.6.6",
     prebuilt_rubys = [
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_kokoro_x86_64.tar.gz",
       "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_container_x86_64.tar.gz",
     ],
     gems_to_install = list_of_gems,
   )
