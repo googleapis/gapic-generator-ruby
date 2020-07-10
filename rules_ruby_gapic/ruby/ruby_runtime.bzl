@@ -48,16 +48,16 @@ def _ruby_runtime_impl(ctx):
   if len(ctx.attr.prebuilt_rubys) == 0:
     prebuilt_selection_log = "No prebuilt rubies supplied"
   else:
-    prebuilt_selection_log = "{count} prebuilt rubies supplied. Filtering on the os name {os_name}"
-      .format(count = len(ctx.attr.prebuilt_rubys), os_name=os_name)
+    prebuilt_selection_log = "{count} prebuilt rubies supplied. Filtering on the os name {os_name}".format(
+      count = len(ctx.attr.prebuilt_rubys), os_name=os_name)
 
   working_prebuild_located = False
 
   for prebuilt_ruby in ctx.attr.prebuilt_rubys:
     prebuilt_selection_log += "\nTrying prebuilt ruby @ {prebuilt_ruby}".format(prebuilt_ruby = prebuilt_ruby)
     if prebuilt_ruby.name.find(os_name) < 0:
-      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: does not contain os name {os_name}"
-        .format(prebuilt_ruby = prebuilt_ruby, os_name=os_name)
+      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: does not contain os name {os_name}".format(
+        prebuilt_ruby = prebuilt_ruby, os_name=os_name)
       continue
 
     tmp = "ruby_tmp"
@@ -75,12 +75,12 @@ def _ruby_runtime_impl(ctx):
     if res.return_code == 0:
       ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix)
       working_prebuild_located = True
-      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen."
-        .format(prebuilt_ruby = prebuilt_ruby)
+      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen.".format(
+        prebuilt_ruby = prebuilt_ruby)
       break
     else:
-      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}"
-        .format(prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
+      prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(
+        prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
 
   ctx.file("logs/prebuilt_selection.log", prebuilt_selection_log+"\n")
   if not working_prebuild_located:
@@ -145,7 +145,8 @@ def _ruby_runtime_impl(ctx):
         gem_located = True
       else:
         log_path = "logs/err_gem_verify_{gem}.log".format(gem = gem, version = version)
-        report = "Gem {gem} version {version} install failed code {res_code}\nCmd: {cmd}\nStdOut:\n{stdout}\nStdErr:\n{stderr}".format(gem = gem, version = version, res_code = res.return_code, cmd = " ".join(cmd_arr), stdout = res.stdout, stderr = res.stderr)
+        report = "Gem {gem} version {version} install failed code {res_code}\nCmd: {cmd}\nStdOut:\n{stdout}\nStdErr:\n{stderr}".format(
+          gem = gem, version = version, res_code = res.return_code, cmd = " ".join(cmd_arr), stdout = res.stdout, stderr = res.stderr)
         ctx.report_progress(report)
         ctx.file(log_path, report)
 
@@ -162,7 +163,8 @@ def _ruby_runtime_impl(ctx):
     if res.return_code != 0:
       ctx.report_progress("failed to install")
       log_path = "logs/err_gem_install_{gem}.log".format(gem = gem)
-      report = "Gem {gem} version {version} install failed code {res_code}; StdErr:\n{stderr}".format(gem = gem, version = version, res_code = res.return_code, stderr = res.stderr)
+      report = "Gem {gem} version {version} install failed code {res_code}; StdErr:\n{stderr}".format(
+        gem = gem, version = version, res_code = res.return_code, stderr = res.stderr)
       ctx.file(log_path, report)
       gem_log.append(report)
     else:

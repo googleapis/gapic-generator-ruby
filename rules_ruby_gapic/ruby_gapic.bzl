@@ -54,7 +54,7 @@ def ruby_gapic_ads_library(name, srcs, yml_configs, **kwargs):
   name_srcjar = "{name}_srcjar".format(name = name)
 
   opt_yml_files = {}
-  for file_label in yml_files:
+  for file_label in yml_configs:
     opt_yml_files[file_label] = "configuration"
 
   proto_custom_library(
