@@ -39,7 +39,7 @@ module Gapic
           write_file dir, file
         end
 
-        system "rubocop -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
+        system "rubocop --cache false -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
 
         files.each do |file|
           read_file dir, file
