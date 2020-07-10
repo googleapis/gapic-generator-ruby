@@ -1,7 +1,27 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+A workspace file for the example usage of the gapic-generator-ruby
+"""
+
 workspace(name = "gapic_generator_ruby_example")
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+##
 # googleapis for the common protos
+#
 http_archive(
   name = "com_google_googleapis",
   strip_prefix = "googleapis-cf41866c6f14f10a07aa1e2a1260fc0a2727d889",
@@ -54,16 +74,17 @@ rules_proto_toolchains()
 
 ##
 # gapic_generator_ruby
+# (either local or from github)
 #
+
+# use the following to get a consistent external version from github
 # http_archive(
 #     name = "gapic_generator_ruby",
 #     urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/bea87e2ec0459310e56b3db3c3198d8accf2ff4b.zip"],
 #     strip_prefix = "gapic-generator-ruby-bea87e2ec0459310e56b3db3c3198d8accf2ff4b",
 # )
 
-#~
-# Use the following to use the bazel rules defined locally, rather than fetched from github.
-#
+# use the following to use the bazel rules defined locally, rather than fetched from github.
 local_repository(
    name = "gapic_generator_ruby",
    path = "../",

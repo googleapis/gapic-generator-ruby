@@ -1,20 +1,47 @@
-load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", "ruby_gapic_cloud_library", "ruby_proto_library", "ruby_grpc_library")
-load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", "ruby_gapic_assembly_pkg")
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-# protoc ruby output
-ruby_proto_library(
-  name = "language_ruby_proto",
-  deps = ["@com_google_googleapis//google/cloud/language/v1:language_proto"],
+"""
+Defines the targets for the google cloud language library to be built
+with gapic-generator-ruby cloud flavor
+"""
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
+  "ruby_gapic_cloud_library",
+  "ruby_proto_library",
+  "ruby_grpc_library")
+
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
+  "ruby_gapic_assembly_pkg")
+
+##
+# completed google-cloud language library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby cloud flavor output
+#
+ruby_gapic_assembly_pkg(
+  name = "google-cloud-language-v1-ruby",
+  deps = [
+    ":language_ruby_gapic",
+    ":language_ruby_grpc",
+    ":language_ruby_proto",
+  ],
 )
 
-# grpc-ruby plugin output
-ruby_grpc_library(
-    name = "language_ruby_grpc",
-    srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto"],
-    deps = [":language_ruby_proto"],
-)
-
-#gapic-generator-ruby output
+##
+# just the gapic-generator-ruby cloud flavor output
+#
 ruby_gapic_cloud_library(
   name = "language_ruby_gapic",
   srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto_with_info"],
@@ -27,15 +54,23 @@ ruby_gapic_cloud_library(
     ":gem.:api_id": "language.googleapis.com",
     ":gem.:api_shortname": "language",
   },
+  # we have to have a local copy here since @com_google_googleapis does not export individual grpc configs
   grpc_service_configs = [":language_grpc_service_config.json"]
 )
 
-# completed client library
-ruby_gapic_assembly_pkg(
-  name = "google-cloud-language-v1-ruby",
-  deps = [
-    ":language_ruby_gapic",
-    ":language_ruby_grpc",
-    ":language_ruby_proto",
-  ],
+##
+# just the protoc ruby output
+#
+ruby_proto_library(
+  name = "language_ruby_proto",
+  deps = ["@com_google_googleapis//google/cloud/language/v1:language_proto"],
+)
+
+##
+# just the grpc-ruby protoc plugin output
+#
+ruby_grpc_library(
+  name = "language_ruby_grpc",
+  srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto"],
+  deps = [":language_ruby_proto"],
 )

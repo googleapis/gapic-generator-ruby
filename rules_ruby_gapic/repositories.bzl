@@ -19,6 +19,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//rules_ruby_gapic:gapic_src_repo.bzl", "gapic_generator_src")
 load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
 
+##
+# Load a set of dependencies with the gems that work with all 3 gapic-generator flavors
+#
 def gapic_generator_ruby_repositories():
   gems = {
     "mini_portile2": "2.4.0", # mini_portile for nokogiri needs and before nokogiri
@@ -37,9 +40,7 @@ def gapic_generator_ruby_repositories():
     "googleapis-common-protos": "1.3.9",
     "googleapis-common-protos-types": "1.0.4",
     "googleauth": "0.11.0",
-    #"google-protobuf": "3.11.4",
     "google-style": "1.24.0",
-    #"grpc": "1.27.0",
     "i18n": "1.8.2",
     "jaro_winkler": "1.5.4",
     "jwt": "2.2.1",
@@ -70,6 +71,11 @@ def gapic_generator_ruby_repositories():
   }
   gapic_generator_ruby_customgems(gems)
 
+##
+# Load a set of dependencies with a set of gems provided by the caller
+#
+# list_of_gems: a dictionary of gem name -> version strings to be loaded when the ruby_runtime dependency builds
+#
 def gapic_generator_ruby_customgems(list_of_gems):
   _protobuf_version = "3.11.2"
   _protobuf_version_in_link = "v%s" % _protobuf_version
@@ -111,6 +117,9 @@ def gapic_generator_ruby_customgems(list_of_gems):
     gems_to_install = list_of_gems,
   )
 
+##
+# a helper macro to load a repo rule with an optional prefix
+#
 def _maybe(repo_rule, name, strip_repo_prefix = "", **kwargs):
   if not name.startswith(strip_repo_prefix):
     return
