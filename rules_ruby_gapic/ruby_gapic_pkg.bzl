@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-A rule for packaging the ruby gapic libraries
+A rule for packaging the ruby gapic library
 """
 load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo")
 
@@ -51,6 +51,11 @@ tar -czhpf {out_tar} -C {out_dir}/.. {pkg_name}
     files = depset(direct = [out_tar])
   )]
 
+##
+# A rule that is used to package together the outputs from gapic-generator-ruby,
+# ruby, and grpc-ruby protoc plugins. Moves the files from the last two plugins 
+# into the lib/ folder of the first one.
+#
 _ruby_gapic_assembly_pkg = rule(
   implementation = _ruby_gapic_assembly_pkg_impl,
   attrs = {
@@ -60,6 +65,9 @@ _ruby_gapic_assembly_pkg = rule(
   }
 )
 
+##
+# A macro over the _ruby_gapic_assembly_pkg making sure that name and package_dir are the same
+#
 def ruby_gapic_assembly_pkg(name, deps, **kwargs):
   _ruby_gapic_assembly_pkg(
     name = name,

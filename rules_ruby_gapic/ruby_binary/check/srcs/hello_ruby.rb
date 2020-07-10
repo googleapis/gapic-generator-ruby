@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+##
+# A script that is used to verify that a ruby_binary rule works
+# Is a two-parter. This is the first part.
+# Loads the second part of the script and prints the result
+#
 require "lib/hello_ruby_lib.rb"
 
 argv = words
