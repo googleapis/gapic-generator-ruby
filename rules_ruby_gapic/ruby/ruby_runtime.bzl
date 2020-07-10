@@ -15,22 +15,10 @@
 """
 Creates a workspace with ruby runtime, including ruby executables and ruby standard libraries
 """
-
-load(
-  ":templates/copy_ruby_runtime_template.bzl",
-  copy_ruby_runtime_template = "copy_ruby_runtime_template",
-)
-
 load(
   ":private/utils.bzl",
   _execute_and_check_result = "execute_and_check_result",
 )
-
-###
-# 
-#
-def create_copy_ruby_runtime_bzl():
-  return copy_ruby_runtime_template
 
 ##
 # Implementation for a ruby_runtime rule
@@ -63,15 +51,11 @@ def _ruby_runtime_impl(ctx):
     tmp = "ruby_tmp"
     _execute_and_check_result(ctx, ["mkdir", tmp], quiet = False)
     ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix, output = tmp)
-    include_path = ctx.path("./{tmp}/lib".format(tmp = tmp))
-    include_path_str =  "%s" % include_path.realpath
-    ctx.file("includepath.log", include_path_str)
 
     res = ctx.execute(
       ["bin/ruby", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"],
-      environment={"LD_LIBRARY_PATH" : include_path_str},
       working_directory = tmp)
-    _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
+
     if res.return_code == 0:
       ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix)
       working_prebuild_located = True
@@ -81,6 +65,8 @@ def _ruby_runtime_impl(ctx):
     else:
       prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(
         prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
+    
+    _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
 
   ctx.file("logs/prebuilt_selection.log", prebuilt_selection_log+"\n")
   if not working_prebuild_located:
@@ -182,9 +168,7 @@ def _ruby_runtime_impl(ctx):
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
 
-  copy_ruby_runtime_bzl = create_copy_ruby_runtime_bzl()
-  ctx.file("copy_ruby_runtime.bzl", copy_ruby_runtime_bzl)
-
+  # adding a BUILD.bazel file to the workspace with the filegroup targets for the things we've built
   ctx.template(
     "BUILD.bazel",
     ctx.attr._build_tpl,

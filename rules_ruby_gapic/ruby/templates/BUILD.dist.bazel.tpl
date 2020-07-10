@@ -16,7 +16,6 @@
 A BUILD.bazel file of the ruby_runtime workspace defining the targets for the rules consuming
 the ruby runtime, first and foremost the ruby_context rule
 """
-load(":copy_ruby_runtime.bzl", "copy_ruby_runtime")
 
 # export every relevant file
 exports_files(glob(include = ["{srcs_dir}/bin/**", "bin/*", "lib/**"], exclude_directories = 0))
@@ -52,10 +51,5 @@ filegroup(
   srcs = glob([
     "lib/**/.ruby_bazel_libroot",
   ]),
-  visibility = ["//visibility:public"],
-)
-
-copy_ruby_runtime(
-  name = "copy_ruby_runtime",
   visibility = ["//visibility:public"],
 )
