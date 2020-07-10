@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+A rule for packaging the ruby gapic libraries
+"""
 load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo")
 
 def _ruby_gapic_assembly_pkg_impl(ctx):

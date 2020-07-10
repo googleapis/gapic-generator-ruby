@@ -1,5 +1,5 @@
 """
-exercicing the binaries of ruby sources
+exercising the binaries of ruby sources
 kicking the tires with the --version
 """
 

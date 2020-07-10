@@ -1,13 +1,12 @@
 """
-exercicing the ruby libraries with a special require
+exercising the ruby libraries with a special require
 """
 
 def _check_ruby_require_impl(ctx):
   run_result_file = ctx.actions.declare_file(ctx.attr.name)
   ruby_bin = ctx.file.ruby_bin
 
-  # note that the shell comand must be written in terms of dependencies and results
-  exec_text = "#!/bin/bash\n" + "{ruby_bin} -ropenssl -rzlib -rreadline -e 'puts :success'".format(ruby_bin = ruby_bin.path)
+  exec_text = "#!/bin/bash\n" + "{ruby_bin} -ropenssl -rzlib -rreadline -rdigest/sha2.so -e 'puts :success'".format(ruby_bin = ruby_bin.path)
   ctx.actions.write(run_result_file, exec_text)
   runfiles = ctx.runfiles(files=[run_result_file, ruby_bin])
 
@@ -18,9 +17,8 @@ def _check_ruby_require_impl(ctx):
   )]
 
 ##
-# Executing a --version over a binary file (e.g. gem) that is present 
-# in the archive with the ruby sources.
-# Does not need the sources to be built but currently there is no alternative.
+# Executing a special command that runs ruby while requiring multiple ruby libraries 
+# If this is running then the ruby standard libs seem to be built correctly
 #
 check_ruby_require = rule(
   _check_ruby_require_impl,

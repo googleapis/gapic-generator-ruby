@@ -62,7 +62,7 @@ module Gapic
       end
 
       def name
-        gem_config :name || "example.foo"
+        gem_config :name
       end
 
       def namespace
