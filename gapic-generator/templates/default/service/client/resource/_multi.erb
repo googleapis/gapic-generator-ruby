@@ -13,7 +13,11 @@ def <%= resource.path_helper %> **args
 <%- last_pattern_index = resource.patterns.count - 1 -%>
 <%- resource.patterns.each_with_index do |pattern, index| -%>
 <%- comma = last_pattern_index == index ? "" : "," -%>
+<%- if pattern.formal_arguments.empty? -%>
+    <%= pattern.arguments_key.inspect %> => (proc do
+<%- else -%>
     <%= pattern.arguments_key.inspect %> => (proc do |<%= pattern.formal_arguments %>|
+<%- end -%>
 <%= indent render(partial: "service/client/resource/def", locals: { pattern: pattern }), 6 %>
     end)<%= comma %>
 <%- end -%>
