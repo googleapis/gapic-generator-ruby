@@ -368,6 +368,61 @@ module So
           end
 
           ##
+          # @overload no_arguments_multi_method(request, options = nil)
+          #   Pass arguments to `no_arguments_multi_method` via a request object, either of type
+          #   {::So::Much::Trash::NoArgumentsMultiRequest} or an equivalent Hash.
+          #
+          #   @param request [::So::Much::Trash::NoArgumentsMultiRequest, ::Hash]
+          #     A request object representing the call parameters. Required. To specify no
+          #     parameters, or to keep all the default parameter values, pass an empty Hash.
+          #   @param options [::Gapic::CallOptions, ::Hash]
+          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+          #
+          # @overload no_arguments_multi_method(name: nil)
+          #   Pass arguments to `no_arguments_multi_method` via keyword arguments. Note that at
+          #   least one keyword argument is required. To specify no parameters, or to keep all
+          #   the default parameter values, pass an empty Hash as a request object (see above).
+          #
+          #   @param name [::String]
+          #
+          # @yield [response, operation] Access the result along with the RPC operation
+          # @yieldparam response [::So::Much::Trash::Response]
+          # @yieldparam operation [::GRPC::ActiveCall::Operation]
+          #
+          # @return [::So::Much::Trash::Response]
+          #
+          # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          def no_arguments_multi_method request, options = nil
+            raise ::ArgumentError, "request must be provided" if request.nil?
+
+            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::NoArgumentsMultiRequest
+
+            # Converts hash and nil to an options object
+            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+            # Customize the options with defaults
+            metadata = @config.rpcs.no_arguments_multi_method.metadata.to_h
+
+            # Set x-goog-api-client and x-goog-user-project headers
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              lib_name: @config.lib_name, lib_version: @config.lib_version,
+              gapic_version: ::Google::Garbage::VERSION
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+            options.apply_defaults timeout:      @config.rpcs.no_arguments_multi_method.timeout,
+                                   metadata:     metadata,
+                                   retry_policy: @config.rpcs.no_arguments_multi_method.retry_policy
+            options.apply_defaults metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
+
+            @resource_names_stub.call_rpc :no_arguments_multi_method, request, options: options do |response, operation|
+              yield response, operation if block_given?
+              return response
+            end
+          end
+
+          ##
           # Configuration class for the ResourceNames API.
           #
           # This class represents the configuration for ResourceNames,
@@ -523,6 +578,11 @@ module So
               # @return [::Gapic::Config::Method]
               #
               attr_reader :multiparent_method
+              ##
+              # RPC-specific configuration for `no_arguments_multi_method`
+              # @return [::Gapic::Config::Method]
+              #
+              attr_reader :no_arguments_multi_method
 
               # @private
               def initialize parent_rpcs = nil
@@ -534,6 +594,8 @@ module So
                 @resource_name_pattern_method = ::Gapic::Config::Method.new resource_name_pattern_method_config
                 multiparent_method_config = parent_rpcs&.multiparent_method if parent_rpcs&.respond_to? :multiparent_method
                 @multiparent_method = ::Gapic::Config::Method.new multiparent_method_config
+                no_arguments_multi_method_config = parent_rpcs&.no_arguments_multi_method if parent_rpcs&.respond_to? :no_arguments_multi_method
+                @no_arguments_multi_method = ::Gapic::Config::Method.new no_arguments_multi_method_config
 
                 yield self if block_given?
               end

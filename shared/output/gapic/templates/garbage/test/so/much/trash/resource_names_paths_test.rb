@@ -82,6 +82,21 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
     end
   end
 
+  def test_no_arguments_multi_path
+    grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    ::Gapic::ServiceStub.stub :new, nil do
+      client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      path = client.no_arguments_multi_path project: "value0", widget: "value1"
+      assert_equal "projects/value0/widgets/value1", path
+
+      path = client.no_arguments_multi_path
+      assert_equal "_default-widget_", path
+    end
+  end
+
   def test_resource_name_pattern_request_path
     grpc_channel = ::GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
     ::Gapic::ServiceStub.stub :new, nil do
