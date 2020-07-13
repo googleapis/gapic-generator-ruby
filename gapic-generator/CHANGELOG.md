@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.6.4 / 2020-07-13
+
+* Fix rubocop warning on a generated multi-path helper if it could take no arguments.
+* Run the rubocop file formatting step without caching.
+* Fix an issue where generating a service with no options would fail.
+
 ### 0.6.3 / 2020-06-27
 
 * Fixes for generated tests for some cases involving proto maps.
