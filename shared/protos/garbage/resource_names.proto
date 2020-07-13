@@ -73,6 +73,13 @@ option (google.api.resource_definition) = {
   pattern: "returns/{return}/log"
 };
 
+// A resource with multiple patterns, one of which has no arguments.
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/NoArgumentsMulti"
+  pattern: "projects/{project}/widgets/{widget}"
+  pattern: "_default-widget_"
+};
+
 // A service that exposes the messages that test the various combinations of path patterns
 service ResourceNames {
   option (google.api.default_host) = "endlesstrash.example.net";
@@ -87,6 +94,9 @@ service ResourceNames {
   }
 
   rpc MultiparentMethod(MultiparentRequest) returns(Response) {
+  }
+
+  rpc NoArgumentsMultiMethod(NoArgumentsMultiRequest) returns(Response) {
   }
 }
 
@@ -133,6 +143,11 @@ message ResourceNamePatternRequest {
 // A message that references multiple potential resources via the child_type
 message MultiparentRequest {
   string parent = 1 [(google.api.resource_reference).child_type = "resourcenames.example.com/LogEntry"];
+}
+
+// A request with a name referencing NoArgumentsMulti
+message NoArgumentsMultiRequest {
+  string name = 1 [(google.api.resource_reference).type = "resourcenames.example.com/NoArgumentsMulti"];
 }
 
 message Response { }
