@@ -110,7 +110,7 @@ def ruby_gapic_library(name, srcs, yml_configs,  **kwargs):
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
 # ruby_cloud_params a string-string dictionary of the cloud generator parameters
-#   (e.g. :gem:name)
+#   (e.g. :gem.:name)
 # grpc_service_configs: a list of labels of the grpc service configs (or an empty list)
 #
 def ruby_gapic_cloud_library(
@@ -126,8 +126,9 @@ def ruby_gapic_cloud_library(
   name_srcjar = "{name}_srcjar".format(name = name)
 
   opt_args = []
-  for key, value in ruby_cloud_params.items(): 
-    opt_args.append("{key}={value}".format(key = key, value = value))
+  for key, value in ruby_cloud_params.items():
+    escaped_value = _escape_config_value(value)
+    opt_args.append("{key}={value}".format(key = key, value = escaped_value))
 
   opt_service_configs = {}
   for file_label in grpc_service_configs:
@@ -181,3 +182,10 @@ def ruby_grpc_library(name, srcs, deps, **kwargs):
     output_suffix = ".srcjar",
     **kwargs
   )
+
+##
+# Escapes symbols in the config parameters values that would break the command line
+# when folded into the --opt_ruby_gapic protoc command line parameter
+#
+def _escape_config_value(value):
+  return value.replace("\\", "\\\\").replace(",", "\\,").replace( "=", "\\=")

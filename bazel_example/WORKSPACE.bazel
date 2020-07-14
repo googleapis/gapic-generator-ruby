@@ -79,17 +79,17 @@ rules_proto_toolchains()
 #
 
 # use the following to get a consistent external version from github
-http_archive(
-  name = "gapic_generator_ruby",
-  urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/8333c9365ad9930097a1df76060f1a8492cce369.zip"],
-  strip_prefix = "gapic-generator-ruby-8333c9365ad9930097a1df76060f1a8492cce369",
-)
+# http_archive(
+#   name = "gapic_generator_ruby",
+#   urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/8333c9365ad9930097a1df76060f1a8492cce369.zip"],
+#   strip_prefix = "gapic-generator-ruby-8333c9365ad9930097a1df76060f1a8492cce369",
+# )
 
 # use the following to use the bazel rules defined locally, rather than fetched from github (great for development)
-# local_repository(
-#  name = "gapic_generator_ruby",
-#  path = "../",
-# )
+local_repository(
+ name = "gapic_generator_ruby",
+ path = "../",
+)
 
 load("@gapic_generator_ruby//rules_ruby_gapic:repositories.bzl", "gapic_generator_ruby_repositories")
 gapic_generator_ruby_repositories()
