@@ -23,6 +23,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "endless.trash.forever.MultiparentRequest" do
       optional :parent, :string, 1
     end
+    add_message "endless.trash.forever.NoArgumentsMultiRequest" do
+      optional :name, :string, 1
+    end
     add_message "endless.trash.forever.Response" do
     end
   end
@@ -35,6 +38,7 @@ module So
       ComplexPatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ComplexPatternRequest").msgclass
       ResourceNamePatternRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.ResourceNamePatternRequest").msgclass
       MultiparentRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.MultiparentRequest").msgclass
+      NoArgumentsMultiRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.NoArgumentsMultiRequest").msgclass
       Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("endless.trash.forever.Response").msgclass
     end
   end

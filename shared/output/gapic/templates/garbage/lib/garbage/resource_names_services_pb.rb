@@ -21,6 +21,7 @@ module So
           rpc :ComplexPatternMethod, So::Much::Trash::ComplexPatternRequest, So::Much::Trash::Response
           rpc :ResourceNamePatternMethod, So::Much::Trash::ResourceNamePatternRequest, So::Much::Trash::Response
           rpc :MultiparentMethod, So::Much::Trash::MultiparentRequest, So::Much::Trash::Response
+          rpc :NoArgumentsMultiMethod, So::Much::Trash::NoArgumentsMultiRequest, So::Much::Trash::Response
         end
 
         Stub = Service.rpc_stub_class

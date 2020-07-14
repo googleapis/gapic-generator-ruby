@@ -135,6 +135,40 @@ module So
           end
 
           ##
+          # Create a fully-qualified NoArgumentsMulti resource string.
+          #
+          # @overload no_arguments_multi_path(project:, widget:)
+          #   The resource will be in the following format:
+          #
+          #   `projects/{project}/widgets/{widget}`
+          #
+          #   @param project [String]
+          #   @param widget [String]
+          #
+          # @overload no_arguments_multi_path()
+          #   The resource will be in the following format:
+          #
+          #   `_default-widget_`
+          #
+          # @return [::String]
+          def no_arguments_multi_path **args
+            resources = {
+              "project:widget" => (proc do |project:, widget:|
+                raise ::ArgumentError, "project cannot contain /" if project.to_s.include? "/"
+
+                "projects/#{project}/widgets/#{widget}"
+              end),
+              ""               => (proc do
+                "_default-widget_"
+              end)
+            }
+
+            resource = resources[args.keys.sort.join(":")]
+            raise ::ArgumentError, "no resource found for values #{args.keys}" if resource.nil?
+            resource.call(**args)
+          end
+
+          ##
           # Create a fully-qualified ResourceNamePatternRequest resource string.
           #
           # @overload resource_name_pattern_request_path(customer:, path:)

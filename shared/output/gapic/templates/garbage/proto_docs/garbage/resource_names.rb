@@ -70,6 +70,14 @@ module So
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
 
+      # A request with a name referencing NoArgumentsMulti
+      # @!attribute [rw] name
+      #   @return [::String]
+      class NoArgumentsMultiRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
       class Response
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
