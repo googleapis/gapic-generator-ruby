@@ -54,7 +54,7 @@ RUN if [ -f gapic-generator.gem ]; then \
     ;fi
 
 # Install the subgenerator and other needed tools.
-RUN gem install --pre grpc-tools gapic-generator-ads.gem \
+RUN gem install grpc-tools gapic-generator-ads.gem \
     && rm gapic-generator-ads.gem \
     && mkdir -p --mode=777 /.cache
 
