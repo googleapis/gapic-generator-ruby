@@ -61,13 +61,13 @@ grpc_extra_deps()
 # rules_proto
 #
 http_archive(
-    name = "rules_proto",
-    sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
-    strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
-        "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
-    ],
+  name = "rules_proto",
+  sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+  strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
+  urls = [
+    "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+    "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+  ],
 )
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
 rules_proto_dependencies()
@@ -79,17 +79,17 @@ rules_proto_toolchains()
 #
 
 # use the following to get a consistent external version from github
-# http_archive(
-#     name = "gapic_generator_ruby",
-#     urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/1e64d02e74be79585b7479ae643589bb3d39efd6.zip"],
-#     strip_prefix = "gapic-generator-ruby-1e64d02e74be79585b7479ae643589bb3d39efd6",
-# )
+http_archive(
+  name = "gapic_generator_ruby",
+  urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/8333c9365ad9930097a1df76060f1a8492cce369.zip"],
+  strip_prefix = "gapic-generator-ruby-8333c9365ad9930097a1df76060f1a8492cce369",
+)
 
 # use the following to use the bazel rules defined locally, rather than fetched from github (great for development)
-local_repository(
-   name = "gapic_generator_ruby",
-   path = "../",
-)
+# local_repository(
+#  name = "gapic_generator_ruby",
+#  path = "../",
+# )
 
 load("@gapic_generator_ruby//rules_ruby_gapic:repositories.bzl", "gapic_generator_ruby_repositories")
 gapic_generator_ruby_repositories()
