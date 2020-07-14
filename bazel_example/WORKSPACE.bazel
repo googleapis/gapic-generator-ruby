@@ -26,6 +26,7 @@ http_archive(
   name = "com_google_googleapis",
   strip_prefix = "googleapis-cf41866c6f14f10a07aa1e2a1260fc0a2727d889",
   urls = ["https://github.com/googleapis/googleapis/archive/cf41866c6f14f10a07aa1e2a1260fc0a2727d889.zip"],
+  sha256 = "943602b1e91621f282c1e790eb46d9a70e202fe65091b7d41415a43973cebec4"
 )
 load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
 switched_rules_by_language(name = "com_google_googleapis_imports", gapic = True)
@@ -74,17 +75,17 @@ rules_proto_toolchains()
 
 ##
 # gapic_generator_ruby
-# (either local or from github)
+# (either from github or local)
 #
 
 # use the following to get a consistent external version from github
 # http_archive(
 #     name = "gapic_generator_ruby",
-#     urls = ["https://github.com/viacheslav-rostovtsev/gapic-generator-ruby/archive/bea87e2ec0459310e56b3db3c3198d8accf2ff4b.zip"],
-#     strip_prefix = "gapic-generator-ruby-bea87e2ec0459310e56b3db3c3198d8accf2ff4b",
+#     urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/1e64d02e74be79585b7479ae643589bb3d39efd6.zip"],
+#     strip_prefix = "gapic-generator-ruby-1e64d02e74be79585b7479ae643589bb3d39efd6",
 # )
 
-# use the following to use the bazel rules defined locally, rather than fetched from github.
+# use the following to use the bazel rules defined locally, rather than fetched from github (great for development)
 local_repository(
    name = "gapic_generator_ruby",
    path = "../",
