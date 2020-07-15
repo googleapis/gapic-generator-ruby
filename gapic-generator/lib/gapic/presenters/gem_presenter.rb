@@ -48,6 +48,10 @@ module Gapic
         end
       end
 
+      def first_non_common_service
+        services.find { |service| service.common_service_delegate.nil? }
+      end
+
       def proto_files
         @proto_files ||= begin
           files = @api.files

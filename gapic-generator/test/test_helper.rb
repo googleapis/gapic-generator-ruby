@@ -162,6 +162,7 @@ class ResourceLookupTest < Minitest::Test
 end
 
 # A fake api class for creating test fixtures
+# TODO: Rework this to use the real Schema::Api and the FakeRequest below.
 class FakeApi
   def initialize
     @files = []
@@ -273,5 +274,110 @@ class FakeApi
 
   def fix_namespace name
     name
+  end
+end
+
+# A fake request builder
+class FakeRequest < OpenStruct
+  def initialize
+    super
+    @cur_descriptor = self
+    self.proto_file = []
+    self.file_to_generate = []
+    self.parameter = ""
+    yield self if block_given?
+  end
+
+  def add_file! package
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.name = package
+    @cur_descriptor.package = package
+    @cur_descriptor.source_code_info = OpenStruct.new location: []
+    @cur_descriptor.enum_type = []
+    @cur_descriptor.message_type = []
+    @cur_descriptor.service = []
+    @cur_descriptor.options = {}
+    yield @cur_descriptor if block_given?
+    outer_descriptor.proto_file << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    @cur_descriptor.file_to_generate << package
+    self
+  end
+
+  def add_message! name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.name = name
+    @cur_descriptor.nested_type = []
+    @cur_descriptor.enum_type = []
+    @cur_descriptor.field = []
+    @cur_descriptor.extension = []
+    @cur_descriptor.options = {}
+    yield @cur_descriptor if block_given?
+    if outer_descriptor.nested_type
+      outer_descriptor.nested_type << @cur_descriptor
+    else
+      outer_descriptor.message_type << @cur_descriptor
+    end
+    @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def add_field! name, type_name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.name = name
+    @cur_descriptor.type_name = type_name
+    yield @cur_descriptor if block_given?
+    outer_descriptor.field << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def add_service! name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.singleton_class.class_eval do
+      attr_accessor :method
+    end
+    @cur_descriptor.name = name
+    @cur_descriptor.method = []
+    yield @cur_descriptor if block_given?
+    outer_descriptor.service << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def add_method! name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.input_type = input_type
+    @cur_descriptor.output_type = output_type
+    yield @cur_descriptor if block_given?
+    outer_descriptor.method << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def add_enum! name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.name = name
+    @cur_descriptor.value = []
+    yield @cur_descriptor if block_given?
+    outer_descriptor.enum_type << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def add_value! name
+    outer_descriptor = @cur_descriptor
+    @cur_descriptor = OpenStruct.new
+    @cur_descriptor.name = name
+    yield @cur_descriptor if block_given?
+    outer_descriptor.value << @cur_descriptor
+    @cur_descriptor = outer_descriptor
+    self
   end
 end

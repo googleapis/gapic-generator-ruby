@@ -44,14 +44,18 @@ module Gapic
       #
       # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
       #   The request object.
-      def initialize request
+      # @param error_output [IO] An IO to write any errors/warnings to.
+      # @param configuration [Hash] Optional override of configuration.
+      def initialize request, error_output: STDERR, configuration: nil
         @request = request
         loader = Loader.new
         @files = request.proto_file.map do |fd|
           loader.load_file fd, request.file_to_generate.include?(fd.name)
         end
         @files.each { |f| f.parent = self }
+        @configuration = configuration
         @resource_types = analyze_resources
+        sanity_checks error_output
       end
 
       def containing_api
@@ -294,6 +298,18 @@ module Gapic
       end
 
       private
+
+      # Perform a variety of sanity checks on the data, and prints errors to
+      # the given output as appropriate.
+      #
+      # @param output [IO] Stream to write outputs to.
+      def sanity_checks output
+        addrs = services.map { |service| service.address.join "." }
+        configuration[:common_services]&.each do |k, v|
+          output.puts "WARNING: configured common service #{k} is not present" unless addrs.include? k
+          output.puts "WARNING: configured common service delegate #{v} is not present" unless addrs.include? v
+        end
+      end
 
       # Does a pre-analysis of all resources defined in the job. This has
       # two effects:
