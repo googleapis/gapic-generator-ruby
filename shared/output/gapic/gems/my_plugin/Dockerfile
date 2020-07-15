@@ -46,7 +46,7 @@ COPY --from=gcr.io/gapic-images/api-common-protos:beta /protos/ /workspace/commo
 COPY --from=builder /workspace/*.gem /workspace/
 
 # Install the subgenerator and other needed tools.
-RUN gem install --pre grpc-tools gapic-generator-my_plugin.gem \
+RUN gem install grpc-tools gapic-generator-my_plugin.gem \
     && rm gapic-generator-my_plugin.gem \
     && mkdir -p --mode=777 /.cache
 
