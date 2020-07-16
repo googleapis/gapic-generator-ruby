@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.6.5 / 2020-07-16
+
+* Examples in auth, rakefile, and readme should pick a non-common service.
+* Emit a warning if common_services config references a nonexistent service.
+
 ### 0.6.4 / 2020-07-13
 
 * Fix rubocop warning on a generated multi-path helper if it could take no arguments.
