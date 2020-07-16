@@ -1,5 +1,5 @@
 <%- assert_locals gem -%>
-<%- service = gem.services.first -%>
+<%- service = gem.first_non_common_service -%>
 <%- assert_locals service -%>
 # Authentication
 

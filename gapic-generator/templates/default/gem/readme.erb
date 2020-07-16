@@ -16,7 +16,7 @@ $ gem install <%= gem.name %>
 
 ```ruby
 require "<%= gem.entrypoint_require %>"
-<%- service = gem.packages.first&.services.first -%>
+<%- service = gem.first_non_common_service -%>
 <%- method = service&.methods.first -%>
 <%- if service && method -%>
 
