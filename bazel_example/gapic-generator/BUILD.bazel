@@ -25,36 +25,12 @@ load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl",
   "ruby_gapic_assembly_pkg")
 
 ##
-# completed example client library combined from
-# * protoc ruby output
-# * grpc-ruby protoc plugin output
-# * gapic-generator-ruby vanilla flavor output
-#
-ruby_gapic_assembly_pkg(
-  name = "example_ruby_library",
-  deps = [
-    ":example_ruby_gapic",
-    ":example_ruby_proto",
-    ":example_ruby_grpc",
-  ],
-)
-
-##
 # the proto files wrapped with dependencies
 #
 proto_library(
   name = "example_proto",
   srcs = ["example.proto"],
   deps = ["@com_google_googleapis//google/api:client_proto"]
-)
-
-##
-# just the gapic-generator-ruby vanilla flavor output
-#
-ruby_gapic_library(
-  name = "example_ruby_gapic",
-  srcs = [":example_proto",],
-  yml_configs = ["//gapic-generator:example.yml"]
 )
 
 ##
@@ -72,4 +48,28 @@ ruby_grpc_library(
   name = "example_ruby_grpc",
   srcs = [":example_proto"],
   deps = [":example_ruby_proto"]
+)
+
+##
+# just the gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_library(
+  name = "example_ruby_gapic",
+  srcs = [":example_proto",],
+  yml_configs = ["//gapic-generator:example.yml"]
+)
+
+##
+# completed example client library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_assembly_pkg(
+  name = "example_ruby_library",
+  deps = [
+    ":example_ruby_gapic",
+    ":example_ruby_proto",
+    ":example_ruby_grpc",
+  ],
 )

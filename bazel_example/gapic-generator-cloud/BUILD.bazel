@@ -55,7 +55,7 @@ ruby_gapic_cloud_library(
     ":gem.:api_shortname": "language",
   },
   # we have to have a local copy here since @com_google_googleapis does not export individual grpc configs
-  grpc_service_configs = [":language_grpc_service_config.json"]
+  grpc_service_config = ":language_grpc_service_config.json"
 )
 
 ##

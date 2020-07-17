@@ -117,7 +117,7 @@ def ruby_gapic_cloud_library(
   name,
   srcs,
   ruby_cloud_params,
-  grpc_service_configs,
+  grpc_service_config,
   **kwargs):
 
   srcjar_target_name = name
@@ -130,16 +130,15 @@ def ruby_gapic_cloud_library(
     escaped_value = _escape_config_value(value)
     opt_args.append("{key}={value}".format(key = key, value = escaped_value))
 
-  opt_service_configs = {}
-  for file_label in grpc_service_configs:
-    opt_service_configs[file_label] = "grpc_service_config"
+  opt_file_args = {}
+  opt_file_args[grpc_service_config] = "grpc_service_config"
 
   proto_custom_library(
     name = name_srcjar,
     deps = srcs,
     plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_cloud"),
     opt_args = opt_args,
-    opt_file_args = opt_service_configs,
+    opt_file_args = opt_file_args,
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
     **kwargs
