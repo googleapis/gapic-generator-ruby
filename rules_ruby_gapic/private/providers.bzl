@@ -21,8 +21,8 @@ Providers for the ruby libraries and Ruby Runtime context
 #
 RubyLibraryInfo = provider (
   fields = {
-    "deps" : "A depset",
-    "info" : "info",
+    "deps" : "A depset of other libraries this one depends upon",
+    "info" : "A struct covering the components of this library: its sources, lib and extlib paths",
   }
 )
 
@@ -31,8 +31,8 @@ RubyLibraryInfo = provider (
 #
 RubyContext = provider(
   fields = {
-    "bin" : "bin",
-    "all_bins" : "all_bins",
-    "info" : "info",
+    "bin" : "A ruby binary",
+    "all_bins" : "All the binaries that come with the ruby runtime (e.g. gem, rubocop, etc)",
+    "info" : "A struct covering the library-component of the ruby runtime: its sources and lib path",
   }
 )

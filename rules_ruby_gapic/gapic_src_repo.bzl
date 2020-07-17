@@ -16,7 +16,6 @@
 A function that loads gapic-generator-ruby itself as a dependency to build the libraries with
 and then strips it from the softlinks so that bazel accepts it
 """
-load("//rules_ruby_gapic/ruby:private/utils.bzl", _execute_and_check_result = "execute_and_check_result")
 
 ##
 # An implementation of gapic_generator_src rule

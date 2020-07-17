@@ -14,17 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# A script demonstrating how to pack a ruby_runtime prebuild with the prefix ruby-2.6.6
+# A script demonstrating how to pack a ruby_runtime prebuild
+VERSION="2.6.6"
 
-mkdir -p /tmp/pack_prebuilt_ruby/ruby-2.6.6
-rm -rf /tmp/pack_prebuilt_ruby/ruby-2.6.6/*
+mkdir -p /tmp/pack_prebuilt_ruby/ruby-${VERSION}
+rm -rf /tmp/pack_prebuilt_ruby/ruby-${VERSION}/*
 
 pushd /tmp/pack_prebuilt_ruby/
-cp -r ~/src/gapic-generator-ruby/bazel-gapic-generator-ruby/external/ruby_runtime/* ./ruby-2.6.6/
+cp -r ~/src/gapic-generator-ruby/bazel-gapic-generator-ruby/external/ruby_runtime/* ./ruby-${VERSION}/
 
 # alternative location -- from the bazel_example sub-workspace
-# cp -r ~/src/gapic-generator-ruby/bazel_example/bazel-bazel_example/external/ruby_runtime/* ./ruby-2.6.6/
+# cp -r ~/src/gapic-generator-ruby/bazel_example/bazel-bazel_example/external/ruby_runtime/* ./ruby-${VERSION}/
 
-tar -czf ruby-2.6.6_linux_x86_64.tar.gz ruby-2.6.6/bin ruby-2.6.6/lib ruby-2.6.6/include
-cp ./ruby-2.6.6_linux_x86_64.tar.gz ~/src/gapic-generator-ruby/rules_ruby_gapic/prebuilt/
+tar -czf ruby-${VERSION}_linux_x86_64.tar.gz ruby-${VERSION}/bin ruby-${VERSION}/lib ruby-${VERSION}/include
+cp ./ruby-${VERSION}_linux_x86_64.tar.gz ~/src/gapic-generator-ruby/rules_ruby_gapic/prebuilt/
 popd
