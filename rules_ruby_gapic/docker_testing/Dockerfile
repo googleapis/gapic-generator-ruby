@@ -61,4 +61,4 @@ WORKDIR /src
 COPY ./rules_ruby_gapic/docker_testing/docker-entrypoint.sh .
 
 WORKDIR /src/gapic-generator-ruby
-ENTRYPOINT /src/docker-entrypoint.sh; /bin/bash
+ENTRYPOINT /src/docker-entrypoint.sh
