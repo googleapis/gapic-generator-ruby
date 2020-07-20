@@ -11,3 +11,4 @@ Gemfile.lock
 /spec/reports/
 /tmp/
 Gemfile.lock
+/bazel-*
