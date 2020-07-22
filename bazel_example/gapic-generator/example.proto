@@ -16,7 +16,7 @@
 // An example proto library
 syntax = "proto3";
 
-package google.example;
+package google.bazel.example;
 option ruby_package = "Google::Bazel::Example";
 
 import "google/api/client.proto";
