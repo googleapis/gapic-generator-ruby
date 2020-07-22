@@ -56,7 +56,7 @@ ruby_grpc_library(
 ruby_gapic_library(
   name = "example_ruby_gapic",
   srcs = [":example_proto",],
-  yml_configs = ["//gapic-generator:example.yml"]
+  yml_configs = ["//gapic-generator:example.yml"],
 )
 
 ##

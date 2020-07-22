@@ -41,27 +41,50 @@ _ruby_gapic_library_add_gapicinfo = rule(
 
 ##
 # A macro over the proto_custom_library that generates a library
-# using the gapic-generator-ads entrypoint
+# using the provided entrypoint
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
+# plugin: a label to the ruby_binary rule wrapping the plugin entrypoint
+# generator_params: a string-string dictionary of the generator parameters
+#   (e.g. :gem.:name)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
+# grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_ads_library(name, srcs, yml_configs, **kwargs):
+def _ruby_gapic_library(
+  name,
+  srcs,
+  plugin,
+  generator_params,
+  yml_configs,
+  grpc_service_config,
+  **kwargs):
+
   srcjar_target_name = name
   srcjar_output_suffix = ".srcjar"
 
   name_srcjar = "{name}_srcjar".format(name = name)
 
-  opt_yml_files = {}
-  for file_label in yml_configs:
-    opt_yml_files[file_label] = "configuration"
+  opt_args = []
+  if generator_params:
+    for key, value in generator_params.items():
+      escaped_value = _escape_config_value(value)
+      opt_args.append("{key}={value}".format(key = key, value = escaped_value))
+
+  opt_file_args = {}
+  if grpc_service_config:
+    opt_file_args[grpc_service_config] = "grpc_service_config"
+
+  if yml_configs:
+    for file_label in yml_configs:
+      opt_file_args[file_label] = "configuration"
 
   proto_custom_library(
     name = name_srcjar,
     deps = srcs,
-    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
-    opt_file_args = opt_yml_files,
+    plugin = plugin,
+    opt_args = opt_args,
+    opt_file_args = opt_file_args,
     output_type = "ruby_gapic",
     output_suffix = srcjar_output_suffix,
     **kwargs
@@ -76,31 +99,27 @@ def ruby_gapic_ads_library(name, srcs, yml_configs, **kwargs):
 # using the gapic-generator entrypoint
 #
 # name: name of the rule
+# generator_params: a string-string dictionary of the generator parameters
+#   (e.g. :gem.:name)
 # srcs: proto files wrapped in the proto_library rule
 # yml_configs: a list of labels of the yaml configs (or an empty list)
+# grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_library(name, srcs, yml_configs,  **kwargs):
-  srcjar_target_name = name
-  srcjar_output_suffix = ".srcjar"
-
-  name_srcjar = "{name}_srcjar".format(name = name)
-
-  opt_yml_files = {}
-  for file_label in yml_configs:
-    opt_yml_files[file_label] = "configuration"
-
-  proto_custom_library(
-    name = name_srcjar,
-    deps = srcs,
-    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
-    opt_file_args = opt_yml_files,
-    output_type = "ruby_gapic",
-    output_suffix = srcjar_output_suffix,
-    **kwargs
-  )
-  _ruby_gapic_library_add_gapicinfo(
-    name = name,
-    output = ":{name_srcjar}".format(name_srcjar = name_srcjar),
+def ruby_gapic_library(
+  name,
+  srcs,
+  generator_params = {},
+  yml_configs = [],
+  grpc_service_config = None,
+  **kwargs):
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby"),
+    generator_params,
+    yml_configs,
+    grpc_service_config
   )
 
 ##
@@ -116,36 +135,42 @@ def ruby_gapic_library(name, srcs, yml_configs,  **kwargs):
 def ruby_gapic_cloud_library(
   name,
   srcs,
-  ruby_cloud_params,
-  grpc_service_config,
+  ruby_cloud_params = {},
+  grpc_service_config = None,
   **kwargs):
-
-  srcjar_target_name = name
-  srcjar_output_suffix = ".srcjar"
-
-  name_srcjar = "{name}_srcjar".format(name = name)
-
-  opt_args = []
-  for key, value in ruby_cloud_params.items():
-    escaped_value = _escape_config_value(value)
-    opt_args.append("{key}={value}".format(key = key, value = escaped_value))
-
-  opt_file_args = {}
-  opt_file_args[grpc_service_config] = "grpc_service_config"
-
-  proto_custom_library(
-    name = name_srcjar,
-    deps = srcs,
-    plugin = Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_cloud"),
-    opt_args = opt_args,
-    opt_file_args = opt_file_args,
-    output_type = "ruby_gapic",
-    output_suffix = srcjar_output_suffix,
-    **kwargs
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_cloud"),
+    ruby_cloud_params,
+    [],
+    grpc_service_config
   )
-  _ruby_gapic_library_add_gapicinfo(
-    name = name,
-    output = ":{name_srcjar}".format(name_srcjar = name_srcjar),
+
+##
+# A macro over the proto_custom_library that generates a library
+# using the gapic-generator-ads entrypoint
+#
+# name: name of the rule
+# srcs: proto files wrapped in the proto_library rule
+# yml_configs: a list of labels of the yaml configs (or an empty list)
+# grpc_service_config: a label to the grpc service config
+#
+def ruby_gapic_ads_library(
+  name,
+  srcs,
+  yml_configs = [],
+  grpc_service_config = None,
+  **kwargs):
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
+    {},
+    yml_configs,
+    grpc_service_config
   )
 
 ##
