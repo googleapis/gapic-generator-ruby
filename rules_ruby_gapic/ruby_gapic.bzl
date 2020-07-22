@@ -134,8 +134,8 @@ def ruby_gapic_library(
 def ruby_gapic_cloud_library(
   name,
   srcs,
-  ruby_cloud_params,
-  grpc_service_config,
+  ruby_cloud_params = {},
+  grpc_service_config = None,
   **kwargs):
   _ruby_gapic_library(
     name,
@@ -158,8 +158,8 @@ def ruby_gapic_cloud_library(
 def ruby_gapic_ads_library(
   name,
   srcs,
-  yml_configs,
-  grpc_service_config,
+  yml_configs = [],
+  grpc_service_config = None,
   **kwargs):
   _ruby_gapic_library(
     name,
