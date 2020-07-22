@@ -112,6 +112,7 @@ def ruby_gapic_library(
   yml_configs = [],
   grpc_service_config = None,
   **kwargs):
+  
   _ruby_gapic_library(
     name,
     srcs,
@@ -137,6 +138,7 @@ def ruby_gapic_cloud_library(
   ruby_cloud_params = {},
   grpc_service_config = None,
   **kwargs):
+  
   _ruby_gapic_library(
     name,
     srcs,
@@ -161,6 +163,7 @@ def ruby_gapic_ads_library(
   yml_configs = [],
   grpc_service_config = None,
   **kwargs):
+  
   _ruby_gapic_library(
     name,
     srcs,
