@@ -46,7 +46,7 @@ module Gapic
       #   The request object.
       # @param error_output [IO] An IO to write any errors/warnings to.
       # @param configuration [Hash] Optional override of configuration.
-      def initialize request, error_output: STDERR, configuration: nil
+      def initialize request, error_output: nil, configuration: nil
         @request = request
         loader = Loader.new
         @files = request.proto_file.map do |fd|
@@ -55,7 +55,7 @@ module Gapic
         @files.each { |f| f.parent = self }
         @configuration = configuration
         @resource_types = analyze_resources
-        sanity_checks error_output
+        sanity_checks error_output if error_output
       end
 
       def containing_api
