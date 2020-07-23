@@ -1,0 +1,2 @@
+# Export config file, allowing other packages to reference it.
+exports_files(["config.yml"])
