@@ -160,7 +160,7 @@ def ruby_gapic_cloud_library(
 def ruby_gapic_ads_library(
   name,
   srcs,
-  yml_configs = [],
+  ruby_ads_params = {},
   grpc_service_config = None,
   **kwargs):
   
@@ -168,8 +168,8 @@ def ruby_gapic_ads_library(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
-    {},
-    yml_configs,
+    ruby_ads_params,
+    [],
     grpc_service_config
   )
 
