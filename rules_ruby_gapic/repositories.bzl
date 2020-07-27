@@ -36,7 +36,6 @@ def gapic_generator_ruby_repositories():
     "crass": "1.0.6",
     "erubi": "1.9.0",
     "faraday": "1.0.0",
-    "gapic-generator": "0.6.3",
     "googleapis-common-protos": "1.3.9",
     "googleapis-common-protos-types": "1.0.4",
     "googleauth": "0.11.0",

@@ -36,7 +36,7 @@ ruby_binary (
 #
 ruby_binary (
   name = "gapic_generator_ads",
-  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator-ads/bin/protoc-gen-ruby_ads",
+  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator-ads/bin/protoc-gen-bazel_ruby_ads",
   srcs = ["@gapic_generator_src//:gen_src"],
   src_base = "@gapic_generator_src//:gen_src",
   visibility = ["//visibility:public"],
@@ -48,7 +48,7 @@ ruby_binary (
 #
 ruby_binary (
   name = "gapic_generator_cloud",
-  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator-cloud/bin/protoc-gen-ruby_cloud",
+  entrypoint = "@gapic_generator_src//:gen_src/gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
   srcs = ["@gapic_generator_src//:gen_src"],
   src_base = "@gapic_generator_src//:gen_src",
   visibility = ["//visibility:public"],
