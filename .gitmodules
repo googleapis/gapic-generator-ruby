@@ -4,6 +4,3 @@
 [submodule "shared/googleapis"]
 	path = shared/googleapis
 	url = git@github.com:googleapis/googleapis.git
-[submodule "shared/protobuf"]
-	path = shared/protobuf
-	url = git@github.com:protocolbuffers/protobuf.git
