@@ -132,6 +132,7 @@ module Gapic
       end
       @page
     end
+    alias next_page next_page!
 
     ##
     # The page token to be used for the next RPC call.
