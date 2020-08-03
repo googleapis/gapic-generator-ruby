@@ -16,7 +16,6 @@
 Defines functions that will load the dependencies for gapic_generator_ruby
 """
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load("//rules_ruby_gapic:gapic_src_repo.bzl", "gapic_generator_src")
 load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
 
 ##
@@ -97,11 +96,6 @@ def gapic_generator_ruby_customgems(list_of_gems):
     name = "com_google_api_codegen",
     strip_prefix = "gapic-generator-2.4.0",
     urls = ["https://github.com/googleapis/gapic-generator/archive/v2.4.0.zip"],
-  )
-
-  _maybe(
-    gapic_generator_src,
-    name = "gapic_generator_src",
   )
 
   # Create the ruby runtime

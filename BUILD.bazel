@@ -1,0 +1,27 @@
+"""
+Exports for the all the files in the gapic-generator-ruby code and a filegroup to reference these files 
+"""
+
+##
+# The reason we export folders separately is:
+# the ruby_binary rules reference them to pass to ruby via -I 
+# as a workaround for not running from within the folders themselves
+# which is relevant for some requires
+#
+list_of_export_globs = [
+  "gapic-generator",
+  "gapic-generator/**/*",
+  "gapic-generator-ads",
+  "gapic-generator-ads/**/*",
+  "gapic-generator-cloud",
+  "gapic-generator-cloud/**/*"]
+
+exports_files(glob(include = list_of_export_globs, exclude_directories = 0))
+
+filegroup(
+  name = "gapic_generator_allfiles",
+  srcs = glob(
+    list_of_export_globs
+  ),
+  visibility = ["//visibility:public"],
+)
