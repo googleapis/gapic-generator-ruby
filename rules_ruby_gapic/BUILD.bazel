@@ -25,7 +25,7 @@ load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
 ruby_binary (
   name = "gapic_generator_ruby",
   entrypoint = "@gapic_generator_ruby//:gapic-generator/bin/protoc-gen-ruby_gapic",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles", "@bundler//:runbundler.sh",],#"@gapic_generator_ruby//:gapic-generator/vendor"
   src_base = "@gapic_generator_ruby//:gapic-generator",
   visibility = ["//visibility:public"],
 )

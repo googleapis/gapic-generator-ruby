@@ -16,7 +16,8 @@
 Defines functions that will load the dependencies for gapic_generator_ruby
 """
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
+load("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
+load("//rules_ruby_gapic:ruby_bundler.bzl", "bundler_install")
 
 ##
 # Load a set of dependencies with the gems that work with all 3 gapic-generator flavors
@@ -108,6 +109,12 @@ def gapic_generator_ruby_customgems(list_of_gems):
       "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
     ],
     gems_to_install = list_of_gems,
+  )
+  bundler_install(
+    name = "bundler",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gem_bin = "@ruby_runtime//:bin/gem",
+    gemfile = "@gapic_generator_ruby//:gapic-generator/Gemfile"
   )
 
 ##

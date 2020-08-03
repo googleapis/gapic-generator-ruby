@@ -26,7 +26,7 @@ def _check_ruby_binver_impl(ctx):
   
   # note that the shell comand must be written in terms of dependencies and results
   ctx.actions.run_shell(
-    tools = [ctx.file.dependency], 
+    tools = [ctx.file.dependency, ctx.file.ruby_bin], 
     command="{bin} --version > {bin_result}".format(bin = ctx.file.dependency.path, bin_result = dec_file.path), 
     outputs=[dec_file])
   
@@ -45,6 +45,12 @@ check_ruby_binver = rule(
       allow_single_file = True,
       executable = True,
       cfg = "host",
+    ),
+    "ruby_bin": attr.label(
+      allow_single_file = True,
+      executable = True,
+      cfg = "host",
+      default = "@ruby_runtime//:bin/ruby"
     )
   }
 )
