@@ -21,6 +21,9 @@ load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl",
   "ruby_proto_library",
   "ruby_grpc_library")
 
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_legacy.bzl", 
+  "ruby_gapic_cloud_library_nonbundler")
+
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
   "ruby_gapic_assembly_pkg")
 
@@ -73,4 +76,39 @@ ruby_grpc_library(
   name = "language_ruby_grpc",
   srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto"],
   deps = [":language_ruby_proto"],
+)
+
+
+##
+# just the gapic-generator-ruby cloud flavor output (nonbundler legacy version)
+#
+ruby_gapic_cloud_library_nonbundler(
+  name = "language_ruby_gapic_nonbundler",
+  srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto_with_info"],
+  ruby_cloud_params = {
+    ":gem.:name": "google-cloud-language-v1",
+    ":gem.:title": "Natural Language V1",
+    ":gem.:description": "Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations.",
+    ":gem.:env_prefix": "LANGUAGE",
+    ":gem.:product_documentation_url": "https://cloud.google.com/natural-language",
+    ":gem.:api_id": "language.googleapis.com",
+    ":gem.:api_shortname": "language",
+  },
+  # we have to have a local copy here since @com_google_googleapis does not export individual grpc configs
+  grpc_service_config = ":language_grpc_service_config.json"
+)
+
+##
+# completed google-cloud language library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby cloud flavor output (nonbundler legacy version)
+#
+ruby_gapic_assembly_pkg(
+  name = "google-cloud-language-v1-ruby_nonbundler",
+  deps = [
+    ":language_ruby_gapic_nonbundler",
+    ":language_ruby_grpc",
+    ":language_ruby_proto",
+  ],
 )

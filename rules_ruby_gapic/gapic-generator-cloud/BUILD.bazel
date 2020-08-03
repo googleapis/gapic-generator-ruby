@@ -1,0 +1,78 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Executable target wrapping the gapic-generator-cloud as as a 'ruby binary' (actually shellscript)
+for use as a protoc plugin.
+Targets wrapping the ruby runtime and the bundle install in their respective contexts for use in the
+gapic-generator target.
+"""
+load("@gapic_generator_ruby//rules_ruby_gapic/ruby:ruby_context.bzl", "ruby_context")
+load("@gapic_generator_ruby//rules_ruby_gapic/ruby:bundled_install_context.bzl", "bundled_install_context")
+load("@gapic_generator_ruby//rules_ruby_gapic/ruby_binary:ruby_bundler_binary.bzl", "ruby_bundler_binary")
+load("@gapic_generator_ruby//rules_ruby_gapic/ruby_binary:ruby_binary.bzl", "ruby_binary")
+
+##
+# Creates a bazel-runnable shellscript wrapping gapic-generator-cloud
+# ready to be uses as a protoc plugin
+#
+ruby_bundler_binary (
+  name = "gapic_generator_cloud",
+  entrypoint = "@gapic_generator_ruby//:gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
+  src_base = "@gapic_generator_ruby//:gapic-generator-cloud",
+  ruby_context = "@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_ruby_context",
+  bundled_context = "@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_bundled_context",
+  visibility = ["//visibility:public"],
+)
+
+##
+# Wraps gapic-generator-cloud's ruby runtime into a context 
+# to pass into the gapic-generator target
+#
+ruby_context(
+  name = "gapic_generator_cloud_ruby_context",
+  visibility = ["//visibility:public"],
+  ruby_bin = "@gapic_generator_cloud_ruby_runtime//:bin/ruby",
+  gem_bin = "@gapic_generator_cloud_ruby_runtime//:bin/gem",
+  bundle_bin = "@gapic_generator_cloud_ruby_runtime//:bin/bundle",
+  all_bins = "@gapic_generator_cloud_ruby_runtime//:ruby_bins_allfiles",
+  ruby_libfiles = "@gapic_generator_cloud_ruby_runtime//:ruby_libs_allfiles",
+  ruby_libroots = "@gapic_generator_cloud_ruby_runtime//:ruby_libroots",
+)
+
+##
+# Wraps gapic-generator-cloud's bundled installation runtime into a context
+# to pass into the gapic-generator target
+#
+bundled_install_context(
+  name = "gapic_generator_cloud_bundled_context",
+  visibility = ["//visibility:public"],
+  gemfile = "@bundler_gapic_generator_cloud//:export/gapic-generator-cloud/Gemfile",
+  all_bundled_files = "@bundler_gapic_generator_cloud//:bundler_installed_gems",
+)
+
+##
+# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby cloud
+# ready to be uses as a protoc plugin
+#
+# Legacy rule, not using bundler. For experimentation only.
+#
+ruby_binary (
+  name = "gapic_generator_cloud_nonbundler",
+  entrypoint = "@gapic_generator_ruby//:gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
+  src_base = "@gapic_generator_ruby//:gapic-generator-cloud",
+  visibility = ["//visibility:public"],
+)

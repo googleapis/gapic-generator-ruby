@@ -18,25 +18,29 @@ from the ruby runtime.
 It's a bit convoluted since ruby runtime is a repo rule, so
 the path goes ruby_runtime -> WORKSPACE -> ruby_context
 """
-load("//rules_ruby_gapic:private/providers.bzl", "RubyContext", "RubyLibraryInfo")
+load("//rules_ruby_gapic:private/providers.bzl", "RubyRuntimeInfo", "RubyLibraryInfo")
 
 ##
 # An implementation of the ruby_context rule
 #
 def _ruby_context_impl(ctx):
   ruby_bin = ctx.file.ruby_bin
+  gem_bin = ctx.file.gem_bin
+  bundle_bin = ctx.file.bundle_bin
   all_bins = ctx.files.all_bins
   ruby_libfiles = ctx.files.ruby_libfiles
   lib_root = ctx.files.ruby_libroots[0]
 
   return [
     DefaultInfo(files = depset(ruby_libfiles)),
-    RubyContext(
+    RubyRuntimeInfo(
       info = struct(
         srcs = ruby_libfiles,
         lib_path = lib_root,
       ),
       bin = ruby_bin,
+      gem_bin = gem_bin,
+      bundle_bin = bundle_bin,
       all_bins = all_bins,
     ),
     RubyLibraryInfo(
@@ -64,6 +68,16 @@ ruby_context = rule(
   _ruby_context_impl,
   attrs = {
     "ruby_bin": attr.label(
+      allow_single_file = True,
+      executable = True,
+      cfg = "host"
+    ),
+    "gem_bin": attr.label(
+      allow_single_file = True,
+      executable = True,
+      cfg = "host"
+    ),
+    "bundle_bin": attr.label(
       allow_single_file = True,
       executable = True,
       cfg = "host"

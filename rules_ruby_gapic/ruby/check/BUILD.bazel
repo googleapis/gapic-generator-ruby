@@ -35,6 +35,14 @@ check_ruby_binver (
 )
 
 ##
+# A target to check that a `bin/gem --version` command works
+#
+check_ruby_binver (
+  name = "ruby_bundler_ver",
+  dependency = "@ruby_runtime//:bin/bundler",
+)
+
+##
 # A target to check that a complicated ruby command that 
 # requires multiple standard libraries and then 
 # executes a small ruby script inline works
