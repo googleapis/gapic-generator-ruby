@@ -102,7 +102,8 @@ module Gapic
         "UNIMPLEMENTED",
         "INTERNAL",
         "UNAVAILABLE",
-        "DATA_LOSS"
+        "DATA_LOSS",
+        "UNAUTHENTICATED"
       ].freeze
 
       # @private

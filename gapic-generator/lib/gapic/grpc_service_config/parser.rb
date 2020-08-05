@@ -56,7 +56,8 @@ module Gapic
         "UNIMPLEMENTED",
         "INTERNAL",
         "UNAVAILABLE",
-        "DATA_LOSS"
+        "DATA_LOSS",
+        "UNAUTHENTICATED"
       ].freeze
 
       ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
