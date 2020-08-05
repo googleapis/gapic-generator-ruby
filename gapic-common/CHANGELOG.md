@@ -1,5 +1,9 @@
 # Release History
 
+### 0.3.3 / 2020-08-05
+
+* Retry configs properly handle error name strings.
+
 ### 0.3.2 / 2020-07-30
 
 * Alias PagedEnumerable#next_page to PagedEnumerable#next_page!

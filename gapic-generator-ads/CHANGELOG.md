@@ -1,5 +1,9 @@
 # Release History for gapic-generator-ads
 
+### 0.6.6 / 2020-08-05
+
+* Includes changes from gapic-generator 0.6.6.
+
 ### 0.6.5 / 2020-07-16
 
 * Includes changes from gapic-generator 0.6.5.

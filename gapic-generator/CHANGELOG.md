@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.6.6 / 2020-08-05
+
+* Use numeric error codes rather than strings in generated retry configs.
+
 ### 0.6.5 / 2020-07-16
 
 * Examples in auth, rakefile, and readme should pick a non-common service.
