@@ -48,8 +48,8 @@ class ServiceConfigParsingTest < Minitest::Test
     assert_equal 5, service_with_retries_config.retry_policy.max_delay_seconds
     assert_equal 2.0, service_with_retries_config.retry_policy.multiplier
     assert_equal 2, service_with_retries_config.retry_policy.status_codes.count
-    assert_includes service_with_retries_config.retry_policy.status_codes, "DEADLINE_EXCEEDED"
-    assert_includes service_with_retries_config.retry_policy.status_codes, "RESOURCE_EXHAUSTED"
+    assert_includes service_with_retries_config.retry_policy.status_codes, 4
+    assert_includes service_with_retries_config.retry_policy.status_codes, 8
   end
 
   ##
@@ -67,6 +67,6 @@ class ServiceConfigParsingTest < Minitest::Test
     assert_equal 10, method_level_retry_config.retry_policy.max_delay_seconds
     assert_equal 3.0, method_level_retry_config.retry_policy.multiplier
     assert_equal 1, method_level_retry_config.retry_policy.status_codes.count
-    assert_includes method_level_retry_config.retry_policy.status_codes, "UNAVAILABLE"
+    assert_includes method_level_retry_config.retry_policy.status_codes, 14
   end
 end

@@ -35,18 +35,18 @@ module Google
             self.service_name = 'google.cloud.language.v1beta1.LanguageService'
 
             # Analyzes the sentiment of the provided text.
-            rpc :AnalyzeSentiment, AnalyzeSentimentRequest, AnalyzeSentimentResponse
+            rpc :AnalyzeSentiment, Google::Cloud::Language::V1beta1::AnalyzeSentimentRequest, Google::Cloud::Language::V1beta1::AnalyzeSentimentResponse
             # Finds named entities (currently proper names and common nouns) in the text
             # along with entity types, salience, mentions for each entity, and
             # other properties.
-            rpc :AnalyzeEntities, AnalyzeEntitiesRequest, AnalyzeEntitiesResponse
+            rpc :AnalyzeEntities, Google::Cloud::Language::V1beta1::AnalyzeEntitiesRequest, Google::Cloud::Language::V1beta1::AnalyzeEntitiesResponse
             # Analyzes the syntax of the text and provides sentence boundaries and
             # tokenization along with part of speech tags, dependency trees, and other
             # properties.
-            rpc :AnalyzeSyntax, AnalyzeSyntaxRequest, AnalyzeSyntaxResponse
+            rpc :AnalyzeSyntax, Google::Cloud::Language::V1beta1::AnalyzeSyntaxRequest, Google::Cloud::Language::V1beta1::AnalyzeSyntaxResponse
             # A convenience method that provides all the features that analyzeSentiment,
             # analyzeEntities, and analyzeSyntax provide in one call.
-            rpc :AnnotateText, AnnotateTextRequest, AnnotateTextResponse
+            rpc :AnnotateText, Google::Cloud::Language::V1beta1::AnnotateTextRequest, Google::Cloud::Language::V1beta1::AnnotateTextResponse
           end
 
           Stub = Service.rpc_stub_class

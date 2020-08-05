@@ -64,7 +64,7 @@ module Testing
               initial_delay: 0.5,
               max_delay:     5.0,
               multiplier:    2.0,
-              retry_codes:   ["DEADLINE_EXCEEDED", "RESOURCE_EXHAUSTED"]
+              retry_codes:   [4, 8]
             }
 
             default_config.rpcs.method_level_retry_method.timeout = 86_400.0
@@ -72,7 +72,7 @@ module Testing
               initial_delay: 1.0,
               max_delay:     10.0,
               multiplier:    3.0,
-              retry_codes:   ["UNAVAILABLE"]
+              retry_codes:   [14]
             }
 
             default_config

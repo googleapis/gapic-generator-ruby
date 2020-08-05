@@ -33,15 +33,15 @@ module Google
           self.service_name = 'google.showcase.v1beta1.Identity'
 
           # Creates a user.
-          rpc :CreateUser, CreateUserRequest, User
+          rpc :CreateUser, Google::Showcase::V1beta1::CreateUserRequest, Google::Showcase::V1beta1::User
           # Retrieves the User with the given uri.
-          rpc :GetUser, GetUserRequest, User
+          rpc :GetUser, Google::Showcase::V1beta1::GetUserRequest, Google::Showcase::V1beta1::User
           # Updates a user.
-          rpc :UpdateUser, UpdateUserRequest, User
+          rpc :UpdateUser, Google::Showcase::V1beta1::UpdateUserRequest, Google::Showcase::V1beta1::User
           # Deletes a user, their profile, and all of their authored messages.
-          rpc :DeleteUser, DeleteUserRequest, Google::Protobuf::Empty
+          rpc :DeleteUser, Google::Showcase::V1beta1::DeleteUserRequest, Google::Protobuf::Empty
           # Lists all users.
-          rpc :ListUsers, ListUsersRequest, ListUsersResponse
+          rpc :ListUsers, Google::Showcase::V1beta1::ListUsersRequest, Google::Showcase::V1beta1::ListUsersResponse
         end
 
         Stub = Service.rpc_stub_class

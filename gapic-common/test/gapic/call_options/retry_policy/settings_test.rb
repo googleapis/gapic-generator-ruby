@@ -74,4 +74,17 @@ class RetryPolicySettingsTest < Minitest::Test
     assert_equal 6, retry_policy.multiplier
     assert_equal 5, retry_policy.max_delay
   end
+
+  def converts_string_codes_to_numeric_codes
+    input_codes = ["INTERNAL", "UNAVAILABLE", "WUT"]
+    expected_codes = [GRPC::Core::StatusCodes::INTERNAL, GRPC::Core::StatusCodes::UNAVAILABLE]
+
+    retry_policy = Gapic::CallOptions::RetryPolicy.new retry_codes: input_codes
+    assert_equal expected_codes, retry_policy.retry_codes
+
+    retry_policy = Gapic::CallOptions::RetryPolicy.new
+    assert_equal [], retry_policy.retry_codes
+    retry_policy.apply_defaults retry_codes: input_codes
+    assert_equal expected_codes, retry_policy.retry_codes
+  end
 end

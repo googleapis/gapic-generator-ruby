@@ -24,6 +24,10 @@ Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
 
+Metrics/ModuleLength:
+  Exclude:
+    - lib/gapic/grpc_service_config/parser.rb
+
 Style/Documentation:
   Exclude:
     - test/**/*
