@@ -100,7 +100,7 @@ def gapic_generator_ruby_customgems(list_of_gems):
   )
 
   # Create the ruby runtime
-  ruby_runtime (
+  ruby_runtime(
     name = "ruby_runtime",
     urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
     strip_prefix = "ruby-2.6.6",
@@ -110,11 +110,21 @@ def gapic_generator_ruby_customgems(list_of_gems):
     ],
     gems_to_install = list_of_gems,
   )
+
+  bundler_install(
+    name = "bundler_vanilla",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gem_bin = "@ruby_runtime//:bin/gem",
+    gemfile = "@gapic_generator_ruby//:gapic-generator/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//:gapic-generator/Gemfile.lock",
+  )
+
   bundler_install(
     name = "bundler",
     bundle_bin = "@ruby_runtime//:bin/bundle",
     gem_bin = "@ruby_runtime//:bin/gem",
-    gemfile = "@gapic_generator_ruby//:gapic-generator/Gemfile"
+    gemfile = "@gapic_generator_ruby//:gapic-generator-cloud/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//:gapic-generator-cloud/Gemfile.lock",
   )
 
 ##

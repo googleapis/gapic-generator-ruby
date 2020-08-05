@@ -17,7 +17,6 @@ A workspace file for the gapic-generator-ruby
 """
 workspace(name = "gapic_generator_ruby")
 
-load("//rules_ruby_gapic:ruby_bundler.bzl", "bundler_install")
 ##
 # Import gapic-generator-ruby specific dependencies
 #
