@@ -18,6 +18,7 @@ with gapic-generator-ruby cloud flavor
 """
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
   "ruby_gapic_library",
+  "ruby_gapic_bundler_library",
   "ruby_proto_library",
   "ruby_grpc_library")
 
@@ -59,6 +60,12 @@ ruby_gapic_library(
   yml_configs = ["//gapic-generator:example.yml"],
 )
 
+ruby_gapic_bundler_library(
+  name = "example_ruby_bundler_gapic",
+  srcs = [":example_proto",],
+  yml_configs = ["//gapic-generator:example.yml"],
+)
+
 ##
 # completed example client library combined from
 # * protoc ruby output
@@ -66,9 +73,18 @@ ruby_gapic_library(
 # * gapic-generator-ruby vanilla flavor output
 #
 ruby_gapic_assembly_pkg(
-  name = "example_ruby_library",
+  name = "example_ruby_library_pkg",
   deps = [
     ":example_ruby_gapic",
+    ":example_ruby_proto",
+    ":example_ruby_grpc",
+  ],
+)
+
+ruby_gapic_assembly_pkg(
+  name = "example_ruby_bundler_library_pkg",
+  deps = [
+    ":example_ruby_bundler_gapic",
     ":example_ruby_proto",
     ":example_ruby_grpc",
   ],

@@ -40,6 +40,7 @@ def gapic_generator_ruby_repositories():
     "googleapis-common-protos-types": "1.0.4",
     "googleauth": "0.11.0",
     "google-style": "1.24.0",
+    "grpc-tools": "1.30.2", # bundler
     "i18n": "1.8.2",
     "jaro_winkler": "1.5.4",
     "jwt": "2.2.1",
@@ -47,6 +48,8 @@ def gapic_generator_ruby_repositories():
     "memoist": "0.16.2",
     "middleware": "0.1.0",
     "minitest": "5.14.0",
+    "minitest-autotest": "1.1.1", #bundler
+    "minitest-focus": "1.2.1", #bundler
     "multi_json": "1.14.1",
     "multipart-post": "2.1.1",
     "os": "1.0.1",
@@ -60,6 +63,7 @@ def gapic_generator_ruby_repositories():
     "rails-html-sanitizer": "1.3.0",
     "rainbow": "3.0.0",
     "rake": "12.3.3",
+    "redcarpet": "3.5.0", #bundler
     "rubocop": "0.74.0",
     "ruby-progressbar": "1.10.1",
     "signet": "0.13.0",
@@ -67,6 +71,7 @@ def gapic_generator_ruby_repositories():
     "thread_safe": "0.3.6",
     "tzinfo": "1.2.7",
     "unicode-display_width": "1.6.1",
+    "yard": "0.9.25", #bundler
   }
   gapic_generator_ruby_customgems(gems)
 
@@ -112,7 +117,7 @@ def gapic_generator_ruby_customgems(list_of_gems):
   )
 
   bundler_install(
-    name = "bundler_vanilla",
+    name = "bundler_gapic_generator",
     bundle_bin = "@ruby_runtime//:bin/bundle",
     gem_bin = "@ruby_runtime//:bin/gem",
     gemfile = "@gapic_generator_ruby//:gapic-generator/Gemfile",
@@ -120,11 +125,19 @@ def gapic_generator_ruby_customgems(list_of_gems):
   )
 
   bundler_install(
-    name = "bundler",
+    name = "bundler_gapic_generator_cloud",
     bundle_bin = "@ruby_runtime//:bin/bundle",
     gem_bin = "@ruby_runtime//:bin/gem",
     gemfile = "@gapic_generator_ruby//:gapic-generator-cloud/Gemfile",
     gemfile_lock = "@gapic_generator_ruby//:gapic-generator-cloud/Gemfile.lock",
+  )
+
+  bundler_install(
+    name = "bundler_gapic_generator_ads",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gem_bin = "@ruby_runtime//:bin/gem",
+    gemfile = "@gapic_generator_ruby//:gapic-generator-ads/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//:gapic-generator-ads/Gemfile.lock",
   )
 
 ##

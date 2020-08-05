@@ -122,6 +122,23 @@ def ruby_gapic_library(
     grpc_service_config
   )
 
+def ruby_gapic_bundler_library(
+  name,
+  srcs,
+  generator_params = {},
+  yml_configs = [],
+  grpc_service_config = None,
+  **kwargs):
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ruby_bundler"),
+    generator_params,
+    yml_configs,
+    grpc_service_config
+  )
+
 ##
 # A macro over the proto_custom_library that generates a library
 # using the gapic-generator-cloud entrypoint
