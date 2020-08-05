@@ -40,6 +40,8 @@ module Gapic
       MULTIPLIER_JSON_KEY = "backoffMultiplier"
       STATUS_CODES_JSON_KEY = "retryableStatusCodes"
 
+      # See https://grpc.github.io/grpc/core/md_doc_statuscodes.html for a
+      # list of error codes.
       ERROR_CODE_MAPPING = [
         "OK",
         "CANCELLED",
