@@ -74,4 +74,42 @@ class RetryPolicySettingsTest < Minitest::Test
     assert_equal 6, retry_policy.multiplier
     assert_equal 5, retry_policy.max_delay
   end
+
+  def test_existing_and_nonexisting_string_codes
+    input_codes = ["INTERNAL", "UNAVAILABLE", "WUT"]
+    expected_codes = [GRPC::Core::StatusCodes::INTERNAL, GRPC::Core::StatusCodes::UNAVAILABLE]
+
+    retry_policy = Gapic::CallOptions::RetryPolicy.new retry_codes: input_codes
+    assert_equal expected_codes, retry_policy.retry_codes
+
+    retry_policy = Gapic::CallOptions::RetryPolicy.new
+    assert_equal [], retry_policy.retry_codes
+    retry_policy.apply_defaults retry_codes: input_codes
+    assert_equal expected_codes, retry_policy.retry_codes
+  end
+
+  def test_all_string_codes
+    [
+      "OK",
+      "CANCELLED",
+      "UNKNOWN",
+      "INVALID_ARGUMENT",
+      "DEADLINE_EXCEEDED",
+      "NOT_FOUND",
+      "ALREADY_EXISTS",
+      "PERMISSION_DENIED",
+      "RESOURCE_EXHAUSTED",
+      "FAILED_PRECONDITION",
+      "ABORTED",
+      "OUT_OF_RANGE",
+      "UNIMPLEMENTED",
+      "INTERNAL",
+      "UNAVAILABLE",
+      "DATA_LOSS",
+      "UNAUTHENTICATED"
+    ].each_with_index do |str, num|
+      retry_policy = Gapic::CallOptions::RetryPolicy.new retry_codes: str
+      assert_equal [num], retry_policy.retry_codes
+    end
+  end
 end

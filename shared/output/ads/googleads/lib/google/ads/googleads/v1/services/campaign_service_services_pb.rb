@@ -37,7 +37,7 @@ module Google
               self.service_name = 'google.ads.googleads.v1.services.CampaignService'
 
               # Returns the requested campaign in full detail.
-              rpc :GetCampaign, Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, Google::Ads::GoogleAds::V1::Resources::Google::Ads::Googleads::V1::Resources::Campaign
+              rpc :GetCampaign, Google::Ads::GoogleAds::V1::Services::GetCampaignRequest, Google::Ads::GoogleAds::V1::Resources::Campaign
               # Creates, updates, or removes campaigns. Operation statuses are returned.
               rpc :MutateCampaigns, Google::Ads::GoogleAds::V1::Services::MutateCampaignsRequest, Google::Ads::GoogleAds::V1::Services::MutateCampaignsResponse
             end

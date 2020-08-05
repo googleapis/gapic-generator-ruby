@@ -40,6 +40,31 @@ module Gapic
       MULTIPLIER_JSON_KEY = "backoffMultiplier"
       STATUS_CODES_JSON_KEY = "retryableStatusCodes"
 
+      # See https://grpc.github.io/grpc/core/md_doc_statuscodes.html for a
+      # list of error codes.
+      ERROR_CODE_MAPPING = [
+        "OK",
+        "CANCELLED",
+        "UNKNOWN",
+        "INVALID_ARGUMENT",
+        "DEADLINE_EXCEEDED",
+        "NOT_FOUND",
+        "ALREADY_EXISTS",
+        "PERMISSION_DENIED",
+        "RESOURCE_EXHAUSTED",
+        "FAILED_PRECONDITION",
+        "ABORTED",
+        "OUT_OF_RANGE",
+        "UNIMPLEMENTED",
+        "INTERNAL",
+        "UNAVAILABLE",
+        "DATA_LOSS",
+        "UNAUTHENTICATED"
+      ].freeze
+
+      ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
+        hash[str] = num
+      end.freeze
 
       ##
       # Parses ServiceConfig from a json of a GRPC service config
@@ -146,9 +171,24 @@ module Gapic
         initial_delay_seconds = parse_interval_seconds get(retry_policy_json, INITIAL_DELAY_JSON_KEY)
         max_delay_seconds = parse_interval_seconds get(retry_policy_json, MAX_DELAY_JSON_KEY)
         multiplier = get retry_policy_json, MULTIPLIER_JSON_KEY
-        status_codes = get retry_policy_json, STATUS_CODES_JSON_KEY
+        status_codes = convert_codes get retry_policy_json, STATUS_CODES_JSON_KEY
 
         RetryPolicy.new initial_delay_seconds, max_delay_seconds, multiplier, status_codes
+      end
+
+      ##
+      # Interpret input status codes. Convert strings to their associated integer codes.
+      #
+      def self.convert_codes input_codes
+        return nil if input_codes.nil?
+        Array(input_codes).map do |obj|
+          case obj
+          when String
+            ERROR_STRING_MAPPING[obj]
+          when Integer
+            obj
+          end
+        end.compact
       end
 
       ##
@@ -212,7 +252,7 @@ module Gapic
       end
 
       private_class_method :parse_service_names, :filter_service_method_names, :parse_config,
-                           :parse_retry_policy, :parse_interval_seconds, :valid_float?
+                           :parse_retry_policy, :parse_interval_seconds, :valid_float?, :convert_codes
     end
   end
 end

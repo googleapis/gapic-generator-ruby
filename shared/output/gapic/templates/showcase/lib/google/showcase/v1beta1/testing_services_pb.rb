@@ -34,31 +34,31 @@ module Google
           self.service_name = 'google.showcase.v1beta1.Testing'
 
           # Creates a new testing session.
-          rpc :CreateSession, CreateSessionRequest, Session
+          rpc :CreateSession, Google::Showcase::V1beta1::CreateSessionRequest, Google::Showcase::V1beta1::Session
           # Gets a testing session.
-          rpc :GetSession, GetSessionRequest, Session
+          rpc :GetSession, Google::Showcase::V1beta1::GetSessionRequest, Google::Showcase::V1beta1::Session
           # Lists the current test sessions.
-          rpc :ListSessions, ListSessionsRequest, ListSessionsResponse
+          rpc :ListSessions, Google::Showcase::V1beta1::ListSessionsRequest, Google::Showcase::V1beta1::ListSessionsResponse
           # Delete a test session.
-          rpc :DeleteSession, DeleteSessionRequest, Google::Protobuf::Empty
+          rpc :DeleteSession, Google::Showcase::V1beta1::DeleteSessionRequest, Google::Protobuf::Empty
           # Report on the status of a session.
           # This generates a report detailing which tests have been completed,
           # and an overall rollup.
-          rpc :ReportSession, ReportSessionRequest, ReportSessionResponse
+          rpc :ReportSession, Google::Showcase::V1beta1::ReportSessionRequest, Google::Showcase::V1beta1::ReportSessionResponse
           # List the tests of a sessesion.
-          rpc :ListTests, ListTestsRequest, ListTestsResponse
+          rpc :ListTests, Google::Showcase::V1beta1::ListTestsRequest, Google::Showcase::V1beta1::ListTestsResponse
           # Explicitly decline to implement a test.
           #
           # This removes the test from subsequent `ListTests` calls, and
           # attempting to do the test will error.
           #
           # This method will error if attempting to delete a required test.
-          rpc :DeleteTest, DeleteTestRequest, Google::Protobuf::Empty
+          rpc :DeleteTest, Google::Showcase::V1beta1::DeleteTestRequest, Google::Protobuf::Empty
           # Register a response to a test.
           #
           # In cases where a test involves registering a final answer at the
           # end of the test, this method provides the means to do so.
-          rpc :VerifyTest, VerifyTestRequest, VerifyTestResponse
+          rpc :VerifyTest, Google::Showcase::V1beta1::VerifyTestRequest, Google::Showcase::V1beta1::VerifyTestResponse
         end
 
         Stub = Service.rpc_stub_class

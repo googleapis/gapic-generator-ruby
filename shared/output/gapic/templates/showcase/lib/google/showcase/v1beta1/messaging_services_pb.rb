@@ -36,43 +36,43 @@ module Google
           self.service_name = 'google.showcase.v1beta1.Messaging'
 
           # Creates a room.
-          rpc :CreateRoom, CreateRoomRequest, Room
+          rpc :CreateRoom, Google::Showcase::V1beta1::CreateRoomRequest, Google::Showcase::V1beta1::Room
           # Retrieves the Room with the given resource name.
-          rpc :GetRoom, GetRoomRequest, Room
+          rpc :GetRoom, Google::Showcase::V1beta1::GetRoomRequest, Google::Showcase::V1beta1::Room
           # Updates a room.
-          rpc :UpdateRoom, UpdateRoomRequest, Room
+          rpc :UpdateRoom, Google::Showcase::V1beta1::UpdateRoomRequest, Google::Showcase::V1beta1::Room
           # Deletes a room and all of its blurbs.
-          rpc :DeleteRoom, DeleteRoomRequest, Google::Protobuf::Empty
+          rpc :DeleteRoom, Google::Showcase::V1beta1::DeleteRoomRequest, Google::Protobuf::Empty
           # Lists all chat rooms.
-          rpc :ListRooms, ListRoomsRequest, ListRoomsResponse
+          rpc :ListRooms, Google::Showcase::V1beta1::ListRoomsRequest, Google::Showcase::V1beta1::ListRoomsResponse
           # Creates a blurb. If the parent is a room, the blurb is understood to be a
           # message in that room. If the parent is a profile, the blurb is understood
           # to be a post on the profile.
-          rpc :CreateBlurb, CreateBlurbRequest, Blurb
+          rpc :CreateBlurb, Google::Showcase::V1beta1::CreateBlurbRequest, Google::Showcase::V1beta1::Blurb
           # Retrieves the Blurb with the given resource name.
-          rpc :GetBlurb, GetBlurbRequest, Blurb
+          rpc :GetBlurb, Google::Showcase::V1beta1::GetBlurbRequest, Google::Showcase::V1beta1::Blurb
           # Updates a blurb.
-          rpc :UpdateBlurb, UpdateBlurbRequest, Blurb
+          rpc :UpdateBlurb, Google::Showcase::V1beta1::UpdateBlurbRequest, Google::Showcase::V1beta1::Blurb
           # Deletes a blurb.
-          rpc :DeleteBlurb, DeleteBlurbRequest, Google::Protobuf::Empty
+          rpc :DeleteBlurb, Google::Showcase::V1beta1::DeleteBlurbRequest, Google::Protobuf::Empty
           # Lists blurbs for a specific chat room or user profile depending on the
           # parent resource name.
-          rpc :ListBlurbs, ListBlurbsRequest, ListBlurbsResponse
+          rpc :ListBlurbs, Google::Showcase::V1beta1::ListBlurbsRequest, Google::Showcase::V1beta1::ListBlurbsResponse
           # This method searches through all blurbs across all rooms and profiles
           # for blurbs containing to words found in the query. Only posts that
           # contain an exact match of a queried word will be returned.
-          rpc :SearchBlurbs, SearchBlurbsRequest, Google::Longrunning::Operation
+          rpc :SearchBlurbs, Google::Showcase::V1beta1::SearchBlurbsRequest, Google::Longrunning::Operation
           # This returns a stream that emits the blurbs that are created for a
           # particular chat room or user profile.
-          rpc :StreamBlurbs, StreamBlurbsRequest, stream(StreamBlurbsResponse)
+          rpc :StreamBlurbs, Google::Showcase::V1beta1::StreamBlurbsRequest, stream(Google::Showcase::V1beta1::StreamBlurbsResponse)
           # This is a stream to create multiple blurbs. If an invalid blurb is
           # requested to be created, the stream will close with an error.
-          rpc :SendBlurbs, stream(CreateBlurbRequest), SendBlurbsResponse
+          rpc :SendBlurbs, stream(Google::Showcase::V1beta1::CreateBlurbRequest), Google::Showcase::V1beta1::SendBlurbsResponse
           # This method starts a bidirectional stream that receives all blurbs that
           # are being created after the stream has started and sends requests to create
           # blurbs. If an invalid blurb is requested to be created, the stream will
           # close with an error.
-          rpc :Connect, stream(ConnectRequest), stream(StreamBlurbsResponse)
+          rpc :Connect, stream(Google::Showcase::V1beta1::ConnectRequest), stream(Google::Showcase::V1beta1::StreamBlurbsResponse)
         end
 
         Stub = Service.rpc_stub_class

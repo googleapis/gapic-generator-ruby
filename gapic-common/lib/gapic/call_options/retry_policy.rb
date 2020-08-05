@@ -29,7 +29,7 @@ module Gapic
       # @param max_delay [Numeric] client-side timeout
       #
       def initialize retry_codes: nil, initial_delay: nil, multiplier: nil, max_delay: nil
-        @retry_codes   = retry_codes
+        @retry_codes   = convert_codes retry_codes
         @initial_delay = initial_delay
         @multiplier    = multiplier
         @max_delay     = max_delay
@@ -77,13 +77,41 @@ module Gapic
       def apply_defaults retry_policy
         return unless retry_policy.is_a? Hash
 
-        @retry_codes   ||= retry_policy[:retry_codes]
+        @retry_codes   ||= convert_codes retry_policy[:retry_codes]
         @initial_delay ||= retry_policy[:initial_delay]
         @multiplier    ||= retry_policy[:multiplier]
         @max_delay     ||= retry_policy[:max_delay]
 
         self
       end
+
+      # @private
+      # See https://grpc.github.io/grpc/core/md_doc_statuscodes.html for a
+      # list of error codes.
+      ERROR_CODE_MAPPING = [
+        "OK",
+        "CANCELLED",
+        "UNKNOWN",
+        "INVALID_ARGUMENT",
+        "DEADLINE_EXCEEDED",
+        "NOT_FOUND",
+        "ALREADY_EXISTS",
+        "PERMISSION_DENIED",
+        "RESOURCE_EXHAUSTED",
+        "FAILED_PRECONDITION",
+        "ABORTED",
+        "OUT_OF_RANGE",
+        "UNIMPLEMENTED",
+        "INTERNAL",
+        "UNAVAILABLE",
+        "DATA_LOSS",
+        "UNAUTHENTICATED"
+      ].freeze
+
+      # @private
+      ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
+        hash[str] = num
+      end.freeze
 
       private
 
@@ -94,6 +122,18 @@ module Gapic
       def delay!
         # Call Kernel.sleep so we can stub it.
         Kernel.sleep delay
+      end
+
+      def convert_codes input_codes
+        return nil if input_codes.nil?
+        Array(input_codes).map do |obj|
+          case obj
+          when String
+            ERROR_STRING_MAPPING[obj]
+          when Integer
+            obj
+          end
+        end.compact
       end
 
       ##
