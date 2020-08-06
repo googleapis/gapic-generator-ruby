@@ -47,7 +47,7 @@ def gapic_generator_ruby_repositories():
     "loofah": "2.5.0",
     "memoist": "0.16.2",
     "middleware": "0.1.0",
-    "minitest": "5.14.0",
+    "minitest": "5.14.1",
     "minitest-autotest": "1.1.1", #bundler
     "minitest-focus": "1.2.1", #bundler
     "multi_json": "1.14.1",
@@ -62,7 +62,7 @@ def gapic_generator_ruby_repositories():
     "rails-dom-testing": "2.0.3",
     "rails-html-sanitizer": "1.3.0",
     "rainbow": "3.0.0",
-    "rake": "12.3.3",
+    "rake": "13.0.1",
     "redcarpet": "3.5.0", #bundler
     "rubocop": "0.74.0",
     "ruby-progressbar": "1.10.1",
