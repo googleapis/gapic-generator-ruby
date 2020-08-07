@@ -70,6 +70,18 @@ class GrpcStubTest < Minitest::Spec
     mock.verify
   end
 
+  def test_with_symbol_credentials
+    creds = :this_channel_is_insecure
+
+    mock = Minitest::Mock.new
+    mock.expect :nil?, false
+    mock.expect :new, nil, ["service:port", creds, channel_args: {}, interceptors: []]
+
+    Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds
+
+    mock.verify
+  end
+
   def test_with_credentials
     GRPC::Core::CallCredentials.stub :new, FakeCallCredentials.method(:new) do
       GRPC::Core::ChannelCredentials.stub :new, FakeChannelCredentials.method(:new) do

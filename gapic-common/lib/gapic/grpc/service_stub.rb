@@ -58,10 +58,11 @@ module Gapic
       channel_args = Hash channel_args
       interceptors = Array interceptors
 
-      @grpc_stub = if credentials.is_a? GRPC::Core::Channel
+      @grpc_stub = case credentials
+                   when GRPC::Core::Channel
                      grpc_stub_class.new endpoint, nil, channel_override: credentials,
                                                         interceptors:     interceptors
-                   elsif credentials.is_a? GRPC::Core::ChannelCredentials
+                   when GRPC::Core::ChannelCredentials, Symbol
                      grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
                                                                 interceptors: interceptors
                    else
