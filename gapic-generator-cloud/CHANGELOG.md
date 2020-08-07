@@ -1,5 +1,9 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.7 / 2020-08-07
+
+* Includes changes from gapic-generator 0.6.7.
+
 ### 0.6.6 / 2020-08-05
 
 * Includes changes from gapic-generator 0.6.6.

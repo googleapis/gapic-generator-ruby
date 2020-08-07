@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.6.7 / 2020-08-07
+
+* Generated credentials config allows symbols.
+
 ### 0.6.6 / 2020-08-05
 
 * Use numeric error codes rather than strings in generated retry configs.

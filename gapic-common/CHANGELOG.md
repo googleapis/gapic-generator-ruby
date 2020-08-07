@@ -1,5 +1,9 @@
 # Release History
 
+### 0.3.4 / 2020-08-07
+
+* Support the :this_channel_is_insecure gRPC pseudo-credential, used by tests and emulators.
+
 ### 0.3.3 / 2020-08-05
 
 * Retry configs properly handle error name strings.
