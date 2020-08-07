@@ -84,9 +84,11 @@ def _ruby_bundler_binary_impl(ctx):
   gemfile_path = ctx.file.gemfile.path
   gemfile_tmp_file = ctx.actions.declare_file("Gemfile")
   gemfile_tmp_path = gemfile_tmp_file.path
+  gemfile_tmp_short_path = gemfile_tmp_file.short_path #short path is for scriptrunning
 
   run_log_text += "\ngemfile_path={gemfile_path}".format(gemfile_path = gemfile_path)
   run_log_text += "\ngemfile_tmp_path={gemfile_tmp_path}".format(gemfile_tmp_path = gemfile_tmp_path)
+  run_log_text += "\ngemfile_tmp_file.short_path={gemfile_tmp_short_path}".format(gemfile_tmp_short_path = gemfile_tmp_file.short_path)
 
   ctx.actions.run_shell(
     inputs = [ctx.file.gemfile],
@@ -136,9 +138,9 @@ def _ruby_bundler_binary_impl(ctx):
 
   run_log_text += "\nbundler_install_path={bundler_install_path}".format(bundler_install_path = bundler_install_path)
   # bundler gemfile export
-  bundler_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_tmp_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH={bundler_install_path}".format(
+  bundler_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_tmp_short_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH=$(readlink -f {bundler_install_path})".format(
     newline = "\n", 
-    gemfile_tmp_path = gemfile_tmp_path,
+    gemfile_tmp_short_path = gemfile_tmp_short_path,
     bundler_install_path = bundler_install_path)
   run_log_text += "\nbundler_export={bundler_export}".format(bundler_export = bundler_export)
 
@@ -151,7 +153,7 @@ def _ruby_bundler_binary_impl(ctx):
     entrypoint = entrypoint_path)
 
   run_log_text += "\ncmd_text={cmd_text}".format(cmd_text = cmd_text)
-  ctx.actions.write(run_log_file, run_log_text)
+  ctx.actions.write(run_log_file, run_log_text+"\n")
 
   # the command text is prepended by some gapic-generator-ruby requirements:
   # * a path to a folder with the ruby binaries so that gapic-generator-ruby can systemcall `rubocop`

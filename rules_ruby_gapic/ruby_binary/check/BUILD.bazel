@@ -16,6 +16,7 @@
 Targets to verify that ruby_binary rule is working correctly
 """
 load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
+load ("//rules_ruby_gapic:ruby_binary/ruby_bundler_binary.bzl", "ruby_bundler_binary")
 
 ##
 # Running the hello world file with a dependency on a Ruby StandardLib as an executable shellscript
@@ -27,4 +28,17 @@ ruby_binary (
   entrypoint = ":srcs/hello_ruby.rb",
   srcs = [":srcs/hello_ruby.rb", ":srcs/lib/hello_ruby_lib.rb"],
   src_base = ":srcs"
+)
+
+ruby_bundler_binary (
+  name = "rainbow_test_bundler",
+  entrypoint = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/lib/rainbow_main.rb",
+  gemfile = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/Gemfile",
+  gemfile_lock = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/Gemfile.lock",
+  gemspec = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/none.gemspec",
+  version_rb ="@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/none.version.rb",
+  bundler_install_path = "@bundler_rainbow_test//:vendor",
+  srcs = ["@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/lib/rainbow_main.rb", "@bundler_rainbow_test//:bundler_installed_gems",],
+  src_base = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest",
+  visibility = ["//visibility:public"],
 )

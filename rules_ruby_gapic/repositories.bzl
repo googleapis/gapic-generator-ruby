@@ -140,6 +140,14 @@ def gapic_generator_ruby_customgems(list_of_gems):
     gemfile_lock = "@gapic_generator_ruby//:gapic-generator-ads/Gemfile.lock",
   )
 
+  bundler_install(
+    name = "bundler_rainbow_test",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gem_bin = "@ruby_runtime//:bin/gem",
+    gemfile = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/Gemfile.lock",
+  )
+
 ##
 # a helper macro to load a repo rule with an optional prefix
 #

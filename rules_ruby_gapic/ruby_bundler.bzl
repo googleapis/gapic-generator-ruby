@@ -43,14 +43,17 @@ find {vendor_path} -type d -name "test mini portile-1.0.0" | while read f ; do r
   _execute_log_action(repo_ctx, "bundle_install.log", ["%s" % sh_path], environment = {
     "HOME": "{home_path}".format(home_path = home_path), # otherwise the local user's home will get contaminated
     "BUNDLE_DEPLOYMENT": "true",
+    "BUNDLE_GEMFILE": "",
     "BUNDLE_PATH": "{vendor_path}".format(vendor_path = vendor_path),
   })
   
-  repo_ctx.file("BUILD.bazel", """exports_files(glob(include = ["*"], exclude_directories = 0))
+  repo_ctx.file("BUILD.bazel", """exports_files(glob(include = ["vendor", "vendor/ruby","vendor/ruby", "vendor/ruby/ruby_bazel_libroot", "vendor/**/*", "*"], exclude_directories = 0))
 filegroup(
   name = "bundler_installed_gems",
   srcs = glob([
     "vendor",
+    "vendor/ruby",
+    "vendor/ruby/ruby_bazel_libroot",
     "vendor/**/*"
   ]),
   visibility = ["//visibility:public"],
