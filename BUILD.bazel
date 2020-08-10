@@ -8,6 +8,7 @@ Exports for the all the files in the gapic-generator-ruby code and a filegroup t
 # as a workaround for not running from within the folders themselves
 # which is relevant for some requires
 #
+load ("//rules_ruby_gapic:ruby_binary/ruby_bundler_binary.bzl", "ruby_bundler_binary")
 list_of_export_globs = [
   "gapic-generator",
   "gapic-generator/**/*",
@@ -23,5 +24,14 @@ filegroup(
   srcs = glob(
     list_of_export_globs
   ),
+  visibility = ["//visibility:public"],
+)
+
+ruby_bundler_binary (
+  name = "gapic_generator_ruby_bundler",
+  entrypoint = "@gapic_generator_ruby//:gapic-generator/bin/protoc-gen-ruby_gapic",
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles", "@bundler_gapic_generator//:bundler_installed_gems",],
+  src_base = "@gapic_generator_ruby//:gapic-generator",
+  gemfile = "@bundler_gapic_generator//:export/Gemfile",
   visibility = ["//visibility:public"],
 )

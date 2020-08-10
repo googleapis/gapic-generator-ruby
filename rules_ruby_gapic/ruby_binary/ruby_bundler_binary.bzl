@@ -81,67 +81,18 @@ def _ruby_bundler_binary_impl(ctx):
   run_log_text += "\nbundler_bin_path={bundler_bin_path}".format(bundler_bin_path = bundler_bin_path)
 
   # gemfile
+  gemfile = ctx.file.gemfile
   gemfile_path = ctx.file.gemfile.path
-  gemfile_tmp_file = ctx.actions.declare_file("Gemfile")
-  gemfile_tmp_path = gemfile_tmp_file.path
-  gemfile_tmp_short_path = gemfile_tmp_file.short_path #short path is for scriptrunning
-
   run_log_text += "\ngemfile_path={gemfile_path}".format(gemfile_path = gemfile_path)
-  run_log_text += "\ngemfile_tmp_path={gemfile_tmp_path}".format(gemfile_tmp_path = gemfile_tmp_path)
-  run_log_text += "\ngemfile_tmp_file.short_path={gemfile_tmp_short_path}".format(gemfile_tmp_short_path = gemfile_tmp_file.short_path)
 
-  ctx.actions.run_shell(
-    inputs = [ctx.file.gemfile],
-    command="cp {gemfile} {gemfile_tmp}".format(gemfile = gemfile_path, gemfile_tmp = gemfile_tmp_path), 
-    outputs=[gemfile_tmp_file])
+  bundle_rel_path = ctx.attr._bundle_rel_path
+  run_log_text += "\nbundle_rel_path={bundle_rel_path}".format(bundle_rel_path = bundle_rel_path)
 
-  # gemfile.lock
-  gemfile_lock_path = ctx.file.gemfile_lock.path
-  gemfile_lock_tmp_file = ctx.actions.declare_file("Gemfile.lock")
-  gemfile_lock_tmp_path = gemfile_lock_tmp_file.path
-
-  run_log_text += "\ngemfile_lock_path={gemfile_lock_path}".format(gemfile_lock_path = gemfile_lock_path)
-  run_log_text += "\ngemfile_lock_tmp_path={gemfile_lock_tmp_path}".format(gemfile_lock_tmp_path = gemfile_lock_tmp_path)
-
-  ctx.actions.run_shell(
-    inputs = [ctx.file.gemfile_lock],
-    command="cp {gemfile_lock} {gemfile_lock_tmp}".format(gemfile_lock = gemfile_lock_path, gemfile_lock_tmp = gemfile_lock_tmp_path), 
-    outputs=[gemfile_lock_tmp_file])
-
-  # gemspec
-  gemspec_path = ctx.file.gemspec.path
-  gemspec_tmp_file = ctx.actions.declare_file("gapic-generator.gemspec")
-  gemspec_tmp_path = gemspec_tmp_file.path
-
-  run_log_text += "\ngemspec_path={gemspec_path}".format(gemspec_path = gemspec_path)
-  run_log_text += "\ngemspec_tmp_path={gemspec_tmp_path}".format(gemspec_tmp_path = gemspec_tmp_path)
-
-  ctx.actions.run_shell(
-    inputs = [ctx.file.gemspec],
-    command="cp {gemspec} {gemspec_tmp}".format(gemspec = gemspec_path, gemspec_tmp = gemspec_tmp_path), 
-    outputs=[gemspec_tmp_file])
-
-  # version_rb
-  version_rb_path = ctx.file.version_rb.path
-  version_rb_tmp_file = ctx.actions.declare_file("lib/gapic/generator/version.rb")
-  version_rb_tmp_path = version_rb_tmp_file.path
-
-  run_log_text += "\nversion_rb_path={version_rb_path}".format(version_rb_path = version_rb_path)
-  run_log_text += "\nversion_rb_tmp_path={version_rb_tmp_path}".format(version_rb_tmp_path = version_rb_tmp_path)
-
-  ctx.actions.run_shell(
-    inputs = [ctx.file.version_rb],
-    command="cp {version_rb} {version_rb_tmp}".format(version_rb = version_rb_path, version_rb_tmp = version_rb_tmp_path), 
-    outputs=[version_rb_tmp_file])
-
-  bundler_install_path = ctx.file.bundler_install_path.path
-
-  run_log_text += "\nbundler_install_path={bundler_install_path}".format(bundler_install_path = bundler_install_path)
   # bundler gemfile export
-  bundler_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_tmp_short_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH=$(readlink -f {bundler_install_path})".format(
+  bundler_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH={bundle_rel_path}".format(
     newline = "\n", 
-    gemfile_tmp_short_path = gemfile_tmp_short_path,
-    bundler_install_path = bundler_install_path)
+    gemfile_path = gemfile_path,
+    bundle_rel_path = "bundle")
   run_log_text += "\nbundler_export={bundler_export}".format(bundler_export = bundler_export)
 
   # the actual command: a ruby binary invocation of the entrypoint file with the correct imports
@@ -162,18 +113,21 @@ def _ruby_bundler_binary_impl(ctx):
   #
   # then the actual command follows 
   #
-  exec_text = "#!/bin/bash{newline}export PATH=$PATH:{ruby_bin_dirpath}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{bundler_export}{newline}{cmd_text}{newline}".format(
+  path_command = "export PATH={ruby_bin_dirpath}".format(ruby_bin_dirpath = ruby_bin_dirpath)
+  exec_text = "#!/bin/bash{newline}{path_command}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{bundler_export}{newline}{cmd_text}{newline}".format(
     newline = "\n",
     bundler_export = bundler_export,
     cmd_text = cmd_text,
-    ruby_bin_dirpath = ruby_bin_dirpath,
+    path_command = path_command
   )
 
   # write the shellscript into the result file
   ctx.actions.write(run_result_file, exec_text)
 
   # things that need to be symlinked around the shell script go into the runfiles
-  runfiles = ruby_all_bins + ctx.files.srcs + [gemfile_tmp_file, gemfile_lock_tmp_file, gemspec_tmp_file, version_rb_tmp_file]
+  runfiles = ruby_all_bins + ctx.files.srcs + [
+    ctx.file.gemfile,
+  ]
 
   # collect everything that can be useful in a result
   direct = runfiles + [run_result_file, run_log_file]
@@ -197,15 +151,12 @@ ruby_bundler_binary = rule(
     "srcs": attr.label_list(allow_files = True),
     "src_base": attr.label(allow_single_file=True),
     "ruby_context": attr.label(default = Label("//rules_ruby_gapic/ruby:ruby_context")),
-    "bundler_install_path": attr.label(allow_single_file = True),
     "gemfile": attr.label(allow_single_file = True),
-    "gemfile_lock": attr.label(allow_single_file = True),
-    "gemspec": attr.label(allow_single_file = True),
-    "version_rb": attr.label(allow_single_file = True),
     "entrypoint": attr.label( allow_single_file = True),
     "deps": attr.label_list(
       providers = [RubyLibraryInfo],
     ),
+    "_bundle_rel_path": attr.string(default = "bundle")
   },
   executable = True,
 )

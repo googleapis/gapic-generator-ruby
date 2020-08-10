@@ -18,6 +18,7 @@ Creates a workspace with ruby runtime, including ruby executables and ruby stand
 load(
   ":private/utils.bzl",
   _execute_and_check_result = "execute_and_check_result",
+  _execute_log_action = "execute_log_action",
 )
 
 ##
@@ -191,28 +192,9 @@ def _ruby_runtime_impl(ctx):
   if not working_prebuild_located:
     build_ruby_runtime(ctx, root_path, srcs_dir)
 
-  ctx.report_progress("Checking gems")
-  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_precheck.log", res.stdout)
-
-  # ctx.report_progress("Doing gem install -f --no-document bundler:2.1.4")
-  # res = ctx.execute(["bin/gem", "install", "-f", "--no-document", "bundler:2.1.4"], working_directory = ".")
-  # ctx.file("logs/gem_install_bundler.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
-  #   code = res.return_code,
-  #   stdout = res.stdout,
-  #   stderr = res.stderr,
-  # ))
-
   ctx.report_progress("Installing gems")
   res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_preinstall.log", res.stdout)
-
-  res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
-  ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  ))
+  ctx.file("logs/gem_list_pre.log", res.stdout)
 
   gem_log = []
   for gem, version in  ctx.attr.gems_to_install.items():
@@ -231,24 +213,17 @@ def _ruby_runtime_impl(ctx):
   gem_report_path = "logs/gem_report.log"
   ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
 
-  res = ctx.execute(["rm", "-f", "'lib/ruby/gems/ruby_bazel_libroot/gems/mini_portile2-2.4.0/test/assets/patch 1.diff'"], working_directory = ".")
-  ctx.file("logs/rm_patch_1.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}\n".format(
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  ))
-
-  res = ctx.execute(["rm", "-rf", "'vendor/bundle/ruby/ruby_bazel_libroot/gems/mini_portile2-2.4.0/test/assets/test mini portile-1.0.0'"], working_directory = ".")
-  ctx.file("logs/rm_test_mini_1.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}\n".format(
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  ))
-
-    # First update bundler to the correct version
+  # Update bundler to the correct version
   _execute_log_action(ctx, "gem_install_bundler.log", 
     ["bin/gem", "install", "-f", "--no-document", "bundler:2.1.4"]
   )
+
+  res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
+  ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
+    code = res.return_code,
+    stdout = res.stdout,
+    stderr = res.stderr,
+  ))
 
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
@@ -282,23 +257,3 @@ ruby_runtime = repository_rule(
     ),
   }
 )
-
-def _execute_log_action(repo_ctx, log_file_name, action, working_directory = ".", environment={}, should_fail = False):
-  cmd = " ".join(action)
-  repo_ctx.report_progress("Running {cmd}".format(cmd = cmd))
-
-  res = repo_ctx.execute(action, working_directory = working_directory, environment = environment)
-  result_str = "cmd: {cmd}\nENV: {env}\nRETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
-    cmd = cmd,
-    env = environment,
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  )
-  log_file_path = "logs/{log_file_name}".format(log_file_name = log_file_name)
-  repo_ctx.file(log_file_path, result_str)
-
-  if should_fail and res.return_code:
-    fail("Failed: {result_str}". format(result_str))
-
-  return res

@@ -29,3 +29,28 @@ def execute_and_check_result(ctx, command, **kwargs):
           newline = "\n"
       ))
   return res
+
+##
+# Runs a command and logs the result into a separate file
+#
+def execute_log_action(repo_ctx, log_file_name, action, working_directory = ".", environment={}, should_fail = False):
+  cmd = " ".join(action)
+  repo_ctx.report_progress("Running {cmd}".format(cmd = cmd))
+
+  res = repo_ctx.execute(action, working_directory = working_directory, environment = environment)
+  result_str = "cmd: {cmd}\nENV: {env}\nRETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
+    cmd = cmd,
+    env = environment,
+    code = res.return_code,
+    stdout = res.stdout,
+    stderr = res.stderr,
+  )
+
+  if log_file_name:
+    log_file_path = "logs/{log_file_name}".format(log_file_name = log_file_name)
+    repo_ctx.file(log_file_path, result_str)
+
+  if should_fail and res.return_code:
+    fail("Failed: {result_str}". format(result_str))
+
+  return res, result_str

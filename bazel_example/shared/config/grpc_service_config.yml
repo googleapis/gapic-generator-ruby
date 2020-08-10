@@ -1,0 +1,4 @@
+---
+:skip_credentials: true
+:gem:
+  :name: testing-grpc_service_config
