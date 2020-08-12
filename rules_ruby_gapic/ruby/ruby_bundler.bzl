@@ -21,24 +21,25 @@ load(
 )
 
 def _bundle_install(repo_ctx):
-  bundle_install_path = repo_ctx.path("./export/bundle")
-  bundle_binstubs_path = repo_ctx.path("./export/bundlebin")
+  # # gemfile
+  # orig_gemfile_path = repo_ctx.path(repo_ctx.attr.gemfile)
+  # gemfile_path = repo_ctx.path("./export/gapic-generator-cloud/Gemfile")
+  # repo_ctx.file(gemfile_path, "") # this create the folder structure like mkdir -p
+  # _execute_log_action(repo_ctx, "copy_gemfile.log", 
+  #   ["cp", "%s" % orig_gemfile_path, "%s" % gemfile_path]
+  # )
 
-  # gemfile
-  orig_gemfile_path = repo_ctx.path(repo_ctx.attr.gemfile)
-  gemfile_path = repo_ctx.path("./export/Gemfile")
-  repo_ctx.file(gemfile_path, "") # this create the folder structure like mkdir -p
-  _execute_log_action(repo_ctx, "copy_gemfile.log", 
-    ["cp", "%s" % orig_gemfile_path, "%s" % gemfile_path]
-  )
+  # # gemfile.lock
+  # orig_gemfile_lock_path = repo_ctx.path(repo_ctx.attr.gemfile_lock)
+  # gemfile_lock_path = repo_ctx.path("./export/gapic-generator-cloud/Gemfile.lock")
+  # repo_ctx.file(gemfile_lock_path, "") # this create the folder structure like mkdir -p
+  # _execute_log_action(repo_ctx, "copy_gemfile_lock.log", 
+  #   ["cp", "%s" % orig_gemfile_lock_path, "%s" % gemfile_lock_path]
+  # )
 
-  # gemfile.lock
-  orig_gemfile_lock_path = repo_ctx.path(repo_ctx.attr.gemfile_lock)
-  gemfile_lock_path = repo_ctx.path("./export/Gemfile.lock")
-  repo_ctx.file(gemfile_lock_path, "") # this create the folder structure like mkdir -p
-  _execute_log_action(repo_ctx, "copy_gemfile_lock.log", 
-    ["cp", "%s" % orig_gemfile_lock_path, "%s" % gemfile_lock_path]
-  )
+  bundle_install_path = None
+  gemfile_path = None
+  gemfile_sel_log = "Not found"
 
   copy_log = []
   for label, relpath in repo_ctx.attr.gemfile_srcs.items():
@@ -50,7 +51,17 @@ def _bundle_install(repo_ctx):
     )
     copy_log.append(log)
 
-  repo_ctx.file("logs/copy_gemfile_srcs.log", "---\n---".join(copy_log))
+    if label == repo_ctx.attr.gemfile:
+      gemfile_sel_log = ""
+      gemfile_path =  file_path
+      gemfile_sel_log += "gemfile_path={gemfile_path}\n".format(gemfile_path = gemfile_path)
+      
+      gemfile_dir = gemfile_path.dirname
+      bundle_install_path = repo_ctx.path("{gemfile_dir}/bundle".format(gemfile_dir = gemfile_dir))
+      gemfile_sel_log += "bundle_install_path={bundle_install_path}\n".format(bundle_install_path = bundle_install_path)
+
+  repo_ctx.file("logs/copy_gemfile_srcs.log", "---\n---".join(copy_log)+"\n")
+  repo_ctx.file("logs/gemfile_selection.log", gemfile_sel_log)
 
   home_fname = repo_ctx.path("./home/foo")
   repo_ctx.file("home/foo", content ="")
@@ -58,9 +69,6 @@ def _bundle_install(repo_ctx):
 
   bundle_bin = repo_ctx.attr.bundle_bin
   bundle_bin_path = repo_ctx.path(bundle_bin)
-
-  origin_gemfile = repo_ctx.attr.gemfile
-  gemfile_dir = repo_ctx.path(origin_gemfile).dirname
 
   # Now create a file that will run the bundler update
   # it has to delete the files and folders with spaces in their names or bazel runfile linking won't work 
@@ -75,7 +83,7 @@ def _bundle_install(repo_ctx):
     executable = True,
   )
 
-  repo_ctx.report_progress("Running bundle install on %s" % gemfile_dir)
+  repo_ctx.report_progress("Running bundle install on %s" % gemfile_path)
   _execute_log_action(repo_ctx, "bundle_install.log", ["%s" % sh_path], environment = {
     "HOME": "{home_path}".format(home_path = home_path), # otherwise the local user's home will get contaminated
     "BUNDLE_JOBS": "8",

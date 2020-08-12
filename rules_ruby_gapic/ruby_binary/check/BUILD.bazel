@@ -15,8 +15,9 @@
 """
 Targets to verify that ruby_binary rule is working correctly
 """
-load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
-load ("//rules_ruby_gapic:ruby_binary/ruby_bundler_binary.bzl", "ruby_bundler_binary")
+load ("//rules_ruby_gapic/ruby_binary:ruby_binary.bzl", "ruby_binary")
+load ("//rules_ruby_gapic/ruby_binary:ruby_bundler_binary.bzl", "ruby_bundler_binary")
+load ("//rules_ruby_gapic/ruby:bundled_install_context.bzl", "bundled_install_context")
 
 ##
 # Running the hello world file with a dependency on a Ruby StandardLib as an executable shellscript
@@ -30,20 +31,36 @@ ruby_binary (
   src_base = ":multifile_rubylib_test"
 )
 
+bundled_install_context(
+  name = "rainbow_bundled_context",
+  visibility = ["//visibility:public"],
+  gemfile = "@bundler_rainbow_test//:export/Gemfile",
+  all_bundled_files = "@bundler_rainbow_test//:bundler_installed_gems",
+)
+
 ruby_bundler_binary (
   name = "rainbow_bundler_sh",
   entrypoint = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/lib/rainbow_main.rb",
-  gemfile = "@bundler_rainbow_test//:export/Gemfile",
-  srcs = ["@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/lib/rainbow_main.rb", "@bundler_rainbow_test//:bundler_installed_gems",],
+  srcs = ["@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest/lib/rainbow_main.rb"],
   src_base = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:rainbow_gemtest",
+  ruby_context = "@gapic_generator_ruby//rules_ruby_gapic/ruby:ruby_context",
+  bundled_context = ":rainbow_bundled_context",
   visibility = ["//visibility:public"],
+)
+
+bundled_install_context(
+  name = "rubocop_bundled_context",
+  visibility = ["//visibility:public"],
+  gemfile = "@bundler_rubocop_test//:export/Gemfile",
+  all_bundled_files = "@bundler_rubocop_test//:bundler_installed_gems",
 )
 
 ruby_bundler_binary (
   name = "rubocop_bundler_sh",
   entrypoint = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:syscall_rubocop_test/lib/rubocop_main.rb",
-  gemfile = "@bundler_rubocop_test//:export/Gemfile",
-  srcs = ["@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:syscall_rubocop_test/lib/rubocop_main.rb", "@bundler_rubocop_test//:bundler_installed_gems",],
+  srcs = ["@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:syscall_rubocop_test/lib/rubocop_main.rb"],
   src_base = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/check:syscall_rubocop_test",
+  ruby_context = "@gapic_generator_ruby//rules_ruby_gapic/ruby:ruby_context",
+  bundled_context = ":rubocop_bundled_context",
   visibility = ["//visibility:public"],
 )

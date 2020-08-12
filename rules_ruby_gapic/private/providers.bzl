@@ -36,3 +36,10 @@ RubyContext = provider(
     "info" : "A struct covering the library-component of the ruby runtime: its sources and lib path",
   }
 )
+
+BundledInstallContext = provider(
+  fields = {
+    "gemfile" : "the gemfile for the installation",
+    "all_bundled_files": "all files in this bundled installation"
+  }
+)

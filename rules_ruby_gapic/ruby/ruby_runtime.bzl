@@ -160,6 +160,12 @@ def install_gem(ctx, gem, version):
 # Implementation for a ruby_runtime rule
 # 
 def _ruby_runtime_impl(ctx):
+  bundler_version = None
+  if ctx.attr.gemfile_lock:
+    gemfile_lock_str = ctx.read(ctx.attr.gemfile_lock)
+    bundler_version = [x.strip() for x in gemfile_lock_str.split("\n") if x.strip()].pop()
+    ctx.file("logs/bundler_version_detected.log", bundler_version)
+
   # grabbing the path to the root of the dynamic workspace
   root_path = ctx.path(".")
 
@@ -213,10 +219,11 @@ def _ruby_runtime_impl(ctx):
   gem_report_path = "logs/gem_report.log"
   ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
 
-  # Update bundler to the correct version
-  _execute_log_action(ctx, "gem_install_bundler.log", 
-    ["bin/gem", "install", "-f", "--no-document", "bundler:2.1.4"]
-  )
+  if bundler_version:
+    # Update bundler to the correct version
+    _execute_log_action(ctx, "gem_install_bundler.log", 
+      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)]
+    )
 
   res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
   ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
@@ -252,6 +259,10 @@ ruby_runtime = repository_rule(
     "strip_prefix": attr.string(),
     "prebuilt_rubys": attr.label_list(allow_files = True, mandatory = False),
     "gems_to_install": attr.string_dict(),
+    "gemfile_lock": attr.label(
+      mandatory = False,
+      allow_single_file = True,
+    ),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.dist.bazel.tpl"
     ),

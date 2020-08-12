@@ -15,7 +15,7 @@
 """
 Defines a rule that wraps a ruby application into a shellscript, executable by bazel
 """
-load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyContext")
+load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyContext", "BundledInstallContext")
 
 ##
 # An implementation for ruby_binary rule
@@ -76,13 +76,19 @@ def _ruby_bundler_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
+  # Now grabbing the bundled context to get the files of the bundler install
+  bundled_context = ctx.attr.bundled_context[BundledInstallContext]
+  gemfile = bundled_context.gemfile
+  all_bundled_files = bundled_context.all_bundled_files
+  all_inputs = all_inputs + all_bundled_files
+
   # bundler
   bundler_bin_path = ruby_bin_dirpath + "/bundler"
   run_log_text += "\nbundler_bin_path={bundler_bin_path}".format(bundler_bin_path = bundler_bin_path)
 
   # gemfile
-  gemfile = ctx.file.gemfile
-  gemfile_path = ctx.file.gemfile.path
+  #gemfile = ctx.file.gemfile
+  gemfile_path = gemfile.path
   run_log_text += "\ngemfile_path={gemfile_path}".format(gemfile_path = gemfile_path)
 
   bundle_rel_path = ctx.attr._bundle_rel_path
@@ -125,8 +131,8 @@ def _ruby_bundler_binary_impl(ctx):
   ctx.actions.write(run_result_file, exec_text)
 
   # things that need to be symlinked around the shell script go into the runfiles
-  runfiles = ruby_all_bins + ctx.files.srcs + [
-    ctx.file.gemfile,
+  runfiles = ruby_all_bins + ctx.files.srcs + all_bundled_files + [
+    gemfile,
   ]
 
   # collect everything that can be useful in a result
@@ -150,8 +156,8 @@ ruby_bundler_binary = rule(
   attrs = {
     "srcs": attr.label_list(allow_files = True),
     "src_base": attr.label(allow_single_file=True),
-    "ruby_context": attr.label(default = Label("//rules_ruby_gapic/ruby:ruby_context")),
-    "gemfile": attr.label(allow_single_file = True),
+    "ruby_context": attr.label(),
+    "bundled_context": attr.label(),
     "entrypoint": attr.label( allow_single_file = True),
     "deps": attr.label_list(
       providers = [RubyLibraryInfo],

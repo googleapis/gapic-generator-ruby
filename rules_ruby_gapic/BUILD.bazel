@@ -16,7 +16,7 @@
 Executable targets defining the various flavors of gapic-generator ruby
 as a 'ruby binaries' (actually shellscripts) for use as a protoc plugin
 """
-load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
+load ("//rules_ruby_gapic/ruby_binary:ruby_binary.bzl", "ruby_binary")
 
 ##
 # Creates a bazel-runnable shellscript wrapping gapic-generator-ruby vanilla
@@ -25,7 +25,7 @@ load ("//rules_ruby_gapic:ruby_binary/ruby_binary.bzl", "ruby_binary")
 ruby_binary (
   name = "gapic_generator_ruby",
   entrypoint = "@gapic_generator_ruby//:gapic-generator/bin/protoc-gen-ruby_gapic",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles", "@bundler_gapic_generator//:bundler_installed_gems",],
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
   src_base = "@gapic_generator_ruby//:gapic-generator",
   visibility = ["//visibility:public"],
 )
@@ -37,7 +37,7 @@ ruby_binary (
 ruby_binary (
   name = "gapic_generator_cloud",
   entrypoint = "@gapic_generator_ruby//:gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles", "@bundler_gapic_generator_cloud//:bundler_installed_gems",],
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
   src_base = "@gapic_generator_ruby//:gapic-generator-cloud",
   visibility = ["//visibility:public"],
 )
@@ -49,9 +49,7 @@ ruby_binary (
 ruby_binary (
   name = "gapic_generator_ads",
   entrypoint = "@gapic_generator_ruby//:gapic-generator-ads/bin/protoc-gen-bazel_ruby_ads",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles", "@bundler_gapic_generator_ads//:bundler_installed_gems",],
+  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
   src_base = "@gapic_generator_ruby//:gapic-generator-ads",
   visibility = ["//visibility:public"],
 )
-
-

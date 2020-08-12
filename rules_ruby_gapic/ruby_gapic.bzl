@@ -133,7 +133,7 @@ def ruby_gapic_bundler_library(
   _ruby_gapic_library(
     name,
     srcs,
-    Label("@gapic_generator_ruby//:gapic_generator_ruby_bundler"),
+    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby_bundler"),
     generator_params,
     yml_configs,
     grpc_service_config
@@ -165,6 +165,22 @@ def ruby_gapic_cloud_library(
     grpc_service_config
   )
 
+def ruby_gapic_cloud_bundler_library(
+  name,
+  srcs,
+  ruby_cloud_params = {},
+  grpc_service_config = None,
+  **kwargs):
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_bundler"),
+    ruby_cloud_params,
+    [],
+    grpc_service_config
+  )
+
 ##
 # A macro over the proto_custom_library that generates a library
 # using the gapic-generator-ads entrypoint
@@ -185,6 +201,22 @@ def ruby_gapic_ads_library(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic:gapic_generator_ads"),
+    ruby_ads_params,
+    [],
+    grpc_service_config
+  )
+
+def ruby_gapic_ads_library(
+  name,
+  srcs,
+  ruby_ads_params = {},
+  grpc_service_config = None,
+  **kwargs):
+  
+  _ruby_gapic_library(
+    name,
+    srcs,
+    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads_bundler"),
     ruby_ads_params,
     [],
     grpc_service_config
