@@ -19,12 +19,12 @@ bundled_install_context(
 )
 
 ##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby cloud
+# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby ads
 # ready to be uses as a protoc plugin
 #
 ruby_bundler_binary (
   name = "gapic_generator_ads_bundler",
-  entrypoint = "@gapic_generator_ruby//:gapic-generator-ads/bin/protoc-gen-bazel_ruby_cloud",
+  entrypoint = "@gapic_generator_ruby//:gapic-generator-ads/bin/protoc-gen-bazel_ruby_ads",
   srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
   src_base = "@gapic_generator_ruby//:gapic-generator-ads",
   ruby_context = "@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads_ruby_context",
