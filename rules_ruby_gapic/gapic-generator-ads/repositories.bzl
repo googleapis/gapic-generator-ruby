@@ -23,7 +23,7 @@ def gapic_generator_ads_repos():
       "@gapic_generator_ruby//:gapic-generator-ads/Gemfile" : "gapic-generator-ads/Gemfile",
       "@gapic_generator_ruby//:gapic-generator-ads/Gemfile.lock" : "gapic-generator-ads/Gemfile.lock",
       "@gapic_generator_ruby//:gapic-generator-ads/gapic-generator-ads.gemspec": "gapic-generator-ads/gapic-generator-ads.gemspec",
-      "@gapic_generator_ruby//:gapic-generator-ads/lib/gapic/generator/cloud/version.rb": "gapic-generator-ads/lib/gapic/generator/cloud/version.rb",
+      "@gapic_generator_ruby//:gapic-generator-ads/lib/gapic/generator/ads/version.rb": "gapic-generator-ads/lib/gapic/generator/ads/version.rb",
       "@gapic_generator_ruby//:gapic-generator/gapic-generator.gemspec": "gapic-generator/gapic-generator.gemspec",
       "@gapic_generator_ruby//:gapic-generator/lib/gapic/generator/version.rb": "gapic-generator/lib/gapic/generator/version.rb"
     }
