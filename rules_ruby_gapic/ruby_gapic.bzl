@@ -206,7 +206,7 @@ def ruby_gapic_ads_library(
     grpc_service_config
   )
 
-def ruby_gapic_ads_library(
+def ruby_gapic_ads_bundler_library(
   name,
   srcs,
   ruby_ads_params = {},
