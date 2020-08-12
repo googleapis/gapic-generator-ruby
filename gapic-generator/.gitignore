@@ -1,4 +1,4 @@
-Gemfile.lock
+!Gemfile.lock
 .DS_STORE
 /.bundle/
 /.yardoc
@@ -8,5 +8,4 @@ Gemfile.lock
 /pkg/
 /spec/reports/
 /tmp/
-Gemfile.lock
 mkmf.log

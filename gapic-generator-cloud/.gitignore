@@ -1,3 +1,4 @@
+!Gemfile.lock
 .DS_STORE
 /.bundle/
 /.yardoc
@@ -7,4 +8,3 @@
 /pkg/
 /spec/reports/
 /tmp/
-Gemfile.lock
