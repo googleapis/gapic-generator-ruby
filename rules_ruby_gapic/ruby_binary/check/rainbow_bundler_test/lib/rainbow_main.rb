@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,12 +13,9 @@
 # limitations under the License.
 
 ##
-# A shell script used by the bundle_install rule to run the bundle installer and then
-# delete known files and folders with the spaces in their names https://github.com/bazelbuild/bazel/issues/4327
+# A main file for a small application that is used to check that bazel
+# can run ruby apps via bundler
 #
+require 'rainbow'
 
-# Immediately exit if any command fails.
-set -e
-"{bundle}" install
-find export -name "patch 1.diff" -delete
-find export -type d -name "test mini portile-1.0.0" | while read f ; do rm -rf "$f" ; done
+puts Rainbow("this is red").red + " and " + Rainbow("this on yellow bg").bg(:yellow) + " and " + Rainbow("even bright underlined!").underline.bright

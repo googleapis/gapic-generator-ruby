@@ -114,7 +114,7 @@ bundle_install = repository_rule(
       mandatory = False,
     ),
     "_bundle_install_tpl": attr.label(
-      default = ":templates/bundle_install_simplified.sh.tpl"
+      default = ":templates/bundle_install.sh.tpl"
     ),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.bundle.bazel.tpl"

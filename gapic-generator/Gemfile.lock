@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.6.5)
+    gapic-generator (0.6.7)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
@@ -28,7 +28,7 @@ GEM
       tzinfo (~> 1.1)
     ast (2.4.1)
     builder (3.2.4)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.7)
     crass (1.0.6)
     erubi (1.9.0)
     google-style (1.24.0)
