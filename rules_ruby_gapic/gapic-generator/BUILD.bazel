@@ -45,6 +45,8 @@ ruby_context(
   name = "gapic_generator_ruby_context",
   visibility = ["//visibility:public"],
   ruby_bin = "@gapic_generator_ruby_runtime//:bin/ruby",
+  gem_bin = "@gapic_generator_ruby_runtime//:bin/gem",
+  bundle_bin = "@gapic_generator_ruby_runtime//:bin/bundle",
   all_bins = "@gapic_generator_ruby_runtime//:ruby_bins_allfiles",
   ruby_libfiles = "@gapic_generator_ruby_runtime//:ruby_libs_allfiles",
   ruby_libroots = "@gapic_generator_ruby_runtime//:ruby_libroots",

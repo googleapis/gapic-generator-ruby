@@ -15,7 +15,7 @@
 """
 Builds a context for the bundled installation from the repo rule
 """
-load("//rules_ruby_gapic:private/providers.bzl", "BundledInstallContext")
+load("//rules_ruby_gapic:private/providers.bzl", "BundledInstallInfo")
 
 ##
 # An implementation of the bundled_install_context rule
@@ -26,7 +26,7 @@ def _bundled_install_context_impl(ctx):
 
   return [
     DefaultInfo(files = depset(all_bundled_files)),
-    BundledInstallContext(
+    BundledInstallInfo(
       gemfile = gemfile,
       all_bundled_files = all_bundled_files,
     ),

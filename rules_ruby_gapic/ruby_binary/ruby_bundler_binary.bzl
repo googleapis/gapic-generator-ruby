@@ -15,7 +15,7 @@
 """
 Defines a rule that wraps a ruby application into a shellscript, executable by bazel
 """
-load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyContext", "BundledInstallContext")
+load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyRuntimeInfo", "BundledInstallInfo")
 
 ##
 # An implementation for ruby_binary rule
@@ -38,15 +38,19 @@ def _ruby_bundler_binary_impl(ctx):
   run_log_text += "\nentrypoint_dir={entrypoint_dir}".format(entrypoint_dir = entrypoint_dir)
   run_log_text += "\nentrypoint_path={entrypoint_path}".format(entrypoint_path = entrypoint_path)
 
-  # Grabbing the RubyContext and extracting the binary from it
-  ruby_context = ctx.attr.ruby_context[RubyContext]
+  # Grabbing the RubyRuntimeInfo and extracting the binary from it
+  ruby_context = ctx.attr.ruby_context[RubyRuntimeInfo]
   ruby_bin = ruby_context.bin
   ruby_bin_path = ruby_bin.path
   ruby_bin_dirpath = ruby_bin.dirname
+  bundle_bin = ruby_context.bundle_bin
+  bundle_bin_path = bundle_bin.path
+  
   ruby_all_bins = ruby_context.all_bins
 
   run_log_text += "\nruby_bin_path={ruby_bin_path}".format(ruby_bin_path = ruby_bin_path)
   run_log_text += "\nruby_bin_dirpath={ruby_bin_dirpath}".format(ruby_bin_dirpath = ruby_bin_dirpath)
+  run_log_text += "\nbundle_bin_path={bundle_bin_path}".format(bundle_bin_path = bundle_bin_path)
 
   # Same dependency also contains the Ruby StandardLibrary info packaged as RubyLibraryInfo
   ruby_standard_lib = ctx.attr.ruby_context[RubyLibraryInfo]
@@ -76,34 +80,29 @@ def _ruby_bundler_binary_impl(ctx):
   for dep in deps_set.to_list():
     all_inputs = all_inputs + dep.srcs  
 
-  # Now grabbing the bundled context to get the files of the bundler install
-  bundled_context = ctx.attr.bundled_context[BundledInstallContext]
+  # Now grabbing the bundled context to get the files of the bundle install
+  bundled_context = ctx.attr.bundled_context[BundledInstallInfo]
   gemfile = bundled_context.gemfile
   all_bundled_files = bundled_context.all_bundled_files
   all_inputs = all_inputs + all_bundled_files
 
-  # bundler
-  bundler_bin_path = ruby_bin_dirpath + "/bundler"
-  run_log_text += "\nbundler_bin_path={bundler_bin_path}".format(bundler_bin_path = bundler_bin_path)
-
   # gemfile
-  #gemfile = ctx.file.gemfile
   gemfile_path = gemfile.path
   run_log_text += "\ngemfile_path={gemfile_path}".format(gemfile_path = gemfile_path)
 
   bundle_rel_path = ctx.attr._bundle_rel_path
   run_log_text += "\nbundle_rel_path={bundle_rel_path}".format(bundle_rel_path = bundle_rel_path)
 
-  # bundler gemfile export
-  bundler_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH={bundle_rel_path}".format(
+  # bundle gemfile export
+  bundle_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH={bundle_rel_path}".format(
     newline = "\n", 
     gemfile_path = gemfile_path,
     bundle_rel_path = "bundle")
-  run_log_text += "\nbundler_export={bundler_export}".format(bundler_export = bundler_export)
+  run_log_text += "\nbundle_export={bundle_export}".format(bundle_export = bundle_export)
 
   # the actual command: a ruby binary invocation of the entrypoint file with the correct imports
-  cmd_text = """{bundler} exec {ruby} -W0 -I {src_dir} {imports} {entrypoint}""".format(
-    bundler = bundler_bin_path,
+  cmd_text = """{bundle} exec {ruby} -W0 -I {src_dir} {imports} {entrypoint}""".format(
+    bundle = bundle_bin_path,
     ruby = ruby_bin_path,
     src_dir = src_base_path,
     imports = import_paths_string,
@@ -120,9 +119,9 @@ def _ruby_bundler_binary_impl(ctx):
   # then the actual command follows 
   #
   path_command = "export PATH={ruby_bin_dirpath}".format(ruby_bin_dirpath = ruby_bin_dirpath)
-  exec_text = "#!/bin/bash{newline}{path_command}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{bundler_export}{newline}{cmd_text}{newline}".format(
+  exec_text = "#!/bin/bash{newline}{path_command}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{bundle_export}{newline}{cmd_text}{newline}".format(
     newline = "\n",
-    bundler_export = bundler_export,
+    bundle_export = bundle_export,
     cmd_text = cmd_text,
     path_command = path_command
   )
@@ -149,7 +148,7 @@ def _ruby_bundler_binary_impl(ctx):
 
 ##
 # A rule that takes a ruby application and wraps it into a bazel-runnable shellscript
-# Defines an executable target 
+# Defines an executable target. Uses bundler to execute
 #
 ruby_bundler_binary = rule(
   _ruby_bundler_binary_impl,
