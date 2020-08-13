@@ -18,9 +18,14 @@ with gapic-generator-ruby cloud flavor
 """
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
   "ruby_gapic_library",
-  "ruby_gapic_bundler_library",
   "ruby_proto_library",
   "ruby_grpc_library")
+
+load ("@rules_proto//proto:defs.bzl",
+  "proto_library")
+
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_legacy.bzl", 
+  "ruby_gapic_library_nonbundler")
 
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
   "ruby_gapic_assembly_pkg")
@@ -60,12 +65,6 @@ ruby_gapic_library(
   yml_configs = ["//gapic-generator:example.yml"],
 )
 
-ruby_gapic_bundler_library(
-  name = "example_ruby_bundler_gapic",
-  srcs = [":example_proto",],
-  yml_configs = ["//gapic-generator:example.yml"],
-)
-
 ##
 # completed example client library combined from
 # * protoc ruby output
@@ -81,10 +80,26 @@ ruby_gapic_assembly_pkg(
   ],
 )
 
+##
+# just the gapic-generator-ruby vanilla flavor output
+# nonbundler legacy generator
+#
+ruby_gapic_library_nonbundler(
+  name = "example_ruby_gapic_nonbundler",
+  srcs = [":example_proto",],
+  yml_configs = ["//gapic-generator:example.yml"],
+)
+
+##
+# completed example client library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby vanilla flavor output (nonbundler legacy version)
+#
 ruby_gapic_assembly_pkg(
-  name = "example_ruby_bundler_library_pkg",
+  name = "example_ruby_library_nonbundler_pkg",
   deps = [
-    ":example_ruby_bundler_gapic",
+    ":example_ruby_gapic_nonbundler",
     ":example_ruby_proto",
     ":example_ruby_grpc",
   ],

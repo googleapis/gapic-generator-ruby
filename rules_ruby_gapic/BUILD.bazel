@@ -12,44 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Executable targets defining the various flavors of gapic-generator ruby
-as a 'ruby binaries' (actually shellscripts) for use as a protoc plugin
-"""
-load ("//rules_ruby_gapic/ruby_binary:ruby_binary.bzl", "ruby_binary")
-
-##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby vanilla
-# ready to be uses as a protoc plugin
-#
-ruby_binary (
-  name = "gapic_generator_ruby",
-  entrypoint = "@gapic_generator_ruby//:gapic-generator/bin/protoc-gen-ruby_gapic",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
-  src_base = "@gapic_generator_ruby//:gapic-generator",
-  visibility = ["//visibility:public"],
-)
-
-##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby cloud
-# ready to be uses as a protoc plugin
-#
-ruby_binary (
-  name = "gapic_generator_cloud",
-  entrypoint = "@gapic_generator_ruby//:gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
-  src_base = "@gapic_generator_ruby//:gapic-generator-cloud",
-  visibility = ["//visibility:public"],
-)
-
-##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby ads
-# ready to be uses as a protoc plugin
-#
-ruby_binary (
-  name = "gapic_generator_ads",
-  entrypoint = "@gapic_generator_ruby//:gapic-generator-ads/bin/protoc-gen-bazel_ruby_ads",
-  srcs = ["@gapic_generator_ruby//:gapic_generator_allfiles"],
-  src_base = "@gapic_generator_ruby//:gapic-generator-ads",
-  visibility = ["//visibility:public"],
-)
+""" This file intentionally left blank """
