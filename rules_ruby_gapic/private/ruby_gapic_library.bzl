@@ -54,7 +54,7 @@ def ruby_gapic_library(
   name,
   srcs,
   plugin,
-  generator_params,
+  extra_protoc_parameters,
   yml_configs,
   grpc_service_config,
   **kwargs):
@@ -65,8 +65,15 @@ def ruby_gapic_library(
   name_srcjar = "{name}_srcjar".format(name = name)
 
   opt_args = []
-  if generator_params:
-    for key, value in generator_params.items():
+  if extra_protoc_parameters:
+    for key_val_string in extra_protoc_parameters:
+      key_boundary = key_val_string.find('=') # finds the first occurence
+      if key_boundary <= 0 or key_boundary == len(key_val_string)-1:
+        fail("Parameter {key_val_string} is not in the 'key=value' format")
+      # reminder that the substr format is [startPos:length] and not [startPos:endPos]
+      key = key_val_string[:key_boundary].strip() 
+      value = key_val_string[key_boundary+1:].strip()
+
       escaped_value = _escape_config_value(value)
       opt_args.append("{key}={value}".format(key = key, value = escaped_value))
 

@@ -33,10 +33,10 @@ load(
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_library_nonbundler(
+def ruby_nonbundler_gapic_library(
   name,
   srcs,
-  generator_params = {},
+  extra_protoc_parameters = [],
   yml_configs = [],
   grpc_service_config = None,
   **kwargs):
@@ -45,7 +45,7 @@ def ruby_gapic_library_nonbundler(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby_nonbundler"),
-    generator_params,
+    extra_protoc_parameters,
     yml_configs,
     grpc_service_config
   )
@@ -62,10 +62,10 @@ def ruby_gapic_library_nonbundler(
 #   (e.g. :gem.:name)
 # grpc_service_configs: a list of labels of the grpc service configs (or an empty list)
 #
-def ruby_gapic_cloud_library_nonbundler(
+def ruby_nonbundler_cloud_gapic_library(
   name,
   srcs,
-  ruby_cloud_params = {},
+  extra_protoc_parameters = [],
   grpc_service_config = None,
   **kwargs):
   
@@ -73,7 +73,7 @@ def ruby_gapic_cloud_library_nonbundler(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_nonbundler"),
-    ruby_cloud_params,
+    extra_protoc_parameters,
     [],
     grpc_service_config
   )
@@ -89,10 +89,10 @@ def ruby_gapic_cloud_library_nonbundler(
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_ads_library_nonbundler(
+def ruby_nonbundler_ads_gapic_library(
   name,
   srcs,
-  ruby_ads_params = {},
+  extra_protoc_parameters = [],
   grpc_service_config = None,
   **kwargs):
   
@@ -100,7 +100,7 @@ def ruby_gapic_ads_library_nonbundler(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads_nonbundler"),
-    ruby_ads_params,
+    extra_protoc_parameters,
     [],
     grpc_service_config
   )

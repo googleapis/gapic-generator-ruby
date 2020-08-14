@@ -94,10 +94,13 @@ def _ruby_bundler_binary_impl(ctx):
   run_log_text += "\nbundle_rel_path={bundle_rel_path}".format(bundle_rel_path = bundle_rel_path)
 
   # bundle gemfile export
-  bundle_export = "export HOME=/tmp/{newline}export BUNDLE_GEMFILE={gemfile_path}{newline}export BUNDLE_DEPLOYMENT=true{newline}export BUNDLE_PATH={bundle_rel_path}".format(
-    newline = "\n", 
-    gemfile_path = gemfile_path,
-    bundle_rel_path = "bundle")
+  bundle_export_lines = [
+    "export HOME=/tmp/",
+    "export BUNDLE_GEMFILE={gemfile_path}".format(gemfile_path = gemfile_path),
+    "export BUNDLE_DEPLOYMENT=true",
+    "export BUNDLE_PATH={bundle_rel_path}".format(bundle_rel_path = "bundle"),
+  ]
+  bundle_export = "\n".join(bundle_export_lines)
   run_log_text += "\nbundle_export={bundle_export}".format(bundle_export = bundle_export)
 
   # the actual command: a ruby binary invocation of the entrypoint file with the correct imports
@@ -119,12 +122,16 @@ def _ruby_bundler_binary_impl(ctx):
   # then the actual command follows 
   #
   path_command = "export PATH={ruby_bin_dirpath}".format(ruby_bin_dirpath = ruby_bin_dirpath)
-  exec_text = "#!/bin/bash{newline}{path_command}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{bundle_export}{newline}{cmd_text}{newline}".format(
-    newline = "\n",
-    bundle_export = bundle_export,
-    cmd_text = cmd_text,
-    path_command = path_command
-  )
+  shell_script_lines = [
+    "#!/bin/bash",
+    path_command,
+    "export XDG_CACHE_HOME=/tmp",
+    "export LANG=en_US.UTF-8",
+    "export LANGUAGE=en_US:en",
+    bundle_export,
+    cmd_text
+  ]
+  exec_text = "\n".join(shell_script_lines)
 
   # write the shellscript into the result file
   ctx.actions.write(run_result_file, exec_text)

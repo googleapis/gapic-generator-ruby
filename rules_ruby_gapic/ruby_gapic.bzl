@@ -36,7 +36,7 @@ load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
 def ruby_gapic_library(
   name,
   srcs,
-  generator_params = {},
+  extra_protoc_parameters = [],
   yml_configs = [],
   grpc_service_config = None,
   **kwargs):
@@ -45,7 +45,7 @@ def ruby_gapic_library(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby"),
-    generator_params,
+    extra_protoc_parameters,
     yml_configs,
     grpc_service_config
   )
@@ -60,10 +60,10 @@ def ruby_gapic_library(
 #   (e.g. :gem.:name)
 # grpc_service_configs: a list of labels of the grpc service configs (or an empty list)
 #
-def ruby_gapic_cloud_library(
+def ruby_cloud_gapic_library(
   name,
   srcs,
-  ruby_cloud_params = {},
+  extra_protoc_parameters = [],
   grpc_service_config = None,
   **kwargs):
   
@@ -71,7 +71,7 @@ def ruby_gapic_cloud_library(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud"),
-    ruby_cloud_params,
+    extra_protoc_parameters,
     [],
     grpc_service_config
   )
@@ -82,13 +82,13 @@ def ruby_gapic_cloud_library(
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
-# yml_configs: a list of labels of the yaml configs (or an empty list)
+# extra_protoc_parameters: a 
 # grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_ads_library(
+def ruby_ads_gapic_library(
   name,
   srcs,
-  ruby_ads_params = {},
+  extra_protoc_parameters = [],
   grpc_service_config = None,
   **kwargs):
   
@@ -96,7 +96,7 @@ def ruby_gapic_ads_library(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads"),
-    ruby_ads_params,
+    extra_protoc_parameters,
     [],
     grpc_service_config
   )

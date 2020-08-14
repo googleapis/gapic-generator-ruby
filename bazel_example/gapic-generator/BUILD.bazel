@@ -25,7 +25,7 @@ load ("@rules_proto//proto:defs.bzl",
   "proto_library")
 
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_legacy.bzl", 
-  "ruby_gapic_library_nonbundler")
+  "ruby_nonbundler_gapic_library")
 
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
   "ruby_gapic_assembly_pkg")
@@ -84,7 +84,7 @@ ruby_gapic_assembly_pkg(
 # just the gapic-generator-ruby vanilla flavor output
 # nonbundler legacy generator
 #
-ruby_gapic_library_nonbundler(
+ruby_nonbundler_gapic_library(
   name = "example_ruby_gapic_nonbundler",
   srcs = [":example_proto",],
   yml_configs = ["//gapic-generator:example.yml"],
