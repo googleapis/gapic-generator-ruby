@@ -71,8 +71,8 @@ def ruby_gapic_library(
       if key_boundary <= 0 or key_boundary == len(key_val_string)-1:
         fail("Parameter {key_val_string} is not in the 'key=value' format")
       # reminder that the substr format is [startPos:length] and not [startPos:endPos]
-      key = key_val_string[:key_boundary].strip() 
-      value = key_val_string[key_boundary+1:].strip()
+      key = key_val_string[:key_boundary]
+      value = key_val_string[key_boundary+1:]
 
       escaped_value = _escape_config_value(value)
       opt_args.append("{key}={value}".format(key = key, value = escaped_value))

@@ -21,22 +21,6 @@ load(
 )
 
 def _bundle_install(repo_ctx):
-  # # gemfile
-  # orig_gemfile_path = repo_ctx.path(repo_ctx.attr.gemfile)
-  # gemfile_path = repo_ctx.path("./export/gapic-generator-cloud/Gemfile")
-  # repo_ctx.file(gemfile_path, "") # this create the folder structure like mkdir -p
-  # _execute_log_action(repo_ctx, "copy_gemfile.log", 
-  #   ["cp", "%s" % orig_gemfile_path, "%s" % gemfile_path]
-  # )
-
-  # # gemfile.lock
-  # orig_gemfile_lock_path = repo_ctx.path(repo_ctx.attr.gemfile_lock)
-  # gemfile_lock_path = repo_ctx.path("./export/gapic-generator-cloud/Gemfile.lock")
-  # repo_ctx.file(gemfile_lock_path, "") # this create the folder structure like mkdir -p
-  # _execute_log_action(repo_ctx, "copy_gemfile_lock.log", 
-  #   ["cp", "%s" % orig_gemfile_lock_path, "%s" % gemfile_lock_path]
-  # )
-
   bundle_install_path = None
   gemfile_path = None
   gemfile_sel_log = "Not found"
