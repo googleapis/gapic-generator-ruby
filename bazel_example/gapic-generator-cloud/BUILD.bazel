@@ -48,7 +48,7 @@ ruby_gapic_assembly_pkg(
 ruby_cloud_gapic_library(
   name = "language_ruby_gapic",
   srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto_with_info"],
-   extra_protoc_parameters = [
+  extra_protoc_parameters = [
     ":gem.:name=google-cloud-language-v1",
     ":gem.:title=Natural Language V1",
     ":gem.:description=Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations.",

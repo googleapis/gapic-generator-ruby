@@ -50,7 +50,7 @@ _ruby_gapic_library_add_gapicinfo = rule(
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
-def ruby_gapic_library(
+def ruby_gapic_library_internal(
   name,
   srcs,
   plugin,
@@ -67,12 +67,11 @@ def ruby_gapic_library(
   opt_args = []
   if extra_protoc_parameters:
     for key_val_string in extra_protoc_parameters:
-      key_boundary = key_val_string.find('=') # finds the first occurence
-      if key_boundary <= 0 or key_boundary == len(key_val_string)-1:
+      key_val_split = key_val_string.split('=', 1)
+      if len(key_val_split) != 2:
         fail("Parameter {key_val_string} is not in the 'key=value' format")
-      # reminder that the substr format is [startPos:length] and not [startPos:endPos]
-      key = key_val_string[:key_boundary]
-      value = key_val_string[key_boundary+1:]
+      key = key_val_split[0]
+      value = key_val_split[1]
 
       escaped_value = _escape_config_value(value)
       opt_args.append("{key}={value}".format(key = key, value = escaped_value))

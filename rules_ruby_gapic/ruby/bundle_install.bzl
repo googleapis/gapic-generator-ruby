@@ -62,19 +62,19 @@ def _bundle_install(repo_ctx):
     sh_path.basename,
     repo_ctx.attr._bundle_install_tpl,
     substitutions = {
-      "{bundle}": "{bundle}".format(bundle = bundle_bin_path),
+      "{bundle}": "%s" % bundle_bin_path,
     },
     executable = True,
   )
 
   repo_ctx.report_progress("Running bundle install on %s" % gemfile_path)
   _execute_log_action(repo_ctx, "bundle_install.log", ["%s" % sh_path], environment = {
-    "HOME": "{home_path}".format(home_path = home_path), # otherwise the local user's home will get contaminated
+    "HOME": "%s" % home_path, # otherwise the local user's home will get contaminated
     "BUNDLE_JOBS": "8",
     "BUNDLE_RETRY": "3",
-    "BUNDLE_GEMFILE": "{gemfile_path}".format(gemfile_path = gemfile_path),
+    "BUNDLE_GEMFILE": "%s" % gemfile_path,
     "BUNDLE_DEPLOYMENT": "true", # put the gems all in one folder
-    "BUNDLE_PATH": "{bundle_install_path}".format(bundle_install_path = bundle_install_path), # and this is the folder where to put them
+    "BUNDLE_PATH": "%s" % bundle_install_path, # and this is the folder where to put them
   })
   
   repo_ctx.template("BUILD.bazel", repo_ctx.attr._build_tpl,)

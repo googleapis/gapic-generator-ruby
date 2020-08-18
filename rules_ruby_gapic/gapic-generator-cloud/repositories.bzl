@@ -18,7 +18,7 @@ Defines the function that will load the dependencies for gapic-generator-cloud
 load("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
 load("//rules_ruby_gapic/ruby:bundle_install.bzl", "bundle_install")
 
-def gapic_generator_cloud_repos():
+def gapic_generator_cloud_repositories():
   # Create the ruby runtime
   ruby_runtime(
     name = "gapic_generator_cloud_ruby_runtime",

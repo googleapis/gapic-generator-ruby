@@ -17,8 +17,8 @@ Rules for generating ruby code with protoc
 including rules for ruby, grpc-ruby, and various flavors of gapic-generator-ruby
 """
 load(
-  ":private/ruby_gapic_library.bzl",
-  _ruby_gapic_library = "ruby_gapic_library",
+  ":private/ruby_gapic_library_internal.bzl",
+  _ruby_gapic_library_internal = "ruby_gapic_library_internal",
 )
 load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
 
@@ -41,7 +41,7 @@ def ruby_gapic_library(
   grpc_service_config = None,
   **kwargs):
   
-  _ruby_gapic_library(
+  _ruby_gapic_library_internal(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby"),
@@ -67,7 +67,7 @@ def ruby_cloud_gapic_library(
   grpc_service_config = None,
   **kwargs):
   
-  _ruby_gapic_library(
+  _ruby_gapic_library_internal(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud"),
@@ -92,7 +92,7 @@ def ruby_ads_gapic_library(
   grpc_service_config = None,
   **kwargs):
   
-  _ruby_gapic_library(
+  _ruby_gapic_library_internal(
     name,
     srcs,
     Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads"),

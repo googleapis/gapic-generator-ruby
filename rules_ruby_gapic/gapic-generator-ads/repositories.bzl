@@ -22,7 +22,7 @@ load("//rules_ruby_gapic/ruby:bundle_install.bzl", "bundle_install")
 # Creates a ruby runtime specific to gapic-generator-ads and 
 # a bundled installation for its packages
 #
-def gapic_generator_ads_repos():
+def gapic_generator_ads_repositories():
   # Create the ruby runtime
   ruby_runtime(
     name = "gapic_generator_ads_ruby_runtime",
