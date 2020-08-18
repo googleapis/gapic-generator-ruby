@@ -44,7 +44,7 @@ def ruby_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby"),
+    Label("//rules_ruby_gapic/gapic-generator:gapic_generator_ruby"),
     extra_protoc_parameters,
     yml_configs,
     grpc_service_config
@@ -70,7 +70,7 @@ def ruby_cloud_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud"),
+    Label("//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud"),
     extra_protoc_parameters,
     [],
     grpc_service_config
@@ -95,7 +95,7 @@ def ruby_ads_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads"),
+    Label("//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads"),
     extra_protoc_parameters,
     [],
     grpc_service_config

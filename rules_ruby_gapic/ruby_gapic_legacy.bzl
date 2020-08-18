@@ -44,7 +44,7 @@ def ruby_nonbundler_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator:gapic_generator_ruby_nonbundler"),
+    Label("//rules_ruby_gapic/gapic-generator:gapic_generator_ruby_nonbundler"),
     extra_protoc_parameters,
     yml_configs,
     grpc_service_config
@@ -72,7 +72,7 @@ def ruby_nonbundler_cloud_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_nonbundler"),
+    Label("//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud_nonbundler"),
     extra_protoc_parameters,
     [],
     grpc_service_config
@@ -99,7 +99,7 @@ def ruby_nonbundler_ads_gapic_library(
   _ruby_gapic_library_internal(
     name,
     srcs,
-    Label("@gapic_generator_ruby//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads_nonbundler"),
+    Label("//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads_nonbundler"),
     extra_protoc_parameters,
     [],
     grpc_service_config
