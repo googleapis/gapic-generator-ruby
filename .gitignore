@@ -1,4 +1,4 @@
-Gemfile.lock
+/Gemfile.lock
 .DS_STORE
 /.bundle/
 /.vscode/
@@ -10,5 +10,4 @@ Gemfile.lock
 /pkg/
 /spec/reports/
 /tmp/
-Gemfile.lock
 /bazel-*

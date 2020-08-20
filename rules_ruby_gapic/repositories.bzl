@@ -16,7 +16,11 @@
 Defines functions that will load the dependencies for gapic_generator_ruby
 """
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-load ("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
+load("//rules_ruby_gapic/ruby:ruby_runtime.bzl", "ruby_runtime")
+load("//rules_ruby_gapic/ruby:bundle_install.bzl", "bundle_install")
+load("//rules_ruby_gapic/gapic-generator:repositories.bzl", "gapic_generator_repositories")
+load("//rules_ruby_gapic/gapic-generator-cloud:repositories.bzl", "gapic_generator_cloud_repositories")
+load("//rules_ruby_gapic/gapic-generator-ads:repositories.bzl", "gapic_generator_ads_repositories")
 
 ##
 # Load a set of dependencies with the gems that work with all 3 gapic-generator flavors
@@ -45,7 +49,7 @@ def gapic_generator_ruby_repositories():
     "loofah": "2.5.0",
     "memoist": "0.16.2",
     "middleware": "0.1.0",
-    "minitest": "5.14.0",
+    "minitest": "5.14.1",
     "multi_json": "1.14.1",
     "multipart-post": "2.1.1",
     "os": "1.0.1",
@@ -58,7 +62,7 @@ def gapic_generator_ruby_repositories():
     "rails-dom-testing": "2.0.3",
     "rails-html-sanitizer": "1.3.0",
     "rainbow": "3.0.0",
-    "rake": "12.3.3",
+    "rake": "13.0.1",
     "rubocop": "0.74.0",
     "ruby-progressbar": "1.10.1",
     "signet": "0.13.0",
@@ -75,7 +79,7 @@ def gapic_generator_ruby_repositories():
 # list_of_gems: a dictionary of gem name -> version strings to be loaded when the ruby_runtime dependency builds
 #
 def gapic_generator_ruby_customgems(list_of_gems):
-  _protobuf_version = "3.11.2"
+  _protobuf_version = "3.13.0"
   _protobuf_version_in_link = "v%s" % _protobuf_version
   _maybe(
     http_archive,
@@ -98,17 +102,52 @@ def gapic_generator_ruby_customgems(list_of_gems):
     urls = ["https://github.com/googleapis/gapic-generator/archive/v2.4.0.zip"],
   )
 
-  # Create the ruby runtime
-  ruby_runtime (
+  # Create the common ruby runtime used for checks
+  ruby_runtime(
     name = "ruby_runtime",
     urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
     strip_prefix = "ruby-2.6.6",
     prebuilt_rubys = [
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_linux_kokoro_x86_64.tar.gz",
       "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
     ],
+    bundler_version_to_install = "2.1.4",
     gems_to_install = list_of_gems,
   )
+
+  # a bundled isntallation for the bundler rainbow test
+  bundle_install(
+    name = "bundler_rainbow_test",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gemfile = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:rainbow_bundler_test/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:rainbow_bundler_test/Gemfile.lock",
+    gemfile_srcs = {
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:rainbow_bundler_test/Gemfile" : "Gemfile",
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:rainbow_bundler_test/Gemfile.lock": "Gemfile.lock",
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:rainbow_bundler_test/lib/version.rb" : "lib/version.rb"
+    }
+  )
+  
+  # a bundled isntallation for the bundler rainbow-rubocop test
+  bundle_install(
+    name = "bundler_rubocop_test",
+    bundle_bin = "@ruby_runtime//:bin/bundle",
+    gemfile = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:syscall_rubocop_bundler_test/Gemfile",
+    gemfile_lock = "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:syscall_rubocop_bundler_test/Gemfile.lock",
+    gemfile_srcs = {
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:syscall_rubocop_bundler_test/Gemfile" : "Gemfile",
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:syscall_rubocop_bundler_test/Gemfile.lock" : "Gemfile.lock",
+      "@gapic_generator_ruby//rules_ruby_gapic/ruby_binary/test:syscall_rubocop_bundler_test/lib/version.rb" : "lib/version.rb"
+    }
+  )
+
+  # gapic-generator-vanilla dependencies
+  gapic_generator_repositories()
+
+  # gapic-generator-cloud dependencies
+  gapic_generator_cloud_repositories()
+
+  # gapic-generator-ads dependencies
+  gapic_generator_ads_repositories()
 
 ##
 # a helper macro to load a repo rule with an optional prefix

@@ -15,7 +15,8 @@
 """
 A rule for packaging the ruby gapic library
 """
-load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo")
+load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo", "CustomProtoInfo")
+load("@rules_proto//proto:defs.bzl", "ProtoInfo")
 
 def _ruby_gapic_assembly_pkg_impl(ctx):
   out_dir = ctx.actions.declare_directory(ctx.attr.package_dir)
@@ -23,10 +24,11 @@ def _ruby_gapic_assembly_pkg_impl(ctx):
   gapic_zip = None
   extras = []
   for dep in ctx.attr.deps:
-      if GapicInfo in dep:
-          gapic_zip = dep.files.to_list()[0]
-      else:
+      #ProtoInfo/CustomProtoInfo delineate proto plugin/grpc plugin results -- they need to go into /lib subfolder
+      if ProtoInfo in dep or CustomProtoInfo in dep:
           extras = extras + dep.files.to_list()
+      else:
+          gapic_zip = dep.files.to_list()[0]
 
   ctx.actions.run_shell(
     inputs = [gapic_zip] + extras,

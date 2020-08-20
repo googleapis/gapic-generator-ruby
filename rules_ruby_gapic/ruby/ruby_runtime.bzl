@@ -18,6 +18,7 @@ Creates a workspace with ruby runtime, including ruby executables and ruby stand
 load(
   ":private/utils.bzl",
   _execute_and_check_result = "execute_and_check_result",
+  _execute_log_action = "execute_log_action",
 )
 
 ##
@@ -212,6 +213,28 @@ def _ruby_runtime_impl(ctx):
   gem_report_path = "logs/gem_report.log"
   ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
 
+  bundler_version = None
+  if ctx.attr.bundler_version_to_install:
+    bundler_version = ctx.attr.bundler_version_to_install
+    ctx.file("logs/bundler_version_from_attr.log", bundler_version)
+  elif ctx.attr.gemfile_lock:
+    gemfile_lock_str = ctx.read(ctx.attr.gemfile_lock)
+    bundler_version = [x.strip() for x in gemfile_lock_str.split("\n") if x.strip()].pop()
+    ctx.file("logs/bundler_version_from_gemfile.log", bundler_version)
+
+  if bundler_version:
+    # Update bundler to the correct version
+    _execute_log_action(ctx, "gem_install_bundler.log", 
+      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)]
+    )
+
+  res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
+  ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
+    code = res.return_code,
+    stdout = res.stdout,
+    stderr = res.stderr,
+  ))
+
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
 
@@ -239,6 +262,13 @@ ruby_runtime = repository_rule(
     "strip_prefix": attr.string(),
     "prebuilt_rubys": attr.label_list(allow_files = True, mandatory = False),
     "gems_to_install": attr.string_dict(),
+    "bundler_version_to_install": attr.string(
+      mandatory = False,
+    ),
+    "gemfile_lock": attr.label(
+      mandatory = False,
+      allow_single_file = True,
+    ),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.dist.bazel.tpl"
     ),

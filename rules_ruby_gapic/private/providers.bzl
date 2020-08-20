@@ -29,10 +29,19 @@ RubyLibraryInfo = provider (
 ##
 # A provider that encompasses a ruby runtime with ruby binaries
 #
-RubyContext = provider(
+RubyRuntimeInfo = provider(
   fields = {
     "bin" : "A ruby binary",
+    "gem_bin" : "A ruby gem binary",
+    "bundle_bin" : "A ruby bundle binary",
     "all_bins" : "All the binaries that come with the ruby runtime (e.g. gem, rubocop, etc)",
     "info" : "A struct covering the library-component of the ruby runtime: its sources and lib path",
+  }
+)
+
+BundledInstallInfo = provider(
+  fields = {
+    "gemfile" : "the gemfile for the installation",
+    "all_bundled_files": "all files in this bundled installation"
   }
 )

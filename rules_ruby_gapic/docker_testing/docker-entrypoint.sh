@@ -17,5 +17,5 @@
 # An entrypoint script for the image that showcases bazel rules for gapic-generator-ruby
 # it builds an example target and then shows the possible targets to run
 
-bazel run //rules_ruby_gapic/ruby_binary/check:ruby_hellolib_sh
+bazel run //rules_ruby_gapic/ruby_binary/test:ruby_hellolib_sh
 bazel query //rules_ruby_gapic/...

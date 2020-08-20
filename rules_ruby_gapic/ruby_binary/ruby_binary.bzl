@@ -15,7 +15,7 @@
 """
 Defines a rule that wraps a ruby application into a shellscript, executable by bazel
 """
-load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyContext")
+load("//rules_ruby_gapic:private/providers.bzl", "RubyLibraryInfo", "RubyRuntimeInfo")
 
 ##
 # An implementation for ruby_binary rule
@@ -31,8 +31,8 @@ def _ruby_binary_impl(ctx):
   entrypoint_dir = ctx.file.entrypoint.dirname
   entrypoint_path = ctx.file.entrypoint.path
 
-  # Grabbing the RubyContext and extracting the binary from it
-  ruby_context = ctx.attr.ruby_context[RubyContext]
+  # Grabbing the RubyRuntimeInfo and extracting the binary from it
+  ruby_context = ctx.attr.ruby_context[RubyRuntimeInfo]
   ruby_bin = ruby_context.bin
   ruby_bin_path = ruby_bin.path
   ruby_bin_dirpath = ruby_bin.dirname
@@ -78,7 +78,7 @@ def _ruby_binary_impl(ctx):
   #
   # then the actual command follows 
   #
-  exec_text = "#!/bin/bash{newline}export PATH=$PATH:{ruby_bin_dirpath}{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{cmd_text}{newline}".format(
+  exec_text = "#!/bin/bash{newline}export PATH={ruby_bin_dirpath}:$PATH{newline}export XDG_CACHE_HOME=/tmp{newline}export LANG=en_US.UTF-8{newline}export LANGUAGE=en_US:en{newline}{cmd_text}{newline}".format(
     newline = "\n",
     cmd_text = cmd_text,
     ruby_bin_dirpath = ruby_bin_dirpath,
