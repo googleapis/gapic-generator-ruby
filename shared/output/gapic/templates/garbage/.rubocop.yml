@@ -24,6 +24,8 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - "lib/google-garbage.rb"
+Style/AsciiComments:
+  Enabled: false
 Style/CaseEquality:
   Enabled: false
 Style/IfUnlessModifier:
