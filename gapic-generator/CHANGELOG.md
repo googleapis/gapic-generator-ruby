@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.6.8 / 2020-09-16
+
+* Add samples tasks to generated gapic rakefiles.
+* Disable Style/AsciiComments rule.
+
 ### 0.6.7 / 2020-08-07
 
 * Generated credentials config allows symbols.
