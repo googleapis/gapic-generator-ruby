@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.6.7)
+    gapic-generator (0.6.8)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-ads (0.6.7)
+    gapic-generator-ads (0.6.8)
       actionpack (~> 5.2)
-      gapic-generator (= 0.6.7)
+      gapic-generator (= 0.6.8)
       protobuf (~> 3.8)
 
 GEM
