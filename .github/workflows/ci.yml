@@ -32,8 +32,8 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
-          bundle update
-          bundle exec rake update
+          bundle install --retry=3
+          bundle exec rake bundle_install
       - name: Run CI
         run: |
           bundle exec rake ci
