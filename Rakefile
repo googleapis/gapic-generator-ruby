@@ -149,7 +149,7 @@ task :ci do
 end
 
 desc "Runs bundle update for all gems."
-task :update do
+task :bundle_update do
   Dir.chdir "shared" do
     Bundler.with_unbundled_env do
       puts "Running bundle update for shared"
@@ -162,6 +162,26 @@ task :update do
       Bundler.with_unbundled_env do
         puts "Running bundle update for #{gem}"
         sh "bundle update"
+      end
+    end
+  end
+end
+task update: :bundle_update
+
+desc "Runs bundle install for all gems."
+task :bundle_install do
+  Dir.chdir "shared" do
+    Bundler.with_unbundled_env do
+      puts "Running bundle install for shared"
+      sh "bundle install --retry=3"
+    end
+  end
+
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_unbundled_env do
+        puts "Running bundle install for #{gem}"
+        sh "bundle install --retry=3"
       end
     end
   end

@@ -1,0 +1,39 @@
+name: "CI tests"
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  tests:
+    if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
+    runs-on: ubuntu-latest
+    services:
+      showcase:
+        image: gcr.io/gapic-images/gapic-showcase:0.12.0
+        ports:
+          - "7469:7469"
+    steps:
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Checkout submodules
+        run: |
+          git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
+          git submodule set-url shared/api-common-protos https://github.com/googleapis/api-common-protos.git
+          git submodule update --init --recursive
+      - name: Install dependencies
+        run: |
+          bundle install --retry=3
+          bundle exec rake bundle_install
+      - name: Run CI
+        run: |
+          bundle exec rake ci
