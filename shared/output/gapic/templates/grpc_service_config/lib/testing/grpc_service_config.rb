@@ -38,3 +38,6 @@ module Testing
   module GrpcServiceConfig
   end
 end
+
+helper_path = ::File.join __dir__, "grpc_service_config", "_helpers.rb"
+require "testing/grpc_service_config/_helpers" if ::File.file? helper_path

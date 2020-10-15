@@ -35,3 +35,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "services", "_helpers.rb"
+require "google/ads/google_ads/v1/services/_helpers" if ::File.file? helper_path
