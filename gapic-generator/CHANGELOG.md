@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.6.9 / 2020-12-07
+
+* Load package-level handwritten helpers.
+* Disable Names/PredicateName rubocop rule.
+* Fix generated client tests when a request field name collides with a Ruby superclass method.
+
 ### 0.6.8 / 2020-09-16
 
 * Add samples tasks to generated gapic rakefiles.
