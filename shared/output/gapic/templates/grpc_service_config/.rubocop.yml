@@ -24,6 +24,8 @@ Metrics/PerceivedComplexity:
 Naming/FileName:
   Exclude:
     - "lib/testing-grpc_service_config.rb"
+Naming/PredicateName:
+  Enabled: false
 Style/AsciiComments:
   Enabled: false
 Style/CaseEquality:
