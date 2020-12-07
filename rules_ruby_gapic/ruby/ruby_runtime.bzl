@@ -17,7 +17,6 @@ Creates a workspace with ruby runtime, including ruby executables and ruby stand
 """
 load(
   ":private/utils.bzl",
-  _execute_and_check_result = "execute_and_check_result",
   _execute_log_action = "execute_log_action",
 )
 
@@ -34,7 +33,8 @@ def try_prebuilt(ctx, prebuilt_ruby, os_name):
     return False, prebuilt_selection_log
 
   tmp = "ruby_tmp"
-  _execute_and_check_result(ctx, ["mkdir", tmp], quiet = False)
+  _execute_log_action(ctx, None, ["mkdir", tmp], quiet = False)
+  
   ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix, output = tmp)
 
   res = ctx.execute(
@@ -52,7 +52,7 @@ def try_prebuilt(ctx, prebuilt_ruby, os_name):
     prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(
       prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
   
-  _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
+  _execute_log_action(ctx, None, ["rm", "-rf", tmp], quiet = False)
   return prebuilt_working, prebuilt_selection_log
 
 ##
@@ -78,7 +78,7 @@ def build_ruby_runtime(ctx, root_path, srcs_dir):
     "--prefix=%s" % root_path.realpath,
     "--with-ruby-version=ruby_bazel_libroot"]
   ctx.file("configure_opts.log", " ".join(configure_opts))
-  _execute_and_check_result(ctx, configure_opts, working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, configure_opts, working_directory = srcs_dir, quiet = False)
 
   # if num_proc gets us some reasonable number of processors let's use them
   num_proc = "1"
@@ -99,8 +99,8 @@ def build_ruby_runtime(ctx, root_path, srcs_dir):
   make_opts_log += "\n" + " ".join(make_opts)
   ctx.file("make_opts.log", make_opts_log)
 
-  _execute_and_check_result(ctx, make_opts, working_directory = srcs_dir, quiet = False)
-  _execute_and_check_result(ctx, ["make", "install"], working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, make_opts, working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, ["make", "install"], working_directory = srcs_dir, quiet = False)
 
 ##
 # Tries to find a gem installed locally with gem list
@@ -193,6 +193,10 @@ def _ruby_runtime_impl(ctx):
     build_ruby_runtime(ctx, root_path, srcs_dir)
 
   ctx.report_progress("Installing gems")
+  _execute_log_action(ctx, "gem_env_novars_set.log", 
+    ["bin/gem", "env"],
+  )
+
   res = ctx.execute(["bin/gem", "list"], working_directory = ".")
   ctx.file("logs/gem_list_pre.log", res.stdout)
 
@@ -207,9 +211,6 @@ def _ruby_runtime_impl(ctx):
       gem_install_report = install_gem(ctx, gem, version)
       gem_log.append(gem_install_report)
 
-  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_post.log", res.stdout)
-
   gem_report_path = "logs/gem_report.log"
   ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
 
@@ -223,17 +224,51 @@ def _ruby_runtime_impl(ctx):
     ctx.file("logs/bundler_version_from_gemfile.log", bundler_version)
 
   if bundler_version:
-    # Update bundler to the correct version
-    _execute_log_action(ctx, "gem_install_bundler.log", 
-      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)]
+    gem_home_path = ctx.path("./lib/ruby/gems/ruby_bazel_libroot/")
+    gem_home_path_str = "%s" % gem_home_path.realpath
+
+    _execute_log_action(ctx, "gem_env_bundler_envars.log", 
+      ["bin/gem", "env"],
+      environment = {
+        "GEM_HOME": gem_home_path_str,
+        "GEM_PATH": gem_home_path_str,
+      }
     )
 
-  res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
-  ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  ))
+    # Update bundler to the correct version
+    _execute_log_action(ctx, "gem_install_bundler.log", 
+      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)],
+      environment = {
+        "GEM_HOME": gem_home_path_str,
+        "GEM_PATH": gem_home_path_str,
+      }
+    )
+    
+    _execute_log_action(ctx, "gem_list_post_bundler_envars.log", ["bin/gem", "list"], 
+      environment = {
+        "GEM_HOME": gem_home_path_str,
+        "GEM_PATH": gem_home_path_str, 
+      }
+    )
+    
+    _execute_log_action(ctx, "bundler_version_envars.log", ["bin/bundler", "--version"],
+      environment = {
+        "GEM_HOME": gem_home_path_str,
+        "GEM_PATH": gem_home_path_str, 
+      }
+    )
+
+    sh_path = ctx.path("gem_install_bundler.sh")
+    ctx.template(
+      sh_path.basename,
+      ctx.attr._gem_install_bundler_tpl,
+      executable = True,
+    )
+    _execute_log_action(ctx, "bundler_version_unset.log", ["%s" % sh_path])
+
+
+  _execute_log_action(ctx, "gem_list_post.log", ["bin/gem", "list"])
+  _execute_log_action(ctx, "bundler_version.log", ["bin/bundler", "--version"]) 
 
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
@@ -271,6 +306,9 @@ ruby_runtime = repository_rule(
     ),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.dist.bazel.tpl"
+    ),
+    "_gem_install_bundler_tpl": attr.label(
+      default = ":templates/gem_install_bundler.sh.tpl"
     ),
   }
 )

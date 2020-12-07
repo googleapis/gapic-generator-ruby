@@ -77,6 +77,14 @@ def _bundle_install(repo_ctx):
     "BUNDLE_PATH": "%s" % bundle_install_path, # and this is the folder where to put them
   })
   
+  repo_ctx.report_progress("Running bundle list on %s" % gemfile_path)
+  _execute_log_action(repo_ctx, "bundle_list.log", ["%s" % bundle_bin_path, "list"], environment = {
+    "HOME": "%s" % home_path, # otherwise the local user's home will get contaminated
+    "BUNDLE_GEMFILE": "%s" % gemfile_path,
+    "BUNDLE_DEPLOYMENT": "true", # put the gems all in one folder
+    "BUNDLE_PATH": "%s" % bundle_install_path, # and this is the folder where to put them
+  })
+
   repo_ctx.template("BUILD.bazel", repo_ctx.attr._build_tpl,)
 
 bundle_install = repository_rule(

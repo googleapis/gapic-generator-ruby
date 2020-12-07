@@ -33,14 +33,23 @@ def execute_and_check_result(ctx, command, **kwargs):
 ##
 # Runs a command and logs the result into a separate file
 #
-def execute_log_action(repo_ctx, log_file_name, action, working_directory = ".", environment={}, should_fail = False):
+def execute_log_action(repo_ctx, log_file_name, action, should_fail = False, **kwargs):
   cmd = " ".join(action)
   repo_ctx.report_progress("Running {cmd}".format(cmd = cmd))
 
-  res = repo_ctx.execute(action, working_directory = working_directory, environment = environment)
-  result_str = "cmd: {cmd}\nENV: {env}\nRETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
+  environment_str = ""
+  if "environment" in kwargs:
+    environment_str = "\nENV: {env}".format(env = kwargs["environment"])
+
+  workdir_str = ""
+  if "working_directory" in kwargs:
+    workdir_str = "\nENV: {workdir}".format(workdir = kwargs["working_directory"])
+
+  res = repo_ctx.execute(action, **kwargs)
+  result_str = "cmd: {cmd}{env_str}{workdir_str}\nRETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
     cmd = cmd,
-    env = environment,
+    env_str = environment_str,
+    workdir_str = workdir_str,
     code = res.return_code,
     stdout = res.stdout,
     stderr = res.stderr,
