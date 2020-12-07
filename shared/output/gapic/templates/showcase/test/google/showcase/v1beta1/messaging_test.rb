@@ -68,7 +68,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     create_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :create_room, name
       assert_kind_of ::Google::Showcase::V1beta1::CreateRoomRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request.room
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request["room"]
       refute_nil options
     end
 
@@ -126,7 +126,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     get_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_room, name
       assert_kind_of ::Google::Showcase::V1beta1::GetRoomRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -185,8 +185,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     update_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :update_room, name
       assert_kind_of ::Google::Showcase::V1beta1::UpdateRoomRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request.room
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Room), request["room"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request["update_mask"]
       refute_nil options
     end
 
@@ -244,7 +244,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     delete_room_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_room, name
       assert_kind_of ::Google::Showcase::V1beta1::DeleteRoomRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -303,8 +303,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     list_rooms_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_rooms, name
       assert_kind_of ::Google::Showcase::V1beta1::ListRoomsRequest, request
-      assert_equal 42, request.page_size
-      assert_equal "hello world", request.page_token
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
       refute_nil options
     end
 
@@ -368,8 +368,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     create_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :create_blurb, name
       assert_kind_of ::Google::Showcase::V1beta1::CreateBlurbRequest, request
-      assert_equal "hello world", request.parent
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request.blurb
+      assert_equal "hello world", request["parent"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request["blurb"]
       refute_nil options
     end
 
@@ -427,7 +427,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     get_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_blurb, name
       assert_kind_of ::Google::Showcase::V1beta1::GetBlurbRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -486,8 +486,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     update_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :update_blurb, name
       assert_kind_of ::Google::Showcase::V1beta1::UpdateBlurbRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request.blurb
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request.update_mask
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), request["blurb"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::FieldMask), request["update_mask"]
       refute_nil options
     end
 
@@ -545,7 +545,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     delete_blurb_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_blurb, name
       assert_kind_of ::Google::Showcase::V1beta1::DeleteBlurbRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -605,9 +605,9 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     list_blurbs_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_blurbs, name
       assert_kind_of ::Google::Showcase::V1beta1::ListBlurbsRequest, request
-      assert_equal "hello world", request.parent
-      assert_equal 42, request.page_size
-      assert_equal "hello world", request.page_token
+      assert_equal "hello world", request["parent"]
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
       refute_nil options
     end
 
@@ -673,10 +673,10 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     search_blurbs_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :search_blurbs, name
       assert_kind_of ::Google::Showcase::V1beta1::SearchBlurbsRequest, request
-      assert_equal "hello world", request.query
-      assert_equal "hello world", request.parent
-      assert_equal 42, request.page_size
-      assert_equal "hello world", request.page_token
+      assert_equal "hello world", request["query"]
+      assert_equal "hello world", request["parent"]
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
       refute_nil options
     end
 
@@ -740,8 +740,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     stream_blurbs_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
       assert_equal :stream_blurbs, name
       assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsRequest, request
-      assert_equal "hello world", request.name
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Timestamp), request.expire_time
+      assert_equal "hello world", request["name"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Protobuf::Timestamp), request["expire_time"]
       refute_nil options
     end
 
@@ -872,8 +872,8 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       send_blurbs_client_stub.requests.each do |request|
         request.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::CreateBlurbRequest, r
-          assert_equal "hello world", r.parent
-          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), r.blurb
+          assert_equal "hello world", r["parent"]
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Blurb), r["blurb"]
         end
       end
     end
@@ -961,7 +961,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       connect_client_stub.requests.each do |request|
         request.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::ConnectRequest, r
-          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::ConnectRequest::ConnectConfig), r.config
+          assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::ConnectRequest::ConnectConfig), r["config"]
           assert_equal :config, r.request
         end
       end

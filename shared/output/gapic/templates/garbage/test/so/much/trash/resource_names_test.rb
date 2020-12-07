@@ -70,9 +70,9 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     simple_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :simple_pattern_method, name
       assert_kind_of ::So::Much::Trash::SimplePatternRequest, request
-      assert_equal "hello world", request.real_name
-      assert_equal "hello world", request.ref
-      assert_equal ["hello world"], request.repeated_ref
+      assert_equal "hello world", request["real_name"]
+      assert_equal "hello world", request["ref"]
+      assert_equal ["hello world"], request["repeated_ref"]
       refute_nil options
     end
 
@@ -132,9 +132,9 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     complex_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :complex_pattern_method, name
       assert_kind_of ::So::Much::Trash::ComplexPatternRequest, request
-      assert_equal "hello world", request.real_name
-      assert_equal "hello world", request.ref
-      assert_equal ["hello world"], request.repeated_ref
+      assert_equal "hello world", request["real_name"]
+      assert_equal "hello world", request["ref"]
+      assert_equal ["hello world"], request["repeated_ref"]
       refute_nil options
     end
 
@@ -192,7 +192,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     resource_name_pattern_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :resource_name_pattern_method, name
       assert_kind_of ::So::Much::Trash::ResourceNamePatternRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -250,7 +250,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     multiparent_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :multiparent_method, name
       assert_kind_of ::So::Much::Trash::MultiparentRequest, request
-      assert_equal "hello world", request.parent
+      assert_equal "hello world", request["parent"]
       refute_nil options
     end
 
@@ -308,7 +308,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
     no_arguments_multi_method_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :no_arguments_multi_method, name
       assert_kind_of ::So::Much::Trash::NoArgumentsMultiRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
