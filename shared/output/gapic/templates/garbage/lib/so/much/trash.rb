@@ -42,3 +42,6 @@ module So
     end
   end
 end
+
+helper_path = ::File.join __dir__, "trash", "_helpers.rb"
+require "so/much/trash/_helpers" if ::File.file? helper_path

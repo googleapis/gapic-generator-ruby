@@ -80,8 +80,24 @@ module Gapic
         package_require + ".rb"
       end
 
+      def package_directory_name
+        package_require.split("/").last
+      end
+
       def empty?
         services.empty?
+      end
+
+      def helpers_file_path
+        helpers_require + ".rb"
+      end
+
+      def helpers_file_name
+        "_helpers.rb"
+      end
+
+      def helpers_require
+        package_require + "/_helpers"
       end
     end
   end
