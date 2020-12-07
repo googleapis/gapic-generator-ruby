@@ -15,3 +15,7 @@ require "<%= package.gem.version_require %>"
 <%- end -%>
 module <%= package.module_name %>
 end
+<% @footer = capture do %>
+helper_path = ::File.join __dir__, "<%= package.package_directory_name %>", "<%= package.helpers_file_name %>"
+require "<%= package.helpers_require %>" if ::File.file? helper_path
+<% end %>
