@@ -68,7 +68,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     create_session_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :create_session, name
       assert_kind_of ::Google::Showcase::V1beta1::CreateSessionRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Session), request.session
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::Session), request["session"]
       refute_nil options
     end
 
@@ -126,7 +126,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     get_session_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_session, name
       assert_kind_of ::Google::Showcase::V1beta1::GetSessionRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -185,8 +185,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     list_sessions_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_sessions, name
       assert_kind_of ::Google::Showcase::V1beta1::ListSessionsRequest, request
-      assert_equal 42, request.page_size
-      assert_equal "hello world", request.page_token
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
       refute_nil options
     end
 
@@ -249,7 +249,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     delete_session_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_session, name
       assert_kind_of ::Google::Showcase::V1beta1::DeleteSessionRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -307,7 +307,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     report_session_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :report_session, name
       assert_kind_of ::Google::Showcase::V1beta1::ReportSessionRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -367,9 +367,9 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     list_tests_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :list_tests, name
       assert_kind_of ::Google::Showcase::V1beta1::ListTestsRequest, request
-      assert_equal "hello world", request.parent
-      assert_equal 42, request.page_size
-      assert_equal "hello world", request.page_token
+      assert_equal "hello world", request["parent"]
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
       refute_nil options
     end
 
@@ -432,7 +432,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     delete_test_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :delete_test, name
       assert_kind_of ::Google::Showcase::V1beta1::DeleteTestRequest, request
-      assert_equal "hello world", request.name
+      assert_equal "hello world", request["name"]
       refute_nil options
     end
 
@@ -492,9 +492,9 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     verify_test_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :verify_test, name
       assert_kind_of ::Google::Showcase::V1beta1::VerifyTestRequest, request
-      assert_equal "hello world", request.name
-      assert_equal "hello world", request.answer
-      assert_equal ["hello world"], request.answers
+      assert_equal "hello world", request["name"]
+      assert_equal "hello world", request["answer"]
+      assert_equal ["hello world"], request["answers"]
       refute_nil options
     end
 
