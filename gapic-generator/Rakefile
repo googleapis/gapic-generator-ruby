@@ -85,6 +85,13 @@ namespace :test do
     t.libs << "lib"
     t.test_files = FileList["test/gapic/generators/**/*_test.rb"]
   end
+
+  desc "Run tests on schema"
+  Rake::TestTask.new :schema do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/schema/**/*_test.rb"]
+  end
 end
 
 YARD::Rake::YardocTask.new do |y|

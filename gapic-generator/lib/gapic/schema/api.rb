@@ -353,6 +353,7 @@ module Gapic
 
       # Parse a comma-delimited list of equals-delimited lists of strings, while
       # mapping backslash-escaped commas and equal signs to literal characters.
+      # @param str [String]
       def parse_parameter str
         str.scan(/\\.|,|=|[^\\,=]+/)
            .each_with_object([[String.new]]) do |tok, arr|

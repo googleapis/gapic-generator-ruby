@@ -64,6 +64,8 @@ module Gapic
 
     private
 
+    # Save binary file with the request
+    # @param [Gapic::Schema::Api] api
     def write_binary_file! api
       return unless api.protoc_options["binary_output"]
 
