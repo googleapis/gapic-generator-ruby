@@ -35,7 +35,45 @@ module Gapic
     # Contains logic for parsing protoc request parameters
     # from the plugin_opt command line
     module RequestParamParser
+      @bool_option_map = {
+          "ruby-cloud-free-tier" => ":gem.:free_tier",
+          "ruby-cloud-yard-strict" => ":gem.:yard_strict",
+          "ruby-cloud-generic-endpoint" => ":gem.:generic_endpoint"
+      }
+      @value_option_map = {
+          "ruby-cloud-gem-name" => ":gem.:name",
+          "ruby-cloud-gem-namespace" => ":gem.:namespace",
+          "ruby-cloud-title" => ":gem.:title",
+          "ruby-cloud-description" => ":gem.:description",
+          "ruby-cloud-summary" => ":gem.:summary",
+          "ruby-cloud-homepage" => ":gem.:homepage",
+          "ruby-cloud-env-prefix" => ":gem.:env_prefix",
+          "ruby-cloud-wrapper-of" => ":gem.:version_dependencies",
+          "ruby-cloud-migration-version" => ":gem.:migration_version",
+          "ruby-cloud-product-url" => ":gem.:product_documentation_url",
+          "ruby-cloud-issues-url" => ":gem.:issue_tracker_url",
+          "ruby-cloud-api-id" => ":gem.:api_id",
+          "ruby-cloud-api-shortname" => ":gem.:api_shortname",
+          "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix"
+      }
+
       class << self
+        # Takes readable param name and transforms it to
+        # the configuration param name.
+        # If the param_name passed is not one of the readable names
+        # it is returned unchanged
+        # @param param_name [String]
+        # @return [String]
+        def lookup_param_name param_name
+          if @bool_option_map.key? param_name
+            @bool_option_map[param_name]
+          elsif @value_option_map.key? param_name
+            @value_option_map[param_name]
+          else
+            param_name
+          end
+        end
+
         # Constructs param from the token parser output
         # @param current_input_str [String]
         # @param current_values [[String]]
@@ -44,7 +82,7 @@ module Gapic
           # Parameter name: first element of the current_values.
           # if it starts with `:` then convert to a symbol
           param_name = current_values.shift
-          param_name = param_name[1..-1].to_sym if param_name[0] == ":"
+          param_name = lookup_param_name param_name
 
           # Parameter value: all other members of the current_values.
           # If there is only one current value -- convert to scalar
