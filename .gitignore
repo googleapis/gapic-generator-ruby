@@ -11,3 +11,6 @@
 /spec/reports/
 /tmp/
 /bazel-*
+.rakeTasks
+.tool-versions
+/.idea/
