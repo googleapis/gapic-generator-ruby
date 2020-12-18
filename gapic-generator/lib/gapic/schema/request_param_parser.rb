@@ -14,116 +14,116 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/schema/request_parameter"
+require "gapic/schema/parameter_schema"
+
 module Gapic
   module Schema
-    # Encapsulates information that is parsed from a single command line parameter
-    # from the plugin_opt command line
-    class RequestParameter
-      attr_reader :input_str, :input_name, :input_value, :config_name, :config_value
-
-      def initialize input_str, input_name, input_value
-        @input_str = input_str
-        @input_name = input_name
-        @input_value = input_value
-      end
-
-      def to_input_h
-        { @input_name => input_value }
-      end
-    end
-
     # Contains logic for parsing protoc request parameters
     # from the plugin_opt command line
     module RequestParamParser
       @bool_option_map = {
-          "ruby-cloud-free-tier" => ":gem.:free_tier",
-          "ruby-cloud-yard-strict" => ":gem.:yard_strict",
-          "ruby-cloud-generic-endpoint" => ":gem.:generic_endpoint"
+        "ruby-cloud-free-tier" => ":gem.:free_tier",
+        "ruby-cloud-yard-strict" => ":gem.:yard_strict",
+        "ruby-cloud-generic-endpoint" => ":gem.:generic_endpoint"
       }
-      @value_option_map = {
-          "ruby-cloud-gem-name" => ":gem.:name",
-          "ruby-cloud-gem-namespace" => ":gem.:namespace",
-          "ruby-cloud-title" => ":gem.:title",
-          "ruby-cloud-description" => ":gem.:description",
-          "ruby-cloud-summary" => ":gem.:summary",
-          "ruby-cloud-homepage" => ":gem.:homepage",
-          "ruby-cloud-env-prefix" => ":gem.:env_prefix",
-          "ruby-cloud-wrapper-of" => ":gem.:version_dependencies",
-          "ruby-cloud-migration-version" => ":gem.:migration_version",
-          "ruby-cloud-product-url" => ":gem.:product_documentation_url",
-          "ruby-cloud-issues-url" => ":gem.:issue_tracker_url",
-          "ruby-cloud-api-id" => ":gem.:api_id",
-          "ruby-cloud-api-shortname" => ":gem.:api_shortname",
-          "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix"
+
+      @string_option_map = {
+        "ruby-cloud-gem-name" => ":gem.:name",
+        "ruby-cloud-gem-namespace" => ":gem.:namespace",
+        "ruby-cloud-title" => ":gem.:title",
+        "ruby-cloud-description" => ":gem.:description",
+        "ruby-cloud-summary" => ":gem.:summary",
+        "ruby-cloud-homepage" => ":gem.:homepage",
+        "ruby-cloud-env-prefix" => ":gem.:env_prefix",
+        "ruby-cloud-wrapper-of" => ":gem.:version_dependencies",
+        "ruby-cloud-migration-version" => ":gem.:migration_version",
+        "ruby-cloud-product-url" => ":gem.:product_documentation_url",
+        "ruby-cloud-issues-url" => ":gem.:issue_tracker_url",
+        "ruby-cloud-api-id" => ":gem.:api_id",
+        "ruby-cloud-api-shortname" => ":gem.:api_shortname",
+        "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
+        "grpc_service_config" => "grpc_service_config",
+        "ruby-cloud-grpc_service_config" => "grpc_service_config",
+      }
+
+      @array_option_map = {
+        "ruby-cloud-common-services" => ":common_services" ,
+      }
+
+      @map_option_map = {
+        "ruby-cloud-path-override" => ":overrides.:file_path",
+        "ruby-cloud-namespace-override" => ":overrides.:namespace",
+        "ruby-cloud-service-override" =>":overrides.:service",
+        "ruby-cloud-extra-dependencies" => ":gem.:extra_dependencies"
       }
 
       class << self
-        # Takes readable param name and transforms it to
-        # the configuration param name.
-        # If the param_name passed is not one of the readable names
-        # it is returned unchanged
-        # @param param_name [String]
-        # @return [String]
-        def lookup_param_name param_name
-          if @bool_option_map.key? param_name
-            @bool_option_map[param_name]
-          elsif @value_option_map.key? param_name
-            @value_option_map[param_name]
-          else
-            param_name
+        def get_default_schema
+          Gapic::Schema::ParameterSchema.new do |sch|
+            sch.bool_params = @bool_option_map
+            sch.string_params = @string_option_map
+            sch.array_params = @array_option_map
+            sch.map_params = @map_option_map
           end
         end
 
-        # Constructs param from the token parser output
-        # @param current_input_str [String]
-        # @param current_values [[String]]
-        # @return RequestParameter
-        def construct_param current_input_str, current_values
-          # Parameter name: first element of the current_values.
-          # if it starts with `:` then convert to a symbol
-          param_name = current_values.shift
-          param_name = lookup_param_name param_name
+        # Unescapes a symbol from the string
+        # e.g. "a\.b", '.' => "a.b"
+        # @param string [String]
+        # @return String
+        def unescape string
+          string ? string.gsub(/\\./) { |escaped| escaped[1] } : string
+        end
 
-          # Parameter value: all other members of the current_values.
-          # If there is only one current value -- convert to scalar
-          # If there is two strings in current values and the second one is empty, then it's a single-value array
-          param_val = if current_values.length == 1
-                        current_values[0] == "" ? nil : current_values[0]
-                      elsif current_values.length == 2 && current_values[1] == ""
-                        [current_values[0]]
-                      else
-                        current_values
-                      end
-
-          RequestParameter.new current_input_str, param_name, param_val
+        # Splits a string by an unescaped symbol
+        # e.g. "a\.b.c.d\.e", '.'  => ["a\.b","c", "d\.e"]
+        # @param string [String]
+        # @param symbol [String]
+        # @param max_splits [Integer]
+        # @return [Array<String>]
+        def split_by_unescaped string, symbol, max_splits = -1
+          splits = 0
+          string.scan(/\\.|#{symbol}|[^#{symbol}\\]+/).each_with_object([String.new]) do |tok, arr|
+            if tok == symbol && (max_splits < 0 || splits < max_splits)
+              arr.append String.new
+              splits += 1
+            else
+              arr.last << tok
+            end
+            arr
+          end
         end
 
         # Parse a comma-delimited list of equals-delimited lists of strings, while
         # mapping backslash-escaped commas and equal signs to literal characters.
         # @param str [String]
-        # @return [[RequestParameter]]
-        def parse_parameter str
-          parameters = []
-          current_input_str = String.new
-          current_values = [String.new]
-          str.scan(/\\.|,|=|[^\\,=]+/).each do |tok|
-            current_input_str << tok unless tok == ","
+        # @param param_schema [ParameterSchema]
+        # @return [Array<RequestParameter>]
+        def parse_parameters_string str, param_schema=nil
+          param_schema ||= get_default_schema
 
-            if tok == ","
-              parameters.append construct_param(current_input_str, current_values)
-              current_input_str = String.new
-              current_values = [String.new]
-            elsif tok == "="
-              current_values.append String.new
-            elsif tok.start_with? "\\"
-              current_values.last << tok[1]
-            else
-              current_values.last << tok
-            end
+          param_val_input_strings = split_by_unescaped str, ","
+          param_val_input_strings.map do |param_val_input_str|
+            param_name_input_esc, value_str = split_by_unescaped param_val_input_str, "=", 1
+            param_name_input = unescape param_name_input_esc
+            param_type, param_config_name = param_schema.schema_name_type_for param_name_input
+
+            param_value = if param_type == :array
+                            array_value_strings = split_by_unescaped value_str, ";"
+                            array_value_strings.map { |s| unescape s }
+                          elsif param_type == :map
+                            keyvaluepair_strings = split_by_unescaped value_str, ";"
+                            newhash = keyvaluepair_strings.map do |kvp_str|
+                              split_by_unescaped(kvp_str, "=", 1).map { |s| unescape s }
+                            end
+                            newhash.to_h
+                          else
+                            unescape value_str
+                          end
+
+            RequestParameter.new param_val_input_str, param_config_name, param_value
           end
-
-          parameters.append construct_param(current_input_str, current_values)
-          parameters
         end
       end
     end
