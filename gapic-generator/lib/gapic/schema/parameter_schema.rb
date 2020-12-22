@@ -19,12 +19,20 @@ module Gapic
     # Contains information about known parameter names
     # and the types expected to be parsed from the request options string
     class ParameterSchema
-      attr_accessor :bool_params, :string_params, :array_params, :path_params, :map_params
-      def initialize
-        @bool_params = {}
-        @string_params = {}
-        @array_params = {}
-        @map_params = {}
+      attr_accessor :bool_params, :string_params, :array_params, :map_params
+
+      def initialize bool_params = {}, string_params = {}, array_params = {}, map_params = {}
+        @bool_params = bool_params
+        @bool_params.map { |_, val| val unless @bool_params.key? val }.each { |v| @bool_params[v] = v }
+
+        @string_params = string_params
+        @string_params.map { |_, val| val unless @string_params.key? val }.each { |v| @string_params[v] = v }
+
+        @array_params = array_params
+        @array_params.map { |_, val| val unless @array_params.key? val }.each { |v| @array_params[v] = v }
+
+        @map_params = map_params
+        @map_params.map { |_, val| val unless @map_params.key? val }.each { |v| @map_params[v] = v }
 
         yield self if block_given?
       end

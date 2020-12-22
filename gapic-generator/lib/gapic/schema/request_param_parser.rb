@@ -43,12 +43,11 @@ module Gapic
         "ruby-cloud-api-id" => ":gem.:api_id",
         "ruby-cloud-api-shortname" => ":gem.:api_shortname",
         "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
-        "grpc_service_config" => "grpc_service_config",
         "ruby-cloud-grpc_service_config" => "grpc_service_config",
       }
 
       @array_option_map = {
-        "ruby-cloud-common-services" => ":common_services" ,
+        "ruby-cloud-common-services" => ":common_services",
       }
 
       @map_option_map = {
@@ -59,13 +58,8 @@ module Gapic
       }
 
       class << self
-        def get_default_schema
-          Gapic::Schema::ParameterSchema.new do |sch|
-            sch.bool_params = @bool_option_map
-            sch.string_params = @string_option_map
-            sch.array_params = @array_option_map
-            sch.map_params = @map_option_map
-          end
+        def default_schema
+          Gapic::Schema::ParameterSchema.new @bool_option_map, @string_option_map, @array_option_map, @map_option_map
         end
 
         # Unescapes a symbol from the string
@@ -99,9 +93,10 @@ module Gapic
         # mapping backslash-escaped commas and equal signs to literal characters.
         # @param str [String]
         # @param param_schema [ParameterSchema]
+        # @param error_output [IO] Stream to write outputs to.
         # @return [Array<RequestParameter>]
-        def parse_parameters_string str, param_schema=nil
-          param_schema ||= get_default_schema
+        def parse_parameters_string str, param_schema, error_output = nil
+          param_schema ||= default_schema
 
           param_val_input_strings = split_by_unescaped str, ","
           param_val_input_strings.map do |param_val_input_str|
@@ -109,20 +104,41 @@ module Gapic
             param_name_input = unescape param_name_input_esc
             param_type, param_config_name = param_schema.schema_name_type_for param_name_input
 
-            param_value = if param_type == :array
-                            array_value_strings = split_by_unescaped value_str, ";"
-                            array_value_strings.map { |s| unescape s }
-                          elsif param_type == :map
-                            keyvaluepair_strings = split_by_unescaped value_str, ";"
-                            newhash = keyvaluepair_strings.map do |kvp_str|
-                              split_by_unescaped(kvp_str, "=", 1).map { |s| unescape s }
-                            end
-                            newhash.to_h
-                          else
-                            unescape value_str
-                          end
+            if param_type == :bool && !["true", "false"].include?(unescape(value_str))
+              error_str = "WARNING: parameter #{param_name_input} (recognised as bool " \
+                                          "#{param_config_name}) will be discarded because of " \
+                                          "invalid value. Value should be either 'true' or 'false'."
+              error_output&.puts error_str
+            end
 
-            RequestParameter.new param_val_input_str, param_config_name, param_value
+            param_value = parse_param_value(param_type, value_str)
+
+            if param_value
+              RequestParameter.new(param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value)
+            end
+          end.compact # known bool parameter might fail to add
+        end
+
+        private
+        # Parses param value depending on type
+        # @param param_type [String]
+        # @param value_str [String]
+        # @return [Object]
+        def parse_param_value param_type, value_str
+          if param_type == :array
+            array_value_strings = split_by_unescaped value_str, ";"
+            array_value_strings.map { |s| unescape s }
+          elsif param_type == :map
+            keyvaluepair_strings = split_by_unescaped value_str, ";"
+            newhash = keyvaluepair_strings.map do |kvp_str|
+              split_by_unescaped(kvp_str, "=", 1).map { |s| unescape s }
+            end
+            newhash.to_h
+          elsif param_type == :bool
+            unesc_val = unescape value_str
+            unesc_val if ["true", "false"].include? unesc_val
+          else
+            unescape value_str
           end
         end
       end

@@ -106,7 +106,7 @@ class ApiTest < Minitest::Test
       grpc_service_config: "google/devtools/containeranalysis/v1/containeranalysis_grpc_service_config.json",
     }
 
-    schema = Gapic::Schema::RequestParamParser.get_default_schema
+    schema = Gapic::Schema::RequestParamParser.default_schema
 
     paramvals = [
         [":gem.:name", ca_info[:name]],
@@ -150,7 +150,7 @@ class ApiTest < Minitest::Test
 
     ca_info_escaped = ca_info.map { |key, val| [key, escape(val)] }.to_h
 
-    schema = Gapic::Schema::RequestParamParser.get_default_schema
+    schema = Gapic::Schema::RequestParamParser.default_schema
 
     paramvals2expected = {
         ["ruby-cloud-gem-name", ca_info_escaped[:name]] => { ":gem.:name" => ca_info[:name] },
@@ -171,7 +171,6 @@ class ApiTest < Minitest::Test
     verify_parsing_result param_strings2expected, parsed_parameters
   end
 
-
   private
 
   def escape string
@@ -187,7 +186,7 @@ class ApiTest < Minitest::Test
       assert param_strings2expected.key?(parsed_param.input_str),
              "Parsed input string #{parsed_param.input_str} should be equal to intended"
 
-      assert_equal param_strings2expected[parsed_param.input_str], parsed_param.to_input_h,
+      assert_equal param_strings2expected[parsed_param.input_str], parsed_param.to_config_h,
                    "Parameter parsed from the string #{parsed_param.input_str} should be as intended"
     end
   end

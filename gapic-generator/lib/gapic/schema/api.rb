@@ -55,6 +55,7 @@ module Gapic
         @files.each { |f| f.parent = self }
         @configuration = configuration
         @resource_types = analyze_resources
+        @protoc_parameters = parse_parameter request.parameter, error_output
         sanity_checks error_output
       end
 
@@ -120,14 +121,8 @@ module Gapic
       def protoc_options
         @protoc_options ||= begin
           result = {}
-          parameters = parse_parameter request.parameter
-          parameters.each do |param_array|
-            key = param_array.first
-            next if key.empty?
-            value = param_array[1..-1]
-            value = value.first if value.size == 1
-            value = nil if value.empty?
-            result[str_to_key(key)] = value
+          @protoc_parameters.each do |parameter|
+            result[str_to_key(parameter.config_name)] = parameter.config_value
           end
           result
         end
@@ -136,13 +131,7 @@ module Gapic
       # Reconstructed string representation of the protoc options
       # @return [String]
       def protoc_parameter
-        protoc_options.map do |k, v|
-          v = Array(v).map do |s|
-            s.gsub("\\", "\\\\\\\\").gsub(",", "\\\\,").gsub("=", "\\\\=")
-          end.join("=")
-          k = key_to_str k
-          "#{k}=#{v}"
-        end.join ","
+        @protoc_parameters.map(&:input_str).join(",")
       end
 
       # Structured representation of the samples configuration files.
@@ -354,20 +343,11 @@ module Gapic
       # Parse a comma-delimited list of equals-delimited lists of strings, while
       # mapping backslash-escaped commas and equal signs to literal characters.
       # @param str [String]
-      def parse_parameter str
-        str.scan(/\\.|,|=|[^\\,=]+/)
-           .each_with_object([[String.new]]) do |tok, arr|
-             if tok == ","
-               arr.append [String.new]
-             elsif tok == "="
-               arr.last.append String.new
-             elsif tok.start_with? "\\"
-               arr.last.last << tok[1]
-             else
-               arr.last.last << tok
-             end
-             arr
-           end
+      # @param error_output [IO] Stream to write outputs to.
+      # @return [Array<Gapic::Schema::RequestParameter>]
+      def parse_parameter str, error_output
+        params_schema = Gapic::Schema::RequestParamParser.default_schema
+        Gapic::Schema::RequestParamParser.parse_parameters_string str, params_schema, error_output
       end
 
       # split the string on periods, but map backslash-escaped periods to

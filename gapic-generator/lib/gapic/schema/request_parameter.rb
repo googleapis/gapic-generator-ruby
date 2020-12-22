@@ -22,14 +22,20 @@ module Gapic
     class RequestParameter
       attr_reader :input_str, :input_name, :input_value, :config_name, :config_value
 
-      def initialize input_str, input_name, input_value
+      def initialize input_str, input_name, input_value, config_name, config_value
         @input_str = input_str
         @input_name = input_name
         @input_value = input_value
+        @config_name = config_name
+        @config_value = config_value
       end
 
       def to_input_h
-        { @input_name => input_value }
+        { input_name => input_value }
+      end
+
+      def to_config_h
+        { config_name => config_value }
       end
     end
   end
