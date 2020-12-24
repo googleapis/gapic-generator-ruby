@@ -14,15 +14,18 @@ AllCops:
 Metrics/AbcSize:
   Exclude:
     - lib/gapic/schema/loader.rb
+    - test/gapic/schema/api_test.rb
 
 Metrics/ClassLength:
   Exclude:
     - lib/gapic/presenters/**/*
     - lib/gapic/schema/loader.rb
+    - test/gapic/schema/api_test.rb
 
 Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
+    - test/gapic/schema/api_test.rb
 
 Metrics/ModuleLength:
   Exclude:
