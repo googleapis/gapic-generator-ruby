@@ -347,7 +347,7 @@ module Gapic
       # @return [Array<Gapic::Schema::RequestParameter>]
       def parse_parameter str, error_output
         params_schema = Gapic::Schema::RequestParamParser.default_schema
-        Gapic::Schema::RequestParamParser.parse_parameters_string str, params_schema, error_output
+        Gapic::Schema::RequestParamParser.parse_parameters_string str, error_output: error_output
       end
 
       # split the string on periods, but map backslash-escaped periods to

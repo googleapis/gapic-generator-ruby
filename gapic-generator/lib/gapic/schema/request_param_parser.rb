@@ -58,6 +58,8 @@ module Gapic
       }
 
       class << self
+        # The default schema for parameter parsing
+        #
         def default_schema
           Gapic::Schema::ParameterSchema.new @bool_option_map, @string_option_map, @array_option_map, @map_option_map
         end
@@ -95,7 +97,7 @@ module Gapic
         # @param param_schema [ParameterSchema]
         # @param error_output [IO] Stream to write outputs to.
         # @return [Array<RequestParameter>]
-        def parse_parameters_string str, param_schema, error_output = nil
+        def parse_parameters_string str, param_schema: nil, error_output: nil
           param_schema ||= default_schema
 
           param_val_input_strings = split_by_unescaped str, ","
