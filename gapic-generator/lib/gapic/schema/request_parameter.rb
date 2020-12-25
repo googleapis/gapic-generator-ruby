@@ -16,7 +16,6 @@
 
 module Gapic
   module Schema
-
     # Encapsulates information that is parsed from a single command line parameter
     # from the plugin_opt command line
     class RequestParameter

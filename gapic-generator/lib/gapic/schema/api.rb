@@ -16,6 +16,7 @@
 
 require "yaml"
 require "json"
+require "gapic/generators/default_generator_parameters"
 require "gapic/schema/loader"
 require "gapic/grpc_service_config/parser"
 
@@ -44,9 +45,11 @@ module Gapic
       #
       # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
       #   The request object.
+      # @param parameter_schema [Gapic::Schema::ParameterSchema]
+      #   The schema of the request parameters
       # @param error_output [IO] An IO to write any errors/warnings to.
       # @param configuration [Hash] Optional override of configuration.
-      def initialize request, error_output: STDERR, configuration: nil
+      def initialize request, parameter_schema: nil, error_output: STDERR, configuration: nil
         @request = request
         loader = Loader.new
         @files = request.proto_file.map do |fd|
@@ -55,7 +58,9 @@ module Gapic
         @files.each { |f| f.parent = self }
         @configuration = configuration
         @resource_types = analyze_resources
-        @protoc_parameters = parse_parameter request.parameter, error_output
+
+        parameter_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
+        @protoc_parameters = parse_parameter request.parameter, parameter_schema, error_output
         sanity_checks error_output
       end
 
@@ -345,9 +350,10 @@ module Gapic
       # @param str [String]
       # @param error_output [IO] Stream to write outputs to.
       # @return [Array<Gapic::Schema::RequestParameter>]
-      def parse_parameter str, error_output
-        params_schema = Gapic::Schema::RequestParamParser.default_schema
-        Gapic::Schema::RequestParamParser.parse_parameters_string str, error_output: error_output
+      def parse_parameter str, parameter_schema, error_output
+        Gapic::Schema::RequestParamParser.parse_parameters_string str,
+                                                                  param_schema: parameter_schema,
+                                                                  error_output: error_output
       end
 
       # split the string on periods, but map backslash-escaped periods to

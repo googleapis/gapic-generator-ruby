@@ -16,6 +16,7 @@
 
 require "gapic/generator"
 require "gapic/schema"
+require "gapic/schema/request_param_parser"
 require "google/protobuf/compiler/plugin.pb"
 
 module Gapic
@@ -27,6 +28,19 @@ module Gapic
     # Initializes the runner.
     # @param [Google::Protobuf::Compiler::CodeGeneratorRequest] request
     def initialize request
+      # parse the parameters that apply to runner and not to the api and exclude them from the request
+      runner_param_names = ["binary_output", "generator"]
+      runner_schema = Gapic::Schema::ParameterSchema.create(
+        string_params_list: runner_param_names
+      )
+
+      params = Gapic::Schema::RequestParamParser.parse_parameters_string request.parameter, param_schema: runner_schema
+      @binary_output_path = params.filter { |p| p.config_name == "binary_output" }.first&.config_value
+      @generator_type = params.filter { |p| p.config_name == "generator" }.first&.config_value
+
+      # reconstruct the request parameter string without the runner parameters
+      request.parameter = params.filter { |p| !runner_param_names.include? p.config_name }.map(&:input_str).join ","
+
       @request = request
     end
 
@@ -34,22 +48,22 @@ module Gapic
     # @param [String] generator_type
     # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
     def run generator_type: nil
-      # Create an API Schema from the FileDescriptorProtos
-      api = Gapic::Schema::Api.new request
-
-      write_binary_file! api
+      # save the binary file if applicable
+      write_binary_file
 
       # Retrieve generator type from protoc_options if not already provided.
-      generator_type ||= api.protoc_options["generator"]
+      generator_type ||= @generator_type
       # Find the generator for the generator type.
       generator = Gapic::Generator.find generator_type
+
+      # Create an API Schema from the FileDescriptorProtos
+      api = Gapic::Schema::Api.new request, parameter_schema: generator.parameter_schema
 
       # Create and run the generator from the API.
       output_files = generator.new(api).generate
 
       # Create and write the response
-      response = Google::Protobuf::Compiler::CodeGeneratorResponse.new \
-        file: output_files
+      response = Google::Protobuf::Compiler::CodeGeneratorResponse.new file: output_files
       response.supported_features = Google::Protobuf::Compiler::CodeGeneratorResponse::FEATURE_PROTO3_OPTIONAL
       response
     end
@@ -65,16 +79,11 @@ module Gapic
     private
 
     # Save binary file with the request
-    # @param [Gapic::Schema::Api] api
-    def write_binary_file! api
-      return unless api.protoc_options["binary_output"]
-
-      # First, strip the binary_output parameter out so it doesn't get saved
-      binary_file = api.protoc_options.delete "binary_output"
-      request.parameter = api.protoc_parameter
+    def write_binary_file
+      return unless @binary_output_path
 
       # Write binary file if the binary_output option is set
-      File.binwrite binary_file, request.to_proto
+      File.binwrite @binary_output_path, request.to_proto
     end
   end
 end
