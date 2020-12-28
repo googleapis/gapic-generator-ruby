@@ -18,7 +18,6 @@ require "test_helper"
 
 # Unit tests for the parameter parsing
 class RequestParamParserTest < Minitest::Test
-
   # Testing splitting by the unescaped instances of symbol
   def test_split_by_unescaped
     input2expected = {
