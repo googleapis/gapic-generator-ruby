@@ -23,7 +23,7 @@ class ApiTest < Minitest::Test
 
   # Verify that the full range of API parameters options
   # are parsed correctly into the configuration structure
-  def test_parse_parameters
+  def test_parse_parameters_literal
     literal_params = [
       [":gem.:free_tier", API_INFO[:free_tier]],
       [":gem.:yard_strict", API_INFO[:yard_strict]],
@@ -43,10 +43,12 @@ class ApiTest < Minitest::Test
       [":gem.:api_id", API_INFO[:api_id]],
       [":gem.:api_shortname", API_INFO[:api_shortname]],
       [":gem.:factory_method_suffix", API_INFO[:factory_method_suffix]],
+      [":defaults.:service.:default_host", API_INFO[:default_host]],
       ["grpc_service_config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
-      [":common_services", API_INFO[:common_services].join(";")]
+      [":common_services", API_INFO[:common_services].join(";")],
+      [":defaults.:service.:oauth_scopes", API_INFO[:default_oauth_scopes].join(";")]
     ]
 
     # maps of values are split into separate command-line parameters (one parameter per map key).
@@ -58,6 +60,47 @@ class ApiTest < Minitest::Test
     literal_param_str = literal_params.map { |k, v| "#{k}=#{v}" }.join(",")
     request = OpenStruct.new parameter: literal_param_str, proto_file: []
     api = Gapic::Schema::Api.new request
+
+    assert_equal CONFIG_EXPECTED, api.configuration
+  end
+
+  def test_parse_parameters_readable
+    readable_params = [
+      ["gem-free-tier", API_INFO[:free_tier]],
+      ["gem-yard-strict", API_INFO[:yard_strict]],
+      ["gem-generic-endpoint", API_INFO[:generic_endpoint]],
+
+      ["gem-name", API_INFO[:name]],
+      ["gem-namespace", API_INFO[:namespace]],
+      ["gem-title", API_INFO[:title]],
+      ["gem-description", API_INFO[:description]],
+      ["gem-summary", API_INFO[:summary]],
+      ["gem-homepage", API_INFO[:homepage]],
+      ["gem-env-prefix", API_INFO[:env_prefix]],
+      ["gem-wrapper-of", API_INFO[:wrapper_of]],
+      ["gem-migration-version", API_INFO[:migration_version]],
+      ["gem-product-url", API_INFO[:product_url]],
+      ["gem-issues-url", API_INFO[:issues_url]],
+      ["gem-api-id", API_INFO[:api_id]],
+      ["gem-api-shortname", API_INFO[:api_shortname]],
+      ["gem-factory-method-suffix", API_INFO[:factory_method_suffix]],
+      ["default-service-host", API_INFO[:default_host]],
+      ["grpc-service-config", API_INFO[:grpc_service_config]],
+
+      # arrays of values are joined with the ';' symbol
+      ["common-services", API_INFO[:common_services].join(";")],
+      ["default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
+
+      # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
+      ["file-path-override", API_INFO[:path_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["namespace-override", API_INFO[:namespace_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["service-override", API_INFO[:service_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["gem-extra-dependencies", API_INFO[:extra_dependencies].map { |k, v| "#{k}=#{v}" }.join(";")]
+    ]
+
+    readable_param_str = readable_params.map { |k, v| "#{k}=#{v}" }.join(",")
+    request = OpenStruct.new parameter: readable_param_str, proto_file: []
+    api = Gapic::Schema::Api.new request, parameter_schema: Gapic::Generators::DefaultGeneratorParameters.default_schema
 
     assert_equal CONFIG_EXPECTED, api.configuration
   end

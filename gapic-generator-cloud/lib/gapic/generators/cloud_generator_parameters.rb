@@ -19,7 +19,7 @@ require "gapic/generators/default_generator_parameters"
 module Gapic
   module Generators
     # Contains the cloud generator's parameters
-    module CloudGeneratorsParameters
+    module CloudGeneratorParameters
       BOOL_PARAMETERS_ALIASES = {
         "ruby-cloud-free-tier"        => ":gem.:free_tier",
         "ruby-cloud-yard-strict"      => ":gem.:yard_strict",
@@ -41,11 +41,13 @@ module Gapic
         "ruby-cloud-api-id"                => ":gem.:api_id",
         "ruby-cloud-api-shortname"         => ":gem.:api_shortname",
         "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
+        "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
         "ruby-cloud-grpc_service_config"   => "grpc_service_config"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
-        "ruby-cloud-common-services" => ":common_services"
+        "ruby-cloud-common-services"      => ":common_services",
+        "ruby-cloud-default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
       }.freeze
 
       MAP_PARAMETERS_ALIASES = {
@@ -56,13 +58,12 @@ module Gapic
       }.freeze
 
       def self.default_schema
-        sch = Gapic::Generators::DefaultGeneratorParameters.default_schema.extend_with_aliases(
+        Gapic::Generators::DefaultGeneratorParameters.default_schema.extend_with_aliases(
           bool_aliases:   BOOL_PARAMETERS_ALIASES,
           string_aliases: STRING_PARAMETERS_ALIASES,
           array_aliases:  ARRAY_PARAMETERS_ALIASES,
           map_aliases:    MAP_PARAMETERS_ALIASES
         )
-        sch
       end
     end
   end

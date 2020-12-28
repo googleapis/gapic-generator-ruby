@@ -42,10 +42,12 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-api-id", API_INFO[:api_id]],
       ["ruby-cloud-api-shortname", API_INFO[:api_shortname]],
       ["ruby-cloud-factory-method-suffix", API_INFO[:factory_method_suffix]],
+      ["ruby-cloud-default-service-host", API_INFO[:default_host]],
       ["ruby-cloud-grpc_service_config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
       ["ruby-cloud-common-services", API_INFO[:common_services].join(";")],
+      ["ruby-cloud-default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
 
       # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
       ["ruby-cloud-path-override", API_INFO[:path_override].map { |k, v| "#{k}=#{v}" }.join(";")],
@@ -56,7 +58,7 @@ class CloudApiTest < Minitest::Test
 
     readable_param_str = readable_params.map { |k, v| "#{k}=#{v}" }.join(",")
     request = OpenStruct.new parameter: readable_param_str, proto_file: []
-    api = Gapic::Schema::Api.new request, parameter_schema: Gapic::Generators::CloudGeneratorsParameters.default_schema
+    api = Gapic::Schema::Api.new request, parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
 
     assert_equal CONFIG_EXPECTED, api.configuration
   end

@@ -42,10 +42,12 @@ module ApiTestResources
     api_id:                "containeranalysis.googleapis.com",
     api_shortname:         "containeranalysis",
     factory_method_suffix: "_service",
+    default_host:          "default_host.example.com",
     grpc_service_config:   "google/devtools/containeranalysis/v1/containeranalysis_grpc_service_config.json",
 
     # array parameters
     common_services:       ["google.iam.v1.IAMPolicy", "google.pubsub.v1.Publisher"],
+    default_oauth_scopes:  ["https://www.googleapis.com/auth/cloud-platform"],
 
     # map parameters
     path_override:         { "pub_sub" => "pubsub", "auto_ml" => "automl" },
@@ -77,6 +79,12 @@ module ApiTestResources
       api_shortname:             API_INFO[:api_shortname],
       factory_method_suffix:     API_INFO[:factory_method_suffix],
       extra_dependencies:        API_INFO[:extra_dependencies]
+    },
+    :defaults=>{
+      service: {
+        default_host: API_INFO[:default_host],
+        oauth_scopes: API_INFO[:default_oauth_scopes]
+      }
     },
     "grpc_service_config" => API_INFO[:grpc_service_config],
     common_services: API_INFO[:common_services],

@@ -105,7 +105,7 @@ module Gapic
       # Schema of the parameters that the generator accepts
       # @return [Gapic::Schema::ParameterSchema]
       def self.parameter_schema
-        CloudGeneratorsParameters.default_schema
+        CloudGeneratorParameters.default_schema
       end
 
 

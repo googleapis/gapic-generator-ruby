@@ -41,11 +41,13 @@ module Gapic
         ":gem.:api_id",
         ":gem.:api_shortname",
         ":gem.:factory_method_suffix",
+        ":defaults.:service.:default_host",
         "grpc_service_config"
       ].freeze
 
       ARRAY_PARAMETERS = [
-        ":common_services"
+        ":common_services",
+        ":defaults.:service.:oauth_scopes"
       ].freeze
 
       MAP_PARAMETERS = [
@@ -55,12 +57,56 @@ module Gapic
         ":gem.:extra_dependencies"
       ].freeze
 
+      BOOL_PARAMETERS_ALIASES = {
+        "gem-free-tier"        => ":gem.:free_tier",
+        "gem-yard-strict"      => ":gem.:yard_strict",
+        "gem-generic-endpoint" => ":gem.:generic_endpoint"
+      }.freeze
+
+      STRING_PARAMETERS_ALIASES = {
+        "gem-name"                  => ":gem.:name",
+        "gem-namespace"             => ":gem.:namespace",
+        "gem-title"                 => ":gem.:title",
+        "gem-description"           => ":gem.:description",
+        "gem-summary"               => ":gem.:summary",
+        "gem-homepage"              => ":gem.:homepage",
+        "gem-env-prefix"            => ":gem.:env_prefix",
+        "gem-wrapper-of"            => ":gem.:version_dependencies",
+        "gem-migration-version"     => ":gem.:migration_version",
+        "gem-product-url"           => ":gem.:product_documentation_url",
+        "gem-issues-url"            => ":gem.:issue_tracker_url",
+        "gem-api-id"                => ":gem.:api_id",
+        "gem-api-shortname"         => ":gem.:api_shortname",
+        "gem-factory-method-suffix" => ":gem.:factory_method_suffix",
+        "default-service-host"      => ":defaults.:service.:default_host",
+        "grpc-service-config"       => "grpc_service_config"
+      }.freeze
+
+      ARRAY_PARAMETERS_ALIASES = {
+        "common-services"      => ":common_services",
+        "default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
+      }.freeze
+
+      MAP_PARAMETERS_ALIASES = {
+        "file-path-override"     => ":overrides.:file_path",
+        "namespace-override"     => ":overrides.:namespace",
+        "service-override"       => ":overrides.:service",
+        "gem-extra-dependencies" => ":gem.:extra_dependencies"
+      }.freeze
+
       def self.default_schema
-        Gapic::Schema::ParameterSchema.create(
+        base_schema = Gapic::Schema::ParameterSchema.create(
           bool_params_list:   BOOL_PARAMETERS,
           string_params_list: STRING_PARAMETERS,
           array_params_list:  ARRAY_PARAMETERS,
           map_params_list:    MAP_PARAMETERS
+        )
+
+        base_schema.extend_with_aliases(
+          bool_aliases:   BOOL_PARAMETERS_ALIASES,
+          string_aliases: STRING_PARAMETERS_ALIASES,
+          array_aliases:  ARRAY_PARAMETERS_ALIASES,
+          map_aliases:    MAP_PARAMETERS_ALIASES
         )
       end
     end
