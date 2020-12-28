@@ -48,8 +48,7 @@ module Gapic
         ParameterSchema.new bool_params, string_params, array_params, map_params
       end
 
-      # Creates a new schema from this
-      # by adding aliases to existing parameters
+      # Creates a new schema from this by adding aliases to existing parameters
       # @param bool_aliases [Hash{String => String}]
       # @param string_aliases [Hash{String => String}]
       # @param array_aliases [Hash{String => String}]
@@ -71,8 +70,10 @@ module Gapic
         ParameterSchema.new bool_params, string_params, array_params, map_params
       end
 
-      # @param param_name [String]
-      # @return [Label]
+      # Looks up a parameter by name (including aliases)
+      # and return a type label (or :unknown) and a configuration name
+      # @param param_name [String] Input parameter name
+      # @return [Array<Symbol, String>] An array of [:detected_type, config_parameter_name]
       def schema_name_type_for param_name
         if @bool_params.key? param_name
           [:bool, @bool_params[param_name]]

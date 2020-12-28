@@ -19,9 +19,16 @@ require "gapic/schema/api_test_resources"
 require "gapic/generators/cloud_generator_parameters"
 
 class CloudApiTest < Minitest::Test
+  # an amalgam of the parameters the generator takes
+  # for both client libraries and wrappers
   API_INFO = ApiTestResources::API_INFO
+
+  # a configuration that is expected to be parsed from the parameters above
   CONFIG_EXPECTED = ApiTestResources::CONFIG_EXPECTED
 
+  # Verify that the full range of API parameters options
+  # are parsed correctly into the configuration structure
+  # when provided with human-readable cloud-specific parameter aliases
   def test_parse_parameters_readable
     readable_params = [
       ["ruby-cloud-free-tier", API_INFO[:free_tier]],

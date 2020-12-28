@@ -16,12 +16,10 @@
 
 require "test_helper"
 
-# TODO: add the real generation strings to tests, including
-# - paths
-# - real hashes
-# - that one grapheas string
-# - wrapper libs in general
+# Unit tests for the parameter parsing
 class RequestParamParserTest < Minitest::Test
+
+  # Testing splitting by the unescaped instances of symbol
   def test_split_by_unescaped
     input2expected = {
       "abc"                        => ["abc"],
@@ -40,6 +38,8 @@ class RequestParamParserTest < Minitest::Test
     end
   end
 
+  # Testing splitting by the unescaped instances of symbol
+  # when max_splits parameter is provided
   def test_split_by_unescaped_maxsplits
     input2expected = {
       "abc"                        => ["abc"],
@@ -55,6 +55,7 @@ class RequestParamParserTest < Minitest::Test
     end
   end
 
+  # testing unescaping the \-escaped symbols in the string
   def test_unescape
     given = "\\a\\b\\,.c\\\\de"
     expected = "ab,.c\\de"
@@ -62,6 +63,7 @@ class RequestParamParserTest < Minitest::Test
     assert_equal expected, result
   end
 
+  # testing the parameter parsing with aliases
   def test_request_param_parsing
     bool_params = { "bool_param_input_name" => "bool_param_name" }
     string_params = { "string_param_input_name" => "string_param_name" }

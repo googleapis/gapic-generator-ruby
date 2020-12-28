@@ -23,6 +23,7 @@ class ApiTest < Minitest::Test
 
   # Verify that the full range of API parameters options
   # are parsed correctly into the configuration structure
+  # when provided with literal configuration parameter names
   def test_parse_parameters_literal
     literal_params = [
       [":gem.:free_tier", API_INFO[:free_tier]],
@@ -64,6 +65,9 @@ class ApiTest < Minitest::Test
     assert_equal CONFIG_EXPECTED, api.configuration
   end
 
+  # Verify that the full range of API parameters options
+  # are parsed correctly into the configuration structure
+  # when provided with human-readable parameter aliases
   def test_parse_parameters_readable
     readable_params = [
       ["gem-free-tier", API_INFO[:free_tier]],
@@ -105,6 +109,8 @@ class ApiTest < Minitest::Test
     assert_equal CONFIG_EXPECTED, api.configuration
   end
 
+  # Verify that reconstructing parameter string
+  # from the parsed representation inside the Api works correctly
   def test_parameter_reconstruction
     parameter = "a=b\\\\\\,\\=,c=d=e,:f="
     request = OpenStruct.new parameter: parameter, proto_file: []
@@ -114,6 +120,11 @@ class ApiTest < Minitest::Test
 
   private
 
+  # Create a list of parameters and values
+  # for the default representation of map-typed parameters
+  # @param param_map [Hash{String => String}]
+  # @param prefix [String]
+  # @return [Array<String>]
   def create_map_params param_map, prefix
     param_map.map { |k, v| ["#{prefix}.#{k}", v] }
   end

@@ -18,6 +18,7 @@ require "yaml"
 require "json"
 require "gapic/generators/default_generator_parameters"
 require "gapic/schema/loader"
+require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
 
 module Gapic
@@ -46,7 +47,7 @@ module Gapic
       # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
       #   The request object.
       # @param parameter_schema [Gapic::Schema::ParameterSchema]
-      #   The schema of the request parameters
+      #   The request parameters schema to use
       # @param error_output [IO] An IO to write any errors/warnings to.
       # @param configuration [Hash] Optional override of configuration.
       def initialize request, parameter_schema: nil, error_output: STDERR, configuration: nil
@@ -122,7 +123,6 @@ module Gapic
 
       # Structured Hash representation of the parameter values.
       # @return [Hash]
-      #   A Hash of the request parameters.
       def protoc_options
         @protoc_options ||= begin
           result = {}

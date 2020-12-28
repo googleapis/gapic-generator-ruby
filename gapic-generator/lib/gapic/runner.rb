@@ -48,7 +48,7 @@ module Gapic
     # @param [String] generator_type
     # @return [Google::Protobuf::Compiler::CodeGeneratorResponse]
     def run generator_type: nil
-      # save the binary file if applicable
+      # save the binary file if needed
       write_binary_file
 
       # Retrieve generator type from protoc_options if not already provided.
@@ -79,6 +79,7 @@ module Gapic
     private
 
     # Save binary file with the request
+    # if the binary_output_path parameter is set
     def write_binary_file
       return unless @binary_output_path
 

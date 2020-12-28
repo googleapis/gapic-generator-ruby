@@ -21,7 +21,6 @@ require "google/api/resource.pb"
 require "google/longrunning/operations.pb"
 require "google/protobuf/descriptor.pb"
 require "gapic/schema/wrappers"
-require "gapic/schema/request_param_parser"
 
 module Gapic
   module Schema

@@ -21,6 +21,13 @@ module Gapic
     class RequestParameter
       attr_reader :input_str, :input_name, :input_value, :config_name, :config_value
 
+      # @param input_str [String] the input string containing parameter and value
+      #   that the parameter and value were parsed from
+      # @param input_name [String] the name of the parameter as found in the input
+      #   can be an alias to a known config parameter name
+      # @param input_value [String] the unescaped input value of the parameter as found in the input
+      # @param config_name [String] the known config parameter name as matched during parsing
+      # @param config_value [String,Array,Hash] the parsed and deserialized config value
       def initialize input_str, input_name, input_value, config_name, config_value
         @input_str = input_str
         @input_name = input_name
@@ -29,10 +36,14 @@ module Gapic
         @config_value = config_value
       end
 
+      # The hash of input name-value
+      # @return [Hash {String => String}]
       def to_input_h
         { input_name => input_value }
       end
 
+      # The hash of config name-value
+      # @return [Hash {String => String, Array, Hash}]
       def to_config_h
         { config_name => config_value }
       end

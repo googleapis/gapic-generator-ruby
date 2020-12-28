@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Contains constants used in API parameters parsing tests
 module ApiTestResources
   # an amalgam of the parameters the generator takes
   # for both client libraries and wrappers

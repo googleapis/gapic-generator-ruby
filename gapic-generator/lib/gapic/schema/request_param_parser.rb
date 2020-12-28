@@ -25,18 +25,18 @@ module Gapic
       class << self
         # Unescapes a symbol from the string
         # e.g. "a\.b", '.' => "a.b"
-        # @param string [String]
-        # @return String
+        # @param string [String] String to unescape
+        # @return [String] Unescaped string
         def unescape string
           string ? string.gsub(/\\./) { |escaped| escaped[1] } : string
         end
 
         # Splits a string by an unescaped symbol
         # e.g. "a\.b.c.d\.e", '.'  => ["a\.b","c", "d\.e"]
-        # @param string [String]
-        # @param symbol [String]
-        # @param max_splits [Integer]
-        # @return [Array<String>]
+        # @param string [String] String to split
+        # @param symbol [String] Symbol to split by
+        # @param max_splits [Integer] Maximum amount of splits to perform; -1 for no limit
+        # @return [Array<String>] List of split string parts
         def split_by_unescaped string, symbol, max_splits = -1
           splits = 0
           string.scan(/\\.|#{symbol}|[^#{symbol}\\]+/).each_with_object([String.new]) do |tok, arr|
@@ -52,10 +52,10 @@ module Gapic
 
         # Parse a comma-delimited list of equals-delimited lists of strings, while
         # mapping backslash-escaped commas and equal signs to literal characters.
-        # @param str [String]
-        # @param param_schema [ParameterSchema]
+        # @param str [String] String to parse
+        # @param param_schema [ParameterSchema] Parameter schema to use
         # @param error_output [IO] Stream to write outputs to.
-        # @return [Array<RequestParameter>]
+        # @return [Array<RequestParameter>] List of parameters parsed
         def parse_parameters_string str, param_schema: nil, error_output: nil
           param_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
 
@@ -77,14 +77,13 @@ module Gapic
             if param_value
               RequestParameter.new param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value
             end
-          end.compact # known bool parameter might fail to add
+          end.compact # known bool parameters with invalid values will not be added so we have to compact
         end
 
         private
 
-
         # Parses param value depending on type
-        # @param param_type [String]
+        # @param param_type [Symbol]
         # @param value_str [String]
         # @return [String,Array<String>,Hash{String => String}]
         def parse_param_value param_type, value_str

@@ -15,8 +15,8 @@
 # limitations under the License.
 
 require "gapic/generators/default_generator"
-require "gapic/presenters"
 require "gapic/generators/default_generator_parameters"
+require "gapic/presenters"
 
 module Gapic
   module Generators
