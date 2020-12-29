@@ -48,11 +48,11 @@ class ApiTest < Minitest::Test
       ["grpc_service_config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
-      [":common_services", API_INFO[:common_services].join(";")],
       [":defaults.:service.:oauth_scopes", API_INFO[:default_oauth_scopes].join(";")]
     ]
 
     # maps of values are split into separate command-line parameters (one parameter per map key).
+    literal_params += create_map_params API_INFO[:common_services], ":common_services"
     literal_params += create_map_params API_INFO[:path_override], ":overrides.:file_path"
     literal_params += create_map_params API_INFO[:namespace_override], ":overrides.:namespace"
     literal_params += create_map_params API_INFO[:service_override], ":overrides.:service"
@@ -92,10 +92,14 @@ class ApiTest < Minitest::Test
       ["grpc-service-config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
-      ["common-services", API_INFO[:common_services].join(";")],
       ["default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
 
       # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
+
+      # for the readable parameter there is no need to escape the '.' in the parameter name
+      # because there will not be a map-unrolling of the parameter name
+      # therefore we use API_INFO[:common_services_unescaped] for input
+      ["common-services", API_INFO[:common_services_unescaped].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["file-path-override", API_INFO[:path_override].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["namespace-override", API_INFO[:namespace_override].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["service-override", API_INFO[:service_override].map { |k, v| "#{k}=#{v}" }.join(";")],

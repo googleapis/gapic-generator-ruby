@@ -53,10 +53,10 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-grpc-service-config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
-      ["ruby-cloud-common-services", API_INFO[:common_services].join(";")],
       ["ruby-cloud-default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
 
       # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
+      ["ruby-cloud-common-services", API_INFO[:common_services_unescaped].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["ruby-cloud-path-override", API_INFO[:path_override].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["ruby-cloud-namespace-override", API_INFO[:namespace_override].map { |k, v| "#{k}=#{v}" }.join(";")],
       ["ruby-cloud-service-override", API_INFO[:service_override].map { |k, v| "#{k}=#{v}" }.join(";")],

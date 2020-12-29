@@ -46,11 +46,11 @@ module Gapic
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
-        "ruby-cloud-common-services"      => ":common_services",
         "ruby-cloud-default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
       }.freeze
 
       MAP_PARAMETERS_ALIASES = {
+        "ruby-cloud-common-services"    => ":common_services",
         "ruby-cloud-path-override"      => ":overrides.:file_path",
         "ruby-cloud-namespace-override" => ":overrides.:namespace",
         "ruby-cloud-service-override"   => ":overrides.:service",

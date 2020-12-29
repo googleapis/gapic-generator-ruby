@@ -46,11 +46,11 @@ module Gapic
       ].freeze
 
       ARRAY_PARAMETERS = [
-        ":common_services",
         ":defaults.:service.:oauth_scopes"
       ].freeze
 
       MAP_PARAMETERS = [
+        ":common_services",
         ":overrides.:file_path",
         ":overrides.:namespace",
         ":overrides.:service",
@@ -83,11 +83,11 @@ module Gapic
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
-        "common-services"      => ":common_services",
         "default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
       }.freeze
 
       MAP_PARAMETERS_ALIASES = {
+        "common-services"        => ":common_services",
         "file-path-override"     => ":overrides.:file_path",
         "namespace-override"     => ":overrides.:namespace",
         "service-override"       => ":overrides.:service",
