@@ -50,7 +50,7 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-api-shortname", API_INFO[:api_shortname]],
       ["ruby-cloud-factory-method-suffix", API_INFO[:factory_method_suffix]],
       ["ruby-cloud-default-service-host", API_INFO[:default_host]],
-      ["ruby-cloud-grpc_service_config", API_INFO[:grpc_service_config]],
+      ["ruby-cloud-grpc-service-config", API_INFO[:grpc_service_config]],
 
       # arrays of values are joined with the ';' symbol
       ["ruby-cloud-common-services", API_INFO[:common_services].join(";")],

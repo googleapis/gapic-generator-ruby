@@ -42,7 +42,7 @@ module Gapic
         "ruby-cloud-api-shortname"         => ":gem.:api_shortname",
         "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
         "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
-        "ruby-cloud-grpc_service_config"   => "grpc_service_config"
+        "ruby-cloud-grpc-service-config"   => "grpc_service_config"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
