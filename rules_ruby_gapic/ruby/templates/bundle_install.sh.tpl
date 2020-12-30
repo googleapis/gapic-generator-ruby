@@ -20,6 +20,11 @@
 
 # Immediately exit if any command fails.
 set -e
+
+# GEM_HOME and GEM_PATH should be unset because it's a sandbox leak
+unset GEM_HOME
+unset GEM_PATH
+
 "{bundle}" install
 find export -name "patch 1.diff" -delete
 find export -type d -name "test mini portile-1.0.0" | while read f ; do rm -rf "$f" ; done

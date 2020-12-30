@@ -37,20 +37,22 @@ def try_prebuilt(ctx, prebuilt_ruby, os_name):
   
   ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix, output = tmp)
 
-  res = ctx.execute(
+  res, log = _execute_log_action(
+    ctx, 
+    None,
     ["bin/ruby", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"],
     working_directory = tmp
   )
 
   prebuilt_working = res.return_code == 0
 
-  if prebuilt_working == 0:
+  if prebuilt_working:
     prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen.".format(
       prebuilt_ruby = prebuilt_ruby
     )
   else:
-    prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(
-      prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
+    prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed\n{log}".format(
+      prebuilt_ruby = prebuilt_ruby, log = log)
   
   _execute_log_action(ctx, None, ["rm", "-rf", tmp], quiet = False)
   return prebuilt_working, prebuilt_selection_log
@@ -109,7 +111,7 @@ def try_locate_gem(ctx, gem, version):
   ctx.report_progress("-------------------------------------")
   ctx.report_progress("Checking for gem: {gem} version {version}".format(gem = gem, version = version))
   cmd_arr = ["bin/gem", "list", "-i", '{gem}'.format(gem = gem), "-v", '{version}'.format(version = version)]
-  res = ctx.execute(cmd_arr, working_directory = ".")
+  res, log = _execute_log_action(ctx, None, cmd_arr)
   gem_located = res.return_code == 0
   report = ""
   if gem_located:
@@ -117,13 +119,10 @@ def try_locate_gem(ctx, gem, version):
     ctx.report_progress(report)
   else:
     log_path = "logs/err_gem_list_{gem}.log".format(gem = gem, version = version)
-    report = "Gem {gem} version {version} list failed code {res_code}\nCmd: {cmd}\nStdOut:\n{stdout}\nStdErr:\n{stderr}".format(
+    report = "Gem {gem} version {version} list failed\n{log}".format(
       gem = gem,
       version = version,
-      res_code = res.return_code,
-      cmd = " ".join(cmd_arr),
-      stdout = res.stdout,
-      stderr = res.stderr
+      log = log
     )
     ctx.report_progress(report)
     ctx.file(log_path, report)
@@ -137,7 +136,8 @@ def install_gem(ctx, gem, version):
   ctx.report_progress("-------------------------------------")  
   ctx.report_progress("Installing gem: {gem} version {version}".format(gem = gem, version = version))
 
-  res = ctx.execute(["bin/gem", "install", gem, "-v={version}".format(version = version)], working_directory = ".")
+  res, log = _execute_log_action(ctx, None, ["bin/gem", "install", gem, "-v={version}".format(version = version)])
+
   report = ""
   if res.return_code == 0:
     report = "Gem {gem} version {version} install successful".format(gem = gem, version = version)
@@ -145,11 +145,10 @@ def install_gem(ctx, gem, version):
   else:
     ctx.report_progress("failed to install")
     log_path = "logs/err_gem_install_{gem}.log".format(gem = gem)
-    report = "Gem {gem} version {version} install failed code {res_code}; StdErr:\n{stderr}".format(
+    report = "Gem {gem} version {version} install failed\n{log}".format(
       gem = gem,
       version = version,
-      res_code = res.return_code,
-      stderr = res.stderr
+      log = log
     )
     ctx.report_progress(report)
     ctx.file(log_path, report)
@@ -193,12 +192,10 @@ def _ruby_runtime_impl(ctx):
     build_ruby_runtime(ctx, root_path, srcs_dir)
 
   ctx.report_progress("Installing gems")
-  _execute_log_action(ctx, "gem_env_novars_set.log", 
-    ["bin/gem", "env"],
-  )
 
-  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_pre.log", res.stdout)
+  _execute_log_action(ctx, "gem_env.log", ["bin/gem", "env"])
+
+  _execute_log_action(ctx, "gem_list_pre.log", ["bin/gem", "list"])
 
   gem_log = []
   for gem, version in  ctx.attr.gems_to_install.items():
@@ -224,48 +221,10 @@ def _ruby_runtime_impl(ctx):
     ctx.file("logs/bundler_version_from_gemfile.log", bundler_version)
 
   if bundler_version:
-    gem_home_path = ctx.path("./lib/ruby/gems/ruby_bazel_libroot/")
-    gem_home_path_str = "%s" % gem_home_path.realpath
-
-    _execute_log_action(ctx, "gem_env_bundler_envars.log", 
-      ["bin/gem", "env"],
-      environment = {
-        "GEM_HOME": gem_home_path_str,
-        "GEM_PATH": gem_home_path_str,
-      }
-    )
-
     # Update bundler to the correct version
     _execute_log_action(ctx, "gem_install_bundler.log", 
-      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)],
-      environment = {
-        "GEM_HOME": gem_home_path_str,
-        "GEM_PATH": gem_home_path_str,
-      }
+      ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)]
     )
-    
-    _execute_log_action(ctx, "gem_list_post_bundler_envars.log", ["bin/gem", "list"], 
-      environment = {
-        "GEM_HOME": gem_home_path_str,
-        "GEM_PATH": gem_home_path_str, 
-      }
-    )
-    
-    _execute_log_action(ctx, "bundler_version_envars.log", ["bin/bundler", "--version"],
-      environment = {
-        "GEM_HOME": gem_home_path_str,
-        "GEM_PATH": gem_home_path_str, 
-      }
-    )
-
-    sh_path = ctx.path("gem_install_bundler.sh")
-    ctx.template(
-      sh_path.basename,
-      ctx.attr._gem_install_bundler_tpl,
-      executable = True,
-    )
-    _execute_log_action(ctx, "bundler_version_unset.log", ["%s" % sh_path])
-
 
   _execute_log_action(ctx, "gem_list_post.log", ["bin/gem", "list"])
   _execute_log_action(ctx, "bundler_version.log", ["bin/bundler", "--version"]) 
@@ -306,9 +265,6 @@ ruby_runtime = repository_rule(
     ),
     "_build_tpl": attr.label(
       default = ":templates/BUILD.dist.bazel.tpl"
-    ),
-    "_gem_install_bundler_tpl": attr.label(
-      default = ":templates/gem_install_bundler.sh.tpl"
     ),
   }
 )

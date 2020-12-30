@@ -45,7 +45,19 @@ def execute_log_action(repo_ctx, log_file_name, action, should_fail = False, **k
   if "working_directory" in kwargs:
     workdir_str = "\nENV: {workdir}".format(workdir = kwargs["working_directory"])
 
-  res = repo_ctx.execute(action, **kwargs)
+  sh_path = repo_ctx.path("{log_file_name}.sh".format(log_file_name = log_file_name))
+  shell_script_lines = [
+    "#!/bin/bash",
+    "unset GEM_HOME",
+    "unset GEM_PATH",
+    cmd,
+    "",
+  ]
+  exec_text = "\n".join(shell_script_lines)
+
+  repo_ctx.file(sh_path.basename, exec_text)
+  
+  res = repo_ctx.execute(["%s" % sh_path], **kwargs)
   result_str = "cmd: {cmd}{env_str}{workdir_str}\nRETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
     cmd = cmd,
     env_str = environment_str,
@@ -56,7 +68,7 @@ def execute_log_action(repo_ctx, log_file_name, action, should_fail = False, **k
   )
 
   if log_file_name:
-    log_file_path = "logs/{log_file_name}".format(log_file_name = log_file_name)
+    log_file_path = "logs/commands/{log_file_name}".format(log_file_name = log_file_name)
     repo_ctx.file(log_file_path, result_str)
 
   if should_fail and res.return_code:
