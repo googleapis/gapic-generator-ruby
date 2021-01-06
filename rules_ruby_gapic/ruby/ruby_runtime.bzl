@@ -17,7 +17,6 @@ Creates a workspace with ruby runtime, including ruby executables and ruby stand
 """
 load(
   ":private/utils.bzl",
-  _execute_and_check_result = "execute_and_check_result",
   _execute_log_action = "execute_log_action",
 )
 
@@ -34,25 +33,28 @@ def try_prebuilt(ctx, prebuilt_ruby, os_name):
     return False, prebuilt_selection_log
 
   tmp = "ruby_tmp"
-  _execute_and_check_result(ctx, ["mkdir", tmp], quiet = False)
+  _execute_log_action(ctx, None, ["mkdir", tmp], quiet = False)
+  
   ctx.extract(archive = prebuilt_ruby, stripPrefix = ctx.attr.strip_prefix, output = tmp)
 
-  res = ctx.execute(
+  res, log = _execute_log_action(
+    ctx, 
+    None,
     ["bin/ruby", "-ropenssl", "-rzlib", "-rreadline", "-rdigest/sha2.so", "-e 'puts :success'"],
     working_directory = tmp
   )
 
   prebuilt_working = res.return_code == 0
 
-  if prebuilt_working == 0:
+  if prebuilt_working:
     prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution succeeded. Chosen.".format(
       prebuilt_ruby = prebuilt_ruby
     )
   else:
-    prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed code {res_code}; Error:\n{err}".format(
-      prebuilt_ruby = prebuilt_ruby, res_code=res.return_code, err=res.stderr)
+    prebuilt_selection_log += "\nPrebuilt ruby @ {prebuilt_ruby}: execution failed\n{log}".format(
+      prebuilt_ruby = prebuilt_ruby, log = log)
   
-  _execute_and_check_result(ctx, ["rm", "-rf", tmp], quiet = False)
+  _execute_log_action(ctx, None, ["rm", "-rf", tmp], quiet = False)
   return prebuilt_working, prebuilt_selection_log
 
 ##
@@ -78,7 +80,7 @@ def build_ruby_runtime(ctx, root_path, srcs_dir):
     "--prefix=%s" % root_path.realpath,
     "--with-ruby-version=ruby_bazel_libroot"]
   ctx.file("configure_opts.log", " ".join(configure_opts))
-  _execute_and_check_result(ctx, configure_opts, working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, configure_opts, working_directory = srcs_dir, quiet = False)
 
   # if num_proc gets us some reasonable number of processors let's use them
   num_proc = "1"
@@ -99,8 +101,8 @@ def build_ruby_runtime(ctx, root_path, srcs_dir):
   make_opts_log += "\n" + " ".join(make_opts)
   ctx.file("make_opts.log", make_opts_log)
 
-  _execute_and_check_result(ctx, make_opts, working_directory = srcs_dir, quiet = False)
-  _execute_and_check_result(ctx, ["make", "install"], working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, make_opts, working_directory = srcs_dir, quiet = False)
+  _execute_log_action(ctx, None, ["make", "install"], working_directory = srcs_dir, quiet = False)
 
 ##
 # Tries to find a gem installed locally with gem list
@@ -109,7 +111,7 @@ def try_locate_gem(ctx, gem, version):
   ctx.report_progress("-------------------------------------")
   ctx.report_progress("Checking for gem: {gem} version {version}".format(gem = gem, version = version))
   cmd_arr = ["bin/gem", "list", "-i", '{gem}'.format(gem = gem), "-v", '{version}'.format(version = version)]
-  res = ctx.execute(cmd_arr, working_directory = ".")
+  res, log = _execute_log_action(ctx, None, cmd_arr)
   gem_located = res.return_code == 0
   report = ""
   if gem_located:
@@ -117,13 +119,10 @@ def try_locate_gem(ctx, gem, version):
     ctx.report_progress(report)
   else:
     log_path = "logs/err_gem_list_{gem}.log".format(gem = gem, version = version)
-    report = "Gem {gem} version {version} list failed code {res_code}\nCmd: {cmd}\nStdOut:\n{stdout}\nStdErr:\n{stderr}".format(
+    report = "Gem {gem} version {version} list failed\n{log}".format(
       gem = gem,
       version = version,
-      res_code = res.return_code,
-      cmd = " ".join(cmd_arr),
-      stdout = res.stdout,
-      stderr = res.stderr
+      log = log
     )
     ctx.report_progress(report)
     ctx.file(log_path, report)
@@ -137,7 +136,8 @@ def install_gem(ctx, gem, version):
   ctx.report_progress("-------------------------------------")  
   ctx.report_progress("Installing gem: {gem} version {version}".format(gem = gem, version = version))
 
-  res = ctx.execute(["bin/gem", "install", gem, "-v={version}".format(version = version)], working_directory = ".")
+  res, log = _execute_log_action(ctx, None, ["bin/gem", "install", gem, "-v={version}".format(version = version)])
+
   report = ""
   if res.return_code == 0:
     report = "Gem {gem} version {version} install successful".format(gem = gem, version = version)
@@ -145,11 +145,10 @@ def install_gem(ctx, gem, version):
   else:
     ctx.report_progress("failed to install")
     log_path = "logs/err_gem_install_{gem}.log".format(gem = gem)
-    report = "Gem {gem} version {version} install failed code {res_code}; StdErr:\n{stderr}".format(
+    report = "Gem {gem} version {version} install failed\n{log}".format(
       gem = gem,
       version = version,
-      res_code = res.return_code,
-      stderr = res.stderr
+      log = log
     )
     ctx.report_progress(report)
     ctx.file(log_path, report)
@@ -193,8 +192,10 @@ def _ruby_runtime_impl(ctx):
     build_ruby_runtime(ctx, root_path, srcs_dir)
 
   ctx.report_progress("Installing gems")
-  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_pre.log", res.stdout)
+
+  _execute_log_action(ctx, "gem_env.log", ["bin/gem", "env"])
+
+  _execute_log_action(ctx, "gem_list_pre.log", ["bin/gem", "list"])
 
   gem_log = []
   for gem, version in  ctx.attr.gems_to_install.items():
@@ -206,9 +207,6 @@ def _ruby_runtime_impl(ctx):
     if not gem_located:
       gem_install_report = install_gem(ctx, gem, version)
       gem_log.append(gem_install_report)
-
-  res = ctx.execute(["bin/gem", "list"], working_directory = ".")
-  ctx.file("logs/gem_list_post.log", res.stdout)
 
   gem_report_path = "logs/gem_report.log"
   ctx.file(gem_report_path, "\n".join(gem_log)+"\n")
@@ -228,12 +226,8 @@ def _ruby_runtime_impl(ctx):
       ["bin/gem", "install", "-f", "--no-document", "bundler:{version}".format(version = bundler_version)]
     )
 
-  res = ctx.execute(["bin/bundler", "--version"], working_directory = ".")
-  ctx.file("logs/bundler_version.log","RETCODE: {code}\nSTDOUT:{stdout}\nSTDERR:{stderr}".format(
-    code = res.return_code,
-    stdout = res.stdout,
-    stderr = res.stderr,
-  ))
+  _execute_log_action(ctx, "gem_list_post.log", ["bin/gem", "list"])
+  _execute_log_action(ctx, "bundler_version.log", ["bin/bundler", "--version"]) 
 
   # adding a libroot file to mark the root of the ruby standard library
   ctx.file("lib/ruby/ruby_bazel_libroot/.ruby_bazel_libroot", "")
