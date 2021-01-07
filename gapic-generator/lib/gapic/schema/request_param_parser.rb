@@ -58,6 +58,7 @@ module Gapic
         # @param error_output [IO] Stream to write outputs to.
         # @return [Array<RequestParameter>] List of parameters parsed
         def parse_parameters_string str, param_schema: nil, error_output: nil
+          return [] if str.empty?
           param_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
 
           param_val_input_strings = split_by_unescaped str, ","
