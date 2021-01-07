@@ -63,15 +63,15 @@ class RequestParamParserTest < Minitest::Test
   end
 
   # test that parsing an empty param string will work
-  def test_empty_string_parsing
-    parameter_string = ""
+  def test_empty_string_parsing_reconstruction
     schema = Gapic::Schema::ParameterSchema.new
-    result = Gapic::Schema::RequestParamParser.parse_parameters_string parameter_string, param_schema: schema
+    result = Gapic::Schema::RequestParamParser.parse_parameters_string "", param_schema: schema
     assert_equal [], result
+    assert_equal "", Gapic::Schema::RequestParamParser.reconstruct_parameters_string([])
   end
 
   # testing the parameter parsing with aliases
-  def test_request_param_parsing
+  def test_request_param_parsing_reconstruction
     bool_params = { "bool_param_input_name" => "bool_param_name" }
     string_params = { "string_param_input_name" => "string_param_name" }
     array_params = { "array_param_input_name" => "array_param_name" }
@@ -98,6 +98,8 @@ class RequestParamParserTest < Minitest::Test
     parsed_parameters = Gapic::Schema::RequestParamParser.parse_parameters_string parameter_string, param_schema: schema
 
     verify_parsing_result param_strings2expected, parsed_parameters
+
+    assert_equal parameter_string, Gapic::Schema::RequestParamParser.reconstruct_parameters_string(parsed_parameters)
   end
 
   private
