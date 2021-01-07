@@ -133,10 +133,10 @@ module Gapic
         end
       end
 
-      # Reconstructed string representation of the protoc options
+      # Reconstructed string representation of the protoc parameters
       # @return [String]
       def protoc_parameter
-        @protoc_parameters.map(&:input_str).join(",")
+        Gapic::Schema::RequestParamParser.reconstruct_parameters_string @protoc_parameters
       end
 
       # Structured representation of the samples configuration files.

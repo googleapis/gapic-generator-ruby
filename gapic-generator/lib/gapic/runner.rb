@@ -38,8 +38,9 @@ module Gapic
       @binary_output_path = params.filter { |p| p.config_name == "binary_output" }.first&.config_value
       @generator_type = params.filter { |p| p.config_name == "generator" }.first&.config_value
 
+      gapic_params = params.filter { |p| !runner_param_names.include? p.config_name }
       # reconstruct the request parameter string without the runner parameters
-      request.parameter = params.filter { |p| !runner_param_names.include? p.config_name }.map(&:input_str).join ","
+      request.parameter = Gapic::Schema::RequestParamParser.reconstruct_parameters_string gapic_params
 
       @request = request
     end

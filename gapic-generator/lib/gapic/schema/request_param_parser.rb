@@ -24,22 +24,23 @@ module Gapic
     module RequestParamParser
       class << self
         # Unescapes a symbol from the string
-        # e.g. "a\.b", '.' => "a.b"
+        # e.g. `'a\.b', '.' => 'a.b'`
         # @param string [String] String to unescape
         # @return [String] Unescaped string
         def unescape string
-          string ? string.gsub(/\\./) { |escaped| escaped[1] } : string
+          string.gsub(/\\./) { |escaped| escaped[1] }
         end
 
         # Splits a string by an unescaped symbol
-        # e.g. "a\.b.c.d\.e", '.'  => ["a\.b","c", "d\.e"]
+        # e.g. `'a\.b.c.d\.e', '.'  => ['a\.b', 'c', 'd\.e']`
         # @param string [String] String to split
         # @param symbol [String] Symbol to split by
         # @param max_splits [Integer] Maximum amount of splits to perform; -1 for no limit
         # @return [Array<String>] List of split string parts
         def split_by_unescaped string, symbol, max_splits = -1
           splits = 0
-          string.scan(/\\.|#{symbol}|[^#{symbol}\\]+/).each_with_object([String.new]) do |tok, arr|
+          escaped_symbol = Regexp.escape symbol
+          string.scan(/\\.|#{escaped_symbol}|[^#{escaped_symbol}\\]+/).each_with_object([String.new]) do |tok, arr|
             if tok == symbol && (max_splits.negative? || splits < max_splits)
               arr.append String.new
               splits += 1
@@ -80,6 +81,14 @@ module Gapic
           end.compact # known bool parameters with invalid values will not be added so we have to compact
         end
 
+        # Take a list of parameters and re-create an input string
+        # that can be parsed into these parameters
+        # @param parameters [Array<RequestParameter>] List of gapic-generator parameters
+        # @return [String] an input string with parameters
+        def reconstruct_parameters_string parameters
+          parameters.map(&:input_str).join ","
+        end
+
         private
 
         # Parses param value depending on type
@@ -87,19 +96,26 @@ module Gapic
         # @param value_str [String]
         # @return [String,Array<String>,Hash{String => String}]
         def parse_param_value param_type, value_str
-          if param_type == :array
+          case param_type
+          when :array
+            # elements in the arrays are concatenated by `;`
+            # e.g. foo;bar;baz
             array_value_strings = split_by_unescaped value_str, ";"
             array_value_strings.map { |s| unescape s }
-          elsif param_type == :map
+          when :map
+            # elements in the maps are `=` - separated key-value pairs, concatenated by ';'
+            # e.g. foo=hoge;bar=piyo
             keyvaluepair_strings = split_by_unescaped value_str, ";"
             new_hash = keyvaluepair_strings.map do |kvp_str|
               split_by_unescaped(kvp_str, "=", 1).map { |s| unescape s }
             end
             new_hash.to_h
-          elsif param_type == :bool
+          when :bool
+            # bools should be either `true` or `false`
             unesc_val = unescape value_str
             unesc_val if ["true", "false"].include? unesc_val
           else
+            # if it's an unknown type, just escape it without attempting to parse anything
             unescape value_str
           end
         end

@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-$LOAD_PATH.unshift File.expand_path("../test", __dir__)
+$LOAD_PATH.unshift ::File.expand_path("../lib", __dir__)
+$LOAD_PATH.unshift ::File.expand_path("../test", __dir__)
 require "gapic/schema/api"
 require "gapic/schema/request_param_parser"
 require "gapic/generator"
