@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "test_helper"
-require "gapic/schema/api_test_resources"
+require "api_test_resources"
 require "gapic/generators/cloud_generator_parameters"
 
 class CloudApiTest < Minitest::Test
