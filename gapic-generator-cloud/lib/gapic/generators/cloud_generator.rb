@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/generators/default_generator"
+require "gapic/generators/cloud_generator_parameters"
 require "gapic/presenters"
 require "gapic/presenters/cloud_gem_presenter"
 require "gapic/presenters/wrapper_gem_presenter"
@@ -100,6 +101,13 @@ module Gapic
       end
 
       # rubocop:enable all
+
+      # Schema of the parameters that the generator accepts
+      # @return [Gapic::Schema::ParameterSchema]
+      def self.parameter_schema
+        CloudGeneratorParameters.default_schema
+      end
+
 
       private
 

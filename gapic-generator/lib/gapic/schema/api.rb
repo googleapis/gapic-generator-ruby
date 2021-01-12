@@ -16,7 +16,9 @@
 
 require "yaml"
 require "json"
+require "gapic/generators/default_generator_parameters"
 require "gapic/schema/loader"
+require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
 
 module Gapic
@@ -44,9 +46,11 @@ module Gapic
       #
       # @param request [Google::Protobuf::Compiler::CodeGeneratorRequest]
       #   The request object.
+      # @param parameter_schema [Gapic::Schema::ParameterSchema]
+      #   The request parameters schema to use
       # @param error_output [IO] An IO to write any errors/warnings to.
       # @param configuration [Hash] Optional override of configuration.
-      def initialize request, error_output: STDERR, configuration: nil
+      def initialize request, parameter_schema: nil, error_output: STDERR, configuration: nil
         @request = request
         loader = Loader.new
         @files = request.proto_file.map do |fd|
@@ -55,6 +59,9 @@ module Gapic
         @files.each { |f| f.parent = self }
         @configuration = configuration
         @resource_types = analyze_resources
+
+        parameter_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
+        @protoc_parameters = parse_parameter request.parameter, parameter_schema, error_output
         sanity_checks error_output
       end
 
@@ -116,33 +123,20 @@ module Gapic
 
       # Structured Hash representation of the parameter values.
       # @return [Hash]
-      #   A Hash of the request parameters.
       def protoc_options
         @protoc_options ||= begin
           result = {}
-          parameters = parse_parameter request.parameter
-          parameters.each do |param_array|
-            key = param_array.first
-            next if key.empty?
-            value = param_array[1..-1]
-            value = value.first if value.size == 1
-            value = nil if value.empty?
-            result[str_to_key(key)] = value
+          @protoc_parameters.each do |parameter|
+            result[str_to_key(parameter.config_name)] = parameter.config_value
           end
           result
         end
       end
 
-      # Reconstructed string representation of the protoc options
+      # Reconstructed string representation of the protoc parameters
       # @return [String]
       def protoc_parameter
-        protoc_options.map do |k, v|
-          v = Array(v).map do |s|
-            s.gsub("\\", "\\\\\\\\").gsub(",", "\\\\,").gsub("=", "\\\\=")
-          end.join("=")
-          k = key_to_str k
-          "#{k}=#{v}"
-        end.join ","
+        Gapic::Schema::RequestParamParser.reconstruct_parameters_string @protoc_parameters
       end
 
       # Structured representation of the samples configuration files.
@@ -353,20 +347,13 @@ module Gapic
 
       # Parse a comma-delimited list of equals-delimited lists of strings, while
       # mapping backslash-escaped commas and equal signs to literal characters.
-      def parse_parameter str
-        str.scan(/\\.|,|=|[^\\,=]+/)
-           .each_with_object([[String.new]]) do |tok, arr|
-             if tok == ","
-               arr.append [String.new]
-             elsif tok == "="
-               arr.last.append String.new
-             elsif tok.start_with? "\\"
-               arr.last.last << tok[1]
-             else
-               arr.last.last << tok
-             end
-             arr
-           end
+      # @param str [String]
+      # @param error_output [IO] Stream to write outputs to.
+      # @return [Array<Gapic::Schema::RequestParameter>]
+      def parse_parameter str, parameter_schema, error_output
+        Gapic::Schema::RequestParamParser.parse_parameters_string str,
+                                                                  param_schema: parameter_schema,
+                                                                  error_output: error_output
       end
 
       # split the string on periods, but map backslash-escaped periods to

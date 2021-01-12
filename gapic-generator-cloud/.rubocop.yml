@@ -8,6 +8,18 @@ AllCops:
     - bin/*
     - Rakefile
 
+Metrics/AbcSize:
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
+
 Style/Documentation:
   Exclude:
     - lib/gapic/presenters/**/*

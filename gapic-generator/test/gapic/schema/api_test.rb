@@ -15,84 +15,16 @@
 # limitations under the License.
 
 require "test_helper"
+require "api_test_resources"
 
 class ApiTest < Minitest::Test
-  # an amalgam of the parameters the generator takes
-  # for both client libraries and wrappers
-  API_INFO = {
-    # bool parameters
-    # any string value for a bool parameter is parsed into the configuration structure
-    # and then rejected by the presenter layer
-    free_tier:             "invalid_value",
-    yard_strict:           "false",
-    generic_endpoint:      "true",
-
-    # string parameters
-    name:                  "google-cloud-container_analysis-v1",
-    namespace:             "Google::Cloud::AutoML",
-    title:                 "Container Analysis V1",
-    # escaping is required for commas and equal signs
-    description:           "The Container Analysis API is (foo\\=bar). It stores\\, and enables...",
-    unescaped_description: "The Container Analysis API is (foo=bar). It stores, and enables...",
-    summary:               "API Client library",
-    homepage:              "https://github.com/googleapis/googleapis",
-    env_prefix:            "CONTAINER_ANALYSIS",
-    wrapper_of:            "v1:0.0;v1beta1:0.0",
-    migration_version:     "0.20",
-    product_url:           "https://cloud.google.com/container-registry/docs/container-analysis",
-    issues_url:            "https://example.com/issues",
-    api_id:                "containeranalysis.googleapis.com",
-    api_shortname:         "containeranalysis",
-    factory_method_suffix: "_service",
-    grpc_service_config:   "google/devtools/containeranalysis/v1/containeranalysis_grpc_service_config.json",
-
-    # array parameters
-    common_services:       ["google.iam.v1.IAMPolicy", "google.pubsub.v1.Publisher"],
-
-    # map parameters
-    path_override:         { "pub_sub" => "pubsub", "auto_ml" => "automl" },
-    namespace_override:    { "Pubsub" => "PubSub", "AutoMl" => "AutoML" },
-    service_override:      { "Controller2" => "Controller", "Debugger2" => "Debugger" },
-    extra_dependencies:    {
-      "grafeas-v1" => "~> 0.0",
-      "foo"        => "~> bar"
-    }
-  }.freeze
-
-  # a configuration that is expected to be parsed from the parameters above
-  CONFIG_EXPECTED = {
-    gem: {
-      free_tier:                 API_INFO[:free_tier],
-      yard_strict:               API_INFO[:yard_strict],
-      generic_endpoint:          API_INFO[:generic_endpoint],
-      name:                      API_INFO[:name],
-      namespace:                 API_INFO[:namespace],
-      title:                     API_INFO[:title],
-      description:               API_INFO[:unescaped_description],
-      summary:                   API_INFO[:summary],
-      homepage:                  API_INFO[:homepage],
-      env_prefix:                API_INFO[:env_prefix],
-      version_dependencies:      API_INFO[:wrapper_of],
-      migration_version:         API_INFO[:migration_version],
-      product_documentation_url: API_INFO[:product_url],
-      issue_tracker_url:         API_INFO[:issues_url],
-      api_id:                    API_INFO[:api_id],
-      api_shortname:             API_INFO[:api_shortname],
-      factory_method_suffix:     API_INFO[:factory_method_suffix],
-      extra_dependencies:        API_INFO[:extra_dependencies]
-    },
-    "grpc_service_config" => API_INFO[:grpc_service_config],
-    common_services: API_INFO[:common_services],
-    overrides: {
-      file_path: API_INFO[:path_override],
-      namespace: API_INFO[:namespace_override],
-      service:   API_INFO[:service_override]
-    }
-  }.freeze
+  API_INFO = ApiTestResources::API_INFO
+  CONFIG_EXPECTED = ApiTestResources::CONFIG_EXPECTED
 
   # Verify that the full range of API parameters options
   # are parsed correctly into the configuration structure
-  def test_parse_protoc_options
+  # when provided with literal configuration parameter names
+  def test_parse_parameters_literal
     literal_params = [
       [":gem.:free_tier", API_INFO[:free_tier]],
       [":gem.:yard_strict", API_INFO[:yard_strict]],
@@ -112,13 +44,15 @@ class ApiTest < Minitest::Test
       [":gem.:api_id", API_INFO[:api_id]],
       [":gem.:api_shortname", API_INFO[:api_shortname]],
       [":gem.:factory_method_suffix", API_INFO[:factory_method_suffix]],
+      [":defaults.:service.:default_host", API_INFO[:default_host]],
       ["grpc_service_config", API_INFO[:grpc_service_config]],
 
-      # arrays of values are joined with the '=' symbol
-      [":common_services", API_INFO[:common_services].join("=")]
+      # arrays of values are joined with the ';' symbol
+      [":defaults.:service.:oauth_scopes", API_INFO[:default_oauth_scopes].join(";")]
     ]
 
     # maps of values are split into separate command-line parameters (one parameter per map key).
+    literal_params += create_map_params API_INFO[:common_services], ":common_services"
     literal_params += create_map_params API_INFO[:path_override], ":overrides.:file_path"
     literal_params += create_map_params API_INFO[:namespace_override], ":overrides.:namespace"
     literal_params += create_map_params API_INFO[:service_override], ":overrides.:service"
@@ -131,13 +65,56 @@ class ApiTest < Minitest::Test
     assert_equal CONFIG_EXPECTED, api.configuration
   end
 
-  def test_configuration_construction
-    parameter = ":a.:b=1,:a.:c=2,:a.:c.:d=3"
-    request = OpenStruct.new parameter: parameter, proto_file: []
-    api = Gapic::Schema::Api.new request
-    assert_equal({ a: { b: "1", c: { d: "3" } } }, api.configuration)
+  # Verify that the full range of API parameters options
+  # are parsed correctly into the configuration structure
+  # when provided with human-readable parameter aliases
+  def test_parse_parameters_readable
+    readable_params = [
+      ["gem-free-tier", API_INFO[:free_tier]],
+      ["gem-yard-strict", API_INFO[:yard_strict]],
+      ["gem-generic-endpoint", API_INFO[:generic_endpoint]],
+
+      ["gem-name", API_INFO[:name]],
+      ["gem-namespace", API_INFO[:namespace]],
+      ["gem-title", API_INFO[:title]],
+      ["gem-description", API_INFO[:description]],
+      ["gem-summary", API_INFO[:summary]],
+      ["gem-homepage", API_INFO[:homepage]],
+      ["gem-env-prefix", API_INFO[:env_prefix]],
+      ["gem-wrapper-of", API_INFO[:wrapper_of]],
+      ["gem-migration-version", API_INFO[:migration_version]],
+      ["gem-product-url", API_INFO[:product_url]],
+      ["gem-issues-url", API_INFO[:issues_url]],
+      ["gem-api-id", API_INFO[:api_id]],
+      ["gem-api-shortname", API_INFO[:api_shortname]],
+      ["gem-factory-method-suffix", API_INFO[:factory_method_suffix]],
+      ["default-service-host", API_INFO[:default_host]],
+      ["grpc-service-config", API_INFO[:grpc_service_config]],
+
+      # arrays of values are joined with the ';' symbol
+      ["default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
+
+      # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
+
+      # for the readable parameter there is no need to escape the '.' in the parameter name
+      # because there will not be a map-unrolling of the parameter name
+      # therefore we use API_INFO[:common_services_unescaped] for input
+      ["common-services", API_INFO[:common_services_unescaped].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["file-path-override", API_INFO[:path_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["namespace-override", API_INFO[:namespace_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["service-override", API_INFO[:service_override].map { |k, v| "#{k}=#{v}" }.join(";")],
+      ["gem-extra-dependencies", API_INFO[:extra_dependencies].map { |k, v| "#{k}=#{v}" }.join(";")]
+    ]
+
+    readable_param_str = readable_params.map { |k, v| "#{k}=#{v}" }.join(",")
+    request = OpenStruct.new parameter: readable_param_str, proto_file: []
+    api = Gapic::Schema::Api.new request, parameter_schema: Gapic::Generators::DefaultGeneratorParameters.default_schema
+
+    assert_equal CONFIG_EXPECTED, api.configuration
   end
 
+  # Verify that reconstructing parameter string
+  # from the parsed representation inside the Api works correctly
   def test_parameter_reconstruction
     parameter = "a=b\\\\\\,\\=,c=d=e,:f="
     request = OpenStruct.new parameter: parameter, proto_file: []
@@ -147,6 +124,11 @@ class ApiTest < Minitest::Test
 
   private
 
+  # Create a list of parameters and values
+  # for the default representation of map-typed parameters
+  # @param param_map [Hash{String => String}]
+  # @param prefix [String]
+  # @return [Array<String>]
   def create_map_params param_map, prefix
     param_map.map { |k, v| ["#{prefix}.#{k}", v] }
   end

@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "gapic/generators/base_generator"
+require "gapic/generators/default_generator_parameters"
 require "gapic/presenters"
 
 module Gapic
@@ -88,6 +89,12 @@ module Gapic
       end
 
       # rubocop:enable all
+
+      # Schema of the parameters that the generator accepts
+      # @return [Gapic::Schema::ParameterSchema]
+      def self.parameter_schema
+        DefaultGeneratorParameters.default_schema
+      end
 
       private
 
