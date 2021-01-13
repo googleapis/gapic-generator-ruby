@@ -1,3 +1,5 @@
+# Release History for Bazel-Ruby rules and examples
+
 ### 2021-01-13
 
 * GEM_HOME and GEM_PATH environment variables when set on the host system no longer break Bazel-Ruby rules
