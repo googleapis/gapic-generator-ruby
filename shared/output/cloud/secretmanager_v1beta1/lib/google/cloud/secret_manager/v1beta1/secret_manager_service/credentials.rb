@@ -25,24 +25,26 @@ module Google
         module SecretManagerService
           # Credentials for the SecretManagerService API.
           class Credentials < ::Google::Auth::Credentials
-            self.scope = [
+            SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"
-            ]
-            self.env_vars = [
+            ].freeze
+            PATH_ENV_VARS = [
               "SECRET_MANAGER_CREDENTIALS",
               "SECRET_MANAGER_KEYFILE",
               "GOOGLE_CLOUD_CREDENTIALS",
               "GOOGLE_CLOUD_KEYFILE",
-              "GCLOUD_KEYFILE",
+              "GCLOUD_KEYFILE"
+            ].freeze
+            JSON_ENV_VARS = [
               "SECRET_MANAGER_CREDENTIALS_JSON",
               "SECRET_MANAGER_KEYFILE_JSON",
               "GOOGLE_CLOUD_CREDENTIALS_JSON",
               "GOOGLE_CLOUD_KEYFILE_JSON",
               "GCLOUD_KEYFILE_JSON"
-            ]
-            self.paths = [
+            ].freeze
+            DEFAULT_PATHS = [
               "~/.config/google_cloud/application_default_credentials.json"
-            ]
+            ].freeze
           end
         end
       end

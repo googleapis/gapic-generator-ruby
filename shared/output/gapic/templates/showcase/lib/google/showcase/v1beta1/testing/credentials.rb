@@ -32,12 +32,14 @@ module Google
       module Testing
         # Credentials for the Testing API.
         class Credentials < ::Google::Auth::Credentials
-          self.env_vars = [
+          PATH_ENV_VARS = [
             "SHOWCASE_CREDENTIALS",
-            "SHOWCASE_KEYFILE",
+            "SHOWCASE_KEYFILE"
+          ].freeze
+          JSON_ENV_VARS = [
             "SHOWCASE_CREDENTIALS_JSON",
             "SHOWCASE_KEYFILE_JSON"
-          ]
+          ].freeze
         end
       end
     end

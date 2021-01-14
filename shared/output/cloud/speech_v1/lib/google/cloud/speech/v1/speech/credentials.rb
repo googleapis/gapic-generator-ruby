@@ -25,24 +25,26 @@ module Google
         module Speech
           # Credentials for the Speech API.
           class Credentials < ::Google::Auth::Credentials
-            self.scope = [
+            SCOPE = [
               "https://www.googleapis.com/auth/cloud-platform"
-            ]
-            self.env_vars = [
+            ].freeze
+            PATH_ENV_VARS = [
               "SPEECH_CREDENTIALS",
               "SPEECH_KEYFILE",
               "GOOGLE_CLOUD_CREDENTIALS",
               "GOOGLE_CLOUD_KEYFILE",
-              "GCLOUD_KEYFILE",
+              "GCLOUD_KEYFILE"
+            ].freeze
+            JSON_ENV_VARS = [
               "SPEECH_CREDENTIALS_JSON",
               "SPEECH_KEYFILE_JSON",
               "GOOGLE_CLOUD_CREDENTIALS_JSON",
               "GOOGLE_CLOUD_KEYFILE_JSON",
               "GCLOUD_KEYFILE_JSON"
-            ]
-            self.paths = [
+            ].freeze
+            DEFAULT_PATHS = [
               "~/.config/google_cloud/application_default_credentials.json"
-            ]
+            ].freeze
           end
         end
       end
