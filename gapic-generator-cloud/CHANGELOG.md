@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.10 / 2021-01-13
+
+* Includes changes from gapic-generator 0.6.10.
+* A set of human-readable cloud-specific command-line parameters can now be specified for the gapic-generator-cloud, e.g. `ruby-cloud-gem-name`. These parameters strictly duplicate the existing behaviour of old command-line parameters, e.g. `:gem.:name`.
+
 ### 0.6.9 / 2020-12-07
 
 * Includes changes from gapic-generator 0.6.9.

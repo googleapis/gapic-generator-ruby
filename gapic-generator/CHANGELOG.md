@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.6.10 / 2021-01-13
+
+* A set of human-readable command-line parameters can now be specified for the gapic-generator, e.g. `gem-name`. These parameters strictly duplicate the existing behaviour of old command-line parameters, e.g. `:gem.:name`.
+* Documentation for the `timeout` parameter in some templates has been fixed to correctly specify 'seconds' where previously it incorrectly sais 'milliseconds'. This is a purely documentation update, no functionality changes.
+
 ### 0.6.9 / 2020-12-07
 
 * Load package-level handwritten helpers.
