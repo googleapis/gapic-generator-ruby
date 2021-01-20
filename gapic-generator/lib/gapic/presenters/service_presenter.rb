@@ -46,6 +46,9 @@ module Gapic
         PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
+      ##
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #
       def methods
         @methods ||= begin
           @service.methods.map { |m| MethodPresenter.new self, @api, m }
@@ -196,6 +199,55 @@ module Gapic
           "localhost"
       end
 
+      ##
+      # @return [String]
+      #
+      def rest_client_name_full
+        fix_namespace @api, "#{service_name_full}::Rest::#{client_name}"
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_client_require
+        ruby_file_path @api, rest_client_name_full
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_client_file_path
+        rest_client_require + ".rb"
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_service_stub_name
+        "ServiceStub"
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_service_stub_name_full
+        fix_namespace @api, "#{service_name_full}::Rest::#{rest_service_stub_name}"
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_service_stub_require
+        ruby_file_path @api, rest_service_stub_name_full
+      end
+
+      ##
+      # @return [String]
+      #
+      def rest_service_stub_file_path
+        rest_service_stub_require + ".rb"
+      end
+
       def generic_endpoint?
         gem.generic_endpoint?
       end
@@ -269,6 +321,21 @@ module Gapic
 
       def paths_require
         ruby_file_path @api, "#{service_name_full}::#{paths_name}"
+      end
+
+      ##
+      # @return [Boolean] whether this service contains any methods with REST bindings
+      #
+      def methods_rest_bindings?
+        methods_rest_bindings.any?
+      end
+
+      ##
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #   List of mods for which REST bindings are present and REST methods can be generated
+      #
+      def methods_rest_bindings
+        methods.select { |method| method.method_path? && method.method_verb? }
       end
 
       def test_client_file_path

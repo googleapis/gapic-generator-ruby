@@ -27,12 +27,19 @@ module Gapic
     class MethodPresenter
       include Gapic::Helpers::NamespaceHelper
 
+      ##
+      # @param service_presenter [Gapic::Presenters::ServicePresenter]
+      # @param api [Gapic::Schema::Api]
+      # @param method [Gapic::Schema::Method]
       def initialize service_presenter, api, method
         @service_presenter = service_presenter
         @api = api
         @method = method
       end
 
+      ##
+      # @return [Gapic::Presenters::ServicePresenter]
+      #
       def service
         @service_presenter
       end
@@ -195,13 +202,15 @@ module Gapic
       end
 
       ##
-      #
       # @return [Array<String>] The segment key names.
       #
       def routing_params
         Gapic::UriTemplate.parse_arguments method_path
       end
 
+      ##
+      # @return [Boolean] Whether any routing params are present
+      #
       def routing_params?
         routing_params.any?
       end
@@ -215,6 +224,52 @@ module Gapic
 
       def grpc_method_name
         @method.name
+      end
+
+      ##
+      # @return [Boolean] Whether a method path is present and non-empty
+      #
+      def method_path?
+        !method_path.nil?
+      end
+
+      ##
+      # @return [String, NilClass] A method path or nil if not present
+      #
+      def method_path
+        return "" if @method.http.nil?
+
+        method = [
+          @method.http.get, @method.http.post, @method.http.put,
+          @method.http.patch, @method.http.delete
+        ].find { |x| !x.empty? }
+        return method unless method.nil?
+
+        @method.http.custom&.path
+      end
+
+      ##
+      # @return [Boolean] Whether a http verb is present for this method
+      #
+      def method_verb?
+        !method_verb.nil?
+      end
+
+      ##
+      # @return [Symbol] a http verb for this method
+      #
+      def method_verb
+        return nil if @method.http.nil?
+
+        method = {
+          get:    @method.http.get,
+          post:   @method.http.post,
+          put:    @method.http.put,
+          patch:  @method.http.patch,
+          delete: @method.http.delete
+        }.find { |_, value| !value.empty? }
+
+        method[0] unless method.nil?
       end
 
       protected
@@ -264,18 +319,6 @@ module Gapic
             "::Object"
           end
         end
-      end
-
-      def method_path
-        return "" if @method.http.nil?
-
-        method = [
-          @method.http.get, @method.http.post, @method.http.put,
-          @method.http.patch, @method.http.delete
-        ].find { |x| !x.empty? }
-        return method unless method.nil?
-
-        return @method.http.custom.path unless @method.http.custom.nil?
       end
 
       def paged_request? request

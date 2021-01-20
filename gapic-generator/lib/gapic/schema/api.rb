@@ -231,6 +231,11 @@ module Gapic
         configuration[:generate_path_helpers_output] ||= false
       end
 
+      # Whether to generate REST clients
+      def generate_rest_clients?
+        true # configuration[:generate_rest_clients] ||= false
+      end
+
       # Whether the override_proto_namespaces parameter was given in the configuration
       def override_proto_namespaces_defined?
         configuration.key? :override_proto_namespaces

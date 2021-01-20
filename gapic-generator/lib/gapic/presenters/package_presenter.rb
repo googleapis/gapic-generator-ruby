@@ -54,7 +54,10 @@ module Gapic
         namespace.split("::").last
       end
 
+      ##
       # Services whose clients should be generated in this package namespace.
+      # @return [Enumerable<Gapic::Presenters::ServicePresenter>]
+      #
       def services
         @services ||= begin
           files = @api.generate_files.select { |f| f.package == @package }

@@ -58,6 +58,8 @@ module Gapic
             files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
             files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
             files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro?
+            files << g("service/rest/client.erb",            "lib/#{service.rest_client_file_path}",             service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/rest/service_stub.erb",      "lib/#{service.rest_service_stub_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
             files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service)
             files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
             files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro?
