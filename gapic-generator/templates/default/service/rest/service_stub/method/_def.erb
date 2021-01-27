@@ -1,0 +1,30 @@
+<%- assert_locals method -%>
+##
+<%- if method.doc_description -%>
+  <%= indent method.doc_description, "# " %>
+  #
+<%- end -%>
+# @param request_pb [<%= method.request_type %>]
+#   A request object representing the call parameters. Required.
+# @param options [::Gapic::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+# @return [<%= method.rest_return_type %>]
+def <%= method.name %> request_pb, options:, &block
+  request_json = JSON.parse <%= method.request_type %>.encode_json(request_pb)
+
+  uri = "<%= method.rest_uri_interpolated %>"
+  <%- if method.rest_method_body? -%>
+  body = <%= method.rest_body_interpolated %>
+  <%- end -%>
+
+  result_json = @client_stub.make_<%= method.method_verb %>_request(
+    uri:     uri,
+<%- if method.rest_method_body? -%>
+    body:    body,
+<%- end -%>
+    options: options,
+    &block
+  )
+
+  <%= method.rest_return_type %>.decode_json result_json[:body]
+end

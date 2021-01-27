@@ -27,6 +27,8 @@ module Gapic
     class MethodPresenter
       include Gapic::Helpers::NamespaceHelper
 
+      attr_accessor :method
+
       ##
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
@@ -230,22 +232,52 @@ module Gapic
       # @return [Boolean] Whether a method path is present and non-empty
       #
       def method_path?
-        !method_path.nil?
+        !method_path.empty?
       end
 
       ##
-      # @return [String, NilClass] A method path or nil if not present
+      # @return [String] A method path or nil if not present
       #
       def method_path
         return "" if @method.http.nil?
 
-        method = [
+        method_verb_path = [
           @method.http.get, @method.http.post, @method.http.put,
           @method.http.patch, @method.http.delete
         ].find { |x| !x.empty? }
-        return method unless method.nil?
 
-        @method.http.custom&.path
+        method_verb_path || @method.http.custom&.path || ""
+      end
+
+      def rest_uri_interpolated
+        return method_path unless routing_params?
+
+        routing_params.reduce method_path do |path, param|
+          param_esc = Regexp.escape param
+          path.gsub(/{#{param_esc}[^}]*}/, "\#{request_pb.#{param}}")
+        end
+      end
+
+      def rest_method_body?
+        return false if @method.http.nil?
+
+        !@method.http.body.empty?
+      end
+
+      def rest_method_body
+        @method.http&.body || ""
+      end
+
+      def rest_body_interpolated
+        return "\"\"" unless rest_method_body?
+
+        return "request_pb.to_json" if rest_method_body == "*"
+
+        "request_pb.#{rest_method_body}.to_json"
+      end
+
+      def rest_return_type
+        return_type
       end
 
       ##

@@ -17,12 +17,6 @@
 require "test_helper"
 
 class MethodPresenterRoutingParamsTest < PresenterTest
-  def test_showcase_UpdateUser
-    presenter = method_presenter :showcase, "Identity", "UpdateUser"
-
-    assert presenter.routing_params?
-  end
-
   def test_showcase_CreateRoom
     presenter = method_presenter :showcase, "Messaging", "CreateRoom"
 

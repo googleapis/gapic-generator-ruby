@@ -1,2 +1,30 @@
 <%- assert_locals service -%>
-# I am a rest service stub render
+<% @requires = capture do %>
+  require "gapic/rest"
+  require "<%= service.proto_service_require %>"
+<% end %>
+##
+# REST service stub for the <%= service.name %> service.
+#
+class <%= service.rest.service_stub_name %>
+  ##
+  # Create a new <%= service.name %> REST service stub object.
+  #
+  # @param endpoint [String]
+  #   The hostname or hostname:port of the service endpoint.
+  #   Defaults to `"localhost:7469"`.
+  #
+  # @param credentials [Google::Auth::Credentials]
+  #   Credentials to send with calls in form of a googleauth credentials object.
+  #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+  #
+  def initialize endpoint:, credentials:
+    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
+  end
+
+  # Service calls
+  <%- service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/rest/service_stub/method/def", locals: { method: method }), 2 %>
+  <%- end %>
+end

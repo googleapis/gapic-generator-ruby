@@ -27,11 +27,15 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [Gapic::Presenters::RestServicePresenter]
+      attr_reader :rest
+
       def initialize gem_presenter, api, service, parent_service: nil
         @gem_presenter = gem_presenter
         @api = api
         @service = service
         @parent_service = parent_service
+        @rest = RestServicePresenter.new self, api
       end
 
       def gem
@@ -197,55 +201,6 @@ module Gapic
           @service.host ||
           default_config(:default_host) ||
           "localhost"
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_client_name_full
-        fix_namespace @api, "#{service_name_full}::Rest::#{client_name}"
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_client_require
-        ruby_file_path @api, rest_client_name_full
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_client_file_path
-        rest_client_require + ".rb"
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_service_stub_name
-        "ServiceStub"
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_service_stub_name_full
-        fix_namespace @api, "#{service_name_full}::Rest::#{rest_service_stub_name}"
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_service_stub_require
-        ruby_file_path @api, rest_service_stub_name_full
-      end
-
-      ##
-      # @return [String]
-      #
-      def rest_service_stub_file_path
-        rest_service_stub_require + ".rb"
       end
 
       def generic_endpoint?

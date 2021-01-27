@@ -1,2 +1,117 @@
 <%- assert_locals service -%>
-# I am a rest client render
+<% @requires = capture do %>
+  <%= render partial: "service/client/requires", locals: { service: service} -%>
+  require "<%= service.proto_service_require %>"
+<% end %>
+##
+# REST client for the <%= service.name %> service.
+#
+<%- if service.doc_description -%>
+<%= indent service.doc_description, "# " %>
+#
+<%- end -%>
+class <%= service.rest.client_name %>
+<%- if service.paths? -%>
+  include <%= service.paths_name %>
+
+<%- end -%>
+  # @private
+  attr_reader :<%= service.stub_name %>
+
+  ##
+  # Configure the <%= service.name %> <%= service.rest.client_name %> class.
+  #
+  # See {<%= service.rest.client_name_full %>::Configuration}
+  # for a description of the configuration fields.
+  #
+  # ## Example
+  #
+  # To modify the configuration for all <%= service.name %> clients:
+  #
+  #     <%= service.rest.client_name_full %>.configure do |config|
+  #       config.timeout = 10.0
+  #     end
+  #
+  # @yield [config] Configure the <%= service.rest.client_name %> client.
+  # @yieldparam config [<%= service.rest.client_name %>::Configuration]
+  #
+  # @return [<%= service.rest.client_name %>::Configuration]
+  #
+  def self.configure
+<%= indent render(partial: "service/client/self_configure", locals: { service: service }), 4 %>
+  end
+
+  ##
+  # Configure the <%= service.name %> <%= service.rest.client_name %> instance.
+  #
+  # The configuration is set to the derived mode, meaning that values can be changed,
+  # but structural changes (adding new fields, etc.) are not allowed. Structural changes
+  # should be made on {<%= service.rest.client_name %>.configure}.
+  #
+  # See {<%= service.rest.client_name_full %>::Configuration}
+  # for a description of the configuration fields.
+  #
+  # @yield [config] Configure the <%= service.rest.client_name %> client.
+  # @yieldparam config [<%= service.rest.client_name %>::Configuration]
+  #
+  # @return [<%= service.rest.client_name %>::Configuration]
+  #
+  def configure
+    yield @config if block_given?
+    @config
+  end
+
+  ##
+  # Create a new <%= service.name %> REST client object.
+  #
+  # ## Examples
+  #
+  # To create a new <%= service.name %> REST client with the default
+  # configuration:
+  #
+  #     client = <%= service.rest.client_name_full %>.new
+  #
+  # To create a new <%= service.name %> REST client with a custom
+  # configuration:
+  #
+  #     client = <%= service.rest.client_name_full %>.new do |config|
+  #       config.timeout = 10.0
+  #     end
+  #
+  # @yield [config] Configure the <%= service.name %> client.
+  # @yieldparam config [<%= service.rest.client_name %>::Configuration]
+  #
+  def initialize
+    # These require statements are intentionally placed here to initialize
+    # the REST modules only when it's required.
+    require "<%= service.rest.service_stub_require %>"
+
+    # Create the configuration object
+    @config = Configuration.new <%= service.rest.client_name %>.configure
+
+    # Yield the configuration if needed
+    yield @config if block_given?
+
+    # Create credentials
+    credentials = @config.credentials
+    <%- unless service.generic_endpoint? -%>
+    credentials ||= Credentials.default scope: @config.scope
+    if credentials.is_a?(String) || credentials.is_a?(Hash)
+      credentials = Credentials.new credentials, scope: @config.scope
+    end
+    <%- end -%>
+
+    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(
+      credentials:  credentials,
+      endpoint:     @config.endpoint
+    )
+  end
+
+  # Service calls
+  <%- service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/rest/client/method/def", locals: { method: method }), 2 %>
+  <%- end %>
+
+  <%= indent_tail render(partial: "service/rest/client/config", locals: { service: service }), 2 %>
+end

@@ -1,0 +1,33 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "gapic/rest"
+require "gapic/config"
+require "gapic/config/method"
+
+require "<%= service.gem.version_require %>"
+
+<%- unless service.generic_endpoint? -%>
+require "<%= service.credentials_require %>"
+<%- end -%>
+<%- if service.paths? -%>
+require "<%= service.paths_require %>"
+<%- end -%>
+require "<%= service.rest.client_require %>"
+<%- end -%>
+##
+<%- if service.doc_description -%>
+<%= indent service.doc_description, "# " %>
+#
+<%- end -%>
+# To load this service and instantiate a client:
+#
+#     require "<%= service.service_require %>"
+#     client = <%= service.create_client_call %>
+#
+module <%= service.module_name %>
+  module Rest
+  end
+end
+<% @footer = capture do %>
+<%= render partial: "service/helpers", locals: { service: service} -%>
+<%- end -%>
