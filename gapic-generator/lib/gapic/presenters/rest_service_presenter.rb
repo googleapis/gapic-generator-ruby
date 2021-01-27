@@ -71,6 +71,10 @@ module Gapic
         client_require + ".rb"
       end
 
+      def create_client_call
+        "#{client_name_full}.new"
+      end
+
       ##
       # @return [String]
       #

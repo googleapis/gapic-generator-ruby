@@ -1,4 +1,21 @@
 <%- assert_locals service -%>
+
+<%- if service.generate_rest_clients? -%>
+<% @requires = capture do %>
+require "gapic/config"
+require "gapic/config/method"
+
+require "<%= service.gem.version_require %>"
+
+<%- unless service.generic_endpoint? -%>
+require "<%= service.credentials_require %>"
+<%- end -%>
+<%- if service.paths? -%>
+require "<%= service.paths_require %>"
+<%- end -%>
+require "<%= service.rest.service_rest_require %>"
+<% end %>
+<% else %>
 <% @requires = capture do %>
 require "gapic/common"
 require "gapic/config"
@@ -29,6 +46,11 @@ require "<%= service.client_require %>"
 #
 module <%= service.module_name %>
 end
+<% end %>
+
+
+
+
 <% @footer = capture do %>
 <%= render partial: "service/helpers", locals: { service: service} -%>
 <% end %>

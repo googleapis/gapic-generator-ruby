@@ -278,6 +278,10 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{paths_name}"
       end
 
+      def generate_rest_clients?
+        @api.generate_rest_clients?
+      end
+
       ##
       # @return [Boolean] whether this service contains any methods with REST bindings
       #
