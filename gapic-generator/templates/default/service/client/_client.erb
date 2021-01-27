@@ -97,7 +97,11 @@ class <%= service.client_name %>
     # Create credentials
     credentials = @config.credentials
     <%- unless service.generic_endpoint? -%>
-    credentials ||= Credentials.default scope: @config.scope
+    enable_self_signed_jwt = @config.scope == <%= service.client_name %>.configure.scope &&
+                             @config.endpoint == <%= service.client_name %>.configure.endpoint &&
+                             !@config.endpoint.split(".").first.include?("-")
+    credentials ||= Credentials.default scope: @config.scope,
+                                        enable_self_signed_jwt: enable_self_signed_jwt
     if credentials.is_a?(String) || credentials.is_a?(Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
