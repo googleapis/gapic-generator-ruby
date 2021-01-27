@@ -88,6 +88,14 @@ namespace :gen do |gen_namespace|
   desc "Generate the expected output for noservice"
   task :noservice do
     generate_cloud_templates :noservice
+    Rake::Task["gen:compute_small"].invoke
+  end
+
+  desc "Generate the expected output for compute_small"
+  task :compute_small do
+    generate_cloud_templates :compute_small
+    cp '../shared/tmp/compute_small/Gemfile', '../shared/output/cloud/compute_small'
+    cp '../shared/tmp/compute_small/google-cloud-compute-v1.gemspec', '../shared/output/cloud/compute_small'
   end
 end
 
