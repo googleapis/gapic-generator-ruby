@@ -1,0 +1,4 @@
+---
+:skip_credentials: true
+:gem:
+  :name: google-cloud-compute-v1

@@ -28,6 +28,7 @@ task :gen do
   Rake::Task["gen:garbage"].invoke
   Rake::Task["gen:googleads"].invoke
   Rake::Task["gen:grpc_service_config"].invoke
+  Rake::Task["gen:compute_small"].invoke
 end
 
 namespace :gen do
@@ -79,6 +80,11 @@ namespace :gen do
   desc "Generate the binary input files for grpc_service_config"
   task :grpc_service_config do
     generate_input_file :grpc_service_config
+  end
+
+  desc "Generate the binary input files for cloud-compute small"
+  task :compute_small do
+    generate_input_file :compute_small
   end
 end
 

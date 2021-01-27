@@ -111,6 +111,11 @@ def gem_defaults
         "../shared/protos/testing/grpc_service_config/grpc_service_config.json",
         "../shared/protos/testing/grpc_service_config/grpc_service_config2.json"
       ]
+    },
+    compute_small: {
+      protos: [
+        "google/cloud/compute/v1/compute_small.proto"
+      ]
     }
   }
 end
