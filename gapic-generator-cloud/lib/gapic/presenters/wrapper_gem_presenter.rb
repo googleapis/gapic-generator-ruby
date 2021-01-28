@@ -101,6 +101,10 @@ module Gapic
         version_dependencies.first&.first
       end
 
+      def default_versioned_gem
+        versioned_gems.first
+      end
+
       def dependencies
         deps = { "google-cloud-core" => "~> 1.5" }
         version_dependencies.each do |version, requirement|

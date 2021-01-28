@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-secret_manager-v1beta1 is the official client library for the Secret Manager V1beta1 API."
+  gem.description   = "google-cloud-secret_manager-v1beta1 is the official client library for the Secret Manager V1beta1 API. Note that google-cloud-secret_manager-v1beta1 is a version-specific client library. For most uses, we recommend installing the main client library google-cloud-secret_manager instead. See the readme for more details."
   gem.summary       = "Stores, manages, and secures access to application secrets."
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"

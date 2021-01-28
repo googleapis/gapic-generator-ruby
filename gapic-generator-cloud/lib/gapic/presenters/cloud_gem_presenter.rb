@@ -37,6 +37,23 @@ module Gapic
         deps["google-cloud-errors"] = "~> 1.0"
         deps
       end
+
+      def wrapper_name
+        minfo = /^(.+)-v\w+$/.match name
+        minfo ? minfo[1] : nil
+      end
+
+      alias_method :readme_description, :description # rubocop:disable Style/Alias
+
+      def description
+        desc = readme_description
+        if wrapper_name
+          desc += " Note that #{name} is a version-specific client library." \
+            " For most uses, we recommend installing the main client library" \
+            " #{wrapper_name} instead. See the readme for more details."
+        end
+        desc
+      end
     end
 
     def self.cloud_gem_presenter api
