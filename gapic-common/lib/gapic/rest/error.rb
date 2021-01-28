@@ -36,7 +36,7 @@ module Gapic
         if result.key? :body
           message, code = try_parse_from_body result[:body]
 
-          pre_msg = msg.nil? "" : "#{msg}: " 
+          pre_msg = msg.nil? ? "" : "#{msg}: "
           super_msg = "#{pre_msg}: #{message}" if message
 
           status_code ||= code
