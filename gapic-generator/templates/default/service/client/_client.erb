@@ -97,6 +97,8 @@ class <%= service.client_name %>
     # Create credentials
     credentials = @config.credentials
     <%- unless service.generic_endpoint? -%>
+    # Use self-signed JWT if the scope and endpoint are unchanged from default,
+    # but only if the default endpoint does not have a region prefix.
     enable_self_signed_jwt = @config.scope == <%= service.client_name %>.configure.scope &&
                              @config.endpoint == <%= service.client_name %>.configure.endpoint &&
                              !@config.endpoint.split(".").first.include?("-")
