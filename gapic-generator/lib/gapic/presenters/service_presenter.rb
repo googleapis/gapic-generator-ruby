@@ -27,7 +27,7 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
-      # @return [Gapic::Presenters::RestServicePresenter]
+      # @return [Gapic::Presenters::ServiceRestPresenter]
       attr_reader :rest
 
       def initialize gem_presenter, api, service, parent_service: nil
@@ -35,7 +35,7 @@ module Gapic
         @api = api
         @service = service
         @parent_service = parent_service
-        @rest = RestServicePresenter.new self, api
+        @rest = ServiceRestPresenter.new self, api
       end
 
       def gem
@@ -294,7 +294,7 @@ module Gapic
       #   List of mods for which REST bindings are present and REST methods can be generated
       #
       def methods_rest_bindings
-        methods.select { |method| method.method_path? && method.method_verb? }
+        methods.select { |method| method.rest.path? && method.rest.verb? }
       end
 
       def test_client_file_path

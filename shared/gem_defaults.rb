@@ -78,7 +78,8 @@ def gem_defaults
         "google/showcase/v1beta1/identity.proto",
         "google/showcase/v1beta1/messaging.proto",
         "google/showcase/v1beta1/testing.proto"
-      ]
+      ],
+      transports: ["rest", "grpc"]
     },
     garbage: {
       protos: [
@@ -115,7 +116,8 @@ def gem_defaults
     compute_small: {
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
-      ]
+      ],
+      transports: ["rest"]
     }
   }
 end
@@ -126,6 +128,10 @@ end
 
 def samples_for service
   gem_defaults[service][:samples]
+end
+
+def transports_for service
+  gem_defaults[service][:transports]
 end
 
 def grpc_service_config_for service

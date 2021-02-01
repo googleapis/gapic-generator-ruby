@@ -21,8 +21,8 @@ class MethodPresenterRestTest < PresenterTest
     presenter = method_presenter :showcase, "Identity", "GetUser"
 
     assert presenter.routing_params?
-    assert presenter.method_verb?
+    assert presenter.rest.verb?
     assert_equal "foo", presenter.rest_uri_interpolated
-    assert presenter.method_verb?
+    assert presenter.rest.verb?
   end
 end

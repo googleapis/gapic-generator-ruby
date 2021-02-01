@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "gapic/uri_template"
 require "gapic/ruby_info"
 require "gapic/helpers/namespace_helper"
 
@@ -27,7 +26,11 @@ module Gapic
     class MethodPresenter
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [Gapic::Schema::Method]
       attr_accessor :method
+
+      # @return [Gapic::Presenters::MethodRestPresenter]
+      attr_accessor :rest
 
       ##
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
@@ -37,6 +40,7 @@ module Gapic
         @service_presenter = service_presenter
         @api = api
         @method = method
+        @rest = MethodRestPresenter.new self
       end
 
       ##
@@ -207,14 +211,14 @@ module Gapic
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        Gapic::UriTemplate.parse_arguments method_path
+        rest.routing_params
       end
 
       ##
       # @return [Boolean] Whether any routing params are present
       #
       def routing_params?
-        routing_params.any?
+        rest.routing_params?
       end
 
       def grpc_service_config
@@ -226,82 +230,6 @@ module Gapic
 
       def grpc_method_name
         @method.name
-      end
-
-      ##
-      # @return [Boolean] Whether a method path is present and non-empty
-      #
-      def method_path?
-        !method_path.empty?
-      end
-
-      ##
-      # @return [String] A method path or nil if not present
-      #
-      def method_path
-        return "" if @method.http.nil?
-
-        method_verb_path = [
-          @method.http.get, @method.http.post, @method.http.put,
-          @method.http.patch, @method.http.delete
-        ].find { |x| !x.empty? }
-
-        method_verb_path || @method.http.custom&.path || ""
-      end
-
-      def rest_uri_interpolated
-        return method_path unless routing_params?
-
-        routing_params.reduce method_path do |path, param|
-          param_esc = Regexp.escape param
-          path.gsub(/{#{param_esc}[^}]*}/, "\#{request_pb.#{param}}")
-        end
-      end
-
-      def rest_method_body?
-        return false if @method.http.nil?
-
-        !@method.http.body.empty?
-      end
-
-      def rest_method_body
-        @method.http&.body || ""
-      end
-
-      def rest_body_interpolated
-        return "\"\"" unless rest_method_body?
-
-        return "request_pb.to_json" if rest_method_body == "*"
-
-        "request_pb.#{rest_method_body}.to_json"
-      end
-
-      def rest_return_type
-        return_type
-      end
-
-      ##
-      # @return [Boolean] Whether a http verb is present for this method
-      #
-      def method_verb?
-        !method_verb.nil?
-      end
-
-      ##
-      # @return [Symbol] a http verb for this method
-      #
-      def method_verb
-        return nil if @method.http.nil?
-
-        method = {
-          get:    @method.http.get,
-          post:   @method.http.post,
-          put:    @method.http.put,
-          patch:  @method.http.patch,
-          delete: @method.http.delete
-        }.find { |_, value| !value.empty? }
-
-        method[0] unless method.nil?
       end
 
       protected

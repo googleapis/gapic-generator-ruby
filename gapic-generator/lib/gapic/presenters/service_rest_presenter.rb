@@ -23,7 +23,7 @@ module Gapic
     ##
     # A presenter for proto service (REST submethods)
     #
-    class RestServicePresenter
+    class ServiceRestPresenter
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
