@@ -18,11 +18,13 @@ require "test_helper"
 
 class MethodPresenterRestTest < PresenterTest
   def test_showcase_GetUser
-    presenter = method_presenter :showcase, "Identity", "GetUser"
+    presenter = method_presenter :compute_small, "Addresses", "List"
 
     assert presenter.routing_params?
     assert presenter.rest.verb?
-    assert_equal "foo", presenter.rest_uri_interpolated
+    require 'pry'
+    binding.pry
+    assert_equal "foo", presenter.rest.uri_interpolated
     assert presenter.rest.verb?
   end
 end

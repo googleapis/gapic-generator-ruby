@@ -134,7 +134,7 @@ module Gapic
       def body_interpolated request_obj_name = "request_pb"
         return "\"\"" unless body?
 
-        return "#{request_obj_name}.to_json" if rest_method_body == "*"
+        return "#{request_obj_name}.to_json" if body == "*"
 
         "#{request_obj_name}.#{body}.to_json"
       end
@@ -149,14 +149,30 @@ module Gapic
       ##
       # @param [String] request_obj_name the name of the request object for the interpolation
       #   defaults to "request_pb"
-      # @return [Hash{Symbol => String}]
+      # @return [Array]
       def query_string_params_interpolated request_obj_name = "request_pb"
-        return {} if body?
+        return [] if body?
 
         routing_params_set = routing_params.to_set
         all_input_arguments = @main_method.arguments
         arguments_except_routing = all_input_arguments.reject { |arg| routing_params_set.include? arg.name }
-        arguments_except_routing.map { |arg| [arg.name, "\#{#{request_obj_name}.#{arg.name}}"] }
+        arguments_except_routing.map do |arg| 
+          camel_name = camel_name_for arg.name
+          request_obj_value = "#{request_obj_name}.#{arg.name}"
+          intepolated_value = "\#{#{request_obj_value}}"
+          [ camel_name, request_obj_value, intepolated_value ]
+        end
+
+      end
+
+      private
+
+      def camel_name_for attr_name
+        parts = attr_name.split("_")
+        first_part = parts[0]
+        other_parts = parts[1..-1]
+        other_parts_pascal = other_parts.map { |part| part.capitalize }.join("")
+        "#{first_part}#{other_parts_pascal}"
       end
     end
   end

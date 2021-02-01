@@ -55,8 +55,6 @@ module Google
               #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
               # @return [::Google::Cloud::Compute::V1::Operation]
               def get request_pb, options:, &block
-                request_json = JSON.parse ::Google::Cloud::Compute::V1::GetRegionOperationRequest.encode_json(request_pb)
-
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
 
                 result_json = @client_stub.make_get_request(
@@ -65,7 +63,7 @@ module Google
                   &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body]
+                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], { ignore_unknown_fields: true }
               end
             end
           end

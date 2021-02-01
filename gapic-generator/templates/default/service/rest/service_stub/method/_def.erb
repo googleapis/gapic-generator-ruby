@@ -16,6 +16,9 @@ def <%= method.name %> request_pb, options:, &block
   <%- end -%>
   <%- if method.rest.query_string_params? -%>
   query_string_params = {
+    <%- method.rest.query_string_params_interpolated.each do | camel_name, val, interpolated_val| -%>
+    "<%= camel_name %>" => "<%= interpolated_val %>" if <%= val %>
+    <%- end -%>  
   }
   <%- end -%>
 
@@ -25,7 +28,7 @@ def <%= method.name %> request_pb, options:, &block
     body:    body,
 <%- end -%>
 <%- if method.rest.query_string_params? -%>
-    params: query_string_params,
+    params:  query_string_params,
 <%- end -%>
     options: options,
     &block
