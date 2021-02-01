@@ -7,9 +7,9 @@ google-cloud-language-v1 is the official client library for the Google Cloud Lan
 https://github.com/googleapis/google-cloud-ruby
 
 This gem is a _versioned_ client. It provides basic client classes for a
-specific version of the Google Cloud Language V1 API. Most users should consider the
-[google-cloud-language](https://rubygems.org/gems/google-cloud-language)
-gem, a convenience wrapper that may also include higher-level interface classes.
+specific version of the Google Cloud Language V1 API. Most users should consider using
+the main client gem,
+[google-cloud-language](https://rubygems.org/gems/google-cloud-language).
 See the section below titled *Which client should I use?* for more information.
 
 ## Installation
@@ -78,40 +78,58 @@ about the Ruby support schedule.
 
 ## Which client should I use?
 
-Most modern Ruby client libraries for Google APIs come in two flavors:
-lower-level _versioned clients_ and higher-level _main clients_. As a TL;DR,
-for _most_ cases, you should install the main client.
+Most modern Ruby client libraries for Google APIs come in two flavors: the main
+client library with a name such as `google-cloud-language`,
+and lower-level _versioned_ client libraries with names such as
+`google-cloud-language-v1`.
+_In most cases, you should install the main client._
 
-A _versioned client_ has a name such as `google-cloud-language-v1`,
-and provides a basic set of client classes for a _single version_ of a specific
-service. Some services publish multiple versions of their API, with potentially
-different interfaces including differences in field names, types, or method
-calls. For such services, there may be a separate versioned client library for
-each service version. Most versioned clients are created and maintained by a
-code generator, based on the service's published interface descriptions.
+### What's the difference between the main client and a versioned client?
 
-The _main client_ for a service has a name such as `google-cloud-language`.
-There will be only one main client for any given service, even a service with
-multiple versions. For most services, the main client does not directly include
-API client classes. Instead, it lists the service's versioned client(s) as
-dependencies, and provides convenient factory methods for constructing client
-classes provided by the underlying versioned client libraries. It will choose
-which service version to use by default (although it will generally let you
-override its recommendation if you need to talk to a specific version of the
-service.) For some services, the main client also provides a higher-level
-interface with additional features, convenience methods, or best practices
-built in.
+A _versioned client_ provides a basic set of data types and client classes for
+a _single version_ of a specific service. (That is, for a service with multiple
+versions, there might be a separate versioned client for each service version.)
+Most versioned clients are written and maintained by a code generator.
 
-In _most_ cases, we recommend installing the main client gem rather than a
-versioned client gem. This is because the main client will embody the best
-practices for accessing the service, and may also be easier to use. In
-addition, documentation and samples published by Google will generally use the
-main client. However, alternately, if you need to access a specific version of
-a service, and you want to use a lower-level interface, you can bypass the main
-client and instead install a versioned client directly.
+The _main client_ is designed to provide you with the _recommended_ client
+interfaces for the service. There will be only one main client for any given
+service, even a service with multiple versions. The main client includes
+factory methods for constructing the client objects we recommend for most
+users. In some cases, those will be classes provided by an underlying versioned
+client; in other cases, they will be handwritten higher-level client objects
+with additional capabilities, convenience methods, or best practices built in.
+Generally, the main client will default to a recommended service version,
+although in some cases you can override this if you need to talk to a specific
+service version.
 
-Note that some services may not yet have a modern client library (neither a
-main nor a versioned client) available. For these services, there might be a
-_legacy client_ (with a name of the form `google-apis-<service>_<version>`).
-Legacy client libraries have wide coverage across Google services, but may be
-more difficult to use or lack features provided by modern clients.
+### Why would I want to use the main client?
+
+We recommend that most users install the main client gem for a service. You can
+identify this gem as the one _without_ a version in its name, e.g.
+`google-cloud-language`.
+The main client is recommended because it will embody the best practices for
+accessing the service, and may also provide more convenient interfaces or
+tighter integration into frameworks and third-party libraries. In addition, the
+documentation and samples published by Google will generally demonstrate use of
+the main client.
+
+### Why would I want to use a versioned client?
+
+You can use a versioned client if you are content with a possibly lower-level
+class interface, you explicitly want to avoid features provided by the main
+client, or you want to access a specific service version not be covered by the
+main client. You can identify versioned client gems because the service version
+is part of the name, e.g. `google-cloud-language-v1`.
+
+### What about the google-apis-<name> clients?
+
+Client library gems with names that begin with `google-apis-` are based on an
+older code generation technology. They talk to a REST/JSON backend (whereas
+most modern clients talk to a [gRPC](https://grpc.io/) backend) and they may
+not offer the same performance, features, and ease of use provided by more
+modern clients.
+
+The `google-apis-` clients have wide coverage across Google services, so you
+might need to use one if there is no modern client available for the service.
+However, if a modern client is available, we generally recommend it over the
+older `google-apis-` clients.
