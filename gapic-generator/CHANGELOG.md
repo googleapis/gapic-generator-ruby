@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.6.11 / 2021-02-01
+
+* Generated clients determine whether to use self-signed JWT credentials.
+
 ### 0.6.10 / 2021-01-13
 
 * A set of human-readable command-line parameters can now be specified for the gapic-generator, e.g. `gem-name`. These parameters strictly duplicate the existing behaviour of old command-line parameters, e.g. `:gem.:name`.
