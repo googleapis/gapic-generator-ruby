@@ -38,6 +38,10 @@ module Gapic
         deps
       end
 
+      ##
+      # The name of the wrapper gem corresponding to this versioned gem
+      # @return [String]
+      #
       def wrapper_name
         minfo = /^(.+)-v\w+$/.match name
         minfo ? minfo[1] : nil
@@ -45,6 +49,15 @@ module Gapic
 
       alias_method :readme_description, :description # rubocop:disable Style/Alias
 
+      ##
+      # Overrides the gemspec description including a note that users should
+      # consider installing the wrapper instead of this versioned gem.
+      #
+      # Note: The method `readme_description` was aliased to the superclass
+      # method because the description without this note is used in the readme.
+      #
+      # @return [String]
+      #
       def description
         desc = readme_description
         if wrapper_name
