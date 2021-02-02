@@ -1,5 +1,9 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.12 / 2021-02-01
+
+* Fixed a bug in the identification of versioned clients that incorrectly flagged `google-cloud-vision`.
+
 ### 0.6.11 / 2021-02-01
 
 * Includes changes from gapic-generator 0.6.11.

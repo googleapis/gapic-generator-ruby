@@ -43,7 +43,7 @@ module Gapic
       # @return [String]
       #
       def wrapper_name
-        minfo = /^(.+)-v\w+$/.match name
+        minfo = /^(.+)-v\d\w*$/.match name
         minfo ? minfo[1] : nil
       end
 
