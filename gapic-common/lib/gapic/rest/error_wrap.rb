@@ -23,6 +23,15 @@ module Gapic
     #
     module ErrorWrap
       class << self
+        ##
+        # This parses the error message and the status code from the Google Cloud
+        # response's body and if successful, modifies the Faraday error to have
+        # :message and :status_code attributes, and then sets those attributes
+        # to the parsed values.
+        #
+        # This allows the Faraday Error to be correctly re-wrapped by ::Google::Cloud::Error
+        # and also surfaces the cloud error message instead of Faraday's generic one
+        #
         def augment_faraday_error! err
           return err unless err.response && err.response.is_a?(Hash)
           msg, status_code = try_parse_from_response err.response
