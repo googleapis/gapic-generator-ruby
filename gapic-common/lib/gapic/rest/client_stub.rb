@@ -77,10 +77,9 @@ module Gapic
           req.body = body unless body.nil?
         end
 
-        result = response.to_hash
-        yield result, response.env if block_given?
+        yield response if block_given?
 
-        result
+        response
       end
     end
   end

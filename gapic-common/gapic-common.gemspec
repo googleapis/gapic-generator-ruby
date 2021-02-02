@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "googleapis-common-protos-types", ">= 1.0.4", "< 2.0"
   spec.add_dependency "googleauth", "~> 0.9"
   spec.add_dependency "grpc", "~> 1.25"
-  spec.add_dependency "faraday", "~> 1.3.0"
+  spec.add_dependency "faraday", "~> 1.3"
 
   spec.add_development_dependency "google-cloud-core", "~> 1.5"
   spec.add_development_dependency "google-style", "~> 1.24.0"

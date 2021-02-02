@@ -57,13 +57,16 @@ module Google
               def get request_pb, options:, &block
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
 
-                result_json = @client_stub.make_get_request(
+                response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
-                  &block
                 )
 
-                ::Google::Cloud::Compute::V1::Operation.decode_json result_json[:body], ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+
+                result
               end
             end
           end
