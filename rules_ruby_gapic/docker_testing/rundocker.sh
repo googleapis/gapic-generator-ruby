@@ -16,10 +16,9 @@
 
 # A script that builds and runs an image that showcases bazel rules for gapic-generator-ruby
 
-rm -rf bazel-*
-docker build -t gapic-generator-ruby-bazel -f rules_ruby_gapic/docker_testing/Dockerfile . && \
-docker run -it --rm \
---mount type=bind,source="$(pwd)",target='/src/gapic-generator-ruby' \
-gapic-generator-ruby-bazel
+ ( cd .. && rm -rf bazel-*)
+ docker build -t gapic-generator-ruby-bazel -f ./Dockerfile . && \
+ docker run -it --rm \
+  gapic-generator-ruby-bazel
 
-/bin/bash
+ # --mount type=bind,source="$(pwd)",target='/src/gapic-generator-ruby' \

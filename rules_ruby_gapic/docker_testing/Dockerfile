@@ -29,11 +29,16 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
     && apt-get update \
     && apt-get install -y --no-install-recommends bazel
 
-### Requirement: system has git to get the gapic repo
-### Requirement: system has make to build ruby
-### Requirement: system has zlib and zlib-dev, libreadline and libreadline-dev, openssl and openssl-dev, all needed for rubygems to work
+
+### Requirement: system has `find` to remove the empty-spaced files
+
+### Requirement: system has `git` to get the gapic repo
+### Requirement: system has `make` to build ruby
+### Requirement: system has `zlib` and `zlib-dev`, `libreadline` and `libreadline-dev`, `openssl` and `openssl-dev`, all needed for rubygems to work
 RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
+        wget \
+        tar \
         make \
         zlib1g-dev \
         libreadline-dev \
@@ -58,7 +63,12 @@ ENV LANG=en_US.UTF-8 \
 
 ### Get the entrypoint and run
 WORKDIR /src
-COPY ./rules_ruby_gapic/docker_testing/docker-entrypoint.sh .
+
+RUN wget https://github.com/googleapis/gapic-generator-ruby/archive/gapic-generator/v0.6.12.tar.gz && \
+         tar -xzvf ./v0.6.12.tar.gz && \
+         mv gapic-generator-ruby-gapic-generator-v0.6.12/ gapic-generator-ruby
+
+COPY ./docker-entrypoint.sh .
 
 WORKDIR /src/gapic-generator-ruby
 ENTRYPOINT /src/docker-entrypoint.sh

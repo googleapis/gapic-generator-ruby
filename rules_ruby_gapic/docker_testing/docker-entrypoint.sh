@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -v
 
 # Copyright 2020 Google LLC
 #
@@ -17,5 +17,6 @@
 # An entrypoint script for the image that showcases bazel rules for gapic-generator-ruby
 # it builds an example target and then shows the possible targets to run
 
-bazel run //rules_ruby_gapic/ruby_binary/test:ruby_hellolib_sh
+ls -alt
+bazel run //rules_ruby_gapic/ruby/test:check_ruby_require
 bazel query //rules_ruby_gapic/...
