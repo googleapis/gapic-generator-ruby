@@ -10,19 +10,9 @@
 #   Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
 # @return [<%= method.return_type %>]
 def <%= method.name %> request_pb, options:, &block
-  uri = "<%= method.rest.uri_interpolated %>"
-  <%- if method.rest.body? -%>
-  body = <%= method.rest.body_interpolated %>
-  <%- end -%>
-  <%- if method.rest.query_string_params? -%>
-  query_string_params = {
-    <%- method.rest.query_string_params_interpolated.each do | camel_name, val, interpolated_val| -%>
-    "<%= camel_name %>" => "<%= interpolated_val %>" if <%= val %>
-    <%- end -%>  
-  }
-  <%- end -%>
+  (uri, <%- if method.rest.body? -%> body <%- else -%> _ <%- end -%>, <%- if method.rest.query_string_params? -%> query_string_params <%- else -%> __ <%- end -%>) = <%= method.rest.transcoding_helper_name %> request_pb
 
-  result_json = @client_stub.make_<%= method.rest.verb %>_request(
+  response = @client_stub.make_<%= method.rest.verb %>_request(
     uri:     uri,
 <%- if method.rest.body? -%>
     body:    body,
@@ -31,8 +21,11 @@ def <%= method.name %> request_pb, options:, &block
     params:  query_string_params,
 <%- end -%>
     options: options,
-    &block
   )
 
-  <%= method.return_type %>.decode_json result_json[:body], { ignore_unknown_fields: true }
+  result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
+
+  yield result, response if block_given?
+
+  result
 end

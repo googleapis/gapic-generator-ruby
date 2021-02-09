@@ -31,6 +31,8 @@ module Google
             # The RegionOperations API.
             #
             class Client
+              include GrpcTranscoding
+
               # @private
               attr_reader :region_operations_stub
 
@@ -176,9 +178,8 @@ module Google
                 @region_operations_stub.get request, options: options do |response, env|
                   yield response, env if block_given?
                 end
-              rescue ::Gapic::Rest::Error => e
-                raise ::Google::Cloud::Error.from_error(e)
               rescue ::Faraday::Error => e
+                ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
               end
 

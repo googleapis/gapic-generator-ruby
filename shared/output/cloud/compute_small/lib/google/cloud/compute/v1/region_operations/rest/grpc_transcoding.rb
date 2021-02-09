@@ -21,19 +21,23 @@ module Google
   module Cloud
     module Compute
       module V1
-        require "gapic/rest"
-        require "google/cloud/compute/v1/region_operations/rest/grpc_transcoding"
-        require "google/cloud/compute/v1/region_operations/rest/client"
-        ##
-        # The RegionOperations API.
-        #
-        # To load this service and instantiate a client:
-        #
-        #     require "google/cloud/compute/v1/region_operations"
-        #     client = ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
-        #
         module RegionOperations
           module Rest
+            # GRPC transcoding helper methods for the RegionOperations REST API.
+            module GrpcTranscoding
+              # @param request_pb [::Google::Cloud::Compute::V1::GetRegionOperationRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_get request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
+                body = nil
+                query_string_params = {}
+
+                [uri, body, query_string_params]
+              end
+              extend self
+            end
           end
         end
       end

@@ -11,10 +11,11 @@
 #
 <%- end -%>
 class <%= service.rest.client_name %>
+  include <%= service.rest.transcoding_helper_name %>
 <%- if service.paths? -%>
   include <%= service.paths_name %>
-
 <%- end -%>
+
   # @private
   attr_reader :<%= service.stub_name %>
 
@@ -100,11 +101,8 @@ class <%= service.rest.client_name %>
       credentials = Credentials.new credentials, scope: @config.scope
     end
     <%- end -%>
-
-    @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new(
-      credentials:  credentials,
-      endpoint:     @config.endpoint
-    )
+    
+    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
   end
 
   # Service calls

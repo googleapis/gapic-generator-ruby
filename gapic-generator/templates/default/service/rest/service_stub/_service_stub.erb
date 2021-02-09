@@ -7,6 +7,8 @@
 # REST service stub for the <%= service.name %> service.
 #
 class <%= service.rest.service_stub_name %>
+  include GrpcTranscoding
+
   ##
   # Create a new <%= service.name %> REST service stub object.
   #

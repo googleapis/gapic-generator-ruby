@@ -1,5 +1,6 @@
 <%- assert_locals service -%>
 require "gapic/rest"
+require "<%= service.rest.transcoding_helper_require %>"
 require "<%= service.rest.client_require %>"
 ##
 <%- if service.doc_description -%>

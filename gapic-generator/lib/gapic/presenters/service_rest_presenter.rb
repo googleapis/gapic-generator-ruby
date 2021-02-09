@@ -117,6 +117,34 @@ module Gapic
         service_rest_require + ".rb"
       end
 
+      ##
+      # @return [String]
+      #
+      def transcoding_helper_name
+        "GrpcTranscoding"
+      end
+
+      ##
+      # @return [String]
+      #
+      def transcoding_helper_name_full
+        fix_namespace api, "#{service_name_full}::#{transcoding_helper_name}"
+      end
+      ##
+      # @return [String]
+      #
+      def transcoding_helper_require
+        ruby_file_path api, transcoding_helper_name_full
+      end
+
+      ##
+      # @return [String]
+      #
+      def transcoding_helper_file_path
+        transcoding_helper_require + ".rb"
+      end
+
+
       private
 
       # @return [Gapic::Presenters::ServicePresenter]
