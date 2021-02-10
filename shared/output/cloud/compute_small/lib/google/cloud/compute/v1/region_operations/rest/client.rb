@@ -115,7 +115,7 @@ module Google
               def initialize
                 # These require statements are intentionally placed here to initialize
                 # the REST modules only when it's required.
-                require "google/cloud/compute/v1/region_operations/rest/service_stub"
+                require "gapic/rest"
 
                 # Create the configuration object
                 @config = Configuration.new Client.configure
@@ -130,10 +130,7 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
-                @region_operations_stub = ::Google::Cloud::Compute::V1::RegionOperations::Rest::ServiceStub.new(
-                  credentials: credentials,
-                  endpoint:    @config.endpoint
-                )
+                @client_stub = ::Gapic::Rest::ClientStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
               # Service calls
@@ -175,9 +172,16 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetRegionOperationRequest
 
-                @region_operations_stub.get request, options: options do |response, env|
-                  yield response, env if block_given?
-                end
+                (uri, _body, _query_string_params) = transcode_get request
+
+                response = @client_stub.make_get_request(
+                  uri:     uri,
+                  options: options,
+                )
+                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+
+                yield result, response if block_given?
+                result
               rescue ::Faraday::Error => e
                 ::Gapic::Rest::ErrorWrap.augment_faraday_error! e
                 raise ::Google::Cloud::Error.from_error(e)
@@ -232,14 +236,6 @@ module Google
               # @!attribute [rw] timeout
               #   The call timeout in seconds.
               #   @return [::Numeric]
-              # @!attribute [rw] retry_policy
-              #   The retry policy. The value is a hash with the following keys:
-              #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-              #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-              #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-              #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-              #       trigger a retry.
-              #   @return [::Hash]
               #
               class Configuration
                 extend ::Gapic::Config
@@ -253,58 +249,12 @@ module Google
                 config_attr :lib_name,      nil, ::String, nil
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr :timeout,       nil, ::Numeric, nil
-                config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
 
                 # @private
                 def initialize parent_config = nil
                   @parent_config = parent_config unless parent_config.nil?
 
                   yield self if block_given?
-                end
-
-                ##
-                # Configurations for individual RPCs
-                # @return [Rpcs]
-                #
-                def rpcs
-                  @rpcs ||= begin
-                    parent_rpcs = nil
-                    parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
-                    Rpcs.new parent_rpcs
-                  end
-                end
-
-                ##
-                # Configuration RPC class for the RegionOperations API.
-                #
-                # Includes fields providing the configuration for each RPC in this service.
-                # Each configuration object is of type `Gapic::Config::Method` and includes
-                # the following configuration fields:
-                #
-                #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-                #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional gRPC headers
-                #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
-                #     include the following keys:
-                #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
-                #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
-                #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
-                #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
-                #         trigger a retry.
-                #
-                class Rpcs
-                  ##
-                  # RPC-specific configuration for `get`
-                  # @return [::Gapic::Config::Method]
-                  #
-                  attr_reader :get
-
-                  # @private
-                  def initialize parent_rpcs = nil
-                    get_config = parent_rpcs&.get if parent_rpcs&.respond_to? :get
-                    @get = ::Gapic::Config::Method.new get_config
-
-                    yield self if block_given?
-                  end
                 end
               end
             end

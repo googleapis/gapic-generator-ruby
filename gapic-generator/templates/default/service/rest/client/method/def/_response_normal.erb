@@ -1,4 +1,18 @@
 <%- assert_locals method -%>
-@<%= method.service.stub_name %>.<%= method.name %> request, options: options do |response, env|
-  yield response, env if block_given?
-end
+
+(uri, <%= method.rest.body_var_name %>, <%= method.rest.query_string_params_var_name %>) = <%= method.rest.transcoding_helper_name %> request
+
+response = @client_stub.make_<%= method.rest.verb %>_request(
+  uri:     uri,
+<%- if method.rest.body? -%>
+  body:    body,
+<%- end -%>
+<%- if method.rest.query_string_params? -%>
+  params:  query_string_params,
+<%- end -%>
+  options: options,
+)
+result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
+
+yield result, response if block_given?
+result

@@ -85,7 +85,7 @@ class <%= service.rest.client_name %>
   def initialize
     # These require statements are intentionally placed here to initialize
     # the REST modules only when it's required.
-    require "<%= service.rest.service_stub_require %>"
+    require "gapic/rest"
 
     # Create the configuration object
     @config = Configuration.new <%= service.rest.client_name %>.configure
@@ -102,7 +102,7 @@ class <%= service.rest.client_name %>
     end
     <%- end -%>
     
-    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
+    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: @config.endpoint, credentials: credentials
   end
 
   # Service calls

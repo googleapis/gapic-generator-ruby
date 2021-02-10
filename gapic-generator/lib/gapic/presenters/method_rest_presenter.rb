@@ -114,6 +114,15 @@ module Gapic
       end
 
       ##
+      # Name of the variable to use for storing the body result of the transcoding call
+      # Normally "body" but use "_body" for discarding the result for
+      # the calls that do not send body
+      # @return [String]
+      def body_var_name
+        body? ? "body" : "_body"
+      end
+
+      ##
       # @return [String] A body specified for the given method in proto or an empty string if not specified
       #
       def body
@@ -144,6 +153,15 @@ module Gapic
       #
       def query_string_params?
         query_string_params_interpolated.any?
+      end
+
+      ##
+      # Name of the variable to use for storing the query_string_params result of the transcoding call
+      # Normally "query_string_params" but use "_query_string_params" for discarding the result for
+      # the calls that do not sent query_string_params
+      # @return [String]
+      def query_string_params_var_name
+        query_string_params? ? "query_string_params" : "_query_string_params"
       end
 
       ##
