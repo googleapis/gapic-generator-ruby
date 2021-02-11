@@ -22,6 +22,7 @@ module Google
     module Compute
       module V1
         require "gapic/rest"
+        require "google/cloud/compute/v1/region_operations/rest/grpc_transcoding"
         require "google/cloud/compute/v1/region_operations/rest/client"
         ##
         # The RegionOperations API.

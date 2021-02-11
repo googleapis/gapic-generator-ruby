@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "googleauth"
+require "gapic/rest/faraday_middleware/google_authorization"
 
 module Gapic
   module Rest
@@ -22,9 +23,18 @@ module Gapic
     #   - wrap Faraday methods with a bounded explicit interface
     #   - store service endpoint and create full url for the request
     #   - store credentials and add auth information to the request
-    #   - convert errors from HTTP responses into ::Gapic::Rest::Error
     #
     class ClientStub
+      ##
+      # Initializes with an endpoint and credentials
+      # @param endpoint [String] an endpoint for the service that this stub will send requests to
+      #
+      # @param credentials [Google::Auth::Credentials]
+      #   Credentials to send with calls in form of a googleauth credentials object.
+      #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+      #
+      # @yield [Faraday::Connection]
+      #
       def initialize endpoint:, credentials:
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /https?:/.match? endpoint
@@ -34,7 +44,7 @@ module Gapic
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
-          conn.authorization :Bearer, @credentials.client.access_token
+          conn.request :google_authorization, @credentials
           conn.request :retry
           conn.response :raise_error
           conn.adapter :net_http
@@ -44,42 +54,54 @@ module Gapic
       end
 
       # @param uri [String]
-      # @return [Hash { Symbol => String }]
-      def make_get_request uri:, params:{}, options:{}, &block
-        make_http_request :get, uri: uri, body: nil, params: params, options: options, &block
+      # @param params [Hash]
+      # @param options [Hash]
+      # @return [Faraday::Response]
+      def make_get_request uri:, params:{}, options:{}
+        make_http_request :get, uri: uri, body: nil, params: params, options: options
       end
 
       # @param uri [String]
-      # @return [Hash { Symbol => String }]
-      def make_delete_request uri:, params:{}, options:{}, &block
-        make_http_request :delete, uri: uri, body: nil, params: params, options: options, &block
+      # @param params [Hash]
+      # @param options [Hash]
+      # @return [Faraday::Response]
+      def make_delete_request uri:, params:{}, options:{}
+        make_http_request :delete, uri: uri, body: nil, params: params, options: options
       end
 
       # @param uri [String]
-      # @param body [String]
-      # @return [Hash { Symbol => String }]
-      def make_post_request uri:, body:, params: {}, options: {}, &block
-        make_http_request :post, uri: uri, body: body, params: params, options: options, &block
+      # @param body [String, nil]
+      # @param params [Hash]
+      # @param options [Hash]
+      # @return [Faraday::Response]
+      def make_post_request uri:, body:, params: {}, options: {}
+        make_http_request :post, uri: uri, body: body, params: params, options: options
       end
 
       # @param uri [String]
-      # @param body [String]
-      # @return [Hash { Symbol => String }]
-      def make_patch_request uri:, body:, params:{}, options:{}, &block
-        make_http_request :patch, uri: uri, body: body, params: params, options: options, &block
+      # @param body [String, nil]
+      # @param params [Hash]
+      # @param options [Hash]
+      # @return [Faraday::Response]
+      def make_patch_request uri:, body:, params:{}, options:{}
+        make_http_request :patch, uri: uri, body: body, params: params, options: options
       end
 
       protected
 
+      ##
+      # Sends an http request via Faraday
+      # @param verb [Symbol] http verb
+      # @param uri [String] uri to send this request to
+      # @param body [String, nil] a body to send with the request, nil for requests without a body
+      # @param params [Hash] query string parameters for the request
+      # @param options [Hash]
+      # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:
-        response = @connection.send verb, uri do |req|
+        @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
         end
-
-        yield response if block_given?
-
-        response
       end
     end
   end

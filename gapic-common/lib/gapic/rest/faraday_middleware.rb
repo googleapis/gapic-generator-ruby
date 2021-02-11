@@ -11,11 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 require "faraday"
-require "gapic/common/version"
-require "gapic/protobuf"
-require "gapic/rest/client_stub"
-require "gapic/rest/error"
-require "gapic/rest/faraday_middleware"
-require "json"
+
+module Gapic
+  module Rest
+    # Registers the middleware with Faraday
+    # follows https://github.com/lostisland/faraday_middleware/blob/master/lib/faraday_middleware.rb
+    module FaradayMiddleware
+      autoload :GoogleAuthorization, "gapic/rest/faraday_middleware/google_authorization.rb"
+      Faraday::Request.register_middleware google_authorization: -> { GoogleAuthorization}
+    end
+  end
+end
