@@ -130,7 +130,7 @@ module So
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -753,7 +753,8 @@ module So
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @garbage_service_stub.call_rpc :get_typical_garbage_by_request, request, options: options do |response, operation|
+            @garbage_service_stub.call_rpc :get_typical_garbage_by_request, request,
+                                           options: options do |response, operation|
               yield response, operation if block_given?
               return response
             end
@@ -992,7 +993,8 @@ module So
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_paged_garbage, request, options: options do |response, operation|
-              response = ::Gapic::PagedEnumerable.new @garbage_service_stub, :get_paged_garbage, request, response, operation, options
+              response = ::Gapic::PagedEnumerable.new @garbage_service_stub, :get_paged_garbage, request, response,
+                                                      operation, options
               yield response, operation if block_given?
               return response
             end
@@ -1425,7 +1427,7 @@ module So
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -1446,7 +1448,7 @@ module So
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -1552,37 +1554,37 @@ module So
 
               # @private
               def initialize parent_rpcs = nil
-                get_empty_garbage_config = parent_rpcs&.get_empty_garbage if parent_rpcs&.respond_to? :get_empty_garbage
+                get_empty_garbage_config = parent_rpcs.get_empty_garbage if parent_rpcs.respond_to? :get_empty_garbage
                 @get_empty_garbage = ::Gapic::Config::Method.new get_empty_garbage_config
-                get_simple_garbage_config = parent_rpcs&.get_simple_garbage if parent_rpcs&.respond_to? :get_simple_garbage
+                get_simple_garbage_config = parent_rpcs.get_simple_garbage if parent_rpcs.respond_to? :get_simple_garbage
                 @get_simple_garbage = ::Gapic::Config::Method.new get_simple_garbage_config
-                get_specific_garbage_config = parent_rpcs&.get_specific_garbage if parent_rpcs&.respond_to? :get_specific_garbage
+                get_specific_garbage_config = parent_rpcs.get_specific_garbage if parent_rpcs.respond_to? :get_specific_garbage
                 @get_specific_garbage = ::Gapic::Config::Method.new get_specific_garbage_config
-                get_nested_garbage_config = parent_rpcs&.get_nested_garbage if parent_rpcs&.respond_to? :get_nested_garbage
+                get_nested_garbage_config = parent_rpcs.get_nested_garbage if parent_rpcs.respond_to? :get_nested_garbage
                 @get_nested_garbage = ::Gapic::Config::Method.new get_nested_garbage_config
-                get_repeated_garbage_config = parent_rpcs&.get_repeated_garbage if parent_rpcs&.respond_to? :get_repeated_garbage
+                get_repeated_garbage_config = parent_rpcs.get_repeated_garbage if parent_rpcs.respond_to? :get_repeated_garbage
                 @get_repeated_garbage = ::Gapic::Config::Method.new get_repeated_garbage_config
-                get_typical_garbage_config = parent_rpcs&.get_typical_garbage if parent_rpcs&.respond_to? :get_typical_garbage
+                get_typical_garbage_config = parent_rpcs.get_typical_garbage if parent_rpcs.respond_to? :get_typical_garbage
                 @get_typical_garbage = ::Gapic::Config::Method.new get_typical_garbage_config
-                get_typical_garbage_by_request_config = parent_rpcs&.get_typical_garbage_by_request if parent_rpcs&.respond_to? :get_typical_garbage_by_request
+                get_typical_garbage_by_request_config = parent_rpcs.get_typical_garbage_by_request if parent_rpcs.respond_to? :get_typical_garbage_by_request
                 @get_typical_garbage_by_request = ::Gapic::Config::Method.new get_typical_garbage_by_request_config
-                get_complex_garbage_config = parent_rpcs&.get_complex_garbage if parent_rpcs&.respond_to? :get_complex_garbage
+                get_complex_garbage_config = parent_rpcs.get_complex_garbage if parent_rpcs.respond_to? :get_complex_garbage
                 @get_complex_garbage = ::Gapic::Config::Method.new get_complex_garbage_config
-                get_garbage_node_config = parent_rpcs&.get_garbage_node if parent_rpcs&.respond_to? :get_garbage_node
+                get_garbage_node_config = parent_rpcs.get_garbage_node if parent_rpcs.respond_to? :get_garbage_node
                 @get_garbage_node = ::Gapic::Config::Method.new get_garbage_node_config
-                get_paged_garbage_config = parent_rpcs&.get_paged_garbage if parent_rpcs&.respond_to? :get_paged_garbage
+                get_paged_garbage_config = parent_rpcs.get_paged_garbage if parent_rpcs.respond_to? :get_paged_garbage
                 @get_paged_garbage = ::Gapic::Config::Method.new get_paged_garbage_config
-                long_running_garbage_config = parent_rpcs&.long_running_garbage if parent_rpcs&.respond_to? :long_running_garbage
+                long_running_garbage_config = parent_rpcs.long_running_garbage if parent_rpcs.respond_to? :long_running_garbage
                 @long_running_garbage = ::Gapic::Config::Method.new long_running_garbage_config
-                client_garbage_config = parent_rpcs&.client_garbage if parent_rpcs&.respond_to? :client_garbage
+                client_garbage_config = parent_rpcs.client_garbage if parent_rpcs.respond_to? :client_garbage
                 @client_garbage = ::Gapic::Config::Method.new client_garbage_config
-                server_garbage_config = parent_rpcs&.server_garbage if parent_rpcs&.respond_to? :server_garbage
+                server_garbage_config = parent_rpcs.server_garbage if parent_rpcs.respond_to? :server_garbage
                 @server_garbage = ::Gapic::Config::Method.new server_garbage_config
-                bidi_garbage_config = parent_rpcs&.bidi_garbage if parent_rpcs&.respond_to? :bidi_garbage
+                bidi_garbage_config = parent_rpcs.bidi_garbage if parent_rpcs.respond_to? :bidi_garbage
                 @bidi_garbage = ::Gapic::Config::Method.new bidi_garbage_config
-                bidi_typical_garbage_config = parent_rpcs&.bidi_typical_garbage if parent_rpcs&.respond_to? :bidi_typical_garbage
+                bidi_typical_garbage_config = parent_rpcs.bidi_typical_garbage if parent_rpcs.respond_to? :bidi_typical_garbage
                 @bidi_typical_garbage = ::Gapic::Config::Method.new bidi_typical_garbage_config
-                call_send_config = parent_rpcs&.call_send if parent_rpcs&.respond_to? :call_send
+                call_send_config = parent_rpcs.call_send if parent_rpcs.respond_to? :call_send
                 @call_send = ::Gapic::Config::Method.new call_send_config
 
                 yield self if block_given?

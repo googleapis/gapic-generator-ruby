@@ -77,12 +77,12 @@ module Google
 
                 "users/#{user_id}/profile/blurbs/legacy/#{legacy_user_id}~#{blurb_id}"
               end),
-              "blurb_id:user_id"                => (proc do |user_id:, blurb_id:|
+              "blurb_id:user_id" => (proc do |user_id:, blurb_id:|
                 raise ::ArgumentError, "user_id cannot contain /" if user_id.to_s.include? "/"
 
                 "users/#{user_id}/profile/blurbs/#{blurb_id}"
               end),
-              "blurb_id:room_id"                => (proc do |room_id:, blurb_id:|
+              "blurb_id:room_id" => (proc do |room_id:, blurb_id:|
                 raise ::ArgumentError, "room_id cannot contain /" if room_id.to_s.include? "/"
 
                 "rooms/#{room_id}/blurbs/#{blurb_id}"

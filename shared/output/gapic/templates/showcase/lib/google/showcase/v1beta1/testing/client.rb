@@ -131,7 +131,7 @@ module Google
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -329,7 +329,8 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :list_sessions, request, options: options do |response, operation|
-              response = ::Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation, options
+              response = ::Gapic::PagedEnumerable.new @testing_stub, :list_sessions, request, response, operation,
+                                                      options
               yield response, operation if block_given?
               return response
             end
@@ -766,7 +767,7 @@ module Google
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -787,7 +788,7 @@ module Google
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -853,21 +854,21 @@ module Google
 
               # @private
               def initialize parent_rpcs = nil
-                create_session_config = parent_rpcs&.create_session if parent_rpcs&.respond_to? :create_session
+                create_session_config = parent_rpcs.create_session if parent_rpcs.respond_to? :create_session
                 @create_session = ::Gapic::Config::Method.new create_session_config
-                get_session_config = parent_rpcs&.get_session if parent_rpcs&.respond_to? :get_session
+                get_session_config = parent_rpcs.get_session if parent_rpcs.respond_to? :get_session
                 @get_session = ::Gapic::Config::Method.new get_session_config
-                list_sessions_config = parent_rpcs&.list_sessions if parent_rpcs&.respond_to? :list_sessions
+                list_sessions_config = parent_rpcs.list_sessions if parent_rpcs.respond_to? :list_sessions
                 @list_sessions = ::Gapic::Config::Method.new list_sessions_config
-                delete_session_config = parent_rpcs&.delete_session if parent_rpcs&.respond_to? :delete_session
+                delete_session_config = parent_rpcs.delete_session if parent_rpcs.respond_to? :delete_session
                 @delete_session = ::Gapic::Config::Method.new delete_session_config
-                report_session_config = parent_rpcs&.report_session if parent_rpcs&.respond_to? :report_session
+                report_session_config = parent_rpcs.report_session if parent_rpcs.respond_to? :report_session
                 @report_session = ::Gapic::Config::Method.new report_session_config
-                list_tests_config = parent_rpcs&.list_tests if parent_rpcs&.respond_to? :list_tests
+                list_tests_config = parent_rpcs.list_tests if parent_rpcs.respond_to? :list_tests
                 @list_tests = ::Gapic::Config::Method.new list_tests_config
-                delete_test_config = parent_rpcs&.delete_test if parent_rpcs&.respond_to? :delete_test
+                delete_test_config = parent_rpcs.delete_test if parent_rpcs.respond_to? :delete_test
                 @delete_test = ::Gapic::Config::Method.new delete_test_config
-                verify_test_config = parent_rpcs&.verify_test if parent_rpcs&.respond_to? :verify_test
+                verify_test_config = parent_rpcs.verify_test if parent_rpcs.respond_to? :verify_test
                 @verify_test = ::Gapic::Config::Method.new verify_test_config
 
                 yield self if block_given?

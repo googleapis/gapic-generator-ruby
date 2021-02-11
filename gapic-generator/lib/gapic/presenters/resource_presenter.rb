@@ -59,7 +59,8 @@ module Gapic
           @path_string = build_path_string
         end
 
-        attr_reader :pattern, :path_string
+        attr_reader :pattern
+        attr_reader :path_string
 
         def useful_for_helpers?
           !@parsed_pattern.positional_segments? && !@parsed_pattern.nontrivial_pattern_segments?

@@ -21,9 +21,9 @@ module Gapic
   # Various string formatting utils
   #
   module FormattingUtils
-    @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
-    @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\. `-]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
-    @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
+    @brace_detector = /\A(?<pre>[^`]*(?:`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
+    @xref_detector = /\A(?<pre>[^`]*(?:`[^`]*`[^`]*)*)?\[(?<text>[\w. `-]+)\]\[(?<addr>[\w.]+)\](?<post>.*)\z/m
+    @list_element_detector = /\A\s*(?:\*|\+|-|[0-9a-zA-Z]+\.)\s/
     @omit_lines = ["@InputOnly\n", "@OutputOnly\n"]
 
     class << self
@@ -76,7 +76,7 @@ module Gapic
       def format_number value
         return value.to_s if value.abs < 10_000
         str = value.is_a?(Integer) ? value.to_s : BigDecimal(value.to_f.to_s).to_s("F")
-        re = /^(-?\d+)(\d\d\d)([_\.][_\.\d]+)?$/
+        re = /^(-?\d+)(\d\d\d)([_.][_.\d]+)?$/
         while (m = re.match str)
           str = "#{m[1]}_#{m[2]}#{m[3]}"
         end

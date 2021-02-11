@@ -130,7 +130,7 @@ module So
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -312,7 +312,8 @@ module So
             options.apply_defaults metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @resource_names_stub.call_rpc :resource_name_pattern_method, request, options: options do |response, operation|
+            @resource_names_stub.call_rpc :resource_name_pattern_method, request,
+                                          options: options do |response, operation|
               yield response, operation if block_given?
               return response
             end
@@ -520,7 +521,7 @@ module So
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -541,7 +542,7 @@ module So
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -592,15 +593,15 @@ module So
 
               # @private
               def initialize parent_rpcs = nil
-                simple_pattern_method_config = parent_rpcs&.simple_pattern_method if parent_rpcs&.respond_to? :simple_pattern_method
+                simple_pattern_method_config = parent_rpcs.simple_pattern_method if parent_rpcs.respond_to? :simple_pattern_method
                 @simple_pattern_method = ::Gapic::Config::Method.new simple_pattern_method_config
-                complex_pattern_method_config = parent_rpcs&.complex_pattern_method if parent_rpcs&.respond_to? :complex_pattern_method
+                complex_pattern_method_config = parent_rpcs.complex_pattern_method if parent_rpcs.respond_to? :complex_pattern_method
                 @complex_pattern_method = ::Gapic::Config::Method.new complex_pattern_method_config
-                resource_name_pattern_method_config = parent_rpcs&.resource_name_pattern_method if parent_rpcs&.respond_to? :resource_name_pattern_method
+                resource_name_pattern_method_config = parent_rpcs.resource_name_pattern_method if parent_rpcs.respond_to? :resource_name_pattern_method
                 @resource_name_pattern_method = ::Gapic::Config::Method.new resource_name_pattern_method_config
-                multiparent_method_config = parent_rpcs&.multiparent_method if parent_rpcs&.respond_to? :multiparent_method
+                multiparent_method_config = parent_rpcs.multiparent_method if parent_rpcs.respond_to? :multiparent_method
                 @multiparent_method = ::Gapic::Config::Method.new multiparent_method_config
-                no_arguments_multi_method_config = parent_rpcs&.no_arguments_multi_method if parent_rpcs&.respond_to? :no_arguments_multi_method
+                no_arguments_multi_method_config = parent_rpcs.no_arguments_multi_method if parent_rpcs.respond_to? :no_arguments_multi_method
                 @no_arguments_multi_method = ::Gapic::Config::Method.new no_arguments_multi_method_config
 
                 yield self if block_given?

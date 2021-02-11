@@ -62,7 +62,7 @@ module Google
                 parent_config = while namespace.any?
                                   parent_name = namespace.join "::"
                                   parent_const = const_get parent_name
-                                  break parent_const.configure if parent_const&.respond_to? :configure
+                                  break parent_const.configure if parent_const.respond_to? :configure
                                   namespace.pop
                                 end
                 default_config = Client::Configuration.new parent_config
@@ -133,7 +133,7 @@ module Google
               enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                        @config.endpoint == Client.configure.endpoint &&
                                        !@config.endpoint.split(".").first.include?("-")
-              credentials ||= Credentials.default scope:                  @config.scope,
+              credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(String) || credentials.is_a?(Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
@@ -372,7 +372,8 @@ module Google
             def async_batch_annotate_images request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -392,7 +393,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
+              @image_annotator_stub.call_rpc :async_batch_annotate_images, request,
+                                             options: options do |response, operation|
                 response = ::Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
@@ -451,7 +453,8 @@ module Google
             def async_batch_annotate_files request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -471,7 +474,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
+              @image_annotator_stub.call_rpc :async_batch_annotate_files, request,
+                                             options: options do |response, operation|
                 response = ::Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
@@ -565,14 +569,15 @@ module Google
 
               config_attr :endpoint,      "vision.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
+                           nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
               config_attr :scope,         nil, ::String, ::Array, nil
               config_attr :lib_name,      nil, ::String, nil
               config_attr :lib_version,   nil, ::String, nil
-              config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+              config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
               config_attr :interceptors,  nil, ::Array, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
@@ -593,7 +598,7 @@ module Google
               def rpcs
                 @rpcs ||= begin
                   parent_rpcs = nil
-                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                   Rpcs.new parent_rpcs
                 end
               end
@@ -639,13 +644,13 @@ module Google
 
                 # @private
                 def initialize parent_rpcs = nil
-                  batch_annotate_images_config = parent_rpcs&.batch_annotate_images if parent_rpcs&.respond_to? :batch_annotate_images
+                  batch_annotate_images_config = parent_rpcs.batch_annotate_images if parent_rpcs.respond_to? :batch_annotate_images
                   @batch_annotate_images = ::Gapic::Config::Method.new batch_annotate_images_config
-                  batch_annotate_files_config = parent_rpcs&.batch_annotate_files if parent_rpcs&.respond_to? :batch_annotate_files
+                  batch_annotate_files_config = parent_rpcs.batch_annotate_files if parent_rpcs.respond_to? :batch_annotate_files
                   @batch_annotate_files = ::Gapic::Config::Method.new batch_annotate_files_config
-                  async_batch_annotate_images_config = parent_rpcs&.async_batch_annotate_images if parent_rpcs&.respond_to? :async_batch_annotate_images
+                  async_batch_annotate_images_config = parent_rpcs.async_batch_annotate_images if parent_rpcs.respond_to? :async_batch_annotate_images
                   @async_batch_annotate_images = ::Gapic::Config::Method.new async_batch_annotate_images_config
-                  async_batch_annotate_files_config = parent_rpcs&.async_batch_annotate_files if parent_rpcs&.respond_to? :async_batch_annotate_files
+                  async_batch_annotate_files_config = parent_rpcs.async_batch_annotate_files if parent_rpcs.respond_to? :async_batch_annotate_files
                   @async_batch_annotate_files = ::Gapic::Config::Method.new async_batch_annotate_files_config
 
                   yield self if block_given?

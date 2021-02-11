@@ -27,13 +27,11 @@ module GRPC
       return nil.to_a if rpc_status.nil?
 
       rpc_status.details.map do |detail|
-        begin
-          detail_type = Google::Protobuf::DescriptorPool.generated_pool.lookup detail.type_name
-          detail = detail.unpack detail_type.msgclass if detail_type
-          detail
-        rescue Google::Protobuf::ParseError
-          detail
-        end
+        detail_type = Google::Protobuf::DescriptorPool.generated_pool.lookup detail.type_name
+        detail = detail.unpack detail_type.msgclass if detail_type
+        detail
+      rescue Google::Protobuf::ParseError
+        detail
       end
     end
   end

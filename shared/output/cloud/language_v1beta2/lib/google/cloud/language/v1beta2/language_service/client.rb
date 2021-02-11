@@ -59,7 +59,7 @@ module Google
                 parent_config = while namespace.any?
                                   parent_name = namespace.join "::"
                                   parent_const = const_get parent_name
-                                  break parent_const.configure if parent_const&.respond_to? :configure
+                                  break parent_const.configure if parent_const.respond_to? :configure
                                   namespace.pop
                                 end
                 default_config = Client::Configuration.new parent_config
@@ -130,7 +130,7 @@ module Google
               enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                        @config.endpoint == Client.configure.endpoint &&
                                        !@config.endpoint.split(".").first.include?("-")
-              credentials ||= Credentials.default scope:                  @config.scope,
+              credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(String) || credentials.is_a?(Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
@@ -184,7 +184,8 @@ module Google
             def analyze_sentiment request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -311,7 +312,8 @@ module Google
             def analyze_entity_sentiment request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -331,7 +333,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :analyze_entity_sentiment, request, options: options do |response, operation|
+              @language_service_stub.call_rpc :analyze_entity_sentiment, request,
+                                              options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -613,14 +616,15 @@ module Google
 
               config_attr :endpoint,      "language.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
+                           nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
               config_attr :scope,         nil, ::String, ::Array, nil
               config_attr :lib_name,      nil, ::String, nil
               config_attr :lib_version,   nil, ::String, nil
-              config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+              config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
               config_attr :interceptors,  nil, ::Array, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
@@ -641,7 +645,7 @@ module Google
               def rpcs
                 @rpcs ||= begin
                   parent_rpcs = nil
-                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                   Rpcs.new parent_rpcs
                 end
               end
@@ -697,17 +701,17 @@ module Google
 
                 # @private
                 def initialize parent_rpcs = nil
-                  analyze_sentiment_config = parent_rpcs&.analyze_sentiment if parent_rpcs&.respond_to? :analyze_sentiment
+                  analyze_sentiment_config = parent_rpcs.analyze_sentiment if parent_rpcs.respond_to? :analyze_sentiment
                   @analyze_sentiment = ::Gapic::Config::Method.new analyze_sentiment_config
-                  analyze_entities_config = parent_rpcs&.analyze_entities if parent_rpcs&.respond_to? :analyze_entities
+                  analyze_entities_config = parent_rpcs.analyze_entities if parent_rpcs.respond_to? :analyze_entities
                   @analyze_entities = ::Gapic::Config::Method.new analyze_entities_config
-                  analyze_entity_sentiment_config = parent_rpcs&.analyze_entity_sentiment if parent_rpcs&.respond_to? :analyze_entity_sentiment
+                  analyze_entity_sentiment_config = parent_rpcs.analyze_entity_sentiment if parent_rpcs.respond_to? :analyze_entity_sentiment
                   @analyze_entity_sentiment = ::Gapic::Config::Method.new analyze_entity_sentiment_config
-                  analyze_syntax_config = parent_rpcs&.analyze_syntax if parent_rpcs&.respond_to? :analyze_syntax
+                  analyze_syntax_config = parent_rpcs.analyze_syntax if parent_rpcs.respond_to? :analyze_syntax
                   @analyze_syntax = ::Gapic::Config::Method.new analyze_syntax_config
-                  classify_text_config = parent_rpcs&.classify_text if parent_rpcs&.respond_to? :classify_text
+                  classify_text_config = parent_rpcs.classify_text if parent_rpcs.respond_to? :classify_text
                   @classify_text = ::Gapic::Config::Method.new classify_text_config
-                  annotate_text_config = parent_rpcs&.annotate_text if parent_rpcs&.respond_to? :annotate_text
+                  annotate_text_config = parent_rpcs.annotate_text if parent_rpcs.respond_to? :annotate_text
                   @annotate_text = ::Gapic::Config::Method.new annotate_text_config
 
                   yield self if block_given?

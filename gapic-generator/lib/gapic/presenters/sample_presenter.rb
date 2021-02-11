@@ -58,7 +58,12 @@ module Gapic
       # Representation of a request field.
       #
       class RequestField
-        attr_reader :field, :value, :input_parameter, :comment, :value_is_file
+        attr_reader :field
+        attr_reader :value
+        attr_reader :input_parameter
+        attr_reader :comment
+        attr_reader :value_is_file
+
         def initialize field
           @field = field["field"]
           @value = convert field["value"]

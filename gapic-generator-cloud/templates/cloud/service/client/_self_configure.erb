@@ -4,7 +4,7 @@
   parent_config = while namespace.any?
                     parent_name = namespace.join "::"
                     parent_const = const_get parent_name
-                    break parent_const.configure if parent_const&.respond_to? :configure
+                    break parent_const.configure if parent_const.respond_to? :configure
                     namespace.pop
                   end
   default_config = <%= service.client_name %>::Configuration.new parent_config

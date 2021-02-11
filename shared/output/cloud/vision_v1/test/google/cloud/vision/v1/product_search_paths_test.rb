@@ -54,7 +54,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientPathsTest < Minitest::Te
         config.credentials = grpc_channel
       end
 
-      path = client.reference_image_path project: "value0", location: "value1", product: "value2", reference_image: "value3"
+      path = client.reference_image_path project: "value0", location: "value1", product: "value2",
+reference_image: "value3"
       assert_equal "projects/value0/locations/value1/products/value2/referenceImages/value3", path
     end
   end

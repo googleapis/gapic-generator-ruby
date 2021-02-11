@@ -79,7 +79,7 @@ def test_<%= method.name %>
     end
 
     # Use protobuf object with options
-    client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), grpc_options do |response, operation|
+    client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), grpc_options) do |response, operation|
       assert_kind_of Enumerable, response
       response.to_a.each do |r|
         assert_kind_of <%= method.return_type %>, r

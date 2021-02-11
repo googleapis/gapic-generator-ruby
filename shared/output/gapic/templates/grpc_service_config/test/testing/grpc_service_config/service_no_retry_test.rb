@@ -95,7 +95,7 @@ class ::Testing::GrpcServiceConfig::ServiceNoRetry::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.no_retry_method ::Testing::GrpcServiceConfig::Request.new(), grpc_options do |response, operation|
+      client.no_retry_method(::Testing::GrpcServiceConfig::Request.new(), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

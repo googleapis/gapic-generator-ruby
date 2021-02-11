@@ -39,7 +39,8 @@ module Gapic
     #   @return [Array<Enum>] The top level enums seen across all files in
     #     this API.
     class Api
-      attr_accessor :request, :files
+      attr_accessor :request
+      attr_accessor :files
 
       # Initializes an API object with the file descriptors that represent the
       # API.
@@ -50,7 +51,7 @@ module Gapic
       #   The request parameters schema to use
       # @param error_output [IO] An IO to write any errors/warnings to.
       # @param configuration [Hash] Optional override of configuration.
-      def initialize request, parameter_schema: nil, error_output: STDERR, configuration: nil
+      def initialize request, parameter_schema: nil, error_output: $stderr, configuration: nil
         @request = request
         loader = Loader.new
         @files = request.proto_file.map do |fd|
@@ -359,7 +360,7 @@ module Gapic
       # split the string on periods, but map backslash-escaped periods to
       # literal periods.
       def parse_key str
-        str.scan(/\.|\\.|[^\.\\]+/)
+        str.scan(/\.|\\.|[^.\\]+/)
            .each_with_object([String.new]) do |tok, arr|
              if tok == "."
                arr.append String.new

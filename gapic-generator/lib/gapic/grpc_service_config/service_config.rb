@@ -22,7 +22,8 @@ module Gapic
     # applied to the specific methods
     #
     class ServiceConfig
-      attr_reader :service_level_configs, :service_method_level_configs
+      attr_reader :service_level_configs
+      attr_reader :service_method_level_configs
 
       ##
       # Create new ServiceConfig.

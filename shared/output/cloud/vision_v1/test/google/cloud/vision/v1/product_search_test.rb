@@ -75,31 +75,38 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.create_product_set({ parent: parent, product_set: product_set, product_set_id: product_set_id }) do |response, operation|
+      client.create_product_set({ parent: parent, product_set: product_set,
+product_set_id: product_set_id }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.create_product_set parent: parent, product_set: product_set, product_set_id: product_set_id do |response, operation|
+      client.create_product_set parent: parent, product_set: product_set,
+product_set_id: product_set_id do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.create_product_set ::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id) do |response, operation|
+      client.create_product_set ::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent,
+product_set: product_set, product_set_id: product_set_id) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_product_set({ parent: parent, product_set: product_set, product_set_id: product_set_id }, grpc_options) do |response, operation|
+      client.create_product_set({ parent: parent, product_set: product_set, product_set_id: product_set_id },
+                                grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_product_set ::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id), grpc_options do |response, operation|
+      client.create_product_set(
+        ::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set,
+product_set_id: product_set_id), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -137,7 +144,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_product_sets({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
+      client.list_product_sets({ parent: parent, page_size: page_size,
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -151,21 +159,26 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_product_sets ::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_product_sets ::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent,
+page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_product_sets({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.list_product_sets({ parent: parent, page_size: page_size, page_token: page_token },
+                               grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_product_sets ::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_product_sets(
+        ::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -224,7 +237,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_product_set ::Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name), grpc_options do |response, operation|
+      client.get_product_set(::Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name),
+                             grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -272,19 +286,24 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.update_product_set ::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask) do |response, operation|
+      client.update_product_set ::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set,
+update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.update_product_set({ product_set: product_set, update_mask: update_mask }, grpc_options) do |response, operation|
+      client.update_product_set({ product_set: product_set, update_mask: update_mask },
+                                grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.update_product_set ::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask), grpc_options do |response, operation|
+      client.update_product_set(
+        ::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set,
+update_mask: update_mask), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -342,7 +361,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_product_set ::Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_product_set(::Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name),
+                                grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -392,19 +412,24 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.create_product ::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id) do |response, operation|
+      client.create_product ::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product,
+product_id: product_id) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_product({ parent: parent, product: product, product_id: product_id }, grpc_options) do |response, operation|
+      client.create_product({ parent: parent, product: product, product_id: product_id },
+                            grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_product ::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id), grpc_options do |response, operation|
+      client.create_product(
+        ::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product,
+product_id: product_id), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -456,21 +481,26 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_products ::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_products ::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size,
+page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_products({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.list_products({ parent: parent, page_size: page_size, page_token: page_token },
+                           grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_products ::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_products(
+        ::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -529,7 +559,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_product ::Google::Cloud::Vision::V1::GetProductRequest.new(name: name), grpc_options do |response, operation|
+      client.get_product(::Google::Cloud::Vision::V1::GetProductRequest.new(name: name),
+                         grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -577,7 +608,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.update_product ::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask) do |response, operation|
+      client.update_product ::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product,
+update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -589,7 +621,10 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.update_product ::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask), grpc_options do |response, operation|
+      client.update_product(
+        ::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product,
+update_mask: update_mask), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -647,7 +682,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_product ::Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_product(::Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name),
+                            grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -673,7 +709,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal :create_reference_image, name
       assert_kind_of ::Google::Cloud::Vision::V1::CreateReferenceImageRequest, request
       assert_equal "hello world", request["parent"]
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ReferenceImage), request["reference_image"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ReferenceImage),
+                   request["reference_image"]
       assert_equal "hello world", request["reference_image_id"]
       refute_nil options
     end
@@ -685,31 +722,40 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.create_reference_image({ parent: parent, reference_image: reference_image, reference_image_id: reference_image_id }) do |response, operation|
+      client.create_reference_image({ parent: parent, reference_image: reference_image,
+reference_image_id: reference_image_id }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.create_reference_image parent: parent, reference_image: reference_image, reference_image_id: reference_image_id do |response, operation|
+      client.create_reference_image parent: parent, reference_image: reference_image,
+reference_image_id: reference_image_id do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.create_reference_image ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id) do |response, operation|
+      client.create_reference_image ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent,
+reference_image: reference_image, reference_image_id: reference_image_id) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.create_reference_image({ parent: parent, reference_image: reference_image, reference_image_id: reference_image_id }, grpc_options) do |response, operation|
+      client.create_reference_image(
+        { parent: parent, reference_image: reference_image,
+reference_image_id: reference_image_id }, grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.create_reference_image ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id), grpc_options do |response, operation|
+      client.create_reference_image(
+        ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image,
+reference_image_id: reference_image_id), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -767,7 +813,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_reference_image ::Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_reference_image(::Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name),
+                                    grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -805,7 +852,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_reference_images({ parent: parent, page_size: page_size, page_token: page_token }) do |response, operation|
+      client.list_reference_images({ parent: parent, page_size: page_size,
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -819,21 +867,26 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_reference_images ::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_reference_images ::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent,
+page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_reference_images({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.list_reference_images({ parent: parent, page_size: page_size, page_token: page_token },
+                                   grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_reference_images ::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_reference_images(
+        ::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -892,7 +945,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_reference_image ::Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name), grpc_options do |response, operation|
+      client.get_reference_image(::Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name),
+                                 grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -940,7 +994,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.add_product_to_product_set ::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product) do |response, operation|
+      client.add_product_to_product_set ::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name,
+product: product) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -952,7 +1007,10 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.add_product_to_product_set ::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product), grpc_options do |response, operation|
+      client.add_product_to_product_set(
+        ::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name,
+product: product), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -973,7 +1031,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
     name = "hello world"
     product = "hello world"
 
-    remove_product_from_product_set_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+    remove_product_from_product_set_client_stub = ClientStub.new grpc_response,
+                                                                 grpc_operation do |name, request, options:|
       assert_equal :remove_product_from_product_set, name
       assert_kind_of ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest, request
       assert_equal "hello world", request["name"]
@@ -1000,7 +1059,9 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.remove_product_from_product_set ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product) do |response, operation|
+      client.remove_product_from_product_set ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(
+        name: name, product: product
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -1012,7 +1073,10 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.remove_product_from_product_set ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product), grpc_options do |response, operation|
+      client.remove_product_from_product_set(
+        ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name,
+product: product), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -1050,35 +1114,42 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_products_in_product_set({ name: name, page_size: page_size, page_token: page_token }) do |response, operation|
+      client.list_products_in_product_set({ name: name, page_size: page_size,
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.list_products_in_product_set name: name, page_size: page_size, page_token: page_token do |response, operation|
+      client.list_products_in_product_set name: name, page_size: page_size,
+page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.list_products_in_product_set ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_products_in_product_set ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name,
+page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_products_in_product_set({ name: name, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.list_products_in_product_set({ name: name, page_size: page_size, page_token: page_token },
+                                          grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_products_in_product_set ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_products_in_product_set(
+        ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -1104,7 +1175,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       assert_equal :import_product_sets, name
       assert_kind_of ::Google::Cloud::Vision::V1::ImportProductSetsRequest, request
       assert_equal "hello world", request["parent"]
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ImportProductSetsInputConfig), request["input_config"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ImportProductSetsInputConfig),
+                   request["input_config"]
       refute_nil options
     end
 
@@ -1129,7 +1201,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.import_product_sets ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config) do |response, operation|
+      client.import_product_sets ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent,
+input_config: input_config) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -1143,7 +1216,10 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.import_product_sets ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config), grpc_options do |response, operation|
+      client.import_product_sets(
+        ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent,
+input_config: input_config), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -1169,7 +1245,8 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
     purge_products_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :purge_products, name
       assert_kind_of ::Google::Cloud::Vision::V1::PurgeProductsRequest, request
-      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ProductSetPurgeConfig), request["product_set_purge_config"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Cloud::Vision::V1::ProductSetPurgeConfig),
+                   request["product_set_purge_config"]
       assert_equal :product_set_purge_config, request.target
       assert_equal "hello world", request["parent"]
       assert_equal true, request["force"]
@@ -1183,35 +1260,43 @@ class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent, force: force }) do |response, operation|
+      client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent,
+force: force }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.purge_products product_set_purge_config: product_set_purge_config, parent: parent, force: force do |response, operation|
+      client.purge_products product_set_purge_config: product_set_purge_config, parent: parent,
+force: force do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.purge_products ::Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config, parent: parent, force: force) do |response, operation|
+      client.purge_products ::Google::Cloud::Vision::V1::PurgeProductsRequest.new(
+        product_set_purge_config: product_set_purge_config, parent: parent, force: force
+      ) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent, force: force }, grpc_options) do |response, operation|
+      client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent, force: force },
+                            grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.purge_products ::Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config, parent: parent, force: force), grpc_options do |response, operation|
+      client.purge_products(
+        ::Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config,
+parent: parent, force: force), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation

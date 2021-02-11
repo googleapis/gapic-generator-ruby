@@ -73,7 +73,7 @@ module Google
                 parent_config = while namespace.any?
                                   parent_name = namespace.join "::"
                                   parent_const = const_get parent_name
-                                  break parent_const.configure if parent_const&.respond_to? :configure
+                                  break parent_const.configure if parent_const.respond_to? :configure
                                   namespace.pop
                                 end
                 default_config = Client::Configuration.new parent_config
@@ -144,7 +144,7 @@ module Google
               enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                        @config.endpoint == Client.configure.endpoint &&
                                        !@config.endpoint.split(".").first.include?("-")
-              credentials ||= Credentials.default scope:                  @config.scope,
+              credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(String) || credentials.is_a?(Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
@@ -325,7 +325,8 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response,
+                                                        operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -709,7 +710,8 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response,
+                                                        operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1196,7 +1198,8 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request,
+                                                        response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1351,7 +1354,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
+              @product_search_stub.call_rpc :add_product_to_product_set, request,
+                                            options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1399,7 +1403,8 @@ module Google
             def remove_product_from_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -1425,7 +1430,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
+              @product_search_stub.call_rpc :remove_product_from_product_set, request,
+                                            options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1478,7 +1484,8 @@ module Google
             def list_products_in_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
+              request = ::Gapic::Protobuf.coerce request,
+                                                 to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -1504,8 +1511,10 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
+              @product_search_stub.call_rpc :list_products_in_product_set, request,
+                                            options: options do |response, operation|
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request,
+                                                        response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1779,14 +1788,15 @@ module Google
 
               config_attr :endpoint,      "vision.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
+                           nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
               config_attr :scope,         nil, ::String, ::Array, nil
               config_attr :lib_name,      nil, ::String, nil
               config_attr :lib_version,   nil, ::String, nil
-              config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+              config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
               config_attr :interceptors,  nil, ::Array, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
@@ -1807,7 +1817,7 @@ module Google
               def rpcs
                 @rpcs ||= begin
                   parent_rpcs = nil
-                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                  parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                   Rpcs.new parent_rpcs
                 end
               end
@@ -1928,43 +1938,43 @@ module Google
 
                 # @private
                 def initialize parent_rpcs = nil
-                  create_product_set_config = parent_rpcs&.create_product_set if parent_rpcs&.respond_to? :create_product_set
+                  create_product_set_config = parent_rpcs.create_product_set if parent_rpcs.respond_to? :create_product_set
                   @create_product_set = ::Gapic::Config::Method.new create_product_set_config
-                  list_product_sets_config = parent_rpcs&.list_product_sets if parent_rpcs&.respond_to? :list_product_sets
+                  list_product_sets_config = parent_rpcs.list_product_sets if parent_rpcs.respond_to? :list_product_sets
                   @list_product_sets = ::Gapic::Config::Method.new list_product_sets_config
-                  get_product_set_config = parent_rpcs&.get_product_set if parent_rpcs&.respond_to? :get_product_set
+                  get_product_set_config = parent_rpcs.get_product_set if parent_rpcs.respond_to? :get_product_set
                   @get_product_set = ::Gapic::Config::Method.new get_product_set_config
-                  update_product_set_config = parent_rpcs&.update_product_set if parent_rpcs&.respond_to? :update_product_set
+                  update_product_set_config = parent_rpcs.update_product_set if parent_rpcs.respond_to? :update_product_set
                   @update_product_set = ::Gapic::Config::Method.new update_product_set_config
-                  delete_product_set_config = parent_rpcs&.delete_product_set if parent_rpcs&.respond_to? :delete_product_set
+                  delete_product_set_config = parent_rpcs.delete_product_set if parent_rpcs.respond_to? :delete_product_set
                   @delete_product_set = ::Gapic::Config::Method.new delete_product_set_config
-                  create_product_config = parent_rpcs&.create_product if parent_rpcs&.respond_to? :create_product
+                  create_product_config = parent_rpcs.create_product if parent_rpcs.respond_to? :create_product
                   @create_product = ::Gapic::Config::Method.new create_product_config
-                  list_products_config = parent_rpcs&.list_products if parent_rpcs&.respond_to? :list_products
+                  list_products_config = parent_rpcs.list_products if parent_rpcs.respond_to? :list_products
                   @list_products = ::Gapic::Config::Method.new list_products_config
-                  get_product_config = parent_rpcs&.get_product if parent_rpcs&.respond_to? :get_product
+                  get_product_config = parent_rpcs.get_product if parent_rpcs.respond_to? :get_product
                   @get_product = ::Gapic::Config::Method.new get_product_config
-                  update_product_config = parent_rpcs&.update_product if parent_rpcs&.respond_to? :update_product
+                  update_product_config = parent_rpcs.update_product if parent_rpcs.respond_to? :update_product
                   @update_product = ::Gapic::Config::Method.new update_product_config
-                  delete_product_config = parent_rpcs&.delete_product if parent_rpcs&.respond_to? :delete_product
+                  delete_product_config = parent_rpcs.delete_product if parent_rpcs.respond_to? :delete_product
                   @delete_product = ::Gapic::Config::Method.new delete_product_config
-                  create_reference_image_config = parent_rpcs&.create_reference_image if parent_rpcs&.respond_to? :create_reference_image
+                  create_reference_image_config = parent_rpcs.create_reference_image if parent_rpcs.respond_to? :create_reference_image
                   @create_reference_image = ::Gapic::Config::Method.new create_reference_image_config
-                  delete_reference_image_config = parent_rpcs&.delete_reference_image if parent_rpcs&.respond_to? :delete_reference_image
+                  delete_reference_image_config = parent_rpcs.delete_reference_image if parent_rpcs.respond_to? :delete_reference_image
                   @delete_reference_image = ::Gapic::Config::Method.new delete_reference_image_config
-                  list_reference_images_config = parent_rpcs&.list_reference_images if parent_rpcs&.respond_to? :list_reference_images
+                  list_reference_images_config = parent_rpcs.list_reference_images if parent_rpcs.respond_to? :list_reference_images
                   @list_reference_images = ::Gapic::Config::Method.new list_reference_images_config
-                  get_reference_image_config = parent_rpcs&.get_reference_image if parent_rpcs&.respond_to? :get_reference_image
+                  get_reference_image_config = parent_rpcs.get_reference_image if parent_rpcs.respond_to? :get_reference_image
                   @get_reference_image = ::Gapic::Config::Method.new get_reference_image_config
-                  add_product_to_product_set_config = parent_rpcs&.add_product_to_product_set if parent_rpcs&.respond_to? :add_product_to_product_set
+                  add_product_to_product_set_config = parent_rpcs.add_product_to_product_set if parent_rpcs.respond_to? :add_product_to_product_set
                   @add_product_to_product_set = ::Gapic::Config::Method.new add_product_to_product_set_config
-                  remove_product_from_product_set_config = parent_rpcs&.remove_product_from_product_set if parent_rpcs&.respond_to? :remove_product_from_product_set
+                  remove_product_from_product_set_config = parent_rpcs.remove_product_from_product_set if parent_rpcs.respond_to? :remove_product_from_product_set
                   @remove_product_from_product_set = ::Gapic::Config::Method.new remove_product_from_product_set_config
-                  list_products_in_product_set_config = parent_rpcs&.list_products_in_product_set if parent_rpcs&.respond_to? :list_products_in_product_set
+                  list_products_in_product_set_config = parent_rpcs.list_products_in_product_set if parent_rpcs.respond_to? :list_products_in_product_set
                   @list_products_in_product_set = ::Gapic::Config::Method.new list_products_in_product_set_config
-                  import_product_sets_config = parent_rpcs&.import_product_sets if parent_rpcs&.respond_to? :import_product_sets
+                  import_product_sets_config = parent_rpcs.import_product_sets if parent_rpcs.respond_to? :import_product_sets
                   @import_product_sets = ::Gapic::Config::Method.new import_product_sets_config
-                  purge_products_config = parent_rpcs&.purge_products if parent_rpcs&.respond_to? :purge_products
+                  purge_products_config = parent_rpcs.purge_products if parent_rpcs.respond_to? :purge_products
                   @purge_products = ::Gapic::Config::Method.new purge_products_config
 
                   yield self if block_given?

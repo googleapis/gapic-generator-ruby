@@ -87,7 +87,7 @@ module Gapic
       # @private
       def self.try_capture_complex_resource_id_segment url_pattern
         complex_resource_id_regex =
-          %r/^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_\-~\.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
+          %r/^(?<segment_pattern>{(?<name_first>[^\/}]+?)}(?:(?<separator>[_\-~.]){(?<name_seq>[^\/}]+?)})+)(?:\/|$)/
 
         return nil, url_pattern unless complex_resource_id_regex.match? url_pattern
 

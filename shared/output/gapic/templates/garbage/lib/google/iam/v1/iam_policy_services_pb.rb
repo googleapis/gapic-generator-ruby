@@ -58,15 +58,15 @@ module Google
 
           # Sets the access control policy on the specified resource. Replaces any
           # existing policy.
-          rpc :SetIamPolicy, Google::Iam::V1::SetIamPolicyRequest, Google::Iam::V1::Policy
+          rpc :SetIamPolicy, ::Google::Iam::V1::SetIamPolicyRequest, ::Google::Iam::V1::Policy
           # Gets the access control policy for a resource.
           # Returns an empty policy if the resource exists and does not have a policy
           # set.
-          rpc :GetIamPolicy, Google::Iam::V1::GetIamPolicyRequest, Google::Iam::V1::Policy
+          rpc :GetIamPolicy, ::Google::Iam::V1::GetIamPolicyRequest, ::Google::Iam::V1::Policy
           # Returns permissions that a caller has on the specified resource.
           # If the resource does not exist, this will return an empty set of
           # permissions, not a NOT_FOUND error.
-          rpc :TestIamPermissions, Google::Iam::V1::TestIamPermissionsRequest, Google::Iam::V1::TestIamPermissionsResponse
+          rpc :TestIamPermissions, ::Google::Iam::V1::TestIamPermissionsRequest, ::Google::Iam::V1::TestIamPermissionsResponse
         end
 
         Stub = Service.rpc_stub_class

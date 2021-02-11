@@ -15,7 +15,7 @@ module Testing
         self.unmarshal_class_method = :decode
         self.service_name = 'testing.grpcserviceconfig.ServiceNoRetry'
 
-        rpc :NoRetryMethod, Testing::GrpcServiceConfig::Request, Testing::GrpcServiceConfig::Response
+        rpc :NoRetryMethod, ::Testing::GrpcServiceConfig::Request, ::Testing::GrpcServiceConfig::Response
       end
 
       Stub = Service.rpc_stub_class
@@ -29,8 +29,8 @@ module Testing
         self.unmarshal_class_method = :decode
         self.service_name = 'testing.grpcserviceconfig.ServiceWithRetries'
 
-        rpc :ServiceLevelRetryMethod, Testing::GrpcServiceConfig::Request, Testing::GrpcServiceConfig::Response
-        rpc :MethodLevelRetryMethod, Testing::GrpcServiceConfig::Request, Testing::GrpcServiceConfig::Response
+        rpc :ServiceLevelRetryMethod, ::Testing::GrpcServiceConfig::Request, ::Testing::GrpcServiceConfig::Response
+        rpc :MethodLevelRetryMethod, ::Testing::GrpcServiceConfig::Request, ::Testing::GrpcServiceConfig::Response
       end
 
       Stub = Service.rpc_stub_class

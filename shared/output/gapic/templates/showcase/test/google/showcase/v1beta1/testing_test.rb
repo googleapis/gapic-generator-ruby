@@ -103,7 +103,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), grpc_options do |response, operation|
+      client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session),
+                            grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -161,7 +162,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), grpc_options do |response, operation|
+      client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name),
+                         grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -211,7 +213,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
+page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -225,7 +228,10 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_sessions(
+        ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -284,7 +290,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name),
+                            grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -342,7 +349,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), grpc_options do |response, operation|
+      client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name),
+                            grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -394,21 +402,26 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |response, operation|
+      client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
+page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token },
+                        grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.list_tests(
+        ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -467,7 +480,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), grpc_options do |response, operation|
+      client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name),
+                         grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -517,7 +531,8 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |response, operation|
+      client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
+answers: answers) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -529,7 +544,10 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), grpc_options do |response, operation|
+      client.verify_test(
+        ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
+answers: answers), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

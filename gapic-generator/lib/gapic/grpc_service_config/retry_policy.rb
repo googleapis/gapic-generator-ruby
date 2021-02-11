@@ -21,7 +21,10 @@ module Gapic
     # for the GRPC method invocation. It is embedded into the MethodConfig
     #
     class RetryPolicy
-      attr_reader :initial_delay_seconds, :max_delay_seconds, :multiplier, :status_codes
+      attr_reader :initial_delay_seconds
+      attr_reader :max_delay_seconds
+      attr_reader :multiplier
+      attr_reader :status_codes
 
       ##
       # Create new ParsedRetryPolicy.

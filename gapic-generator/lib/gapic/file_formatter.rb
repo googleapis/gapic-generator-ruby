@@ -21,7 +21,8 @@ module Gapic
   ##
   # File Formatter
   class FileFormatter
-    attr_reader :configuration, :files
+    attr_reader :configuration
+    attr_reader :files
 
     ##
     # Create a new file formatter object

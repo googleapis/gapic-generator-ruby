@@ -133,7 +133,7 @@ module Google
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -475,7 +475,8 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_rooms, request, options: options do |response, operation|
-              response = ::Gapic::PagedEnumerable.new @messaging_stub, :list_rooms, request, response, operation, options
+              response = ::Gapic::PagedEnumerable.new @messaging_stub, :list_rooms, request, response, operation,
+                                                      options
               yield response, operation if block_given?
               return response
             end
@@ -813,7 +814,8 @@ module Google
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_blurbs, request, options: options do |response, operation|
-              response = ::Gapic::PagedEnumerable.new @messaging_stub, :list_blurbs, request, response, operation, options
+              response = ::Gapic::PagedEnumerable.new @messaging_stub, :list_blurbs, request, response, operation,
+                                                      options
               yield response, operation if block_given?
               return response
             end
@@ -1162,7 +1164,7 @@ module Google
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -1183,7 +1185,7 @@ module Google
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -1279,33 +1281,33 @@ module Google
 
               # @private
               def initialize parent_rpcs = nil
-                create_room_config = parent_rpcs&.create_room if parent_rpcs&.respond_to? :create_room
+                create_room_config = parent_rpcs.create_room if parent_rpcs.respond_to? :create_room
                 @create_room = ::Gapic::Config::Method.new create_room_config
-                get_room_config = parent_rpcs&.get_room if parent_rpcs&.respond_to? :get_room
+                get_room_config = parent_rpcs.get_room if parent_rpcs.respond_to? :get_room
                 @get_room = ::Gapic::Config::Method.new get_room_config
-                update_room_config = parent_rpcs&.update_room if parent_rpcs&.respond_to? :update_room
+                update_room_config = parent_rpcs.update_room if parent_rpcs.respond_to? :update_room
                 @update_room = ::Gapic::Config::Method.new update_room_config
-                delete_room_config = parent_rpcs&.delete_room if parent_rpcs&.respond_to? :delete_room
+                delete_room_config = parent_rpcs.delete_room if parent_rpcs.respond_to? :delete_room
                 @delete_room = ::Gapic::Config::Method.new delete_room_config
-                list_rooms_config = parent_rpcs&.list_rooms if parent_rpcs&.respond_to? :list_rooms
+                list_rooms_config = parent_rpcs.list_rooms if parent_rpcs.respond_to? :list_rooms
                 @list_rooms = ::Gapic::Config::Method.new list_rooms_config
-                create_blurb_config = parent_rpcs&.create_blurb if parent_rpcs&.respond_to? :create_blurb
+                create_blurb_config = parent_rpcs.create_blurb if parent_rpcs.respond_to? :create_blurb
                 @create_blurb = ::Gapic::Config::Method.new create_blurb_config
-                get_blurb_config = parent_rpcs&.get_blurb if parent_rpcs&.respond_to? :get_blurb
+                get_blurb_config = parent_rpcs.get_blurb if parent_rpcs.respond_to? :get_blurb
                 @get_blurb = ::Gapic::Config::Method.new get_blurb_config
-                update_blurb_config = parent_rpcs&.update_blurb if parent_rpcs&.respond_to? :update_blurb
+                update_blurb_config = parent_rpcs.update_blurb if parent_rpcs.respond_to? :update_blurb
                 @update_blurb = ::Gapic::Config::Method.new update_blurb_config
-                delete_blurb_config = parent_rpcs&.delete_blurb if parent_rpcs&.respond_to? :delete_blurb
+                delete_blurb_config = parent_rpcs.delete_blurb if parent_rpcs.respond_to? :delete_blurb
                 @delete_blurb = ::Gapic::Config::Method.new delete_blurb_config
-                list_blurbs_config = parent_rpcs&.list_blurbs if parent_rpcs&.respond_to? :list_blurbs
+                list_blurbs_config = parent_rpcs.list_blurbs if parent_rpcs.respond_to? :list_blurbs
                 @list_blurbs = ::Gapic::Config::Method.new list_blurbs_config
-                search_blurbs_config = parent_rpcs&.search_blurbs if parent_rpcs&.respond_to? :search_blurbs
+                search_blurbs_config = parent_rpcs.search_blurbs if parent_rpcs.respond_to? :search_blurbs
                 @search_blurbs = ::Gapic::Config::Method.new search_blurbs_config
-                stream_blurbs_config = parent_rpcs&.stream_blurbs if parent_rpcs&.respond_to? :stream_blurbs
+                stream_blurbs_config = parent_rpcs.stream_blurbs if parent_rpcs.respond_to? :stream_blurbs
                 @stream_blurbs = ::Gapic::Config::Method.new stream_blurbs_config
-                send_blurbs_config = parent_rpcs&.send_blurbs if parent_rpcs&.respond_to? :send_blurbs
+                send_blurbs_config = parent_rpcs.send_blurbs if parent_rpcs.respond_to? :send_blurbs
                 @send_blurbs = ::Gapic::Config::Method.new send_blurbs_config
-                connect_config = parent_rpcs&.connect if parent_rpcs&.respond_to? :connect
+                connect_config = parent_rpcs.connect if parent_rpcs.respond_to? :connect
                 @connect = ::Gapic::Config::Method.new connect_config
 
                 yield self if block_given?

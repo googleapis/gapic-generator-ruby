@@ -77,7 +77,7 @@ module Gapic
       end
 
       def package_file_path
-        package_require + ".rb"
+        "#{package_require}.rb"
       end
 
       def package_directory_name
@@ -89,7 +89,7 @@ module Gapic
       end
 
       def helpers_file_path
-        helpers_require + ".rb"
+        "#{helpers_require}.rb"
       end
 
       def helpers_file_name
@@ -97,7 +97,7 @@ module Gapic
       end
 
       def helpers_require
-        package_require + "/_helpers"
+        "#{package_require}/_helpers"
       end
 
       ##

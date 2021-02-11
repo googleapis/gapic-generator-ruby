@@ -62,17 +62,17 @@ module Testing
             default_config.timeout = 20.0
             default_config.retry_policy = {
               initial_delay: 0.5,
-              max_delay:     5.0,
-              multiplier:    2.0,
-              retry_codes:   [4, 8]
+            max_delay: 5.0,
+            multiplier: 2.0,
+            retry_codes: [4, 8]
             }
 
             default_config.rpcs.method_level_retry_method.timeout = 86_400.0
             default_config.rpcs.method_level_retry_method.retry_policy = {
               initial_delay: 1.0,
-              max_delay:     10.0,
-              multiplier:    3.0,
-              retry_codes:   [14]
+          max_delay: 10.0,
+          multiplier: 3.0,
+          retry_codes: [14]
             }
 
             default_config
@@ -141,7 +141,7 @@ module Testing
           enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                    @config.endpoint == Client.configure.endpoint &&
                                    !@config.endpoint.split(".").first.include?("-")
-          credentials ||= Credentials.default scope:                  @config.scope,
+          credentials ||= Credentials.default scope: @config.scope,
                                               enable_self_signed_jwt: enable_self_signed_jwt
           if credentials.is_a?(String) || credentials.is_a?(Hash)
             credentials = Credentials.new credentials, scope: @config.scope
@@ -202,7 +202,8 @@ module Testing
           options.apply_defaults metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
-          @service_with_retries_stub.call_rpc :service_level_retry_method, request, options: options do |response, operation|
+          @service_with_retries_stub.call_rpc :service_level_retry_method, request,
+                                              options: options do |response, operation|
             yield response, operation if block_given?
             return response
           end
@@ -250,7 +251,8 @@ module Testing
           options.apply_defaults metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
-          @service_with_retries_stub.call_rpc :method_level_retry_method, request, options: options do |response, operation|
+          @service_with_retries_stub.call_rpc :method_level_retry_method, request,
+                                              options: options do |response, operation|
             yield response, operation if block_given?
             return response
           end
@@ -348,7 +350,7 @@ module Testing
           config_attr :scope,         nil, ::String, ::Array, nil
           config_attr :lib_name,      nil, ::String, nil
           config_attr :lib_version,   nil, ::String, nil
-          config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+          config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
           config_attr :interceptors,  nil, ::Array, nil
           config_attr :timeout,       nil, ::Numeric, nil
           config_attr :metadata,      nil, ::Hash, nil
@@ -369,7 +371,7 @@ module Testing
           def rpcs
             @rpcs ||= begin
               parent_rpcs = nil
-              parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+              parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
               Rpcs.new parent_rpcs
             end
           end
@@ -405,9 +407,9 @@ module Testing
 
             # @private
             def initialize parent_rpcs = nil
-              service_level_retry_method_config = parent_rpcs&.service_level_retry_method if parent_rpcs&.respond_to? :service_level_retry_method
+              service_level_retry_method_config = parent_rpcs.service_level_retry_method if parent_rpcs.respond_to? :service_level_retry_method
               @service_level_retry_method = ::Gapic::Config::Method.new service_level_retry_method_config
-              method_level_retry_method_config = parent_rpcs&.method_level_retry_method if parent_rpcs&.respond_to? :method_level_retry_method
+              method_level_retry_method_config = parent_rpcs.method_level_retry_method if parent_rpcs.respond_to? :method_level_retry_method
               @method_level_retry_method = ::Gapic::Config::Method.new method_level_retry_method_config
 
               yield self if block_given?

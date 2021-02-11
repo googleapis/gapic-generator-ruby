@@ -19,7 +19,11 @@ module Gapic
     # Encapsulates information that is parsed from a single command line parameter
     # from the plugin_opt command line
     class RequestParameter
-      attr_reader :input_str, :input_name, :input_value, :config_name, :config_value
+      attr_reader :input_str
+      attr_reader :input_name
+      attr_reader :input_value
+      attr_reader :config_name
+      attr_reader :config_value
 
       # @param input_str [String] the input string containing parameter and value
       #   that the parameter and value were parsed from

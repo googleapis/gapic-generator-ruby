@@ -37,28 +37,28 @@ module Google
           self.service_name = 'google.showcase.v1beta1.Echo'
 
           # This method simply echos the request. This method is showcases unary rpcs.
-          rpc :Echo, Google::Showcase::V1beta1::EchoRequest, Google::Showcase::V1beta1::EchoResponse
+          rpc :Echo, ::Google::Showcase::V1beta1::EchoRequest, ::Google::Showcase::V1beta1::EchoResponse
           # This method split the given content into words and will pass each word back
           # through the stream. This method showcases server-side streaming rpcs.
-          rpc :Expand, Google::Showcase::V1beta1::ExpandRequest, stream(Google::Showcase::V1beta1::EchoResponse)
+          rpc :Expand, ::Google::Showcase::V1beta1::ExpandRequest, stream(::Google::Showcase::V1beta1::EchoResponse)
           # This method will collect the words given to it. When the stream is closed
           # by the client, this method will return the a concatenation of the strings
           # passed to it. This method showcases client-side streaming rpcs.
-          rpc :Collect, stream(Google::Showcase::V1beta1::EchoRequest), Google::Showcase::V1beta1::EchoResponse
+          rpc :Collect, stream(::Google::Showcase::V1beta1::EchoRequest), ::Google::Showcase::V1beta1::EchoResponse
           # This method, upon receiving a request on the stream, the same content will
           # be passed  back on the stream. This method showcases bidirectional
           # streaming rpcs.
-          rpc :Chat, stream(Google::Showcase::V1beta1::EchoRequest), stream(Google::Showcase::V1beta1::EchoResponse)
+          rpc :Chat, stream(::Google::Showcase::V1beta1::EchoRequest), stream(::Google::Showcase::V1beta1::EchoResponse)
           # This is similar to the Expand method but instead of returning a stream of
           # expanded words, this method returns a paged list of expanded words.
-          rpc :PagedExpand, Google::Showcase::V1beta1::PagedExpandRequest, Google::Showcase::V1beta1::PagedExpandResponse
+          rpc :PagedExpand, ::Google::Showcase::V1beta1::PagedExpandRequest, ::Google::Showcase::V1beta1::PagedExpandResponse
           # This method will wait the requested amount of and then return.
           # This method showcases how a client handles a request timing out.
-          rpc :Wait, Google::Showcase::V1beta1::WaitRequest, Google::Longrunning::Operation
+          rpc :Wait, ::Google::Showcase::V1beta1::WaitRequest, ::Google::Longrunning::Operation
           # This method will block (wait) for the requested amount of time 
           # and then return the response or error.
           # This method showcases how a client handles delays or retries.
-          rpc :Block, Google::Showcase::V1beta1::BlockRequest, Google::Showcase::V1beta1::BlockResponse
+          rpc :Block, ::Google::Showcase::V1beta1::BlockRequest, ::Google::Showcase::V1beta1::BlockResponse
         end
 
         Stub = Service.rpc_stub_class

@@ -22,15 +22,15 @@ require "gapic/generator/version"
 require "gapic/runner"
 require "google/protobuf/compiler/plugin.pb"
 
-# Ensure that no encoding conversions are done on STDIN and STDOUT
+# Ensure that no encoding conversions are done on stdin and stdout
 # since we are passing binary data back and forth. Otherwise these
 # streams will be mangled on Windows.
-STDIN.binmode
-STDOUT.binmode
+$stdin.binmode
+$stdout.binmode
 
-request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode STDIN.read
+request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode $stdin.read
 
 # Run the request, specifying the ads generator
 response = Gapic::Runner.run request, generator: :ads
 
-STDOUT.print response.serialize
+$stdout.print response.serialize
