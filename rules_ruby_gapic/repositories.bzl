@@ -26,52 +26,7 @@ load("//rules_ruby_gapic/gapic-generator-ads:repositories.bzl", "gapic_generator
 # Load a set of dependencies with the gems that work with all 3 gapic-generator flavors
 #
 def gapic_generator_ruby_repositories():
-  gems = {
-    "mini_portile2": "2.4.0", # mini_portile for nokogiri needs and before nokogiri
-    "nokogiri": "1.10.9",
-    "actionpack": "5.2.4.2",
-    "actionview": "5.2.4.2",
-    "activesupport": "5.2.4.2",
-    "addressable": "2.7.0",
-    "ast": "2.4.0",
-    "builder": "3.2.4",
-    "concurrent-ruby": "1.1.6",
-    "crass": "1.0.6",
-    "erubi": "1.9.0",
-    "faraday": "1.0.0",
-    "googleapis-common-protos": "1.3.9",
-    "googleapis-common-protos-types": "1.0.4",
-    "googleauth": "0.11.0",
-    "google-style": "1.24.0",
-    "i18n": "1.8.2",
-    "jaro_winkler": "1.5.4",
-    "jwt": "2.2.1",
-    "loofah": "2.5.0",
-    "memoist": "0.16.2",
-    "middleware": "0.1.0",
-    "minitest": "5.14.1",
-    "multi_json": "1.14.1",
-    "multipart-post": "2.1.1",
-    "os": "1.0.1",
-    "parallel": "1.19.1",
-    "parser": "2.7.1.1",
-    "protobuf": "3.10.3",
-    "public_suffix": "4.0.3",
-    "rack": "2.2.2",
-    "rack-test": "1.1.0",
-    "rails-dom-testing": "2.0.3",
-    "rails-html-sanitizer": "1.3.0",
-    "rainbow": "3.0.0",
-    "rake": "13.0.1",
-    "rubocop": "0.74.0",
-    "ruby-progressbar": "1.10.1",
-    "signet": "0.13.0",
-    "thor": "1.0.1",
-    "thread_safe": "0.3.6",
-    "tzinfo": "1.2.7",
-    "unicode-display_width": "1.6.1",
-  }
-  gapic_generator_ruby_customgems(gems)
+  gapic_generator_ruby_customgems({})
 
 ##
 # Load a set of dependencies with a set of gems provided by the caller

@@ -62,17 +62,3 @@ bundled_install_context(
   gemfile = "@bundler_gapic_generator_ads//:export/gapic-generator-ads/Gemfile",
   all_bundled_files = "@bundler_gapic_generator_ads//:bundler_installed_gems",
 )
-
-##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby ads
-# ready to be uses as a protoc plugin
-#
-# Legacy rule, not using bundler. For experimentation only.
-#
-ruby_binary (
-  name = "gapic_generator_ads_nonbundler",
-  entrypoint = "//:gapic-generator-ads/bin/protoc-gen-bazel_ruby_ads",
-  srcs = ["//:gapic_generator_allfiles"],
-  src_base = "//:gapic-generator-ads",
-  visibility = ["//visibility:public"],
-)
