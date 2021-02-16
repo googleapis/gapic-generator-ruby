@@ -62,17 +62,3 @@ bundled_install_context(
   gemfile = "@bundler_gapic_generator_cloud//:export/gapic-generator-cloud/Gemfile",
   all_bundled_files = "@bundler_gapic_generator_cloud//:bundler_installed_gems",
 )
-
-##
-# Creates a bazel-runnable shellscript wrapping gapic-generator-ruby cloud
-# ready to be uses as a protoc plugin
-#
-# Legacy rule, not using bundler. For experimentation only.
-#
-ruby_binary (
-  name = "gapic_generator_cloud_nonbundler",
-  entrypoint = "//:gapic-generator-cloud/bin/protoc-gen-bazel_ruby_cloud",
-  srcs = ["//:gapic_generator_allfiles"],
-  src_base = "//:gapic-generator-cloud",
-  visibility = ["//visibility:public"],
-)
