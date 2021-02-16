@@ -117,3 +117,13 @@ local_repository(
 load("@gapic_generator_ruby//rules_ruby_gapic:repositories.bzl", "gapic_generator_ruby_repositories")
 
 gapic_generator_ruby_repositories()
+
+##
+# showcase for vanilla examples
+#
+http_archive(
+    name = "com_gapic_showcase",
+    sha256 = "043ac36c4444479f8bd197f33fb54df25ea448219249652697b11766c06ea9c8",
+    strip_prefix = "gapic-showcase-466f2d57422377a03e5d883c3f3da9cbcbaffe36",
+    urls = ["https://github.com/googleapis/gapic-showcase/archive/466f2d57422377a03e5d883c3f3da9cbcbaffe36.zip"],
+)
