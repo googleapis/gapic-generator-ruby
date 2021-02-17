@@ -403,6 +403,12 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {::Google::Cloud::Example::Earth `One` and two-three}!\n"], result
   end
 
+  def test_remove_inputoutput_tags
+    lines = ["hello world\n", "@InputOnly\n", "\n", "@OutputOnly\n", "ruby\n", "@InputOnly\n", "rulz\n"]
+    result = Gapic::FormattingUtils.format_doc_lines nil, lines
+    assert_equal ["hello world\n", "\n", "ruby\n", "rulz\n"], result
+  end
+
   def test_format_number_small_integer
     str = Gapic::FormattingUtils.format_number 1
     assert_equal "1", str
