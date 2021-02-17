@@ -146,7 +146,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload delete(operation: nil, project: nil, region: nil)
               #   Pass arguments to `delete` via keyword arguments. Note that at
@@ -159,7 +161,6 @@ module Google
               #     Project ID for this request.
               #   @param region [::String]
               #     Name of the region for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::DeleteRegionOperationResponse]
               # @yieldparam env [::Faraday::Env]
@@ -172,8 +173,21 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DeleteRegionOperationRequest
 
-                (uri, _body, _query_string_params) = transcode_delete request
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_delete request
                 response = @client_stub.make_delete_request(
                   uri:     uri,
                   options: options,
@@ -198,7 +212,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get(operation: nil, project: nil, region: nil)
               #   Pass arguments to `get` via keyword arguments. Note that at
@@ -211,7 +227,6 @@ module Google
               #     Project ID for this request.
               #   @param region [::String]
               #     Name of the region for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -224,8 +239,21 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetRegionOperationRequest
 
-                (uri, _body, _query_string_params) = transcode_get request
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_get request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options,
@@ -250,7 +278,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload list(filter: nil, max_results: nil, order_by: nil, page_token: nil, project: nil, region: nil, return_partial_success: nil)
               #   Pass arguments to `list` via keyword arguments. Note that at
@@ -281,7 +311,6 @@ module Google
               #     Name of the region for this request.
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::OperationList]
               # @yieldparam env [::Faraday::Env]
@@ -294,8 +323,21 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListRegionOperationsRequest
 
-                (uri, _body, query_string_params) = transcode_list request
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, query_string_params) = transcode_list request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
@@ -325,7 +367,9 @@ module Google
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
-              #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload wait(operation: nil, project: nil, region: nil)
               #   Pass arguments to `wait` via keyword arguments. Note that at
@@ -338,7 +382,6 @@ module Google
               #     Project ID for this request.
               #   @param region [::String]
               #     Name of the region for this request.
-              #
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam env [::Faraday::Env]
@@ -351,8 +394,21 @@ module Google
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::WaitRegionOperationRequest
 
-                (uri, _body, _query_string_params) = transcode_wait request
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
+                # Customize the options with defaults
+                call_metadata = {}
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION
+
+                options.apply_defaults timeout:  @config.timeout,
+                                       metadata: call_metadata
+
+                (uri, _body, _query_string_params) = transcode_wait request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   options: options,

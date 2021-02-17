@@ -13,7 +13,9 @@
 # limitations under the License.
 
 require "faraday"
+require "gapic/call_options"
 require "gapic/common/version"
+require "gapic/headers"
 require "gapic/protobuf"
 require "gapic/rest/client_stub"
 require "gapic/rest/error"

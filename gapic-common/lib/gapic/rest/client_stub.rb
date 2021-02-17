@@ -55,7 +55,7 @@ module Gapic
 
       # @param uri [String]
       # @param params [Hash]
-      # @param options [Hash]
+      # @param options [::Gapic::CallOptions]
       # @return [Faraday::Response]
       def make_get_request uri:, params:{}, options:{}
         make_http_request :get, uri: uri, body: nil, params: params, options: options
@@ -63,7 +63,7 @@ module Gapic
 
       # @param uri [String]
       # @param params [Hash]
-      # @param options [Hash]
+      # @param options [::Gapic::CallOptions]
       # @return [Faraday::Response]
       def make_delete_request uri:, params:{}, options:{}
         make_http_request :delete, uri: uri, body: nil, params: params, options: options
@@ -72,7 +72,7 @@ module Gapic
       # @param uri [String]
       # @param body [String, nil]
       # @param params [Hash]
-      # @param options [Hash]
+      # @param options [::Gapic::CallOptions]
       # @return [Faraday::Response]
       def make_post_request uri:, body:, params: {}, options: {}
         make_http_request :post, uri: uri, body: body, params: params, options: options
@@ -81,7 +81,7 @@ module Gapic
       # @param uri [String]
       # @param body [String, nil]
       # @param params [Hash]
-      # @param options [Hash]
+      # @param options [::Gapic::CallOptions]
       # @return [Faraday::Response]
       def make_patch_request uri:, body:, params:{}, options:{}
         make_http_request :patch, uri: uri, body: body, params: params, options: options
@@ -95,12 +95,14 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String, nil] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [Hash]
+      # @param options [::Gapic::CallOptions]
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:
         @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
+          req.headers = req.headers.merge options.metadata
+          req.options.timeout = options.timeout if options.timeout&.positive?
         end
       end
     end
