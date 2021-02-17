@@ -27,9 +27,9 @@ load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
 # using the gapic-generator entrypoint
 #
 # name: name of the rule
-# generator_params: a string-string dictionary of the generator parameters
-#   (e.g. :gem.:name)
 # srcs: proto files wrapped in the proto_library rule
+# extra_protoc_parameters: a string-string dictionary of the generator parameters
+#   (e.g. gem-name)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
@@ -56,16 +56,39 @@ def ruby_gapic_library(
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
-# ruby_cloud_params a string-string dictionary of the cloud generator parameters
-#   (e.g. :gem.:name)
-# grpc_service_configs: a list of labels of the grpc service configs (or an empty list)
+# ruby_cloud_title: cloud gem's title. 
+#   It is separated from the extra_protoc_parameters because of issues with build_gen: https://github.com/googleapis/gapic-generator-ruby/issues/539
+# ruby_cloud_description: cloud gem's description. 
+#   It is separated from the extra_protoc_parameters because of issues with build_gen: https://github.com/googleapis/gapic-generator-ruby/issues/539
+# extra_protoc_parameters: a string-string dictionary of the cloud generator parameters
+#   (e.g. ruby-cloud-gem-name)
+# grpc_service_config: a label to the grpc service config
 #
 def ruby_cloud_gapic_library(
   name,
   srcs,
+  ruby_cloud_title = "",
+  ruby_cloud_description = "",
   extra_protoc_parameters = [],
   grpc_service_config = None,
   **kwargs):
+  
+  if extra_protoc_parameters:
+    for key_val_string in extra_protoc_parameters:
+        key_val_split = key_val_string.split("=", 1)
+        if len(key_val_split) < 2:
+            fail("Parameter {key_val_string} is not in the 'key=value' format".format(key_val_string=key_val_string))
+        key = key_val_split[0]
+        if key == "ruby-cloud-title":
+          fail("Parameter 'ruby-cloud-title' should be specified in a separate Bazel rule attribute 'ruby_cloud_title'")
+        if key == "ruby-cloud-description":
+          fail("Parameter 'ruby-cloud-description' should be specified in a separate Bazel rule attribute 'ruby_cloud_description'")
+  
+  if ruby_cloud_title:
+    extra_protoc_parameters.append("ruby-cloud-title={value}".format(value = ruby_cloud_title))
+  
+  if ruby_cloud_description:
+    extra_protoc_parameters.append("ruby-cloud-description={value}".format(value = ruby_cloud_description))
   
   _ruby_gapic_library_internal(
     name,
@@ -82,7 +105,8 @@ def ruby_cloud_gapic_library(
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
-# extra_protoc_parameters: a 
+# extra_protoc_parameters: a string-string dictionary of the cloud generator parameters
+#   (e.g. default-oauth-scopes)
 # grpc_service_config: a label to the grpc service config
 #
 def ruby_ads_gapic_library(
