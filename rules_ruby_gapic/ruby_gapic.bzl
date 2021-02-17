@@ -28,8 +28,8 @@ load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
-# extra_protoc_parameters: a string-string dictionary of the generator parameters
-#   (e.g. gem-name)
+# extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
+#   (e.g. gem-name=a-gem-name-v1)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
@@ -60,8 +60,8 @@ def ruby_gapic_library(
 #   It is separated from the extra_protoc_parameters because of issues with build_gen: https://github.com/googleapis/gapic-generator-ruby/issues/539
 # ruby_cloud_description: cloud gem's description. 
 #   It is separated from the extra_protoc_parameters because of issues with build_gen: https://github.com/googleapis/gapic-generator-ruby/issues/539
-# extra_protoc_parameters: a string-string dictionary of the cloud generator parameters
-#   (e.g. ruby-cloud-gem-name)
+# extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
+#   (e.g. ruby-cloud-gem-name=google-cloud-gem-name-v1)
 # grpc_service_config: a label to the grpc service config
 #
 def ruby_cloud_gapic_library(
@@ -105,8 +105,8 @@ def ruby_cloud_gapic_library(
 #
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
-# extra_protoc_parameters: a string-string dictionary of the cloud generator parameters
-#   (e.g. default-oauth-scopes)
+# extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
+#   (e.g. gem-name=google-ads-googleads)
 # grpc_service_config: a label to the grpc service config
 #
 def ruby_ads_gapic_library(

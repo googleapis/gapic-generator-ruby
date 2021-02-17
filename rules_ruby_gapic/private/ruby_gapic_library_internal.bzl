@@ -47,8 +47,8 @@ _ruby_gapic_library_add_gapicinfo = rule(
 # srcs: proto files wrapped in the proto_library rule
 # plugin: a label to the ruby_binary rule wrapping the plugin entrypoint
 # 
-# extra_protoc_parameters: a string-string dictionary of the generator parameters
-#   (e.g. gem-name)
+# extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
+#   (e.g. gem-name=a-gem-name-v1)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
