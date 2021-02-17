@@ -36,8 +36,9 @@ module Google
                 query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
                 query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.include_all_scopes && request_pb.include_all_scopes != false
                 query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
-                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 [uri, body, query_string_params]
               end
@@ -51,6 +52,18 @@ module Google
                 body = nil
                 query_string_params = {}
                 query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+
+                [uri, body, query_string_params]
+              end
+
+              # @param request_pb [::Google::Cloud::Compute::V1::GetAddressRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_get request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/addresses/#{request_pb.address}"
+                body = nil
+                query_string_params = {}
 
                 [uri, body, query_string_params]
               end
@@ -77,8 +90,9 @@ module Google
                 query_string_params = {}
                 query_string_params["filter"] = request_pb.filter.to_s if request_pb.filter && request_pb.filter != ""
                 query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.max_results && request_pb.max_results != 0
-                query_string_params["orderBy"] =  request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
+                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.order_by && request_pb.order_by != ""
                 query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.page_token && request_pb.page_token != ""
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.return_partial_success && request_pb.return_partial_success != false
 
                 [uri, body, query_string_params]
               end

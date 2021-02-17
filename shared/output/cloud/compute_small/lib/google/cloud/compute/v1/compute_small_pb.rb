@@ -83,6 +83,37 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :PENDING, 35394935
       value :RUNNING, 121282975
     end
+    add_message "google.cloud.compute.v1.Warning" do
+      optional :code, :enum, 3059181, "google.cloud.compute.v1.Warning.Code"
+      repeated :data, :message, 3076010, "google.cloud.compute.v1.Data"
+      optional :message, :string, 149618695
+    end
+    add_enum "google.cloud.compute.v1.Warning.Code" do
+      value :UNDEFINED_CODE, 0
+      value :CLEANUP_FAILED, 150308440
+      value :DEPRECATED_RESOURCE_USED, 123400130
+      value :DEPRECATED_TYPE_USED, 78090774
+      value :DISK_SIZE_LARGER_THAN_IMAGE_SIZE, 101007511
+      value :EXPERIMENTAL_TYPE_USED, 183518987
+      value :EXTERNAL_API_WARNING, 175546307
+      value :FIELD_VALUE_OVERRIDEN, 61233967
+      value :INJECTED_KERNELS_DEPRECATED, 148941963
+      value :MISSING_TYPE_DEPENDENCY, 76070007
+      value :NEXT_HOP_ADDRESS_NOT_ASSIGNED, 56529543
+      value :NEXT_HOP_CANNOT_IP_FORWARD, 114947431
+      value :NEXT_HOP_INSTANCE_NOT_FOUND, 195814990
+      value :NEXT_HOP_INSTANCE_NOT_ON_NETWORK, 243758146
+      value :NEXT_HOP_NOT_RUNNING, 148645809
+      value :NOT_CRITICAL_ERROR, 105763924
+      value :NO_RESULTS_ON_PAGE, 30036744
+      value :REQUIRED_TOS_AGREEMENT, 3745539
+      value :RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING, 228293185
+      value :RESOURCE_NOT_DELETED, 168598460
+      value :SCHEMA_VALIDATION_IGNORED, 6810186
+      value :SINGLE_INSTANCE_PROPERTY_TEMPLATE, 268305617
+      value :UNDECLARED_PROPERTIES, 122077983
+      value :UNREACHABLE, 13328052
+    end
     add_message "google.cloud.compute.v1.Address" do
       optional :address, :string, 194485236
       optional :address_type, :enum, 264307877, "google.cloud.compute.v1.Address.AddressType"
@@ -124,6 +155,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :DNS_RESOLVER, 207679100
       value :GCE_ENDPOINT, 230515243
       value :NAT_AUTO, 163666477
+      value :SHARED_LOADBALANCER_VIP, 26012116
       value :VPC_PEERING, 132364714
     end
     add_enum "google.cloud.compute.v1.Address.Status" do
@@ -136,43 +168,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       repeated :addresses, :message, 69237666, "google.cloud.compute.v1.Address"
       optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
-    add_message "google.cloud.compute.v1.Warning" do
-      optional :code, :enum, 3059181, "google.cloud.compute.v1.Warning.Code"
-      repeated :data, :message, 3076010, "google.cloud.compute.v1.Data"
-      optional :message, :string, 149618695
-    end
-    add_enum "google.cloud.compute.v1.Warning.Code" do
-      value :UNDEFINED_CODE, 0
-      value :CLEANUP_FAILED, 150308440
-      value :DEPRECATED_RESOURCE_USED, 123400130
-      value :DEPRECATED_TYPE_USED, 78090774
-      value :DISK_SIZE_LARGER_THAN_IMAGE_SIZE, 101007511
-      value :EXPERIMENTAL_TYPE_USED, 183518987
-      value :EXTERNAL_API_WARNING, 175546307
-      value :FIELD_VALUE_OVERRIDEN, 61233967
-      value :INJECTED_KERNELS_DEPRECATED, 148941963
-      value :MISSING_TYPE_DEPENDENCY, 76070007
-      value :NEXT_HOP_ADDRESS_NOT_ASSIGNED, 56529543
-      value :NEXT_HOP_CANNOT_IP_FORWARD, 114947431
-      value :NEXT_HOP_INSTANCE_NOT_FOUND, 195814990
-      value :NEXT_HOP_INSTANCE_NOT_ON_NETWORK, 243758146
-      value :NEXT_HOP_NOT_RUNNING, 148645809
-      value :NOT_CRITICAL_ERROR, 105763924
-      value :NO_RESULTS_ON_PAGE, 30036744
-      value :REQUIRED_TOS_AGREEMENT, 3745539
-      value :RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING, 228293185
-      value :RESOURCE_NOT_DELETED, 168598460
-      value :SCHEMA_VALIDATION_IGNORED, 6810186
-      value :SINGLE_INSTANCE_PROPERTY_TEMPLATE, 268305617
-      value :UNDECLARED_PROPERTIES, 122077983
-      value :UNREACHABLE, 13328052
-    end
     add_message "google.cloud.compute.v1.AddressAggregatedList" do
       optional :id, :string, 3355
       map :items, :string, :message, 100526016, "google.cloud.compute.v1.AddressesScopedList"
       optional :kind, :string, 3292052
       optional :next_page_token, :string, 79797525
       optional :self_link, :string, 187779341
+      repeated :unreachables, :string, 243372063
       optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.AddressList" do
@@ -190,12 +192,18 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :order_by, :string, 160562920
       optional :page_token, :string, 19994697
       optional :project, :string, 227560217
+      optional :return_partial_success, :bool, 248762934
     end
     add_message "google.cloud.compute.v1.DeleteAddressRequest" do
       optional :address, :string, 194485236
       optional :project, :string, 227560217
       optional :region, :string, 138946292
       optional :request_id, :string, 37109963
+    end
+    add_message "google.cloud.compute.v1.GetAddressRequest" do
+      optional :address, :string, 194485236
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
     end
     add_message "google.cloud.compute.v1.InsertAddressRequest" do
       optional :address_resource, :message, 215452665, "google.cloud.compute.v1.Address"
@@ -210,8 +218,38 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :page_token, :string, 19994697
       optional :project, :string, 227560217
       optional :region, :string, 138946292
+      optional :return_partial_success, :bool, 248762934
+    end
+    add_message "google.cloud.compute.v1.OperationList" do
+      optional :id, :string, 3355
+      repeated :items, :message, 100526016, "google.cloud.compute.v1.Operation"
+      optional :kind, :string, 3292052
+      optional :next_page_token, :string, 79797525
+      optional :self_link, :string, 187779341
+      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+    end
+    add_message "google.cloud.compute.v1.DeleteRegionOperationRequest" do
+      optional :operation, :string, 52090215
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
+    end
+    add_message "google.cloud.compute.v1.DeleteRegionOperationResponse" do
     end
     add_message "google.cloud.compute.v1.GetRegionOperationRequest" do
+      optional :operation, :string, 52090215
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
+    end
+    add_message "google.cloud.compute.v1.ListRegionOperationsRequest" do
+      optional :filter, :string, 67685240
+      optional :max_results, :uint32, 54715419
+      optional :order_by, :string, 160562920
+      optional :page_token, :string, 19994697
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
+      optional :return_partial_success, :bool, 248762934
+    end
+    add_message "google.cloud.compute.v1.WaitRegionOperationRequest" do
       optional :operation, :string, 52090215
       optional :project, :string, 227560217
       optional :region, :string, 138946292
@@ -230,6 +268,8 @@ module Google
         Warnings::Code = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Warnings.Code").enummodule
         Operation = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Operation").msgclass
         Operation::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Operation.Status").enummodule
+        Warning = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Warning").msgclass
+        Warning::Code = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Warning.Code").enummodule
         Address = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Address").msgclass
         Address::AddressType = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Address.AddressType").enummodule
         Address::IpVersion = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Address.IpVersion").enummodule
@@ -237,15 +277,19 @@ module Google
         Address::Purpose = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Address.Purpose").enummodule
         Address::Status = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Address.Status").enummodule
         AddressesScopedList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.AddressesScopedList").msgclass
-        Warning = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Warning").msgclass
-        Warning::Code = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.Warning.Code").enummodule
         AddressAggregatedList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.AddressAggregatedList").msgclass
         AddressList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.AddressList").msgclass
         AggregatedListAddressesRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.AggregatedListAddressesRequest").msgclass
         DeleteAddressRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.DeleteAddressRequest").msgclass
+        GetAddressRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.GetAddressRequest").msgclass
         InsertAddressRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.InsertAddressRequest").msgclass
         ListAddressesRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListAddressesRequest").msgclass
+        OperationList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.OperationList").msgclass
+        DeleteRegionOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.DeleteRegionOperationRequest").msgclass
+        DeleteRegionOperationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.DeleteRegionOperationResponse").msgclass
         GetRegionOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.GetRegionOperationRequest").msgclass
+        ListRegionOperationsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListRegionOperationsRequest").msgclass
+        WaitRegionOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.WaitRegionOperationRequest").msgclass
       end
     end
   end

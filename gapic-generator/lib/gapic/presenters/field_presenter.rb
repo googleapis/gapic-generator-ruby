@@ -88,6 +88,10 @@ module Gapic
         @field.repeated?
       end
 
+      def required?
+        @field.required?
+      end
+
       def map?
         @field.map?
       end
@@ -122,6 +126,13 @@ module Gapic
             nil
           end
         end
+      end
+
+      ##
+      # Name of this field, camel-cased
+      # @return [String]
+      def camel_name
+        camel_name_for name
       end
 
       protected
@@ -184,6 +195,18 @@ module Gapic
 
       def message_ruby_type message
         ruby_namespace @api, message.address.join(".")
+      end
+
+      ##
+      # Converts a snake_case parameter name into camelCase for query string parameters
+      # @param attr_name [String]
+      # @return [String] camel-cased parameter name
+      def camel_name_for attr_name
+        parts = attr_name.split "_"
+        first_part = parts[0]
+        other_parts = parts[1..-1]
+        other_parts_pascal = other_parts.map(&:capitalize).join("")
+        "#{first_part}#{other_parts_pascal}"
       end
     end
   end

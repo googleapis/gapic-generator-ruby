@@ -12,8 +12,8 @@ def <%= method.rest.transcoding_helper_name %> request_pb
   <%- end -%>
   query_string_params = {}
   <%- if method.rest.query_string_params? -%>
-  <%- method.rest.query_string_params_interpolated.each do |camel_name, val, default_val| -%>
-  query_string_params["<%= camel_name %>"] =  <%= val %>.to_s if <%= val %> && <%= val %> != <%= default_val %>
+  <%- method.rest.query_string_params.each do |field| -%>
+  <%= render partial: "service/rest/grpc_transcoding/method/def/query_string_param", locals: { field: field } -%>
   <%- end -%>
   <%- end -%>
 

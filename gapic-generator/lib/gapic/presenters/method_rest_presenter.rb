@@ -152,7 +152,18 @@ module Gapic
       # @return [Boolean] whether any query string parameters are present
       #
       def query_string_params?
-        query_string_params_interpolated.any?
+        query_string_params.any?
+      end
+
+      # @return [Array<String>]
+      def query_string_params
+        return [] if body?
+
+        routing_params_set = routing_params.to_set
+        @main_method.arguments
+                    .reject { |arg| routing_params_set.include? arg.name }
+                    .reject(&:message?)
+                    .reject { |arg| arg.default_value_for_type.nil? }
       end
 
       ##
@@ -165,45 +176,11 @@ module Gapic
       end
 
       ##
-      # @param [String] request_obj_name the name of the request object for the interpolation
-      #   defaults to "request_pb"
-      # @return [Array(String, String, String)]
-      def query_string_params_interpolated request_obj_name = "request_pb"
-        return [] if body?
-
-        routing_params_set = routing_params.to_set
-        query_string_arguments = @main_method.arguments
-                                             .reject { |arg| routing_params_set.include? arg.name }
-                                             .reject(&:message?)
-                                             .reject { |arg| arg.default_value_for_type.nil? }
-
-        query_string_arguments.map do |arg|
-          camel_name = camel_name_for arg.name
-          request_obj_value = "#{request_obj_name}.#{arg.name}"
-          [camel_name, request_obj_value, arg.default_value_for_type]
-        end
-      end
-
-      ##
       # Name for the GRPC transcoding helper method
       #
       # @return [String]
       def transcoding_helper_name
         "transcode_#{@main_method.name}"
-      end
-
-      private
-
-      ##
-      # Converts a snake_case parameter name into camelCase for query string parameters
-      # @param attr_name [String]
-      # @return [String] camel-cased parameter name
-      def camel_name_for attr_name
-        parts = attr_name.split "_"
-        first_part = parts[0]
-        other_parts = parts[1..-1]
-        other_parts_pascal = other_parts.map(&:capitalize).join("")
-        "#{first_part}#{other_parts_pascal}"
       end
     end
   end

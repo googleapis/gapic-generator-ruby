@@ -1,0 +1,14 @@
+<%- assert_locals method -%>
+# Converts hash and nil to an options object
+options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+# Customize the options with defaults
+call_metadata = {}
+
+# Set x-goog-api-client header
+call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+  lib_name: @config.lib_name, lib_version: @config.lib_version,
+  gapic_version: ::<%= method.service.gem.version_name_full %>
+
+options.apply_defaults timeout:      @config.timeout,
+                       metadata:     call_metadata

@@ -1,7 +1,6 @@
 <%- assert_locals method -%>
 
 (uri, <%= method.rest.body_var_name %>, <%= method.rest.query_string_params_var_name %>) = <%= method.rest.transcoding_helper_name %> request
-
 response = @client_stub.make_<%= method.rest.verb %>_request(
   uri:     uri,
 <%- if method.rest.body? -%>

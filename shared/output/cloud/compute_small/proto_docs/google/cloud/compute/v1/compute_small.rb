@@ -156,10 +156,10 @@ module Google
         #     [Output Only] If errors are generated during processing of the operation, this field will be populated.
         # @!attribute [rw] http_error_message
         #   @return [::String]
-        #     [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as NOT FOUND.
+        #     [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as `NOT FOUND`.
         # @!attribute [rw] http_error_status_code
         #   @return [::Integer]
-        #     [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a 404 means the resource was not found.
+        #     [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
         # @!attribute [rw] id
         #   @return [::String]
         #     [Output Only] The unique identifier for the operation. This identifier is defined by the server.
@@ -168,13 +168,13 @@ module Google
         #     [Output Only] The time that this operation was requested. This value is in RFC3339 text format.
         # @!attribute [rw] kind
         #   @return [::String]
-        #     [Output Only] Type of the resource. Always compute#operation for Operation resources.
+        #     [Output Only] Type of the resource. Always `compute#operation` for Operation resources.
         # @!attribute [rw] name
         #   @return [::String]
         #     [Output Only] Name of the operation.
         # @!attribute [rw] operation_type
         #   @return [::String]
-        #     [Output Only] The type of operation, such as insert, update, or delete, and so on.
+        #     [Output Only] The type of operation, such as `insert`, `update`, or `delete`, and so on.
         # @!attribute [rw] progress
         #   @return [::Integer]
         #     [Output Only] An optional progress indicator that ranges from 0 to 100. There is no requirement that this be linear or support any granularity of operations. This should not be used to guess when the operation will be complete. This number should monotonically increase as the operation progresses.
@@ -189,7 +189,7 @@ module Google
         #     [Output Only] The time that this operation was started by the server. This value is in RFC3339 text format.
         # @!attribute [rw] status
         #   @return [::Google::Cloud::Compute::V1::Operation::Status]
-        #     [Output Only] The status of the operation, which can be one of the following: PENDING, RUNNING, or DONE.
+        #     [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
         # @!attribute [rw] status_message
         #   @return [::String]
         #     [Output Only] An optional textual description of the current status of the operation.
@@ -201,7 +201,7 @@ module Google
         #     [Output Only] The URL of the resource that the operation modifies. For operations related to creating a snapshot, this points to the persistent disk that the snapshot was created from.
         # @!attribute [rw] user
         #   @return [::String]
-        #     [Output Only] User who requested the operation, for example: user@example.com.
+        #     [Output Only] User who requested the operation, for example: `user@example.com`.
         # @!attribute [rw] warnings
         #   @return [::Array<::Google::Cloud::Compute::V1::Warnings>]
         #     [Output Only] If warning messages are generated during processing of the operation, this field will be populated.
@@ -212,7 +212,7 @@ module Google
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
 
-          # [Output Only] The status of the operation, which can be one of the following: PENDING, RUNNING, or DONE.
+          # [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
           module Status
             # A value indicating that the enum field is not set.
             UNDEFINED_STATUS = 0
@@ -223,161 +223,6 @@ module Google
 
             RUNNING = 121282975
           end
-        end
-
-        # Use global external addresses for GFE-based external HTTP(S) load balancers in Premium Tier.
-        #
-        # Use global internal addresses for reserved peering network range.
-        #
-        # Use regional external addresses for the following resources:
-        #
-        # - External IP addresses for VM instances - Regional external forwarding rules - Cloud NAT external IP addresses - GFE based LBs in Standard Tier - Network LBs in Premium or Standard Tier - Cloud VPN gateways (both Classic and HA)
-        #
-        # Use regional internal IP addresses for subnet IP ranges (primary and secondary). This includes:
-        #
-        # - Internal IP addresses for VM instances - Alias IP ranges of VM instances (/32 only) - Regional internal forwarding rules - Internal TCP/UDP load balancer addresses - Internal HTTP(S) load balancer addresses - Cloud DNS inbound forwarding IP addresses
-        #
-        # For more information, read reserved IP address.
-        #
-        # (== resource_for \\{$api_version}.addresses ==) (== resource_for \\{$api_version}.globalAddresses ==)
-        # @!attribute [rw] address
-        #   @return [::String]
-        #     The static IP address represented by this resource.
-        # @!attribute [rw] address_type
-        #   @return [::Google::Cloud::Compute::V1::Address::AddressType]
-        #     The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.
-        # @!attribute [rw] creation_timestamp
-        #   @return [::String]
-        #     [Output Only] Creation timestamp in RFC3339 text format.
-        # @!attribute [rw] description
-        #   @return [::String]
-        #     An optional description of this resource. Provide this field when you create the resource.
-        # @!attribute [rw] id
-        #   @return [::String]
-        #     [Output Only] The unique identifier for the resource. This identifier is defined by the server.
-        # @!attribute [rw] ip_version
-        #   @return [::Google::Cloud::Compute::V1::Address::IpVersion]
-        #     The IP version that will be used by this address. Valid options are IPV4 or IPV6. This can only be specified for a global address.
-        # @!attribute [rw] kind
-        #   @return [::String]
-        #     [Output Only] Type of the resource. Always compute#address for addresses.
-        # @!attribute [rw] name
-        #   @return [::String]
-        #     Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?`. The first character must be a lowercase letter, and all following characters (except for the last character) must be a dash, lowercase letter, or digit. The last character must be a lowercase letter or digit.
-        # @!attribute [rw] network
-        #   @return [::String]
-        #     The URL of the network in which to reserve the address. This field can only be used with INTERNAL type with the VPC_PEERING purpose.
-        # @!attribute [rw] network_tier
-        #   @return [::Google::Cloud::Compute::V1::Address::NetworkTier]
-        #     This signifies the networking tier used for configuring this address and can only take the following values: PREMIUM or STANDARD. Global forwarding rules can only be Premium Tier. Regional forwarding rules can be either Premium or Standard Tier. Standard Tier addresses applied to regional forwarding rules can be used with any external load balancer. Regional forwarding rules in Premium Tier can only be used with a network load balancer.
-        #
-        #     If this field is not specified, it is assumed to be PREMIUM.
-        # @!attribute [rw] prefix_length
-        #   @return [::Integer]
-        #     The prefix length if the resource reprensents an IP range.
-        # @!attribute [rw] purpose
-        #   @return [::Google::Cloud::Compute::V1::Address::Purpose]
-        #     The purpose of this resource, which can be one of the following values:
-        #     - `GCE_ENDPOINT` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
-        #     - `DNS_RESOLVER` for a DNS resolver address in a subnetwork
-        #     - `VPC_PEERING` for addresses that are reserved for VPC peer networks.
-        #     - `NAT_AUTO` for addresses that are external IP addresses automatically reserved for Cloud NAT.
-        # @!attribute [rw] region
-        #   @return [::String]
-        #     [Output Only] The URL of the region where the regional address resides. This field is not applicable to global addresses. You must specify this field as part of the HTTP request URL.
-        # @!attribute [rw] self_link
-        #   @return [::String]
-        #     [Output Only] Server-defined URL for the resource.
-        # @!attribute [rw] status
-        #   @return [::Google::Cloud::Compute::V1::Address::Status]
-        #     [Output Only] The status of the address, which can be one of RESERVING, RESERVED, or IN_USE. An address that is RESERVING is currently in the process of being reserved. A RESERVED address is currently reserved and available to use. An IN_USE address is currently being used by another resource and is not available.
-        # @!attribute [rw] subnetwork
-        #   @return [::String]
-        #     The URL of the subnetwork in which to reserve the address. If an IP address is specified, it must be within the subnetwork's IP range. This field can only be used with INTERNAL type with a GCE_ENDPOINT or DNS_RESOLVER purpose.
-        # @!attribute [rw] users
-        #   @return [::Array<::String>]
-        #     [Output Only] The URLs of the resources that are using this address.
-        class Address
-          include ::Google::Protobuf::MessageExts
-          extend ::Google::Protobuf::MessageExts::ClassMethods
-
-          # The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.
-          module AddressType
-            # A value indicating that the enum field is not set.
-            UNDEFINED_ADDRESS_TYPE = 0
-
-            EXTERNAL = 35607499
-
-            INTERNAL = 10860221
-
-            UNSPECIFIED_TYPE = 53933922
-          end
-
-          # The IP version that will be used by this address. Valid options are IPV4 or IPV6. This can only be specified for a global address.
-          module IpVersion
-            # A value indicating that the enum field is not set.
-            UNDEFINED_IP_VERSION = 0
-
-            IPV4 = 2254341
-
-            IPV6 = 2254343
-
-            UNSPECIFIED_VERSION = 21850000
-          end
-
-          # This signifies the networking tier used for configuring this address and can only take the following values: PREMIUM or STANDARD. Global forwarding rules can only be Premium Tier. Regional forwarding rules can be either Premium or Standard Tier. Standard Tier addresses applied to regional forwarding rules can be used with any external load balancer. Regional forwarding rules in Premium Tier can only be used with a network load balancer.
-          #
-          # If this field is not specified, it is assumed to be PREMIUM.
-          module NetworkTier
-            # A value indicating that the enum field is not set.
-            UNDEFINED_NETWORK_TIER = 0
-
-            PREMIUM = 131095095
-
-            STANDARD = 216207037
-          end
-
-          # The purpose of this resource, which can be one of the following values:
-          # - `GCE_ENDPOINT` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
-          # - `DNS_RESOLVER` for a DNS resolver address in a subnetwork
-          # - `VPC_PEERING` for addresses that are reserved for VPC peer networks.
-          # - `NAT_AUTO` for addresses that are external IP addresses automatically reserved for Cloud NAT.
-          module Purpose
-            # A value indicating that the enum field is not set.
-            UNDEFINED_PURPOSE = 0
-
-            DNS_RESOLVER = 207679100
-
-            GCE_ENDPOINT = 230515243
-
-            NAT_AUTO = 163666477
-
-            VPC_PEERING = 132364714
-          end
-
-          # [Output Only] The status of the address, which can be one of RESERVING, RESERVED, or IN_USE. An address that is RESERVING is currently in the process of being reserved. A RESERVED address is currently reserved and available to use. An IN_USE address is currently being used by another resource and is not available.
-          module Status
-            # A value indicating that the enum field is not set.
-            UNDEFINED_STATUS = 0
-
-            IN_USE = 17393485
-
-            RESERVED = 163805992
-
-            RESERVING = 246151769
-          end
-        end
-
-
-        # @!attribute [rw] addresses
-        #   @return [::Array<::Google::Cloud::Compute::V1::Address>]
-        #     [Output Only] A list of addresses contained in this scope.
-        # @!attribute [rw] warning
-        #   @return [::Google::Cloud::Compute::V1::Warning]
-        #     [Output Only] Informational warning which replaces the list of addresses when the list is empty.
-        class AddressesScopedList
-          include ::Google::Protobuf::MessageExts
-          extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
         # [Output Only] Informational warning message.
@@ -448,6 +293,165 @@ module Google
           end
         end
 
+        # Use global external addresses for GFE-based external HTTP(S) load balancers in Premium Tier.
+        #
+        # Use global internal addresses for reserved peering network range.
+        #
+        # Use regional external addresses for the following resources:
+        #
+        # - External IP addresses for VM instances - Regional external forwarding rules - Cloud NAT external IP addresses - GFE based LBs in Standard Tier - Network LBs in Premium or Standard Tier - Cloud VPN gateways (both Classic and HA)
+        #
+        # Use regional internal IP addresses for subnet IP ranges (primary and secondary). This includes:
+        #
+        # - Internal IP addresses for VM instances - Alias IP ranges of VM instances (/32 only) - Regional internal forwarding rules - Internal TCP/UDP load balancer addresses - Internal HTTP(S) load balancer addresses - Cloud DNS inbound forwarding IP addresses
+        #
+        # For more information, read reserved IP address.
+        #
+        # (== resource_for \\{$api_version}.addresses ==) (== resource_for \\{$api_version}.globalAddresses ==)
+        # @!attribute [rw] address
+        #   @return [::String]
+        #     The static IP address represented by this resource.
+        # @!attribute [rw] address_type
+        #   @return [::Google::Cloud::Compute::V1::Address::AddressType]
+        #     The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.
+        # @!attribute [rw] creation_timestamp
+        #   @return [::String]
+        #     [Output Only] Creation timestamp in RFC3339 text format.
+        # @!attribute [rw] description
+        #   @return [::String]
+        #     An optional description of this resource. Provide this field when you create the resource.
+        # @!attribute [rw] id
+        #   @return [::String]
+        #     [Output Only] The unique identifier for the resource. This identifier is defined by the server.
+        # @!attribute [rw] ip_version
+        #   @return [::Google::Cloud::Compute::V1::Address::IpVersion]
+        #     The IP version that will be used by this address. Valid options are IPV4 or IPV6. This can only be specified for a global address.
+        # @!attribute [rw] kind
+        #   @return [::String]
+        #     [Output Only] Type of the resource. Always compute#address for addresses.
+        # @!attribute [rw] name
+        #   @return [::String]
+        #     Name of the resource. Provided by the client when the resource is created. The name must be 1-63 characters long, and comply with RFC1035. Specifically, the name must be 1-63 characters long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?`. The first character must be a lowercase letter, and all following characters (except for the last character) must be a dash, lowercase letter, or digit. The last character must be a lowercase letter or digit.
+        # @!attribute [rw] network
+        #   @return [::String]
+        #     The URL of the network in which to reserve the address. This field can only be used with INTERNAL type with the VPC_PEERING purpose.
+        # @!attribute [rw] network_tier
+        #   @return [::Google::Cloud::Compute::V1::Address::NetworkTier]
+        #     This signifies the networking tier used for configuring this address and can only take the following values: PREMIUM or STANDARD. Global forwarding rules can only be Premium Tier. Regional forwarding rules can be either Premium or Standard Tier. Standard Tier addresses applied to regional forwarding rules can be used with any external load balancer. Regional forwarding rules in Premium Tier can only be used with a network load balancer.
+        #
+        #     If this field is not specified, it is assumed to be PREMIUM.
+        # @!attribute [rw] prefix_length
+        #   @return [::Integer]
+        #     The prefix length if the resource reprensents an IP range.
+        # @!attribute [rw] purpose
+        #   @return [::Google::Cloud::Compute::V1::Address::Purpose]
+        #     The purpose of this resource, which can be one of the following values:
+        #     - `GCE_ENDPOINT` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
+        #     - `DNS_RESOLVER` for a DNS resolver address in a subnetwork
+        #     - `VPC_PEERING` for addresses that are reserved for VPC peer networks.
+        #     - `NAT_AUTO` for addresses that are external IP addresses automatically reserved for Cloud NAT.
+        #     - `IPSEC_INTERCONNECT` for addresses created from a private IP range that are reserved for a VLAN attachment in an IPsec encrypted Interconnect configuration. These addresses are regional resources.
+        # @!attribute [rw] region
+        #   @return [::String]
+        #     [Output Only] The URL of the region where the regional address resides. This field is not applicable to global addresses. You must specify this field as part of the HTTP request URL.
+        # @!attribute [rw] self_link
+        #   @return [::String]
+        #     [Output Only] Server-defined URL for the resource.
+        # @!attribute [rw] status
+        #   @return [::Google::Cloud::Compute::V1::Address::Status]
+        #     [Output Only] The status of the address, which can be one of RESERVING, RESERVED, or IN_USE. An address that is RESERVING is currently in the process of being reserved. A RESERVED address is currently reserved and available to use. An IN_USE address is currently being used by another resource and is not available.
+        # @!attribute [rw] subnetwork
+        #   @return [::String]
+        #     The URL of the subnetwork in which to reserve the address. If an IP address is specified, it must be within the subnetwork's IP range. This field can only be used with INTERNAL type with a GCE_ENDPOINT or DNS_RESOLVER purpose.
+        # @!attribute [rw] users
+        #   @return [::Array<::String>]
+        #     [Output Only] The URLs of the resources that are using this address.
+        class Address
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+
+          # The type of address to reserve, either INTERNAL or EXTERNAL. If unspecified, defaults to EXTERNAL.
+          module AddressType
+            # A value indicating that the enum field is not set.
+            UNDEFINED_ADDRESS_TYPE = 0
+
+            EXTERNAL = 35607499
+
+            INTERNAL = 10860221
+
+            UNSPECIFIED_TYPE = 53933922
+          end
+
+          # The IP version that will be used by this address. Valid options are IPV4 or IPV6. This can only be specified for a global address.
+          module IpVersion
+            # A value indicating that the enum field is not set.
+            UNDEFINED_IP_VERSION = 0
+
+            IPV4 = 2254341
+
+            IPV6 = 2254343
+
+            UNSPECIFIED_VERSION = 21850000
+          end
+
+          # This signifies the networking tier used for configuring this address and can only take the following values: PREMIUM or STANDARD. Global forwarding rules can only be Premium Tier. Regional forwarding rules can be either Premium or Standard Tier. Standard Tier addresses applied to regional forwarding rules can be used with any external load balancer. Regional forwarding rules in Premium Tier can only be used with a network load balancer.
+          #
+          # If this field is not specified, it is assumed to be PREMIUM.
+          module NetworkTier
+            # A value indicating that the enum field is not set.
+            UNDEFINED_NETWORK_TIER = 0
+
+            PREMIUM = 131095095
+
+            STANDARD = 216207037
+          end
+
+          # The purpose of this resource, which can be one of the following values:
+          # - `GCE_ENDPOINT` for addresses that are used by VM instances, alias IP ranges, internal load balancers, and similar resources.
+          # - `DNS_RESOLVER` for a DNS resolver address in a subnetwork
+          # - `VPC_PEERING` for addresses that are reserved for VPC peer networks.
+          # - `NAT_AUTO` for addresses that are external IP addresses automatically reserved for Cloud NAT.
+          # - `IPSEC_INTERCONNECT` for addresses created from a private IP range that are reserved for a VLAN attachment in an IPsec encrypted Interconnect configuration. These addresses are regional resources.
+          module Purpose
+            # A value indicating that the enum field is not set.
+            UNDEFINED_PURPOSE = 0
+
+            DNS_RESOLVER = 207679100
+
+            GCE_ENDPOINT = 230515243
+
+            NAT_AUTO = 163666477
+
+            SHARED_LOADBALANCER_VIP = 26012116
+
+            VPC_PEERING = 132364714
+          end
+
+          # [Output Only] The status of the address, which can be one of RESERVING, RESERVED, or IN_USE. An address that is RESERVING is currently in the process of being reserved. A RESERVED address is currently reserved and available to use. An IN_USE address is currently being used by another resource and is not available.
+          module Status
+            # A value indicating that the enum field is not set.
+            UNDEFINED_STATUS = 0
+
+            IN_USE = 17393485
+
+            RESERVED = 163805992
+
+            RESERVING = 246151769
+          end
+        end
+
+
+        # @!attribute [rw] addresses
+        #   @return [::Array<::Google::Cloud::Compute::V1::Address>]
+        #     [Output Only] A list of addresses contained in this scope.
+        # @!attribute [rw] warning
+        #   @return [::Google::Cloud::Compute::V1::Warning]
+        #     [Output Only] Informational warning which replaces the list of addresses when the list is empty.
+        class AddressesScopedList
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
 
         # @!attribute [rw] id
         #   @return [::String]
@@ -464,6 +468,9 @@ module Google
         # @!attribute [rw] self_link
         #   @return [::String]
         #     [Output Only] Server-defined URL for this resource.
+        # @!attribute [rw] unreachables
+        #   @return [::Array<::String>]
+        #     [Output Only] Unreachable resources.
         # @!attribute [rw] warning
         #   @return [::Google::Cloud::Compute::V1::Warning]
         #     [Output Only] Informational warning message.
@@ -534,6 +541,9 @@ module Google
         # @!attribute [rw] project
         #   @return [::String]
         #     Project ID for this request.
+        # @!attribute [rw] return_partial_success
+        #   @return [::Boolean]
+        #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
         class AggregatedListAddressesRequest
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -557,6 +567,21 @@ module Google
         #
         #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
         class DeleteAddressRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for Addresses.Get. See the method description for details.
+        # @!attribute [rw] address
+        #   @return [::String]
+        #     Name of the address resource to return.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        # @!attribute [rw] region
+        #   @return [::String]
+        #     Name of the region for this request.
+        class GetAddressRequest
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
@@ -586,33 +611,81 @@ module Google
         # A request message for Addresses.List. See the method description for details.
         # @!attribute [rw] filter
         #   @return [::String]
-        #     A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either =, !=, >, or <.
+        #     A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either `=`, `!=`, `>`, or `<`.
         #
-        #     For example, if you are filtering Compute Engine instances, you can exclude instances named example-instance by specifying name != example-instance.
+        #     For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`.
         #
-        #     You can also filter nested fields. For example, you could specify scheduling.automaticRestart = false to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.
+        #     You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.
         #
-        #     To filter on multiple expressions, provide each separate expression within parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake"). By default, each expression is an AND expression. However, you can include AND and OR expressions explicitly. For example, (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true).
+        #     To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ```
         # @!attribute [rw] max_results
         #   @return [::Integer]
-        #     The maximum number of results per page that should be returned. If the number of available results is larger than maxResults, Compute Engine returns a nextPageToken that can be used to get the next page of results in subsequent list requests. Acceptable values are 0 to 500, inclusive. (Default: 500)
+        #     The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
         # @!attribute [rw] order_by
         #   @return [::String]
         #     Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
         #
-        #     You can also sort results in descending order based on the creation timestamp using orderBy="creationTimestamp desc". This sorts results based on the creationTimestamp field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.
+        #     You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.
         #
-        #     Currently, only sorting by name or creationTimestamp desc is supported.
+        #     Currently, only sorting by `name` or `creationTimestamp desc` is supported.
         # @!attribute [rw] page_token
         #   @return [::String]
-        #     Specifies a page token to use. Set pageToken to the nextPageToken returned by a previous list request to get the next page of results.
+        #     Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
         # @!attribute [rw] project
         #   @return [::String]
         #     Project ID for this request.
         # @!attribute [rw] region
         #   @return [::String]
         #     Name of the region for this request.
+        # @!attribute [rw] return_partial_success
+        #   @return [::Boolean]
+        #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
         class ListAddressesRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # Contains a list of Operation resources.
+        # @!attribute [rw] id
+        #   @return [::String]
+        #     [Output Only] The unique identifier for the resource. This identifier is defined by the server.
+        # @!attribute [rw] items
+        #   @return [::Array<::Google::Cloud::Compute::V1::Operation>]
+        #     [Output Only] A list of Operation resources.
+        # @!attribute [rw] kind
+        #   @return [::String]
+        #     [Output Only] Type of resource. Always `compute#operations` for Operations resource.
+        # @!attribute [rw] next_page_token
+        #   @return [::String]
+        #     [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than `maxResults`, use the `nextPageToken` as a value for the query parameter `pageToken` in the next list request. Subsequent list requests will have their own `nextPageToken` to continue paging through the results.
+        # @!attribute [rw] self_link
+        #   @return [::String]
+        #     [Output Only] Server-defined URL for this resource.
+        # @!attribute [rw] warning
+        #   @return [::Google::Cloud::Compute::V1::Warning]
+        #     [Output Only] Informational warning message.
+        class OperationList
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for RegionOperations.Delete. See the method description for details.
+        # @!attribute [rw] operation
+        #   @return [::String]
+        #     Name of the Operations resource to delete.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        # @!attribute [rw] region
+        #   @return [::String]
+        #     Name of the region for this request.
+        class DeleteRegionOperationRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A response message for RegionOperations.Delete. See the method description for details.
+        class DeleteRegionOperationResponse
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
@@ -628,6 +701,58 @@ module Google
         #   @return [::String]
         #     Name of the region for this request.
         class GetRegionOperationRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for RegionOperations.List. See the method description for details.
+        # @!attribute [rw] filter
+        #   @return [::String]
+        #     A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either `=`, `!=`, `>`, or `<`.
+        #
+        #     For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`.
+        #
+        #     You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.
+        #
+        #     To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ```
+        # @!attribute [rw] max_results
+        #   @return [::Integer]
+        #     The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
+        # @!attribute [rw] order_by
+        #   @return [::String]
+        #     Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
+        #
+        #     You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.
+        #
+        #     Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+        # @!attribute [rw] page_token
+        #   @return [::String]
+        #     Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        # @!attribute [rw] region
+        #   @return [::String]
+        #     Name of the region for this request.
+        # @!attribute [rw] return_partial_success
+        #   @return [::Boolean]
+        #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
+        class ListRegionOperationsRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for RegionOperations.Wait. See the method description for details.
+        # @!attribute [rw] operation
+        #   @return [::String]
+        #     Name of the Operations resource to return.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        # @!attribute [rw] region
+        #   @return [::String]
+        #     Name of the region for this request.
+        class WaitRegionOperationRequest
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
