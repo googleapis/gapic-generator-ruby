@@ -24,6 +24,7 @@ module Gapic
     @brace_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*[^`\\])?\{(?<inside>[^\s][^}]*)\}(?<post>.*)\z/m
     @xref_detector = /\A(?<pre>[^`]*(`[^`]*`[^`]*)*)?\[(?<text>[\w\. `-]+)\]\[(?<addr>[\w\.]+)\](?<post>.*)\z/m
     @list_element_detector = /\A\s*(\*|\+|-|[0-9a-zA-Z]+\.)\s/
+    @omit_lines = ["@InputOnly\n", "@OutputOnly\n"]
 
     class << self
       ##
@@ -49,7 +50,7 @@ module Gapic
         # preformatted.
         in_block = nil
         base_indent = 0
-        lines.map do |line|
+        (lines - @omit_lines).map do |line|
           indent = line_indent line
           if indent.nil?
             in_block = nil
