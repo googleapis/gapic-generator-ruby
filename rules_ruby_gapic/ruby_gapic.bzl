@@ -77,8 +77,8 @@ def ruby_cloud_gapic_library(
     for key_val_string in extra_protoc_parameters:
         key_val_split = key_val_string.split("=", 1)
         if len(key_val_split) < 2:
-            fail("Parameter {key_val_string} is not in the 'key=value' format".format(key_val_string=key_val_string))
-        key = key_val_split[0]
+            fail("Parameter '{key_val_string}' is not in the 'key=value' format".format(key_val_string=key_val_string))
+        key = key_val_split[0].strip()
         if key == "ruby-cloud-title":
           fail("Parameter 'ruby-cloud-title' should be specified in a separate Bazel rule attribute 'ruby_cloud_title'")
         if key == "ruby-cloud-description":

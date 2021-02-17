@@ -70,9 +70,9 @@ def ruby_gapic_library_internal(
         for key_val_string in extra_protoc_parameters:
             key_val_split = key_val_string.split("=", 1)
             if len(key_val_split) < 2:
-                fail("Parameter {key_val_string} is not in the 'key=value' format".format(key_val_string=key_val_string))
-            key = key_val_split[0]
-            value = key_val_split[1]
+                fail("Parameter '{key_val_string}' is not in the 'key=value' format".format(key_val_string=key_val_string))
+            key = key_val_split[0].strip()
+            value = key_val_split[1].strip()
 
             escaped_value = _escape_config_value(value)
             opt_args.append("{key}={value}".format(key = key, value = escaped_value))
