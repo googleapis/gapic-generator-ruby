@@ -333,8 +333,38 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
+      def grpc_service_name
+        @service.name
+      end
+
       def grpc_full_name
         @service.address.join "."
+      end
+
+      ##
+      # Returns a hash with a drift_manifest of this service
+      #
+      # @return [Hash]
+      def drift_manifest
+        {
+          clients: {
+            grpc: {
+              libraryClient: client_name_full,
+              # The methods are grouped by grpc_method_name and then
+              # their names are returned together in an array.
+              # For Ruby currently we have 1:1 proto to code correspondence,
+              # but I want to preserve the semantics behind here
+              rpcs: methods
+                      .group_by { |m| m.grpc_method_name}
+                      .map { |grpc_method_name, methods|
+                        [
+                          grpc_method_name,
+                          methods.map(&:name).to_a
+                        ]
+                      }.to_h
+            }
+          }
+        }
       end
 
       private

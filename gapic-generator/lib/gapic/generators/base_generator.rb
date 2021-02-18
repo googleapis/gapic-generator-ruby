@@ -71,6 +71,20 @@ module Gapic
       end
       alias_method :g, :generate_file
 
+
+      ##
+      # Generates a CodeGeneratorResponse File object with given filename and content
+      #
+      # @param filename [String] File name for the file
+      # @param content [String] Content of the file
+      #
+      # @return []Google::Protobuf::Compiler::CodeGeneratorResponse::File]
+      def generate_nontemplate_file filename:, content:
+        Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
+          name: filename, content: content
+        )
+      end
+
       def format_files files
         FileFormatter.new(format_config, files).files
       end

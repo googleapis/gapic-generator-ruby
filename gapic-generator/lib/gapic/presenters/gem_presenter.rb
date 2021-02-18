@@ -191,6 +191,17 @@ module Gapic
                     .sort_by { |name, _requirements| name }
       end
 
+      ##
+      # Returns a hash with a drift_manifest of
+      # a first package in this gem
+      # (while the behaviour in case of multiple packages is clarified)
+      #
+      # @return [Hash]
+      def first_package_drift_manifest
+        return {} unless packages?
+        packages[0].drift_manifest
+      end
+
       private
 
       def gem_config key
