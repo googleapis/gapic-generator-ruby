@@ -333,6 +333,10 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
+      ##
+      # The short proto name for this service
+      #
+      # @return [String]
       def grpc_service_name
         @service.name
       end

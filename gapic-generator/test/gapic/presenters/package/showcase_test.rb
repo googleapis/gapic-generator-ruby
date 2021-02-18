@@ -34,6 +34,9 @@ class ShowcasePackagePresenterTest < PresenterTest
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
 
+  ##
+  # Testing the drift manifest for the showcase
+  #
   def test_drift_showcase_v1beta1
     api_schema = api :showcase
     gem_presenter = Gapic::Presenters::GemPresenter.new api_schema
