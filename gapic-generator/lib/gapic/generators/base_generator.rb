@@ -78,7 +78,7 @@ module Gapic
       # @param filename [String] File name for the file
       # @param content [String] Content of the file
       #
-      # @return []Google::Protobuf::Compiler::CodeGeneratorResponse::File]
+      # @return [Google::Protobuf::Compiler::CodeGeneratorResponse::File]
       def generate_nontemplate_file filename:, content:
         Google::Protobuf::Compiler::CodeGeneratorResponse::File.new(
           name: filename, content: content
