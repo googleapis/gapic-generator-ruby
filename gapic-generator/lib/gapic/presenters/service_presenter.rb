@@ -342,7 +342,9 @@ module Gapic
       end
 
       ##
-      # Returns a hash with a drift_manifest of this service
+      # Returns a hash with a drift_manifest of this service,
+      # describing correspondence between the proto description
+      # of the service with the generated code for the service
       #
       # @return [Hash]
       def drift_manifest
@@ -350,18 +352,11 @@ module Gapic
           clients: {
             grpc: {
               libraryClient: client_name_full,
-              # The methods are grouped by grpc_method_name and then
+              # The methods should grouped by grpc_method_name and then
               # their names are returned together in an array.
-              # For Ruby currently we have 1:1 proto to code correspondence,
-              # but I want to preserve the semantics behind here
-              rpcs: methods
-                      .group_by { |m| m.grpc_method_name}
-                      .map { |grpc_method_name, methods|
-                        [
-                          grpc_method_name,
-                          methods.map(&:name).to_a
-                        ]
-                      }.to_h
+              # For Ruby currently we have 1:1 proto to code
+              # correspondence for methods, so our generation is easier
+              rpcs:          methods.map { |m| [m.grpc_method_name, [m.name]] }.to_h
             }
           }
         }

@@ -1,0 +1,120 @@
+{
+  "schema": "1.0",
+  "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
+  "language": "ruby",
+  "protoPackage": "endless.trash.forever",
+  "libraryPackage": "::So::Much::Trash",
+  "services": {
+    "GarbageService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::So::Much::Trash::GarbageService::Client",
+          "rpcs": {
+            "GetEmptyGarbage": [
+              "get_empty_garbage"
+            ],
+            "GetSimpleGarbage": [
+              "get_simple_garbage"
+            ],
+            "GetSpecificGarbage": [
+              "get_specific_garbage"
+            ],
+            "GetNestedGarbage": [
+              "get_nested_garbage"
+            ],
+            "GetRepeatedGarbage": [
+              "get_repeated_garbage"
+            ],
+            "GetTypicalGarbage": [
+              "get_typical_garbage"
+            ],
+            "GetTypicalGarbageByRequest": [
+              "get_typical_garbage_by_request"
+            ],
+            "GetComplexGarbage": [
+              "get_complex_garbage"
+            ],
+            "GetGarbageNode": [
+              "get_garbage_node"
+            ],
+            "GetPagedGarbage": [
+              "get_paged_garbage"
+            ],
+            "LongRunningGarbage": [
+              "long_running_garbage"
+            ],
+            "ClientGarbage": [
+              "client_garbage"
+            ],
+            "ServerGarbage": [
+              "server_garbage"
+            ],
+            "BidiGarbage": [
+              "bidi_garbage"
+            ],
+            "BidiTypicalGarbage": [
+              "bidi_typical_garbage"
+            ],
+            "Send": [
+              "call_send"
+            ]
+          }
+        }
+      }
+    },
+    "RenamedService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::So::Much::Trash::ReallyRenamedService::Client",
+          "rpcs": {
+            "GetEmptyGarbage": [
+              "get_empty_garbage"
+            ]
+          }
+        }
+      }
+    },
+    "ResourceNames": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::So::Much::Trash::ResourceNames::Client",
+          "rpcs": {
+            "SimplePatternMethod": [
+              "simple_pattern_method"
+            ],
+            "ComplexPatternMethod": [
+              "complex_pattern_method"
+            ],
+            "ResourceNamePatternMethod": [
+              "resource_name_pattern_method"
+            ],
+            "MultiparentMethod": [
+              "multiparent_method"
+            ],
+            "NoArgumentsMultiMethod": [
+              "no_arguments_multi_method"
+            ]
+          }
+        }
+      }
+    },
+    "IAMPolicy": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::So::Much::Trash::IAMPolicy::Client",
+          "rpcs": {
+            "SetIamPolicy": [
+              "set_iam_policy"
+            ],
+            "GetIamPolicy": [
+              "get_iam_policy"
+            ],
+            "TestIamPermissions": [
+              "test_iam_permissions"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

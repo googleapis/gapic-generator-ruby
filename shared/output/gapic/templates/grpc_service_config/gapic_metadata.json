@@ -1,0 +1,36 @@
+{
+  "schema": "1.0",
+  "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
+  "language": "ruby",
+  "protoPackage": "testing.grpcserviceconfig",
+  "libraryPackage": "::Testing::GrpcServiceConfig",
+  "services": {
+    "ServiceNoRetry": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Testing::GrpcServiceConfig::ServiceNoRetry::Client",
+          "rpcs": {
+            "NoRetryMethod": [
+              "no_retry_method"
+            ]
+          }
+        }
+      }
+    },
+    "ServiceWithRetries": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client",
+          "rpcs": {
+            "ServiceLevelRetryMethod": [
+              "service_level_retry_method"
+            ],
+            "MethodLevelRetryMethod": [
+              "method_level_retry_method"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

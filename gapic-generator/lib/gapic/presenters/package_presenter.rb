@@ -102,16 +102,18 @@ module Gapic
 
       ##
       # Returns a hash with a drift_manifest of this package
+      # describing correspondence between the proto description
+      # of the package with the generated code for the package
       #
       # @return [Hash]
       def drift_manifest
         {
-          schema: "1.0",
-          comment: "This file maps proto services/RPCs to the corresponding library clients/methods",
-          language: "ruby",
-          protoPackage: name,
+          schema:         "1.0",
+          comment:        "This file maps proto services/RPCs to the corresponding library clients/methods",
+          language:       "ruby",
+          protoPackage:   name,
           libraryPackage: namespace,
-          services: services.map { |s| [s.grpc_service_name, s.drift_manifest] }.to_h
+          services:       services.map { |s| [s.grpc_service_name, s.drift_manifest] }.to_h
         }
       end
     end
