@@ -46,8 +46,9 @@ _ruby_gapic_library_add_gapicinfo = rule(
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
 # plugin: a label to the ruby_binary rule wrapping the plugin entrypoint
-# generator_params: a string-string dictionary of the generator parameters
-#   (e.g. :gem.:name)
+# 
+# extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
+#   (e.g. gem-name=a-gem-name-v1)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
 #
@@ -68,10 +69,10 @@ def ruby_gapic_library_internal(
     if extra_protoc_parameters:
         for key_val_string in extra_protoc_parameters:
             key_val_split = key_val_string.split("=", 1)
-            if len(key_val_split) != 2:
-                fail("Parameter {key_val_string} is not in the 'key=value' format")
-            key = key_val_split[0]
-            value = key_val_split[1]
+            if len(key_val_split) < 2:
+                fail("Parameter '{key_val_string}' is not in the 'key=value' format".format(key_val_string=key_val_string))
+            key = key_val_split[0].strip()
+            value = key_val_split[1].strip()
 
             escaped_value = _escape_config_value(value)
             opt_args.append("{key}={value}".format(key = key, value = escaped_value))
