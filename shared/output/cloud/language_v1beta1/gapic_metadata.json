@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Cloud::Language::V1beta1::LanguageService::Client",
-          "rpcs": {
+          "methods": {
             "AnalyzeSentiment": [
               "analyze_sentiment"
             ],

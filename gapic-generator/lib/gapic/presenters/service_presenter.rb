@@ -348,7 +348,8 @@ module Gapic
       ##
       # Returns a hash with a drift_manifest of this service,
       # describing correspondence between the proto description
-      # of the service with the generated code for the service
+      # of the service with the generated code for the service.
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
       #
       # @return [Hash]
       def drift_manifest
@@ -360,7 +361,7 @@ module Gapic
               # their names are returned together in an array.
               # For Ruby currently we have 1:1 proto to code
               # correspondence for methods, so our generation is easier
-              rpcs:          methods.map { |m| [m.grpc_method_name, [m.name]] }.to_h
+              methods:       methods.map { |m| [m.grpc_method_name, [m.name]] }.to_h
             }
           }
         }

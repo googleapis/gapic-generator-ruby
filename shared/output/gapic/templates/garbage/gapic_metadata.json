@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::GarbageService::Client",
-          "rpcs": {
+          "methods": {
             "GetEmptyGarbage": [
               "get_empty_garbage"
             ],
@@ -66,7 +66,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::ReallyRenamedService::Client",
-          "rpcs": {
+          "methods": {
             "GetEmptyGarbage": [
               "get_empty_garbage"
             ]
@@ -78,7 +78,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::ResourceNames::Client",
-          "rpcs": {
+          "methods": {
             "SimplePatternMethod": [
               "simple_pattern_method"
             ],
@@ -102,7 +102,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::IAMPolicy::Client",
-          "rpcs": {
+          "methods": {
             "SetIamPolicy": [
               "set_iam_policy"
             ],

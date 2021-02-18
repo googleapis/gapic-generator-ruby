@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Testing::GrpcServiceConfig::ServiceNoRetry::Client",
-          "rpcs": {
+          "methods": {
             "NoRetryMethod": [
               "no_retry_method"
             ]
@@ -21,7 +21,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client",
-          "rpcs": {
+          "methods": {
             "ServiceLevelRetryMethod": [
               "service_level_retry_method"
             ],

@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Echo::Client",
-          "rpcs": {
+          "methods": {
             "Echo": [
               "echo"
             ],
@@ -39,7 +39,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Identity::Client",
-          "rpcs": {
+          "methods": {
             "CreateUser": [
               "create_user"
             ],
@@ -63,7 +63,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Messaging::Client",
-          "rpcs": {
+          "methods": {
             "CreateRoom": [
               "create_room"
             ],
@@ -114,7 +114,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Testing::Client",
-          "rpcs": {
+          "methods": {
             "CreateSession": [
               "create_session"
             ],

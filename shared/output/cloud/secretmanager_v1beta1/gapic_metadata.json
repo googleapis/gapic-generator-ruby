@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client",
-          "rpcs": {
+          "methods": {
             "ListSecrets": [
               "list_secrets"
             ],

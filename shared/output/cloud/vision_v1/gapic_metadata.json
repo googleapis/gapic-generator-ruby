@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Cloud::Vision::V1::ProductSearch::Client",
-          "rpcs": {
+          "methods": {
             "CreateProductSet": [
               "create_product_set"
             ],
@@ -75,7 +75,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Cloud::Vision::V1::ImageAnnotator::Client",
-          "rpcs": {
+          "methods": {
             "BatchAnnotateImages": [
               "batch_annotate_images"
             ],

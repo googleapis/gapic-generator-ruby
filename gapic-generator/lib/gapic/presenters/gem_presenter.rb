@@ -194,7 +194,8 @@ module Gapic
       ##
       # Returns a hash with a drift_manifest of
       # a first package in this gem
-      # (while the behaviour in case of multiple packages is clarified)
+      # (while the behaviour in case of multiple packages is clarified).
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
       #
       # @return [Hash]
       def first_package_drift_manifest

@@ -103,7 +103,8 @@ module Gapic
       ##
       # Returns a hash with a drift_manifest of this package
       # describing correspondence between the proto description
-      # of the package with the generated code for the package
+      # of the package with the generated code for the package.
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
       #
       # @return [Hash]
       def drift_manifest

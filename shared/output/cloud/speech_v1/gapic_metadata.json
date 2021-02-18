@@ -9,7 +9,7 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Cloud::Speech::V1::Speech::Client",
-          "rpcs": {
+          "methods": {
             "Recognize": [
               "recognize"
             ],
