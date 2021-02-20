@@ -17,6 +17,8 @@
 require "gapic/helpers/filepath_helper"
 require "gapic/helpers/namespace_helper"
 
+require "json"
+
 module Gapic
   module Presenters
     ##
@@ -201,6 +203,15 @@ module Gapic
       def first_package_drift_manifest
         return {} unless packages?
         packages[0].drift_manifest
+      end
+
+      ##
+      # Returns a drift manifest of the first package in
+      # a pretty JSON string form
+      #
+      # @return [String]
+      def first_package_drift_json
+        JSON.pretty_generate first_package_drift_manifest
       end
 
       private
