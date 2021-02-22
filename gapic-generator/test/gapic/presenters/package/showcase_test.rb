@@ -33,4 +33,34 @@ class ShowcasePackagePresenterTest < PresenterTest
     assert_equal ["Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
   end
+
+  ##
+  # Testing the drift manifest for the showcase
+  #
+  def test_drift_showcase_v1beta1
+    api_schema = api :showcase
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_schema
+    presenter = Gapic::Presenters::PackagePresenter.new gem_presenter, api_schema, "google.showcase.v1beta1"
+
+    refute_nil presenter.drift_manifest
+    assert_equal "1.0", presenter.drift_manifest[:schema]
+    assert_equal "google.showcase.v1beta1", presenter.drift_manifest[:protoPackage]
+    assert_equal "::Google::Showcase::V1beta1", presenter.drift_manifest[:libraryPackage]
+    assert_equal 4, presenter.drift_manifest[:services].length
+
+    echo_service_manifest = presenter.drift_manifest[:services]["Echo"]
+    echo_gprc = echo_service_manifest[:clients][:grpc]
+
+    refute_nil echo_gprc
+
+    assert_equal "::Google::Showcase::V1beta1::Echo::Client", echo_gprc[:libraryClient]
+    assert_equal 7, echo_gprc[:methods].length
+
+    echo_grpc_chat = echo_gprc[:methods]["Chat"]
+    refute_nil echo_grpc_chat
+
+    assert_kind_of Array, echo_grpc_chat
+    assert 1, echo_grpc_chat.length
+    assert_equal "chat", echo_grpc_chat[0]
+  end
 end

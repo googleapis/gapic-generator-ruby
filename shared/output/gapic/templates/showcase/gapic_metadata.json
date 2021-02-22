@@ -1,0 +1,147 @@
+{
+  "schema": "1.0",
+  "comment": "This file maps proto services/RPCs to the corresponding library clients/methods",
+  "language": "ruby",
+  "protoPackage": "google.showcase.v1beta1",
+  "libraryPackage": "::Google::Showcase::V1beta1",
+  "services": {
+    "Echo": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::Echo::Client",
+          "methods": {
+            "Echo": [
+              "echo"
+            ],
+            "Expand": [
+              "expand"
+            ],
+            "Collect": [
+              "collect"
+            ],
+            "Chat": [
+              "chat"
+            ],
+            "PagedExpand": [
+              "paged_expand"
+            ],
+            "Wait": [
+              "wait"
+            ],
+            "Block": [
+              "block"
+            ]
+          }
+        }
+      }
+    },
+    "Identity": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::Identity::Client",
+          "methods": {
+            "CreateUser": [
+              "create_user"
+            ],
+            "GetUser": [
+              "get_user"
+            ],
+            "UpdateUser": [
+              "update_user"
+            ],
+            "DeleteUser": [
+              "delete_user"
+            ],
+            "ListUsers": [
+              "list_users"
+            ]
+          }
+        }
+      }
+    },
+    "Messaging": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::Messaging::Client",
+          "methods": {
+            "CreateRoom": [
+              "create_room"
+            ],
+            "GetRoom": [
+              "get_room"
+            ],
+            "UpdateRoom": [
+              "update_room"
+            ],
+            "DeleteRoom": [
+              "delete_room"
+            ],
+            "ListRooms": [
+              "list_rooms"
+            ],
+            "CreateBlurb": [
+              "create_blurb"
+            ],
+            "GetBlurb": [
+              "get_blurb"
+            ],
+            "UpdateBlurb": [
+              "update_blurb"
+            ],
+            "DeleteBlurb": [
+              "delete_blurb"
+            ],
+            "ListBlurbs": [
+              "list_blurbs"
+            ],
+            "SearchBlurbs": [
+              "search_blurbs"
+            ],
+            "StreamBlurbs": [
+              "stream_blurbs"
+            ],
+            "SendBlurbs": [
+              "send_blurbs"
+            ],
+            "Connect": [
+              "connect"
+            ]
+          }
+        }
+      }
+    },
+    "Testing": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::Google::Showcase::V1beta1::Testing::Client",
+          "methods": {
+            "CreateSession": [
+              "create_session"
+            ],
+            "GetSession": [
+              "get_session"
+            ],
+            "ListSessions": [
+              "list_sessions"
+            ],
+            "DeleteSession": [
+              "delete_session"
+            ],
+            "ReportSession": [
+              "report_session"
+            ],
+            "ListTests": [
+              "list_tests"
+            ],
+            "DeleteTest": [
+              "delete_test"
+            ],
+            "VerifyTest": [
+              "verify_test"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

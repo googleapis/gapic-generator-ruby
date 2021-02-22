@@ -99,6 +99,24 @@ module Gapic
       def helpers_require
         package_require + "/_helpers"
       end
+
+      ##
+      # Returns a hash with a drift_manifest of this package
+      # describing correspondence between the proto description
+      # of the package with the generated code for the package.
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
+      #
+      # @return [Hash]
+      def drift_manifest
+        {
+          schema:         "1.0",
+          comment:        "This file maps proto services/RPCs to the corresponding library clients/methods",
+          language:       "ruby",
+          protoPackage:   name,
+          libraryPackage: namespace,
+          services:       services.map { |s| [s.grpc_service_name, s.drift_manifest] }.to_h
+        }
+      end
     end
   end
 end
