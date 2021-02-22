@@ -333,8 +333,38 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
+      ##
+      # The short proto name for this service
+      #
+      # @return [String]
+      def grpc_service_name
+        @service.name
+      end
+
       def grpc_full_name
         @service.address.join "."
+      end
+
+      ##
+      # Returns a hash with a drift_manifest of this service,
+      # describing correspondence between the proto description
+      # of the service with the generated code for the service.
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
+      #
+      # @return [Hash]
+      def drift_manifest
+        {
+          clients: {
+            grpc: {
+              libraryClient: client_name_full,
+              # The methods should grouped by grpc_method_name and then
+              # their names are returned together in an array.
+              # For Ruby currently we have 1:1 proto to code
+              # correspondence for methods, so our generation is easier
+              methods:       methods.map { |m| [m.grpc_method_name, [m.name]] }.to_h
+            }
+          }
+        }
       end
 
       private

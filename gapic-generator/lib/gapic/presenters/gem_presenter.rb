@@ -17,6 +17,8 @@
 require "gapic/helpers/filepath_helper"
 require "gapic/helpers/namespace_helper"
 
+require "json"
+
 module Gapic
   module Presenters
     ##
@@ -189,6 +191,27 @@ module Gapic
         dependencies.to_a
                     .map { |name, requirements| [name, Array(requirements)] }
                     .sort_by { |name, _requirements| name }
+      end
+
+      ##
+      # Returns a hash with a drift_manifest of
+      # a first package in this gem
+      # (while the behaviour in case of multiple packages is clarified).
+      # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
+      #
+      # @return [Hash]
+      def first_package_drift_manifest
+        return {} unless packages?
+        packages[0].drift_manifest
+      end
+
+      ##
+      # Returns a drift manifest of the first package in
+      # a pretty JSON string form
+      #
+      # @return [String]
+      def first_package_drift_json
+        JSON.pretty_generate first_package_drift_manifest
       end
 
       private
