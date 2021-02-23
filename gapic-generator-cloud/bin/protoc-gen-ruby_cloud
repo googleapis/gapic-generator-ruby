@@ -1,4 +1,4 @@
-#!/usr/bin/env -S ruby -E UTF-8
+#!/usr/bin/env -S ruby --encoding UTF-8
 # frozen_string_literal: true
 
 # Copyright 2018 Google LLC
