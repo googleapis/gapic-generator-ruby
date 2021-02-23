@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.6.13 / 2021-02-22
+
+* Remove InputOnly and OutputOnly proto tags from docs to avoid confusing YARD.
+* Generate drift manifest.
+* Executable entrypoints set the default external locale to utf-8.
+
 ### 0.6.12 / 2021-02-01
 
 * No changes.

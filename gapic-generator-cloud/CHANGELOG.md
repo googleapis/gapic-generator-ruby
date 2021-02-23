@@ -1,5 +1,12 @@
 # Release History for gapic-generator-cloud
 
+### 0.6.13 / 2021-02-22
+
+* Includes changes from gapic-generator 0.6.13.
+* Fixed formatting of generated Apache license files.
+* Generate Rake task and special yardopts file for Cloud RAD.
+* Executable entrypoints set the default external locale to utf-8.
+
 ### 0.6.12 / 2021-02-01
 
 * Fixed a bug in the identification of versioned clients that incorrectly flagged `google-cloud-vision`.
