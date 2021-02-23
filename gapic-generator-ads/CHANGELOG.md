@@ -1,5 +1,9 @@
 # Release History for gapic-generator-ads
 
+### 0.6.15 / 2021-02-22
+
+* Really fixed encoding arguments in executable entrypoints
+
 ### 0.6.14 / 2021-02-22
 
 * Fixed encoding arguments in executable entrypoints
