@@ -1,5 +1,10 @@
 # Release History
 
+### 0.4.0 / 2021-02-23
+
+* Support for the REST calls via the Gapic::Rest::ClientStub and other classes in Gapic::Rest
+  REST support is still being developed. Notably the full retries handling is not implemented yet.
+
 ### 0.3.4 / 2020-08-07
 
 * Support the :this_channel_is_insecure gRPC pseudo-credential, used by tests and emulators.

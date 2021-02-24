@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,9 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+require "faraday"
 
 module Gapic
-  module Common
-    VERSION = "0.4.0".freeze
+  module Rest
+    # Registers the middleware with Faraday
+    # follows https://github.com/lostisland/faraday_middleware/blob/master/lib/faraday_middleware.rb
+    module FaradayMiddleware
+      autoload :GoogleAuthorization, "gapic/rest/faraday_middleware/google_authorization.rb"
+      Faraday::Request.register_middleware google_authorization: -> { GoogleAuthorization}
+    end
   end
 end
