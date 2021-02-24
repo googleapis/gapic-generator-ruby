@@ -60,7 +60,7 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_get_request uri:, params:{}, options:{}
+      def make_get_request uri:, params: {}, options: {}
         make_http_request :get, uri: uri, body: nil, params: params, options: options
       end
 
@@ -72,7 +72,7 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_delete_request uri:, params:{}, options:{}
+      def make_delete_request uri:, params: {}, options: {}
         make_http_request :delete, uri: uri, body: nil, params: params, options: options
       end
 
@@ -98,7 +98,7 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_patch_request uri:, body:, params:{}, options:{}
+      def make_patch_request uri:, body:, params: {}, options: {}
         make_http_request :patch, uri: uri, body: body, params: params, options: options
       end
 

@@ -19,7 +19,7 @@ module Gapic
     # follows https://github.com/lostisland/faraday_middleware/blob/master/lib/faraday_middleware.rb
     module FaradayMiddleware
       autoload :GoogleAuthorization, "gapic/rest/faraday_middleware/google_authorization.rb"
-      Faraday::Request.register_middleware google_authorization: -> { GoogleAuthorization}
+      Faraday::Request.register_middleware google_authorization: -> { GoogleAuthorization }
     end
   end
 end
