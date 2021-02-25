@@ -42,7 +42,7 @@ GEM
     erubi (1.10.0)
     google-style (1.25.1)
       rubocop (~> 1.9)
-    grpc-tools (1.35.0)
+    grpc-tools (1.36.0)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     loofah (2.9.0)
@@ -110,7 +110,7 @@ PLATFORMS
 DEPENDENCIES
   gapic-generator!
   gapic-generator-cloud!
-  grpc-tools (~> 1.35.0)
+  grpc-tools (~> 1.36.0)
   minitest (~> 5.0)
   minitest-autotest (~> 1.0)
   minitest-focus (~> 1.0)
