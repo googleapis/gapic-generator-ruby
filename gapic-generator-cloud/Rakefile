@@ -96,6 +96,11 @@ namespace :gen do |gen_namespace|
     generate_cloud_templates :compute_small
     cp '../shared/tmp/compute_small/Gemfile', '../shared/output/cloud/compute_small'
     cp '../shared/tmp/compute_small/google-cloud-compute-v1.gemspec', '../shared/output/cloud/compute_small'
+    cp '../shared/tmp/compute_small/.repo-metadata.json', '../shared/output/cloud/compute_small'
+    cp '../shared/tmp/compute_small/CHANGELOG.md', '../shared/output/cloud/compute_small'
+    cp '../shared/tmp/compute_small/README.md', '../shared/output/cloud/compute_small'
+    cp '../shared/tmp/compute_small/version.rb', '../shared/output/cloud/compute_small/lib/google/cloud/compute/v1'
+    rm '../shared/output/cloud/compute_small/gapic_metadata.json'
   end
 end
 
