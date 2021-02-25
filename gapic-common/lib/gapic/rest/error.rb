@@ -18,11 +18,12 @@ module Gapic
   module Rest
     # Gapic REST exception class
     class Error < StandardError
+      # @return [Integer] the http status code for the error
       attr_reader :status_code
 
       ##
       # @param message [String, nil] error message
-      # @param status_code [Int, nil] HTTP status code of this error
+      # @param status_code [Integer, nil] HTTP status code of this error
       #
       def initialize message, status_code
         @status_code = status_code
@@ -41,7 +42,7 @@ module Gapic
 
           if err.response_body
             msg, code = try_parse_from_body err.response_body
-            message = msg.nil? ? message : "An error has occurred when making a REST request: #{msg}"
+            message = "An error has occurred when making a REST request: #{msg}" unless msg.nil?
             status_code = code unless code.nil?
           end
 
@@ -63,6 +64,8 @@ module Gapic
           code = body["error"]["code"]
 
           [message, code]
+        rescue JSON::ParserError
+          [nil, nil]
         end
       end
     end

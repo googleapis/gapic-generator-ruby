@@ -36,8 +36,8 @@ module Gapic
       #
       def initialize endpoint:, credentials:
         @endpoint = endpoint
-        @endpoint = "https://#{endpoint}" unless /https?:/.match? endpoint
-        @endpoint = @endpoint.chop if @endpoint.to_s.chars.last == "/"
+        @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
+        @endpoint.sub! %r{\/$}, ""
 
         @credentials = credentials
 

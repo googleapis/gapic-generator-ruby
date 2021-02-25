@@ -16,9 +16,29 @@ require "faraday"
 module Gapic
   module Rest
     # Registers the middleware with Faraday
-    # follows https://github.com/lostisland/faraday_middleware/blob/master/lib/faraday_middleware.rb
     module FaradayMiddleware
-      autoload :GoogleAuthorization, "gapic/rest/faraday_middleware/google_authorization.rb"
+      ##
+      # Request middleware that constructs the Authorization HTTP header
+      # using ::Google::Auth::Credentials
+      #
+      class GoogleAuthorization < Faraday::Middleware
+        ##
+        # @param app [#call]
+        # @param credentials [::Google::Auth::Credentials]
+        def initialize app, credentials
+          @credentials = credentials
+          super app
+        end
+
+        # @param env [Faraday::Env]
+        def call env
+          auth_hash = @credentials.client.apply({})
+          env.request_headers["Authorization"] = auth_hash[:authorization]
+
+          @app.call env
+        end
+      end
+
       Faraday::Request.register_middleware google_authorization: -> { GoogleAuthorization }
     end
   end
