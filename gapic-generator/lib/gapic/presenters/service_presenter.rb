@@ -144,7 +144,7 @@ module Gapic
       end
 
       def service_file_path
-        service_require + ".rb"
+        "#{service_require}.rb"
       end
 
       def service_file_name
@@ -180,7 +180,7 @@ module Gapic
       end
 
       def client_file_path
-        client_require + ".rb"
+        "#{client_require}.rb"
       end
 
       def client_file_name
@@ -220,7 +220,7 @@ module Gapic
       end
 
       def credentials_file_path
-        credentials_require + ".rb"
+        "#{credentials_require}.rb"
       end
 
       def credentials_file_name
@@ -232,7 +232,7 @@ module Gapic
       end
 
       def helpers_file_path
-        helpers_require + ".rb"
+        "#{helpers_require}.rb"
       end
 
       def helpers_file_name
@@ -260,7 +260,7 @@ module Gapic
       end
 
       def paths_file_path
-        paths_require + ".rb"
+        "#{paths_require}.rb"
       end
 
       def paths_file_name
@@ -308,7 +308,7 @@ module Gapic
       end
 
       def operations_file_path
-        operations_require + ".rb"
+        "#{operations_require}.rb"
       end
 
       def operations_file_name

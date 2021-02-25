@@ -86,13 +86,6 @@ module Gapic
       def self.parameter_schema
         DefaultGeneratorParameters.default_schema
       end
-
-      private
-
-      # Hook to override the default formatter
-      def format_files files
-        super
-      end
     end
   end
 end

@@ -29,7 +29,10 @@ module Gapic
     #   @return [String] The pattern of the segment, for the positional segment it is also
     #     a pattern of its resource
     class PositionalSegment
-      attr_reader :type, :position, :pattern
+      attr_reader :type
+      attr_reader :position
+      attr_reader :pattern
+
       def initialize position, pattern
         @type       = :positional
         @position   = position
@@ -117,7 +120,10 @@ module Gapic
     #   @return [Array<String>] The resource patterns associated with
     #     the resource_names of this segment
     class ResourceIdSegment
-      attr_reader :type, :pattern, :resource_names, :resource_patterns
+      attr_reader :type
+      attr_reader :pattern
+      attr_reader :resource_names
+      attr_reader :resource_patterns
 
       def initialize type, pattern, resource_names, resource_patterns = []
         @type              = type
@@ -216,7 +222,8 @@ module Gapic
     #   @return [String] The pattern of the segment, for the positional segment it is also
     #     a pattern of its resource
     class CollectionIdSegment
-      attr_reader :type, :pattern
+      attr_reader :type
+      attr_reader :pattern
 
       def initialize pattern
         @type     = :collection_id

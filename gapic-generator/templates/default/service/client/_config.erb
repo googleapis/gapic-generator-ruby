@@ -115,7 +115,7 @@ class Configuration
   def rpcs
     @rpcs ||= begin
       parent_rpcs = nil
-      parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+      parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
       Rpcs.new parent_rpcs
     end
   end
@@ -149,7 +149,7 @@ class Configuration
     # @private
     def initialize parent_rpcs = nil
       <%- method_service.methods.each do |method| -%>
-      <%= method.name %>_config = parent_rpcs&.<%= method.name %> if parent_rpcs&.respond_to? :<%= method.name %>
+      <%= method.name %>_config = parent_rpcs.<%= method.name %> if parent_rpcs.respond_to? :<%= method.name %>
       @<%= method.name %> = ::Gapic::Config::Method.new <%= method.name %>_config
       <%- end -%>
 

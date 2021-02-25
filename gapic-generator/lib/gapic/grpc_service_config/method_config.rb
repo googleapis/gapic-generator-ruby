@@ -23,7 +23,8 @@ module Gapic
     # client-side timeout/retry policy
     #
     class MethodConfig
-      attr_reader :timeout_seconds, :retry_policy
+      attr_reader :timeout_seconds
+      attr_reader :retry_policy
 
       ##
       # Create new MethodConfig

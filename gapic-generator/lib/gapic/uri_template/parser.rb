@@ -25,13 +25,11 @@ module Gapic
     #   @return [Array<Segment|String>] The segments of the parsed path pattern.
     module Parser
       # @private
-      # /((?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?})/
+      # `/(?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?}/`
       URI_TEMPLATE = %r{
-        (
-          (?<positional>\*\*?)
-          |
-          {(?<name>[^\/]+?)(?:=(?<template>.+?))?}
-        )
+        (?<positional>\*\*?)
+        |
+        {(?<name>[^/]+?)(?:=(?<template>.+?))?}
       }x.freeze
 
       def self.parse_arguments uri_template

@@ -122,9 +122,7 @@ module Gapic
           yield response, operation if block_given?
           response
         rescue StandardError => e
-          if check_retry? deadline
-            retry if options.retry_policy.call e
-          end
+          retry if check_retry?(deadline) && options.retry_policy.call(e)
 
           raise e
         end

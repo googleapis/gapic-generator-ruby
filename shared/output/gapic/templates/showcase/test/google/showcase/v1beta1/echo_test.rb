@@ -104,7 +104,7 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content), grpc_options do |response, operation|
+      client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -158,7 +158,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error) do |response, operation|
+      client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content,
+error: error) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -176,7 +177,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error), grpc_options do |response, operation|
+      client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error),
+                    grpc_options) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::EchoResponse, r
@@ -397,21 +399,26 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |response, operation|
+      client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
+page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, grpc_options) do |response, operation|
+      client.paged_expand({ content: content, page_size: page_size, page_token: page_token },
+                          grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), grpc_options do |response, operation|
+      client.paged_expand(
+        ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
+page_token: page_token), grpc_options
+      ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -464,7 +471,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |response, operation|
+      client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time,
+error: error) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -478,7 +486,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), grpc_options do |response, operation|
+      client.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error),
+                  grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -528,7 +537,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |response, operation|
+      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay,
+error: error) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -540,7 +550,8 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), grpc_options do |response, operation|
+      client.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error),
+                   grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

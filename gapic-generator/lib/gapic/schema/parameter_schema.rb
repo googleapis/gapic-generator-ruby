@@ -19,7 +19,10 @@ module Gapic
     # Contains information about known parameter names
     # and the types expected to be parsed from the request options string
     class ParameterSchema
-      attr_accessor :bool_params, :string_params, :array_params, :map_params
+      attr_accessor :bool_params
+      attr_accessor :string_params
+      attr_accessor :array_params
+      attr_accessor :map_params
 
       # Creates a schema with given alias-parameter maps
       # @param bool_params [Hash{String => String}]

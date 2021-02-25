@@ -132,7 +132,7 @@ module Google
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -676,7 +676,7 @@ module Google
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -697,7 +697,7 @@ module Google
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -758,19 +758,19 @@ module Google
 
               # @private
               def initialize parent_rpcs = nil
-                echo_config = parent_rpcs&.echo if parent_rpcs&.respond_to? :echo
+                echo_config = parent_rpcs.echo if parent_rpcs.respond_to? :echo
                 @echo = ::Gapic::Config::Method.new echo_config
-                expand_config = parent_rpcs&.expand if parent_rpcs&.respond_to? :expand
+                expand_config = parent_rpcs.expand if parent_rpcs.respond_to? :expand
                 @expand = ::Gapic::Config::Method.new expand_config
-                collect_config = parent_rpcs&.collect if parent_rpcs&.respond_to? :collect
+                collect_config = parent_rpcs.collect if parent_rpcs.respond_to? :collect
                 @collect = ::Gapic::Config::Method.new collect_config
-                chat_config = parent_rpcs&.chat if parent_rpcs&.respond_to? :chat
+                chat_config = parent_rpcs.chat if parent_rpcs.respond_to? :chat
                 @chat = ::Gapic::Config::Method.new chat_config
-                paged_expand_config = parent_rpcs&.paged_expand if parent_rpcs&.respond_to? :paged_expand
+                paged_expand_config = parent_rpcs.paged_expand if parent_rpcs.respond_to? :paged_expand
                 @paged_expand = ::Gapic::Config::Method.new paged_expand_config
-                wait_config = parent_rpcs&.wait if parent_rpcs&.respond_to? :wait
+                wait_config = parent_rpcs.wait if parent_rpcs.respond_to? :wait
                 @wait = ::Gapic::Config::Method.new wait_config
-                block_config = parent_rpcs&.block if parent_rpcs&.respond_to? :block
+                block_config = parent_rpcs.block if parent_rpcs.respond_to? :block
                 @block = ::Gapic::Config::Method.new block_config
 
                 yield self if block_given?

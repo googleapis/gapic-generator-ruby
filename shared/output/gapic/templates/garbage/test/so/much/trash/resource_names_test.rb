@@ -83,7 +83,8 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
+      client.simple_pattern_method({ real_name: real_name, ref: ref,
+repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -95,19 +96,24 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
+      client.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref,
+repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
+      client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
+                                   grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options do |response, operation|
+      client.simple_pattern_method(
+        ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref,
+repeated_ref: repeated_ref), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -145,7 +151,8 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }) do |response, operation|
+      client.complex_pattern_method({ real_name: real_name, ref: ref,
+repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -157,19 +164,24 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref) do |response, operation|
+      client.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref,
+repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref }, grpc_options) do |response, operation|
+      client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
+                                    grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref, repeated_ref: repeated_ref), grpc_options do |response, operation|
+      client.complex_pattern_method(
+        ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref,
+repeated_ref: repeated_ref), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -227,7 +239,8 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.resource_name_pattern_method ::So::Much::Trash::ResourceNamePatternRequest.new(name: name), grpc_options do |response, operation|
+      client.resource_name_pattern_method(::So::Much::Trash::ResourceNamePatternRequest.new(name: name),
+                                          grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -285,7 +298,8 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.multiparent_method ::So::Much::Trash::MultiparentRequest.new(parent: parent), grpc_options do |response, operation|
+      client.multiparent_method(::So::Much::Trash::MultiparentRequest.new(parent: parent),
+                                grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -343,7 +357,8 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.no_arguments_multi_method ::So::Much::Trash::NoArgumentsMultiRequest.new(name: name), grpc_options do |response, operation|
+      client.no_arguments_multi_method(::So::Much::Trash::NoArgumentsMultiRequest.new(name: name),
+                                       grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

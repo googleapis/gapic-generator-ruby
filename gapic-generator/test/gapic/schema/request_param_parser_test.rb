@@ -83,7 +83,7 @@ class RequestParamParserTest < Minitest::Test
       ["unknown_param_input_name", "\\a\\b\\,.c\\\\de"]     => { "unknown_param_input_name" => "ab,.c\\de" },
       ["unknown_param.input_name.foo", "\\a\\b\\,.c\\\\de"] => { "unknown_param.input_name.foo" => "ab,.c\\de" },
       ["bool_param_input_name", "true"]                     => { "bool_param_name" => "true" },
-      ["string_param_input_name", "\\a\\b\\,.c\\\\de"]      => { "string_param_name" =>"ab,.c\\de" },
+      ["string_param_input_name", "\\a\\b\\,.c\\\\de"]      => { "string_param_name" => "ab,.c\\de" },
       ["array_param_input_name", "ab;c\\;d;e\\\\f"]         => { "array_param_name" => ["ab", "c;d", "e\\f"] },
       ["map_param_input_name", "a=b;c\\=d=e\\,f;gh=i\\;j"]  => { "map_param_name" =>
                                                                                      {
@@ -93,7 +93,7 @@ class RequestParamParserTest < Minitest::Test
                                                                                      } }
     }
 
-    param_strings2expected = paramvals2expected.map { |key_arr, val| [key_arr.join("="), val] }.to_h
+    param_strings2expected = paramvals2expected.transform_keys { |key_arr| key_arr.join "=" }
     parameter_string = param_strings2expected.keys.join ","
     parsed_parameters = Gapic::Schema::RequestParamParser.parse_parameters_string parameter_string, param_schema: schema
 

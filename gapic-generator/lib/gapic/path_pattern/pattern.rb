@@ -29,7 +29,8 @@ module Gapic
     #   @return [Array<PositionalSegment|ResourceIdSegment|CollectionIdSegment>]
     #     The parsed segments of the path pattern
     class Pattern
-      attr_reader :path_pattern, :segments
+      attr_reader :path_pattern
+      attr_reader :segments
 
       def initialize path_pattern, segments
         @path_pattern = path_pattern

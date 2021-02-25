@@ -26,7 +26,9 @@ module Gapic
   #   @return [RetryPolicy, Object]
   #
   class CallOptions
-    attr_reader :timeout, :metadata, :retry_policy
+    attr_reader :timeout
+    attr_reader :metadata
+    attr_reader :retry_policy
 
     ##
     # Create a new Options object instance.

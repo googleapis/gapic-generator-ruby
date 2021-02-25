@@ -38,11 +38,13 @@ Gem::Specification.new do |spec|
   spec.executables   = ["gapic-generator", "protoc-gen-ruby_gapic"]
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = ">= 2.5"
+
   spec.add_dependency "actionpack", "~> 5.2"
   spec.add_dependency "protobuf", "~> 3.8"
 
-  spec.add_development_dependency "google-style", "~> 1.24.0"
-  spec.add_development_dependency "grpc-tools", "~> 1.30.1"
+  spec.add_development_dependency "google-style", "~> 1.25.1"
+  spec.add_development_dependency "grpc-tools", "~> 1.36.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"

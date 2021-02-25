@@ -130,7 +130,7 @@ module Google
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -558,7 +558,7 @@ module Google
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -579,7 +579,7 @@ module Google
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -630,15 +630,15 @@ module Google
 
               # @private
               def initialize parent_rpcs = nil
-                create_user_config = parent_rpcs&.create_user if parent_rpcs&.respond_to? :create_user
+                create_user_config = parent_rpcs.create_user if parent_rpcs.respond_to? :create_user
                 @create_user = ::Gapic::Config::Method.new create_user_config
-                get_user_config = parent_rpcs&.get_user if parent_rpcs&.respond_to? :get_user
+                get_user_config = parent_rpcs.get_user if parent_rpcs.respond_to? :get_user
                 @get_user = ::Gapic::Config::Method.new get_user_config
-                update_user_config = parent_rpcs&.update_user if parent_rpcs&.respond_to? :update_user
+                update_user_config = parent_rpcs.update_user if parent_rpcs.respond_to? :update_user
                 @update_user = ::Gapic::Config::Method.new update_user_config
-                delete_user_config = parent_rpcs&.delete_user if parent_rpcs&.respond_to? :delete_user
+                delete_user_config = parent_rpcs.delete_user if parent_rpcs.respond_to? :delete_user
                 @delete_user = ::Gapic::Config::Method.new delete_user_config
-                list_users_config = parent_rpcs&.list_users if parent_rpcs&.respond_to? :list_users
+                list_users_config = parent_rpcs.list_users if parent_rpcs.respond_to? :list_users
                 @list_users = ::Gapic::Config::Method.new list_users_config
 
                 yield self if block_given?

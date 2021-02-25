@@ -103,7 +103,7 @@ module So
 
                 "customers/#{customer}/items/#{item_a_id}.#{item_b_id}~#{items_c_id}/details/#{details_a_id}_#{details_b_id}-#{details_c_id}/extra/#{extra_id}"
               end),
-              "request"                                                                                 => (proc do |request:|
+              "request" => (proc do |request:|
                 "complexrequests/#{request}"
               end)
             }
@@ -158,7 +158,7 @@ module So
 
                 "projects/#{project}/widgets/#{widget}"
               end),
-              ""               => (proc do
+              "" => (proc do
                 "_default-widget_"
               end)
             }
@@ -194,7 +194,7 @@ module So
 
                 "customers/#{customer}/path/#{path}"
               end),
-              "request"       => (proc do |request:|
+              "request" => (proc do |request:|
                 "patternrequests/#{request}"
               end)
             }
@@ -258,7 +258,7 @@ module So
 
                 "customers/#{customer}/things/#{thing}"
               end),
-              "request"        => (proc do |request:|
+              "request" => (proc do |request:|
                 "simplerequests/#{request}"
               end)
             }

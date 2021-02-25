@@ -34,9 +34,9 @@ Gem::Specification.new do |spec|
                ["LICENSE"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.4"
+  spec.required_ruby_version = ">= 2.5"
 
-  spec.add_development_dependency "google-style", "~> 1.24.0"
+  spec.add_development_dependency "google-style", "~> 1.25.1"
   spec.add_development_dependency "minitest", "~> 5.11"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"

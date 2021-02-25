@@ -80,7 +80,11 @@ module Gapic
     #       of locations could be recorded in the future.
     class Proto
       extend Forwardable
-      attr_reader :descriptor, :address, :docs
+
+      attr_reader :descriptor
+      attr_reader :address
+      attr_reader :docs
+
       attr_accessor :parent
 
       # Initializes a Proto object.
@@ -228,6 +232,7 @@ module Gapic
     #   @ return [Enumerable<Method>] The methods of this service.
     class Service < Proto
       extend Forwardable
+
       attr_reader :methods
 
       # Initializes a Service object.
@@ -292,7 +297,9 @@ module Gapic
     #   @ return [Message] The output message of this method.
     class Method < Proto
       extend Forwardable
-      attr_reader :input, :output
+
+      attr_reader :input
+      attr_reader :output
 
       # Initializes a method object.
       # @param descriptor [Google::Protobuf::MethodDescriptorProto] the
@@ -370,7 +377,12 @@ module Gapic
     #     this file.
     class File < Proto
       extend Forwardable
-      attr_reader :messages, :enums, :services, :resources, :registry
+
+      attr_reader :messages
+      attr_reader :enums
+      attr_reader :services
+      attr_reader :resources
+      attr_reader :registry
 
       # Initializes a message object.
       # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -447,6 +459,7 @@ module Gapic
     #   @ return [EnumValue] the EnumValues contained in this file.
     class Enum < Proto
       extend Forwardable
+
       attr_reader :values
 
       # Initializes a message object.
@@ -479,17 +492,6 @@ module Gapic
     class EnumValue < Proto
       extend Forwardable
 
-      # Initializes a message object.
-      # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
-      #   representation of this service.
-      # @param address [Enumerable<String>] The address of the proto. See
-      #   #address for more info.
-      # @param docs [Google::Protobuf::SourceCodeInfo::Location] The docs
-      #   of the proto. See #docs for more info.
-      def initialize descriptor, address, docs
-        super descriptor, address, docs
-      end
-
       # @!method name
       #   @return [String] the unqualified name of the EnumValue
       # @!method number
@@ -520,7 +522,12 @@ module Gapic
     #   @ return [Enumerable<Enum>] The nested enum declarations of a message.
     class Message < Proto
       extend Forwardable
-      attr_reader :fields, :extensions, :resource, :nested_messages, :nested_enums
+
+      attr_reader :fields
+      attr_reader :extensions
+      attr_reader :resource
+      attr_reader :nested_messages
+      attr_reader :nested_enums
 
       # Initializes a message object.
       # @param descriptor [Google::Protobuf::DescriptorProto] the protobuf
@@ -583,8 +590,9 @@ module Gapic
     #      otherwise.
     class Field < Proto
       extend Forwardable
-      attr_reader :message, :enum
-      attr_writer :message, :enum
+
+      attr_accessor :message
+      attr_accessor :enum
 
       # Initializes a message object.
       # @param descriptor [Google::Protobuf::FieldDescriptorProto] the
@@ -784,7 +792,12 @@ module Gapic
     #   @return [Array<Gapic::Schema::Resource>] Parent resources
     class Resource
       extend Forwardable
-      attr_reader :descriptor, :parsed_patterns, :parsed_parent_patterns, :parent_resources
+
+      attr_reader :descriptor
+      attr_reader :parsed_patterns
+      attr_reader :parsed_parent_patterns
+      attr_reader :parent_resources
+
       attr_accessor :parent
 
       # Initializes a resource object.

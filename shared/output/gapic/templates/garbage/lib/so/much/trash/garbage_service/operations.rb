@@ -176,7 +176,8 @@ module So
 
             @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
               wrap_lro_operation = ->(op_response) { ::Gapic::Operation.new op_response, @operations_client }
-              response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_lro_operation
+              response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response,
+                                                      operation, options, format_resource: wrap_lro_operation
               yield response, operation if block_given?
               return response
             end
@@ -481,7 +482,7 @@ module So
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -502,7 +503,7 @@ module So
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -548,13 +549,13 @@ module So
 
               # @private
               def initialize parent_rpcs = nil
-                list_operations_config = parent_rpcs&.list_operations if parent_rpcs&.respond_to? :list_operations
+                list_operations_config = parent_rpcs.list_operations if parent_rpcs.respond_to? :list_operations
                 @list_operations = ::Gapic::Config::Method.new list_operations_config
-                get_operation_config = parent_rpcs&.get_operation if parent_rpcs&.respond_to? :get_operation
+                get_operation_config = parent_rpcs.get_operation if parent_rpcs.respond_to? :get_operation
                 @get_operation = ::Gapic::Config::Method.new get_operation_config
-                delete_operation_config = parent_rpcs&.delete_operation if parent_rpcs&.respond_to? :delete_operation
+                delete_operation_config = parent_rpcs.delete_operation if parent_rpcs.respond_to? :delete_operation
                 @delete_operation = ::Gapic::Config::Method.new delete_operation_config
-                cancel_operation_config = parent_rpcs&.cancel_operation if parent_rpcs&.respond_to? :cancel_operation
+                cancel_operation_config = parent_rpcs.cancel_operation if parent_rpcs.respond_to? :cancel_operation
                 @cancel_operation = ::Gapic::Config::Method.new cancel_operation_config
 
                 yield self if block_given?

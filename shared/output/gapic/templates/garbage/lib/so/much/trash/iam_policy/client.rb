@@ -152,7 +152,7 @@ module So
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -476,7 +476,7 @@ module So
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -497,7 +497,7 @@ module So
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -538,11 +538,11 @@ module So
 
               # @private
               def initialize parent_rpcs = nil
-                set_iam_policy_config = parent_rpcs&.set_iam_policy if parent_rpcs&.respond_to? :set_iam_policy
+                set_iam_policy_config = parent_rpcs.set_iam_policy if parent_rpcs.respond_to? :set_iam_policy
                 @set_iam_policy = ::Gapic::Config::Method.new set_iam_policy_config
-                get_iam_policy_config = parent_rpcs&.get_iam_policy if parent_rpcs&.respond_to? :get_iam_policy
+                get_iam_policy_config = parent_rpcs.get_iam_policy if parent_rpcs.respond_to? :get_iam_policy
                 @get_iam_policy = ::Gapic::Config::Method.new get_iam_policy_config
-                test_iam_permissions_config = parent_rpcs&.test_iam_permissions if parent_rpcs&.respond_to? :test_iam_permissions
+                test_iam_permissions_config = parent_rpcs.test_iam_permissions if parent_rpcs.respond_to? :test_iam_permissions
                 @test_iam_permissions = ::Gapic::Config::Method.new test_iam_permissions_config
 
                 yield self if block_given?

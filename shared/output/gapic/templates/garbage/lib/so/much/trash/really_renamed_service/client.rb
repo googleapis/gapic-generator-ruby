@@ -126,7 +126,7 @@ module So
             enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                      @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
-            credentials ||= Credentials.default scope:                  @config.scope,
+            credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(String) || credentials.is_a?(Hash)
               credentials = Credentials.new credentials, scope: @config.scope
@@ -287,7 +287,7 @@ module So
             config_attr :scope,         nil, ::String, ::Array, nil
             config_attr :lib_name,      nil, ::String, nil
             config_attr :lib_version,   nil, ::String, nil
-            config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+            config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
             config_attr :interceptors,  nil, ::Array, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
@@ -308,7 +308,7 @@ module So
             def rpcs
               @rpcs ||= begin
                 parent_rpcs = nil
-                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+                parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
                 Rpcs.new parent_rpcs
               end
             end
@@ -339,7 +339,7 @@ module So
 
               # @private
               def initialize parent_rpcs = nil
-                get_empty_garbage_config = parent_rpcs&.get_empty_garbage if parent_rpcs&.respond_to? :get_empty_garbage
+                get_empty_garbage_config = parent_rpcs.get_empty_garbage if parent_rpcs.respond_to? :get_empty_garbage
                 @get_empty_garbage = ::Gapic::Config::Method.new get_empty_garbage_config
 
                 yield self if block_given?

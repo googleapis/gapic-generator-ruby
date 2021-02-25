@@ -125,7 +125,7 @@ module Testing
           enable_self_signed_jwt = @config.scope == Client.configure.scope &&
                                    @config.endpoint == Client.configure.endpoint &&
                                    !@config.endpoint.split(".").first.include?("-")
-          credentials ||= Credentials.default scope:                  @config.scope,
+          credentials ||= Credentials.default scope: @config.scope,
                                               enable_self_signed_jwt: enable_self_signed_jwt
           if credentials.is_a?(String) || credentials.is_a?(Hash)
             credentials = Credentials.new credentials, scope: @config.scope
@@ -284,7 +284,7 @@ module Testing
           config_attr :scope,         nil, ::String, ::Array, nil
           config_attr :lib_name,      nil, ::String, nil
           config_attr :lib_version,   nil, ::String, nil
-          config_attr(:channel_args,  { "grpc.service_config_disable_resolution"=>1 }, ::Hash, nil)
+          config_attr(:channel_args,  { "grpc.service_config_disable_resolution" => 1 }, ::Hash, nil)
           config_attr :interceptors,  nil, ::Array, nil
           config_attr :timeout,       nil, ::Numeric, nil
           config_attr :metadata,      nil, ::Hash, nil
@@ -305,7 +305,7 @@ module Testing
           def rpcs
             @rpcs ||= begin
               parent_rpcs = nil
-              parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config&.respond_to?(:rpcs)
+              parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
               Rpcs.new parent_rpcs
             end
           end
@@ -336,7 +336,7 @@ module Testing
 
             # @private
             def initialize parent_rpcs = nil
-              no_retry_method_config = parent_rpcs&.no_retry_method if parent_rpcs&.respond_to? :no_retry_method
+              no_retry_method_config = parent_rpcs.no_retry_method if parent_rpcs.respond_to? :no_retry_method
               @no_retry_method = ::Gapic::Config::Method.new no_retry_method_config
 
               yield self if block_given?

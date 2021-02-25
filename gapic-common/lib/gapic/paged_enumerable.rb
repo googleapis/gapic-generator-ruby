@@ -80,13 +80,11 @@ module Gapic
     #
     # @raise [RuntimeError] if it's not started yet.
     #
-    def each
+    def each &block
       return enum_for :each unless block_given?
 
       each_page do |page|
-        page.each do |obj|
-          yield obj
-        end
+        page.each(&block)
       end
     end
 
@@ -201,7 +199,8 @@ module Gapic
     #   @return [GRPC::ActiveCall::Operation] the RPC operation for the page.
     class Page
       include Enumerable
-      attr_reader :response, :operation
+      attr_reader :response
+      attr_reader :operation
 
       ##
       # @private
