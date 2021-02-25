@@ -372,8 +372,7 @@ module Google
             def async_batch_annotate_images request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -393,8 +392,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_images, request,
-                                             options: options do |response, operation|
+              @image_annotator_stub.call_rpc :async_batch_annotate_images, request, options: options do |response, operation|
                 response = ::Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
@@ -453,8 +451,7 @@ module Google
             def async_batch_annotate_files request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -474,8 +471,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @image_annotator_stub.call_rpc :async_batch_annotate_files, request,
-                                             options: options do |response, operation|
+              @image_annotator_stub.call_rpc :async_batch_annotate_files, request, options: options do |response, operation|
                 response = ::Gapic::Operation.new response, @operations_client, options: options
                 yield response, operation if block_given?
                 return response
@@ -569,8 +565,7 @@ module Google
 
               config_attr :endpoint,      "vision.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
-                           nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end

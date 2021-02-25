@@ -325,8 +325,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response,
-                                                        operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_product_sets, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -710,8 +709,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response,
-                                                        operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1198,8 +1196,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request,
-                                                        response, operation, options
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_reference_images, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1354,8 +1351,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :add_product_to_product_set, request,
-                                            options: options do |response, operation|
+              @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1403,8 +1399,7 @@ module Google
             def remove_product_from_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -1430,8 +1425,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :remove_product_from_product_set, request,
-                                            options: options do |response, operation|
+              @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1484,8 +1478,7 @@ module Google
             def list_products_in_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -1511,10 +1504,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @product_search_stub.call_rpc :list_products_in_product_set, request,
-                                            options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request,
-                                                        response, operation, options
+              @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
+                response = ::Gapic::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -1788,8 +1779,7 @@ module Google
 
               config_attr :endpoint,      "vision.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
-                           nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end

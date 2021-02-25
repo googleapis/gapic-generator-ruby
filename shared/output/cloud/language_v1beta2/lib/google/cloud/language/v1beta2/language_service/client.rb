@@ -184,8 +184,7 @@ module Google
             def analyze_sentiment request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeSentimentRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -312,8 +311,7 @@ module Google
             def analyze_entity_sentiment request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Language::V1beta2::AnalyzeEntitySentimentRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -333,8 +331,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @language_service_stub.call_rpc :analyze_entity_sentiment, request,
-                                              options: options do |response, operation|
+              @language_service_stub.call_rpc :analyze_entity_sentiment, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -616,8 +613,7 @@ module Google
 
               config_attr :endpoint,      "language.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
-                           nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end

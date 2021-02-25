@@ -196,8 +196,7 @@ module Google
             def list_secrets request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::ListSecretsRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretsRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -224,8 +223,7 @@ module Google
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :list_secrets, request, options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secrets, request,
-                                                        response, operation, options
+                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secrets, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -274,8 +272,7 @@ module Google
             def create_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::CreateSecretRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::CreateSecretRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -345,8 +342,7 @@ module Google
             def add_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -372,8 +368,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :add_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :add_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -481,8 +476,7 @@ module Google
             def update_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -549,8 +543,7 @@ module Google
             def delete_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -626,8 +619,7 @@ module Google
             def list_secret_versions request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -653,10 +645,8 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :list_secret_versions, request,
-                                                    options: options do |response, operation|
-                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secret_versions, request,
-                                                        response, operation, options
+              @secret_manager_service_stub.call_rpc :list_secret_versions, request, options: options do |response, operation|
+                response = ::Gapic::PagedEnumerable.new @secret_manager_service_stub, :list_secret_versions, request, response, operation, options
                 yield response, operation if block_given?
                 return response
               end
@@ -702,8 +692,7 @@ module Google
             def get_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -729,8 +718,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :get_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :get_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -774,8 +762,7 @@ module Google
             def access_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -801,8 +788,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :access_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :access_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -846,8 +832,7 @@ module Google
             def disable_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -873,8 +858,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :disable_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :disable_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -918,8 +902,7 @@ module Google
             def enable_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -945,8 +928,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :enable_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :enable_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -991,8 +973,7 @@ module Google
             def destroy_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
-              request = ::Gapic::Protobuf.coerce request,
-                                                 to: ::Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest
 
               # Converts hash and nil to an options object
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
@@ -1018,8 +999,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :destroy_secret_version, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :destroy_secret_version, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1244,8 +1224,7 @@ module Google
               options.apply_defaults metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @secret_manager_service_stub.call_rpc :test_iam_permissions, request,
-                                                    options: options do |response, operation|
+              @secret_manager_service_stub.call_rpc :test_iam_permissions, request, options: options do |response, operation|
                 yield response, operation if block_given?
                 return response
               end
@@ -1338,8 +1317,7 @@ module Google
 
               config_attr :endpoint,      "secretmanager.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
-                           nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end

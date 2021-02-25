@@ -169,8 +169,7 @@ module Google
 
               @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
                 wrap_lro_operation = ->(op_response) { ::Gapic::Operation.new op_response, @operations_client }
-                response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response,
-                                                        operation, options, format_resource: wrap_lro_operation
+                response = ::Gapic::PagedEnumerable.new @operations_stub, :list_operations, request, response, operation, options, format_resource: wrap_lro_operation
                 yield response, operation if block_given?
                 return response
               end
@@ -476,8 +475,7 @@ module Google
 
               config_attr :endpoint,      "speech.googleapis.com", ::String
               config_attr :credentials,   nil do |value|
-                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client,
-                           nil]
+                allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
                 allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
                 allowed.any? { |klass| klass === value }
               end
