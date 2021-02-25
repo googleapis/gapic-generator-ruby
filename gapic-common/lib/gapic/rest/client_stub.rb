@@ -13,7 +13,7 @@
 # limitations under the License.
 
 require "googleauth"
-require "gapic/rest/faraday_middleware/google_authorization"
+require "gapic/rest/faraday_middleware"
 
 module Gapic
   module Rest
