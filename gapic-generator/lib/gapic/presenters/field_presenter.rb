@@ -122,8 +122,6 @@ module Gapic
           when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "0" # integer
           when 9, 12                             then "\"\""
           when 8                                 then "false"
-          else
-            nil
           end
         end
       end

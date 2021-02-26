@@ -22,7 +22,6 @@ module Gapic
     # A presenter for rpc methods (REST submethods)
     #
     class MethodRestPresenter
-
       def initialize main_method
         @main_method = main_method
         @proto_method = main_method.method

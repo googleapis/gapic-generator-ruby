@@ -130,6 +130,7 @@ module Gapic
       def transcoding_helper_name_full
         fix_namespace api, "#{service_name_full}::#{transcoding_helper_name}"
       end
+
       ##
       # @return [String]
       #

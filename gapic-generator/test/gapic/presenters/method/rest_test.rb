@@ -22,8 +22,6 @@ class MethodPresenterRestTest < PresenterTest
 
     assert presenter.routing_params?
     assert presenter.rest.verb?
-    require 'pry'
-    binding.pry
     assert_equal "foo", presenter.rest.uri_interpolated
     assert presenter.rest.verb?
   end
