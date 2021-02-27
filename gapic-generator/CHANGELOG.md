@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.7.1 / 2021-02-27
+
+* Update generated readmes to reflect that Ruby 2.5 or later is now required.
+
 ### 0.7.0 / 2021-02-27
 
 * Update minimum Ruby version to 2.5 for generated libraries.
