@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.7.0 / 2021-02-27
+
+* Includes changes from gapic-generator 0.7.0, notably dropping Ruby 2.4 support.
+* Generate special Cloud RAD yardopts file for GAPIC generated clients.
+
 ### 0.6.15 / 2021-02-22
 
 * Really fixed encoding arguments in executable entrypoints
