@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.7.0 / 2021-02-27
+
+* Update minimum Ruby version to 2.5 for generated libraries.
+* Update supported Rubocop to 1.x for generated libraries.
+
 ### 0.6.15 / 2021-02-22
 
 * Really fixed encoding arguments in executable entrypoints
