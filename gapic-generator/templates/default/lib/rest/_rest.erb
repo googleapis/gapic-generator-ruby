@@ -1,18 +1,11 @@
 <%- assert_locals service -%>
+<% @requires = capture do %>
 require "gapic/rest"
 require "<%= service.rest.transcoding_helper_require %>"
 require "<%= service.rest.client_require %>"
-##
-<%- if service.doc_description -%>
-<%= indent service.doc_description, "# " %>
-#
-<%- end -%>
-# To load this service and instantiate a client:
-#
-#     require "<%= service.service_require %>"
-#     client = <%= service.rest.create_client_call %>
-#
+<% end %>
 module <%= service.module_name %>
+  # Client for the REST transport
   module Rest
   end
 end

@@ -24,10 +24,10 @@ module Google
   module Cloud
     module Compute
       ##
-      # To load this package, including all its services, and instantiate a client:
+      # To load this package, including all its services, and instantiate a REST client:
       #
       #     require "google/cloud/compute/v1"
-      #     client = ::Google::Cloud::Compute::V1::Addresses::Client.new
+      #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
       #
       module V1
       end

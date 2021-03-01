@@ -236,6 +236,11 @@ module Gapic
         true # configuration[:generate_rest_clients] ||= false
       end
 
+      # Whether to generate GRPC clients
+      def generate_grpc_clients?
+        false # configuration[:generate_grpc_clients] ||= false
+      end
+
       # Whether the override_proto_namespaces parameter was given in the configuration
       def override_proto_namespaces_defined?
         configuration.key? :override_proto_namespaces

@@ -282,6 +282,10 @@ module Gapic
         @api.generate_rest_clients?
       end
 
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
       ##
       # @return [Boolean] whether this service contains any methods with REST bindings
       #
