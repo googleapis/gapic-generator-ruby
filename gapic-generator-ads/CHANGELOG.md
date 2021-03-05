@@ -1,5 +1,9 @@
 # Release History for gapic-generator-ads
 
+### 0.7.2 / 2021-03-05
+
+* No changes.
+
 ### 0.7.1 / 2021-02-27
 
 * Update generated readmes to reflect that Ruby 2.5 or later is now required.
