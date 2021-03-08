@@ -43,15 +43,15 @@ module Google
             self.service_name = 'google.cloud.compute.v1.Addresses'
 
             # Retrieves an aggregated list of addresses.
-            rpc :AggregatedList, Google::Cloud::Compute::V1::AggregatedListAddressesRequest, Google::Cloud::Compute::V1::AddressAggregatedList
+            rpc :AggregatedList, ::Google::Cloud::Compute::V1::AggregatedListAddressesRequest, ::Google::Cloud::Compute::V1::AddressAggregatedList
             # Deletes the specified address resource.
-            rpc :Delete, Google::Cloud::Compute::V1::DeleteAddressRequest, Google::Cloud::Compute::V1::Operation
+            rpc :Delete, ::Google::Cloud::Compute::V1::DeleteAddressRequest, ::Google::Cloud::Compute::V1::Operation
             # Returns the specified address resource.
-            rpc :Get, Google::Cloud::Compute::V1::GetAddressRequest, Google::Cloud::Compute::V1::Address
+            rpc :Get, ::Google::Cloud::Compute::V1::GetAddressRequest, ::Google::Cloud::Compute::V1::Address
             # Creates an address resource in the specified project by using the data included in the request.
-            rpc :Insert, Google::Cloud::Compute::V1::InsertAddressRequest, Google::Cloud::Compute::V1::Operation
+            rpc :Insert, ::Google::Cloud::Compute::V1::InsertAddressRequest, ::Google::Cloud::Compute::V1::Operation
             # Retrieves a list of addresses contained within the specified region.
-            rpc :List, Google::Cloud::Compute::V1::ListAddressesRequest, Google::Cloud::Compute::V1::AddressList
+            rpc :List, ::Google::Cloud::Compute::V1::ListAddressesRequest, ::Google::Cloud::Compute::V1::AddressList
           end
 
           Stub = Service.rpc_stub_class
@@ -67,17 +67,17 @@ module Google
             self.service_name = 'google.cloud.compute.v1.RegionOperations'
 
             # Deletes the specified region-specific Operations resource.
-            rpc :Delete, Google::Cloud::Compute::V1::DeleteRegionOperationRequest, Google::Cloud::Compute::V1::DeleteRegionOperationResponse
+            rpc :Delete, ::Google::Cloud::Compute::V1::DeleteRegionOperationRequest, ::Google::Cloud::Compute::V1::DeleteRegionOperationResponse
             # Retrieves the specified region-specific Operations resource.
-            rpc :Get, Google::Cloud::Compute::V1::GetRegionOperationRequest, Google::Cloud::Compute::V1::Operation
+            rpc :Get, ::Google::Cloud::Compute::V1::GetRegionOperationRequest, ::Google::Cloud::Compute::V1::Operation
             # Retrieves a list of Operation resources contained within the specified region.
-            rpc :List, Google::Cloud::Compute::V1::ListRegionOperationsRequest, Google::Cloud::Compute::V1::OperationList
+            rpc :List, ::Google::Cloud::Compute::V1::ListRegionOperationsRequest, ::Google::Cloud::Compute::V1::OperationList
             # Waits for the specified Operation resource to return as `DONE` or for the request to approach the 2 minute deadline, and retrieves the specified Operation resource. This method differs from the `GET` method in that it waits for no more than the default deadline (2 minutes) and then returns the current state of the operation, which might be `DONE` or still in progress.
             #
             # This method is called on a best-effort basis. Specifically:
             # - In uncommon cases, when the server is overloaded, the request might return before the default deadline is reached, or might return after zero seconds.
             # - If the default deadline is reached, there is no guarantee that the operation is actually done when the method returns. Be prepared to retry if the operation is not `DONE`.
-            rpc :Wait, Google::Cloud::Compute::V1::WaitRegionOperationRequest, Google::Cloud::Compute::V1::Operation
+            rpc :Wait, ::Google::Cloud::Compute::V1::WaitRegionOperationRequest, ::Google::Cloud::Compute::V1::Operation
           end
 
           Stub = Service.rpc_stub_class

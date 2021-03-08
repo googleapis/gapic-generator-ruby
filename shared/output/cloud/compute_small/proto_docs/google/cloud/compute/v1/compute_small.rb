@@ -45,7 +45,6 @@ module Google
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
 
-
         # @!attribute [rw] key
         #   @return [::String]
         #     [Output Only] A key that provides more detail on the warning being returned. For example, for warnings where there are no results in a list request for a particular zone, this key might be scope and the key value might be the zone name. Other examples might be a key indicating a deprecated resource and a suggested replacement, or a warning about invalid network settings (for example, if an instance attempts to perform IP forwarding but is not enabled for IP forwarding).
@@ -56,7 +55,6 @@ module Google
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
-
 
         # @!attribute [rw] code
         #   @return [::Google::Cloud::Compute::V1::Warnings::Code]
@@ -440,7 +438,6 @@ module Google
           end
         end
 
-
         # @!attribute [rw] addresses
         #   @return [::Array<::Google::Cloud::Compute::V1::Address>]
         #     [Output Only] A list of addresses contained in this scope.
@@ -451,7 +448,6 @@ module Google
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
-
 
         # @!attribute [rw] id
         #   @return [::String]
