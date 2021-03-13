@@ -67,7 +67,13 @@ module Gapic
             param_name_input = unescape param_name_input_esc
             param_type, param_config_name = param_schema.schema_name_type_for param_name_input
 
-            param_value = parse_validate_param_value param_type, param_name_input, param_config_name, value_str, error_output
+            param_value = parse_validate_param_value(
+              param_type,
+              param_name_input,
+              param_config_name,
+              value_str,
+              error_output
+            )
 
             if param_value
               RequestParameter.new param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value
