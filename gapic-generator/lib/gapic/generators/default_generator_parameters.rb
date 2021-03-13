@@ -80,7 +80,7 @@ module Gapic
         "gem-api-shortname"         => ":gem.:api_shortname",
         "gem-factory-method-suffix" => ":gem.:factory_method_suffix",
         "default-service-host"      => ":defaults.:service.:default_host",
-        "grpc-service-config"       => "grpc_service_config",
+        "grpc-service-config"       => "grpc_service_config"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
