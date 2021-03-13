@@ -78,7 +78,7 @@ def gem_defaults
         "google/showcase/v1beta1/identity.proto",
         "google/showcase/v1beta1/messaging.proto",
         "google/showcase/v1beta1/testing.proto"
-      ],
+      ]
     },
     garbage: {
       protos: [

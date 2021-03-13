@@ -88,7 +88,6 @@ namespace :gen do |gen_namespace|
   desc "Generate the expected output for noservice"
   task :noservice do
     generate_cloud_templates :noservice
-    Rake::Task["gen:compute_small"].invoke
   end
 
   desc "Generate the expected output for compute_small"
