@@ -292,6 +292,22 @@ module Gapic
         services.find { |s| s.address == addr }
       end
 
+      ##
+      # Whether configuration has an override for the wrapper gem name
+      # @return [Boolean]
+      def wrapper_gem_name_override?
+        configuration.key?(:overrides) &&
+          configuration[:overrides].key?(:wrapper_gem_name)
+      end
+
+      ##
+      # An override for the wrapper gem name in the configuration
+      # @return [String, Nil]
+      def wrapper_gem_name_override
+        return nil unless wrapper_gem_name_override?
+        configuration[:overrides][:wrapper_gem_name]
+      end
+
       private
 
       # Perform a variety of sanity checks on the data, and prints errors to

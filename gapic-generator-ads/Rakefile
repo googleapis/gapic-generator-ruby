@@ -40,9 +40,17 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
 end
-namespace :gen do
+namespace :gen do |gen_namespace|
   desc "Generate the expected output for template tests"
-  task :templates do
+  task :templates do |templates_task|
+    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
+  end
+
+  desc "Generate the expected output for googleads"
+  task :googleads do
     generate_ads_templates :googleads
   end
 end

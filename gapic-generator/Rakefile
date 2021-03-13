@@ -114,12 +114,13 @@ task :gen do
   Rake::Task["gen:gem_creation"].invoke
 end
 
-namespace :gen do
+namespace :gen do |gen_namespace|
   desc "Generate the expected output for templates tests"
-  task :templates do
-    Rake::Task["gen:showcase"].invoke
-    Rake::Task["gen:garbage"].invoke
-    Rake::Task["gen:grpc_service_config"].invoke
+  task :templates do |templates_task|
+    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
   end
 
   desc "Generate the expected output for showcase"
