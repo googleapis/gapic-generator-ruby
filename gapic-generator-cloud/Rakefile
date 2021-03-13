@@ -41,16 +41,52 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
 end
-namespace :gen do
+namespace :gen do |gen_namespace|
   desc "Generate the expected output for template tests"
-  task :templates do
+  task :templates do |templates_task|
+    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
+  end
+
+  desc "Generate the expected output for language_v1"
+  task :language_v1 do
     generate_cloud_templates :language_v1
+  end
+
+  desc "Generate the expected output for language_v1beta1"
+  task :language_v1beta1 do
     generate_cloud_templates :language_v1beta1
+  end
+
+  desc "Generate the expected output for language_v1beta2"
+  task :language_v1beta2 do
     generate_cloud_templates :language_v1beta2
+  end
+
+  desc "Generate the expected output for secretmanager_v1beta1"
+  task :secretmanager_v1beta1 do
     generate_cloud_templates :secretmanager_v1beta1
+  end
+
+  desc "Generate the expected output for secretmanager_wrapper"
+  task :secretmanager_wrapper do
     generate_cloud_templates :secretmanager_wrapper, wrapper: true
+  end
+
+  desc "Generate the expected output for speech_v1"
+  task :speech_v1 do
     generate_cloud_templates :speech_v1
+  end
+
+  desc "Generate the expected output for vision_v1"
+  task :vision_v1 do
     generate_cloud_templates :vision_v1
+  end
+
+  desc "Generate the expected output for noservice"
+  task :noservice do
     generate_cloud_templates :noservice
   end
 end

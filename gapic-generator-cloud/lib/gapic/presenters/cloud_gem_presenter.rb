@@ -43,6 +43,8 @@ module Gapic
       # @return [String]
       #
       def wrapper_name
+        return @api.wrapper_gem_name_override if @api.wrapper_gem_name_override?
+
         minfo = /^(.+)-v\d\w*$/.match name
         minfo ? minfo[1] : nil
       end
@@ -60,7 +62,7 @@ module Gapic
       #
       def description
         desc = readme_description
-        if wrapper_name
+        if wrapper_name && !wrapper_name.empty?
           desc += " Note that #{name} is a version-specific client library." \
             " For most uses, we recommend installing the main client library" \
             " #{wrapper_name} instead. See the readme for more details."
