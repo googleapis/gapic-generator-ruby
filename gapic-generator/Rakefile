@@ -126,8 +126,6 @@ namespace :gen do |gen_namespace|
   desc "Generate the expected output for showcase"
   task :showcase do
     generate_default_templates :showcase
-    cp '../shared/tmp/showcase/Gemfile', '../shared/output/gapic/templates/showcase'
-    cp '../shared/tmp/showcase/google-showcase.gemspec', '../shared/output/gapic/templates/showcase'
   end
 
   desc "Generate the expected output for garbage"

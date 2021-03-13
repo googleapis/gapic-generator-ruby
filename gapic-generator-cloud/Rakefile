@@ -93,12 +93,8 @@ namespace :gen do |gen_namespace|
 
   desc "Generate the expected output for compute_small"
   task :compute_small do
-    generate_cloud_templates :compute_small
-    cp '../shared/tmp/compute_small/google-cloud-compute-v1.gemspec', '../shared/output/cloud/compute_small'
-    cp '../shared/tmp/compute_small/.repo-metadata.json', '../shared/output/cloud/compute_small'
-    cp '../shared/tmp/compute_small/CHANGELOG.md', '../shared/output/cloud/compute_small'
-    cp '../shared/tmp/compute_small/README.md', '../shared/output/cloud/compute_small'
-    cp '../shared/tmp/compute_small/version.rb', '../shared/output/cloud/compute_small/lib/google/cloud/compute/v1'
+    generate_cloud_templates :compute_small, rest_only: true
+    # until the drift metadata generation is updated for REST generation
     rm '../shared/output/cloud/compute_small/gapic_metadata.json'
   end
 end
@@ -169,14 +165,21 @@ def prepare_embedded_gapic_generator_directory
   FileUtils.cp_r base_source_dir, base_tmp_dir
 end
 
-def generate_cloud_templates service, wrapper: false
+def generate_cloud_templates service, wrapper: false, rest_only: false
   require "gapic/generators/cloud_generator"
 
   target_path = File.expand_path File.join("expected_output", String(service))
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
-  ruby_plugin_args = wrapper ? [] : ["--ruby_out=#{target_path}/lib", "--grpc_out=#{target_path}/lib"]
+  ruby_plugin_args = if wrapper
+      []
+    elsif rest_only
+      ["--ruby_out=#{target_path}/lib"]
+    else
+      ["--ruby_out=#{target_path}/lib", "--grpc_out=#{target_path}/lib"]
+    end
+
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
     "-I ../shared/api-common-protos",
@@ -196,12 +199,6 @@ def generate_cloud_templates service, wrapper: false
   grpc_service_config = grpc_service_config_for service
   unless grpc_service_config.empty?
     protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
-  end
-
-  # Specify transports
-  transports = transports_for service
-  if transports
-    protoc_cmd << "--ruby_gapic_opt='transports=#{transports.join ';'}'"
   end
 
   # Add the proto files
