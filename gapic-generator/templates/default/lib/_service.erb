@@ -40,9 +40,9 @@ require "<%= service.client_require %>"
 #
 <%- end -%>
 <%- end -%>
-
 <%- if service.generate_grpc_clients? -%>
-# To load this service and instantiate a GRPC client:
+<%- grpc_client_description = service.generate_rest_clients? ? "GRPC client" : "client" -%>
+# To load this service and instantiate a <%= grpc_client_description %>:
 #
 #     require "<%= service.service_require %>"
 #     client = <%= service.create_client_call %>

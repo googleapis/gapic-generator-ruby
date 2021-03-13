@@ -47,7 +47,8 @@ module Gapic
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
-        "ruby-cloud-default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
+        "ruby-cloud-default-oauth-scopes" => ":defaults.:service.:oauth_scopes",
+        "ruby-cloud-generate-transports"  => ":transports"
       }.freeze
 
       MAP_PARAMETERS_ALIASES = {

@@ -76,6 +76,20 @@ module Gapic
 
             param_value = parse_param_value param_type, value_str
 
+            if param_config_name == ":transports"
+              allowed_transports = ["grpc", "rest"]
+              noncompliant_values = param_value.reject { |pv| allowed_transports.include?(pv) }
+              if noncompliant_values.any?
+                noncompliant_values_list = noncompliant_values.join ", "
+                error_str = "WARNING: parameter #{param_name_input} (recognised as string array " \
+                                          "#{param_config_name}) will be discarded because "\
+                                          "it contains invalid values: #{noncompliant_values_list}. "\
+                                          "#{param_config_name} can only contain 'grpc' and/or 'rest' or be empty."
+                error_output&.puts error_str
+                param_value = nil
+              end
+            end
+
             if param_value
               RequestParameter.new param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value
             end
@@ -99,6 +113,7 @@ module Gapic
         def parse_param_value param_type, value_str
           case param_type
           when :array
+            return [] if value_str.empty?
             # elements in the arrays are concatenated by `;`
             # e.g. foo;bar;baz
             array_value_strings = split_by_unescaped value_str, ";"

@@ -49,7 +49,8 @@ class ApiTest < Minitest::Test
       [":overrides.:wrapper_gem_name", API_INFO[:wrapper_gem_name_override]],
 
       # arrays of values are joined with the ';' symbol
-      [":defaults.:service.:oauth_scopes", API_INFO[:default_oauth_scopes].join(";")]
+      [":defaults.:service.:oauth_scopes", API_INFO[:default_oauth_scopes].join(";")],
+      [":transports", API_INFO[:transports].join(";")]
     ]
 
     # maps of values are split into separate command-line parameters (one parameter per map key).
@@ -95,6 +96,7 @@ class ApiTest < Minitest::Test
 
       # arrays of values are joined with the ';' symbol
       ["default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
+      ["transports", API_INFO[:transports].join(";")],
 
       # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
 

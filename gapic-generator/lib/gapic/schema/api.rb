@@ -233,12 +233,14 @@ module Gapic
 
       # Whether to generate REST clients
       def generate_rest_clients?
-        true # configuration[:generate_rest_clients] ||= false
+        return false if configuration[:transports].nil?
+        configuration[:transports].include? "rest"
       end
 
       # Whether to generate GRPC clients
       def generate_grpc_clients?
-        false # configuration[:generate_grpc_clients] ||= false
+        return true if configuration[:transports].nil?
+        configuration[:transports].include? "grpc"
       end
 
       # Whether the override_proto_namespaces parameter was given in the configuration

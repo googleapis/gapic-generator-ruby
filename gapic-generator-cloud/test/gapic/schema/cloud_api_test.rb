@@ -55,6 +55,7 @@ class CloudApiTest < Minitest::Test
 
       # arrays of values are joined with the ';' symbol
       ["ruby-cloud-default-oauth-scopes", API_INFO[:default_oauth_scopes].join(";")],
+      ["ruby-cloud-generate-transports", API_INFO[:transports].join(";")],
 
       # maps of key,values are joined pairwise with the '=' symbol then pairs are joined with the ';' symbol.
       ["ruby-cloud-common-services", API_INFO[:common_services_unescaped].map { |k, v| "#{k}=#{v}" }.join(";")],
