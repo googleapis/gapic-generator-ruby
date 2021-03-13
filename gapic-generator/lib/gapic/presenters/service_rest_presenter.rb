@@ -68,7 +68,7 @@ module Gapic
       # @return [String]
       #
       def client_file_path
-        client_require + ".rb"
+        "#{client_require}.rb"
       end
 
       def create_client_call
@@ -100,7 +100,7 @@ module Gapic
       # @return [String]
       #
       def service_stub_file_path
-        service_stub_require + ".rb"
+        "#{service_stub_require}.rb"
       end
 
       ##
@@ -114,7 +114,7 @@ module Gapic
       # @return [String]
       #
       def service_rest_file_path
-        service_rest_require + ".rb"
+        "#{service_rest_require}.rb"
       end
 
       ##
@@ -142,7 +142,7 @@ module Gapic
       # @return [String]
       #
       def transcoding_helper_file_path
-        transcoding_helper_require + ".rb"
+        "#{transcoding_helper_require}.rb"
       end
 
 

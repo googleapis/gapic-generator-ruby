@@ -22,7 +22,7 @@ class MethodPresenterRestTest < PresenterTest
 
     assert presenter.routing_params?
     assert presenter.rest.verb?
-    assert_equal "foo", presenter.rest.uri_interpolated
+    assert_equal "/compute/v1/projects/\#{request_pb.project}/regions/\#{request_pb.region}/addresses", presenter.rest.uri_interpolated
     assert presenter.rest.verb?
   end
 end

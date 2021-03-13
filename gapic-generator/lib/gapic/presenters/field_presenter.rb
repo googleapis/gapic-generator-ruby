@@ -118,10 +118,9 @@ module Gapic
           ":#{@field.enum.values.first.name}"
         else
           case @field.type
-          when 1, 2                              then "0" # floating point
-          when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "0" # integer
-          when 9, 12                             then "\"\""
-          when 8                                 then "false"
+          when 1, 2, 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "0" # floating point or integer
+          when 9, 12                                   then "\"\""
+          when 8                                       then "false"
           end
         end
       end
@@ -203,7 +202,7 @@ module Gapic
         parts = attr_name.split "_"
         first_part = parts[0]
         other_parts = parts[1..-1]
-        other_parts_pascal = other_parts.map(&:capitalize).join("")
+        other_parts_pascal = other_parts.map(&:capitalize).join
         "#{first_part}#{other_parts_pascal}"
       end
     end

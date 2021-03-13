@@ -67,28 +67,7 @@ module Gapic
             param_name_input = unescape param_name_input_esc
             param_type, param_config_name = param_schema.schema_name_type_for param_name_input
 
-            if param_type == :bool && !["true", "false"].include?(unescape(value_str))
-              error_str = "WARNING: parameter #{param_name_input} (recognised as bool " \
-                                          "#{param_config_name}) will be discarded because of " \
-                                          "invalid value. Value should be either 'true' or 'false'."
-              error_output&.puts error_str
-            end
-
-            param_value = parse_param_value param_type, value_str
-
-            if param_config_name == ":transports"
-              allowed_transports = ["grpc", "rest"]
-              noncompliant_values = param_value.reject { |pv| allowed_transports.include?(pv) }
-              if noncompliant_values.any?
-                noncompliant_values_list = noncompliant_values.join ", "
-                error_str = "WARNING: parameter #{param_name_input} (recognised as string array " \
-                                          "#{param_config_name}) will be discarded because "\
-                                          "it contains invalid values: #{noncompliant_values_list}. "\
-                                          "#{param_config_name} can only contain 'grpc' and/or 'rest' or be empty."
-                error_output&.puts error_str
-                param_value = nil
-              end
-            end
+            param_value = parse_validate_param_value param_type, param_name_input, param_config_name, value_str, error_output
 
             if param_value
               RequestParameter.new param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value
@@ -106,9 +85,43 @@ module Gapic
 
         private
 
+        # Parses and validates param value depending on type and name
+        # @param param_type [Symbol] type of the parameter
+        # @param param_name_input [String] name of the parameter as given in the config
+        # @param param_config_name [String] canonical configuration name of the parameter
+        # @param value_str [String] string representation of parameter's value
+        # @param error_output [IO] Stream to write outputs to.
+        # @return [String,Array<String>,Hash{String => String}]
+        def parse_validate_param_value param_type, param_name_input, param_config_name, value_str, error_output
+          if param_type == :bool && !["true", "false"].include?(unescape(value_str))
+            error_str = "WARNING: parameter #{param_name_input} (recognised as bool " \
+                                          "#{param_config_name}) will be discarded because of " \
+                                          "invalid value. Value should be either 'true' or 'false'."
+            error_output&.puts error_str
+          end
+
+          param_value = parse_param_value param_type, value_str
+
+          if param_config_name == ":transports"
+            allowed_transports = ["grpc", "rest"]
+            noncompliant_values = param_value.reject { |pv| allowed_transports.include? pv }
+            if noncompliant_values.any?
+              noncompliant_values_list = noncompliant_values.join ", "
+              error_str = "WARNING: parameter #{param_name_input} (recognised as string array " \
+                                          "#{param_config_name}) will be discarded because "\
+                                          "it contains invalid values: #{noncompliant_values_list}. "\
+                                          "#{param_config_name} can only contain 'grpc' and/or 'rest' or be empty."
+              error_output&.puts error_str
+              param_value = nil
+            end
+          end
+
+          param_value
+        end
+
         # Parses param value depending on type
-        # @param param_type [Symbol]
-        # @param value_str [String]
+        # @param param_type [Symbol] type of the parameter
+        # @param value_str [String] string representation of parameter's value
         # @return [String,Array<String>,Hash{String => String}]
         def parse_param_value param_type, value_str
           case param_type
