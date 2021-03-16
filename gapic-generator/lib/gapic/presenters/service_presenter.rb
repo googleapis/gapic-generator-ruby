@@ -397,6 +397,16 @@ module Gapic
         }
       end
 
+      ##
+      # How comments in the generated libraries refer to the GRPC client
+      # if no REST code is generated, this should just be "client",
+      # if REST code is generated, this should be disambiguated into the "GRPC client"
+      #
+      # @return [String]
+      def grpc_client_designation
+        generate_rest_clients? ? "GRPC client" : "client"
+      end
+
       private
 
       def default_config key

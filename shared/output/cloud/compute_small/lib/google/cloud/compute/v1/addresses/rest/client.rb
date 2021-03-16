@@ -183,7 +183,7 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::AddressAggregatedList]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::AddressAggregatedList]
               #
@@ -207,7 +207,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_aggregated_list request
+                uri, _body, query_string_params = transcode_aggregated_list request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,
@@ -256,7 +256,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -280,7 +280,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_delete request
+                uri, _body, query_string_params = transcode_delete request
                 response = @client_stub.make_delete_request(
                   uri:     uri,
                   params:  query_string_params,
@@ -323,7 +323,7 @@ module Google
               #     Name of the region for this request.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Address]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Address]
               #
@@ -347,7 +347,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                (uri, _body, _query_string_params) = transcode_get request
+                uri, _body, _query_string_params = transcode_get request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   options: options
@@ -395,7 +395,7 @@ module Google
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -419,7 +419,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                (uri, body, _query_string_params) = transcode_insert request
+                uri, body, _query_string_params = transcode_insert request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
@@ -480,7 +480,7 @@ module Google
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, env] Access the result along with the Faraday environment object
               # @yieldparam result [::Google::Cloud::Compute::V1::AddressList]
-              # @yieldparam env [::Faraday::Env]
+              # @yieldparam response [::Faraday::Response]
               #
               # @return [::Google::Cloud::Compute::V1::AddressList]
               #
@@ -504,7 +504,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                (uri, _body, query_string_params) = transcode_list request
+                uri, _body, query_string_params = transcode_list request
                 response = @client_stub.make_get_request(
                   uri:     uri,
                   params:  query_string_params,

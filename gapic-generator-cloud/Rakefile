@@ -164,6 +164,19 @@ def prepare_embedded_gapic_generator_directory
   FileUtils.cp_r base_source_dir, base_tmp_dir
 end
 
+##
+# @param wrapper [Boolean] Omit generating proto and grpc stubs
+#   This is used for generating wrapper libraries (e.g. secretmanager_wrapper)
+#   The generator decides whether to generate a wrapper based on a
+#   `:gem:version_dependencies` parameter that is present
+#   in e.g. `shared/config/secretmanager_wrapper.yml`
+#
+# @param rest_only [Boolean] Omit generating grpc stubs
+#   This is used for generating rest-only client libraries (e.g. compute_small)
+#   The generator decides which transports (e.g. rest or grpc) to generate
+#   based on a `:transport` parameter that is present
+#   in e.g. `shared/config/compute_small.yml`
+#
 def generate_cloud_templates service, wrapper: false, rest_only: false
   require "gapic/generators/cloud_generator"
 

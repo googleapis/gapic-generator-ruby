@@ -59,7 +59,7 @@ module Gapic
       end
 
       ##
-      # @return [String] A method path or nil if not present
+      # @return [String] A method path or an empty string if not present
       #
       def path
         return "" if @proto_method.http.nil?

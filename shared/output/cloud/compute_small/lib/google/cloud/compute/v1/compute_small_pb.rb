@@ -254,6 +254,51 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :project, :string, 227560217
       optional :region, :string, 138946292
     end
+    add_message "google.cloud.compute.v1.ResizeRegionInstanceGroupManagerRequest" do
+      optional :instance_group_manager, :string, 249363395
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
+      optional :request_id, :string, 37109963
+      optional :size, :int32, 3530753
+    end
+    add_message "google.cloud.compute.v1.ExchangedPeeringRoute" do
+      optional :dest_range, :string, 112892256
+      optional :imported, :bool, 114502404
+      optional :next_hop_region, :string, 122577014
+      optional :priority, :uint32, 176716196
+      optional :type, :enum, 3575610, "google.cloud.compute.v1.ExchangedPeeringRoute.Type"
+    end
+    add_enum "google.cloud.compute.v1.ExchangedPeeringRoute.Type" do
+      value :UNDEFINED_TYPE, 0
+      value :DYNAMIC_PEERING_ROUTE, 201359402
+      value :STATIC_PEERING_ROUTE, 204972089
+      value :SUBNET_PEERING_ROUTE, 197347048
+    end
+    add_message "google.cloud.compute.v1.ExchangedPeeringRoutesList" do
+      optional :id, :string, 3355
+      repeated :items, :message, 100526016, "google.cloud.compute.v1.ExchangedPeeringRoute"
+      optional :kind, :string, 3292052
+      optional :next_page_token, :string, 79797525
+      optional :self_link, :string, 187779341
+      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+    end
+    add_message "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest" do
+      optional :direction, :enum, 111150975, "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction"
+      optional :filter, :string, 67685240
+      optional :max_results, :uint32, 54715419
+      optional :network, :string, 232872494
+      optional :order_by, :string, 160562920
+      optional :page_token, :string, 19994697
+      optional :peering_name, :string, 249571370
+      optional :project, :string, 227560217
+      optional :region, :string, 138946292
+      optional :return_partial_success, :bool, 248762934
+    end
+    add_enum "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction" do
+      value :UNDEFINED_DIRECTION, 0
+      value :INCOMING, 70117414
+      value :OUTGOING, 39002988
+    end
   end
 end
 
@@ -290,6 +335,12 @@ module Google
         GetRegionOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.GetRegionOperationRequest").msgclass
         ListRegionOperationsRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListRegionOperationsRequest").msgclass
         WaitRegionOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.WaitRegionOperationRequest").msgclass
+        ResizeRegionInstanceGroupManagerRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ResizeRegionInstanceGroupManagerRequest").msgclass
+        ExchangedPeeringRoute = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ExchangedPeeringRoute").msgclass
+        ExchangedPeeringRoute::Type = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ExchangedPeeringRoute.Type").enummodule
+        ExchangedPeeringRoutesList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ExchangedPeeringRoutesList").msgclass
+        ListPeeringRoutesNetworksRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListPeeringRoutesNetworksRequest").msgclass
+        ListPeeringRoutesNetworksRequest::Direction = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction").enummodule
       end
     end
   end

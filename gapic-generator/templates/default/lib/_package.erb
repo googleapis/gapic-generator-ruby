@@ -7,9 +7,8 @@ require "<%= package.gem.version_require %>"
 <% end %>
 <%- unless package.empty? -%>
 <%- if package.services.first.generate_grpc_clients? -%>
-<%- grpc_client_description = package.services.first.generate_rest_clients? ? "GRPC client" : "client" -%>
 ##
-# To load this package, including all its services, and instantiate a <%= grpc_client_description %>:
+# To load this package, including all its services, and instantiate a <%= package.grpc_client_designation %>:
 #
 #     require "<%= package.package_require %>"
 #     client = <%= package.services.first.create_client_call %>

@@ -23,8 +23,7 @@ module Gapic
       BOOL_PARAMETERS = [
         ":gem.:free_tier",
         ":gem.:yard_strict",
-        ":gem.:generic_endpoint",
-        ":generate_rest_clients"
+        ":gem.:generic_endpoint"
       ].freeze
 
       STRING_PARAMETERS = [
