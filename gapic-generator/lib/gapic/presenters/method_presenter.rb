@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "gapic/uri_template"
 require "gapic/ruby_info"
 require "gapic/helpers/namespace_helper"
 
@@ -27,12 +26,26 @@ module Gapic
     class MethodPresenter
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [Gapic::Schema::Method]
+      attr_accessor :method
+
+      # @return [Gapic::Presenters::MethodRestPresenter]
+      attr_accessor :rest
+
+      ##
+      # @param service_presenter [Gapic::Presenters::ServicePresenter]
+      # @param api [Gapic::Schema::Api]
+      # @param method [Gapic::Schema::Method]
       def initialize service_presenter, api, method
         @service_presenter = service_presenter
         @api = api
         @method = method
+        @rest = MethodRestPresenter.new self
       end
 
+      ##
+      # @return [Gapic::Presenters::ServicePresenter]
+      #
       def service
         @service_presenter
       end
@@ -195,15 +208,17 @@ module Gapic
       end
 
       ##
-      #
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        Gapic::UriTemplate.parse_arguments method_path
+        rest.routing_params
       end
 
+      ##
+      # @return [Boolean] Whether any routing params are present
+      #
       def routing_params?
-        routing_params.any?
+        rest.routing_params?
       end
 
       def grpc_service_config
@@ -264,18 +279,6 @@ module Gapic
             "::Object"
           end
         end
-      end
-
-      def method_path
-        return "" if @method.http.nil?
-
-        method = [
-          @method.http.get, @method.http.post, @method.http.put,
-          @method.http.patch, @method.http.delete
-        ].find { |x| !x.empty? }
-        return method unless method.nil?
-
-        return @method.http.custom.path unless @method.http.custom.nil?
       end
 
       def paged_request? request

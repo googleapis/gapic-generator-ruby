@@ -21,10 +21,12 @@ require "gapic/presenters/file_presenter"
 require "gapic/presenters/gem_presenter"
 require "gapic/presenters/message_presenter"
 require "gapic/presenters/method_presenter"
+require "gapic/presenters/method_rest_presenter"
 require "gapic/presenters/package_presenter"
 require "gapic/presenters/resource_presenter"
 require "gapic/presenters/sample_presenter"
 require "gapic/presenters/service_presenter"
+require "gapic/presenters/service_rest_presenter"
 
 module Gapic
   ##

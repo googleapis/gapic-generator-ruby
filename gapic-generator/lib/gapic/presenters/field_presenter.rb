@@ -88,6 +88,10 @@ module Gapic
         @field.repeated?
       end
 
+      def required?
+        @field.required?
+      end
+
       def map?
         @field.map?
       end
@@ -98,6 +102,34 @@ module Gapic
 
       def oneof_name
         @message.oneof_decl[@field.oneof_index].name
+      end
+
+      ##
+      # Returns a stringified default value for the protobuf types
+      # that are possible to fit into the query string parameter
+      # and nil for the other types (e.g. Messages)
+      #
+      # @return [String, nil]
+      #
+      def default_value_for_type
+        if @field.message?
+          nil
+        elsif @field.enum?
+          ":#{@field.enum.values.first.name}"
+        else
+          case @field.type
+          when 1, 2, 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "0" # floating point or integer
+          when 9, 12                                   then "\"\""
+          when 8                                       then "false"
+          end
+        end
+      end
+
+      ##
+      # Name of this field, camel-cased
+      # @return [String]
+      def camel_name
+        camel_name_for name
       end
 
       protected
@@ -160,6 +192,18 @@ module Gapic
 
       def message_ruby_type message
         ruby_namespace @api, message.address.join(".")
+      end
+
+      ##
+      # Converts a snake_case parameter name into camelCase for query string parameters
+      # @param attr_name [String]
+      # @return [String] camel-cased parameter name
+      def camel_name_for attr_name
+        parts = attr_name.split "_"
+        first_part = parts[0]
+        other_parts = parts[1..-1]
+        other_parts_pascal = other_parts.map(&:capitalize).join
+        "#{first_part}#{other_parts_pascal}"
       end
     end
   end

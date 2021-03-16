@@ -50,6 +50,7 @@ module ApiTestResources
 
     # array parameters
     default_oauth_scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    transports: %w[grpc rest],
 
     # map parameters
 
@@ -102,6 +103,7 @@ module ApiTestResources
       namespace: API_INFO[:namespace_override],
       service: API_INFO[:service_override],
       wrapper_gem_name: API_INFO[:wrapper_gem_name_override]
-    }
+    },
+    transports: API_INFO[:transports]
   }.freeze
 end

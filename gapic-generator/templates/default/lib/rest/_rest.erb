@@ -1,0 +1,11 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+require "gapic/rest"
+require "<%= service.rest.transcoding_helper_require %>"
+require "<%= service.rest.client_require %>"
+<% end %>
+module <%= service.module_name %>
+  # Client for the REST transport
+  module Rest
+  end
+end

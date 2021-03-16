@@ -54,13 +54,16 @@ module Gapic
           package.services.each do |service|
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
-            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service)
+            files << g("service/rest.erb",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service) unless @api.generate_rest_clients?
             files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
             files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
-            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro?
-            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service)
+            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && !@api.generate_rest_clients?
+            files << g("service/rest/client.erb",            "lib/#{service.rest.client_file_path}",             service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/rest/grpc_transcoding.erb",  "lib/#{service.rest.transcoding_helper_file_path}", service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service) unless @api.generate_rest_clients?
             files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
-            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro?
+            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && !@api.generate_rest_clients?
           end
         end
 

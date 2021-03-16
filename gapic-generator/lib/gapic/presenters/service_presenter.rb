@@ -27,11 +27,15 @@ module Gapic
       include Gapic::Helpers::FilepathHelper
       include Gapic::Helpers::NamespaceHelper
 
+      # @return [Gapic::Presenters::ServiceRestPresenter]
+      attr_reader :rest
+
       def initialize gem_presenter, api, service, parent_service: nil
         @gem_presenter = gem_presenter
         @api = api
         @service = service
         @parent_service = parent_service
+        @rest = ServiceRestPresenter.new self, api
       end
 
       def gem
@@ -46,6 +50,9 @@ module Gapic
         PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
+      ##
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #
       def methods
         @methods ||= begin
           @service.methods.map { |m| MethodPresenter.new self, @api, m }
@@ -271,6 +278,29 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{paths_name}"
       end
 
+      def generate_rest_clients?
+        @api.generate_rest_clients?
+      end
+
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
+      ##
+      # @return [Boolean] whether this service contains any methods with REST bindings
+      #
+      def methods_rest_bindings?
+        methods_rest_bindings.any?
+      end
+
+      ##
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #   List of mods for which REST bindings are present and REST methods can be generated
+      #
+      def methods_rest_bindings
+        methods.select { |method| method.rest.path? && method.rest.verb? }
+      end
+
       def test_client_file_path
         service_file_path.sub ".rb", "_test.rb"
       end
@@ -365,6 +395,16 @@ module Gapic
             }
           }
         }
+      end
+
+      ##
+      # How comments in the generated libraries refer to the GRPC client
+      # if no REST code is generated, this should just be "client",
+      # if REST code is generated, this should be disambiguated into the "GRPC client"
+      #
+      # @return [String]
+      def grpc_client_designation
+        generate_rest_clients? ? "GRPC client" : "client"
       end
 
       private

@@ -32,6 +32,9 @@ module Gapic
         @api = api
       end
 
+      ##
+      # @return [Enumerable<Gapic::Presenters::PackagePresenter>]
+      #
       def packages
         @packages ||= begin
           packages = @api.generate_files.map(&:package).uniq.sort

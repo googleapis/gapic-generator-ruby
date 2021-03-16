@@ -47,7 +47,8 @@ module Gapic
       ].freeze
 
       ARRAY_PARAMETERS = [
-        ":defaults.:service.:oauth_scopes"
+        ":defaults.:service.:oauth_scopes",
+        ":transports"
       ].freeze
 
       MAP_PARAMETERS = [
@@ -84,7 +85,8 @@ module Gapic
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
-        "default-oauth-scopes" => ":defaults.:service.:oauth_scopes"
+        "default-oauth-scopes" => ":defaults.:service.:oauth_scopes",
+        "transports" => ":transports"
       }.freeze
 
       MAP_PARAMETERS_ALIASES = {

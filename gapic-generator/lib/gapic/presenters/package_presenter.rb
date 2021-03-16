@@ -54,7 +54,10 @@ module Gapic
         namespace.split("::").last
       end
 
+      ##
       # Services whose clients should be generated in this package namespace.
+      # @return [Enumerable<Gapic::Presenters::ServicePresenter>]
+      #
       def services
         @services ||= begin
           files = @api.generate_files.select { |f| f.package == @package }
@@ -116,6 +119,21 @@ module Gapic
           libraryPackage: namespace,
           services:       services.map { |s| [s.grpc_service_name, s.drift_manifest] }.to_h
         }
+      end
+
+      ##
+      # How comments in the generated libraries refer to the GRPC client
+      # if no REST code is generated, this should just be "client",
+      # if REST code is generated, this should be disambiguated into the "GRPC client"
+      #
+      # Since we are using first service for an indication of whether package generates
+      # REST code, it's OK to defer this to the first service as well.
+      # For packages with no services the value of this does not really matter as
+      # no client generation docs will be generated.
+      #
+      # @return [String]
+      def grpc_client_designation
+        services.first&.grpc_client_designation || ""
       end
     end
   end
