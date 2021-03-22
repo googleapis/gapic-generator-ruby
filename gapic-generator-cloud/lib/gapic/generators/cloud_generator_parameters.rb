@@ -21,9 +21,10 @@ module Gapic
     # Contains the cloud generator's parameters
     module CloudGeneratorParameters
       BOOL_PARAMETERS_ALIASES = {
-        "ruby-cloud-free-tier"        => ":gem.:free_tier",
-        "ruby-cloud-yard-strict"      => ":gem.:yard_strict",
-        "ruby-cloud-generic-endpoint" => ":gem.:generic_endpoint"
+        "ruby-cloud-free-tier"         => ":gem.:free_tier",
+        "ruby-cloud-yard-strict"       => ":gem.:yard_strict",
+        "ruby-cloud-generic-endpoint"  => ":gem.:generic_endpoint",
+        "ruby-cloud-generate-metadata" => ":generate_metadata"
       }.freeze
 
       STRING_PARAMETERS_ALIASES = {

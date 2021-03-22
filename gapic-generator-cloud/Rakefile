@@ -93,8 +93,6 @@ namespace :gen do |gen_namespace|
   desc "Generate the expected output for compute_small"
   task :compute_small do
     generate_cloud_templates :compute_small, rest_only: true
-    # until the drift metadata generation is updated for REST generation
-    rm '../shared/output/cloud/compute_small/gapic_metadata.json'
   end
 end
 

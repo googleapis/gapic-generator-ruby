@@ -23,7 +23,8 @@ module Gapic
       BOOL_PARAMETERS = [
         ":gem.:free_tier",
         ":gem.:yard_strict",
-        ":gem.:generic_endpoint"
+        ":gem.:generic_endpoint",
+        ":generate_metadata"
       ].freeze
 
       STRING_PARAMETERS = [
@@ -62,7 +63,7 @@ module Gapic
       BOOL_PARAMETERS_ALIASES = {
         "gem-free-tier"        => ":gem.:free_tier",
         "gem-yard-strict"      => ":gem.:yard_strict",
-        "gem-generic-endpoint" => ":gem.:generic_endpoint"
+        "gem-generic-endpoint" => ":gem.:generic_endpoint",
       }.freeze
 
       STRING_PARAMETERS_ALIASES = {

@@ -26,6 +26,7 @@ module ApiTestResources
     free_tier: 'invalid_value',
     yard_strict: 'false',
     generic_endpoint: 'true',
+    generate_metadata: 'true',
 
     # string parameters
     name: 'google-cloud-container_analysis-v1',
@@ -104,6 +105,7 @@ module ApiTestResources
       service: API_INFO[:service_override],
       wrapper_gem_name: API_INFO[:wrapper_gem_name_override]
     },
-    transports: API_INFO[:transports]
+    transports: API_INFO[:transports],
+    generate_metadata: API_INFO[:generate_metadata]
   }.freeze
 end
