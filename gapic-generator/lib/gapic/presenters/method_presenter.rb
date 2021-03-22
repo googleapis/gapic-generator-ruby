@@ -236,7 +236,7 @@ module Gapic
       # Returns a hash with a drift_manifest of this rpc method
       # describing correspondence between the proto description
       # of the rpc with the generated code for the method.
-      # For ruby currently [03/2021] only one method is generated per RPC, 
+      # For ruby currently [03/2021] only one method is generated per RPC,
       # so the correspondence is very basic.
       # See https://github.com/googleapis/googleapis/blob/master/gapic/metadata/gapic_metadata.proto
       #
