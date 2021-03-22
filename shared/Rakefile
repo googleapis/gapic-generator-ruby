@@ -18,12 +18,12 @@ require_relative "./gem_defaults"
 
 desc "Generate the binary input files"
 task :gen do
-  Rake::Task["gen:templates"].invoke
+  Rake::Task["gen:binaries"].invoke
 end
 namespace :gen do |gen_namespace|
   desc "Generate the binary input files for template tests"
-  task :templates do |templates_task|
-    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+  task :binaries do |binaries_task|
+    gen_namespace.tasks.reject { |t| t == binaries_task }.each do |t|
       puts "Generating binary input for #{t.name}"
       t.invoke
     end
