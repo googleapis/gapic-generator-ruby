@@ -18,20 +18,17 @@ require_relative "./gem_defaults"
 
 desc "Generate the binary input files"
 task :gen do
-  Rake::Task["gen:language_v1"].invoke
-  Rake::Task["gen:language_v1beta1"].invoke
-  Rake::Task["gen:language_v1beta2"].invoke
-  Rake::Task["gen:secretmanager_v1beta1"].invoke
-  Rake::Task["gen:speech_v1"].invoke
-  Rake::Task["gen:vision_v1"].invoke
-  Rake::Task["gen:showcase"].invoke
-  Rake::Task["gen:garbage"].invoke
-  Rake::Task["gen:googleads"].invoke
-  Rake::Task["gen:grpc_service_config"].invoke
-  Rake::Task["gen:compute_small"].invoke
+  Rake::Task["gen:binaries"].invoke
 end
+namespace :gen do |gen_namespace|
+  desc "Generate the binary input files for template tests"
+  task :binaries do |binaries_task|
+    gen_namespace.tasks.reject { |t| t == binaries_task }.each do |t|
+      puts "Generating binary input for #{t.name}"
+      t.invoke
+    end
+  end
 
-namespace :gen do
   desc "Generate the binary input files for language v1"
   task :language_v1 do
     generate_input_file :language_v1
