@@ -9,3 +9,4 @@
 :overrides:
   :service:
     RenamedService: ReallyRenamedService
+:generate_metadata: true

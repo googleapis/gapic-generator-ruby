@@ -243,6 +243,12 @@ module Gapic
         configuration[:transports].include? "grpc"
       end
 
+      # Whether to generate gapic metadata (drift manifest) file
+      # @return [Boolean]
+      def generate_metadata
+        configuration[:generate_metadata] ||= false
+      end
+
       # Whether the override_proto_namespaces parameter was given in the configuration
       def override_proto_namespaces_defined?
         configuration.key? :override_proto_namespaces

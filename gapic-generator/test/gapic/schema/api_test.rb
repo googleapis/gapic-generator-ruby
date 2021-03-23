@@ -29,6 +29,7 @@ class ApiTest < Minitest::Test
       [":gem.:free_tier", API_INFO[:free_tier]],
       [":gem.:yard_strict", API_INFO[:yard_strict]],
       [":gem.:generic_endpoint", API_INFO[:generic_endpoint]],
+      [":generate_metadata", API_INFO[:generate_metadata]],
 
       [":gem.:name", API_INFO[:name]],
       [":gem.:namespace", API_INFO[:namespace]],
@@ -75,6 +76,8 @@ class ApiTest < Minitest::Test
       ["gem-free-tier", API_INFO[:free_tier]],
       ["gem-yard-strict", API_INFO[:yard_strict]],
       ["gem-generic-endpoint", API_INFO[:generic_endpoint]],
+      # this parameter has no alias in gapic-generator-vanilla
+      [":generate_metadata", API_INFO[:generate_metadata]],
 
       ["gem-name", API_INFO[:name]],
       ["gem-namespace", API_INFO[:namespace]],
@@ -92,6 +95,7 @@ class ApiTest < Minitest::Test
       ["gem-factory-method-suffix", API_INFO[:factory_method_suffix]],
       ["default-service-host", API_INFO[:default_host]],
       ["grpc-service-config", API_INFO[:grpc_service_config]],
+      # this parameter has no alias in gapic-generator-vanilla
       [":overrides.:wrapper_gem_name", API_INFO[:wrapper_gem_name_override]],
 
       # arrays of values are joined with the ';' symbol

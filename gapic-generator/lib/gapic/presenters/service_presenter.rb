@@ -391,7 +391,7 @@ module Gapic
               # their names are returned together in an array.
               # For Ruby currently we have 1:1 proto to code
               # correspondence for methods, so our generation is easier
-              methods:       methods.map { |m| [m.grpc_method_name, [m.name]] }.to_h
+              rpcs:       methods.map { |m| [m.grpc_method_name, m.drift_manifest] }.to_h
             }
           }
         }

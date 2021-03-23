@@ -9,28 +9,42 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Echo::Client",
-          "methods": {
-            "Echo": [
-              "echo"
-            ],
-            "Expand": [
-              "expand"
-            ],
-            "Collect": [
-              "collect"
-            ],
-            "Chat": [
-              "chat"
-            ],
-            "PagedExpand": [
-              "paged_expand"
-            ],
-            "Wait": [
-              "wait"
-            ],
-            "Block": [
-              "block"
-            ]
+          "rpcs": {
+            "Echo": {
+              "methods": [
+                "echo"
+              ]
+            },
+            "Expand": {
+              "methods": [
+                "expand"
+              ]
+            },
+            "Collect": {
+              "methods": [
+                "collect"
+              ]
+            },
+            "Chat": {
+              "methods": [
+                "chat"
+              ]
+            },
+            "PagedExpand": {
+              "methods": [
+                "paged_expand"
+              ]
+            },
+            "Wait": {
+              "methods": [
+                "wait"
+              ]
+            },
+            "Block": {
+              "methods": [
+                "block"
+              ]
+            }
           }
         }
       }
@@ -39,22 +53,32 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Identity::Client",
-          "methods": {
-            "CreateUser": [
-              "create_user"
-            ],
-            "GetUser": [
-              "get_user"
-            ],
-            "UpdateUser": [
-              "update_user"
-            ],
-            "DeleteUser": [
-              "delete_user"
-            ],
-            "ListUsers": [
-              "list_users"
-            ]
+          "rpcs": {
+            "CreateUser": {
+              "methods": [
+                "create_user"
+              ]
+            },
+            "GetUser": {
+              "methods": [
+                "get_user"
+              ]
+            },
+            "UpdateUser": {
+              "methods": [
+                "update_user"
+              ]
+            },
+            "DeleteUser": {
+              "methods": [
+                "delete_user"
+              ]
+            },
+            "ListUsers": {
+              "methods": [
+                "list_users"
+              ]
+            }
           }
         }
       }
@@ -63,49 +87,77 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Messaging::Client",
-          "methods": {
-            "CreateRoom": [
-              "create_room"
-            ],
-            "GetRoom": [
-              "get_room"
-            ],
-            "UpdateRoom": [
-              "update_room"
-            ],
-            "DeleteRoom": [
-              "delete_room"
-            ],
-            "ListRooms": [
-              "list_rooms"
-            ],
-            "CreateBlurb": [
-              "create_blurb"
-            ],
-            "GetBlurb": [
-              "get_blurb"
-            ],
-            "UpdateBlurb": [
-              "update_blurb"
-            ],
-            "DeleteBlurb": [
-              "delete_blurb"
-            ],
-            "ListBlurbs": [
-              "list_blurbs"
-            ],
-            "SearchBlurbs": [
-              "search_blurbs"
-            ],
-            "StreamBlurbs": [
-              "stream_blurbs"
-            ],
-            "SendBlurbs": [
-              "send_blurbs"
-            ],
-            "Connect": [
-              "connect"
-            ]
+          "rpcs": {
+            "CreateRoom": {
+              "methods": [
+                "create_room"
+              ]
+            },
+            "GetRoom": {
+              "methods": [
+                "get_room"
+              ]
+            },
+            "UpdateRoom": {
+              "methods": [
+                "update_room"
+              ]
+            },
+            "DeleteRoom": {
+              "methods": [
+                "delete_room"
+              ]
+            },
+            "ListRooms": {
+              "methods": [
+                "list_rooms"
+              ]
+            },
+            "CreateBlurb": {
+              "methods": [
+                "create_blurb"
+              ]
+            },
+            "GetBlurb": {
+              "methods": [
+                "get_blurb"
+              ]
+            },
+            "UpdateBlurb": {
+              "methods": [
+                "update_blurb"
+              ]
+            },
+            "DeleteBlurb": {
+              "methods": [
+                "delete_blurb"
+              ]
+            },
+            "ListBlurbs": {
+              "methods": [
+                "list_blurbs"
+              ]
+            },
+            "SearchBlurbs": {
+              "methods": [
+                "search_blurbs"
+              ]
+            },
+            "StreamBlurbs": {
+              "methods": [
+                "stream_blurbs"
+              ]
+            },
+            "SendBlurbs": {
+              "methods": [
+                "send_blurbs"
+              ]
+            },
+            "Connect": {
+              "methods": [
+                "connect"
+              ]
+            }
           }
         }
       }
@@ -114,31 +166,47 @@
       "clients": {
         "grpc": {
           "libraryClient": "::Google::Showcase::V1beta1::Testing::Client",
-          "methods": {
-            "CreateSession": [
-              "create_session"
-            ],
-            "GetSession": [
-              "get_session"
-            ],
-            "ListSessions": [
-              "list_sessions"
-            ],
-            "DeleteSession": [
-              "delete_session"
-            ],
-            "ReportSession": [
-              "report_session"
-            ],
-            "ListTests": [
-              "list_tests"
-            ],
-            "DeleteTest": [
-              "delete_test"
-            ],
-            "VerifyTest": [
-              "verify_test"
-            ]
+          "rpcs": {
+            "CreateSession": {
+              "methods": [
+                "create_session"
+              ]
+            },
+            "GetSession": {
+              "methods": [
+                "get_session"
+              ]
+            },
+            "ListSessions": {
+              "methods": [
+                "list_sessions"
+              ]
+            },
+            "DeleteSession": {
+              "methods": [
+                "delete_session"
+              ]
+            },
+            "ReportSession": {
+              "methods": [
+                "report_session"
+              ]
+            },
+            "ListTests": {
+              "methods": [
+                "list_tests"
+              ]
+            },
+            "DeleteTest": {
+              "methods": [
+                "delete_test"
+              ]
+            },
+            "VerifyTest": {
+              "methods": [
+                "verify_test"
+              ]
+            }
           }
         }
       }

@@ -33,6 +33,11 @@ module Gapic
         gem_config = api.configuration[:gem] ||= {}
         gem_config[:homepage] ||= "https://github.com/googleapis/google-cloud-ruby"
 
+        # The gapic metadata generation is disabled by default as per spec.
+        # However it should be enabled by default for cloud libraries, otherwise we'll have to
+        # enable it in every synth/bazel file.
+        api.configuration[:generate_metadata] = true if api.configuration[:generate_metadata].nil?
+
         super
 
         # Configure to use prefer Google Cloud templates

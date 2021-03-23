@@ -9,55 +9,87 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::GarbageService::Client",
-          "methods": {
-            "GetEmptyGarbage": [
-              "get_empty_garbage"
-            ],
-            "GetSimpleGarbage": [
-              "get_simple_garbage"
-            ],
-            "GetSpecificGarbage": [
-              "get_specific_garbage"
-            ],
-            "GetNestedGarbage": [
-              "get_nested_garbage"
-            ],
-            "GetRepeatedGarbage": [
-              "get_repeated_garbage"
-            ],
-            "GetTypicalGarbage": [
-              "get_typical_garbage"
-            ],
-            "GetTypicalGarbageByRequest": [
-              "get_typical_garbage_by_request"
-            ],
-            "GetComplexGarbage": [
-              "get_complex_garbage"
-            ],
-            "GetGarbageNode": [
-              "get_garbage_node"
-            ],
-            "GetPagedGarbage": [
-              "get_paged_garbage"
-            ],
-            "LongRunningGarbage": [
-              "long_running_garbage"
-            ],
-            "ClientGarbage": [
-              "client_garbage"
-            ],
-            "ServerGarbage": [
-              "server_garbage"
-            ],
-            "BidiGarbage": [
-              "bidi_garbage"
-            ],
-            "BidiTypicalGarbage": [
-              "bidi_typical_garbage"
-            ],
-            "Send": [
-              "call_send"
-            ]
+          "rpcs": {
+            "GetEmptyGarbage": {
+              "methods": [
+                "get_empty_garbage"
+              ]
+            },
+            "GetSimpleGarbage": {
+              "methods": [
+                "get_simple_garbage"
+              ]
+            },
+            "GetSpecificGarbage": {
+              "methods": [
+                "get_specific_garbage"
+              ]
+            },
+            "GetNestedGarbage": {
+              "methods": [
+                "get_nested_garbage"
+              ]
+            },
+            "GetRepeatedGarbage": {
+              "methods": [
+                "get_repeated_garbage"
+              ]
+            },
+            "GetTypicalGarbage": {
+              "methods": [
+                "get_typical_garbage"
+              ]
+            },
+            "GetTypicalGarbageByRequest": {
+              "methods": [
+                "get_typical_garbage_by_request"
+              ]
+            },
+            "GetComplexGarbage": {
+              "methods": [
+                "get_complex_garbage"
+              ]
+            },
+            "GetGarbageNode": {
+              "methods": [
+                "get_garbage_node"
+              ]
+            },
+            "GetPagedGarbage": {
+              "methods": [
+                "get_paged_garbage"
+              ]
+            },
+            "LongRunningGarbage": {
+              "methods": [
+                "long_running_garbage"
+              ]
+            },
+            "ClientGarbage": {
+              "methods": [
+                "client_garbage"
+              ]
+            },
+            "ServerGarbage": {
+              "methods": [
+                "server_garbage"
+              ]
+            },
+            "BidiGarbage": {
+              "methods": [
+                "bidi_garbage"
+              ]
+            },
+            "BidiTypicalGarbage": {
+              "methods": [
+                "bidi_typical_garbage"
+              ]
+            },
+            "Send": {
+              "methods": [
+                "call_send"
+              ]
+            }
           }
         }
       }
@@ -66,10 +98,12 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::ReallyRenamedService::Client",
-          "methods": {
-            "GetEmptyGarbage": [
-              "get_empty_garbage"
-            ]
+          "rpcs": {
+            "GetEmptyGarbage": {
+              "methods": [
+                "get_empty_garbage"
+              ]
+            }
           }
         }
       }
@@ -78,22 +112,32 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::ResourceNames::Client",
-          "methods": {
-            "SimplePatternMethod": [
-              "simple_pattern_method"
-            ],
-            "ComplexPatternMethod": [
-              "complex_pattern_method"
-            ],
-            "ResourceNamePatternMethod": [
-              "resource_name_pattern_method"
-            ],
-            "MultiparentMethod": [
-              "multiparent_method"
-            ],
-            "NoArgumentsMultiMethod": [
-              "no_arguments_multi_method"
-            ]
+          "rpcs": {
+            "SimplePatternMethod": {
+              "methods": [
+                "simple_pattern_method"
+              ]
+            },
+            "ComplexPatternMethod": {
+              "methods": [
+                "complex_pattern_method"
+              ]
+            },
+            "ResourceNamePatternMethod": {
+              "methods": [
+                "resource_name_pattern_method"
+              ]
+            },
+            "MultiparentMethod": {
+              "methods": [
+                "multiparent_method"
+              ]
+            },
+            "NoArgumentsMultiMethod": {
+              "methods": [
+                "no_arguments_multi_method"
+              ]
+            }
           }
         }
       }
@@ -102,16 +146,22 @@
       "clients": {
         "grpc": {
           "libraryClient": "::So::Much::Trash::IAMPolicy::Client",
-          "methods": {
-            "SetIamPolicy": [
-              "set_iam_policy"
-            ],
-            "GetIamPolicy": [
-              "get_iam_policy"
-            ],
-            "TestIamPermissions": [
-              "test_iam_permissions"
-            ]
+          "rpcs": {
+            "SetIamPolicy": {
+              "methods": [
+                "set_iam_policy"
+              ]
+            },
+            "GetIamPolicy": {
+              "methods": [
+                "get_iam_policy"
+              ]
+            },
+            "TestIamPermissions": {
+              "methods": [
+                "test_iam_permissions"
+              ]
+            }
           }
         }
       }

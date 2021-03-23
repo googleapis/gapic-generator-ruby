@@ -80,7 +80,7 @@ module Gapic
         files << g("gem/yardopts.erb",              ".yardopts",                    gem: gem)
         files << g("gem/license.erb",               "LICENSE.md",                   gem: gem)
         files << g("gem/entrypoint.erb",            "lib/#{gem.name}.rb",           gem: gem)
-        files << g("gem/gapic_metadata_json.erb",   "gapic_metadata.json",          gem: gem)
+        files << g("gem/gapic_metadata_json.erb",   "gapic_metadata.json",          gem: gem) if @api.generate_metadata
 
         gem.proto_files.each do |proto_file|
           files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
