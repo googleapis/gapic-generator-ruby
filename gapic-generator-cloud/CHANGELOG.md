@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.7.3 / 2021-03-24
+
+* Includes changes from gapic-generator 0.7.3
+* Gapic metadata file generation is enabled by default for gapic-generator-cloud
+
 ### 0.7.2 / 2021-03-05
 
 * Disable metrics-related rubocop checks in generated wrapper libraries.

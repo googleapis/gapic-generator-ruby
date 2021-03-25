@@ -1,5 +1,14 @@
 # Release History for gapic-generator
 
+### 0.7.3 / 2021-03-24
+    
+* Fixed gapic metadata (drift manifest) generation
+* Gapic metadata generation is disabled by default in gapic-generator
+    (enabled by default in gapic-generator-cloud)
+* Can now generate libraries with REST transport in addition to GRPC
+* gapic-common 0.4 is the default version for the generated libraries now (was 0.3)
+    (required for the generated libraries with the REST transport) 
+
 ### 0.7.2 / 2021-03-05
 
 * No changes.
