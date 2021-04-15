@@ -85,7 +85,7 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_post_request uri:, body:, params: {}, options: {}
+      def make_post_request uri:, body: nil, params: {}, options: {}
         make_http_request :post, uri: uri, body: body, params: params, options: options
       end
 
