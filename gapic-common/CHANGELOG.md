@@ -1,5 +1,8 @@
 # Release History
 
+### 0.4.1 / 2021-04-15
+* Provide a default value for the 'body' in the REST POST method in Gapic::Rest.
+
 ### 0.4.0 / 2021-02-23
 
 * Support for the REST calls via the Gapic::Rest::ClientStub and other classes in Gapic::Rest
