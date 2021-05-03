@@ -1,0 +1,59 @@
+# Copyright 2021 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Defines the targets for the google-cloud-compute (regapic) library to be built
+with gapic-generator-ruby cloud flavor
+"""
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
+  "ruby_cloud_gapic_library",
+  "ruby_proto_library")
+
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
+  "ruby_gapic_assembly_pkg")
+
+##
+# completed google-cloud-compute library combined from
+# * protoc ruby output
+# * gapic-generator-ruby cloud flavor output
+#
+ruby_gapic_assembly_pkg(
+  name = "google-cloud-compute-v1-ruby",
+  deps = [
+    ":compute_ruby_gapic",
+    ":compute_ruby_proto",
+  ],
+)
+
+##
+# just the gapic-generator-ruby cloud flavor output
+#
+ruby_cloud_gapic_library(
+  name = "compute_ruby_gapic",
+  srcs = ["@com_google_googleapis_discovery//google/cloud/compute/v1:compute_proto_with_info"],
+  ruby_cloud_title="Compute V1",
+  ruby_cloud_description="google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API.",
+  extra_protoc_parameters = [
+    "ruby-cloud-gem-name=google-cloud-compute-v1",
+    "ruby-cloud-generate-transports=rest",
+  ],
+)
+
+##
+# just the protoc ruby output
+#
+ruby_proto_library(
+  name = "compute_ruby_proto",
+  deps = ["@com_google_googleapis_discovery//google/cloud/compute/v1:compute_proto"],
+)
