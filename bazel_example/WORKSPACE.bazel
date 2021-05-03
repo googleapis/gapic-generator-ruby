@@ -128,8 +128,9 @@ http_archive(
     urls = ["https://github.com/googleapis/gapic-showcase/archive/466f2d57422377a03e5d883c3f3da9cbcbaffe36.zip"],
 )
 
+
 ##
-# showcase for vanilla examples
+# discovery for the diregapic example
 #
 http_archive(
     name = "com_google_googleapis_discovery",
@@ -138,10 +139,9 @@ http_archive(
     urls = ["https://github.com/googleapis/googleapis-discovery/archive/79d57671661a6078526fd5a51e2431eb5ce53b78.zip"],
 )
 
-##############################################################################
-# Discovery
-##############################################################################
-
+##
+# com_google_disco_to_proto3_converter is needed for the discovery to work
+#
 http_archive(
     name = "com_google_disco_to_proto3_converter",
     strip_prefix = "disco-to-proto3-converter-451838644577e9054eeb378d0514a8c089bc3302",
