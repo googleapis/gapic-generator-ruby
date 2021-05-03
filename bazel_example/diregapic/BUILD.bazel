@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """
-Defines the targets for the google cloud language library to be built
+Defines the targets for the google-cloud-compute (regapic) library to be built
 with gapic-generator-ruby cloud flavor
 """
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
@@ -25,9 +25,8 @@ load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl",
   "ruby_gapic_assembly_pkg")
 
 ##
-# completed google-cloud language library combined from
+# completed google-cloud-compute library combined from
 # * protoc ruby output
-# * grpc-ruby protoc plugin output
 # * gapic-generator-ruby cloud flavor output
 #
 ruby_gapic_assembly_pkg(
@@ -45,7 +44,7 @@ ruby_cloud_gapic_library(
   name = "compute_ruby_gapic",
   srcs = ["@com_google_googleapis_discovery//google/cloud/compute/v1:compute_proto_with_info"],
   ruby_cloud_title="Compute V1",
-  ruby_cloud_description="Provides compute. Duh.",
+  ruby_cloud_description="google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API.",
   extra_protoc_parameters = [
     "ruby-cloud-gem-name=google-cloud-compute-v1",
     "ruby-cloud-generate-transports=rest",
