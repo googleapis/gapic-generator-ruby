@@ -59,4 +59,11 @@ class CloudGeneratorTest < GeneratorTest
       assert_equal expected_content(:vision_v1, file.name), file.content
     end
   end
+
+  def test_compute_small_generate
+    generator = Gapic::Generators::CloudGenerator.new api(:compute_small)
+    generator.generate.each do |file|
+      assert_equal expected_content(:compute_small, file.name), file.content
+    end
+  end
 end

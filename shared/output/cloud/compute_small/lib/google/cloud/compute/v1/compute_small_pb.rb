@@ -10,21 +10,21 @@ require 'google/api/resource_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/cloud/compute/v1/compute_small.proto", :syntax => :proto3) do
     add_message "google.cloud.compute.v1.Errors" do
-      optional :code, :string, 3059181
-      optional :location, :string, 21995445
-      optional :message, :string, 149618695
+      proto3_optional :code, :string, 3059181
+      proto3_optional :location, :string, 21995445
+      proto3_optional :message, :string, 149618695
     end
     add_message "google.cloud.compute.v1.Error" do
       repeated :errors, :message, 47542123, "google.cloud.compute.v1.Errors"
     end
     add_message "google.cloud.compute.v1.Data" do
-      optional :key, :string, 106079
-      optional :value, :string, 111972721
+      proto3_optional :key, :string, 106079
+      proto3_optional :value, :string, 111972721
     end
     add_message "google.cloud.compute.v1.Warnings" do
-      optional :code, :enum, 3059181, "google.cloud.compute.v1.Warnings.Code"
+      proto3_optional :code, :enum, 3059181, "google.cloud.compute.v1.Warnings.Code"
       repeated :data, :message, 3076010, "google.cloud.compute.v1.Data"
-      optional :message, :string, 149618695
+      proto3_optional :message, :string, 149618695
     end
     add_enum "google.cloud.compute.v1.Warnings.Code" do
       value :UNDEFINED_CODE, 0
@@ -36,6 +36,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :EXTERNAL_API_WARNING, 175546307
       value :FIELD_VALUE_OVERRIDEN, 61233967
       value :INJECTED_KERNELS_DEPRECATED, 148941963
+      value :LARGE_DEPLOYMENT_WARNING, 213005222
       value :MISSING_TYPE_DEPENDENCY, 76070007
       value :NEXT_HOP_ADDRESS_NOT_ASSIGNED, 56529543
       value :NEXT_HOP_CANNOT_IP_FORWARD, 114947431
@@ -44,6 +45,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :NEXT_HOP_NOT_RUNNING, 148645809
       value :NOT_CRITICAL_ERROR, 105763924
       value :NO_RESULTS_ON_PAGE, 30036744
+      value :PARTIAL_SUCCESS, 39966469
       value :REQUIRED_TOS_AGREEMENT, 3745539
       value :RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING, 228293185
       value :RESOURCE_NOT_DELETED, 168598460
@@ -53,29 +55,29 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :UNREACHABLE, 13328052
     end
     add_message "google.cloud.compute.v1.Operation" do
-      optional :client_operation_id, :string, 28804839
-      optional :creation_timestamp, :string, 30525366
-      optional :description, :string, 154502140
-      optional :end_time, :string, 114938801
-      optional :error, :message, 96784904, "google.cloud.compute.v1.Error"
-      optional :http_error_message, :string, 202521945
-      optional :http_error_status_code, :int32, 43909740
-      optional :id, :string, 3355
-      optional :insert_time, :string, 165287059
-      optional :kind, :string, 3292052
-      optional :name, :string, 3373707
-      optional :operation_type, :string, 177650450
-      optional :progress, :int32, 72663597
-      optional :region, :string, 138946292
-      optional :self_link, :string, 187779341
-      optional :start_time, :string, 37467274
-      optional :status, :enum, 181260274, "google.cloud.compute.v1.Operation.Status"
-      optional :status_message, :string, 28992698
-      optional :target_id, :string, 258165385
-      optional :target_link, :string, 62671336
-      optional :user, :string, 3599307
+      proto3_optional :client_operation_id, :string, 28804839
+      proto3_optional :creation_timestamp, :string, 30525366
+      proto3_optional :description, :string, 154502140
+      proto3_optional :end_time, :string, 114938801
+      proto3_optional :error, :message, 96784904, "google.cloud.compute.v1.Error"
+      proto3_optional :http_error_message, :string, 202521945
+      proto3_optional :http_error_status_code, :int32, 43909740
+      proto3_optional :id, :string, 3355
+      proto3_optional :insert_time, :string, 165287059
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :name, :string, 3373707
+      proto3_optional :operation_type, :string, 177650450
+      proto3_optional :progress, :int32, 72663597
+      proto3_optional :region, :string, 138946292
+      proto3_optional :self_link, :string, 187779341
+      proto3_optional :start_time, :string, 37467274
+      proto3_optional :status, :enum, 181260274, "google.cloud.compute.v1.Operation.Status"
+      proto3_optional :status_message, :string, 28992698
+      proto3_optional :target_id, :string, 258165385
+      proto3_optional :target_link, :string, 62671336
+      proto3_optional :user, :string, 3599307
       repeated :warnings, :message, 229655639, "google.cloud.compute.v1.Warnings"
-      optional :zone, :string, 3744684
+      proto3_optional :zone, :string, 3744684
     end
     add_enum "google.cloud.compute.v1.Operation.Status" do
       value :UNDEFINED_STATUS, 0
@@ -84,9 +86,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :RUNNING, 121282975
     end
     add_message "google.cloud.compute.v1.Warning" do
-      optional :code, :enum, 3059181, "google.cloud.compute.v1.Warning.Code"
+      proto3_optional :code, :enum, 3059181, "google.cloud.compute.v1.Warning.Code"
       repeated :data, :message, 3076010, "google.cloud.compute.v1.Data"
-      optional :message, :string, 149618695
+      proto3_optional :message, :string, 149618695
     end
     add_enum "google.cloud.compute.v1.Warning.Code" do
       value :UNDEFINED_CODE, 0
@@ -98,6 +100,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :EXTERNAL_API_WARNING, 175546307
       value :FIELD_VALUE_OVERRIDEN, 61233967
       value :INJECTED_KERNELS_DEPRECATED, 148941963
+      value :LARGE_DEPLOYMENT_WARNING, 213005222
       value :MISSING_TYPE_DEPENDENCY, 76070007
       value :NEXT_HOP_ADDRESS_NOT_ASSIGNED, 56529543
       value :NEXT_HOP_CANNOT_IP_FORWARD, 114947431
@@ -106,6 +109,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :NEXT_HOP_NOT_RUNNING, 148645809
       value :NOT_CRITICAL_ERROR, 105763924
       value :NO_RESULTS_ON_PAGE, 30036744
+      value :PARTIAL_SUCCESS, 39966469
       value :REQUIRED_TOS_AGREEMENT, 3745539
       value :RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING, 228293185
       value :RESOURCE_NOT_DELETED, 168598460
@@ -115,22 +119,22 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :UNREACHABLE, 13328052
     end
     add_message "google.cloud.compute.v1.Address" do
-      optional :address, :string, 194485236
-      optional :address_type, :enum, 264307877, "google.cloud.compute.v1.Address.AddressType"
-      optional :creation_timestamp, :string, 30525366
-      optional :description, :string, 154502140
-      optional :id, :string, 3355
-      optional :ip_version, :enum, 26524096, "google.cloud.compute.v1.Address.IpVersion"
-      optional :kind, :string, 3292052
-      optional :name, :string, 3373707
-      optional :network, :string, 232872494
-      optional :network_tier, :enum, 248962387, "google.cloud.compute.v1.Address.NetworkTier"
-      optional :prefix_length, :int32, 185130291
-      optional :purpose, :enum, 47971614, "google.cloud.compute.v1.Address.Purpose"
-      optional :region, :string, 138946292
-      optional :self_link, :string, 187779341
-      optional :status, :enum, 181260274, "google.cloud.compute.v1.Address.Status"
-      optional :subnetwork, :string, 39392238
+      proto3_optional :address, :string, 194485236
+      proto3_optional :address_type, :enum, 264307877, "google.cloud.compute.v1.Address.AddressType"
+      proto3_optional :creation_timestamp, :string, 30525366
+      proto3_optional :description, :string, 154502140
+      proto3_optional :id, :string, 3355
+      proto3_optional :ip_version, :enum, 26524096, "google.cloud.compute.v1.Address.IpVersion"
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :name, :string, 3373707
+      proto3_optional :network, :string, 232872494
+      proto3_optional :network_tier, :enum, 248962387, "google.cloud.compute.v1.Address.NetworkTier"
+      proto3_optional :prefix_length, :int32, 185130291
+      proto3_optional :purpose, :enum, 47971614, "google.cloud.compute.v1.Address.Purpose"
+      proto3_optional :region, :string, 138946292
+      proto3_optional :self_link, :string, 187779341
+      proto3_optional :status, :enum, 181260274, "google.cloud.compute.v1.Address.Status"
+      proto3_optional :subnetwork, :string, 39392238
       repeated :users, :string, 111578632
     end
     add_enum "google.cloud.compute.v1.Address.AddressType" do
@@ -166,39 +170,39 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "google.cloud.compute.v1.AddressesScopedList" do
       repeated :addresses, :message, 69237666, "google.cloud.compute.v1.Address"
-      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+      proto3_optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.AddressAggregatedList" do
-      optional :id, :string, 3355
+      proto3_optional :id, :string, 3355
       map :items, :string, :message, 100526016, "google.cloud.compute.v1.AddressesScopedList"
-      optional :kind, :string, 3292052
-      optional :next_page_token, :string, 79797525
-      optional :self_link, :string, 187779341
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :next_page_token, :string, 79797525
+      proto3_optional :self_link, :string, 187779341
       repeated :unreachables, :string, 243372063
-      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+      proto3_optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.AddressList" do
-      optional :id, :string, 3355
+      proto3_optional :id, :string, 3355
       repeated :items, :message, 100526016, "google.cloud.compute.v1.Address"
-      optional :kind, :string, 3292052
-      optional :next_page_token, :string, 79797525
-      optional :self_link, :string, 187779341
-      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :next_page_token, :string, 79797525
+      proto3_optional :self_link, :string, 187779341
+      proto3_optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.AggregatedListAddressesRequest" do
-      optional :filter, :string, 67685240
-      optional :include_all_scopes, :bool, 122892532
-      optional :max_results, :uint32, 54715419
-      optional :order_by, :string, 160562920
-      optional :page_token, :string, 19994697
+      proto3_optional :filter, :string, 67685240
+      proto3_optional :include_all_scopes, :bool, 122892532
+      proto3_optional :max_results, :uint32, 54715419
+      proto3_optional :order_by, :string, 160562920
+      proto3_optional :page_token, :string, 19994697
       optional :project, :string, 227560217
-      optional :return_partial_success, :bool, 248762934
+      proto3_optional :return_partial_success, :bool, 248762934
     end
     add_message "google.cloud.compute.v1.DeleteAddressRequest" do
       optional :address, :string, 194485236
       optional :project, :string, 227560217
       optional :region, :string, 138946292
-      optional :request_id, :string, 37109963
+      proto3_optional :request_id, :string, 37109963
     end
     add_message "google.cloud.compute.v1.GetAddressRequest" do
       optional :address, :string, 194485236
@@ -209,24 +213,24 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :address_resource, :message, 215452665, "google.cloud.compute.v1.Address"
       optional :project, :string, 227560217
       optional :region, :string, 138946292
-      optional :request_id, :string, 37109963
+      proto3_optional :request_id, :string, 37109963
     end
     add_message "google.cloud.compute.v1.ListAddressesRequest" do
-      optional :filter, :string, 67685240
-      optional :max_results, :uint32, 54715419
-      optional :order_by, :string, 160562920
-      optional :page_token, :string, 19994697
+      proto3_optional :filter, :string, 67685240
+      proto3_optional :max_results, :uint32, 54715419
+      proto3_optional :order_by, :string, 160562920
+      proto3_optional :page_token, :string, 19994697
       optional :project, :string, 227560217
       optional :region, :string, 138946292
-      optional :return_partial_success, :bool, 248762934
+      proto3_optional :return_partial_success, :bool, 248762934
     end
     add_message "google.cloud.compute.v1.OperationList" do
-      optional :id, :string, 3355
+      proto3_optional :id, :string, 3355
       repeated :items, :message, 100526016, "google.cloud.compute.v1.Operation"
-      optional :kind, :string, 3292052
-      optional :next_page_token, :string, 79797525
-      optional :self_link, :string, 187779341
-      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :next_page_token, :string, 79797525
+      proto3_optional :self_link, :string, 187779341
+      proto3_optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.DeleteRegionOperationRequest" do
       optional :operation, :string, 52090215
@@ -241,13 +245,13 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :region, :string, 138946292
     end
     add_message "google.cloud.compute.v1.ListRegionOperationsRequest" do
-      optional :filter, :string, 67685240
-      optional :max_results, :uint32, 54715419
-      optional :order_by, :string, 160562920
-      optional :page_token, :string, 19994697
+      proto3_optional :filter, :string, 67685240
+      proto3_optional :max_results, :uint32, 54715419
+      proto3_optional :order_by, :string, 160562920
+      proto3_optional :page_token, :string, 19994697
       optional :project, :string, 227560217
       optional :region, :string, 138946292
-      optional :return_partial_success, :bool, 248762934
+      proto3_optional :return_partial_success, :bool, 248762934
     end
     add_message "google.cloud.compute.v1.WaitRegionOperationRequest" do
       optional :operation, :string, 52090215
@@ -258,15 +262,15 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :instance_group_manager, :string, 249363395
       optional :project, :string, 227560217
       optional :region, :string, 138946292
-      optional :request_id, :string, 37109963
+      proto3_optional :request_id, :string, 37109963
       optional :size, :int32, 3530753
     end
     add_message "google.cloud.compute.v1.ExchangedPeeringRoute" do
-      optional :dest_range, :string, 112892256
-      optional :imported, :bool, 114502404
-      optional :next_hop_region, :string, 122577014
-      optional :priority, :uint32, 176716196
-      optional :type, :enum, 3575610, "google.cloud.compute.v1.ExchangedPeeringRoute.Type"
+      proto3_optional :dest_range, :string, 112892256
+      proto3_optional :imported, :bool, 114502404
+      proto3_optional :next_hop_region, :string, 122577014
+      proto3_optional :priority, :uint32, 176716196
+      proto3_optional :type, :enum, 3575610, "google.cloud.compute.v1.ExchangedPeeringRoute.Type"
     end
     add_enum "google.cloud.compute.v1.ExchangedPeeringRoute.Type" do
       value :UNDEFINED_TYPE, 0
@@ -275,24 +279,24 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :SUBNET_PEERING_ROUTE, 197347048
     end
     add_message "google.cloud.compute.v1.ExchangedPeeringRoutesList" do
-      optional :id, :string, 3355
+      proto3_optional :id, :string, 3355
       repeated :items, :message, 100526016, "google.cloud.compute.v1.ExchangedPeeringRoute"
-      optional :kind, :string, 3292052
-      optional :next_page_token, :string, 79797525
-      optional :self_link, :string, 187779341
-      optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
+      proto3_optional :kind, :string, 3292052
+      proto3_optional :next_page_token, :string, 79797525
+      proto3_optional :self_link, :string, 187779341
+      proto3_optional :warning, :message, 50704284, "google.cloud.compute.v1.Warning"
     end
     add_message "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest" do
-      optional :direction, :enum, 111150975, "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction"
-      optional :filter, :string, 67685240
-      optional :max_results, :uint32, 54715419
+      proto3_optional :direction, :enum, 111150975, "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction"
+      proto3_optional :filter, :string, 67685240
+      proto3_optional :max_results, :uint32, 54715419
       optional :network, :string, 232872494
-      optional :order_by, :string, 160562920
-      optional :page_token, :string, 19994697
-      optional :peering_name, :string, 249571370
+      proto3_optional :order_by, :string, 160562920
+      proto3_optional :page_token, :string, 19994697
+      proto3_optional :peering_name, :string, 249571370
       optional :project, :string, 227560217
-      optional :region, :string, 138946292
-      optional :return_partial_success, :bool, 248762934
+      proto3_optional :region, :string, 138946292
+      proto3_optional :return_partial_success, :bool, 248762934
     end
     add_enum "google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction" do
       value :UNDEFINED_DIRECTION, 0

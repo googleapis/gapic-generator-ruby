@@ -91,6 +91,8 @@ module Google
 
             INJECTED_KERNELS_DEPRECATED = 148941963
 
+            LARGE_DEPLOYMENT_WARNING = 213005222
+
             MISSING_TYPE_DEPENDENCY = 76070007
 
             NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56529543
@@ -106,6 +108,8 @@ module Google
             NOT_CRITICAL_ERROR = 105763924
 
             NO_RESULTS_ON_PAGE = 30036744
+
+            PARTIAL_SUCCESS = 39966469
 
             REQUIRED_TOS_AGREEMENT = 3745539
 
@@ -132,9 +136,9 @@ module Google
         # You can use an operation resource to manage asynchronous API requests. For more information, read Handling API responses.
         #
         # Operations can be global, regional or zonal.
-        # - For global operations, use the globalOperations resource.
-        # - For regional operations, use the regionOperations resource.
-        # - For zonal operations, use the zoneOperations resource.
+        # - For global operations, use the `globalOperations` resource.
+        # - For regional operations, use the `regionOperations` resource.
+        # - For zonal operations, use the `zonalOperations` resource.
         #
         # For more information, read  Global, Regional, and Zonal Resources. (== resource_for \\{$api_version}.globalOperations ==) (== resource_for \\{$api_version}.regionOperations ==) (== resource_for \\{$api_version}.zoneOperations ==)
         # @!attribute [rw] client_operation_id
@@ -259,6 +263,8 @@ module Google
 
             INJECTED_KERNELS_DEPRECATED = 148941963
 
+            LARGE_DEPLOYMENT_WARNING = 213005222
+
             MISSING_TYPE_DEPENDENCY = 76070007
 
             NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56529543
@@ -274,6 +280,8 @@ module Google
             NOT_CRITICAL_ERROR = 105763924
 
             NO_RESULTS_ON_PAGE = 30036744
+
+            PARTIAL_SUCCESS = 39966469
 
             REQUIRED_TOS_AGREEMENT = 3745539
 
