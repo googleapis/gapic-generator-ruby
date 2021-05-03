@@ -1,7 +1,8 @@
 <%- assert_locals field -%>
 <%- field_name_interpolated = "request_pb.#{field.name}" -%>
+<%- has_field_name_interpolated = "request_pb.has_#{field.name}?" -%>
 <%- if field.required? -%>
 query_string_params["<%= field.camel_name %>"] = <%= field_name_interpolated %>.to_s
 <%- else -%>
-query_string_params["<%= field.camel_name %>"] = <%= field_name_interpolated %>.to_s if <%= field_name_interpolated %> && <%= field_name_interpolated %> != <%= field.default_value_for_type %>
+query_string_params["<%= field.camel_name %>"] = <%= field_name_interpolated %>.to_s if <%= has_field_name_interpolated %>
 <%- end -%>
