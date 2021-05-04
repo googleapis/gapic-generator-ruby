@@ -83,6 +83,11 @@ namespace :gen do |gen_namespace|
   task :compute_small do
     generate_input_file :compute_small
   end
+
+  desc "Generate the binary input files for testing/mixins"
+  task :mixins do
+    generate_input_file :mixins
+  end
 end
 
 require "rake/testtask"
@@ -181,6 +186,10 @@ def generate_input_file service
     unless grpc_service_config.empty?
       protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
     end
+
+    # Add optional service.yaml
+    service_yaml = service_yaml_for service
+    protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'" if service_yaml
 
     # Add the proto files
     protoc_cmd << protos_for(service).join(" ")

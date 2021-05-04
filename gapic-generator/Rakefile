@@ -138,6 +138,11 @@ namespace :gen do |gen_namespace|
     generate_default_templates :grpc_service_config
   end
 
+  desc "Generate the expected output for testing/grpc_service_config"
+  task :mixins do
+    generate_default_templates :mixins
+  end
+
   desc "Generate the expected output for gem creation tests"
   task :gem_creation do
     generate_gem "my_plugin"
@@ -196,6 +201,10 @@ def generate_default_templates service
   unless grpc_service_config.empty?
     protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
   end
+
+  # Add optional service.yaml
+  service_yaml = service_yaml_for service
+  protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'" if service_yaml
 
   # Add the proto files
   protos = protos_for service

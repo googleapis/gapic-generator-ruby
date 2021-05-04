@@ -44,7 +44,8 @@ module Gapic
         "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
         "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
         "ruby-cloud-grpc-service-config"   => "grpc_service_config",
-        "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name"
+        "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name",
+        "ruby-cloud-service-yaml"          => ":service_yaml"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
