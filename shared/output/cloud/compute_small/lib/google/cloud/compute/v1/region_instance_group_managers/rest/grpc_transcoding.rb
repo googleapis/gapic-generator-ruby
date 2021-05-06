@@ -33,7 +33,7 @@ module Google
                 uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/resize"
                 body = nil
                 query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.request_id && request_pb.request_id != ""
+                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.has_request_id?
                 query_string_params["size"] = request_pb.size.to_s
 
                 [uri, body, query_string_params]
