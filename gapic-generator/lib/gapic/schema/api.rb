@@ -144,11 +144,9 @@ module Gapic
       # @return [Array<Hash>]
       #   An array of the sample file hashes.
       def samples
-        @samples ||= begin
-          protoc_options["samples"].to_s.split(";").flat_map do |sample_path|
-            YAML.load_file sample_path
-          end.compact
-        end
+        @samples ||= protoc_options["samples"].to_s.split(";").flat_map do |sample_path|
+          YAML.load_file sample_path
+        end.compact
       end
 
       # Structured representation of the standalone samples configuration files.
@@ -174,10 +172,10 @@ module Gapic
       #   An array of the standalone sample configuration hashes.
       def standalone_test_samples
         @standalone_test_samples ||= begin
-          samples.select { |sample| sample["type"] == "test/samples" }
-                 .select { |sample| sample["schema_version"] == "1" || sample["schema_version"] == 1 }
-                 .map { |sample| sample["samples"] }
-                 .flatten.compact
+          test_samples = samples.select { |sample| sample["type"] == "test/samples" }
+          test_samples.select { |sample| sample["schema_version"] == "1" || sample["schema_version"] == 1 }
+                      .map { |sample| sample["samples"] }
+                      .flatten.compact
         end
       end
 
@@ -278,9 +276,7 @@ module Gapic
 
       # Parsed grpc service config
       def grpc_service_config
-        @grpc_service_config ||= begin
-          Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
-        end
+        @grpc_service_config ||= Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
       end
 
       # Get a resource given its type string
@@ -290,10 +286,8 @@ module Gapic
 
       # Given a service, find all common services that use it as a delegate.
       def common_services_for delegate
-        @delegate_to_common ||= begin
-          (configuration[:common_services] || {}).each_with_object({}) do |(c, d), mapping|
-            (mapping[d] ||= []) << c
-          end
+        @delegate_to_common ||= (configuration[:common_services] || {}).each_with_object({}) do |(c, d), mapping|
+          (mapping[d] ||= []) << c
         end
         all_services = services
         @delegate_to_common.fetch(delegate.address.join("."), []).map do |addr|

@@ -54,9 +54,7 @@ module Gapic
       # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
       #
       def methods
-        @methods ||= begin
-          @service.methods.map { |m| MethodPresenter.new self, @api, m }
-        end
+        @methods ||= @service.methods.map { |m| MethodPresenter.new self, @api, m }
       end
 
       def address
