@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.7.4 / 2021-05-07
+
+* Fixed the broken link in the generated libraries' README.md
+* Generated libraries with REST transport now use presense testing instead of rejecting defaults to determine which fields to transcode into the query string parameters
+
 ### 0.7.3 / 2021-03-24
     
 * Fixed gapic metadata (drift manifest) generation
