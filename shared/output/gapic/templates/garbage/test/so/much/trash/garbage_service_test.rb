@@ -209,8 +209,8 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
+      client.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
+float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
