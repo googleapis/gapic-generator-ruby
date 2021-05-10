@@ -138,7 +138,7 @@ namespace :gen do |gen_namespace|
     generate_default_templates :grpc_service_config
   end
 
-  desc "Generate the expected output for testing/grpc_service_config"
+  desc "Generate the expected output for testing/mixins"
   task :mixins do
     generate_default_templates :mixins
   end
