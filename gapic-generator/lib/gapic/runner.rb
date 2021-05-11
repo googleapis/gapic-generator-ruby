@@ -65,7 +65,7 @@ module Gapic
 
       # Create and write the response
       response = Google::Protobuf::Compiler::CodeGeneratorResponse.new file: output_files
-      response.supported_features = Google::Protobuf::Compiler::CodeGeneratorResponse::FEATURE_PROTO3_OPTIONAL
+      response.supported_features = Google::Protobuf::Compiler::CodeGeneratorResponse::Feature::FEATURE_PROTO3_OPTIONAL.to_i
       response
     end
 
