@@ -86,7 +86,7 @@ class ::Google::Showcase::V1beta1::Messaging::OperationsTest < Minitest::Test
 
       # Use hash object
       client.list_operations({ name: name, filter: filter, page_size: page_size,
-page_token: page_token }) do |response, operation|
+                               page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -94,7 +94,7 @@ page_token: page_token }) do |response, operation|
 
       # Use named arguments
       client.list_operations name: name, filter: filter, page_size: page_size,
-page_token: page_token do |response, operation|
+                             page_token: page_token do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -102,7 +102,7 @@ page_token: page_token do |response, operation|
 
       # Use protobuf object
       client.list_operations ::Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter,
-page_size: page_size, page_token: page_token) do |response, operation|
+                                                                              page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -110,7 +110,7 @@ page_size: page_size, page_token: page_token) do |response, operation|
 
       # Use hash object with options
       client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token },
-                             grpc_options) do |response, operation|
+grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -119,7 +119,7 @@ page_size: page_size, page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.list_operations(
         ::Google::Longrunning::ListOperationsRequest.new(name: name, filter: filter, page_size: page_size,
-page_token: page_token), grpc_options
+                                                         page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
