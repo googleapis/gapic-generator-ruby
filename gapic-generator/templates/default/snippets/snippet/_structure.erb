@@ -1,0 +1,71 @@
+<%- assert_locals snippet -%>
+require "<%= snippet.require_path %>"
+
+# Create a client object. The client can be reused for multiple calls.
+client = <%= snippet.client_type %>.new
+
+<%- if snippet.bidi_streaming? -%>
+# Create an input stream
+input = ::Gapic::StreamInput.new
+
+# Call the <%= snippet.method_name %> method to start streaming.
+output = client.<%= snippet.method_name %> input
+
+# Send requests on the stream. For each request, pass in keyword
+# arguments to set fields. Be sure to close the stream when done.
+input << <%= snippet.request_type %>.new
+input << <%= snippet.request_type %>.new
+input.close
+
+# Handle streamed responses. These may be interleaved with inputs.
+# Each response is of type <%= snippet.base_response_type %>.
+output.each do |response|
+  p response
+end
+<%- else -%>
+<%- if snippet.client_streaming? -%>
+# Create a stream of requests, as an Enumerator.
+# For each request, pass in keyword arguments to set fields.
+request = [
+  <%= snippet.request_type %>.new,
+  <%= snippet.request_type %>.new
+].to_enum
+<%- else -%>
+# Create a request. To set request fields, pass in keyword arguments.
+request = <%= snippet.request_type %>.new
+<%- end -%>
+
+# Call the <%= snippet.method_name %> method.
+result = client.<%= snippet.method_name %> request
+
+<%- case snippet.response_kind -%>
+<%- when :lro -%>
+# The returned object is of type Gapic::Operation. You can use this
+# object to check the status of an operation, cancel it, or wait
+# for results. Here is how to block until completion:
+result.wait_until_done! timeout: 60
+if result.response?
+  p result.response
+else
+  puts "Error!"
+end
+<%- when :paged -%>
+# The returned object is of type Gapic::PagedEnumerable. You can
+# iterate over all elements by calling #each, and the enumerable
+# will lazily make API calls to fetch subsequent pages. Other
+# methods are also available for managing paging directly.
+result.each do |response|
+  # Each element is of type <%= snippet.paged_response_type %>.
+  p response
+end
+<%- when :streaming -%>
+# The returned object is a streamed enumerable yielding elements of
+# type <%= snippet.base_response_type %>.
+result.each do |response|
+  p response
+end
+<%- else -%>
+# The returned object is of type <%= snippet.return_type %>.
+p result
+<%- end -%>
+<%- end -%>
