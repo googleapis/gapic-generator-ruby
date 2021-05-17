@@ -18,6 +18,7 @@ $LOAD_PATH.unshift ::File.expand_path("../lib", __dir__)
 $LOAD_PATH.unshift ::File.expand_path("../../shared/test_resources", __dir__)
 require "gapic/schema/api"
 require "gapic/schema/request_param_parser"
+require "gapic/schema/service_yaml_parser"
 require "gapic/generator"
 require "gapic/path_pattern"
 require "gapic/presenters"
