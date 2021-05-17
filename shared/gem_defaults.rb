@@ -116,6 +116,12 @@ def gem_defaults
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
       ]
+    },
+    mixins: {
+      protos: [
+        "testing/mixins/service_with_loc.proto"
+      ],
+      service_yaml: "../shared/protos/testing/mixins/service_with_loc.yaml"
     }
   }
 end
@@ -130,4 +136,8 @@ end
 
 def grpc_service_config_for service
   Array(gem_defaults[service][:grpc_service_config])
+end
+
+def service_yaml_for service
+  gem_defaults[service][:service_yaml]
 end

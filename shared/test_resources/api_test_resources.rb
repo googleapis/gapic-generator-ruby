@@ -48,6 +48,7 @@ module ApiTestResources
     default_host: 'default_host.example.com',
     grpc_service_config: 'google/devtools/containeranalysis/v1/containeranalysis_grpc_service_config.json',
     wrapper_gem_name_override: "wrapper-gem-name-override",
+    service_yaml: 'google3/google/cloud/datastream/datastream.yaml',
 
     # array parameters
     default_oauth_scopes: ['https://www.googleapis.com/auth/cloud-platform'],
@@ -98,6 +99,7 @@ module ApiTestResources
       }
     },
     'grpc_service_config' => API_INFO[:grpc_service_config],
+    service_yaml: API_INFO[:service_yaml],
     common_services: API_INFO[:common_services_unescaped],
     overrides: {
       file_path: API_INFO[:path_override],
