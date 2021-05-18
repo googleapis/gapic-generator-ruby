@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.7.5 / 2021-05-18
+
+* Bazel jobs now provide a prebuilt ruby binary.
+* Fixed generated indentation for a few cases, by updating to Rubocop 1.15.
+
 ### 0.7.4 / 2021-05-07
 
 * Fixed the broken link in the generated libraries' README.md
