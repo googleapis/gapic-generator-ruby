@@ -63,7 +63,7 @@ class ::So::Much::Trash::ResourceNames::ClientPathsTest < Minitest::Test
       end
 
       path = client.complex_pattern_request_path customer: "value0", item_a_id: "value1", item_b_id: "value2",
-items_c_id: "value3", details_a_id: "value4", details_b_id: "value5", details_c_id: "value6", extra_id: "value7"
+                                                 items_c_id: "value3", details_a_id: "value4", details_b_id: "value5", details_c_id: "value6", extra_id: "value7"
       assert_equal "customers/value0/items/value1.value2~value3/details/value4_value5-value6/extra/value7", path
 
       path = client.complex_pattern_request_path request: "value0"
@@ -79,7 +79,7 @@ items_c_id: "value3", details_a_id: "value4", details_b_id: "value5", details_c_
       end
 
       path = client.complex_pattern_resource_path customer: "value0", item_a: "value1", item_b: "value2",
-items_c: "value3"
+                                                  items_c: "value3"
       assert_equal "customers/value0/items/value1.value2~value3", path
     end
   end

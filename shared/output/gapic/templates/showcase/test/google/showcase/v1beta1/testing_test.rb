@@ -214,7 +214,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
       # Use protobuf object
       client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
-page_token: page_token) do |response, operation|
+                                                                                page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -230,7 +230,7 @@ page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.list_sessions(
         ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
-page_token: page_token), grpc_options
+                                                             page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
@@ -403,7 +403,7 @@ page_token: page_token), grpc_options
 
       # Use protobuf object
       client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
-page_token: page_token) do |response, operation|
+                                                                          page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -411,7 +411,7 @@ page_token: page_token) do |response, operation|
 
       # Use hash object with options
       client.list_tests({ parent: parent, page_size: page_size, page_token: page_token },
-                        grpc_options) do |response, operation|
+grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -420,7 +420,7 @@ page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.list_tests(
         ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
-page_token: page_token), grpc_options
+                                                          page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
@@ -532,7 +532,7 @@ page_token: page_token), grpc_options
 
       # Use protobuf object
       client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
-answers: answers) do |response, operation|
+                                                                            answers: answers) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -546,7 +546,7 @@ answers: answers) do |response, operation|
       # Use protobuf object with options
       client.verify_test(
         ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
-answers: answers), grpc_options
+                                                           answers: answers), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
