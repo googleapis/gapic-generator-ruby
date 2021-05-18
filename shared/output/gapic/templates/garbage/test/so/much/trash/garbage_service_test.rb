@@ -210,21 +210,21 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
+                                    float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
       client.get_specific_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
+                                  float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
       client.get_specific_garbage ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64,
-uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested) do |response, operation|
+                                                                         uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -232,7 +232,7 @@ uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes:
       # Use hash object with options
       client.get_specific_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
+          bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -241,7 +241,7 @@ bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
       # Use protobuf object with options
       client.get_specific_garbage(
         ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested), grpc_options
+                                               bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -297,21 +297,21 @@ bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, ne
 
       # Use hash object
       client.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
+                                  float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
       client.get_nested_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
+                                float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
       client.get_nested_garbage ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32,
-int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum) do |response, operation|
+                                                                                      int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -319,7 +319,7 @@ int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: 
       # Use hash object with options
       client.get_nested_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-bytes: bytes, msg: msg, enum: enum }, grpc_options
+          bytes: bytes, msg: msg, enum: enum }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -328,7 +328,7 @@ bytes: bytes, msg: msg, enum: enum }, grpc_options
       # Use protobuf object with options
       client.get_nested_garbage(
         ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32,
-uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum), grpc_options
+                                                              uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -384,21 +384,21 @@ uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg
 
       # Use hash object
       client.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32,
-repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
+                                    repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
       client.get_repeated_garbage repeated_name: repeated_name, repeated_int32: repeated_int32,
-repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum do |response, operation|
+                                  repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
       client.get_repeated_garbage ::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name,
-repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum) do |response, operation|
+                                                                         repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -406,7 +406,7 @@ repeated_int32: repeated_int32, repeated_int64: repeated_int64, repeated_uint32:
       # Use hash object with options
       client.get_repeated_garbage(
         { repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64,
-repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options
+          repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -415,7 +415,7 @@ repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_boo
       # Use protobuf object with options
       client.get_repeated_garbage(
         ::So::Much::Trash::RepeatedGarbage.new(repeated_name: repeated_name, repeated_int32: repeated_int32,
-repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum), grpc_options
+                                               repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -490,21 +490,21 @@ repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint6
 
       # Use hash object
       client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }) do |response, operation|
+                                   float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
       client.get_typical_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 do |response, operation|
+                                 float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
       client.get_typical_garbage ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64,
-uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32) do |response, operation|
+                                                                       uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -512,7 +512,7 @@ uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes:
       # Use hash object with options
       client.get_typical_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }, grpc_options
+          bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -521,7 +521,7 @@ bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: 
       # Use protobuf object with options
       client.get_typical_garbage(
         ::So::Much::Trash::TypicalGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32), grpc_options
+                                              bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -741,7 +741,7 @@ bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, durati
 
       # Use hash object
       client.get_paged_garbage({ garbage: garbage, page_size: page_size,
-page_token: page_token }) do |response, operation|
+                                 page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -756,7 +756,7 @@ page_token: page_token }) do |response, operation|
 
       # Use protobuf object
       client.get_paged_garbage ::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size,
-page_token: page_token) do |response, operation|
+                                                                          page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -764,7 +764,7 @@ page_token: page_token) do |response, operation|
 
       # Use hash object with options
       client.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token },
-                               grpc_options) do |response, operation|
+grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -773,7 +773,7 @@ page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.get_paged_garbage(
         ::So::Much::Trash::PagedGarbageRequest.new(garbage: garbage, page_size: page_size,
-page_token: page_token), grpc_options
+                                                   page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
@@ -1132,7 +1132,7 @@ page_token: page_token), grpc_options
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
 float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32,
-uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+                                                            uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
       enum_input = [request_hash, request_proto].to_enum
       client.bidi_typical_garbage enum_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -1146,7 +1146,7 @@ uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout:
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
 float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32,
-uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+                                                            uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
       stream_input = Gapic::StreamInput.new
       client.bidi_typical_garbage stream_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -1163,7 +1163,7 @@ uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout:
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
 float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32,
-uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+                                                            uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
       enum_input = [request_hash, request_proto].to_enum
       client.bidi_typical_garbage enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
@@ -1177,7 +1177,7 @@ uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout:
       request_hash = { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
 float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }
       request_proto = ::So::Much::Trash::TypicalGarbage.new name: name, int32: int32, int64: int64, uint32: uint32,
-uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
+                                                            uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32
       stream_input = Gapic::StreamInput.new
       client.bidi_typical_garbage stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response

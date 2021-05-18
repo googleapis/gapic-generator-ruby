@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.7.4)
+    gapic-generator (0.7.5)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.7.4)
+    gapic-generator-cloud (0.7.5)
       actionpack (~> 5.2)
-      gapic-generator (= 0.7.4)
+      gapic-generator (= 0.7.5)
       google-style (~> 1.25.1)
       protobuf (~> 3.8)
 
@@ -58,10 +58,10 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.6)
       minitest (~> 5.0)
-    nokogiri (1.11.3)
+    nokogiri (1.11.4)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
-    nokogiri (1.11.3-x86_64-linux)
+    nokogiri (1.11.4-x86_64-linux)
       racc (~> 1.4)
     parallel (1.20.1)
     parser (3.0.1.1)
@@ -85,7 +85,7 @@ GEM
     rake (13.0.3)
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rubocop (1.14.0)
+    rubocop (1.15.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)

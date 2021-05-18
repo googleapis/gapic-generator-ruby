@@ -84,7 +84,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
       # Use hash object
       client.simple_pattern_method({ real_name: real_name, ref: ref,
-repeated_ref: repeated_ref }) do |response, operation|
+                                     repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -97,14 +97,14 @@ repeated_ref: repeated_ref }) do |response, operation|
 
       # Use protobuf object
       client.simple_pattern_method ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref,
-repeated_ref: repeated_ref) do |response, operation|
+                                                                               repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
       client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
-                                   grpc_options) do |response, operation|
+grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -112,7 +112,7 @@ repeated_ref: repeated_ref) do |response, operation|
       # Use protobuf object with options
       client.simple_pattern_method(
         ::So::Much::Trash::SimplePatternRequest.new(real_name: real_name, ref: ref,
-repeated_ref: repeated_ref), grpc_options
+                                                    repeated_ref: repeated_ref), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -152,7 +152,7 @@ repeated_ref: repeated_ref), grpc_options
 
       # Use hash object
       client.complex_pattern_method({ real_name: real_name, ref: ref,
-repeated_ref: repeated_ref }) do |response, operation|
+                                      repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -165,14 +165,14 @@ repeated_ref: repeated_ref }) do |response, operation|
 
       # Use protobuf object
       client.complex_pattern_method ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref,
-repeated_ref: repeated_ref) do |response, operation|
+                                                                                 repeated_ref: repeated_ref) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
       client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
-                                    grpc_options) do |response, operation|
+grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -180,7 +180,7 @@ repeated_ref: repeated_ref) do |response, operation|
       # Use protobuf object with options
       client.complex_pattern_method(
         ::So::Much::Trash::ComplexPatternRequest.new(real_name: real_name, ref: ref,
-repeated_ref: repeated_ref), grpc_options
+                                                     repeated_ref: repeated_ref), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
