@@ -4,5 +4,6 @@
     "language": "ruby",
     "name_pretty": "Google Garbage Noservice API",
     "repo": "googleapis/google-cloud-ruby",
-    "requires_billing": true
+    "requires_billing": true,
+    "library_type": "GAPIC_AUTO"
 }
