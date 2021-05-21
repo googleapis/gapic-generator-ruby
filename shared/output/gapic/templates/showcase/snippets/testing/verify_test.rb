@@ -28,14 +28,14 @@
 require "google/showcase/v1beta1/testing"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Testing::Client.new
+client = Google::Showcase::V1beta1::Testing::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::VerifyTestRequest.new
+request = Google::Showcase::V1beta1::VerifyTestRequest.new
 
 # Call the verify_test method.
 result = client.verify_test request
 
-# The returned object is of type ::Google::Showcase::V1beta1::VerifyTestResponse.
+# The returned object is of type Google::Showcase::V1beta1::VerifyTestResponse.
 p result
 # [END showcase_v0_generated_Testing_VerifyTest_sync]

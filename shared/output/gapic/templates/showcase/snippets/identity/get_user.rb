@@ -28,14 +28,14 @@
 require "google/showcase/v1beta1/identity"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Identity::Client.new
+client = Google::Showcase::V1beta1::Identity::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::GetUserRequest.new
+request = Google::Showcase::V1beta1::GetUserRequest.new
 
 # Call the get_user method.
 result = client.get_user request
 
-# The returned object is of type ::Google::Showcase::V1beta1::User.
+# The returned object is of type Google::Showcase::V1beta1::User.
 p result
 # [END showcase_v0_generated_Identity_GetUser_sync]

@@ -28,14 +28,14 @@
 require "google/showcase/v1beta1/identity"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Identity::Client.new
+client = Google::Showcase::V1beta1::Identity::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::DeleteUserRequest.new
+request = Google::Showcase::V1beta1::DeleteUserRequest.new
 
 # Call the delete_user method.
 result = client.delete_user request
 
-# The returned object is of type ::Google::Protobuf::Empty.
+# The returned object is of type Google::Protobuf::Empty.
 p result
 # [END showcase_v0_generated_Identity_DeleteUser_sync]

@@ -28,10 +28,10 @@
 require "google/showcase/v1beta1/echo"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Echo::Client.new
+client = Google::Showcase::V1beta1::Echo::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::ExpandRequest.new
+request = Google::Showcase::V1beta1::ExpandRequest.new
 
 # Call the expand method.
 result = client.expand request

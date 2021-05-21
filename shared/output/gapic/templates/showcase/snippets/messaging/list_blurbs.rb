@@ -28,10 +28,10 @@
 require "google/showcase/v1beta1/messaging"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Messaging::Client.new
+client = Google::Showcase::V1beta1::Messaging::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::ListBlurbsRequest.new
+request = Google::Showcase::V1beta1::ListBlurbsRequest.new
 
 # Call the list_blurbs method.
 result = client.list_blurbs request

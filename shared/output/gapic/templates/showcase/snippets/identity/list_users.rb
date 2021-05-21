@@ -28,10 +28,10 @@
 require "google/showcase/v1beta1/identity"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Identity::Client.new
+client = Google::Showcase::V1beta1::Identity::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::ListUsersRequest.new
+request = Google::Showcase::V1beta1::ListUsersRequest.new
 
 # Call the list_users method.
 result = client.list_users request

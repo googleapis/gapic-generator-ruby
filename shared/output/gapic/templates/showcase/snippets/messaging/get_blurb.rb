@@ -28,14 +28,14 @@
 require "google/showcase/v1beta1/messaging"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Messaging::Client.new
+client = Google::Showcase::V1beta1::Messaging::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::GetBlurbRequest.new
+request = Google::Showcase::V1beta1::GetBlurbRequest.new
 
 # Call the get_blurb method.
 result = client.get_blurb request
 
-# The returned object is of type ::Google::Showcase::V1beta1::Blurb.
+# The returned object is of type Google::Showcase::V1beta1::Blurb.
 p result
 # [END showcase_v0_generated_Messaging_GetBlurb_sync]

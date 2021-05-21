@@ -20,14 +20,14 @@
 require "google/cloud/vision/v1/product_search"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
+client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new
+request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new
 
 # Call the create_reference_image method.
 result = client.create_reference_image request
 
-# The returned object is of type ::Google::Cloud::Vision::V1::ReferenceImage.
+# The returned object is of type Google::Cloud::Vision::V1::ReferenceImage.
 p result
 # [END vision_v1_generated_ProductSearch_CreateReferenceImage_sync]

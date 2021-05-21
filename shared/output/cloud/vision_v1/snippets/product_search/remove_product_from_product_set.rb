@@ -20,14 +20,14 @@
 require "google/cloud/vision/v1/product_search"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
+client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new
+request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new
 
 # Call the remove_product_from_product_set method.
 result = client.remove_product_from_product_set request
 
-# The returned object is of type ::Google::Protobuf::Empty.
+# The returned object is of type Google::Protobuf::Empty.
 p result
 # [END vision_v1_generated_ProductSearch_RemoveProductFromProductSet_sync]

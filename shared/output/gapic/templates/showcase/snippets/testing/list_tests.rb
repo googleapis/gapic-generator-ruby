@@ -28,10 +28,10 @@
 require "google/showcase/v1beta1/testing"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Testing::Client.new
+client = Google::Showcase::V1beta1::Testing::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::ListTestsRequest.new
+request = Google::Showcase::V1beta1::ListTestsRequest.new
 
 # Call the list_tests method.
 result = client.list_tests request

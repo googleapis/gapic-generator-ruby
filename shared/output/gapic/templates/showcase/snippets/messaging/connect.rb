@@ -28,18 +28,18 @@
 require "google/showcase/v1beta1/messaging"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Messaging::Client.new
+client = Google::Showcase::V1beta1::Messaging::Client.new
 
 # Create an input stream
-input = ::Gapic::StreamInput.new
+input = Gapic::StreamInput.new
 
 # Call the connect method to start streaming.
 output = client.connect input
 
 # Send requests on the stream. For each request, pass in keyword
 # arguments to set fields. Be sure to close the stream when done.
-input << ::Google::Showcase::V1beta1::ConnectRequest.new
-input << ::Google::Showcase::V1beta1::ConnectRequest.new
+input << Google::Showcase::V1beta1::ConnectRequest.new
+input << Google::Showcase::V1beta1::ConnectRequest.new
 input.close
 
 # Handle streamed responses. These may be interleaved with inputs.

@@ -20,14 +20,14 @@
 require "google/cloud/vision/v1/product_search"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
+client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Cloud::Vision::V1::GetProductRequest.new
+request = Google::Cloud::Vision::V1::GetProductRequest.new
 
 # Call the get_product method.
 result = client.get_product request
 
-# The returned object is of type ::Google::Cloud::Vision::V1::Product.
+# The returned object is of type Google::Cloud::Vision::V1::Product.
 p result
 # [END vision_v1_generated_ProductSearch_GetProduct_sync]

@@ -6,7 +6,7 @@ client = <%= snippet.client_type %>.new
 
 <%- if snippet.bidi_streaming? -%>
 # Create an input stream
-input = ::Gapic::StreamInput.new
+input = Gapic::StreamInput.new
 
 # Call the <%= snippet.method_name %> method to start streaming.
 output = client.<%= snippet.method_name %> input

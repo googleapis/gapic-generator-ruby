@@ -28,14 +28,14 @@
 require "google/showcase/v1beta1/testing"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Showcase::V1beta1::Testing::Client.new
+client = Google::Showcase::V1beta1::Testing::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Showcase::V1beta1::ReportSessionRequest.new
+request = Google::Showcase::V1beta1::ReportSessionRequest.new
 
 # Call the report_session method.
 result = client.report_session request
 
-# The returned object is of type ::Google::Showcase::V1beta1::ReportSessionResponse.
+# The returned object is of type Google::Showcase::V1beta1::ReportSessionResponse.
 p result
 # [END showcase_v0_generated_Testing_ReportSession_sync]

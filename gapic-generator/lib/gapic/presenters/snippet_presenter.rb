@@ -56,16 +56,16 @@ module Gapic
       end
 
       def client_type
-        @method_presenter.service.client_name_full
+        @method_presenter.service.client_name_full.sub(/^::/, "")
       end
 
       def request_type
-        @method_presenter.request_type
+        @method_presenter.request_type.sub(/^::/, "")
       end
 
       def return_type
-        base_type = @method_presenter.return_type
-        @method_presenter.server_streaming? ? "::Enumerable<#{base_type}>" : base_type
+        base_type = @method_presenter.return_type.sub(/^::/, "")
+        @method_presenter.server_streaming? ? "Enumerable<#{base_type}>" : base_type
       end
 
       def paged_response_type

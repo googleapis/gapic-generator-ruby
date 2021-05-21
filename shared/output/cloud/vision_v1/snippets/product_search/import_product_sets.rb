@@ -20,10 +20,10 @@
 require "google/cloud/vision/v1/product_search"
 
 # Create a client object. The client can be reused for multiple calls.
-client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
+client = Google::Cloud::Vision::V1::ProductSearch::Client.new
 
 # Create a request. To set request fields, pass in keyword arguments.
-request = ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new
+request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new
 
 # Call the import_product_sets method.
 result = client.import_product_sets request
