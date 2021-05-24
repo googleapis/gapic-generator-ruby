@@ -27,6 +27,7 @@ require "gapic/presenters/resource_presenter"
 require "gapic/presenters/sample_presenter"
 require "gapic/presenters/service_presenter"
 require "gapic/presenters/service_rest_presenter"
+require "gapic/presenters/snippet_presenter"
 
 module Gapic
   ##
