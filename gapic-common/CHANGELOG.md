@@ -1,8 +1,9 @@
 # Release History
 
-### 0.4.2 / Unreleased
+### 0.4.2 / 20201-06-07
 
 * Expand googleauth dependency to include 1.x
+* Add a REST PUT method helper to Gapic::Rest.
 
 ### 0.4.1 / 2021-04-15
 
