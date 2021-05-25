@@ -419,10 +419,11 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                uri, body, _query_string_params = transcode_insert request
+                uri, body, query_string_params = transcode_insert request
                 response = @client_stub.make_post_request(
                   uri:     uri,
                   body:    body,
+                  params:  query_string_params,
                   options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
