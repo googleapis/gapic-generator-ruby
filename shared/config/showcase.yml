@@ -3,3 +3,4 @@
 :gem:
   :name: google-showcase
 :generate_metadata: true
+:generate_standalone_snippets: true

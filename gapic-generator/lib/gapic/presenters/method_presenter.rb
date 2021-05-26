@@ -50,6 +50,10 @@ module Gapic
         @service_presenter
       end
 
+      def snippet
+        SnippetPresenter.new self, @api
+      end
+
       def name
         @name ||= begin
           candidate = ActiveSupport::Inflector.underscore @method.name
