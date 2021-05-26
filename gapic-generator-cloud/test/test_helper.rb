@@ -34,7 +34,7 @@ class GeneratorTest < Minitest::Test
   end
 
   def api service
-    Gapic::Schema::Api.new request(service)
+    Gapic::Schema::Api.new request(service), parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
   end
 
   def expected_content service, filename

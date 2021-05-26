@@ -75,7 +75,7 @@ module Gapic
               error_output
             )
 
-            if param_value
+            unless param_value.nil?
               RequestParameter.new param_val_input_str, param_name_input_esc, value_str, param_config_name, param_value
             end
           end.compact # known bool parameters with invalid values will not be added so we have to compact
@@ -148,7 +148,7 @@ module Gapic
           when :bool
             # bools should be either `true` or `false`
             unesc_val = unescape value_str
-            unesc_val if ["true", "false"].include? unesc_val
+            (unesc_val == "true") if ["true", "false"].include? unesc_val
           else
             # if it's an unknown type, just escape it without attempting to parse anything
             unescape value_str

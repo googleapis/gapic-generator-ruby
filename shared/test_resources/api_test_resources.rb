@@ -24,9 +24,9 @@ module ApiTestResources
     # into the configuration structure
     # and then rejected by the presenter layer
     free_tier: 'invalid_value',
-    yard_strict: 'false',
-    generic_endpoint: 'true',
-    generate_metadata: 'true',
+    yard_strict: false,
+    generic_endpoint: true,
+    generate_metadata: false,
 
     # string parameters
     name: 'google-cloud-container_analysis-v1',

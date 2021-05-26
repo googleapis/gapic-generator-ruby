@@ -72,7 +72,7 @@ class RequestParamParserTest < Minitest::Test
 
   # testing the parameter parsing with aliases
   def test_request_param_parsing_reconstruction
-    bool_params = { "bool_param_input_name" => "bool_param_name" }
+    bool_params = { "bool_param_input_name" => "bool_param_name", "bool_param_2_input_name" => "bool_param_2_name" }
     string_params = { "string_param_input_name" => "string_param_name" }
     array_params = { "array_param_input_name" => "array_param_name" }
     map_params = { "map_param_input_name" => "map_param_name" }
@@ -82,7 +82,8 @@ class RequestParamParserTest < Minitest::Test
     paramvals2expected = {
       ["unknown_param_input_name", "\\a\\b\\,.c\\\\de"]     => { "unknown_param_input_name" => "ab,.c\\de" },
       ["unknown_param.input_name.foo", "\\a\\b\\,.c\\\\de"] => { "unknown_param.input_name.foo" => "ab,.c\\de" },
-      ["bool_param_input_name", "true"]                     => { "bool_param_name" => "true" },
+      ["bool_param_input_name", "true"]                     => { "bool_param_name" => true },
+      ["bool_param_2_input_name", "false"]                  => { "bool_param_2_name" => false },
       ["string_param_input_name", "\\a\\b\\,.c\\\\de"]      => { "string_param_name" => "ab,.c\\de" },
       ["array_param_input_name", "ab;c\\;d;e\\\\f"]         => { "array_param_name" => ["ab", "c;d", "e\\f"] },
       ["map_param_input_name", "a=b;c\\=d=e\\,f;gh=i\\;j"]  => { "map_param_name" =>
