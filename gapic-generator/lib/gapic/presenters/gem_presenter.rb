@@ -156,18 +156,26 @@ module Gapic
         gem_config :issue_tracker_url
       end
 
+      ##
+      # @return [Boolean]
+      #
       def free_tier?
-        # Default to false unless the config is explicitly set to "true"
-        gem_config(:free_tier) == "true"
+        gem_config(:free_tier) || false
       end
 
+      ##
+      # @return [Boolean]
+      #
       def yard_strict?
         # Default to true unless the config is explicitly set to "false"
-        gem_config(:yard_strict) != "false"
+        gem_config(:yard_strict).nil? || gem_config(:yard_strict)
       end
 
+      ##
+      # @return [Boolean]
+      #
       def generic_endpoint?
-        gem_config(:generic_endpoint) == "true"
+        gem_config(:generic_endpoint) || false
       end
 
       def entrypoint_require
