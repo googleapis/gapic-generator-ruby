@@ -1,4 +1,3 @@
 ---
-:skip_credentials: true
 :gem:
   :name: google-bazel-example
