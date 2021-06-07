@@ -110,7 +110,7 @@ module Gapic
         version_dependencies.each do |version, requirement|
           deps["#{name}-#{version}"] = "~> #{requirement}"
         end
-        extra_deps = gem_config :extra_dependencies
+        extra_deps = gem_config_dependencies
         deps.merge! extra_deps if extra_deps
         deps
       end

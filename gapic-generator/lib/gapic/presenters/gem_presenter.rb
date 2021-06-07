@@ -193,7 +193,7 @@ module Gapic
       def dependencies
         deps = { "gapic-common" => [">= 0.4.1", "< 2.a"] }
         deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
-        extra_deps = gem_config :extra_dependencies
+        extra_deps = gem_config_dependencies
         deps.merge! extra_deps if extra_deps
         deps
       end
@@ -231,6 +231,23 @@ module Gapic
         return unless @api.configuration[:gem]
 
         @api.configuration[:gem][key]
+      end
+
+      ##
+      # There is a special case (from PoV of generator parameters)
+      # in gem dependencies where a dependency needs to be an array of strings
+      # e.g. ">= 1.6", "< 2.a"
+      # Rather than creating a special generator param case for this I will special-case it here.
+      # '|' is the separator.
+      # The above would be represented as ">= 1.6|< 2.a"
+      #
+      # @return [Hash<String, String>, Hash{String=>Array<String>}, nil]
+      def gem_config_dependencies
+        return unless gem_config :extra_dependencies
+        gem_config(:extra_dependencies).map do |dep_name, dep_versions|
+          return [dep_name, dep_versions] unless dep_versions.include? "|"
+          [dep_name, dep_versions.split("|")]
+        end.to_h
       end
 
       def blacklist_protos
