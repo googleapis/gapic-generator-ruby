@@ -16,7 +16,7 @@
 Macros wrapping protoc-library for ruby_gapic_library set of rules
 """
 
-load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo", "proto_custom_library")
+load("@rules_gapic//:gapic.bzl", "GapicInfo", "proto_custom_library")
 
 ##
 # An implementation of the _ruby_gapic_library_add_gapicinfo

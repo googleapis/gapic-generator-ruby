@@ -50,12 +50,13 @@ def gapic_generator_ruby_customgems(list_of_gems):
     strip_prefix = "bazel-skylib-2169ae1c374aab4a09aa90e65efe1a3aad4e279b",
   )
 
+  _rules_gapic_version = "0.5.4"
   _maybe(
     http_archive,
-    name = "com_google_api_codegen",
-    strip_prefix = "gapic-generator-2.4.0",
-    urls = ["https://github.com/googleapis/gapic-generator/archive/v2.4.0.zip"],
-  )
+    name = "rules_gapic",
+    strip_prefix = "rules_gapic-%s" % _rules_gapic_version,
+    urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
+   )
 
   # Create the common ruby runtime used for checks
   ruby_runtime(
