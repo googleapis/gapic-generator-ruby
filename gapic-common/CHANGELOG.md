@@ -1,6 +1,16 @@
 # Release History
 
+### 0.4.3 / 2021-06-10
+
+* Fix file permissions.
+
+### 0.4.2 / 2021-06-07
+
+* Expand googleauth dependency to include 1.x
+* Add a REST PUT method helper to Gapic::Rest.
+
 ### 0.4.1 / 2021-04-15
+
 * Provide a default value for the 'body' in the REST POST method in Gapic::Rest.
 
 ### 0.4.0 / 2021-02-23
