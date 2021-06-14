@@ -35,18 +35,43 @@ class GeneratorTest < Minitest::Test
   end
 
   ##
-  ##
   # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
   # @return [Google::Protobuf::Compiler::CodeGeneratorRequest]
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  def request service, params_override: nil, params_purge: nil
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+
+    unless params_override.nil? && params_purge.nil?
+      params_override ||= {}
+      params_purge ||= []
+      # create a parameter string for the override
+      params_str = params_override.map { |name, value| "#{name}=#{value}" }.join(",")
+
+      schema = Gapic::Generators::DefaultGeneratorParameters.default_schema
+      params = Gapic::Schema::RequestParamParser.parse_parameters_string(request.parameter,
+                                                                         param_schema: schema)
+      # filter out parameters that are going to be overridden and purged and reconstruct the param string
+      filtered_params = params.filter { |p| !params_override.key?(p.config_name) && !params_purge.include?(p.config_name)}
+      filtered_params_str = Gapic::Schema::RequestParamParser.reconstruct_parameters_string filtered_params
+
+      # comma to separate only if there are parameters left
+      separator = filtered_params_str.empty? || params_str.empty? ? "" : ","
+
+      # new param string with the overrides
+      request.parameter = "#{filtered_params_str}#{separator}#{params_str}"
+    end
+
+    request
   end
 
   ##
   # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
   # @return [Gapic::Schema::Api]
-  def api service
-    Gapic::Schema::Api.new request(service),
+  def api service, params_override: nil, params_purge: nil
+    Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge),
                            parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
   end
 

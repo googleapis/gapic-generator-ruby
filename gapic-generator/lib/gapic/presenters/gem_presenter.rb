@@ -191,11 +191,12 @@ module Gapic
       end
 
       def dependencies
-        deps = { "gapic-common" => [">= 0.4.1", "< 2.a"] }
-        deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
-        extra_deps = gem_config_dependencies
-        deps.merge! extra_deps if extra_deps
-        deps
+        @dependencies ||= begin
+          deps = { "gapic-common" => [">= 0.4.1", "< 2.a"] }
+          deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
+          extra_deps = gem_config_dependencies
+          deps.merge! extra_deps if extra_deps
+        end
       end
 
       def dependency_list
@@ -245,8 +246,11 @@ module Gapic
       def gem_config_dependencies
         return unless gem_config :extra_dependencies
         gem_config(:extra_dependencies).map do |dep_name, dep_versions|
-          return [dep_name, dep_versions] unless dep_versions.include? "|"
-          [dep_name, dep_versions.split("|")]
+          if dep_versions.include? "|"
+            [dep_name, dep_versions.split("|")]
+          else
+            [dep_name, dep_versions]
+          end
         end.to_h
       end
 

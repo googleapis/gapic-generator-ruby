@@ -106,13 +106,15 @@ module Gapic
       end
 
       def dependencies
-        deps = { "google-cloud-core" => "~> 1.5" }
-        version_dependencies.each do |version, requirement|
-          deps["#{name}-#{version}"] = "~> #{requirement}"
+        @dependencies = begin
+          deps = { "google-cloud-core" => "~> 1.5" }
+          version_dependencies.each do |version, requirement|
+            deps["#{name}-#{version}"] = "~> #{requirement}"
+          end
+          extra_deps = gem_config_dependencies
+          deps.merge! extra_deps if extra_deps
+          deps
         end
-        extra_deps = gem_config_dependencies
-        deps.merge! extra_deps if extra_deps
-        deps
       end
 
       def google_cloud_short_name
