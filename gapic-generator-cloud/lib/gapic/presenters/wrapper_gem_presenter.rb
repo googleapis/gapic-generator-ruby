@@ -106,7 +106,7 @@ module Gapic
       end
 
       def dependencies
-        @dependencies = begin
+        @dependencies ||= begin
           deps = { "google-cloud-core" => "~> 1.5" }
           version_dependencies.each do |version, requirement|
             deps["#{name}-#{version}"] = "~> #{requirement}"

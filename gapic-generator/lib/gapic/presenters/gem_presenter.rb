@@ -196,6 +196,7 @@ module Gapic
           deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! extra_deps if extra_deps
+          deps
         end
       end
 
