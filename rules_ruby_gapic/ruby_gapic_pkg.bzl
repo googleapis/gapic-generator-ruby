@@ -33,15 +33,14 @@ def _ruby_gapic_assembly_pkg_impl(ctx):
   ctx.actions.run_shell(
     inputs = [gapic_zip] + extras,
     outputs = [out_dir, out_tar],
-    tools = [ctx.executable._zipper],
+    tools = [],
     command = """
-{zipper} x {gapic_zip} -d {out_dir}
+unzip -q {gapic_zip} -d {out_dir}
 for extra in {extras}; do
-  {zipper} x $extra -d {out_dir}/lib
+  unzip -q $extra -d {out_dir}/lib
 done
 tar -czhpf {out_tar} -C {out_dir}/.. {pkg_name}
     """.format(
-      zipper = ctx.executable._zipper.path,
       gapic_zip = gapic_zip.path,
       extras = " ".join(["'%s'" % f.path for f in extras]),
       out_dir = out_dir.path,
@@ -63,7 +62,6 @@ _ruby_gapic_assembly_pkg = rule(
   attrs = {
     "deps": attr.label_list(mandatory = True, allow_files = True),
     "package_dir": attr.string(mandatory = True),
-    "_zipper": attr.label(default = Label("@bazel_tools//tools/zip:zipper"), cfg = "host", executable = True),
   }
 )
 
