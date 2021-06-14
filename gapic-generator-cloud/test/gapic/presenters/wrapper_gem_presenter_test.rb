@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,53 +16,9 @@
 
 require "test_helper"
 
-class GemPresenterTest < PresenterTest
+class WrapperGemPresenterTest < PresenterTest
   NEW_GEM_NAME = "gapic-test-foo"
-  GAPIC_COMMON_NAME = "gapic-common"
-
-  def test_first_non_common_service
-    request = FakeRequest.new
-    request.add_file! "google.common.iam" do
-      request.add_service! "IamGroot"
-    end
-    request.add_file! "google.cloud.example" do
-      request.add_service! "Hello"
-    end
-    configuration = {
-      common_services: {
-        "google.common.iam.IamGroot" => "google.cloud.example.Hello"
-      }
-    }
-    api = Gapic::Schema::Api.new request, configuration: configuration
-
-    presenter = Gapic::Presenters::GemPresenter.new api
-    assert_equal "IamGroot", presenter.services.first.address.last
-    assert_equal "Hello", presenter.first_non_common_service.address.last
-  end
-
-  def test_common_service_sanity_check
-    request = FakeRequest.new
-    request.add_file! "google.common.iam" do
-      request.add_service! "IamGroot"
-    end
-    request.add_file! "google.cloud.example" do
-      request.add_service! "Hello"
-    end
-    configuration = {
-      common_services: {
-        "google.common.iam.IamGroot" => "google.cloud.example.Hello",
-        "google.common.iam.IamGroot2" => "google.cloud.example.Hello2"
-      }
-    }
-    out, err = capture_subprocess_io do
-      Gapic::Schema::Api.new request, configuration: configuration
-    end
-    assert_equal "", out
-    err = err.split("\n")
-    assert_equal "WARNING: configured common service google.common.iam.IamGroot2 is not present", err[0]
-    assert_equal "WARNING: configured common service delegate google.cloud.example.Hello2 is not present", err[1]
-    assert_equal 2, err.size
-  end
+  GAPIC_COMMON_NAME = "google-cloud-core"
 
   ##
   # Testing that we can add a new dependency with a one-part gem pattern
@@ -73,7 +29,7 @@ class GemPresenterTest < PresenterTest
     }
 
     api_param = api :grpc_service_config, params_override: complex_version_param
-    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
 
     assert presenter_param.dependencies.key? NEW_GEM_NAME
     assert_kind_of String, presenter_param.dependencies[NEW_GEM_NAME]
@@ -89,7 +45,7 @@ class GemPresenterTest < PresenterTest
     }
 
     api_param = api :grpc_service_config, params_override: complex_version_param
-    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
 
     assert presenter_param.dependencies.key? NEW_GEM_NAME
     assert_kind_of Array, presenter_param.dependencies[NEW_GEM_NAME]
@@ -106,7 +62,7 @@ class GemPresenterTest < PresenterTest
     }
 
     api_param = api :grpc_service_config, params_override: complex_version_param
-    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
     assert_kind_of String, presenter_param.dependencies[GAPIC_COMMON_NAME]
@@ -122,7 +78,7 @@ class GemPresenterTest < PresenterTest
     }
 
     api_param = api :grpc_service_config, params_override: complex_version_param
-    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
     assert_kind_of Array, presenter_param.dependencies[GAPIC_COMMON_NAME]
