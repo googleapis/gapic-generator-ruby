@@ -77,6 +77,19 @@ module Gapic
       end
 
       ##
+      # Makes a PATCH request
+      #
+      # @param uri [String] uri to send this request to
+      # @param body [String] a body to send with the request, nil for requests without a body
+      # @param params [Hash] query string parameters for the request
+      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
+      #   Currently only timeout and headers are supported.
+      # @return [Faraday::Response]
+      def make_patch_request uri:, body:, params: {}, options: {}
+        make_http_request :patch, uri: uri, body: body, params: params, options: options
+      end
+
+      ##
       # Makes a POST request
       #
       # @param uri [String] uri to send this request to
@@ -90,7 +103,7 @@ module Gapic
       end
 
       ##
-      # Makes a PATCH request
+      # Makes a PUT request
       #
       # @param uri [String] uri to send this request to
       # @param body [String] a body to send with the request, nil for requests without a body
@@ -98,8 +111,8 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_patch_request uri:, body:, params: {}, options: {}
-        make_http_request :patch, uri: uri, body: body, params: params, options: options
+      def make_put_request uri:, body: nil, params: {}, options: {}
+        make_http_request :put, uri: uri, body: body, params: params, options: options
       end
 
       protected
