@@ -32,13 +32,14 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - \
 
 ### Requirement: system has `find` to remove the empty-spaced files
 
-### Requirement: system has `git` to get the gapic repo
+### Requirement: system has `wget` to get the gapic-generator-ruby repo
+### Requirement: `tar` and `unzip` are both used to produce packaged built libraries
 ### Requirement: system has `make` to build ruby
 ### Requirement: system has `zlib` and `zlib-dev`, `libreadline` and `libreadline-dev`, `openssl` and `openssl-dev`, all needed for rubygems to work
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        git \
         wget \
         tar \
+        unzip \
         make \
         zlib1g-dev \
         libreadline-dev \
