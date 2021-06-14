@@ -30,56 +30,77 @@ require "minitest/autorun"
 require "minitest/focus"
 
 class GeneratorTest < Minitest::Test
+  ##
+  # @param service [Symbol]
+  # @return [String]
   def proto_input service
     File.binread "proto_input/#{service}_desc.bin"
   end
 
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  ##
+  # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
+  # @return [Google::Protobuf::Compiler::CodeGeneratorRequest]
+  def request service, params_override: nil, params_purge: nil
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+
+    unless params_override.nil? && params_purge.nil?
+      params_override ||= {}
+      params_purge ||= []
+      # create a parameter string for the override
+      params_str = params_override.map { |name, value| "#{name}=#{value}" }.join(",")
+
+      schema = Gapic::Generators::DefaultGeneratorParameters.default_schema
+      params = Gapic::Schema::RequestParamParser.parse_parameters_string(request.parameter,
+                                                                         param_schema: schema)
+      # filter out parameters that are going to be overridden and purged and reconstruct the param string
+      filtered_params = params.filter { |p| !params_override.key?(p.config_name) && !params_purge.include?(p.config_name)}
+      filtered_params_str = Gapic::Schema::RequestParamParser.reconstruct_parameters_string filtered_params
+
+      # comma to separate only if there are parameters left
+      separator = filtered_params_str.empty? || params_str.empty? ? "" : ","
+
+      # new param string with the overrides
+      request.parameter = "#{filtered_params_str}#{separator}#{params_str}"
+    end
+
+    request
   end
 
-  def api service
-    Gapic::Schema::Api.new request(service)
+  ##
+  # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
+  # @return [Gapic::Schema::Api]
+  def api service, params_override: nil, params_purge: nil
+    Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge)
   end
 
+  ##
+  # @param service [Symbol]
+  # @param grpc_service_config [String]
+  # @return [Gapic::Schema::Api]
   def api_with_service_config service, grpc_service_config
-    base_api = api service
-    base_api.protoc_options["grpc_service_config"] = grpc_service_config
-    base_api
+    grpc_service_config_str = grpc_service_config.is_a?(Array) ? grpc_service_config.join(";")
+                                                      : grpc_service_config.to_s
+
+    api service, params_override: {"grpc_service_config" => grpc_service_config_str.freeze}
   end
 
-  def expected_content type, filename
-    File.read "expected_output/templates/#{type}/#{filename}"
-  end
-end
-
-class AnnotationTest < Minitest::Test
-  def proto_input service
-    File.binread "proto_input/#{service}_desc.bin"
-  end
-
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
-  end
-
-  def api service
-    Gapic::Schema::Api.new request(service)
+  ##
+  # @param service [Symbol]
+  # @param filename [String]
+  # @return [String]
+  def expected_content service, filename
+    File.read "expected_output/templates/#{service}/#{filename}"
   end
 end
 
-class PresenterTest < Minitest::Test
-  def proto_input service
-    File.binread "proto_input/#{service}_desc.bin"
-  end
+class AnnotationTest < GeneratorTest
+end
 
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
-  end
-
-  def api service
-    Gapic::Schema::Api.new request(service)
-  end
-
+class PresenterTest < GeneratorTest
   def service_presenter api_name, service_name
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
@@ -142,19 +163,7 @@ class PathPatternTest < Minitest::Test
   end
 end
 
-class ResourceLookupTest < Minitest::Test
-  def proto_input service
-    File.binread "proto_input/#{service}_desc.bin"
-  end
-
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
-  end
-
-  def api service
-    Gapic::Schema::Api.new request(service)
-  end
-
+class ResourceLookupTest < GeneratorTest
   def service api_name, service_name
     api_obj = api api_name
     service_obj = api_obj.services.find { |s| s.name == service_name }

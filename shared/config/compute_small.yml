@@ -1,5 +1,4 @@
 ---
-:skip_credentials: true
 :transports: ["rest"]
 :gem:
   :name: google-cloud-compute-v1

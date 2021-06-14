@@ -129,6 +129,13 @@ module Gapic
       end
 
       ##
+      # @return [Boolean] True if body contains full request object (`*` in the annotation), false otherwise
+      #
+      def body_is_request_object?
+        body == "*"
+      end
+
+      ##
       # Performs a limited version of grpc transcoding to create a string that will interpolate
       # the values from the request object to create a request body at runtime.
       # Currently only supports either "*" for "the whole request object" or
@@ -142,7 +149,7 @@ module Gapic
       def body_interpolated request_obj_name = "request_pb"
         return "\"\"" unless body?
 
-        return "#{request_obj_name}.to_json" if body == "*"
+        return "#{request_obj_name}.to_json" if body_is_request_object?
 
         "#{request_obj_name}.#{body}.to_json"
       end
@@ -156,11 +163,12 @@ module Gapic
 
       # @return [Array<String>]
       def query_string_params
-        return [] if body?
+        return [] if body_is_request_object?
 
         routing_params_set = routing_params.to_set
         @main_method.arguments
                     .reject { |arg| routing_params_set.include? arg.name }
+                    .reject { |arg| body == arg.name }
                     .reject(&:message?)
                     .reject { |arg| arg.default_value_for_type.nil? }
       end

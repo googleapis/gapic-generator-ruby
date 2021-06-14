@@ -71,36 +71,11 @@ module Gapic
         "#{client_require}.rb"
       end
 
+      ##
+      # @return [String]
+      #
       def create_client_call
         "#{client_name_full}.new"
-      end
-
-      ##
-      # @return [String]
-      #
-      def service_stub_name
-        "ServiceStub"
-      end
-
-      ##
-      # @return [String]
-      #
-      def service_stub_name_full
-        fix_namespace api, "#{service_name_full}::#{service_stub_name}"
-      end
-
-      ##
-      # @return [String]
-      #
-      def service_stub_require
-        ruby_file_path api, service_stub_name_full
-      end
-
-      ##
-      # @return [String]
-      #
-      def service_stub_file_path
-        "#{service_stub_require}.rb"
       end
 
       ##
@@ -143,6 +118,13 @@ module Gapic
       #
       def transcoding_helper_file_path
         "#{transcoding_helper_require}.rb"
+      end
+
+      ##
+      # @return [String]
+      #
+      def test_client_file_path
+        main_service.service_file_path.sub ".rb", "_test.rb"
       end
 
 

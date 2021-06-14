@@ -1,5 +1,4 @@
 ---
-:skip_credentials: true
 :gem:
   :name: google-showcase
 :generate_metadata: true
