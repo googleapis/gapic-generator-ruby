@@ -89,6 +89,10 @@ module Gapic
         matching_files.first
       end
 
+      def overrides_of key
+        configuration&.fetch(:overrides, nil)&.fetch(key, nil) || {}
+      end
+
       def fix_file_path str
         str = String str
         return str if configuration[:overrides].nil?
@@ -322,7 +326,12 @@ module Gapic
       # @return [String, Nil]
       def wrapper_gem_name_override
         return nil unless wrapper_gem_name_override?
-        configuration[:overrides][:wrapper_gem_name]
+        return nil if configuration[:overrides][:wrapper_gem_name].nil?
+
+        wrapper_name_config = configuration[:overrides][:wrapper_gem_name].strip
+        return nil if wrapper_name_config.empty?
+
+        wrapper_name_config
       end
 
       private

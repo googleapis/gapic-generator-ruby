@@ -5,5 +5,7 @@
     "name_pretty": "Google Cloud Language V1beta2 API",
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": true,
+    "ruby-cloud-description": "google-cloud-language-v1beta2 is the official client library for the Google Cloud Language V1beta2 API.",
+    "ruby-cloud-env-prefix": "LANGUAGE",
     "library_type": "GAPIC_AUTO"
 }

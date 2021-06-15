@@ -6,6 +6,7 @@ AllCops:
     - expected_output/**/*
     - tmp/**/*
     - bin/*
+    - test/test_helper.rb
     - Rakefile
 
 Metrics/AbcSize:

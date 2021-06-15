@@ -39,8 +39,15 @@ module Gapic
       end
 
       ##
+      # Whether this gem has a wrapper
+      # @return [Boolean]
+      def has_wrapper?
+        !wrapper_name.nil?
+      end
+
+      ##
       # The name of the wrapper gem corresponding to this versioned gem
-      # @return [String]
+      # @return [String, Nil]
       #
       def wrapper_name
         return @api.wrapper_gem_name_override if @api.wrapper_gem_name_override?
@@ -62,12 +69,28 @@ module Gapic
       #
       def description
         desc = readme_description
-        if wrapper_name && !wrapper_name.empty?
+        if has_wrapper?
           desc += " Note that #{name} is a version-specific client library." \
             " For most uses, we recommend installing the main client library" \
             " #{wrapper_name} instead. See the readme for more details."
         end
         desc
+      end
+
+      ##
+      # Returns a hash of extra generator arguments to be rendered into the
+      # repo-metadata.json file.
+      #
+      def generator_args_for_metadata
+        result = {}
+        result["ruby-cloud-description"] = description
+        result["ruby-cloud-env-prefix"] = env_prefix
+        result["ruby-cloud-product-url"] = product_documentation_url if product_documentation_url
+        path_overrides = @api.overrides_of(:file_path).map { |k, v| "#{k}=#{v}" }.join ";"
+        result["ruby-cloud-path-override"] = path_overrides unless path_overrides.empty?
+        namespace_overrides = @api.overrides_of(:namespace).map { |k, v| "#{k}=#{v}" }.join ";"
+        result["ruby-cloud-namespace-override"] = namespace_overrides unless namespace_overrides.empty?
+        result
       end
     end
 
