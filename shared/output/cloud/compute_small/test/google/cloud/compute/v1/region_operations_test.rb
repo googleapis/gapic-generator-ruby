@@ -76,6 +76,11 @@ class ::Google::Cloud::Compute::V1::RegionOperations::ClientTest < Minitest::Tes
 
     delete_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
       assert_equal :delete, verb
+
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+
       assert_nil body
     end
 
@@ -129,6 +134,11 @@ class ::Google::Cloud::Compute::V1::RegionOperations::ClientTest < Minitest::Tes
 
     get_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
       assert_equal :get, verb
+
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+
       assert_nil body
     end
 
@@ -186,6 +196,11 @@ class ::Google::Cloud::Compute::V1::RegionOperations::ClientTest < Minitest::Tes
 
     list_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
       assert_equal :get, verb
+
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+
       assert params.key? "filter"
       assert params.key? "maxResults"
       assert params.key? "orderBy"
@@ -244,6 +259,11 @@ class ::Google::Cloud::Compute::V1::RegionOperations::ClientTest < Minitest::Tes
 
     wait_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
       assert_equal :post, verb
+
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+
       assert_nil body
     end
 
