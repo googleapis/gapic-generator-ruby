@@ -5,6 +5,14 @@ AllCops:
   Exclude:
     - "test/**/*"
 
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - "lib/gapic/headers.rb"
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "lib/gapic/headers.rb"
+
 Naming/FileName:
   Exclude:
     - "lib/gapic-common.rb"
