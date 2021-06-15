@@ -17,7 +17,6 @@
 require "test_helper"
 
 class CloudGemPresenterTest < PresenterTest
-
   ##
   # Tests that cloud gem presenter
   #   - is overriding the wrapper name when given a non-empty value via config
