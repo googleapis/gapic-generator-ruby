@@ -1,5 +1,9 @@
 # Release History
 
+### 0.4.4 / 2021-07-15
+
+* Provide a way to create `x-goog-api-client` headers with rest library version and/or without grpc library version
+
 ### 0.4.3 / 2021-06-10
 
 * Fix file permissions.
