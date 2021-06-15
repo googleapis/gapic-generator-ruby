@@ -89,6 +89,10 @@ module Gapic
         matching_files.first
       end
 
+      def overrides_of(key)
+        configuration&.fetch(:overrides, nil)&.fetch(key, nil) || {}
+      end
+
       def fix_file_path str
         str = String str
         return str if configuration[:overrides].nil?
