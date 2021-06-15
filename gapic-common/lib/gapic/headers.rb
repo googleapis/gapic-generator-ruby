@@ -32,8 +32,8 @@ module Gapic
     #     `:grpc` to send the GRPC library version (if defined)
     #     `:rest` to send the REST library version (if defined)
     #   Defaults to `[:grpc]`
-    def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil, 
-                               gapic_version: nil, grpc_version: nil, rest_version: nil, 
+    def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil,
+                               gapic_version: nil, grpc_version: nil, rest_version: nil,
                                transports_version_send: [:grpc]
 
       ruby_version ||= ::RUBY_VERSION
