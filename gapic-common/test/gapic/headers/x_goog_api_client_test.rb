@@ -36,4 +36,28 @@ describe Gapic::Headers, :x_goog_api_client do
                                                       gax_version: "4.5.6", gapic_version: "7.8.9", grpc_version: "10.11.12"
     _(header).must_equal "gl-ruby/1.2.3 foo/bar gax/4.5.6 gapic/7.8.9 grpc/10.11.12"
   end
+
+  it "sets rest headers with no other arguments" do
+    header = Gapic::Headers.x_goog_api_client  transports_version_send: [:rest]
+    _(header).must_equal "gl-ruby/#{RUBY_VERSION} gax/#{Gapic::Common::VERSION} rest/#{::Faraday::VERSION}"
+  end
+
+  it "overrides rest version" do
+    header = Gapic::Headers.x_goog_api_client rest_version: "13.14.15", transports_version_send: [:rest]
+    _(header).must_equal "gl-ruby/#{RUBY_VERSION} gax/#{Gapic::Common::VERSION} rest/13.14.15"
+  end
+
+  it "sends rest version with other arguments provided" do
+    header = Gapic::Headers.x_goog_api_client ruby_version: "1.2.3", lib_name: "foo", lib_version: "bar",
+                                                      gax_version: "4.5.6", gapic_version: "7.8.9",
+                                                      rest_version: "13.14.15", transports_version_send: [:rest]
+    _(header).must_equal "gl-ruby/1.2.3 foo/bar gax/4.5.6 gapic/7.8.9 rest/13.14.15"
+  end
+
+  it "sends grpc and rest versions together" do
+    header = Gapic::Headers.x_goog_api_client ruby_version: "1.2.3", lib_name: "foo", lib_version: "bar",
+                                                      gax_version: "4.5.6", gapic_version: "7.8.9", grpc_version: "10.11.12",
+                                                      rest_version: "13.14.15", transports_version_send: [:rest, :grpc]
+    _(header).must_equal "gl-ruby/1.2.3 foo/bar gax/4.5.6 gapic/7.8.9 grpc/10.11.12 rest/13.14.15"
+  end
 end
