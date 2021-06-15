@@ -6,7 +6,7 @@
 
 <%= gem.homepage %>
 
-<%- if gem.wrapper_name -%>
+<%- if gem.has_wrapper? -%>
 This gem is a _versioned_ client. It provides basic client classes for a
 specific version of the <%= gem.title %> API. Most users should consider using
 the main client gem,

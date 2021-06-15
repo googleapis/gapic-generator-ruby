@@ -49,6 +49,7 @@ ruby_cloud_gapic_library(
     "ruby-cloud-generate-transports=rest",
     "ruby-cloud-generate-metadata=false",
     "ruby-cloud-extra-dependencies=gapic-common=>= 0.4.1|< 2.a",
+    "ruby-cloud-wrapper-gem-override=",
   ],
 )
 
