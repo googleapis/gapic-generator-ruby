@@ -1,6 +1,6 @@
 # Release History
 
-### 0.4.4 / 2021-06-15
+### 0.5.0 / 2021-06-15
 
 * Provide a way to create `x-goog-api-client` headers with rest library version and/or without grpc library version
 
