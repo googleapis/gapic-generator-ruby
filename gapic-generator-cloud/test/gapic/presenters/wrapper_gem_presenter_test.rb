@@ -22,7 +22,7 @@ class WrapperGemPresenterTest < PresenterTest
 
   ##
   # Testing that we can add a new dependency with a one-part gem pattern
-  # and have it reflected correctly in the gem presenter
+  # and have it reflected correctly in the wrapper gem presenter
   def test_gem_dependencies_simple_new
     complex_version_param = {
       ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1"
@@ -38,7 +38,7 @@ class WrapperGemPresenterTest < PresenterTest
 
   ##
   # Testing that we can add a new dependency with a multi-part gem pattern
-  # and have it reflected correctly in the gem presenter
+  # and have it reflected correctly in the wrapper gem presenter
   def test_gem_dependencies_complex_new
     complex_version_param = {
       ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1|< 2.a|foobar"
@@ -55,7 +55,7 @@ class WrapperGemPresenterTest < PresenterTest
 
   ##
   # Testing that we can override an existing dependency with a one-part gem pattern
-  # and have it reflected correctly in the gem presenter
+  # and have it reflected correctly in the wrapper gem presenter
   def test_gem_dependencies_simple_override
     complex_version_param = {
       ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1"
@@ -71,7 +71,7 @@ class WrapperGemPresenterTest < PresenterTest
 
   ##
   # Testing that we can override an existing dependency with a multi-part gem pattern
-  # and have it reflected correctly in the gem presenter
+  # and have it reflected correctly in the wrapper gem presenter
   def test_gem_dependencies_complex_override
     complex_version_param = {
       ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1|< 2.a|foobar"
