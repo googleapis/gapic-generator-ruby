@@ -89,7 +89,7 @@ module Gapic
         matching_files.first
       end
 
-      def overrides_of(key)
+      def overrides_of key
         configuration&.fetch(:overrides, nil)&.fetch(key, nil) || {}
       end
 
