@@ -23,6 +23,17 @@ load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl",
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
   "ruby_gapic_assembly_pkg")
 
+load("@rules_gapic//:gapic.bzl", "proto_library_with_info")
+
+# Remove this section when the monolith rule deps are
+# out of googleapis.
+proto_library_with_info(
+    name = "compute_proto_with_info",
+    deps = [
+        "@com_google_googleapis_discovery//google/cloud/compute/v1:compute_proto",
+        "@com_google_googleapis//google/cloud:common_resources_proto",
+    ],
+)
 ##
 # completed google-cloud-compute library combined from
 # * protoc ruby output
@@ -41,7 +52,7 @@ ruby_gapic_assembly_pkg(
 #
 ruby_cloud_gapic_library(
   name = "compute_ruby_gapic",
-  srcs = ["@com_google_googleapis_discovery//google/cloud/compute/v1:compute_proto_with_info"],
+  srcs = [":compute_proto_with_info"],
   ruby_cloud_title="Compute V1",
   ruby_cloud_description="google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API.",
   extra_protoc_parameters = [
