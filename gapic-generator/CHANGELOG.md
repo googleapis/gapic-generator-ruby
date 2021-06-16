@@ -1,5 +1,18 @@
 # Release History for gapic-generator
 
+### 0.8.0 / 2021-06-16
+
+* Initial implementation of standalone snippet generation.
+* Updated gapic-common dependencies to require at least 0.5 and to support future 1.x versions.
+* Generated unit tests for REST clients.
+* Generated proper x-goog-api-client headers for REST clients.
+* Added generation arguments to generated repo metadata.
+* Allow multiple versions in the extra-dependency command line argument.
+* Fixed treatment of boolean-valued command line arguments to the generator.
+* Fixed behavior of wrapper-gem-override if given an empty value.
+* Fixed default env_prefix computation to avoid the version part of the proto namespace.
+* Fixed Bazel front-end to preserve file permissions.
+
 ### 0.7.5 / 2021-05-18
 
 * Bazel jobs now provide a prebuilt ruby binary.
