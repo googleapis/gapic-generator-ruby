@@ -15,6 +15,11 @@ def test_<%= method.name %>
 
   <%= method.name %>_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
     assert_equal :<%= method.rest.verb %>, verb
+
+    assert options.metadata.key? :"x-goog-api-client"
+    assert options.metadata[:"x-goog-api-client"].include? "rest"
+    refute options.metadata[:"x-goog-api-client"].include? "grpc"
+
     <%- if method.rest.query_string_params? -%>
     <%- method.rest.query_string_params.each do |field| -%>
     assert params.key? "<%= field.camel_name %>"
