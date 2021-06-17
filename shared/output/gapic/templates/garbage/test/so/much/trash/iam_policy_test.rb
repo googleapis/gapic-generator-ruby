@@ -222,7 +222,7 @@ class ::So::Much::Trash::IAMPolicy::ClientTest < Minitest::Test
 
       # Use hash object with options
       client.test_iam_permissions({ resource: resource, permissions: permissions },
-grpc_options) do |response, operation|
+                                  grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

@@ -210,7 +210,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_specific_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-                                    float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
+float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -232,7 +232,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       # Use hash object with options
       client.get_specific_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-          bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
+bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -297,7 +297,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-                                  float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
+float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -319,7 +319,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       # Use hash object with options
       client.get_nested_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-          bytes: bytes, msg: msg, enum: enum }, grpc_options
+bytes: bytes, msg: msg, enum: enum }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -384,7 +384,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_repeated_garbage({ repeated_name: repeated_name, repeated_int32: repeated_int32,
-                                    repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
+repeated_int64: repeated_int64, repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -406,7 +406,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       # Use hash object with options
       client.get_repeated_garbage(
         { repeated_name: repeated_name, repeated_int32: repeated_int32, repeated_int64: repeated_int64,
-          repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options
+repeated_uint32: repeated_uint32, repeated_uint64: repeated_uint64, repeated_bool: repeated_bool, repeated_float: repeated_float, repeated_double: repeated_double, repeated_bytes: repeated_bytes, repeated_msg: repeated_msg, repeated_enum: repeated_enum }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -490,7 +490,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_typical_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-                                   float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }) do |response, operation|
+float: float, double: double, bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -512,7 +512,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
       # Use hash object with options
       client.get_typical_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-          bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }, grpc_options
+bytes: bytes, timeout: timeout, duration: duration, msg: msg, enum: enum, amap: amap, oneof_singular_str: oneof_singular_str, oneof_pair_int32: oneof_pair_int32, oneof_multiple_message: oneof_multiple_message, optional_int32: optional_int32 }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -741,7 +741,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object
       client.get_paged_garbage({ garbage: garbage, page_size: page_size,
-                                 page_token: page_token }) do |response, operation|
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -764,7 +764,7 @@ class ::So::Much::Trash::GarbageService::ClientTest < Minitest::Test
 
       # Use hash object with options
       client.get_paged_garbage({ garbage: garbage, page_size: page_size, page_token: page_token },
-grpc_options) do |response, operation|
+                               grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation

@@ -411,7 +411,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
 
       # Use hash object with options
       client.list_tests({ parent: parent, page_size: page_size, page_token: page_token },
-grpc_options) do |response, operation|
+                        grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
