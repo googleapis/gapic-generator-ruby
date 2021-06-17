@@ -20,7 +20,7 @@ load(
   ":private/ruby_gapic_library_internal.bzl",
   _ruby_gapic_library_internal = "ruby_gapic_library_internal",
 )
-load("@com_google_api_codegen//rules_gapic:gapic.bzl", "proto_custom_library")
+load("@rules_gapic//:gapic.bzl", "proto_custom_library")
 
 ##
 # A macro over the proto_custom_library that generates a library

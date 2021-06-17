@@ -15,7 +15,7 @@
 """
 A rule for packaging the ruby gapic library
 """
-load("@com_google_api_codegen//rules_gapic:gapic.bzl", "GapicInfo", "CustomProtoInfo")
+load("@rules_gapic//:gapic.bzl", "GapicInfo", "CustomProtoInfo")
 load("@rules_proto//proto:defs.bzl", "ProtoInfo")
 
 def _ruby_gapic_assembly_pkg_impl(ctx):
