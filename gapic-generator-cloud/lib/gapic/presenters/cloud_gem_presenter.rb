@@ -77,6 +77,10 @@ module Gapic
         desc
       end
 
+      def env_prefix!
+        env_prefix || "GOOGLE_CLOUD"
+      end
+
       ##
       # Returns a hash of extra generator arguments to be rendered into the
       # repo-metadata.json file.
@@ -84,7 +88,7 @@ module Gapic
       def generator_args_for_metadata
         result = {}
         result["ruby-cloud-description"] = description
-        result["ruby-cloud-env-prefix"] = env_prefix
+        result["ruby-cloud-env-prefix"] = env_prefix if env_prefix
         result["ruby-cloud-product-url"] = product_documentation_url if product_documentation_url
         path_overrides = @api.overrides_of(:file_path).map { |k, v| "#{k}=#{v}" }.join ";"
         result["ruby-cloud-path-override"] = path_overrides unless path_overrides.empty?

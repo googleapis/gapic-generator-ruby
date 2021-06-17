@@ -37,12 +37,6 @@ module So
             "https://endlesstrash.example.net/garbage-read",
             "https://endlesstrash.example.net/garbage-write"
           ]
-          self.env_vars = [
-            "GARBAGE_CREDENTIALS",
-            "GARBAGE_KEYFILE",
-            "GARBAGE_CREDENTIALS_JSON",
-            "GARBAGE_KEYFILE_JSON"
-          ]
         end
       end
     end

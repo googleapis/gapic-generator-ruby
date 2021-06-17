@@ -26,12 +26,6 @@ module Google
           module CampaignService
             # Credentials for the CampaignService API.
             class Credentials < ::Google::Auth::Credentials
-              self.env_vars = [
-                "GOOGLEADS_CREDENTIALS",
-                "GOOGLEADS_KEYFILE",
-                "GOOGLEADS_CREDENTIALS_JSON",
-                "GOOGLEADS_KEYFILE_JSON"
-              ]
             end
           end
         end
