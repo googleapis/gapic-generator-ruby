@@ -86,7 +86,7 @@ class ::So::Much::Trash::GarbageService::OperationsTest < Minitest::Test
 
       # Use hash object
       client.list_operations({ name: name, filter: filter, page_size: page_size,
-                               page_token: page_token }) do |response, operation|
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -110,7 +110,7 @@ class ::So::Much::Trash::GarbageService::OperationsTest < Minitest::Test
 
       # Use hash object with options
       client.list_operations({ name: name, filter: filter, page_size: page_size, page_token: page_token },
-grpc_options) do |response, operation|
+                             grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation

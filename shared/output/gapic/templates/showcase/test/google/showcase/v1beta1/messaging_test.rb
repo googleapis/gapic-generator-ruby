@@ -656,7 +656,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use hash object with options
       client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token },
-grpc_options) do |response, operation|
+                         grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -708,7 +708,7 @@ grpc_options) do |response, operation|
 
       # Use hash object
       client.search_blurbs({ query: query, parent: parent, page_size: page_size,
-                             page_token: page_token }) do |response, operation|
+page_token: page_token }) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -732,7 +732,7 @@ grpc_options) do |response, operation|
 
       # Use hash object with options
       client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token },
-grpc_options) do |response, operation|
+                           grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation

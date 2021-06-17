@@ -84,7 +84,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
       # Use hash object
       client.simple_pattern_method({ real_name: real_name, ref: ref,
-                                     repeated_ref: repeated_ref }) do |response, operation|
+repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -104,7 +104,7 @@ class ::So::Much::Trash::ResourceNames::ClientTest < Minitest::Test
 
       # Use hash object with options
       client.simple_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
-grpc_options) do |response, operation|
+                                   grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -152,7 +152,7 @@ grpc_options) do |response, operation|
 
       # Use hash object
       client.complex_pattern_method({ real_name: real_name, ref: ref,
-                                      repeated_ref: repeated_ref }) do |response, operation|
+repeated_ref: repeated_ref }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -172,7 +172,7 @@ grpc_options) do |response, operation|
 
       # Use hash object with options
       client.complex_pattern_method({ real_name: real_name, ref: ref, repeated_ref: repeated_ref },
-grpc_options) do |response, operation|
+                                    grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

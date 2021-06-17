@@ -61,18 +61,12 @@ module Testing
 
             default_config.timeout = 20.0
             default_config.retry_policy = {
-              initial_delay: 0.5,
-              max_delay: 5.0,
-              multiplier: 2.0,
-              retry_codes: [4, 8]
+              initial_delay: 0.5, max_delay: 5.0, multiplier: 2.0, retry_codes: [4, 8]
             }
 
             default_config.rpcs.method_level_retry_method.timeout = 86_400.0
             default_config.rpcs.method_level_retry_method.retry_policy = {
-              initial_delay: 1.0,
-              max_delay: 10.0,
-              multiplier: 3.0,
-              retry_codes: [14]
+              initial_delay: 1.0, max_delay: 10.0, multiplier: 3.0, retry_codes: [14]
             }
 
             default_config
