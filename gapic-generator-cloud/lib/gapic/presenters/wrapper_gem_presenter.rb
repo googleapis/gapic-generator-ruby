@@ -107,9 +107,14 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "google-cloud-core" => "~> 1.5" }
+          deps = { "google-cloud-core" => "~> 1.6" }
           version_dependencies.each do |version, requirement|
-            deps["#{name}-#{version}"] = "~> #{requirement}"
+            deps["#{name}-#{version}"] =
+              if requirement.start_with? "0."
+                [">= #{requirement}", "< 2.a"]
+              else
+                "~> #{requirement}"
+              end
           end
           extra_deps = gem_config_dependencies
           deps.merge! extra_deps if extra_deps
