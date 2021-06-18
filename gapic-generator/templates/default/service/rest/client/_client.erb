@@ -97,7 +97,7 @@ class <%= service.rest.client_name %>
     credentials = @config.credentials
     <%- unless service.generic_endpoint? -%>
     credentials ||= Credentials.default scope: @config.scope
-    if credentials.is_a?(String) || credentials.is_a?(Hash)
+    if credentials.is_a?(::String) || credentials.is_a?(::Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
     <%- end -%>
