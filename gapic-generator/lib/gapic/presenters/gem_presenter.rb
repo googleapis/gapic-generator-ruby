@@ -127,11 +127,7 @@ module Gapic
       end
 
       def env_prefix
-        prefix = gem_config(:env_prefix) || begin
-          segs = name.split("-").reverse
-          segs.find { |seg| seg !~ /^v\d/ } || segs.first || "UNKNOWN"
-        end
-        prefix.upcase
+        gem_config(:env_prefix)&.upcase
       end
 
       def iam_dependency?

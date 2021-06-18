@@ -22,7 +22,7 @@ during development.
 2. Set the [environment variable](#environment-variables).
 
 ```sh
-export <%= gem.env_prefix %>_CREDENTIALS=path/to/keyfile.json
+export <%= gem.cloud_env_prefix %>_CREDENTIALS=path/to/keyfile.json
 ```
 
 3. Initialize the client.
@@ -69,16 +69,18 @@ The environment variables that <%= gem.name %>
 checks for credentials are configured on the service Credentials class (such as
 <%= service.credentials_class_xref %>):
 
-1. `<%= gem.env_prefix %>_CREDENTIALS` - Path to JSON file, or JSON contents
-2. `<%= gem.env_prefix %>_KEYFILE` - Path to JSON file, or JSON contents
-3. `GOOGLE_CLOUD_CREDENTIALS` - Path to JSON file, or JSON contents
-4. `GOOGLE_CLOUD_KEYFILE` - Path to JSON file, or JSON contents
-5. `GOOGLE_APPLICATION_CREDENTIALS` - Path to JSON file
+<%- if gem.env_prefix -%>
+* `<%= gem.env_prefix %>_CREDENTIALS` - Path to JSON file, or JSON contents
+* `<%= gem.env_prefix %>_KEYFILE` - Path to JSON file, or JSON contents
+<%- end -%>
+* `GOOGLE_CLOUD_CREDENTIALS` - Path to JSON file, or JSON contents
+* `GOOGLE_CLOUD_KEYFILE` - Path to JSON file, or JSON contents
+* `GOOGLE_APPLICATION_CREDENTIALS` - Path to JSON file
 
 ```ruby
 require "<%= gem.entrypoint_require %>"
 
-ENV["<%= gem.env_prefix %>_CREDENTIALS"] = "path/to/keyfile.json"
+ENV["<%= gem.cloud_env_prefix %>_CREDENTIALS"] = "path/to/keyfile.json"
 
 client = <%= service.create_client_call %>
 ```

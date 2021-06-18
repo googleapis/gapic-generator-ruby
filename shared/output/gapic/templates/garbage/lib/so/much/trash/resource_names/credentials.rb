@@ -32,12 +32,6 @@ module So
       module ResourceNames
         # Credentials for the ResourceNames API.
         class Credentials < ::Google::Auth::Credentials
-          self.env_vars = [
-            "GARBAGE_CREDENTIALS",
-            "GARBAGE_KEYFILE",
-            "GARBAGE_CREDENTIALS_JSON",
-            "GARBAGE_KEYFILE_JSON"
-          ]
         end
       end
     end

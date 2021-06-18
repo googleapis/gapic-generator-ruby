@@ -6,6 +6,5 @@
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": true,
     "ruby-cloud-description": "google-cloud-language-v1 is the official client library for the Google Cloud Language V1 API. Note that google-cloud-language-v1 is a version-specific client library. For most uses, we recommend installing the main client library google-cloud-language instead. See the readme for more details.",
-    "ruby-cloud-env-prefix": "LANGUAGE",
     "library_type": "GAPIC_AUTO"
 }
