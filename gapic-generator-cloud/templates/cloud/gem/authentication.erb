@@ -22,7 +22,7 @@ during development.
 2. Set the [environment variable](#environment-variables).
 
 ```sh
-export <%= gem.env_prefix! %>_CREDENTIALS=path/to/keyfile.json
+export <%= gem.cloud_env_prefix %>_CREDENTIALS=path/to/keyfile.json
 ```
 
 3. Initialize the client.
@@ -80,7 +80,7 @@ checks for credentials are configured on the service Credentials class (such as
 ```ruby
 require "<%= gem.entrypoint_require %>"
 
-ENV["<%= gem.env_prefix! %>_CREDENTIALS"] = "path/to/keyfile.json"
+ENV["<%= gem.cloud_env_prefix %>_CREDENTIALS"] = "path/to/keyfile.json"
 
 client = <%= service.create_client_call %>
 ```

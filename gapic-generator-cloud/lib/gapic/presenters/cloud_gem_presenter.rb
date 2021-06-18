@@ -77,7 +77,7 @@ module Gapic
         desc
       end
 
-      def env_prefix!
+      def cloud_env_prefix
         env_prefix || "GOOGLE_CLOUD"
       end
 
