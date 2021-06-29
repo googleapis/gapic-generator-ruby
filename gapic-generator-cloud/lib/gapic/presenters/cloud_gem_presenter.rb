@@ -94,6 +94,8 @@ module Gapic
         result["ruby-cloud-path-override"] = path_overrides unless path_overrides.empty?
         namespace_overrides = @api.overrides_of(:namespace).map { |k, v| "#{k}=#{v}" }.join ";"
         result["ruby-cloud-namespace-override"] = namespace_overrides unless namespace_overrides.empty?
+        service_overrides = @api.overrides_of(:service).map { |k, v| "#{k}=#{v}" }.join ";"
+        result["ruby-cloud-service-override"] = service_overrides unless service_overrides.empty?
         result
       end
     end
