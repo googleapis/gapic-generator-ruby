@@ -2,6 +2,8 @@
 :gem:
   :name: "google-cloud-vision-v1"
   :env_prefix: VISION
+  :quick_start_service: ImageAnnotator
+  :quick_start_method: batch_annotate_files
 :defaults:
   :service:
     :default_host: "vision.googleapis.com"

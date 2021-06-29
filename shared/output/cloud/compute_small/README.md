@@ -26,7 +26,7 @@ In order to use this library, you first need to go through the following steps:
 require "google/cloud/compute/v1"
 
 client = ::Google::Cloud::Compute::V1::Addresses::Client.new
-request = my_create_request
+request = ::Google::Cloud::Compute::V1::AggregatedListAddressesRequest.new # (request fields as keyword arguments...)
 response = client.aggregated_list request
 ```
 

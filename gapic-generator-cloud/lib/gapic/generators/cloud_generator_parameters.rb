@@ -42,6 +42,8 @@ module Gapic
         "ruby-cloud-api-id"                => ":gem.:api_id",
         "ruby-cloud-api-shortname"         => ":gem.:api_shortname",
         "ruby-cloud-factory-method-suffix" => ":gem.:factory_method_suffix",
+        "ruby-cloud-quick-start-service"   => ":gem.:quick_start_service",
+        "ruby-cloud-quick-start-method"    => ":gem.:quick_start_method",
         "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
         "ruby-cloud-grpc-service-config"   => "grpc_service_config",
         "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name"
