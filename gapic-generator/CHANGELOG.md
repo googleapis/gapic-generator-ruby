@@ -1,5 +1,15 @@
 # Release History for gapic-generator
 
+### 0.9.0 / 2021-06-29
+
+* Support for configuring the service/method used for the quickstart example
+* Allow generation of libraries with no custom env prefix
+* Add service override setting to the repo metadata
+* Wrapper gem dependencies on pre-GA versioned gems now allow both 0.x and 1.x versions
+* Scoped some String and Hash references to the global scope to avoid name collisions
+* Reformat some config code to avoid rubocop indentation churn
+* Bazel: Replace monolith deps with rules_gapic
+
 ### 0.8.0 / 2021-06-16
 
 * Initial implementation of standalone snippet generation.
