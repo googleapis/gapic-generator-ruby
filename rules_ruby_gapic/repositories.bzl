@@ -56,7 +56,7 @@ def gapic_generator_ruby_customgems(list_of_gems):
     name = "rules_gapic",
     strip_prefix = "rules_gapic-%s" % _rules_gapic_version,
     urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
-   )
+  )
 
   _rules_gapic_version = "0.5.4"
   _maybe(
