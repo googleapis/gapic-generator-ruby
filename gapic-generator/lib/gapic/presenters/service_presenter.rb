@@ -409,6 +409,20 @@ module Gapic
         generate_rest_clients? ? "GRPC client" : "client"
       end
 
+      ##
+      # The method to use for quick start samples. Normally this is simply the
+      # first non-client-streaming method defined, but it can be overridden via
+      # a gem config.
+      #
+      # @return [Gapic::Presenters::MethodPresenter]
+      #
+      def quick_start_method
+        gem_config = @api.configuration[:gem]
+        preferred_method = gem_config[:quick_start_method] if gem_config
+        result = methods.find { |meth| meth.name == preferred_method } if preferred_method
+        result || methods.find { |meth| !meth.client_streaming? }
+      end
+
       private
 
       def default_config key

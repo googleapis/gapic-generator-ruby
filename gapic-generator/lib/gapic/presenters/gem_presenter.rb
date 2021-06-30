@@ -227,6 +227,18 @@ module Gapic
         JSON.pretty_generate first_package_drift_manifest
       end
 
+      ##
+      # The service to use for quick start samples. Normally this is simply the
+      # {#first_non_common_service}, but it can be overridden via a gem config.
+      #
+      # @return [Gapic::Presenters::ServicePresenter]
+      #
+      def quick_start_service
+        preferred_service = gem_config :quick_start_service
+        result = services.find { |svc| svc.name == preferred_service } if preferred_service
+        result || first_non_common_service
+      end
+
       private
 
       def gem_config key

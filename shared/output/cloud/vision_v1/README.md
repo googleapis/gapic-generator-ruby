@@ -31,9 +31,9 @@ In order to use this library, you first need to go through the following steps:
 ```ruby
 require "google/cloud/vision/v1"
 
-client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
-request = my_create_request
-response = client.create_product_set request
+client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+request = ::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new # (request fields as keyword arguments...)
+response = client.batch_annotate_files request
 ```
 
 View the [Client Library Documentation](https://googleapis.dev/ruby/google-cloud-vision-v1/latest)

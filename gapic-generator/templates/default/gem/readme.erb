@@ -16,12 +16,12 @@ $ gem install <%= gem.name %>
 
 ```ruby
 require "<%= gem.entrypoint_require %>"
-<%- service = gem.first_non_common_service -%>
-<%- method = service&.methods.first -%>
+<%- service = gem.quick_start_service -%>
+<%- method = service&.quick_start_method -%>
 <%- if service && method -%>
 
 client = <%= service.create_client_call %>
-request = my_create_request
+request = <%= method.request_type %>.new # (request fields as keyword arguments...)
 response = client.<%= method.name %> request
 <%- end -%>
 ```
