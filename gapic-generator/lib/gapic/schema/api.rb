@@ -354,9 +354,14 @@ module Gapic
       # * A mapping from resource type to resource wrapper is returned.
       def analyze_resources
         # In order to set parent_resources, we first populate a mapping from
-        # parsed pattern to resource mapping (in the patterns variable). This
-        # is done in one pass along with populating the resource type mapping.
-        # Then, we go through all resources again, get its expected parent
+        # parsed pattern to resources that use it (in the patterns variable).
+        # Note that there may be multiple resources associated with a pattern.
+        # (This is uncommon, but one example is monitoring v3 which uses
+        # "projects/*" for its workspace type as well as inheriting the common
+        # project type. We thus map each pattern to an array of resources.)
+        # Constructing the patterns mapping is done in one pass along with
+        # populating the type mapping (which maps only to single resources.)
+        # Then, we go through all resources again, get each's expected parent
         # patterns, and anything that shows up in the patterns mapping is taken
         # to be a parent.
         types = {}
@@ -367,8 +372,8 @@ module Gapic
         end
         types.each do |_type, resource|
           parents = resource.parsed_parent_patterns
-                            .map { |pat| patterns[pat] }
-                            .compact.uniq
+                            .flat_map { |pat| Array(patterns[pat]) }
+                            .uniq
           resource.parent_resources.replace parents
         end
         types
@@ -377,7 +382,7 @@ module Gapic
       def populate_resource_lookups resource, types, patterns
         types[resource.type] = resource
         resource.parsed_patterns.each do |pat|
-          patterns[pat] = resource
+          ((patterns[pat] ||= []) << resource).uniq!
         end
       end
 
