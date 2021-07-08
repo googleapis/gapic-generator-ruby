@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.9.1 / 2021-07-07
+
+* Detect multiple resource parents for patterns used by multiple resources
+
 ### 0.9.0 / 2021-06-29
 
 * Support for configuring the service/method used for the quickstart example
