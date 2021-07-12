@@ -33,6 +33,10 @@ module Gapic
         @patterns.filter!(&:useful_for_helpers?)
       end
 
+      def dup
+        ResourcePresenter.new @resource
+      end
+
       def name
         @resource.type.split("/").delete_if(&:empty?).last
       end
@@ -61,6 +65,10 @@ module Gapic
 
         attr_reader :pattern
         attr_reader :path_string
+
+        def pattern_template
+          @parsed_pattern.template
+        end
 
         def useful_for_helpers?
           !@parsed_pattern.positional_segments? && !@parsed_pattern.nontrivial_pattern_segments?

@@ -316,6 +316,15 @@ class FakeRequest < OpenStruct
     self
   end
 
+  def add_toplevel_resource! type, patterns
+    resources = @cur_descriptor.options[:".google.api.resource_definition"] ||= []
+    resource_descriptor = OpenStruct.new
+    resource_descriptor.type = type
+    resource_descriptor.pattern = Array(patterns)
+    resources << resource_descriptor
+    self
+  end
+
   def add_message! name
     outer_descriptor = @cur_descriptor
     @cur_descriptor = OpenStruct.new
@@ -332,6 +341,14 @@ class FakeRequest < OpenStruct
       outer_descriptor.message_type << @cur_descriptor
     end
     @cur_descriptor = outer_descriptor
+    self
+  end
+
+  def set_message_resource! type, patterns
+    resource_descriptor = OpenStruct.new
+    resource_descriptor.type = type
+    resource_descriptor.pattern = Array(patterns)
+    @cur_descriptor.options[:".google.api.resource"] = resource_descriptor
     self
   end
 
@@ -360,7 +377,7 @@ class FakeRequest < OpenStruct
     self
   end
 
-  def add_method! name
+  def add_method! name, input_type, output_type
     outer_descriptor = @cur_descriptor
     @cur_descriptor = OpenStruct.new
     @cur_descriptor.input_type = input_type

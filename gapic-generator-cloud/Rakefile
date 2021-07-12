@@ -85,6 +85,11 @@ namespace :gen do |gen_namespace|
     generate_cloud_templates :vision_v1
   end
 
+  desc "Generate the expected output for document_ai_v1beta3"
+  task :document_ai_v1beta3 do
+    generate_cloud_templates :document_ai_v1beta3
+  end
+
   desc "Generate the expected output for noservice"
   task :noservice do
     generate_cloud_templates :noservice
