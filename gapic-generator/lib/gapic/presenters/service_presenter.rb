@@ -252,6 +252,34 @@ module Gapic
         @references ||= @service.resources.map { |resource| ResourcePresenter.new resource }.sort_by(&:name)
       end
 
+      ##
+      # Deduplicate resource presenters by combining resources with the same
+      # name. If multiple resources have the same name (though possibly
+      # different namespaces, e.g. `location.googleapis.com/Location` vs
+      # `documentai.googleapis.com/Location`), this combines (and dedups) their
+      # patterns into a single resource presenter.
+      #
+      # Used for generating path helpers while avoiding duplicate method names.
+      #
+      def deduped_references
+        @deduped_references ||= begin
+          hash = {}
+          references.each do |resource|
+            if hash.key? resource.name
+              existing = hash[resource.name]
+              resource.patterns.each do |pat|
+                unless existing.patterns.any? { |epat| epat.pattern_template == pat.pattern_template }
+                  existing.patterns << pat
+                end
+              end
+            else
+              hash[resource.name] = resource.dup
+            end
+          end
+          hash.values
+        end
+      end
+
       def paths?
         references.any?
       end

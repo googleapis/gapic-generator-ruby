@@ -7,7 +7,7 @@ require "gapic/grpc/service_stub"
 require "<%= service.service_require %>"
 
 class <%= service.client_name_full %>PathsTest < Minitest::Test
-<%- service.references.each do |resource| -%>
+<%- service.deduped_references.each do |resource| -%>
 <%= indent render(partial: "service/test/resource",
                   locals: { resource: resource, service: service }), 2 %>
 
