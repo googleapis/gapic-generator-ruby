@@ -18,6 +18,7 @@ require "minitest/focus"
 require "minitest/rg"
 
 require "gapic/common"
+require "gapic/rest"
 require "google/protobuf/any_pb"
 require_relative "./fixtures/fixture_pb"
 
@@ -51,6 +52,20 @@ class FakeGapicStub
     @count += 1
     fake_operation = "fake_operation_#{@count}".to_sym
     yield result, fake_operation if block_given?
+    result
+  end
+end
+
+class FakeReGapicClient
+  def initialize *responses
+    @responses = responses
+    @count = 0
+  end
+
+  def call_rest *args
+    result = @responses.shift
+    @count += 1
+    yield result, result if block_given?
     result
   end
 end

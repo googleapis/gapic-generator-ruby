@@ -13,7 +13,7 @@
 // limitations under the License.
 syntax = "proto3";
 
-package google.protobuf;
+package gapic.examples;
 
 import "google/protobuf/timestamp.proto";
 
@@ -76,5 +76,22 @@ message MissingNextPageTokenResponse {
 message BadMessageOrderResponse {
   repeated Post posts = 2;
   repeated User users = 1;
+  string next_page_token = 3;
+}
+
+//
+message UsersScopedInfo {
+  // [Output Only] A list of addresses contained in this scope.
+  string scoped_info = 1;
+
+  // [Output Only] Informational warning which replaces the list of addresses when the list is empty.
+  string warning = 2;
+}
+
+message GoodMappedPagedResponse {
+  // A list of AddressesScopedList resources.
+  map<string, UsersScopedInfo> items = 1;
+
+  // [Output Only] This token allows you to get the next page of results for list requests. If the number of results is larger than maxResults, use the nextPageToken as a value for the query parameter pageToken in the next list request. Subsequent list requests will have their own nextPageToken to continue paging through the results.
   string next_page_token = 3;
 }
