@@ -85,11 +85,10 @@ class RestPagedEnumerableTest < Minitest::Test
   end
 
   ##
-  # Tests that a `MappedPagedEnumerable` can enumerate all pages via `each_page`
-  # and within each page can access the resources via the `[]` operator and
-  # enumberate key-value resource pairs via the `each_mapped_page`
+  # Tests that a `PagedEnumerable` wrapping a map field can enumerate all items
+  # via a 1-variable block in each: `paged_enumerable.each { |key_value_pair| p key_value_pair }`
   #
-  def test_enumerates_all_pages_map
+  def test_enumerates_all_map_pairs_1varblock
     api_responses = [
       Gapic::Examples::GoodMappedPagedResponse.new(
         items: {
@@ -111,25 +110,47 @@ class RestPagedEnumerableTest < Minitest::Test
 
     options = {}
 
-    rest_map_paged_enum = Gapic::Rest::MappedPagedEnumerable.new(
+    result = Gapic::Rest::PagedEnumerable.new(
       fake_client, :call_rest, "items", request, response, options
     )
+    kvp_list = result.map { |kvp| [kvp[0], kvp[1].scoped_info] }
+    assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]], kvp_list
+  end
 
-    foo_list = []
-    bar_list = []
+  ##
+  # Tests that a `PagedEnumerable` wrapping a map field can enumerate all items
+  # via a 1-variable block in each: `paged_enumerable.each { |key, value| p key.to_s + value.to_s }`
+  #
+  def test_enumerates_all_map_pairs_2varblock
+    api_responses = [
+      Gapic::Examples::GoodMappedPagedResponse.new(
+        items: {
+          "foo" => Gapic::Examples::UsersScopedInfo.new(scoped_info: "hoge"),
+          "bar" => Gapic::Examples::UsersScopedInfo.new(scoped_info: "piyo"),
+        },
+        )
+    ]
+
+    fake_client = FakeReGapicClient.new(*api_responses)
+    request = Gapic::Examples::GoodPagedRequest.new
+    response = Gapic::Examples::GoodMappedPagedResponse.new(
+      items: {
+        "foo" => Gapic::Examples::UsersScopedInfo.new(scoped_info: "baz"),
+        "bar" => Gapic::Examples::UsersScopedInfo.new(scoped_info: "bif"),
+      },
+      next_page_token: "next"
+    )
+
+    options = {}
+
+    result = Gapic::Rest::PagedEnumerable.new(
+      fake_client, :call_rest, "items", request, response, options
+    )
     kvp_list = []
-
-    rest_map_paged_enum.each_page do |map_page|
-      foo_list << map_page["foo"].scoped_info
-      bar_list << map_page["bar"].scoped_info
-
-      map_page.each_mapped_pair do |key, value| 
-        kvp_list << [key, value.scoped_info]
-      end
+    result.each do |key, value|
+      kvp_list << [key, value.scoped_info]
     end
 
-    assert_equal ["baz", "hoge"], foo_list
-    assert_equal ["bif", "piyo"], bar_list
     assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]], kvp_list
   end
 end
