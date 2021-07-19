@@ -42,7 +42,7 @@ module Gapic
         # Name of the request's field used for page size
         # For Regapic can be either `page_size` or `max_results`
         #
-        # @return [String, Nil]
+        # @return [String, nil]
         def request_page_size_name
           request_page_size_field&.name
         end
@@ -51,7 +51,7 @@ module Gapic
         # Name of the repeated field in the response message
         # For REST gapics can be either a vanilla repeated field or a map
         #
-        # @return [String, Nil]
+        # @return [String, nil]
         def response_repeated_field_name
           response_results_field&.name
         end
@@ -59,7 +59,7 @@ module Gapic
         ##
         # Whether the repeated field in the response message is a map
         #
-        # @return [Boolean, Nil]
+        # @return [Boolean, nil]
         def repeated_field_is_a_map?
           response_results_field&.map?
         end
@@ -93,7 +93,7 @@ module Gapic
         ##
         # The field in the request that holds a page_token
         #
-        # @return[Gapic::Schema::Field, Nil]
+        # @return[Gapic::Schema::Field, nil]
         def request_page_token_field
           # Has a String page_token field which specifies the actual (next) page to retrieve.
           @request_page_token_field ||= @request.fields.find do |f|
@@ -105,7 +105,7 @@ module Gapic
         # The field in the request that holds a page_size
         # For Regapic can have a name of either `page_size` or `max_results`
         #
-        # @return[Gapic::Schema::Field, Nil]
+        # @return[Gapic::Schema::Field, nil]
         def request_page_size_field
           @request_page_size_field ||=
             begin
@@ -140,7 +140,7 @@ module Gapic
         ##
         # The field in the response that holds a next page_token
         #
-        # @return[Gapic::Schema::Field, Nil]
+        # @return[Gapic::Schema::Field, nil]
         def response_next_page_token_field
           # Has the string next_page_token field to be used in the next request as page_token to retrieve the next page.
           @response_next_page_token_field ||= @response.fields.find do |f|
@@ -152,7 +152,7 @@ module Gapic
         # The field in the response that holds the results
         # For Regapic can be either a vanilla repeated field or a map
         #
-        # @return [Gapic::Schema::Field, Nil]
+        # @return [Gapic::Schema::Field, nil]
         def response_results_field
           @response_results_field ||= begin
             map_fields = @response.fields.find_all(&:map?)
