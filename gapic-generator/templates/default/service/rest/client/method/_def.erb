@@ -8,11 +8,11 @@
 <%= render partial: "service/rest/client/method/docs/result", locals: { method: method } -%>
 #
 <%= render partial: "service/rest/client/method/docs/error", locals: { method: method } -%>
-def <%= method.name %> request, options = nil
+def <%= method.name %> request, options = nil, &block
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/rest/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
-<%= indent render(partial: "service/rest/client/method/def/response_normal", locals: { method: method }), 2 %>
+<%= indent render(partial: "service/rest/client/method/def/response", locals: { method: method }), 2 %>
 <%= render partial: "service/rest/client/method/def/rescue", locals: { method: method } -%>
 end

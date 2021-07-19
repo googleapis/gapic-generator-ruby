@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/presenters/method/rest_pagination_info"
 require "gapic/uri_template"
 
 module Gapic
@@ -22,9 +23,14 @@ module Gapic
     # A presenter for rpc methods (REST submethods)
     #
     class MethodRestPresenter
+      # @return [Gapic::Presenters::Method::RestPaginationInfo]
+      attr_reader :pagination
+
       def initialize main_method
         @main_method = main_method
         @proto_method = main_method.method
+
+        @pagination = Gapic::Presenters::Method::RestPaginationInfo.new @proto_method
       end
 
       ##
@@ -206,6 +212,15 @@ module Gapic
       #
       def request_type
         @main_method.request_type
+      end
+
+      ##
+      # Whether the REGAPIC method should be rendered as paged
+      #
+      # @return [Boolean]
+      #
+      def paged?
+        @pagination.paged?
       end
     end
   end
