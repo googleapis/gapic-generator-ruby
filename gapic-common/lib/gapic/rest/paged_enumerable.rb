@@ -71,11 +71,11 @@ module Gapic
       end
 
       ##
-      # Iterate over the resources.
+      # Iterate over the individual resources, automatically requesting new pages as needed.
       #
       # @yield [Object] Gives the resource objects in the stream.
       #
-      # @raise [RuntimeError] if it's not started yet.
+      # @return [Enumerator] if no block is provided
       #
       def each &block
         return enum_for :each unless block_given?
@@ -90,8 +90,8 @@ module Gapic
       #
       # @yield [Page] Gives the pages in the stream.
       #
-      # @raise if it's not started yet.
-      # @return [Enumerable, Nil]
+      # @return [Enumerator] if no block is provided
+      #
       def each_page
         return enum_for :each_page unless block_given?
 
@@ -103,18 +103,19 @@ module Gapic
       end
 
       ##
-      # True if it has the next page.
+      # True if there is at least one more page of results.
       #
       # @return [Boolean]
       #
       def next_page?
-        @page.next_page_token?
+        !next_page_token.nil? && !next_page_token.empty?
       end
 
       ##
-      # Update the response in the current page.
+      # Load the next page and set it as the current page.
+      # If there is no next page, sets Nil as a current page.
       #
-      # @return [Page] the new page object.
+      # @return [Page, Nil] the new page object.
       #
       def next_page!
         unless next_page?
@@ -132,20 +133,22 @@ module Gapic
 
       ##
       # The page token to be used for the next RPC call.
+      # Nil if the iteration is complete.
       #
-      # @return [String]
+      # @return [String, Nil]
       #
       def next_page_token
-        @page.next_page_token
+        @page&.next_page_token
       end
 
       ##
       # The current response object, for the current page.
+      # Nil if the iteration is complete.
       #
-      # @return [Object]
+      # @return [Object, Nil]
       #
       def response
-        @page.response
+        @page&.response
       end
 
       ##
@@ -162,7 +165,7 @@ module Gapic
         # @private
         # @param response [Object] The response object for the page.
         # @param resource_field [String] The name of the field in response which holds the resources.
-        # @param format_resource [Proc] A Proc object to format the resource object.
+        # @param format_resource [Proc, Nil] A Proc object to format the resource object. Default nil (no formatting).
         # The Proc should accept response as an argument, and return a formatted resource object. Optional.
         #
         def initialize response, resource_field, format_resource: nil
@@ -176,10 +179,10 @@ module Gapic
         #
         # @yield [Object] Gives the resource objects in the page.
         #
+        # @return [Enumerator] if no block is provided
+        #
         def each
           return enum_for :each unless block_given?
-
-          return if resources.nil?
 
           # We trust that the field exists and is an Enumerable
           resources.each do |resource|
@@ -191,11 +194,9 @@ module Gapic
         ##
         # The page token to be used for the next RPC call.
         #
-        # @return [String, Nil]
+        # @return [String]
         #
         def next_page_token
-          return if @response.nil?
-
           @response.next_page_token
         end
 
@@ -205,9 +206,7 @@ module Gapic
         # @return [Boolean]
         #
         def next_page_token?
-          return false if @response.nil?
-
-          !@response.next_page_token.empty?
+          !next_page_token.empty?
         end
 
         ##
@@ -218,7 +217,7 @@ module Gapic
         # @return [Array]
         #
         def resources
-          @resources ||= @response[@resource_field].to_a unless @response.nil?
+          @resources ||= @response[@resource_field].to_a
         end
       end
     end

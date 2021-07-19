@@ -85,6 +85,39 @@ class RestPagedEnumerableTest < Minitest::Test
   end
 
   ##
+  # Tests that a `PagedEnumerable` can enumerate all resources via `each`
+  #
+  def test_enumerates_formats_all_resources
+    api_responses = [
+      Gapic::Examples::GoodPagedResponse.new(
+        users: [
+          Gapic::Examples::User.new(name: "baz"),
+          Gapic::Examples::User.new(name: "bif")
+        ]
+      )
+    ]
+
+    fake_service_stub = FakeReGapicServiceStub.new(*api_responses)
+    request = Gapic::Examples::GoodPagedRequest.new
+    response = Gapic::Examples::GoodPagedResponse.new(
+      users:           [
+        Gapic::Examples::User.new(name: "foo"),
+        Gapic::Examples::User.new(name: "bar")
+      ],
+      next_page_token: "next"
+    )
+
+    options = {}
+    upcase_user = ->(user) { user.name.upcase }
+
+    rest_paged_enum = Gapic::Rest::PagedEnumerable.new(
+      fake_service_stub, :call_rest, "users", request, response, options, format_resource: upcase_user
+    )
+
+    assert_equal %w[FOO BAR BAZ BIF], rest_paged_enum.each.to_a
+  end
+
+  ##
   # Tests that a `PagedEnumerable` wrapping a map field can enumerate all items
   # via a 1-variable block in each: `paged_enumerable.each { |key_value_pair| p key_value_pair }`
   #
