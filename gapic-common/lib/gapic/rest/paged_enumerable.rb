@@ -40,12 +40,12 @@ module Gapic
     #     paged_enumerable.next_page
     #   end
     #
+    # @attribute [r] page
+    #   @return [Page] The current page object.
+    #
     class PagedEnumerable
       include Enumerable
 
-      ##
-      # @attribute [r] page
-      #   @return [Page] The current page object.
       attr_reader :page
 
       ##
@@ -113,9 +113,9 @@ module Gapic
 
       ##
       # Load the next page and set it as the current page.
-      # If there is no next page, sets Nil as a current page.
+      # If there is no next page, sets nil as a current page.
       #
-      # @return [Page, Nil] the new page object.
+      # @return [Page, nil] the new page object.
       #
       def next_page!
         unless next_page?
@@ -132,10 +132,10 @@ module Gapic
       alias next_page next_page!
 
       ##
-      # The page token to be used for the next RPC call.
-      # Nil if the iteration is complete.
+      # The page token to be used for the next RPC call, or the empty string if there is no next page.
+      # nil if the iteration is complete.
       #
-      # @return [String, Nil]
+      # @return [String, nil]
       #
       def next_page_token
         @page&.next_page_token
@@ -143,9 +143,9 @@ module Gapic
 
       ##
       # The current response object, for the current page.
-      # Nil if the iteration is complete.
+      # nil if the iteration is complete.
       #
-      # @return [Object, Nil]
+      # @return [Object, nil]
       #
       def response
         @page&.response
@@ -165,7 +165,7 @@ module Gapic
         # @private
         # @param response [Object] The response object for the page.
         # @param resource_field [String] The name of the field in response which holds the resources.
-        # @param format_resource [Proc, Nil] A Proc object to format the resource object. Default nil (no formatting).
+        # @param format_resource [Proc, nil] A Proc object to format the resource object. Default nil (no formatting).
         # The Proc should accept response as an argument, and return a formatted resource object. Optional.
         #
         def initialize response, resource_field, format_resource: nil
@@ -192,7 +192,7 @@ module Gapic
         end
 
         ##
-        # The page token to be used for the next RPC call.
+        # The page token to be used for the next RPC call, or the empty string if there is no next page.
         #
         # @return [String]
         #
