@@ -119,7 +119,7 @@ class RestPagedEnumerableTest < Minitest::Test
 
   ##
   # Tests that a `PagedEnumerable` wrapping a map field can enumerate all items
-  # via a 1-variable block in each: `paged_enumerable.each { |key, value| p key.to_s + value.to_s }`
+  # via a 2-variable block in each: `paged_enumerable.each { |key, value| p key.to_s + value.to_s }`
   #
   def test_enumerates_all_map_pairs_2varblock
     api_responses = [
