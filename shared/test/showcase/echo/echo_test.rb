@@ -15,17 +15,40 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo"
+require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class EchoTest < ShowcaseTest
+  def setup
+    @client = new_echo_client
+  end
+
   def test_echo
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
+    response = @client.echo content: "hi there!"
+
+    assert_equal "hi there!", response.content
+  end
+
+  def test_echo_with_block
+    @client.echo content: "hello again!" do |response, operation|
+      assert_equal "hello again!", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_equal({}, operation.trailing_metadata)
     end
+  end
 
-    response = client.echo content: 'hi there!'
-
-    assert_equal 'hi there!', response.content
+  def test_echo_with_metadata
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["one", "two"],
+      garbage:            ["baz"]
+    }
+    @client.echo({ content: "hi there!" }, options) do |response, operation|
+      assert_equal "hi there!", response.content
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two"] },
+        operation.trailing_metadata
+      )
+    end
   end
 end

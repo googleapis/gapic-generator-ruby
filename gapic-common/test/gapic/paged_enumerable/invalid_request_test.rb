@@ -18,11 +18,11 @@ class PagedEnumerableInvalidRequestTest < Minitest::Test
   def test_MissingPageTokenRequest
     request = Gapic::Examples::MissingPageTokenRequest.new
     response = Gapic::Examples::GoodPagedResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{request.class} must have a page_token field (String)"
@@ -32,11 +32,11 @@ class PagedEnumerableInvalidRequestTest < Minitest::Test
   def test_MissingPageSizeRequest
     request = Gapic::Examples::MissingPageSizeRequest.new
     response = Gapic::Examples::GoodPagedResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{request.class} must have a page_size field (Integer)"

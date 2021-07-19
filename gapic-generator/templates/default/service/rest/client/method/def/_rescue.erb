@@ -1,0 +1,3 @@
+<%- assert_locals method -%>
+rescue ::Faraday::Error => e
+  raise ::Gapic::Rest::Error.wrap_faraday_error e

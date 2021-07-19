@@ -1,18 +1,19 @@
 <%- assert_locals namespace -%>
-# frozen_string_literal: true
+<%= render partial: "shared/header" -%>
 
-<%= render partial: "shared/license" %>
-<% if @requires %>
-<%= @requires %>
-<% end %>
-<%- namespace.split("::").each_with_index do |ns, i| -%>
+<%- if instance_variable_defined? :@requires -%>
+<%= @requires -%>
+<%- end -%>
+
+<%- namespace_components = namespace.split("::").reject(&:empty?) -%>
+<%- namespace_components.each_with_index do |ns, i| -%>
 <%= indent "module #{ns}", i*2 %>
 <%- end -%>
-<%= indent yield, namespace.split("::").count*2 %>
-<%- namespace.split("::").count.times do |i| -%>
-<%= indent "end", (namespace.split("::").count-1-i)*2 %>
+<%= indent yield, namespace_components.count*2 %>
+<%- namespace_components.count.times do |i| -%>
+<%= indent "end", (namespace_components.count-1-i)*2 %>
 <%- end -%>
-<%- if @footer -%>
+<%- if instance_variable_defined? :@footer -%>
 
-<%= @footer %>
+<%= @footer -%>
 <%- end -%>

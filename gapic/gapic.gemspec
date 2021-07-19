@@ -34,14 +34,14 @@ Gem::Specification.new do |spec|
                ["LICENSE"]
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 2.2.0"
+  spec.required_ruby_version = ">= 2.5"
 
-  spec.add_development_dependency "google-style", "~> 0.3.0"
+  spec.add_development_dependency "google-style", "~> 1.25.1"
   spec.add_development_dependency "minitest", "~> 5.11"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"
   spec.add_development_dependency "minitest-rg", "~> 5.2"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", ">= 12.0"
   spec.add_development_dependency "redcarpet", "~> 3.0"
   spec.add_development_dependency "yard", "~> 0.9"
 end

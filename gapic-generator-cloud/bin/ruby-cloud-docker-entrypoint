@@ -1,0 +1,135 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+require "optparse"
+require "fileutils"
+
+# Boolean options may have values "true" or "false" (as strings)
+bool_option_map = {
+  ":gem.:free_tier" => "ruby-cloud-free-tier",
+  ":gem.:yard_strict" => "ruby-cloud-yard-strict",
+  ":gem.:generic_endpoint" => "ruby-cloud-generic-endpoint"
+}
+
+# Value options always take string values.
+value_option_map = {
+  "configuration" => "ruby-cloud-config",
+  ":gem.:name" => "ruby-cloud-gem-name",
+  ":gem.:namespace" => "ruby-cloud-gem-namespace",
+  ":gem.:title" => "ruby-cloud-title",
+  ":gem.:description" => "ruby-cloud-description",
+  ":gem.:summary" => "ruby-cloud-summary",
+  ":gem.:homepage" => "ruby-cloud-homepage",
+  ":gem.:env_prefix" => "ruby-cloud-env-prefix",
+  ":gem.:version_dependencies" => "ruby-cloud-wrapper-of",
+  ":gem.:migration_version" => "ruby-cloud-migration-version",
+  ":gem.:product_documentation_url" => "ruby-cloud-product-url",
+  ":gem.:issue_tracker_url" => "ruby-cloud-issues-url",
+  ":gem.:api_id" => "ruby-cloud-api-id",
+  ":gem.:api_shortname" => "ruby-cloud-api-shortname",
+  ":gem.:factory_method_suffix" => "ruby-cloud-factory-method-suffix"
+}
+
+# Path options take one or more file paths delimited by semicolons.
+path_option_map = {
+  "samples" => ["ruby-cloud-samples", "samples"],
+  "grpc_service_config" => "ruby-cloud-grpc-service-config"
+}
+
+# Map options take one or more mappings delimited by semicolons. Each mapping
+# must be of the form "key=value". Note that periods in keys are treated as
+# literal periods, not subkey delimiters.
+map_option_map = {
+  ":common_services" => "ruby-cloud-common-services",
+  ":overrides.:file_path" => "ruby-cloud-path-override",
+  ":overrides.:namespace" => "ruby-cloud-namespace-override",
+  ":overrides.:service" => "ruby-cloud-service-override",
+  ":gem.:extra_dependencies" => "ruby-cloud-extra-dependencies"
+}
+
+# A set of files that, if generated, should be removed.
+remove_paths = [
+  "lib/google/iam/v1/iam_policy_pb.rb",
+  "lib/google/cloud/common_resources_pb.rb"
+]
+
+parameters = {}
+
+OptionParser.new do |op|
+  bool_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} BOOL" }
+    op.on(*flags) do |val|
+      val = val.downcase
+      parameters[key] = val if ["true", "false"].include? val
+    end
+  end
+  value_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} VAL" }
+    op.on(*flags) do |val|
+      parameters[key] = val
+    end
+  end
+  path_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} PATHS" }
+    op.on(*flags) do |paths|
+      parameters[key] = paths.split(";")
+                             .map { |path| File.expand_path path, "/in" }
+                             .join(";")
+    end
+  end
+  map_option_map.each do |key, flags|
+    flags = Array(flags).map { |f| "--#{f} MAPPING" }
+    op.on(*flags) do |mapping|
+      mapping.split(";").each do |mapping_kv|
+        mapping_key, mapping_val = mapping_kv.split("=", 2)
+        mapping_key.gsub!(".", "\\\\\\\\.")
+        parameters["#{key}.#{mapping_key}"] = mapping_val if mapping_val
+      end
+    end
+  end
+end.parse! ARGV
+
+parameter_strs =
+  parameters.map do |k, v|
+    v = v.gsub("\\", "\\\\\\\\").gsub(",", "\\\\,").gsub("=", "\\\\=")
+    "#{k}=#{v}"
+  end
+
+ruby_plugin_args =
+  if parameters[":gem.:version_dependencies"]
+    []
+  else
+    ["--ruby_out=/out/lib", "--grpc_out=/out/lib"]
+  end
+
+protoc_cmd = [
+  "grpc_tools_ruby_protoc",
+  # It is important for /in to come before /protos because all input files
+  # come from /in, and protoc will complain if any of those are also found
+  # earlier in the proto path.
+  "--proto_path=/in/", "--proto_path=/protos/"
+] + ruby_plugin_args + [
+  "--ruby_cloud_out=/out/",
+  "--ruby_cloud_opt", parameter_strs.join(",")
+] + ARGV + Dir.glob("/in/**/*.proto").sort
+
+FileUtils.mkdir_p "/out/lib"
+system(*protoc_cmd)
+
+remove_paths.each do |path|
+  FileUtils.rm_f Dir.glob "/out/#{path}"
+end

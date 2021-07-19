@@ -14,9 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+$LOAD_PATH.unshift ::File.expand_path("../lib", __dir__)
+$LOAD_PATH.unshift ::File.expand_path("../../shared/test_resources", __dir__)
 require "gapic/schema/api"
 require "gapic/generator"
+require "gapic/generators/cloud_generator"
+
 require "action_controller"
 require "action_view"
 
@@ -24,33 +27,62 @@ require "minitest/autorun"
 require "minitest/focus"
 
 class GeneratorTest < Minitest::Test
+  ##
+  # @param service [Symbol]
+  # @return [String]
   def proto_input service
     File.binread "proto_input/#{service}_desc.bin"
   end
 
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+  ##
+  # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
+  # @return [Google::Protobuf::Compiler::CodeGeneratorRequest]
+  def request service, params_override: nil, params_purge: nil
+    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
+
+    unless params_override.nil? && params_purge.nil?
+      params_override ||= {}
+      params_purge ||= []
+      # create a parameter string for the override
+      params_str = params_override.map { |name, value| "#{name}=#{value}" }.join(",")
+
+      schema = Gapic::Generators::DefaultGeneratorParameters.default_schema
+      params = Gapic::Schema::RequestParamParser.parse_parameters_string(request.parameter,
+                                                                         param_schema: schema)
+      # filter out parameters that are going to be overridden and purged and reconstruct the param string
+      filtered_params = params.filter { |p| !params_override.key?(p.config_name) && !params_purge.include?(p.config_name)}
+      filtered_params_str = Gapic::Schema::RequestParamParser.reconstruct_parameters_string filtered_params
+
+      # comma to separate only if there are parameters left
+      separator = filtered_params_str.empty? || params_str.empty? ? "" : ","
+
+      # new param string with the overrides
+      request.parameter = "#{filtered_params_str}#{separator}#{params_str}"
+    end
+
+    request
   end
 
-  def api service
-    Gapic::Schema::Api.new request(service)
+  ##
+  # @param service [Symbol]
+  # @param params_override [Hash<String, String>, Hash{String(frozen)=>String(frozen)}, nil]
+  # @param params_purge [Array<String>, Array{String(frozen)}]
+  # @return [Gapic::Schema::Api]
+  def api service, params_override: nil, params_purge: nil
+    Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge),
+                           parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
   end
 
+  ##
+  # @param service [Symbol]
+  # @param filename [String]
+  # @return [String]
   def expected_content service, filename
     File.read "expected_output/#{service}/#{filename}"
   end
 end
 
-class PresenterTest < Minitest::Test
-  def proto_input service
-    File.binread "proto_input/#{service}_desc.bin"
-  end
-
-  def request service
-    Google::Protobuf::Compiler::CodeGeneratorRequest.decode proto_input(service)
-  end
-
-  def api service
-    Gapic::Schema::Api.new request(service)
-  end
+class PresenterTest < GeneratorTest
 end

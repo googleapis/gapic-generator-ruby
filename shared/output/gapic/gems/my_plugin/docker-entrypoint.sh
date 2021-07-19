@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # enable extended globbing for flag pattern matching
 shopt -s extglob
 
@@ -29,6 +28,7 @@ done
 
 mkdir -p /workspace/out/lib
 exec grpc_tools_ruby_protoc \
+        --experimental_allow_proto3_optional=1 \
         --proto_path=/workspace/common-protos/ --proto_path=/workspace/in/ \
         --ruby_out=/workspace/out/lib \
         --grpc_out=/workspace/out/lib \

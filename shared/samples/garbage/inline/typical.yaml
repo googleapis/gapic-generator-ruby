@@ -1,0 +1,80 @@
+type: com.google.api.codegen.samplegen.v1p2.SampleConfigProto
+schema_version: 1.2.0
+samples:
+- region_tag: get_typical_garbage_timestamp
+  title: Getting garbage (printing timestamp)
+  description: Getting garbage (printing timestamp)
+  service: endless.trash.forever.GarbageService
+  rpc: GetTypicalGarbage
+  sample_type: incode/GetTypicalGarbage-01
+  request:
+  - field: name
+    value: "Typical Garbage"
+  - field: int32
+    value: 42
+  - field: bool
+    value: true
+  response:
+  - comment:
+    - The garbage resource
+  - define: garbage = $resp
+  - comment:
+    - The garbage timestamp
+  - define: timestamp = garbage.timestamp
+  - comment:
+    - Print the garbage resource timestamp
+  - print:
+    - "Garbage: %s (%s)"
+    - garbage.name
+    - timestamp
+- region_tag: get_typical_garbage_duration
+  title: Getting garbage (printing duration)
+  description: Getting garbage (printing timestamp)
+  service: endless.trash.forever.GarbageService
+  rpc: GetTypicalGarbage
+  sample_type: incode/GetTypicalGarbage-02
+  request:
+  - field: name
+    value: "Typical Garbage"
+  - field: int32
+    value: 42
+  - field: bool
+    value: true
+  response:
+  - comment:
+    - The garbage resource
+  - define: garbage = $resp
+  - comment:
+    - The garbage duration
+  - define: duration = garbage.duration
+  - comment:
+    - Print the garbage resource duration
+  - print:
+    - "Garbage: %s (%s)"
+    - garbage.name
+    - duration
+- region_tag: get_typical_garbage_map
+  title: Getting garbage (printing msg hash)
+  description: Getting garbage (printing msg hash)
+  service: endless.trash.forever.GarbageService
+  rpc: GetTypicalGarbage
+  sample_type: incode/GetTypicalGarbage-03
+  request:
+  - field: name
+    value: "Typical Garbage"
+  - field: int32
+    value: 42
+  - field: bool
+    value: true
+  response:
+  - comment:
+    - Print the garbage resource msg hash
+  - loop:
+      collection: $resp.msg.map_string_int32
+      key: msg_key
+      value: msg_value
+      body:
+      - print:
+        - "Garbage msg key: %s, msg value: %s"
+        - msg_key
+        - msg_value

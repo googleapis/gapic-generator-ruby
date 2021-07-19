@@ -35,17 +35,19 @@ Gem::Specification.new do |spec|
                        Dir.glob("*.md") +
                        ["LICENSE", "cloud-rubocop.yml"]
   spec.bindir        = "bin"
-  spec.executables   = ["protoc-gen-ruby_cloud"]
+  spec.executables   = ["protoc-gen-ruby_cloud", "ruby-cloud-docker-entrypoint"]
   spec.require_paths = ["lib"]
 
+  spec.required_ruby_version = ">= 2.5"
+
   spec.add_dependency "actionpack", "~> 5.2"
-  spec.add_dependency "gapic-generator", "~> 0.0.0.dev"
-  spec.add_dependency "google-style", "~> 0.3"
+  spec.add_dependency "gapic-generator", "= #{Gapic::Generator::Cloud::VERSION}"
+  spec.add_dependency "google-style", "~> 1.25.1"
   spec.add_dependency "protobuf", "~> 3.8"
 
-  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "grpc-tools", "~> 1.36.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", ">= 12.0"
 end

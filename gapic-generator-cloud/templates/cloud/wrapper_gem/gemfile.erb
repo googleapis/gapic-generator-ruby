@@ -1,0 +1,8 @@
+<%- assert_locals gem -%>
+source "https://rubygems.org"
+
+gemspec
+
+<%- gem.versioned_gems.each do |name| -%>
+gem "<%= name %>", path: "../<%= name %>"
+<%- end -%>

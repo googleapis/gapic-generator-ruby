@@ -1,18 +1,25 @@
 <%- assert_locals method -%>
 # @overload <%= method.name %>(request, options = nil)
-#   @param request [<%= method.request_type %> | Hash]
-<%- if method.doc_description -%>
-<%= indent method.doc_description, "#     " %>
-<%- end -%>
-#   @param options [Gapic::ApiCall::Options, Hash]
+#   Pass arguments to `<%= method.name %>` via a request object, either of type
+#   {<%= method.request_type %>} or an equivalent Hash.
+#
+#   @param request [<%= method.request_type %>, ::Hash]
+#     A request object representing the call parameters. Required. To specify no
+#     parameters, or to keep all the default parameter values, pass an empty Hash.
+#   @param options [::Gapic::CallOptions, ::Hash]
 #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+<%-if method.arguments.any?-%>
 #
 <%- arg_list = method.arguments.map { |arg| "#{arg.name}: nil"}.join ", " -%>
 # @overload <%= method.name %>(<%= arg_list %>)
+#   Pass arguments to `<%= method.name %>` via keyword arguments. Note that at
+#   least one keyword argument is required. To specify no parameters, or to keep all
+#   the default parameter values, pass an empty Hash as a request object (see above).
+#
 <%- method.arguments.each do |arg| -%>
 #   @param <%= arg.name %> [<%= arg.doc_types %>]
 <%- if arg.doc_description -%>
 <%= indent arg.doc_description, "#     " %>
 <%- end -%>
 <%- end -%>
-#
+<%- end -%>

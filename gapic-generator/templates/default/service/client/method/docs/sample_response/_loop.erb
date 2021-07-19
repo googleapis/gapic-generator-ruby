@@ -1,0 +1,12 @@
+<%- assert_locals values -%>
+<%- if values["map"] -%>
+<%= values["map"].gsub("$resp", "response") %>.each do |<%= values["key"] %>, <%= values["value"] %>|
+<%- elsif values["variable"] -%>
+<%= values["collection"].gsub("$resp", "response") %>.each do |<%= values["variable"] %>|
+<%- else -%>
+<%= values["collection"].gsub("$resp", "response") %>.each do |<%= values["key"] %>, <%= values["value"] %>|
+<%- end -%>
+<%- values["body"].each do |b| -%>
+<%= indent render(partial: "service/client/method/docs/sample_response/#{b.keys.first}", locals: { values: b.values.first }), "  " %>
+<%- end -%>
+end

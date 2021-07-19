@@ -83,13 +83,15 @@ module Gapic
     #   looked up. Optional.
     # @param metadata_type [Class] The class type to be unpacked from the metadata. If not provided the class type
     #   will be looked up. Optional.
+    # @param options [Gapic::CallOptions] call options for this operation
     #
-    def initialize grpc_op, client, result_type: nil, metadata_type: nil
+    def initialize grpc_op, client, result_type: nil, metadata_type: nil, options: {}
       @grpc_op = grpc_op
       @client = client
       @result_type = result_type
       @metadata_type = metadata_type
       @on_done_callbacks = []
+      @options = options
     end
 
     ##
@@ -191,12 +193,12 @@ module Gapic
     ##
     # Cancels the operation.
     #
-    # @param options [ApiCall::Options, Hash] The options for making the API call. A Hash can be provided to customize
-    #   the options object, using keys that match the arguments for {ApiCall::Options.new}.
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
+    #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     def cancel options: nil
       # Converts hash and nil to an options object
-      options = ApiCall::Options.new options.to_h if options.respond_to? :to_h
+      options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
       @client.cancel_operation({ name: @grpc_op.name }, options)
     end
@@ -204,12 +206,12 @@ module Gapic
     ##
     # Deletes the operation.
     #
-    # @param options [ApiCall::Options, Hash] The options for making the API call. A Hash can be provided to customize
-    #   the options object, using keys that match the arguments for {ApiCall::Options.new}.
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
+    #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     def delete options: nil
       # Converts hash and nil to an options object
-      options = ApiCall::Options.new options.to_h if options.respond_to? :to_h
+      options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
       @client.delete_operation({ name: @grpc_op.name }, options)
     end
@@ -217,15 +219,18 @@ module Gapic
     ##
     # Reloads the operation object.
     #
-    # @param options [ApiCall::Options, Hash] The options for making the API call. A Hash can be provided to customize
-    #   the options object, using keys that match the arguments for {ApiCall::Options.new}.
+    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
+    #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
     #
     # @return [Gapic::Operation] Since this method changes internal state, it returns itself.
     #
     def reload! options: nil
-      # Converts hash and nil to an options object
-      options = ApiCall::Options.new options.to_h if options.respond_to? :to_h
-
+      options = if options.respond_to? :to_h
+                  options.to_h.merge @options.to_h
+                else
+                  @options.to_h
+                end
+      options = Gapic::CallOptions.new(**options)
       gax_op = @client.get_operation({ name: @grpc_op.name }, options)
       @grpc_op = gax_op.grpc_op
 

@@ -14,9 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "fileutils"
+
 require "bundler/gem_tasks"
 require "rubocop/rake_task"
 require "rake/testtask"
+require_relative "../shared/gem_defaults"
 
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
@@ -38,13 +41,63 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
 end
-namespace :gen do
+namespace :gen do |gen_namespace|
   desc "Generate the expected output for template tests"
-  task :templates do
-    generate_cloud_templates "speech"
-    generate_cloud_templates "vision"
-    generate_cloud_templates "showcase"
-    # generate_cloud_templates "garbage"
+  task :templates do |templates_task|
+    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
+  end
+
+  desc "Generate the expected output for language_v1"
+  task :language_v1 do
+    generate_cloud_templates :language_v1
+  end
+
+  desc "Generate the expected output for language_v1beta1"
+  task :language_v1beta1 do
+    generate_cloud_templates :language_v1beta1
+  end
+
+  desc "Generate the expected output for language_v1beta2"
+  task :language_v1beta2 do
+    generate_cloud_templates :language_v1beta2
+  end
+
+  desc "Generate the expected output for secretmanager_v1beta1"
+  task :secretmanager_v1beta1 do
+    generate_cloud_templates :secretmanager_v1beta1
+  end
+
+  desc "Generate the expected output for secretmanager_wrapper"
+  task :secretmanager_wrapper do
+    generate_cloud_templates :secretmanager_wrapper, wrapper: true
+  end
+
+  desc "Generate the expected output for speech_v1"
+  task :speech_v1 do
+    generate_cloud_templates :speech_v1
+  end
+
+  desc "Generate the expected output for vision_v1"
+  task :vision_v1 do
+    generate_cloud_templates :vision_v1
+  end
+
+  desc "Generate the expected output for document_ai_v1beta3"
+  task :document_ai_v1beta3 do
+    generate_cloud_templates :document_ai_v1beta3
+  end
+
+  desc "Generate the expected output for noservice"
+  task :noservice do
+    generate_cloud_templates :noservice
+  end
+
+  desc "Generate the expected output for compute_small"
+  task :compute_small do
+    generate_cloud_templates :compute_small, rest_only: true
   end
 end
 
@@ -55,13 +108,6 @@ task :console do
   require "pp"
 
   $LOAD_PATH.unshift "lib"
-
-  require "gapic/schema"
-  def schema service
-    bin_proto = File.binread "proto_input/#{service}_desc.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Gapic::Schema::Api.new request
-  end
 
   ARGV.clear
   IRB.start
@@ -76,38 +122,109 @@ namespace :image do
   desc "Build the docker image using the local base image code"
   task :local, :name do |_t, args|
     image_name = args[:name] || "ruby-gapic-generator-cloud"
-    mkdir_p "tmp"
-    base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
-    base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
-    rm_rf base_tmp_dir
-    cp_r base_source_dir, base_tmp_dir
+    prepare_embedded_gapic_generator_directory
     sh "docker build -t #{image_name} ."
     rm_r base_tmp_dir
   end
+
+  task :push do
+    push_image
+  end
+
+  task :release do
+    push_image tag_latest: true
+  end
 end
 
-def api service
-  require "gapic/schema/api"
-  bin_proto = File.binread "proto_input/#{service}_desc.bin"
-  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-  Gapic::Schema::Api.new request
+task :release_gem do
+  Rake::Task["build"].invoke
+  Rake::Task["release:rubygem_push"].invoke
 end
 
-def generate_cloud_templates service
-  require "fileutils"
+def push_image tag_latest: false
+  require_relative "lib/gapic/generator/cloud/version.rb"
+  version = ENV["RELEASE_VERSION"] || Gapic::Generator::Cloud::VERSION
+  match = /^((\d+)\.\d+)\.\d+$/.match version
+  raise "Bad version format: #{version}" unless match
+  version_minor = match[1]
+  version_major = match[2]
+  project = ENV["PROJECT_ID"] || "gapic-images"
+  image_url = "gcr.io/#{project}/gapic-generator-ruby"
+  prepare_embedded_gapic_generator_directory
+  sh "gcloud builds submit --project=#{project} --config=cloudbuild.yaml" \
+     " --substitutions=_IMAGE_URL=#{image_url},_VERSION=#{version} ."
+  if tag_latest
+    sh "gcloud container images add-tag --quiet #{image_url}:#{version}" \
+       " #{image_url}:#{version_minor} #{image_url}:#{version_major} #{image_url}:latest"
+  end
+end
+
+def prepare_embedded_gapic_generator_directory
+  FileUtils.mkdir_p "tmp"
+  base_source_dir = File.join File.dirname(__dir__), "gapic-generator"
+  base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
+  FileUtils.rm_rf base_tmp_dir
+  FileUtils.cp_r base_source_dir, base_tmp_dir
+end
+
+##
+# @param wrapper [Boolean] Omit generating proto and grpc stubs
+#   This is used for generating wrapper libraries (e.g. secretmanager_wrapper)
+#   The generator decides whether to generate a wrapper based on a
+#   `:gem:version_dependencies` parameter that is present
+#   in e.g. `shared/config/secretmanager_wrapper.yml`
+#
+# @param rest_only [Boolean] Omit generating grpc stubs
+#   This is used for generating rest-only client libraries (e.g. compute_small)
+#   The generator decides which transports (e.g. rest or grpc) to generate
+#   based on a `:transport` parameter that is present
+#   in e.g. `shared/config/compute_small.yml`
+#
+def generate_cloud_templates service, wrapper: false, rest_only: false
   require "gapic/generators/cloud_generator"
 
-  target_path = File.expand_path File.join("expected_output", service)
+  target_path = File.expand_path File.join("expected_output", String(service))
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
-  api = api service
-  generator = Gapic::Generators::CloudGenerator.new api
-  generator.generate.each do |file|
-    target_file_path = File.join target_path, file.name
-    FileUtils.mkdir_p File.dirname(target_file_path)
-    File.write target_file_path, file.content
+  ruby_plugin_args = if wrapper
+      []
+    elsif rest_only
+      ["--ruby_out=#{target_path}/lib"]
+    else
+      ["--ruby_out=#{target_path}/lib", "--grpc_out=#{target_path}/lib"]
+    end
+
+  protoc_cmd = [
+    "grpc_tools_ruby_protoc",
+    "--experimental_allow_proto3_optional=1",
+    "-I ../shared/api-common-protos",
+    "-I ../shared/googleapis",
+    "-I ../shared/protos",
+    "--ruby_gapic_opt=generator=cloud"
+  ] + ruby_plugin_args + [
+    "--ruby_gapic_out=#{target_path}",
+    "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml"
+  ]
+
+  # Add optional samples paths
+  samples = samples_for service
+  protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+  # Add optional grpc service config
+  grpc_service_config = grpc_service_config_for service
+  unless grpc_service_config.empty?
+    protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
   end
+
+  # Add the proto files
+  protoc_cmd << protos_for(service).join(" ")
+
+  protoc_cmd = protoc_cmd.join " "
+  puts protoc_cmd if ENV["VERBOSE"]
+
+  protoc_cmd_output = `#{protoc_cmd}`
+  puts protoc_cmd_output if ENV["VERBOSE"]
 end
 
 task default: :ci

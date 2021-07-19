@@ -14,10 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 module Gapic
   module Generator
     module Cloud
-      VERSION = "0.0.1.dev.1"
+      VERSION = "0.9.1"
     end
   end
 end

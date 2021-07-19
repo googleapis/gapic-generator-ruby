@@ -1,0 +1,10 @@
+---
+:gem:
+  :name: "google-cloud-speech-v1"
+  :env_prefix: SPEECH
+:defaults:
+  :service:
+    :default_host: "speech.googleapis.com"
+    :oauth_scopes:
+      - https://www.googleapis.com/auth/cloud-platform
+:generate_metadata: false

@@ -1,0 +1,6 @@
+---
+  :gem:
+    :name: google-garbage-noservice
+  :overrides:
+    :wrapper_gem_name: google-garbage-noservice-wrapper
+  :generate_metadata: true

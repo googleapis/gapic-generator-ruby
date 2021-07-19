@@ -2,20 +2,40 @@ inherit_gem:
   google-style: google-style.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - lib/**/*.pb.rb
     - expected_output/**/*
-    - templates/default/helpers/**/*
     - test/gapic/annotations/**/*
     - test/gapic/presenters/**/*
+    - test/gapic/*.rb
+    - test/test_helper.rb
+    - Rakefile
+
+Metrics/AbcSize:
+  Exclude:
+    - lib/gapic/schema/loader.rb
+    - test/gapic/schema/api_test.rb
 
 Metrics/ClassLength:
   Exclude:
+    - lib/gapic/presenters/**/*
     - lib/gapic/schema/loader.rb
-Metrics/BlockLength:
+    - test/gapic/schema/api_test.rb
+
+Metrics/MethodLength:
   Exclude:
-    - gapic-generator.gemspec
+    - lib/gapic/ruby_info.rb
+    - test/gapic/schema/api_test.rb
+
+Metrics/ModuleLength:
+  Exclude:
+    - lib/gapic/grpc_service_config/parser.rb
+
+Style/Documentation:
+  Exclude:
+    - test/**/*
+    - templates/default/helpers/**/*
+    - lib/gapic/helpers/**/*
 
 Style/Alias:
   EnforcedStyle: prefer_alias_method

@@ -18,7 +18,7 @@ require "test_helper"
 
 class GarbageGemPresenterTest < PresenterTest
   def presenter
-    GemPresenter.new api :garbage
+    Gapic::Presenters::GemPresenter.new api :garbage
   end
 
   def test_garbage
@@ -32,18 +32,20 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal "Google::Garbage::VERSION", presenter.version_name_full
     assert_equal ["Google LLC"], presenter.authors
     assert_equal "googleapis-packages@google.com", presenter.email
-    assert_equal "google-garbage is the official library for Google Garbage API.", presenter.description
-    assert_equal "API Client library for Google Garbage API", presenter.summary
+    assert_equal "google-garbage is the official client library for the Google Garbage API.", presenter.description
+    assert_equal "API Client library for the Google Garbage API", presenter.summary
     assert_equal "https://github.com/googleapis/googleapis", presenter.homepage
-    assert_equal "GARBAGE", presenter.env_prefix
+    assert_nil presenter.env_prefix
 
     assert_equal ["endless.trash.forever"], presenter.packages.map(&:name)
-    presenter.packages.each { |pp| assert_kind_of PackagePresenter, pp }
+    presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
-    assert_equal ["GarbageService"], presenter.services.map(&:name)
-    presenter.services.each { |sp| assert_kind_of ServicePresenter, sp }
+    assert_equal ["GarbageService", "ReallyRenamedService", "ResourceNames", "IAMPolicy"], presenter.services.map(&:name)
+    presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
-    assert_equal ["google/api/http.proto", "google/protobuf/descriptor.proto", "google/api/client.proto", "google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "garbage/garbage.proto"], presenter.proto_files.map(&:name)
-    presenter.proto_files.each { |fp| assert_kind_of FilePresenter, fp }
+    assert_equal ["google/api/field_behavior.proto", "google/api/resource.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/timestamp.proto", "google/protobuf/duration.proto", "garbage/garbage.proto", "garbage/resource_names.proto", "google/iam/v1/policy.proto", "google/iam/v1/iam_policy.proto"], presenter.proto_files.map(&:name)
+    presenter.proto_files.each { |fp| assert_kind_of Gapic::Presenters::FilePresenter, fp }
+
+    assert presenter.iam_dependency?
   end
 end

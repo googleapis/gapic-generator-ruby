@@ -24,239 +24,284 @@
 
 require "minitest/autorun"
 
+require "gapic/grpc/service_stub"
+
 require "google/cloud/vision/v1/image_annotator_pb"
 require "google/cloud/vision/v1/image_annotator_services_pb"
 require "google/cloud/vision/v1/image_annotator"
 
-class CustomTestErrorV1 < StandardError; end
-# Mock for the GRPC::ClientStub class.
-class MockGrpcClientStubV1
-  # @param expected_symbol [Symbol] the symbol of the grpc method to be mocked.
-  # @param mock_method [Proc] The method that is being mocked.
-  def initialize expected_symbol, mock_method
-    @expected_symbol = expected_symbol
-    @mock_method = mock_method
-  end
+class Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test
+  class ClientStub
+    attr_accessor :call_rpc_count, :requests
 
-  # This overrides the Object#method method to return the mocked method when the mocked method
-  # is being requested. For methods that aren"t being tested, this method returns a proc that
-  # will raise an error when called. This is to assure that only the mocked grpc method is being
-  # called.
-  #
-  # @param symbol [Symbol] The symbol of the method being requested.
-  # @return [Proc] The proc of the requested method. If the requested method is not being mocked
-  #   the proc returned will raise when called.
-  def method symbol
-    return @mock_method if symbol == @expected_symbol
-
-    # The requested method is not being tested, raise if it called.
-    proc do
-      raise "The method #{symbol} was unexpectedly called during the " \
-        "test for #{@expected_symbol}."
-    end
-  end
-end
-
-class MockImageAnnotatorCredentialsV1 < Google::Cloud::Vision::V1::ImageAnnotator::Credentials
-  def initialize method_name
-    @method_name = method_name
-  end
-
-  def updater_proc
-    proc do
-      raise "The method `#{@method_name}` was trying to make a grpc request. This should not " \
-          "happen since the grpc layer is being mocked."
-    end
-  end
-end
-
-describe Google::Cloud::Vision::V1::ImageAnnotator::Client do
-  describe "batch_annotate_images" do
-    let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator::Client#batch_annotate_images."
+    def initialize response, operation, &block
+      @response = response
+      @operation = operation
+      @block = block
+      @call_rpc_count = 0
+      @requests = []
     end
 
-    it "invokes batch_annotate_images without error" do
-      # Create request parameters
-      requests = {}
+    def call_rpc *args
+      @call_rpc_count += 1
 
-      # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Cloud::Vision::V1::BatchAnnotateImagesResponse
+      @requests << @block&.call(*args)
 
-      # Mock Grpc layer
-      mock_method = proc do |request|
-        assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        OpenStruct.new execute: expected_response
-      end
-      mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
+      yield @response, @operation if block_given?
 
-      # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
-
-      Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-
-          # Call method
-          response = client.batch_annotate_images requests
-
-          # Verify the response
-          assert_equal expected_response, response
-
-          # Call method with block
-          client.batch_annotate_images requests do |resp, operation|
-            # Verify the response
-            assert_equal expected_response, resp
-            refute_nil operation
-          end
-        end
-      end
-    end
-
-    it "invokes batch_annotate_images with error" do
-      # Create request parameters
-      requests = {}
-
-      # Mock Grpc layer
-      mock_method = proc do |request|
-        assert_instance_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AnnotateImageRequest), request.requests
-        raise custom_error
-      end
-      mock_stub = MockGrpcClientStubV1.new :batch_annotate_images, mock_method
-
-      # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "batch_annotate_images"
-
-      Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-
-          # Call method
-          err = assert_raises Gapic::GapicError do
-            client.batch_annotate_images requests
-          end
-
-          # Verify the GapicError wrapped the custom error that was raised.
-          assert_match custom_error.message, err.message
-        end
-      end
+      @response
     end
   end
 
-  describe "async_batch_annotate_files" do
-    let :custom_error do
-      CustomTestErrorV1.new "Custom test error for Google::Cloud::Vision::V1::ImageAnnotator::Client#async_batch_annotate_files."
+  def test_batch_annotate_images
+    # Create GRPC objects.
+    grpc_response = Google::Cloud::Vision::V1::BatchAnnotateImagesResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    requests = [{}]
+    parent = "hello world"
+
+    batch_annotate_images_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :batch_annotate_images, name
+      assert_kind_of Google::Cloud::Vision::V1::BatchAnnotateImagesRequest, request
+      assert_kind_of Google::Cloud::Vision::V1::AnnotateImageRequest, request.requests.first
+      assert_equal "hello world", request.parent
+      refute_nil options
     end
 
-    it "invokes async_batch_annotate_files without error" do
-      # Create request parameters
-      requests = {}
-
-      # Create expected grpc response
-      expected_response = {}
-      expected_response = Gapic::Protobuf.coerce expected_response, to: Google::Longrunning::Operation
-      result = Google::Protobuf::Any.new
-      result.pack expected_response
-      operation = Google::Longrunning::Operation.new(
-        name:     "operations/async_batch_annotate_files_test",
-        done:     true,
-        response: result
-      )
-
-      # Mock Grpc layer
-      mock_method = proc do |request|
-        assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        OpenStruct.new execute: operation
+    Gapic::ServiceStub.stub :new, batch_annotate_images_client_stub do
+      # Create client
+      client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+        config.credentials = grpc_channel
       end
-      mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
 
-      # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
-
-      Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-
-          # Call method
-          response = client.async_batch_annotate_files requests
-
-          # Verify the response
-          assert_equal expected_response, response.response
-        end
+      # Use hash object
+      client.batch_annotate_images({ requests: requests, parent: parent }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
       end
+
+      # Use named arguments
+      client.batch_annotate_images requests: requests, parent: parent do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.batch_annotate_images Google::Cloud::Vision::V1::BatchAnnotateImagesRequest.new(requests: requests, parent: parent) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.batch_annotate_images({ requests: requests, parent: parent }, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.batch_annotate_images Google::Cloud::Vision::V1::BatchAnnotateImagesRequest.new(requests: requests, parent: parent), grpc_options do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, batch_annotate_images_client_stub.call_rpc_count
+    end
+  end
+
+  def test_batch_annotate_files
+    # Create GRPC objects.
+    grpc_response = Google::Cloud::Vision::V1::BatchAnnotateFilesResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    requests = [{}]
+    parent = "hello world"
+
+    batch_annotate_files_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :batch_annotate_files, name
+      assert_kind_of Google::Cloud::Vision::V1::BatchAnnotateFilesRequest, request
+      assert_kind_of Google::Cloud::Vision::V1::AnnotateFileRequest, request.requests.first
+      assert_equal "hello world", request.parent
+      refute_nil options
     end
 
-    it "invokes async_batch_annotate_files and returns an operation error." do
-      # Create request parameters
-      requests = {}
-
-      # Create expected grpc response
-      operation_error = Google::Rpc::Status.new(
-        message: "Operation error for Google::Cloud::Vision::V1::ImageAnnotator::Client#async_batch_annotate_files."
-      )
-      operation = Google::Longrunning::Operation.new(
-        name:  "operations/async_batch_annotate_files_test",
-        done:  true,
-        error: operation_error
-      )
-
-      # Mock Grpc layer
-      mock_method = proc do |request|
-        assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        OpenStruct.new execute: operation
+    Gapic::ServiceStub.stub :new, batch_annotate_files_client_stub do
+      # Create client
+      client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+        config.credentials = grpc_channel
       end
-      mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
 
-      # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
-
-      Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-
-          # Call method
-          response = client.async_batch_annotate_files requests
-
-          # Verify the response
-          assert response.error?
-          assert_equal operation_error, response.error
-        end
+      # Use hash object
+      client.batch_annotate_files({ requests: requests, parent: parent }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
       end
+
+      # Use named arguments
+      client.batch_annotate_files requests: requests, parent: parent do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.batch_annotate_files Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new(requests: requests, parent: parent) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.batch_annotate_files({ requests: requests, parent: parent }, grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.batch_annotate_files Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new(requests: requests, parent: parent), grpc_options do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, batch_annotate_files_client_stub.call_rpc_count
+    end
+  end
+
+  def test_async_batch_annotate_images
+    # Create GRPC objects.
+    grpc_response = Google::Longrunning::Operation.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    requests = [{}]
+    output_config = {}
+    parent = "hello world"
+
+    async_batch_annotate_images_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :async_batch_annotate_images, name
+      assert_kind_of Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest, request
+      assert_kind_of Google::Cloud::Vision::V1::AnnotateImageRequest, request.requests.first
+      assert_equal Gapic::Protobuf.coerce({}, to: Google::Cloud::Vision::V1::OutputConfig), request.output_config
+      assert_equal "hello world", request.parent
+      refute_nil options
     end
 
-    it "invokes async_batch_annotate_files with error" do
-      # Create request parameters
-      requests = {}
-
-      # Mock Grpc layer
-      mock_method = proc do |request|
-        assert_instance_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
-        assert_equal Gapic::Protobuf.coerce(requests, to: Google::Cloud::Vision::V1::AsyncAnnotateFileRequest), request.requests
-        raise custom_error
+    Gapic::ServiceStub.stub :new, async_batch_annotate_images_client_stub do
+      # Create client
+      client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+        config.credentials = grpc_channel
       end
-      mock_stub = MockGrpcClientStubV1.new :async_batch_annotate_files, mock_method
 
-      # Mock auth layer
-      mock_credentials = MockSpeechCredentialsV1.new "async_batch_annotate_files"
-
-      Google::Cloud::Vision::V1::ImageAnnotator::Stub.stub :new, mock_stub do
-        Google::Cloud::Vision::V1::ImageAnnotator::Credentials.stub :default, mock_credentials do
-          client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-
-          # Call method
-          err = assert_raises Gapic::GapicError do
-            client.async_batch_annotate_files requests
-          end
-
-          # Verify the GapicError wrapped the custom error that was raised.
-          assert_match custom_error.message, err.message
-        end
+      # Use hash object
+      client.async_batch_annotate_images({ requests: requests, output_config: output_config, parent: parent }) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
       end
+
+      # Use named arguments
+      client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.async_batch_annotate_images Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest.new(requests: requests, output_config: output_config, parent: parent) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.async_batch_annotate_images({ requests: requests, output_config: output_config, parent: parent }, grpc_options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.async_batch_annotate_images Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest.new(requests: requests, output_config: output_config, parent: parent), grpc_options do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, async_batch_annotate_images_client_stub.call_rpc_count
+    end
+  end
+
+  def test_async_batch_annotate_files
+    # Create GRPC objects.
+    grpc_response = Google::Longrunning::Operation.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    requests = [{}]
+    parent = "hello world"
+
+    async_batch_annotate_files_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :async_batch_annotate_files, name
+      assert_kind_of Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest, request
+      assert_kind_of Google::Cloud::Vision::V1::AsyncAnnotateFileRequest, request.requests.first
+      assert_equal "hello world", request.parent
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, async_batch_annotate_files_client_stub do
+      # Create client
+      client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.async_batch_annotate_files({ requests: requests, parent: parent }) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.async_batch_annotate_files requests: requests, parent: parent do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.async_batch_annotate_files Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest.new(requests: requests, parent: parent) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.async_batch_annotate_files({ requests: requests, parent: parent }, grpc_options) do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.async_batch_annotate_files Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest.new(requests: requests, parent: parent), grpc_options do |response, operation|
+        assert_kind_of Gapic::Operation, response
+        assert_equal grpc_response, response.grpc_op
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, async_batch_annotate_files_client_stub.call_rpc_count
     end
   end
 end

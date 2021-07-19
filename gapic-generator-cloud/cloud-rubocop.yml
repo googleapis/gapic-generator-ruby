@@ -12,3 +12,6 @@ AllCops:
     - "Rakefile"
     - "support/**/*"
     - "test/**/*"
+
+Layout/LineLength:
+  Enabled: false

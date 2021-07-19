@@ -1,0 +1,160 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+A workspace file for the example usage of the gapic-generator-ruby
+"""
+
+workspace(name = "gapic_generator_ruby_example")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+##
+# googleapis for the common protos
+#
+http_archive(
+    name = "com_google_googleapis",
+    sha256 = "913b633d4ca8c6abcf06ca1ba0aff27ccecefe6010ac32560fe3ba5c47167562",
+    strip_prefix = "googleapis-077f0c624bb91709aea45b6f42bb4a2e84645cc3",
+    urls = ["https://github.com/googleapis/googleapis/archive/077f0c624bb91709aea45b6f42bb4a2e84645cc3.zip"],
+)
+
+load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
+
+switched_rules_by_language(
+    name = "com_google_googleapis_imports",
+    gapic = True,
+)
+
+##
+# protobuf
+#
+http_archive(
+    name = "com_google_protobuf",
+    sha256 = "1c744a6a1f2c901e68c5521bc275e22bdc66256eeb605c2781923365b7087e5f",
+    strip_prefix = "protobuf-3.13.0",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.13.0.zip"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+##
+# grpc
+#
+http_archive(
+    name = "com_github_grpc_grpc",
+    sha256 = "0f330e4734f49d2bfdb9ad195b021720b5dd2e2a534cdf21c7ddc7f7eb42e170",
+    strip_prefix = "grpc-1.33.1",
+    urls = ["https://github.com/grpc/grpc/archive/v1.33.1.zip"],
+)
+
+load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
+
+grpc_deps()
+
+load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
+
+grpc_extra_deps()
+
+##
+# rules_proto
+#
+http_archive(
+    name = "rules_proto",
+    sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+    strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+    ],
+)
+
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()
+
+##
+# gapic_generator_ruby
+# (either from github or local)
+#
+
+# use the following to get a consistent external version from github
+# pointing to a release
+# http_archive(
+#   name = "gapic_generator_ruby",
+#   urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/gapic-generator/v0.6.5.zip"],
+#   strip_prefix = "gapic-generator-ruby-gapic-generator-v0.6.5",
+# )
+
+# or pointing to a specific commit
+# http_archive(
+#   name = "gapic_generator_ruby",
+#   urls = ["https://github.com/googleapis/gapic-generator-ruby/archive/e1b96e215868ad20d66aaaa9df124352cdc25e1c.zip"],
+#   strip_prefix = "gapic-generator-ruby-e1b96e215868ad20d66aaaa9df124352cdc25e1c",
+# )
+
+# use the following to use the bazel rules defined locally, rather than fetched from github (great for development)
+local_repository(
+    name = "gapic_generator_ruby",
+    path = "../",
+)
+
+load("@gapic_generator_ruby//rules_ruby_gapic:repositories.bzl", "gapic_generator_ruby_repositories")
+
+gapic_generator_ruby_repositories()
+
+##
+# showcase for vanilla examples
+#
+http_archive(
+    name = "com_gapic_showcase",
+    sha256 = "9bb97c5956ee479ec140ca3a5e60f642e908feeeab6a8436eca0761f7310b3b6",
+    strip_prefix = "gapic-showcase-cb6b45f27ba9faf559f1cc4ad817bd9da7a43673",
+    urls = ["https://github.com/googleapis/gapic-showcase/archive/cb6b45f27ba9faf559f1cc4ad817bd9da7a43673.zip"],
+)
+
+##
+# discovery for the diregapic example
+#
+http_archive(
+    name = "com_google_googleapis_discovery",
+    sha256 = "b641860273c91c6edc2571cdccd8fd3a71e7e1815314f8cf5f71285e8660db6f",
+    strip_prefix = "googleapis-discovery-9b71490900530ce7cb872aabc8e46eac29c1ec37",
+    urls = ["https://github.com/googleapis/googleapis-discovery/archive/9b71490900530ce7cb872aabc8e46eac29c1ec37.zip"],
+)
+
+##
+# com_google_disco_to_proto3_converter is needed for the discovery to work
+#
+http_archive(
+    name = "com_google_disco_to_proto3_converter",
+    sha256 = "7f01bdd51254f353b8632153c8b31d1a571c868cc4561f3b43d1cd1926e84dd4",
+    strip_prefix = "disco-to-proto3-converter-4b0956884b1aa9b367cf41488b622dc12eb16652",
+    urls = ["https://github.com/googleapis/disco-to-proto3-converter/archive/4b0956884b1aa9b367cf41488b622dc12eb16652.zip"],
+)
+
+load("@com_google_disco_to_proto3_converter//:repository_rules.bzl", "com_google_disco_to_proto3_converter_properties")
+
+com_google_disco_to_proto3_converter_properties(
+    name = "com_google_disco_to_proto3_converter_properties",
+    file = "@com_google_disco_to_proto3_converter//:pom.xml",
+)
+
+load("@com_google_disco_to_proto3_converter//:repositories.bzl", "com_google_disco_to_proto3_converter_repositories")
+
+com_google_disco_to_proto3_converter_repositories()

@@ -1,0 +1,138 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Defines the targets for the google cloud language library to be built
+with gapic-generator-ruby cloud flavor
+"""
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl", 
+  "ruby_gapic_library",
+  "ruby_proto_library",
+  "ruby_grpc_library")
+
+load ("@rules_proto//proto:defs.bzl",
+  "proto_library")
+
+load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
+  "ruby_gapic_assembly_pkg")
+
+##
+# "example.proto" example rules
+##
+
+##
+# the proto files wrapped with dependencies
+#
+proto_library(
+  name = "example_proto",
+  srcs = ["example.proto"],
+  deps = ["@com_google_googleapis//google/api:client_proto"]
+)
+
+##
+# just the protoc ruby output
+#
+ruby_proto_library(
+  name = "example_ruby_proto",
+  deps = [":example_proto"],
+)
+
+##
+# just the grpc-ruby plugin output
+#
+ruby_grpc_library(
+  name = "example_ruby_grpc",
+  srcs = [":example_proto"],
+  deps = [":example_ruby_proto"]
+)
+
+##
+# just the gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_library(
+  name = "example_ruby_gapic",
+  srcs = [":example_proto",],
+  yml_configs = ["//gapic-generator:example.yml"],
+)
+
+##
+# completed example client library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_assembly_pkg(
+  name = "example_ruby_library_pkg",
+  deps = [
+    ":example_ruby_gapic",
+    ":example_ruby_proto",
+    ":example_ruby_grpc",
+  ],
+)
+##
+# End of the "example.proto" example rules
+##
+
+##
+# Showcase example rules below
+##
+
+##
+# just the protoc ruby output
+#
+ruby_proto_library(
+  name = "showcase_ruby_proto",
+  deps = ["@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto"],
+)
+
+##
+# just the grpc-ruby plugin output
+#
+ruby_grpc_library(
+  name = "showcase_ruby_grpc",
+  srcs = ["@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto"],
+  deps = ["@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto"]
+)
+
+##
+# just the gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_library(
+  name = "showcase_ruby_gapic",
+  srcs = ["@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto",],
+  extra_protoc_parameters = [
+    "gem-name=google-showcase-v1beta1",
+    "file-path-override=v1_beta1=v1beta1"
+  ],
+  grpc_service_config = "@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_grpc_service_config.json",
+)
+
+##
+# completed example client library combined from
+# * protoc ruby output
+# * grpc-ruby protoc plugin output
+# * gapic-generator-ruby vanilla flavor output
+#
+ruby_gapic_assembly_pkg(
+  name = "google_showcase_v1beta1",
+  deps = [
+    ":showcase_ruby_gapic",
+    ":showcase_ruby_proto",
+    ":showcase_ruby_grpc",
+  ],
+)
+
+##
+# End of showcase example rules
+##

@@ -18,6 +18,7 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "gapic/schema/api"
 require "gapic/generators/ads_generator"
+require "gapic/presenters"
 
 require "minitest/autorun"
 require "minitest/focus"
@@ -40,10 +41,6 @@ class GeneratorTest < Minitest::Test
   end
 end
 
-require_relative "../../gapic-generator/templates/default/helpers/filepath_helper"
-require_relative "../../gapic-generator/templates/default/helpers/namespace_helper"
-require_relative "../../gapic-generator/templates/default/helpers/presenter_helper"
-
 class PresenterTest < Minitest::Test
   def proto_input service
     File.binread "proto_input/#{service}_desc.bin"
@@ -61,7 +58,8 @@ class PresenterTest < Minitest::Test
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
-    ServicePresenter.new api_obj, service
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
   end
 
   def method_presenter api_name, service_name, method_name
@@ -70,6 +68,8 @@ class PresenterTest < Minitest::Test
     refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    MethodPresenter.new api_obj, method
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    service_presenter = Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
+    Gapic::Presenters::MethodPresenter.new service_presenter, api_obj, method
   end
 end

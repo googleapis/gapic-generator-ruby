@@ -14,8 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 require "gapic/generators/default_generator"
+require "gapic/generators/default_generator_parameters"
+require "gapic/presenters"
 
 module Gapic
   module Generators
@@ -29,9 +30,18 @@ module Gapic
       def initialize api
         super
 
+        # if not specified otherwise in configuration, generate path helpers for the output messages in ads
+        api.generate_path_helpers_output = true unless api.generate_path_helpers_output_defined?
+        # if not specified otherwise in configuration, apply overrides to proto namespaces in ads
+        api.override_proto_namespaces = true unless api.override_proto_namespaces_defined?
+
         # Configure to use prefer Ads templates
         use_templates! File.join __dir__, "../../../templates/ads"
       end
+
+      # Disable Rubocop because we expect generate to grow and violate more
+      # and more style rules.
+      # rubocop:disable all
 
       # Generates all the files for the API.
       #
@@ -41,11 +51,11 @@ module Gapic
       def generate
         files = []
 
-        gem = gem_presenter @api
+        gem = Gapic::Presenters.gem_presenter @api
 
         gem.packages.each do |package|
           # Package level files
-          files << g("package.erb", "lib/#{package.version_file_path}", package: package)
+          files << g("package.erb", "lib/#{package.package_file_path}", package: package)
           package.services.each do |service|
             # Service level files
             files << g("service.erb",             "lib/#{service.service_file_path}",      service: service)
@@ -69,11 +79,12 @@ module Gapic
         files
       end
 
-      private
+      # rubocop:enable all
 
-      # Hook to override the default formatter
-      def format_files files
-        super
+      # Schema of the parameters that the generator accepts
+      # @return [Gapic::Schema::ParameterSchema]
+      def self.parameter_schema
+        DefaultGeneratorParameters.default_schema
       end
     end
   end

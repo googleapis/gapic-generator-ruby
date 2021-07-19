@@ -18,6 +18,7 @@
 require "bundler/gem_tasks"
 require "rubocop/rake_task"
 require "rake/testtask"
+require_relative "../shared/gem_defaults"
 
 RuboCop::RakeTask.new # Configuration is in .rubocop.yml
 Rake::TestTask.new :test do |t|
@@ -39,10 +40,18 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
 end
-namespace :gen do
+namespace :gen do |gen_namespace|
   desc "Generate the expected output for template tests"
-  task :templates do
-    generate_ads_templates "googleads"
+  task :templates do |templates_task|
+    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
+  end
+
+  desc "Generate the expected output for googleads"
+  task :googleads do
+    generate_ads_templates :googleads
   end
 end
 
@@ -54,13 +63,6 @@ task :console do
 
   $LOAD_PATH.unshift "lib"
 
-  require "gapic/schema"
-  def schema service
-    bin_proto = File.binread "proto_input/#{service}_desc.bin"
-    request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-    Gapic::Schema::Api.new request
-  end
-
   ARGV.clear
   IRB.start
 end
@@ -68,7 +70,7 @@ end
 desc "Build the docker image."
 task :image, :name do |_t, args|
   image_name = args[:name] || "ruby-gapic-generator-ads"
-  sh "docker build -t #{image_name}:$(git rev-parse HEAD) ."
+  sh "docker build --no-cache -t #{image_name}:$(git rev-parse HEAD) ."
 end
 namespace :image do
   desc "Build the docker image using the local base image code"
@@ -79,33 +81,49 @@ namespace :image do
     base_tmp_dir = File.join __dir__, "tmp", "gapic-generator"
     rm_rf base_tmp_dir
     cp_r base_source_dir, base_tmp_dir
-    sh "docker build -t #{image_name}:$(git rev-parse HEAD) ."
+    sh "docker build --no-cache -t #{image_name}:$(git rev-parse HEAD) ."
     rm_r base_tmp_dir
   end
 end
 
-def api service
-  require "gapic/schema/api"
-  bin_proto = File.binread "proto_input/#{service}_desc.bin"
-  request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
-  Gapic::Schema::Api.new request
+task :release_gem do
+  Rake::Task["build"].invoke
+  Rake::Task["release:rubygem_push"].invoke
 end
 
 def generate_ads_templates service
   require "fileutils"
   require "gapic/generators/ads_generator"
 
-  target_path = File.expand_path File.join("expected_output", service)
+  target_path = File.expand_path File.join("expected_output", String(service))
   FileUtils.rm_rf target_path
   FileUtils.mkdir_p target_path
 
-  api = api service
-  generator = Gapic::Generators::AdsGenerator.new api
-  generator.generate.each do |file|
-    target_file_path = File.join target_path, file.name
-    FileUtils.mkdir_p File.dirname(target_file_path)
-    File.write target_file_path, file.content
-  end
+  protoc_cmd = [
+    "grpc_tools_ruby_protoc",
+    "-I ../shared/api-common-protos",
+    "-I ../shared/googleapis",
+    "-I ../shared/protos",
+    "--ruby_gapic_opt=generator=ads",
+    "--ruby_out=#{target_path}/lib",
+    "--grpc_out=#{target_path}/lib",
+    "--ruby_gapic_out=#{target_path}",
+    "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml"
+  ]
+
+  # Add optional samples paths
+  samples = samples_for service
+  protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+  # Add the proto files
+  protos = protos_for service
+  protoc_cmd << protos.join(" ")
+
+  protoc_cmd = protoc_cmd.join " "
+  puts protoc_cmd if ENV["VERBOSE"]
+
+  protoc_cmd_output = `#{protoc_cmd}`
+  puts protoc_cmd_output if ENV["VERBOSE"]
 end
 
 task default: :ci

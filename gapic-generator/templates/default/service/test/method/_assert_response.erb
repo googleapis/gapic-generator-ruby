@@ -1,0 +1,11 @@
+<%- assert_locals method -%>
+<%- if method.paged? -%>
+assert_kind_of Gapic::PagedEnumerable, response
+assert_equal grpc_response, response.response
+<%- elsif method.lro? %>
+assert_kind_of Gapic::Operation, response
+assert_equal grpc_response, response.grpc_op
+<%- else -%>
+assert_equal grpc_response, response
+<%- end -%>
+assert_equal grpc_operation, operation

@@ -96,7 +96,7 @@ module Gapic
     #
     # @return [Array<Object>] The coerced version of the given values.
     def self.coerce_array array, field_descriptor
-      raise ArgumentError, "Value " + array.to_s + " must be an array" unless array.is_a? Array
+      raise ArgumentError, "Value #{array} must be an array" unless array.is_a? Array
       array.map do |val|
         coerce_value val, field_descriptor
       end

@@ -1,4 +1,6 @@
 ---
-:skip_credentials: true
 :gem:
   :name: google-showcase
+  :env_prefix: SHOWCASE
+:generate_metadata: true
+:generate_standalone_snippets: true

@@ -20,7 +20,7 @@ class NestedConfig
   extend Gapic::Config
 
   config_attr :str, "default str", String
-  config_attr :str_nil, nil, String, nil
+  config_attr :str_nil, nil, String
   config_attr :bool, true, true, false
   config_attr :bool_nil, nil, true, false, nil
   config_attr :enum, :one, :one, :two, :three
@@ -76,6 +76,17 @@ class NestedConfigTest < Minitest::Spec
     assert_raises ArgumentError do
       config.str = { hello: :world }
     end
+  end
+
+  def test_str_nil
+    config = NestedConfig.new @parent_config
+    assert_nil config.str_nil
+
+    config.str_nil = "FooBar"
+    assert_equal "FooBar", config.str_nil
+
+    config.str_nil = nil
+    assert_nil config.str_nil
   end
 
   def test_bool

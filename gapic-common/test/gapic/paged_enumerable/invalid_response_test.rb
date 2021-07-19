@@ -18,11 +18,11 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
   def test_MissingRepeatedResponse
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::MissingRepeatedResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{response.class} must have one repeated field"
@@ -32,11 +32,11 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
   def test_MissingMessageResponse
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::MissingMessageResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{response.class} must have one repeated field"
@@ -46,11 +46,11 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
   def test_MissingNextPageTokenResponse
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::MissingNextPageTokenResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{response.class} must have a next_page_token field (String)"
@@ -62,11 +62,11 @@ class PagedEnumerableInvalidResponseTest < Minitest::Test
 
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::BadMessageOrderResponse.new
-    options = Gapic::ApiCall::Options.new
+    options = Gapic::CallOptions.new
 
     error = assert_raises ArgumentError do
       Gapic::PagedEnumerable.new(
-        Object.new, :method_name, request, response, options
+        Object.new, :method_name, request, response, :fake_operation, options
       )
     end
     exp_msg = "#{response.class} must have one primary repeated field " \

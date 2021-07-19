@@ -55,14 +55,6 @@ module Gapic
           controller.class.all_helpers_from_path helpers_path
       end
 
-      def use_helpers! *helper_methods
-        helper_methods.each do |helper_method|
-          define_singleton_method helper_method do |*args|
-            controller.class.helpers.method(helper_method).call(*args)
-          end
-        end
-      end
-
       def controller
         # Each controller gets a new class, so multiple generators can be
         # active at the same time without stomping on each other.

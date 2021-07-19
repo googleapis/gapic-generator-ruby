@@ -18,7 +18,7 @@ desc "Builds all gems."
 task :build do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running build for #{gem}"
         sh "bundle exec rake build"
       end
@@ -30,7 +30,7 @@ desc "Installs all gems."
 task :install do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running install for #{gem}"
         sh "bundle exec rake install"
       end
@@ -41,7 +41,7 @@ end
 desc "Runs tests for all gems."
 task :test do
   Dir.chdir "shared" do
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       puts "Running shared tests"
       sh "bundle exec rake test"
     end
@@ -49,7 +49,7 @@ task :test do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running tests for #{gem}"
         sh "bundle exec rake test"
       end
@@ -57,20 +57,61 @@ task :test do
   end
 end
 
-desc "Runs file generation for binary input files and all gems."
-task :gen do
+desc "Runs file generation for binary input files used by the gems."
+task :bin do
   Dir.chdir "shared" do
-    Bundler.with_original_env do
+    Bundler.with_unbundled_env do
       puts "Running binary input file generation"
       sh "bundle exec rake gen"
     end
   end
+end
 
+namespace :bin do 
+  task :garbage do
+    Dir.chdir "shared" do
+      Bundler.with_unbundled_env do
+        puts "Running binary input file generation for garbage"
+        sh "bundle exec rake gen:garbage"
+      end
+    end
+  end
+  task :showcase do
+    Dir.chdir "shared" do
+      Bundler.with_unbundled_env do
+        puts "Running binary input file generation for showcase"
+        sh "bundle exec rake gen:showcase"
+      end
+    end
+  end
+end
+
+desc "Runs file generation for all gems using the binary input files."
+task :gen do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running file generation for #{gem}"
         sh "bundle exec rake gen"
+      end
+    end
+  end
+end
+
+namespace :gen do 
+  task :garbage do
+    Dir.chdir "gapic-generator" do
+      Bundler.with_unbundled_env do
+        puts "Running file generation for garbage"
+        sh "bundle exec rake gen:garbage"
+      end
+    end
+  end
+  task :showcase do
+    Dir.chdir "gapic-generator" do
+      Bundler.with_unbundled_env do
+        puts "Running file generation for showcase"
+        sh "bundle exec rake gen:showcase"
       end
     end
   end
@@ -80,7 +121,7 @@ desc "Runs rubocop for all gems."
 task :rubocop do
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running rubocop for #{gem}"
         sh "bundle exec rake rubocop"
       end
@@ -91,7 +132,7 @@ end
 desc "Runs CI for all gems."
 task :ci do
   Dir.chdir "shared" do
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       puts "Running CI for shared"
       sh "bundle exec rake ci"
     end
@@ -99,7 +140,7 @@ task :ci do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running CI for #{gem}"
         sh "bundle exec rake ci"
       end
@@ -108,9 +149,9 @@ task :ci do
 end
 
 desc "Runs bundle update for all gems."
-task :update do
+task :bundle_update do
   Dir.chdir "shared" do
-    Bundler.with_original_env do
+    Bundler.with_unbundled_env do
       puts "Running bundle update for shared"
       sh "bundle update"
     end
@@ -118,9 +159,29 @@ task :update do
 
   gem_dirs.each do |gem|
     Dir.chdir gem do
-      Bundler.with_original_env do
+      Bundler.with_unbundled_env do
         puts "Running bundle update for #{gem}"
         sh "bundle update"
+      end
+    end
+  end
+end
+task update: :bundle_update
+
+desc "Runs bundle install for all gems."
+task :bundle_install do
+  Dir.chdir "shared" do
+    Bundler.with_unbundled_env do
+      puts "Running bundle install for shared"
+      sh "bundle install --retry=3"
+    end
+  end
+
+  gem_dirs.each do |gem|
+    Dir.chdir gem do
+      Bundler.with_unbundled_env do
+        puts "Running bundle install for #{gem}"
+        sh "bundle install --retry=3"
       end
     end
   end

@@ -1,0 +1,62 @@
+type: com.google.api.codegen.samplegen.v1p2.SampleConfigProto
+schema_version: 1.2.0
+samples:
+- region_tag: get_simple_garbage
+  title: Getting garbage
+  description: Getting garbage
+  service: endless.trash.forever.GarbageService
+  rpc: GetSimpleGarbage
+  sample_type: incode/GetSimpleGarbage-01
+  request:
+  - field: name
+    value: "Simple Garbage"
+  response:
+  - comment:
+    - The garbage resource
+  - define: garbage = $resp
+  - comment:
+    - Print the garbage resource
+  - print:
+    - "Garbage: %s"
+    - garbage.name
+- region_tag: get_simple_garbage_from_file
+  title: Getting garbage from file using variable
+  description: Getting garbage from file using variable
+  service: endless.trash.forever.GarbageService
+  rpc: GetSimpleGarbage
+  sample_type: incode/GetSimpleGarbage-02
+  request:
+  - field: name
+    value: "path/to/garbage-name.txt"
+    comment: Get the garbage name from a file.
+    value_is_file: true
+  response:
+  - comment:
+    - The garbage resource
+  - define: garbage = $resp
+  - comment:
+    - Print the garbage resource
+  - print:
+    - "Garbage: %s"
+    - garbage.name
+- region_tag: get_simple_garbage_from_file_variable
+  title: Getting garbage from file using variable
+  description: Getting garbage from file using variable
+  service: endless.trash.forever.GarbageService
+  rpc: GetSimpleGarbage
+  sample_type: incode/GetSimpleGarbage-03
+  request:
+  - field: name
+    value: "path/to/garbage-name.txt"
+    input_parameter: garbage_name
+    comment: Get the garbage name from a file.
+    value_is_file: true
+  response:
+  - comment:
+    - The garbage resource
+  - define: garbage = $resp
+  - comment:
+    - Print the garbage resource
+  - print:
+    - "Garbage: %s"
+    - garbage.name

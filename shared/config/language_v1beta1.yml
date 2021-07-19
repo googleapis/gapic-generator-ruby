@@ -1,0 +1,12 @@
+---
+:gem:
+  :name: "google-cloud-language-v1beta1"
+  :env_prefix: LANGUAGE
+:defaults:
+  :service:
+    :default_host: "language.googleapis.com"
+    :oauth_scopes:
+      - https://www.googleapis.com/auth/cloud-platform
+:overrides:
+  :wrapper_gem_name: google-cloud-language-wrapper-override
+:generate_metadata: false

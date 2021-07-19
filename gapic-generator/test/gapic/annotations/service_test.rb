@@ -17,6 +17,19 @@
 require "test_helper"
 
 class AnnotationServiceTest < AnnotationTest
+  def test_showcase
+    showcase = api :showcase
+    service = showcase.services.find { |s| s.name == "Echo" }
+    refute_nil service
+
+    assert_kind_of Google::Protobuf::ServiceOptions, service.options
+    assert_equal "localhost:7469", service.options[:default_host]
+    assert_equal "", service.options[:oauth_scopes]
+
+    assert_equal "localhost:7469", service.host
+    assert_empty service.scopes
+  end
+
   def test_garbage
     garbage = api :garbage
     service = garbage.services.find { |s| s.name == "GarbageService" }
@@ -34,29 +47,5 @@ class AnnotationServiceTest < AnnotationTest
 
     assert_equal garbage_host, service.host
     assert_equal garbage_scopes, service.scopes
-  end
-
-  def test_showcase
-    showcase = api :showcase
-    service = showcase.services.find { |s| s.name == "Echo" }
-    refute_nil service
-
-    assert_kind_of Google::Protobuf::ServiceOptions, service.options
-    assert_equal "localhost:7469", service.options[:default_host]
-    assert_equal "", service.options[:oauth_scopes]
-
-    assert_equal "localhost:7469", service.host
-    assert_empty service.scopes
-  end
-
-  def test_speech
-    showcase = api :speech
-    service = showcase.services.find { |s| s.name == "Speech" }
-    refute_nil service
-
-    assert_nil service.options
-
-    assert_nil service.host
-    assert_nil service.scopes
   end
 end

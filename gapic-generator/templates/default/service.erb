@@ -1,10 +1,6 @@
 <%- assert_locals service -%>
-# frozen_string_literal: true
-
-<%= render partial: "shared/license" -%>
-
-require "<%= service.client_require %>"
-<%- if service.lro? -%>
-require "<%= service.operations_require %>"
-<%- end -%>
-require "<%= service.credentials_require %>"
+<%= render partial: "lib/service",
+           layout: "layouts/ruby",
+           locals: { service: service,
+                     namespace: service.namespace }
+%>

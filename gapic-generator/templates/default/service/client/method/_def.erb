@@ -8,15 +8,14 @@
 #
 <%= render partial: "service/client/method/docs/response", locals: { method: method } -%>
 #
-# @raise [Gapic::GapicError] if the RPC is aborted.
+<%= render partial: "service/client/method/docs/error", locals: { method: method } -%>
 #
-# @example
-<%= indent method.code_example, "#   " %>
-#
-def <%= method.name %> request, options = nil, &block
+<%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
+def <%= method.name %> request, options = nil
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/client/method/def/response", locals: { method: method }), 2 %>
+<%= render partial: "service/client/method/def/rescue", locals: { method: method } -%>
 end

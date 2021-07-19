@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env -S ruby -EUTF-8
 # frozen_string_literal: true
 
 # Copyright 2019 Google LLC
@@ -15,20 +15,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+$LOAD_PATH.unshift ::File.expand_path("../lib", __dir__)
 gem "gapic-generator"
+require "gapic/generator/version"
 require "gapic/runner"
 require "google/protobuf/compiler/plugin.pb"
 
 # Ensure that no encoding conversions are done on STDIN and STDOUT
 # since we are passing binary data back and forth. Otherwise these
 # streams will be mangled on Windows.
-STDIN.binmode
-STDOUT.binmode
+$stdin.binmode
+$stdout.binmode
 
-request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode STDIN.read
+request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode $stdin.read
 
 # Run the request, specifying the ads generator
 response = Gapic::Runner.run request, generator: :ads
 
-STDOUT.print response.serialize
+$stdout.print response.serialize

@@ -1,0 +1,21 @@
+<%- assert_locals method -%>
+# @param request_pb [<%= method.request_type %>]
+#   A request object representing the call parameters. Required.
+# @return [Array(String, [String, nil], Hash{String => String})] 
+#   Uri, Body, Query string parameters
+def <%= method.rest.transcoding_helper_name %> request_pb
+  uri = "<%= method.rest.uri_interpolated %>"
+  <%- if method.rest.body? -%>
+  body = <%= method.rest.body_interpolated %>
+  <%- else -%>
+  body = nil
+  <%- end -%>
+  query_string_params = {}
+  <%- if method.rest.query_string_params? -%>
+  <%- method.rest.query_string_params.each do |field| -%>
+  <%= render partial: "service/rest/grpc_transcoding/method/def/query_string_param", locals: { field: field } -%>
+  <%- end -%>
+  <%- end -%>
+
+  [uri, body, query_string_params]
+end

@@ -33,16 +33,18 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.platform =      Gem::Platform::RUBY
 
-  spec.required_ruby_version = ">= 2.3.0"
+  spec.required_ruby_version = ">= 2.5"
 
-  spec.add_dependency "google-protobuf", "~> 3.2"
-  spec.add_dependency "googleapis-common-protos", ">= 1.3.9", "< 2.0"
-  spec.add_dependency "googleapis-common-protos-types", ">= 1.0.4", "< 2.0"
-  spec.add_dependency "googleauth", ">= 0.6.2", "< 0.10.0"
-  spec.add_dependency "grpc", ">= 1.7.2", "< 2.0"
+  spec.add_dependency "faraday", "~> 1.3"
+  spec.add_dependency "googleapis-common-protos", ">= 1.3.11", "< 2.a"
+  spec.add_dependency "googleapis-common-protos-types", ">= 1.0.6", "< 2.a"
+  spec.add_dependency "googleauth", ">= 0.16.2", "< 2.a"
+  spec.add_dependency "google-protobuf", "~> 3.14"
+  spec.add_dependency "grpc", "~> 1.36"
 
-  spec.add_development_dependency "google-style", "~> 0.3.0"
-  spec.add_development_dependency "minitest", "~> 5.10"
+  spec.add_development_dependency "google-cloud-core", "~> 1.5"
+  spec.add_development_dependency "google-style", "~> 1.25.1"
+  spec.add_development_dependency "minitest", "~> 5.14"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"
   spec.add_development_dependency "minitest-rg", "~> 5.2"

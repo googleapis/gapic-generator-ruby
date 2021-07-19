@@ -5,7 +5,41 @@ Create Ruby clients from a protocol buffer description of an API.
 **Note** This project is a preview. Please try it out and let us know what you think,
 but there are currently no guarantees of stability or support.
 
-## Usage
+## Getting started using the Docker image
+The easiest way to use the generator is to run it with the Docker image. There are several docker images containing various flavors of gapic generators, we are going to use the `gapic-generator-ruby` image which is generating code using the [gapic-generator-cloud](https://github.com/googleapis/gapic-generator-ruby/tree/master/gapic-generator-cloud).
+
+### Download the sample protos for the Showcase API
+The [Showcase API](https://github.com/googleapis/gapic-showcase) is a good API to
+play with if you want to start generating your own client libraries. It has several
+services, we'll use `Echo` ([echo.proto](https://github.com/googleapis/gapic-showcase/blob/master/schema/google/showcase/v1beta1/echo.proto)) service as an example.
+
+Download the proto files locally (the following examples work in Linux or macOS):
+
+```sh
+$ curl -L https://github.com/googleapis/gapic-showcase/releases/download/v0.6.1/gapic-showcase-0.6.1-protos.tar.gz | tar xz
+```
+
+### Run the generator using the Docker image
+
+```sh
+$ mkdir showcase-ruby
+$ docker run --rm --user $UID \
+  --mount type=bind,source=`pwd`/google/showcase/v1beta1,destination=/in/google/showcase/v1beta1,readonly \
+  --mount type=bind,source=`pwd`/showcase-ruby,destination=/out \
+  gcr.io/gapic-images/gapic-generator-ruby:latest --ruby-cloud-gem-name=google-showcase
+```
+
+NB: `ruby-cloud-gem-name` currently has to partialy (excluding version) match the package option from the proto files. For showcase the package is `google.showcase.v1beta1` and so the `ruby-cloud-gem-name` has to be `google-showcase`
+
+The resulting files are in `showcase-ruby` folder:
+
+```sh
+$ cd showcase-ruby
+$ bundle install   # install dependencies
+$ bundle exec rake ci  # run unit tests
+```
+
+## Building, installation and API generation without the Docker image
 ### Install the Proto Compiler
 This generator relies on the Protocol Buffer Compiler to [orchestrate] the
 client generation. Install protoc version 3.7 or later.
@@ -26,20 +60,49 @@ $ export PROTOBUF_VERSION=3.7.1
 $ export PROTOBUF_SYSTEM=linux-x86_64
 
 # Get the precompiled protobuf compiler.
-$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip > usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
+$ mkdir /usr/src/protoc
+$ curl --location https://github.com/google/protobuf/releases/download/v${PROTOBUF_VERSION}/protoc-${PROTOBUF_VERSION}-${PROTOBUF_SYSTEM}.zip --output /usr/src/protoc/protoc-${PROTOBUF_VERSION}.zip
 $ cd /usr/src/protoc/
 $ unzip protoc-${PROTOBUF_VERSION}.zip
 $ rm protoc-${PROTOBUF_VERSION}.zip
 
 # Link the protoc to the path.
 $ ln -s /usr/src/protoc/bin/protoc /usr/local/bin/protoc
-$ mkdir -p /protos/
 
 # Move the common protobuf files to the local include folder.
 $ cp -R /usr/src/protoc/include/* /usr/local/include/
 ```
 
 [orchestrate]: https://developers.google.com/protocol-buffers/docs/reference/ruby-generated
+
+### Set Up Your Ruby Environment
+
+If you are a Ruby developer, then please skip ahead to the next section.
+
+Install gem.
+
+```sh
+# Linux
+$ sudo apt-get install gem
+# Mac
+$ brew install gem
+```
+
+Add the following to your `~/.bashrc`, then do `source ~/.bashrc`.
+
+```sh
+export GEM_HOME=$HOME/.gem
+export GEM_PATH=$HOME/.gem
+export PATH=$PATH:$GOPATH/bin:$GEM_PATH/bin/ruby/2.5.0/bin
+```
+
+Install and set up Bundler.
+
+```sh
+$ gem install bundler
+$ bundle install
+$ BUNDLE_PATH=~/.gems
+```
 
 ### Build and Install the Generator
 This tool is in pre-alpha so it is not yet released to RubyGems. You will have to
@@ -98,10 +161,6 @@ $ protoc googleapis/google/cloud/vision/v1/*.proto \
     --proto_path=api-common-protos --proto_path=googleapis \
     --ruby_gapic_opt=configuration=vision.yml --ruby_gapic_out=dest
 ```
-
-Note that generated clients depend on the `gapic-common` 2.0 gem, which is not
-yet released. To test a client, you may need to modify it to pull `gapic-common`
-from the github master branch.
 
 ### Create a custom generator
 If you want to customize the output, you may create a new generator using the

@@ -14,61 +14,79 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require_relative "./gem_defaults"
+
 desc "Generate the binary input files"
 task :gen do
-  Rake::Task["gen:speech"].invoke
-  Rake::Task["gen:vision"].invoke
-  Rake::Task["gen:showcase"].invoke
-  Rake::Task["gen:garbage"].invoke
-  Rake::Task["gen:googleads"].invoke
+  Rake::Task["gen:binaries"].invoke
 end
-namespace :gen do
-  desc "Generate the binary input files for speech"
-  task :speech do
-    speech_protos = [
-      "google/cloud/speech/v1/cloud_speech.proto"
-    ]
-    generate_input_file "speech", speech_protos
+namespace :gen do |gen_namespace|
+  desc "Generate the binary input files for template tests"
+  task :binaries do |binaries_task|
+    gen_namespace.tasks.reject { |t| t == binaries_task }.each do |t|
+      puts "Generating binary input for #{t.name}"
+      t.invoke
+    end
   end
 
-  desc "Generate the binary input files for vision"
-  task :vision do
-    vision_protos = [
-      "google/cloud/vision/v1/geometry.proto",
-      "google/cloud/vision/v1/image_annotator.proto",
-      "google/cloud/vision/v1/product_search.proto",
-      "google/cloud/vision/v1/product_search_service.proto",
-      "google/cloud/vision/v1/text_annotation.proto",
-      "google/cloud/vision/v1/web_detection.proto"
-    ]
-    generate_input_file "vision", vision_protos
+  desc "Generate the binary input files for language v1"
+  task :language_v1 do
+    generate_input_file :language_v1
+  end
+
+  desc "Generate the binary input files for language v1beta1"
+  task :language_v1beta1 do
+    generate_input_file :language_v1beta1
+  end
+
+  desc "Generate the binary input files for language v1beta2"
+  task :language_v1beta2 do
+    generate_input_file :language_v1beta2
+  end
+
+  desc "Generate the binary input files for secretmanager v1beta1"
+  task :secretmanager_v1beta1 do
+    generate_input_file :secretmanager_v1beta1
+  end
+
+  desc "Generate the binary input files for speech v1"
+  task :speech_v1 do
+    generate_input_file :speech_v1
+  end
+
+  desc "Generate the binary input files for vision v1"
+  task :vision_v1 do
+    generate_input_file :vision_v1
+  end
+
+  desc "Generate the binary input files for document_ai v1beta3"
+  task :document_ai_v1beta3 do
+    generate_input_file :document_ai_v1beta3
   end
 
   desc "Generate the binary input files for showcase"
   task :showcase do
-    showcase_protos = [
-      "google/showcase/v1alpha3/echo.proto",
-      "google/showcase/v1alpha3/identity.proto",
-      "google/showcase/v1alpha3/messaging.proto",
-      "google/showcase/v1alpha3/testing.proto"
-    ]
-    generate_input_file "showcase", showcase_protos
+    generate_input_file :showcase
   end
 
   desc "Generate the binary input files for garbage"
   task :garbage do
-    garbage_protos = [
-      "garbage/garbage.proto"
-    ]
-    generate_input_file "garbage", garbage_protos
+    generate_input_file :garbage
   end
 
   desc "Generate the binary input files for Google Ads"
   task :googleads do
-    googleads_protos = [
-      "google/ads/googleads/v1/services/campaign_service.proto"
-    ]
-    generate_input_file "googleads", googleads_protos
+    generate_input_file :googleads
+  end
+
+  desc "Generate the binary input files for grpc_service_config"
+  task :grpc_service_config do
+    generate_input_file :grpc_service_config
+  end
+
+  desc "Generate the binary input files for cloud-compute small"
+  task :compute_small do
+    generate_input_file :compute_small
   end
 end
 
@@ -83,6 +101,34 @@ namespace :test do
     t.libs << "test"
     t.test_files = FileList["test/showcase/**/*_test.rb"]
     t.warning = false
+  end
+
+  desc "Runs tests for all expected output gems."
+  task :output do
+    {
+      gapic: [:showcase, :garbage],
+      cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :compute_small]
+    }.each do |generator, gems|
+      directory = (generator == :gapic) ? "gapic/templates" : generator
+      gems.each do |gem|
+        Dir.chdir "./output/#{directory}/#{gem}" do
+          puts ""
+          puts "#"*42
+          puts "# Testing output for #{generator}'s #{gem}"
+          puts "#"*42
+
+          Bundler.with_unbundled_env do
+            sh "bundle install"
+            puts "Running rubocop for #{gem}"
+            sh "bundle exec rake rubocop"
+            puts "Running yard for #{gem}"
+            sh "bundle exec rake yard"
+            puts "Running test for #{gem}"
+            sh "bundle exec rake test"
+          end
+        end
+      end
+    end
   end
 end
 
@@ -109,29 +155,45 @@ desc "Run the CI build"
 task :ci do
   puts "\nshared test\n"
   Rake::Task[:test].invoke
+  Rake::Task[:"test:output"].invoke
 end
 
 task default: :ci
 
-def generate_input_file service, protos
+def generate_input_file service
   require "tmpdir"
 
   Dir.mktmpdir do |tmp|
     protoc_cmd = [
-      "bundle exec grpc_tools_ruby_protoc #{Array(protos).join " "}",
-      "--proto_path=api-common-protos/",
-      "--proto_path=googleapis/",
-      "--proto_path=protos/",
+      "grpc_tools_ruby_protoc",
+      "--experimental_allow_proto3_optional=1",
+      "-I ../shared/api-common-protos",
+      "-I ../shared/googleapis",
+      "-I ../shared/protos",
+      "--ruby_out=#{tmp}/lib",
+      "--grpc_out=#{tmp}/lib",
       "--ruby_gapic_out=#{tmp}",
-      # TODO: invoke a custom runner?
-      # "--ruby_gapic_opt=generator=cloud",
-      # TODO: invoke a custom template path?
-      # "--ruby_gapic_opt=templates=../gapic-generator-cloud/templates",
-      # "--ruby_gapic_opt=gem_name=google-cloud-#{service}",
       "--ruby_gapic_opt=configuration=../shared/config/#{service}.yml",
-      "--ruby_gapic_opt=binary_output=./input/#{service}_desc.bin"
-    ].join " "
+      "--ruby_gapic_opt=binary_output=../shared/input/#{service}_desc.bin"
+    ]
 
-    `#{protoc_cmd}`
+    # Add optional samples paths
+    samples = samples_for service
+    protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+    # Add optional grpc service config
+    grpc_service_config = grpc_service_config_for service
+    unless grpc_service_config.empty?
+      protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
+    end
+
+    # Add the proto files
+    protoc_cmd << protos_for(service).join(" ")
+
+    protoc_cmd = protoc_cmd.join " "
+    puts protoc_cmd if ENV["VERBOSE"]
+
+    protoc_cmd_output = `#{protoc_cmd}`
+    puts protoc_cmd_output if ENV["VERBOSE"]
   end
 end

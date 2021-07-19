@@ -23,16 +23,36 @@ class GarbageFilePresenterTest < PresenterTest
 
   def test_garbage
     file = schema.files.find { |f| f.name == "garbage/garbage.proto" }
-    fp = FilePresenter.new schema, file
+    fp = Gapic::Presenters::FilePresenter.new schema, file
 
     assert_equal ["endless", "trash", "forever"], fp.address
-    assert_equal "So::Much::Trash", fp.namespace
+    assert_equal "::So::Much::Trash", fp.namespace
     assert_equal "garbage/garbage.rb", fp.docs_file_path
 
-    assert_equal ["LongRunningGarbageRequest", "LongRunningGarbageResponse", "LongRunningGarbageMetadata", "ListGarbageRequest", "ListGarbageResponse", "GarbageItem", "SimpleGarbage", "SimpleGarbageItem", "TypicalGarbage", "SpecificGarbage", "RepeatedGarbage", "GarbageMap"], fp.messages.map(&:name)
-    fp.messages.each { |mp| assert_kind_of MessagePresenter, mp }
+    expected_messages = [
+      "GetTypicalGarbageRequest",
+      "LongRunningGarbageRequest",
+      "LongRunningGarbageResponse",
+      "LongRunningGarbageMetadata",
+      "ListGarbageRequest",
+      "ListGarbageResponse",
+      "GarbageItem",
+      "EmptyGarbage",
+      "SimpleGarbage",
+      "SimpleGarbageItem",
+      "TypicalGarbage",
+      "SpecificGarbage",
+      "RepeatedGarbage",
+      "PagedGarbageRequest",
+      "PagedGarbageResponse",
+      "ComplexGarbage",
+      "GarbageMap",
+      "GarbageNode"
+    ]
+    assert_equal expected_messages, fp.messages.map(&:name)
+    fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
     assert_equal ["GarbageEnum"], fp.enums.map(&:name)
-    fp.enums.each { |ep| assert_kind_of EnumPresenter, ep }
+    fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 end

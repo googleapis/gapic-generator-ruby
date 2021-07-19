@@ -27,29 +27,29 @@ class GoogleAdsServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["get_campaign", "mutate_campaigns"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
-    assert_empty presenter.references
+    refute_empty presenter.references
   end
 
   def test_proto_methods
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService", presenter.proto_service_name_full
+    assert_equal "::Google::Ads::GoogleAds::V1::Services::CampaignService", presenter.proto_service_name_full
     assert_equal "google/ads/googleads/v1/services/campaign_service_pb.rb", presenter.proto_service_file_path
     assert_equal "campaign_service_pb.rb", presenter.proto_service_file_name
     assert_equal "google/ads/googleads/v1/services/campaign_service_pb", presenter.proto_service_require
     assert_equal "google/ads/googleads/v1/services/campaign_service_services_pb.rb", presenter.proto_services_file_path
     assert_equal "campaign_service_services_pb.rb", presenter.proto_services_file_name
     assert_equal "google/ads/googleads/v1/services/campaign_service_services_pb", presenter.proto_services_require
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Ads::GoogleAds::V1::Services::CampaignService::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_methods
     assert_equal "Credentials", presenter.credentials_name
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Ads::GoogleAds::V1::Services::CampaignService::Credentials", presenter.credentials_name_full
     assert_equal "google/ads/google_ads/v1/services/campaign_service/credentials.rb", presenter.credentials_file_path
     assert_equal "credentials.rb", presenter.credentials_file_name
     assert_equal "google/ads/google_ads/v1/services/campaign_service/credentials", presenter.credentials_require
@@ -57,7 +57,7 @@ class GoogleAdsServiceTest < PresenterTest
 
   def test_operations_methods
     assert_equal "Operations", presenter.operations_name
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService::Operations", presenter.operations_name_full
+    assert_equal "::Google::Ads::GoogleAds::V1::Services::CampaignService::Operations", presenter.operations_name_full
     assert_equal "google/ads/google_ads/v1/services/campaign_service/operations.rb", presenter.operations_file_path
     assert_equal "operations.rb", presenter.operations_file_name
     assert_equal "google/ads/google_ads/v1/services/campaign_service/operations", presenter.operations_require
@@ -71,6 +71,11 @@ class GoogleAdsServiceTest < PresenterTest
 
   def test_test_client_file_path
     assert_equal "google/ads/google_ads/v1/services/campaign_service_test.rb", presenter.test_client_file_path
+  end
+
+  def test_test_client_operations_file_path
+    assert_equal "google/ads/google_ads/v1/services/campaign_service_operations_test.rb",
+                 presenter.test_client_operations_file_path
   end
 
   def test_stub_name
@@ -90,7 +95,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_paths?
-    refute presenter.paths?
+    assert presenter.paths?
   end
 
   def test_paths_name
@@ -98,7 +103,7 @@ class GoogleAdsServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Ads::GoogleAds::V1::Services::CampaignService::Paths", presenter.paths_name_full
+    assert_equal "::Google::Ads::GoogleAds::V1::Services::CampaignService::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path

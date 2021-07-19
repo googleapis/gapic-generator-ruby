@@ -18,7 +18,7 @@
 module Gapic
   module Generator
     module Ads
-      VERSION = "0.0.1.dev.1"
+      VERSION = "0.9.1"
     end
   end
 end

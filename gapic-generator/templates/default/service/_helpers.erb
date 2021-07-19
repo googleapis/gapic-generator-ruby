@@ -1,0 +1,3 @@
+<%- assert_locals service -%>
+helper_path = ::File.join __dir__, "<%= service.service_directory_name %>", "<%= service.helpers_file_name %>"
+require "<%= service.helpers_require %>" if ::File.file? helper_path

@@ -27,24 +27,24 @@ class ShowcaseTestingServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["create_session", "get_session", "list_sessions", "delete_session", "report_session", "list_tests", "delete_test", "verify_test"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["Session", "Test"], presenter.references.map(&:name)
-    assert_equal ["sessions/{session}", "sessions/{session}/tests/{test}"], presenter.references.map(&:path_template)
+    assert_equal ["sessions/{session}", "sessions/{session}/tests/{test}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_service_name_full
-    assert_equal "Google::Showcase::V1alpha3::Testing", presenter.proto_service_name_full
+    assert_equal "::Google::Showcase::V1beta1::Testing", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
-    assert_equal "google/showcase/v1alpha3/testing_pb.rb", presenter.proto_service_file_path
+    assert_equal "google/showcase/v1beta1/testing_pb.rb", presenter.proto_service_file_path
   end
 
   def test_proto_service_file_name
@@ -52,11 +52,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_proto_service_require
-    assert_equal "google/showcase/v1alpha3/testing_pb", presenter.proto_service_require
+    assert_equal "google/showcase/v1beta1/testing_pb", presenter.proto_service_require
   end
 
   def test_proto_services_file_path
-    assert_equal "google/showcase/v1alpha3/testing_services_pb.rb", presenter.proto_services_file_path
+    assert_equal "google/showcase/v1beta1/testing_services_pb.rb", presenter.proto_services_file_path
   end
 
   def test_proto_services_file_name
@@ -64,11 +64,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_proto_services_require
-    assert_equal "google/showcase/v1alpha3/testing_services_pb", presenter.proto_services_require
+    assert_equal "google/showcase/v1beta1/testing_services_pb", presenter.proto_services_require
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Google::Showcase::V1alpha3::Testing::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Showcase::V1beta1::Testing::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -76,11 +76,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Google::Showcase::V1alpha3::Testing::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Showcase::V1beta1::Testing::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
-    assert_equal "google/showcase/v1alpha3/testing/credentials.rb", presenter.credentials_file_path
+    assert_equal "google/showcase/v1beta1/testing/credentials.rb", presenter.credentials_file_path
   end
 
   def test_credentials_file_name
@@ -88,7 +88,7 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_credentials_require
-    assert_equal "google/showcase/v1alpha3/testing/credentials", presenter.credentials_require
+    assert_equal "google/showcase/v1beta1/testing/credentials", presenter.credentials_require
   end
 
   def test_operations_name
@@ -96,11 +96,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Google::Showcase::V1alpha3::Testing::Operations", presenter.operations_name_full
+    assert_equal "::Google::Showcase::V1beta1::Testing::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
-    assert_equal "google/showcase/v1alpha3/testing/operations.rb", presenter.operations_file_path
+    assert_equal "google/showcase/v1beta1/testing/operations.rb", presenter.operations_file_path
   end
 
   def test_operations_file_name
@@ -108,11 +108,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_operations_require
-    assert_equal "google/showcase/v1alpha3/testing/operations", presenter.operations_require
+    assert_equal "google/showcase/v1beta1/testing/operations", presenter.operations_require
   end
 
   def test_helpers_file_path
-    assert_equal "google/showcase/v1alpha3/testing/helpers.rb", presenter.helpers_file_path
+    assert_equal "google/showcase/v1beta1/testing/helpers.rb", presenter.helpers_file_path
   end
 
   def test_helpers_file_name
@@ -120,11 +120,15 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_helpers_require
-    assert_equal "google/showcase/v1alpha3/testing/helpers", presenter.helpers_require
+    assert_equal "google/showcase/v1beta1/testing/helpers", presenter.helpers_require
   end
 
   def test_test_client_file_path
-    assert_equal "google/showcase/v1alpha3/testing_test.rb", presenter.test_client_file_path
+    assert_equal "google/showcase/v1beta1/testing_test.rb", presenter.test_client_file_path
+  end
+
+  def test_test_client_operations_file_path
+    assert_equal "google/showcase/v1beta1/testing_operations_test.rb", presenter.test_client_operations_file_path
   end
 
   def test_stub_name
@@ -152,11 +156,11 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1alpha3::Testing::Paths", presenter.paths_name_full
+    assert_equal "::Google::Showcase::V1beta1::Testing::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
-    assert_equal "google/showcase/v1alpha3/testing/paths.rb", presenter.paths_file_path
+    assert_equal "google/showcase/v1beta1/testing/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -164,6 +168,6 @@ class ShowcaseTestingServiceTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "google/showcase/v1alpha3/testing/paths", presenter.paths_require
+    assert_equal "google/showcase/v1beta1/testing/paths", presenter.paths_require
   end
 end

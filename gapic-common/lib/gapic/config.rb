@@ -60,19 +60,26 @@ module Gapic
 
       name_ivar = "@#{name}".to_sym
 
-      # create getter
+      create_getter name_ivar, name, default
+      create_setter name_ivar, name_setter, default, validator
+    end
+
+    private
+
+    def create_getter name_ivar, name, default
       define_method name do
         return instance_variable_get name_ivar if instance_variable_defined? name_ivar
 
         if instance_variable_defined? :@parent_config
           parent = instance_variable_get :@parent_config
-          return parent.send name if parent&.respond_to? name
+          return parent.__send__ name if parent.respond_to? name
         end
 
         default
       end
+    end
 
-      # create setter
+    def create_setter name_ivar, name_setter, default, validator
       define_method name_setter do |new_value|
         valid_value = validator.call new_value
         if new_value.nil?
@@ -81,7 +88,7 @@ module Gapic
           valid_value ||= begin
             # Allow nil if parent config has the getter method.
             parent = instance_variable_get :@parent_config if instance_variable_defined? :@parent_config
-            parent&.respond_to? name
+            parent&.respond_to? name_setter
           end
         end
         raise ArgumentError unless valid_value

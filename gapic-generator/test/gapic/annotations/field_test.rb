@@ -22,7 +22,7 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "TypicalGarbage" }
     refute_nil message
 
-    assert_equal 11, message.fields.count
+    assert_equal 22, message.fields.count
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options
@@ -34,6 +34,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[0].output_only?
     refute message.fields[0].input_only?
     refute message.fields[0].immutable?
+    refute message.fields[0].repeated?
 
     assert_equal "int32", message.fields[1].name
     refute_nil message.fields[1].options
@@ -45,6 +46,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[1].output_only?
     refute message.fields[1].input_only?
     refute message.fields[1].immutable?
+    refute message.fields[1].repeated?
 
     assert_equal "int64", message.fields[2].name
     assert_nil message.fields[2].options
@@ -55,6 +57,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[2].output_only?
     refute message.fields[2].input_only?
     refute message.fields[2].immutable?
+    refute message.fields[2].repeated?
 
     assert_equal "uint32", message.fields[3].name
     assert_nil message.fields[3].options
@@ -65,6 +68,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[3].output_only?
     refute message.fields[3].input_only?
     refute message.fields[3].immutable?
+    refute message.fields[3].repeated?
 
     assert_equal "uint64", message.fields[4].name
     assert_nil message.fields[4].options
@@ -75,6 +79,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[4].output_only?
     refute message.fields[4].input_only?
     refute message.fields[4].immutable?
+    refute message.fields[4].repeated?
 
     assert_equal "bool", message.fields[5].name
     refute_nil message.fields[5].options
@@ -86,6 +91,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[5].output_only?
     refute message.fields[5].input_only?
     refute message.fields[5].immutable?
+    refute message.fields[5].repeated?
 
     assert_equal "float", message.fields[6].name
     assert_nil message.fields[6].options
@@ -96,6 +102,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[6].output_only?
     refute message.fields[6].input_only?
     refute message.fields[6].immutable?
+    refute message.fields[6].repeated?
 
     assert_equal "double", message.fields[7].name
     assert_nil message.fields[7].options
@@ -106,6 +113,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[7].output_only?
     refute message.fields[7].input_only?
     refute message.fields[7].immutable?
+    refute message.fields[7].repeated?
 
     assert_equal "bytes", message.fields[8].name
     assert_nil message.fields[8].options
@@ -116,19 +124,20 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[8].output_only?
     refute message.fields[8].input_only?
     refute message.fields[8].immutable?
+    refute message.fields[8].repeated?
 
-    assert_equal "msg", message.fields[9].name
-    refute_nil message.fields[9].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
+    assert_equal "timeout", message.fields[9].name
+    assert_nil message.fields[9].options
 
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
+    assert_empty message.fields[9].field_behavior
     refute message.fields[9].optional?
     refute message.fields[9].required?
-    assert message.fields[9].output_only?
+    refute message.fields[9].output_only?
     refute message.fields[9].input_only?
     refute message.fields[9].immutable?
+    refute message.fields[9].repeated?
 
-    assert_equal "enum", message.fields[10].name
+    assert_equal "duration", message.fields[10].name
     assert_nil message.fields[10].options
 
     assert_empty message.fields[10].field_behavior
@@ -137,6 +146,30 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[10].output_only?
     refute message.fields[10].input_only?
     refute message.fields[10].immutable?
+    refute message.fields[10].repeated?
+
+    assert_equal "msg", message.fields[11].name
+    refute_nil message.fields[11].options
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].options[:field_behavior]
+
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].field_behavior
+    refute message.fields[11].optional?
+    refute message.fields[11].required?
+    assert message.fields[11].output_only?
+    refute message.fields[11].input_only?
+    refute message.fields[11].immutable?
+    refute message.fields[11].repeated?
+
+    assert_equal "enum", message.fields[12].name
+    assert_nil message.fields[12].options
+
+    assert_empty message.fields[12].field_behavior
+    refute message.fields[12].optional?
+    refute message.fields[12].required?
+    refute message.fields[12].output_only?
+    refute message.fields[12].input_only?
+    refute message.fields[12].immutable?
+    refute message.fields[12].repeated?
   end
 
   def test_garbage_SpecificGarbage
@@ -274,9 +307,9 @@ class AnnotationFieldTest < AnnotationTest
     message = garbage.messages.find { |s| s.name == "RepeatedGarbage" }
     refute_nil message
 
-    assert_equal 12, message.fields.count
+    assert_equal 11, message.fields.count
 
-    assert_equal "name", message.fields[0].name
+    assert_equal "repeated_name", message.fields[0].name
     refute_nil message.fields[0].options
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].options[:field_behavior]
 
@@ -286,6 +319,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[0].output_only?
     refute message.fields[0].input_only?
     refute message.fields[0].immutable?
+    assert message.fields[0].repeated?
 
     assert_equal "repeated_int32", message.fields[1].name
     assert_nil message.fields[1].options
@@ -296,6 +330,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[1].output_only?
     refute message.fields[1].input_only?
     refute message.fields[1].immutable?
+    assert message.fields[1].repeated?
 
     assert_equal "repeated_int64", message.fields[2].name
     assert_nil message.fields[2].options
@@ -306,6 +341,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[2].output_only?
     refute message.fields[2].input_only?
     refute message.fields[2].immutable?
+    assert message.fields[2].repeated?
 
     assert_equal "repeated_uint32", message.fields[3].name
     assert_nil message.fields[3].options
@@ -316,6 +352,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[3].output_only?
     refute message.fields[3].input_only?
     refute message.fields[3].immutable?
+    assert message.fields[3].repeated?
 
     assert_equal "repeated_uint64", message.fields[4].name
     assert_nil message.fields[4].options
@@ -326,6 +363,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[4].output_only?
     refute message.fields[4].input_only?
     refute message.fields[4].immutable?
+    assert message.fields[4].repeated?
 
     assert_equal "repeated_bool", message.fields[5].name
     assert_nil message.fields[5].options
@@ -336,6 +374,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[5].output_only?
     refute message.fields[5].input_only?
     refute message.fields[5].immutable?
+    assert message.fields[5].repeated?
 
     assert_equal "repeated_float", message.fields[6].name
     assert_nil message.fields[6].options
@@ -346,6 +385,7 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[6].output_only?
     refute message.fields[6].input_only?
     refute message.fields[6].immutable?
+    assert message.fields[6].repeated?
 
     assert_equal "repeated_double", message.fields[7].name
     assert_nil message.fields[7].options
@@ -356,8 +396,9 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[7].output_only?
     refute message.fields[7].input_only?
     refute message.fields[7].immutable?
+    assert message.fields[7].repeated?
 
-    assert_equal "repeated_string", message.fields[8].name
+    assert_equal "repeated_bytes", message.fields[8].name
     assert_nil message.fields[8].options
 
     assert_empty message.fields[8].field_behavior
@@ -366,36 +407,29 @@ class AnnotationFieldTest < AnnotationTest
     refute message.fields[8].output_only?
     refute message.fields[8].input_only?
     refute message.fields[8].immutable?
+    assert message.fields[8].repeated?
 
-    assert_equal "repeated_bytes", message.fields[9].name
-    assert_nil message.fields[9].options
+    assert_equal "repeated_msg", message.fields[9].name
+    refute_nil message.fields[9].options
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
 
-    assert_empty message.fields[9].field_behavior
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
     refute message.fields[9].optional?
     refute message.fields[9].required?
-    refute message.fields[9].output_only?
+    assert message.fields[9].output_only?
     refute message.fields[9].input_only?
     refute message.fields[9].immutable?
+    assert message.fields[9].repeated?
 
-    assert_equal "repeated_msg", message.fields[10].name
-    refute_nil message.fields[10].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[10].options[:field_behavior]
+    assert_equal "repeated_enum", message.fields[10].name
+    assert_nil message.fields[10].options
 
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[10].field_behavior
+    assert_empty message.fields[10].field_behavior
     refute message.fields[10].optional?
     refute message.fields[10].required?
-    assert message.fields[10].output_only?
+    refute message.fields[10].output_only?
     refute message.fields[10].input_only?
     refute message.fields[10].immutable?
-
-    assert_equal "repeated_enum", message.fields[11].name
-    assert_nil message.fields[11].options
-
-    assert_empty message.fields[11].field_behavior
-    refute message.fields[11].optional?
-    refute message.fields[11].required?
-    refute message.fields[11].output_only?
-    refute message.fields[11].input_only?
-    refute message.fields[11].immutable?
+    assert message.fields[10].repeated?
   end
 end

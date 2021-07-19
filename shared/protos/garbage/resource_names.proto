@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package endless.trash.forever;
+
+option ruby_package = "So::Much::Trash";
+
+import "google/api/client.proto";
+import "google/api/resource.proto";
+
+// A resource that is referenced in a message but not an ancestor to the message
+// Is expected to generate the path helpers but not to show up in the ancestor chains
+// Has a simple path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/SimplePatternNonParentResource"
+  pattern: "locations/{location}"
+};
+
+// A resource that is referenced in a message but not an ancestor to the message
+// Is expected to generate the path helpers but not to show up in the ancestor chains
+// Has a complex path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/ComplexPatternNonParentResource"
+  pattern: "orders/{order_a}~{order_b}"
+};
+
+// A resource that is referenced in a message and also an ancestor to the message 
+// Is expected to generate the path helpers and to show up in the ancestor chains
+// Has a simple path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/SimplePatternResource"
+  pattern: "customers/{customer}"
+};
+
+// A resource that is referenced in a message and also an ancestor to the message 
+// Is expected to generate the path helpers and to show up in the ancestor chains
+// Has a complex path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/ComplexPatternResource"
+  pattern: "customers/{customer}/items/{item_a}.{item_b}~{items_c}"
+};
+
+// A resource that is not referenced in a message but is an ancestor to the message 
+// Is expected to show up in the ancestor chains but not to generate the path helpers
+// Has a complex path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/ComplexPatternIntermediateResource"
+  pattern: "customers/{customer}/items/{item_a}.{item_b}~{items_c}/details/{details_a}_{details_b}-{details_c}"
+};
+
+// A resource that is referenced in a message via the child_type
+// Is expected to generate the path helpers
+// Has a simple path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/SimplePatternLogParent"
+  pattern: "transactions/{transaction}"
+};
+
+// A resource that is referenced in a message via the child_type
+// Is expected to generate the path helpers
+// Has a complex path pattern
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/ComplexPatternLogParent"
+  pattern: "returns/{return_order}~{return_item}"
+};
+
+// A multiparent resource that can has any of the Requests as a parent
+// A deliberate error is introduced here between its pattern and its parent (ComplexPatternLogParent)'s pattern:
+// the ResourceId segment here is simple, but the ResourceId segment in parent is complex
+// It is expected that the ancestry will be established despite this difference
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/LogEntry"
+  pattern: "transactions/{transaction}/log"
+  pattern: "returns/{return}/log"
+};
+
+// A resource with multiple patterns, one of which has no arguments.
+option (google.api.resource_definition) = {
+  type: "resourcenames.example.com/NoArgumentsMulti"
+  pattern: "projects/{project}/widgets/{widget}"
+  pattern: "_default-widget_"
+};
+
+// A service that exposes the messages that test the various combinations of path patterns
+service ResourceNames {
+  option (google.api.default_host) = "endlesstrash.example.net";
+
+  rpc SimplePatternMethod(SimplePatternRequest) returns(Response) {
+  }
+
+  rpc ComplexPatternMethod(ComplexPatternRequest) returns(Response) {
+  }
+
+  rpc ResourceNamePatternMethod(ResourceNamePatternRequest) returns(Response) {
+  }
+
+  rpc MultiparentMethod(MultiparentRequest) returns(Response) {
+  }
+
+  rpc NoArgumentsMultiMethod(NoArgumentsMultiRequest) returns(Response) {
+  }
+}
+
+// A message with a simple pattern
+message SimplePatternRequest {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/SimplePatternRequest"
+    pattern: "customers/{customer}/things/{thing}"
+    pattern: "simplerequests/{request}"
+    name_field: "real_name"
+  };
+
+  string real_name = 1;
+  string ref = 2 [(google.api.resource_reference).type = "resourcenames.example.com/SimplePatternResource"];
+  repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/SimplePatternNonParentResource"];
+}
+
+// A message with multiple path patterns, one of which is complex
+// A deliberate difference is introduced here between its pattern and its parent (ComplexPatternIntermediateResource)'s pattern:
+// resource names are different. It is expected that the ancestry will be established despite difference
+message ComplexPatternRequest {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/ComplexPatternRequest"
+    pattern: "customers/{customer}/items/{item_a_id}.{item_b_id}~{items_c_id}/details/{details_a_id}_{details_b_id}-{details_c_id}/extra/{extra_id}"
+    pattern: "complexrequests/{request}"
+    name_field: "real_name"
+  };
+  string real_name = 1;
+  string ref = 2 [(google.api.resource_reference).type = "resourcenames.example.com/ComplexPatternResource"];
+  repeated string repeated_ref = 3 [(google.api.resource_reference).type = "resourcenames.example.com/ComplexPatternNonParentResource"];
+}
+
+// A message with a pattern that includes a segment with a pattern
+message ResourceNamePatternRequest {
+  option (google.api.resource) = {
+    type: "resourcenames.example.com/ResourceNamePatternRequest"
+    pattern: "customers/{customer}/path/{path=**}"
+    pattern: "patternrequests/{request}"
+  };
+
+  string name = 1;
+}
+
+// A message that references multiple potential resources via the child_type
+message MultiparentRequest {
+  string parent = 1 [(google.api.resource_reference).child_type = "resourcenames.example.com/LogEntry"];
+}
+
+// A request with a name referencing NoArgumentsMulti
+message NoArgumentsMultiRequest {
+  string name = 1 [(google.api.resource_reference).type = "resourcenames.example.com/NoArgumentsMulti"];
+}
+
+message Response { }

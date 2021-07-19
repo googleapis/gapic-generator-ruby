@@ -53,7 +53,7 @@ class GrpcStubTest < Minitest::Spec
     mock.expect :nil?, false
     mock.expect :new, nil, ["service:port", nil, channel_override: fake_channel, interceptors: []]
 
-    Gapic::Grpc::Stub.new mock, endpoint: "service:port", credentials: fake_channel
+    Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel
 
     mock.verify
   end
@@ -65,7 +65,19 @@ class GrpcStubTest < Minitest::Spec
     mock.expect :nil?, false
     mock.expect :new, nil, ["service:port", fake_channel_creds, channel_args: {}, interceptors: []]
 
-    Gapic::Grpc::Stub.new mock, endpoint: "service:port", credentials: fake_channel_creds
+    Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel_creds
+
+    mock.verify
+  end
+
+  def test_with_symbol_credentials
+    creds = :this_channel_is_insecure
+
+    mock = Minitest::Mock.new
+    mock.expect :nil?, false
+    mock.expect :new, nil, ["service:port", creds, channel_args: {}, interceptors: []]
+
+    Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: creds
 
     mock.verify
   end
@@ -77,7 +89,7 @@ class GrpcStubTest < Minitest::Spec
         mock.expect :nil?, false
         mock.expect :new, nil, ["service:port", FakeCallCredentials, channel_args: {}, interceptors: []]
 
-        Gapic::Grpc::Stub.new mock, endpoint: "service:port", credentials: FakeCredentials.new
+        Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: FakeCredentials.new
 
         mock.verify
       end
@@ -93,7 +105,7 @@ class GrpcStubTest < Minitest::Spec
 
         credentials_proc = ->{}
 
-        Gapic::Grpc::Stub.new mock, endpoint: "service:port", credentials: credentials_proc
+        Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: credentials_proc
 
         mock.verify
       end

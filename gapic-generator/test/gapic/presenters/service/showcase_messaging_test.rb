@@ -27,24 +27,24 @@ class ShowcaseMessagingServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["create_room", "get_room", "update_room", "delete_room", "list_rooms", "create_blurb", "get_blurb", "update_blurb", "delete_blurb", "list_blurbs", "search_blurbs", "stream_blurbs", "send_blurbs", "connect"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["Room"], presenter.references.map(&:name)
-    assert_equal ["rooms/{room_id}"], presenter.references.map(&:path_template)
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
+    assert_equal ["Blurb", "Room", "User"], presenter.references.map(&:name)
+    assert_equal ["users/{user_id}/profile/blurbs/legacy/{legacy_user_id}~{blurb_id}", "rooms/{room_id}", "users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_service_name_full
-    assert_equal "Google::Showcase::V1alpha3::Messaging", presenter.proto_service_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
-    assert_equal "google/showcase/v1alpha3/messaging_pb.rb", presenter.proto_service_file_path
+    assert_equal "google/showcase/v1beta1/messaging_pb.rb", presenter.proto_service_file_path
   end
 
   def test_proto_service_file_name
@@ -52,11 +52,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_proto_service_require
-    assert_equal "google/showcase/v1alpha3/messaging_pb", presenter.proto_service_require
+    assert_equal "google/showcase/v1beta1/messaging_pb", presenter.proto_service_require
   end
 
   def test_proto_services_file_path
-    assert_equal "google/showcase/v1alpha3/messaging_services_pb.rb", presenter.proto_services_file_path
+    assert_equal "google/showcase/v1beta1/messaging_services_pb.rb", presenter.proto_services_file_path
   end
 
   def test_proto_services_file_name
@@ -64,11 +64,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_proto_services_require
-    assert_equal "google/showcase/v1alpha3/messaging_services_pb", presenter.proto_services_require
+    assert_equal "google/showcase/v1beta1/messaging_services_pb", presenter.proto_services_require
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Google::Showcase::V1alpha3::Messaging::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -76,11 +76,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Google::Showcase::V1alpha3::Messaging::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
-    assert_equal "google/showcase/v1alpha3/messaging/credentials.rb", presenter.credentials_file_path
+    assert_equal "google/showcase/v1beta1/messaging/credentials.rb", presenter.credentials_file_path
   end
 
   def test_credentials_file_name
@@ -88,7 +88,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_credentials_require
-    assert_equal "google/showcase/v1alpha3/messaging/credentials", presenter.credentials_require
+    assert_equal "google/showcase/v1beta1/messaging/credentials", presenter.credentials_require
   end
 
   def test_operations_name
@@ -96,11 +96,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Google::Showcase::V1alpha3::Messaging::Operations", presenter.operations_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
-    assert_equal "google/showcase/v1alpha3/messaging/operations.rb", presenter.operations_file_path
+    assert_equal "google/showcase/v1beta1/messaging/operations.rb", presenter.operations_file_path
   end
 
   def test_operations_file_name
@@ -108,11 +108,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_operations_require
-    assert_equal "google/showcase/v1alpha3/messaging/operations", presenter.operations_require
+    assert_equal "google/showcase/v1beta1/messaging/operations", presenter.operations_require
   end
 
   def test_helpers_file_path
-    assert_equal "google/showcase/v1alpha3/messaging/helpers.rb", presenter.helpers_file_path
+    assert_equal "google/showcase/v1beta1/messaging/helpers.rb", presenter.helpers_file_path
   end
 
   def test_helpers_file_name
@@ -120,11 +120,15 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_helpers_require
-    assert_equal "google/showcase/v1alpha3/messaging/helpers", presenter.helpers_require
+    assert_equal "google/showcase/v1beta1/messaging/helpers", presenter.helpers_require
   end
 
   def test_test_client_file_path
-    assert_equal "google/showcase/v1alpha3/messaging_test.rb", presenter.test_client_file_path
+    assert_equal "google/showcase/v1beta1/messaging_test.rb", presenter.test_client_file_path
+  end
+
+  def test_test_client_operations_file_path
+    assert_equal "google/showcase/v1beta1/messaging_operations_test.rb", presenter.test_client_operations_file_path
   end
 
   def test_stub_name
@@ -136,7 +140,7 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of ServicePresenter, presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
   end
 
   def test_lro_client_var
@@ -156,11 +160,11 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1alpha3::Messaging::Paths", presenter.paths_name_full
+    assert_equal "::Google::Showcase::V1beta1::Messaging::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
-    assert_equal "google/showcase/v1alpha3/messaging/paths.rb", presenter.paths_file_path
+    assert_equal "google/showcase/v1beta1/messaging/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -168,6 +172,6 @@ class ShowcaseMessagingServiceTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "google/showcase/v1alpha3/messaging/paths", presenter.paths_require
+    assert_equal "google/showcase/v1beta1/messaging/paths", presenter.paths_require
   end
 end

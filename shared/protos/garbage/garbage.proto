@@ -8,14 +8,20 @@ import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
 import "google/longrunning/operations.proto";
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
 
 option ruby_package = "So::Much::Trash";
 
-option (google.api.client_package) = {
-  title: "Testing Garbage"
-  namespace: ["Endless", "Trash"]
-  version: "Forever"
+option (google.api.resource_definition) = {
+type: "endlesstrash.example.net/Garbage"
+pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
+pattern: "projects/{project}/specific_garbage/{specific_garbage}"
+pattern: "projects/{project}/nested_garbage/{nested_garbage}"
+pattern: "projects/{project}/repeated_garbage/{repeated_garbage}"
 };
+
 
 // Endless trash
 service GarbageService {
@@ -27,38 +33,78 @@ service GarbageService {
                                      "https://endlesstrash.example.net/garbage-read,"
                                      "https://endlesstrash.example.net/garbage-write";
 
+  // Retrieves an EmptyGarbage resource
+  rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
+    option (google.api.http) = {
+      post: "/v1/empty_garbage:get"
+      body: "*"
+    };
+  }
+  // Retrieves a SimpleGarbage resource.
   rpc GetSimpleGarbage(SimpleGarbage) returns (SimpleGarbage) {
     option (google.api.http) = {
       post: "/v1/simple_garbage:get"
       body: "*"
     };
   }
+  // Retrieves a SpecificGarbage resource.
   rpc GetSpecificGarbage(SpecificGarbage) returns (SpecificGarbage) {
     option (google.api.http) = {
       post: "/v1/specific_garbage:get"
       body: "*"
     };
-    option (google.api.method_signature) = "name,int32,bool";
-    option (google.api.method_signature) = "name,nested.int64";
   }
+  // Retrieves a NestedGarbage resource.
   rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
     option (google.api.http) = {
       post: "/v1/nested_garbage:get"
       body: "*"
     };
-    option (google.api.method_signature) = "name,int32,int64";
-    option (google.api.method_signature) = "name,float,double";
-    option (google.api.method_signature) = "name,bool,enum";
   }
+  // Retrieves a RepeatedGarbage resource.
   rpc GetRepeatedGarbage(RepeatedGarbage) returns (RepeatedGarbage) {
     option (google.api.http) = {
       post: "/v1/repeated_garbage:get"
       body: "*"
     };
-    option (google.api.method_signature) = "name,bool,enum";
-    option (google.api.method_signature) = "name,float,double";
-    option (google.api.method_signature) = "name,int32,int64,uint32,uint64";
   }
+  // Retrieves a TypicalGarbage resource.
+  rpc GetTypicalGarbage(TypicalGarbage) returns (TypicalGarbage) {
+    option (google.api.http) = {
+      post: "/v1/typical_garbage:get"
+      body: "*"
+    };
+  }
+  // Retrieves a TypicalGarbage resource by a request.
+  rpc GetTypicalGarbageByRequest(GetTypicalGarbageRequest) returns (TypicalGarbage) {
+    option (google.api.http) = {
+      post: "/v1/typical_garbage_by_request:get"
+      body: "*"
+    };
+  }
+  // Retrieves a ComplexGarbage resource.
+  rpc GetComplexGarbage(ComplexGarbage) returns (ComplexGarbage) {
+    option (google.api.http) = {
+      post: "/v1/complex_garbage:get"
+      body: "*"
+    };
+  }
+  // Retrieves a GarbageNode resource.
+  rpc GetGarbageNode(GarbageNode) returns (GarbageNode) {
+    option (google.api.http) = {
+      post: "/v1/garbage_node:get"
+      body: "*"
+    };
+  }
+  // Performs paged garbage listing.
+  rpc GetPagedGarbage(PagedGarbageRequest) returns (PagedGarbageResponse) {
+    option (google.api.http) = {
+      post: "/v1/paged_garbage:get"
+      body: "*"
+    };
+  }
+  // Performs asynchronous garbage listing. Garbage items are available via the
+  // google.longrunning.Operations interface.
   rpc LongRunningGarbage(LongRunningGarbageRequest) returns (google.longrunning.Operation) {
     option (google.api.http) = {
       post: "/v1/garbage:lro"
@@ -71,30 +117,75 @@ service GarbageService {
       metadata_type: "google.garbage.v1.LongRunningGarbageMetadata"
     };
   }
+  // Performs client streaming garbage listing.
   rpc ClientGarbage(stream ListGarbageRequest) returns (ListGarbageResponse) {
     option (google.api.http) = {
       post: "/v1/garbage:client"
       body: "*"
     };
   }
+  // Performs server streaming garbage listing.
   rpc ServerGarbage(ListGarbageRequest) returns (stream GarbageItem) {
     option (google.api.http) = {
       post: "/v1/garbage:server"
       body: "*"
     };
   }
+  // Performs bidirectional streaming garbage listing.
   rpc BidiGarbage(stream ListGarbageRequest) returns (stream GarbageItem);
+  // Performs bidirectional streaming with all typical garbage.
+  rpc BidiTypicalGarbage(stream TypicalGarbage) returns (stream TypicalGarbage);
+  // A method that collides with a Ruby method
+  rpc Send(EmptyGarbage) returns (EmptyGarbage) {
+    option (google.api.http) = {
+      post: "/v1/send:get"
+      body: "*"
+    };
+  }
 }
 
+service RenamedService {
+  // The address where this API is typically served.
+  option (google.api.default_host) = "endlesstrash.example.net";
+
+  // The OAuth scopes needed to make requests to this API.
+  option (google.api.oauth_scopes) = "https://endlesstrash.example.net/garbage-admin,"
+                                     "https://endlesstrash.example.net/garbage-read,"
+                                     "https://endlesstrash.example.net/garbage-write";
+
+  // Retrieves an EmptyGarbage resource
+  rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
+    option (google.api.http) = {
+      post: "/v1/empty_garbage:get"
+      body: "*"
+    };
+  }
+}
+
+// The get typical garbage request message.
+message GetTypicalGarbageRequest {
+  // The name of the garbage.
+  string name = 1 [
+    (google.api.resource_reference).type = "endlesstrash.example.net/TypicalGarbage"
+  ];
+}
+
+// The top-level message sent by the client for the `LongRunningGarbage`
+// method.
 message LongRunningGarbageRequest {
+  // The name of the garbage this item belongs to.
   string garbage = 1;
 }
 
+// The only message returned to the client by the `LongRunningGarbage` method.
 message LongRunningGarbageResponse {
+  // The name of the garbage this item belongs to.
   string garbage = 1;
+  // The items of garbage.
   repeated GarbageItem items = 2;
 }
 
+// Describes the progress of a long-running `LongRunningGarbage` call.
 message LongRunningGarbageMetadata {
   // Approximate percentage of garbage processed thus far. Guaranteed to be 100
   // when the garbage is fully processed and the items are available.
@@ -107,34 +198,58 @@ message LongRunningGarbageMetadata {
   google.protobuf.Timestamp last_update_time = 3;
 }
 
+// The list garbage request message.
 message ListGarbageRequest {
-  string garbage = 1;
+  // The name of the garbage this item belongs to.
+  string garbage = 1 [
+    (google.api.resource_reference).child_type = "endlesstrash.example.net/Garbage"
+  ];
 }
 
+// The list garbage response message.
 message ListGarbageResponse {
+  // The name of the garbage this item belongs to.
   string garbage = 1;
   repeated GarbageItem items = 2;
 }
 
+// A literal piece of garbage. Why would you want this? What is wrong with you?
 message GarbageItem {
-  string garbage = 1;
+  // The garbage this item belongs to.
+  string garbage = 1 [
+    (google.api.resource_reference).type = "endlesstrash.example.net/Garbage"
+  ];
+  // The item, which is either a string or an integer.
   oneof item {
+    // The string item.
     string a = 2;
+    // The integer item.
     int32  b = 3;
   }
 }
 
+// an empty garbage message
+message EmptyGarbage {
+  
+}
+
 // A simple garbage resource
 message SimpleGarbage {
-  string name = 1 [(google.api.resource) = {
-    pattern: "projects/{project}/simple_garbage/{garbage}"
-  }];
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/SimpleGarbage"
+    pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+  };
+
+  // The name of this garbage.
+  string name = 1;
 }
 
 // A simple garbage item resource
 message SimpleGarbageItem {
+  // The name of the garbage this item belongs to.
   string garbage = 1 [
-    (google.api.resource_reference) = "SimpleGarbage"];
+    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
+  ];
   oneof item {
     string a = 2;
     int32  b = 3;
@@ -142,71 +257,222 @@ message SimpleGarbageItem {
 }
 
 message TypicalGarbage {
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/TypicalGarbage"
+    pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+    pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
+  };
+
+  // The name of this garbage.
   string name = 1 [(google.api.field_behavior) = REQUIRED];
+  // The int32 of this garbage.
   int32 int32 = 2 [(google.api.field_behavior) = REQUIRED];
+  // The int64 of this garbage.
   int64 int64 = 3;
+  // The uint32 of this garbage.
   uint32 uint32 = 4;
+  // The uint64 of this garbage.
   uint64 uint64 = 5;
+  // The bool of this garbage.
   bool bool = 6 [(google.api.field_behavior) = REQUIRED];
+  // The float of this garbage.
   float float = 7;
+  // The double of this garbage.
   double double = 8;
+  // The bytes of this garbage.
   bytes bytes = 9;
-  GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
-  GarbageEnum enum = 11;
+  // When the garbage was first activated.
+  google.protobuf.Timestamp timeout = 10;
+  // Time limit for this garbage. If not defined, the garbage endures forever.
+  google.protobuf.Duration duration = 11;
+  // The map of this garbage.
+  GarbageMap msg = 12 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The type of this garbage.
+  GarbageEnum enum = 13;
+  // This is a map.
+  map<string, string> amap = 14;
+  // This is a oneof with one field.
+  oneof oneof_singular {
+    // This is a one-field oneof's string field.
+    string oneof_singular_str = 15;
+  }
+  // This is a oneof with a pair of fields.
+  oneof oneof_pair {
+    // This is a pair oneof's int32 field.
+    int32 oneof_pair_int32 = 16;
+    // This is a pair oneof's float field.
+    float oneof_pair_float = 17;
+  }
+  // This is a oneof with multiple fields.
+  oneof oneof_multiple {
+    // This is a multiple-field oneof's message field.
+    SimpleGarbageItem oneof_multiple_message = 18;
+    // This is a multiple-field oneof's bytes field.
+    bytes oneof_multiple_bytes = 19;
+    // This is a multiple-field oneof's enum field.
+    GarbageEnum oneof_multiple_enum = 20;
+    // This is a multiple-field oneof's double field.
+    double oneof_multiple_double = 21;
+  }
+
+  optional int32 optional_int32 = 22;
 }
 
+// This is one specific garbage, man.
 message SpecificGarbage {
+  option (google.api.resource) = {
+    type: "endlesstrash.example.net/SpecificGarbage"
+    pattern: "projects/{project}/specific_garbage/{specific_garbage}"
+  };
+
+  // The name of this garbage.
   string name = 1 [(google.api.field_behavior) = REQUIRED];
+  // The int32 of this garbage.
   int32 int32 = 2;
+  // The int64 of this garbage.
   int64 int64 = 3;
+  // The uint32 of this garbage.
   uint32 uint32 = 4;
+  // The uint64 of this garbage.
   uint64 uint64 = 5;
+  // The bool of this garbage.
   bool bool = 6;
+  // The float of this garbage.
   float float = 7;
+  // The double of this garbage.
   double double = 8;
+  // The bytes of this garbage.
   bytes bytes = 9;
+  // The map of this garbage.
   GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The type of this garbage.
   GarbageEnum enum = 11;
+  // The nested garbage resource of this garbage.
   NestedGarbage nested = 12;
 
+  // The best nested garbage money can buy.
   message NestedGarbage {
+    // The name of this garbage.
     string name = 1 [(google.api.field_behavior) = REQUIRED];
+    // The int32 of this garbage.
     int32 int32 = 2;
+    // The int64 of this garbage.
     int64 int64 = 3;
+    // The uint32 of this garbage.
     uint32 uint32 = 4;
+    // The uint64 of this garbage.
     uint64 uint64 = 5;
+    // The bool of this garbage.
     bool bool = 6;
+    // The float of this garbage.
     float float = 7;
+    // The double of this garbage.
     double double = 8;
+    // The bytes of this garbage.
     bytes bytes = 9;
+    // The map of this garbage.
     GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+    // The type of this garbage.
     GarbageEnum enum = 11;
   }
 }
 
 message RepeatedGarbage {
-  string name = 1 [(google.api.field_behavior) = REQUIRED];
-  repeated int32 repeated_int32 = 12;
-  repeated int64 repeated_int64 = 13;
-  repeated uint32 repeated_uint32 = 14;
-  repeated uint64 repeated_uint64 = 15;
-  repeated bool repeated_bool = 16;
-  repeated float repeated_float = 17;
-  repeated double repeated_double = 18;
-  repeated string repeated_string = 19;
-  repeated bytes repeated_bytes = 20;
-  repeated GarbageMap repeated_msg = 21 [(google.api.field_behavior) = OUTPUT_ONLY];
-  repeated GarbageEnum repeated_enum = 22;
+  // The repeated name of this garbage.
+  repeated string repeated_name = 1 [(google.api.field_behavior) = REQUIRED];
+  // The repeated int32 of this garbage.
+  repeated int32 repeated_int32 = 2;
+  // The repeated int64 of this garbage.
+  repeated int64 repeated_int64 = 3;
+  // The repeated uint32 of this garbage.
+  repeated uint32 repeated_uint32 = 4;
+  // The repeated uint64 of this garbage.
+  repeated uint64 repeated_uint64 = 5;
+  // The repeated bool of this garbage.
+  repeated bool repeated_bool = 6;
+  // The repeated float of this garbage.
+  repeated float repeated_float = 7;
+  // The repeated double of this garbage.
+  repeated double repeated_double = 8;
+  // The repeated bytes of this garbage.
+  repeated bytes repeated_bytes = 9;
+  // The repeated map of this garbage.
+  repeated GarbageMap repeated_msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  // The repeated type of this garbage.
+  repeated GarbageEnum repeated_enum = 11;
 }
 
+// The request for the GetPagedGarbage method.
+message PagedGarbageRequest {
+  // The garbage to page.
+  string garbage = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
+  ];
+
+  // The amount of garbage items to returned in each page.
+  int32 page_size = 2;
+
+  // The position of the page to be returned.
+  string page_token = 3;
+}
+
+// The response for the GetPagedGarbage method.
+message PagedGarbageResponse {
+  // The words that were expanded.
+  repeated GarbageItem items = 1;
+
+  // The next page token.
+  string next_page_token = 2;
+}
+
+// The most complex garbage you have ever seen.
+message ComplexGarbage {
+  // The first step to total and complete garbage.
+  Layer1Garbage layer1 = 1 [(google.api.field_behavior) = REQUIRED];
+
+  // Go deeper and the garbage will overcome you.
+  message Layer1Garbage {
+    // The second step to total and complete garbage.
+    Layer2Garbage layer2 = 1 [(google.api.field_behavior) = REQUIRED];
+  }
+  // You are too deep, can't turn back now.
+  message Layer2Garbage {
+    // The third step to total and complete garbage.
+    Layer3Garbage layer3 = 1 [(google.api.field_behavior) = REQUIRED];
+  }
+  // You must really, really love garbage.
+  message Layer3Garbage {
+    // The final step to total and complete garbage.
+    SimpleGarbage garbage = 1 [(google.api.field_behavior) = REQUIRED];
+  }
+}
+
+// The type of garbage you are dealing with.
+//
+// All garbage is not treated equal. Some garbage is better than others.
+// I personally like [heaps][endless.trash.forever.GarbageEnum.GARBAGE_HEAP].
+//
 enum GarbageEnum {
-  Default = 0;
-  Bag = 1;
-  Heap = 2;
-  Dumpster = 3;
+  // The typical garbage. It is everywhere.
+  DEFAULT_GARBAGE = 0;
+  // Sometimes it is given to you in a bag.
+  GARBAGE_BAG = 1;
+  // Have you ever turned a corner and seen a heap of garbage in your way?
+  GARBAGE_HEAP = 2;
+  // When this is on fire it resembles politics.
+  DUMPSTER = 3;
 }
 
+// The most recursive garbage ever made. Garbage stacked on garbage stacked on
+// garbage. All the way down.
 message GarbageMap {
   map<string, int32> map_string_int32 = 1;
   map<string, SimpleGarbage> map_string_msg = 2;
+}
+
+// A real recursive data structure.
+message GarbageNode {
+  string data = 1;
+  GarbageNode parent = 2;
 }

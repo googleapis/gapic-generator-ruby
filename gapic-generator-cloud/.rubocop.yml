@@ -2,13 +2,26 @@ inherit_gem:
   google-style: google-style.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
   Exclude:
     - expected_output/**/*
-    - templates/cloud/helpers/**/*
-    - test/gapic/presenters/**/*
+    - tmp/**/*
+    - bin/*
+    - test/test_helper.rb
+    - Rakefile
+
+Metrics/AbcSize:
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
 
 Metrics/ClassLength:
-  Max: 110
-Metrics/ModuleLength:
-  Max: 105
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
+
+Metrics/MethodLength:
+  Exclude:
+    - test/gapic/schema/cloud_api_test.rb
+
+Style/Documentation:
+  Exclude:
+    - lib/gapic/presenters/**/*
+    - test/**/*

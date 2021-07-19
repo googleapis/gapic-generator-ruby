@@ -15,18 +15,18 @@
 # limitations under the License.
 
 require "test_helper"
-require "google/showcase/v1alpha3/echo"
+require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class PagedExpandTest < ShowcaseTest
-  def test_paged_expand
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
+  def setup
+    @client = new_echo_client
+  end
 
+  def test_paged_expand
     request_content = "The quick brown fox jumps over the lazy dog"
 
-    response_enum = client.paged_expand content: request_content
+    response_enum = @client.paged_expand content: request_content
 
     assert_kind_of Gapic::PagedEnumerable, response_enum
 
@@ -36,20 +36,53 @@ class PagedExpandTest < ShowcaseTest
   end
 
   def test_page_size
-    client = Google::Showcase::V1alpha3::Echo::Client.new do |config|
-      config.credentials = GRPC::Core::Channel.new("localhost:7469", nil, :this_channel_is_insecure)
-    end
-
     request_content = "The quick brown fox jumps over the lazy dog"
 
-    response_enum = client.paged_expand content: request_content, page_size: 2
+    response_enum = @client.paged_expand content: request_content, page_size: 2
 
     assert_kind_of Gapic::PagedEnumerable, response_enum
-    assert_kind_of Google::Showcase::V1alpha3::PagedExpandResponse, response_enum.page.response
+    assert_kind_of Google::Showcase::V1beta1::PagedExpandResponse, response_enum.page.response
     assert_equal ["The", "quick"], response_enum.page.response.responses.map(&:content)
 
-    responses_content_array = response_enum.to_a.map(&:content)
+    response_pages = response_enum.each_page.to_a
+    responses_content_array = response_pages.map { |page| page.map(&:content) }
 
     assert_equal request_content, responses_content_array.join(" ")
+
+    assert_instance_of GRPC::ActiveCall::Operation, response_pages.first.operation
+    assert_instance_of GRPC::ActiveCall::Operation, response_pages.last.operation
+    refute_equal response_pages.first.operation, response_pages.last.operation
+  end
+
+  def test_page_expand_with_block_and_metadata
+    request_content = "The quick brown fox jumps over the lazy dog".split(" ").reverse.join(" ")
+
+    options = Gapic::CallOptions.new metadata: {
+      'showcase-trailer': ["one", "two", "zhree"],
+      garbage:            ["baz"]
+    }
+
+    @client.paged_expand({ content: request_content, page_size: 2 }, options) do |response_enum, operation|
+      assert_kind_of Gapic::PagedEnumerable, response_enum
+      assert_equal ["dog", "lazy"], response_enum.page.response.responses.map(&:content)
+      assert_instance_of GRPC::ActiveCall::Operation, response_enum.page.operation
+      assert_equal operation, response_enum.page.operation
+
+      response_pages = response_enum.each_page.to_a
+      responses_content_array = response_pages.map { |page| page.map(&:content) }
+
+      assert_equal request_content, responses_content_array.join(" ")
+
+      assert_instance_of GRPC::ActiveCall::Operation, operation
+      assert_instance_of GRPC::ActiveCall::Operation, response_pages.first.operation
+      assert_instance_of GRPC::ActiveCall::Operation, response_pages.last.operation
+      assert_equal operation, response_pages.first.operation
+      refute_equal operation, response_pages.last.operation
+
+      assert_equal(
+        { 'showcase-trailer' => ["one", "two", "zhree"] },
+        operation.trailing_metadata
+      )
+    end
   end
 end

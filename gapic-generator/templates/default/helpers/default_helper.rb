@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
+require "gapic/formatting_utils"
 
 module DefaultHelper
   def prepend_with input, prepend
@@ -28,13 +29,19 @@ module DefaultHelper
 
   def indent input, spacing
     spacing = " " * spacing unless spacing.is_a? String
-    prepend_with(input, spacing).rstrip
+    ret = prepend_with input, spacing
+    # Remove trailing whitespace from each line end if present
+    ret.split("\n").map(&:rstrip).join("\n")
   end
 
   def indent_tail input, spacing
     return input if input.lines.count < 2
 
     input.lines[0] + indent(input.lines[1..-1].join, spacing)
+  end
+
+  def format_number value
+    Gapic::FormattingUtils.format_number value
   end
 
   def assert_locals *locals

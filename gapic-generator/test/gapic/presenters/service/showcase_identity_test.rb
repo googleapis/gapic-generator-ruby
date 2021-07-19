@@ -27,24 +27,24 @@ class ShowcaseIdentityServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
     exp_method_names = ["create_user", "get_user", "update_user", "delete_user", "list_users"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
     assert_equal ["User"], presenter.references.map(&:name)
-    assert_equal ["users/{user_id}"], presenter.references.map(&:path_template)
+    assert_equal ["users/{user_id}"], presenter.references.map(&:patterns).map(&:first).map(&:pattern)
   end
 
   def test_proto_service_name_full
-    assert_equal "Google::Showcase::V1alpha3::Identity", presenter.proto_service_name_full
+    assert_equal "::Google::Showcase::V1beta1::Identity", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
-    assert_equal "google/showcase/v1alpha3/identity_pb.rb", presenter.proto_service_file_path
+    assert_equal "google/showcase/v1beta1/identity_pb.rb", presenter.proto_service_file_path
   end
 
   def test_proto_service_file_name
@@ -52,11 +52,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_proto_service_require
-    assert_equal "google/showcase/v1alpha3/identity_pb", presenter.proto_service_require
+    assert_equal "google/showcase/v1beta1/identity_pb", presenter.proto_service_require
   end
 
   def test_proto_services_file_path
-    assert_equal "google/showcase/v1alpha3/identity_services_pb.rb", presenter.proto_services_file_path
+    assert_equal "google/showcase/v1beta1/identity_services_pb.rb", presenter.proto_services_file_path
   end
 
   def test_proto_services_file_name
@@ -64,11 +64,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_proto_services_require
-    assert_equal "google/showcase/v1alpha3/identity_services_pb", presenter.proto_services_require
+    assert_equal "google/showcase/v1beta1/identity_services_pb", presenter.proto_services_require
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "Google::Showcase::V1alpha3::Identity::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::Google::Showcase::V1beta1::Identity::Stub", presenter.proto_service_stub_name_full
   end
 
   def test_credentials_name
@@ -76,11 +76,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "Google::Showcase::V1alpha3::Identity::Credentials", presenter.credentials_name_full
+    assert_equal "::Google::Showcase::V1beta1::Identity::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
-    assert_equal "google/showcase/v1alpha3/identity/credentials.rb", presenter.credentials_file_path
+    assert_equal "google/showcase/v1beta1/identity/credentials.rb", presenter.credentials_file_path
   end
 
   def test_credentials_file_name
@@ -88,7 +88,7 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_credentials_require
-    assert_equal "google/showcase/v1alpha3/identity/credentials", presenter.credentials_require
+    assert_equal "google/showcase/v1beta1/identity/credentials", presenter.credentials_require
   end
 
   def test_operations_name
@@ -96,11 +96,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "Google::Showcase::V1alpha3::Identity::Operations", presenter.operations_name_full
+    assert_equal "::Google::Showcase::V1beta1::Identity::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
-    assert_equal "google/showcase/v1alpha3/identity/operations.rb", presenter.operations_file_path
+    assert_equal "google/showcase/v1beta1/identity/operations.rb", presenter.operations_file_path
   end
 
   def test_operations_file_name
@@ -108,11 +108,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_operations_require
-    assert_equal "google/showcase/v1alpha3/identity/operations", presenter.operations_require
+    assert_equal "google/showcase/v1beta1/identity/operations", presenter.operations_require
   end
 
   def test_helpers_file_path
-    assert_equal "google/showcase/v1alpha3/identity/helpers.rb", presenter.helpers_file_path
+    assert_equal "google/showcase/v1beta1/identity/helpers.rb", presenter.helpers_file_path
   end
 
   def test_helpers_file_name
@@ -120,11 +120,15 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_helpers_require
-    assert_equal "google/showcase/v1alpha3/identity/helpers", presenter.helpers_require
+    assert_equal "google/showcase/v1beta1/identity/helpers", presenter.helpers_require
   end
 
   def test_test_client_file_path
-    assert_equal "google/showcase/v1alpha3/identity_test.rb", presenter.test_client_file_path
+    assert_equal "google/showcase/v1beta1/identity_test.rb", presenter.test_client_file_path
+  end
+
+  def test_test_client_operations_file_path
+    assert_equal "google/showcase/v1beta1/identity_operations_test.rb", presenter.test_client_operations_file_path
   end
 
   def test_stub_name
@@ -152,11 +156,11 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "Google::Showcase::V1alpha3::Identity::Paths", presenter.paths_name_full
+    assert_equal "::Google::Showcase::V1beta1::Identity::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path
-    assert_equal "google/showcase/v1alpha3/identity/paths.rb", presenter.paths_file_path
+    assert_equal "google/showcase/v1beta1/identity/paths.rb", presenter.paths_file_path
   end
 
   def test_paths_file_name
@@ -164,6 +168,6 @@ class ShowcaseIdentityServiceTest < PresenterTest
   end
 
   def test_paths_require
-    assert_equal "google/showcase/v1alpha3/identity/paths", presenter.paths_require
+    assert_equal "google/showcase/v1beta1/identity/paths", presenter.paths_require
   end
 end

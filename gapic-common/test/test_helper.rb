@@ -43,8 +43,14 @@ end
 class FakeGapicStub
   def initialize *responses
     @responses = responses
+    @count = 0
   end
+
   def call_rpc *args
-    @responses.shift
+    result = @responses.shift
+    @count += 1
+    fake_operation = "fake_operation_#{@count}".to_sym
+    yield result, fake_operation if block_given?
+    result
   end
 end

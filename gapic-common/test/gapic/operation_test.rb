@@ -251,7 +251,7 @@ describe Gapic::Operation do
       called = false
       cancel_method = proc do |name:, options:|
         _(name).must_equal op_name
-        _(options).must_be_kind_of Gapic::ApiCall::Options
+        _(options).must_be_kind_of Gapic::CallOptions
         called = true
       end
       mock_client = MockLroClient.new cancel_method: cancel_method
@@ -266,7 +266,7 @@ describe Gapic::Operation do
       called = false
       delete_method = proc do |name:, options:|
         _(name).must_equal op_name
-        _(options).must_be_kind_of Gapic::ApiCall::Options
+        _(options).must_be_kind_of Gapic::CallOptions
         called = true
       end
       mock_client = MockLroClient.new delete_method: delete_method
@@ -281,7 +281,7 @@ describe Gapic::Operation do
       get_method = proc do |name:, options:|
         called = true
         _(name).must_equal "name"
-        _(options).must_be_kind_of Gapic::ApiCall::Options
+        _(options).must_be_kind_of Gapic::CallOptions
         GrpcOp.new done: true, response: RESULT_ANY
       end
       mock_client = MockLroClient.new get_method: get_method
@@ -292,12 +292,12 @@ describe Gapic::Operation do
     end
 
     it "should use options attribute when reloading" do
-      options = Gapic::ApiCall::Options.new
+      options = Gapic::CallOptions.new
       called = false
       get_method = proc do |name:, options:|
         called = true
         _(name).must_equal "name"
-        _(options).must_be_kind_of Gapic::ApiCall::Options
+        _(options).must_be_kind_of Gapic::CallOptions
         _(options).must_equal options
         GrpcOp.new done: true, response: RESULT_ANY
       end
@@ -428,7 +428,7 @@ describe Gapic::Operation do
         Time.stub :now, incrementing_time do
           retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: 400 }
           op.wait_until_done! retry_policy: retry_config
-          op.wont_be :done?
+          _(op).wont_be :done?
         end
       end
 
@@ -464,7 +464,7 @@ describe Gapic::Operation do
         Time.stub :now, incrementing_time do
           retry_config = { initial_delay: 10, multiplier: 2, max_delay: (5 * 60), timeout: (60 * 60) }
           op.wait_until_done! retry_policy: retry_config
-          op.must_be :done?
+          _(op).must_be :done?
         end
       end
 

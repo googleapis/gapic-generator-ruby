@@ -15,6 +15,8 @@
 # limitations under the License.
 
 require "gapic/generators/base_generator"
+require "gapic/generators/default_generator_parameters"
+require "gapic/presenters"
 
 module Gapic
   module Generators
@@ -29,9 +31,6 @@ module Gapic
 
         # Configure to use a custom templates directory
         use_templates! File.join __dir__, "../../../templates/default"
-
-        # Configure these helper method to be used by the generator
-        use_helpers! :gem_presenter
       end
 
       # Disable Rubocop because we expect generate to grow and violate more
@@ -43,34 +42,55 @@ module Gapic
       # @return [Array<
       #   Google::Protobuf::Compiler::CodeGeneratorResponse::File>]
       #   The files that were generated for the API.
-      def generate
+      def generate gem_presenter: nil
         files = []
 
-        gem = gem_presenter @api
+        gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
         gem.packages.each do |package|
           # Package level files
-          files << g("package.erb", "lib/#{package.version_file_path}", package: package)
+          files << g("package.erb", "lib/#{package.package_file_path}", package: package)
 
           package.services.each do |service|
             # Service level files
-            files << g("service.erb",             "lib/#{service.service_file_path}",      service: service)
-            files << g("service/client.erb",      "lib/#{service.client_file_path}",       service: service)
-            files << g("service/credentials.erb", "lib/#{service.credentials_file_path}",  service: service)
-            files << g("service/paths.erb",       "lib/#{service.paths_file_path}",        service: service) if service.paths?
-            files << g("service/operations.erb",  "lib/#{service.operations_file_path}",   service: service) if service.lro?
-            files << g("service/test/client.erb", "test/#{service.test_client_file_path}", service: service)
+            files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
+            files << g("service/rest.erb",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service) unless @api.generate_rest_clients?
+            files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
+            files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
+            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && !@api.generate_rest_clients?
+            files << g("service/rest/client.erb",            "lib/#{service.rest.client_file_path}",             service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/rest/grpc_transcoding.erb",  "lib/#{service.rest.transcoding_helper_file_path}", service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/rest/test/client.erb",       "test/#{service.rest.test_client_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
+            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service) unless @api.generate_rest_clients?
+            files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
+            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && !@api.generate_rest_clients?
+
+            if @api.generate_standalone_snippets?
+              service.methods.each do |method|
+                snippet = method.snippet
+                files << g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+              end
+            end
           end
         end
 
         # Gem level files
-        files << g("gem/version.erb", "lib/#{gem.version_file_path}", gem: gem)
-        files << g("gem/gemspec.erb",  "#{gem.name}.gemspec",         gem: gem)
-        files << g("gem/gemfile.erb",  "Gemfile",                     gem: gem)
-        files << g("gem/rakefile.erb", "Rakefile",                    gem: gem)
-        files << g("gem/rubocop.erb",  ".rubocop.yml",                gem: gem)
-        files << g("gem/yardopts.erb", ".yardopts",                   gem: gem)
-        files << g("gem/license.erb",  "LICENSE.md",                  gem: gem)
+        files << g("gem/gitignore.erb",             ".gitignore",                   gem: gem)
+        files << g("gem/version.erb",               "lib/#{gem.version_file_path}", gem: gem)
+        files << g("gem/test_helper.erb",           "test/helper.rb",               gem: gem)
+        files << g("gem/gemspec.erb",               "#{gem.name}.gemspec",          gem: gem)
+        files << g("gem/gemfile.erb",               "Gemfile",                      gem: gem)
+        files << g("gem/rakefile.erb",              "Rakefile",                     gem: gem)
+        files << g("gem/readme.erb",                "README.md",                    gem: gem)
+        files << g("gem/changelog.erb",             "CHANGELOG.md",                 gem: gem)
+        files << g("gem/rubocop.erb",               ".rubocop.yml",                 gem: gem)
+        files << g("gem/yardopts.erb",              ".yardopts",                    gem: gem)
+        files << g("gem/license.erb",               "LICENSE.md",                   gem: gem)
+        files << g("gem/entrypoint.erb",            "lib/#{gem.name}.rb",           gem: gem)
+        files << g("gem/gapic_metadata_json.erb",   "gapic_metadata.json",          gem: gem) if @api.generate_metadata
+
+        files << g("snippets/gemfile.erb",          "snippets/Gemfile",             gem: gem) if @api.generate_standalone_snippets?
 
         gem.proto_files.each do |proto_file|
           files << g("proto_docs/proto_file.erb", "proto_docs/#{proto_file.docs_file_path}", file: proto_file)
@@ -83,6 +103,12 @@ module Gapic
       end
 
       # rubocop:enable all
+
+      # Schema of the parameters that the generator accepts
+      # @return [Gapic::Schema::ParameterSchema]
+      def self.parameter_schema
+        DefaultGeneratorParameters.default_schema
+      end
 
       private
 

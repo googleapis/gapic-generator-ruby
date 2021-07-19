@@ -21,12 +21,12 @@ module Gapic
   ##
   # File Formatter
   class FileFormatter
-    attr_reader :configuration, :files
+    attr_reader :configuration
+    attr_reader :files
 
     ##
     # Create a new file formatter object
     #
-    # @param path_template [String] The URI path template to be parsed.
     def initialize configuration, files
       @configuration = configuration
       @files = format! configuration, files
@@ -40,8 +40,7 @@ module Gapic
           write_file dir, file
         end
 
-        system "rubocop --auto-correct #{dir} -o #{dir}/rubocop.out " \
-               "-c #{configuration}"
+        system "rubocop --cache false -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
 
         files.each do |file|
           read_file dir, file

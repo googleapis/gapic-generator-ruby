@@ -1,0 +1,20 @@
+<%- assert_locals method, sample -%>
+require "<%= method.service.service_require %>"
+
+client = <%= method.service.client_name_full %>.new
+<%- if sample.input_parameters.any? -%>
+
+<%- end -%>
+<%- sample.input_parameters.each do |field| -%>
+<%- if field.value_is_file -%>
+<%= field.input_parameter %> = File.read <%= field.value %>
+<%- else -%>
+<%= field.input_parameter %> = <%= field.value %>
+<%- end -%>
+<%- end -%>
+
+<%- sample.fields.each do |field| -%>
+<%= render partial: "service/client/method/docs/request_field", locals: { field: field } -%>
+<%- end -%>
+
+<%= render partial: "service/client/method/docs/sample_response", locals: { method: method, sample: sample } -%>

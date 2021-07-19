@@ -25,6 +25,7 @@ def generate_library_for_test imports, protos
 
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
+    "--experimental_allow_proto3_optional=1",
     "#{imports.map {|x| "-I#{x}"}.join " "}",
     "--ruby_out=#{client_lib}/lib",
     "--grpc_out=#{client_lib}/lib",
@@ -32,22 +33,41 @@ def generate_library_for_test imports, protos
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
     "#{protos.join " "}",
   ].join " "
-  puts "#{protoc_cmd}"
-  puts `#{protoc_cmd}`
+  puts protoc_cmd if ENV["VERBOSE"]
+  protoc_cmd_output = `#{protoc_cmd}`
+  puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
 end
 
 class ShowcaseTest < Minitest::Test
+  def new_echo_client
+    Google::Showcase::V1beta1::Echo::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
+    end
+  end
+
+  def new_identity_client
+    Google::Showcase::V1beta1::Identity::Client.new do |config|
+      config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
+    end
+  end
+
+  def new_echo_operations_client
+    Google::Showcase::V1beta1::Echo::Operations.new do |config|
+      config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
+    end
+  end
+
   @showcase_id = begin
     server_id = nil
     if ENV['CI'].nil?
-      puts "Starting showcase server..."
+      puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-showcase/gapic-showcase:0.0.12"
+        "gcr.io/gapic-images/gapic-showcase:0.11.0"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!
-      puts "Started with container id: #{server_id}"
+      puts "Started with container id: #{server_id}" if ENV["VERBOSE"]
     end
 
     server_id
@@ -56,7 +76,7 @@ class ShowcaseTest < Minitest::Test
   @showcase_library = begin
     library = generate_library_for_test(
       %w[api-common-protos protos],
-      %w[google/showcase/v1alpha3/echo.proto])
+      %w[google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library
   end
@@ -65,7 +85,7 @@ class ShowcaseTest < Minitest::Test
     FileUtils.remove_dir @showcase_library, true
 
     unless @showcase_id.nil?
-      puts "Stopping showcase server (id: #{@showcase_id})..."
+      puts "Stopping showcase server (id: #{@showcase_id})..." if ENV["VERBOSE"]
 
       _, status = Open3.capture2 "docker kill #{@showcase_id}"
       raise "failed to kill showcase" unless status.exitstatus.zero?

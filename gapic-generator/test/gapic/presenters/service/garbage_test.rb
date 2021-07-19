@@ -27,20 +27,31 @@ class GarbageServiceTest < PresenterTest
 
   def test_methods
     refute_empty presenter.methods
-    presenter.methods.each { |ref| assert_kind_of MethodPresenter, ref }
-    exp_method_names = ["get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage"]
+    presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
+    exp_method_names = ["get_empty_garbage", "get_simple_garbage", "get_specific_garbage", "get_nested_garbage", "get_repeated_garbage", "get_typical_garbage", "get_typical_garbage_by_request", "get_complex_garbage", "get_garbage_node", "get_paged_garbage", "long_running_garbage", "client_garbage", "server_garbage", "bidi_garbage", "bidi_typical_garbage", "call_send"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 
   def test_references
     refute_empty presenter.references
-    presenter.references.each { |ref| assert_kind_of ResourcePresenter, ref }
-    assert_equal ["SimpleGarbage"], presenter.references.map(&:name)
-    assert_equal ["projects/{project}/simple_garbage/{garbage}"], presenter.references.map(&:path_template)
+    presenter.references.each { |ref| assert_kind_of Gapic::Presenters::ResourcePresenter, ref }
+    assert_equal ["Project", "SimpleGarbage", "SpecificGarbage", "TypicalGarbage"],
+                 presenter.references.map(&:name).sort
+    expected_patterns = [
+      "projects/{project}",
+      "projects/{project}/simple_garbage/{simple_garbage}",
+      "projects/{project}/specific_garbage/{specific_garbage}",
+      "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+    ]
+    assert_equal expected_patterns, presenter.references.map(&:patterns).map(&:first).map(&:pattern)
+  end
+
+  def test_proto_namespace
+    assert_equal "::So::Much::Trash", presenter.proto_namespace
   end
 
   def test_proto_service_name_full
-    assert_equal "So::Much::Trash::GarbageService", presenter.proto_service_name_full
+    assert_equal "::So::Much::Trash::GarbageService", presenter.proto_service_name_full
   end
 
   def test_proto_service_file_path
@@ -68,7 +79,31 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_proto_service_stub_name_full
-    assert_equal "So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Stub", presenter.proto_service_stub_name_full
+  end
+
+  def test_namespace
+    assert_equal "::So::Much::Trash", presenter.namespace
+  end
+
+  def test_service_name_full
+    assert_equal "::So::Much::Trash::GarbageService", presenter.service_name_full
+  end
+
+  def test_service_require
+    assert_equal "so/much/trash/garbage_service", presenter.service_require
+  end
+
+  def test_service_file_path
+    assert_equal "so/much/trash/garbage_service.rb", presenter.service_file_path
+  end
+
+  def test_service_file_name
+    assert_equal "garbage_service.rb", presenter.service_file_name
+  end
+
+  def test_service_directory_name
+    assert_equal "garbage_service", presenter.service_directory_name
   end
 
   def test_credentials_name
@@ -76,7 +111,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_credentials_name_full
-    assert_equal "So::Much::Trash::GarbageService::Credentials", presenter.credentials_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Credentials", presenter.credentials_name_full
   end
 
   def test_credentials_file_path
@@ -96,7 +131,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_operations_name_full
-    assert_equal "So::Much::Trash::GarbageService::Operations", presenter.operations_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Operations", presenter.operations_name_full
   end
 
   def test_operations_file_path
@@ -127,6 +162,10 @@ class GarbageServiceTest < PresenterTest
     assert_equal "so/much/trash/garbage_service_test.rb", presenter.test_client_file_path
   end
 
+  def test_test_client_operations_file_path
+    assert_equal "so/much/trash/garbage_service_operations_test.rb", presenter.test_client_operations_file_path
+  end
+
   def test_stub_name
     assert_equal "garbage_service_stub", presenter.stub_name
   end
@@ -136,7 +175,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of ServicePresenter, presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
   end
 
   def test_lro_client_var
@@ -146,6 +185,7 @@ class GarbageServiceTest < PresenterTest
   def test_lro_client_ivar
     assert_equal "@operations_client", presenter.lro_client_ivar
   end
+
   def test_paths?
     assert presenter.paths?
   end
@@ -155,7 +195,7 @@ class GarbageServiceTest < PresenterTest
   end
 
   def test_paths_name_full
-    assert_equal "So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
+    assert_equal "::So::Much::Trash::GarbageService::Paths", presenter.paths_name_full
   end
 
   def test_paths_file_path

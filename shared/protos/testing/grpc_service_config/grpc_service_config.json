@@ -1,0 +1,18 @@
+{
+  "method_config": [
+    {
+      "name": [
+        {
+          "service": "testing.grpcserviceconfig.ServiceWithRetries"
+        }
+      ],
+      "timeout": "20s",
+      "retry_policy": {
+        "initial_backoff": "0.5s",
+        "max_backoff": "5s",
+        "backoff_multiplier": 2.0,
+        "retryable_status_codes": [ "DEADLINE_EXCEEDED", "RESOURCE_EXHAUSTED" ]
+      }
+    }
+  ]
+}

@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 set -e
 
 CMD="$0"
@@ -47,7 +46,7 @@ Optional arguments:
                     current working directory if unspecified.
   -h, --help      This help information.
 EOF
- 
+
   exit 0
 }
 
