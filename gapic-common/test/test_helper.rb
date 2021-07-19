@@ -56,7 +56,7 @@ class FakeGapicStub
   end
 end
 
-class FakeReGapicClient
+class FakeReGapicServiceStub
   def initialize *responses
     @responses = responses
     @count = 0

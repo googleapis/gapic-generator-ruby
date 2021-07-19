@@ -33,7 +33,7 @@ class RestPagedEnumerableTest < Minitest::Test
       )
     ]
 
-    fake_client = FakeReGapicClient.new(*api_responses)
+    fake_service_stub = FakeReGapicServiceStub.new(*api_responses)
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::GoodPagedResponse.new(
       users:           [
@@ -46,7 +46,7 @@ class RestPagedEnumerableTest < Minitest::Test
     options = {}
 
     rest_paged_enum = Gapic::Rest::PagedEnumerable.new(
-      fake_client, :call_rest, "users", request, response, options
+      fake_service_stub, :call_rest, "users", request, response, options
     )
 
     assert_equal [["foo", "bar"], ["baz", "bif"]], rest_paged_enum.each_page.map { |page| page.map(&:name) }
@@ -65,7 +65,7 @@ class RestPagedEnumerableTest < Minitest::Test
       )
     ]
 
-    fake_client = FakeReGapicClient.new(*api_responses)
+    fake_service_stub = FakeReGapicServiceStub.new(*api_responses)
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::GoodPagedResponse.new(
       users:           [
@@ -78,7 +78,7 @@ class RestPagedEnumerableTest < Minitest::Test
     options = {}
 
     rest_paged_enum = Gapic::Rest::PagedEnumerable.new(
-      fake_client, :call_rest, "users", request, response, options
+      fake_service_stub, :call_rest, "users", request, response, options
     )
 
     assert_equal %w[foo bar baz bif], rest_paged_enum.each.map(&:name)
@@ -98,7 +98,7 @@ class RestPagedEnumerableTest < Minitest::Test
       )
     ]
 
-    fake_client = FakeReGapicClient.new(*api_responses)
+    fake_service_stub = FakeReGapicServiceStub.new(*api_responses)
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::GoodMappedPagedResponse.new(
       items: {
@@ -111,7 +111,7 @@ class RestPagedEnumerableTest < Minitest::Test
     options = {}
 
     result = Gapic::Rest::PagedEnumerable.new(
-      fake_client, :call_rest, "items", request, response, options
+      fake_service_stub, :call_rest, "items", request, response, options
     )
     kvp_list = result.map { |kvp| [kvp[0], kvp[1].scoped_info] }
     assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]], kvp_list
@@ -131,7 +131,7 @@ class RestPagedEnumerableTest < Minitest::Test
         )
     ]
 
-    fake_client = FakeReGapicClient.new(*api_responses)
+    fake_service_stub = FakeReGapicServiceStub.new(*api_responses)
     request = Gapic::Examples::GoodPagedRequest.new
     response = Gapic::Examples::GoodMappedPagedResponse.new(
       items: {
@@ -144,7 +144,7 @@ class RestPagedEnumerableTest < Minitest::Test
     options = {}
 
     result = Gapic::Rest::PagedEnumerable.new(
-      fake_client, :call_rest, "items", request, response, options
+      fake_service_stub, :call_rest, "items", request, response, options
     )
     kvp_list = []
     result.each do |key, value|
