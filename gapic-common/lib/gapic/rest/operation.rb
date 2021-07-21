@@ -12,18 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##
-# Rest GAPIC features are still under development.
-#
+module Gapic
+  module Rest
+    ##
+    # A base class for the wrappers over the long-running operations to the response of a REST LRO method.
+    #
+    # @attribute [r] operation
+    #   @return [Object] The wrapped operation object.
+    class BaseOperation
+      attr_reader :operation
 
-require "faraday"
-require "gapic/call_options"
-require "gapic/common/version"
-require "gapic/headers"
-require "gapic/protobuf"
-require "gapic/rest/client_stub"
-require "gapic/rest/error"
-require "gapic/rest/faraday_middleware"
-require "gapic/rest/operation"
-require "gapic/rest/paged_enumerable"
-require "json"
+      ##
+      # @private
+      # @param operation [Object] The wrapped operation object.
+      def initialize operation
+        @operation = operation
+      end
+    end
+  end
+end

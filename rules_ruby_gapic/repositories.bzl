@@ -54,17 +54,10 @@ def gapic_generator_ruby_customgems(list_of_gems):
   _maybe(
     http_archive,
     name = "rules_gapic",
+    sha256 = "802623c01fa54d758ffb98d8613e978c44807c8dc532c0ef088a1f33b3c92bf3",
     strip_prefix = "rules_gapic-%s" % _rules_gapic_version,
     urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
   )
-
-  _rules_gapic_version = "0.5.4"
-  _maybe(
-    http_archive,
-    name = "rules_gapic",
-    strip_prefix = "rules_gapic-%s" % _rules_gapic_version,
-    urls = ["https://github.com/googleapis/rules_gapic/archive/v%s.tar.gz" % _rules_gapic_version],
-   )
 
   # Create the common ruby runtime used for checks
   ruby_runtime(

@@ -10,6 +10,7 @@
 #
 <%= render partial: "service/client/method/docs/error", locals: { method: method } -%>
 #
+<%= render partial: "service/client/method/docs/snippets", locals: { method: method } -%>
 <%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
 def <%= method.name %> request, options = nil
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
