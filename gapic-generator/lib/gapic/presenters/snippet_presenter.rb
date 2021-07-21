@@ -52,7 +52,7 @@ module Gapic
       end
 
       def require_path
-        @method_presenter.service.service_require
+        @method_presenter.service.package.package_require
       end
 
       def client_type

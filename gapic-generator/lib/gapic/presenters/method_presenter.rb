@@ -54,6 +54,10 @@ module Gapic
         SnippetPresenter.new self, @api
       end
 
+      def generate_yardoc_snippets?
+        @api.generate_yardoc_snippets?
+      end
+
       def name
         @name ||= begin
           candidate = ActiveSupport::Inflector.underscore @method.name
