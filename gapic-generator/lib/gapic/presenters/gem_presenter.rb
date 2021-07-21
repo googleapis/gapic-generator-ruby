@@ -239,6 +239,13 @@ module Gapic
         result || first_non_common_service
       end
 
+      ##
+      # Whether the "Enabling (gRPC) Logging" section of the readme should
+      # appear. This is true if there is a quick-start service displayed in the
+      # readme, AND it uses gRPC.
+      #
+      # @return [Boolean]
+      #
       def show_grpc_logging_docs?
         packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
       end

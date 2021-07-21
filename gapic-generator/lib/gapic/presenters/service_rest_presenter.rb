@@ -146,7 +146,9 @@ module Gapic
       # first non-client-streaming method defined, but it can be overridden via
       # a gem config.
       #
-      # @return [Gapic::Presenters::MethodRestPresenter]
+      # @return [Gapic::Presenters::MethodRestPresenter] if there is a method
+      #     appropriatke for quick start
+      # @return [nil] if there is no method appropriate for quick start
       #
       def quick_start_method
         main_service.quick_start_method&.rest
