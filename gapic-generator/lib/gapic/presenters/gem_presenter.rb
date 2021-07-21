@@ -239,6 +239,10 @@ module Gapic
         result || first_non_common_service
       end
 
+      def show_grpc_logging_docs?
+        packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
+      end
+
       private
 
       def gem_config key

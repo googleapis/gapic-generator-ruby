@@ -127,6 +127,30 @@ module Gapic
         main_service.service_file_path.sub ".rb", "_test.rb"
       end
 
+      ##
+      # @return [String]
+      #
+      def credentials_class_xref
+        main_service.credentials_class_xref
+      end
+
+      ##
+      # @return [String]
+      #
+      def configure_client_call
+        "#{client_name_full}.configure"
+      end
+
+      ##
+      # The method to use for quick start samples. Normally this is simply the
+      # first non-client-streaming method defined, but it can be overridden via
+      # a gem config.
+      #
+      # @return [Gapic::Presenters::MethodRestPresenter]
+      #
+      def quick_start_method
+        main_service.quick_start_method&.rest
+      end
 
       private
 
