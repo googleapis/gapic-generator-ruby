@@ -187,7 +187,25 @@ module Gapic
       #
       # @return [String]
       def transcoding_helper_name
-        "transcode_#{@main_method.name}"
+        "transcode_#{name}"
+      end
+
+      ##
+      # Method name
+      #
+      # @return [String]
+      #
+      def name
+        @main_method.name
+      end
+
+      ##
+      # Full class name of the request type
+      #
+      # @return [String]
+      #
+      def request_type
+        @main_method.request_type
       end
     end
   end

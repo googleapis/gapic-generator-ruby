@@ -44,7 +44,7 @@ In order to use this library, you first need to go through the following steps:
 <%- if gem.packages? -%>
 ```ruby
 require "<%= gem.entrypoint_require %>"
-<%- service = gem.quick_start_service -%>
+<%- service = gem.quick_start_service.usable_service_presenter -%>
 <%- method = service&.quick_start_method -%>
 <%- if service && method -%>
 
@@ -65,6 +65,7 @@ See also the [Product Documentation](<%= gem.product_documentation_url %>)
 for general usage information.
 
 <%- end -%>
+<%- if gem.show_grpc_logging_docs? -%>
 ## Enabling Logging
 
 To enable logging for this library, set the logger for the underlying [gRPC](https://github.com/grpc/grpc/tree/master/src/ruby) library.
@@ -91,6 +92,7 @@ module GRPC
 end
 ```
 
+<%- end -%>
 ## Supported Ruby Versions
 
 This library is supported on Ruby 2.5+.
