@@ -193,7 +193,7 @@ module Gapic
       #
       # @return [String]
       def transcoding_helper_name
-        "transcode_#{name}"
+        "transcode_#{name}_request"
       end
 
       ##
