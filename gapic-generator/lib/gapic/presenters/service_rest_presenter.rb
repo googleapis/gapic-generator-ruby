@@ -46,6 +46,34 @@ module Gapic
       ##
       # @return [String]
       #
+      def service_stub_name
+        "ServiceStub"
+      end
+
+      ##
+      # @return [String]
+      #
+      def service_stub_name_full
+        fix_namespace api, "#{service_name_full}::#{service_stub_name}"
+      end
+
+      ##
+      # @return [String]
+      #
+      def service_stub_require
+        ruby_file_path api, service_stub_name_full
+      end
+
+      ##
+      # @return [String]
+      #
+      def service_stub_file_path
+        "#{service_stub_require}.rb"
+      end
+
+      ##
+      # @return [String]
+      #
       def client_name
         main_service.client_name
       end
@@ -90,34 +118,6 @@ module Gapic
       #
       def service_rest_file_path
         "#{service_rest_require}.rb"
-      end
-
-      ##
-      # @return [String]
-      #
-      def transcoding_helper_name
-        "GrpcTranscoding"
-      end
-
-      ##
-      # @return [String]
-      #
-      def transcoding_helper_name_full
-        fix_namespace api, "#{service_name_full}::#{transcoding_helper_name}"
-      end
-
-      ##
-      # @return [String]
-      #
-      def transcoding_helper_require
-        ruby_file_path api, transcoding_helper_name_full
-      end
-
-      ##
-      # @return [String]
-      #
-      def transcoding_helper_file_path
-        "#{transcoding_helper_require}.rb"
       end
 
       ##

@@ -47,7 +47,7 @@ module Gapic
 
       ##
       # The name of the wrapper gem corresponding to this versioned gem
-      # @return [String, Nil]
+      # @return [String, nil]
       #
       def wrapper_name
         return @api.wrapper_gem_name_override if @api.wrapper_gem_name_override?

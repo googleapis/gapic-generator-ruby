@@ -1,0 +1,15 @@
+<%- assert_locals method -%>
+##
+# Baseline implementation for the <%= method.name %> REST call
+#
+# @param request_pb [<%= method.request_type %>]
+#   A request object representing the call parameters. Required.
+# @param options [::Gapic::CallOptions]
+#   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+# @return [<%= method.return_type %>]
+#   A result object deserialized from the server's reply
+def <%= method.name %> request_pb, options = nil
+<%= indent render(partial: "service/rest/service_stub/method/def/request", locals: { method: method }), 2 %>
+
+<%= indent render(partial: "service/rest/service_stub/method/def/response", locals: { method: method }), 2 %>
+end
