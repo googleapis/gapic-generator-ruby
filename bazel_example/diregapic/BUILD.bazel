@@ -60,7 +60,7 @@ ruby_cloud_gapic_library(
     "ruby-cloud-generate-metadata=false",
     "ruby-cloud-generate-transports=rest",
     "ruby-cloud-env-prefix=COMPUTE",
-    "ruby-cloud-extra-dependencies=gapic-common=>= 0.5.1|< 2.a",
+    "ruby-cloud-extra-dependencies=gapic-common=>= 0.6|< 2.a",
     "ruby-cloud-product-url=https://cloud.google.com/compute/",
     "ruby-cloud-wrapper-gem-override=",
   ],

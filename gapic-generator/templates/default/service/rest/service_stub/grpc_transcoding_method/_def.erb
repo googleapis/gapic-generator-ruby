@@ -1,4 +1,7 @@
 <%- assert_locals method -%>
+##
+# GRPC transcoding helper method for the <%= method.name %> REST call
+#
 # @param request_pb [<%= method.request_type %>]
 #   A request object representing the call parameters. Required.
 # @return [Array(String, [String, nil], Hash{String => String})] 
@@ -13,7 +16,7 @@ def <%= method.rest.transcoding_helper_name %> request_pb
   query_string_params = {}
   <%- if method.rest.query_string_params? -%>
   <%- method.rest.query_string_params.each do |field| -%>
-  <%= render partial: "service/rest/grpc_transcoding/method/def/query_string_param", locals: { field: field } -%>
+  <%= render partial: "service/rest/service_stub/grpc_transcoding_method/def/query_string_param", locals: { field: field } -%>
   <%- end -%>
   <%- end -%>
 
