@@ -1,0 +1,4 @@
+<%- assert_locals method -%>
+
+result = @<%= method.service.stub_name %>.<%= method.name %> request, options, &block
+::Gapic::Rest::BaseOperation.new result

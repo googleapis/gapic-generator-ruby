@@ -21,10 +21,13 @@ module Gapic
       # Pagination info determined from the proto method
       #
       class RestPaginationInfo
+        include Gapic::Helpers::NamespaceHelper
         ##
         # @param proto_method [Gapic::Schema::Method] the method to derive pagination info from
+        # @param api [Gapic::Schema::Api]
         #
-        def initialize proto_method
+        def initialize proto_method, api
+          @api = api
           @request = proto_method.input
           @response = proto_method.output
           @server_streaming = proto_method.server_streaming
@@ -62,6 +65,15 @@ module Gapic
         # @return [Boolean, nil]
         def repeated_field_is_a_map?
           response_results_field&.map?
+        end
+
+        ##
+        # Proto type of the repeated field in the response message
+        #
+        # @return [String, nil]
+        def paged_element_doc_type
+          return nil if response_results_field.nil?
+          field_paginated_elem_doc_type response_results_field
         end
 
         private
@@ -173,6 +185,60 @@ module Gapic
             # If the response message contains more than one repeated field or does not have repeated fields at all
             # but has more than one map<string, ?> field, do not generate any paginated methods for such rpc.
           end
+        end
+
+        ##
+        # A helper to get a Ruby doc-type for a paginated element.
+        #
+        # @param field [Gapic::Schema::Field]
+        #
+        # @return [String]
+        def field_paginated_elem_doc_type field
+          return field_paginated_elem_map_type field if field.map?
+          if field.message?
+            message_ruby_type field.message
+          elsif field.enum?
+            # TODO: handle when arg message is nil and enum is the type
+            message_ruby_type field.enum
+          else
+            case field.type
+            when 1, 2                              then "::Float"
+            when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "::Integer"
+            when 9, 12                             then "::String"
+            when 8                                 then "::Boolean"
+            else
+              "::Object"
+            end
+          end
+        end
+
+        ##
+        # A helper to get a Ruby doc-type for a proto map's paginated element.
+        #
+        # @param field [Gapic::Schema::Field]
+        #
+        # @return [String]
+        def field_paginated_elem_map_type field
+          key_field = field.map_key_field
+          value_field = field.map_val_field
+
+          if key_field && value_field
+            key_type = field_paginated_elem_doc_type key_field
+            value_type = field_paginated_elem_doc_type value_field
+            "#{key_type}, #{value_type}"
+          else
+            class_name
+          end
+        end
+
+        ##
+        # A helper to get a Ruby type for a proto message.
+        #
+        # @param message [Gapic::Schema::Message]
+        #
+        # @return [String]
+        def message_ruby_type message
+          ruby_namespace @api, message.address.join(".")
         end
       end
     end

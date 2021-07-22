@@ -183,7 +183,7 @@ module Google
               # @yieldparam result [::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList]
+              # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list_peering_routes request, options = nil, &block
