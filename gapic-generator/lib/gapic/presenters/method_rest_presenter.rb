@@ -236,7 +236,7 @@ module Gapic
       #
       def doc_response_type
         return "::Gapic::Rest::Operation" if lro?
-        return "::Gapic::Rest::PagedEnumerable<#{ pagination.paged_element_doc_type}>" if paged?
+        return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
         return_type
       end
 
