@@ -186,7 +186,7 @@ module Google
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def list_peering_routes request, options = nil, &block
+              def list_peering_routes request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest

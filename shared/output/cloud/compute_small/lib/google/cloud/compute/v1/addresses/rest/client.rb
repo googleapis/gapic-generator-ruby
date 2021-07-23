@@ -182,7 +182,7 @@ module Google
               # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Cloud::Compute::V1::AddressesScopedList>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def aggregated_list request, options = nil, &block
+              def aggregated_list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::AggregatedListAddressesRequest
@@ -251,7 +251,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def delete request, options = nil, &block
+              def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DeleteAddressRequest
@@ -271,7 +271,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @addresses_stub.delete request, options, &block
+                @addresses_stub.delete request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -310,7 +313,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Address]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def get request, options = nil, &block
+              def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetAddressRequest
@@ -330,7 +333,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @addresses_stub.get request, options, &block
+                @addresses_stub.get request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -375,7 +381,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def insert request, options = nil, &block
+              def insert request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::InsertAddressRequest
@@ -395,7 +401,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @addresses_stub.insert request, options, &block
+                @addresses_stub.insert request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -452,7 +461,7 @@ module Google
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::Address>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def list request, options = nil, &block
+              def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListAddressesRequest

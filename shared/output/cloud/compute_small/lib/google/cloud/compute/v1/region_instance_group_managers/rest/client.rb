@@ -174,7 +174,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def resize request, options = nil, &block
+              def resize request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest
@@ -194,7 +194,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @region_instance_group_managers_stub.resize request, options, &block
+                @region_instance_group_managers_stub.resize request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)

@@ -162,7 +162,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::DeleteRegionOperationResponse]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def delete request, options = nil, &block
+              def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DeleteRegionOperationRequest
@@ -182,7 +182,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @region_operations_stub.delete request, options, &block
+                @region_operations_stub.delete request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -221,7 +224,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def get request, options = nil, &block
+              def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetRegionOperationRequest
@@ -241,7 +244,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @region_operations_stub.get request, options, &block
+                @region_operations_stub.get request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -298,7 +304,7 @@ module Google
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::Operation>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def list request, options = nil, &block
+              def list request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListRegionOperationsRequest
@@ -365,7 +371,7 @@ module Google
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def wait request, options = nil, &block
+              def wait request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
                 request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::WaitRegionOperationRequest
@@ -385,7 +391,10 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                @region_operations_stub.wait request, options, &block
+                @region_operations_stub.wait request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
