@@ -235,7 +235,6 @@ module Gapic
       # @return [String]
       #
       def doc_response_type
-        return "::Gapic::Rest::Operation" if lro?
         return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
         return_type
       end
@@ -247,15 +246,6 @@ module Gapic
       #
       def paged?
         @pagination.paged?
-      end
-
-      ##
-      # Whether the REGAPIC method returns an Operation and its result should be wrapped in an LRO wrapper
-      #
-      # @return [Boolean]
-      #
-      def lro?
-        return_type == "::Google::Cloud::Compute::V1::Operation"
       end
     end
   end

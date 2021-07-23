@@ -245,7 +245,7 @@ module Google
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::Operation]
+              # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def delete request, options = nil, &block
@@ -268,8 +268,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                result = @addresses_stub.delete request, options, &block
-                ::Gapic::Rest::BaseOperation.new result
+                @addresses_stub.delete request, options, &block
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -370,7 +369,7 @@ module Google
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::Operation]
+              # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def insert request, options = nil, &block
@@ -393,8 +392,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                result = @addresses_stub.insert request, options, &block
-                ::Gapic::Rest::BaseOperation.new result
+                @addresses_stub.insert request, options, &block
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)

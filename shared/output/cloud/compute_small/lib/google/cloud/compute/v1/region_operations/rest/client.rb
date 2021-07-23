@@ -218,7 +218,7 @@ module Google
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::Operation]
+              # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil, &block
@@ -241,8 +241,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                result = @region_operations_stub.get request, options, &block
-                ::Gapic::Rest::BaseOperation.new result
+                @region_operations_stub.get request, options, &block
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -360,7 +359,7 @@ module Google
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::Operation]
+              # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def wait request, options = nil, &block
@@ -383,8 +382,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     call_metadata
 
-                result = @region_operations_stub.wait request, options, &block
-                ::Gapic::Rest::BaseOperation.new result
+                @region_operations_stub.wait request, options, &block
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
