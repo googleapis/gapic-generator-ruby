@@ -1,6 +1,6 @@
 <%- assert_locals method -%>
-# @yield [result, env] Access the result along with the Faraday environment object
-# @yieldparam result [<%= method.rest.return_type %>]
+# @yield [result, response] Access the result along with the Faraday response object
+# @yieldparam result [<%= method.rest.doc_response_type %>]
 # @yieldparam response [::Faraday::Response]
 #
 # @return [<%= method.rest.doc_response_type %>]

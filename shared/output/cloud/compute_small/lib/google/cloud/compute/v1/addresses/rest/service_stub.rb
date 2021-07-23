@@ -45,6 +45,11 @@ module Google
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Google::Cloud::Compute::V1::AddressAggregatedList]
+              # @yieldparam response [::Faraday::Response]
+              #
               # @return [::Google::Cloud::Compute::V1::AddressAggregatedList]
               #   A result object deserialized from the server's reply
               def aggregated_list request_pb, options = nil
@@ -90,6 +95,11 @@ module Google
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
+              # @yieldparam response [::Faraday::Response]
+              #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #   A result object deserialized from the server's reply
               def delete request_pb, options = nil
@@ -130,6 +140,11 @@ module Google
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Google::Cloud::Compute::V1::Address]
+              # @yieldparam response [::Faraday::Response]
+              #
               # @return [::Google::Cloud::Compute::V1::Address]
               #   A result object deserialized from the server's reply
               def get request_pb, options = nil
@@ -168,6 +183,11 @@ module Google
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
+              # @yieldparam response [::Faraday::Response]
+              #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #   A result object deserialized from the server's reply
               def insert request_pb, options = nil
@@ -209,6 +229,11 @@ module Google
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Google::Cloud::Compute::V1::AddressList]
+              # @yieldparam response [::Faraday::Response]
+              #
               # @return [::Google::Cloud::Compute::V1::AddressList]
               #   A result object deserialized from the server's reply
               def list request_pb, options = nil
