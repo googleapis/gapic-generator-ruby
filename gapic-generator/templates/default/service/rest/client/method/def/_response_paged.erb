@@ -1,4 +1,7 @@
 <%- assert_locals method -%>
 
-result = @<%= method.service.stub_name %>.<%= method.name %> request, options, &block
-::Gapic::Rest::PagedEnumerable.new @<%= method.service.stub_name %>, :<%= method.name %>, "<%= method.rest.pagination.response_repeated_field_name %>", request, result, options
+@<%= method.service.stub_name %>.<%= method.name %> request, options do |result, response|
+  result = ::Gapic::Rest::PagedEnumerable.new @<%= method.service.stub_name %>, :<%= method.name %>, "<%= method.rest.pagination.response_repeated_field_name %>", request, result, options
+  yield result, response if block_given?
+  return result
+end

@@ -1,2 +1,6 @@
 <%- assert_locals method -%>
-@<%= method.service.stub_name %>.<%= method.name %> request, options, &block
+
+@<%= method.service.stub_name %>.<%= method.name %> request, options do |result, response|
+  yield result, response if block_given?
+  return result
+end
