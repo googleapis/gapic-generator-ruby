@@ -213,6 +213,26 @@ Contributions to this library are always welcome and highly encouraged.
 
 See the [CONTRIBUTING](CONTRIBUTING.md) documentation for more information on how to get started.
 
+### Development
+
+#### Run unit tests
+To run all tests:
+
+```sh
+$ bundle exec rake test
+```
+
+To test a single file:
+
+```sh
+$ bundle exec rake test TEST=path/to/test/file.rb
+```
+
+#### Linting
+```sh
+$ bundle exec rake rubocop
+```
+
 ## Versioning
 
 This library is currently a **preview** with no guarantees of stability or support. Please get
