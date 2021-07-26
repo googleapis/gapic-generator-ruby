@@ -4,6 +4,7 @@
 <%= indent method.doc_description, "# " %>
 #
 <%- end -%>
+<%= render partial: "service/client/method/docs/deprecated", locals: { method: method } -%>
 <%= render partial: "service/client/method/docs/request", locals: { method: method } -%>
 #
 <%= render partial: "service/client/method/docs/response", locals: { method: method } -%>
@@ -12,6 +13,7 @@
 #
 <%= render partial: "service/client/method/docs/samples", locals: { method: method } -%>
 def <%= method.name %> request, options = nil
+<%= indent render(partial: "service/client/method/def/deprecated", locals: { method: method }), 2 %>
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/client/method/def/options_defaults", locals: { method: method }), 2 %>

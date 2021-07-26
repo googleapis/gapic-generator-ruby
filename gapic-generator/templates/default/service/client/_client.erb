@@ -23,6 +23,10 @@ class <%= service.client_name %>
   #
   # See {<%= service.client_name_full %>::Configuration}
   # for a description of the configuration fields.
+<%- if service.is_deprecated? -%>
+  #
+  # @deprecated This service is deprecated and may be removed in the next major version update.
+<%- end -%>
   #
   # ## Example
   #

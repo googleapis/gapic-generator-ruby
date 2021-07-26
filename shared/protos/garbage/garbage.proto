@@ -13,15 +13,14 @@ import "google/protobuf/duration.proto";
 option ruby_package = "So::Much::Trash";
 
 option (google.api.resource_definition) = {
-type: "endlesstrash.example.net/Garbage"
-pattern: "projects/{project}/simple_garbage/{simple_garbage}"
-pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
-pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
-pattern: "projects/{project}/specific_garbage/{specific_garbage}"
-pattern: "projects/{project}/nested_garbage/{nested_garbage}"
-pattern: "projects/{project}/repeated_garbage/{repeated_garbage}"
+  type: "endlesstrash.example.net/Garbage"
+  pattern: "projects/{project}/simple_garbage/{simple_garbage}"
+  pattern: "projects/{project}/typical_garbage_1/{typical_garbage_1}"
+  pattern: "projects/{project}/typical_garbage_2/{typical_garbage_2}"
+  pattern: "projects/{project}/specific_garbage/{specific_garbage}"
+  pattern: "projects/{project}/nested_garbage/{nested_garbage}"
+  pattern: "projects/{project}/repeated_garbage/{repeated_garbage}"
 };
-
 
 // Endless trash
 service GarbageService {
@@ -29,9 +28,10 @@ service GarbageService {
   option (google.api.default_host) = "endlesstrash.example.net";
 
   // The OAuth scopes needed to make requests to this API.
-  option (google.api.oauth_scopes) = "https://endlesstrash.example.net/garbage-admin,"
-                                     "https://endlesstrash.example.net/garbage-read,"
-                                     "https://endlesstrash.example.net/garbage-write";
+  option (google.api.oauth_scopes) =
+      "https://endlesstrash.example.net/garbage-admin,"
+      "https://endlesstrash.example.net/garbage-read,"
+      "https://endlesstrash.example.net/garbage-write";
 
   // Retrieves an EmptyGarbage resource
   rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
@@ -55,7 +55,8 @@ service GarbageService {
     };
   }
   // Retrieves a NestedGarbage resource.
-  rpc GetNestedGarbage(SpecificGarbage.NestedGarbage) returns (SpecificGarbage.NestedGarbage) {
+  rpc GetNestedGarbage(SpecificGarbage.NestedGarbage)
+      returns (SpecificGarbage.NestedGarbage) {
     option (google.api.http) = {
       post: "/v1/nested_garbage:get"
       body: "*"
@@ -76,7 +77,9 @@ service GarbageService {
     };
   }
   // Retrieves a TypicalGarbage resource by a request.
-  rpc GetTypicalGarbageByRequest(GetTypicalGarbageRequest) returns (TypicalGarbage) {
+  rpc GetTypicalGarbageByRequest(GetTypicalGarbageRequest)
+      returns (TypicalGarbage) {
+    option deprecated = true;
     option (google.api.http) = {
       post: "/v1/typical_garbage_by_request:get"
       body: "*"
@@ -103,9 +106,11 @@ service GarbageService {
       body: "*"
     };
   }
+
   // Performs asynchronous garbage listing. Garbage items are available via the
   // google.longrunning.Operations interface.
-  rpc LongRunningGarbage(LongRunningGarbageRequest) returns (google.longrunning.Operation) {
+  rpc LongRunningGarbage(LongRunningGarbageRequest)
+      returns (google.longrunning.Operation) {
     option (google.api.http) = {
       post: "/v1/garbage:lro"
       body: "*"
@@ -149,9 +154,10 @@ service RenamedService {
   option (google.api.default_host) = "endlesstrash.example.net";
 
   // The OAuth scopes needed to make requests to this API.
-  option (google.api.oauth_scopes) = "https://endlesstrash.example.net/garbage-admin,"
-                                     "https://endlesstrash.example.net/garbage-read,"
-                                     "https://endlesstrash.example.net/garbage-write";
+  option (google.api.oauth_scopes) =
+      "https://endlesstrash.example.net/garbage-admin,"
+      "https://endlesstrash.example.net/garbage-read,"
+      "https://endlesstrash.example.net/garbage-write";
 
   // Retrieves an EmptyGarbage resource
   rpc GetEmptyGarbage(EmptyGarbage) returns (EmptyGarbage) {
@@ -165,9 +171,8 @@ service RenamedService {
 // The get typical garbage request message.
 message GetTypicalGarbageRequest {
   // The name of the garbage.
-  string name = 1 [
-    (google.api.resource_reference).type = "endlesstrash.example.net/TypicalGarbage"
-  ];
+  string name = 1 [(google.api.resource_reference).type =
+                       "endlesstrash.example.net/TypicalGarbage"];
 }
 
 // The top-level message sent by the client for the `LongRunningGarbage`
@@ -201,9 +206,8 @@ message LongRunningGarbageMetadata {
 // The list garbage request message.
 message ListGarbageRequest {
   // The name of the garbage this item belongs to.
-  string garbage = 1 [
-    (google.api.resource_reference).child_type = "endlesstrash.example.net/Garbage"
-  ];
+  string garbage = 1 [(google.api.resource_reference).child_type =
+                          "endlesstrash.example.net/Garbage"];
 }
 
 // The list garbage response message.
@@ -216,22 +220,19 @@ message ListGarbageResponse {
 // A literal piece of garbage. Why would you want this? What is wrong with you?
 message GarbageItem {
   // The garbage this item belongs to.
-  string garbage = 1 [
-    (google.api.resource_reference).type = "endlesstrash.example.net/Garbage"
-  ];
+  string garbage = 1 [(google.api.resource_reference).type =
+                          "endlesstrash.example.net/Garbage"];
   // The item, which is either a string or an integer.
   oneof item {
     // The string item.
     string a = 2;
     // The integer item.
-    int32  b = 3;
+    int32 b = 3;
   }
 }
 
 // an empty garbage message
-message EmptyGarbage {
-  
-}
+message EmptyGarbage {}
 
 // A simple garbage resource
 message SimpleGarbage {
@@ -247,12 +248,11 @@ message SimpleGarbage {
 // A simple garbage item resource
 message SimpleGarbageItem {
   // The name of the garbage this item belongs to.
-  string garbage = 1 [
-    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
-  ];
+  string garbage = 1 [(google.api.resource_reference).type =
+                          "endlesstrash.example.net/SimpleGarbage"];
   oneof item {
     string a = 2;
-    int32  b = 3;
+    int32 b = 3;
   }
 }
 
@@ -397,7 +397,8 @@ message RepeatedGarbage {
   // The repeated bytes of this garbage.
   repeated bytes repeated_bytes = 9;
   // The repeated map of this garbage.
-  repeated GarbageMap repeated_msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
+  repeated GarbageMap repeated_msg = 10
+      [(google.api.field_behavior) = OUTPUT_ONLY];
   // The repeated type of this garbage.
   repeated GarbageEnum repeated_enum = 11;
 }
@@ -407,7 +408,8 @@ message PagedGarbageRequest {
   // The garbage to page.
   string garbage = 1 [
     (google.api.field_behavior) = REQUIRED,
-    (google.api.resource_reference).type = "endlesstrash.example.net/SimpleGarbage"
+    (google.api.resource_reference).type =
+        "endlesstrash.example.net/SimpleGarbage"
   ];
 
   // The amount of garbage items to returned in each page.

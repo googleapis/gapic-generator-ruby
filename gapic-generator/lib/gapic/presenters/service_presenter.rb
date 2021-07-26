@@ -50,6 +50,10 @@ module Gapic
         PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
+      def is_deprecated?
+        @service.is_deprecated?
+      end
+
       ##
       # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
       #
