@@ -3,9 +3,10 @@
 ### 0.9.2 / 2021-07-27
 
 * REST libraries are now generated with pagination hepers
-* It is now possible to generate inline snippets in yardocs
 * REST libraries are now generated with correct examples in README.md and other documentation files
-* Fixed generation of the duplicate helper methods.
+* It is now possible to generate inline snippets in yardocs
+* Fixed the require path in the generated standalone snippets so it reflects the recommended require root rather than the service-specific require path.
+* Prevent "duplicate" resources (with the same name but different namespaces) from producing duplicate helper methods.
 
 ### 0.9.1 / 2021-07-07
 
