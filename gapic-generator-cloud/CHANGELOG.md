@@ -3,6 +3,8 @@
 ### 0.9.2 / 2021-07-07
 
 * Includes changes from gapic-generator 0.9.2
+* Disable Style/BlockDelimiters check for sample acceptance tests
+* Flags `--ruby-cloud-generate-standalone-snippets` and `--ruby-cloud-generate-yardoc-snippets` are now recognized
 
 ### 0.9.1 / 2021-07-07
 
