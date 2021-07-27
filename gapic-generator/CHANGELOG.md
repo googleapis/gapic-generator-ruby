@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.9.2 / 2021-07-27
+
+* REST libraries are now generated with pagination hepers
+* It is now possible to generate inline snippets in yardocs
+* REST libraries are now generated with correct examples in README.md and other documentation files
+* Fixed generation of the duplicate helper methods.
+
 ### 0.9.1 / 2021-07-07
 
 * Detect multiple resource parents for patterns used by multiple resources
