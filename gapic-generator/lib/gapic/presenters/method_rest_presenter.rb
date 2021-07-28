@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/presenters/method/rest_pagination_info"
 require "gapic/uri_template"
 
 module Gapic
@@ -22,9 +23,19 @@ module Gapic
     # A presenter for rpc methods (REST submethods)
     #
     class MethodRestPresenter
-      def initialize main_method
+      # @return [Gapic::Presenters::Method::RestPaginationInfo]
+      attr_reader :pagination
+
+      ##
+      # @param main_method [Gapic::Presenters::MethodPresenter] the main presenter for this method.
+      # @param api [Gapic::Schema::Api]
+      #
+      def initialize main_method, api
+        @api = api
         @main_method = main_method
         @proto_method = main_method.method
+
+        @pagination = Gapic::Presenters::Method::RestPaginationInfo.new @proto_method, api
       end
 
       ##
@@ -187,7 +198,7 @@ module Gapic
       #
       # @return [String]
       def transcoding_helper_name
-        "transcode_#{name}"
+        "transcode_#{name}_request"
       end
 
       ##
@@ -206,6 +217,35 @@ module Gapic
       #
       def request_type
         @main_method.request_type
+      end
+
+      ##
+      # Full class name of the raw return type of the RPC
+      #
+      # @return [String]
+      #
+      def return_type
+        @main_method.return_type
+      end
+
+      ##
+      # Full class name of the return type of the method
+      # (including LRO and Paged cases)
+      #
+      # @return [String]
+      #
+      def doc_response_type
+        return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
+        return_type
+      end
+
+      ##
+      # Whether the REGAPIC method should be rendered as paged
+      #
+      # @return [Boolean]
+      #
+      def paged?
+        @pagination.paged?
       end
     end
   end

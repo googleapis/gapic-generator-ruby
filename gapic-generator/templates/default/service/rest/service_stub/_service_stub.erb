@@ -1,0 +1,26 @@
+<%- assert_locals service -%>
+<% @requires = capture do %>
+  <%= render partial: "service/rest/client/requires", locals: { service: service} -%>
+  require "<%= service.proto_service_require %>"
+<% end %>
+##
+# REST service stub for the <%= service.name %> service.
+# service stub contains baseline method implementations
+# including transcoding, making the REST call and deserialing the response
+#
+class <%= service.rest.service_stub_name %>
+  def initialize endpoint:, credentials:
+    # These require statements are intentionally placed here to initialize
+    # the REST modules only when it's required.
+    require "gapic/rest"
+
+    @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials
+  end
+
+  <%- service.methods.each do |method| -%>
+
+  <%= indent_tail render(partial: "service/rest/service_stub/method/def", locals: { method: method }), 2 %>
+
+  <%= indent_tail render(partial: "service/rest/service_stub/grpc_transcoding_method/def", locals: { method: method }), 2 %>
+  <%- end %>
+end

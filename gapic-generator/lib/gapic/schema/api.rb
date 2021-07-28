@@ -328,7 +328,7 @@ module Gapic
 
       ##
       # An override for the wrapper gem name in the configuration
-      # @return [String, Nil]
+      # @return [String, nil]
       def wrapper_gem_name_override
         return nil unless wrapper_gem_name_override?
         return nil if configuration[:overrides][:wrapper_gem_name].nil?
