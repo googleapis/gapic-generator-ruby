@@ -49,8 +49,9 @@ module Gapic
     #     provided as a `GRPC::Core::Channel`.)
     # @param interceptors [Array<GRPC::ClientInterceptor>] An array of {GRPC::ClientInterceptor} objects that will
     #   be used for intercepting calls before they are executed Interceptors are an EXPERIMENTAL API.
+    # @param timeout [Numeric] The default timeout for calls, in seconds, or `nil` (the default) for infinite.
     #
-    def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
+    def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil, timeout: nil
       raise ArgumentError, "grpc_stub_class is required" if grpc_stub_class.nil?
       raise ArgumentError, "endpoint is required" if endpoint.nil?
       raise ArgumentError, "credentials is required" if credentials.nil?
@@ -61,10 +62,12 @@ module Gapic
       @grpc_stub = case credentials
                    when GRPC::Core::Channel
                      grpc_stub_class.new endpoint, nil, channel_override: credentials,
-                                                        interceptors:     interceptors
+                                                        interceptors:     interceptors,
+                                                        timeout:          timeout
                    when GRPC::Core::ChannelCredentials, Symbol
                      grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
-                                                                interceptors: interceptors
+                                                                interceptors: interceptors,
+                                                                timeout:      timeout
                    else
                      updater_proc = credentials.updater_proc if credentials.respond_to? :updater_proc
                      updater_proc ||= credentials if credentials.is_a? Proc
@@ -73,7 +76,8 @@ module Gapic
                      call_creds = GRPC::Core::CallCredentials.new updater_proc
                      chan_creds = GRPC::Core::ChannelCredentials.new.compose call_creds
                      grpc_stub_class.new endpoint, chan_creds, channel_args: channel_args,
-                                                               interceptors: interceptors
+                                                               interceptors: interceptors,
+                                                               timeout:      timeout
                    end
     end
 

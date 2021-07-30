@@ -253,7 +253,7 @@ module Gapic
     # @yield operation [Gapic::Operation] Yields the finished Operation.
     #
     def wait_until_done! retry_policy: nil
-      retry_policy = RetryPolicy.new retry_policy if retry_policy.is_a? Hash
+      retry_policy = RetryPolicy.new(**retry_policy) if retry_policy.is_a? Hash
       retry_policy ||= RetryPolicy.new
 
       until done?
