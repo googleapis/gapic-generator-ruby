@@ -59,11 +59,6 @@ namespace :gen do |gen_namespace|
     generate_input_file :vision_v1
   end
 
-  desc "Generate the binary input files for document_ai v1beta3"
-  task :document_ai_v1beta3 do
-    generate_input_file :document_ai_v1beta3
-  end
-
   desc "Generate the binary input files for showcase"
   task :showcase do
     generate_input_file :showcase

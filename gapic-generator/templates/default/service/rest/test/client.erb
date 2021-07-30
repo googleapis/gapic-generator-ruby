@@ -1,7 +1,7 @@
 <%- assert_locals service -%>
 <%= render partial: "shared/header" %>
 require "helper"
-
+require "gapic/rest"
 require "<%= service.proto_service_require %>"
 require "<%= service.service_require %>"
 
