@@ -201,7 +201,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_session.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_session.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :create_session, request, options: options do |response, operation|
@@ -265,7 +267,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_session.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_session.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :get_session, request, options: options do |response, operation|
@@ -325,7 +329,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_sessions.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_sessions.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :list_sessions, request, options: options do |response, operation|
@@ -391,7 +397,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_session.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_session.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :delete_session, request, options: options do |response, operation|
@@ -457,7 +465,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.report_session.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.report_session.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :report_session, request, options: options do |response, operation|
@@ -525,7 +535,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_tests.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_tests.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :list_tests, request, options: options do |response, operation|
@@ -595,7 +607,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_test.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_test.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :delete_test, request, options: options do |response, operation|
@@ -666,7 +680,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.verify_test.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.verify_test.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @testing_stub.call_rpc :verify_test, request, options: options do |response, operation|
