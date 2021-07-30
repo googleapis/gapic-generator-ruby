@@ -15,7 +15,7 @@
 ##
 # Base image.
 ##
-FROM ruby:2.6-buster as base
+FROM ruby:2.7-buster as base
 
 # Set the correct locale so Ruby strings default to UTF-8
 ARG DEBIAN_FRONTEND=noninteractive
