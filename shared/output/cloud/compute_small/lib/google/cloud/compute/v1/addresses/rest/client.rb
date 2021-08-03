@@ -602,8 +602,8 @@ module Google
                 #
                 #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
                 #
-                # there are two other fields (`retry_policy` and `metadata`) that can be set
-                # but are currently not supported for REST Gapic libraries.
+                # there is one other field (`retry_policy`) that can be set
+                # but is currently not supported for REST Gapic libraries.
                 #
                 class Rpcs
                   ##
