@@ -47,13 +47,12 @@ module So
           # See {::So::Much::Trash::ResourceNames::Client::Configuration}
           # for a description of the configuration fields.
           #
-          # ## Example
+          # @example
           #
-          # To modify the configuration for all ResourceNames clients:
-          #
-          #     ::So::Much::Trash::ResourceNames::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Modify the configuration for all ResourceNames clients
+          #   ::So::Much::Trash::ResourceNames::Client.configure do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
@@ -93,19 +92,15 @@ module So
           ##
           # Create a new ResourceNames client object.
           #
-          # ## Examples
+          # @example
           #
-          # To create a new ResourceNames client with the default
-          # configuration:
+          #   # Create a client using the default configuration
+          #   client = ::So::Much::Trash::ResourceNames::Client.new
           #
-          #     client = ::So::Much::Trash::ResourceNames::Client.new
-          #
-          # To create a new ResourceNames client with a custom
-          # configuration:
-          #
-          #     client = ::So::Much::Trash::ResourceNames::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Create a client using a custom configuration
+          #   client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the ResourceNames client.
           # @yieldparam config [Client::Configuration]
@@ -452,22 +447,21 @@ module So
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for simple_pattern_method
-          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # simple_pattern_method to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::So::Much::Trash::ResourceNames::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.simple_pattern_method.timeout = 20.0
+          #   end
           #
-          #     ::So::Much::Trash::ResourceNames::Client.configure do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.simple_pattern_method.timeout = 20.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::So::Much::Trash::ResourceNames::Client.new do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.simple_pattern_method.timeout = 20.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::So::Much::Trash::ResourceNames::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.simple_pattern_method.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.

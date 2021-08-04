@@ -43,13 +43,12 @@ module So
           # See {::So::Much::Trash::ReallyRenamedService::Client::Configuration}
           # for a description of the configuration fields.
           #
-          # ## Example
+          # @example
           #
-          # To modify the configuration for all ReallyRenamedService clients:
-          #
-          #     ::So::Much::Trash::ReallyRenamedService::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Modify the configuration for all ReallyRenamedService clients
+          #   ::So::Much::Trash::ReallyRenamedService::Client.configure do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
@@ -89,19 +88,15 @@ module So
           ##
           # Create a new ReallyRenamedService client object.
           #
-          # ## Examples
+          # @example
           #
-          # To create a new ReallyRenamedService client with the default
-          # configuration:
+          #   # Create a client using the default configuration
+          #   client = ::So::Much::Trash::ReallyRenamedService::Client.new
           #
-          #     client = ::So::Much::Trash::ReallyRenamedService::Client.new
-          #
-          # To create a new ReallyRenamedService client with a custom
-          # configuration:
-          #
-          #     client = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Create a client using a custom configuration
+          #   client = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the ReallyRenamedService client.
           # @yieldparam config [Client::Configuration]
@@ -210,22 +205,21 @@ module So
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for get_empty_garbage
-          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # get_empty_garbage to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::So::Much::Trash::ReallyRenamedService::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.get_empty_garbage.timeout = 20.0
+          #   end
           #
-          #     ::So::Much::Trash::ReallyRenamedService::Client.configure do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.get_empty_garbage.timeout = 20.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.get_empty_garbage.timeout = 20.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::So::Much::Trash::ReallyRenamedService::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.get_empty_garbage.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
