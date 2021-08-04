@@ -1,6 +1,5 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-  <%= render partial: "service/rest/client/requires", locals: { service: service} -%>
   require "<%= service.proto_service_require %>"
 <% end %>
 ##

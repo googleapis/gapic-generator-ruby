@@ -43,13 +43,12 @@ module Google
             # See {::Google::Cloud::Vision::V1::ImageAnnotator::Client::Configuration}
             # for a description of the configuration fields.
             #
-            # ## Example
+            # @example
             #
-            # To modify the configuration for all ImageAnnotator clients:
-            #
-            #     ::Google::Cloud::Vision::V1::ImageAnnotator::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Modify the configuration for all ImageAnnotator clients
+            #   ::Google::Cloud::Vision::V1::ImageAnnotator::Client.configure do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Client::Configuration]
@@ -96,19 +95,15 @@ module Google
             ##
             # Create a new ImageAnnotator client object.
             #
-            # ## Examples
+            # @example
             #
-            # To create a new ImageAnnotator client with the default
-            # configuration:
+            #   # Create a client using the default configuration
+            #   client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new
             #
-            #     client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-            #
-            # To create a new ImageAnnotator client with a custom
-            # configuration:
-            #
-            #     client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Create a client using a custom configuration
+            #   client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the ImageAnnotator client.
             # @yieldparam config [Client::Configuration]
@@ -567,22 +562,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for batch_annotate_images
-            # to 20 seconds, and all remaining timeouts to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # batch_annotate_images to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Cloud::Vision::V1::ImageAnnotator::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.batch_annotate_images.timeout = 20.0
+            #   end
             #
-            #     ::Google::Cloud::Vision::V1::ImageAnnotator::Client.configure do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.batch_annotate_images.timeout = 20.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.batch_annotate_images.timeout = 20.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Cloud::Vision::V1::ImageAnnotator::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.batch_annotate_images.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.

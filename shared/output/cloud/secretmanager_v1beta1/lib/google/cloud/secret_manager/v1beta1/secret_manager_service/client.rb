@@ -47,13 +47,12 @@ module Google
             # See {::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client::Configuration}
             # for a description of the configuration fields.
             #
-            # ## Example
+            # @example
             #
-            # To modify the configuration for all SecretManagerService clients:
-            #
-            #     ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Modify the configuration for all SecretManagerService clients
+            #   ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.configure do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Client::Configuration]
@@ -100,19 +99,15 @@ module Google
             ##
             # Create a new SecretManagerService client object.
             #
-            # ## Examples
+            # @example
             #
-            # To create a new SecretManagerService client with the default
-            # configuration:
+            #   # Create a client using the default configuration
+            #   client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
             #
-            #     client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
-            #
-            # To create a new SecretManagerService client with a custom
-            # configuration:
-            #
-            #     client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Create a client using a custom configuration
+            #   client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the SecretManagerService client.
             # @yieldparam config [Client::Configuration]
@@ -1245,22 +1240,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for list_secrets
-            # to 20 seconds, and all remaining timeouts to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # list_secrets to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_secrets.timeout = 20.0
+            #   end
             #
-            #     ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.configure do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.list_secrets.timeout = 20.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.list_secrets.timeout = 20.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_secrets.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
