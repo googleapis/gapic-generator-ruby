@@ -699,7 +699,6 @@ module So
           ##
           # Retrieves a TypicalGarbage resource by a request.
           #
-          #
           # @deprecated This method is deprecated and may be removed in the next major version update.
           #
           # @overload get_typical_garbage_by_request(request, options = nil)
@@ -729,7 +728,6 @@ module So
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
           def get_typical_garbage_by_request request, options = nil
-            warn "[DEPRECATION]: get_typical_garbage_by_request is deprecated."
             raise ::ArgumentError, "request must be provided" if request.nil?
 
             request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::GetTypicalGarbageRequest
