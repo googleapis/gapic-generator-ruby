@@ -26,10 +26,10 @@ class ApiTest < Minitest::Test
   # when provided with literal configuration parameter names
   def test_parse_parameters_literal
     literal_params = [
-      [":gem.:free_tier", API_INFO[:free_tier]],
-      [":gem.:yard_strict", API_INFO[:yard_strict]],
-      [":gem.:generic_endpoint", API_INFO[:generic_endpoint]],
-      [":generate_metadata", API_INFO[:generate_metadata]],
+      [":gem.:free_tier", API_INFO[:free_tier].to_s],
+      [":gem.:yard_strict", API_INFO[:yard_strict].to_s],
+      [":gem.:generic_endpoint", API_INFO[:generic_endpoint].to_s],
+      [":generate_metadata", API_INFO[:generate_metadata].to_s],
 
       [":gem.:name", API_INFO[:name]],
       [":gem.:namespace", API_INFO[:namespace]],

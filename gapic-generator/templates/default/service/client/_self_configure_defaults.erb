@@ -6,7 +6,7 @@
     default_config.timeout = <%= format_number service.grpc_service_config.timeout_seconds %>
   <%- end -%>
   <%- if service.grpc_service_config.retry_policy -%>
-    default_config.retry_policy = <%= indent_tail render(partial: "service/client/self_configure_retry_policy", locals: { retry_policy: service.grpc_service_config.retry_policy }), 2 %>
+    default_config.retry_policy = <%= indent_tail service.service_config_presenter.retry_policy_fields, 2 %>
   <%- end -%>
 <%- end -%>
 <%- method_service.methods.each do |method| -%>
@@ -16,7 +16,7 @@
       default_config.rpcs.<%= method.name %>.timeout = <%= format_number method.grpc_service_config.timeout_seconds %>
     <%- end -%>
     <%- if method.grpc_service_config.retry_policy -%>
-      default_config.rpcs.<%= method.name %>.retry_policy =<%= indent_tail render(partial: "service/client/self_configure_retry_policy", locals: { retry_policy: method.grpc_service_config.retry_policy }), 2 %>
+      default_config.rpcs.<%= method.name %>.retry_policy =<%= indent_tail method.service_config_presenter.retry_policy_fields, 2 %>
     <%- end -%>
   <%- end -%>
 <%- end -%>

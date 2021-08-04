@@ -39,13 +39,12 @@ module Google
             # See {::Google::Cloud::Speech::V1::Speech::Client::Configuration}
             # for a description of the configuration fields.
             #
-            # ## Example
+            # @example
             #
-            # To modify the configuration for all Speech clients:
-            #
-            #     ::Google::Cloud::Speech::V1::Speech::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Modify the configuration for all Speech clients
+            #   ::Google::Cloud::Speech::V1::Speech::Client.configure do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Client::Configuration]
@@ -92,19 +91,15 @@ module Google
             ##
             # Create a new Speech client object.
             #
-            # ## Examples
+            # @example
             #
-            # To create a new Speech client with the default
-            # configuration:
+            #   # Create a client using the default configuration
+            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new
             #
-            #     client = ::Google::Cloud::Speech::V1::Speech::Client.new
-            #
-            # To create a new Speech client with a custom
-            # configuration:
-            #
-            #     client = ::Google::Cloud::Speech::V1::Speech::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Create a client using a custom configuration
+            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the Speech client.
             # @yieldparam config [Client::Configuration]
@@ -131,7 +126,7 @@ module Google
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
-              if credentials.is_a?(String) || credentials.is_a?(Hash)
+              if credentials.is_a?(::String) || credentials.is_a?(::Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
               @quota_project_id = @config.quota_project
@@ -666,22 +661,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for recognize
-            # to 20 seconds, and all remaining timeouts to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # recognize to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Cloud::Speech::V1::Speech::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.recognize.timeout = 20.0
+            #   end
             #
-            #     ::Google::Cloud::Speech::V1::Speech::Client.configure do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.recognize.timeout = 20.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Cloud::Speech::V1::Speech::Client.new do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.recognize.timeout = 20.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Cloud::Speech::V1::Speech::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.recognize.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.

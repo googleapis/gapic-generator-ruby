@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/presenters/method/rest_pagination_info"
 require "gapic/uri_template"
 
 module Gapic
@@ -22,9 +23,19 @@ module Gapic
     # A presenter for rpc methods (REST submethods)
     #
     class MethodRestPresenter
-      def initialize main_method
+      # @return [Gapic::Presenters::Method::RestPaginationInfo]
+      attr_reader :pagination
+
+      ##
+      # @param main_method [Gapic::Presenters::MethodPresenter] the main presenter for this method.
+      # @param api [Gapic::Schema::Api]
+      #
+      def initialize main_method, api
+        @api = api
         @main_method = main_method
         @proto_method = main_method.method
+
+        @pagination = Gapic::Presenters::Method::RestPaginationInfo.new @proto_method, api
       end
 
       ##
@@ -129,6 +140,13 @@ module Gapic
       end
 
       ##
+      # @return [Boolean] True if body contains full request object (`*` in the annotation), false otherwise
+      #
+      def body_is_request_object?
+        body == "*"
+      end
+
+      ##
       # Performs a limited version of grpc transcoding to create a string that will interpolate
       # the values from the request object to create a request body at runtime.
       # Currently only supports either "*" for "the whole request object" or
@@ -142,7 +160,7 @@ module Gapic
       def body_interpolated request_obj_name = "request_pb"
         return "\"\"" unless body?
 
-        return "#{request_obj_name}.to_json" if body == "*"
+        return "#{request_obj_name}.to_json" if body_is_request_object?
 
         "#{request_obj_name}.#{body}.to_json"
       end
@@ -156,11 +174,12 @@ module Gapic
 
       # @return [Array<String>]
       def query_string_params
-        return [] if body?
+        return [] if body_is_request_object?
 
         routing_params_set = routing_params.to_set
         @main_method.arguments
                     .reject { |arg| routing_params_set.include? arg.name }
+                    .reject { |arg| body == arg.name }
                     .reject(&:message?)
                     .reject { |arg| arg.default_value_for_type.nil? }
       end
@@ -179,7 +198,54 @@ module Gapic
       #
       # @return [String]
       def transcoding_helper_name
-        "transcode_#{@main_method.name}"
+        "transcode_#{name}_request"
+      end
+
+      ##
+      # Method name
+      #
+      # @return [String]
+      #
+      def name
+        @main_method.name
+      end
+
+      ##
+      # Full class name of the request type
+      #
+      # @return [String]
+      #
+      def request_type
+        @main_method.request_type
+      end
+
+      ##
+      # Full class name of the raw return type of the RPC
+      #
+      # @return [String]
+      #
+      def return_type
+        @main_method.return_type
+      end
+
+      ##
+      # Full class name of the return type of the method
+      # (including LRO and Paged cases)
+      #
+      # @return [String]
+      #
+      def doc_response_type
+        return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
+        return_type
+      end
+
+      ##
+      # Whether the REGAPIC method should be rendered as paged
+      #
+      # @return [Boolean]
+      #
+      def paged?
+        @pagination.paged?
       end
     end
   end

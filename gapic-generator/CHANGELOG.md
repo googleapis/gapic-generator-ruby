@@ -1,5 +1,46 @@
 # Release History for gapic-generator
 
+### 0.9.2 / 2021-07-27
+
+* REST libraries are now generated with pagination hepers
+* REST libraries are now generated with correct examples in README.md and other documentation files
+* It is now possible to generate inline snippets in yardocs
+* Fixed the require path in the generated standalone snippets so it reflects the recommended require root rather than the service-specific require path.
+* Prevent "duplicate" resources (with the same name but different namespaces) from producing duplicate helper methods.
+
+### 0.9.1 / 2021-07-07
+
+* Detect multiple resource parents for patterns used by multiple resources
+
+### 0.9.0 / 2021-06-29
+
+* Support for configuring the service/method used for the quickstart example
+* Allow generation of libraries with no custom env prefix
+* Add service override setting to the repo metadata
+* Wrapper gem dependencies on pre-GA versioned gems now allow both 0.x and 1.x versions
+* Scoped some String and Hash references to the global scope to avoid name collisions
+* Reformat some config code to avoid rubocop indentation churn
+* Bazel: Replace monolith deps with rules_gapic
+
+### 0.8.0 / 2021-06-16
+
+* Initial implementation of standalone snippet generation.
+* Updated gapic-common dependencies to require at least 0.5 and to support future 1.x versions.
+* Generated unit tests for REST clients.
+* Generated proper x-goog-api-client headers for REST clients.
+* Added generation arguments to generated repo metadata.
+* Allow multiple versions in the extra-dependency command line argument.
+* Fixed treatment of boolean-valued command line arguments to the generator.
+* Fixed behavior of wrapper-gem-override if given an empty value.
+* Fixed default env_prefix computation to avoid the version part of the proto namespace.
+* Fixed Bazel front-end to preserve file permissions.
+
+### 0.7.5 / 2021-05-18
+
+* Bazel jobs now provide a prebuilt ruby binary.
+* Fixed generated indentation for a few cases, by updating to Rubocop 1.15.
+* Added library_type to generated repo metadata files.
+
 ### 0.7.4 / 2021-05-07
 
 * Fixed the broken link in the generated libraries' README.md

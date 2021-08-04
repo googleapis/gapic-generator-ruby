@@ -28,13 +28,12 @@ class <%= service.client_name %>
   # @deprecated This service is deprecated and may be removed in the next major version update.
 <%- end -%>
   #
-  # ## Example
+  # @example
   #
-  # To modify the configuration for all <%= service.name %> clients:
-  #
-  #     <%= service.client_name_full %>.configure do |config|
-  #       config.timeout = 10.0
-  #     end
+  #   # Modify the configuration for all <%= service.name %> clients
+  #   <%= service.client_name_full %>.configure do |config|
+  #     config.timeout = 10.0
+  #   end
   #
   # @yield [config] Configure the <%= service.client_name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]
@@ -68,19 +67,15 @@ class <%= service.client_name %>
   ##
   # Create a new <%= service.name %> client object.
   #
-  # ## Examples
+  # @example
   #
-  # To create a new <%= service.name %> client with the default
-  # configuration:
+  #   # Create a client using the default configuration
+  #   client = <%= service.client_name_full %>.new
   #
-  #     client = <%= service.client_name_full %>.new
-  #
-  # To create a new <%= service.name %> client with a custom
-  # configuration:
-  #
-  #     client = <%= service.client_name_full %>.new do |config|
-  #       config.timeout = 10.0
-  #     end
+  #   # Create a client using a custom configuration
+  #   client = <%= service.client_name_full %>.new do |config|
+  #     config.timeout = 10.0
+  #   end
   #
   # @yield [config] Configure the <%= service.name %> client.
   # @yieldparam config [<%= service.client_name %>::Configuration]
@@ -108,7 +103,7 @@ class <%= service.client_name %>
                              !@config.endpoint.split(".").first.include?("-")
     credentials ||= Credentials.default scope: @config.scope,
                                         enable_self_signed_jwt: enable_self_signed_jwt
-    if credentials.is_a?(String) || credentials.is_a?(Hash)
+    if credentials.is_a?(::String) || credentials.is_a?(::Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
     <%- end -%>

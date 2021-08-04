@@ -1,0 +1,17 @@
+<%- assert_locals gem -%>
+<%= render partial: "shared/header" -%>
+
+source "https://rubygems.org"
+
+if ENV["GOOGLE_CLOUD_SAMPLES_TEST"] == "master"
+  gem "<%= gem.name %>", path: "../"
+else
+  gem "<%= gem.name %>"
+end
+
+group :test do
+  gem "google-style", "~> 1.25.1"
+  gem "minitest", "~> 5.14"
+  gem "minitest-focus", "~> 1.1"
+  gem "minitest-hooks", "~> 1.5"
+end

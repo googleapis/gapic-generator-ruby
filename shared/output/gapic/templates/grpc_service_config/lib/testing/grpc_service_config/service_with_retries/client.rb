@@ -42,13 +42,12 @@ module Testing
         # See {::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
         # for a description of the configuration fields.
         #
-        # ## Example
+        # @example
         #
-        # To modify the configuration for all ServiceWithRetries clients:
-        #
-        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
-        #       config.timeout = 10.0
-        #     end
+        #   # Modify the configuration for all ServiceWithRetries clients
+        #   ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     config.timeout = 10.0
+        #   end
         #
         # @yield [config] Configure the Client client.
         # @yieldparam config [Client::Configuration]
@@ -61,18 +60,12 @@ module Testing
 
             default_config.timeout = 20.0
             default_config.retry_policy = {
-              initial_delay: 0.5,
-            max_delay: 5.0,
-            multiplier: 2.0,
-            retry_codes: [4, 8]
+              initial_delay: 0.5, max_delay: 5.0, multiplier: 2.0, retry_codes: [4, 8]
             }
 
             default_config.rpcs.method_level_retry_method.timeout = 86_400.0
             default_config.rpcs.method_level_retry_method.retry_policy = {
-              initial_delay: 1.0,
-          max_delay: 10.0,
-          multiplier: 3.0,
-          retry_codes: [14]
+              initial_delay: 1.0, max_delay: 10.0, multiplier: 3.0, retry_codes: [14]
             }
 
             default_config
@@ -104,19 +97,15 @@ module Testing
         ##
         # Create a new ServiceWithRetries client object.
         #
-        # ## Examples
+        # @example
         #
-        # To create a new ServiceWithRetries client with the default
-        # configuration:
+        #   # Create a client using the default configuration
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
         #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
-        #
-        # To create a new ServiceWithRetries client with a custom
-        # configuration:
-        #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
-        #       config.timeout = 10.0
-        #     end
+        #   # Create a client using a custom configuration
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     config.timeout = 10.0
+        #   end
         #
         # @yield [config] Configure the ServiceWithRetries client.
         # @yieldparam config [Client::Configuration]
@@ -143,7 +132,7 @@ module Testing
                                    !@config.endpoint.split(".").first.include?("-")
           credentials ||= Credentials.default scope: @config.scope,
                                               enable_self_signed_jwt: enable_self_signed_jwt
-          if credentials.is_a?(String) || credentials.is_a?(Hash)
+          if credentials.is_a?(::String) || credentials.is_a?(::Hash)
             credentials = Credentials.new credentials, scope: @config.scope
           end
           @quota_project_id = @config.quota_project
@@ -271,22 +260,21 @@ module Testing
         # Configuration can be applied globally to all clients, or to a single client
         # on construction.
         #
-        # # Examples
+        # @example
         #
-        # To modify the global config, setting the timeout for service_level_retry_method
-        # to 20 seconds, and all remaining timeouts to 10 seconds:
+        #   # Modify the global config, setting the timeout for
+        #   # service_level_retry_method to 20 seconds,
+        #   # and all remaining timeouts to 10 seconds.
+        #   ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     config.timeout = 10.0
+        #     config.rpcs.service_level_retry_method.timeout = 20.0
+        #   end
         #
-        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
-        #       config.timeout = 10.0
-        #       config.rpcs.service_level_retry_method.timeout = 20.0
-        #     end
-        #
-        # To apply the above configuration only to a new client:
-        #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
-        #       config.timeout = 10.0
-        #       config.rpcs.service_level_retry_method.timeout = 20.0
-        #     end
+        #   # Apply the above configuration only to a new client.
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     config.timeout = 10.0
+        #     config.rpcs.service_level_retry_method.timeout = 20.0
+        #   end
         #
         # @!attribute [rw] endpoint
         #   The hostname or hostname:port of the service endpoint.

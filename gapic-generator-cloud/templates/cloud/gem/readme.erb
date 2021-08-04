@@ -6,7 +6,7 @@
 
 <%= gem.homepage %>
 
-<%- if gem.wrapper_name -%>
+<%- if gem.has_wrapper? -%>
 This gem is a _versioned_ client. It provides basic client classes for a
 specific version of the <%= gem.title %> API. Most users should consider using
 the main client gem,
@@ -44,12 +44,12 @@ In order to use this library, you first need to go through the following steps:
 <%- if gem.packages? -%>
 ```ruby
 require "<%= gem.entrypoint_require %>"
-<%- service = gem.first_non_common_service -%>
-<%- method = service&.methods.first -%>
+<%- service = gem.quick_start_service.usable_service_presenter -%>
+<%- method = service&.quick_start_method -%>
 <%- if service && method -%>
 
 client = <%= service.create_client_call %>
-request = my_create_request
+request = <%= method.request_type %>.new # (request fields as keyword arguments...)
 response = client.<%= method.name %> request
 <%- end -%>
 ```
@@ -65,6 +65,7 @@ See also the [Product Documentation](<%= gem.product_documentation_url %>)
 for general usage information.
 
 <%- end -%>
+<%- if gem.show_grpc_logging_docs? -%>
 ## Enabling Logging
 
 To enable logging for this library, set the logger for the underlying [gRPC](https://github.com/grpc/grpc/tree/master/src/ruby) library.
@@ -91,6 +92,7 @@ module GRPC
 end
 ```
 
+<%- end -%>
 ## Supported Ruby Versions
 
 This library is supported on Ruby 2.5+.

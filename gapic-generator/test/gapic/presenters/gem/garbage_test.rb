@@ -35,7 +35,7 @@ class GarbageGemPresenterTest < PresenterTest
     assert_equal "google-garbage is the official client library for the Google Garbage API.", presenter.description
     assert_equal "API Client library for the Google Garbage API", presenter.summary
     assert_equal "https://github.com/googleapis/googleapis", presenter.homepage
-    assert_equal "GARBAGE", presenter.env_prefix
+    assert_nil presenter.env_prefix
 
     assert_equal ["endless.trash.forever"], presenter.packages.map(&:name)
     presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }

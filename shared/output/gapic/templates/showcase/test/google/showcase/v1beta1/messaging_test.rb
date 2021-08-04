@@ -212,7 +212,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use protobuf object
       client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room,
-update_mask: update_mask) do |response, operation|
+                                                                            update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -335,7 +335,7 @@ update_mask: update_mask) do |response, operation|
 
       # Use protobuf object
       client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
-page_token: page_token) do |response, operation|
+                                                                          page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -351,7 +351,7 @@ page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.list_rooms(
         ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
-page_token: page_token), grpc_options
+                                                          page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
@@ -402,7 +402,7 @@ page_token: page_token), grpc_options
 
       # Use protobuf object
       client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent,
-blurb: blurb) do |response, operation|
+                                                                              blurb: blurb) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -523,7 +523,7 @@ blurb: blurb) do |response, operation|
 
       # Use protobuf object
       client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb,
-update_mask: update_mask) do |response, operation|
+                                                                              update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -648,7 +648,7 @@ update_mask: update_mask) do |response, operation|
 
       # Use protobuf object
       client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
-page_token: page_token) do |response, operation|
+                                                                            page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -665,7 +665,7 @@ page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.list_blurbs(
         ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
-page_token: page_token), grpc_options
+                                                           page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
@@ -716,7 +716,7 @@ page_token: page_token }) do |response, operation|
 
       # Use named arguments
       client.search_blurbs query: query, parent: parent, page_size: page_size,
-page_token: page_token do |response, operation|
+                           page_token: page_token do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -724,7 +724,7 @@ page_token: page_token do |response, operation|
 
       # Use protobuf object
       client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent,
-page_size: page_size, page_token: page_token) do |response, operation|
+                                                                                page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -741,7 +741,7 @@ page_size: page_size, page_token: page_token) do |response, operation|
       # Use protobuf object with options
       client.search_blurbs(
         ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size,
-page_token: page_token), grpc_options
+                                                             page_token: page_token), grpc_options
       ) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
@@ -798,7 +798,7 @@ page_token: page_token), grpc_options
 
       # Use protobuf object
       client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
-expire_time: expire_time) do |response, operation|
+                                                                                expire_time: expire_time) do |response, operation|
         assert_kind_of Enumerable, response
         response.to_a.each do |r|
           assert_kind_of ::Google::Showcase::V1beta1::StreamBlurbsResponse, r

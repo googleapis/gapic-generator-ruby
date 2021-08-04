@@ -46,38 +46,6 @@ module Gapic
       ##
       # @return [String]
       #
-      def client_name
-        main_service.client_name
-      end
-
-      ##
-      # @return [String]
-      #
-      def client_name_full
-        fix_namespace api, "#{service_name_full}::#{client_name}"
-      end
-
-      ##
-      # @return [String]
-      #
-      def client_require
-        ruby_file_path api, client_name_full
-      end
-
-      ##
-      # @return [String]
-      #
-      def client_file_path
-        "#{client_require}.rb"
-      end
-
-      def create_client_call
-        "#{client_name_full}.new"
-      end
-
-      ##
-      # @return [String]
-      #
       def service_stub_name
         "ServiceStub"
       end
@@ -106,6 +74,41 @@ module Gapic
       ##
       # @return [String]
       #
+      def client_name
+        main_service.client_name
+      end
+
+      ##
+      # @return [String]
+      #
+      def client_name_full
+        fix_namespace api, "#{service_name_full}::#{client_name}"
+      end
+
+      ##
+      # @return [String]
+      #
+      def client_require
+        ruby_file_path api, client_name_full
+      end
+
+      ##
+      # @return [String]
+      #
+      def client_file_path
+        "#{client_require}.rb"
+      end
+
+      ##
+      # @return [String]
+      #
+      def create_client_call
+        "#{client_name_full}.new"
+      end
+
+      ##
+      # @return [String]
+      #
       def service_rest_require
         ruby_file_path api, service_name_full
       end
@@ -120,31 +123,36 @@ module Gapic
       ##
       # @return [String]
       #
-      def transcoding_helper_name
-        "GrpcTranscoding"
+      def test_client_file_path
+        main_service.service_file_path.sub ".rb", "_test.rb"
       end
 
       ##
       # @return [String]
       #
-      def transcoding_helper_name_full
-        fix_namespace api, "#{service_name_full}::#{transcoding_helper_name}"
+      def credentials_class_xref
+        main_service.credentials_class_xref
       end
 
       ##
       # @return [String]
       #
-      def transcoding_helper_require
-        ruby_file_path api, transcoding_helper_name_full
+      def configure_client_call
+        "#{client_name_full}.configure"
       end
 
       ##
-      # @return [String]
+      # The method to use for quick start samples. Normally this is simply the
+      # first non-client-streaming method defined, but it can be overridden via
+      # a gem config.
       #
-      def transcoding_helper_file_path
-        "#{transcoding_helper_require}.rb"
+      # @return [Gapic::Presenters::MethodRestPresenter] if there is a method
+      #     appropriatke for quick start
+      # @return [nil] if there is no method appropriate for quick start
+      #
+      def quick_start_method
+        main_service.quick_start_method&.rest
       end
-
 
       private
 

@@ -256,6 +256,34 @@ module Gapic
         @references ||= @service.resources.map { |resource| ResourcePresenter.new resource }.sort_by(&:name)
       end
 
+      ##
+      # Deduplicate resource presenters by combining resources with the same
+      # name. If multiple resources have the same name (though possibly
+      # different namespaces, e.g. `location.googleapis.com/Location` vs
+      # `documentai.googleapis.com/Location`), this combines (and dedups) their
+      # patterns into a single resource presenter.
+      #
+      # Used for generating path helpers while avoiding duplicate method names.
+      #
+      def deduped_references
+        @deduped_references ||= begin
+          hash = {}
+          references.each do |resource|
+            if hash.key? resource.name
+              existing = hash[resource.name]
+              resource.patterns.each do |pat|
+                unless existing.patterns.any? { |epat| epat.pattern_template == pat.pattern_template }
+                  existing.patterns << pat
+                end
+              end
+            else
+              hash[resource.name] = resource.dup
+            end
+          end
+          hash.values
+        end
+      end
+
       def paths?
         references.any?
       end
@@ -365,6 +393,10 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
+      def service_config_presenter
+        ServiceConfigPresenter.new grpc_service_config
+      end
+
       ##
       # The short proto name for this service
       #
@@ -407,6 +439,36 @@ module Gapic
       # @return [String]
       def grpc_client_designation
         generate_rest_clients? ? "GRPC client" : "client"
+      end
+
+      ##
+      # The method to use for quick start samples. Normally this is simply the
+      # first non-client-streaming method defined, but it can be overridden via
+      # a gem config.
+      #
+      # @return [Gapic::Presenters::MethodPresenter]
+      #
+      def quick_start_method
+        gem_config = @api.configuration[:gem]
+        preferred_method = gem_config[:quick_start_method] if gem_config
+        result = methods.find { |meth| meth.name == preferred_method } if preferred_method
+        result || methods.find { |meth| !meth.client_streaming? }
+      end
+
+      ##
+      # Returns this service presenter if there is a grpc client. Otherwise,
+      # returns the corresponding rest service presenter if there isn't a grpc
+      # client but there is a rest client. Otherwise, returns nil if there is
+      # neither client.
+      #
+      # @return [ServicePresenter,ServiceRestPresenter,nil]
+      #
+      def usable_service_presenter
+        if @api.generate_grpc_clients?
+          self
+        elsif @api.generate_rest_clients? && methods_rest_bindings?
+          rest
+        end
       end
 
       private

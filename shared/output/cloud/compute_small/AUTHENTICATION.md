@@ -19,7 +19,7 @@ during development.
 2. Set the [environment variable](#environment-variables).
 
 ```sh
-export V1_CREDENTIALS=path/to/keyfile.json
+export GOOGLE_CLOUD_CREDENTIALS=path/to/keyfile.json
 ```
 
 3. Initialize the client.
@@ -27,7 +27,7 @@ export V1_CREDENTIALS=path/to/keyfile.json
 ```ruby
 require "google/cloud/compute/v1"
 
-client = ::Google::Cloud::Compute::V1::Addresses::Client.new
+client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 ```
 
 ## Credential Lookup
@@ -66,43 +66,41 @@ The environment variables that google-cloud-compute-v1
 checks for credentials are configured on the service Credentials class (such as
 {::Google::Cloud::Compute::V1::Addresses::Credentials}):
 
-1. `V1_CREDENTIALS` - Path to JSON file, or JSON contents
-2. `V1_KEYFILE` - Path to JSON file, or JSON contents
-3. `GOOGLE_CLOUD_CREDENTIALS` - Path to JSON file, or JSON contents
-4. `GOOGLE_CLOUD_KEYFILE` - Path to JSON file, or JSON contents
-5. `GOOGLE_APPLICATION_CREDENTIALS` - Path to JSON file
+* `GOOGLE_CLOUD_CREDENTIALS` - Path to JSON file, or JSON contents
+* `GOOGLE_CLOUD_KEYFILE` - Path to JSON file, or JSON contents
+* `GOOGLE_APPLICATION_CREDENTIALS` - Path to JSON file
 
 ```ruby
 require "google/cloud/compute/v1"
 
-ENV["V1_CREDENTIALS"] = "path/to/keyfile.json"
+ENV["GOOGLE_CLOUD_CREDENTIALS"] = "path/to/keyfile.json"
 
-client = ::Google::Cloud::Compute::V1::Addresses::Client.new
+client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 ```
 
 ### Configuration
 
-The **Credentials JSON** can be configured instead of placing them in
-environment variables. Either on an individual client initialization:
+The path to the **Credentials JSON** file can be configured instead of storing
+it in an environment variable. Either on an individual client initialization:
 
 ```ruby
 require "google/cloud/compute/v1"
 
-client = ::Google::Cloud::Compute::V1::Addresses::Client.new do |config|
+client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
   config.credentials = "path/to/keyfile.json"
 end
 ```
 
-Or configured globally for all clients:
+Or globally for all clients:
 
 ```ruby
 require "google/cloud/compute/v1"
 
-::Google::Cloud::Compute::V1::Addresses::Client.configure do |config|
+::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
   config.credentials = "path/to/keyfile.json"
 end
 
-client = ::Google::Cloud::Compute::V1::Addresses::Client.new
+client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
 ```
 
 ### Cloud SDK

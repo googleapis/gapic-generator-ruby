@@ -24,6 +24,18 @@ load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic.bzl",
 load("@gapic_generator_ruby//rules_ruby_gapic:ruby_gapic_pkg.bzl", 
   "ruby_gapic_assembly_pkg")
 
+load("@rules_gapic//:gapic.bzl", "proto_library_with_info")
+
+# Remove this section when the monolith rule deps are
+# out of googleapis.
+proto_library_with_info(
+    name = "language_proto_with_info",
+    deps = [
+        "@com_google_googleapis//google/cloud/language/v1:language_proto",
+        "@com_google_googleapis//google/cloud:common_resources_proto",
+    ],
+)
+
 ##
 # completed google-cloud language library combined from
 # * protoc ruby output
@@ -44,7 +56,7 @@ ruby_gapic_assembly_pkg(
 #
 ruby_cloud_gapic_library(
   name = "language_ruby_gapic",
-  srcs = ["@com_google_googleapis//google/cloud/language/v1:language_proto_with_info"],
+  srcs = [":language_proto_with_info"],
   ruby_cloud_title="Natural Language V1",
   ruby_cloud_description="Provides natural language understanding technologies, such as sentiment analysis, entity recognition, entity sentiment analysis, and other text annotations.",
   extra_protoc_parameters = [

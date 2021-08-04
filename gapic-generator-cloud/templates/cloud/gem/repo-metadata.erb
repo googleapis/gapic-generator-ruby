@@ -17,5 +17,9 @@
     "product_documentation": "<%= gem.product_documentation_url %>",
 <%- end -%>
     "repo": "googleapis/google-cloud-ruby",
-    "requires_billing": <%= !gem.free_tier? %>
+    "requires_billing": <%= !gem.free_tier? %>,
+<%- gem.generator_args_for_metadata.each do |key, val| -%>
+    <%= key.inspect %>: <%= val.inspect %>,
+<%- end -%>
+    "library_type": "GAPIC_AUTO"
 }

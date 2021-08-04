@@ -653,6 +653,20 @@ module Gapic
         false
       end
 
+      # @return [Field, nil] a key field for this map
+      #   or nil if this field is not a map
+      def map_key_field
+        return nil? unless map?
+        @message.fields.find { |f| f.name == "key" }
+      end
+
+      # @return [Field, nil] a value field for this map
+      #   or nil if this field is not a map
+      def map_val_field
+        return nil? unless map?
+        @message.fields.find { |f| f.name == "value" }
+      end
+
       # @return [String] A reference to another resource message or resource
       #   definition. See `google/api/resource.proto`.
       def resource_reference

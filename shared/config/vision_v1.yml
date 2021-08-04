@@ -2,6 +2,8 @@
 :gem:
   :name: "google-cloud-vision-v1"
   :env_prefix: VISION
+  :quick_start_service: ImageAnnotator
+  :quick_start_method: batch_annotate_files
 :defaults:
   :service:
     :default_host: "vision.googleapis.com"
@@ -9,3 +11,5 @@
       - https://www.googleapis.com/auth/cloud-platform
       - https://www.googleapis.com/auth/cloud-vision
 :generate_metadata: false
+:generate_standalone_snippets: true
+:generate_yardoc_snippets: true

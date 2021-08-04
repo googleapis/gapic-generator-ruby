@@ -16,7 +16,10 @@
 
 require "test_helper"
 
-class GemPresenterTest < Minitest::Test
+class GemPresenterTest < PresenterTest
+  NEW_GEM_NAME = "gapic-test-foo"
+  GAPIC_COMMON_NAME = "gapic-common"
+
   def test_first_non_common_service
     request = FakeRequest.new
     request.add_file! "google.common.iam" do
@@ -59,5 +62,71 @@ class GemPresenterTest < Minitest::Test
     assert_equal "WARNING: configured common service google.common.iam.IamGroot2 is not present", err[0]
     assert_equal "WARNING: configured common service delegate google.cloud.example.Hello2 is not present", err[1]
     assert_equal 2, err.size
+  end
+
+  ##
+  # Testing that we can add a new dependency with a one-part gem pattern
+  # and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_simple_new
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1"
+    }
+
+    api_param = api :grpc_service_config, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? NEW_GEM_NAME
+    assert_kind_of String, presenter_param.dependencies[NEW_GEM_NAME]
+    assert_equal ">= 0.4.1", presenter_param.dependencies[NEW_GEM_NAME]
+  end
+
+  ##
+  # Testing that we can add a new dependency with a multi-part gem pattern
+  # and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_complex_new
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1|< 2.a|foobar"
+    }
+
+    api_param = api :grpc_service_config, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? NEW_GEM_NAME
+    assert_kind_of Array, presenter_param.dependencies[NEW_GEM_NAME]
+    assert_equal 3, presenter_param.dependencies[NEW_GEM_NAME].length
+    assert_includes presenter_param.dependencies[NEW_GEM_NAME], "< 2.a"
+  end
+
+  ##
+  # Testing that we can override an existing dependency with a one-part gem pattern
+  # and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_simple_override
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1"
+    }
+
+    api_param = api :grpc_service_config, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
+    assert_kind_of String, presenter_param.dependencies[GAPIC_COMMON_NAME]
+    assert_equal ">= 0.4.1", presenter_param.dependencies[GAPIC_COMMON_NAME]
+  end
+
+  ##
+  # Testing that we can override an existing dependency with a multi-part gem pattern
+  # and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_complex_override
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1|< 2.a|foobar"
+    }
+
+    api_param = api :grpc_service_config, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
+    assert_kind_of Array, presenter_param.dependencies[GAPIC_COMMON_NAME]
+    assert_equal 3, presenter_param.dependencies[GAPIC_COMMON_NAME].length
+    assert_includes presenter_param.dependencies[GAPIC_COMMON_NAME], "< 2.a"
   end
 end

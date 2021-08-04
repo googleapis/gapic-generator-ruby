@@ -1,5 +1,28 @@
 # Release History for gapic-generator-cloud
 
+### 0.9.2 / 2021-07-07
+
+* Includes changes from gapic-generator 0.9.2
+* Disable Style/BlockDelimiters check for sample acceptance tests
+* Flags `--ruby-cloud-generate-standalone-snippets` and `--ruby-cloud-generate-yardoc-snippets` are now recognized
+
+### 0.9.1 / 2021-07-07
+
+* Includes changes from gapic-generator 0.9.1
+* Clarify some text in generated authentication docs
+
+### 0.9.0 / 2021-06-29
+
+* Includes changes from gapic-generator 0.9.0
+
+### 0.8.0 / 2021-06-16
+
+* Includes changes from gapic-generator 0.8.0
+
+### 0.7.5 / 2021-05-18
+
+* Includes changes from gapic-generator 0.7.5
+
 ### 0.7.4 / 2021-05-07
 
 * Includes changes from gapic-generator 0.7.4

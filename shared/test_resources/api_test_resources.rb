@@ -20,13 +20,12 @@ module ApiTestResources
   # for both client libraries and wrappers
   API_INFO = {
     # bool parameters
-    # any string value for a bool parameter is parsed
-    # into the configuration structure
-    # and then rejected by the presenter layer
+    # any value for a bool parameter that is not 'true' or 'false'
+    # in its string representation will be rejected with warning during parsing
     free_tier: 'invalid_value',
-    yard_strict: 'false',
-    generic_endpoint: 'true',
-    generate_metadata: 'true',
+    yard_strict: false,
+    generic_endpoint: true,
+    generate_metadata: false,
 
     # string parameters
     name: 'google-cloud-container_analysis-v1',
