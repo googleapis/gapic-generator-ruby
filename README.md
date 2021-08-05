@@ -215,16 +215,27 @@ See the [CONTRIBUTING](CONTRIBUTING.md) documentation for more information on ho
 
 ### Development
 
+#### How to update the test protobufs
+
+From the repository's root, run the following. Replace `garbage` with the name of the relevant protobuf.
+```sh
+$ bundle exec rake bin
+$ cd gapic-generator
+$ bundle exec rake gen:garbage
+```
+
 #### Run unit tests
 To run all tests:
 
 ```sh
+$ cd gapic-generator
 $ bundle exec rake test
 ```
 
 To test a single file:
 
 ```sh
+$ cd gapic-generator
 $ bundle exec rake test TEST=path/to/test/file.rb
 ```
 
