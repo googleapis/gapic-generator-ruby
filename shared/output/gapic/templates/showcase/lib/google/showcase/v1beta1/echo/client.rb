@@ -209,7 +209,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.echo.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.echo.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :echo, request, options: options do |response, operation|
@@ -270,7 +272,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.expand.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.expand.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :expand, request, options: options do |response, operation|
@@ -322,7 +326,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.collect.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.collect.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :collect, request, options: options do |response, operation|
@@ -374,7 +380,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.chat.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.chat.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :chat, request, options: options do |response, operation|
@@ -437,7 +445,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.paged_expand.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.paged_expand.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :paged_expand, request, options: options do |response, operation|
@@ -504,7 +514,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.wait.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.wait.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :wait, request, options: options do |response, operation|
@@ -570,7 +582,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.block.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.block.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @echo_stub.call_rpc :block, request, options: options do |response, operation|
