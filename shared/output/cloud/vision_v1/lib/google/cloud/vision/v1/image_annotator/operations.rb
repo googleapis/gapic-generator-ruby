@@ -476,22 +476,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for list_operations
-            # to 20 seconds, and all remaining timeouts to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # list_operations to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Longrunning::Operations::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
-            #     ::Google::Longrunning::Operations::Client.configure do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.list_operations.timeout = 20.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Longrunning::Operations::Client.new do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.list_operations.timeout = 20.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Longrunning::Operations::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
