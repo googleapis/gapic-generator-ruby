@@ -97,6 +97,9 @@ module Gapic
         ret
       end
 
+      ##
+      # @return [Boolean]
+      #
       def is_deprecated?
         @method.is_deprecated?
       end

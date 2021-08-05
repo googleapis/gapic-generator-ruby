@@ -69,4 +69,12 @@ class ServicePresenterTest < PresenterTest
     assert_equal 1, patterns.size
     assert_equal "projects/*/locations/*", patterns[0].pattern_template
   end
+
+  def test_deprecated_service
+    presenter = service_presenter :garbage, 'DeprecatedService'
+
+    assert_equal 1, presenter.methods.size
+    assert_equal 'DeprecatedService', presenter.name
+    assert_equal true, presenter.is_deprecated?
+  end
 end

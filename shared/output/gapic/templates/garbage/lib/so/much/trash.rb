@@ -26,6 +26,7 @@
 
 require "so/much/trash/garbage_service"
 require "so/much/trash/really_renamed_service"
+require "so/much/trash/deprecated_service"
 require "so/much/trash/resource_names"
 require "so/much/trash/iam_policy"
 require "google/garbage/version"

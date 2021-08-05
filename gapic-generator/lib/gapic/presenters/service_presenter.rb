@@ -50,6 +50,9 @@ module Gapic
         PackagePresenter.new @gem_presenter, @api, @service.parent.package
       end
 
+      ##
+      # @return [Boolean]
+      #
       def is_deprecated?
         @service.is_deprecated?
       end

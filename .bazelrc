@@ -1,3 +1,0 @@
-startup --batch
-
-build --protocopt=--experimental_allow_proto3_optional
