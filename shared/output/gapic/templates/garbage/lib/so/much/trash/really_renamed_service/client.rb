@@ -180,7 +180,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_empty_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @really_renamed_service_stub.call_rpc :get_empty_garbage, request, options: options do |response, operation|

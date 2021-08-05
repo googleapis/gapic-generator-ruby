@@ -195,7 +195,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.analyze_sentiment.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.analyze_sentiment.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @language_service_stub.call_rpc :analyze_sentiment, request, options: options do |response, operation|
@@ -259,7 +261,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.analyze_entities.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.analyze_entities.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @language_service_stub.call_rpc :analyze_entities, request, options: options do |response, operation|
@@ -323,7 +327,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.analyze_syntax.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.analyze_syntax.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @language_service_stub.call_rpc :analyze_syntax, request, options: options do |response, operation|
@@ -388,7 +394,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.annotate_text.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.annotate_text.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @language_service_stub.call_rpc :annotate_text, request, options: options do |response, operation|

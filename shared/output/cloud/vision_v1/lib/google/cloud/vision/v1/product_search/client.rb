@@ -253,7 +253,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_product_set, request, options: options do |response, operation|
@@ -351,7 +353,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_product_sets.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
@@ -440,7 +444,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_product_set, request, options: options do |response, operation|
@@ -533,7 +539,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.update_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :update_product_set, request, options: options do |response, operation|
@@ -620,7 +628,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_product_set, request, options: options do |response, operation|
@@ -718,7 +728,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_product, request, options: options do |response, operation|
@@ -816,7 +828,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_products.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
@@ -905,7 +919,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_product, request, options: options do |response, operation|
@@ -1007,7 +1023,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.update_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :update_product, request, options: options do |response, operation|
@@ -1095,7 +1113,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_product, request, options: options do |response, operation|
@@ -1205,7 +1225,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_reference_image, request, options: options do |response, operation|
@@ -1296,7 +1318,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_reference_image, request, options: options do |response, operation|
@@ -1399,7 +1423,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_reference_images.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
@@ -1489,7 +1515,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_reference_image, request, options: options do |response, operation|
@@ -1585,7 +1613,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.add_product_to_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
@@ -1674,7 +1704,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.remove_product_from_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
@@ -1774,7 +1806,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_products_in_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
@@ -1877,7 +1911,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.import_product_sets.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
@@ -1999,7 +2035,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.purge_products.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|

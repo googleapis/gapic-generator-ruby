@@ -191,7 +191,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.simple_pattern_method.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.simple_pattern_method.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @resource_names_stub.call_rpc :simple_pattern_method, request, options: options do |response, operation|
@@ -248,7 +250,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.complex_pattern_method.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.complex_pattern_method.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @resource_names_stub.call_rpc :complex_pattern_method, request, options: options do |response, operation|
@@ -303,7 +307,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.resource_name_pattern_method.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.resource_name_pattern_method.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @resource_names_stub.call_rpc :resource_name_pattern_method, request,
@@ -359,7 +365,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.multiparent_method.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.multiparent_method.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @resource_names_stub.call_rpc :multiparent_method, request, options: options do |response, operation|
@@ -414,7 +422,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.no_arguments_multi_method.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.no_arguments_multi_method.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @resource_names_stub.call_rpc :no_arguments_multi_method, request, options: options do |response, operation|

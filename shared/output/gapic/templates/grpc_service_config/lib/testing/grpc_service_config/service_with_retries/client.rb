@@ -187,7 +187,9 @@ module Testing
           options.apply_defaults timeout:      @config.rpcs.service_level_retry_method.timeout,
                                  metadata:     metadata,
                                  retry_policy: @config.rpcs.service_level_retry_method.retry_policy
-          options.apply_defaults metadata:     @config.metadata,
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
           @service_with_retries_stub.call_rpc :service_level_retry_method, request,
@@ -236,7 +238,9 @@ module Testing
           options.apply_defaults timeout:      @config.rpcs.method_level_retry_method.timeout,
                                  metadata:     metadata,
                                  retry_policy: @config.rpcs.method_level_retry_method.retry_policy
-          options.apply_defaults metadata:     @config.metadata,
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
           @service_with_retries_stub.call_rpc :method_level_retry_method, request,

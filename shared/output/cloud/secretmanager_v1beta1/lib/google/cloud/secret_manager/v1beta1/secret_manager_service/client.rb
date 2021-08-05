@@ -213,7 +213,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_secrets.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_secrets.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :list_secrets, request, options: options do |response, operation|
@@ -289,7 +291,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_secret.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_secret.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :create_secret, request, options: options do |response, operation|
@@ -359,7 +363,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.add_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.add_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :add_secret_version, request, options: options do |response, operation|
@@ -425,7 +431,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_secret.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_secret.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :get_secret, request, options: options do |response, operation|
@@ -493,7 +501,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.update_secret.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.update_secret.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :update_secret, request, options: options do |response, operation|
@@ -560,7 +570,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_secret.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_secret.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :delete_secret, request, options: options do |response, operation|
@@ -636,7 +648,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_secret_versions.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_secret_versions.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :list_secret_versions, request, options: options do |response, operation|
@@ -709,7 +723,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :get_secret_version, request, options: options do |response, operation|
@@ -779,7 +795,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.access_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.access_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :access_secret_version, request, options: options do |response, operation|
@@ -849,7 +867,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.disable_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.disable_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :disable_secret_version, request, options: options do |response, operation|
@@ -919,7 +939,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.enable_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.enable_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :enable_secret_version, request, options: options do |response, operation|
@@ -990,7 +1012,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.destroy_secret_version.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.destroy_secret_version.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :destroy_secret_version, request, options: options do |response, operation|
@@ -1067,7 +1091,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.set_iam_policy.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :set_iam_policy, request, options: options do |response, operation|
@@ -1136,7 +1162,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_iam_policy.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :get_iam_policy, request, options: options do |response, operation|
@@ -1215,7 +1243,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.test_iam_permissions.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @secret_manager_service_stub.call_rpc :test_iam_permissions, request, options: options do |response, operation|

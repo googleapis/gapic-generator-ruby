@@ -207,7 +207,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :create_room, request, options: options do |response, operation|
@@ -271,7 +273,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :get_room, request, options: options do |response, operation|
@@ -338,7 +342,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.update_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.update_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :update_room, request, options: options do |response, operation|
@@ -402,7 +408,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :delete_room, request, options: options do |response, operation|
@@ -465,7 +473,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_rooms.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_rooms, request, options: options do |response, operation|
@@ -536,7 +546,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :create_blurb, request, options: options do |response, operation|
@@ -600,7 +612,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :get_blurb, request, options: options do |response, operation|
@@ -667,7 +681,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.update_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.update_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :update_blurb, request, options: options do |response, operation|
@@ -731,7 +747,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :delete_blurb, request, options: options do |response, operation|
@@ -804,7 +822,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_blurbs, request, options: options do |response, operation|
@@ -885,7 +905,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.search_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.search_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :search_blurbs, request, options: options do |response, operation|
@@ -953,7 +975,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.stream_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :stream_blurbs, request, options: options do |response, operation|
@@ -1004,7 +1028,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.send_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.send_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :send_blurbs, request, options: options do |response, operation|
@@ -1057,7 +1083,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.connect.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.connect.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :connect, request, options: options do |response, operation|

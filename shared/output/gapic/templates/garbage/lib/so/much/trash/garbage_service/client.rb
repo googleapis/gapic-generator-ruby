@@ -196,7 +196,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_empty_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_empty_garbage, request, options: options do |response, operation|
@@ -303,7 +305,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_simple_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_simple_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_simple_garbage, request, options: options do |response, operation|
@@ -381,7 +385,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_specific_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_specific_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_specific_garbage, request, options: options do |response, operation|
@@ -457,7 +463,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_nested_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_nested_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_nested_garbage, request, options: options do |response, operation|
@@ -533,7 +541,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_repeated_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_repeated_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_repeated_garbage, request, options: options do |response, operation|
@@ -686,7 +696,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_typical_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_typical_garbage, request, options: options do |response, operation|
@@ -744,7 +756,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage_by_request.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_typical_garbage_by_request.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_typical_garbage_by_request, request,
@@ -846,7 +860,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_complex_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_complex_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_complex_garbage, request, options: options do |response, operation|
@@ -904,7 +920,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_garbage_node.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_garbage_node.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_garbage_node, request, options: options do |response, operation|
@@ -983,7 +1001,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_paged_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_paged_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_paged_garbage, request, options: options do |response, operation|
@@ -1044,7 +1064,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.long_running_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.long_running_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :long_running_garbage, request, options: options do |response, operation|
@@ -1095,7 +1117,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.client_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.client_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :client_garbage, request, options: options do |response, operation|
@@ -1170,7 +1194,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.server_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.server_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :server_garbage, request, options: options do |response, operation|
@@ -1220,7 +1246,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.bidi_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.bidi_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :bidi_garbage, request, options: options do |response, operation|
@@ -1270,7 +1298,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.bidi_typical_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.bidi_typical_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :bidi_typical_garbage, request, options: options do |response, operation|
@@ -1320,7 +1350,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.call_send.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.call_send.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :call_send, request, options: options do |response, operation|

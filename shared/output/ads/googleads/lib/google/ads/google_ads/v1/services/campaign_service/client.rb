@@ -194,7 +194,9 @@ module Google
                 options.apply_defaults timeout:      @config.rpcs.get_campaign.timeout,
                                        metadata:     metadata,
                                        retry_policy: @config.rpcs.get_campaign.retry_policy
-                options.apply_defaults metadata:     @config.metadata,
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :get_campaign, request, options: options do |response, operation|
@@ -271,7 +273,9 @@ module Google
                 options.apply_defaults timeout:      @config.rpcs.mutate_campaigns.timeout,
                                        metadata:     metadata,
                                        retry_policy: @config.rpcs.mutate_campaigns.retry_policy
-                options.apply_defaults metadata:     @config.metadata,
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
                 @campaign_service_stub.call_rpc :mutate_campaigns, request, options: options do |response, operation|

@@ -228,7 +228,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.set_iam_policy.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @iam_policy_stub.call_rpc :set_iam_policy, request, options: options do |response, operation|
@@ -296,7 +298,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_iam_policy.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @iam_policy_stub.call_rpc :get_iam_policy, request, options: options do |response, operation|
@@ -369,7 +373,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.test_iam_permissions.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @iam_policy_stub.call_rpc :test_iam_permissions, request, options: options do |response, operation|
