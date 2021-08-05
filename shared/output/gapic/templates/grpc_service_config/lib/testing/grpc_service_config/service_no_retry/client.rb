@@ -178,7 +178,9 @@ module Testing
           options.apply_defaults timeout:      @config.rpcs.no_retry_method.timeout,
                                  metadata:     metadata,
                                  retry_policy: @config.rpcs.no_retry_method.retry_policy
-          options.apply_defaults metadata:     @config.metadata,
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
           @service_no_retry_stub.call_rpc :no_retry_method, request, options: options do |response, operation|
