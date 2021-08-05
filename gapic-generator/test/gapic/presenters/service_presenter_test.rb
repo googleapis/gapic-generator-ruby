@@ -71,10 +71,10 @@ class ServicePresenterTest < PresenterTest
   end
 
   def test_deprecated_service
-    presenter = service_presenter :garbage, 'DeprecatedService'
+    presenter = service_presenter :garbage, "DeprecatedService"
 
     assert_equal 1, presenter.methods.size
-    assert_equal 'DeprecatedService', presenter.name
+    assert_equal "DeprecatedService", presenter.name
     assert_equal true, presenter.is_deprecated?
   end
 end
