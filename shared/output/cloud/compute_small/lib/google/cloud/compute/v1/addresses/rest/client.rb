@@ -43,13 +43,12 @@ module Google
               # See {::Google::Cloud::Compute::V1::Addresses::Rest::Client::Configuration}
               # for a description of the configuration fields.
               #
-              # ## Example
+              # @example
               #
-              # To modify the configuration for all Addresses clients:
-              #
-              #     ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Modify the configuration for all Addresses clients
+              #   ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Client client.
               # @yieldparam config [Client::Configuration]
@@ -96,19 +95,15 @@ module Google
               ##
               # Create a new Addresses REST client object.
               #
-              # ## Examples
+              # @example
               #
-              # To create a new Addresses REST client with the default
-              # configuration:
+              #   # Create a client using the default configuration
+              #   client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
               #
-              #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
-              #
-              # To create a new Addresses REST client with a custom
-              # configuration:
-              #
-              #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Create a client using a custom configuration
+              #   client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Addresses client.
               # @yieldparam config [Client::Configuration]

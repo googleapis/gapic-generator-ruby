@@ -41,13 +41,12 @@ module Google
               # See {::Google::Cloud::Compute::V1::Networks::Rest::Client::Configuration}
               # for a description of the configuration fields.
               #
-              # ## Example
+              # @example
               #
-              # To modify the configuration for all Networks clients:
-              #
-              #     ::Google::Cloud::Compute::V1::Networks::Rest::Client.configure do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Modify the configuration for all Networks clients
+              #   ::Google::Cloud::Compute::V1::Networks::Rest::Client.configure do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Client client.
               # @yieldparam config [Client::Configuration]
@@ -94,19 +93,15 @@ module Google
               ##
               # Create a new Networks REST client object.
               #
-              # ## Examples
+              # @example
               #
-              # To create a new Networks REST client with the default
-              # configuration:
+              #   # Create a client using the default configuration
+              #   client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new
               #
-              #     client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new
-              #
-              # To create a new Networks REST client with a custom
-              # configuration:
-              #
-              #     client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Create a client using a custom configuration
+              #   client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Networks client.
               # @yieldparam config [Client::Configuration]
