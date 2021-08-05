@@ -51,6 +51,9 @@
 # @!attribute [rw] timeout
 #   The call timeout in seconds.
 #   @return [::Numeric]
+# @!attribute [rw] metadata
+#   Additional REST headers to be sent with the call.
+#   @return [::Hash{::Symbol=>::String}]
 #
 class Configuration
   extend ::Gapic::Config
@@ -64,11 +67,56 @@ class Configuration
   config_attr :lib_name,      nil, ::String, nil
   config_attr :lib_version,   nil, ::String, nil
   config_attr :timeout,       nil, ::Numeric, nil
+  config_attr :metadata,      nil, ::Hash, nil
 
   # @private
   def initialize parent_config = nil
     @parent_config = parent_config unless parent_config.nil?
 
     yield self if block_given?
+  end
+
+  ##
+  # Configurations for individual RPCs
+  # @return [Rpcs]
+  #
+  def rpcs
+    @rpcs ||= begin
+      parent_rpcs = nil
+      parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
+      Rpcs.new parent_rpcs
+    end
+  end
+
+  ##
+  # Configuration RPC class for the <%= service.name %> API.
+  #
+  # Includes fields providing the configuration for each RPC in this service.
+  # Each configuration object is of type `Gapic::Config::Method` and includes
+  # the following configuration fields:
+  #
+  #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
+  #
+  # there is one other field (`retry_policy`) that can be set
+  # but is currently not supported for REST Gapic libraries.
+  # 
+  class Rpcs
+  <%- method_service.methods.each do |method| -%>
+    ##
+    # RPC-specific configuration for `<%= method.name %>`
+    # @return [::Gapic::Config::Method]
+    #
+    attr_reader :<%= method.name %>
+  <%- end -%>
+
+    # @private
+    def initialize parent_rpcs = nil
+      <%- method_service.methods.each do |method| -%>
+      <%= method.name %>_config = parent_rpcs.<%= method.name %> if parent_rpcs.respond_to? :<%= method.name %>
+      @<%= method.name %> = ::Gapic::Config::Method.new <%= method.name %>_config
+      <%- end -%>
+
+      yield self if block_given?
+    end
   end
 end
