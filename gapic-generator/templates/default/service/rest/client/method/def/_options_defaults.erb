@@ -3,7 +3,7 @@
 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
 # Customize the options with defaults
-call_metadata = {}
+call_metadata = @config.rpcs.<%= method.name %>.metadata.to_h
 
 # Set x-goog-api-client header
 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -11,5 +11,8 @@ call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
   gapic_version: ::<%= method.service.gem.version_name_full %>,
   transports_version_send: [:rest]
 
-options.apply_defaults timeout:      @config.timeout,
+options.apply_defaults timeout:      @config.rpcs.<%= method.name %>.timeout,
                        metadata:     call_metadata
+
+options.apply_defaults timeout:      @config.timeout,
+                       metadata:     @config.metadata
