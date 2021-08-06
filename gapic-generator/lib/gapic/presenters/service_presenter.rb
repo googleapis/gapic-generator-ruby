@@ -51,6 +51,13 @@ module Gapic
       end
 
       ##
+      # @return [Boolean]
+      #
+      def is_deprecated?
+        @service.is_deprecated?
+      end
+
+      ##
       # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
       #
       def methods

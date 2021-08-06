@@ -22,6 +22,7 @@ class MethodPresenterTest < PresenterTest
 
     assert_equal "get_simple_garbage", presenter.name
     assert_equal :normal, presenter.kind
+    assert_equal false, presenter.is_deprecated?
     assert_equal presenter.doc_description, "Retrieves a SimpleGarbage resource.\n"
   end
 
@@ -60,6 +61,15 @@ class MethodPresenterTest < PresenterTest
     assert_equal :normal, presenter.kind
     refute presenter.lro?
     assert_equal presenter.doc_description, "Retrieves a RepeatedGarbage resource.\n"
+  end
+
+  def test_garbage_GetTypicalGarbageByRequest
+    presenter = method_presenter :garbage, "GarbageService", "GetTypicalGarbageByRequest"
+
+    assert_equal "get_typical_garbage_by_request", presenter.name
+    assert_equal :normal, presenter.kind
+    assert_equal true, presenter.is_deprecated?
+    assert_equal presenter.doc_description, "Retrieves a TypicalGarbage resource by a request.\n"
   end
 
   def test_garbage_LongRunningGarbage
