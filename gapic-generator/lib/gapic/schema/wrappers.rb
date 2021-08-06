@@ -268,7 +268,7 @@ module Gapic
         parent.ruby_package
       end
 
-      # @return [boolean] True if this service is marked as deprecated, false
+      # @return [Boolean] True if this service is marked as deprecated, false
       # otherwise.
       def is_deprecated?
         options[:deprecated] if options
@@ -342,7 +342,7 @@ module Gapic
         options[:".google.longrunning.operation_info"] if options
       end
 
-      # @return [boolean] True if this method is marked as deprecated, false
+      # @return [Boolean] True if this method is marked as deprecated, false
       # otherwise.
       def is_deprecated?
         options[:deprecated] if options
