@@ -13,6 +13,6 @@ def <%= method.name %> request, options = nil
 
 <%= indent render(partial: "service/rest/client/method/def/options_defaults", locals: { method: method }), 2 %>
 
-<%= indent render(partial: "service/rest/client/method/def/response_normal", locals: { method: method }), 2 %>
+<%= indent render(partial: "service/rest/client/method/def/response", locals: { method: method }), 2 %>
 <%= render partial: "service/rest/client/method/def/rescue", locals: { method: method } -%>
 end

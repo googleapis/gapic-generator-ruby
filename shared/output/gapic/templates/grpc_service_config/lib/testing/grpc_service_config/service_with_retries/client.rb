@@ -42,13 +42,12 @@ module Testing
         # See {::Testing::GrpcServiceConfig::ServiceWithRetries::Client::Configuration}
         # for a description of the configuration fields.
         #
-        # ## Example
+        # @example
         #
-        # To modify the configuration for all ServiceWithRetries clients:
-        #
-        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
-        #       config.timeout = 10.0
-        #     end
+        #   # Modify the configuration for all ServiceWithRetries clients
+        #   ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     config.timeout = 10.0
+        #   end
         #
         # @yield [config] Configure the Client client.
         # @yieldparam config [Client::Configuration]
@@ -98,19 +97,15 @@ module Testing
         ##
         # Create a new ServiceWithRetries client object.
         #
-        # ## Examples
+        # @example
         #
-        # To create a new ServiceWithRetries client with the default
-        # configuration:
+        #   # Create a client using the default configuration
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
         #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
-        #
-        # To create a new ServiceWithRetries client with a custom
-        # configuration:
-        #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
-        #       config.timeout = 10.0
-        #     end
+        #   # Create a client using a custom configuration
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     config.timeout = 10.0
+        #   end
         #
         # @yield [config] Configure the ServiceWithRetries client.
         # @yieldparam config [Client::Configuration]
@@ -132,8 +127,7 @@ module Testing
           credentials = @config.credentials
           # Use self-signed JWT if the endpoint is unchanged from default,
           # but only if the default endpoint does not have a region prefix.
-          enable_self_signed_jwt = @config.scope == Client.configure.scope &&
-                                   @config.endpoint == Client.configure.endpoint &&
+          enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
                                    !@config.endpoint.split(".").first.include?("-")
           credentials ||= Credentials.default scope: @config.scope,
                                               enable_self_signed_jwt: enable_self_signed_jwt
@@ -193,7 +187,9 @@ module Testing
           options.apply_defaults timeout:      @config.rpcs.service_level_retry_method.timeout,
                                  metadata:     metadata,
                                  retry_policy: @config.rpcs.service_level_retry_method.retry_policy
-          options.apply_defaults metadata:     @config.metadata,
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
           @service_with_retries_stub.call_rpc :service_level_retry_method, request,
@@ -242,7 +238,9 @@ module Testing
           options.apply_defaults timeout:      @config.rpcs.method_level_retry_method.timeout,
                                  metadata:     metadata,
                                  retry_policy: @config.rpcs.method_level_retry_method.retry_policy
-          options.apply_defaults metadata:     @config.metadata,
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
           @service_with_retries_stub.call_rpc :method_level_retry_method, request,
@@ -265,22 +263,21 @@ module Testing
         # Configuration can be applied globally to all clients, or to a single client
         # on construction.
         #
-        # # Examples
+        # @example
         #
-        # To modify the global config, setting the timeout for service_level_retry_method
-        # to 20 seconds, and all remaining timeouts to 10 seconds:
+        #   # Modify the global config, setting the timeout for
+        #   # service_level_retry_method to 20 seconds,
+        #   # and all remaining timeouts to 10 seconds.
+        #   ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
+        #     config.timeout = 10.0
+        #     config.rpcs.service_level_retry_method.timeout = 20.0
+        #   end
         #
-        #     ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.configure do |config|
-        #       config.timeout = 10.0
-        #       config.rpcs.service_level_retry_method.timeout = 20.0
-        #     end
-        #
-        # To apply the above configuration only to a new client:
-        #
-        #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
-        #       config.timeout = 10.0
-        #       config.rpcs.service_level_retry_method.timeout = 20.0
-        #     end
+        #   # Apply the above configuration only to a new client.
+        #   client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new do |config|
+        #     config.timeout = 10.0
+        #     config.rpcs.service_level_retry_method.timeout = 20.0
+        #   end
         #
         # @!attribute [rw] endpoint
         #   The hostname or hostname:port of the service endpoint.

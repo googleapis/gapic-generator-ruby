@@ -192,7 +192,7 @@ module Gapic
 
       def dependencies
         @dependencies ||= begin
-          deps = { "gapic-common" => [">= 0.5", "< 2.a"] }
+          deps = { "gapic-common" => [">= 0.7", "< 2.a"] }
           deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! extra_deps if extra_deps
@@ -237,6 +237,17 @@ module Gapic
         preferred_service = gem_config :quick_start_service
         result = services.find { |svc| svc.name == preferred_service } if preferred_service
         result || first_non_common_service
+      end
+
+      ##
+      # Whether the "Enabling (gRPC) Logging" section of the readme should
+      # appear. This is true if there is a quick-start service displayed in the
+      # readme, AND it uses gRPC.
+      #
+      # @return [Boolean]
+      #
+      def show_grpc_logging_docs?
+        packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
       end
 
       private

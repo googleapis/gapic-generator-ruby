@@ -53,15 +53,19 @@ ruby_gapic_assembly_pkg(
 ruby_cloud_gapic_library(
   name = "compute_ruby_gapic",
   srcs = [":compute_proto_with_info"],
-  ruby_cloud_title="Compute V1",
-  ruby_cloud_description="google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API.",
   extra_protoc_parameters = [
+    "ruby-cloud-api-id=compute.googleapis.com",
+    "ruby-cloud-api-shortname=compute",
     "ruby-cloud-gem-name=google-cloud-compute-v1",
-    "ruby-cloud-generate-transports=rest",
     "ruby-cloud-generate-metadata=false",
-    "ruby-cloud-extra-dependencies=gapic-common=>= 0.4.1|< 2.a",
+    "ruby-cloud-generate-transports=rest",
+    "ruby-cloud-env-prefix=COMPUTE",
+    "ruby-cloud-extra-dependencies=gapic-common=>= 0.6|< 2.a",
+    "ruby-cloud-product-url=https://cloud.google.com/compute/",
     "ruby-cloud-wrapper-gem-override=",
   ],
+  ruby_cloud_description = "google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time.",
+  ruby_cloud_title = "Google Cloud Compute V1 (ALPHA)",
 )
 
 ##

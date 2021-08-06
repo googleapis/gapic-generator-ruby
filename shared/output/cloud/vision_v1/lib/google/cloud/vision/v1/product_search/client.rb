@@ -54,13 +54,12 @@ module Google
             # See {::Google::Cloud::Vision::V1::ProductSearch::Client::Configuration}
             # for a description of the configuration fields.
             #
-            # ## Example
+            # @example
             #
-            # To modify the configuration for all ProductSearch clients:
-            #
-            #     ::Google::Cloud::Vision::V1::ProductSearch::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Modify the configuration for all ProductSearch clients
+            #   ::Google::Cloud::Vision::V1::ProductSearch::Client.configure do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the Client client.
             # @yieldparam config [Client::Configuration]
@@ -107,19 +106,15 @@ module Google
             ##
             # Create a new ProductSearch client object.
             #
-            # ## Examples
+            # @example
             #
-            # To create a new ProductSearch client with the default
-            # configuration:
+            #   # Create a client using the default configuration
+            #   client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
             #
-            #     client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new
-            #
-            # To create a new ProductSearch client with a custom
-            # configuration:
-            #
-            #     client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Create a client using a custom configuration
+            #   client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new do |config|
+            #     config.timeout = 10.0
+            #   end
             #
             # @yield [config] Configure the ProductSearch client.
             # @yieldparam config [Client::Configuration]
@@ -141,8 +136,7 @@ module Google
               credentials = @config.credentials
               # Use self-signed JWT if the endpoint is unchanged from default,
               # but only if the default endpoint does not have a region prefix.
-              enable_self_signed_jwt = @config.scope == Client.configure.scope &&
-                                       @config.endpoint == Client.configure.endpoint &&
+              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
                                        !@config.endpoint.split(".").first.include?("-")
               credentials ||= Credentials.default scope: @config.scope,
                                                   enable_self_signed_jwt: enable_self_signed_jwt
@@ -218,6 +212,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::CreateProductSetRequest.new
+            #
+            #   # Call the create_product_set method.
+            #   result = client.create_product_set request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::ProductSet.
+            #   p result
+            #
             def create_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -244,7 +253,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_product_set, request, options: options do |response, operation|
@@ -295,6 +306,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::ListProductSetsRequest.new
+            #
+            #   # Call the list_product_sets method.
+            #   result = client.list_product_sets request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::Vision::V1::ProductSet.
+            #     p response
+            #   end
+            #
             def list_product_sets request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -321,7 +353,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_product_sets.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_product_sets, request, options: options do |response, operation|
@@ -369,6 +403,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::GetProductSetRequest.new
+            #
+            #   # Call the get_product_set method.
+            #   result = client.get_product_set request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::ProductSet.
+            #   p result
+            #
             def get_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -395,7 +444,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_product_set, request, options: options do |response, operation|
@@ -447,6 +498,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::UpdateProductSetRequest.new
+            #
+            #   # Call the update_product_set method.
+            #   result = client.update_product_set request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::ProductSet.
+            #   p result
+            #
             def update_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -473,7 +539,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.update_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :update_product_set, request, options: options do |response, operation|
@@ -519,6 +587,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::DeleteProductSetRequest.new
+            #
+            #   # Call the delete_product_set method.
+            #   result = client.delete_product_set request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -545,7 +628,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_product_set, request, options: options do |response, operation|
@@ -602,6 +687,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::CreateProductRequest.new
+            #
+            #   # Call the create_product method.
+            #   result = client.create_product request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::Product.
+            #   p result
+            #
             def create_product request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -628,7 +728,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_product, request, options: options do |response, operation|
@@ -679,6 +781,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::ListProductsRequest.new
+            #
+            #   # Call the list_products method.
+            #   result = client.list_products request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::Vision::V1::Product.
+            #     p response
+            #   end
+            #
             def list_products request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -705,7 +828,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_products.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products, request, options: options do |response, operation|
@@ -753,6 +878,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::GetProductRequest.new
+            #
+            #   # Call the get_product method.
+            #   result = client.get_product request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::Product.
+            #   p result
+            #
             def get_product request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -779,7 +919,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_product, request, options: options do |response, operation|
@@ -840,6 +982,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::UpdateProductRequest.new
+            #
+            #   # Call the update_product method.
+            #   result = client.update_product request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::Product.
+            #   p result
+            #
             def update_product request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -866,7 +1023,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.update_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :update_product, request, options: options do |response, operation|
@@ -913,6 +1072,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::DeleteProductRequest.new
+            #
+            #   # Call the delete_product method.
+            #   result = client.delete_product request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_product request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -939,7 +1113,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_product.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_product, request, options: options do |response, operation|
@@ -1008,6 +1184,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::CreateReferenceImageRequest.new
+            #
+            #   # Call the create_reference_image method.
+            #   result = client.create_reference_image request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::ReferenceImage.
+            #   p result
+            #
             def create_reference_image request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1034,7 +1225,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.create_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :create_reference_image, request, options: options do |response, operation|
@@ -1084,6 +1277,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new
+            #
+            #   # Call the delete_reference_image method.
+            #   result = client.delete_reference_image request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_reference_image request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1110,7 +1318,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :delete_reference_image, request, options: options do |response, operation|
@@ -1166,6 +1376,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::ListReferenceImagesRequest.new
+            #
+            #   # Call the list_reference_images method.
+            #   result = client.list_reference_images request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::Vision::V1::ReferenceImage.
+            #     p response
+            #   end
+            #
             def list_reference_images request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1192,7 +1423,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_reference_images.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_reference_images, request, options: options do |response, operation|
@@ -1241,6 +1474,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::GetReferenceImageRequest.new
+            #
+            #   # Call the get_reference_image method.
+            #   result = client.get_reference_image request
+            #
+            #   # The returned object is of type Google::Cloud::Vision::V1::ReferenceImage.
+            #   p result
+            #
             def get_reference_image request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1267,7 +1515,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.get_reference_image.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :get_reference_image, request, options: options do |response, operation|
@@ -1322,6 +1572,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::AddProductToProductSetRequest.new
+            #
+            #   # Call the add_product_to_product_set method.
+            #   result = client.add_product_to_product_set request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def add_product_to_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1348,7 +1613,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.add_product_to_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :add_product_to_product_set, request, options: options do |response, operation|
@@ -1396,6 +1663,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new
+            #
+            #   # Call the remove_product_from_product_set method.
+            #   result = client.remove_product_from_product_set request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def remove_product_from_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1422,7 +1704,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.remove_product_from_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :remove_product_from_product_set, request, options: options do |response, operation|
@@ -1475,6 +1759,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new
+            #
+            #   # Call the list_products_in_product_set method.
+            #   result = client.list_products_in_product_set request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::Vision::V1::Product.
+            #     p response
+            #   end
+            #
             def list_products_in_product_set request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1501,7 +1806,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.list_products_in_product_set.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :list_products_in_product_set, request, options: options do |response, operation|
@@ -1556,6 +1863,28 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::ImportProductSetsRequest.new
+            #
+            #   # Call the import_product_sets method.
+            #   result = client.import_product_sets request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use this
+            #   # object to check the status of an operation, cancel it, or wait
+            #   # for results. Here is how to block until completion:
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "Error!"
+            #   end
+            #
             def import_product_sets request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1582,7 +1911,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.import_product_sets.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :import_product_sets, request, options: options do |response, operation|
@@ -1656,6 +1987,28 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/vision/v1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::Vision::V1::ProductSearch::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::Vision::V1::PurgeProductsRequest.new
+            #
+            #   # Call the purge_products method.
+            #   result = client.purge_products request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use this
+            #   # object to check the status of an operation, cancel it, or wait
+            #   # for results. Here is how to block until completion:
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "Error!"
+            #   end
+            #
             def purge_products request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1682,7 +2035,9 @@ module Google
               options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,
                                      metadata:     metadata,
                                      retry_policy: @config.rpcs.purge_products.retry_policy
-              options.apply_defaults metadata:     @config.metadata,
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
               @product_search_stub.call_rpc :purge_products, request, options: options do |response, operation|
@@ -1707,22 +2062,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for create_product_set
-            # to 20 seconds, and all remaining timeouts to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # create_product_set to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Cloud::Vision::V1::ProductSearch::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_product_set.timeout = 20.0
+            #   end
             #
-            #     ::Google::Cloud::Vision::V1::ProductSearch::Client.configure do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.create_product_set.timeout = 20.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new do |config|
-            #       config.timeout = 10.0
-            #       config.rpcs.create_product_set.timeout = 20.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Cloud::Vision::V1::ProductSearch::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_product_set.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.

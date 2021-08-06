@@ -7,7 +7,7 @@ branchProtectionRules:
   requiredStatusCheckContexts:
     - 'cla/google'
   requiredApprovingReviewCount: 1
-  requiresCodeOwnerReviews: false
+  requiresCodeOwnerReviews: true
   requiresStrictStatusChecks: true
 permissionRules:
   - team: yoshi-admins

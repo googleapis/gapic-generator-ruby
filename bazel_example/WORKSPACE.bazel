@@ -25,9 +25,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #
 http_archive(
     name = "com_google_googleapis",
-    sha256 = "56eff0c3e87b9b3862366cd940de72da944e915fc9be6a867e150ad2376d2e5e",
-    strip_prefix = "googleapis-2ccf8f460800e98884d1aa4ba61e344ad4cd5d04",
-    urls = ["https://github.com/googleapis/googleapis/archive/2ccf8f460800e98884d1aa4ba61e344ad4cd5d04.zip"],
+    sha256 = "913b633d4ca8c6abcf06ca1ba0aff27ccecefe6010ac32560fe3ba5c47167562",
+    strip_prefix = "googleapis-077f0c624bb91709aea45b6f42bb4a2e84645cc3",
+    urls = ["https://github.com/googleapis/googleapis/archive/077f0c624bb91709aea45b6f42bb4a2e84645cc3.zip"],
 )
 
 load("@com_google_googleapis//:repository_rules.bzl", "switched_rules_by_language")
@@ -123,20 +123,19 @@ gapic_generator_ruby_repositories()
 #
 http_archive(
     name = "com_gapic_showcase",
-    sha256 = "043ac36c4444479f8bd197f33fb54df25ea448219249652697b11766c06ea9c8",
-    strip_prefix = "gapic-showcase-466f2d57422377a03e5d883c3f3da9cbcbaffe36",
-    urls = ["https://github.com/googleapis/gapic-showcase/archive/466f2d57422377a03e5d883c3f3da9cbcbaffe36.zip"],
+    sha256 = "9bb97c5956ee479ec140ca3a5e60f642e908feeeab6a8436eca0761f7310b3b6",
+    strip_prefix = "gapic-showcase-cb6b45f27ba9faf559f1cc4ad817bd9da7a43673",
+    urls = ["https://github.com/googleapis/gapic-showcase/archive/cb6b45f27ba9faf559f1cc4ad817bd9da7a43673.zip"],
 )
-
 
 ##
 # discovery for the diregapic example
 #
 http_archive(
     name = "com_google_googleapis_discovery",
-    #sha256 = "043ac36c4444479f8bd197f33fb54df25ea448219249652697b11766c06ea9c8",
-    strip_prefix = "googleapis-discovery-79d57671661a6078526fd5a51e2431eb5ce53b78",
-    urls = ["https://github.com/googleapis/googleapis-discovery/archive/79d57671661a6078526fd5a51e2431eb5ce53b78.zip"],
+    sha256 = "b641860273c91c6edc2571cdccd8fd3a71e7e1815314f8cf5f71285e8660db6f",
+    strip_prefix = "googleapis-discovery-9b71490900530ce7cb872aabc8e46eac29c1ec37",
+    urls = ["https://github.com/googleapis/googleapis-discovery/archive/9b71490900530ce7cb872aabc8e46eac29c1ec37.zip"],
 )
 
 ##
@@ -144,8 +143,9 @@ http_archive(
 #
 http_archive(
     name = "com_google_disco_to_proto3_converter",
-    strip_prefix = "disco-to-proto3-converter-451838644577e9054eeb378d0514a8c089bc3302",
-    urls = ["https://github.com/googleapis/disco-to-proto3-converter/archive/451838644577e9054eeb378d0514a8c089bc3302.zip"],
+    sha256 = "7f01bdd51254f353b8632153c8b31d1a571c868cc4561f3b43d1cd1926e84dd4",
+    strip_prefix = "disco-to-proto3-converter-4b0956884b1aa9b367cf41488b622dc12eb16652",
+    urls = ["https://github.com/googleapis/disco-to-proto3-converter/archive/4b0956884b1aa9b367cf41488b622dc12eb16652.zip"],
 )
 
 load("@com_google_disco_to_proto3_converter//:repository_rules.bzl", "com_google_disco_to_proto3_converter_properties")

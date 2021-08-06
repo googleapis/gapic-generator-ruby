@@ -250,6 +250,11 @@ module Gapic
         configuration[:generate_standalone_snippets] ||= false
       end
 
+      # Whether to generate inline documentation snippets
+      def generate_yardoc_snippets?
+        configuration[:generate_yardoc_snippets] ||= false
+      end
+
       # Whether to generate gapic metadata (drift manifest) file
       # @return [Boolean]
       def generate_metadata
@@ -323,7 +328,7 @@ module Gapic
 
       ##
       # An override for the wrapper gem name in the configuration
-      # @return [String, Nil]
+      # @return [String, nil]
       def wrapper_gem_name_override
         return nil unless wrapper_gem_name_override?
         return nil if configuration[:overrides][:wrapper_gem_name].nil?

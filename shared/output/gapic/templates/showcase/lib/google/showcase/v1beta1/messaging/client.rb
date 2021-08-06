@@ -50,13 +50,12 @@ module Google
           # See {::Google::Showcase::V1beta1::Messaging::Client::Configuration}
           # for a description of the configuration fields.
           #
-          # ## Example
+          # @example
           #
-          # To modify the configuration for all Messaging clients:
-          #
-          #     ::Google::Showcase::V1beta1::Messaging::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Modify the configuration for all Messaging clients
+          #   ::Google::Showcase::V1beta1::Messaging::Client.configure do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
@@ -96,19 +95,15 @@ module Google
           ##
           # Create a new Messaging client object.
           #
-          # ## Examples
+          # @example
           #
-          # To create a new Messaging client with the default
-          # configuration:
+          #   # Create a client using the default configuration
+          #   client = ::Google::Showcase::V1beta1::Messaging::Client.new
           #
-          #     client = ::Google::Showcase::V1beta1::Messaging::Client.new
-          #
-          # To create a new Messaging client with a custom
-          # configuration:
-          #
-          #     client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Create a client using a custom configuration
+          #   client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the Messaging client.
           # @yieldparam config [Client::Configuration]
@@ -130,8 +125,7 @@ module Google
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.scope == Client.configure.scope &&
-                                     @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -213,7 +207,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :create_room, request, options: options do |response, operation|
@@ -277,7 +273,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :get_room, request, options: options do |response, operation|
@@ -344,7 +342,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.update_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.update_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :update_room, request, options: options do |response, operation|
@@ -408,7 +408,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_room.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_room.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :delete_room, request, options: options do |response, operation|
@@ -471,7 +473,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_rooms.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_rooms, request, options: options do |response, operation|
@@ -542,7 +546,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.create_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.create_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :create_blurb, request, options: options do |response, operation|
@@ -606,7 +612,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.get_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :get_blurb, request, options: options do |response, operation|
@@ -673,7 +681,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.update_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.update_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :update_blurb, request, options: options do |response, operation|
@@ -737,7 +747,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.delete_blurb.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_blurb.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :delete_blurb, request, options: options do |response, operation|
@@ -810,7 +822,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.list_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :list_blurbs, request, options: options do |response, operation|
@@ -891,7 +905,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.search_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.search_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :search_blurbs, request, options: options do |response, operation|
@@ -959,7 +975,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.stream_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :stream_blurbs, request, options: options do |response, operation|
@@ -1010,7 +1028,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.send_blurbs.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.send_blurbs.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :send_blurbs, request, options: options do |response, operation|
@@ -1063,7 +1083,9 @@ module Google
             options.apply_defaults timeout:      @config.rpcs.connect.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.connect.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @messaging_stub.call_rpc :connect, request, options: options do |response, operation|
@@ -1085,22 +1107,21 @@ module Google
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for create_room
-          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # create_room to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Google::Showcase::V1beta1::Messaging::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.create_room.timeout = 20.0
+          #   end
           #
-          #     ::Google::Showcase::V1beta1::Messaging::Client.configure do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.create_room.timeout = 20.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.create_room.timeout = 20.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Google::Showcase::V1beta1::Messaging::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.create_room.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.

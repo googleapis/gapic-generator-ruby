@@ -40,7 +40,7 @@ module Gapic
         @service_presenter = service_presenter
         @api = api
         @method = method
-        @rest = MethodRestPresenter.new self
+        @rest = MethodRestPresenter.new self, api
       end
 
       ##
@@ -52,6 +52,10 @@ module Gapic
 
       def snippet
         SnippetPresenter.new self, @api
+      end
+
+      def generate_yardoc_snippets?
+        @api.generate_yardoc_snippets?
       end
 
       def name
@@ -175,7 +179,7 @@ module Gapic
       def lro?
         return paged_response_type == "::Google::Longrunning::Operation" if paged?
 
-        message_ruby_type(@method.output) == "::Google::Longrunning::Operation"
+        return_type == "::Google::Longrunning::Operation"
       end
 
       def client_streaming?

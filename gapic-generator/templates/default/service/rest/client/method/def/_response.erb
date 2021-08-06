@@ -1,0 +1,6 @@
+<%- assert_locals method -%>
+<%- if method.rest.paged? -%>
+<%= render partial: "service/rest/client/method/def/response_paged", locals: { method: method } -%>
+<%- else -%>
+<%= render partial: "service/rest/client/method/def/response_normal", locals: { method: method } -%>
+<%- end -%>

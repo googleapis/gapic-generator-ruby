@@ -47,13 +47,12 @@ module So
           # See {::So::Much::Trash::GarbageService::Client::Configuration}
           # for a description of the configuration fields.
           #
-          # ## Example
+          # @example
           #
-          # To modify the configuration for all GarbageService clients:
-          #
-          #     ::So::Much::Trash::GarbageService::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Modify the configuration for all GarbageService clients
+          #   ::So::Much::Trash::GarbageService::Client.configure do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the Client client.
           # @yieldparam config [Client::Configuration]
@@ -93,19 +92,15 @@ module So
           ##
           # Create a new GarbageService client object.
           #
-          # ## Examples
+          # @example
           #
-          # To create a new GarbageService client with the default
-          # configuration:
+          #   # Create a client using the default configuration
+          #   client = ::So::Much::Trash::GarbageService::Client.new
           #
-          #     client = ::So::Much::Trash::GarbageService::Client.new
-          #
-          # To create a new GarbageService client with a custom
-          # configuration:
-          #
-          #     client = ::So::Much::Trash::GarbageService::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Create a client using a custom configuration
+          #   client = ::So::Much::Trash::GarbageService::Client.new do |config|
+          #     config.timeout = 10.0
+          #   end
           #
           # @yield [config] Configure the GarbageService client.
           # @yieldparam config [Client::Configuration]
@@ -127,8 +122,7 @@ module So
             credentials = @config.credentials
             # Use self-signed JWT if the endpoint is unchanged from default,
             # but only if the default endpoint does not have a region prefix.
-            enable_self_signed_jwt = @config.scope == Client.configure.scope &&
-                                     @config.endpoint == Client.configure.endpoint &&
+            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
                                      !@config.endpoint.split(".").first.include?("-")
             credentials ||= Credentials.default scope: @config.scope,
                                                 enable_self_signed_jwt: enable_self_signed_jwt
@@ -202,7 +196,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_empty_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_empty_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_empty_garbage, request, options: options do |response, operation|
@@ -309,7 +305,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_simple_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_simple_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_simple_garbage, request, options: options do |response, operation|
@@ -387,7 +385,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_specific_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_specific_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_specific_garbage, request, options: options do |response, operation|
@@ -463,7 +463,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_nested_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_nested_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_nested_garbage, request, options: options do |response, operation|
@@ -539,7 +541,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_repeated_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_repeated_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_repeated_garbage, request, options: options do |response, operation|
@@ -692,7 +696,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_typical_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_typical_garbage, request, options: options do |response, operation|
@@ -750,7 +756,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_typical_garbage_by_request.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_typical_garbage_by_request.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_typical_garbage_by_request, request,
@@ -852,7 +860,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_complex_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_complex_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_complex_garbage, request, options: options do |response, operation|
@@ -910,7 +920,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_garbage_node.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_garbage_node.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_garbage_node, request, options: options do |response, operation|
@@ -989,7 +1001,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_paged_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_paged_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :get_paged_garbage, request, options: options do |response, operation|
@@ -1050,7 +1064,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.long_running_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.long_running_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :long_running_garbage, request, options: options do |response, operation|
@@ -1101,7 +1117,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.client_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.client_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :client_garbage, request, options: options do |response, operation|
@@ -1176,7 +1194,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.server_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.server_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :server_garbage, request, options: options do |response, operation|
@@ -1226,7 +1246,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.bidi_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.bidi_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :bidi_garbage, request, options: options do |response, operation|
@@ -1276,7 +1298,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.bidi_typical_garbage.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.bidi_typical_garbage.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :bidi_typical_garbage, request, options: options do |response, operation|
@@ -1326,7 +1350,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.call_send.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.call_send.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @garbage_service_stub.call_rpc :call_send, request, options: options do |response, operation|
@@ -1348,22 +1374,21 @@ module So
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for get_empty_garbage
-          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # get_empty_garbage to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::So::Much::Trash::GarbageService::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.get_empty_garbage.timeout = 20.0
+          #   end
           #
-          #     ::So::Much::Trash::GarbageService::Client.configure do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.get_empty_garbage.timeout = 20.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::So::Much::Trash::GarbageService::Client.new do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.get_empty_garbage.timeout = 20.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::So::Much::Trash::GarbageService::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.get_empty_garbage.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.

@@ -24,7 +24,9 @@ module Gapic
         ":gem.:free_tier",
         ":gem.:yard_strict",
         ":gem.:generic_endpoint",
-        ":generate_metadata"
+        ":generate_metadata",
+        ":generate_standalone_snippets",
+        ":generate_yardoc_snippets"
       ].freeze
 
       STRING_PARAMETERS = [

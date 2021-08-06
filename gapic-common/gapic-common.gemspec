@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", "~> 1.3"
   spec.add_dependency "googleapis-common-protos", ">= 1.3.11", "< 2.a"
   spec.add_dependency "googleapis-common-protos-types", ">= 1.0.6", "< 2.a"
-  spec.add_dependency "googleauth", ">= 0.16.2", "< 2.a"
+  spec.add_dependency "googleauth", ">= 0.17.0", "< 2.a"
   spec.add_dependency "google-protobuf", "~> 3.14"
   spec.add_dependency "grpc", "~> 1.36"
 

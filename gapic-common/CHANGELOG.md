@@ -1,5 +1,13 @@
 # Release History
 
+### 0.7.0 / 2021-08-03
+
+* Require googleauth 0.17 for proper support of JWT credentials with custom scopes
+
+### 0.6.0 / 2021-07-22
+
+* Added helper for REST pagination
+
 ### 0.5.0 / 2021-06-15
 
 * Provide a way to create `x-goog-api-client` headers with rest library version and/or without grpc library version

@@ -451,6 +451,22 @@ module Gapic
         result || methods.find { |meth| !meth.client_streaming? }
       end
 
+      ##
+      # Returns this service presenter if there is a grpc client. Otherwise,
+      # returns the corresponding rest service presenter if there isn't a grpc
+      # client but there is a rest client. Otherwise, returns nil if there is
+      # neither client.
+      #
+      # @return [ServicePresenter,ServiceRestPresenter,nil]
+      #
+      def usable_service_presenter
+        if @api.generate_grpc_clients?
+          self
+        elsif @api.generate_rest_clients? && methods_rest_bindings?
+          rest
+        end
+      end
+
       private
 
       def default_config key

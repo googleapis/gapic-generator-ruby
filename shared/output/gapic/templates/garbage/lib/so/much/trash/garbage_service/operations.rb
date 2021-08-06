@@ -171,7 +171,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.list_operations.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :list_operations, request, options: options do |response, operation|
@@ -240,7 +242,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.get_operation.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :get_operation, request, options: options do |response, operation|
@@ -308,7 +312,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.delete_operation.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :delete_operation, request, options: options do |response, operation|
@@ -381,7 +387,9 @@ module So
             options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
                                    metadata:     metadata,
                                    retry_policy: @config.rpcs.cancel_operation.retry_policy
-            options.apply_defaults metadata:     @config.metadata,
+
+            options.apply_defaults timeout:      @config.timeout,
+                                   metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
             @operations_stub.call_rpc :cancel_operation, request, options: options do |response, operation|
@@ -403,22 +411,21 @@ module So
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for list_operations
-          # to 20 seconds, and all remaining timeouts to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # list_operations to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Google::Longrunning::Operations::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.list_operations.timeout = 20.0
+          #   end
           #
-          #     ::Google::Longrunning::Operations::Client.configure do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.list_operations.timeout = 20.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Google::Longrunning::Operations::Client.new do |config|
-          #       config.timeout = 10.0
-          #       config.rpcs.list_operations.timeout = 20.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Google::Longrunning::Operations::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.list_operations.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.

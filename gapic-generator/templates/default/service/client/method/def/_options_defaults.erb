@@ -25,5 +25,7 @@ metadata[:"x-goog-request-params"] ||= request_params_header
 options.apply_defaults timeout:      @config.rpcs.<%= method.name %>.timeout,
                        metadata:     metadata,
                        retry_policy: @config.rpcs.<%= method.name %>.retry_policy
-options.apply_defaults metadata:     @config.metadata,
+                       
+options.apply_defaults timeout:      @config.timeout,
+                       metadata:     @config.metadata,
                        retry_policy: @config.retry_policy

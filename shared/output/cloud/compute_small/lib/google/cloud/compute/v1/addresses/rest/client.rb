@@ -18,6 +18,7 @@
 
 require "google/cloud/errors"
 require "google/cloud/compute/v1/compute_small_pb"
+require "google/cloud/compute/v1/addresses/rest/service_stub"
 
 module Google
   module Cloud
@@ -33,8 +34,6 @@ module Google
             # The Addresses API.
             #
             class Client
-              include GrpcTranscoding
-
               # @private
               attr_reader :addresses_stub
 
@@ -44,13 +43,12 @@ module Google
               # See {::Google::Cloud::Compute::V1::Addresses::Rest::Client::Configuration}
               # for a description of the configuration fields.
               #
-              # ## Example
+              # @example
               #
-              # To modify the configuration for all Addresses clients:
-              #
-              #     ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Modify the configuration for all Addresses clients
+              #   ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Client client.
               # @yieldparam config [Client::Configuration]
@@ -97,28 +95,20 @@ module Google
               ##
               # Create a new Addresses REST client object.
               #
-              # ## Examples
+              # @example
               #
-              # To create a new Addresses REST client with the default
-              # configuration:
+              #   # Create a client using the default configuration
+              #   client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
               #
-              #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
-              #
-              # To create a new Addresses REST client with a custom
-              # configuration:
-              #
-              #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
-              #       config.timeout = 10.0
-              #     end
+              #   # Create a client using a custom configuration
+              #   client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
+              #     config.timeout = 10.0
+              #   end
               #
               # @yield [config] Configure the Addresses client.
               # @yieldparam config [Client::Configuration]
               #
               def initialize
-                # These require statements are intentionally placed here to initialize
-                # the REST modules only when it's required.
-                require "gapic/rest"
-
                 # Create the configuration object
                 @config = Configuration.new Client.configure
 
@@ -132,7 +122,7 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
-                @client_stub = ::Gapic::Rest::ClientStub.new endpoint: @config.endpoint, credentials: credentials
+                @addresses_stub = ::Google::Cloud::Compute::V1::Addresses::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
               # Service calls
@@ -181,11 +171,11 @@ module Google
               #     Project ID for this request.
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              # @yield [result, env] Access the result along with the Faraday environment object
-              # @yieldparam result [::Google::Cloud::Compute::V1::AddressAggregatedList]
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Gapic::Rest::PagedEnumerable<::String, ::Google::Cloud::Compute::V1::AddressesScopedList>]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Google::Cloud::Compute::V1::AddressAggregatedList]
+              # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Cloud::Compute::V1::AddressesScopedList>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def aggregated_list request, options = nil
@@ -197,7 +187,7 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = {}
+                call_metadata = @config.rpcs.aggregated_list.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -205,19 +195,17 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.timeout,
+                options.apply_defaults timeout:      @config.rpcs.aggregated_list.timeout,
                                        metadata:     call_metadata
 
-                uri, _body, query_string_params = transcode_aggregated_list request
-                response = @client_stub.make_get_request(
-                  uri:     uri,
-                  params:  query_string_params,
-                  options: options
-                )
-                result = ::Google::Cloud::Compute::V1::AddressAggregatedList.decode_json response.body, ignore_unknown_fields: true
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
 
-                yield result, response if block_given?
-                result
+                @addresses_stub.aggregated_list request, options do |result, response|
+                  result = ::Gapic::Rest::PagedEnumerable.new @addresses_stub, :aggregated_list, "items", request, result, options
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -255,7 +243,7 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              # @yield [result, env] Access the result along with the Faraday environment object
+              # @yield [result, response] Access the result along with the Faraday response object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
@@ -271,7 +259,7 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = {}
+                call_metadata = @config.rpcs.delete.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -279,19 +267,16 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.timeout,
+                options.apply_defaults timeout:      @config.rpcs.delete.timeout,
                                        metadata:     call_metadata
 
-                uri, _body, query_string_params = transcode_delete request
-                response = @client_stub.make_delete_request(
-                  uri:     uri,
-                  params:  query_string_params,
-                  options: options
-                )
-                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
 
-                yield result, response if block_given?
-                result
+                @addresses_stub.delete request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -323,7 +308,7 @@ module Google
               #     Project ID for this request.
               #   @param region [::String]
               #     Name of the region for this request.
-              # @yield [result, env] Access the result along with the Faraday environment object
+              # @yield [result, response] Access the result along with the Faraday response object
               # @yieldparam result [::Google::Cloud::Compute::V1::Address]
               # @yieldparam response [::Faraday::Response]
               #
@@ -339,7 +324,7 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = {}
+                call_metadata = @config.rpcs.get.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -347,18 +332,16 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.timeout,
+                options.apply_defaults timeout:      @config.rpcs.get.timeout,
                                        metadata:     call_metadata
 
-                uri, _body, _query_string_params = transcode_get request
-                response = @client_stub.make_get_request(
-                  uri:     uri,
-                  options: options
-                )
-                result = ::Google::Cloud::Compute::V1::Address.decode_json response.body, ignore_unknown_fields: true
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
 
-                yield result, response if block_given?
-                result
+                @addresses_stub.get request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -396,7 +379,7 @@ module Google
               #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
-              # @yield [result, env] Access the result along with the Faraday environment object
+              # @yield [result, response] Access the result along with the Faraday response object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
@@ -412,7 +395,7 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = {}
+                call_metadata = @config.rpcs.insert.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -420,20 +403,16 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.timeout,
+                options.apply_defaults timeout:      @config.rpcs.insert.timeout,
                                        metadata:     call_metadata
 
-                uri, body, query_string_params = transcode_insert request
-                response = @client_stub.make_post_request(
-                  uri:     uri,
-                  body:    body,
-                  params:  query_string_params,
-                  options: options
-                )
-                result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
 
-                yield result, response if block_given?
-                result
+                @addresses_stub.insert request, options do |result, response|
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -483,11 +462,11 @@ module Google
               #     Name of the region for this request.
               #   @param return_partial_success [::Boolean]
               #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
-              # @yield [result, env] Access the result along with the Faraday environment object
-              # @yieldparam result [::Google::Cloud::Compute::V1::AddressList]
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::Address>]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Google::Cloud::Compute::V1::AddressList]
+              # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::Address>]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def list request, options = nil
@@ -499,7 +478,7 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = {}
+                call_metadata = @config.rpcs.list.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -507,19 +486,17 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.timeout,
+                options.apply_defaults timeout:      @config.rpcs.list.timeout,
                                        metadata:     call_metadata
 
-                uri, _body, query_string_params = transcode_list request
-                response = @client_stub.make_get_request(
-                  uri:     uri,
-                  params:  query_string_params,
-                  options: options
-                )
-                result = ::Google::Cloud::Compute::V1::AddressList.decode_json response.body, ignore_unknown_fields: true
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
 
-                yield result, response if block_given?
-                result
+                @addresses_stub.list request, options do |result, response|
+                  result = ::Gapic::Rest::PagedEnumerable.new @addresses_stub, :list, "items", request, result, options
+                  yield result, response if block_given?
+                  return result
+                end
               rescue ::Faraday::Error => e
                 gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
                 raise ::Google::Cloud::Error.from_error(gapic_error)
@@ -574,6 +551,9 @@ module Google
               # @!attribute [rw] timeout
               #   The call timeout in seconds.
               #   @return [::Numeric]
+              # @!attribute [rw] metadata
+              #   Additional REST headers to be sent with the call.
+              #   @return [::Hash{::Symbol=>::String}]
               #
               class Configuration
                 extend ::Gapic::Config
@@ -587,12 +567,81 @@ module Google
                 config_attr :lib_name,      nil, ::String, nil
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr :timeout,       nil, ::Numeric, nil
+                config_attr :metadata,      nil, ::Hash, nil
 
                 # @private
                 def initialize parent_config = nil
                   @parent_config = parent_config unless parent_config.nil?
 
                   yield self if block_given?
+                end
+
+                ##
+                # Configurations for individual RPCs
+                # @return [Rpcs]
+                #
+                def rpcs
+                  @rpcs ||= begin
+                    parent_rpcs = nil
+                    parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
+                    Rpcs.new parent_rpcs
+                  end
+                end
+
+                ##
+                # Configuration RPC class for the Addresses API.
+                #
+                # Includes fields providing the configuration for each RPC in this service.
+                # Each configuration object is of type `Gapic::Config::Method` and includes
+                # the following configuration fields:
+                #
+                #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
+                #
+                # there is one other field (`retry_policy`) that can be set
+                # but is currently not supported for REST Gapic libraries.
+                #
+                class Rpcs
+                  ##
+                  # RPC-specific configuration for `aggregated_list`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :aggregated_list
+                  ##
+                  # RPC-specific configuration for `delete`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :delete
+                  ##
+                  # RPC-specific configuration for `get`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :get
+                  ##
+                  # RPC-specific configuration for `insert`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :insert
+                  ##
+                  # RPC-specific configuration for `list`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :list
+
+                  # @private
+                  def initialize parent_rpcs = nil
+                    aggregated_list_config = parent_rpcs.aggregated_list if parent_rpcs.respond_to? :aggregated_list
+                    @aggregated_list = ::Gapic::Config::Method.new aggregated_list_config
+                    delete_config = parent_rpcs.delete if parent_rpcs.respond_to? :delete
+                    @delete = ::Gapic::Config::Method.new delete_config
+                    get_config = parent_rpcs.get if parent_rpcs.respond_to? :get
+                    @get = ::Gapic::Config::Method.new get_config
+                    insert_config = parent_rpcs.insert if parent_rpcs.respond_to? :insert
+                    @insert = ::Gapic::Config::Method.new insert_config
+                    list_config = parent_rpcs.list if parent_rpcs.respond_to? :list
+                    @list = ::Gapic::Config::Method.new list_config
+
+                    yield self if block_given?
+                  end
                 end
               end
             end
