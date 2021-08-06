@@ -69,6 +69,20 @@ module So
 
         Stub = Service.rpc_stub_class
       end
+      module DeprecatedService
+        class Service
+
+          include GRPC::GenericService
+
+          self.marshal_class_method = :encode
+          self.unmarshal_class_method = :decode
+          self.service_name = 'endless.trash.forever.DeprecatedService'
+
+          rpc :DeprecatedGet, ::So::Much::Trash::EmptyGarbage, ::So::Much::Trash::EmptyGarbage
+        end
+
+        Stub = Service.rpc_stub_class
+      end
     end
   end
 end

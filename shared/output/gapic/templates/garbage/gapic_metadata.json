@@ -108,6 +108,20 @@
         }
       }
     },
+    "DeprecatedService": {
+      "clients": {
+        "grpc": {
+          "libraryClient": "::So::Much::Trash::DeprecatedService::Client",
+          "rpcs": {
+            "DeprecatedGet": {
+              "methods": [
+                "deprecated_get"
+              ]
+            }
+          }
+        }
+      }
+    },
     "ResourceNames": {
       "clients": {
         "grpc": {
