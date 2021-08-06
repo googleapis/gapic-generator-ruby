@@ -97,6 +97,13 @@ module Gapic
         ret
       end
 
+      ##
+      # @return [Boolean]
+      #
+      def is_deprecated?
+        @method.is_deprecated?
+      end
+
       def arguments
         arguments = @method.input.fields.reject(&:output_only?)
         arguments.map { |arg| FieldPresenter.new @api, @method.input, arg }
