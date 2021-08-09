@@ -1,5 +1,15 @@
 # Release History for gapic-generator
 
+### 0.10.0 / 2021-08-09
+
+* New: Enabled per-RPC configuration for generated REST libraries
+* New: Generated docs include the deprecated YARD tag for deprecated protos
+* New: Scopes can be passed to self-signed JWTs
+* Fixed: Generated gRPC clients honor the client-default timeout config
+* Fixed: Generated docs now use YARD example tags for inline samples related to configuration
+* Fixed: Generated REST clients now require google/cloud/errors
+* Generated libraries now require gapic-common 0.7.0 or later
+
 ### 0.9.2 / 2021-07-27
 
 * REST libraries are now generated with pagination hepers
