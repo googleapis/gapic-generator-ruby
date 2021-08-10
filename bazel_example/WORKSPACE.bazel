@@ -133,9 +133,9 @@ http_archive(
 #
 http_archive(
     name = "com_google_googleapis_discovery",
-    sha256 = "315f21bb38bb3af9f2f003ad3f65446f37a331b2e7d585ce1a0fddb360214334",
-    strip_prefix = "googleapis-discovery-ac663f7f0afb13e3a8cfd04160d1677655c5c613",
-    urls = ["https://github.com/googleapis/googleapis-discovery/archive/ac663f7f0afb13e3a8cfd04160d1677655c5c613.zip"],
+    sha256 = "13288a68a546563891dabc5fbb741a2add7f39cffe2f93492f7acddbfdf017a9",
+    strip_prefix = "googleapis-discovery-e693b037c832027854353dd6e1408284bd2eace3",
+    urls = ["https://github.com/googleapis/googleapis-discovery/archive/e693b037c832027854353dd6e1408284bd2eace3.zip"],
 )
 
 ##
