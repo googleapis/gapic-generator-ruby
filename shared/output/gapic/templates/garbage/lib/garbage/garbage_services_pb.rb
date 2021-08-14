@@ -23,6 +23,8 @@ module So
           rpc :GetSimpleGarbage, ::So::Much::Trash::SimpleGarbage, ::So::Much::Trash::SimpleGarbage
           # Retrieves a SpecificGarbage resource.
           rpc :GetSpecificGarbage, ::So::Much::Trash::SpecificGarbage, ::So::Much::Trash::SpecificGarbage
+          # Retrieves a SpecificGarbage resource with fancy routing headers.
+          rpc :GetSpecificGarbageFancy, ::So::Much::Trash::SpecificGarbage, ::So::Much::Trash::SpecificGarbage
           # Retrieves a NestedGarbage resource.
           rpc :GetNestedGarbage, ::So::Much::Trash::SpecificGarbage::NestedGarbage, ::So::Much::Trash::SpecificGarbage::NestedGarbage
           # Retrieves a RepeatedGarbage resource.

@@ -54,6 +54,13 @@ service GarbageService {
       body: "*"
     };
   }
+  // Retrieves a SpecificGarbage resource with fancy routing headers.
+  rpc GetSpecificGarbageFancy(SpecificGarbage) returns (SpecificGarbage) {
+    option (google.api.http) = {
+      post: "/v1/specific_garbage/{name}/nested/{nested.name}/subnested/{nested.item.name}:get"
+      body: "*"
+    };
+  }
   // Retrieves a NestedGarbage resource.
   rpc GetNestedGarbage(SpecificGarbage.NestedGarbage)
       returns (SpecificGarbage.NestedGarbage) {
@@ -394,6 +401,8 @@ message SpecificGarbage {
     GarbageMap msg = 10 [(google.api.field_behavior) = OUTPUT_ONLY];
     // The type of this garbage.
     GarbageEnum enum = 11;
+    // A sub-nested message.
+    SimpleGarbage item = 12;
   }
 }
 

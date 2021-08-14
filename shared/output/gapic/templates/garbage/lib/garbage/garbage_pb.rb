@@ -109,6 +109,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :bytes, :bytes, 9
       optional :msg, :message, 10, "endless.trash.forever.GarbageMap"
       optional :enum, :enum, 11, "endless.trash.forever.GarbageEnum"
+      optional :item, :message, 12, "endless.trash.forever.SimpleGarbage"
     end
     add_message "endless.trash.forever.RepeatedGarbage" do
       repeated :repeated_name, :string, 1

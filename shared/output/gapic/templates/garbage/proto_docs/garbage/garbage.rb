@@ -292,6 +292,9 @@ module So
         # @!attribute [rw] enum
         #   @return [::So::Much::Trash::GarbageEnum]
         #     The type of this garbage.
+        # @!attribute [rw] item
+        #   @return [::So::Much::Trash::SimpleGarbage]
+        #     A sub-nested message.
         class NestedGarbage
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
