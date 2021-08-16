@@ -123,9 +123,9 @@ gapic_generator_ruby_repositories()
 #
 http_archive(
     name = "com_gapic_showcase",
-    sha256 = "9bb97c5956ee479ec140ca3a5e60f642e908feeeab6a8436eca0761f7310b3b6",
-    strip_prefix = "gapic-showcase-cb6b45f27ba9faf559f1cc4ad817bd9da7a43673",
-    urls = ["https://github.com/googleapis/gapic-showcase/archive/cb6b45f27ba9faf559f1cc4ad817bd9da7a43673.zip"],
+    sha256 = "7b7105576d6b53bc1e725bb7d89630af698b630fbd33ffd640942c58ec5bcbed",
+    strip_prefix = "gapic-showcase-5322441c8d78ad441d2fb4513256fb921a1ce6ea",
+    urls = ["https://github.com/googleapis/gapic-showcase/archive/5322441c8d78ad441d2fb4513256fb921a1ce6ea.zip"],
 )
 
 ##
