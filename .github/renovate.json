@@ -1,0 +1,11 @@
+{
+    "extends": [
+      "config:base"
+    ],
+    "ignorePaths": [
+      "bazel_example/**",
+      "shared/output/**"
+    ],
+    "schedule": ["before 8am"],
+    "timezone": "America/Los_Angeles"
+}
