@@ -39,7 +39,7 @@ end
 
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
-  Rake::Task["bin:gold"].invoke
+  Rake::Task["bin:templates"].invoke
 end
 
 namespace :bin do |bin_namespace|
