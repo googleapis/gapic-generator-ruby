@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package testing.grpcserviceconfig;
-
 option ruby_package = "Testing::GrpcServiceConfig";
 
 import "google/api/client.proto";

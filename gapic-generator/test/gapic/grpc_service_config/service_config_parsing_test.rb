@@ -16,7 +16,7 @@
 
 require "json"
 require "minitest/autorun"
-require "gapic/grpc_service_config/parser"
+require "gapic/schema"
 
 ##
 # Test for GRPC ServiceConfig parsing

@@ -44,11 +44,11 @@ namespace :test do
     t.test_files = FileList["test/**/*showcase*_test.rb"]
   end
 
-  desc "Run tests on grpc_service_config generation only"
-  Rake::TestTask.new :grpc_service_config do |t|
+  desc "Run tests on testing-specific generation only"
+  Rake::TestTask.new :testing do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/**/*grpc_service_config*_test.rb"]
+    t.test_files = FileList["test/**/*testing*_test.rb"]
   end
 
   desc "Run tests on parsing the grpc_service_config json"
@@ -108,34 +108,50 @@ end
 
 task default: :ci
 
+libs = [:showcase, :garbage, :testing]
+
+desc "Update the proto binary dumps which are used to generate templates"
+task :bin do
+  Rake::Task["bin:templates"].invoke
+end
+namespace :bin do |namespace|
+  desc "Update the proto binary dumps for the templates"
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
+    end
+  end
+
+  libs.each do |lib|
+    desc "Update the proto binary dumps for #{lib}"
+    task lib do
+      update_templates_proto_bins lib
+    end
+  end
+end
+
 desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:gem_creation"].invoke
 end
-
-namespace :gen do |gen_namespace|
+namespace :gen do |namespace|
   desc "Generate the expected output for templates tests"
-  task :templates do |templates_task|
-    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Generate the expected output for showcase"
-  task :showcase do
-    generate_default_templates :showcase
-  end
-
-  desc "Generate the expected output for garbage"
-  task :garbage do
-    generate_default_templates :garbage
-  end
-
-  desc "Generate the expected output for testing/grpc_service_config"
-  task :grpc_service_config do
-    generate_default_templates :grpc_service_config
+  libs.each do |lib|
+    desc "Generate the expected output for #{lib}"
+    task lib do
+      generate_default_templates lib
+    end
   end
 
   desc "Generate the expected output for gem creation tests"
@@ -168,6 +184,7 @@ task :release_gem do
 end
 
 def generate_default_templates service
+  puts "Running templates generation for #{service}"
   require "gapic/schema/api"
   require "gapic/generators/default_generator"
 
@@ -227,6 +244,19 @@ def generate_gem gem_name
       target_file_path = File.join target_path, gem_name, local_file_path
       FileUtils.mkdir_p File.dirname(target_file_path)
       File.write target_file_path, File.read(file)
+    end
+  end
+end
+
+##
+# Updates the binary dumps that are used in :gen namespace raketasks
+# by calling through to the raketasks defined in `shared`
+#
+def update_templates_proto_bins service
+  Dir.chdir "../shared" do
+    Bundler.with_unbundled_env do
+      puts "Running binary input file generation for #{service}"
+      sh "bundle exec rake gen:#{service}", verbose: false
     end
   end
 end

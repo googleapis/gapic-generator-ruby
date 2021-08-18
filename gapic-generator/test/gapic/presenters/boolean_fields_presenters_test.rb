@@ -22,7 +22,7 @@ require "test_helper"
 # in the api and presenters after being parsed
 class BooleanFieldsPresenterTest < PresenterTest
   def test_no_set_booleans
-    api_v1 = api :grpc_service_config,
+    api_v1 = api :testing,
                  params_purge: Gapic::Generators::DefaultGeneratorParameters::BOOL_PARAMETERS.clone
 
     refute api_v1.generate_metadata #false by default in the gapic-generator-vanilla
@@ -38,7 +38,7 @@ class BooleanFieldsPresenterTest < PresenterTest
       [param_name, "false"]
     end.to_h
 
-    api_v1 = api :grpc_service_config,
+    api_v1 = api :testing,
                  params_override: all_false_booleans
 
     refute api_v1.generate_metadata
@@ -54,7 +54,7 @@ class BooleanFieldsPresenterTest < PresenterTest
       [param_name, "true"]
     end.to_h
 
-    api_v1 = api :grpc_service_config,
+    api_v1 = api :testing,
                  params_override: all_true_booleans
 
     assert api_v1.generate_metadata
