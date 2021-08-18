@@ -106,7 +106,8 @@ def gem_defaults
     testing: {
       protos: [
         "testing/testing.proto",
-        "testing/grpc_service_config/grpc_service_config.proto"
+        "testing/grpc_service_config/grpc_service_config.proto",
+        "testing/routing_headers/routing_headers.proto"
       ],
       grpc_service_config: [
         "../shared/protos/testing/grpc_service_config/grpc_service_config.json",
