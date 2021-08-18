@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package testing.routingheaders;
+
+option ruby_package = "Testing::RoutingHeaders";
+
+import "google/api/client.proto";
+import "google/api/annotations.proto";
+
+service ServiceNoHeaders {
+    option (google.api.default_host) = "routingheaders.example.com";
+
+    rpc Plain(Request) returns(Response);
+}
+
+service ServiceImplicitHeaders {
+    option (google.api.default_host) = "routingheaders.example.com";
+
+    rpc Plain(Request) returns(Response) {
+        option (google.api.http) = {
+            get: "/v2/{table_name=projects/*/instances/*/tables/*}:plain"
+        };
+    }
+
+    rpc WithSubMessage(Request) returns(Response) {
+        option (google.api.http) = {
+            get: "/v2/{resource.resource_name=projects/*/instances/*/tables/*}:withSubMessage"
+        };
+    }
+}
+
+message Request {
+    // The name of the Table
+    // Values can be of the following formats:
+    // - `projects/<project>/tables/<table>`
+    // - `projects/<project>/instances/<instance>/tables/<table>`
+    // - `region/<region>/zones/<zone>/tables/<table>`
+    string table_name = 1;
+
+    // This value specifies routing for replication.
+    // It can be in the following formats:
+    // - profiles/<profile_id>
+    // - a legacy profile_id that can be any string
+    string app_profile_id = 2;
+
+    RequestResource resource = 3;
+}
+
+message RequestResource {
+    string resource_name = 1;
+}
+
+message Response {
+}

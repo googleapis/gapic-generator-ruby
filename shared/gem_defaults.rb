@@ -103,8 +103,9 @@ def gem_defaults
         "google/ads/googleads/v1/services/campaign_service.proto"
       ]
     },
-    grpc_service_config: {
+    testing: {
       protos: [
+        "testing/testing.proto",
         "testing/grpc_service_config/grpc_service_config.proto"
       ],
       grpc_service_config: [

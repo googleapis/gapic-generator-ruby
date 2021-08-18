@@ -1,16 +1,16 @@
 # -*- ruby -*-
 # encoding: utf-8
 
-require File.expand_path("lib/testing/grpc_service_config/version", __dir__)
+require File.expand_path("lib/testing/version", __dir__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "testing-grpc_service_config"
-  gem.version       = Testing::GrpcServiceConfig::VERSION
+  gem.name          = "testing"
+  gem.version       = Testing::VERSION
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "testing-grpc_service_config is the official client library for the Testing GrpcServiceConfig API."
-  gem.summary       = "API Client library for the Testing GrpcServiceConfig API"
+  gem.description   = "testing is the official client library for the Testing API."
+  gem.summary       = "API Client library for the Testing API"
   gem.homepage      = "https://github.com/googleapis/googleapis"
   gem.license       = "MIT"
 

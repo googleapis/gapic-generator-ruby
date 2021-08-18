@@ -28,23 +28,23 @@ require "gapic/common"
 require "gapic/config"
 require "gapic/config/method"
 
-require "testing/grpc_service_config/version"
+require "testing/version"
 
-require "testing/grpc_service_config/service_with_retries/credentials"
-require "testing/grpc_service_config/service_with_retries/client"
+require "testing/grpc_service_config/service_no_retry/credentials"
+require "testing/grpc_service_config/service_no_retry/client"
 
 module Testing
   module GrpcServiceConfig
     ##
     # To load this service and instantiate a client:
     #
-    #     require "testing/grpc_service_config/service_with_retries"
-    #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
+    #     require "testing/grpc_service_config/service_no_retry"
+    #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
     #
-    module ServiceWithRetries
+    module ServiceNoRetry
     end
   end
 end
 
-helper_path = ::File.join __dir__, "service_with_retries", "helpers.rb"
-require "testing/grpc_service_config/service_with_retries/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "service_no_retry", "helpers.rb"
+require "testing/grpc_service_config/service_no_retry/helpers" if ::File.file? helper_path

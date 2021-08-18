@@ -72,7 +72,7 @@ class GemPresenterTest < PresenterTest
       ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1"
     }
 
-    api_param = api :grpc_service_config, params_override: complex_version_param
+    api_param = api :testing, params_override: complex_version_param
     presenter_param = Gapic::Presenters::GemPresenter.new api_param
 
     assert presenter_param.dependencies.key? NEW_GEM_NAME
@@ -88,7 +88,7 @@ class GemPresenterTest < PresenterTest
       ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1|< 2.a|foobar"
     }
 
-    api_param = api :grpc_service_config, params_override: complex_version_param
+    api_param = api :testing, params_override: complex_version_param
     presenter_param = Gapic::Presenters::GemPresenter.new api_param
 
     assert presenter_param.dependencies.key? NEW_GEM_NAME
@@ -105,7 +105,7 @@ class GemPresenterTest < PresenterTest
       ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1"
     }
 
-    api_param = api :grpc_service_config, params_override: complex_version_param
+    api_param = api :testing, params_override: complex_version_param
     presenter_param = Gapic::Presenters::GemPresenter.new api_param
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
@@ -121,7 +121,7 @@ class GemPresenterTest < PresenterTest
       ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1|< 2.a|foobar"
     }
 
-    api_param = api :grpc_service_config, params_override: complex_version_param
+    api_param = api :testing, params_override: complex_version_param
     presenter_param = Gapic::Presenters::GemPresenter.new api_param
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME

@@ -1,15 +1,15 @@
-# Ruby Client for the Testing GrpcServiceConfig API
+# Ruby Client for the Testing API
 
-API Client library for the Testing GrpcServiceConfig API
+API Client library for the Testing API
 
-testing-grpc_service_config is the official client library for the Testing GrpcServiceConfig API.
+testing is the official client library for the Testing API.
 
 https://github.com/googleapis/googleapis
 
 ## Installation
 
 ```
-$ gem install testing-grpc_service_config
+$ gem install testing
 ```
 
 ## Quick Start

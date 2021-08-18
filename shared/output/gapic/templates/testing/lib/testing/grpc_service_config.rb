@@ -26,7 +26,7 @@
 
 require "testing/grpc_service_config/service_no_retry"
 require "testing/grpc_service_config/service_with_retries"
-require "testing/grpc_service_config/version"
+require "testing/version"
 
 module Testing
   ##

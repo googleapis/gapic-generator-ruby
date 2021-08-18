@@ -74,9 +74,9 @@ namespace :gen do |gen_namespace|
     generate_input_file :googleads
   end
 
-  desc "Generate the binary input files for grpc_service_config"
-  task :grpc_service_config do
-    generate_input_file :grpc_service_config
+  desc "Generate the binary input files for Gapic testing"
+  task :testing do
+    generate_input_file :testing
   end
 
   desc "Generate the binary input files for cloud-compute small"
