@@ -45,6 +45,43 @@ module Gapic
       end
 
       ##
+      # Whether this is a basic single-star ("*") pattern
+      # @return [Boolean]
+      def star_pattern?
+        @segments.length == 1 && @segments[0].pattern == "*"
+      end
+
+      ##
+      # Whether this is a basic double-star ("**") pattern
+      # @return [Boolean]
+      def double_star_pattern?
+        @segments.length == 1 && @segments[0].pattern == "**"
+      end
+
+      ##
+      # Converts the PathPattern into a regex string
+      # @return [String]
+      def to_regex_str
+        regex_str = segments.first.to_regex_str
+
+        # for double wildcards the leading `/`` is optional
+        # e.g. `foo/**` should match `foo`
+        # this is why segments 'bring' the leading separator
+        # with them as they build the pattern
+        segments.drop(1).each_with_index do |segment, _index|
+          is_double_wildcard = segment.pattern == "**"
+
+          regex_str = if is_double_wildcard
+                        "#{regex_str}(?:/.*)?"
+                      else
+                        "#{regex_str}/#{segment.to_regex_str}"
+                      end
+        end
+
+        regex_str
+      end
+
+      ##
       # Whether pattern contains a positional segment
       # @return [Boolean]
       def positional_segments?
@@ -75,6 +112,15 @@ module Gapic
         last_segment = segments.last
         parent_pattern_segments = last_segment.provides_arguments? ? segments[0...-2] : segments[0...-1]
         parent_pattern_segments.map(&:pattern_template).join("/")
+      end
+
+      ##
+      # The pattern with the resource names stripped
+      # from the ResourceId segments
+      # (e.g. `collections/{resource_id=foo/*}` => `collections/foo/*`)
+      #
+      def simplified_pattern
+        @segments.map(&:simplified_pattern).join("/")
       end
     end
   end

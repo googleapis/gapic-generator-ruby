@@ -97,6 +97,32 @@ module Gapic
         pattern
       end
 
+      ##
+      # Whether the segment is a resource id segment
+      # @return [Boolean]
+      def resource_id_segment?
+        false
+      end
+
+      ##
+      # The difference between `simplified_pattern` and `pattern`
+      # does not exist for the Positional segments
+      # @return [String]
+      def simplified_pattern
+        pattern
+      end
+
+      ##
+      # Creates a string with a regex representation of this segment's pattern
+      # @return [String]
+      def to_regex_str
+        if pattern == "**"
+          ".*"
+        else
+          "[^/]+"
+        end
+      end
+
       # @private
       def == other
         return false unless other.is_a? self.class
@@ -129,6 +155,12 @@ module Gapic
         @type              = type
         @pattern           = pattern
         @resource_names    = resource_names
+
+        # For the segments specified like `{foo}`, the implied resource pattern is `*`
+        # `{foo}` === `{foo=*}`
+        if resource_patterns.empty?
+          resource_patterns = ["*"]
+        end
         @resource_patterns = resource_patterns
       end
 
@@ -140,14 +172,8 @@ module Gapic
       end
 
       ##
-      # Whether the segment provides a resource pattern
-      # @return [Boolean]
-      def resource_pattern?
-        resource_patterns.any?
-      end
-
-      ##
       # Whether the segment provides a nontrivial resource pattern
+      # (not `*` or `**`)
       # @return [Boolean]
       def nontrivial_resource_pattern?
         resource_patterns.any? { |res_pattern| !res_pattern.match?(/^\*+$/) }
@@ -168,8 +194,8 @@ module Gapic
       end
 
       ##
-      # Returns a segment's pattern filled with dummy values
-      #   names of the values are generated starting from the index provided
+      # Returns a segment's pattern filled with dummy values.
+      # Names of the values are generated starting from the index provided.
       # @param start_index [Integer] a starting index for dummy value generation
       # @return [String] a pattern filled with dummy values
       def expected_path_for_dummy_values start_index
@@ -192,6 +218,46 @@ module Gapic
       # @return [String]
       def pattern_template
         "*"
+      end
+
+      ##
+      # Whether the segment is a resource id segment
+      # @return [Boolean]
+      def resource_id_segment?
+        true
+      end
+
+      ##
+      # The pattern with the resource name
+      # (e.g. `foo` in `{foo=bar/*}`) stripped.
+      # So `{foo=bar/*}` -> `bar/*`.
+      #
+      # Not implemented for multivariate segments
+      # (e.g `{foo}~{bar}`).
+      #
+      # @return [String]
+      def simplified_pattern
+        if resource_patterns.count > 1
+          raise "Not implemented for multivariate ResourceId segments"
+        end
+        resource_patterns[0]
+      end
+
+      ##
+      # Creates a string with a regex representation of this segment's pattern
+      # @return [String]
+      def to_regex_str
+        raise "Not implemented for multivariate ResourceId segments" if resource_patterns.count > 1
+
+        resource_pattern = if resource_patterns[0].nil?
+                             "*"
+                           else
+                             resource_patterns[0]
+                           end
+
+        resource_pattern_regex = Gapic::PathPattern::Parser.parse(resource_pattern).to_regex_str
+
+        "(?<#{resource_names[0]}>#{resource_pattern_regex})"
       end
 
       ##
@@ -269,6 +335,28 @@ module Gapic
       # A pattern template for this segment
       # @return [String]
       def pattern_template
+        pattern
+      end
+
+      ##
+      # Whether the segment is a resource id segment
+      # @return [Boolean]
+      def resource_id_segment?
+        false
+      end
+
+      ##
+      # The difference between `simplified_pattern` and `pattern`
+      # does not exist for the CollectionId segments
+      # @return [String]
+      def simplified_pattern
+        pattern
+      end
+
+      ##
+      # Creates a string with a regex representation of this segment's pattern
+      # @return [String]
+      def to_regex_str
         pattern
       end
 

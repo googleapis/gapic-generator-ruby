@@ -14,7 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/model/method/http_annotation"
-require "gapic/model/method/routing"
-require "gapic/model/model_error"
-require "gapic/model/mixins"
+require "test_helper"
+
+class MethodPresenterExplicitRoutingHeadersTest < PresenterTest
+  def test_explicit_plain
+    presenter = method_presenter :testing, "ServiceExplicitHeaders", "PlainNoTemplate"
+    assert presenter.routing.explicit_annotation?
+    assert presenter.routing.explicit_params?
+  end
+end
