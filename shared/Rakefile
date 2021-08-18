@@ -101,7 +101,7 @@ namespace :test do
   desc "Runs tests for all expected output gems."
   task :output do
     {
-      gapic: [:showcase, :garbage],
+      gapic: [:showcase, :garbage, :testing],
       cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :compute_small]
     }.each do |generator, gems|
       directory = (generator == :gapic) ? "gapic/templates" : generator
