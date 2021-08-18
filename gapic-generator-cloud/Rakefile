@@ -37,6 +37,56 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+desc "Update the proto binary dumps which are used to generate templates"
+task :bin do
+  Rake::Task["bin:gold"].invoke
+end
+
+namespace :bin do |bin_namespace|
+  desc "Update the proto binary dumps for the templates"
+  task :templates do |templates_task|
+    bin_namespace.tasks.reject { |t| t == templates_task }.each do |t|
+      puts "Running #{t.name}"
+      t.invoke
+    end
+  end
+
+  desc "Update the proto binary dumps for language_v1"
+  task :language_v1 do
+    update_templates_proto_bins :language_v1
+  end
+
+  desc "Update the binary proto dumps for language_v1beta1"
+  task :language_v1beta1 do
+    update_templates_proto_bins :language_v1beta1
+  end
+
+  desc "Update the binary proto dumps for language_v1beta2"
+  task :language_v1beta2 do
+    update_templates_proto_bins :language_v1beta2
+  end
+
+  desc "Update the proto binary dumps for secretmanager_v1beta1"
+  task :secretmanager_v1beta1 do
+    update_templates_proto_bins :secretmanager_v1beta1
+  end
+
+  desc "Update the binary proto dumps for speech_v1"
+  task :speech_v1 do
+    update_templates_proto_bins :speech_v1
+  end
+
+  desc "Update the binary proto dumps for vision_v1"
+  task :vision_v1 do
+    update_templates_proto_bins :vision_v1
+  end
+
+  desc "Update the binary proto dumps for compute_small"
+  task :compute_small do
+    update_templates_proto_bins :compute_small
+  end
+end
+
 desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
@@ -220,6 +270,19 @@ def generate_cloud_templates service, wrapper: false, rest_only: false
 
   protoc_cmd_output = `#{protoc_cmd}`
   puts protoc_cmd_output if ENV["VERBOSE"]
+end
+
+##
+# Updates the binary dumps that are used in :gen namespace raketasks
+# by calling through to the raketasks defined in `shared`
+#
+def update_templates_proto_bins service
+  Dir.chdir "../shared" do
+    Bundler.with_unbundled_env do
+      puts "Running binary input file generation for #{service}"
+      sh "bundle exec rake gen:#{service}", verbose: false
+    end
+  end
 end
 
 task default: :ci
