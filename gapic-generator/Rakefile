@@ -108,33 +108,27 @@ end
 
 task default: :ci
 
+libs = [:showcase, :garbage, :testing]
+
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
   Rake::Task["bin:templates"].invoke
 end
-
-namespace :bin do |bin_namespace|
+namespace :bin do |namespace|
   desc "Update the proto binary dumps for the templates"
-  task :templates do |templates_task|
-    bin_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Update the proto binary dumps for showcase"
-  task :showcase do
-    update_templates_proto_bins :showcase
-  end
-
-  desc "Update the binary proto dumps for garbage"
-  task :garbage do
-    update_templates_proto_bins :garbage
-  end
-
-  desc "Update the binary proto dumps for testing"
-  task :testing do
-    update_templates_proto_bins :testing
+  libs.each do |lib|
+    desc "Update the proto binary dumps for #{lib}"
+    task lib do
+      update_templates_proto_bins lib
+    end
   end
 end
 
@@ -143,35 +137,21 @@ task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:gem_creation"].invoke
 end
-
-desc "Generate the expected output for tests"
-task :gen do
-  Rake::Task["gen:templates"].invoke
-  Rake::Task["gen:gem_creation"].invoke
-end
-
-namespace :gen do |gen_namespace|
+namespace :gen do |namespace|
   desc "Generate the expected output for templates tests"
-  task :templates do |templates_task|
-    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Generate the expected output for showcase"
-  task :showcase do
-    generate_default_templates :showcase
-  end
-
-  desc "Generate the expected output for garbage"
-  task :garbage do
-    generate_default_templates :garbage
-  end
-
-  desc "Generate the expected output for testing"
-  task :testing do
-    generate_default_templates :testing
+  libs.each do |lib|
+    desc "Generate the expected output for #{lib}"
+    task lib do
+      generate_default_templates lib
+    end
   end
 
   desc "Generate the expected output for gem creation tests"
@@ -204,6 +184,7 @@ task :release_gem do
 end
 
 def generate_default_templates service
+  puts "Running templates generation for #{service}"
   require "gapic/schema/api"
   require "gapic/generators/default_generator"
 

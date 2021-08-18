@@ -37,112 +37,64 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+rest_libs = [:compute_small]
+grpc_libs = [:language_v1, :language_v1beta1, :language_v1beta2, :secretmanager_v1beta1, :speech_v1, :vision_v1]
+libs = rest_libs + grpc_libs
+
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
   Rake::Task["bin:templates"].invoke
 end
-
-namespace :bin do |bin_namespace|
+namespace :bin do |namespace|
   desc "Update the proto binary dumps for the templates"
-  task :templates do |templates_task|
-    bin_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Update the proto binary dumps for language_v1"
-  task :language_v1 do
-    update_templates_proto_bins :language_v1
-  end
-
-  desc "Update the binary proto dumps for language_v1beta1"
-  task :language_v1beta1 do
-    update_templates_proto_bins :language_v1beta1
-  end
-
-  desc "Update the binary proto dumps for language_v1beta2"
-  task :language_v1beta2 do
-    update_templates_proto_bins :language_v1beta2
-  end
-
-  desc "Update the proto binary dumps for secretmanager_v1beta1"
-  task :secretmanager_v1beta1 do
-    update_templates_proto_bins :secretmanager_v1beta1
-  end
-
-  desc "Update the binary proto dumps for speech_v1"
-  task :speech_v1 do
-    update_templates_proto_bins :speech_v1
-  end
-
-  desc "Update the binary proto dumps for vision_v1"
-  task :vision_v1 do
-    update_templates_proto_bins :vision_v1
-  end
-
-  desc "Update the binary proto dumps for compute_small"
-  task :compute_small do
-    update_templates_proto_bins :compute_small
+  libs.each do |lib|
+    desc "Update the proto binary dumps for #{lib}"
+    task lib do
+      update_templates_proto_bins lib
+    end
   end
 end
 
 desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
+  Rake::Task["gen:secretmanager_wrapper"].invoke
 end
-namespace :gen do |gen_namespace|
+namespace :gen do |namespace|
   desc "Generate the expected output for template tests"
-  task :templates do |templates_task|
-    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Generate the expected output for language_v1"
-  task :language_v1 do
-    generate_cloud_templates :language_v1
+  grpc_libs.each do |lib|
+    desc "Generate the expected output for #{lib}"
+    task lib do
+      generate_cloud_templates lib
+    end
   end
 
-  desc "Generate the expected output for language_v1beta1"
-  task :language_v1beta1 do
-    generate_cloud_templates :language_v1beta1
-  end
-
-  desc "Generate the expected output for language_v1beta2"
-  task :language_v1beta2 do
-    generate_cloud_templates :language_v1beta2
-  end
-
-  desc "Generate the expected output for secretmanager_v1beta1"
-  task :secretmanager_v1beta1 do
-    generate_cloud_templates :secretmanager_v1beta1
+  rest_libs.each do |lib|
+    desc "Generate the expected output for #{lib}"
+    task lib do
+      generate_cloud_templates lib, rest_only: true
+    end
   end
 
   desc "Generate the expected output for secretmanager_wrapper"
   task :secretmanager_wrapper do
     generate_cloud_templates :secretmanager_wrapper, wrapper: true
-  end
-
-  desc "Generate the expected output for speech_v1"
-  task :speech_v1 do
-    generate_cloud_templates :speech_v1
-  end
-
-  desc "Generate the expected output for vision_v1"
-  task :vision_v1 do
-    generate_cloud_templates :vision_v1
-  end
-
-  desc "Generate the expected output for noservice"
-  task :noservice do
-    generate_cloud_templates :noservice
-  end
-
-  desc "Generate the expected output for compute_small"
-  task :compute_small do
-    generate_cloud_templates :compute_small, rest_only: true
   end
 end
 
@@ -226,6 +178,7 @@ end
 #   in e.g. `shared/config/compute_small.yml`
 #
 def generate_cloud_templates service, wrapper: false, rest_only: false
+  puts "Running templates generation for #{service}"
   require "gapic/generators/cloud_generator"
 
   target_path = File.expand_path File.join("expected_output", String(service))

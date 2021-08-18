@@ -36,23 +36,27 @@ task :ci do
   Rake::Task[:test].invoke
 end
 
+libs = [:googleads]
+
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
   Rake::Task["bin:templates"].invoke
 end
-
-namespace :bin do |bin_namespace|
+namespace :bin do |namespace|
   desc "Update the proto binary dumps for the templates"
-  task :templates do |templates_task|
-    bin_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Update the proto binary dumps for showcase"
-  task :googleads do
-    update_templates_proto_bins :googleads
+  libs.each do |lib|
+    desc "Update the proto binary dumps for #{lib}"
+    task lib do
+      update_templates_proto_bins lib
+    end
   end
 end
 
@@ -60,18 +64,21 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
 end
-namespace :gen do |gen_namespace|
+namespace :gen do |namespace|
   desc "Generate the expected output for template tests"
-  task :templates do |templates_task|
-    gen_namespace.tasks.reject { |t| t == templates_task }.each do |t|
-      puts "Running #{t.name}"
-      t.invoke
+  task :templates do
+    libs.each do |lib|
+      task = namespace[lib]
+      puts "Invoking #{task.name}"
+      task.invoke
     end
   end
 
-  desc "Generate the expected output for googleads"
-  task :googleads do
-    generate_ads_templates :googleads
+  libs.each do |lib|
+    desc "Generate the expected output for #{lib}"
+    task lib do
+      generate_ads_templates lib
+    end
   end
 end
 
@@ -112,6 +119,7 @@ task :release_gem do
 end
 
 def generate_ads_templates service
+  puts "Running templates generation for #{service}"
   require "fileutils"
   require "gapic/generators/ads_generator"
 
