@@ -250,7 +250,7 @@ module Gapic
       end
 
       ##
-      # Whether the REGAPIC method should be rendered as LRO 
+      # Whether the REGAPIC method should be rendered as LRO
       #
       # @return [Boolean]
       #
