@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.10.0)
+    gapic-generator (0.10.1)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-ads (0.10.0)
+    gapic-generator-ads (0.10.1)
       actionpack (~> 5.2)
-      gapic-generator (= 0.10.0)
+      gapic-generator (= 0.10.1)
       protobuf (~> 3.8)
 
 GEM
@@ -70,13 +70,13 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.4.1)
+    rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
     rainbow (3.0.0)
     rake (13.0.6)
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rubocop (1.19.0)
+    rubocop (1.20.0)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -85,7 +85,7 @@ GEM
       rubocop-ast (>= 1.9.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.10.0)
+    rubocop-ast (1.11.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     thor (1.1.0)

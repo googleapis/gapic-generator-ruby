@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.10.1 / 2021-08-27
+
+* New: Compute REST libraries are now generated with LRO wrappers
+* Fixed: Rubocop is disabled for sample tests in generated versioned libraries
+
 ### 0.10.0 / 2021-08-09
 
 * New: Enabled per-RPC configuration for generated REST libraries
