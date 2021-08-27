@@ -251,6 +251,7 @@ module Gapic
 
       ##
       # Whether the REGAPIC method should be rendered as LRO
+      # [TODO (virost, 2021-08) Update this when DiReGapic LRO annotations are added to the Compute protos]
       #
       # @return [Boolean]
       #
@@ -260,10 +261,6 @@ module Gapic
           @main_method.service.name != "RegionOperations" &&
           @main_method.service.name != "GlobalOperations" &&
           @main_method.service.name != "GlobalOrganizationOperations"
-      end
-
-      def service_name
-        @main_method.service.name
       end
     end
   end
