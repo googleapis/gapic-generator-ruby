@@ -244,9 +244,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -344,9 +344,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -435,9 +435,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -530,9 +530,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "product_set.name" => request.product_set.name
-              }
+              header_params = {}
+              header_params["product_set.name"] = request.product_set.name unless request&.product_set&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -619,9 +619,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -719,9 +719,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -819,9 +819,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -910,9 +910,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1014,9 +1014,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "product.name" => request.product.name
-              }
+              header_params = {}
+              header_params["product.name"] = request.product.name unless request&.product&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1104,9 +1104,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1216,9 +1216,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1309,9 +1309,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1414,9 +1414,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1506,9 +1506,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1604,9 +1604,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1695,9 +1695,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1797,9 +1797,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "name" => request.name
-              }
+              header_params = {}
+              header_params["name"] = request.name unless request&.name.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -1902,9 +1902,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -2026,9 +2026,9 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {
-                "parent" => request.parent
-              }
+              header_params = {}
+              header_params["parent"] = request.parent unless request&.parent.nil?
+
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
 

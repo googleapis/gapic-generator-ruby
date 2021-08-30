@@ -192,6 +192,75 @@ resource: resource }) do |response, operation|
     end
   end
 
+  def test_with_multiple_levels
+    # Create GRPC objects.
+    grpc_response = ::Testing::RoutingHeaders::Response.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    table_name = "hello world"
+    app_profile_id = "hello world"
+    resource = {}
+
+    with_multiple_levels_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :with_multiple_levels, name
+      assert_kind_of ::Testing::RoutingHeaders::Request, request
+      assert_equal "hello world", request["table_name"]
+      assert_equal "hello world", request["app_profile_id"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Testing::RoutingHeaders::RequestResource), request["resource"]
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, with_multiple_levels_client_stub do
+      # Create client
+      client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.with_multiple_levels({ table_name: table_name, app_profile_id: app_profile_id,
+resource: resource }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.with_multiple_levels table_name: table_name, app_profile_id: app_profile_id,
+                                  resource: resource do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.with_multiple_levels ::Testing::RoutingHeaders::Request.new(table_name: table_name,
+                                                                         app_profile_id: app_profile_id, resource: resource) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.with_multiple_levels({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
+                                  grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.with_multiple_levels(
+        ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
+                                               resource: resource), grpc_options
+      ) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, with_multiple_levels_client_stub.call_rpc_count
+    end
+  end
+
   def test_configure
     grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
 

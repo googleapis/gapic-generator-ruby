@@ -185,9 +185,9 @@ module Google
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-                header_params = {
-                  "resource_name" => request.resource_name
-                }
+                header_params = {}
+                header_params["resource_name"] = request.resource_name unless request&.resource_name.nil?
+
                 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
                 metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -264,9 +264,9 @@ module Google
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-                header_params = {
-                  "customer_id" => request.customer_id
-                }
+                header_params = {}
+                header_params["customer_id"] = request.customer_id unless request&.customer_id.nil?
+
                 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
                 metadata[:"x-goog-request-params"] ||= request_params_header
 

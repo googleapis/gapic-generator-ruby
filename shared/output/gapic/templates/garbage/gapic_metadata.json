@@ -25,11 +25,6 @@
                 "get_specific_garbage"
               ]
             },
-            "GetSpecificGarbageFancy": {
-              "methods": [
-                "get_specific_garbage_fancy"
-              ]
-            },
             "GetNestedGarbage": {
               "methods": [
                 "get_nested_garbage"

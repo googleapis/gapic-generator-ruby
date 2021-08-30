@@ -14,6 +14,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "testing.routingheaders.RequestResource" do
       optional :resource_name, :string, 1
+      optional :inner, :message, 2, "testing.routingheaders.InnerResource"
+    end
+    add_message "testing.routingheaders.InnerResource" do
+      optional :inner_name, :string, 1
     end
     add_message "testing.routingheaders.Response" do
     end
@@ -24,6 +28,7 @@ module Testing
   module RoutingHeaders
     Request = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.routingheaders.Request").msgclass
     RequestResource = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.routingheaders.RequestResource").msgclass
+    InnerResource = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.routingheaders.InnerResource").msgclass
     Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.routingheaders.Response").msgclass
   end
 end

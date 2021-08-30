@@ -397,95 +397,6 @@ module So
           end
 
           ##
-          # Retrieves a SpecificGarbage resource with fancy routing headers.
-          #
-          # @overload get_specific_garbage_fancy(request, options = nil)
-          #   Pass arguments to `get_specific_garbage_fancy` via a request object, either of type
-          #   {::So::Much::Trash::SpecificGarbage} or an equivalent Hash.
-          #
-          #   @param request [::So::Much::Trash::SpecificGarbage, ::Hash]
-          #     A request object representing the call parameters. Required. To specify no
-          #     parameters, or to keep all the default parameter values, pass an empty Hash.
-          #   @param options [::Gapic::CallOptions, ::Hash]
-          #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
-          #
-          # @overload get_specific_garbage_fancy(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil, nested: nil)
-          #   Pass arguments to `get_specific_garbage_fancy` via keyword arguments. Note that at
-          #   least one keyword argument is required. To specify no parameters, or to keep all
-          #   the default parameter values, pass an empty Hash as a request object (see above).
-          #
-          #   @param name [::String]
-          #     The name of this garbage.
-          #   @param int32 [::Integer]
-          #     The int32 of this garbage.
-          #   @param int64 [::Integer]
-          #     The int64 of this garbage.
-          #   @param uint32 [::Integer]
-          #     The uint32 of this garbage.
-          #   @param uint64 [::Integer]
-          #     The uint64 of this garbage.
-          #   @param bool [::Boolean]
-          #     The bool of this garbage.
-          #   @param float [::Float]
-          #     The float of this garbage.
-          #   @param double [::Float]
-          #     The double of this garbage.
-          #   @param bytes [::String]
-          #     The bytes of this garbage.
-          #   @param enum [::So::Much::Trash::GarbageEnum]
-          #     The type of this garbage.
-          #   @param nested [::So::Much::Trash::SpecificGarbage::NestedGarbage, ::Hash]
-          #     The nested garbage resource of this garbage.
-          #
-          # @yield [response, operation] Access the result along with the RPC operation
-          # @yieldparam response [::So::Much::Trash::SpecificGarbage]
-          # @yieldparam operation [::GRPC::ActiveCall::Operation]
-          #
-          # @return [::So::Much::Trash::SpecificGarbage]
-          #
-          # @raise [::GRPC::BadStatus] if the RPC is aborted.
-          #
-          def get_specific_garbage_fancy request, options = nil
-            raise ::ArgumentError, "request must be provided" if request.nil?
-
-            request = ::Gapic::Protobuf.coerce request, to: ::So::Much::Trash::SpecificGarbage
-
-            # Converts hash and nil to an options object
-            options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
-
-            # Customize the options with defaults
-            metadata = @config.rpcs.get_specific_garbage_fancy.metadata.to_h
-
-            # Set x-goog-api-client and x-goog-user-project headers
-            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
-              lib_name: @config.lib_name, lib_version: @config.lib_version,
-              gapic_version: ::Google::Garbage::VERSION
-            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
-
-            header_params = {}
-            header_params["name"] = request.name unless request&.name.nil?
-            header_params["nested.name"] = request.nested.name unless request&.nested&.name.nil?
-            header_params["nested.item.name"] = request.nested.item.name unless request&.nested&.item&.name.nil?
-
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-            metadata[:"x-goog-request-params"] ||= request_params_header
-
-            options.apply_defaults timeout:      @config.rpcs.get_specific_garbage_fancy.timeout,
-                                   metadata:     metadata,
-                                   retry_policy: @config.rpcs.get_specific_garbage_fancy.retry_policy
-
-            options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata,
-                                   retry_policy: @config.retry_policy
-
-            @garbage_service_stub.call_rpc :get_specific_garbage_fancy, request,
-                                           options: options do |response, operation|
-              yield response, operation if block_given?
-              return response
-            end
-          end
-
-          ##
           # Retrieves a NestedGarbage resource.
           #
           # @overload get_nested_garbage(request, options = nil)
@@ -498,7 +409,7 @@ module So
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_nested_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil, item: nil)
+          # @overload get_nested_garbage(name: nil, int32: nil, int64: nil, uint32: nil, uint64: nil, bool: nil, float: nil, double: nil, bytes: nil, enum: nil)
           #   Pass arguments to `get_nested_garbage` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -523,8 +434,6 @@ module So
           #     The bytes of this garbage.
           #   @param enum [::So::Much::Trash::GarbageEnum]
           #     The type of this garbage.
-          #   @param item [::So::Much::Trash::SimpleGarbage, ::Hash]
-          #     A sub-nested message.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::So::Much::Trash::SpecificGarbage::NestedGarbage]
@@ -1605,11 +1514,6 @@ module So
               #
               attr_reader :get_specific_garbage
               ##
-              # RPC-specific configuration for `get_specific_garbage_fancy`
-              # @return [::Gapic::Config::Method]
-              #
-              attr_reader :get_specific_garbage_fancy
-              ##
               # RPC-specific configuration for `get_nested_garbage`
               # @return [::Gapic::Config::Method]
               #
@@ -1683,8 +1587,6 @@ module So
                 @get_simple_garbage = ::Gapic::Config::Method.new get_simple_garbage_config
                 get_specific_garbage_config = parent_rpcs.get_specific_garbage if parent_rpcs.respond_to? :get_specific_garbage
                 @get_specific_garbage = ::Gapic::Config::Method.new get_specific_garbage_config
-                get_specific_garbage_fancy_config = parent_rpcs.get_specific_garbage_fancy if parent_rpcs.respond_to? :get_specific_garbage_fancy
-                @get_specific_garbage_fancy = ::Gapic::Config::Method.new get_specific_garbage_fancy_config
                 get_nested_garbage_config = parent_rpcs.get_nested_garbage if parent_rpcs.respond_to? :get_nested_garbage
                 @get_nested_garbage = ::Gapic::Config::Method.new get_nested_garbage_config
                 get_repeated_garbage_config = parent_rpcs.get_repeated_garbage if parent_rpcs.respond_to? :get_repeated_garbage

@@ -252,95 +252,6 @@ bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
     end
   end
 
-  def test_get_specific_garbage_fancy
-    # Create GRPC objects.
-    grpc_response = ::So::Much::Trash::SpecificGarbage.new
-    grpc_operation = GRPC::ActiveCall::Operation.new nil
-    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
-    grpc_options = {}
-
-    # Create request parameters for a unary method.
-    name = "hello world"
-    int32 = 42
-    int64 = 42
-    uint32 = 42
-    uint64 = 42
-    bool = true
-    float = 3.5
-    double = 3.5
-    bytes = "hello world"
-    msg = {}
-    enum = :DEFAULT_GARBAGE
-    nested = {}
-
-    get_specific_garbage_fancy_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
-      assert_equal :get_specific_garbage_fancy, name
-      assert_kind_of ::So::Much::Trash::SpecificGarbage, request
-      assert_equal "hello world", request["name"]
-      assert_equal 42, request["int32"]
-      assert_equal 42, request["int64"]
-      assert_equal 42, request["uint32"]
-      assert_equal 42, request["uint64"]
-      assert_equal true, request["bool"]
-      assert_equal 3.5, request["float"]
-      assert_equal 3.5, request["double"]
-      assert_equal "hello world", request["bytes"]
-      assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::GarbageMap), request["msg"]
-      assert_equal :DEFAULT_GARBAGE, request["enum"]
-      assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::SpecificGarbage::NestedGarbage), request["nested"]
-      refute_nil options
-    end
-
-    Gapic::ServiceStub.stub :new, get_specific_garbage_fancy_client_stub do
-      # Create client
-      client = ::So::Much::Trash::GarbageService::Client.new do |config|
-        config.credentials = grpc_channel
-      end
-
-      # Use hash object
-      client.get_specific_garbage_fancy({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested }) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use named arguments
-      client.get_specific_garbage_fancy name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-                                        bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use protobuf object
-      client.get_specific_garbage_fancy ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64,
-                                                                               uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use hash object with options
-      client.get_specific_garbage_fancy(
-        { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
-      ) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Use protobuf object with options
-      client.get_specific_garbage_fancy(
-        ::So::Much::Trash::SpecificGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64,
-                                               bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, nested: nested), grpc_options
-      ) do |response, operation|
-        assert_equal grpc_response, response
-        assert_equal grpc_operation, operation
-      end
-
-      # Verify method calls
-      assert_equal 5, get_specific_garbage_fancy_client_stub.call_rpc_count
-    end
-  end
-
   def test_get_nested_garbage
     # Create GRPC objects.
     grpc_response = ::So::Much::Trash::SpecificGarbage::NestedGarbage.new
@@ -360,7 +271,6 @@ bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
     bytes = "hello world"
     msg = {}
     enum = :DEFAULT_GARBAGE
-    item = {}
 
     get_nested_garbage_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :get_nested_garbage, name
@@ -376,7 +286,6 @@ bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
       assert_equal "hello world", request["bytes"]
       assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::GarbageMap), request["msg"]
       assert_equal :DEFAULT_GARBAGE, request["enum"]
-      assert_equal Gapic::Protobuf.coerce({}, to: ::So::Much::Trash::SimpleGarbage), request["item"]
       refute_nil options
     end
 
@@ -388,21 +297,21 @@ bytes: bytes, msg: msg, enum: enum, nested: nested }, grpc_options
 
       # Use hash object
       client.get_nested_garbage({ name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-float: float, double: double, bytes: bytes, msg: msg, enum: enum, item: item }) do |response, operation|
+float: float, double: double, bytes: bytes, msg: msg, enum: enum }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
       client.get_nested_garbage name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool,
-                                float: float, double: double, bytes: bytes, msg: msg, enum: enum, item: item do |response, operation|
+                                float: float, double: double, bytes: bytes, msg: msg, enum: enum do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
       client.get_nested_garbage ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32,
-                                                                                      int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, item: item) do |response, operation|
+                                                                                      int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -410,7 +319,7 @@ float: float, double: double, bytes: bytes, msg: msg, enum: enum, item: item }) 
       # Use hash object with options
       client.get_nested_garbage(
         { name: name, int32: int32, int64: int64, uint32: uint32, uint64: uint64, bool: bool, float: float, double: double,
-bytes: bytes, msg: msg, enum: enum, item: item }, grpc_options
+bytes: bytes, msg: msg, enum: enum }, grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
@@ -419,7 +328,7 @@ bytes: bytes, msg: msg, enum: enum, item: item }, grpc_options
       # Use protobuf object with options
       client.get_nested_garbage(
         ::So::Much::Trash::SpecificGarbage::NestedGarbage.new(name: name, int32: int32, int64: int64, uint32: uint32,
-                                                              uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum, item: item), grpc_options
+                                                              uint64: uint64, bool: bool, float: float, double: double, bytes: bytes, msg: msg, enum: enum), grpc_options
       ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
