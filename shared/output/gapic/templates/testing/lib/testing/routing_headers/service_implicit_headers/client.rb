@@ -193,7 +193,9 @@ module Testing
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
-          header_params["table_name"] = request.table_name unless request&.table_name.nil?
+          if request.table_name
+            header_params["table_name"] = request.table_name
+          end
 
           request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
           metadata[:"x-goog-request-params"] ||= request_params_header
@@ -267,8 +269,9 @@ module Testing
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
-          header_params["resource.resource_name"] =
-            request.resource.resource_name unless request&.resource&.resource_name.nil?
+          if request.resource&.resource_name
+            header_params["resource.resource_name"] = request.resource.resource_name
+          end
 
           request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
           metadata[:"x-goog-request-params"] ||= request_params_header
@@ -342,8 +345,9 @@ module Testing
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
-          header_params["resource.inner.inner_name"] =
-            request.resource.inner.inner_name unless request&.resource&.inner&.inner_name.nil?
+          if request.resource&.inner&.inner_name
+            header_params["resource.inner.inner_name"] = request.resource.inner.inner_name
+          end
 
           request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
           metadata[:"x-goog-request-params"] ||= request_params_header

@@ -163,7 +163,9 @@ module So
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             header_params = {}
-            header_params["name"] = request.name unless request&.name.nil?
+            if request.name
+              header_params["name"] = request.name
+            end
 
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header
@@ -234,7 +236,9 @@ module So
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             header_params = {}
-            header_params["name"] = request.name unless request&.name.nil?
+            if request.name
+              header_params["name"] = request.name
+            end
 
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header
@@ -304,7 +308,9 @@ module So
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             header_params = {}
-            header_params["name"] = request.name unless request&.name.nil?
+            if request.name
+              header_params["name"] = request.name
+            end
 
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header
@@ -379,7 +385,9 @@ module So
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             header_params = {}
-            header_params["name"] = request.name unless request&.name.nil?
+            if request.name
+              header_params["name"] = request.name
+            end
 
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header

@@ -14,7 +14,9 @@ metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
 header_params = {}
 <%- method.routing_params.each_with_index do |routing_param, index| -%>
-header_params["<%= routing_param %>"] = request.<%= routing_param %> unless request&.<%= routing_param.gsub(".", "&.") %>.nil?
+if request.<%= routing_param.gsub(".", "&.") %>
+  header_params["<%= routing_param %>"] = request.<%= routing_param %>
+end
 <%- end -%>
 
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")

@@ -245,7 +245,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -345,7 +347,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -436,7 +440,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -531,7 +537,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["product_set.name"] = request.product_set.name unless request&.product_set&.name.nil?
+              if request.product_set&.name
+                header_params["product_set.name"] = request.product_set.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -620,7 +628,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -720,7 +730,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -820,7 +832,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -911,7 +925,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1015,7 +1031,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["product.name"] = request.product.name unless request&.product&.name.nil?
+              if request.product&.name
+                header_params["product.name"] = request.product.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1105,7 +1123,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1217,7 +1237,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1310,7 +1332,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1415,7 +1439,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1507,7 +1533,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1605,7 +1633,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1696,7 +1726,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1798,7 +1830,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["name"] = request.name unless request&.name.nil?
+              if request.name
+                header_params["name"] = request.name
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -1903,7 +1937,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
@@ -2027,7 +2063,9 @@ module Google
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               header_params = {}
-              header_params["parent"] = request.parent unless request&.parent.nil?
+              if request.parent
+                header_params["parent"] = request.parent
+              end
 
               request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
               metadata[:"x-goog-request-params"] ||= request_params_header
