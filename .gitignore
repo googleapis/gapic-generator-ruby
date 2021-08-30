@@ -14,3 +14,5 @@
 .rakeTasks
 .tool-versions
 /.idea/
+/node_modules/
+/package-lock.json
