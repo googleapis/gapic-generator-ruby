@@ -462,11 +462,11 @@ module So
               gapic_version: ::Google::Garbage::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {
-              "name" => request.name,
-              "nested.name" => request.nested.name,
-              "nested.item.name" => request.nested.item.name
-            }
+            header_params = {}
+            header_params["name"] = request.name unless request&.name.nil?
+            header_params["nested.name"] = request.nested.name unless request&.nested&.name.nil?
+            header_params["nested.item.name"] = request.nested.item.name unless request&.nested&.item&.name.nil?
+
             request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
             metadata[:"x-goog-request-params"] ||= request_params_header
 
