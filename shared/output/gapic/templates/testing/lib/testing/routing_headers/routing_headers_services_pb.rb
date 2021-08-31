@@ -31,6 +31,7 @@ module Testing
 
         rpc :Plain, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
         rpc :WithSubMessage, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+        rpc :WithMultipleLevels, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
       end
 
       Stub = Service.rpc_stub_class

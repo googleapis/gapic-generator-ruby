@@ -12,12 +12,13 @@ metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 <%- if method.routing_params? && !method.client_streaming? -%>
 
-header_params = {
+header_params = {}
 <%- method.routing_params.each_with_index do |routing_param, index| -%>
-  <%- comma = index == method.routing_params.count - 1 ? "" : "," -%>
-  "<%= routing_param %>" => request.<%= routing_param %><%= comma %>
+if request.<%= routing_param.gsub(".", "&.") %>
+  header_params["<%= routing_param %>"] = request.<%= routing_param %>
+end
 <%- end -%>
-}
+
 request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
 metadata[:"x-goog-request-params"] ||= request_params_header
 <%- end -%>
