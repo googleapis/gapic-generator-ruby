@@ -192,9 +192,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {
-            "table_name" => request.table_name
-          }
+          header_params = {}
+          if request.table_name
+            header_params["table_name"] = request.table_name
+          end
+
           request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -266,9 +268,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {
-            "resource.resource_name" => request.resource.resource_name
-          }
+          header_params = {}
+          if request.resource&.resource_name
+            header_params["resource.resource_name"] = request.resource.resource_name
+          end
+
           request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -281,6 +285,83 @@ module Testing
                                  retry_policy: @config.retry_policy
 
           @service_implicit_headers_stub.call_rpc :with_sub_message, request, options: options do |response, operation|
+            yield response, operation if block_given?
+            return response
+          end
+        end
+
+        ##
+        # @overload with_multiple_levels(request, options = nil)
+        #   Pass arguments to `with_multiple_levels` via a request object, either of type
+        #   {::Testing::RoutingHeaders::Request} or an equivalent Hash.
+        #
+        #   @param request [::Testing::RoutingHeaders::Request, ::Hash]
+        #     A request object representing the call parameters. Required. To specify no
+        #     parameters, or to keep all the default parameter values, pass an empty Hash.
+        #   @param options [::Gapic::CallOptions, ::Hash]
+        #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+        #
+        # @overload with_multiple_levels(table_name: nil, app_profile_id: nil, resource: nil)
+        #   Pass arguments to `with_multiple_levels` via keyword arguments. Note that at
+        #   least one keyword argument is required. To specify no parameters, or to keep all
+        #   the default parameter values, pass an empty Hash as a request object (see above).
+        #
+        #   @param table_name [::String]
+        #     The name of the Table
+        #     Values can be of the following formats:
+        #     - `projects/<project>/tables/<table>`
+        #     - `projects/<project>/instances/<instance>/tables/<table>`
+        #     - `region/<region>/zones/<zone>/tables/<table>`
+        #   @param app_profile_id [::String]
+        #     This value specifies routing for replication.
+        #     It can be in the following formats:
+        #     - profiles/<profile_id>
+        #     - a legacy profile_id that can be any string
+        #   @param resource [::Testing::RoutingHeaders::RequestResource, ::Hash]
+        #
+        # @yield [response, operation] Access the result along with the RPC operation
+        # @yieldparam response [::Testing::RoutingHeaders::Response]
+        # @yieldparam operation [::GRPC::ActiveCall::Operation]
+        #
+        # @return [::Testing::RoutingHeaders::Response]
+        #
+        # @raise [::GRPC::BadStatus] if the RPC is aborted.
+        #
+        def with_multiple_levels request, options = nil
+          raise ::ArgumentError, "request must be provided" if request.nil?
+
+          request = ::Gapic::Protobuf.coerce request, to: ::Testing::RoutingHeaders::Request
+
+          # Converts hash and nil to an options object
+          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+          # Customize the options with defaults
+          metadata = @config.rpcs.with_multiple_levels.metadata.to_h
+
+          # Set x-goog-api-client and x-goog-user-project headers
+          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+            lib_name: @config.lib_name, lib_version: @config.lib_version,
+            gapic_version: ::Testing::VERSION
+          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+          header_params = {}
+          if request.resource&.inner&.inner_name
+            header_params["resource.inner.inner_name"] = request.resource.inner.inner_name
+          end
+
+          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          metadata[:"x-goog-request-params"] ||= request_params_header
+
+          options.apply_defaults timeout:      @config.rpcs.with_multiple_levels.timeout,
+                                 metadata:     metadata,
+                                 retry_policy: @config.rpcs.with_multiple_levels.retry_policy
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
+                                 retry_policy: @config.retry_policy
+
+          @service_implicit_headers_stub.call_rpc :with_multiple_levels, request,
+                                                  options: options do |response, operation|
             yield response, operation if block_given?
             return response
           end
@@ -431,6 +512,11 @@ module Testing
             # @return [::Gapic::Config::Method]
             #
             attr_reader :with_sub_message
+            ##
+            # RPC-specific configuration for `with_multiple_levels`
+            # @return [::Gapic::Config::Method]
+            #
+            attr_reader :with_multiple_levels
 
             # @private
             def initialize parent_rpcs = nil
@@ -438,6 +524,8 @@ module Testing
               @plain = ::Gapic::Config::Method.new plain_config
               with_sub_message_config = parent_rpcs.with_sub_message if parent_rpcs.respond_to? :with_sub_message
               @with_sub_message = ::Gapic::Config::Method.new with_sub_message_config
+              with_multiple_levels_config = parent_rpcs.with_multiple_levels if parent_rpcs.respond_to? :with_multiple_levels
+              @with_multiple_levels = ::Gapic::Config::Method.new with_multiple_levels_config
 
               yield self if block_given?
             end

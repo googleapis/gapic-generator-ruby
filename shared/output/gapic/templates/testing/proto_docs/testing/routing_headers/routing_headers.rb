@@ -49,7 +49,16 @@ module Testing
 
     # @!attribute [rw] resource_name
     #   @return [::String]
+    # @!attribute [rw] inner
+    #   @return [::Testing::RoutingHeaders::InnerResource]
     class RequestResource
+      include ::Google::Protobuf::MessageExts
+      extend ::Google::Protobuf::MessageExts::ClassMethods
+    end
+
+    # @!attribute [rw] inner_name
+    #   @return [::String]
+    class InnerResource
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods
     end
