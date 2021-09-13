@@ -107,6 +107,7 @@ def gem_defaults
       protos: [
         "testing/testing.proto",
         "testing/grpc_service_config/grpc_service_config.proto",
+        "testing/mixins/mixins.proto",
         "testing/routing_headers/routing_headers.proto"
       ],
       grpc_service_config: [
