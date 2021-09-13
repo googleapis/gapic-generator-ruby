@@ -12,16 +12,17 @@ module Google
     ##
     # Message Classes
     #
-    class Any < ::Protobuf::Message; end
+    class Duration < ::Protobuf::Message; end
 
 
     ##
     # File Options
     #
     set_option :java_package, "com.google.protobuf"
-    set_option :java_outer_classname, "AnyProto"
+    set_option :java_outer_classname, "DurationProto"
     set_option :java_multiple_files, true
-    set_option :go_package, "github.com/golang/protobuf/ptypes/any"
+    set_option :go_package, "github.com/golang/protobuf/ptypes/duration"
+    set_option :cc_enable_arenas, true
     set_option :objc_class_prefix, "GPB"
     set_option :csharp_namespace, "Google.Protobuf.WellKnownTypes"
 
@@ -29,9 +30,9 @@ module Google
     ##
     # Message Fields
     #
-    class Any
-      optional :string, :type_url, 1
-      optional :bytes, :value, 2
+    class Duration
+      optional :int64, :seconds, 1
+      optional :int32, :nanos, 2
     end
 
   end
