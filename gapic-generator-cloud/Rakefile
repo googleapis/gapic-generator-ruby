@@ -215,6 +215,12 @@ def generate_cloud_templates service, wrapper: false, rest_only: false
     protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
   end
 
+  # Add optional service.yaml
+  service_yaml = service_yaml_for service
+  if service_yaml
+    protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'"
+  end
+
   # Add the proto files
   protoc_cmd << protos_for(service).join(" ")
 
