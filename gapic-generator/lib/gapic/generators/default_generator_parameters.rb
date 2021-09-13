@@ -46,6 +46,7 @@ module Gapic
         ":gem.:factory_method_suffix",
         ":defaults.:service.:default_host",
         "grpc_service_config",
+        ":service_yaml",
         ":overrides.:wrapper_gem_name"
       ].freeze
 
@@ -84,7 +85,8 @@ module Gapic
         "gem-api-shortname"         => ":gem.:api_shortname",
         "gem-factory-method-suffix" => ":gem.:factory_method_suffix",
         "default-service-host"      => ":defaults.:service.:default_host",
-        "grpc-service-config"       => "grpc_service_config"
+        "grpc-service-config"       => "grpc_service_config",
+        "service-yaml"              => ":service_yaml"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {

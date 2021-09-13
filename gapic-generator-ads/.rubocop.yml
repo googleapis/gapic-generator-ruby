@@ -4,3 +4,6 @@ inherit_gem:
 AllCops:
   Exclude:
     - expected_output/**/*
+    - bin/*
+    - test/test_helper.rb
+    - Rakefile

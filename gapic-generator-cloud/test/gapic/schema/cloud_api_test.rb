@@ -52,6 +52,7 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-factory-method-suffix", API_INFO[:factory_method_suffix]],
       ["ruby-cloud-default-service-host", API_INFO[:default_host]],
       ["ruby-cloud-grpc-service-config", API_INFO[:grpc_service_config]],
+      ["ruby-cloud-service-yaml", API_INFO[:service_yaml]],
       ["ruby-cloud-wrapper-gem-override", API_INFO[:wrapper_gem_name_override]],
 
       # arrays of values are joined with the ';' symbol
