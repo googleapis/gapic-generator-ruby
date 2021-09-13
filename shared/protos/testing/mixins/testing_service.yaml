@@ -1,0 +1,14 @@
+type: google.api.Service
+config_version: 3
+
+apis:
+- name: testing.mixins.FirstServiceWithLoc
+- name: testing.mixins.SecondServiceWithLoc
+- name: google.cloud.location.Locations
+
+http:
+  rules:
+  - selector: google.cloud.location.Locations.GetLocation
+    get: '/v1/{name=projects/*/locations/*}'
+  - selector: google.cloud.location.Locations.ListLocations
+    get: '/v1/{name=projects/*}/locations'

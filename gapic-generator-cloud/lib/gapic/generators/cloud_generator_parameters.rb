@@ -48,6 +48,7 @@ module Gapic
         "ruby-cloud-quick-start-method"    => ":gem.:quick_start_method",
         "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
         "ruby-cloud-grpc-service-config"   => "grpc_service_config",
+        "ruby-cloud-service-yaml"          => ":service_yaml",
         "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name"
       }.freeze
 
