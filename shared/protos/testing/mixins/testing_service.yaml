@@ -2,8 +2,7 @@ type: google.api.Service
 config_version: 3
 
 apis:
-- name: testing.mixins.FirstServiceWithLoc
-- name: testing.mixins.SecondServiceWithLoc
+- name: testing.mixins.ServiceWithLoc
 - name: google.cloud.location.Locations
 
 http:
