@@ -19,7 +19,7 @@ module Gapic
     ##
     # A presenter for grpc service config.
     #
-    class ServiceConfigPresenter
+    class GrpcServiceConfigPresenter
       def initialize grpc_service_config
         @grpc_service_config = grpc_service_config
       end

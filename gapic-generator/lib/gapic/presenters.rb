@@ -26,7 +26,7 @@ require "gapic/presenters/package_presenter"
 require "gapic/presenters/resource_presenter"
 require "gapic/presenters/sample_presenter"
 require "gapic/presenters/service_presenter"
-require "gapic/presenters/service_config_presenter"
+require "gapic/presenters/grpc_service_config_presenter"
 require "gapic/presenters/service_rest_presenter"
 require "gapic/presenters/snippet_presenter"
 

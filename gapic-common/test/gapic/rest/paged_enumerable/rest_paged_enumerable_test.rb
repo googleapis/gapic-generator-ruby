@@ -147,7 +147,7 @@ class RestPagedEnumerableTest < Minitest::Test
       fake_service_stub, :call_rest, "items", request, response, options
     )
     kvp_list = result.map { |kvp| [kvp[0], kvp[1].scoped_info] }
-    assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]], kvp_list
+    assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]].to_set, kvp_list.to_set
   end
 
   ##
@@ -184,6 +184,6 @@ class RestPagedEnumerableTest < Minitest::Test
       kvp_list << [key, value.scoped_info]
     end
 
-    assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]], kvp_list
+    assert_equal [["foo", "baz"], ["bar", "bif"], ["foo", "hoge"], ["bar", "piyo"]].to_set, kvp_list.to_set
   end
 end
