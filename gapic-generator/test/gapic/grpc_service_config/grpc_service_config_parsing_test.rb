@@ -21,7 +21,7 @@ require "gapic/schema"
 ##
 # Test for GRPCServiceConfig parsing
 #
-class ConfigParsingTest < Minitest::Test
+class GrpcServiceConfigParsingTest < Minitest::Test
   ##
   # Testing that the empty hash (default raw value for the absent config
   # in Gapic::Schema::Api) will result in a correct empty config
