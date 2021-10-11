@@ -19,19 +19,19 @@ require "minitest/autorun"
 require "gapic/schema"
 
 ##
-# Test for GRPC ServiceConfig parsing
+# Test for GRPCServiceConfig parsing
 #
-class ServiceConfigParsingTest < Minitest::Test
+class GrpcServiceConfigParsingTest < Minitest::Test
   ##
   # Testing that the empty hash (default raw value for the absent config
   # in Gapic::Schema::Api) will result in a correct empty config
   #
   def test_empty_config
     config_json = {}
-    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
+    config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
-    assert_equal({}, service_config.service_level_configs)
-    assert_equal({}, service_config.service_method_level_configs)
+    assert_equal({}, config.service_level_configs)
+    assert_equal({}, config.service_method_level_configs)
   end
 
   ##
@@ -39,9 +39,9 @@ class ServiceConfigParsingTest < Minitest::Test
   #
   def test_varied_config_service
     config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config.json")
-    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
+    config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
-    service_with_retries_config = service_config.service_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
+    service_with_retries_config = config.service_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
 
     assert_equal 20, service_with_retries_config.timeout_seconds
     assert_equal 0.5, service_with_retries_config.retry_policy.initial_delay_seconds
@@ -57,9 +57,9 @@ class ServiceConfigParsingTest < Minitest::Test
   #
   def test_varied_config_method
     config_json = JSON.parse ::File.read("protofiles_input/testing/grpc_service_config/grpc_service_config2.json")
-    service_config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
+    config = ::Gapic::GrpcServiceConfig::Parser.parse config_json
 
-    service_method_configs = service_config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
+    service_method_configs = config.service_method_level_configs["testing.grpcserviceconfig.ServiceWithRetries"]
     method_level_retry_config = service_method_configs["MethodLevelRetryMethod"]
 
     assert_equal 86_400, method_level_retry_config.timeout_seconds

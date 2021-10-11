@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/grpc_service_config/service_config"
+require "gapic/grpc_service_config/config"
 require "gapic/grpc_service_config/method_config"
 require "gapic/grpc_service_config/retry_policy"
 require "gapic/grpc_service_config/parsing_error"
@@ -67,18 +67,18 @@ module Gapic
       end.freeze
 
       ##
-      # Parses ServiceConfig from a json of a GRPC service config
+      # Parses GRPC service configuration from a json
       #
-      # @param service_config_json [Hash] a hash that results from JSON.parse
+      # @param config_json [Hash] a hash that results from JSON.parse
       #
-      # @return [Gapic::GrpcServiceConfig::ServiceConfig] parsed ServiceConfig
+      # @return [Gapic::GrpcServiceConfig::Config] parsed GrpcServiceConfig
       #
-      def self.parse service_config_json
+      def self.parse config_json
         service_level_result = {}
         service_method_level_result = {}
 
-        if !service_config_json.nil? && key?(service_config_json, METHOD_CONFIG_JSON_KEY)
-          method_configs_json = get service_config_json, METHOD_CONFIG_JSON_KEY
+        if !config_json.nil? && key?(config_json, METHOD_CONFIG_JSON_KEY)
+          method_configs_json = get config_json, METHOD_CONFIG_JSON_KEY
 
           method_configs_json.each do |method_config_json|
             method_config = parse_config method_config_json
@@ -99,7 +99,7 @@ module Gapic
           end
         end
 
-        ServiceConfig.new service_level_result, service_method_level_result
+        Config.new service_level_result, service_method_level_result
       end
 
       ##

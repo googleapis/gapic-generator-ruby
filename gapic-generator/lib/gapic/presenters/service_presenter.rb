@@ -396,8 +396,8 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
-      def service_config_presenter
-        ServiceConfigPresenter.new grpc_service_config
+      def grpc_service_config_presenter
+        GrpcServiceConfigPresenter.new grpc_service_config
       end
 
       ##

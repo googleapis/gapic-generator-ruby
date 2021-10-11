@@ -21,12 +21,12 @@ module Gapic
     # applied on the service level (to all the methods) and the configurations
     # applied to the specific methods
     #
-    class ServiceConfig
+    class Config
       attr_reader :service_level_configs
       attr_reader :service_method_level_configs
 
       ##
-      # Create new ServiceConfig.
+      # Create new GrpcServiceConfig.
       #
       # @param service_level_configs [Hash<String, Gapic::GrpcServiceConfig::MethodConfig>] service-level configs
       #   in a lookup hash by the service full grpc name

@@ -81,7 +81,7 @@ class GeneratorTest < Minitest::Test
   # @param service [Symbol]
   # @param grpc_service_config [String]
   # @return [Gapic::Schema::Api]
-  def api_with_service_config service, grpc_service_config
+  def api_with_grpc_service_config service, grpc_service_config
     grpc_service_config_str = grpc_service_config.is_a?(Array) ? grpc_service_config.join(";")
                                                       : grpc_service_config.to_s
 

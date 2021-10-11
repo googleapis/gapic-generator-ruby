@@ -243,8 +243,8 @@ module Gapic
         end
       end
 
-      def service_config_presenter
-        ServiceConfigPresenter.new grpc_service_config
+      def grpc_service_config_presenter
+        GrpcServiceConfigPresenter.new grpc_service_config
       end
 
       def grpc_method_name
