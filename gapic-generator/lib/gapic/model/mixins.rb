@@ -136,6 +136,7 @@ module Gapic
         IAM_SERVICE => "iam_policy_client"
       }.freeze
 
+      # @param service [String]
       # @raise [ModelError]
       # @return [Mixin]
       def create_mixin service

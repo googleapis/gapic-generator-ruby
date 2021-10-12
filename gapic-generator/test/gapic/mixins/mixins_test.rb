@@ -18,6 +18,8 @@ require "test_helper"
 
 # Test mixins model construction
 class MixinsTest < PresenterTest
+  # Test the `Testing` library, which does have mixins specified
+  # in its service.yaml
   def test_testing_mixins
     mx_model = Gapic::Presenters::GemPresenter.new(api(:testing)).mixins_model
 
@@ -32,7 +34,9 @@ class MixinsTest < PresenterTest
     locations_gem_name = Gapic::Model::Mixins::SERVICE_TO_DEPENDENCY[Gapic::Model::Mixins::LOCATIONS_SERVICE].keys[0]
     assert mx_model.dependencies.key? locations_gem_name
   end
-
+  
+  # Test the `Garbage` library, which does NOT have mixins specified
+  # in its service.yaml (or service.yaml at all)
   def test_garbage_mixins
     mx_model = Gapic::Presenters::GemPresenter.new(api(:garbage)).mixins_model
 

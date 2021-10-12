@@ -27,7 +27,6 @@
 require "testing/grpc_service_config/grpc_service_config_pb"
 require "google/cloud/location"
 
-
 module Testing
   module GrpcServiceConfig
     module ServiceWithRetries

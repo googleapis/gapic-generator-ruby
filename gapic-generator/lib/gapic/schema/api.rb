@@ -299,6 +299,7 @@ module Gapic
 
       # Raw text of the service.yaml if given as a parameter
       # or nil if no parameter given
+      # @return [String]
       def service_config_raw
         @service_config_raw ||= begin
           filename = protoc_options[:service_yaml]
@@ -307,6 +308,7 @@ module Gapic
       end
 
       # Parsed service config
+      # @return [Google::Api::Service]
       def service_config
         @service_config ||= Gapic::Schema::ServiceConfigParser.parse_service_yaml service_config_raw
       end

@@ -36,6 +36,12 @@ module Gapic
         HTTP_RULES_BODY_KEY = "body"
         HTTP_RULES_ADDITIONAL_BINDINGS_KEY = "additional_bindings"
 
+        ##
+        # Returns the parsed Google::Api::Service object.
+        # Only supports a limited subset of fields.
+        #
+        # @return [::Google::Api::Service]
+        #
         def parse_service_yaml service_yaml_text
           return nil unless service_yaml_text && !service_yaml_text.empty?
           service_yaml = YAML.safe_load service_yaml_text
@@ -56,10 +62,17 @@ module Gapic
           service
         end
 
+        private
+
+        # Parses the Apis section of the service yaml
+        # @return [Enumerable<::Google::Protobuf::Api>]
         def parse_apis apis_yaml
           apis_yaml.map { |api_yaml| parse_api api_yaml }
         end
 
+        # Parses a single Api from yaml
+        # only supports a limited amount of fields
+        # @return [::Google::Protobuf::Api]
         def parse_api api_yaml
           api = ::Google::Protobuf::Api.new
           api.name = api_yaml[NAME_KEY] if api_yaml.key? NAME_KEY
@@ -67,6 +80,9 @@ module Gapic
           api
         end
 
+        # Parses a http section of the service yaml
+        # only supports a limited amount of fields
+        # @return [::Google::Api::Http]
         def parse_http http_yaml
           http = Google::Api::Http.new
 
@@ -77,6 +93,10 @@ module Gapic
           http
         end
 
+        # Parses a single Http rule from yaml
+        # only supports a limited amount of fields
+        # NB: this method is recursive when parsing additional_bindings field
+        # @return [::Google::Api::HttpRule]
         def parse_http_rule rule_yaml
           rule = Google::Api::HttpRule.new
           rule.selector = rule_yaml[HTTP_RULES_SELECTOR_KEY] if rule_yaml.key? HTTP_RULES_SELECTOR_KEY

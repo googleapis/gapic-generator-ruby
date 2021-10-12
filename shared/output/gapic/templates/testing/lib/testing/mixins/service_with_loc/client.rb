@@ -27,7 +27,6 @@
 require "testing/mixins/mixins_pb"
 require "google/cloud/location"
 
-
 module Testing
   module Mixins
     module ServiceWithLoc

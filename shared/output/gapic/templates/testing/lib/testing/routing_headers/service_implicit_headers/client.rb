@@ -27,7 +27,6 @@
 require "testing/routing_headers/routing_headers_pb"
 require "google/cloud/location"
 
-
 module Testing
   module RoutingHeaders
     module ServiceImplicitHeaders
