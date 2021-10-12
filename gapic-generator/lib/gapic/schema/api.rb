@@ -115,7 +115,7 @@ module Gapic
         configuration[:overrides][:service].fetch str, str
       end
 
-       # @return [Enumerable<Gapic::Schema::File>]
+      # @return [Enumerable<Gapic::Schema::File>]
       def generate_files
         @files.select(&:generate?)
       end

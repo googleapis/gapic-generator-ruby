@@ -14,12 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'yaml'
-require 'google/api/service.pb'
+require "yaml"
+require "google/api/service.pb"
 
 module Gapic
   module Schema
-    # Contains logic for parsing a subset of service.yaml used 
+    # Contains logic for parsing a subset of service.yaml used
     # for the service generation
     module ServiceConfigParser
       class << self
@@ -32,13 +32,13 @@ module Gapic
         HTTP_KEY = "http"
         HTTP_RULES_KEY = "rules"
         HTTP_RULES_SELECTOR_KEY = "selector"
-        HTTP_RULES_VERBS_ALLOWED = ["get", "post", "put", "patch", "delete"]
+        HTTP_RULES_VERBS_ALLOWED = ["get", "post", "put", "patch", "delete"].freeze
         HTTP_RULES_BODY_KEY = "body"
         HTTP_RULES_ADDITIONAL_BINDINGS_KEY = "additional_bindings"
 
         def parse_service_yaml service_yaml_text
           return nil unless service_yaml_text && !service_yaml_text.empty?
-          service_yaml = YAML.load service_yaml_text
+          service_yaml = YAML.safe_load service_yaml_text
           service = Google::Api::Service.new
 
           if service_yaml.key? CONFIG_VERSION_KEY
@@ -51,13 +51,13 @@ module Gapic
           service.id = service_yaml[ID_KEY] if service_yaml.key? ID_KEY
           service.title = service_yaml[TITLE_KEY] if service_yaml.key? TITLE_KEY
 
-          service.apis = parse_apis(service_yaml[APIS_KEY]) if service_yaml.key? APIS_KEY
-          service.http = parse_http(service_yaml[HTTP_KEY]) if service_yaml.key? HTTP_KEY
+          service.apis = parse_apis service_yaml[APIS_KEY] if service_yaml.key? APIS_KEY
+          service.http = parse_http service_yaml[HTTP_KEY] if service_yaml.key? HTTP_KEY
           service
         end
 
         def parse_apis apis_yaml
-          apis_yaml.map { |api_yaml|  parse_api api_yaml }
+          apis_yaml.map { |api_yaml| parse_api api_yaml }
         end
 
         def parse_api api_yaml
@@ -81,7 +81,7 @@ module Gapic
           rule = Google::Api::HttpRule.new
           rule.selector = rule_yaml[HTTP_RULES_SELECTOR_KEY] if rule_yaml.key? HTTP_RULES_SELECTOR_KEY
           verb_path = HTTP_RULES_VERBS_ALLOWED.find { |verb| rule_yaml[verb] }
-          rule.send("#{verb_path}=", rule_yaml[verb_path]) if verb_path
+          rule.send "#{verb_path}=", rule_yaml[verb_path] if verb_path
           rule.body = rule_yaml[HTTP_RULES_BODY_KEY] if rule_yaml.key? HTTP_RULES_BODY_KEY
 
           if rule_yaml.key? HTTP_RULES_ADDITIONAL_BINDINGS_KEY

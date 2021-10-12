@@ -30,7 +30,7 @@ module Gapic
 
       def initialize api
         @api = api
-        @mixin_model = Gapic::Model::Mixins.new api.services.map(&:full_name), api.service_config
+        @mixins_model = Gapic::Model::Mixins.new api.services.map(&:full_name), api.service_config
       end
 
       ##
@@ -200,7 +200,7 @@ module Gapic
           deps["grpc-google-iam-v1"] = [">= 0.6.10", "< 2.a"] if iam_dependency?
           extra_deps = gem_config_dependencies
           deps.merge! extra_deps if extra_deps
-          deps.merge! mixin_model.dependencies if mixin_model.mixins?
+          deps.merge! mixins_model.dependencies if mixins_model.mixins?
           deps
         end
       end
@@ -255,8 +255,13 @@ module Gapic
         packages? && quick_start_service.usable_service_presenter.is_a?(ServicePresenter)
       end
 
-      def mixin_model
-        @mixin_model
+      ##
+      # The model for the mixin services
+      #
+      # @return [Gapic::Model::Mixins]
+      #
+      def mixins_model
+        @mixins_model
       end
 
       private

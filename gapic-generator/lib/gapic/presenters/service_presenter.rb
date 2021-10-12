@@ -477,13 +477,25 @@ module Gapic
           rest
         end
       end
-      
+
+      ##
+      # Whether there are mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Boolean]
+      #
       def mixins?
-        @gem_presenter.mixin_model.mixins?
+        @gem_presenter.mixins_model.mixins?
       end
 
+      ##
+      # The mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Enumerable<Gapic::Model::Mixins::Mixin>]
+      #
       def mixins
-        @gem_presenter.mixin_model.mixins
+        @gem_presenter.mixins_model.mixins
       end
 
       private
