@@ -47,6 +47,7 @@ module Gapic
 
         gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
+        files << g("mixins.erb", "mixins.txt", api: @api)
         gem.packages.each do |package|
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)

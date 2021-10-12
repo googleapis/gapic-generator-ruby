@@ -408,8 +408,12 @@ module Gapic
         @service.name
       end
 
+      ##
+      # The full proto name for this service
+      #
+      # @return [String]
       def grpc_full_name
-        @service.address.join "."
+        @service.full_name
       end
 
       ##
@@ -472,6 +476,14 @@ module Gapic
         elsif @api.generate_rest_clients? && methods_rest_bindings?
           rest
         end
+      end
+      
+      def mixins?
+        @gem_presenter.mixins.mixins?
+      end
+
+      def mixins
+        @gem_presenter.mixins.mixins
       end
 
       private

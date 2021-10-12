@@ -20,6 +20,7 @@ require "gapic/generators/default_generator_parameters"
 require "gapic/schema/loader"
 require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
+require "gapic/schema/service_config_parser"
 
 module Gapic
   module Schema
@@ -114,14 +115,17 @@ module Gapic
         configuration[:overrides][:service].fetch str, str
       end
 
+       # @return [Enumerable<Gapic::Schema::File>]
       def generate_files
         @files.select(&:generate?)
       end
 
+      # @return [Enumerable<Gapic::Schema::Service>]
       def services
         @files.map(&:services).flatten
       end
 
+      # @return [Enumerable<Gapic::Schema::Message>]
       def messages
         @files.map(&:messages).flatten
       end
@@ -291,6 +295,20 @@ module Gapic
       # Parsed grpc service config
       def grpc_service_config
         @grpc_service_config ||= Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
+      end
+
+      # Raw text of the service.yaml if given as a parameter
+      # or nil if no parameter given
+      def service_config_raw
+        @service_config_raw ||= begin
+          filename = protoc_options[:service_yaml]
+          ::File.read filename if filename
+        end
+      end
+
+      # Parsed service config
+      def service_config
+        @service_config ||= Gapic::Schema::ServiceConfigParser.parse_service_yaml service_config_raw
       end
 
       # Get a resource given its type string
