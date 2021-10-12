@@ -15,13 +15,12 @@
 # limitations under the License.
 
 module Gapic
-    module Model
-      ##
-      # Represents an error due to inconsistency in the Model
-      # that the Generator is attempting to Generate
-      #
-      class ModelError < StandardError
-      end
+  module Model
+    ##
+    # Represents an error due to inconsistency in the Model
+    # that the Generator is attempting to Generate
+    #
+    class ModelError < StandardError
     end
   end
-  
+end

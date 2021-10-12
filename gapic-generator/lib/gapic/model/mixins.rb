@@ -17,8 +17,10 @@
 module Gapic
   module Model
     class Mixins
-      # LRO might be specified in the mixins but it is handled differently
+      # LRO might be specified in the mixins but it is not generated as a mixin
       LRO_SERVICE = "google.longrunning.Operations"
+      
+      # Locations and Iam are generated as mixins
       LOCATIONS_SERVICE = "google.cloud.location.Locations"
       IAM_SERVICE = "google.iam.v1.IAMPolicy"
 
