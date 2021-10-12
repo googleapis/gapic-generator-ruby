@@ -479,11 +479,11 @@ module Gapic
       end
       
       def mixins?
-        @gem_presenter.mixins.mixins?
+        @gem_presenter.mixin_model.mixins?
       end
 
       def mixins
-        @gem_presenter.mixins.mixins
+        @gem_presenter.mixin_model.mixins
       end
 
       private

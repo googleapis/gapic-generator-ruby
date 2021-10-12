@@ -3,6 +3,6 @@ source "https://rubygems.org"
 
 gemspec
 <%# This will be removed when locations gem is released %>
-<%- if gem.mixins.mixins? -%>
+<%- if gem.mixin_model.mixins? -%>
 gem "google-cloud-location", :path => "../../../../test_resources/google-cloud-location"
 <% end %>
