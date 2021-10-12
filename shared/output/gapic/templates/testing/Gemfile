@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 
 gemspec
+gem "google-cloud-location", :path => "../../../../test_resources/google-cloud-location"
