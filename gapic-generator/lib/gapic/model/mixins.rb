@@ -19,6 +19,8 @@ module Gapic
     class Mixins
       # LRO might be specified in the mixins but it is handled differently
       LRO_SERVICE = "google.longrunning.Operations"
+      LOCATIONS_SERVICE = "google.cloud.location.Locations"
+      IAM_SERVICE = "google.iam.v1.IAMPolicy"
 
       attr_accessor :api_services
 
@@ -73,23 +75,23 @@ module Gapic
       # have these in lookup tables than to construct a ServicePresenter
 
       SERVICE_TO_DEPENDENCY = {
-        "google.cloud.location.Locations" => {"google-cloud-location" => "~> 1.0"},
-        "google.iam.v1.IAMPolicy" => {"google-iam-v1" => "~> 1.0"},
+        LOCATIONS_SERVICE => {"google-cloud-location" => "~> 1.0"},
+        IAM_SERVICE => {"google-iam-v1" => "~> 1.0"},
       }
 
       SERVICE_TO_REQUIRE_STR = {
-        "google.cloud.location.Locations" => "google/cloud/location",
-        "google.iam.v1.IAMPolicy" => "google/cloud/v1/iam_policy",
+        LOCATIONS_SERVICE => "google/cloud/location",
+        IAM_SERVICE => "google/cloud/v1/iam_policy",
       }
 
       SERVICE_TO_CLIENT_CLASS_NAME = {
-        "google.cloud.location.Locations" => "Google::Cloud::Locations::Client",
-        "google.iam.v1.IAMPolicy" => "Google::Cloud::V1::IAMPolicy::Client",
+        LOCATIONS_SERVICE => "Google::Cloud::Locations::Client",
+        IAM_SERVICE => "Google::Cloud::V1::IAMPolicy::Client",
       }
 
       SERVICE_TO_CLIENT_ATTR_NAME = {
-        "google.cloud.location.Locations" => "locations_client",
-        "google.iam.v1.IAMPolicy" => "iam_policy_client",
+        LOCATIONS_SERVICE => "locations_client",
+        IAM_SERVICE => "iam_policy_client",
       }
 
       def create_mixin service
