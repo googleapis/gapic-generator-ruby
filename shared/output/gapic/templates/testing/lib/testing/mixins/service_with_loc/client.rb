@@ -167,6 +167,21 @@ module Testing
         #
         # @raise [::GRPC::BadStatus] if the RPC is aborted.
         #
+        # @example Basic example
+        #   require "testing/mixins"
+        #
+        #   # Create a client object. The client can be reused for multiple calls.
+        #   client = Testing::Mixins::ServiceWithLoc::Client.new
+        #
+        #   # Create a request. To set request fields, pass in keyword arguments.
+        #   request = Testing::Mixins::Request.new
+        #
+        #   # Call the call_method method.
+        #   result = client.call_method request
+        #
+        #   # The returned object is of type Testing::Mixins::Response.
+        #   p result
+        #
         def call_method request, options = nil
           raise ::ArgumentError, "request must be provided" if request.nil?
 

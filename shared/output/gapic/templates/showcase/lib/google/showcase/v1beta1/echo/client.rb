@@ -188,6 +188,21 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::EchoRequest.new
+          #
+          #   # Call the echo method.
+          #   result = client.echo request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
+          #   p result
+          #
           def echo request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -251,6 +266,24 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::ExpandRequest.new
+          #
+          #   # Call the expand method.
+          #   result = client.expand request
+          #
+          #   # The returned object is a streamed enumerable yielding elements of
+          #   # type ::Google::Showcase::V1beta1::EchoResponse.
+          #   result.each do |response|
+          #     p response
+          #   end
+          #
           def expand request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -299,6 +332,25 @@ module Google
           # @return [::Google::Showcase::V1beta1::EchoResponse]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a stream of requests, as an Enumerator.
+          #   # For each request, pass in keyword arguments to set fields.
+          #   request = [
+          #     Google::Showcase::V1beta1::EchoRequest.new,
+          #     Google::Showcase::V1beta1::EchoRequest.new
+          #   ].to_enum
+          #
+          #   # Call the collect method.
+          #   result = client.collect request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
+          #   p result
           #
           def collect request, options = nil
             unless request.is_a? ::Enumerable
@@ -353,6 +405,30 @@ module Google
           # @return [::Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create an input stream
+          #   input = Gapic::StreamInput.new
+          #
+          #   # Call the chat method to start streaming.
+          #   output = client.chat input
+          #
+          #   # Send requests on the stream. For each request, pass in keyword
+          #   # arguments to set fields. Be sure to close the stream when done.
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input.close
+          #
+          #   # Handle streamed responses. These may be interleaved with inputs.
+          #   # Each response is of type ::Google::Showcase::V1beta1::EchoResponse.
+          #   output.each do |response|
+          #     p response
+          #   end
           #
           def chat request, options = nil
             unless request.is_a? ::Enumerable
@@ -424,6 +500,27 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::PagedExpandRequest.new
+          #
+          #   # Call the paged_expand method.
+          #   result = client.paged_expand request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can
+          #   # iterate over all elements by calling #each, and the enumerable
+          #   # will lazily make API calls to fetch subsequent pages. Other
+          #   # methods are also available for managing paging directly.
+          #   result.each do |response|
+          #     # Each element is of type ::Google::Showcase::V1beta1::EchoResponse.
+          #     p response
+          #   end
+          #
           def paged_expand request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -493,6 +590,28 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::WaitRequest.new
+          #
+          #   # Call the wait method.
+          #   result = client.wait request
+          #
+          #   # The returned object is of type Gapic::Operation. You can use this
+          #   # object to check the status of an operation, cancel it, or wait
+          #   # for results. Here is how to block until completion:
+          #   result.wait_until_done! timeout: 60
+          #   if result.response?
+          #     p result.response
+          #   else
+          #     puts "Error!"
+          #   end
+          #
           def wait request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -560,6 +679,21 @@ module Google
           # @return [::Google::Showcase::V1beta1::BlockResponse]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Echo::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::BlockRequest.new
+          #
+          #   # Call the block method.
+          #   result = client.block request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::BlockResponse.
+          #   p result
           #
           def block request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?

@@ -185,6 +185,21 @@ module Testing
         #
         # @raise [::GRPC::BadStatus] if the RPC is aborted.
         #
+        # @example Basic example
+        #   require "testing/routing_headers"
+        #
+        #   # Create a client object. The client can be reused for multiple calls.
+        #   client = Testing::RoutingHeaders::ServiceNoHeaders::Client.new
+        #
+        #   # Create a request. To set request fields, pass in keyword arguments.
+        #   request = Testing::RoutingHeaders::Request.new
+        #
+        #   # Call the plain method.
+        #   result = client.plain request
+        #
+        #   # The returned object is of type Testing::RoutingHeaders::Response.
+        #   p result
+        #
         def plain request, options = nil
           raise ::ArgumentError, "request must be provided" if request.nil?
 

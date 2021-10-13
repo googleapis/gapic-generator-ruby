@@ -171,6 +171,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ResourceNames::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::SimplePatternRequest.new
+          #
+          #   # Call the simple_pattern_method method.
+          #   result = client.simple_pattern_method request
+          #
+          #   # The returned object is of type So::Much::Trash::Response.
+          #   p result
+          #
           def simple_pattern_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -230,6 +245,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ResourceNames::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::ComplexPatternRequest.new
+          #
+          #   # Call the complex_pattern_method method.
+          #   result = client.complex_pattern_method request
+          #
+          #   # The returned object is of type So::Much::Trash::Response.
+          #   p result
+          #
           def complex_pattern_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -286,6 +316,21 @@ module So
           # @return [::So::Much::Trash::Response]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ResourceNames::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::ResourceNamePatternRequest.new
+          #
+          #   # Call the resource_name_pattern_method method.
+          #   result = client.resource_name_pattern_method request
+          #
+          #   # The returned object is of type So::Much::Trash::Response.
+          #   p result
           #
           def resource_name_pattern_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -345,6 +390,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ResourceNames::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::MultiparentRequest.new
+          #
+          #   # Call the multiparent_method method.
+          #   result = client.multiparent_method request
+          #
+          #   # The returned object is of type So::Much::Trash::Response.
+          #   p result
+          #
           def multiparent_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -401,6 +461,21 @@ module So
           # @return [::So::Much::Trash::Response]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ResourceNames::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::NoArgumentsMultiRequest.new
+          #
+          #   # Call the no_arguments_multi_method method.
+          #   result = client.no_arguments_multi_method request
+          #
+          #   # The returned object is of type So::Much::Trash::Response.
+          #   p result
           #
           def no_arguments_multi_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?

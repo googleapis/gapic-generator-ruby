@@ -175,6 +175,21 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::CreateSessionRequest.new
+          #
+          #   # Call the create_session method.
+          #   result = client.create_session request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::Session.
+          #   p result
+          #
           def create_session request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -234,6 +249,21 @@ module Google
           # @return [::Google::Showcase::V1beta1::Session]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::GetSessionRequest.new
+          #
+          #   # Call the get_session method.
+          #   result = client.get_session request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::Session.
+          #   p result
           #
           def get_session request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -305,6 +335,27 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::ListSessionsRequest.new
+          #
+          #   # Call the list_sessions method.
+          #   result = client.list_sessions request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can
+          #   # iterate over all elements by calling #each, and the enumerable
+          #   # will lazily make API calls to fetch subsequent pages. Other
+          #   # methods are also available for managing paging directly.
+          #   result.each do |response|
+          #     # Each element is of type ::Google::Showcase::V1beta1::Session.
+          #     p response
+          #   end
+          #
           def list_sessions request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -366,6 +417,21 @@ module Google
           # @return [::Google::Protobuf::Empty]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::DeleteSessionRequest.new
+          #
+          #   # Call the delete_session method.
+          #   result = client.delete_session request
+          #
+          #   # The returned object is of type Google::Protobuf::Empty.
+          #   p result
           #
           def delete_session request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -436,6 +502,21 @@ module Google
           # @return [::Google::Showcase::V1beta1::ReportSessionResponse]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::ReportSessionRequest.new
+          #
+          #   # Call the report_session method.
+          #   result = client.report_session request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::ReportSessionResponse.
+          #   p result
           #
           def report_session request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -508,6 +589,27 @@ module Google
           # @return [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::ListTestsRequest.new
+          #
+          #   # Call the list_tests method.
+          #   result = client.list_tests request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can
+          #   # iterate over all elements by calling #each, and the enumerable
+          #   # will lazily make API calls to fetch subsequent pages. Other
+          #   # methods are also available for managing paging directly.
+          #   result.each do |response|
+          #     # Each element is of type ::Google::Showcase::V1beta1::Test.
+          #     p response
+          #   end
           #
           def list_tests request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -583,6 +685,21 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::DeleteTestRequest.new
+          #
+          #   # Call the delete_test method.
+          #   result = client.delete_test request
+          #
+          #   # The returned object is of type Google::Protobuf::Empty.
+          #   p result
+          #
           def delete_test request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -657,6 +774,21 @@ module Google
           # @return [::Google::Showcase::V1beta1::VerifyTestResponse]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Testing::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::VerifyTestRequest.new
+          #
+          #   # Call the verify_test method.
+          #   result = client.verify_test request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::VerifyTestResponse.
+          #   p result
           #
           def verify_test request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?

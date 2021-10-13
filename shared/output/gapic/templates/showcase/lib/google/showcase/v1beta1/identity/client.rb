@@ -172,6 +172,21 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Identity::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::CreateUserRequest.new
+          #
+          #   # Call the create_user method.
+          #   result = client.create_user request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::User.
+          #   p result
+          #
           def create_user request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -231,6 +246,21 @@ module Google
           # @return [::Google::Showcase::V1beta1::User]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Identity::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::GetUserRequest.new
+          #
+          #   # Call the get_user method.
+          #   result = client.get_user request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::User.
+          #   p result
           #
           def get_user request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -303,6 +333,21 @@ module Google
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Identity::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::UpdateUserRequest.new
+          #
+          #   # Call the update_user method.
+          #   result = client.update_user request
+          #
+          #   # The returned object is of type Google::Showcase::V1beta1::User.
+          #   p result
+          #
           def update_user request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -370,6 +415,21 @@ module Google
           # @return [::Google::Protobuf::Empty]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Identity::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::DeleteUserRequest.new
+          #
+          #   # Call the delete_user method.
+          #   result = client.delete_user request
+          #
+          #   # The returned object is of type Google::Protobuf::Empty.
+          #   p result
           #
           def delete_user request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -443,6 +503,27 @@ module Google
           # @return [::Gapic::PagedEnumerable<::Google::Showcase::V1beta1::User>]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "google/showcase/v1beta1"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Google::Showcase::V1beta1::Identity::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Google::Showcase::V1beta1::ListUsersRequest.new
+          #
+          #   # Call the list_users method.
+          #   result = client.list_users request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can
+          #   # iterate over all elements by calling #each, and the enumerable
+          #   # will lazily make API calls to fetch subsequent pages. Other
+          #   # methods are also available for managing paging directly.
+          #   result.each do |response|
+          #     # Each element is of type ::Google::Showcase::V1beta1::User.
+          #     p response
+          #   end
           #
           def list_users request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?

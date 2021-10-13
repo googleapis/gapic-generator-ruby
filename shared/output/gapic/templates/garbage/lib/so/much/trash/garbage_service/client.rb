@@ -176,6 +176,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::EmptyGarbage.new
+          #
+          #   # Call the get_empty_garbage method.
+          #   result = client.get_empty_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::EmptyGarbage.
+          #   p result
+          #
           def get_empty_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -235,6 +250,21 @@ module So
           # @return [::So::Much::Trash::SimpleGarbage]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::SimpleGarbage.new
+          #
+          #   # Call the get_simple_garbage method.
+          #   result = client.get_simple_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::SimpleGarbage.
+          #   p result
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -365,6 +395,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::SpecificGarbage.new
+          #
+          #   # Call the get_specific_garbage method.
+          #   result = client.get_specific_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::SpecificGarbage.
+          #   p result
+          #
           def get_specific_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -443,6 +488,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::SpecificGarbage::NestedGarbage.new
+          #
+          #   # Call the get_nested_garbage method.
+          #   result = client.get_nested_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::SpecificGarbage::NestedGarbage.
+          #   p result
+          #
           def get_nested_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -520,6 +580,21 @@ module So
           # @return [::So::Much::Trash::RepeatedGarbage]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::RepeatedGarbage.new
+          #
+          #   # Call the get_repeated_garbage method.
+          #   result = client.get_repeated_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::RepeatedGarbage.
+          #   p result
           #
           def get_repeated_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
@@ -619,6 +694,21 @@ module So
           # @return [::So::Much::Trash::TypicalGarbage]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::TypicalGarbage.new
+          #
+          #   # Call the get_typical_garbage method.
+          #   result = client.get_typical_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::TypicalGarbage.
+          #   p result
           #
           # @example Getting garbage (printing timestamp)
           #   require "so/much/trash/garbage_service"
@@ -738,6 +828,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::GetTypicalGarbageRequest.new
+          #
+          #   # Call the get_typical_garbage_by_request method.
+          #   result = client.get_typical_garbage_by_request request
+          #
+          #   # The returned object is of type So::Much::Trash::TypicalGarbage.
+          #   p result
+          #
           def get_typical_garbage_by_request request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -798,6 +903,21 @@ module So
           # @return [::So::Much::Trash::ComplexGarbage]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::ComplexGarbage.new
+          #
+          #   # Call the get_complex_garbage method.
+          #   result = client.get_complex_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::ComplexGarbage.
+          #   p result
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -902,6 +1022,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::GarbageNode.new
+          #
+          #   # Call the get_garbage_node method.
+          #   result = client.get_garbage_node request
+          #
+          #   # The returned object is of type So::Much::Trash::GarbageNode.
+          #   p result
+          #
           def get_garbage_node request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -965,6 +1100,27 @@ module So
           # @return [::Gapic::PagedEnumerable<::So::Much::Trash::GarbageItem>]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::PagedGarbageRequest.new
+          #
+          #   # Call the get_paged_garbage method.
+          #   result = client.get_paged_garbage request
+          #
+          #   # The returned object is of type Gapic::PagedEnumerable. You can
+          #   # iterate over all elements by calling #each, and the enumerable
+          #   # will lazily make API calls to fetch subsequent pages. Other
+          #   # methods are also available for managing paging directly.
+          #   result.each do |response|
+          #     # Each element is of type ::So::Much::Trash::GarbageItem.
+          #     p response
+          #   end
           #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
@@ -1046,6 +1202,28 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::LongRunningGarbageRequest.new
+          #
+          #   # Call the long_running_garbage method.
+          #   result = client.long_running_garbage request
+          #
+          #   # The returned object is of type Gapic::Operation. You can use this
+          #   # object to check the status of an operation, cancel it, or wait
+          #   # for results. Here is how to block until completion:
+          #   result.wait_until_done! timeout: 60
+          #   if result.response?
+          #     p result.response
+          #   else
+          #     puts "Error!"
+          #   end
+          #
           def long_running_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1093,6 +1271,25 @@ module So
           # @return [::So::Much::Trash::ListGarbageResponse]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a stream of requests, as an Enumerator.
+          #   # For each request, pass in keyword arguments to set fields.
+          #   request = [
+          #     So::Much::Trash::ListGarbageRequest.new,
+          #     So::Much::Trash::ListGarbageRequest.new
+          #   ].to_enum
+          #
+          #   # Call the client_garbage method.
+          #   result = client.client_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::ListGarbageResponse.
+          #   p result
           #
           def client_garbage request, options = nil
             unless request.is_a? ::Enumerable
@@ -1159,6 +1356,24 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::ListGarbageRequest.new
+          #
+          #   # Call the server_garbage method.
+          #   result = client.server_garbage request
+          #
+          #   # The returned object is a streamed enumerable yielding elements of
+          #   # type ::So::Much::Trash::GarbageItem.
+          #   result.each do |response|
+          #     p response
+          #   end
+          #
           # @example Getting garbage
           #   require "so/much/trash/garbage_service"
           #
@@ -1223,6 +1438,30 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create an input stream
+          #   input = Gapic::StreamInput.new
+          #
+          #   # Call the bidi_garbage method to start streaming.
+          #   output = client.bidi_garbage input
+          #
+          #   # Send requests on the stream. For each request, pass in keyword
+          #   # arguments to set fields. Be sure to close the stream when done.
+          #   input << So::Much::Trash::ListGarbageRequest.new
+          #   input << So::Much::Trash::ListGarbageRequest.new
+          #   input.close
+          #
+          #   # Handle streamed responses. These may be interleaved with inputs.
+          #   # Each response is of type ::So::Much::Trash::GarbageItem.
+          #   output.each do |response|
+          #     p response
+          #   end
+          #
           def bidi_garbage request, options = nil
             unless request.is_a? ::Enumerable
               raise ::ArgumentError, "request must be an Enumerable" unless request.respond_to? :to_enum
@@ -1274,6 +1513,30 @@ module So
           # @return [::Enumerable<::So::Much::Trash::TypicalGarbage>]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create an input stream
+          #   input = Gapic::StreamInput.new
+          #
+          #   # Call the bidi_typical_garbage method to start streaming.
+          #   output = client.bidi_typical_garbage input
+          #
+          #   # Send requests on the stream. For each request, pass in keyword
+          #   # arguments to set fields. Be sure to close the stream when done.
+          #   input << So::Much::Trash::TypicalGarbage.new
+          #   input << So::Much::Trash::TypicalGarbage.new
+          #   input.close
+          #
+          #   # Handle streamed responses. These may be interleaved with inputs.
+          #   # Each response is of type ::So::Much::Trash::TypicalGarbage.
+          #   output.each do |response|
+          #     p response
+          #   end
           #
           def bidi_typical_garbage request, options = nil
             unless request.is_a? ::Enumerable
@@ -1331,6 +1594,21 @@ module So
           # @return [::So::Much::Trash::EmptyGarbage]
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
+          #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::GarbageService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::EmptyGarbage.new
+          #
+          #   # Call the call_send method.
+          #   result = client.call_send request
+          #
+          #   # The returned object is of type So::Much::Trash::EmptyGarbage.
+          #   p result
           #
           def call_send request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
