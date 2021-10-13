@@ -94,6 +94,7 @@ module Gapic
           api_id ||= final_name
           api_version = "v0"
         end
+        api_id = api_id.downcase.gsub(/[^a-z0-9]/, "")
         service_name = @method_presenter.service.module_name
         method_name = @method_presenter.method.name
         "#{api_id}_#{api_version}_generated_#{service_name}_#{method_name}_sync"
