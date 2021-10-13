@@ -100,7 +100,7 @@ def gem_defaults
     },
     googleads: {
       protos: [
-        "google/ads/googleads/v1/services/campaign_service.proto"
+        "google/ads/googleads/v7/services/campaign_service.proto"
       ]
     },
     testing: {
