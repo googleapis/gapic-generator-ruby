@@ -186,8 +186,7 @@ module So
           #
           #   @param resource [::String]
           #     REQUIRED: The resource for which the policy is being specified.
-          #     `resource` is usually specified as a path. For example, a Project
-          #     resource is specified as `projects/{project}`.
+          #     See the operation documentation for the appropriate value for this field.
           #   @param policy [::Google::Iam::V1::Policy, ::Hash]
           #     REQUIRED: The complete policy to be applied to the `resource`. The size of
           #     the policy is limited to a few 10s of KB. An empty policy is a
@@ -256,15 +255,17 @@ module So
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload get_iam_policy(resource: nil)
+          # @overload get_iam_policy(resource: nil, options: nil)
           #   Pass arguments to `get_iam_policy` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param resource [::String]
           #     REQUIRED: The resource for which the policy is being requested.
-          #     `resource` is usually specified as a path. For example, a Project
-          #     resource is specified as `projects/{project}`.
+          #     See the operation documentation for the appropriate value for this field.
+          #   @param options [::Google::Iam::V1::GetPolicyOptions, ::Hash]
+          #     OPTIONAL: A `GetPolicyOptions` object for specifying options to
+          #     `GetIamPolicy`. This field is only used by Cloud IAM.
           #
           # @yield [response, operation] Access the result along with the RPC operation
           # @yieldparam response [::Google::Iam::V1::Policy]
@@ -318,6 +319,10 @@ module So
           # If the resource does not exist, this will return an empty set of
           # permissions, not a NOT_FOUND error.
           #
+          # Note: This operation is designed to be used for building permission-aware
+          # UIs and command-line tools, not for authorization checking. This operation
+          # may "fail open" without warning.
+          #
           # @overload test_iam_permissions(request, options = nil)
           #   Pass arguments to `test_iam_permissions` via a request object, either of type
           #   {::Google::Iam::V1::TestIamPermissionsRequest} or an equivalent Hash.
@@ -335,8 +340,7 @@ module So
           #
           #   @param resource [::String]
           #     REQUIRED: The resource for which the policy detail is being requested.
-          #     `resource` is usually specified as a path. For example, a Project
-          #     resource is specified as `projects/{project}`.
+          #     See the operation documentation for the appropriate value for this field.
           #   @param permissions [::Array<::String>]
           #     The set of permissions to check for the `resource`. Permissions with
           #     wildcards (such as '*' or 'storage.*') are not allowed. For more

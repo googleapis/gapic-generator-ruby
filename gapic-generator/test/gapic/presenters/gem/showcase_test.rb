@@ -43,7 +43,20 @@ class ShowcaseGemPresenterTest < PresenterTest
     assert_equal ["Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
-    assert_equal ["google/api/field_behavior.proto", "google/protobuf/any.proto", "google/protobuf/empty.proto", "google/rpc/status.proto", "google/longrunning/operations.proto", "google/protobuf/duration.proto", "google/protobuf/timestamp.proto", "google/showcase/v1beta1/echo.proto", "google/api/resource.proto", "google/protobuf/field_mask.proto", "google/showcase/v1beta1/identity.proto", "google/rpc/error_details.proto", "google/showcase/v1beta1/messaging.proto", "google/showcase/v1beta1/testing.proto"], presenter.proto_files.map(&:name)
+    assert_equal ["google/api/field_behavior.proto",
+      "google/api/resource.proto",
+      "google/longrunning/operations.proto",
+      "google/protobuf/any.proto",
+      "google/protobuf/duration.proto",
+      "google/protobuf/empty.proto",
+      "google/protobuf/field_mask.proto",
+      "google/protobuf/timestamp.proto",
+      "google/rpc/error_details.proto",
+      "google/rpc/status.proto",
+      "google/showcase/v1beta1/echo.proto",
+      "google/showcase/v1beta1/identity.proto",
+      "google/showcase/v1beta1/messaging.proto",
+      "google/showcase/v1beta1/testing.proto"].sort, presenter.proto_files.map(&:name).sort
     presenter.proto_files.each { |fp| assert_kind_of Gapic::Presenters::FilePresenter, fp }
 
     refute presenter.iam_dependency?
