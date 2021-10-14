@@ -32,9 +32,10 @@ module Gapic
       attr_accessor :api_services
 
       ##
-      # @param api_services [Enumerable<String>] List of services from the
-      #    Api model
-      # @param service_config [Google::Api::Service] The service config
+      # @param api_services [Enumerable<String>]
+      #   List of services from the  Api model
+      # @param service_config [Google::Api::Service]
+      #   The service config
       def initialize api_services, service_config
         @api_services = api_services
         @service_config = service_config
@@ -45,9 +46,9 @@ module Gapic
         mixin_services.any?
       end
 
-      # @return [Enumerable<Mixin>] List of Mixin objects, providing
-      #    the information that needed to add mixin service references
-      #     to the generate library
+      # @return [Enumerable<Mixin>]
+      #   List of Mixin objects, providing the information that is needed
+      #   to add the mixin service references to the generated library
       def mixins
         @mixins ||= mixin_services.map { |service| create_mixin(service) }
       end
@@ -59,41 +60,49 @@ module Gapic
         end
       end
 
-      # @return [Hash<String, String>] Aggregated dependencies for
-      #    the mix-in services
+      # @return [Hash<String, String>]
+      #   Aggregated dependencies for the mix-in services
       def dependencies
         @dependencies ||= mixins.reduce({}) { |deps, mixin| deps.merge mixin.dependency }
       end
 
       # Model of a single mixin service
+      # @!attribute [r] service
+      #   Full name of the service
+      #   @return [String]
+      # @!attribute [r] dependency
+      #   Service dependencies, in the
+      #   `{ gem_name => version pattern }` format
+      #   @return [Hash<String, String>]
+      # @!attribute [rw] require_str
+      #   Path to `require` the client of the service from
+      #   @return [String]
+      # @!attribute [r] client_class_name
+      #   Full name of the class of the client of the service
+      #   @return [String]
+      # @!attribute [r] client_var_name
+      #   Name for the variable for the client of the
+      #   mixin service to use when generating library's service
+      #   @return [String]
       class Mixin
-        # @return [String] Full name of the service
-        attr_accessor :service
+        attr_reader :service
+        attr_reader :dependency
+        attr_reader :require_str
+        attr_reader :client_class_name
+        attr_reader :client_var_name
 
-        # @return [Hash<String, String>] A service dependencies, in the
+        # @param service [String]
+        #   Full name of the service
+        # @param dependency [Hash<String, String>]
+        #   Service dependencies, in the
         #   `{ gem_name => version pattern }` format
-        attr_accessor :dependency
-
-        # @return [String] a path to require the client of the service
-        attr_accessor :require_str
-
-        # @return [String] a full name of the class of the client of
-        #    the service
-        attr_accessor :client_class_name
-
-        # @return [String]  a name for the variable for the client of the
-        #    mixin service to use when generating library's service
-        attr_accessor :client_var_name
-
-        # @param service [String] Full name of the service
-        # @param dependency [Hash<String, String>] A service dependencies,
-        #    in the `{ gem_name => version pattern }` format
-        # @param require_str [String] a path to require the client of the
-        #    service
-        # @param client_class_name [String] a full name of the class of the
-        #    client of the service
-        # @param client_var_name [String] a name for the variable for the
-        # client of the mixin service to use when generating library's service
+        # @param require_str [String]
+        #   Path to require the client of the service
+        # @param client_class_name [String]
+        #   Full name of the class of the client of the service
+        # @param client_var_name [String]
+        #   Name for the variable for the client of the mixin service
+        #   to use when generating library's service
         def initialize service, dependency, require_str, client_class_name, client_var_name
           @service = service
           @dependency = dependency
@@ -136,7 +145,7 @@ module Gapic
         IAM_SERVICE => "iam_policy_client"
       }.freeze
 
-      # @param service [String]
+      # @param service [String] full grpc name of the service
       # @raise [ModelError]
       # @return [Mixin]
       def create_mixin service
