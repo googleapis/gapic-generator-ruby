@@ -14,7 +14,7 @@ AllCops:
 Metrics/AbcSize:
   Exclude:
     - lib/gapic/schema/loader.rb
-    - test/gapic/schema/api_test.rb
+    - test/gapic/schema/**/*_test.rb
 
 Metrics/ClassLength:
   Exclude:
@@ -25,7 +25,7 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
-    - test/gapic/schema/api_test.rb
+    - test/gapic/schema/**/*_test.rb
 
 Metrics/ModuleLength:
   Exclude:

@@ -21,7 +21,7 @@ module Google
     set_option :java_package, "com.google.protobuf"
     set_option :java_outer_classname, "AnyProto"
     set_option :java_multiple_files, true
-    set_option :go_package, "google.golang.org/protobuf/types/known/anypb"
+    set_option :go_package, "github.com/golang/protobuf/ptypes/any"
     set_option :objc_class_prefix, "GPB"
     set_option :csharp_namespace, "Google.Protobuf.WellKnownTypes"
 

@@ -51,7 +51,7 @@ namespace :test do
     t.test_files = FileList["test/**/*testing*_test.rb"]
   end
 
-  desc "Run tests on parsing the grpc_service_config json"
+  desc "Run tests on parsing the grpc service config json"
   Rake::TestTask.new :grpc_service_config_parsing do |t|
     t.libs << "test"
     t.libs << "lib"
@@ -91,6 +91,13 @@ namespace :test do
     t.libs << "test"
     t.libs << "lib"
     t.test_files = FileList["test/gapic/schema/**/*_test.rb"]
+  end
+
+  desc "Run tests on mixins"
+  Rake::TestTask.new :mixins do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/schema/service_config_parser_test.rb", "test/gapic/mixins/**/*_test.rb"]
   end
 end
 
@@ -211,7 +218,13 @@ def generate_default_templates service
   # Add optional grpc service config
   grpc_service_config = grpc_service_config_for service
   unless grpc_service_config.empty?
-    protoc_cmd << "--ruby_gapic_opt='grpc_service_config=#{grpc_service_config.join ';'}'"
+    protoc_cmd << "--ruby_gapic_opt='grpc-service-config=#{grpc_service_config.join ';'}'"
+  end
+
+  # Add optional service.yaml
+  service_yaml = service_yaml_for service
+  if service_yaml
+    protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'"
   end
 
   # Add the proto files

@@ -107,12 +107,14 @@ def gem_defaults
       protos: [
         "testing/testing.proto",
         "testing/grpc_service_config/grpc_service_config.proto",
+        "testing/mixins/mixins.proto",
         "testing/routing_headers/routing_headers.proto"
       ],
       grpc_service_config: [
         "../shared/protos/testing/grpc_service_config/grpc_service_config.json",
         "../shared/protos/testing/grpc_service_config/grpc_service_config2.json"
-      ]
+      ],
+      service_yaml: "../shared/protos/testing/mixins/testing_service.yaml"
     },
     compute_small: {
       protos: [
@@ -132,4 +134,8 @@ end
 
 def grpc_service_config_for service
   Array(gem_defaults[service][:grpc_service_config])
+end
+
+def service_yaml_for service
+  gem_defaults[service][:service_yaml]
 end

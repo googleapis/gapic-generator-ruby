@@ -408,8 +408,12 @@ module Gapic
         @service.name
       end
 
+      ##
+      # The full proto name for this service
+      #
+      # @return [String]
       def grpc_full_name
-        @service.address.join "."
+        @service.full_name
       end
 
       ##
@@ -472,6 +476,26 @@ module Gapic
         elsif @api.generate_rest_clients? && methods_rest_bindings?
           rest
         end
+      end
+
+      ##
+      # Whether there are mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Boolean]
+      #
+      def mixins?
+        @gem_presenter.mixins_model.mixins?
+      end
+
+      ##
+      # The mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Enumerable<Gapic::Model::Mixins::Mixin>]
+      #
+      def mixins
+        @gem_presenter.mixins_model.mixins
       end
 
       private

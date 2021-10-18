@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/model"
 require "gapic/presenters/enum_presenter"
 require "gapic/presenters/enum_value_presenter"
 require "gapic/presenters/field_presenter"
