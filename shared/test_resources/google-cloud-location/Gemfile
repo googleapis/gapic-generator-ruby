@@ -1,6 +1,0 @@
-# frozen_string_literal: true
-# This is a placeholder that will be removed
-# when google-cloud-locations gem is released
-
-source "https://rubygems.org"
-gem "google-cloud-location"

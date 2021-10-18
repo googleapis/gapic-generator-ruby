@@ -126,22 +126,22 @@ module Gapic
       # have these in lookup tables than to construct a ServicePresenter
 
       SERVICE_TO_DEPENDENCY = {
-        LOCATIONS_SERVICE => { "google-cloud-location" => "~> 1.0" },
-        IAM_SERVICE => { "google-iam-v1" => "~> 1.0" }
+        LOCATIONS_SERVICE => { "google-cloud-location" => "~> 0.1" },
+        IAM_SERVICE => { "google-iam-v1" => "~> 0.1" }
       }.freeze
 
       SERVICE_TO_REQUIRE_STR = {
         LOCATIONS_SERVICE => "google/cloud/location",
-        IAM_SERVICE => "google/cloud/v1/iam_policy"
+        IAM_SERVICE => "google/iam/v1/iam_policy"
       }.freeze
 
       SERVICE_TO_CLIENT_CLASS_NAME = {
-        LOCATIONS_SERVICE => "Google::Cloud::Locations::Client",
-        IAM_SERVICE => "Google::Cloud::V1::IAMPolicy::Client"
+        LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Client",
+        IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Client"
       }.freeze
 
       SERVICE_TO_CLIENT_ATTR_NAME = {
-        LOCATIONS_SERVICE => "locations_client",
+        LOCATIONS_SERVICE => "location_client",
         IAM_SERVICE => "iam_policy_client"
       }.freeze
 

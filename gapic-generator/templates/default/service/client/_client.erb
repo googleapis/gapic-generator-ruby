@@ -99,12 +99,6 @@ class <%= service.client_name %>
     require "gapic/grpc"
     require "<%= service.proto_services_require %>"
 
-    <%- if service.mixins? -%>
-    <%- service.mixins.each do |mixin| -%>
-    @<%= mixin.client_var_name %> = <%= mixin.client_class_name %>.new
-    <% end %>
-
-    <% end %>
     # Create the configuration object
     @config = Configuration.new <%= service.client_name %>.configure
 
@@ -127,6 +121,16 @@ class <%= service.client_name %>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+    <%- if service.mixins? -%>
+    <%- service.mixins.each do |mixin| -%>
+    @<%= mixin.client_var_name %> = <%= mixin.client_class_name %>.new do |config|
+      config.credentials = credentials
+      config.quota_project = @quota_project_id
+      config.endpoint = @config.endpoint
+    end
+    <% end %>
+
+    <% end %>
     <%- if service.lro? -%>
     <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
       config.credentials = credentials

@@ -37,8 +37,8 @@ module Testing
         # @private
         attr_reader :service_with_retries_stub
 
-        # @return [Google::Cloud::Locations::Client]
-        attr_reader :locations_client
+        # @return [Google::Cloud::Location::Locations::Client]
+        attr_reader :location_client
 
         ##
         # Configure the ServiceWithRetries Client class.
@@ -121,8 +121,6 @@ module Testing
           require "gapic/grpc"
           require "testing/grpc_service_config/grpc_service_config_services_pb"
 
-          @locations_client = Google::Cloud::Locations::Client.new
-
           # Create the configuration object
           @config = Configuration.new Client.configure
 
@@ -142,6 +140,12 @@ module Testing
           end
           @quota_project_id = @config.quota_project
           @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
+          @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @config.endpoint
+          end
 
           @service_with_retries_stub = ::Gapic::ServiceStub.new(
             ::Testing::GrpcServiceConfig::ServiceWithRetries::Stub,
