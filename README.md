@@ -6,7 +6,7 @@ Create Ruby clients from a protocol buffer description of an API.
 but there are currently no guarantees of stability or support.
 
 ## Getting started using the Docker image
-The easiest way to use the generator is to run it with the Docker image. There are several docker images containing various flavors of gapic generators, we are going to use the `gapic-generator-ruby` image which is generating code using the [gapic-generator-cloud](https://github.com/googleapis/gapic-generator-ruby/tree/master/gapic-generator-cloud).
+The easiest way to use the generator is to run it with the Docker image. There are several docker images containing various flavors of gapic generators, we are going to use the `gapic-generator-ruby` image which is generating code using the [gapic-generator-cloud](https://github.com/googleapis/gapic-generator-ruby/tree/main/gapic-generator-cloud).
 
 ### Download the sample protos for the Showcase API
 The [Showcase API](https://github.com/googleapis/gapic-showcase) is a good API to

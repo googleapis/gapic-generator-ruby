@@ -33,7 +33,7 @@ ENV LANG=en_US.UTF-8 \
 ##
 # Builder image.
 # Creates /workspace/gapic-generator-cloud.gem (and possibly also
-# /workspace/gapic-generator.gem if building the base gem from master).
+# /workspace/gapic-generator.gem if building the base gem from main).
 # These gem files are copied into the final runtime image.
 ##
 FROM base as builder
