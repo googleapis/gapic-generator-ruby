@@ -15,7 +15,7 @@
 ##
 # Builder image.
 # Creates /workspace/gapic-generator-ads.gem (and possibly also
-# /workspace/gapic-generator.gem if building the base gem from master).
+# /workspace/gapic-generator.gem if building the base gem from main).
 # These gem files are copied into the final runtime image.
 ##
 FROM ruby:2.6-stretch as builder
