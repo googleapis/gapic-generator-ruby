@@ -485,7 +485,7 @@ module Gapic
       # @return [Boolean]
       #
       def mixins?
-        @gem_presenter.mixins_model.mixins?
+        @gem_presenter.mixins?
       end
 
       ##

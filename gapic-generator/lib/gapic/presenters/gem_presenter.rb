@@ -256,6 +256,16 @@ module Gapic
       end
 
       ##
+      # Whether there are mixin services that should be referenced
+      # in the services for this gem
+      #
+      # @return [Boolean]
+      #
+      def mixins?
+        @mixins_model.mixins?
+      end
+
+      ##
       # The model for the mixin services
       #
       # @return [Gapic::Model::Mixins]

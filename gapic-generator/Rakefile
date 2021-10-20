@@ -97,7 +97,7 @@ namespace :test do
   Rake::TestTask.new :mixins do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/gapic/schema/service_config_parser_test.rb", "test/gapic/mixins/**/*_test.rb"]
+    t.test_files = FileList["test/gapic/schema/service_config_parser_test.rb", "test/gapic/mixins/**/*_test.rb", "test/gapic/**/*mixins*_test.rb"]
   end
 end
 
