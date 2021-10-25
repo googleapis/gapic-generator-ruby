@@ -8,7 +8,7 @@ if request.<%= routing_info.field.gsub(".", "&.") %> && !request.<%= routing_inf
   header_params["<%= key_name %>"] = request.<%= routing_info.field %>
 end
 <%- elsif routing_info.value_is_full_field? -%>
-if request.<%= routing_info.field.gsub(".", "&.") %>
+if request.<%= routing_info.field.gsub(".", "&.") %> &&
   %r{<%= routing_info.field_regex_str %>}.match?(request.<%= routing_info.field %>)
   header_params["<%= key_name %>"] = request.<%= routing_info.field %> 
 end

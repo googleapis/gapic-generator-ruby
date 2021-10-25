@@ -279,8 +279,8 @@ module Testing
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
-          if request.table_name
-            %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
+          if request.table_name &&
+             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
             header_params["table_name"] = request.table_name
           end
 
@@ -453,12 +453,12 @@ module Testing
               header_params["table_id"] = regex_match["table_id".to_s]
             end
           end
-          if request.table_name
-            %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
+          if request.table_name &&
+             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
             header_params["table_name"] = request.table_name
           end
-          if request.table_name
-            %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
+          if request.table_name &&
+             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
             header_params["table_name"] = request.table_name
           end
           if request.app_profile_id && !request.app_profile_id.empty?
@@ -540,8 +540,8 @@ module Testing
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
           header_params = {}
-          if request.resource&.resource_name
-            %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.resource.resource_name)
+          if request.resource&.resource_name &&
+             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.resource.resource_name)
             header_params["table_name"] = request.resource.resource_name
           end
           if request.app_profile_id && !request.app_profile_id.empty?
