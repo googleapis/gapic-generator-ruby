@@ -26,19 +26,17 @@ import "google/api/annotations.proto";
 import "google/api/client.proto";
 import "google/api/field_behavior.proto";
 import "google/api/resource.proto";
+import "google/cloud/extended_operations.proto";
 
+//
+// File Options
+//
 option csharp_namespace = "Google.Cloud.Compute.V1";
 option go_package = "google.golang.org/genproto/googleapis/cloud/compute/v1;compute";
 option java_multiple_files = true;
 option java_package = "com.google.cloud.compute.v1";
 option php_namespace = "Google\\Cloud\\Compute\\V1";
 option ruby_package = "Google::Cloud::Compute::V1";
-
-//
-// File level resource definitions
-//
-
-// [Empty]
 
 //
 // Messages
@@ -563,10 +561,16 @@ message DeleteAddressRequest {
   string address = 194485236 [(google.api.field_behavior) = REQUIRED];
 
   // Project ID for this request.
-  string project = 227560217 [(google.api.field_behavior) = REQUIRED];
+  string project = 227560217 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "project"
+  ];
 
   // Name of the region for this request.
-  string region = 138946292 [(google.api.field_behavior) = REQUIRED];
+  string region = 138946292 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "region"
+  ];
 
   // An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
   //
@@ -596,10 +600,16 @@ message InsertAddressRequest {
   Address address_resource = 215452665 [(google.api.field_behavior) = REQUIRED];
 
   // Project ID for this request.
-  string project = 227560217 [(google.api.field_behavior) = REQUIRED];
+  string project = 227560217 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "project"
+  ];
 
   // Name of the region for this request.
-  string region = 138946292 [(google.api.field_behavior) = REQUIRED];
+  string region = 138946292 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "region"
+  ];
 
   // An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
   //
@@ -688,7 +698,10 @@ message DeleteRegionOperationResponse {
 // A request message for RegionOperations.Get. See the method description for details.
 message GetRegionOperationRequest {
   // Name of the Operations resource to return.
-  string operation = 52090215 [(google.api.field_behavior) = REQUIRED];
+  string operation = 52090215 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_response_field) = "name"
+  ];
 
   // Project ID for this request.
   string project = 227560217 [(google.api.field_behavior) = REQUIRED];
@@ -772,6 +785,7 @@ service Addresses {
       delete: "/compute/v1/projects/{project}/regions/{region}/addresses/{address}"
     };
     option (google.api.method_signature) = "project,region,address";
+    option (google.cloud.operation_service) = "RegionOperations";
   }
 
   // Returns the specified address resource.
@@ -789,6 +803,7 @@ service Addresses {
       body: "address_resource"
     };
     option (google.api.method_signature) = "project,region,address_resource";
+    option (google.cloud.operation_service) = "RegionOperations";
   }
 
   // Retrieves a list of addresses contained within the specified region.
@@ -824,6 +839,7 @@ service RegionOperations {
       get: "/compute/v1/projects/{project}/regions/{region}/operations/{operation}"
     };
     option (google.api.method_signature) = "project,region,operation";
+    option (google.cloud.operation_polling_method) = true;
   }
 
   // Retrieves a list of Operation resources contained within the specified region.
@@ -854,10 +870,16 @@ message ResizeRegionInstanceGroupManagerRequest {
   string instance_group_manager = 249363395 [(google.api.field_behavior) = REQUIRED];
 
   // Project ID for this request.
-  string project = 227560217 [(google.api.field_behavior) = REQUIRED];
+  string project = 227560217 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "project"
+  ];
 
   // Name of the region scoping this request.
-  string region = 138946292 [(google.api.field_behavior) = REQUIRED];
+  string region = 138946292 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "region"
+  ];
 
   // An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
   //
@@ -890,6 +912,7 @@ service RegionInstanceGroupManagers {
       post: "/compute/v1/projects/{project}/regions/{region}/instanceGroupManagers/{instance_group_manager}/resize"
     };
     option (google.api.method_signature) = "project,region,instance_group_manager,size";
+    option (google.cloud.operation_service) = "RegionOperations";
   }
 }
 
@@ -1002,6 +1025,36 @@ message ListPeeringRoutesNetworksRequest {
 
 }
 
+//
+message NetworksRemovePeeringRequest {
+  // Name of the peering, which should conform to RFC1035.
+  optional string name = 3373707;
+
+}
+
+// A request message for Networks.RemovePeering. See the method description for details.
+message RemovePeeringNetworkRequest {
+  // Name of the network resource to remove peering from.
+  string network = 232872494 [(google.api.field_behavior) = REQUIRED];
+
+  // The body resource for this request
+  NetworksRemovePeeringRequest networks_remove_peering_request_resource = 421162494 [(google.api.field_behavior) = REQUIRED];
+
+  // Project ID for this request.
+  string project = 227560217 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_request_field) = "project"
+  ];
+
+  // An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
+  //
+  // For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
+  //
+  // The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+  optional string request_id = 37109963;
+
+}
+
 // The Networks API.
 service Networks {
   option (google.api.default_host) =
@@ -1017,5 +1070,69 @@ service Networks {
       get: "/compute/v1/projects/{project}/global/networks/{network}/listPeeringRoutes"
     };
     option (google.api.method_signature) = "project,network";
+  }
+
+  // Removes a peering from the specified network.
+  rpc RemovePeering(RemovePeeringNetworkRequest) returns (Operation) {
+    option (google.api.http) = {
+      post: "/compute/v1/projects/{project}/global/networks/{network}/removePeering"
+      body: "networks_remove_peering_request_resource"
+    };
+    option (google.api.method_signature) = "project,network,networks_remove_peering_request_resource";
+    option (google.cloud.operation_service) = "GlobalOperations";
+  }
+}
+
+// A request message for GlobalOperations.Delete. See the method description for details.
+message DeleteGlobalOperationRequest {
+  // Name of the Operations resource to delete.
+  string operation = 52090215 [(google.api.field_behavior) = REQUIRED];
+
+  // Project ID for this request.
+  string project = 227560217 [(google.api.field_behavior) = REQUIRED];
+
+}
+
+// A response message for GlobalOperations.Delete. See the method description for details.
+message DeleteGlobalOperationResponse {
+}
+
+// A request message for GlobalOperations.Get. See the method description for details.
+message GetGlobalOperationRequest {
+  // Name of the Operations resource to return.
+  string operation = 52090215 [
+    (google.api.field_behavior) = REQUIRED,
+    (google.cloud.operation_response_field) = "name"
+  ];
+
+  // Project ID for this request.
+  string project = 227560217 [(google.api.field_behavior) = REQUIRED];
+
+}
+
+// The GlobalOperations API.
+service GlobalOperations {
+  option (google.api.default_host) =
+    "compute.googleapis.com";
+
+  option (google.api.oauth_scopes) =
+    "https://www.googleapis.com/auth/compute,"
+    "https://www.googleapis.com/auth/cloud-platform";
+
+  // Deletes the specified Operations resource.
+  rpc Delete(DeleteGlobalOperationRequest) returns (DeleteGlobalOperationResponse) {
+    option (google.api.http) = {
+      delete: "/compute/v1/projects/{project}/global/operations/{operation}"
+    };
+    option (google.api.method_signature) = "project,operation";
+  }
+
+  // Retrieves the specified Operations resource. Gets a list of operations by making a `list()` request.
+  rpc Get(GetGlobalOperationRequest) returns (Operation) {
+    option (google.api.http) = {
+      get: "/compute/v1/projects/{project}/global/operations/{operation}"
+    };
+    option (google.api.method_signature) = "project,operation";
+    option (google.cloud.operation_polling_method) = true;
   }
 }

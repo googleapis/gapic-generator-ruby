@@ -7,6 +7,7 @@ require 'google/api/annotations_pb'
 require 'google/api/client_pb'
 require 'google/api/field_behavior_pb'
 require 'google/api/resource_pb'
+require 'google/cloud/extended_operations_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/cloud/compute/v1/compute_small.proto", :syntax => :proto3) do
     add_message "google.cloud.compute.v1.Errors" do
@@ -303,6 +304,25 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :INCOMING, 70117414
       value :OUTGOING, 39002988
     end
+    add_message "google.cloud.compute.v1.NetworksRemovePeeringRequest" do
+      proto3_optional :name, :string, 3373707
+    end
+    add_message "google.cloud.compute.v1.RemovePeeringNetworkRequest" do
+      optional :network, :string, 232872494
+      optional :networks_remove_peering_request_resource, :message, 421162494, "google.cloud.compute.v1.NetworksRemovePeeringRequest"
+      optional :project, :string, 227560217
+      proto3_optional :request_id, :string, 37109963
+    end
+    add_message "google.cloud.compute.v1.DeleteGlobalOperationRequest" do
+      optional :operation, :string, 52090215
+      optional :project, :string, 227560217
+    end
+    add_message "google.cloud.compute.v1.DeleteGlobalOperationResponse" do
+    end
+    add_message "google.cloud.compute.v1.GetGlobalOperationRequest" do
+      optional :operation, :string, 52090215
+      optional :project, :string, 227560217
+    end
   end
 end
 
@@ -345,6 +365,11 @@ module Google
         ExchangedPeeringRoutesList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ExchangedPeeringRoutesList").msgclass
         ListPeeringRoutesNetworksRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListPeeringRoutesNetworksRequest").msgclass
         ListPeeringRoutesNetworksRequest::Direction = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.ListPeeringRoutesNetworksRequest.Direction").enummodule
+        NetworksRemovePeeringRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.NetworksRemovePeeringRequest").msgclass
+        RemovePeeringNetworkRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.RemovePeeringNetworkRequest").msgclass
+        DeleteGlobalOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.DeleteGlobalOperationRequest").msgclass
+        DeleteGlobalOperationResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.DeleteGlobalOperationResponse").msgclass
+        GetGlobalOperationRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.compute.v1.GetGlobalOperationRequest").msgclass
       end
     end
   end
