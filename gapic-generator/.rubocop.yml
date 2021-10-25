@@ -34,6 +34,10 @@ Metrics/ModuleLength:
   Exclude:
     - lib/gapic/grpc_service_config/parser.rb
 
+Metrics/PerceivedComplexity:
+  Exclude:
+    - test/gapic/routing_headers/explicit_routing_headers_input_match_test.rb
+
 Style/Documentation:
   Exclude:
     - test/**/*

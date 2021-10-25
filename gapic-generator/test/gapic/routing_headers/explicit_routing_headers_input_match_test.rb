@@ -22,14 +22,13 @@ require "test_helper"
 # The structure of these tests is lifted from the `routing.proto`.
 #
 class ExplictRoutingHeadersInputMatchTest < Minitest::Test
-
   # Extracting a field from the request to put into the routing header
   # unchanged, with the key equal to the field name.
   def test_simple_extraction
     routing_mock = OpenStruct.new(
       routing_parameters: [
-        OpenStruct.new(field: "app_profile_id", path_template: ""),
-      ]      
+        OpenStruct.new(field: "app_profile_id", path_template: "")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -46,7 +45,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(app_profile_id: ""),
         expected: ""
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -57,8 +56,8 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
   def test_rename_extraction
     routing_mock = OpenStruct.new(
       routing_parameters: [
-        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}"),
-      ]      
+        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -75,20 +74,20 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(app_profile_id: ""),
         expected: ""
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
   end
-  
+
   # Extracting a field from the request to put into the routing
   # header, while matching a path template syntax on the field's value.
   def test_field_match
     routing_mock = OpenStruct.new(
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{table_name=projects/*/instances/*/**}"),
-        OpenStruct.new(field: "table_name", path_template: "{table_name=regions/*/zones/*/**}"),
-      ]      
+        OpenStruct.new(field: "table_name", path_template: "{table_name=regions/*/zones/*/**}")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -105,7 +104,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(table_name: "foo"),
         expected: ""
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -116,8 +115,8 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
   def test_simple_extract
     routing_mock = OpenStruct.new(
       routing_parameters: [
-        OpenStruct.new(field: "table_name", path_template: "{routing_id=projects/*}/**"),
-      ]      
+        OpenStruct.new(field: "table_name", path_template: "{routing_id=projects/*}/**")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -138,12 +137,11 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(table_name: "foo"),
         expected: ""
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
   end
-
 
   # Extracting a single routing header key-value pair by matching
   # several conflictingly named path templates on (parts of) a single request
@@ -195,8 +193,8 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
     routing_mock = OpenStruct.new(
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{project_id=projects/*}/instances/*/**"),
-        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance_id=instances/*}/**"),
-      ]      
+        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance_id=instances/*}/**")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -209,12 +207,11 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(table_name: "projects/100"),
         expected: ""
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
   end
-
 
   # Extracting multiple routing header key-value pairs by matching
   # several non-conflicting path templates on (parts of) a single request field.
@@ -224,8 +221,8 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
     routing_mock = OpenStruct.new(
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{project_id=projects/*}/**"),
-        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance_id=instances/*}/**"),
-      ]      
+        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance_id=instances/*}/**")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
@@ -238,7 +235,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(table_name: "projects/100"),
         expected: "project_id=projects/100"
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -250,22 +247,22 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
     routing_mock = OpenStruct.new(
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{project_id=projects/*}/**"),
-        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}"),
-      ]      
+        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
 
     test_cases = [
       {
-        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300", 
+        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300",
                                 app_profile_id: "profiles/profile_17"),
         expected: "project_id=projects/100&routing_id=profiles/profile_17"
       },
       {
         request: OpenStruct.new(table_name: "projects/100"),
         expected: "project_id=projects/100"
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -279,22 +276,22 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{routing_id=projects/*}/**"),
         OpenStruct.new(field: "table_name", path_template: "{routing_id=regions/*}/**"),
-        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}"),
-      ]      
+        OpenStruct.new(field: "app_profile_id", path_template: "{routing_id=**}")
+      ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
 
     test_cases = [
       {
-        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300", 
+        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300",
                                 app_profile_id: "profiles/profile_17"),
         expected: "routing_id=profiles/profile_17"
       },
       {
         request: OpenStruct.new(table_name: "regions/100", app_profile_id: ""),
         expected: "routing_id=regions/100"
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -316,20 +313,20 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
 
     test_cases = [
       {
-        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300", 
+        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300",
                                 app_profile_id: "profiles/profile_17"),
         expected: "table_location=instances/200&routing_id=profile_17"
       },
       {
-        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300", 
+        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300",
                                 app_profile_id: "profile_17"),
         expected: "table_location=instances/200&routing_id=profile_17"
       },
       {
-        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300", 
+        request: OpenStruct.new(table_name: "projects/100/instances/200/tables/300",
                                 app_profile_id: ""),
         expected: "table_location=instances/200&routing_id=projects/100"
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases
@@ -340,7 +337,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
     routing_mock = OpenStruct.new(
       routing_parameters: [
         OpenStruct.new(field: "table_name", path_template: "{project=projects/*}/**"),
-        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance=instances/*}/**"),
+        OpenStruct.new(field: "table_name", path_template: "projects/*/{instance=instances/*}/**")
       ]
     )
 
@@ -354,7 +351,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       {
         request: OpenStruct.new(table_name: "projects/_-_._/instances/_=_#_"),
         expected: "project=projects%2F_-_._&instance=instances%2F_%3D_%23_"
-      },
+      }
     ]
 
     assert_regex_matches routing, test_cases, percent_encode: true

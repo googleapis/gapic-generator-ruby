@@ -167,19 +167,10 @@ module Gapic
             # Only one segment providing an argument and only one argument in the segment
             # (no `{foo}~{bar}` segments)
             valid = @path_pattern.segments.count(&:resource_id_segment?) == 1 &&
-                     resource_segment.arguments.count == 1
-            
-            unless valid
-              reason = if @path_pattern.segments.count(&:resource_id_segment?) == 0
-                "it contains no ResourceId (e.g. `{foo=*}`) segments"
-              elsif @path_pattern.segments.count(&:resource_id_segment?) > 1
-                "it contains more than one ResourceId (e.g. `{foo=*}`) segments "
-              else
-                "it contains a multivariate ResourceId segment (e.g. `{foo}~{bar}`)"
-              end
+                    resource_segment.arguments.count == 1
 
-              error_text = "A routing header parameter with the path_template #{@raw_template} " \
-                           "is invalid: #{reason}"
+            unless valid
+              error_text = create_invalid_error_text @path_pattern, @raw_template
               raise ModelError, error_text
             end
 
@@ -242,6 +233,19 @@ module Gapic
             end
 
             template
+          end
+
+          def create_invalid_error_text path_pattern, raw_template
+            reason = if path_pattern.segments.count(&:resource_id_segment?).zero?
+                       "it contains no ResourceId (e.g. `{foo=*}`) segments"
+                     elsif path_pattern.segments.count(&:resource_id_segment?) > 1
+                       "it contains more than one ResourceId (e.g. `{foo=*}`) segments "
+                     else
+                       "it contains a multivariate ResourceId segment (e.g. `{foo}~{bar}`)"
+                     end
+
+            "A routing header parameter with the path_template #{raw_template}\n " \
+                "is invalid: #{reason}"
           end
         end
 
