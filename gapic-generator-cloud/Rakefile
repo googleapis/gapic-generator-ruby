@@ -196,9 +196,9 @@ def generate_cloud_templates service, wrapper: false, rest_only: false
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
     "--experimental_allow_proto3_optional=1",
+    "-I ../shared/protos",
     "-I ../shared/api-common-protos",
     "-I ../shared/googleapis",
-    "-I ../shared/protos",
     "--ruby_gapic_opt=generator=cloud"
   ] + ruby_plugin_args + [
     "--ruby_gapic_out=#{target_path}",

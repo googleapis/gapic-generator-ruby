@@ -162,9 +162,9 @@ def generate_input_file service
     protoc_cmd = [
       "grpc_tools_ruby_protoc",
       "--experimental_allow_proto3_optional=1",
+      "-I ../shared/protos",
       "-I ../shared/api-common-protos",
       "-I ../shared/googleapis",
-      "-I ../shared/protos",
       "--ruby_out=#{tmp}/lib",
       "--grpc_out=#{tmp}/lib",
       "--ruby_gapic_out=#{tmp}",

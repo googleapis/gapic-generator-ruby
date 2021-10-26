@@ -36,5 +36,23 @@ module Testing
 
       Stub = Service.rpc_stub_class
     end
+    module ServiceExplicitHeaders
+      class Service
+
+        include GRPC::GenericService
+
+        self.marshal_class_method = :encode
+        self.unmarshal_class_method = :decode
+        self.service_name = 'testing.routingheaders.ServiceExplicitHeaders'
+
+        rpc :PlainNoTemplate, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+        rpc :PlainFullField, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+        rpc :PlainExtract, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+        rpc :Complex, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+        rpc :WithSubMessage, ::Testing::RoutingHeaders::Request, ::Testing::RoutingHeaders::Response
+      end
+
+      Stub = Service.rpc_stub_class
+    end
   end
 end
