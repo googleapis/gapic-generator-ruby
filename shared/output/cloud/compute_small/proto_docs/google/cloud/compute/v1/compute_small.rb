@@ -896,6 +896,66 @@ module Google
             OUTGOING = 39002988
           end
         end
+
+        # @!attribute [rw] name
+        #   @return [::String]
+        #     Name of the peering, which should conform to RFC1035.
+        class NetworksRemovePeeringRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for Networks.RemovePeering. See the method description for details.
+        # @!attribute [rw] network
+        #   @return [::String]
+        #     Name of the network resource to remove peering from.
+        # @!attribute [rw] networks_remove_peering_request_resource
+        #   @return [::Google::Cloud::Compute::V1::NetworksRemovePeeringRequest]
+        #     The body resource for this request
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        # @!attribute [rw] request_id
+        #   @return [::String]
+        #     An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
+        #
+        #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
+        #
+        #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+        class RemovePeeringNetworkRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for GlobalOperations.Delete. See the method description for details.
+        # @!attribute [rw] operation
+        #   @return [::String]
+        #     Name of the Operations resource to delete.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        class DeleteGlobalOperationRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A response message for GlobalOperations.Delete. See the method description for details.
+        class DeleteGlobalOperationResponse
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # A request message for GlobalOperations.Get. See the method description for details.
+        # @!attribute [rw] operation
+        #   @return [::String]
+        #     Name of the Operations resource to return.
+        # @!attribute [rw] project
+        #   @return [::String]
+        #     Project ID for this request.
+        class GetGlobalOperationRequest
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
       end
     end
   end

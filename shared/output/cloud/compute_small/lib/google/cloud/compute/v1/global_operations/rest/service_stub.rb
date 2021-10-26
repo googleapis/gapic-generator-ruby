@@ -22,10 +22,10 @@ module Google
   module Cloud
     module Compute
       module V1
-        module Networks
+        module GlobalOperations
           module Rest
             ##
-            # REST service stub for the Networks service.
+            # REST service stub for the GlobalOperations service.
             # service stub contains baseline method implementations
             # including transcoding, making the REST call and deserialing the response
             #
@@ -39,61 +39,52 @@ module Google
               end
 
               ##
-              # Baseline implementation for the list_peering_routes REST call
+              # Baseline implementation for the delete REST call
               #
-              # @param request_pb [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest]
+              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
               #
               # @yield [result, response] Access the result along with the Faraday response object
-              # @yieldparam result [::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList]
+              # @yieldparam result [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList]
+              # @return [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
               #   A result object deserialized from the server's reply
-              def list_peering_routes request_pb, options = nil
+              def delete request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, query_string_params = transcode_list_peering_routes_request request_pb
-                response = @client_stub.make_get_request(
+                uri, _body, _query_string_params = transcode_delete_request request_pb
+                response = @client_stub.make_delete_request(
                   uri:     uri,
-                  params:  query_string_params,
                   options: options
                 )
-                result = ::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList.decode_json response.body, ignore_unknown_fields: true
+                result = ::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
                 result
               end
 
               ##
-              # GRPC transcoding helper method for the list_peering_routes REST call
+              # GRPC transcoding helper method for the delete REST call
               #
-              # @param request_pb [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest]
+              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
               #   A request object representing the call parameters. Required.
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
-              def transcode_list_peering_routes_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/networks/#{request_pb.network}/listPeeringRoutes"
+              def transcode_delete_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
                 body = nil
                 query_string_params = {}
-                query_string_params["direction"] = request_pb.direction.to_s if request_pb.has_direction?
-                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
-                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
-                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
-                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
-                query_string_params["peeringName"] = request_pb.peering_name.to_s if request_pb.has_peering_name?
-                query_string_params["region"] = request_pb.region.to_s if request_pb.has_region?
-                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
 
                 [uri, body, query_string_params]
               end
 
               ##
-              # Baseline implementation for the remove_peering REST call
+              # Baseline implementation for the get REST call
               #
-              # @param request_pb [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest]
+              # @param request_pb [::Google::Cloud::Compute::V1::GetGlobalOperationRequest]
               #   A request object representing the call parameters. Required.
               # @param options [::Gapic::CallOptions]
               #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
@@ -104,14 +95,12 @@ module Google
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #   A result object deserialized from the server's reply
-              def remove_peering request_pb, options = nil
+              def get request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, body, query_string_params = transcode_remove_peering_request request_pb
-                response = @client_stub.make_post_request(
+                uri, _body, _query_string_params = transcode_get_request request_pb
+                response = @client_stub.make_get_request(
                   uri:     uri,
-                  body:    body,
-                  params:  query_string_params,
                   options: options
                 )
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
@@ -121,17 +110,16 @@ module Google
               end
 
               ##
-              # GRPC transcoding helper method for the remove_peering REST call
+              # GRPC transcoding helper method for the get REST call
               #
-              # @param request_pb [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest]
+              # @param request_pb [::Google::Cloud::Compute::V1::GetGlobalOperationRequest]
               #   A request object representing the call parameters. Required.
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
-              def transcode_remove_peering_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/networks/#{request_pb.network}/removePeering"
-                body = request_pb.networks_remove_peering_request_resource.to_json
+              def transcode_get_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
+                body = nil
                 query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.has_request_id?
 
                 [uri, body, query_string_params]
               end

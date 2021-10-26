@@ -18,33 +18,33 @@
 
 require "google/cloud/errors"
 require "google/cloud/compute/v1/compute_small_pb"
-require "google/cloud/compute/v1/networks/rest/service_stub"
+require "google/cloud/compute/v1/global_operations/rest/service_stub"
 
 module Google
   module Cloud
     module Compute
       module V1
-        module Networks
+        module GlobalOperations
           module Rest
             ##
-            # REST client for the Networks service.
+            # REST client for the GlobalOperations service.
             #
-            # The Networks API.
+            # The GlobalOperations API.
             #
             class Client
               # @private
-              attr_reader :networks_stub
+              attr_reader :global_operations_stub
 
               ##
-              # Configure the Networks Client class.
+              # Configure the GlobalOperations Client class.
               #
-              # See {::Google::Cloud::Compute::V1::Networks::Rest::Client::Configuration}
+              # See {::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client::Configuration}
               # for a description of the configuration fields.
               #
               # @example
               #
-              #   # Modify the configuration for all Networks clients
-              #   ::Google::Cloud::Compute::V1::Networks::Rest::Client.configure do |config|
+              #   # Modify the configuration for all GlobalOperations clients
+              #   ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.configure do |config|
               #     config.timeout = 10.0
               #   end
               #
@@ -71,13 +71,13 @@ module Google
               end
 
               ##
-              # Configure the Networks Client instance.
+              # Configure the GlobalOperations Client instance.
               #
               # The configuration is set to the derived mode, meaning that values can be changed,
               # but structural changes (adding new fields, etc.) are not allowed. Structural changes
               # should be made on {Client.configure}.
               #
-              # See {::Google::Cloud::Compute::V1::Networks::Rest::Client::Configuration}
+              # See {::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client::Configuration}
               # for a description of the configuration fields.
               #
               # @yield [config] Configure the Client client.
@@ -91,19 +91,19 @@ module Google
               end
 
               ##
-              # Create a new Networks REST client object.
+              # Create a new GlobalOperations REST client object.
               #
               # @example
               #
               #   # Create a client using the default configuration
-              #   client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new
+              #   client = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.new
               #
               #   # Create a client using a custom configuration
-              #   client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new do |config|
+              #   client = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.new do |config|
               #     config.timeout = 10.0
               #   end
               #
-              # @yield [config] Configure the Networks client.
+              # @yield [config] Configure the GlobalOperations client.
               # @yieldparam config [Client::Configuration]
               #
               def initialize
@@ -120,19 +120,19 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
-                @networks_stub = ::Google::Cloud::Compute::V1::Networks::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
+                @global_operations_stub = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
               # Service calls
 
               ##
-              # Lists the peering routes exchanged over peering connection.
+              # Deletes the specified Operations resource.
               #
-              # @overload list_peering_routes(request, options = nil)
-              #   Pass arguments to `list_peering_routes` via a request object, either of type
-              #   {::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest} or an equivalent Hash.
+              # @overload delete(request, options = nil)
+              #   Pass arguments to `delete` via a request object, either of type
+              #   {::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest} or an equivalent Hash.
               #
-              #   @param request [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest, ::Hash]
+              #   @param request [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest, ::Hash]
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
@@ -140,58 +140,32 @@ module Google
               #     Note: currently retry functionality is not implemented. While it is possible
               #     to set it using ::Gapic::CallOptions, it will not be applied
               #
-              # @overload list_peering_routes(direction: nil, filter: nil, max_results: nil, network: nil, order_by: nil, page_token: nil, peering_name: nil, project: nil, region: nil, return_partial_success: nil)
-              #   Pass arguments to `list_peering_routes` via keyword arguments. Note that at
+              # @overload delete(operation: nil, project: nil)
+              #   Pass arguments to `delete` via keyword arguments. Note that at
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
-              #   @param direction [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest::Direction]
-              #     The direction of the exchanged routes.
-              #   @param filter [::String]
-              #     A filter expression that filters resources listed in the response. The expression must specify the field name, a comparison operator, and the value that you want to use for filtering. The value must be a string, a number, or a boolean. The comparison operator must be either `=`, `!=`, `>`, or `<`.
-              #
-              #     For example, if you are filtering Compute Engine instances, you can exclude instances named `example-instance` by specifying `name != example-instance`.
-              #
-              #     You can also filter nested fields. For example, you could specify `scheduling.automaticRestart = false` to include instances only if they are not scheduled for automatic restarts. You can use filtering on nested fields to filter based on resource labels.
-              #
-              #     To filter on multiple expressions, provide each separate expression within parentheses. For example: ``` (scheduling.automaticRestart = true) (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND` expression. However, you can include `AND` and `OR` expressions explicitly. For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND (scheduling.automaticRestart = true) ```
-              #   @param max_results [::Integer]
-              #     The maximum number of results per page that should be returned. If the number of available results is larger than `maxResults`, Compute Engine returns a `nextPageToken` that can be used to get the next page of results in subsequent list requests. Acceptable values are `0` to `500`, inclusive. (Default: `500`)
-              #   @param network [::String]
-              #     Name of the network for this request.
-              #   @param order_by [::String]
-              #     Sorts list results by a certain order. By default, results are returned in alphanumerical order based on the resource name.
-              #
-              #     You can also sort results in descending order based on the creation timestamp using `orderBy="creationTimestamp desc"`. This sorts results based on the `creationTimestamp` field in reverse chronological order (newest result first). Use this to sort resources like operations so that the newest operation is returned first.
-              #
-              #     Currently, only sorting by `name` or `creationTimestamp desc` is supported.
-              #   @param page_token [::String]
-              #     Specifies a page token to use. Set `pageToken` to the `nextPageToken` returned by a previous list request to get the next page of results.
-              #   @param peering_name [::String]
-              #     The response will show routes exchanged over the given peering connection.
+              #   @param operation [::String]
+              #     Name of the Operations resource to delete.
               #   @param project [::String]
               #     Project ID for this request.
-              #   @param region [::String]
-              #     The region of the request. The response will include all subnet routes, static routes and dynamic routes in the region.
-              #   @param return_partial_success [::Boolean]
-              #     Opt-in for partial success behavior which provides partial results in case of failure. The default value is false and the logic is the same as today.
               # @yield [result, response] Access the result along with the Faraday response object
-              # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+              # @yieldparam result [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Compute::V1::ExchangedPeeringRoute>]
+              # @return [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def list_peering_routes request, options = nil
+              def delete request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
-                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest
 
                 # Converts hash and nil to an options object
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.list_peering_routes.metadata.to_h
+                call_metadata = @config.rpcs.delete.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -199,14 +173,13 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.rpcs.list_peering_routes.timeout,
+                options.apply_defaults timeout:      @config.rpcs.delete.timeout,
                                        metadata:     call_metadata
 
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     @config.metadata
 
-                @networks_stub.list_peering_routes request, options do |result, response|
-                  result = ::Gapic::Rest::PagedEnumerable.new @networks_stub, :list_peering_routes, "items", request, result, options
+                @global_operations_stub.delete request, options do |result, response|
                   yield result, response if block_given?
                   return result
                 end
@@ -216,13 +189,13 @@ module Google
               end
 
               ##
-              # Removes a peering from the specified network.
+              # Retrieves the specified Operations resource. Gets a list of operations by making a `list()` request.
               #
-              # @overload remove_peering(request, options = nil)
-              #   Pass arguments to `remove_peering` via a request object, either of type
-              #   {::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest} or an equivalent Hash.
+              # @overload get(request, options = nil)
+              #   Pass arguments to `get` via a request object, either of type
+              #   {::Google::Cloud::Compute::V1::GetGlobalOperationRequest} or an equivalent Hash.
               #
-              #   @param request [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest, ::Hash]
+              #   @param request [::Google::Cloud::Compute::V1::GetGlobalOperationRequest, ::Hash]
               #     A request object representing the call parameters. Required. To specify no
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
@@ -230,40 +203,32 @@ module Google
               #     Note: currently retry functionality is not implemented. While it is possible
               #     to set it using ::Gapic::CallOptions, it will not be applied
               #
-              # @overload remove_peering(network: nil, networks_remove_peering_request_resource: nil, project: nil, request_id: nil)
-              #   Pass arguments to `remove_peering` via keyword arguments. Note that at
+              # @overload get(operation: nil, project: nil)
+              #   Pass arguments to `get` via keyword arguments. Note that at
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
-              #   @param network [::String]
-              #     Name of the network resource to remove peering from.
-              #   @param networks_remove_peering_request_resource [::Google::Cloud::Compute::V1::NetworksRemovePeeringRequest, ::Hash]
-              #     The body resource for this request
+              #   @param operation [::String]
+              #     Name of the Operations resource to return.
               #   @param project [::String]
               #     Project ID for this request.
-              #   @param request_id [::String]
-              #     An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
-              #
-              #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
-              #
-              #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, response] Access the result along with the Faraday response object
-              # @yieldparam result [::Gapic::Rest::BaseOperation]
+              # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::BaseOperation]
+              # @return [::Google::Cloud::Compute::V1::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
-              def remove_peering request, options = nil
+              def get request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
-                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::GetGlobalOperationRequest
 
                 # Converts hash and nil to an options object
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.remove_peering.metadata.to_h
+                call_metadata = @config.rpcs.get.metadata.to_h
 
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
@@ -271,14 +236,13 @@ module Google
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                options.apply_defaults timeout:      @config.rpcs.remove_peering.timeout,
+                options.apply_defaults timeout:      @config.rpcs.get.timeout,
                                        metadata:     call_metadata
 
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     @config.metadata
 
-                @networks_stub.remove_peering request, options do |result, response|
-                  result = ::Gapic::Rest::BaseOperation.new result
+                @global_operations_stub.get request, options do |result, response|
                   yield result, response if block_given?
                   return result
                 end
@@ -288,9 +252,9 @@ module Google
               end
 
               ##
-              # Configuration class for the Networks REST API.
+              # Configuration class for the GlobalOperations REST API.
               #
-              # This class represents the configuration for Networks REST,
+              # This class represents the configuration for GlobalOperations REST,
               # providing control over credentials, timeouts, retry behavior, logging.
               #
               # Configuration can be applied globally to all clients, or to a single client
@@ -300,13 +264,13 @@ module Google
               #
               # To modify the global config, setting the timeout for all calls to 10 seconds:
               #
-              #     ::Google::Cloud::Compute::V1::Networks::Client.configure do |config|
+              #     ::Google::Cloud::Compute::V1::GlobalOperations::Client.configure do |config|
               #       config.timeout = 10.0
               #     end
               #
               # To apply the above configuration only to a new client:
               #
-              #     client = ::Google::Cloud::Compute::V1::Networks::Client.new do |config|
+              #     client = ::Google::Cloud::Compute::V1::GlobalOperations::Client.new do |config|
               #       config.timeout = 10.0
               #     end
               #
@@ -374,7 +338,7 @@ module Google
                 end
 
                 ##
-                # Configuration RPC class for the Networks API.
+                # Configuration RPC class for the GlobalOperations API.
                 #
                 # Includes fields providing the configuration for each RPC in this service.
                 # Each configuration object is of type `Gapic::Config::Method` and includes
@@ -387,22 +351,22 @@ module Google
                 #
                 class Rpcs
                   ##
-                  # RPC-specific configuration for `list_peering_routes`
+                  # RPC-specific configuration for `delete`
                   # @return [::Gapic::Config::Method]
                   #
-                  attr_reader :list_peering_routes
+                  attr_reader :delete
                   ##
-                  # RPC-specific configuration for `remove_peering`
+                  # RPC-specific configuration for `get`
                   # @return [::Gapic::Config::Method]
                   #
-                  attr_reader :remove_peering
+                  attr_reader :get
 
                   # @private
                   def initialize parent_rpcs = nil
-                    list_peering_routes_config = parent_rpcs.list_peering_routes if parent_rpcs.respond_to? :list_peering_routes
-                    @list_peering_routes = ::Gapic::Config::Method.new list_peering_routes_config
-                    remove_peering_config = parent_rpcs.remove_peering if parent_rpcs.respond_to? :remove_peering
-                    @remove_peering = ::Gapic::Config::Method.new remove_peering_config
+                    delete_config = parent_rpcs.delete if parent_rpcs.respond_to? :delete
+                    @delete = ::Gapic::Config::Method.new delete_config
+                    get_config = parent_rpcs.get if parent_rpcs.respond_to? :get
+                    @get = ::Gapic::Config::Method.new get_config
 
                     yield self if block_given?
                   end
