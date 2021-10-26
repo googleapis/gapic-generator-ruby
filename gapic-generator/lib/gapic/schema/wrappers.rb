@@ -363,6 +363,12 @@ module Gapic
         options[:".google.api.http"] if options
       end
 
+      # @return [Google::Api::RoutingRule] The Routing bindings for this method. See
+      #   `google/api/routing.proto`.
+      def routing
+        options[:".google.api.routing"] if options
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the method.
       # @!method options

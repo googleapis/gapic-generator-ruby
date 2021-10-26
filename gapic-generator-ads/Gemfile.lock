@@ -63,7 +63,7 @@ GEM
       middleware
       thor
       thread_safe
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
