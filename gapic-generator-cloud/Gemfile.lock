@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.10.1)
+    gapic-generator (0.10.2)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.10.1)
+    gapic-generator-cloud (0.10.2)
       actionpack (~> 5.2)
-      gapic-generator (= 0.10.1)
+      gapic-generator (= 0.10.2)
       google-style (~> 1.25.1)
       protobuf (~> 3.8)
 
@@ -83,7 +83,7 @@ GEM
     rake (13.0.6)
     regexp_parser (2.1.1)
     rexml (3.2.5)
-    rubocop (1.22.1)
+    rubocop (1.22.3)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -114,4 +114,4 @@ DEPENDENCIES
   rake (>= 12.0)
 
 BUNDLED WITH
-   2.2.22
+   2.2.30
