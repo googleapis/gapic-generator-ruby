@@ -160,6 +160,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::ReallyRenamedService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::EmptyGarbage.new
+          #
+          #   # Call the get_empty_garbage method.
+          #   result = client.get_empty_garbage request
+          #
+          #   # The returned object is of type So::Much::Trash::EmptyGarbage.
+          #   p result
+          #
           def get_empty_garbage request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 

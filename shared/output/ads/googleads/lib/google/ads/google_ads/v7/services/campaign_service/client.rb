@@ -175,6 +175,21 @@ module Google
               #
               # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
               #
+              # @example Basic example
+              #   require "google/ads/google_ads/v7/services"
+              #
+              #   # Create a client object. The client can be reused for multiple calls.
+              #   client = Google::Ads::GoogleAds::V7::Services::CampaignService::Client.new
+              #
+              #   # Create a request. To set request fields, pass in keyword arguments.
+              #   request = Google::Ads::GoogleAds::V7::Services::GetCampaignRequest.new
+              #
+              #   # Call the get_campaign method.
+              #   result = client.get_campaign request
+              #
+              #   # The returned object is of type Google::Ads::GoogleAds::V7::Resources::Campaign.
+              #   p result
+              #
               def get_campaign request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -295,6 +310,21 @@ module Google
               # @return [::Google::Ads::GoogleAds::V7::Services::MutateCampaignsResponse]
               #
               # @raise [Google::Ads::GoogleAds::Error] if the RPC is aborted.
+              #
+              # @example Basic example
+              #   require "google/ads/google_ads/v7/services"
+              #
+              #   # Create a client object. The client can be reused for multiple calls.
+              #   client = Google::Ads::GoogleAds::V7::Services::CampaignService::Client.new
+              #
+              #   # Create a request. To set request fields, pass in keyword arguments.
+              #   request = Google::Ads::GoogleAds::V7::Services::MutateCampaignsRequest.new
+              #
+              #   # Call the mutate_campaigns method.
+              #   result = client.mutate_campaigns request
+              #
+              #   # The returned object is of type Google::Ads::GoogleAds::V7::Services::MutateCampaignsResponse.
+              #   p result
               #
               def mutate_campaigns request, options = nil
                 raise ::ArgumentError, "request must be provided" if request.nil?

@@ -251,12 +251,12 @@ module Gapic
 
       # Whether to generate standalone snippets
       def generate_standalone_snippets?
-        configuration[:generate_standalone_snippets] ||= false
+        configuration.fetch :generate_standalone_snippets, true
       end
 
       # Whether to generate inline documentation snippets
       def generate_yardoc_snippets?
-        configuration[:generate_yardoc_snippets] ||= false
+        configuration.fetch :generate_yardoc_snippets, true
       end
 
       # Whether to generate gapic metadata (drift manifest) file
