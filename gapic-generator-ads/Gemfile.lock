@@ -41,8 +41,8 @@ GEM
     erubi (1.10.0)
     google-style (1.25.2)
       rubocop (~> 1.9)
-    grpc-tools (1.36.0)
-    i18n (1.8.10)
+    grpc-tools (1.41.0)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     loofah (2.12.0)
       crass (~> 1.0.2)
@@ -101,7 +101,7 @@ DEPENDENCIES
   gapic-generator!
   gapic-generator-ads!
   google-style (~> 1.25.1)
-  grpc-tools (~> 1.36.0)
+  grpc-tools (~> 1.41.0)
   minitest (~> 5.0)
   minitest-focus (~> 1.0)
   rake (>= 12.0)
