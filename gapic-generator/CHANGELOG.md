@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.10.3 / 2021-11-04
+
+* New: Enabled snippet-gen by default
+
 ### 0.10.2 / 2021-11-01
 
 * New: Added support for service.yaml
