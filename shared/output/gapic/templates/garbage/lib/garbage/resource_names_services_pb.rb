@@ -11,7 +11,7 @@ module So
         # A service that exposes the messages that test the various combinations of path patterns
         class Service
 
-          include GRPC::GenericService
+          include ::GRPC::GenericService
 
           self.marshal_class_method = :encode
           self.unmarshal_class_method = :decode
