@@ -9,7 +9,7 @@ module Testing
     module ServiceNoHeaders
       class Service
 
-        include GRPC::GenericService
+        include ::GRPC::GenericService
 
         self.marshal_class_method = :encode
         self.unmarshal_class_method = :decode
@@ -23,7 +23,7 @@ module Testing
     module ServiceImplicitHeaders
       class Service
 
-        include GRPC::GenericService
+        include ::GRPC::GenericService
 
         self.marshal_class_method = :encode
         self.unmarshal_class_method = :decode
@@ -39,7 +39,7 @@ module Testing
     module ServiceExplicitHeaders
       class Service
 
-        include GRPC::GenericService
+        include ::GRPC::GenericService
 
         self.marshal_class_method = :encode
         self.unmarshal_class_method = :decode

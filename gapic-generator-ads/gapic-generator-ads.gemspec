@@ -46,7 +46,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "protobuf", "~> 3.8"
 
   spec.add_development_dependency "google-style", "~> 1.25.1"
-  spec.add_development_dependency "grpc-tools", "~> 1.36.0"
+  spec.add_development_dependency "grpc-tools", "~> 1.41.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"
   spec.add_development_dependency "rake", ">= 12.0"
