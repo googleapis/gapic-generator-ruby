@@ -1,5 +1,14 @@
 # Release History for gapic-generator
 
+### 0.10.2 / 2021-11-01
+
+* New: Added support for service.yaml
+* New: New mixin implementation
+* New: Parse and generate explicit routing headers
+* New: Preliminary support for extended operations for REST LROs
+* Fixed: Potential failures in generated tests when routing headers reference sub-fields
+* Fixed: Renamed service_config to grpc_service_config
+
 ### 0.10.1 / 2021-08-27
 
 * New: Compute REST libraries are now generated with LRO wrappers

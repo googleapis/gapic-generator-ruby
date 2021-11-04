@@ -26,6 +26,7 @@
 
 require "testing/routing_headers/service_no_headers"
 require "testing/routing_headers/service_implicit_headers"
+require "testing/routing_headers/service_explicit_headers"
 require "testing/version"
 
 module Testing

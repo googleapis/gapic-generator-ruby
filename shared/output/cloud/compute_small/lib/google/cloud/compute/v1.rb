@@ -20,6 +20,7 @@ require "google/cloud/compute/v1/addresses"
 require "google/cloud/compute/v1/region_operations"
 require "google/cloud/compute/v1/region_instance_group_managers"
 require "google/cloud/compute/v1/networks"
+require "google/cloud/compute/v1/global_operations"
 require "google/cloud/compute/v1/version"
 
 module Google

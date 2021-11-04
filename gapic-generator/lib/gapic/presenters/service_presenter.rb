@@ -396,8 +396,8 @@ module Gapic
         @api.grpc_service_config.service_level_configs[grpc_full_name]
       end
 
-      def service_config_presenter
-        ServiceConfigPresenter.new grpc_service_config
+      def grpc_service_config_presenter
+        GrpcServiceConfigPresenter.new grpc_service_config
       end
 
       ##
@@ -408,8 +408,12 @@ module Gapic
         @service.name
       end
 
+      ##
+      # The full proto name for this service
+      #
+      # @return [String]
       def grpc_full_name
-        @service.address.join "."
+        @service.full_name
       end
 
       ##
@@ -472,6 +476,26 @@ module Gapic
         elsif @api.generate_rest_clients? && methods_rest_bindings?
           rest
         end
+      end
+
+      ##
+      # Whether there are mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Boolean]
+      #
+      def mixins?
+        @gem_presenter.mixins?
+      end
+
+      ##
+      # The mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Enumerable<Gapic::Model::Mixins::Mixin>]
+      #
+      def mixins
+        @gem_presenter.mixins_model.mixins
       end
 
       private

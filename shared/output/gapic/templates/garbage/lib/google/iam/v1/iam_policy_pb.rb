@@ -3,8 +3,12 @@
 
 require 'google/protobuf'
 
-require 'google/api/annotations_pb'
+require 'google/iam/v1/options_pb'
 require 'google/iam/v1/policy_pb'
+require 'google/api/annotations_pb'
+require 'google/api/client_pb'
+require 'google/api/field_behavior_pb'
+require 'google/api/resource_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/iam/v1/iam_policy.proto", :syntax => :proto3) do
     add_message "google.iam.v1.SetIamPolicyRequest" do
@@ -13,6 +17,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "google.iam.v1.GetIamPolicyRequest" do
       optional :resource, :string, 1
+      optional :options, :message, 2, "google.iam.v1.GetPolicyOptions"
     end
     add_message "google.iam.v1.TestIamPermissionsRequest" do
       optional :resource, :string, 1

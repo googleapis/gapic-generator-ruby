@@ -14,22 +14,29 @@ AllCops:
 Metrics/AbcSize:
   Exclude:
     - lib/gapic/schema/loader.rb
-    - test/gapic/schema/api_test.rb
+    - test/gapic/schema/**/*_test.rb
+    - test/gapic/routing_headers/**/*_test.rb
 
 Metrics/ClassLength:
   Exclude:
     - lib/gapic/presenters/**/*
     - lib/gapic/schema/loader.rb
-    - test/gapic/schema/api_test.rb
+    - test/gapic/schema/**/*_test.rb
+    - test/gapic/routing_headers/**/*_test.rb
 
 Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
-    - test/gapic/schema/api_test.rb
+    - test/gapic/schema/**/*_test.rb
+    - test/gapic/routing_headers/**/*_test.rb
 
 Metrics/ModuleLength:
   Exclude:
     - lib/gapic/grpc_service_config/parser.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - test/gapic/routing_headers/explicit_routing_headers_input_match_test.rb
 
 Style/Documentation:
   Exclude:

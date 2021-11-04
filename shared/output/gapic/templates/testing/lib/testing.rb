@@ -27,4 +27,5 @@
 # This gem does not autoload during Bundler.require. To load this gem,
 # issue explicit require statements for the packages desired, e.g.:
 # require "testing/grpc_service_config"
+# require "testing/mixins"
 # require "testing/routing_headers"

@@ -3,10 +3,10 @@ name: "CI tests"
 on:
   pull_request:
     branches:
-      - master
+      - main
   push:
     branches:
-      - master
+      - main
   workflow_dispatch:
 
 jobs:
@@ -32,6 +32,7 @@ jobs:
           git submodule update --init --recursive
       - name: Install dependencies
         run: |
+          gem install bundler
           bundle install --retry=3
           bundle exec rake bundle_install
       - name: Run CI

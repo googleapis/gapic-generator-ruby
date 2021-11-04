@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package testing.mixins;
+option ruby_package = "Testing::Mixins";
+
+import "google/api/client.proto";
+
+service ServiceWithLoc {
+    option (google.api.default_host) = "servicewithloc.example.com";
+
+    rpc Method(Request) returns(Response);
+}
+
+message Request {
+}
+
+message Response {
+}

@@ -129,9 +129,9 @@ def generate_ads_templates service
 
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
+    "-I ../shared/protos",
     "-I ../shared/api-common-protos",
     "-I ../shared/googleapis",
-    "-I ../shared/protos",
     "--ruby_gapic_opt=generator=ads",
     "--ruby_out=#{target_path}/lib",
     "--grpc_out=#{target_path}/lib",
@@ -142,6 +142,18 @@ def generate_ads_templates service
   # Add optional samples paths
   samples = samples_for service
   protoc_cmd << "--ruby_gapic_opt='samples=#{samples.join ';'}'" if samples
+
+  # Add optional grpc service config
+  grpc_service_config = grpc_service_config_for service
+  unless grpc_service_config.empty?
+    protoc_cmd << "--ruby_gapic_opt='grpc-service-config=#{grpc_service_config.join ';'}'"
+  end
+
+  # Add optional service.yaml
+  service_yaml = service_yaml_for service
+  if service_yaml
+    protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'"
+  end
 
   # Add the proto files
   protos = protos_for service

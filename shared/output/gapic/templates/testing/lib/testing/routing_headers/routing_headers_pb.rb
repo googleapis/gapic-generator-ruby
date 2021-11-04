@@ -5,6 +5,7 @@ require 'google/protobuf'
 
 require 'google/api/client_pb'
 require 'google/api/annotations_pb'
+require 'google/api/routing_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("testing/routing_headers/routing_headers.proto", :syntax => :proto3) do
     add_message "testing.routingheaders.Request" do

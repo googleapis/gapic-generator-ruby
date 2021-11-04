@@ -38,7 +38,7 @@ module Google
     # receiving the error response before retrying.  If retrying requests also
     # fail, clients should use an exponential backoff scheme to gradually increase
     # the delay between retries based on `retry_delay`, until either a maximum
-    # number of retires have been reached or a maximum retry delay cap has been
+    # number of retries have been reached or a maximum retry delay cap has been
     # reached.
     # @!attribute [rw] retry_delay
     #   @return [::Google::Protobuf::Duration]
@@ -69,7 +69,7 @@ module Google
     # a service could respond with the project id and set `service_disabled`
     # to true.
     #
-    # Also see RetryDetail and Help types for other details about handling a
+    # Also see RetryInfo and Help types for other details about handling a
     # quota failure.
     # @!attribute [rw] violations
     #   @return [::Array<::Google::Rpc::QuotaFailure::Violation>]
@@ -100,6 +100,64 @@ module Google
       end
     end
 
+    # Describes the cause of the error with structured details.
+    #
+    # Example of an error when contacting the "pubsub.googleapis.com" API when it
+    # is not enabled:
+    #     { "reason":   "API_DISABLED"
+    #       "domain": "googleapis.com"
+    #       "metadata": {
+    #         "resource": "projects/123",
+    #         "service": "pubsub.googleapis.com"
+    #       }
+    #     }
+    # This response indicates that the pubsub.googleapis.com API is not enabled.
+    #
+    # Example of an error that is returned when attempting to create a Spanner
+    # instance in a region that is out of stock:
+    #     { "reason":   "STOCKOUT"
+    #       "domain": "spanner.googleapis.com",
+    #       "metadata": {
+    #         "availableRegions": "us-central1,us-east2"
+    #       }
+    #     }
+    # @!attribute [rw] reason
+    #   @return [::String]
+    #     The reason of the error. This is a constant value that identifies the
+    #     proximate cause of the error. Error reasons are unique within a particular
+    #     domain of errors. This should be at most 63 characters and match
+    #     /[A-Z0-9_]+/.
+    # @!attribute [rw] domain
+    #   @return [::String]
+    #     The logical grouping to which the "reason" belongs.  Often "domain" will
+    #     contain the registered service name of the tool or product that is the
+    #     source of the error. Example: "pubsub.googleapis.com". If the error is
+    #     common across many APIs, the first segment of the example above will be
+    #     omitted.  The value will be, "googleapis.com".
+    # @!attribute [rw] metadata
+    #   @return [::Google::Protobuf::Map{::String => ::String}]
+    #     Additional structured details about this error.
+    #
+    #     Keys should match /[a-zA-Z0-9-_]/ and be limited to 64 characters in
+    #     length. When identifying the current value of an exceeded limit, the units
+    #     should be contained in the key, not the value.  For example, rather than
+    #     \\{"instanceLimit": "100/request"}, should be returned as,
+    #     \\{"instanceLimitPerRequest": "100"}, if the client exceeds the number of
+    #     instances that can be created in a single (batch) request.
+    class ErrorInfo
+      include ::Google::Protobuf::MessageExts
+      extend ::Google::Protobuf::MessageExts::ClassMethods
+
+      # @!attribute [rw] key
+      #   @return [::String]
+      # @!attribute [rw] value
+      #   @return [::String]
+      class MetadataEntry
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+    end
+
     # Describes what preconditions have failed.
     #
     # For example, if an RPC failed because it required the Terms of Service to be
@@ -116,13 +174,13 @@ module Google
       # @!attribute [rw] type
       #   @return [::String]
       #     The type of PreconditionFailure. We recommend using a service-specific
-      #     enum type to define the supported precondition violation types. For
+      #     enum type to define the supported precondition violation subjects. For
       #     example, "TOS" for "Terms of Service violation".
       # @!attribute [rw] subject
       #   @return [::String]
       #     The subject, relative to the type, that failed.
-      #     For example, "google.com/cloud" relative to the "TOS" type would
-      #     indicate which terms of service is being referenced.
+      #     For example, "google.com/cloud" relative to the "TOS" type would indicate
+      #     which terms of service is being referenced.
       # @!attribute [rw] description
       #   @return [::String]
       #     A description of how the precondition failed. Developers can use this

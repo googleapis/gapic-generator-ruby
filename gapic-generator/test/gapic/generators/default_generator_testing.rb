@@ -19,11 +19,11 @@ require "gapic/generators/default_generator"
 
 class DefaultGeneratorGrpcServiceConfigTest < GeneratorTest
   def test_grpc_service_config_generate
-    service_config_path = [
+    grpc_service_config_paths = [
       "protofiles_input/testing/grpc_service_config/grpc_service_config.json",
       "protofiles_input/testing/grpc_service_config/grpc_service_config2.json"
     ]
-    api_request = api_with_service_config :testing, service_config_path.join(";")
+    api_request = api_with_grpc_service_config :testing, grpc_service_config_paths.join(";")
     generator = Gapic::Generators::DefaultGenerator.new api_request
     generator.generate.each do |file|
       assert_equal expected_content(:testing, file.name), file.content

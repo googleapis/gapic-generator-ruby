@@ -187,6 +187,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::ListSecretsRequest.new
+            #
+            #   # Call the list_secrets method.
+            #   result = client.list_secrets request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::SecretManager::V1beta1::Secret.
+            #     p response
+            #   end
+            #
             def list_secrets request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -257,7 +278,7 @@ module Google
             #     contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
             #     underscore (`_`) characters.
             #   @param secret [::Google::Cloud::SecretManager::V1beta1::Secret, ::Hash]
-            #     A {::Google::Cloud::SecretManager::V1beta1::Secret Secret} with initial field values.
+            #     Required. A {::Google::Cloud::SecretManager::V1beta1::Secret Secret} with initial field values.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Google::Cloud::SecretManager::V1beta1::Secret]
@@ -266,6 +287,21 @@ module Google
             # @return [::Google::Cloud::SecretManager::V1beta1::Secret]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::CreateSecretRequest.new
+            #
+            #   # Call the create_secret method.
+            #   result = client.create_secret request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::Secret.
+            #   p result
             #
             def create_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -341,6 +377,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::AddSecretVersionRequest.new
+            #
+            #   # Call the add_secret_version method.
+            #   result = client.add_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #   p result
+            #
             def add_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -410,6 +461,21 @@ module Google
             # @return [::Google::Cloud::SecretManager::V1beta1::Secret]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::GetSecretRequest.new
+            #
+            #   # Call the get_secret method.
+            #   result = client.get_secret request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::Secret.
+            #   p result
             #
             def get_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -483,6 +549,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::UpdateSecretRequest.new
+            #
+            #   # Call the update_secret method.
+            #   result = client.update_secret request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::Secret.
+            #   p result
+            #
             def update_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -553,6 +634,21 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::DeleteSecretRequest.new
+            #
+            #   # Call the delete_secret method.
+            #   result = client.delete_secret request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
             #
             def delete_secret request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -634,6 +730,27 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::ListSecretVersionsRequest.new
+            #
+            #   # Call the list_secret_versions method.
+            #   result = client.list_secret_versions request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can
+            #   # iterate over all elements by calling #each, and the enumerable
+            #   # will lazily make API calls to fetch subsequent pages. Other
+            #   # methods are also available for managing paging directly.
+            #   result.each do |response|
+            #     # Each element is of type ::Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #     p response
+            #   end
+            #
             def list_secret_versions request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -711,6 +828,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::GetSecretVersionRequest.new
+            #
+            #   # Call the get_secret_version method.
+            #   result = client.get_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #   p result
+            #
             def get_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -784,6 +916,21 @@ module Google
             # @return [::Google::Cloud::SecretManager::V1beta1::AccessSecretVersionResponse]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::AccessSecretVersionRequest.new
+            #
+            #   # Call the access_secret_version method.
+            #   result = client.access_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::AccessSecretVersionResponse.
+            #   p result
             #
             def access_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -859,6 +1006,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::DisableSecretVersionRequest.new
+            #
+            #   # Call the disable_secret_version method.
+            #   result = client.disable_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #   p result
+            #
             def disable_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -932,6 +1094,21 @@ module Google
             # @return [::Google::Cloud::SecretManager::V1beta1::SecretVersion]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::EnableSecretVersionRequest.new
+            #
+            #   # Call the enable_secret_version method.
+            #   result = client.enable_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #   p result
             #
             def enable_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -1008,6 +1185,21 @@ module Google
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
             #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Cloud::SecretManager::V1beta1::DestroySecretVersionRequest.new
+            #
+            #   # Call the destroy_secret_version method.
+            #   result = client.destroy_secret_version request
+            #
+            #   # The returned object is of type Google::Cloud::SecretManager::V1beta1::SecretVersion.
+            #   p result
+            #
             def destroy_secret_version request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -1073,8 +1265,7 @@ module Google
             #
             #   @param resource [::String]
             #     REQUIRED: The resource for which the policy is being specified.
-            #     `resource` is usually specified as a path. For example, a Project
-            #     resource is specified as `projects/{project}`.
+            #     See the operation documentation for the appropriate value for this field.
             #   @param policy [::Google::Iam::V1::Policy, ::Hash]
             #     REQUIRED: The complete policy to be applied to the `resource`. The size of
             #     the policy is limited to a few 10s of KB. An empty policy is a
@@ -1088,6 +1279,21 @@ module Google
             # @return [::Google::Iam::V1::Policy]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Iam::V1::SetIamPolicyRequest.new
+            #
+            #   # Call the set_iam_policy method.
+            #   result = client.set_iam_policy request
+            #
+            #   # The returned object is of type Google::Iam::V1::Policy.
+            #   p result
             #
             def set_iam_policy request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -1144,15 +1350,17 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
             #
-            # @overload get_iam_policy(resource: nil)
+            # @overload get_iam_policy(resource: nil, options: nil)
             #   Pass arguments to `get_iam_policy` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
             #
             #   @param resource [::String]
             #     REQUIRED: The resource for which the policy is being requested.
-            #     `resource` is usually specified as a path. For example, a Project
-            #     resource is specified as `projects/{project}`.
+            #     See the operation documentation for the appropriate value for this field.
+            #   @param options [::Google::Iam::V1::GetPolicyOptions, ::Hash]
+            #     OPTIONAL: A `GetPolicyOptions` object for specifying options to
+            #     `GetIamPolicy`. This field is only used by Cloud IAM.
             #
             # @yield [response, operation] Access the result along with the RPC operation
             # @yieldparam response [::Google::Iam::V1::Policy]
@@ -1161,6 +1369,21 @@ module Google
             # @return [::Google::Iam::V1::Policy]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Iam::V1::GetIamPolicyRequest.new
+            #
+            #   # Call the get_iam_policy method.
+            #   result = client.get_iam_policy request
+            #
+            #   # The returned object is of type Google::Iam::V1::Policy.
+            #   p result
             #
             def get_iam_policy request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
@@ -1229,8 +1452,7 @@ module Google
             #
             #   @param resource [::String]
             #     REQUIRED: The resource for which the policy detail is being requested.
-            #     `resource` is usually specified as a path. For example, a Project
-            #     resource is specified as `projects/{project}`.
+            #     See the operation documentation for the appropriate value for this field.
             #   @param permissions [::Array<::String>]
             #     The set of permissions to check for the `resource`. Permissions with
             #     wildcards (such as '*' or 'storage.*') are not allowed. For more
@@ -1244,6 +1466,21 @@ module Google
             # @return [::Google::Iam::V1::TestIamPermissionsResponse]
             #
             # @raise [::Google::Cloud::Error] if the RPC is aborted.
+            #
+            # @example Basic example
+            #   require "google/cloud/secret_manager/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Cloud::SecretManager::V1beta1::SecretManagerService::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Iam::V1::TestIamPermissionsRequest.new
+            #
+            #   # Call the test_iam_permissions method.
+            #   result = client.test_iam_permissions request
+            #
+            #   # The returned object is of type Google::Iam::V1::TestIamPermissionsResponse.
+            #   p result
             #
             def test_iam_permissions request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?

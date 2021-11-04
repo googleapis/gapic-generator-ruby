@@ -18,6 +18,7 @@ $LOAD_PATH.unshift ::File.expand_path("../lib", __dir__)
 $LOAD_PATH.unshift ::File.expand_path("../../shared/test_resources", __dir__)
 require "gapic/schema/api"
 require "gapic/schema/request_param_parser"
+require "gapic/schema/service_config_parser"
 require "gapic/generator"
 require "gapic/path_pattern"
 require "gapic/presenters"
@@ -81,7 +82,7 @@ class GeneratorTest < Minitest::Test
   # @param service [Symbol]
   # @param grpc_service_config [String]
   # @return [Gapic::Schema::Api]
-  def api_with_service_config service, grpc_service_config
+  def api_with_grpc_service_config service, grpc_service_config
     grpc_service_config_str = grpc_service_config.is_a?(Array) ? grpc_service_config.join(";")
                                                       : grpc_service_config.to_s
 

@@ -160,6 +160,21 @@ module So
           #
           # @raise [::GRPC::BadStatus] if the RPC is aborted.
           #
+          # @example Basic example
+          #   require "so/much/trash"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = So::Much::Trash::DeprecatedService::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = So::Much::Trash::EmptyGarbage.new
+          #
+          #   # Call the deprecated_get method.
+          #   result = client.deprecated_get request
+          #
+          #   # The returned object is of type So::Much::Trash::EmptyGarbage.
+          #   p result
+          #
           def deprecated_get request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 

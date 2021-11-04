@@ -216,6 +216,78 @@ module Google
               end
 
               ##
+              # Removes a peering from the specified network.
+              #
+              # @overload remove_peering(request, options = nil)
+              #   Pass arguments to `remove_peering` via a request object, either of type
+              #   {::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest} or an equivalent Hash.
+              #
+              #   @param request [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest, ::Hash]
+              #     A request object representing the call parameters. Required. To specify no
+              #     parameters, or to keep all the default parameter values, pass an empty Hash.
+              #   @param options [::Gapic::CallOptions, ::Hash]
+              #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+              #     Note: currently retry functionality is not implemented. While it is possible
+              #     to set it using ::Gapic::CallOptions, it will not be applied
+              #
+              # @overload remove_peering(network: nil, networks_remove_peering_request_resource: nil, project: nil, request_id: nil)
+              #   Pass arguments to `remove_peering` via keyword arguments. Note that at
+              #   least one keyword argument is required. To specify no parameters, or to keep all
+              #   the default parameter values, pass an empty Hash as a request object (see above).
+              #
+              #   @param network [::String]
+              #     Name of the network resource to remove peering from.
+              #   @param networks_remove_peering_request_resource [::Google::Cloud::Compute::V1::NetworksRemovePeeringRequest, ::Hash]
+              #     The body resource for this request
+              #   @param project [::String]
+              #     Project ID for this request.
+              #   @param request_id [::String]
+              #     An optional request ID to identify requests. Specify a unique request ID so that if you must retry your request, the server will know to ignore the request if it has already been completed.
+              #
+              #     For example, consider a situation where you make an initial request and the request times out. If you make the request again with the same request ID, the server can check if original operation with the same request ID was received, and if so, will ignore the second request. This prevents clients from accidentally creating duplicate commitments.
+              #
+              #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
+              # @yield [result, response] Access the result along with the Faraday response object
+              # @yieldparam result [::Gapic::Rest::BaseOperation]
+              # @yieldparam response [::Faraday::Response]
+              #
+              # @return [::Gapic::Rest::BaseOperation]
+              #
+              # @raise [::Google::Cloud::Error] if the REST call is aborted.
+              def remove_peering request, options = nil
+                raise ::ArgumentError, "request must be provided" if request.nil?
+
+                request = ::Gapic::Protobuf.coerce request, to: ::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest
+
+                # Converts hash and nil to an options object
+                options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+                # Customize the options with defaults
+                call_metadata = @config.rpcs.remove_peering.metadata.to_h
+
+                # Set x-goog-api-client header
+                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                  lib_name: @config.lib_name, lib_version: @config.lib_version,
+                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  transports_version_send: [:rest]
+
+                options.apply_defaults timeout:      @config.rpcs.remove_peering.timeout,
+                                       metadata:     call_metadata
+
+                options.apply_defaults timeout:      @config.timeout,
+                                       metadata:     @config.metadata
+
+                @networks_stub.remove_peering request, options do |result, response|
+                  result = ::Gapic::Rest::BaseOperation.new result
+                  yield result, response if block_given?
+                  return result
+                end
+              rescue ::Faraday::Error => e
+                gapic_error = ::Gapic::Rest::Error.wrap_faraday_error e
+                raise ::Google::Cloud::Error.from_error(gapic_error)
+              end
+
+              ##
               # Configuration class for the Networks REST API.
               #
               # This class represents the configuration for Networks REST,
@@ -319,11 +391,18 @@ module Google
                   # @return [::Gapic::Config::Method]
                   #
                   attr_reader :list_peering_routes
+                  ##
+                  # RPC-specific configuration for `remove_peering`
+                  # @return [::Gapic::Config::Method]
+                  #
+                  attr_reader :remove_peering
 
                   # @private
                   def initialize parent_rpcs = nil
                     list_peering_routes_config = parent_rpcs.list_peering_routes if parent_rpcs.respond_to? :list_peering_routes
                     @list_peering_routes = ::Gapic::Config::Method.new list_peering_routes_config
+                    remove_peering_config = parent_rpcs.remove_peering if parent_rpcs.respond_to? :remove_peering
+                    @remove_peering = ::Gapic::Config::Method.new remove_peering_config
 
                     yield self if block_given?
                   end

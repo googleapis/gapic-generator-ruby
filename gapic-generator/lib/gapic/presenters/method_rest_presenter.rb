@@ -15,7 +15,6 @@
 # limitations under the License.
 
 require "gapic/presenters/method/rest_pagination_info"
-require "gapic/uri_template"
 
 module Gapic
   module Presenters
@@ -34,6 +33,7 @@ module Gapic
         @api = api
         @main_method = main_method
         @proto_method = main_method.method
+        @http = main_method.http
 
         @pagination = Gapic::Presenters::Method::RestPaginationInfo.new @proto_method, api
       end
@@ -42,59 +42,42 @@ module Gapic
       # @return [Boolean] Whether a http verb is present for this method
       #
       def verb?
-        !verb.nil?
+        @http.verb?
       end
 
       ##
       # @return [Symbol] a http verb for this method
       #
       def verb
-        return nil if @proto_method.http.nil?
-
-        method = {
-          get:    @proto_method.http.get,
-          post:   @proto_method.http.post,
-          put:    @proto_method.http.put,
-          patch:  @proto_method.http.patch,
-          delete: @proto_method.http.delete
-        }.find { |_, value| !value.empty? }
-
-        method[0] unless method.nil?
+        @http.verb
       end
 
       ##
       # @return [Boolean] Whether a method path is present and non-empty
       #
       def path?
-        !path.empty?
-      end
-
-      ##
-      # @return [String] A method path or an empty string if not present
-      #
-      def path
-        return "" if @proto_method.http.nil?
-
-        verb_path = [
-          @proto_method.http.get, @proto_method.http.post, @proto_method.http.put,
-          @proto_method.http.patch, @proto_method.http.delete
-        ].find { |x| !x.empty? }
-
-        verb_path || @proto_method.http.custom&.path || ""
+        @http.path?
       end
 
       ##
       # @return [Boolean] Whether any routing params are present
       #
       def routing_params?
-        routing_params.any?
+        @http.routing_params?
       end
 
       ##
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        Gapic::UriTemplate.parse_arguments path
+        @http.routing_params
+      end
+
+      ##
+      # @return [Boolean] Whether method has body specified in proto
+      #
+      def body?
+        @http.body?
       end
 
       ##
@@ -115,28 +98,12 @@ module Gapic
       end
 
       ##
-      # @return [Boolean] Whether method has body specified in proto
-      #
-      def body?
-        return false if @proto_method.http.nil?
-
-        !@proto_method.http.body.empty?
-      end
-
-      ##
       # Name of the variable to use for storing the body result of the transcoding call
       # Normally "body" but use "_body" for discarding the result for
       # the calls that do not send body
       # @return [String]
       def body_var_name
         body? ? "body" : "_body"
-      end
-
-      ##
-      # @return [String] A body specified for the given method in proto or an empty string if not specified
-      #
-      def body
-        @proto_method.http&.body || ""
       end
 
       ##
@@ -261,6 +228,22 @@ module Gapic
           @main_method.service.name != "RegionOperations" &&
           @main_method.service.name != "GlobalOperations" &&
           @main_method.service.name != "GlobalOrganizationOperations"
+      end
+
+      private
+
+      ##
+      # @return [String] A method path or an empty string if not present
+      #
+      def path
+        @http.path
+      end
+
+      ##
+      # @return [String] A body specified for the given method in proto or an empty string if not specified
+      #
+      def body
+        @http.body
       end
     end
   end

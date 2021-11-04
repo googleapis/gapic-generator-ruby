@@ -29,7 +29,7 @@ class NamedPathPatternTest < PathPatternTest
 
     refute segments[1].positional?
     assert segments[1].provides_arguments?
-    refute segments[1].resource_pattern?
+    refute segments[1].nontrivial_resource_pattern?
 
     refute pattern.positional_segments?
     refute pattern.nontrivial_pattern_segments?
@@ -46,7 +46,6 @@ class NamedPathPatternTest < PathPatternTest
     segments = pattern.segments
 
     refute segments[1].positional?
-    assert segments[1].resource_pattern?
     assert segments[1].nontrivial_resource_pattern?
     assert segments[1].provides_arguments?
 
@@ -109,7 +108,7 @@ class NamedPathPatternTest < PathPatternTest
     segments = pattern.segments
 
     assert_equal :complex_resource_id, segments[1].type
-    refute segments[1].resource_pattern?
+    refute segments[1].nontrivial_resource_pattern?
     assert_equal "\#{foo}~\#{bar}", segments[1].path_string
 
     refute pattern.positional_segments?

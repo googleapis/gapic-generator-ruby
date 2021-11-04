@@ -20,6 +20,7 @@ require "gapic/generators/default_generator_parameters"
 require "gapic/schema/loader"
 require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
+require "gapic/schema/service_config_parser"
 
 module Gapic
   module Schema
@@ -114,14 +115,17 @@ module Gapic
         configuration[:overrides][:service].fetch str, str
       end
 
+      # @return [Enumerable<Gapic::Schema::File>]
       def generate_files
         @files.select(&:generate?)
       end
 
+      # @return [Enumerable<Gapic::Schema::Service>]
       def services
         @files.map(&:services).flatten
       end
 
+      # @return [Enumerable<Gapic::Schema::Message>]
       def messages
         @files.map(&:messages).flatten
       end
@@ -247,12 +251,12 @@ module Gapic
 
       # Whether to generate standalone snippets
       def generate_standalone_snippets?
-        configuration[:generate_standalone_snippets] ||= false
+        configuration.fetch :generate_standalone_snippets, true
       end
 
       # Whether to generate inline documentation snippets
       def generate_yardoc_snippets?
-        configuration[:generate_yardoc_snippets] ||= false
+        configuration.fetch :generate_yardoc_snippets, true
       end
 
       # Whether to generate gapic metadata (drift manifest) file
@@ -291,6 +295,22 @@ module Gapic
       # Parsed grpc service config
       def grpc_service_config
         @grpc_service_config ||= Gapic::GrpcServiceConfig::Parser.parse grpc_service_config_raw
+      end
+
+      # Raw text of the service.yaml if given as a parameter
+      # or nil if no parameter given
+      # @return [String]
+      def service_config_raw
+        @service_config_raw ||= begin
+          filename = protoc_options[:service_yaml]
+          ::File.read filename if filename
+        end
+      end
+
+      # Parsed service config
+      # @return [Google::Api::Service]
+      def service_config
+        @service_config ||= Gapic::Schema::ServiceConfigParser.parse_service_yaml service_config_raw
       end
 
       # Get a resource given its type string

@@ -283,6 +283,15 @@ module Gapic
         @resources ||= Gapic::ResourceLookup.for_service self
       end
 
+      # @return [String] The full name for this service
+      #   (e.g. "Google.Example.ExampleService").
+      #   Useful when matching against other pieces of information
+      #   which also reference full proto name, e.g. Service Config
+      #   or Grpc Service Config
+      def full_name
+        @address.join "."
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the service.
       # @!method options
@@ -352,6 +361,12 @@ module Gapic
       #   `google/api/http.proto`.
       def http
         options[:".google.api.http"] if options
+      end
+
+      # @return [Google::Api::RoutingRule] The Routing bindings for this method. See
+      #   `google/api/routing.proto`.
+      def routing
+        options[:".google.api.routing"] if options
       end
 
       # @!method name

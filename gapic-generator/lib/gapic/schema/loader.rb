@@ -18,6 +18,7 @@ require "google/api/annotations.pb"
 require "google/api/client.pb"
 require "google/api/field_behavior.pb"
 require "google/api/resource.pb"
+require "google/api/routing.pb"
 require "google/longrunning/operations.pb"
 require "google/protobuf/descriptor.pb"
 require "gapic/schema/wrappers"
@@ -36,8 +37,9 @@ module Gapic
       #
       # @param file_descriptor [Google::Protobuf::FileDescriptorProto] the
       #   descriptor of the proto file.
-      # @oaram file_to_generate [Boolean] Whether this file is to be
+      # @param file_to_generate [Boolean] Whether this file is to be
       #   generated.
+      # @return [Gapic::Schema::File]
       def load_file file_descriptor, file_to_generate
         # Setup.
         address = file_descriptor.package.split "."

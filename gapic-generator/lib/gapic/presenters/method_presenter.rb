@@ -32,6 +32,12 @@ module Gapic
       # @return [Gapic::Presenters::MethodRestPresenter]
       attr_accessor :rest
 
+      # return [Gapic::Model::Method::Routing]
+      attr_accessor :routing
+
+      # return [Gapic::Model::Method::HttpAnnotation]
+      attr_accessor :http
+
       ##
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
       # @param api [Gapic::Schema::Api]
@@ -40,6 +46,9 @@ module Gapic
         @service_presenter = service_presenter
         @api = api
         @method = method
+        @http = Gapic::Model::Method::HttpAnnotation.new @method
+        @routing = Gapic::Model::Method::Routing.new @method.routing, http
+
         @rest = MethodRestPresenter.new self, api
       end
 
@@ -50,6 +59,9 @@ module Gapic
         @service_presenter
       end
 
+      ##
+      # @return [Gapic::Presenters::SnippetPresenter]
+      #
       def snippet
         SnippetPresenter.new self, @api
       end
@@ -233,7 +245,7 @@ module Gapic
       # @return [Boolean] Whether any routing params are present
       #
       def routing_params?
-        rest.routing_params?
+        @routing.routing_params?
       end
 
       def grpc_service_config
@@ -243,8 +255,8 @@ module Gapic
         end
       end
 
-      def service_config_presenter
-        ServiceConfigPresenter.new grpc_service_config
+      def grpc_service_config_presenter
+        GrpcServiceConfigPresenter.new grpc_service_config
       end
 
       def grpc_method_name
