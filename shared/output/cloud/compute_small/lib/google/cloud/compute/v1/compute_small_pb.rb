@@ -56,28 +56,29 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       value :UNREACHABLE, 13328052
     end
     add_message "google.cloud.compute.v1.Operation" do
-      proto3_optional :client_operation_id, :string, 28804839
+      proto3_optional :client_operation_id, :string, 297240295
       proto3_optional :creation_timestamp, :string, 30525366
-      proto3_optional :description, :string, 154502140
+      proto3_optional :description, :string, 422937596
       proto3_optional :end_time, :string, 114938801
       proto3_optional :error, :message, 96784904, "google.cloud.compute.v1.Error"
       proto3_optional :http_error_message, :string, 202521945
-      proto3_optional :http_error_status_code, :int32, 43909740
-      proto3_optional :id, :string, 3355
-      proto3_optional :insert_time, :string, 165287059
+      proto3_optional :http_error_status_code, :int32, 312345196
+      proto3_optional :id, :uint64, 3355
+      proto3_optional :insert_time, :string, 433722515
       proto3_optional :kind, :string, 3292052
       proto3_optional :name, :string, 3373707
+      proto3_optional :operation_group_id, :string, 40171187
       proto3_optional :operation_type, :string, 177650450
       proto3_optional :progress, :int32, 72663597
       proto3_optional :region, :string, 138946292
-      proto3_optional :self_link, :string, 187779341
+      proto3_optional :self_link, :string, 456214797
       proto3_optional :start_time, :string, 37467274
       proto3_optional :status, :enum, 181260274, "google.cloud.compute.v1.Operation.Status"
-      proto3_optional :status_message, :string, 28992698
-      proto3_optional :target_id, :string, 258165385
+      proto3_optional :status_message, :string, 297428154
+      proto3_optional :target_id, :uint64, 258165385
       proto3_optional :target_link, :string, 62671336
       proto3_optional :user, :string, 3599307
-      repeated :warnings, :message, 229655639, "google.cloud.compute.v1.Warnings"
+      repeated :warnings, :message, 498091095, "google.cloud.compute.v1.Warnings"
       proto3_optional :zone, :string, 3744684
     end
     add_enum "google.cloud.compute.v1.Operation.Status" do

@@ -23,13 +23,6 @@ class <%= service.client_name %>
   # @private
   attr_reader :<%= service.stub_name %>
 
-  <%- if service.mixins? -%>
-  <%- service.mixins.each do |mixin| -%>
-  # @return [<%= mixin.client_class_name %>]
-  attr_reader :<%= mixin.client_var_name %>
-  <% end %>
-
-  <% end %>
   ##
   # Configure the <%= service.name %> <%= service.client_name %> class.
   #
@@ -125,7 +118,6 @@ class <%= service.client_name %>
     <%- service.mixins.each do |mixin| -%>
     @<%= mixin.client_var_name %> = <%= mixin.client_class_name %>.new do |config|
       config.credentials = credentials
-      config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
     end
     <% end %>
@@ -156,6 +148,13 @@ class <%= service.client_name %>
   attr_reader :<%= service.lro_client_var %>
 
 <%- end -%>
+<%- if service.mixins? -%>
+  <%- service.mixins.each do |mixin| -%>
+  # @return [<%= mixin.client_class_name %>]
+  attr_reader :<%= mixin.client_var_name %>
+
+  <% end %>
+<% end %>
   # Service calls
   <%- service.methods.each do |method| -%>
 

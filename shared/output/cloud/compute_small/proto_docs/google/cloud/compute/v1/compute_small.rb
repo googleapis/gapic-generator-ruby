@@ -163,7 +163,7 @@ module Google
         #   @return [::Integer]
         #     [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
         # @!attribute [rw] id
-        #   @return [::String]
+        #   @return [::Integer]
         #     [Output Only] The unique identifier for the operation. This identifier is defined by the server.
         # @!attribute [rw] insert_time
         #   @return [::String]
@@ -174,6 +174,9 @@ module Google
         # @!attribute [rw] name
         #   @return [::String]
         #     [Output Only] Name of the operation.
+        # @!attribute [rw] operation_group_id
+        #   @return [::String]
+        #     [Output Only] An ID that represents a group of operations, such as when a group of operations results from a `bulkInsert` API request.
         # @!attribute [rw] operation_type
         #   @return [::String]
         #     [Output Only] The type of operation, such as `insert`, `update`, or `delete`, and so on.
@@ -196,7 +199,7 @@ module Google
         #   @return [::String]
         #     [Output Only] An optional textual description of the current status of the operation.
         # @!attribute [rw] target_id
-        #   @return [::String]
+        #   @return [::Integer]
         #     [Output Only] The unique target ID, which identifies a specific incarnation of the target resource.
         # @!attribute [rw] target_link
         #   @return [::String]

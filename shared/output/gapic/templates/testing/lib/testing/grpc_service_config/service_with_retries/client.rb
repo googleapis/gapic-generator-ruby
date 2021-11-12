@@ -37,9 +37,6 @@ module Testing
         # @private
         attr_reader :service_with_retries_stub
 
-        # @return [Google::Cloud::Location::Locations::Client]
-        attr_reader :location_client
-
         ##
         # Configure the ServiceWithRetries Client class.
         #
@@ -143,7 +140,6 @@ module Testing
 
           @location_client = Google::Cloud::Location::Locations::Client.new do |config|
             config.credentials = credentials
-            config.quota_project = @quota_project_id
             config.endpoint = @config.endpoint
           end
 
@@ -155,6 +151,9 @@ module Testing
             interceptors: @config.interceptors
           )
         end
+
+        # @return [Google::Cloud::Location::Locations::Client]
+        attr_reader :location_client
 
         # Service calls
 
