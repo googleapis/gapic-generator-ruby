@@ -1,3 +1,5 @@
 ---
 :gem:
   :name: testing
+  :extra_dependencies:
+    google-cloud-common: "~>1.0"
