@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package testing.nonstandardlrogrpc;
+
+option ruby_package = "Testing::NonstandardLroGrpc";
+
+import "google/api/client.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/longrunning/operations.proto";
+import "google/cloud/extended_operations.proto";
+
+
+service PlainLroConsumer {
+    option (google.api.default_host) = "nonstandardlro.example.com";
+
+    rpc PlainLroRpc(Request) returns(NonstandardOperation) {
+        option (google.cloud.operation_service) = "PlainLroProvider";
+    }
+}
+
+service PlainLroProvider {
+    option (google.api.default_host) = "nonstandardlro.example.com";
+
+    rpc Get(LroGetRequest) returns(NonstandardOperation) {
+        option (google.cloud.operation_polling_method) = true;
+    }
+}
+
+service AnotherLroProvider {
+    option (google.api.default_host) = "nonstandardlro.example.com";
+
+    rpc GetAnother(LroAnotherGetRequest) returns(NonstandardOperation) {
+        option (google.cloud.operation_polling_method) = true;
+    }
+}
+
+service AllSubclientsConsumer {
+    option (google.api.default_host) = "nonstandardlro.example.com";
+
+    rpc PlainLroRpc(Request) returns(NonstandardOperation) {
+        option (google.cloud.operation_service) = "PlainLroProvider";
+    }
+
+    rpc AnotherLroRpc(AnotherRequest) returns(NonstandardOperation) {
+        option (google.cloud.operation_service) = "AnotherLroProvider";
+    }
+
+    rpc NonCopyAnotherLroRpc(NonCopyRequest) returns(NonstandardOperation) {
+        option (google.cloud.operation_service) = "AnotherLroProvider";
+    }
+
+    rpc AipLRO(Request) returns(google.longrunning.Operation) {
+        option (google.longrunning.operation_info) = {
+            response_type: "AipLroResponse"
+            metadata_type: "AipLroMetadata"
+        };
+    }
+}
+
+message Request {
+    string request_id = 1 [
+        (google.cloud.operation_request_field) = "initial_request_id"
+    ];
+}
+
+message AnotherRequest {
+    string request_id = 1 [
+        (google.cloud.operation_request_field) = "another_request_id"
+    ];
+}
+
+message NonCopyRequest { }
+
+message NonstandardOperation {
+    enum Status {
+        // A value indicating that the enum field is not set.
+        UNDEFINED_STATUS = 0;
+    
+        DONE = 2104194;
+    
+        PENDING = 35394935;
+    
+        RUNNING = 121282975;
+    }
+
+    // [Output Only] Name of the operation.
+    string name = 3373707 [(google.cloud.operation_field) = NAME];
+
+    // [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
+    Status status = 181260274 [(google.cloud.operation_field) = STATUS];
+    
+    // [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
+    int32 http_error_status_code = 312345196 [(google.cloud.operation_field) = ERROR_CODE];
+
+    // [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as `NOT FOUND`.
+    string http_error_message = 202521945 [(google.cloud.operation_field) = ERROR_MESSAGE];
+}
+
+message LroGetRequest {
+    string initial_request_id = 1 [
+        (google.api.field_behavior) = REQUIRED
+    ];
+
+    string lro_name = 2 [
+        (google.api.field_behavior) = REQUIRED,
+        (google.cloud.operation_response_field) = "name"
+    ];
+}
+
+message LroAnotherGetRequest {
+    string another_request_id = 1;
+
+    string another_lro_name = 2 [
+        (google.api.field_behavior) = REQUIRED,
+        (google.cloud.operation_response_field) = "name"
+    ];
+}
+
+message AipLroResponse { }
+
+message AipLroMetadata { }

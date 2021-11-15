@@ -171,13 +171,13 @@ message Operation {
   }
 
   // [Output Only] The value of `requestId` if you provided it in the request. Not present otherwise.
-  optional string client_operation_id = 28804839;
+  optional string client_operation_id = 297240295;
 
   // [Deprecated] This field is deprecated.
   optional string creation_timestamp = 30525366;
 
   // [Output Only] A textual description of the operation, which is set when the operation is created.
-  optional string description = 154502140;
+  optional string description = 422937596;
 
   // [Output Only] The time that this operation was completed. This value is in RFC3339 text format.
   optional string end_time = 114938801;
@@ -186,22 +186,25 @@ message Operation {
   optional Error error = 96784904;
 
   // [Output Only] If the operation fails, this field contains the HTTP error message that was returned, such as `NOT FOUND`.
-  optional string http_error_message = 202521945;
+  optional string http_error_message = 202521945 [(google.cloud.operation_field) = ERROR_MESSAGE];
 
   // [Output Only] If the operation fails, this field contains the HTTP error status code that was returned. For example, a `404` means the resource was not found.
-  optional int32 http_error_status_code = 43909740;
+  optional int32 http_error_status_code = 312345196 [(google.cloud.operation_field) = ERROR_CODE];
 
   // [Output Only] The unique identifier for the operation. This identifier is defined by the server.
-  optional string id = 3355;
+  optional uint64 id = 3355;
 
   // [Output Only] The time that this operation was requested. This value is in RFC3339 text format.
-  optional string insert_time = 165287059;
+  optional string insert_time = 433722515;
 
   // [Output Only] Type of the resource. Always `compute#operation` for Operation resources.
   optional string kind = 3292052;
 
   // [Output Only] Name of the operation.
-  optional string name = 3373707;
+  optional string name = 3373707 [(google.cloud.operation_field) = NAME];
+
+  // [Output Only] An ID that represents a group of operations, such as when a group of operations results from a `bulkInsert` API request.
+  optional string operation_group_id = 40171187;
 
   // [Output Only] The type of operation, such as `insert`, `update`, or `delete`, and so on.
   optional string operation_type = 177650450;
@@ -213,19 +216,19 @@ message Operation {
   optional string region = 138946292;
 
   // [Output Only] Server-defined URL for the resource.
-  optional string self_link = 187779341;
+  optional string self_link = 456214797;
 
   // [Output Only] The time that this operation was started by the server. This value is in RFC3339 text format.
   optional string start_time = 37467274;
 
   // [Output Only] The status of the operation, which can be one of the following: `PENDING`, `RUNNING`, or `DONE`.
-  optional Status status = 181260274;
+  optional Status status = 181260274 [(google.cloud.operation_field) = STATUS];
 
   // [Output Only] An optional textual description of the current status of the operation.
-  optional string status_message = 28992698;
+  optional string status_message = 297428154;
 
   // [Output Only] The unique target ID, which identifies a specific incarnation of the target resource.
-  optional string target_id = 258165385;
+  optional uint64 target_id = 258165385;
 
   // [Output Only] The URL of the resource that the operation modifies. For operations related to creating a snapshot, this points to the persistent disk that the snapshot was created from.
   optional string target_link = 62671336;
@@ -234,7 +237,7 @@ message Operation {
   optional string user = 3599307;
 
   // [Output Only] If warning messages are generated during processing of the operation, this field will be populated.
-  repeated Warnings warnings = 229655639;
+  repeated Warnings warnings = 498091095;
 
   // [Output Only] The URL of the zone where the operation resides. Only applicable when performing per-zone operations.
   optional string zone = 3744684;
@@ -794,6 +797,7 @@ service Addresses {
       get: "/compute/v1/projects/{project}/regions/{region}/addresses/{address}"
     };
     option (google.api.method_signature) = "project,region,address";
+    option (google.cloud.operation_service) = "RegionOperations";
   }
 
   // Creates an address resource in the specified project by using the data included in the request.
