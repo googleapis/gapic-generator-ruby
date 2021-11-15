@@ -59,7 +59,6 @@ module Gapic
         # Additional Gem level files
         cloud_files = []
         cloud_files << g("gem/repo-metadata.erb", ".repo-metadata.json", gem: gem)
-        cloud_files << g("gem/yardopts-cloudrad.erb", ".yardopts-cloudrad", gem: gem)
         unless gem.services.empty? || gem.generic_endpoint?
           cloud_files << g("gem/authentication.erb", "AUTHENTICATION.md", gem: gem)
         end
@@ -87,7 +86,6 @@ module Gapic
         files << g("gem/repo-metadata.erb",             ".repo-metadata.json",                           gem: gem)
         files << g("wrapper_gem/rubocop.erb",           ".rubocop.yml",                                  gem: gem)
         files << g("wrapper_gem/yardopts.erb",          ".yardopts",                                     gem: gem)
-        files << g("wrapper_gem/yardopts-cloudrad.erb", ".yardopts-cloudrad",                            gem: gem)
         files << g("gem/authentication.erb",            "AUTHENTICATION.md",                             gem: gem) unless gem.generic_endpoint?
         files << g("gem/changelog.erb",                 "CHANGELOG.md",                                  gem: gem)
         files << g("wrapper_gem/gemfile.erb",           "Gemfile",                                       gem: gem)
