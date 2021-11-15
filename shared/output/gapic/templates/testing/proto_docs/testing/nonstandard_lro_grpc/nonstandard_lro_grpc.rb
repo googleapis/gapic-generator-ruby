@@ -36,6 +36,13 @@ module Testing
 
     # @!attribute [rw] request_id
     #   @return [::String]
+    class Response
+      include ::Google::Protobuf::MessageExts
+      extend ::Google::Protobuf::MessageExts::ClassMethods
+    end
+
+    # @!attribute [rw] request_id
+    #   @return [::String]
     class AnotherRequest
       include ::Google::Protobuf::MessageExts
       extend ::Google::Protobuf::MessageExts::ClassMethods

@@ -17,8 +17,8 @@
 require "test_helper"
 require "gapic/generators/default_generator"
 
-class DefaultGeneratorGrpcServiceConfigTest < GeneratorTest
-  def test_grpc_service_config_generate
+class DefaultGeneratorTestingTest < GeneratorTest
+  def test_testing_generate
     grpc_service_config_paths = [
       "protofiles_input/testing/grpc_service_config/grpc_service_config.json",
       "protofiles_input/testing/grpc_service_config/grpc_service_config2.json"

@@ -1,0 +1,22 @@
+<%- assert_locals method -%>
+@<%= method.service.stub_name %>.call_rpc :<%= method.name %>, request, options: options do |result, response|
+  result = <%= method.nonstandard_lro_client.helper_type %>.create_operation(result,
+    <%= method.nonstandard_lro_client.client_var_name %>,
+    <%- if method.lro.operation_request_fields.any? -%>
+    {
+      <%- method.lro.operation_request_fields.each_with_index do |(field_from, field_to), i| -%>
+      <%- if i == method.lro.operation_request_fields.length - 1 -%>
+      "<%= field_to %>" => request.<%= field_from %>
+      <%- else -%>
+      "<%= field_to %>" => request.<%= field_from %>,
+      <%- end -%>
+      <%- end -%>
+    },
+    <%- else -%>
+    {},
+    <%- end -%>
+    options
+  )
+  yield result, response if block_given?
+  return result
+end

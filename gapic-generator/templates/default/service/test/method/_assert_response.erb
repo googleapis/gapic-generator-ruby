@@ -5,6 +5,9 @@ assert_equal grpc_response, response.response
 <%- elsif method.lro? %>
 assert_kind_of Gapic::Operation, response
 assert_equal grpc_response, response.grpc_op
+<%- elsif method.nonstandard_lro? %>
+assert_kind_of Gapic::GenericLRO::Operation, response
+assert_equal grpc_response, response.operation
 <%- else -%>
 assert_equal grpc_response, response
 <%- end -%>

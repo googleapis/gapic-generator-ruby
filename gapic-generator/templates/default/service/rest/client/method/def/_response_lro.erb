@@ -1,7 +1,0 @@
-<%- assert_locals method -%>
-
-@<%= method.service.stub_name %>.<%= method.name %> request, options do |result, response|
-  result = ::Gapic::Rest::BaseOperation.new result
-  yield result, response if block_given?
-  return result
-end

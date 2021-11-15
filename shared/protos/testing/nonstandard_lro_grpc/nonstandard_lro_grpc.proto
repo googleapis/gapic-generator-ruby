@@ -56,9 +56,17 @@ service AllSubclientsConsumer {
             metadata_type: "AipLroMetadata"
         };
     }
+
+    rpc NoLRO(Request) returns(Response) {}
 }
 
 message Request {
+    string request_id = 1 [
+        (google.cloud.operation_request_field) = "initial_request_id"
+    ];
+}
+
+message Response {
     string request_id = 1 [
         (google.cloud.operation_request_field) = "initial_request_id"
     ];

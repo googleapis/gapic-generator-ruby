@@ -203,7 +203,7 @@ module Gapic
       #
       def doc_response_type
         return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
-        return "::Gapic::Rest::BaseOperation" if lro?
+        return "::Gapic::GenericLRO::Operation" if nonstandard_lro?
         return_type
       end
 
@@ -217,17 +217,12 @@ module Gapic
       end
 
       ##
-      # Whether the REGAPIC method should be rendered as LRO
-      # [TODO (virost, 2021-08) Update this when DiReGapic LRO annotations are added to the Compute protos]
+      # Whether this method uses nonstandard LROs
       #
       # @return [Boolean]
       #
-      def lro?
-        return_type == "::Google::Cloud::Compute::V1::Operation" &&
-          @main_method.service.name != "ZoneOperations" &&
-          @main_method.service.name != "RegionOperations" &&
-          @main_method.service.name != "GlobalOperations" &&
-          @main_method.service.name != "GlobalOrganizationOperations"
+      def nonstandard_lro?
+        @main_method.nonstandard_lro?
       end
 
       private

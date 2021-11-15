@@ -74,11 +74,14 @@ module Gapic
       #   Service dependencies, in the
       #   `{ gem_name => version pattern }` format
       #   @return [Hash<String, String>]
-      # @!attribute [rw] require_str
-      #   Path to `require` the client of the service from
+      # @!attribute [r] require_str
+      #   Path to `require` the client of the service
       #   @return [String]
       # @!attribute [r] client_class_name
       #   Full name of the class of the client of the service
+      #   @return [String]
+      # @!attribute [r] client_class_docname
+      #   Name of the class as it should appear in the documentation
       #   @return [String]
       # @!attribute [r] client_var_name
       #   Name for the variable for the client of the
@@ -89,6 +92,7 @@ module Gapic
         attr_reader :dependency
         attr_reader :require_str
         attr_reader :client_class_name
+        attr_reader :client_class_docname
         attr_reader :client_var_name
 
         # @param service [String]
@@ -108,7 +112,14 @@ module Gapic
           @dependency = dependency
           @require_str = require_str
           @client_class_name = client_class_name
+          @client_class_docname = client_class_name # For mixins, the doc name should be the full class name
           @client_var_name = client_var_name
+        end
+
+        # @return [String] The description to place in the comments to the
+        #   mixin's attribute in the library services's client class
+        def service_description
+          "mix-in of the #{client_class_name.split('::')[-2]}"
         end
       end
 

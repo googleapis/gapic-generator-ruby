@@ -1,8 +1,15 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
-  <%= render partial: "service/client/requires", locals: { service: service} -%>
-  require "<%= service.proto_service_require %>"
-  require "<%= service.rest.service_stub_require %>"
+<%= render partial: "service/client/requires", locals: { service: service} -%>
+require "<%= service.proto_service_require %>"
+require "<%= service.rest.service_stub_require %>"
+<%- if service.subclients? -%>
+<%- service.subclients.each do |subclient| -%>
+<%- unless subclient.client_class_name == "Operations" -%>
+require "<%= subclient.require_str %>"
+<%- end -%>
+<%- end -%>
+<%- end -%>
 <% end %>
 ##
 # REST client for the <%= service.name %> service.
@@ -14,8 +21,8 @@
 class <%= service.rest.client_name %>
 <%- if service.paths? -%>
   include <%= service.paths_name %>
-<%- end -%>
 
+<%- end -%>
   # @private
   attr_reader :<%= service.stub_name %>
 
@@ -93,14 +100,34 @@ class <%= service.rest.client_name %>
     end
     <%- end -%>
     
+    <%- if service.subclients? -%>
+    <%- service.subclients.each do |subclient| -%>
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
+      config.credentials = credentials
+      config.endpoint = @config.endpoint
+    end
+
+    <%- end -%>
+    <%- end -%>
     @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new endpoint: @config.endpoint, credentials: credentials
   end
 
+  <%- if service.subclients? -%>
+  <%- service.subclients.each do |subclient| -%>
+  ##
+  # Get the associated client for <%= subclient.service_description %>.
+  #
+  # @return [<%= subclient.client_class_docname %>]
+  #
+  attr_reader :<%= subclient.client_var_name %>
+
+  <%- end -%>
+  <%- end -%>
   # Service calls
   <%- service.methods.each do |method| -%>
 
   <%= indent_tail render(partial: "service/rest/client/method/def", locals: { method: method }), 2 %>
-  <%- end %>
+  <%- end -%>
 
   <%= indent_tail render(partial: "service/rest/client/config", locals: { service: service }), 2 %>
 end

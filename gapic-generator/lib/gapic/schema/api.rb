@@ -61,6 +61,7 @@ module Gapic
         @files.each { |f| f.parent = self }
         @configuration = configuration
         @resource_types = analyze_resources
+        @nonstandard_lro_services = analyze_nonstandard_lros
 
         parameter_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
         @protoc_parameters = parse_parameter request.parameter, parameter_schema, error_output
@@ -339,6 +340,20 @@ module Gapic
       end
 
       ##
+      # Returns a model for the nonstandard LRO for a given service
+      #
+      # @param service_full_name [String]
+      #
+      # @return [Gapic::Model::Service::NonstandardLro, Gapic::Model::Service::NoNonstandardLro]
+      def nonstandard_lro_model_for service_full_name
+        if @nonstandard_lro_services.key? service_full_name
+          @nonstandard_lro_services[service_full_name]
+        else
+          Gapic::Model::Service::NoNonstandardLro.instance
+        end
+      end
+
+      ##
       # Whether configuration has an override for the wrapper gem name
       # @return [Boolean]
       def wrapper_gem_name_override?
@@ -416,6 +431,24 @@ module Gapic
         message.nested_messages.each do |nested|
           populate_message_resource_lookups nested, types, patterns
         end
+      end
+
+      ##
+      # Does a pre-analysis of the nonstandard LRO for every service.
+      # For the services that provide nonstandard LRO functionality, cashes a model for the future use
+      #
+      # @return [Hash<String, Gapic::Model::Service::NonstandardLro>]
+      def analyze_nonstandard_lros
+        service_registry = {}
+
+        @files.each do |file|
+          file.services.each do |service|
+            nonstandard_lro = Gapic::Model::Service.parse_nonstandard_lro service
+            service_registry[service.full_name] = nonstandard_lro if nonstandard_lro
+          end
+        end
+
+        service_registry
       end
 
       # Parse a comma-delimited list of equals-delimited lists of strings, while

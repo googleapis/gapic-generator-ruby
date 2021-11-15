@@ -36,6 +36,7 @@ module Gapic
         @service = service
         @parent_service = parent_service
         @rest = ServiceRestPresenter.new self, api
+        @nonstandard_lro = api.nonstandard_lro_model_for service.full_name
       end
 
       def gem
@@ -362,6 +363,16 @@ module Gapic
         "@#{lro_client_var}"
       end
 
+      def lro_client_presenter
+        return nil unless lro?
+        Gapic::Presenters::Service::LroClientPresenter.new service: "google.longrunning.operations",
+                                                           client_class_name: "Operations",
+                                                           client_class_docname: operations_name_full,
+                                                           client_var_name: lro_client_var,
+                                                           require_str: operations_file_path,
+                                                           service_description: "long-running operations"
+      end
+
       def operations_name
         "Operations"
       end
@@ -498,7 +509,123 @@ module Gapic
         @gem_presenter.mixins_model.mixins
       end
 
+      ##
+      # Name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_name
+        "NonstandardLro"
+      end
+
+      ##
+      # Full name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_name_full
+        fix_namespace @api, "#{service_name_full}::#{nonstandard_lro_name}"
+      end
+
+      ##
+      # Full file path to the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_file_path
+        "#{nonstandard_lro_require}.rb"
+      end
+
+      ##
+      # File name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_file_name
+        nonstandard_lro_file_path.split("/").last
+      end
+
+      ##
+      # The require string for the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_require
+        ruby_file_path @api, "#{service_name_full}::#{nonstandard_lro_name}"
+      end
+
+      ##
+      # Nonstandard lro model for this service
+      #
+      # @return [Gapic::Model::Service::NonstandardLro, Gapic::Model::Service::NoLro]
+      def nonstandard_lro
+        @nonstandard_lro
+      end
+
+      ##
+      # The Ruby name for the polling method of the nonstandard LRO provided by this service
+      #
+      # @return [String]
+      def nonstandard_lro_polling_method_name
+        return unless nonstandard_lro_provider?
+        methods.find { |m| m.grpc_method_name == nonstandard_lro.polling_method_name }.name
+      end
+
+      ##
+      # Whether this service is a provider of the nonstandard LRO functionality
+      #
+      # @return [Boolean]
+      def nonstandard_lro_provider?
+        @nonstandard_lro.nonstandard_lro?
+      end
+
+      ##
+      # Whether one or more methods of this service use the nonstandard LRO functionality
+      #
+      # @return [Boolean]
+      def nonstandard_lro_consumer?
+        methods.find(&:nonstandard_lro?) || false
+      end
+
+      ##
+      # The client presenters of the nonstandard LROs that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
+      def nonstandard_lros
+        return [] unless nonstandard_lro_consumer?
+        nonstandard_lros_models.map do |lro|
+          lro_wrapper = @api.lookup lro.service_full_name
+          lro_service = ServicePresenter.new(@gem_presenter, @api, lro_wrapper).usable_service_presenter
+
+          service_description = "long-running operations via #{lro_service.name}"
+          Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
+                                                             client_class_name: lro_service.client_name_full,
+                                                             client_class_docname: lro_service.client_name_full,
+                                                             client_var_name: lro_service.service_directory_name,
+                                                             require_str: lro_service.service_require,
+                                                             service_description: service_description,
+                                                             helper_type: lro_service.nonstandard_lro_name_full
+        end
+      end
+
+      def subclients?
+        subclients.any?
+      end
+
+      def subclients
+        ([] << lro_client_presenter << mixins << nonstandard_lros).flatten.compact
+      end
+
       private
+
+      ##
+      # The nonstandard LRO models for the nonstandard LROs that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Model::Method::Lro>]
+      def nonstandard_lros_models
+        return [] unless nonstandard_lro_consumer?
+        methods.select(&:nonstandard_lro?).map(&:lro).uniq(&:service_full_name)
+      end
 
       def default_config key
         return unless @service.parent.parent.configuration[:defaults]

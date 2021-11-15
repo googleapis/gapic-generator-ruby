@@ -284,7 +284,7 @@ module Gapic
       end
 
       # @return [String] The full name for this service
-      #   (e.g. "Google.Example.ExampleService").
+      #   (e.g. `google.example.Service`).
       #   Useful when matching against other pieces of information
       #   which also reference full proto name, e.g. Service Config
       #   or Grpc Service Config
@@ -352,7 +352,7 @@ module Gapic
       end
 
       # @return [Boolean] True if this method is marked as deprecated, false
-      # otherwise.
+      #   otherwise.
       def is_deprecated?
         options[:deprecated] if options
       end
@@ -367,6 +367,29 @@ module Gapic
       #   `google/api/routing.proto`.
       def routing
         options[:".google.api.routing"] if options
+      end
+
+      # @return [String] The full name for this method
+      #   (e.g. `google.example.Service.Rpc`).
+      #   Useful when matching against other pieces of information
+      #   which also reference full proto name.
+      def full_name
+        @address.join "."
+      end
+
+      # Nonstandard LRO annotation.
+      # @return [String] Name of the nonstandard LRO service
+      #   that should be used for polling the operation object
+      #   that this method returns
+      def operation_service
+        options[:".google.cloud.operation_service"] if options
+      end
+
+      # Nonstandard LRO annotation.
+      # @return [Boolean] Whether this method is a polling method
+      #   for a nonstandard LRO service
+      def polling_method
+        options[:".google.cloud.operation_polling_method"] if options
       end
 
       # @!method name
@@ -591,6 +614,14 @@ module Gapic
         descriptor.options&.map_entry
       end
 
+      # @return [String] The full name for this message
+      #   (e.g. `google.example.Message`).
+      #   Useful when matching against other pieces of information
+      #   which also reference full proto name.
+      def full_name
+        @address.join "."
+      end
+
       # @!method name
       #   @return [String] the unqualified name of the message.
       # @!method oneof_decl
@@ -695,6 +726,83 @@ module Gapic
         return options[:".google.api.field_behavior"] if options
 
         []
+      end
+
+      # @return [String] The full name for this field
+      #   (e.g. `google.example.Message.field`).
+      #   Useful when matching against other pieces of information
+      #   which also reference full proto name.
+      def full_name
+        @address.join "."
+      end
+
+      # Nonstandard LRO annotation.
+      # This annotation goes on the field of the request message of the method
+      # that intiates a non-standard LRO.
+      #
+      # This annotation contains a field name of the request message
+      # of the LRO polling method. (e.g. `GetRegionOperationRequest`)
+      # (let's call it a 'referenced field')
+      #
+      # When the this method is called, this value should be saved.
+      # Later, when when polling for a nonstandard LRO, this saved value should
+      # be copied to the referenced field.
+      #
+      # This typically would be used for something that a caller method knows,
+      # but an Operation object might not have, e.g. a 'region_id'.
+      #
+      # So if this field is `region_id` and the annotation is
+      # `(google.cloud.operation_request_field) = "region"`, then:
+      #
+      #     `get_region_operation_request.region = this_message.region_id`
+      #
+      # In contrast to the `operation_response_field`, this field
+      # - goes onto the fields of the input message of the method that
+      #   initiates the LRO
+      # - semantically annotates a 'push': the value of this field gets
+      #   'pushed' into every LRO poll request.
+      #
+      # @return [String]
+      def operation_request_field
+        options[:".google.cloud.operation_request_field"] if options
+      end
+
+      # Nonstandard LRO annotation.
+      # This annotation goes on the field of the request message of the method
+      # that polls for a non-standard LRO.
+      #
+      # This annotation contains a field name of the LRO object (typically 'Operation')
+      # (let's call it a 'referenced field')
+      #
+      # When polling for a nonstandard LRO, the value of the field
+      # that this annotation is on should be copied from the referenced field.
+      #
+      # This typically would get used for something that is named differently in the
+      # operation polling request message vs in the Operation object, e.g. operation's name
+      #
+      # So if this field is `operation` and the annotation is
+      # `(google.cloud.operation_response_field) = "name"`, then:
+      #
+      #     `get_region_operation_request.operation = operation.name`
+      #
+      # In contrast to the `operation_request_field`, this field
+      # - goes onto the fields of the LRO polling method's input message
+      # - semantically annotates a 'pull', the value of the referenced field gets
+      #   'pulled' into this one.
+      #
+      # @return [String]
+      def operation_response_field
+        options[:".google.cloud.operation_response_field"] if options
+      end
+
+      # Nonstandard LRO annotation.
+      # This annotation goes on the fields of the nonstandard Operation message
+      # Is value can be either `NAME`, `STATUS`, `ERROR_MESSAGE`, or `ERROR_CODE`
+      # and the field encodes a corresponding aspect of the LRO behaviour.
+      #
+      # @return [Integer]
+      def operation_field
+        options[:".google.cloud.operation_field"] if options
       end
 
       # Specifically denotes a field as optional. While all fields in protocol

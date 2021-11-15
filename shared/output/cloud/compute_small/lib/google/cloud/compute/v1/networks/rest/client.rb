@@ -19,6 +19,7 @@
 require "google/cloud/errors"
 require "google/cloud/compute/v1/compute_small_pb"
 require "google/cloud/compute/v1/networks/rest/service_stub"
+require "google/cloud/compute/v1/global_operations/rest"
 
 module Google
   module Cloud
@@ -120,8 +121,20 @@ module Google
                   credentials = Credentials.new credentials, scope: @config.scope
                 end
 
+                @global_operations = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.new do |config|
+                  config.credentials = credentials
+                  config.endpoint = @config.endpoint
+                end
+
                 @networks_stub = ::Google::Cloud::Compute::V1::Networks::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
               end
+
+              ##
+              # Get the associated client for long-running operations via GlobalOperations.
+              #
+              # @return [::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client]
+              #
+              attr_reader :global_operations
 
               # Service calls
 
@@ -248,10 +261,10 @@ module Google
               #
               #     The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000).
               # @yield [result, response] Access the result along with the Faraday response object
-              # @yieldparam result [::Gapic::Rest::BaseOperation]
+              # @yieldparam result [::Gapic::GenericLRO::Operation]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::Rest::BaseOperation]
+              # @return [::Gapic::GenericLRO::Operation]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def remove_peering request, options = nil
@@ -278,7 +291,12 @@ module Google
                                        metadata:     @config.metadata
 
                 @networks_stub.remove_peering request, options do |result, response|
-                  result = ::Gapic::Rest::BaseOperation.new result
+                  result = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::NonstandardLro.create_operation(result,
+                                                                                                                 global_operations,
+                                                                                                                 {
+                                                                                                                   "project" => request.project
+                                                                                                                 },
+                                                                                                                 options)
                   yield result, response if block_given?
                   return result
                 end

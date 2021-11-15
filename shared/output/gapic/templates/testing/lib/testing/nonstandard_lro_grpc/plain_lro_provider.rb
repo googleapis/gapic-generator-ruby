@@ -31,6 +31,7 @@ require "gapic/config/method"
 require "testing/version"
 
 require "testing/nonstandard_lro_grpc/plain_lro_provider/credentials"
+require "testing/nonstandard_lro_grpc/plain_lro_provider/nonstandard_lro"
 require "testing/nonstandard_lro_grpc/plain_lro_provider/client"
 
 module Testing

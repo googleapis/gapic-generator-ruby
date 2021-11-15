@@ -32,11 +32,14 @@ module Gapic
       # @return [Gapic::Presenters::MethodRestPresenter]
       attr_accessor :rest
 
-      # return [Gapic::Model::Method::Routing]
+      # @return [Gapic::Model::Method::Routing]
       attr_accessor :routing
 
-      # return [Gapic::Model::Method::HttpAnnotation]
+      # @return [Gapic::Model::Method::HttpAnnotation]
       attr_accessor :http
+
+      # @return [Gapic::Model::Method::AipLro, Gapic::Model::Method::NonStandardLro, Gapic::Model::Method::NoLro]
+      attr_accessor :lro
 
       ##
       # @param service_presenter [Gapic::Presenters::ServicePresenter]
@@ -48,6 +51,7 @@ module Gapic
         @method = method
         @http = Gapic::Model::Method::HttpAnnotation.new @method
         @routing = Gapic::Model::Method::Routing.new @method.routing, http
+        @lro = Gapic::Model::Method.parse_lro @method, api
 
         @rest = MethodRestPresenter.new self, api
       end
@@ -195,10 +199,34 @@ module Gapic
         sample_configs.map { |sample_config| SamplePresenter.new @api, sample_config }
       end
 
+      ##
+      # Whether this method uses standard (AIP-151 lros)
+      #
+      # @return [Boolean]
+      #
       def lro?
         return paged_response_type == "::Google::Longrunning::Operation" if paged?
 
         return_type == "::Google::Longrunning::Operation"
+      end
+
+      ##
+      # Whether this method uses nonstandard LROs
+      #
+      # @return [Boolean]
+      #
+      def nonstandard_lro?
+        @lro.nonstandard_lro?
+      end
+
+      ##
+      # The presenter for the nonstandard LRO client of the kind this method uses
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
+      #
+      def nonstandard_lro_client
+        return unless nonstandard_lro?
+        service.nonstandard_lros.find { |model| model.service == @lro.service_full_name }
       end
 
       def client_streaming?

@@ -37,10 +37,39 @@ module Gapic
       end
 
       ##
+      # Ruby name of this service
+      #
+      # @return [String]
+      #
+      def name
+        main_service.name
+      end
+
+      ##
+      # Full Ruby name of this service
+      #
       # @return [String]
       #
       def service_name_full
         fix_namespace api, "#{main_service.service_name_full}::Rest"
+      end
+
+      ##
+      # Require path for this service
+      #
+      # @return [String]
+      #
+      def service_require
+        ruby_file_path @api, service_name_full
+      end
+
+      ##
+      # Folder name for this service
+      #
+      # @return [String]
+      #
+      def service_directory_name
+        service_require.split("/")[-2]
       end
 
       ##
@@ -142,6 +171,51 @@ module Gapic
       end
 
       ##
+      # Name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_name
+        "NonstandardLro"
+      end
+
+      ##
+      # Full name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_name_full
+        fix_namespace @api, "#{service_name_full}::#{nonstandard_lro_name}"
+      end
+
+      ##
+      # Full file path to the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_file_path
+        "#{nonstandard_lro_require}.rb"
+      end
+
+      ##
+      # File name of the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_file_name
+        nonstandard_lro_file_path.split("/").last
+      end
+
+      ##
+      # The require string for the nonstandard LRO module
+      #
+      # @return [String]
+      #
+      def nonstandard_lro_require
+        ruby_file_path @api, "#{service_name_full}::#{nonstandard_lro_name}"
+      end
+
+      ##
       # The method to use for quick start samples. Normally this is simply the
       # first non-client-streaming method defined, but it can be overridden via
       # a gem config.
@@ -152,6 +226,13 @@ module Gapic
       #
       def quick_start_method
         main_service.quick_start_method&.rest
+      end
+
+      ##
+      # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
+      #
+      def methods
+        main_service.methods
       end
 
       private

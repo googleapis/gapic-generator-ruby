@@ -13,6 +13,9 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "testing.nonstandardlrogrpc.Request" do
       optional :request_id, :string, 1
     end
+    add_message "testing.nonstandardlrogrpc.Response" do
+      optional :request_id, :string, 1
+    end
     add_message "testing.nonstandardlrogrpc.AnotherRequest" do
       optional :request_id, :string, 1
     end
@@ -48,6 +51,7 @@ end
 module Testing
   module NonstandardLroGrpc
     Request = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.nonstandardlrogrpc.Request").msgclass
+    Response = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.nonstandardlrogrpc.Response").msgclass
     AnotherRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.nonstandardlrogrpc.AnotherRequest").msgclass
     NonCopyRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.nonstandardlrogrpc.NonCopyRequest").msgclass
     NonstandardOperation = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("testing.nonstandardlrogrpc.NonstandardOperation").msgclass

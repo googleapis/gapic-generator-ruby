@@ -2,11 +2,13 @@
 <% @requires = capture do %>
 <%= render partial: "service/client/requires", locals: { service: service} -%>
 require "<%= service.proto_service_require %>"
-<%- if service.mixins? -%>
-<%- service.mixins.each do |mixin| -%>
-require "<%= mixin.require_str %>"
-<% end %>
-<% end %>
+<%- if service.subclients? -%>
+<%- service.subclients.each do |subclient| -%>
+<%- unless subclient.client_class_name == "Operations" -%>
+require "<%= subclient.require_str %>"
+<%- end -%>
+<%- end -%>
+<%- end -%>
 <% end %>
 ##
 # Client for the <%= service.name %> service.
@@ -114,23 +116,15 @@ class <%= service.client_name %>
     @quota_project_id = @config.quota_project
     @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
-    <%- if service.mixins? -%>
-    <%- service.mixins.each do |mixin| -%>
-    @<%= mixin.client_var_name %> = <%= mixin.client_class_name %>.new do |config|
+    <%- if service.subclients? -%>
+    <%- service.subclients.each do |subclient| -%>
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
       config.credentials = credentials
-      config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
     end
     <% end %>
 
-    <% end %>
-    <%- if service.lro? -%>
-    <%= service.lro_client_ivar %> = <%= service.operations_name %>.new do |config|
-      config.credentials = credentials
-      config.quota_project = @quota_project_id
-      config.endpoint = @config.endpoint
-    end
-
+    <%- end -%>
     <%- end -%>
     @<%= service.stub_name %> = ::Gapic::ServiceStub.new(
       <%= service.proto_service_stub_name_full %>,
@@ -141,27 +135,22 @@ class <%= service.client_name %>
     )
   end
 
-<%- if service.lro? -%>
+  <%- if service.subclients? -%>
+  <%- service.subclients.each do |subclient| -%>
   ##
-  # Get the associated client for long-running operations.
+  # Get the associated client for <%= subclient.service_description %>.
   #
-  # @return [<%= service.operations_name_full %>]
+  # @return [<%= subclient.client_class_docname %>]
   #
-  attr_reader :<%= service.lro_client_var %>
+  attr_reader :<%= subclient.client_var_name %>
 
-<%- end -%>
-<%- if service.mixins? -%>
-  <%- service.mixins.each do |mixin| -%>
-  # @return [<%= mixin.client_class_name %>]
-  attr_reader :<%= mixin.client_var_name %>
-
-  <% end %>
-<% end %>
+  <%- end -%>
+  <%- end -%>
   # Service calls
   <%- service.methods.each do |method| -%>
 
   <%= indent_tail render(partial: "service/client/method/def", locals: { method: method }), 2 %>
-  <%- end %>
+  <%- end -%>
 
   <%= indent_tail render(partial: "service/client/config", locals: { service: service }), 2 %>
 end

@@ -61,6 +61,7 @@ module Testing
         rpc :AnotherLroRpc, ::Testing::NonstandardLroGrpc::AnotherRequest, ::Testing::NonstandardLroGrpc::NonstandardOperation
         rpc :NonCopyAnotherLroRpc, ::Testing::NonstandardLroGrpc::NonCopyRequest, ::Testing::NonstandardLroGrpc::NonstandardOperation
         rpc :AipLRO, ::Testing::NonstandardLroGrpc::Request, ::Google::Longrunning::Operation
+        rpc :NoLRO, ::Testing::NonstandardLroGrpc::Request, ::Testing::NonstandardLroGrpc::Response
       end
 
       Stub = Service.rpc_stub_class
