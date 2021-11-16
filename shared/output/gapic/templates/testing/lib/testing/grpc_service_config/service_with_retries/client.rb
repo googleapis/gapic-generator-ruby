@@ -140,7 +140,7 @@ module Testing
 
           @location_client = Google::Cloud::Location::Locations::Client.new do |config|
             config.credentials = credentials
-            config.quota_project_id = @quota_project_id
+            config.quota_project = @quota_project_id
             config.endpoint = @config.endpoint
           end
 
