@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/nonstandard_lro/operation.rb"
+require "gapic/nonstandard_lro/operation"
 
 module Gapic
   class Operation < Gapic::NonstandardLro::Operation

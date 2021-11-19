@@ -28,7 +28,7 @@ module Gapic
       # @param client [Object] The client that handles the polling for the longrunning operation.
       # @param polling_method_name [String] The name of the methods on the client that polls the longrunning operation.
       # @param operation_status_field [String] The name of the `status` field in the underlying long-running operation
-      #   object. The `status` field signals that the operation has finished. It should either contain symbols, and 
+      #   object. The `status` field signals that the operation has finished. It should either contain symbols, and
       #   be set to `:DONE` when finished or contain a boolean and be set to `true` when finished.
       # @param request_values [Map<String, String>] The values that are top be copied from the request that
       #   triggered the longrunning operation, into the request that polls for the longrunning operation.
@@ -48,36 +48,28 @@ module Gapic
       #   The format is `name of the operation object field` -> `name of the request field` (`from` -> `to`)
       # @param options [Gapic::CallOptions] call options for this operation
       #
-      def initialize(operation, 
-          client:,
-          polling_method_name:,
-          operation_status_field:,
-          request_values: {},
-          operation_name_field: nil,
-          operation_err_field: nil,
-          operation_err_code_field: nil,
-          operation_err_msg_field: nil,
-          operation_copy_fields: {},
-          options: {})
-
+      def initialize operation, client:, polling_method_name:, operation_status_field:,
+                     request_values: {}, operation_name_field: nil, operation_err_field: nil,
+                     operation_err_code_field: nil, operation_err_msg_field: nil, operation_copy_fields: {},
+                     options: {}
         @client = client
         @polling_method_name = polling_method_name
         @operation_status_field = operation_status_field
 
         @request_values = request_values || {}
-       
+
         @operation_name_field = operation_name_field
         @operation_err_field = operation_err_field
         @operation_err_code_field = operation_err_code_field
         @operation_err_msg_field = operation_err_msg_field
-        
+
         @operation_copy_fields = operation_copy_fields || {}
 
         @on_done_callbacks = []
         @on_reload_callbacks = []
         @options = options || {}
 
-        super(operation)
+        super operation
       end
 
       ##
@@ -96,7 +88,7 @@ module Gapic
       # @return [String, nil] The name of the operation.
       #
       def name
-        @operation.send(@operation_name_field) if @operation.respond_to? @operation_name_field
+        @operation.send @operation_name_field if @operation.respond_to? @operation_name_field
       end
 
       ##
@@ -106,7 +98,7 @@ module Gapic
       # @return [Boolean] Whether the operation is done.
       #
       def done?
-        return status if !!status == status
+        return status if !status.nil? == status
 
         status == :DONE
       end
@@ -152,8 +144,8 @@ module Gapic
       ##
       # Reloads the operation object.
       #
-      # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
-      #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
+      # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided
+      # to customize the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
       #
       # @return [Gapic::NonstandardLro::Operation] Since this method changes internal state, it returns itself.
       #
@@ -162,17 +154,12 @@ module Gapic
 
         @on_reload_callbacks.each { |proc| proc.call self }
 
-        options = if options.respond_to? :to_h
-                    options.to_h.merge @options.to_h
-                  else
-                    @options.to_h
-                  end
-        options = Gapic::CallOptions.new(**options)
-        
-        request_hash = @request_values.map {|k,v| [k.to_sym, v]}.to_h
+        request_hash = @request_values.transform_keys(&:to_sym)
         @operation_copy_fields.each do |field_from, field_to|
-          request_hash[field_to.to_sym] = @operation.send(field_from.to_s) if @operation.respond_to?(field_from.to_s)
+          request_hash[field_to.to_sym] = @operation.send field_from.to_s if @operation.respond_to? field_from.to_s
         end
+
+        options = merge_options options, @options
 
         ops = @client.send @polling_method_name, request_hash, options
         ops = ops.operation if ops.is_a? Gapic::Rest::BaseOperation
@@ -212,7 +199,6 @@ module Gapic
         self
       end
 
-
       ##
       # Registers a callback to be run when an operation is being reloaded. If the operation has completed
       # prior to a call to this function the callback will NOT be called or registered.
@@ -246,7 +232,7 @@ module Gapic
       #
       def status
         return nil if @operation_status_field.nil?
-        @operation.send(@operation_status_field)
+        @operation.send @operation_status_field
       end
 
       ##
@@ -254,7 +240,7 @@ module Gapic
       #
       def err
         return nil if @operation_err_field.nil?
-        @operation.send(@operation_err_field) if @operation.respond_to? @operation_err_field
+        @operation.send @operation_err_field if @operation.respond_to? @operation_err_field
       end
 
       ##
@@ -262,7 +248,7 @@ module Gapic
       #
       def error_code
         return nil if @operation_err_code_field.nil?
-        @operation.send(@operation_err_code_field) if @operation.respond_to? @operation_err_code_field
+        @operation.send @operation_err_code_field if @operation.respond_to? @operation_err_code_field
       end
 
       ##
@@ -270,7 +256,17 @@ module Gapic
       #
       def error_msg
         return nil if @operation_err_msg_field.nil?
-        @operation.send(@operation_err_msg_field) if @operation.respond_to? @operation_err_msg_field
+        @operation.send @operation_err_msg_field if @operation.respond_to? @operation_err_msg_field
+      end
+
+      def merge_options method_opts, baseline_opts
+        options = if method_opts.respond_to? :to_h
+                    method_opts.to_h.merge baseline_opts.to_h
+                  else
+                    baseline_opts.to_h
+                  end
+
+        Gapic::CallOptions.new(**options)
       end
     end
   end

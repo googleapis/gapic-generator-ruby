@@ -14,7 +14,7 @@
 
 require "gapic/operation/retry_policy"
 require "google/protobuf/well_known_types"
-require "gapic/nonstandard_lro/operation.rb"
+require "gapic/nonstandard_lro/operation"
 
 module Gapic
   # A class used to wrap Google::Longrunning::Operation objects. This class provides helper methods to check the
