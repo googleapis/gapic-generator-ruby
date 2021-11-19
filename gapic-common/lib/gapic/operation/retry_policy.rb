@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/nonstandard_lro/operation.rb"
+
 module Gapic
-  class Operation
+  class Operation < Gapic::NonstandardLro::Operation
     ##
     # The policy for retrying operation reloads using an incremental backoff. A new object instance should be used for
     # every Operation invocation.
