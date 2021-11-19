@@ -71,9 +71,6 @@ module Gapic
   #     # process(operation.rmetadata)
   #   end
   #
-  # @attribute [r] grpc_op
-  #   @return [Google::Longrunning::Operation] The wrapped grpc
-  #     operation object.
   class Operation < Gapic::NonstandardLro::Operation
     ##
     # @param grpc_op [Google::Longrunning::Operation] The inital longrunning operation.
@@ -100,6 +97,9 @@ module Gapic
       @metadata_type = metadata_type
     end
 
+    ##
+    # @return [Google::Longrunning::Operation] The wrapped grpc operation object.
+    #
     def grpc_op
       @operation
     end
