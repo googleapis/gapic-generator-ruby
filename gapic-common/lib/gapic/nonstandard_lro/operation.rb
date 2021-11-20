@@ -25,27 +25,37 @@ module Gapic
     class Operation < Gapic::Rest::BaseOperation
       ##
       # @param operation [Object] The initial longrunning operation.
+      #
       # @param client [Object] The client that handles the polling for the longrunning operation.
+      #
       # @param polling_method_name [String] The name of the methods on the client that polls the longrunning operation.
+      #
       # @param operation_status_field [String] The name of the `status` field in the underlying long-running operation
       #   object. The `status` field signals that the operation has finished. It should either contain symbols, and
       #   be set to `:DONE` when finished or contain a boolean and be set to `true` when finished.
-      # @param request_values [Map<String, String>] The values that are top be copied from the request that
+      #
+      # @param request_values [Map<String, String>] The values that are to be copied from the request that
       #   triggered the longrunning operation, into the request that polls for the longrunning operation.
       #   The format is `name of the request field` -> `value`
+      #
       # @param operation_name_field [String, nil] The name of the `name` field in the underlying long-running operation
       #   object. Optional.
+      #
       # @param operation_err_field [String, nil] The name of the `error` field in the underlying long-running operation
       #   object. The `error` field should be a message-type, and have same semantics as `google.rpc.Status`, including
       #   an integer `code` subfield, that carries an error code. If the `operation_err_field` field is given,
       #   the `operation_err_code_field` and `operation_err_msg_field` parameters are ignored. Optional.
+      #
       # @param operation_err_code_field [String, nil] The name of the `error_code` field in the underlying
       #   long-running operation object. It is ignored if `operation_err_field` is given. Optional.
+      #
       # @param operation_err_msg_field [String, nil] The name of the `error_message` field in the underlying
-      # long-running operation object. It is ignored if `operation_err_field` is given. Optional.
-      # @param request_values [Map<String, String>] The map of the fields that need to be copied from the
+      #   long-running operation object. It is ignored if `operation_err_field` is given. Optional.
+      #
+      # @param operation_copy_fields [Map<String, String>] The map of the fields that need to be copied from the
       #   long-running operation object that the polling method returns to the polling request.
       #   The format is `name of the operation object field` -> `name of the request field` (`from` -> `to`)
+      #
       # @param options [Gapic::CallOptions] call options for this operation
       #
       def initialize operation, client:, polling_method_name:, operation_status_field:,
@@ -259,6 +269,17 @@ module Gapic
         @operation.send @operation_err_msg_field if @operation.respond_to? @operation_err_msg_field
       end
 
+      ##
+      # Merges options given to the method with a baseline Gapic::Options object
+      #
+      # @param method_opts [Gapic::CallOptions, Hash] The options for making the RPC call given to a method invocation.
+      #   A Hash can be provided to customize the options object, using keys that match the arguments
+      #   for {Gapic::CallOptions.new}.
+      #
+      # @param baseline_opts [Gapic::CallOptions, Hash] The baseline options for making the RPC call.
+      #   A Hash can be provided to customize the options object, using keys that match the arguments
+      #   for {Gapic::CallOptions.new}.
+      #
       def merge_options method_opts, baseline_opts
         options = if method_opts.respond_to? :to_h
                     method_opts.to_h.merge baseline_opts.to_h
