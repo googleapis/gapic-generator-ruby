@@ -5,6 +5,10 @@ AllCops:
   Exclude:
     - "test/**/*"
 
+Metrics/ClassLength:
+  Exclude:
+    - "lib/gapic/nonstandard_lro/operation.rb"
+
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
@@ -12,7 +16,7 @@ Metrics/CyclomaticComplexity:
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
-
+    
 Naming/FileName:
   Exclude:
     - "lib/gapic-common.rb"
