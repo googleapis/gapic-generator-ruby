@@ -21,8 +21,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 ##
 # googleapis for the common protos
 #
-_googleapis_commit = "b08c55646b3fe4983c1952ddea87d1120ecd8ce7"
-_googleapis_sha256 = "60576252d005826ab81e87a98e3a31360e11470afd0fe92c48983e75ede26b2e"
+_googleapis_commit = "00158485835c7d3bad0b84b3ca09a7b3292a1f15"
+_googleapis_sha256 = "0c5ff93989c50f00221ec129ce06bcf682ef43aabdeaffb5c1bae3d86c5b0fae"
 
 http_archive(
     name = "com_google_googleapis",
@@ -135,33 +135,21 @@ http_archive(
 ##
 # com_google_disco_to_proto3_converter is needed for the discovery to work
 #
-_disco_to_proto3_converter_commit = "4b0956884b1aa9b367cf41488b622dc12eb16652"
-_disco_to_proto3_converter_sha256 = "7f01bdd51254f353b8632153c8b31d1a571c868cc4561f3b43d1cd1926e84dd4"
-
+_disco_to_proto3_converter_version = "ce8d8732120cdfb5bf4847c3238b5be8acde87e3"
+_disco_to_proto3_converter_sha256 = "a9c0347e2f9a6426b6f8224f4a4c64158b7559ccaa20ec25ca2cb152334db63e"
 http_archive(
     name = "com_google_disco_to_proto3_converter",
     sha256 = _disco_to_proto3_converter_sha256,
-    strip_prefix = "disco-to-proto3-converter-%s" % _disco_to_proto3_converter_commit,
-    urls = ["https://github.com/googleapis/disco-to-proto3-converter/archive/%s.zip" % _disco_to_proto3_converter_commit],
+    strip_prefix = "disco-to-proto3-converter-%s" % _disco_to_proto3_converter_version,
+    urls = ["https://github.com/googleapis/disco-to-proto3-converter/archive/%s.zip" % _disco_to_proto3_converter_version],
 )
 load("@com_google_disco_to_proto3_converter//:repository_rules.bzl", "com_google_disco_to_proto3_converter_properties")
+
 com_google_disco_to_proto3_converter_properties(
     name = "com_google_disco_to_proto3_converter_properties",
     file = "@com_google_disco_to_proto3_converter//:pom.xml",
 )
+
 load("@com_google_disco_to_proto3_converter//:repositories.bzl", "com_google_disco_to_proto3_converter_repositories")
+
 com_google_disco_to_proto3_converter_repositories()
-
-
-##
-# discovery for the diregapic example
-#
-_googleapis_discovery_commit = "e693b037c832027854353dd6e1408284bd2eace3"
-_googleapis_discovery_sha256 = "13288a68a546563891dabc5fbb741a2add7f39cffe2f93492f7acddbfdf017a9"
-
-http_archive(
-    name = "com_google_googleapis_discovery",
-    sha256 = _googleapis_discovery_sha256,
-    strip_prefix = "googleapis-discovery-%s" % _googleapis_discovery_commit,
-    urls = ["https://github.com/googleapis/googleapis-discovery/archive/%s.zip" % _googleapis_discovery_commit],
-)
