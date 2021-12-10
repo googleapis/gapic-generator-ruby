@@ -101,7 +101,7 @@ module Gapic
     # @return [Google::Longrunning::Operation] The wrapped grpc operation object.
     #
     def grpc_op
-      @operation
+      operation
     end
 
     ##
@@ -160,7 +160,7 @@ module Gapic
       # Converts hash and nil to an options object
       options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-      @client.cancel_operation({ name: grpc_op.name }, options)
+      client.cancel_operation({ name: grpc_op.name }, options)
     end
 
     ##
@@ -173,7 +173,7 @@ module Gapic
       # Converts hash and nil to an options object
       options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-      @client.delete_operation({ name: grpc_op.name }, options)
+      client.delete_operation({ name: grpc_op.name }, options)
     end
   end
 end

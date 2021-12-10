@@ -87,6 +87,7 @@ module Gapic
       # returned. Otherwise returns nil.
       #
       # @return [Object, nil] The result of the operation or an error.
+      #
       def results
         return error if error?
         return response if response?
@@ -302,6 +303,7 @@ module Gapic
       class GenericError
         attr_accessor :code, :message
 
+        ##
         # @param code [String] An error code
         # @param message [String] An error message
         def initialize code, message
@@ -309,6 +311,13 @@ module Gapic
           @message = message
         end
       end
+
+      protected
+
+      ##
+      # @private
+      # @return [Object] The client that handles the polling for the longrunning operation.
+      attr_accessor :client
     end
   end
 end
