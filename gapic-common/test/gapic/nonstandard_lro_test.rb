@@ -15,15 +15,15 @@
 require "test_helper"
 
 require "gapic/operation"
-require "gapic/nonstandard_lro/operation"
+require "gapic/generic_lro/operation"
 require "google/protobuf/any_pb"
 require "google/protobuf/well_known_types"
 require "google/rpc/status_pb"
 require "google/longrunning/operations_pb"
 
-NonstandardLro = Gapic::NonstandardLro::Operation
+GenericLRO = Gapic::GenericLRO::Operation
 
-class NonstandardLroTest < Minitest::Test
+class GenericLROTest < Minitest::Test
   NAME = "seabiscuit"
   REGION = "MARS"
   ERR_CODE = 3059181
@@ -405,7 +405,7 @@ class NonstandardLroTest < Minitest::Test
       # here we simulate that its input message has a field called `operation_name`,
       # and a field called `region`
       result = @get_method.call operation_name: request[:operation_name], region: request[:region], options: options
-      NonstandardLroTest::create_op result, client: self
+      GenericLROTest::create_op result, client: self
     end
   end
 
@@ -416,7 +416,7 @@ class NonstandardLroTest < Minitest::Test
   DONE_ON_GET_CLIENT = MockLroClient.new get_method: DONE_GET_METHOD
 
   def create_op operation, client: nil, request_values: {}, err_field: nil
-    NonstandardLroTest::create_op operation,
+    GenericLROTest::create_op operation,
                                   client:client,
                                   request_values: request_values,
                                   err_field: err_field
@@ -424,7 +424,7 @@ class NonstandardLroTest < Minitest::Test
 
   class << self
     def create_op operation, client: nil, request_values: {}, err_field: nil
-      NonstandardLro.new(operation, 
+      GenericLRO.new(operation, 
         client: (client || DONE_ON_GET_CLIENT),
         polling_method_name: "get_operation",
         operation_status_field: "status",

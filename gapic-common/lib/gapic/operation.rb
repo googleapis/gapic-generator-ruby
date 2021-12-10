@@ -14,7 +14,7 @@
 
 require "gapic/operation/retry_policy"
 require "google/protobuf/well_known_types"
-require "gapic/nonstandard_lro/operation"
+require "gapic/generic_lro/operation"
 
 module Gapic
   # A class used to wrap Google::Longrunning::Operation objects. This class provides helper methods to check the
@@ -71,7 +71,7 @@ module Gapic
   #     # process(operation.rmetadata)
   #   end
   #
-  class Operation < Gapic::NonstandardLro::Operation
+  class Operation < Gapic::GenericLRO::Operation
     ##
     # @param grpc_op [Google::Longrunning::Operation] The inital longrunning operation.
     # @param client [Google::Longrunning::OperationsClient] The client that handles the grpc operations.

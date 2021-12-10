@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,19 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/generic_lro/base_operation"
 require "gapic/operation/retry_policy"
-require "gapic/rest/operation"
 
 module Gapic
-  module NonstandardLro
+  module GenericLRO
     ##
     # A class used to wrap the nonstandard longrunning operation objects
     # (`nonstandard` meaning not conforming to the AIP-151).
     # It provides helper methods to poll and check for status of these operations.
     #
-    class Operation < Gapic::Rest::BaseOperation
+    class Operation < Gapic::GenericLRO::BaseOperation
       ##
-      # @param operation [Object] The initial longrunning operation.
+      # @param operation [Object] The long-running operation object that is returned by the initial method call.
       #
       # @param client [Object] The client that handles the polling for the longrunning operation.
       #
@@ -98,7 +98,7 @@ module Gapic
       # @return [String, nil] The name of the operation.
       #
       def name
-        @operation.send @operation_name_field if @operation.respond_to? @operation_name_field
+        operation.send @operation_name_field if @operation_name_field && operation.respond_to?(@operation_name_field)
       end
 
       ##
@@ -108,7 +108,7 @@ module Gapic
       # @return [Boolean] Whether the operation is done.
       #
       def done?
-        return status if !status.nil? == status
+        return status if [true, false].include? status
 
         status == :DONE
       end
@@ -128,7 +128,7 @@ module Gapic
       #
       # @return [Object, nil] The response of the operation.
       def response
-        @operation if response?
+        operation if response?
       end
 
       ##
@@ -148,7 +148,7 @@ module Gapic
       #
       def error
         return unless error?
-        err || OpenStruct.new(code: error_code, message: error_msg)
+        err || GenericError.new(error_code, error_msg)
       end
 
       ##
@@ -157,7 +157,7 @@ module Gapic
       # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided
       # to customize the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
       #
-      # @return [Gapic::NonstandardLro::Operation] Since this method changes internal state, it returns itself.
+      # @return [Gapic::GenericLRO::Operation] Since this method changes internal state, it returns itself.
       #
       def reload! options: nil
         return self if done?
@@ -166,7 +166,7 @@ module Gapic
 
         request_hash = @request_values.transform_keys(&:to_sym)
         @operation_copy_fields.each do |field_from, field_to|
-          request_hash[field_to.to_sym] = @operation.send field_from.to_s if @operation.respond_to? field_from.to_s
+          request_hash[field_to.to_sym] = operation.send field_from.to_s if operation.respond_to? field_from.to_s
         end
 
         options = merge_options options, @options
@@ -174,7 +174,7 @@ module Gapic
         ops = @client.send @polling_method_name, request_hash, options
         ops = ops.operation if ops.is_a? Gapic::Rest::BaseOperation
 
-        @operation = ops
+        set_operation ops
 
         if done?
           @on_reload_callbacks.clear
@@ -193,7 +193,7 @@ module Gapic
       # @param retry_policy [RetryPolicy, Hash, Proc] The policy for retry. A custom proc that takes the error as an
       #   argument and blocks can also be provided.
       #
-      # @yield operation [Gapic::NonstandardLro::Operation] Yields the finished Operation.
+      # @yield operation [Gapic::GenericLRO::Operation] Yields the finished Operation.
       #
       def wait_until_done! retry_policy: nil
         retry_policy = ::Gapic::Operation::RetryPolicy.new retry_policy if retry_policy.is_a? Hash
@@ -242,7 +242,7 @@ module Gapic
       #
       def status
         return nil if @operation_status_field.nil?
-        @operation.send @operation_status_field
+        operation.send @operation_status_field
       end
 
       ##
@@ -250,7 +250,7 @@ module Gapic
       #
       def err
         return nil if @operation_err_field.nil?
-        @operation.send @operation_err_field if @operation.respond_to? @operation_err_field
+        operation.send @operation_err_field if operation.respond_to? @operation_err_field
       end
 
       ##
@@ -258,7 +258,7 @@ module Gapic
       #
       def error_code
         return nil if @operation_err_code_field.nil?
-        @operation.send @operation_err_code_field if @operation.respond_to? @operation_err_code_field
+        operation.send @operation_err_code_field if operation.respond_to? @operation_err_code_field
       end
 
       ##
@@ -266,7 +266,7 @@ module Gapic
       #
       def error_msg
         return nil if @operation_err_msg_field.nil?
-        @operation.send @operation_err_msg_field if @operation.respond_to? @operation_err_msg_field
+        operation.send @operation_err_msg_field if operation.respond_to? @operation_err_msg_field
       end
 
       ##
@@ -288,6 +288,26 @@ module Gapic
                   end
 
         Gapic::CallOptions.new(**options)
+      end
+
+      ##
+      # Represents a generic error that a generic LRO can report
+      #
+      # @!attribute [r] code
+      #   @return [String] An error code
+      #
+      # @!attribute [r] message
+      #   @return [String] An error message
+      #
+      class GenericError
+        attr_accessor :code, :message
+
+        # @param code [String] An error code
+        # @param message [String] An error message
+        def initialize code, message
+          @code = code
+          @message = message
+        end
       end
     end
   end

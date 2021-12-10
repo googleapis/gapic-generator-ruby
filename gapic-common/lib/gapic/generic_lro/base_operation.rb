@@ -12,13 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/generic_lro/base_operation"
-
 module Gapic
-    module Rest
+  module GenericLRO
+    ##
+    # A base class for the wrappers over the long-running operations.
+    #
+    # @attribute [r] operation
+    #   @return [Object] The wrapped operation object.
+    #
+    class BaseOperation
+      attr_reader :operation
+
       ##
-      # This alias is left here for the backwards compatibility purposes.
-      # Rest LROs now use the same GenericLRO base as the GRPC LROs.
-      BaseOperation = Gapic::GenericLRO::BaseOperation
+      # @private
+      # @param operation [Object] The operation object to be wrapped
+      def initialize operation
+        @operation = operation
+      end
+
+      protected 
+   
+      ##
+      # @private
+      # @param operation [Object] The operation object to be wrapped
+      def set_operation operation
+        @operation = operation
+      end
     end
+  end
 end
