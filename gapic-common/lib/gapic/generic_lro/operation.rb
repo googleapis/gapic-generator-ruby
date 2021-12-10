@@ -18,7 +18,7 @@ require "gapic/operation/retry_policy"
 module Gapic
   module GenericLRO
     ##
-    # A class used to wrap the nonstandard longrunning operation objects
+    # A class used to wrap the longrunning operation objects, including the nonstandard ones
     # (`nonstandard` meaning not conforming to the AIP-151).
     # It provides helper methods to poll and check for status of these operations.
     #
