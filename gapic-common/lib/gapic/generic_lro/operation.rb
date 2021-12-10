@@ -176,7 +176,7 @@ module Gapic
         ops = @client.send @polling_method_name, request_hash, options
         ops = ops.operation if ops.is_a? Gapic::Rest::BaseOperation
 
-        set_operation ops
+        self.operation = ops
 
         if done?
           @on_reload_callbacks.clear

@@ -32,12 +32,7 @@ module Gapic
 
       protected
 
-      ##
-      # @private
-      # @param operation [Object] The operation object to be wrapped
-      def set_operation operation
-        @operation = operation
-      end
+      attr_writer :operation
     end
   end
 end
