@@ -174,7 +174,7 @@ module Gapic
         options = merge_options options, @options
 
         ops = @client.send @polling_method_name, request_hash, options
-        ops = ops.operation if ops.is_a? Gapic::Rest::BaseOperation
+        ops = ops.operation if ops.is_a? Gapic::GenericLRO::BaseOperation
 
         self.operation = ops
 
