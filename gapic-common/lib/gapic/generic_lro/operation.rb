@@ -99,7 +99,8 @@ module Gapic
       # @return [String, nil] The name of the operation.
       #
       def name
-        operation.send @operation_name_field if @operation_name_field && operation.respond_to?(@operation_name_field)
+        return nil if @operation_name_field.nil?
+        operation.send @operation_name_field if operation.respond_to? @operation_name_field
       end
 
       ##
