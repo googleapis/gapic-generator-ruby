@@ -17,6 +17,10 @@ Metrics/PerceivedComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
 
+Naming/AccessorMethodName:
+  Exclude:
+    - "lib/gapic/generic_lro/base_operation.rb"
+
 Naming/FileName:
   Exclude:
     - "lib/gapic-common.rb"

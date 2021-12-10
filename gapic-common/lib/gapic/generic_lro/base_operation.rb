@@ -30,8 +30,8 @@ module Gapic
         @operation = operation
       end
 
-      protected 
-   
+      protected
+
       ##
       # @private
       # @param operation [Object] The operation object to be wrapped

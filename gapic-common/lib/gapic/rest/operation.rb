@@ -15,10 +15,10 @@
 require "gapic/generic_lro/base_operation"
 
 module Gapic
-    module Rest
-      ##
-      # This alias is left here for the backwards compatibility purposes.
-      # Rest LROs now use the same GenericLRO base as the GRPC LROs.
-      BaseOperation = Gapic::GenericLRO::BaseOperation
-    end
+  module Rest
+    ##
+    # This alias is left here for the backwards compatibility purposes.
+    # Rest LROs now use the same GenericLRO base as the GRPC LROs.
+    BaseOperation = Gapic::GenericLRO::BaseOperation
+  end
 end

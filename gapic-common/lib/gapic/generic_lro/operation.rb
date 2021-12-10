@@ -301,7 +301,8 @@ module Gapic
       #   @return [String] An error message
       #
       class GenericError
-        attr_accessor :code, :message
+        attr_accessor :code
+        attr_accessor :message
 
         ##
         # @param code [String] An error code
