@@ -1,93 +1,35 @@
-# Ruby Client for the <%= gem.title %> API
+# Ruby Client for the Google Cloud Compute API
 
-<%= gem.summary %>
+Google Cloud Compute API.
 
-<%= gem.description %>
+google-cloud-compute is the official client library for the Google Cloud Compute API.
 
 Actual client classes for the various versions of this API are defined in
-_versioned_ client gems, with names of the form `<%= gem.name %>-v*`.
-The gem `<%= gem.name %>` is the main client library that brings the
+_versioned_ client gems, with names of the form `google-cloud-compute-v*`.
+The gem `google-cloud-compute` is the main client library that brings the
 verisoned gems in as dependencies, and provides high-level methods for
 constructing clients. More information on versioned clients can be found below
 in the section titled *Which client should I use?*.
 
-View the [Client Library Documentation](<%= gem.library_documentation_url %>)
-for this library, <%= gem.name %>, to see the convenience methods for
+View the [Client Library Documentation](https://googleapis.dev/ruby/google-cloud-compute/latest)
+for this library, google-cloud-compute, to see the convenience methods for
 constructing client objects. Reference documentation for the client objects
 themselves can be found in the client library documentation for the versioned
 client gems:
-<%- last_index = gem.versioned_gems.size - 1 -%>
-<%- gem.versioned_gems.each_with_index do |name, i| -%>
-<%- sep = i == last_index ? "." : "," -%>
-[<%= name %>](https://googleapis.dev/ruby/<%= name %>/latest)<%= sep %>
-<%- end -%>
+[google-cloud-compute-v1](https://googleapis.dev/ruby/google-cloud-compute-v1/latest).
 
-<%- if gem.product_documentation_url -%>
-See also the [Product Documentation](<%= gem.product_documentation_url %>)
-for more usage information.
-
-<%- end -%>
 ## Quick Start
 
 ```
-$ gem install <%= gem.name %>
+$ gem install google-cloud-compute
 ```
 
-<%- unless gem.generic_endpoint? -%>
 In order to use this library, you first need to go through the following steps:
 
 1. [Select or create a Cloud Platform project.](https://console.cloud.google.com/project)
-<%- if gem.free_tier? -%>
-1. This API has a free tier. You may not need to
-   [enable billing](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
-   to get started.
-<%- else -%>
 1. [Enable billing for your project.](https://cloud.google.com/billing/docs/how-to/modify-project#enable_billing_for_a_project)
-<%- end -%>
-<%- if gem.api_id -%>
-1. [Enable the API.](https://console.cloud.google.com/apis/library/<%= gem.api_id %>)
-<%- end -%>
 1. {file:AUTHENTICATION.md Set up authentication.}
 
-<%- end -%>
-<%- if gem.migration? %>
-## Migrating from <%= gem.pre_migration_version %> versions
-
-The <%= gem.migration_version %> release of the <%= gem.name %> client is a significant upgrade
-based on a [next-gen code generator](https://github.com/googleapis/gapic-generator-ruby),
-and includes substantial interface changes. Existing code written for earlier
-versions of this library will likely require updates to use this version.
-See the {file:MIGRATING.md MIGRATING.md} document for more information.
-
-<%- end -%>
-<%- unless gem.generate_rest_clients? -%>
-## Enabling Logging
-
-To enable logging for this library, set the logger for the underlying [gRPC](https://github.com/grpc/grpc/tree/master/src/ruby) library.
-The logger that you set may be a Ruby stdlib [`Logger`](https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html) as shown below,
-or a [`Google::Cloud::Logging::Logger`](https://googleapis.dev/ruby/google-cloud-logging/latest)
-that will write logs to [Cloud Logging](https://cloud.google.com/logging/). See [grpc/logconfig.rb](https://github.com/grpc/grpc/blob/master/src/ruby/lib/grpc/logconfig.rb)
-and the gRPC [spec_helper.rb](https://github.com/grpc/grpc/blob/master/src/ruby/spec/spec_helper.rb) for additional information.
-
-Configuring a Ruby stdlib logger:
-
-```ruby
-require "logger"
-
-module MyLogger
-  LOGGER = Logger.new $stderr, level: Logger::WARN
-  def logger
-    LOGGER
-  end
-end
-
-# Define a gRPC module-level logger method before grpc/logconfig.rb loads.
-module GRPC
-  extend MyLogger
-end
-```
-
-<%- end -%>
 ## Supported Ruby Versions
 
 This library is supported on Ruby 2.5+.
@@ -102,9 +44,9 @@ about the Ruby support schedule.
 ## Which client should I use?
 
 Most modern Ruby client libraries for Google APIs come in two flavors: the main
-client library with a name such as `<%= gem.name %>`,
+client library with a name such as `google-cloud-compute`,
 and lower-level _versioned_ client libraries with names such as
-`<%= gem.default_versioned_gem %>`.
+`google-cloud-compute-v1`.
 _In most cases, you should install the main client._
 
 ### What's the difference between the main client and a versioned client?
@@ -129,7 +71,7 @@ service version.
 
 We recommend that most users install the main client gem for a service. You can
 identify this gem as the one _without_ a version in its name, e.g.
-`<%= gem.name %>`.
+`google-cloud-compute`.
 The main client is recommended because it will embody the best practices for
 accessing the service, and may also provide more convenient interfaces or
 tighter integration into frameworks and third-party libraries. In addition, the
@@ -142,7 +84,7 @@ You can use a versioned client if you are content with a possibly lower-level
 class interface, you explicitly want to avoid features provided by the main
 client, or you want to access a specific service version not be covered by the
 main client. You can identify versioned client gems because the service version
-is part of the name, e.g. `<%= gem.default_versioned_gem %>`.
+is part of the name, e.g. `google-cloud-compute-v1`.
 
 ### What about the google-apis-<name> clients?
 

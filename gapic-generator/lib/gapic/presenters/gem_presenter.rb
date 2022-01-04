@@ -182,6 +182,13 @@ module Gapic
         gem_config(:generic_endpoint) || false
       end
 
+      ##
+      # @return [Boolean]
+      #
+      def generate_rest_clients?
+        @api.generate_rest_clients?
+      end
+
       def entrypoint_require
         packages.first.package_require
       end
