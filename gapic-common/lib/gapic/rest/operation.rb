@@ -19,6 +19,7 @@ module Gapic
     ##
     # This alias is left here for the backwards compatibility purposes.
     # Rest LROs now use the same GenericLRO base as the GRPC LROs.
+    # @deprecated Use {Gapic::GenericLRO::BaseOperation} instead.
     BaseOperation = Gapic::GenericLRO::BaseOperation
   end
 end
