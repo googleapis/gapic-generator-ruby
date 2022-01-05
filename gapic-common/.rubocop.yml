@@ -5,6 +5,10 @@ AllCops:
   Exclude:
     - "test/**/*"
 
+Metrics/ClassLength:
+  Exclude:
+    - "lib/gapic/generic_lro/operation.rb"
+
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
