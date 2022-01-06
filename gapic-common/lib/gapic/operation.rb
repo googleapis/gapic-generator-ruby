@@ -14,6 +14,7 @@
 
 require "gapic/operation/retry_policy"
 require "google/protobuf/well_known_types"
+require "gapic/generic_lro/operation"
 
 module Gapic
   # A class used to wrap Google::Longrunning::Operation objects. This class provides helper methods to check the
@@ -70,12 +71,7 @@ module Gapic
   #     # process(operation.rmetadata)
   #   end
   #
-  # @attribute [r] grpc_op
-  #   @return [Google::Longrunning::Operation] The wrapped grpc
-  #     operation object.
-  class Operation
-    attr_reader :grpc_op
-
+  class Operation < Gapic::GenericLRO::Operation
     ##
     # @param grpc_op [Google::Longrunning::Operation] The inital longrunning operation.
     # @param client [Google::Longrunning::OperationsClient] The client that handles the grpc operations.
@@ -86,33 +82,26 @@ module Gapic
     # @param options [Gapic::CallOptions] call options for this operation
     #
     def initialize grpc_op, client, result_type: nil, metadata_type: nil, options: {}
-      @grpc_op = grpc_op
-      @client = client
+      super(
+        grpc_op,
+        client: client,
+        polling_method_name: "get_operation",
+        operation_status_field: "done",
+        operation_name_field: "name",
+        operation_err_field: "error",
+        operation_copy_fields: { "name" => "name" },
+        options: options
+      )
+
       @result_type = result_type
       @metadata_type = metadata_type
-      @on_done_callbacks = []
-      @options = options
     end
 
     ##
-    # If the operation is done, returns the response. If the operation response is an error, the error will be
-    # returned. Otherwise returns nil.
+    # @return [Google::Longrunning::Operation] The wrapped grpc operation object.
     #
-    # @return [Object, Google::Rpc::Status, nil] The result of the operation. If it is an error a
-    #   {Google::Rpc::Status} will be returned.
-    def results
-      return error if error?
-      return response if response?
-    end
-
-    ##
-    # Returns the server-assigned name of the operation, which is only unique within the same service that originally
-    # returns it. If you use the default HTTP mapping, the name should have the format of operations/some/unique/name.
-    #
-    # @return [String] The name of the operation.
-    #
-    def name
-      @grpc_op.name
+    def grpc_op
+      operation
     end
 
     ##
@@ -124,35 +113,15 @@ module Gapic
     # @return [Object, nil] The metadata of the operation. Can be nil.
     #
     def metadata
-      return if @grpc_op.metadata.nil?
+      return if grpc_op.metadata.nil?
 
-      return @grpc_op.metadata.unpack @metadata_type if @metadata_type
+      return grpc_op.metadata.unpack @metadata_type if @metadata_type
 
-      descriptor = Google::Protobuf::DescriptorPool.generated_pool.lookup @grpc_op.metadata.type_name
+      descriptor = Google::Protobuf::DescriptorPool.generated_pool.lookup grpc_op.metadata.type_name
 
-      return @grpc_op.metadata.unpack descriptor.msgclass if descriptor
+      return grpc_op.metadata.unpack descriptor.msgclass if descriptor
 
-      @grpc_op.metadata
-    end
-
-    ##
-    # Checks if the operation is done. This does not send a new api call, but checks the result of the previous api
-    # call to see if done.
-    #
-    # @return [Boolean] Whether the operation is done.
-    #
-    def done?
-      @grpc_op.done
-    end
-
-    ##
-    # Checks if the operation is done and the result is a response. If the operation is not finished then this will
-    # return false.
-    #
-    # @return [Boolean] Whether a response has been returned.
-    #
-    def response?
-      done? ? @grpc_op.result == :response : false
+      grpc_op.metadata
     end
 
     ##
@@ -162,13 +131,13 @@ module Gapic
     def response
       return unless response?
 
-      return @grpc_op.response.unpack @result_type if @result_type
+      return grpc_op.response.unpack @result_type if @result_type
 
-      descriptor = Google::Protobuf::DescriptorPool.generated_pool.lookup @grpc_op.response.type_name
+      descriptor = Google::Protobuf::DescriptorPool.generated_pool.lookup grpc_op.response.type_name
 
-      return @grpc_op.response.unpack descriptor.msgclass if descriptor
+      return grpc_op.response.unpack descriptor.msgclass if descriptor
 
-      @grpc_op.response
+      grpc_op.response
     end
 
     ##
@@ -178,16 +147,7 @@ module Gapic
     # @return [Boolean] Whether an error has been returned.
     #
     def error?
-      done? ? @grpc_op.result == :error : false
-    end
-
-    ##
-    # If the operation response is an error, the error will be returned, otherwise returns nil.
-    #
-    # @return [Google::Rpc::Status, nil] The error object.
-    #
-    def error
-      @grpc_op.error if error?
+      done? ? grpc_op.result == :error : false
     end
 
     ##
@@ -200,7 +160,7 @@ module Gapic
       # Converts hash and nil to an options object
       options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-      @client.cancel_operation({ name: @grpc_op.name }, options)
+      client.cancel_operation({ name: grpc_op.name }, options)
     end
 
     ##
@@ -213,71 +173,7 @@ module Gapic
       # Converts hash and nil to an options object
       options = Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
-      @client.delete_operation({ name: @grpc_op.name }, options)
-    end
-
-    ##
-    # Reloads the operation object.
-    #
-    # @param options [Gapic::CallOptions, Hash] The options for making the RPC call. A Hash can be provided to customize
-    #   the options object, using keys that match the arguments for {Gapic::CallOptions.new}.
-    #
-    # @return [Gapic::Operation] Since this method changes internal state, it returns itself.
-    #
-    def reload! options: nil
-      options = if options.respond_to? :to_h
-                  options.to_h.merge @options.to_h
-                else
-                  @options.to_h
-                end
-      options = Gapic::CallOptions.new(**options)
-      gax_op = @client.get_operation({ name: @grpc_op.name }, options)
-      @grpc_op = gax_op.grpc_op
-
-      if done?
-        @on_done_callbacks.each { |proc| proc.call self }
-        @on_done_callbacks.clear
-      end
-
-      self
-    end
-    alias refresh! reload!
-
-    ##
-    # Blocking method to wait until the operation has completed or the maximum timeout has been reached. Upon
-    # completion, registered callbacks will be called, then - if a block is given - the block will be called.
-    #
-    # @param retry_policy [RetryPolicy, Hash, Proc] The policy for retry. A custom proc that takes the error as an
-    #   argument and blocks can also be provided.
-    #
-    # @yield operation [Gapic::Operation] Yields the finished Operation.
-    #
-    def wait_until_done! retry_policy: nil
-      retry_policy = RetryPolicy.new retry_policy if retry_policy.is_a? Hash
-      retry_policy ||= RetryPolicy.new
-
-      until done?
-        reload!
-        break unless retry_policy.call
-      end
-
-      yield self if block_given?
-
-      self
-    end
-
-    ##
-    # Registers a callback to be run when a refreshed operation is marked as done. If the operation has completed
-    # prior to a call to this function the callback will be called instead of registered.
-    #
-    # @yield operation [Gapic::Operation] Yields the finished Operation.
-    #
-    def on_done &block
-      if done?
-        yield self
-      else
-        @on_done_callbacks.push block
-      end
+      client.delete_operation({ name: grpc_op.name }, options)
     end
   end
 end

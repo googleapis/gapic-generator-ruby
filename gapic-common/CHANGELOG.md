@@ -1,5 +1,10 @@
 # Release History
 
+### 0.8.0 / 2022-01-05
+
+* Add generic LROs helpers. These used to implement Nonstandard (not conforming to AIP-151) Cloud LROs, and also can be used to implement AIP-151 LROs.
+* Reimplement AIP-151 LRO helpers using the generic LRO functionality.
+
 ### 0.7.0 / 2021-08-03
 
 * Require googleauth 0.17 for proper support of JWT credentials with custom scopes
