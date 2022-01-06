@@ -121,6 +121,11 @@ def gem_defaults
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
       ]
+    },
+    compute_small_wrapper: {
+      protos: [
+        "google/cloud/compute/v1/compute_small.proto"
+      ]
     }
   }
 end

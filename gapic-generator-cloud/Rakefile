@@ -67,6 +67,7 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:secretmanager_wrapper"].invoke
+  Rake::Task["gen:compute_small_wrapper"].invoke
 end
 namespace :gen do |namespace|
   desc "Generate the expected output for template tests"
@@ -95,6 +96,11 @@ namespace :gen do |namespace|
   desc "Generate the expected output for secretmanager_wrapper"
   task :secretmanager_wrapper do
     generate_cloud_templates :secretmanager_wrapper, wrapper: true
+  end
+
+  desc "Generate the expected output for compute_small_wrapper"
+  task :compute_small_wrapper do
+    generate_cloud_templates :compute_small_wrapper, wrapper: true
   end
 end
 
