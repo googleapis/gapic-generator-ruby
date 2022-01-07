@@ -1,5 +1,11 @@
 # Release History for gapic-generator
 
+### 0.10.4 / 2022-01-07
+
+* Fix: Set quota_project_id correctly for LRO clients
+* Fix: Remove old cloud-rad configs and rake tasks
+* Fix: Properly quote page titles in YARD configs
+
 ### 0.10.3 / 2021-11-04
 
 * New: Enabled snippet-gen by default
