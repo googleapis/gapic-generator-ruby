@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.10.4 / 2022-01-07
+
+* Includes changes from gapic-generator 0.10.4
+* Removes broken image links and fixes outdated content in the auth template.
+
 ### 0.10.3 / 2021-11-04
 
 * Includes changes from gapic-generator 0.10.3
