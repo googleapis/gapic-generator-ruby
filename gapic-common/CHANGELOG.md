@@ -1,6 +1,6 @@
 # Release History
 
-### 0.8.0 / 2022-01-05
+### 0.8.0 / 2022-01-20
 
 * Add generic LROs helpers. These are used for the Nonstandard (not conforming to AIP-151) Cloud LROs.
 
