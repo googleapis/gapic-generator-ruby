@@ -24,9 +24,8 @@ require "gapic/grpc"
 class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   def test_addresses
     Gapic::ServiceStub.stub :new, :stub do
-      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = Google::Cloud::Compute.addresses do |config|
-        config.credentials = grpc_channel
+        config.credentials = :dummy_credentials
       end
       assert_kind_of Google::Cloud::Compute::V1::Addresses::Rest::Client, client
     end
@@ -34,9 +33,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
 
   def test_region_operations
     Gapic::ServiceStub.stub :new, :stub do
-      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = Google::Cloud::Compute.region_operations do |config|
-        config.credentials = grpc_channel
+        config.credentials = :dummy_credentials
       end
       assert_kind_of Google::Cloud::Compute::V1::RegionOperations::Rest::Client, client
     end
@@ -44,9 +42,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
 
   def test_region_instance_group_managers
     Gapic::ServiceStub.stub :new, :stub do
-      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = Google::Cloud::Compute.region_instance_group_managers do |config|
-        config.credentials = grpc_channel
+        config.credentials = :dummy_credentials
       end
       assert_kind_of Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client, client
     end
@@ -54,9 +51,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
 
   def test_networks
     Gapic::ServiceStub.stub :new, :stub do
-      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = Google::Cloud::Compute.networks do |config|
-        config.credentials = grpc_channel
+        config.credentials = :dummy_credentials
       end
       assert_kind_of Google::Cloud::Compute::V1::Networks::Rest::Client, client
     end
@@ -64,9 +60,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
 
   def test_global_operations
     Gapic::ServiceStub.stub :new, :stub do
-      grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = Google::Cloud::Compute.global_operations do |config|
-        config.credentials = grpc_channel
+        config.credentials = :dummy_credentials
       end
       assert_kind_of Google::Cloud::Compute::V1::GlobalOperations::Rest::Client, client
     end

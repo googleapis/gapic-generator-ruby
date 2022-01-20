@@ -11,10 +11,16 @@ class <%= gem.namespace %>::ClientConstructionMinitest < Minitest::Test
   <%- client_class_name_suffix = service.generate_rest_clients? ? "Rest::#{service.client_name}" : service.client_name -%>
   def test_<%= service.factory_method_name %>
     Gapic::ServiceStub.stub :new, :stub do
+      <%- if service.generate_rest_clients? -%>
+      client = <%= gem.namespace %>.<%= service.factory_method_name %> do |config|
+        config.credentials = :dummy_credentials
+      end
+      <%- else -%>
       grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
       client = <%= gem.namespace %>.<%= service.factory_method_name %> do |config|
         config.credentials = grpc_channel
       end
+      <%- end -%>
       assert_kind_of <%= gem.namespaced_class "#{service.module_name}::#{client_class_name_suffix}", version: gem.default_version %>, client
     end
   end
