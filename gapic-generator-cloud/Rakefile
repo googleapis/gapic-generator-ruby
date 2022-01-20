@@ -93,11 +93,6 @@ namespace :gen do |namespace|
     end
   end
 
-  desc "Additional input for compute_small"
-  task :compute_small do
-    cp_r "../shared/test_resources/compute_small/Gemfile", "../shared/output/cloud/compute_small/Gemfile"
-  end
-
   desc "Generate the expected output for secretmanager_wrapper"
   task :secretmanager_wrapper do
     generate_cloud_templates :secretmanager_wrapper, wrapper: true

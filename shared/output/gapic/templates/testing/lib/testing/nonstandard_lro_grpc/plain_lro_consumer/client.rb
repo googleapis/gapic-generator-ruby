@@ -137,6 +137,7 @@ module Testing
 
           @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
             config.credentials = credentials
+            config.quota_project = @quota_project_id
             config.endpoint = @config.endpoint
           end
 

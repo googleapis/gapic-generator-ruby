@@ -120,9 +120,9 @@ class <%= service.client_name %>
     <%- service.subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
       config.credentials = credentials
+      config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
     end
-    <% end %>
 
     <%- end -%>
     <%- end -%>

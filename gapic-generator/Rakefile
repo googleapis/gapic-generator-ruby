@@ -184,11 +184,6 @@ namespace :gen do |namespace|
   task :gem_creation do
     generate_gem "my_plugin"
   end
-
-  desc "Additional input for compute_small"
-  task :testing do
-    cp_r "../shared/test_resources/testing/Gemfile", "../shared/output/gapic/templates/testing/Gemfile"
-  end
 end
 
 desc "Start an interactive shell."
