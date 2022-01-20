@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.10.5 / 2022-01-20
+
+* Includes changes from gapic-generator 0.10.5
+* Interim support for wrappers of REST clients.
+
 ### 0.10.4 / 2022-01-07
 
 * Includes changes from gapic-generator 0.10.4

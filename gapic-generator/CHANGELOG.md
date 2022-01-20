@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.10.5 / 2022-01-20
+
+* No significant changes
+
 ### 0.10.4 / 2022-01-07
 
 * Fix: Set quota_project_id correctly for LRO clients
