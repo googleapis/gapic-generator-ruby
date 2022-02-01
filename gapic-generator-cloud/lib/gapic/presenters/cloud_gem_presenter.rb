@@ -98,6 +98,12 @@ module Gapic
         result["ruby-cloud-service-override"] = service_overrides unless service_overrides.empty?
         result
       end
+
+      ##
+      # Overrides the reference doc URL to point to the cloud-rad page
+      def library_documentation_url
+        gem_config(:library_documentation_url) || "https://cloud.google.com/ruby/docs/reference/#{name}/latest"
+      end
     end
 
     def self.cloud_gem_presenter api

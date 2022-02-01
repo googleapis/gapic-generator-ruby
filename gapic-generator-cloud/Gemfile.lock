@@ -43,7 +43,7 @@ GEM
     google-style (1.25.2)
       rubocop (~> 1.9)
     grpc-tools (1.41.1)
-    i18n (1.8.11)
+    i18n (1.9.1)
       concurrent-ruby (~> 1.0)
     loofah (2.13.0)
       crass (~> 1.0.2)

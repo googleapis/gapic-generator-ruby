@@ -36,7 +36,7 @@ request = ::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new # (request 
 response = client.batch_annotate_files request
 ```
 
-View the [Client Library Documentation](https://googleapis.dev/ruby/google-cloud-vision-v1/latest)
+View the [Client Library Documentation](https://cloud.google.com/ruby/docs/reference/google-cloud-vision-v1/latest)
 for class and method documentation.
 
 ## Enabling Logging
