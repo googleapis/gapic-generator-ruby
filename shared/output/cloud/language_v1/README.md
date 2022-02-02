@@ -36,7 +36,7 @@ request = ::Google::Cloud::Language::V1::AnalyzeSentimentRequest.new # (request 
 response = client.analyze_sentiment request
 ```
 
-View the [Client Library Documentation](https://googleapis.dev/ruby/google-cloud-language-v1/latest)
+View the [Client Library Documentation](https://cloud.google.com/ruby/docs/reference/google-cloud-language-v1/latest)
 for class and method documentation.
 
 ## Enabling Logging

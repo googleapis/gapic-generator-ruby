@@ -1,8 +1,9 @@
 {
-    "client_documentation": "https://googleapis.dev/ruby/google-cloud-compute/latest",
+    "client_documentation": "https://cloud.google.com/ruby/docs/reference/google-cloud-compute/latest",
     "distribution_name": "google-cloud-compute",
     "language": "ruby",
     "name_pretty": "Google Cloud Compute API",
+    "release_level": "unknown",
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": true,
     "ruby-cloud-description": "google-cloud-compute is the official client library for the Google Cloud Compute API.",

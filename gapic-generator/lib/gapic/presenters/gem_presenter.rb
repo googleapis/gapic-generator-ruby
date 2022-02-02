@@ -139,7 +139,7 @@ module Gapic
       end
 
       def library_documentation_url
-        gem_config(:library_documentation_url) || "https://googleapis.dev/ruby/#{name}/latest"
+        gem_config(:library_documentation_url) || "https://rubydoc.info/gems/#{name}"
       end
 
       def product_documentation_url
