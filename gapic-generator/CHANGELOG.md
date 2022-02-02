@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.10.6 / 2022-02-02
+
+* Point default documentation URL to rubydoc.info.
+
 ### 0.10.5 / 2022-01-20
 
 * No significant changes

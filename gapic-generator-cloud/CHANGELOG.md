@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.10.6 / 2022-02-02
+
+* Includes changes from gapic-generator 0.10.6
+* Add api_shortname and release_level to generated repo-metadata.json file
+* Point cloud client reference documentation URLs to cloud.google.com
+
 ### 0.10.5 / 2022-01-20
 
 * Includes changes from gapic-generator 0.10.5
