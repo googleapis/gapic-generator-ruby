@@ -233,12 +233,14 @@ module Testing
                                  retry_policy: @config.retry_policy
 
           @plain_lro_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(result,
-                                                                                                      plain_lro_provider,
-                                                                                                      {
-                                                                                                        "initial_request_id" => request.request_id
-                                                                                                      },
-                                                                                                      options)
+            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: plain_lro_provider,
+              request_values: {
+                "initial_request_id" => request.request_id
+              },
+              options: options
+            )
             yield result, response if block_given?
             return result
           end

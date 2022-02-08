@@ -260,12 +260,14 @@ module Testing
                                  retry_policy: @config.retry_policy
 
           @all_subclients_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(result,
-                                                                                                      plain_lro_provider,
-                                                                                                      {
-                                                                                                        "initial_request_id" => request.request_id
-                                                                                                      },
-                                                                                                      options)
+            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: plain_lro_provider,
+              request_values: {
+                "initial_request_id" => request.request_id
+              },
+              options: options
+            )
             yield result, response if block_given?
             return result
           end
@@ -338,12 +340,14 @@ module Testing
                                  retry_policy: @config.retry_policy
 
           @all_subclients_consumer_stub.call_rpc :another_lro_rpc, request, options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(result,
-                                                                                                        another_lro_provider,
-                                                                                                        {
-                                                                                                          "another_request_id" => request.request_id
-                                                                                                        },
-                                                                                                        options)
+            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: another_lro_provider,
+              request_values: {
+                "another_request_id" => request.request_id
+              },
+              options: options
+            )
             yield result, response if block_given?
             return result
           end
@@ -410,10 +414,12 @@ module Testing
 
           @all_subclients_consumer_stub.call_rpc :non_copy_another_lro_rpc, request,
                                                  options: options do |result, response|
-            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(result,
-                                                                                                        another_lro_provider,
-                                                                                                        {},
-                                                                                                        options)
+            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: another_lro_provider,
+              request_values: {},
+              options: options
+            )
             yield result, response if block_given?
             return result
           end
