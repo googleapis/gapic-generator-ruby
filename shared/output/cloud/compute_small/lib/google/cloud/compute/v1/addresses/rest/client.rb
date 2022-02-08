@@ -287,13 +287,15 @@ module Google
                                        metadata:     @config.metadata
 
                 @addresses_stub.delete request, options do |result, response|
-                  result = ::Google::Cloud::Compute::V1::RegionOperations::Rest::NonstandardLro.create_operation(result,
-                                                                                                                 region_operations,
-                                                                                                                 {
-                                                                                                                   "project" => request.project,
-                                                                                                                   "region" => request.region
-                                                                                                                 },
-                                                                                                                 options)
+                  result = ::Google::Cloud::Compute::V1::RegionOperations::Rest::NonstandardLro.create_operation(
+                    operation: result,
+                    client: region_operations,
+                    request_values: {
+                      "project" => request.project,
+                      "region" => request.region
+                    },
+                    options: options
+                  )
                   yield result, response if block_given?
                   return result
                 end
@@ -430,13 +432,15 @@ module Google
                                        metadata:     @config.metadata
 
                 @addresses_stub.insert request, options do |result, response|
-                  result = ::Google::Cloud::Compute::V1::RegionOperations::Rest::NonstandardLro.create_operation(result,
-                                                                                                                 region_operations,
-                                                                                                                 {
-                                                                                                                   "project" => request.project,
-                                                                                                                   "region" => request.region
-                                                                                                                 },
-                                                                                                                 options)
+                  result = ::Google::Cloud::Compute::V1::RegionOperations::Rest::NonstandardLro.create_operation(
+                    operation: result,
+                    client: region_operations,
+                    request_values: {
+                      "project" => request.project,
+                      "region" => request.region
+                    },
+                    options: options
+                  )
                   yield result, response if block_given?
                   return result
                 end

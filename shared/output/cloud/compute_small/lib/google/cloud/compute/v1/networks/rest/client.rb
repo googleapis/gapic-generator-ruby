@@ -291,12 +291,14 @@ module Google
                                        metadata:     @config.metadata
 
                 @networks_stub.remove_peering request, options do |result, response|
-                  result = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::NonstandardLro.create_operation(result,
-                                                                                                                 global_operations,
-                                                                                                                 {
-                                                                                                                   "project" => request.project
-                                                                                                                 },
-                                                                                                                 options)
+                  result = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::NonstandardLro.create_operation(
+                    operation: result,
+                    client: global_operations,
+                    request_values: {
+                      "project" => request.project
+                    },
+                    options: options
+                  )
                   yield result, response if block_given?
                   return result
                 end

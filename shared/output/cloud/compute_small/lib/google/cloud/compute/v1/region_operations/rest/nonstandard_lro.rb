@@ -44,7 +44,7 @@ module Google
                 #
                 # @return [Gapic::GenericLRO::Operation]
                 #
-                def create_operation operation, client, request_values, options
+                def create_operation operation:, client:, request_values:, options:
                   Gapic::GenericLRO::Operation.new(operation,
                                                    client: client,
                                                    polling_method_name: "get",
