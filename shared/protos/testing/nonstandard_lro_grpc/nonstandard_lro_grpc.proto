@@ -38,18 +38,24 @@ service AnotherLroProvider {
 service AllSubclientsConsumer {
     option (google.api.default_host) = "nonstandardlro.example.com";
 
+    // A request using a PlainLroProvider
     rpc PlainLroRpc(Request) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "PlainLroProvider";
     }
 
+    // A request using AnotherLroProvider
     rpc AnotherLroRpc(AnotherRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "AnotherLroProvider";
     }
 
+    // A request using AnotherLroProvider. 
+    // This one is different because it is using the NonCopyRequest message
+    // which does not specify any fields to copy into the LroAnotherGetRequest
     rpc NonCopyAnotherLroRpc(NonCopyRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "AnotherLroProvider";
     }
 
+    // A classic (AIP-151) LRO request
     rpc AipLRO(Request) returns(google.longrunning.Operation) {
         option (google.longrunning.operation_info) = {
             response_type: "AipLroResponse"
@@ -57,6 +63,7 @@ service AllSubclientsConsumer {
         };
     }
 
+    // Control group
     rpc NoLRO(Request) returns(Response) {}
 }
 

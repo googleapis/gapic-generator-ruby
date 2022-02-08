@@ -638,7 +638,7 @@ module Gapic
       # Subclients are the clients to other services (e.g. an LRO provider service).
       #
       # The following is typically generated for a subclient:
-      # - a require statement for the subclient's class 
+      # - a require statement for the subclient's class
       # - a class-level variable in the host service's client
       # - a code to initialize this variable with a subclient's class instance in the host service's constructor
       #

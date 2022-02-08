@@ -194,6 +194,8 @@ module Testing
         # Service calls
 
         ##
+        # A request using a PlainLroProvider
+        #
         # @overload plain_lro_rpc(request, options = nil)
         #   Pass arguments to `plain_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.
@@ -274,6 +276,8 @@ module Testing
         end
 
         ##
+        # A request using AnotherLroProvider
+        #
         # @overload another_lro_rpc(request, options = nil)
         #   Pass arguments to `another_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::AnotherRequest} or an equivalent Hash.
@@ -354,6 +358,10 @@ module Testing
         end
 
         ##
+        # A request using AnotherLroProvider.
+        # This one is different because it is using the NonCopyRequest message
+        # which does not specify any fields to copy into the LroAnotherGetRequest
+        #
         # @overload non_copy_another_lro_rpc(request, options = nil)
         #   Pass arguments to `non_copy_another_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::NonCopyRequest} or an equivalent Hash.
@@ -426,6 +434,8 @@ module Testing
         end
 
         ##
+        # A classic (AIP-151) LRO request
+        #
         # @overload aip_lro(request, options = nil)
         #   Pass arguments to `aip_lro` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.
@@ -506,6 +516,8 @@ module Testing
         end
 
         ##
+        # Control group
+        #
         # @overload no_lro(request, options = nil)
         #   Pass arguments to `no_lro` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.

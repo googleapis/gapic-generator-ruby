@@ -141,11 +141,11 @@ module Gapic
               "the method #{method.full_name} was not found."
               raise ModelError, error_text
             end
-            
+
             unless method.output.full_name == ops_service_lro.lro_object_full_name
               error_text = "A service #{service_full_name} specified as a nonstandard LRO service for " \
-              "the method #{method.full_name} has a different LRO object (#{ops_service_lro.lro_object_full_name}) from " \
-              "the method's return type (#{method.output.full_name})."
+              "the method #{method.full_name} has a different LRO object (#{ops_service_lro.lro_object_full_name}) " \
+              "from the method's return type (#{method.output.full_name})."
               raise ModelError, error_text
             end
 
