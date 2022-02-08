@@ -28,7 +28,11 @@ module Gapic
       #   @return [String] Full grpc name of this service. E.g. `google.example.LroProvider`.
       #
       # @!attribute [r] polling_method_name
-      #   @return [String] Name of the method that is used to poll for LROs.
+      #   @return [String] Name of the method that is used to poll for LROs. E.g. `Poll`
+      #
+      # @!attribute [r] lro_object_full_name
+      #   @return [String] Full grpc name of the object that is returned by the polling method.
+      #   E.g. `google.cloud.compute.v1.Operation`
       #
       # @!attribute [r] operation_status_field
       #   @return [String] In the Operation message for this service, the name of the `status` field.
@@ -55,6 +59,7 @@ module Gapic
       class NonstandardLroProvider
         attr_reader :service_full_name
         attr_reader :polling_method_name
+        attr_reader :lro_object_full_name
         attr_reader :operation_status_field
         attr_reader :operation_name_field
         attr_reader :operation_err_code_field
@@ -73,7 +78,11 @@ module Gapic
         #   Full grpc name of this service. E.g. `google.example.LroProvider`.
         #
         # @param polling_method_name [String]
-        #   Name of the method that is used to poll for LROs.
+        #   Name of the method that is used to poll for LROs. E.g. `Poll`
+        #
+        # @param lro_object_full_name
+        #   Full grpc name of the object that is returned by the polling method.
+        #   E.g. `google.cloud.compute.v1.Operation`
         #
         # @param operation_status_field [String]
         #   In the Operation message for this service, the name of the `status` field.
@@ -99,6 +108,7 @@ module Gapic
         #
         def initialize service_full_name,
                        polling_method_name,
+                       lro_object_full_name,
                        operation_status_field,
                        operation_name_field,
                        operation_err_code_field,
@@ -107,6 +117,7 @@ module Gapic
 
           @service_full_name = service_full_name
           @polling_method_name = polling_method_name
+          @lro_object_full_name = lro_object_full_name
           @operation_status_field = operation_status_field
           @operation_name_field = operation_name_field
           @operation_err_code_field = operation_err_code_field
@@ -144,6 +155,7 @@ module Gapic
           return unless polling_method
 
           # There should not be any methods that have the `operation_service` annotation
+          # in the LRO provider service.
           # In theory there is nothing wrong with one LRO polling service using another
           # LRO polling service, in practice there is potential for service intialization cycles
           # Until we have a real usecase it's safer to assume an error in proto.
@@ -161,6 +173,8 @@ module Gapic
                         "This is not supported."
             raise ModelError, error_text
           end
+
+          lro_object_full_name = polling_method.output.full_name
 
           status_field = find_status_field service, polling_method
           operation_status_field = status_field.name
@@ -183,6 +197,7 @@ module Gapic
 
           NonstandardLroProvider.new service.full_name,
                                      polling_method.name,
+                                     lro_object_full_name,
                                      operation_status_field,
                                      operation_name_field,
                                      operation_err_code_field,

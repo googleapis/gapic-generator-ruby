@@ -351,18 +351,34 @@ module Gapic
         "#{ActiveSupport::Inflector.underscore name}_stub"
       end
 
+      ##
+      # Whether an AIP-151 LRO subclient needs to be generated for this service
+      #
+      # @return [Boolean]
       def lro?
         methods.find(&:lro?)
       end
 
+      ##
+      # A variable name used for the AIP-151 LRO subclients
+      #
+      # @return [String]
       def lro_client_var
         "operations_client"
       end
 
+      ##
+      # An instance variable name used for the AIP-151 LRO subclients
+      #
+      # @return [String]
       def lro_client_ivar
         "@#{lro_client_var}"
       end
 
+      ##
+      # A presenter for the LRO subclient if needed
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
       def lro_client_presenter
         return nil unless lro?
         Gapic::Presenters::Service::LroClientPresenter.new service: "google.longrunning.operations",
@@ -608,10 +624,25 @@ module Gapic
         end
       end
 
+      ##
+      # Whether there are any subclients to generate with this service.
+      # Subclients are the clients to other services (e.g. an LRO provider service).
+      #
+      # @return [Boolean]
       def subclients?
         subclients.any?
       end
 
+      ##
+      # Subclients for this service
+      # Subclients are the clients to other services (e.g. an LRO provider service).
+      #
+      # The following is typically generated for a subclient:
+      # - a require statement for the subclient's class 
+      # - a class-level variable in the host service's client
+      # - a code to initialize this variable with a subclient's class instance in the host service's constructor
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
         ([] << lro_client_presenter << mixins << nonstandard_lros).flatten.compact
       end

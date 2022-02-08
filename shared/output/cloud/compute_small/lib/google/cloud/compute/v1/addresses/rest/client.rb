@@ -329,10 +329,10 @@ module Google
               #   @param region [::String]
               #     Name of the region for this request.
               # @yield [result, response] Access the result along with the Faraday response object
-              # @yieldparam result [::Gapic::GenericLRO::Operation]
+              # @yieldparam result [::Google::Cloud::Compute::V1::Address]
               # @yieldparam response [::Faraday::Response]
               #
-              # @return [::Gapic::GenericLRO::Operation]
+              # @return [::Google::Cloud::Compute::V1::Address]
               #
               # @raise [::Google::Cloud::Error] if the REST call is aborted.
               def get request, options = nil
@@ -359,10 +359,6 @@ module Google
                                        metadata:     @config.metadata
 
                 @addresses_stub.get request, options do |result, response|
-                  result = ::Google::Cloud::Compute::V1::RegionOperations::Rest::NonstandardLro.create_operation(result,
-                                                                                                                 region_operations,
-                                                                                                                 {},
-                                                                                                                 options)
                   yield result, response if block_given?
                   return result
                 end

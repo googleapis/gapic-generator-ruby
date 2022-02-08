@@ -200,7 +200,7 @@ module Gapic
       end
 
       ##
-      # Whether this method uses standard (AIP-151 lros)
+      # Whether this method uses standard (AIP-151) LROs
       #
       # @return [Boolean]
       #

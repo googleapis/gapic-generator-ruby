@@ -341,10 +341,11 @@ module Gapic
 
       ##
       # Returns a model for the nonstandard LRO for a given service
+      # The `analyze_nonstandard_lros` method fills in the model cache
       #
       # @param service_full_name [String]
       #
-      # @return [Gapic::Model::Service::NonstandardLro, Gapic::Model::Service::NoNonstandardLro]
+      # @return [Gapic::Model::Service::NonstandardLroProvider, Gapic::Model::Service::NoNonstandardLro]
       def nonstandard_lro_model_for service_full_name
         if @nonstandard_lro_services.key? service_full_name
           @nonstandard_lro_services[service_full_name]
@@ -437,7 +438,7 @@ module Gapic
       # Does a pre-analysis of the nonstandard LRO for every service.
       # For the services that provide nonstandard LRO functionality, cashes a model for the future use
       #
-      # @return [Hash<String, Gapic::Model::Service::NonstandardLro>]
+      # @return [Hash<String, Gapic::Model::Service::NonstandardLroProvider>]
       def analyze_nonstandard_lros
         service_registry = {}
 
