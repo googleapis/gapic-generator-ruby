@@ -13,6 +13,7 @@ AllCops:
 
 Metrics/AbcSize:
   Exclude:
+    - lib/gapic/model/service/nonstandard_lro_provider.rb
     - lib/gapic/schema/loader.rb
     - test/gapic/schema/**/*_test.rb
     - test/gapic/routing_headers/**/*_test.rb
@@ -27,6 +28,7 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
+    - lib/gapic/model/service/nonstandard_lro_provider.rb
     - test/gapic/schema/**/*_test.rb
     - test/gapic/routing_headers/**/*_test.rb
 

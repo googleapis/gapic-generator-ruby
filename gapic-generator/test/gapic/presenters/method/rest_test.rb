@@ -17,12 +17,26 @@
 require "test_helper"
 
 class MethodPresenterRestTest < PresenterTest
-  def test_showcase_GetUser
-    presenter = method_presenter :compute_small, "Addresses", "List"
+  def test_compute_addresses_agglist
+    presenter = method_presenter :compute_small, "Addresses", "AggregatedList"
 
     assert presenter.routing_params?
     assert presenter.rest.verb?
-    assert_equal "/compute/v1/projects/\#{request_pb.project}/regions/\#{request_pb.region}/addresses", presenter.rest.uri_interpolated
-    assert presenter.rest.verb?
+    assert_equal presenter.rest.verb, :get
+    assert_equal "/compute/v1/projects/\#{request_pb.project}/aggregated/addresses", presenter.rest.uri_interpolated
+
+    refute presenter.nonstandard_lro?
+  end
+
+  def test_compute_addresses_delete
+    presenter = method_presenter :compute_small, "Addresses", "Delete"
+    assert presenter.nonstandard_lro?
+    refute_nil presenter.lro
+    assert presenter.lro.nonstandard_lro?
+    assert_equal "google.cloud.compute.v1.RegionOperations", presenter.lro.service_full_name
+    assert presenter.lro.operation_request_fields.key? "project"
+    assert_equal "project", presenter.lro.operation_request_fields["project"]
+    assert presenter.lro.operation_request_fields.key? "region"
+    assert_equal "region", presenter.lro.operation_request_fields["region"]
   end
 end

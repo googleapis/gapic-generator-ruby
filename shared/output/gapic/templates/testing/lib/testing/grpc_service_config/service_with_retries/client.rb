@@ -153,7 +153,11 @@ module Testing
           )
         end
 
+        ##
+        # Get the associated client for mix-in of the Locations.
+        #
         # @return [Google::Cloud::Location::Locations::Client]
+        #
         attr_reader :location_client
 
         # Service calls

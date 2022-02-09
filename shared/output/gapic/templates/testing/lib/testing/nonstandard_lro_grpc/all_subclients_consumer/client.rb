@@ -26,6 +26,8 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "google/cloud/location"
+require "testing/nonstandard_lro_grpc/plain_lro_provider"
+require "testing/nonstandard_lro_grpc/another_lro_provider"
 
 module Testing
   module NonstandardLroGrpc
@@ -128,13 +130,25 @@ module Testing
           @quota_project_id = @config.quota_project
           @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+          @operations_client = Operations.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @config.endpoint
+          end
+
           @location_client = Google::Cloud::Location::Locations::Client.new do |config|
             config.credentials = credentials
             config.quota_project = @quota_project_id
             config.endpoint = @config.endpoint
           end
 
-          @operations_client = Operations.new do |config|
+          @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @config.endpoint
+          end
+
+          @another_lro_provider = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new do |config|
             config.credentials = credentials
             config.quota_project = @quota_project_id
             config.endpoint = @config.endpoint
@@ -156,12 +170,32 @@ module Testing
         #
         attr_reader :operations_client
 
+        ##
+        # Get the associated client for mix-in of the Locations.
+        #
         # @return [Google::Cloud::Location::Locations::Client]
+        #
         attr_reader :location_client
+
+        ##
+        # Get the associated client for long-running operations via PlainLroProvider.
+        #
+        # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Client]
+        #
+        attr_reader :plain_lro_provider
+
+        ##
+        # Get the associated client for long-running operations via AnotherLroProvider.
+        #
+        # @return [::Testing::NonstandardLroGrpc::AnotherLroProvider::Client]
+        #
+        attr_reader :another_lro_provider
 
         # Service calls
 
         ##
+        # A request using a PlainLroProvider
+        #
         # @overload plain_lro_rpc(request, options = nil)
         #   Pass arguments to `plain_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.
@@ -227,13 +261,23 @@ module Testing
                                  metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+          @all_subclients_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
+            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: plain_lro_provider,
+              request_values: {
+                "initial_request_id" => request.request_id
+              },
+              options: options
+            )
+            yield result, response if block_given?
+            return result
           end
         end
 
         ##
+        # A request using AnotherLroProvider
+        #
         # @overload another_lro_rpc(request, options = nil)
         #   Pass arguments to `another_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::AnotherRequest} or an equivalent Hash.
@@ -299,13 +343,25 @@ module Testing
                                  metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
-          @all_subclients_consumer_stub.call_rpc :another_lro_rpc, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+          @all_subclients_consumer_stub.call_rpc :another_lro_rpc, request, options: options do |result, response|
+            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: another_lro_provider,
+              request_values: {
+                "another_request_id" => request.request_id
+              },
+              options: options
+            )
+            yield result, response if block_given?
+            return result
           end
         end
 
         ##
+        # A request using AnotherLroProvider.
+        # This one is different because it is using the NonCopyRequest message
+        # which does not specify any fields to copy into the LroAnotherGetRequest
+        #
         # @overload non_copy_another_lro_rpc(request, options = nil)
         #   Pass arguments to `non_copy_another_lro_rpc` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::NonCopyRequest} or an equivalent Hash.
@@ -365,13 +421,21 @@ module Testing
                                  retry_policy: @config.retry_policy
 
           @all_subclients_consumer_stub.call_rpc :non_copy_another_lro_rpc, request,
-                                                 options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+                                                 options: options do |result, response|
+            result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: another_lro_provider,
+              request_values: {},
+              options: options
+            )
+            yield result, response if block_given?
+            return result
           end
         end
 
         ##
+        # A classic (AIP-151) LRO request
+        #
         # @overload aip_lro(request, options = nil)
         #   Pass arguments to `aip_lro` via a request object, either of type
         #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.
@@ -446,6 +510,80 @@ module Testing
 
           @all_subclients_consumer_stub.call_rpc :aip_lro, request, options: options do |response, operation|
             response = ::Gapic::Operation.new response, @operations_client, options: options
+            yield response, operation if block_given?
+            return response
+          end
+        end
+
+        ##
+        # Control group
+        #
+        # @overload no_lro(request, options = nil)
+        #   Pass arguments to `no_lro` via a request object, either of type
+        #   {::Testing::NonstandardLroGrpc::Request} or an equivalent Hash.
+        #
+        #   @param request [::Testing::NonstandardLroGrpc::Request, ::Hash]
+        #     A request object representing the call parameters. Required. To specify no
+        #     parameters, or to keep all the default parameter values, pass an empty Hash.
+        #   @param options [::Gapic::CallOptions, ::Hash]
+        #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
+        #
+        # @overload no_lro(request_id: nil)
+        #   Pass arguments to `no_lro` via keyword arguments. Note that at
+        #   least one keyword argument is required. To specify no parameters, or to keep all
+        #   the default parameter values, pass an empty Hash as a request object (see above).
+        #
+        #   @param request_id [::String]
+        #
+        # @yield [response, operation] Access the result along with the RPC operation
+        # @yieldparam response [::Testing::NonstandardLroGrpc::Response]
+        # @yieldparam operation [::GRPC::ActiveCall::Operation]
+        #
+        # @return [::Testing::NonstandardLroGrpc::Response]
+        #
+        # @raise [::GRPC::BadStatus] if the RPC is aborted.
+        #
+        # @example Basic example
+        #   require "testing/nonstandard_lro_grpc"
+        #
+        #   # Create a client object. The client can be reused for multiple calls.
+        #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new
+        #
+        #   # Create a request. To set request fields, pass in keyword arguments.
+        #   request = Testing::NonstandardLroGrpc::Request.new
+        #
+        #   # Call the no_lro method.
+        #   result = client.no_lro request
+        #
+        #   # The returned object is of type Testing::NonstandardLroGrpc::Response.
+        #   p result
+        #
+        def no_lro request, options = nil
+          raise ::ArgumentError, "request must be provided" if request.nil?
+
+          request = ::Gapic::Protobuf.coerce request, to: ::Testing::NonstandardLroGrpc::Request
+
+          # Converts hash and nil to an options object
+          options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+          # Customize the options with defaults
+          metadata = @config.rpcs.no_lro.metadata.to_h
+
+          # Set x-goog-api-client and x-goog-user-project headers
+          metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+            lib_name: @config.lib_name, lib_version: @config.lib_version,
+            gapic_version: ::Testing::VERSION
+          metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+          options.apply_defaults timeout:      @config.rpcs.no_lro.timeout,
+                                 metadata:     metadata,
+                                 retry_policy: @config.rpcs.no_lro.retry_policy
+
+          options.apply_defaults timeout:      @config.timeout,
+                                 metadata:     @config.metadata,
+                                 retry_policy: @config.retry_policy
+
+          @all_subclients_consumer_stub.call_rpc :no_lro, request, options: options do |response, operation|
             yield response, operation if block_given?
             return response
           end
@@ -606,6 +744,11 @@ module Testing
             # @return [::Gapic::Config::Method]
             #
             attr_reader :aip_lro
+            ##
+            # RPC-specific configuration for `no_lro`
+            # @return [::Gapic::Config::Method]
+            #
+            attr_reader :no_lro
 
             # @private
             def initialize parent_rpcs = nil
@@ -617,6 +760,8 @@ module Testing
               @non_copy_another_lro_rpc = ::Gapic::Config::Method.new non_copy_another_lro_rpc_config
               aip_lro_config = parent_rpcs.aip_lro if parent_rpcs.respond_to? :aip_lro
               @aip_lro = ::Gapic::Config::Method.new aip_lro_config
+              no_lro_config = parent_rpcs.no_lro if parent_rpcs.respond_to? :no_lro
+              @no_lro = ::Gapic::Config::Method.new no_lro_config
 
               yield self if block_given?
             end

@@ -13,6 +13,9 @@ require "<%= service.credentials_require %>"
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
 <%- end -%>
+<%- if service.nonstandard_lro_provider? -%>
+require "<%= service.rest.nonstandard_lro_require %>"
+<%- end -%>
 require "<%= service.rest.service_rest_require %>"
 <% end %>
 <%- else -%>
@@ -31,6 +34,9 @@ require "<%= service.paths_require %>"
 <%- end -%>
 <%- if service.lro? -%>
 require "<%= service.operations_require %>"
+<%- end -%>
+<%- if service.nonstandard_lro_provider? -%>
+require "<%= service.nonstandard_lro_require %>"
 <%- end -%>
 require "<%= service.client_require %>"
 <% end %>

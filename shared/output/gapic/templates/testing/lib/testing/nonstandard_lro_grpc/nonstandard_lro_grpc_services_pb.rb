@@ -57,10 +57,18 @@ module Testing
         self.unmarshal_class_method = :decode
         self.service_name = 'testing.nonstandardlrogrpc.AllSubclientsConsumer'
 
+        # A request using a PlainLroProvider
         rpc :PlainLroRpc, ::Testing::NonstandardLroGrpc::Request, ::Testing::NonstandardLroGrpc::NonstandardOperation
+        # A request using AnotherLroProvider
         rpc :AnotherLroRpc, ::Testing::NonstandardLroGrpc::AnotherRequest, ::Testing::NonstandardLroGrpc::NonstandardOperation
+        # A request using AnotherLroProvider. 
+        # This one is different because it is using the NonCopyRequest message
+        # which does not specify any fields to copy into the LroAnotherGetRequest
         rpc :NonCopyAnotherLroRpc, ::Testing::NonstandardLroGrpc::NonCopyRequest, ::Testing::NonstandardLroGrpc::NonstandardOperation
+        # A classic (AIP-151) LRO request
         rpc :AipLRO, ::Testing::NonstandardLroGrpc::Request, ::Google::Longrunning::Operation
+        # Control group
+        rpc :NoLRO, ::Testing::NonstandardLroGrpc::Request, ::Testing::NonstandardLroGrpc::Response
       end
 
       Stub = Service.rpc_stub_class

@@ -104,7 +104,19 @@ namespace :test do
   Rake::TestTask.new :routing_headers do |t|
     t.libs << "test"
     t.libs << "lib"
-    t.test_files = FileList["test/gapic/**/*routing_headers*_test.rb", "test/gapic/routing_headers/explicit_routing_headers_input_match_test.rb"]
+    t.test_files = FileList["test/gapic/**/*routing_headers*_test.rb"]
+  end
+
+  desc "Run tests on nostandard lro parsing"
+  Rake::TestTask.new :nonstandard_lro do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList[
+      "test/gapic/presenters/method/nonstandard_lro_test.rb",
+      "test/gapic/presenters/service/compute_small_test.rb",
+      "test/gapic/presenters/method/rest_test.rb",
+      "test/gapic/presenters/service/testing_test.rb"
+    ]
   end
 end
 

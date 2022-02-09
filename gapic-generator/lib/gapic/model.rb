@@ -15,6 +15,8 @@
 # limitations under the License.
 
 require "gapic/model/method/http_annotation"
+require "gapic/model/method/lro"
 require "gapic/model/method/routing"
-require "gapic/model/model_error"
 require "gapic/model/mixins"
+require "gapic/model/model_error"
+require "gapic/model/service/nonstandard_lro_provider"

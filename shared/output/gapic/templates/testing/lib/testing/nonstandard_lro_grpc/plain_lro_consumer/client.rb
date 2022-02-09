@@ -26,6 +26,7 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "google/cloud/location"
+require "testing/nonstandard_lro_grpc/plain_lro_provider"
 
 module Testing
   module NonstandardLroGrpc
@@ -134,6 +135,12 @@ module Testing
             config.endpoint = @config.endpoint
           end
 
+          @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+            config.credentials = credentials
+            config.quota_project = @quota_project_id
+            config.endpoint = @config.endpoint
+          end
+
           @plain_lro_consumer_stub = ::Gapic::ServiceStub.new(
             ::Testing::NonstandardLroGrpc::PlainLroConsumer::Stub,
             credentials:  credentials,
@@ -143,8 +150,19 @@ module Testing
           )
         end
 
+        ##
+        # Get the associated client for mix-in of the Locations.
+        #
         # @return [Google::Cloud::Location::Locations::Client]
+        #
         attr_reader :location_client
+
+        ##
+        # Get the associated client for long-running operations via PlainLroProvider.
+        #
+        # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Client]
+        #
+        attr_reader :plain_lro_provider
 
         # Service calls
 
@@ -214,9 +232,17 @@ module Testing
                                  metadata:     @config.metadata,
                                  retry_policy: @config.retry_policy
 
-          @plain_lro_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |response, operation|
-            yield response, operation if block_given?
-            return response
+          @plain_lro_consumer_stub.call_rpc :plain_lro_rpc, request, options: options do |result, response|
+            result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              operation: result,
+              client: plain_lro_provider,
+              request_values: {
+                "initial_request_id" => request.request_id
+              },
+              options: options
+            )
+            yield result, response if block_given?
+            return result
           end
         end
 

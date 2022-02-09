@@ -16,14 +16,18 @@
 
 require "test_helper"
 
-class MethodPresenterRestLroTest < PresenterTest
-  def test_addresses_delete
-    presenter = method_presenter :compute_small, "Addresses", "Delete"
-    assert presenter.rest.lro?
+class ServicePresenterRestTest < PresenterTest
+  def test_compute_addresses
+    presenter = service_presenter :compute_small, "Addresses"
+
+    refute presenter.nonstandard_lro_provider?
+    assert presenter.nonstandard_lro_consumer?
   end
 
-  def test_addresses_create
-    presenter = method_presenter :compute_small, "Addresses", "Get"
-    refute presenter.rest.lro?
+  def test_compute_region_operations
+    presenter = service_presenter :compute_small, "RegionOperations"
+
+    assert presenter.nonstandard_lro_provider?
+    refute presenter.nonstandard_lro_consumer?
   end
 end

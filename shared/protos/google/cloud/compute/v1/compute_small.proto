@@ -797,7 +797,6 @@ service Addresses {
       get: "/compute/v1/projects/{project}/regions/{region}/addresses/{address}"
     };
     option (google.api.method_signature) = "project,region,address";
-    option (google.cloud.operation_service) = "RegionOperations";
   }
 
   // Creates an address resource in the specified project by using the data included in the request.
