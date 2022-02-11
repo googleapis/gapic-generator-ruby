@@ -33,6 +33,8 @@ module Testing
   ##
   # To load this package, including all its services, and instantiate a client:
   #
+  # @example
+  #
   #     require "testing/routing_headers"
   #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Client.new
   #

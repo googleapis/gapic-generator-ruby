@@ -34,6 +34,8 @@ module Testing
   ##
   # To load this package, including all its services, and instantiate a client:
   #
+  # @example
+  #
   #     require "testing/nonstandard_lro_grpc"
   #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Client.new
   #
