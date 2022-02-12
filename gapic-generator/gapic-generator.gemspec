@@ -40,7 +40,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.5"
 
-  spec.add_dependency "actionpack", "~> 5.2"
+  spec.add_dependency "actionpack", ">= 5.2", "< 8.0"
   spec.add_dependency "protobuf", "~> 3.8"
 
   spec.add_development_dependency "google-style", "~> 1.25.1"
