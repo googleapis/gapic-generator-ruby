@@ -18,10 +18,12 @@ require_relative "./gem_defaults"
 
 supported_apis = {
   gapic: [:showcase, :garbage, :testing, :noservice],
-  cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :compute_small]
+  cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :compute_small],
+  ads: [:googleads]
 }
 
-test_output_exceptions = [ :noservice ]
+# noservice does not have generated files, googleads does not have rubocop/yard/tests
+test_output_exceptions = [ :noservice, :googleads ]
 
 desc "Generate the binary input files"
 task :gen do
@@ -37,7 +39,7 @@ namespace :gen do |gen_namespace|
   end
   supported_apis.each do |generator, gems|
     gems.each do |gem|
-      desc "Generate the binary input files for  #{gem.to_s}"
+      desc "Generate the binary input files for #{generator}'s #{gem.to_s}"
       task gem do
         generate_input_file gem
       end
@@ -60,24 +62,23 @@ namespace :test do
 
   desc "Runs tests for all expected output gems."
   task :output do
-    supported_apis.each do |generator, gems|
-      directory = (generator == :gapic) ? "gapic/templates" : generator
-      (gems - test_output_exceptions).each do |gem|
-        Dir.chdir "./output/#{directory}/#{gem}" do
-          puts ""
-          puts "#"*42
-          puts "# Testing output for #{generator}'s #{gem}"
-          puts "#"*42
+    Rake::Task["test:output:all"].invoke
+  end
 
-          Bundler.with_unbundled_env do
-            sh "bundle install"
-            puts "Running rubocop for #{gem}"
-            sh "bundle exec rake rubocop"
-            puts "Running yard for #{gem}"
-            sh "bundle exec rake yard"
-            puts "Running test for #{gem}"
-            sh "bundle exec rake test"
-          end
+
+  namespace :output do |output_namespace|
+    desc "Generate the binary input files for template tests"
+    task :all do |all_task|
+      output_namespace.tasks.reject { |t| t == all_task }.each do |t|
+        t.invoke
+      end
+    end
+
+    supported_apis.each do |generator, gems|
+      (gems - test_output_exceptions).each do |gem|
+        desc "Test output for #{generator}'s #{gem.to_s}"
+        task gem do
+          test_output generator, gem
         end
       end
     end
@@ -153,5 +154,27 @@ def generate_input_file service
 
     protoc_cmd_output = `#{protoc_cmd}`
     puts protoc_cmd_output if ENV["VERBOSE"]
+  end
+end
+
+def test_output generator, gem
+  directory = (generator == :gapic) ? "gapic/templates" : generator
+  Dir.chdir "./output/#{directory}/#{gem}" do
+    puts ""
+    puts "#"*42
+    puts "# Testing output for #{generator}'s #{gem}"
+    puts "#"*42
+
+    Bundler.with_unbundled_env do
+      sh "bundle install"
+      puts "Running rubocop for #{gem}"
+      sh "bundle exec rake rubocop"
+    
+      puts "Running yard for #{gem}"
+      sh "bundle exec rake yard"
+      
+      puts "Running test for #{gem}"
+      sh "bundle exec rake test"
+    end
   end
 end
