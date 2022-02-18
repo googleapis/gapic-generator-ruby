@@ -190,6 +190,7 @@ module Gapic
       end
 
       def entrypoint_require
+        return "" unless packages?
         packages.first.package_require
       end
 
@@ -227,7 +228,7 @@ module Gapic
       # @return [Hash]
       def first_package_drift_manifest
         return {} unless packages?
-        packages[0].drift_manifest
+        packages.first.drift_manifest
       end
 
       ##
