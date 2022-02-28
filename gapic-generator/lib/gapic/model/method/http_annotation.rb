@@ -45,7 +45,7 @@ module Gapic
         ##
         # The http verb for this method
         #
-        # @return [Symbol, Nil]
+        # @return [Symbol, nil]
         def verb
           return nil if @proto_method.http.nil?
 
