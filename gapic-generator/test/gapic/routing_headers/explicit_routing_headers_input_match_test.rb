@@ -83,23 +83,23 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
   def test_nested_field
     routing_mock = OpenStruct.new(
       routing_parameters: [
-        OpenStruct.new(field: "sub_name", path_template: "subs/{sub.sub_name}"),
-        OpenStruct.new(field: "legacy.routing_id", path_template: "{app_profile_id=**}")
+        OpenStruct.new(field: "sub.name", path_template: "subs/{sub_name}"),
+        OpenStruct.new(field: "app_profile_id", path_template: "{legacy.routing_id=**}")
       ]
     )
 
     routing = Gapic::Model::Method::Routing.new routing_mock, nil
 
-    legacy = OpenStruct.new routing_id: "routes/200"
+    sub_message = OpenStruct.new name: "subs/100"
 
     test_cases = [
       {
-        request: OpenStruct.new(sub_name: "subs/100"),
-        expected: "sub.sub_name=100"
+        request: OpenStruct.new(app_profile_id: "routes/200"),
+        expected: "legacy.routing_id=routes/200"
       },
       {
-        request: OpenStruct.new(sub_name: "subs/100", legacy: legacy),
-        expected: "sub.sub_name=100&app_profile_id=routes/200"
+        request: OpenStruct.new(sub: sub_message, app_profile_id: "routes/200"),
+        expected: "sub_name=100&legacy.routing_id=routes/200"
       }
     ]
 
