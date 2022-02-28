@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.11.0 / 2022-03-01
+
+* New: Added generation of nonstandard LRO wrapper calls (currently used for Compute)
+* Fixed: Examples in the doc comments for modules are now generated with `@expample` tags
+* Fixed: proto files without a proto service can again be generated
+* Ruby prebuilt binaries used in Bazel rules updated to Ruby 2.6.6
+
 ### 0.10.6 / 2022-02-02
 
 * Point default documentation URL to rubydoc.info.
@@ -10,9 +17,9 @@
 
 ### 0.10.4 / 2022-01-07
 
-* Fix: Set quota_project_id correctly for LRO clients
-* Fix: Remove old cloud-rad configs and rake tasks
-* Fix: Properly quote page titles in YARD configs
+* Fixed: Set quota_project_id correctly for LRO clients
+* Fixed: Remove old cloud-rad configs and rake tasks
+* Fixed: Properly quote page titles in YARD configs
 
 ### 0.10.3 / 2021-11-04
 
