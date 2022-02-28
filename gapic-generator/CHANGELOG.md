@@ -3,7 +3,7 @@
 ### 0.11.0 / 2022-03-01
 
 * New: Added generation of nonstandard LRO wrapper calls (currently used for Compute)
-* Fixed: Examples in the doc comments for modules are now generated with `@expample` tags
+* Fixed: Examples in the doc comments for modules are now generated with `@example` tags
 * Fixed: proto files without a proto service can again be generated
 * Ruby prebuilt binaries used in Bazel rules updated to Ruby 2.6.6
 
