@@ -80,6 +80,32 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
     assert_regex_matches routing, test_cases
   end
 
+  def test_nested_field
+    routing_mock = OpenStruct.new(
+      routing_parameters: [
+        OpenStruct.new(field: "sub.name", path_template: "subs/{sub_name}"),
+        OpenStruct.new(field: "app_profile_id", path_template: "{legacy.routing_id=**}")
+      ]
+    )
+
+    routing = Gapic::Model::Method::Routing.new routing_mock, nil
+
+    sub_message = OpenStruct.new name: "subs/100"
+
+    test_cases = [
+      {
+        request: OpenStruct.new(app_profile_id: "routes/200"),
+        expected: "legacy.routing_id=routes/200"
+      },
+      {
+        request: OpenStruct.new(sub: sub_message, app_profile_id: "routes/200"),
+        expected: "sub_name=100&legacy.routing_id=routes/200"
+      }
+    ]
+
+    assert_regex_matches routing, test_cases
+  end
+
   # Extracting a field from the request to put into the routing
   # header, while matching a path template syntax on the field's value.
   def test_field_match
@@ -373,7 +399,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       headers = {}
       routing.explicit_params.each do |key, param_arr|
         param_arr.each do |param|
-          field_val = request.send param.field.to_s if request.respond_to? param.field.to_s
+          field_val = get_field_val param.field.to_s, request
           if field_val && !field_val.empty? && Regexp.new(param.field_regex_str).match?(field_val)
             headers[key] = Regexp.new(param.field_full_regex_str).match(field_val)[key.to_s]
           end
@@ -389,5 +415,26 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
         assert_equal expected, headers.map { |key, value| "#{key}=#{value}" }.join("&"), err_str
       end
     end
+  end
+
+  ##
+  # A helper to get to the value of a sub-field of the request by the field path.
+  # E.g. given "foo.bar.baz" returns the converted to string value of the "request.foo.bar.baz".
+  #
+  # @param field [String] full name of the (sub-) field, e.g. "foo" or "foo.bar.baz"
+  # @param request [Object] a request object
+  #
+  # @return [String, nil] either a value of the sub-field converted to string
+  #    or nil if a sub-field does not exit or is itself nil
+  def get_field_val field, request
+    field_path = field.split "."
+
+    curr_submessage = request
+    field_path.each do |curr_field|
+      return nil unless curr_submessage.respond_to? curr_field
+      curr_submessage = curr_submessage.send curr_field
+    end
+
+    return curr_submessage.to_s if curr_submessage
   end
 end
