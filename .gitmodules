@@ -1,6 +1,11 @@
-[submodule "shared/api-common-protos"]
-	path = shared/api-common-protos
-	url = git@github.com:googleapis/api-common-protos.git
 [submodule "shared/googleapis"]
 	path = shared/googleapis
-	url = git@github.com:googleapis/googleapis.git
+	url = https://github.com/googleapis/googleapis.git
+[submodule "shared/api-common-protos"]
+	path = shared/api-common-protos
+	url = https://github.com/googleapis/api-common-protos.git
+	branch = main
+[submodule "shared/gapic-showcase"]
+	path = shared/gapic-showcase
+	url = https://github.com/googleapis/gapic-showcase.git
+	branch = main

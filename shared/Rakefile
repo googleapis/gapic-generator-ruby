@@ -22,8 +22,10 @@ supported_apis = {
   ads: [:googleads]
 }
 
-# noservice does not have generated files, googleads does not have rubocop/yard/tests
-test_output_exceptions = [ :noservice, :googleads ]
+# noservice does not need to generate code, binary is enough
+code_generation_exceptions = [:noservice]
+# googleads does not have rubocop/yard/tests
+test_output_exceptions = code_generation_exceptions + [ :googleads ]
 
 desc "Generate the binary input files"
 task :gen do
@@ -122,6 +124,7 @@ def generate_input_file service
       "--experimental_allow_proto3_optional=1",
       "-I ../shared/protos",
       "-I ../shared/api-common-protos",
+      "-I ../shared/gapic-showcase/schema",
       "-I ../shared/googleapis",
       "--ruby_out=#{tmp}/lib",
       "--grpc_out=#{tmp}/lib",

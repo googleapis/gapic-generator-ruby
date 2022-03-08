@@ -293,6 +293,26 @@ module Google
               extend ::Google::Protobuf::MessageExts::ClassMethods
             end
 
+            # Selective optimization setting for this campaign, which includes a set of
+            # conversion actions to optimize this campaign towards.
+            # @!attribute [rw] conversion_actions
+            #   @return [::Array<::String>]
+            #     The selected set of conversion actions for optimizing this campaign.
+            class SelectiveOptimization
+              include ::Google::Protobuf::MessageExts
+              extend ::Google::Protobuf::MessageExts::ClassMethods
+            end
+
+            # Optimization goal setting for this campaign, which includes a set of
+            # optimization goal types.
+            # @!attribute [rw] optimization_goal_types
+            #   @return [::Array<::Google::Ads::GoogleAds::V7::Enums::OptimizationGoalTypeEnum::OptimizationGoalType>]
+            #     The list of optimization goal types.
+            class OptimizationGoalSetting
+              include ::Google::Protobuf::MessageExts
+              extend ::Google::Protobuf::MessageExts::ClassMethods
+            end
+
             # The setting for Shopping campaigns. Defines the universe of products that
             # can be advertised by the campaign, and how this campaign interacts with
             # other Shopping campaigns.
@@ -303,8 +323,8 @@ module Google
             #     Shopping campaigns.
             # @!attribute [rw] sales_country
             #   @return [::String]
-            #     Immutable. Sales country of products to include in the campaign.
-            #     This field is required for Shopping campaigns. This field is immutable.
+            #     Sales country of products to include in the campaign.
+            #     This field is required for Shopping campaigns.
             #     This field is optional for non-Shopping campaigns, but it must be equal
             #     to 'ZZ' if set.
             # @!attribute [rw] campaign_priority
@@ -335,22 +355,6 @@ module Google
               extend ::Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # Campaign-level settings for App Campaigns.
-            # @!attribute [rw] bidding_strategy_goal_type
-            #   @return [::Google::Ads::GoogleAds::V7::Enums::AppCampaignBiddingStrategyGoalTypeEnum::AppCampaignBiddingStrategyGoalType]
-            #     Represents the goal which the bidding strategy of this app campaign
-            #     should optimize towards.
-            # @!attribute [rw] app_id
-            #   @return [::String]
-            #     Immutable. A string that uniquely identifies a mobile application.
-            # @!attribute [rw] app_store
-            #   @return [::Google::Ads::GoogleAds::V7::Enums::AppCampaignAppStoreEnum::AppCampaignAppStore]
-            #     Immutable. The application store that distributes this specific app.
-            class AppCampaignSetting
-              include ::Google::Protobuf::MessageExts
-              extend ::Google::Protobuf::MessageExts::ClassMethods
-            end
-
             # Campaign setting for local campaigns.
             # @!attribute [rw] location_source_type
             #   @return [::Google::Ads::GoogleAds::V7::Enums::LocationSourceTypeEnum::LocationSourceType]
@@ -373,22 +377,18 @@ module Google
               extend ::Google::Protobuf::MessageExts::ClassMethods
             end
 
-            # Selective optimization setting for this campaign, which includes a set of
-            # conversion actions to optimize this campaign towards.
-            # @!attribute [rw] conversion_actions
-            #   @return [::Array<::String>]
-            #     The selected set of conversion actions for optimizing this campaign.
-            class SelectiveOptimization
-              include ::Google::Protobuf::MessageExts
-              extend ::Google::Protobuf::MessageExts::ClassMethods
-            end
-
-            # Optimization goal setting for this campaign, which includes a set of
-            # optimization goal types.
-            # @!attribute [rw] optimization_goal_types
-            #   @return [::Array<::Google::Ads::GoogleAds::V7::Enums::OptimizationGoalTypeEnum::OptimizationGoalType>]
-            #     The list of optimization goal types.
-            class OptimizationGoalSetting
+            # Campaign-level settings for App Campaigns.
+            # @!attribute [rw] bidding_strategy_goal_type
+            #   @return [::Google::Ads::GoogleAds::V7::Enums::AppCampaignBiddingStrategyGoalTypeEnum::AppCampaignBiddingStrategyGoalType]
+            #     Represents the goal which the bidding strategy of this app campaign
+            #     should optimize towards.
+            # @!attribute [rw] app_id
+            #   @return [::String]
+            #     Immutable. A string that uniquely identifies a mobile application.
+            # @!attribute [rw] app_store
+            #   @return [::Google::Ads::GoogleAds::V7::Enums::AppCampaignAppStoreEnum::AppCampaignAppStore]
+            #     Immutable. The application store that distributes this specific app.
+            class AppCampaignSetting
               include ::Google::Protobuf::MessageExts
               extend ::Google::Protobuf::MessageExts::ClassMethods
             end

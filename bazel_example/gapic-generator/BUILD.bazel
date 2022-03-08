@@ -93,7 +93,9 @@ ruby_gapic_assembly_pkg(
 #
 ruby_proto_library(
   name = "showcase_ruby_proto",
-  deps = ["@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto"],
+  deps = [
+    "@com_gapic_showcase//schema/google/showcase/v1beta1:showcase_proto"
+  ],
 )
 
 ##

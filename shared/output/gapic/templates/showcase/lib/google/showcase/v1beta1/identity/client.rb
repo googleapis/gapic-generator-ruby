@@ -322,7 +322,7 @@ module Google
           #   @param user [::Google::Showcase::V1beta1::User, ::Hash]
           #     The user to update.
           #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
-          #     The field mask to determine wich fields are to be updated. If empty, the
+          #     The field mask to determine which fields are to be updated. If empty, the
           #     server will assume all fields are to be updated.
           #
           # @yield [response, operation] Access the result along with the RPC operation

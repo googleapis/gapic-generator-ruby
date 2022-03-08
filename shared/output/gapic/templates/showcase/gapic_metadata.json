@@ -35,6 +35,16 @@
                 "paged_expand"
               ]
             },
+            "PagedExpandLegacy": {
+              "methods": [
+                "paged_expand_legacy"
+              ]
+            },
+            "PagedExpandLegacyMapped": {
+              "methods": [
+                "paged_expand_legacy_mapped"
+              ]
+            },
             "Wait": {
               "methods": [
                 "wait"

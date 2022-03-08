@@ -29,10 +29,10 @@ class ShowcaseFilePresenterTest < PresenterTest
     assert_equal "::Google::Showcase::V1beta1", fp.namespace
     assert_equal "google/showcase/v1beta1/echo.rb", fp.docs_file_path
 
-    assert_equal ["EchoRequest", "EchoResponse", "ExpandRequest", "PagedExpandRequest", "PagedExpandResponse", "WaitRequest", "WaitResponse", "WaitMetadata", "BlockRequest", "BlockResponse"], fp.messages.map(&:name)
+    assert_equal ["EchoRequest", "EchoResponse", "ExpandRequest", "PagedExpandRequest", "PagedExpandLegacyRequest", "PagedExpandResponse", "PagedExpandResponseList", "PagedExpandLegacyMappedResponse", "WaitRequest", "WaitResponse", "WaitMetadata", "BlockRequest", "BlockResponse"], fp.messages.map(&:name)
     fp.messages.each { |mp| assert_kind_of Gapic::Presenters::MessagePresenter, mp }
 
-    assert_equal [], fp.enums.map(&:name)
+    assert_equal ["Severity"], fp.enums.map(&:name)
     fp.enums.each { |ep| assert_kind_of Gapic::Presenters::EnumPresenter, ep }
   end
 

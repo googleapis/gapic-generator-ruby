@@ -204,6 +204,7 @@ def generate_cloud_templates service, wrapper: false, rest_only: false
     "--experimental_allow_proto3_optional=1",
     "-I ../shared/protos",
     "-I ../shared/api-common-protos",
+    "-I ../shared/gapic-showcase/schema",
     "-I ../shared/googleapis",
     "--ruby_gapic_opt=generator=cloud"
   ] + ruby_plugin_args + [

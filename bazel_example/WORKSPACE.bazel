@@ -21,8 +21,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 ##
 # googleapis for the common protos
 #
-_googleapis_commit = "00158485835c7d3bad0b84b3ca09a7b3292a1f15"
-_googleapis_sha256 = "0c5ff93989c50f00221ec129ce06bcf682ef43aabdeaffb5c1bae3d86c5b0fae"
+_googleapis_commit = "9ffb8bb216b22a8ddc539303b36c71db2c568c63"
+_googleapis_sha256 = "78f7ac4a42d175ed613ed67c7314d0cfa257db2ffa836f1388c381fbd18710d2"
 
 http_archive(
     name = "com_google_googleapis",
@@ -123,8 +123,8 @@ gapic_generator_ruby_repositories()
 ##
 # showcase for vanilla examples
 #
-_gapic_showcase_commit = "0b27eb4aa1930f018c49fa5dba4812809149068d"
-_gapic_showcase_sha256 = "1a3688298582584405fa68688f09d14b407896bc91cb0ea57783f763c11504b3"
+_gapic_showcase_commit = "e2aa3033e67c0c50c5650512211001e1ad29d36a"
+_gapic_showcase_sha256 = "871b99fe9447f35418c476f953e92b697033d69d5300104c4cf7eea784f2ea30"
 http_archive(
     name = "com_gapic_showcase",
     sha256 = _gapic_showcase_sha256,

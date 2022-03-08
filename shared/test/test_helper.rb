@@ -34,7 +34,9 @@ def generate_library_for_test imports, protos
     "#{protos.join " "}",
   ].join " "
   puts protoc_cmd if ENV["VERBOSE"]
-  protoc_cmd_output = `#{protoc_cmd}`
+  protoc_cmd_output = Open3.popen3 protoc_cmd do |stdin, stdout, stderr, wait_thr|
+    raise "Cannot generate library for test" unless wait_thr.value == 0
+  end
   puts protoc_cmd_output if ENV["VERBOSE"]
   client_lib
 end
@@ -75,7 +77,7 @@ class ShowcaseTest < Minitest::Test
 
   @showcase_library = begin
     library = generate_library_for_test(
-      %w[api-common-protos protos],
+      %w[protos api-common-protos gapic-showcase/schema googleapis],
       %w[google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library

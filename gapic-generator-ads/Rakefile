@@ -131,6 +131,7 @@ def generate_ads_templates service
     "grpc_tools_ruby_protoc",
     "-I ../shared/protos",
     "-I ../shared/api-common-protos",
+    "-I ../shared/gapic-showcase/schema",
     "-I ../shared/googleapis",
     "--ruby_gapic_opt=generator=ads",
     "--ruby_out=#{target_path}/lib",

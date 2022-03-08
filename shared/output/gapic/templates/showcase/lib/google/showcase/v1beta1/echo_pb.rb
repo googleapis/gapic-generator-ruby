@@ -6,6 +6,7 @@ require 'google/protobuf'
 require 'google/api/annotations_pb'
 require 'google/api/client_pb'
 require 'google/api/field_behavior_pb'
+require 'google/api/routing_pb'
 require 'google/longrunning/operations_pb'
 require 'google/protobuf/duration_pb'
 require 'google/protobuf/timestamp_pb'
@@ -13,6 +14,9 @@ require 'google/rpc/status_pb'
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/showcase/v1beta1/echo.proto", :syntax => :proto3) do
     add_message "google.showcase.v1beta1.EchoRequest" do
+      optional :severity, :enum, 3, "google.showcase.v1beta1.Severity"
+      optional :header, :string, 4
+      optional :other_header, :string, 5
       oneof :response do
         optional :content, :string, 1
         optional :error, :message, 2, "google.rpc.Status"
@@ -20,6 +24,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "google.showcase.v1beta1.EchoResponse" do
       optional :content, :string, 1
+      optional :severity, :enum, 2, "google.showcase.v1beta1.Severity"
     end
     add_message "google.showcase.v1beta1.ExpandRequest" do
       optional :content, :string, 1
@@ -30,8 +35,20 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :page_size, :int32, 2
       optional :page_token, :string, 3
     end
+    add_message "google.showcase.v1beta1.PagedExpandLegacyRequest" do
+      optional :content, :string, 1
+      optional :max_results, :int32, 2
+      optional :page_token, :string, 3
+    end
     add_message "google.showcase.v1beta1.PagedExpandResponse" do
       repeated :responses, :message, 1, "google.showcase.v1beta1.EchoResponse"
+      optional :next_page_token, :string, 2
+    end
+    add_message "google.showcase.v1beta1.PagedExpandResponseList" do
+      repeated :words, :string, 1
+    end
+    add_message "google.showcase.v1beta1.PagedExpandLegacyMappedResponse" do
+      map :alphabetized, :string, :message, 1, "google.showcase.v1beta1.PagedExpandResponseList"
       optional :next_page_token, :string, 2
     end
     add_message "google.showcase.v1beta1.WaitRequest" do
@@ -60,6 +77,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "google.showcase.v1beta1.BlockResponse" do
       optional :content, :string, 1
     end
+    add_enum "google.showcase.v1beta1.Severity" do
+      value :UNNECESSARY, 0
+      value :NECESSARY, 1
+      value :URGENT, 2
+      value :CRITICAL, 3
+    end
   end
 end
 
@@ -70,12 +93,16 @@ module Google
       EchoResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.EchoResponse").msgclass
       ExpandRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.ExpandRequest").msgclass
       PagedExpandRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandRequest").msgclass
+      PagedExpandLegacyRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandLegacyRequest").msgclass
       PagedExpandResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandResponse").msgclass
+      PagedExpandResponseList = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandResponseList").msgclass
+      PagedExpandLegacyMappedResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.PagedExpandLegacyMappedResponse").msgclass
       WaitRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitRequest").msgclass
       WaitResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitResponse").msgclass
       WaitMetadata = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.WaitMetadata").msgclass
       BlockRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockRequest").msgclass
       BlockResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.BlockResponse").msgclass
+      Severity = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.showcase.v1beta1.Severity").enummodule
     end
   end
 end

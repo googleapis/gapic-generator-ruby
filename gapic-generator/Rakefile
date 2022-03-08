@@ -134,7 +134,9 @@ end
 
 task default: :ci
 
-libs = [:showcase, :garbage, :testing]
+libs = [:showcase, :garbage, :testing, :noservice]
+# noservice does not need to generate, testing binary is enough
+generation_exceptions = [:noservice]
 
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
@@ -166,7 +168,7 @@ end
 namespace :gen do |namespace|
   desc "Generate the expected output for templates tests"
   task :templates do
-    libs.each do |lib|
+    (libs-generation_exceptions).each do |lib|
       task = namespace[lib]
       puts "Invoking #{task.name}"
       task.invoke
@@ -221,9 +223,10 @@ def generate_default_templates service
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
     "--experimental_allow_proto3_optional=1",
-    "-I ../shared/api-common-protos",
-    "-I ../shared/googleapis",
     "-I ../shared/protos",
+    "-I ../shared/api-common-protos",
+    "-I ../shared/gapic-showcase/schema",
+    "-I ../shared/googleapis",
     "--ruby_out=#{target_path}/lib",
     "--grpc_out=#{target_path}/lib",
     "--ruby_gapic_out=#{target_path}",

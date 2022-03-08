@@ -28,7 +28,7 @@ class ShowcaseEchoServiceTest < PresenterTest
   def test_methods
     refute_empty presenter.methods
     presenter.methods.each { |ref| assert_kind_of Gapic::Presenters::MethodPresenter, ref }
-    exp_method_names = ["echo", "expand", "collect", "chat", "paged_expand", "wait", "block"]
+    exp_method_names = ["echo", "expand", "collect", "chat", "paged_expand", "paged_expand_legacy", "paged_expand_legacy_mapped", "wait", "block"]
     assert_equal exp_method_names, presenter.methods.map(&:name)
   end
 

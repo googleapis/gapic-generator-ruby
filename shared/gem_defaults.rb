@@ -74,10 +74,10 @@ def gem_defaults
     },
     showcase: {
       protos: [
-        "google/showcase/v1beta1/echo.proto",
-        "google/showcase/v1beta1/identity.proto",
-        "google/showcase/v1beta1/messaging.proto",
-        "google/showcase/v1beta1/testing.proto"
+        "../shared/gapic-showcase/schema/google/showcase/v1beta1/echo.proto",
+        "../shared/gapic-showcase/schema/google/showcase/v1beta1/identity.proto",
+        "../shared/gapic-showcase/schema/google/showcase/v1beta1/messaging.proto",
+        "../shared/gapic-showcase/schema/google/showcase/v1beta1/testing.proto"
       ]
     },
     garbage: {
