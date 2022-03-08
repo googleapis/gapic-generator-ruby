@@ -10,6 +10,8 @@ require "<%= package.gem.version_require %>"
 ##
 # To load this package, including all its services, and instantiate a <%= package.grpc_client_designation %>:
 #
+# @example
+#
 #     require "<%= package.package_require %>"
 #     client = <%= package.services.first.create_client_call %>
 #
@@ -17,6 +19,8 @@ require "<%= package.gem.version_require %>"
 <%- if package.services.first.generate_rest_clients? -%>
 ##
 # To load this package, including all its services, and instantiate a REST client:
+#
+# @example
 #
 #     require "<%= package.package_require %>"
 #     client = <%= package.services.first.rest.create_client_call %>

@@ -38,6 +38,7 @@ class RegexPathPatternTest < PathPatternTest
   def test_named_segment_path_patterns
     path_pattern_to_regex_str = {
       "{foo}" => "(?<foo>[^/]+)",
+      "{foo.bar}" => "(?<foo.bar>[^/]+)",
       "{foo=*}" => "(?<foo>[^/]+)",
       "{foo=**}" => "(?<foo>.*)"
     }

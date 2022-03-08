@@ -31,6 +31,8 @@ module Testing
   ##
   # To load this package, including all its services, and instantiate a client:
   #
+  # @example
+  #
   #     require "testing/mixins"
   #     client = ::Testing::Mixins::ServiceWithLoc::Client.new
   #

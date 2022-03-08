@@ -32,6 +32,8 @@ module Testing
   ##
   # To load this package, including all its services, and instantiate a client:
   #
+  # @example
+  #
   #     require "testing/grpc_service_config"
   #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
   #

@@ -36,6 +36,8 @@ module So
     ##
     # To load this package, including all its services, and instantiate a client:
     #
+    # @example
+    #
     #     require "so/much/trash"
     #     client = ::So::Much::Trash::GarbageService::Client.new
     #
