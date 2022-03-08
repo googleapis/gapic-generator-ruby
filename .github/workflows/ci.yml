@@ -24,7 +24,7 @@ jobs:
         with:
           ruby-version: "2.6"
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Checkout submodules
         run: |
           git submodule set-url shared/googleapis https://github.com/googleapis/googleapis.git
