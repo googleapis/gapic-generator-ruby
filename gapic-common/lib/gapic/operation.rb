@@ -64,7 +64,7 @@ module Gapic
   #
   #   # Or block until the operation completes, passing a block to be called
   #   # on completion.
-  #   op.wait_until_done do |operation|
+  #   op.wait_until_done! do |operation|
   #     raise operation.results.message if operation.error?
   #     # process(operation.results)
   #     # process(operation.rmetadata)
