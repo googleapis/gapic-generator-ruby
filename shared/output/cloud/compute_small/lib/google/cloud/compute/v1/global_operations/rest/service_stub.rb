@@ -67,21 +67,6 @@ module Google
               end
 
               ##
-              # GRPC transcoding helper method for the delete REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_delete_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
-              end
-
-              ##
               # Baseline implementation for the get REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::GetGlobalOperationRequest]
@@ -109,7 +94,30 @@ module Google
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
+              # GRPC transcoding helper method for the delete REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_delete_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
+                body = nil
+                query_string_params = {}
+
+                [uri, body, query_string_params]
+              end
+
+              ##
+              # @private
+              #
               # GRPC transcoding helper method for the get REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::GetGlobalOperationRequest]

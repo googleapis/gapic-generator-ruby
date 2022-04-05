@@ -67,7 +67,13 @@ module Google
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
               # GRPC transcoding helper method for the resize REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest]

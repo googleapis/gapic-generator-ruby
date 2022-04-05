@@ -67,21 +67,6 @@ module Google
               end
 
               ##
-              # GRPC transcoding helper method for the delete REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::DeleteRegionOperationRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_delete_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
-              end
-
-              ##
               # Baseline implementation for the get REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::GetRegionOperationRequest]
@@ -107,21 +92,6 @@ module Google
 
                 yield result, response if block_given?
                 result
-              end
-
-              ##
-              # GRPC transcoding helper method for the get REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::GetRegionOperationRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_get_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
               end
 
               ##
@@ -154,26 +124,6 @@ module Google
               end
 
               ##
-              # GRPC transcoding helper method for the list REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::ListRegionOperationsRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_list_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations"
-                body = nil
-                query_string_params = {}
-                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
-                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
-                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
-                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
-                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
-
-                [uri, body, query_string_params]
-              end
-
-              ##
               # Baseline implementation for the wait REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::WaitRegionOperationRequest]
@@ -201,7 +151,69 @@ module Google
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
+              # GRPC transcoding helper method for the delete REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::DeleteRegionOperationRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_delete_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
+                body = nil
+                query_string_params = {}
+
+                [uri, body, query_string_params]
+              end
+
+              ##
+              # @private
+              #
+              # GRPC transcoding helper method for the get REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::GetRegionOperationRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_get_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations/#{request_pb.operation}"
+                body = nil
+                query_string_params = {}
+
+                [uri, body, query_string_params]
+              end
+
+              ##
+              # @private
+              #
+              # GRPC transcoding helper method for the list REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::ListRegionOperationsRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_list_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/operations"
+                body = nil
+                query_string_params = {}
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
+                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
+
+                [uri, body, query_string_params]
+              end
+
+              ##
+              # @private
+              #
               # GRPC transcoding helper method for the wait REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::WaitRegionOperationRequest]

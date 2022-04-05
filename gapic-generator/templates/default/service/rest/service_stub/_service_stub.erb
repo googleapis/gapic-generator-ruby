@@ -19,7 +19,14 @@ class <%= service.rest.service_stub_name %>
   <%- service.methods.each do |method| -%>
 
   <%= indent_tail render(partial: "service/rest/service_stub/method/def", locals: { method: method }), 2 %>
+  
+  <%- end %>
+
+  private
+
+  <%- service.methods.each do |method| -%>
 
   <%= indent_tail render(partial: "service/rest/service_stub/grpc_transcoding_method/def", locals: { method: method }), 2 %>
+
   <%- end %>
 end

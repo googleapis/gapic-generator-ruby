@@ -68,29 +68,6 @@ module Google
               end
 
               ##
-              # GRPC transcoding helper method for the list_peering_routes REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_list_peering_routes_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/networks/#{request_pb.network}/listPeeringRoutes"
-                body = nil
-                query_string_params = {}
-                query_string_params["direction"] = request_pb.direction.to_s if request_pb.has_direction?
-                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
-                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
-                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
-                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
-                query_string_params["peeringName"] = request_pb.peering_name.to_s if request_pb.has_peering_name?
-                query_string_params["region"] = request_pb.region.to_s if request_pb.has_region?
-                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
-
-                [uri, body, query_string_params]
-              end
-
-              ##
               # Baseline implementation for the remove_peering REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest]
@@ -120,7 +97,38 @@ module Google
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
+              # GRPC transcoding helper method for the list_peering_routes REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_list_peering_routes_request request_pb
+                uri = "/compute/v1/projects/#{request_pb.project}/global/networks/#{request_pb.network}/listPeeringRoutes"
+                body = nil
+                query_string_params = {}
+                query_string_params["direction"] = request_pb.direction.to_s if request_pb.has_direction?
+                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
+                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
+                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
+                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
+                query_string_params["peeringName"] = request_pb.peering_name.to_s if request_pb.has_peering_name?
+                query_string_params["region"] = request_pb.region.to_s if request_pb.has_region?
+                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
+
+                [uri, body, query_string_params]
+              end
+
+              ##
+              # @private
+              #
               # GRPC transcoding helper method for the remove_peering REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest]
