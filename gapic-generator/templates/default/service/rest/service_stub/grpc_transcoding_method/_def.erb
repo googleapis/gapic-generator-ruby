@@ -1,5 +1,7 @@
 <%- assert_locals method -%>
 ##
+# @private
+#
 # GRPC transcoding helper method for the <%= method.name %> REST call
 #
 # @param request_pb [<%= method.request_type %>]
@@ -7,18 +9,24 @@
 # @return [Array(String, [String, nil], Hash{String => String})] 
 #   Uri, Body, Query string parameters
 def <%= method.rest.transcoding_helper_name %> request_pb
-  uri = "<%= method.rest.uri_interpolated %>"
-  <%- if method.rest.body? -%>
-  body = <%= method.rest.body_interpolated %>
-  <%- else -%>
-  body = nil
-  <%- end -%>
-  query_string_params = {}
-  <%- if method.rest.query_string_params? -%>
-  <%- method.rest.query_string_params.each do |field| -%>
-  <%= render partial: "service/rest/service_stub/grpc_transcoding_method/def/query_string_param", locals: { field: field } -%>
-  <%- end -%>
-  <%- end -%>
-
-  [uri, body, query_string_params]
+  transcoder = Gapic::Rest::GrpcTranscoder.new
+    .with_bindings(
+      uri_method: :<%= method.rest.verb %>,
+      uri_template: "<%= method.rest.uri_for_transcoding %>",
+      <%- if method.rest.body? -%>
+      body: "<%= method.rest.body %>",
+      <%- end -%>
+      matches: [
+        <% params_num = method.rest.routing_params_with_regexes.length %>
+        <%- method.rest.routing_params_with_regexes.each_with_index do |pair, ix| -%>
+        <% 
+          param = pair[0]
+          regex = pair[1]
+          preserve_slashes = pair[2]
+          comma = if ix == params_num-1 then "" else "," end
+        %>
+          ["<%= param %>", %r{<%= regex %>}, <%= preserve_slashes %>]<%= comma %>
+        <%- end -%>
+      ])
+  transcoder.transcode request_pb
 end

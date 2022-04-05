@@ -55,19 +55,35 @@ module Google
               def resize request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, query_string_params = transcode_resize_request request_pb
-                response = @client_stub.make_post_request(
+                verb, uri, query_string_params, body = transcode_resize_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
                   params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
               # GRPC transcoding helper method for the resize REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest]
@@ -75,13 +91,17 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_resize_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/instanceGroupManagers/#{request_pb.instance_group_manager}/resize"
-                body = nil
-                query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.has_request_id?
-                query_string_params["size"] = request_pb.size.to_s
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :post,
+                                                          uri_template: "/compute/v1/projects/{project}/regions/{region}/instanceGroupManagers/{instance_group_manager}/resize",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["region", %r{[^/]+}, false],
+                                                            ["instance_group_manager", %r{[^/]+}, false]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
             end
           end

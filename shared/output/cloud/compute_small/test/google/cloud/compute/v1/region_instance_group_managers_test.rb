@@ -82,10 +82,6 @@ class ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::ClientTest < Mi
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "requestId"
-      assert params.key? "size"
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, resize_client_stub do

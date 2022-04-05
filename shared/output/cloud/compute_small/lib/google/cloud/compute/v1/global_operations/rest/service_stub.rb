@@ -55,30 +55,26 @@ module Google
               def delete request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, _query_string_params = transcode_delete_request request_pb
-                response = @client_stub.make_delete_request(
+                verb, uri, query_string_params, body = transcode_delete_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
+                  params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
                 result
-              end
-
-              ##
-              # GRPC transcoding helper method for the delete REST call
-              #
-              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
-              #   A request object representing the call parameters. Required.
-              # @return [Array(String, [String, nil], Hash{String => String})]
-              #   Uri, Body, Query string parameters
-              def transcode_delete_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
               end
 
               ##
@@ -98,18 +94,57 @@ module Google
               def get request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, _query_string_params = transcode_get_request request_pb
-                response = @client_stub.make_get_request(
+                verb, uri, query_string_params, body = transcode_get_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
+                  params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
                 result
               end
 
+
+              private
+
+
               ##
+              # @private
+              #
+              # GRPC transcoding helper method for the delete REST call
+              #
+              # @param request_pb [::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest]
+              #   A request object representing the call parameters. Required.
+              # @return [Array(String, [String, nil], Hash{String => String})]
+              #   Uri, Body, Query string parameters
+              def transcode_delete_request request_pb
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :delete,
+                                                          uri_template: "/compute/v1/projects/{project}/global/operations/{operation}",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["operation", %r{[^/]+}, false]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
+              end
+
+              ##
+              # @private
+              #
               # GRPC transcoding helper method for the get REST call
               #
               # @param request_pb [::Google::Cloud::Compute::V1::GetGlobalOperationRequest]
@@ -117,11 +152,16 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_get_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/global/operations/#{request_pb.operation}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/compute/v1/projects/{project}/global/operations/{operation}",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["operation", %r{[^/]+}, false]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
             end
           end

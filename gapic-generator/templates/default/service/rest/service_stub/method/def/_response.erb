@@ -1,16 +1,21 @@
 <%- assert_locals method -%>
 
-uri, <%= method.rest.body_var_name %>, <%= method.rest.query_string_params_var_name %> = <%= method.rest.transcoding_helper_name %> request_pb
-response = @client_stub.make_<%= method.rest.verb %>_request(
+verb, uri, query_string_params, body = <%= method.rest.transcoding_helper_name %> request_pb
+query_string_params = if query_string_params.any?
+  query_string_params.map{ |p| p.split("=", 2) }.to_h
+else
+  {}
+end
+
+
+response = @client_stub.make_http_request(
+  verb,
   uri:     uri,
-<%- if method.rest.body? -%>
-  body:    body,
-<%- end -%>
-<%- if method.rest.query_string_params? -%>
+  body:    body || "",
   params:  query_string_params,
-<%- end -%>
   options: options
 )
+
 result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
 
 yield result, response if block_given?
