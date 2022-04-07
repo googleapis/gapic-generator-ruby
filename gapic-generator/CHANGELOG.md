@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.11.1 / 2022-04-06
+
+* Updated generated grpc-google-iam-v1 dependency to ~> 1.1
+
 ### 0.11.0 / 2022-03-01
 
 * New: Added generation of nonstandard LRO wrapper calls (currently used for Compute)
