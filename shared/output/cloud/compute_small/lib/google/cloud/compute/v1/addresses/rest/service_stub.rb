@@ -55,12 +55,22 @@ module Google
               def aggregated_list request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, query_string_params = transcode_aggregated_list_request request_pb
-                response = @client_stub.make_get_request(
+                verb, uri, query_string_params, body = transcode_aggregated_list_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
                   params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::AddressAggregatedList.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -84,12 +94,22 @@ module Google
               def delete request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, query_string_params = transcode_delete_request request_pb
-                response = @client_stub.make_delete_request(
+                verb, uri, query_string_params, body = transcode_delete_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
                   params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -113,11 +133,22 @@ module Google
               def get request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, _query_string_params = transcode_get_request request_pb
-                response = @client_stub.make_get_request(
+                verb, uri, query_string_params, body = transcode_get_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
+                  params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::Address.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -141,13 +172,22 @@ module Google
               def insert request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, body, query_string_params = transcode_insert_request request_pb
-                response = @client_stub.make_post_request(
+                verb, uri, query_string_params, body = transcode_insert_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
-                  body:    body,
+                  body:    body || "",
                   params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -171,12 +211,22 @@ module Google
               def list request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                uri, _body, query_string_params = transcode_list_request request_pb
-                response = @client_stub.make_get_request(
+                verb, uri, query_string_params, body = transcode_list_request request_pb
+                query_string_params = if query_string_params.any?
+                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                      else
+                                        {}
+                                      end
+
+
+                response = @client_stub.make_http_request(
+                  verb,
                   uri:     uri,
+                  body:    body || "",
                   params:  query_string_params,
                   options: options
                 )
+
                 result = ::Google::Cloud::Compute::V1::AddressList.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -197,17 +247,15 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_aggregated_list_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/aggregated/addresses"
-                body = nil
-                query_string_params = {}
-                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
-                query_string_params["includeAllScopes"] = request_pb.include_all_scopes.to_s if request_pb.has_include_all_scopes?
-                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
-                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
-                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
-                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/compute/v1/projects/{project}/aggregated/addresses",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
 
               ##
@@ -220,12 +268,17 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_delete_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/addresses/#{request_pb.address}"
-                body = nil
-                query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.has_request_id?
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :delete,
+                                                          uri_template: "/compute/v1/projects/{project}/regions/{region}/addresses/{address}",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}],
+                                                            ["region", %r{[^/]+}],
+                                                            ["address", %r{[^/]+}]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
 
               ##
@@ -238,11 +291,17 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_get_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/addresses/#{request_pb.address}"
-                body = nil
-                query_string_params = {}
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/compute/v1/projects/{project}/regions/{region}/addresses/{address}",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}],
+                                                            ["region", %r{[^/]+}],
+                                                            ["address", %r{[^/]+}]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
 
               ##
@@ -255,12 +314,17 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_insert_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/addresses"
-                body = request_pb.address_resource.to_json
-                query_string_params = {}
-                query_string_params["requestId"] = request_pb.request_id.to_s if request_pb.has_request_id?
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :post,
+                                                          uri_template: "/compute/v1/projects/{project}/regions/{region}/addresses",
+                                                          body: "address_resource",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}],
+                                                            ["region", %r{[^/]+}]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
 
               ##
@@ -273,16 +337,16 @@ module Google
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
               def transcode_list_request request_pb
-                uri = "/compute/v1/projects/#{request_pb.project}/regions/#{request_pb.region}/addresses"
-                body = nil
-                query_string_params = {}
-                query_string_params["filter"] = request_pb.filter.to_s if request_pb.has_filter?
-                query_string_params["maxResults"] = request_pb.max_results.to_s if request_pb.has_max_results?
-                query_string_params["orderBy"] = request_pb.order_by.to_s if request_pb.has_order_by?
-                query_string_params["pageToken"] = request_pb.page_token.to_s if request_pb.has_page_token?
-                query_string_params["returnPartialSuccess"] = request_pb.return_partial_success.to_s if request_pb.has_return_partial_success?
-
-                [uri, body, query_string_params]
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/compute/v1/projects/{project}/regions/{region}/addresses",
+                                                          matches: [
+                                                            ["project", %r{[^/]+}],
+                                                            ["region", %r{[^/]+}]
+                                                          ]
+                                                        )
+                transcoder.transcode request_pb
               end
             end
           end
