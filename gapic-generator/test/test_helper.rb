@@ -30,6 +30,8 @@ require "ostruct"
 require "minitest/autorun"
 require "minitest/focus"
 
+require "pry"
+
 class GeneratorTest < Minitest::Test
   ##
   # @param service [Symbol]
