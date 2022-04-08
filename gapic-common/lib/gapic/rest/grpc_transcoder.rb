@@ -30,7 +30,8 @@ module Gapic
         matches.each do |name, _|
           unless uri_template =~ /({#{Regexp.quote name}})/
             err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
-                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter `{#{name}}` in the URI template"
+                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter" \
+                      " `{#{name}}` in the URI template."
             raise ::Gapic::Common::Error, err_msg
           end
 
@@ -40,7 +41,8 @@ module Gapic
         if template =~ /{([a-zA-Z_.]+)}/
           err_name = /{([a-zA-Z_.]+)}/.match(template)[1]
           err_msg = "Binding configuration is incorrect: missing match configuration.\n" \
-                    "Parameter `{#{err_name}}` is specified in the URI template but there is no corresponding match configuration for `#{err_name}`."
+                    "Parameter `{#{err_name}}` is specified in the URI template but there is no" \
+                    " corresponding match configuration for `#{err_name}`."
           raise ::Gapic::Common::Error, err_msg
         end
 
@@ -66,28 +68,22 @@ module Gapic
           # The reason we set emit_defaults: true is to avoid
           # having to figure out default values for the required
           # fields at a runtime.
-          request_hash = JSON.parse request.to_json emit_defaults: true # make a new one for each binding because extract_scalar_value! is destructive
+          #
+          # Make a new one for each binding because extract_scalar_value! is destructive
+          request_hash = JSON.parse request.to_json emit_defaults: test_multiple_keyvaluepairs_loose
 
-          uri_values = http_binding.field_bindings.map do |field_binding|
-            field_path_camel = field_binding.field_path.split(".").map { |part| camel_name_for part }.join(".")
-            field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
-            [field_binding.field_path, field_value]
-          end.to_h
-
+          uri_values = bind_uri_values http_binding, request_hash
           next if uri_values.any? { |_, value| value.nil? }
 
-          # Note that the body template can only point to a top-level field,
-          # so there is no need to split the path.
-          body_binding_camel = http_binding.body || ""
-          unless ["", "*"].include? body_binding_camel
+          if http_binding.body && http_binding.body != "*"
+            # Note that the body template can only point to a top-level field,
+            # so there is no need to split the path.
             body_binding_camel = camel_name_for body_binding_camel
-
             next unless request_hash.key? body_binding_camel
           end
 
           method = http_binding.method
           uri = expand_template http_binding.template, uri_values
-
           body, query_params = construct_body_query_params http_binding.body, request_hash, request
 
           return method, uri, query_params, body
@@ -98,6 +94,14 @@ module Gapic
       end
 
       private
+
+      def bind_uri_values http_binding, request_hash
+        http_binding.field_bindings.map do |field_binding|
+          field_path_camel = field_binding.field_path.split(".").map { |part| camel_name_for part }.join(".")
+          field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
+          [field_binding.field_path, field_value]
+        end.to_h
+      end
 
       def construct_body_query_params body_template, request_hash_without_uri, request
         body = ""
