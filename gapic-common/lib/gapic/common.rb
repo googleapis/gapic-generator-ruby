@@ -15,6 +15,7 @@
 require "grpc/errors"
 require "grpc/core/status_codes"
 
+require "gapic/common/error"
 require "gapic/call_options"
 require "gapic/headers"
 require "gapic/operation"

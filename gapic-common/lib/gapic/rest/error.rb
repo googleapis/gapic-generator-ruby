@@ -13,11 +13,12 @@
 # limitations under the License.
 
 require "json"
+require "gapic/common/error"
 
 module Gapic
   module Rest
     # Gapic REST exception class
-    class Error < StandardError
+    class Error < ::Gapic::Common::Error
       # @return [Integer] the http status code for the error
       attr_reader :status_code
 
