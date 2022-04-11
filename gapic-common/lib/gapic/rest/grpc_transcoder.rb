@@ -70,7 +70,7 @@ module Gapic
           # fields at a runtime.
           #
           # Make a new one for each binding because extract_scalar_value! is destructive
-          request_hash = JSON.parse request.to_json emit_defaults: test_multiple_keyvaluepairs_loose
+          request_hash = JSON.parse request.to_json emit_defaults: true
 
           uri_values = bind_uri_values http_binding, request_hash
           next if uri_values.any? { |_, value| value.nil? }
