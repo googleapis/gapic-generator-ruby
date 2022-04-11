@@ -78,7 +78,7 @@ module Gapic
           if http_binding.body && http_binding.body != "*"
             # Note that the body template can only point to a top-level field,
             # so there is no need to split the path.
-            body_binding_camel = camel_name_for body_binding_camel
+            body_binding_camel = camel_name_for http_binding.body
             next unless request_hash.key? body_binding_camel
           end
 
