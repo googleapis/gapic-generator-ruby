@@ -17,6 +17,7 @@
 require "gapic/generators/base_generator"
 require "gapic/generators/default_generator_parameters"
 require "gapic/presenters"
+require "gapic/package_snippets"
 
 module Gapic
   module Generators
@@ -48,6 +49,10 @@ module Gapic
         gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
         gem.packages.each do |package|
+          package_snippets = PackageSnippets.new snippet_dir: "snippets",
+                                                 proto_package: package.name,
+                                                 gem_name: gem.name
+
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
 
@@ -71,10 +76,13 @@ module Gapic
             if @api.generate_standalone_snippets?
               service.methods.each do |method|
                 snippet = method.snippet
-                files << g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+                snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+                package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
               end
             end
           end
+
+          files += package_snippets.files if @api.generate_standalone_snippets?
         end
 
         # Gem level files

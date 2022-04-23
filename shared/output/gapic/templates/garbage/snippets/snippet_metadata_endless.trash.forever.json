@@ -1,0 +1,1055 @@
+{
+  "client_library": {
+    "name": "google-garbage",
+    "version": "0.0.0",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "endless.trash.forever",
+        "version": "forever"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetEmptyGarbage_sync",
+      "title": "Snippet for get_empty_garbage in GarbageService",
+      "description": "Basic snippet for get_empty_garbage in GarbageService",
+      "file": "garbage_service/get_empty_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_empty_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_empty_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::EmptyGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::EmptyGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetEmptyGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetEmptyGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetSimpleGarbage_sync",
+      "title": "Snippet for get_simple_garbage in GarbageService",
+      "description": "Basic snippet for get_simple_garbage in GarbageService",
+      "file": "garbage_service/get_simple_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_simple_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_simple_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::SimpleGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::SimpleGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetSimpleGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetSimpleGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetSpecificGarbage_sync",
+      "title": "Snippet for get_specific_garbage in GarbageService",
+      "description": "Basic snippet for get_specific_garbage in GarbageService",
+      "file": "garbage_service/get_specific_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_specific_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_specific_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::SpecificGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::SpecificGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetSpecificGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetSpecificGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetNestedGarbage_sync",
+      "title": "Snippet for get_nested_garbage in GarbageService",
+      "description": "Basic snippet for get_nested_garbage in GarbageService",
+      "file": "garbage_service/get_nested_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_nested_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_nested_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::SpecificGarbage::NestedGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::SpecificGarbage::NestedGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetNestedGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetNestedGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetRepeatedGarbage_sync",
+      "title": "Snippet for get_repeated_garbage in GarbageService",
+      "description": "Basic snippet for get_repeated_garbage in GarbageService",
+      "file": "garbage_service/get_repeated_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_repeated_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_repeated_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::RepeatedGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::RepeatedGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetRepeatedGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetRepeatedGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetTypicalGarbage_sync",
+      "title": "Snippet for get_typical_garbage in GarbageService",
+      "description": "Basic snippet for get_typical_garbage in GarbageService",
+      "file": "garbage_service/get_typical_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_typical_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_typical_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::TypicalGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::TypicalGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetTypicalGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetTypicalGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetTypicalGarbageByRequest_sync",
+      "title": "Snippet for get_typical_garbage_by_request in GarbageService",
+      "description": "Basic snippet for get_typical_garbage_by_request in GarbageService",
+      "file": "garbage_service/get_typical_garbage_by_request.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_typical_garbage_by_request",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_typical_garbage_by_request",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::GetTypicalGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::TypicalGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetTypicalGarbageByRequest",
+          "full_name": "endless.trash.forever.GarbageService.GetTypicalGarbageByRequest",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetComplexGarbage_sync",
+      "title": "Snippet for get_complex_garbage in GarbageService",
+      "description": "Basic snippet for get_complex_garbage in GarbageService",
+      "file": "garbage_service/get_complex_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_complex_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_complex_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ComplexGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::ComplexGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetComplexGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetComplexGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetGarbageNode_sync",
+      "title": "Snippet for get_garbage_node in GarbageService",
+      "description": "Basic snippet for get_garbage_node in GarbageService",
+      "file": "garbage_service/get_garbage_node.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_garbage_node",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_garbage_node",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::GarbageNode",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::GarbageNode",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetGarbageNode",
+          "full_name": "endless.trash.forever.GarbageService.GetGarbageNode",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_GetPagedGarbage_sync",
+      "title": "Snippet for get_paged_garbage in GarbageService",
+      "description": "Basic snippet for get_paged_garbage in GarbageService",
+      "file": "garbage_service/get_paged_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_paged_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#get_paged_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::PagedGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::PagedGarbageResponse",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "GetPagedGarbage",
+          "full_name": "endless.trash.forever.GarbageService.GetPagedGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_LongRunningGarbage_sync",
+      "title": "Snippet for long_running_garbage in GarbageService",
+      "description": "Basic snippet for long_running_garbage in GarbageService",
+      "file": "garbage_service/long_running_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "long_running_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#long_running_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::LongRunningGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Longrunning::Operation",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "LongRunningGarbage",
+          "full_name": "endless.trash.forever.GarbageService.LongRunningGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 47,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_ClientGarbage_sync",
+      "title": "Snippet for client_garbage in GarbageService",
+      "description": "Basic snippet for client_garbage in GarbageService",
+      "file": "garbage_service/client_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "client_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#client_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ListGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::ListGarbageResponse",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "ClientGarbage",
+          "full_name": "endless.trash.forever.GarbageService.ClientGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 44,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_ServerGarbage_sync",
+      "title": "Snippet for server_garbage in GarbageService",
+      "description": "Basic snippet for server_garbage in GarbageService",
+      "file": "garbage_service/server_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "server_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#server_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ListGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::GarbageItem",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "ServerGarbage",
+          "full_name": "endless.trash.forever.GarbageService.ServerGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 43,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_BidiGarbage_sync",
+      "title": "Snippet for bidi_garbage in GarbageService",
+      "description": "Basic snippet for bidi_garbage in GarbageService",
+      "file": "garbage_service/bidi_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "bidi_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#bidi_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ListGarbageRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::GarbageItem",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "BidiGarbage",
+          "full_name": "endless.trash.forever.GarbageService.BidiGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_BidiTypicalGarbage_sync",
+      "title": "Snippet for bidi_typical_garbage in GarbageService",
+      "description": "Basic snippet for bidi_typical_garbage in GarbageService",
+      "file": "garbage_service/bidi_typical_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "bidi_typical_garbage",
+        "full_name": "::So::Much::Trash::GarbageService::Client#bidi_typical_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::TypicalGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::TypicalGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "BidiTypicalGarbage",
+          "full_name": "endless.trash.forever.GarbageService.BidiTypicalGarbage",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_GarbageService_Send_sync",
+      "title": "Snippet for call_send in GarbageService",
+      "description": "Basic snippet for call_send in GarbageService",
+      "file": "garbage_service/call_send.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "call_send",
+        "full_name": "::So::Much::Trash::GarbageService::Client#call_send",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::EmptyGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::EmptyGarbage",
+        "client": {
+          "short_name": "GarbageService::Client",
+          "full_name": "::So::Much::Trash::GarbageService::Client"
+        },
+        "method": {
+          "short_name": "Send",
+          "full_name": "endless.trash.forever.GarbageService.Send",
+          "service": {
+            "short_name": "GarbageService",
+            "full_name": "endless.trash.forever.GarbageService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ReallyRenamedService_GetEmptyGarbage_sync",
+      "title": "Snippet for get_empty_garbage in ReallyRenamedService",
+      "description": "Basic snippet for get_empty_garbage in ReallyRenamedService",
+      "file": "really_renamed_service/get_empty_garbage.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_empty_garbage",
+        "full_name": "::So::Much::Trash::ReallyRenamedService::Client#get_empty_garbage",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::EmptyGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::EmptyGarbage",
+        "client": {
+          "short_name": "ReallyRenamedService::Client",
+          "full_name": "::So::Much::Trash::ReallyRenamedService::Client"
+        },
+        "method": {
+          "short_name": "GetEmptyGarbage",
+          "full_name": "endless.trash.forever.RenamedService.GetEmptyGarbage",
+          "service": {
+            "short_name": "ReallyRenamedService",
+            "full_name": "endless.trash.forever.RenamedService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_DeprecatedService_DeprecatedGet_sync",
+      "title": "Snippet for deprecated_get in DeprecatedService",
+      "description": "Basic snippet for deprecated_get in DeprecatedService",
+      "file": "deprecated_service/deprecated_get.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "deprecated_get",
+        "full_name": "::So::Much::Trash::DeprecatedService::Client#deprecated_get",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::EmptyGarbage",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::EmptyGarbage",
+        "client": {
+          "short_name": "DeprecatedService::Client",
+          "full_name": "::So::Much::Trash::DeprecatedService::Client"
+        },
+        "method": {
+          "short_name": "DeprecatedGet",
+          "full_name": "endless.trash.forever.DeprecatedService.DeprecatedGet",
+          "service": {
+            "short_name": "DeprecatedService",
+            "full_name": "endless.trash.forever.DeprecatedService"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ResourceNames_SimplePatternMethod_sync",
+      "title": "Snippet for simple_pattern_method in ResourceNames",
+      "description": "Basic snippet for simple_pattern_method in ResourceNames",
+      "file": "resource_names/simple_pattern_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "simple_pattern_method",
+        "full_name": "::So::Much::Trash::ResourceNames::Client#simple_pattern_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::SimplePatternRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::Response",
+        "client": {
+          "short_name": "ResourceNames::Client",
+          "full_name": "::So::Much::Trash::ResourceNames::Client"
+        },
+        "method": {
+          "short_name": "SimplePatternMethod",
+          "full_name": "endless.trash.forever.ResourceNames.SimplePatternMethod",
+          "service": {
+            "short_name": "ResourceNames",
+            "full_name": "endless.trash.forever.ResourceNames"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ResourceNames_ComplexPatternMethod_sync",
+      "title": "Snippet for complex_pattern_method in ResourceNames",
+      "description": "Basic snippet for complex_pattern_method in ResourceNames",
+      "file": "resource_names/complex_pattern_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "complex_pattern_method",
+        "full_name": "::So::Much::Trash::ResourceNames::Client#complex_pattern_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ComplexPatternRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::Response",
+        "client": {
+          "short_name": "ResourceNames::Client",
+          "full_name": "::So::Much::Trash::ResourceNames::Client"
+        },
+        "method": {
+          "short_name": "ComplexPatternMethod",
+          "full_name": "endless.trash.forever.ResourceNames.ComplexPatternMethod",
+          "service": {
+            "short_name": "ResourceNames",
+            "full_name": "endless.trash.forever.ResourceNames"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ResourceNames_ResourceNamePatternMethod_sync",
+      "title": "Snippet for resource_name_pattern_method in ResourceNames",
+      "description": "Basic snippet for resource_name_pattern_method in ResourceNames",
+      "file": "resource_names/resource_name_pattern_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "resource_name_pattern_method",
+        "full_name": "::So::Much::Trash::ResourceNames::Client#resource_name_pattern_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::ResourceNamePatternRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::Response",
+        "client": {
+          "short_name": "ResourceNames::Client",
+          "full_name": "::So::Much::Trash::ResourceNames::Client"
+        },
+        "method": {
+          "short_name": "ResourceNamePatternMethod",
+          "full_name": "endless.trash.forever.ResourceNames.ResourceNamePatternMethod",
+          "service": {
+            "short_name": "ResourceNames",
+            "full_name": "endless.trash.forever.ResourceNames"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ResourceNames_MultiparentMethod_sync",
+      "title": "Snippet for multiparent_method in ResourceNames",
+      "description": "Basic snippet for multiparent_method in ResourceNames",
+      "file": "resource_names/multiparent_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "multiparent_method",
+        "full_name": "::So::Much::Trash::ResourceNames::Client#multiparent_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::MultiparentRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::Response",
+        "client": {
+          "short_name": "ResourceNames::Client",
+          "full_name": "::So::Much::Trash::ResourceNames::Client"
+        },
+        "method": {
+          "short_name": "MultiparentMethod",
+          "full_name": "endless.trash.forever.ResourceNames.MultiparentMethod",
+          "service": {
+            "short_name": "ResourceNames",
+            "full_name": "endless.trash.forever.ResourceNames"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_ResourceNames_NoArgumentsMultiMethod_sync",
+      "title": "Snippet for no_arguments_multi_method in ResourceNames",
+      "description": "Basic snippet for no_arguments_multi_method in ResourceNames",
+      "file": "resource_names/no_arguments_multi_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "no_arguments_multi_method",
+        "full_name": "::So::Much::Trash::ResourceNames::Client#no_arguments_multi_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::So::Much::Trash::NoArgumentsMultiRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::So::Much::Trash::Response",
+        "client": {
+          "short_name": "ResourceNames::Client",
+          "full_name": "::So::Much::Trash::ResourceNames::Client"
+        },
+        "method": {
+          "short_name": "NoArgumentsMultiMethod",
+          "full_name": "endless.trash.forever.ResourceNames.NoArgumentsMultiMethod",
+          "service": {
+            "short_name": "ResourceNames",
+            "full_name": "endless.trash.forever.ResourceNames"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_IAMPolicy_SetIamPolicy_sync",
+      "title": "Snippet for set_iam_policy in IAMPolicy",
+      "description": "Basic snippet for set_iam_policy in IAMPolicy",
+      "file": "iam_policy/set_iam_policy.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "set_iam_policy",
+        "full_name": "::So::Much::Trash::IAMPolicy::Client#set_iam_policy",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Iam::V1::SetIamPolicyRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Iam::V1::Policy",
+        "client": {
+          "short_name": "IAMPolicy::Client",
+          "full_name": "::So::Much::Trash::IAMPolicy::Client"
+        },
+        "method": {
+          "short_name": "SetIamPolicy",
+          "full_name": "google.iam.v1.IAMPolicy.SetIamPolicy",
+          "service": {
+            "short_name": "IAMPolicy",
+            "full_name": "google.iam.v1.IAMPolicy"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_IAMPolicy_GetIamPolicy_sync",
+      "title": "Snippet for get_iam_policy in IAMPolicy",
+      "description": "Basic snippet for get_iam_policy in IAMPolicy",
+      "file": "iam_policy/get_iam_policy.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_iam_policy",
+        "full_name": "::So::Much::Trash::IAMPolicy::Client#get_iam_policy",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Iam::V1::GetIamPolicyRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Iam::V1::Policy",
+        "client": {
+          "short_name": "IAMPolicy::Client",
+          "full_name": "::So::Much::Trash::IAMPolicy::Client"
+        },
+        "method": {
+          "short_name": "GetIamPolicy",
+          "full_name": "google.iam.v1.IAMPolicy.GetIamPolicy",
+          "service": {
+            "short_name": "IAMPolicy",
+            "full_name": "google.iam.v1.IAMPolicy"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "garbage_v0_generated_IAMPolicy_TestIamPermissions_sync",
+      "title": "Snippet for test_iam_permissions in IAMPolicy",
+      "description": "Basic snippet for test_iam_permissions in IAMPolicy",
+      "file": "iam_policy/test_iam_permissions.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "test_iam_permissions",
+        "full_name": "::So::Much::Trash::IAMPolicy::Client#test_iam_permissions",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Iam::V1::TestIamPermissionsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Iam::V1::TestIamPermissionsResponse",
+        "client": {
+          "short_name": "IAMPolicy::Client",
+          "full_name": "::So::Much::Trash::IAMPolicy::Client"
+        },
+        "method": {
+          "short_name": "TestIamPermissions",
+          "full_name": "google.iam.v1.IAMPolicy.TestIamPermissions",
+          "service": {
+            "short_name": "IAMPolicy",
+            "full_name": "google.iam.v1.IAMPolicy"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}

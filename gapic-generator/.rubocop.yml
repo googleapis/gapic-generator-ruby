@@ -21,9 +21,9 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Exclude:
     - lib/gapic/presenters/**/*
-    - lib/gapic/schema/loader.rb
     - test/gapic/schema/**/*_test.rb
     - test/gapic/routing_headers/**/*_test.rb
+  Max: 200
 
 Metrics/MethodLength:
   Exclude:
