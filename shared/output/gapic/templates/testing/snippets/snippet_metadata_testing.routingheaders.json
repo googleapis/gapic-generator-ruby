@@ -1,0 +1,375 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "0.0.0",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.routingheaders",
+        "version": "routingheaders"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "testing_v0_generated_ServiceNoHeaders_Plain_sync",
+      "title": "Snippet for plain in ServiceNoHeaders",
+      "description": "Basic snippet for plain in ServiceNoHeaders",
+      "file": "service_no_headers/plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain",
+        "full_name": "::Testing::RoutingHeaders::ServiceNoHeaders::Client#plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceNoHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceNoHeaders::Client"
+        },
+        "method": {
+          "short_name": "Plain",
+          "full_name": "testing.routingheaders.ServiceNoHeaders.Plain",
+          "service": {
+            "short_name": "ServiceNoHeaders",
+            "full_name": "testing.routingheaders.ServiceNoHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceImplicitHeaders_Plain_sync",
+      "title": "Snippet for plain in ServiceImplicitHeaders",
+      "description": "Basic snippet for plain in ServiceImplicitHeaders",
+      "file": "service_implicit_headers/plain.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain",
+        "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client#plain",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceImplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "Plain",
+          "full_name": "testing.routingheaders.ServiceImplicitHeaders.Plain",
+          "service": {
+            "short_name": "ServiceImplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceImplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceImplicitHeaders_WithSubMessage_sync",
+      "title": "Snippet for with_sub_message in ServiceImplicitHeaders",
+      "description": "Basic snippet for with_sub_message in ServiceImplicitHeaders",
+      "file": "service_implicit_headers/with_sub_message.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "with_sub_message",
+        "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client#with_sub_message",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceImplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "WithSubMessage",
+          "full_name": "testing.routingheaders.ServiceImplicitHeaders.WithSubMessage",
+          "service": {
+            "short_name": "ServiceImplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceImplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceImplicitHeaders_WithMultipleLevels_sync",
+      "title": "Snippet for with_multiple_levels in ServiceImplicitHeaders",
+      "description": "Basic snippet for with_multiple_levels in ServiceImplicitHeaders",
+      "file": "service_implicit_headers/with_multiple_levels.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "with_multiple_levels",
+        "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client#with_multiple_levels",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceImplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceImplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "WithMultipleLevels",
+          "full_name": "testing.routingheaders.ServiceImplicitHeaders.WithMultipleLevels",
+          "service": {
+            "short_name": "ServiceImplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceImplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainNoTemplate_sync",
+      "title": "Snippet for plain_no_template in ServiceExplicitHeaders",
+      "description": "Basic snippet for plain_no_template in ServiceExplicitHeaders",
+      "file": "service_explicit_headers/plain_no_template.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain_no_template",
+        "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_no_template",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceExplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "PlainNoTemplate",
+          "full_name": "testing.routingheaders.ServiceExplicitHeaders.PlainNoTemplate",
+          "service": {
+            "short_name": "ServiceExplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceExplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainFullField_sync",
+      "title": "Snippet for plain_full_field in ServiceExplicitHeaders",
+      "description": "Basic snippet for plain_full_field in ServiceExplicitHeaders",
+      "file": "service_explicit_headers/plain_full_field.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain_full_field",
+        "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_full_field",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceExplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "PlainFullField",
+          "full_name": "testing.routingheaders.ServiceExplicitHeaders.PlainFullField",
+          "service": {
+            "short_name": "ServiceExplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceExplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceExplicitHeaders_PlainExtract_sync",
+      "title": "Snippet for plain_extract in ServiceExplicitHeaders",
+      "description": "Basic snippet for plain_extract in ServiceExplicitHeaders",
+      "file": "service_explicit_headers/plain_extract.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain_extract",
+        "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceExplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "PlainExtract",
+          "full_name": "testing.routingheaders.ServiceExplicitHeaders.PlainExtract",
+          "service": {
+            "short_name": "ServiceExplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceExplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceExplicitHeaders_Complex_sync",
+      "title": "Snippet for complex in ServiceExplicitHeaders",
+      "description": "Basic snippet for complex in ServiceExplicitHeaders",
+      "file": "service_explicit_headers/complex.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "complex",
+        "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client#complex",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceExplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "Complex",
+          "full_name": "testing.routingheaders.ServiceExplicitHeaders.Complex",
+          "service": {
+            "short_name": "ServiceExplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceExplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceExplicitHeaders_WithSubMessage_sync",
+      "title": "Snippet for with_sub_message in ServiceExplicitHeaders",
+      "description": "Basic snippet for with_sub_message in ServiceExplicitHeaders",
+      "file": "service_explicit_headers/with_sub_message.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "with_sub_message",
+        "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client#with_sub_message",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::RoutingHeaders::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::RoutingHeaders::Response",
+        "client": {
+          "short_name": "ServiceExplicitHeaders::Client",
+          "full_name": "::Testing::RoutingHeaders::ServiceExplicitHeaders::Client"
+        },
+        "method": {
+          "short_name": "WithSubMessage",
+          "full_name": "testing.routingheaders.ServiceExplicitHeaders.WithSubMessage",
+          "service": {
+            "short_name": "ServiceExplicitHeaders",
+            "full_name": "testing.routingheaders.ServiceExplicitHeaders"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}
