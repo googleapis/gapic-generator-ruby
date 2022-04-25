@@ -39,7 +39,7 @@ module Gapic
 
       ##
       # All argument from this pattern, including ids for positional arguments
-      # @return [<Array<String>]
+      # @return [Array<String>]
       def arguments
         @segments.select(&:provides_arguments?).map(&:arguments).flatten
       end

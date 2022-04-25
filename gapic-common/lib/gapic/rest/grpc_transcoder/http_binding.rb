@@ -14,9 +14,6 @@
 
 module Gapic
   module Rest
-    # @private
-    # Transcodes a proto request message into HTTP Rest call components
-    # using a configuration of bindings
     class GrpcTranscoder
       # @private
       # A single binding for GRPC-REST transcoding of a request

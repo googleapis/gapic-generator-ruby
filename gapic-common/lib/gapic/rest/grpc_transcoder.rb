@@ -39,7 +39,7 @@ module Gapic
         end
 
         if template =~ /{([a-zA-Z_.]+)}/
-          err_name = /{([a-zA-Z_.]+)}/.match(template)[1]
+          err_name = Regexp.last_match[1]
           err_msg = "Binding configuration is incorrect: missing match configuration.\n" \
                     "Parameter `{#{err_name}}` is specified in the URI template but there is no" \
                     " corresponding match configuration for `#{err_name}`."
@@ -55,13 +55,13 @@ module Gapic
           HttpBinding::FieldBinding.new match[0], match[1]
         end
 
-        GrpcTranscoder.new @bindings << HttpBinding.new(uri_method, uri_template, field_bindings, body)
+        GrpcTranscoder.new @bindings + [HttpBinding.new(uri_method, uri_template, field_bindings, body)]
       end
 
       def transcode request
         # Using bindings in reverse here because of the "last one wins" rule
         @bindings.reverse.each do |http_binding|
-          # The main reason we are goind through request.to_json
+          # The main reason we are using request.to_json here
           # is that the unset proto3_optional fields will not be
           # in that JSON, letting us skip the checks that would look like
           #   `request.respond_to?("has_#{key}?".to_sym) && !request.send("has_#{key}?".to_sym)`
@@ -132,11 +132,12 @@ module Gapic
       def build_query_params request_hash, prefix = ""
         result = []
         request_hash.each do |key, value|
-          if value.is_a? ::Array
+          case value
+          when ::Array
             value.each do |_val|
               result.push "#{prefix}#{key}=#{value}"
             end
-          elsif value.is_a? ::Hash
+          when ::Hash
             result += build_query_params value, "#{key}."
           else
             result.push "#{prefix}#{key}=#{value}" unless value.nil?
