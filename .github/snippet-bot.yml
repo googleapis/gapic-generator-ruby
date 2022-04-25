@@ -1,0 +1,3 @@
+ignoreFiles:
+  - "*/lib/**/*.rb"
+  - "*/test/**/*.rb"
