@@ -78,11 +78,12 @@ module Gapic
       # including the regexes for `*` patterns implied
       # for the named segments without pattern explicitly specified.
       #
-      # @return [Array<Array<String>>]
+      # @return [Array<Array<String|Boolean>>]
       def routing_params_with_regexes
         @routing_params_with_regexes ||= begin
           @http.routing_params_with_patterns.map do |name, pattern|
-            [name, PathPattern.parse(pattern).to_regex_str]
+            path_pattern = PathPattern.parse(pattern)
+            [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
           end
         end
       end

@@ -90,6 +90,22 @@ namespace :gen do |namespace|
     desc "Generate the expected output for #{lib}"
     task lib do
       generate_cloud_templates lib, rest_only: true
+      lib_dir = File.expand_path File.join("expected_output", String(lib))
+      test_res_dir = File.expand_path File.join("../shared/test_resources", String(lib))
+      
+      if Dir.exists?(test_res_dir) && !Dir.empty?(test_res_dir)
+        puts "!!Overriding files after generation for #{lib} from #{test_res_dir}"
+        Dir.glob("#{test_res_dir}/*").each do |file|
+          fname = file.split("/").last
+          if File.file? file
+            puts "Copying file #{fname}"
+            FileUtils.copy_file(file, File.join(lib_dir, fname))
+          else
+            puts "Copying dir #{fname}"
+            FileUtils.copy_entry(file, File.join(lib_dir, fname))
+          end
+        end
+      end
     end
   end
 
@@ -101,16 +117,6 @@ namespace :gen do |namespace|
   desc "Generate the expected output for compute_small_wrapper"
   task :compute_small_wrapper do
     generate_cloud_templates :compute_small_wrapper, wrapper: true
-  end
-
-  desc "Copy for compute_small"
-  task :compute_small do
-    puts "Copying for compute_small"
-    Dir.glob('../shared/test_resources/compute_small/*').each do |file|
-      fname = file.split("/").last
-      puts "Copying #{fname}"
-      FileUtils.copy_file(file, "expected_output/compute_small/#{fname}")
-    end
   end
 end
 

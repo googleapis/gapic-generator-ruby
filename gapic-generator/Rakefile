@@ -177,6 +177,22 @@ namespace :gen do |namespace|
     desc "Generate the expected output for #{lib}"
     task lib do
       generate_default_templates lib
+      lib_dir = File.expand_path File.join("expected_output/templates", String(lib))
+      test_res_dir = File.expand_path File.join("../shared/test_resources", String(lib))
+      
+      if Dir.exists?(test_res_dir) && !Dir.empty?(test_res_dir)
+        puts "!!Adding/overriding files after generation for #{lib} from #{test_res_dir}"
+        Dir.glob("#{test_res_dir}/*").each do |file|
+          fname = file.split("/").last
+          if File.file? file
+            puts "Copying file #{fname}"
+            FileUtils.copy_file(file, File.join(lib_dir, fname))
+          else
+            puts "Copying dir #{fname}"
+            FileUtils.copy_entry(file, File.join(lib_dir, fname))
+          end
+        end
+      end
     end
   end
 

@@ -37,10 +37,12 @@ module Gapic
         class FieldBinding
           attr_reader :field_path
           attr_reader :regex
+          attr_reader :preserve_slashes
 
-          def initialize field_path, regex
+          def initialize field_path, regex, preserve_slashes
             @field_path = field_path
             @regex = regex
+            @preserve_slashes = preserve_slashes
           end
         end
       end

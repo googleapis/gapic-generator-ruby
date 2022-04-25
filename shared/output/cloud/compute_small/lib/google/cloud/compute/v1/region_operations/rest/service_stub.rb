@@ -213,9 +213,9 @@ module Google
                                                           uri_method: :delete,
                                                           uri_template: "/compute/v1/projects/{project}/regions/{region}/operations/{operation}",
                                                           matches: [
-                                                            ["project", %r{[^/]+}],
-                                                            ["region", %r{[^/]+}],
-                                                            ["operation", %r{[^/]+}]
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["region", %r{[^/]+}, false],
+                                                            ["operation", %r{[^/]+}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
@@ -236,9 +236,9 @@ module Google
                                                           uri_method: :get,
                                                           uri_template: "/compute/v1/projects/{project}/regions/{region}/operations/{operation}",
                                                           matches: [
-                                                            ["project", %r{[^/]+}],
-                                                            ["region", %r{[^/]+}],
-                                                            ["operation", %r{[^/]+}]
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["region", %r{[^/]+}, false],
+                                                            ["operation", %r{[^/]+}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
@@ -259,8 +259,8 @@ module Google
                                                           uri_method: :get,
                                                           uri_template: "/compute/v1/projects/{project}/regions/{region}/operations",
                                                           matches: [
-                                                            ["project", %r{[^/]+}],
-                                                            ["region", %r{[^/]+}]
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["region", %r{[^/]+}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
@@ -281,9 +281,9 @@ module Google
                                                           uri_method: :post,
                                                           uri_template: "/compute/v1/projects/{project}/regions/{region}/operations/{operation}/wait",
                                                           matches: [
-                                                            ["project", %r{[^/]+}],
-                                                            ["region", %r{[^/]+}],
-                                                            ["operation", %r{[^/]+}]
+                                                            ["project", %r{[^/]+}, false],
+                                                            ["region", %r{[^/]+}, false],
+                                                            ["operation", %r{[^/]+}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb

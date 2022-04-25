@@ -27,7 +27,7 @@ module Gapic
       def with_bindings uri_method:, uri_template:, matches: [], body: nil
         template = uri_template
 
-        matches.each do |name, _|
+        matches.each do |name, _, __|
           unless uri_template =~ /({#{Regexp.quote name}})/
             err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
                       "Parameter `#{name}` is specified for matching but there is no corresponding parameter" \
@@ -52,9 +52,8 @@ module Gapic
         end
 
         field_bindings = matches.map do |match|
-          HttpBinding::FieldBinding.new match[0], match[1]
+          HttpBinding::FieldBinding.new match[0], match[1], match[2]
         end
-
         GrpcTranscoder.new @bindings + [HttpBinding.new(uri_method, uri_template, field_bindings, body)]
       end
 
@@ -99,8 +98,21 @@ module Gapic
         http_binding.field_bindings.map do |field_binding|
           field_path_camel = field_binding.field_path.split(".").map { |part| camel_name_for part }.join(".")
           field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
+
+          if field_value
+            field_value = if field_binding.preserve_slashes
+              field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
+            else
+              percent_escape(field_value)
+            end
+          end
+
           [field_binding.field_path, field_value]
         end.to_h
+      end
+
+      def percent_escape str
+        CGI.escape(str).gsub("+", "%20")
       end
 
       def construct_body_query_params body_template, request_hash_without_uri, request
@@ -132,15 +144,16 @@ module Gapic
       def build_query_params request_hash, prefix = ""
         result = []
         request_hash.each do |key, value|
+          full_key_name = "#{prefix}#{key}"
           case value
           when ::Array
             value.each do |_val|
-              result.push "#{prefix}#{key}=#{value}"
+              result.push "#{full_key_name}=#{value}"
             end
           when ::Hash
-            result += build_query_params value, "#{key}."
+            result += build_query_params value, "#{full_key_name}."
           else
-            result.push "#{prefix}#{key}=#{value}" unless value.nil?
+            result.push "#{full_key_name}=#{value}" unless value.nil?
           end
         end
 

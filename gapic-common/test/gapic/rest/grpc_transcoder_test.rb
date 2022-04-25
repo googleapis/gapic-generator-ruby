@@ -21,7 +21,7 @@ class GrpcTranscoderTest < Minitest::Test
       transcoder = Gapic::Rest::GrpcTranscoder.new.with_bindings(
         uri_method: :patch,
         uri_template: "{name}",
-        matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}], ["foo", %r{^v1/projects/[^/]+(?:/.*)?$}]])
+        matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true], ["foo", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
     end
     assert err.message.include? "Binding configuration is incorrect: missing parameter in the URI template."
     
@@ -36,7 +36,7 @@ class GrpcTranscoderTest < Minitest::Test
     assert err.message =~ /Provided body template `.+` points to a field in a sub-message/
 
     transcoder = Gapic::Rest::GrpcTranscoder.new
-      .with_bindings(uri_method: :get, uri_template: "{name}", body: "nonexisting_name", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}]])
+      .with_bindings(uri_method: :get, uri_template: "{name}", body: "nonexisting_name", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
 
     err = assert_raises ::Gapic::Common::Error do
       # value specified in uri_template does not match any regexes
@@ -53,12 +53,12 @@ class GrpcTranscoderTest < Minitest::Test
 
   def test_uri
     transcoder = Gapic::Rest::GrpcTranscoder.new
-      .with_bindings(uri_method: :patch, uri_template: "{sub_request.name}", matches: [["sub_request.name", %r{^v1/instances/[^/]+?$}]])
+      .with_bindings(uri_method: :patch, uri_template: "{sub_request.name}", matches: [["sub_request.name", %r{^v1/instances/[^/]+?$}, true]])
       .with_bindings(
         uri_method: :patch,
         uri_template: "{name}/sub/{sub_request.name}",
-        matches: [["name", %r{^v2/projects/[^/]+(?:/.*)?$}], ["sub_request.name", %r{^instances/[^/]+?$}]])
-      .with_bindings(uri_method: :patch, uri_template: "{name}/requests/{id}", matches: [["name", %r{^v3/projects/[^/]+(?:/.*)?$}], ["id", %r{^.*$}]])
+        matches: [["name", %r{^v2/projects/[^/]+(?:/.*)?$}, true], ["sub_request.name", %r{^instances/[^/]+?$}, true]])
+      .with_bindings(uri_method: :patch, uri_template: "{name}/requests/{id}", matches: [["name", %r{^v3/projects/[^/]+(?:/.*)?$}, true], ["id", %r{^.*$}, true]])
 
     test_cases = [
       {
@@ -96,9 +96,64 @@ class GrpcTranscoderTest < Minitest::Test
     assert_transcoding_matches transcoder, test_cases
   end
 
+  def test_uri_query_string_params_deep_subrequest
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+      .with_bindings(uri_method: :patch, uri_template: "{sub_request.sub_request.name}", matches: [["sub_request.sub_request.name", %r{^v1/instances/[^/]+?$}, true]])
+
+    request = example_request(id: 14, sub_id: 114)
+    request.sub_request.sub_request = example_request(id: 214, name: "v1/instances/300")
+
+    test_cases = [
+      {
+        # This makes sure that matching in uri template works and that the prefixes are set correctly in query string parameters
+        # for deep sub-request fields
+        request: request,
+        expected: {
+          method: :patch,
+          uri: "v1/instances/300",
+          query_params: ["id=14", "name=", "subRequest.id=114", "subRequest.name=","subRequest.subRequest.id=214"],
+          body: ""
+        }
+      },
+    ]
+
+    assert_transcoding_matches transcoder, test_cases
+  end
+
+  def test_uri_escaping
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+      .with_bindings(uri_method: :patch, uri_template: "method/{name}:patch", matches: [["name", %r{^v1/instances/[^/]+?$}, false]])
+      .with_bindings(uri_method: :patch, uri_template: "method/{name}:patch", matches: [["name", %r{^v2/instances(?:/.*)?$}, true]])
+
+    test_cases = [
+      {
+        # The slashes are encoded because preserve_slashes is false in uri binding matches
+        request: example_request(id: 15, name: "v1/instances/hello world"),
+        expected: {
+          method: :patch,
+          uri: "method/v1%2Finstances%2Fhello%20world:patch",
+          query_params: ["id=15"],
+          body: ""
+        }
+      },
+      {
+        # The slashes are not encoded because preserve_slashes is true in uri binding matches
+        request: example_request(id: 16, name: "v2/instances/hello world"),
+        expected: {
+          method: :patch,
+          uri: "method/v2/instances/hello%20world:patch",
+          query_params: ["id=16"],
+          body: ""
+        }
+      },
+    ]
+
+    assert_transcoding_matches transcoder, test_cases
+  end
+
   def test_query_string_params
     transcoder = Gapic::Rest::GrpcTranscoder.new
-      .with_bindings(uri_method: :get, uri_template: "{name}", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}]])
+      .with_bindings(uri_method: :get, uri_template: "{name}", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
 
     test_cases = [
       {
@@ -140,18 +195,18 @@ class GrpcTranscoderTest < Minitest::Test
 
   def test_body
     transcoder = Gapic::Rest::GrpcTranscoder.new
-      .with_bindings(uri_method: :get, uri_template: "{name}", body: "id", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}]])
+      .with_bindings(uri_method: :get, uri_template: "{name}", body: "id", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
       .with_bindings(
         uri_method: :get,
         uri_template: "{name}/sub/{sub_request.name}",
         body: "sub_request",
-        matches: [["name", %r{^v2/projects/[^/]+(?:/.*)?$}], ["sub_request.name", %r{^instances/[^/]+?$}]])
+        matches: [["name", %r{^v2/projects/[^/]+(?:/.*)?$}, true], ["sub_request.name", %r{^instances/[^/]+?$}, true]])
       .with_bindings(
         uri_method: :get,
         body: "*",
         uri_template: "{name}/sub/{sub_request.name}",
-        matches: [["name", %r{^v3/projects/[^/]+(?:/.*)?$}], ["sub_request.name", %r{^instances/[^/]+?$}]])
-      .with_bindings(uri_method: :get, uri_template: "{name}", body: "IPProtocol", matches: [["name", %r{^v4/projects/[^/]+(?:/.*)?$}]])
+        matches: [["name", %r{^v3/projects/[^/]+(?:/.*)?$}, true], ["sub_request.name", %r{^instances/[^/]+?$}, true]])
+      .with_bindings(uri_method: :get, uri_template: "{name}", body: "IPProtocol", matches: [["name", %r{^v4/projects/[^/]+(?:/.*)?$}, true]])
 
     test_cases = [
       {
@@ -204,8 +259,8 @@ class GrpcTranscoderTest < Minitest::Test
 
   def test_last_one_wins
     transcoder = Gapic::Rest::GrpcTranscoder.new
-      .with_bindings(uri_method: :patch, uri_template: "requests/{id}:simple", matches: [["id", %r{^.*$}]])
-      .with_bindings(uri_method: :put, uri_template: "{name}", body: "id", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}]])
+      .with_bindings(uri_method: :patch, uri_template: "requests/{id}:simple", matches: [["id", %r{^.*$}, true]])
+      .with_bindings(uri_method: :put, uri_template: "{name}", body: "id", matches: [["name", %r{^v1/projects/[^/]+(?:/.*)?$}, true]])
 
     test_cases = [
       {

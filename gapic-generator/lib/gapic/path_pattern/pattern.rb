@@ -59,6 +59,13 @@ module Gapic
       end
 
       ##
+      # Whether this pattern ends with a double-star ("**")
+      # @return [Boolean]
+      def ends_with_double_star_pattern?
+        segments.last.pattern.end_with? "**"
+      end
+
+      ##
       # Converts the PathPattern into a regex string
       # @return [String]
       def to_regex_str

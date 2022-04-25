@@ -22,9 +22,10 @@ def <%= method.rest.transcoding_helper_name %> request_pb
         <% 
           param = pair[0]
           regex = pair[1]
+          preserve_slashes = pair[2]
           comma = if ix == params_num-1 then "" else "," end
         %>
-          ["<%= param %>", %r{<%= regex %>}]<%= comma %>
+          ["<%= param %>", %r{<%= regex %>}, <%= preserve_slashes %>]<%= comma %>
         <%- end -%>
       ])
   transcoder.transcode request_pb
