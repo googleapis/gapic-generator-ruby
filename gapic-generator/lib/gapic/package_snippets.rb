@@ -42,7 +42,7 @@ module Gapic
       )
       client_library_object = SnippetIndex::ClientLibrary.new(
         name: gem_name,
-        version: "0.0.0",
+        version: "",
         language: "RUBY",
         apis: [api]
       )

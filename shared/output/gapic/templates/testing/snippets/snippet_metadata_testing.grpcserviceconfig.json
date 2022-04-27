@@ -1,7 +1,7 @@
 {
   "client_library": {
     "name": "testing",
-    "version": "0.0.0",
+    "version": "",
     "language": "RUBY",
     "apis": [
       {

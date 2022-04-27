@@ -1,7 +1,7 @@
 {
   "client_library": {
     "name": "google-cloud-compute-v1",
-    "version": "0.0.0",
+    "version": "",
     "language": "RUBY",
     "apis": [
       {

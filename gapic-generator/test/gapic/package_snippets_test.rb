@@ -115,7 +115,7 @@ describe Gapic::PackageSnippets do
     expected_metadata = {
       "client_library" => {
         "name" => gem_name,
-        "version" => "0.0.0",
+        "version" => "",
         "language" => "RUBY",
         "apis" => [
           {
