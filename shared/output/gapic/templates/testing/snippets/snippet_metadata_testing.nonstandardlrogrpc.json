@@ -1,0 +1,335 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.nonstandardlrogrpc",
+        "version": "nonstandardlrogrpc"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "testing_v0_generated_PlainLroConsumer_PlainLroRpc_sync",
+      "title": "Snippet for plain_lro_rpc in PlainLroConsumer",
+      "description": "Basic snippet for plain_lro_rpc in PlainLroConsumer",
+      "file": "plain_lro_consumer/plain_lro_rpc.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain_lro_rpc",
+        "full_name": "::Testing::NonstandardLroGrpc::PlainLroConsumer::Client#plain_lro_rpc",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "PlainLroConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::PlainLroConsumer::Client"
+        },
+        "method": {
+          "short_name": "PlainLroRpc",
+          "full_name": "testing.nonstandardlrogrpc.PlainLroConsumer.PlainLroRpc",
+          "service": {
+            "short_name": "PlainLroConsumer",
+            "full_name": "testing.nonstandardlrogrpc.PlainLroConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_PlainLroProvider_Get_sync",
+      "title": "Snippet for get in PlainLroProvider",
+      "description": "Basic snippet for get in PlainLroProvider",
+      "file": "plain_lro_provider/get.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get",
+        "full_name": "::Testing::NonstandardLroGrpc::PlainLroProvider::Client#get",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::LroGetRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "PlainLroProvider::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::PlainLroProvider::Client"
+        },
+        "method": {
+          "short_name": "Get",
+          "full_name": "testing.nonstandardlrogrpc.PlainLroProvider.Get",
+          "service": {
+            "short_name": "PlainLroProvider",
+            "full_name": "testing.nonstandardlrogrpc.PlainLroProvider"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AnotherLroProvider_GetAnother_sync",
+      "title": "Snippet for get_another in AnotherLroProvider",
+      "description": "Basic snippet for get_another in AnotherLroProvider",
+      "file": "another_lro_provider/get_another.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_another",
+        "full_name": "::Testing::NonstandardLroGrpc::AnotherLroProvider::Client#get_another",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::LroAnotherGetRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "AnotherLroProvider::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AnotherLroProvider::Client"
+        },
+        "method": {
+          "short_name": "GetAnother",
+          "full_name": "testing.nonstandardlrogrpc.AnotherLroProvider.GetAnother",
+          "service": {
+            "short_name": "AnotherLroProvider",
+            "full_name": "testing.nonstandardlrogrpc.AnotherLroProvider"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AllSubclientsConsumer_PlainLroRpc_sync",
+      "title": "Snippet for plain_lro_rpc in AllSubclientsConsumer",
+      "description": "Basic snippet for plain_lro_rpc in AllSubclientsConsumer",
+      "file": "all_subclients_consumer/plain_lro_rpc.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "plain_lro_rpc",
+        "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#plain_lro_rpc",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "AllSubclientsConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client"
+        },
+        "method": {
+          "short_name": "PlainLroRpc",
+          "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer.PlainLroRpc",
+          "service": {
+            "short_name": "AllSubclientsConsumer",
+            "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AllSubclientsConsumer_AnotherLroRpc_sync",
+      "title": "Snippet for another_lro_rpc in AllSubclientsConsumer",
+      "description": "Basic snippet for another_lro_rpc in AllSubclientsConsumer",
+      "file": "all_subclients_consumer/another_lro_rpc.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "another_lro_rpc",
+        "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#another_lro_rpc",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::AnotherRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "AllSubclientsConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client"
+        },
+        "method": {
+          "short_name": "AnotherLroRpc",
+          "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer.AnotherLroRpc",
+          "service": {
+            "short_name": "AllSubclientsConsumer",
+            "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AllSubclientsConsumer_NonCopyAnotherLroRpc_sync",
+      "title": "Snippet for non_copy_another_lro_rpc in AllSubclientsConsumer",
+      "description": "Basic snippet for non_copy_another_lro_rpc in AllSubclientsConsumer",
+      "file": "all_subclients_consumer/non_copy_another_lro_rpc.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "non_copy_another_lro_rpc",
+        "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#non_copy_another_lro_rpc",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::NonCopyRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::NonstandardOperation",
+        "client": {
+          "short_name": "AllSubclientsConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client"
+        },
+        "method": {
+          "short_name": "NonCopyAnotherLroRpc",
+          "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer.NonCopyAnotherLroRpc",
+          "service": {
+            "short_name": "AllSubclientsConsumer",
+            "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AllSubclientsConsumer_AipLRO_sync",
+      "title": "Snippet for aip_lro in AllSubclientsConsumer",
+      "description": "Basic snippet for aip_lro in AllSubclientsConsumer",
+      "file": "all_subclients_consumer/aip_lro.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "aip_lro",
+        "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#aip_lro",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Longrunning::Operation",
+        "client": {
+          "short_name": "AllSubclientsConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client"
+        },
+        "method": {
+          "short_name": "AipLRO",
+          "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer.AipLRO",
+          "service": {
+            "short_name": "AllSubclientsConsumer",
+            "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 47,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_AllSubclientsConsumer_NoLRO_sync",
+      "title": "Snippet for no_lro in AllSubclientsConsumer",
+      "description": "Basic snippet for no_lro in AllSubclientsConsumer",
+      "file": "all_subclients_consumer/no_lro.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "no_lro",
+        "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#no_lro",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::NonstandardLroGrpc::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::NonstandardLroGrpc::Response",
+        "client": {
+          "short_name": "AllSubclientsConsumer::Client",
+          "full_name": "::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client"
+        },
+        "method": {
+          "short_name": "NoLRO",
+          "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer.NoLRO",
+          "service": {
+            "short_name": "AllSubclientsConsumer",
+            "full_name": "testing.nonstandardlrogrpc.AllSubclientsConsumer"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}

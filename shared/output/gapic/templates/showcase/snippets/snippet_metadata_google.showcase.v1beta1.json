@@ -1,0 +1,1375 @@
+{
+  "client_library": {
+    "name": "google-showcase",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "google.showcase.v1beta1",
+        "version": "v1beta1"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "showcase_v0_generated_Echo_Echo_sync",
+      "title": "Snippet for echo in Echo",
+      "description": "Basic snippet for echo in Echo",
+      "file": "echo/echo.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "echo",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#echo",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EchoRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EchoResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Echo",
+          "full_name": "google.showcase.v1beta1.Echo.Echo",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_Expand_sync",
+      "title": "Snippet for expand in Echo",
+      "description": "Basic snippet for expand in Echo",
+      "file": "echo/expand.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "expand",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#expand",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ExpandRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EchoResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Expand",
+          "full_name": "google.showcase.v1beta1.Echo.Expand",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 43,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_Collect_sync",
+      "title": "Snippet for collect in Echo",
+      "description": "Basic snippet for collect in Echo",
+      "file": "echo/collect.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "collect",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#collect",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EchoRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EchoResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Collect",
+          "full_name": "google.showcase.v1beta1.Echo.Collect",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 44,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_Chat_sync",
+      "title": "Snippet for chat in Echo",
+      "description": "Basic snippet for chat in Echo",
+      "file": "echo/chat.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "chat",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#chat",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::EchoRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::EchoResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Chat",
+          "full_name": "google.showcase.v1beta1.Echo.Chat",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_PagedExpand_sync",
+      "title": "Snippet for paged_expand in Echo",
+      "description": "Basic snippet for paged_expand in Echo",
+      "file": "echo/paged_expand.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "paged_expand",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#paged_expand",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::PagedExpandRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::PagedExpandResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "PagedExpand",
+          "full_name": "google.showcase.v1beta1.Echo.PagedExpand",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_Wait_sync",
+      "title": "Snippet for wait in Echo",
+      "description": "Basic snippet for wait in Echo",
+      "file": "echo/wait.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "wait",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#wait",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::WaitRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Longrunning::Operation",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Wait",
+          "full_name": "google.showcase.v1beta1.Echo.Wait",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 47,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Echo_Block_sync",
+      "title": "Snippet for block in Echo",
+      "description": "Basic snippet for block in Echo",
+      "file": "echo/block.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "block",
+        "full_name": "::Google::Showcase::V1beta1::Echo::Client#block",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::BlockRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::BlockResponse",
+        "client": {
+          "short_name": "Echo::Client",
+          "full_name": "::Google::Showcase::V1beta1::Echo::Client"
+        },
+        "method": {
+          "short_name": "Block",
+          "full_name": "google.showcase.v1beta1.Echo.Block",
+          "service": {
+            "short_name": "Echo",
+            "full_name": "google.showcase.v1beta1.Echo"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Identity_CreateUser_sync",
+      "title": "Snippet for create_user in Identity",
+      "description": "Basic snippet for create_user in Identity",
+      "file": "identity/create_user.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_user",
+        "full_name": "::Google::Showcase::V1beta1::Identity::Client#create_user",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateUserRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::User",
+        "client": {
+          "short_name": "Identity::Client",
+          "full_name": "::Google::Showcase::V1beta1::Identity::Client"
+        },
+        "method": {
+          "short_name": "CreateUser",
+          "full_name": "google.showcase.v1beta1.Identity.CreateUser",
+          "service": {
+            "short_name": "Identity",
+            "full_name": "google.showcase.v1beta1.Identity"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Identity_GetUser_sync",
+      "title": "Snippet for get_user in Identity",
+      "description": "Basic snippet for get_user in Identity",
+      "file": "identity/get_user.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_user",
+        "full_name": "::Google::Showcase::V1beta1::Identity::Client#get_user",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetUserRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::User",
+        "client": {
+          "short_name": "Identity::Client",
+          "full_name": "::Google::Showcase::V1beta1::Identity::Client"
+        },
+        "method": {
+          "short_name": "GetUser",
+          "full_name": "google.showcase.v1beta1.Identity.GetUser",
+          "service": {
+            "short_name": "Identity",
+            "full_name": "google.showcase.v1beta1.Identity"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Identity_UpdateUser_sync",
+      "title": "Snippet for update_user in Identity",
+      "description": "Basic snippet for update_user in Identity",
+      "file": "identity/update_user.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "update_user",
+        "full_name": "::Google::Showcase::V1beta1::Identity::Client#update_user",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::UpdateUserRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::User",
+        "client": {
+          "short_name": "Identity::Client",
+          "full_name": "::Google::Showcase::V1beta1::Identity::Client"
+        },
+        "method": {
+          "short_name": "UpdateUser",
+          "full_name": "google.showcase.v1beta1.Identity.UpdateUser",
+          "service": {
+            "short_name": "Identity",
+            "full_name": "google.showcase.v1beta1.Identity"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Identity_DeleteUser_sync",
+      "title": "Snippet for delete_user in Identity",
+      "description": "Basic snippet for delete_user in Identity",
+      "file": "identity/delete_user.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete_user",
+        "full_name": "::Google::Showcase::V1beta1::Identity::Client#delete_user",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::DeleteUserRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "Identity::Client",
+          "full_name": "::Google::Showcase::V1beta1::Identity::Client"
+        },
+        "method": {
+          "short_name": "DeleteUser",
+          "full_name": "google.showcase.v1beta1.Identity.DeleteUser",
+          "service": {
+            "short_name": "Identity",
+            "full_name": "google.showcase.v1beta1.Identity"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Identity_ListUsers_sync",
+      "title": "Snippet for list_users in Identity",
+      "description": "Basic snippet for list_users in Identity",
+      "file": "identity/list_users.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_users",
+        "full_name": "::Google::Showcase::V1beta1::Identity::Client#list_users",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ListUsersRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ListUsersResponse",
+        "client": {
+          "short_name": "Identity::Client",
+          "full_name": "::Google::Showcase::V1beta1::Identity::Client"
+        },
+        "method": {
+          "short_name": "ListUsers",
+          "full_name": "google.showcase.v1beta1.Identity.ListUsers",
+          "service": {
+            "short_name": "Identity",
+            "full_name": "google.showcase.v1beta1.Identity"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_CreateRoom_sync",
+      "title": "Snippet for create_room in Messaging",
+      "description": "Basic snippet for create_room in Messaging",
+      "file": "messaging/create_room.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_room",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#create_room",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateRoomRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Room",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "CreateRoom",
+          "full_name": "google.showcase.v1beta1.Messaging.CreateRoom",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_GetRoom_sync",
+      "title": "Snippet for get_room in Messaging",
+      "description": "Basic snippet for get_room in Messaging",
+      "file": "messaging/get_room.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_room",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#get_room",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetRoomRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Room",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "GetRoom",
+          "full_name": "google.showcase.v1beta1.Messaging.GetRoom",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_UpdateRoom_sync",
+      "title": "Snippet for update_room in Messaging",
+      "description": "Basic snippet for update_room in Messaging",
+      "file": "messaging/update_room.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "update_room",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#update_room",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::UpdateRoomRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Room",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "UpdateRoom",
+          "full_name": "google.showcase.v1beta1.Messaging.UpdateRoom",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_DeleteRoom_sync",
+      "title": "Snippet for delete_room in Messaging",
+      "description": "Basic snippet for delete_room in Messaging",
+      "file": "messaging/delete_room.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete_room",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#delete_room",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::DeleteRoomRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "DeleteRoom",
+          "full_name": "google.showcase.v1beta1.Messaging.DeleteRoom",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_ListRooms_sync",
+      "title": "Snippet for list_rooms in Messaging",
+      "description": "Basic snippet for list_rooms in Messaging",
+      "file": "messaging/list_rooms.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_rooms",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#list_rooms",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ListRoomsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ListRoomsResponse",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "ListRooms",
+          "full_name": "google.showcase.v1beta1.Messaging.ListRooms",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_CreateBlurb_sync",
+      "title": "Snippet for create_blurb in Messaging",
+      "description": "Basic snippet for create_blurb in Messaging",
+      "file": "messaging/create_blurb.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_blurb",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#create_blurb",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateBlurbRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Blurb",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "CreateBlurb",
+          "full_name": "google.showcase.v1beta1.Messaging.CreateBlurb",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_GetBlurb_sync",
+      "title": "Snippet for get_blurb in Messaging",
+      "description": "Basic snippet for get_blurb in Messaging",
+      "file": "messaging/get_blurb.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_blurb",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#get_blurb",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetBlurbRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Blurb",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "GetBlurb",
+          "full_name": "google.showcase.v1beta1.Messaging.GetBlurb",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_UpdateBlurb_sync",
+      "title": "Snippet for update_blurb in Messaging",
+      "description": "Basic snippet for update_blurb in Messaging",
+      "file": "messaging/update_blurb.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "update_blurb",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#update_blurb",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::UpdateBlurbRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Blurb",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "UpdateBlurb",
+          "full_name": "google.showcase.v1beta1.Messaging.UpdateBlurb",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_DeleteBlurb_sync",
+      "title": "Snippet for delete_blurb in Messaging",
+      "description": "Basic snippet for delete_blurb in Messaging",
+      "file": "messaging/delete_blurb.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete_blurb",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#delete_blurb",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::DeleteBlurbRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "DeleteBlurb",
+          "full_name": "google.showcase.v1beta1.Messaging.DeleteBlurb",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_ListBlurbs_sync",
+      "title": "Snippet for list_blurbs in Messaging",
+      "description": "Basic snippet for list_blurbs in Messaging",
+      "file": "messaging/list_blurbs.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_blurbs",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#list_blurbs",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ListBlurbsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ListBlurbsResponse",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "ListBlurbs",
+          "full_name": "google.showcase.v1beta1.Messaging.ListBlurbs",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_SearchBlurbs_sync",
+      "title": "Snippet for search_blurbs in Messaging",
+      "description": "Basic snippet for search_blurbs in Messaging",
+      "file": "messaging/search_blurbs.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "search_blurbs",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#search_blurbs",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::SearchBlurbsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Longrunning::Operation",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "SearchBlurbs",
+          "full_name": "google.showcase.v1beta1.Messaging.SearchBlurbs",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 47,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_StreamBlurbs_sync",
+      "title": "Snippet for stream_blurbs in Messaging",
+      "description": "Basic snippet for stream_blurbs in Messaging",
+      "file": "messaging/stream_blurbs.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "stream_blurbs",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#stream_blurbs",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::StreamBlurbsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::StreamBlurbsResponse",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "StreamBlurbs",
+          "full_name": "google.showcase.v1beta1.Messaging.StreamBlurbs",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 43,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_SendBlurbs_sync",
+      "title": "Snippet for send_blurbs in Messaging",
+      "description": "Basic snippet for send_blurbs in Messaging",
+      "file": "messaging/send_blurbs.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "send_blurbs",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#send_blurbs",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateBlurbRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::SendBlurbsResponse",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "SendBlurbs",
+          "full_name": "google.showcase.v1beta1.Messaging.SendBlurbs",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 44,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Messaging_Connect_sync",
+      "title": "Snippet for connect in Messaging",
+      "description": "Basic snippet for connect in Messaging",
+      "file": "messaging/connect.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "connect",
+        "full_name": "::Google::Showcase::V1beta1::Messaging::Client#connect",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ConnectRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::StreamBlurbsResponse",
+        "client": {
+          "short_name": "Messaging::Client",
+          "full_name": "::Google::Showcase::V1beta1::Messaging::Client"
+        },
+        "method": {
+          "short_name": "Connect",
+          "full_name": "google.showcase.v1beta1.Messaging.Connect",
+          "service": {
+            "short_name": "Messaging",
+            "full_name": "google.showcase.v1beta1.Messaging"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 49,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_CreateSession_sync",
+      "title": "Snippet for create_session in Testing",
+      "description": "Basic snippet for create_session in Testing",
+      "file": "testing/create_session.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "create_session",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#create_session",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::CreateSessionRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Session",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "CreateSession",
+          "full_name": "google.showcase.v1beta1.Testing.CreateSession",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_GetSession_sync",
+      "title": "Snippet for get_session in Testing",
+      "description": "Basic snippet for get_session in Testing",
+      "file": "testing/get_session.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get_session",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#get_session",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::GetSessionRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::Session",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "GetSession",
+          "full_name": "google.showcase.v1beta1.Testing.GetSession",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_ListSessions_sync",
+      "title": "Snippet for list_sessions in Testing",
+      "description": "Basic snippet for list_sessions in Testing",
+      "file": "testing/list_sessions.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_sessions",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#list_sessions",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ListSessionsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ListSessionsResponse",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "ListSessions",
+          "full_name": "google.showcase.v1beta1.Testing.ListSessions",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_DeleteSession_sync",
+      "title": "Snippet for delete_session in Testing",
+      "description": "Basic snippet for delete_session in Testing",
+      "file": "testing/delete_session.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete_session",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#delete_session",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::DeleteSessionRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "DeleteSession",
+          "full_name": "google.showcase.v1beta1.Testing.DeleteSession",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_ReportSession_sync",
+      "title": "Snippet for report_session in Testing",
+      "description": "Basic snippet for report_session in Testing",
+      "file": "testing/report_session.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "report_session",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#report_session",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ReportSessionRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ReportSessionResponse",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "ReportSession",
+          "full_name": "google.showcase.v1beta1.Testing.ReportSession",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_ListTests_sync",
+      "title": "Snippet for list_tests in Testing",
+      "description": "Basic snippet for list_tests in Testing",
+      "file": "testing/list_tests.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_tests",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#list_tests",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::ListTestsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::ListTestsResponse",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "ListTests",
+          "full_name": "google.showcase.v1beta1.Testing.ListTests",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 46,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_DeleteTest_sync",
+      "title": "Snippet for delete_test in Testing",
+      "description": "Basic snippet for delete_test in Testing",
+      "file": "testing/delete_test.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete_test",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#delete_test",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::DeleteTestRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Protobuf::Empty",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "DeleteTest",
+          "full_name": "google.showcase.v1beta1.Testing.DeleteTest",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Testing_VerifyTest_sync",
+      "title": "Snippet for verify_test in Testing",
+      "description": "Basic snippet for verify_test in Testing",
+      "file": "testing/verify_test.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "verify_test",
+        "full_name": "::Google::Showcase::V1beta1::Testing::Client#verify_test",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::VerifyTestRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::VerifyTestResponse",
+        "client": {
+          "short_name": "Testing::Client",
+          "full_name": "::Google::Showcase::V1beta1::Testing::Client"
+        },
+        "method": {
+          "short_name": "VerifyTest",
+          "full_name": "google.showcase.v1beta1.Testing.VerifyTest",
+          "service": {
+            "short_name": "Testing",
+            "full_name": "google.showcase.v1beta1.Testing"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.grpcserviceconfig",
+        "version": "grpcserviceconfig"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "testing_v0_generated_ServiceNoRetry_NoRetryMethod_sync",
+      "title": "Snippet for no_retry_method in ServiceNoRetry",
+      "description": "Basic snippet for no_retry_method in ServiceNoRetry",
+      "file": "service_no_retry/no_retry_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "no_retry_method",
+        "full_name": "::Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::GrpcServiceConfig::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::GrpcServiceConfig::Response",
+        "client": {
+          "short_name": "ServiceNoRetry::Client",
+          "full_name": "::Testing::GrpcServiceConfig::ServiceNoRetry::Client"
+        },
+        "method": {
+          "short_name": "NoRetryMethod",
+          "full_name": "testing.grpcserviceconfig.ServiceNoRetry.NoRetryMethod",
+          "service": {
+            "short_name": "ServiceNoRetry",
+            "full_name": "testing.grpcserviceconfig.ServiceNoRetry"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceWithRetries_ServiceLevelRetryMethod_sync",
+      "title": "Snippet for service_level_retry_method in ServiceWithRetries",
+      "description": "Basic snippet for service_level_retry_method in ServiceWithRetries",
+      "file": "service_with_retries/service_level_retry_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "service_level_retry_method",
+        "full_name": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::GrpcServiceConfig::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::GrpcServiceConfig::Response",
+        "client": {
+          "short_name": "ServiceWithRetries::Client",
+          "full_name": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client"
+        },
+        "method": {
+          "short_name": "ServiceLevelRetryMethod",
+          "full_name": "testing.grpcserviceconfig.ServiceWithRetries.ServiceLevelRetryMethod",
+          "service": {
+            "short_name": "ServiceWithRetries",
+            "full_name": "testing.grpcserviceconfig.ServiceWithRetries"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "testing_v0_generated_ServiceWithRetries_MethodLevelRetryMethod_sync",
+      "title": "Snippet for method_level_retry_method in ServiceWithRetries",
+      "description": "Basic snippet for method_level_retry_method in ServiceWithRetries",
+      "file": "service_with_retries/method_level_retry_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "method_level_retry_method",
+        "full_name": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client#method_level_retry_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::GrpcServiceConfig::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::GrpcServiceConfig::Response",
+        "client": {
+          "short_name": "ServiceWithRetries::Client",
+          "full_name": "::Testing::GrpcServiceConfig::ServiceWithRetries::Client"
+        },
+        "method": {
+          "short_name": "MethodLevelRetryMethod",
+          "full_name": "testing.grpcserviceconfig.ServiceWithRetries.MethodLevelRetryMethod",
+          "service": {
+            "short_name": "ServiceWithRetries",
+            "full_name": "testing.grpcserviceconfig.ServiceWithRetries"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}

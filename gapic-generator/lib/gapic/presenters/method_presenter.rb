@@ -82,6 +82,18 @@ module Gapic
         end
       end
 
+      # Proto name of the method (PascalCase)
+      # @return [String]
+      def grpc_name
+        @method.name
+      end
+
+      # Fully qualified proto name of the method (namespace.PascalCase)
+      # @return [String]
+      def grpc_full_name
+        @method.full_name
+      end
+
       def kind
         if client_streaming?
           if server_streaming?

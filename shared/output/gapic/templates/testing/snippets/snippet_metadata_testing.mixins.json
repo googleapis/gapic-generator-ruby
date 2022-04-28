@@ -1,0 +1,55 @@
+{
+  "client_library": {
+    "name": "testing",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "testing.mixins",
+        "version": "mixins"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "testing_v0_generated_ServiceWithLoc_Method_sync",
+      "title": "Snippet for call_method in ServiceWithLoc",
+      "description": "Basic snippet for call_method in ServiceWithLoc",
+      "file": "service_with_loc/call_method.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "call_method",
+        "full_name": "::Testing::Mixins::ServiceWithLoc::Client#call_method",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Testing::Mixins::Request",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Testing::Mixins::Response",
+        "client": {
+          "short_name": "ServiceWithLoc::Client",
+          "full_name": "::Testing::Mixins::ServiceWithLoc::Client"
+        },
+        "method": {
+          "short_name": "Method",
+          "full_name": "testing.mixins.ServiceWithLoc.Method",
+          "service": {
+            "short_name": "ServiceWithLoc",
+            "full_name": "testing.mixins.ServiceWithLoc"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}
