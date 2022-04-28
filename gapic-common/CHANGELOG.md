@@ -1,5 +1,9 @@
 # Release History
 
+### 0.6.1 / 2022-04-28
+
+* Fixed permissions for some files
+
 ### 0.6.0 / 2021-07-22
 
 * Added helper for REST pagination
