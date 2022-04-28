@@ -1,0 +1,575 @@
+{
+  "client_library": {
+    "name": "google-cloud-compute-v1",
+    "version": "",
+    "language": "RUBY",
+    "apis": [
+      {
+        "id": "google.cloud.compute.v1",
+        "version": "v1"
+      }
+    ]
+  },
+  "snippets": [
+    {
+      "region_tag": "compute_v1_generated_Addresses_AggregatedList_sync",
+      "title": "Snippet for aggregated_list in Addresses",
+      "description": "Basic snippet for aggregated_list in Addresses",
+      "file": "addresses/aggregated_list.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "aggregated_list",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#aggregated_list",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::AggregatedListAddressesRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::AddressAggregatedList",
+        "client": {
+          "short_name": "Addresses::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+        },
+        "method": {
+          "short_name": "AggregatedList",
+          "full_name": "google.cloud.compute.v1.Addresses.AggregatedList",
+          "service": {
+            "short_name": "Addresses",
+            "full_name": "google.cloud.compute.v1.Addresses"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Addresses_Delete_sync",
+      "title": "Snippet for delete in Addresses",
+      "description": "Basic snippet for delete in Addresses",
+      "file": "addresses/delete.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#delete",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::DeleteAddressRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "Addresses::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+        },
+        "method": {
+          "short_name": "Delete",
+          "full_name": "google.cloud.compute.v1.Addresses.Delete",
+          "service": {
+            "short_name": "Addresses",
+            "full_name": "google.cloud.compute.v1.Addresses"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Addresses_Get_sync",
+      "title": "Snippet for get in Addresses",
+      "description": "Basic snippet for get in Addresses",
+      "file": "addresses/get.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#get",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::GetAddressRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Address",
+        "client": {
+          "short_name": "Addresses::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+        },
+        "method": {
+          "short_name": "Get",
+          "full_name": "google.cloud.compute.v1.Addresses.Get",
+          "service": {
+            "short_name": "Addresses",
+            "full_name": "google.cloud.compute.v1.Addresses"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Addresses_Insert_sync",
+      "title": "Snippet for insert in Addresses",
+      "description": "Basic snippet for insert in Addresses",
+      "file": "addresses/insert.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "insert",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#insert",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::InsertAddressRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "Addresses::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+        },
+        "method": {
+          "short_name": "Insert",
+          "full_name": "google.cloud.compute.v1.Addresses.Insert",
+          "service": {
+            "short_name": "Addresses",
+            "full_name": "google.cloud.compute.v1.Addresses"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Addresses_List_sync",
+      "title": "Snippet for list in Addresses",
+      "description": "Basic snippet for list in Addresses",
+      "file": "addresses/list.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list",
+        "full_name": "::Google::Cloud::Compute::V1::Addresses::Client#list",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::ListAddressesRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::AddressList",
+        "client": {
+          "short_name": "Addresses::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Addresses::Client"
+        },
+        "method": {
+          "short_name": "List",
+          "full_name": "google.cloud.compute.v1.Addresses.List",
+          "service": {
+            "short_name": "Addresses",
+            "full_name": "google.cloud.compute.v1.Addresses"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_RegionOperations_Delete_sync",
+      "title": "Snippet for delete in RegionOperations",
+      "description": "Basic snippet for delete in RegionOperations",
+      "file": "region_operations/delete.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#delete",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::DeleteRegionOperationRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::DeleteRegionOperationResponse",
+        "client": {
+          "short_name": "RegionOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+        },
+        "method": {
+          "short_name": "Delete",
+          "full_name": "google.cloud.compute.v1.RegionOperations.Delete",
+          "service": {
+            "short_name": "RegionOperations",
+            "full_name": "google.cloud.compute.v1.RegionOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_RegionOperations_Get_sync",
+      "title": "Snippet for get in RegionOperations",
+      "description": "Basic snippet for get in RegionOperations",
+      "file": "region_operations/get.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#get",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::GetRegionOperationRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "RegionOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+        },
+        "method": {
+          "short_name": "Get",
+          "full_name": "google.cloud.compute.v1.RegionOperations.Get",
+          "service": {
+            "short_name": "RegionOperations",
+            "full_name": "google.cloud.compute.v1.RegionOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_RegionOperations_List_sync",
+      "title": "Snippet for list in RegionOperations",
+      "description": "Basic snippet for list in RegionOperations",
+      "file": "region_operations/list.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#list",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::ListRegionOperationsRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::OperationList",
+        "client": {
+          "short_name": "RegionOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+        },
+        "method": {
+          "short_name": "List",
+          "full_name": "google.cloud.compute.v1.RegionOperations.List",
+          "service": {
+            "short_name": "RegionOperations",
+            "full_name": "google.cloud.compute.v1.RegionOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_RegionOperations_Wait_sync",
+      "title": "Snippet for wait in RegionOperations",
+      "description": "Basic snippet for wait in RegionOperations",
+      "file": "region_operations/wait.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "wait",
+        "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client#wait",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::WaitRegionOperationRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "RegionOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionOperations::Client"
+        },
+        "method": {
+          "short_name": "Wait",
+          "full_name": "google.cloud.compute.v1.RegionOperations.Wait",
+          "service": {
+            "short_name": "RegionOperations",
+            "full_name": "google.cloud.compute.v1.RegionOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_RegionInstanceGroupManagers_Resize_sync",
+      "title": "Snippet for resize in RegionInstanceGroupManagers",
+      "description": "Basic snippet for resize in RegionInstanceGroupManagers",
+      "file": "region_instance_group_managers/resize.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "resize",
+        "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client#resize",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "RegionInstanceGroupManagers::Client",
+          "full_name": "::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client"
+        },
+        "method": {
+          "short_name": "Resize",
+          "full_name": "google.cloud.compute.v1.RegionInstanceGroupManagers.Resize",
+          "service": {
+            "short_name": "RegionInstanceGroupManagers",
+            "full_name": "google.cloud.compute.v1.RegionInstanceGroupManagers"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Networks_ListPeeringRoutes_sync",
+      "title": "Snippet for list_peering_routes in Networks",
+      "description": "Basic snippet for list_peering_routes in Networks",
+      "file": "networks/list_peering_routes.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "list_peering_routes",
+        "full_name": "::Google::Cloud::Compute::V1::Networks::Client#list_peering_routes",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::ExchangedPeeringRoutesList",
+        "client": {
+          "short_name": "Networks::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Networks::Client"
+        },
+        "method": {
+          "short_name": "ListPeeringRoutes",
+          "full_name": "google.cloud.compute.v1.Networks.ListPeeringRoutes",
+          "service": {
+            "short_name": "Networks",
+            "full_name": "google.cloud.compute.v1.Networks"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_Networks_RemovePeering_sync",
+      "title": "Snippet for remove_peering in Networks",
+      "description": "Basic snippet for remove_peering in Networks",
+      "file": "networks/remove_peering.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "remove_peering",
+        "full_name": "::Google::Cloud::Compute::V1::Networks::Client#remove_peering",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "Networks::Client",
+          "full_name": "::Google::Cloud::Compute::V1::Networks::Client"
+        },
+        "method": {
+          "short_name": "RemovePeering",
+          "full_name": "google.cloud.compute.v1.Networks.RemovePeering",
+          "service": {
+            "short_name": "Networks",
+            "full_name": "google.cloud.compute.v1.Networks"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_GlobalOperations_Delete_sync",
+      "title": "Snippet for delete in GlobalOperations",
+      "description": "Basic snippet for delete in GlobalOperations",
+      "file": "global_operations/delete.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "delete",
+        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client#delete",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse",
+        "client": {
+          "short_name": "GlobalOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client"
+        },
+        "method": {
+          "short_name": "Delete",
+          "full_name": "google.cloud.compute.v1.GlobalOperations.Delete",
+          "service": {
+            "short_name": "GlobalOperations",
+            "full_name": "google.cloud.compute.v1.GlobalOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "compute_v1_generated_GlobalOperations_Get_sync",
+      "title": "Snippet for get in GlobalOperations",
+      "description": "Basic snippet for get in GlobalOperations",
+      "file": "global_operations/get.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "get",
+        "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client#get",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Cloud::Compute::V1::GetGlobalOperationRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Cloud::Compute::V1::Operation",
+        "client": {
+          "short_name": "GlobalOperations::Client",
+          "full_name": "::Google::Cloud::Compute::V1::GlobalOperations::Client"
+        },
+        "method": {
+          "short_name": "Get",
+          "full_name": "google.cloud.compute.v1.GlobalOperations.Get",
+          "service": {
+            "short_name": "GlobalOperations",
+            "full_name": "google.cloud.compute.v1.GlobalOperations"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 20,
+          "end": 32,
+          "type": "FULL"
+        }
+      ]
+    }
+  ]
+}
