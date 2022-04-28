@@ -1,0 +1,26 @@
+name: Prepare Generator Release
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: "Extra command line arguments."
+        required: false
+
+jobs:
+  release-generators:
+    if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Install Ruby 2.6
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+      - name: Install tools
+        run: "gem install --no-document toys"
+      - name: execute
+        run: |
+          toys release generators -v ${{ github.event.inputs.args }}
