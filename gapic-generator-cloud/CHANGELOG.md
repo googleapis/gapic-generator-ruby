@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.12.0 / 2022-04-29
+
+* Includes changes from gapic-generator 0.12.0
+* Feature: Generate snippet metadata files
+
 ### 0.11.1 / 2022-04-06
 
 * Includes changes from gapic-generator 0.11.1

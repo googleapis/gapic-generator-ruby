@@ -1,36 +1,36 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.11.1)
+    gapic-generator (0.12.0)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.11.1)
+    gapic-generator-cloud (0.12.0)
       actionpack (~> 5.2)
-      gapic-generator (= 0.11.1)
+      gapic-generator (= 0.12.0)
       google-style (~> 1.25.1)
       protobuf (~> 3.8)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (5.2.7)
-      actionview (= 5.2.7)
-      activesupport (= 5.2.7)
+    actionpack (5.2.7.1)
+      actionview (= 5.2.7.1)
+      activesupport (= 5.2.7.1)
       rack (~> 2.0, >= 2.0.8)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.2.7)
-      activesupport (= 5.2.7)
+    actionview (5.2.7.1)
+      activesupport (= 5.2.7.1)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activesupport (5.2.7)
+    activesupport (5.2.7.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -46,7 +46,7 @@ GEM
     grpc-tools (1.41.1)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    loofah (2.16.0)
+    loofah (2.17.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
@@ -67,7 +67,7 @@ GEM
     parser (3.1.2.0)
       ast (~> 2.4.1)
     path_expander (1.1.0)
-    protobuf (3.10.5)
+    protobuf (3.10.6)
       activesupport (>= 3.2)
       middleware
       thor
@@ -86,9 +86,9 @@ GEM
       loofah (~> 2.3)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.3.0)
+    regexp_parser (2.3.1)
     rexml (3.2.5)
-    rubocop (1.28.1)
+    rubocop (1.28.2)
       parallel (~> 1.10)
       parser (>= 3.1.0.0)
       rainbow (>= 2.2.2, < 4.0)
