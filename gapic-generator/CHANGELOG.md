@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.12.0 / 2022-04-29
+
+* Feature: Generate snippet metadata files
+
 ### 0.11.1 / 2022-04-06
 
 * Updated generated grpc-google-iam-v1 dependency to ~> 1.1
