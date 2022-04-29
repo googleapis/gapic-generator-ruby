@@ -38,6 +38,7 @@ tool "generators" do
 
   def run
     Dir.chdir context_directory
+    yoshi_utils.git_ensure_identity
     git_unshallow
     analyze
     branch_name = "release-generators-#{@new_date}"
