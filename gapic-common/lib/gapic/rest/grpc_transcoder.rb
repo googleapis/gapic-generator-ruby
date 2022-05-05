@@ -27,7 +27,7 @@ module Gapic
       def with_bindings uri_method:, uri_template:, matches: [], body: nil
         template = uri_template
 
-        matches.each do |name, _, __|
+        matches.each do |name, _regex, _preserve_slashes|
           unless uri_template =~ /({#{Regexp.quote name}})/
             err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
                       "Parameter `#{name}` is specified for matching but there is no corresponding parameter" \
@@ -51,8 +51,8 @@ module Gapic
                 "Provided body template `#{body}` points to a field in a sub-message. This is not supported."
         end
 
-        field_bindings = matches.map do |match|
-          HttpBinding::FieldBinding.new match[0], match[1], match[2]
+        field_bindings = matches.map do |name, regex, preserve_slashes|
+          HttpBinding::FieldBinding.new name, regex, preserve_slashes
         end
         GrpcTranscoder.new @bindings + [HttpBinding.new(uri_method, uri_template, field_bindings, body)]
       end
@@ -101,10 +101,10 @@ module Gapic
 
           if field_value
             field_value = if field_binding.preserve_slashes
-              field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
-            else
-              percent_escape(field_value)
-            end
+                            field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
+                          else
+                            percent_escape field_value
+                          end
           end
 
           [field_binding.field_path, field_value]
