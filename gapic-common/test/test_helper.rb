@@ -16,6 +16,7 @@ gem "minitest"
 require "minitest/autorun"
 require "minitest/focus"
 require "minitest/rg"
+require "pp"
 
 require "gapic/common"
 require "gapic/rest"
