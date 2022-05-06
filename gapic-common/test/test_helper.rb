@@ -21,6 +21,7 @@ require "gapic/common"
 require "gapic/rest"
 require "google/protobuf/any_pb"
 require_relative "./fixtures/fixture_pb"
+require_relative "./fixtures/transcoding_example_pb"
 
 class FakeCodeError < StandardError
   attr_reader :code
