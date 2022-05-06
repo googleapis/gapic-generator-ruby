@@ -37,4 +37,14 @@ class CloudGemPresenterTest < PresenterTest
     assert presenter_param.has_wrapper?
     assert_equal "foo", presenter_param.wrapper_name
   end
+
+  def test_cloud_product_detection
+    api_schema = api :language_v1
+    gem_presenter = Gapic::Presenters::CloudGemPresenter.new api_schema
+    assert gem_presenter.cloud_product?
+
+    api_schema = api :showcase
+    gem_presenter = Gapic::Presenters::CloudGemPresenter.new api_schema
+    refute gem_presenter.cloud_product?
+  end
 end

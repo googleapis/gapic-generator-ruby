@@ -23,6 +23,19 @@ module Gapic
     # A presenter subclass for cloud gems.
     #
     class CloudGemPresenter < GemPresenter
+      # @private
+      # A list of gem name patterns for gems that don't look like cloud but are
+      PSEUDO_CLOUD_GEMS = [
+        /^google-iam-credentials/,
+        /^google-identity-access_context_manager/,
+        /^grafeas/,
+        /^stackdriver/
+      ].freeze
+
+      # @private
+      # A list of gem name patterns for gems that look like cloud but aren't
+      NON_CLOUD_GEMS = [].freeze
+
       def license_name
         "Apache-2.0"
       end
@@ -100,9 +113,41 @@ module Gapic
       end
 
       ##
-      # Overrides the reference doc URL to point to the cloud-rad page
+      # Overrides the reference doc URL to point to either the cloud-rad page
+      # or the googleapis.dev page depending on whether it is a cloud product.
+      #
+      # @return [String]
+      #
       def library_documentation_url
-        gem_config(:library_documentation_url) || "https://cloud.google.com/ruby/docs/reference/#{name}/latest"
+        gem_config(:library_documentation_url) || begin
+          if cloud_product?
+            "https://cloud.google.com/ruby/docs/reference/#{name}/latest"
+          else
+            "https://googleapis.dev/ruby/#{name}/latest"
+          end
+        end
+      end
+
+      ##
+      # Whether this gem is for a cloud platform product. This controls, for
+      # example, whether the reference documentation appears under the
+      # cloud.google.com website.
+      #
+      # This first uses the `is_cloud_product` config. If that isn't set, it
+      # tries the overrides in the `PSEUDO_CLOUD_GEMS` and `NON_CLOUD_GEMS`
+      # constants. Finally, it looks for whether any services populate the
+      # `Google::Cloud` namespace.
+      #
+      # @return [boolean]
+      #
+      def cloud_product?
+        configured = gem_config :is_cloud_product
+        return configured unless configured.nil?
+        return true if PSEUDO_CLOUD_GEMS.any? { |pattern| pattern === name }
+        return false if NON_CLOUD_GEMS.any? { |pattern| pattern === name }
+        services.any? do |service|
+          service.namespace =~ /^(::)?Google::Cloud::/
+        end
       end
     end
 
