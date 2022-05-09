@@ -68,7 +68,7 @@ module Gapic
         "gem-free-tier"        => ":gem.:free_tier",
         "gem-yard-strict"      => ":gem.:yard_strict",
         "gem-generic-endpoint" => ":gem.:generic_endpoint",
-        "is-cloud-product"     => ":gem.:is_cloud_product"
+        "gem-is-cloud-product" => ":gem.:is_cloud_product"
       }.freeze
 
       STRING_PARAMETERS_ALIASES = {
