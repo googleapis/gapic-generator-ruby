@@ -25,6 +25,7 @@ module ApiTestResources
     free_tier: 'invalid_value',
     yard_strict: false,
     generic_endpoint: true,
+    is_cloud_product: true,
     generate_metadata: false,
 
     # string parameters
@@ -75,6 +76,7 @@ module ApiTestResources
     gem: {
       yard_strict: API_INFO[:yard_strict],
       generic_endpoint: API_INFO[:generic_endpoint],
+      is_cloud_product: API_INFO[:is_cloud_product],
       name: API_INFO[:name],
       namespace: API_INFO[:namespace],
       title: API_INFO[:title],

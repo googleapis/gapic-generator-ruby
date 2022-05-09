@@ -58,16 +58,16 @@ module Gapic
       # @param map_aliases [Hash{String => String}]
       # @return Gapic::Schema::ParameterSchema
       def extend_with_aliases bool_aliases: {}, string_aliases: {}, array_aliases: {}, map_aliases: {}
-        bool_params = @bool_params
+        bool_params = @bool_params.dup
         bool_aliases.each { |param_alias, param| bool_params[param_alias] = param if bool_params.key? param }
 
-        string_params = @string_params
+        string_params = @string_params.dup
         string_aliases.each { |param_alias, param| string_params[param_alias] = param if string_params.key? param }
 
-        array_params = @array_params
+        array_params = @array_params.dup
         array_aliases.each { |param_alias, param| array_params[param_alias] = param if array_params.key? param }
 
-        map_params = @map_params
+        map_params = @map_params.dup
         map_aliases.each { |param_alias, param| map_params[param_alias] = param if map_params.key? param }
 
         ParameterSchema.new bool_params, string_params, array_params, map_params

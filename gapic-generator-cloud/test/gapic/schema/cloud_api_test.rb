@@ -34,6 +34,7 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-free-tier", API_INFO[:free_tier].to_s],
       ["ruby-cloud-yard-strict", API_INFO[:yard_strict].to_s],
       ["ruby-cloud-generic-endpoint", API_INFO[:generic_endpoint].to_s],
+      ["ruby-cloud-is-cloud-product", API_INFO[:is_cloud_product].to_s],
       ["ruby-cloud-generate-metadata", API_INFO[:generate_metadata].to_s],
 
       ["ruby-cloud-gem-name", API_INFO[:name]],

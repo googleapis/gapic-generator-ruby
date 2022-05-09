@@ -8,6 +8,7 @@
 <%- end -%>
     "client_documentation": "<%= gem.library_documentation_url %>",
     "distribution_name": "<%= gem.name %>",
+    "is_cloud": <%= gem.cloud_product? %>,
 <%- if gem.issue_tracker_url -%>
     "issue_tracker": "<%= gem.issue_tracker_url %>",
 <%- end -%>
