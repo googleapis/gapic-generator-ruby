@@ -8,6 +8,7 @@ AllCops:
 Metrics/ClassLength:
   Exclude:
     - "lib/gapic/generic_lro/operation.rb"
+    - "lib/gapic/rest/grpc_transcoder.rb"
 
 Metrics/CyclomaticComplexity:
   Exclude:
