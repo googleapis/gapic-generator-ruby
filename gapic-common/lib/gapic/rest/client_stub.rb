@@ -115,9 +115,8 @@ module Gapic
         make_http_request :put, uri: uri, body: body, params: params, options: options
       end
 
-      protected
-
       ##
+      # @private
       # Sends a http request via Faraday
       # @param verb [Symbol] http verb
       # @param uri [String] uri to send this request to
