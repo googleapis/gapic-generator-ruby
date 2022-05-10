@@ -33,6 +33,11 @@ response = client.aggregated_list request
 View the [Client Library Documentation](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest)
 for class and method documentation.
 
+
+## Google Cloud Samples
+
+To browse ready to use code samples check [Google Cloud Samples](https://cloud.google.com/docs/samples).
+
 ## Supported Ruby Versions
 
 This library is supported on Ruby 2.5+.
