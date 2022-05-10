@@ -55,9 +55,7 @@ module Gapic
 
       # @return [Enumerable<String>] Full proto names of the mix-in services
       def mixin_services
-        @mixin_services ||= services_in_config.select do |service|
-          service != LRO_SERVICE && !@api_services.include?(service)
-        end
+        @mixin_services ||= (services_in_config & SERVICE_TO_DEPENDENCY.keys)
       end
 
       # @return [Hash<String, String>]
