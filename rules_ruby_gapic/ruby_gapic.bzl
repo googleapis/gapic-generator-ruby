@@ -32,6 +32,7 @@ load("@rules_gapic//:gapic.bzl", "proto_custom_library")
 #   (e.g. gem-name=a-gem-name-v1)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
+# service_yaml: a label to the service yaml
 #
 def ruby_gapic_library(
   name,
@@ -39,6 +40,7 @@ def ruby_gapic_library(
   extra_protoc_parameters = [],
   yml_configs = [],
   grpc_service_config = None,
+  service_yaml = None,
   **kwargs):
   
   _ruby_gapic_library_internal(
@@ -47,7 +49,8 @@ def ruby_gapic_library(
     Label("//rules_ruby_gapic/gapic-generator:gapic_generator_ruby"),
     extra_protoc_parameters,
     yml_configs,
-    grpc_service_config
+    grpc_service_config,
+    service_yaml
   )
 
 ##
@@ -63,6 +66,7 @@ def ruby_gapic_library(
 # extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
 #   (e.g. ruby-cloud-gem-name=google-cloud-gem-name-v1)
 # grpc_service_config: a label to the grpc service config
+# service_yaml: a label to the service yaml
 #
 def ruby_cloud_gapic_library(
   name,
@@ -71,6 +75,7 @@ def ruby_cloud_gapic_library(
   ruby_cloud_description = "",
   extra_protoc_parameters = [],
   grpc_service_config = None,
+  service_yaml = None,
   **kwargs):
   
   if extra_protoc_parameters:
@@ -96,7 +101,8 @@ def ruby_cloud_gapic_library(
     Label("//rules_ruby_gapic/gapic-generator-cloud:gapic_generator_cloud"),
     extra_protoc_parameters,
     [],
-    grpc_service_config
+    grpc_service_config,
+    service_yaml
   )
 
 ##
@@ -108,12 +114,14 @@ def ruby_cloud_gapic_library(
 # extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
 #   (e.g. gem-name=google-ads-googleads)
 # grpc_service_config: a label to the grpc service config
+# service_yaml: a label to the service yaml
 #
 def ruby_ads_gapic_library(
   name,
   srcs,
   extra_protoc_parameters = [],
   grpc_service_config = None,
+  service_yaml = None,
   **kwargs):
   
   _ruby_gapic_library_internal(
@@ -122,7 +130,8 @@ def ruby_ads_gapic_library(
     Label("//rules_ruby_gapic/gapic-generator-ads:gapic_generator_ads"),
     extra_protoc_parameters,
     [],
-    grpc_service_config
+    grpc_service_config,
+    service_yaml
   )
 
 ##
