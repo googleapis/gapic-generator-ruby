@@ -29,6 +29,7 @@ class ApiTest < Minitest::Test
       [":gem.:free_tier", API_INFO[:free_tier].to_s],
       [":gem.:yard_strict", API_INFO[:yard_strict].to_s],
       [":gem.:generic_endpoint", API_INFO[:generic_endpoint].to_s],
+      [":gem.:is_cloud_product", API_INFO[:is_cloud_product].to_s],
       [":generate_metadata", API_INFO[:generate_metadata].to_s],
 
       [":gem.:name", API_INFO[:name]],
@@ -77,6 +78,7 @@ class ApiTest < Minitest::Test
       ["gem-free-tier", API_INFO[:free_tier]],
       ["gem-yard-strict", API_INFO[:yard_strict]],
       ["gem-generic-endpoint", API_INFO[:generic_endpoint]],
+      ["gem-is-cloud-product", API_INFO[:is_cloud_product]],
       # this parameter has no alias in gapic-generator-vanilla
       [":generate_metadata", API_INFO[:generate_metadata]],
 
