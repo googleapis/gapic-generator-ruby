@@ -59,6 +59,7 @@ def ruby_gapic_library_internal(
         extra_protoc_parameters,
         yml_configs,
         grpc_service_config,
+        service_yaml,
         **kwargs):
     srcjar_target_name = name
     srcjar_output_suffix = ".srcjar"
@@ -80,6 +81,8 @@ def ruby_gapic_library_internal(
     opt_file_args = {}
     if grpc_service_config:
         opt_file_args[grpc_service_config] = "grpc_service_config"
+    if service_yaml:
+        opt_file_args[service_yaml] = "service-yaml"
 
     if yml_configs:
         for file_label in yml_configs:
