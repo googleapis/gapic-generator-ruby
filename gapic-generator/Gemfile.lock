@@ -1,27 +1,27 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.12.0)
+    gapic-generator (0.13.0)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (5.2.7.1)
-      actionview (= 5.2.7.1)
-      activesupport (= 5.2.7.1)
+    actionpack (5.2.8)
+      actionview (= 5.2.8)
+      activesupport (= 5.2.8)
       rack (~> 2.0, >= 2.0.8)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionview (5.2.7.1)
-      activesupport (= 5.2.7.1)
+    actionview (5.2.8)
+      activesupport (= 5.2.8)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activesupport (5.2.7.1)
+    activesupport (5.2.8)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
@@ -37,7 +37,7 @@ GEM
     grpc-tools (1.41.1)
     i18n (1.10.0)
       concurrent-ruby (~> 1.0)
-    loofah (2.17.0)
+    loofah (2.18.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
@@ -51,7 +51,7 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.6)
       minitest (~> 5.0)
-    nokogiri (1.13.5)
+    nokogiri (1.13.6)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parallel (1.22.1)
@@ -78,7 +78,7 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     redcarpet (3.5.1)
-    regexp_parser (2.3.1)
+    regexp_parser (2.4.0)
     rexml (3.2.5)
     rubocop (1.28.2)
       parallel (~> 1.10)
@@ -117,4 +117,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.3.12
+   2.3.13

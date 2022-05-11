@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.13.0 / 2022-05-11
+
+* Feature: Adjust links and repo metadata based on whether the product is part of gcp/cloud
+* Fix: Loosen mixin dependencies to allow 1.x versions
+* Fix: Disable generation of services that are handled as mixins
+* Fix: Disable mixin generation when common services are configured
+
 ### 0.12.0 / 2022-04-29
 
 * Feature: Generate snippet metadata files
