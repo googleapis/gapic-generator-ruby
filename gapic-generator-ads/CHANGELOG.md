@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.13.0 / 2022-05-11
+
+* Includes changes from gapic-generator 0.13.0
+* Feature: Adjust links and repo metadata based on whether the product is part of gcp/cloud
+
 ### 0.12.0 / 2022-04-29
 
 * Includes changes from gapic-generator 0.12.0
