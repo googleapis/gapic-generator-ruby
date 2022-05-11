@@ -36,9 +36,12 @@ module Gapic
       #   List of services from the  Api model
       # @param service_config [Google::Api::Service]
       #   The service config
-      def initialize api_services, service_config
+      # @param gem_name [String]
+      #   The name of the gem.
+      def initialize api_services, service_config, gem_name
         @api_services = api_services
         @service_config = service_config
+        @gem_name = gem_name
       end
 
       # @return [Boolean] Whether there are any mix-in services
@@ -55,7 +58,10 @@ module Gapic
 
       # @return [Enumerable<String>] Full proto names of the mix-in services
       def mixin_services
-        @mixin_services ||= (services_in_config & SERVICE_TO_DEPENDENCY.keys)
+        @mixin_services ||= begin
+          candidates = services_in_config & SERVICE_TO_DEPENDENCY.keys
+          candidates.reject { |name| SERVICE_TO_DEPENDENCY[name].include? @gem_name }
+        end
       end
 
       # @return [Hash<String, String>]
