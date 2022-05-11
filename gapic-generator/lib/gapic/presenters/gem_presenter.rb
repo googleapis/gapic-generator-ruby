@@ -30,7 +30,8 @@ module Gapic
 
       def initialize api
         @api = api
-        @mixins_model = Gapic::Model::Mixins.new api.services.map(&:full_name), api.service_config
+        service_config = api.configuration[:common_services] ? nil : api.service_config
+        @mixins_model = Gapic::Model::Mixins.new api.services.map(&:full_name), service_config, name
       end
 
       ##
@@ -212,6 +213,9 @@ module Gapic
           extra_deps = gem_config_dependencies
           deps.merge! extra_deps if extra_deps
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
+          # google-iam-v1 is a superset of grpc-google-iam-v1, so if both are
+          # listed, use only google-iam-v1.
+          deps.delete "grpc-google-iam-v1" if deps.include? "google-iam-v1"
           deps
         end
       end
