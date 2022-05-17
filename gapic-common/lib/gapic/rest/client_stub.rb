@@ -37,13 +37,13 @@ module Gapic
       def initialize endpoint:, credentials:
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
-        @endpoint.sub! %r{/$}, ""
+        @endpoint = @endpoint.sub %r{/$}, ""
 
         @credentials = credentials
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
-          conn.request :google_authorization, @credentials
+          conn.request :google_authorization, @credentials unless @credentials.is_a? ::Symbol
           conn.request :retry
           conn.response :raise_error
           conn.adapter :net_http
