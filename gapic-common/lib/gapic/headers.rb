@@ -38,7 +38,7 @@ module Gapic
 
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
-      grpc_version ||= ::GRPC::VERSION if defined? ::GRPC
+      grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION
       rest_version ||= ::Faraday::VERSION if defined? ::Faraday
 
       x_goog_api_client_header = ["gl-ruby/#{ruby_version}"]
