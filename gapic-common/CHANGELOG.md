@@ -1,5 +1,14 @@
 # Release History
 
+### 0.9.0 (2022-05-18)
+
+#### Features
+
+* add full grpc transcoding to gapic-common
+#### Bug Fixes
+
+* small fixes for combined libraries and testing
+
 ### 0.8.0 / 2022-01-20
 
 * Add generic LROs helpers. These are used for the Nonstandard (not conforming to AIP-151) Cloud LROs.
