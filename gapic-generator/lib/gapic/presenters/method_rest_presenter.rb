@@ -76,9 +76,9 @@ module Gapic
       ##
       # The strings to initialize the `matches` parameter when initializing a
       # grpc transcoder binding. The `matches` parameter is an array of arrays,
-      # so every string here is in a ruby array syntax. All strings except for the 
+      # so every string here is in a ruby array syntax. All strings except for the
       # last one have a comma at the end.
-      # 
+      #
       # @return [Array<String>]
       #
       def routing_params_transcoder_matches_strings
@@ -275,7 +275,7 @@ module Gapic
       # the regexes for `*` patterns implied for the named segments without
       # pattern explicitly specified), and whether the slash `/` symbols in
       # the segment variable should be preserved (as opposed to percent-escaped).
-      # 
+      #
       # These are used to initialize the grpc transcoder `matches` binding parameter.
       #
       # @return [Array<Array<String|Boolean>>]
