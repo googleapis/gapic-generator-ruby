@@ -62,7 +62,6 @@ module Google
                                         {}
                                       end
 
-
                 response = @client_stub.make_http_request(
                   verb,
                   uri:     uri,

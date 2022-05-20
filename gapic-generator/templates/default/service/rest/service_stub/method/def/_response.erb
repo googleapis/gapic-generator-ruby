@@ -2,11 +2,10 @@
 
 verb, uri, query_string_params, body = <%= method.rest.transcoding_helper_name %> request_pb
 query_string_params = if query_string_params.any?
-  query_string_params.map{ |p| p.split("=", 2) }.to_h
-else
-  {}
-end
-
+                        query_string_params.map{ |p| p.split("=", 2) }.to_h
+                      else
+                        {}
+                      end
 
 response = @client_stub.make_http_request(
   verb,

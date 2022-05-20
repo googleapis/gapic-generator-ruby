@@ -186,14 +186,13 @@ namespace :gen do |namespace|
       if Dir.exists?(test_res_dir) && !Dir.empty?(test_res_dir)
         puts "!!Adding/overriding files after generation for #{lib} from #{test_res_dir}"
         Dir.glob("#{test_res_dir}/*").each do |file|
-          fname = file.split("/").last
+          fname = File.basename file
           if File.file? file
             puts "Copying file #{fname}"
-            FileUtils.copy_file(file, File.join(lib_dir, fname))
           else
             puts "Copying dir #{fname}"
-            FileUtils.copy_entry(file, File.join(lib_dir, fname))
           end
+          FileUtils.copy_entry(file, File.join(lib_dir, fname))
         end
       end
     end

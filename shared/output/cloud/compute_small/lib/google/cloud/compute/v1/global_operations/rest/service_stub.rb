@@ -62,7 +62,6 @@ module Google
                                         {}
                                       end
 
-
                 response = @client_stub.make_http_request(
                   verb,
                   uri:     uri,
@@ -100,7 +99,6 @@ module Google
                                       else
                                         {}
                                       end
-
 
                 response = @client_stub.make_http_request(
                   verb,

@@ -74,18 +74,19 @@ module Gapic
       end
 
       ##
-      # The segment key names and their corresponding patterns,
-      # including the regexes for `*` patterns implied
-      # for the named segments without pattern explicitly specified.
+      # The strings to initialize the `matches` parameter when initializing a
+      # grpc transcoder binding. The `matches` parameter is an array of arrays,
+      # so every string here is in a ruby array syntax. All strings except for the 
+      # last one have a comma at the end.
+      # 
+      # @return [Array<String>]
       #
-      # @return [Array<Array<String|Boolean>>]
-      def routing_params_with_regexes
-        @routing_params_with_regexes ||= begin
-          @http.routing_params_with_patterns.map do |name, pattern|
-            path_pattern = PathPattern.parse pattern
-            [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
-          end
+      def routing_params_transcoder_matches_strings
+        match_init_strings = routing_params_with_regexes.map do |name, regex, preserve_slashes|
+          "[\"#{name}\", %r{#{regex}}, #{preserve_slashes}],"
         end
+        match_init_strings << match_init_strings.pop.chop # remove the trailing comma for the last element
+        match_init_strings
       end
 
       ##
@@ -268,6 +269,25 @@ module Gapic
       end
 
       private
+
+      ##
+      # The segment key names, the regexes for their patterns (including
+      # the regexes for `*` patterns implied for the named segments without
+      # pattern explicitly specified), and whether the slash `/` symbols in
+      # the segment variable should be preserved (as opposed to percent-escaped).
+      # 
+      # These are used to initialize the grpc transcoder `matches` binding parameter.
+      #
+      # @return [Array<Array<String|Boolean>>]
+      #
+      def routing_params_with_regexes
+        @routing_params_with_regexes ||= begin
+          @http.routing_params_with_patterns.map do |name, pattern|
+            path_pattern = PathPattern.parse pattern
+            [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
+          end
+        end
+      end
 
       ##
       # @return [String] A method path or an empty string if not present
