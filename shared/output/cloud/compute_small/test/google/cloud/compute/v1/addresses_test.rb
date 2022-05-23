@@ -84,14 +84,6 @@ class ::Google::Cloud::Compute::V1::Addresses::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "filter"
-      assert params.key? "includeAllScopes"
-      assert params.key? "maxResults"
-      assert params.key? "orderBy"
-      assert params.key? "pageToken"
-      assert params.key? "returnPartialSuccess"
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, aggregated_list_client_stub do
@@ -149,9 +141,6 @@ class ::Google::Cloud::Compute::V1::Addresses::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "requestId"
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, delete_client_stub do
@@ -208,8 +197,6 @@ class ::Google::Cloud::Compute::V1::Addresses::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, get_client_stub do
@@ -267,9 +254,6 @@ class ::Google::Cloud::Compute::V1::Addresses::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "requestId"
-      refute_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, insert_client_stub do
@@ -330,13 +314,6 @@ class ::Google::Cloud::Compute::V1::Addresses::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "filter"
-      assert params.key? "maxResults"
-      assert params.key? "orderBy"
-      assert params.key? "pageToken"
-      assert params.key? "returnPartialSuccess"
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, list_client_stub do

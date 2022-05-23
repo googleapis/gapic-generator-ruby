@@ -74,6 +74,23 @@ module Gapic
       end
 
       ##
+      # The strings to initialize the `matches` parameter when initializing a
+      # grpc transcoder binding. The `matches` parameter is an array of arrays,
+      # so every string here is in a ruby array syntax. All strings except for the
+      # last one have a comma at the end.
+      #
+      # @return [Array<String>]
+      #
+      def routing_params_transcoder_matches_strings
+        return [] if routing_params_with_regexes.empty?
+        match_init_strings = routing_params_with_regexes.map do |name, regex, preserve_slashes|
+          "[\"#{name}\", %r{#{regex}}, #{preserve_slashes}],"
+        end
+        match_init_strings << match_init_strings.pop.chop # remove the trailing comma for the last element
+        match_init_strings
+      end
+
+      ##
       # @return [Boolean] Whether method has body specified in proto
       #
       def body?
@@ -94,6 +111,23 @@ module Gapic
         routing_params.reduce path do |uri, param|
           param_esc = Regexp.escape param
           uri.gsub(/{#{param_esc}[^}]*}/, "\#{#{request_obj_name}.#{param}}")
+        end
+      end
+
+      ##
+      # Performs a limited version of grpc transcoding to create a string that will interpolate
+      # the values from the request object to create a request URI at runtime.
+      # Currently only supports "value" into "request_object.value"
+      # @param [String] request_obj_name the name of the request object for the interpolation
+      #   defaults to "request_pb"
+      # @return [String] A string to interpolate values from the request object into URI
+      #
+      def uri_for_transcoding
+        return path unless routing_params?
+
+        routing_params.reduce path do |uri, param|
+          param_esc = Regexp.escape param
+          uri.gsub(/{#{param_esc}[^}]*}/, "{#{param}}")
         end
       end
 
@@ -155,7 +189,9 @@ module Gapic
       # Name of the variable to use for storing the query_string_params result of the transcoding call
       # Normally "query_string_params" but use "_query_string_params" for discarding the result for
       # the calls that do not sent query_string_params
+      #
       # @return [String]
+      #
       def query_string_params_var_name
         query_string_params? ? "query_string_params" : "_query_string_params"
       end
@@ -164,6 +200,7 @@ module Gapic
       # Name for the GRPC transcoding helper method
       #
       # @return [String]
+      #
       def transcoding_helper_name
         "transcode_#{name}_request"
       end
@@ -225,20 +262,39 @@ module Gapic
         @main_method.nonstandard_lro?
       end
 
+      ##
+      # @return [String] A body specified for the given method in proto or an empty string if not specified
+      #
+      def body
+        @http.body
+      end
+
       private
+
+      ##
+      # The segment key names, the regexes for their patterns (including
+      # the regexes for `*` patterns implied for the named segments without
+      # pattern explicitly specified), and whether the slash `/` symbols in
+      # the segment variable should be preserved (as opposed to percent-escaped).
+      #
+      # These are used to initialize the grpc transcoder `matches` binding parameter.
+      #
+      # @return [Array<Array<String|Boolean>>]
+      #
+      def routing_params_with_regexes
+        @routing_params_with_regexes ||= begin
+          @http.routing_params_with_patterns.map do |name, pattern|
+            path_pattern = PathPattern.parse pattern
+            [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
+          end
+        end
+      end
 
       ##
       # @return [String] A method path or an empty string if not present
       #
       def path
         @http.path
-      end
-
-      ##
-      # @return [String] A body specified for the given method in proto or an empty string if not specified
-      #
-      def body
-        @http.body
       end
     end
   end
