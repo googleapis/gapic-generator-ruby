@@ -14,7 +14,6 @@ response = @client_stub.make_http_request(
   params:  query_string_params,
   options: options
 )
-
 result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
 
 yield result, response if block_given?

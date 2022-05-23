@@ -69,7 +69,6 @@ module Google
                   params:  query_string_params,
                   options: options
                 )
-
                 result = ::Google::Cloud::Compute::V1::AddressAggregatedList.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -107,7 +106,6 @@ module Google
                   params:  query_string_params,
                   options: options
                 )
-
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -145,7 +143,6 @@ module Google
                   params:  query_string_params,
                   options: options
                 )
-
                 result = ::Google::Cloud::Compute::V1::Address.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -183,7 +180,6 @@ module Google
                   params:  query_string_params,
                   options: options
                 )
-
                 result = ::Google::Cloud::Compute::V1::Operation.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
@@ -221,7 +217,6 @@ module Google
                   params:  query_string_params,
                   options: options
                 )
-
                 result = ::Google::Cloud::Compute::V1::AddressList.decode_json response.body, ignore_unknown_fields: true
 
                 yield result, response if block_given?
