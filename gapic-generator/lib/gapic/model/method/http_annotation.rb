@@ -92,11 +92,25 @@ module Gapic
         end
 
         ##
+        # The segment key names and their corresponding paterns,
+        # including the `*` pattern implied for the named segments
+        # without pattern explicitly specified.
+        #
+        # @return [Array<Array<String>>]
+        def routing_params_with_patterns
+          @routing_params_with_patterns ||= begin
+            Gapic::UriTemplate.parse_arguments(path).map do |name, pattern|
+              [name, pattern.empty? ? "*" : pattern]
+            end
+          end
+        end
+
+        ##
         # The segment key names.
         #
         # @return [Array<String>]
         def routing_params
-          Gapic::UriTemplate.parse_arguments path
+          routing_params_with_patterns.map { |param, _| param }
         end
 
         ##

@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "test_helper"
 require "gapic/uri_template"
 
 class UriTemplateTest < PathPatternTest
@@ -24,7 +25,7 @@ class UriTemplateTest < PathPatternTest
 
   def test_named_uri_template
     uri_template = "/hellos/{hello}/worlds/{world}"
-    assert_equal ["hello", "world"], Gapic::UriTemplate.parse_arguments(uri_template)
+    assert_equal [["hello", ""], ["world", ""]], Gapic::UriTemplate.parse_arguments(uri_template)
   end
 
   def test_positional_uri_template
@@ -34,21 +35,22 @@ class UriTemplateTest < PathPatternTest
 
   def test_named_positional_uri_template
     uri_template = "/hellos/{hello}/foo/*/worlds/{world}/bar/**"
-    assert_equal ["hello", "world"], Gapic::UriTemplate.parse_arguments(uri_template)
+    assert_equal [["hello", ""], ["world", ""]], Gapic::UriTemplate.parse_arguments(uri_template)
   end
 
   def test_named_simple_pattern_uri_template
     uri_template = "/hellos/{hello=*}/worlds/{world=**}"
-    assert_equal ["hello", "world"], Gapic::UriTemplate.parse_arguments(uri_template)
+    assert_equal [["hello", "*"], ["world", "**"]], Gapic::UriTemplate.parse_arguments(uri_template)
   end
 
   def test_named_mediumcomplex_pattern_uri_template
-    uri_template = "hellos/{hello=foo*bar}/worlds/{world=**}"
-    assert_equal ["hello", "world"], Gapic::UriTemplate.parse_arguments(uri_template)
+    uri_template = "hellos/{hello=foo/*/bar}/worlds/{world=**}"
+    assert_equal [["hello", "foo/*/bar"], ["world", "**"]], Gapic::UriTemplate.parse_arguments(uri_template)
   end
 
   def test_named_mostcomplex_pattern_uri_template
-    uri_template = "/hellos/{hello=sessions/*}/worlds/{world=sessions/*/tests/*}:check"
-    assert_equal ["hello", "world"], Gapic::UriTemplate.parse_arguments(uri_template)
+    uri_template = "hellos/{hello=sessions/*}/worlds/{world=sessions/*/tests/*}:check"
+    assert_equal [["hello", "sessions/*"], ["world", "sessions/*/tests/*"]],
+                 Gapic::UriTemplate.parse_arguments(uri_template)
   end
 end

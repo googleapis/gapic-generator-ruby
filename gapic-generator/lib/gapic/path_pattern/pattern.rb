@@ -38,7 +38,7 @@ module Gapic
       end
 
       ##
-      # All argument names from this pattern
+      # All argument from this pattern, including ids for positional arguments
       # @return [Array<String>]
       def arguments
         @segments.select(&:provides_arguments?).map(&:arguments).flatten
@@ -56,6 +56,13 @@ module Gapic
       # @return [Boolean]
       def double_star_pattern?
         @segments.length == 1 && @segments[0].pattern == "**"
+      end
+
+      ##
+      # Whether this pattern ends with a double-star ("**")
+      # @return [Boolean]
+      def ends_with_double_star_pattern?
+        segments.last.pattern.end_with? "**"
       end
 
       ##

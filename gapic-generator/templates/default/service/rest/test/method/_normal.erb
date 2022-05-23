@@ -19,17 +19,6 @@ def test_<%= method.name %>
     assert options.metadata.key? :"x-goog-api-client"
     assert options.metadata[:"x-goog-api-client"].include? "rest"
     refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-    <%- if method.rest.query_string_params? -%>
-    <%- method.rest.query_string_params.each do |field| -%>
-    assert params.key? "<%= field.camel_name %>"
-    <%- end -%>
-    <%- end -%>
-    <%- if method.rest.body? %>
-    refute_nil body
-    <%- else -%>
-    assert_nil body
-    <%- end -%>
   end
 
   Gapic::Rest::ClientStub.stub :new, <%= method.name %>_client_stub do

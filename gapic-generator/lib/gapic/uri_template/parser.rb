@@ -14,15 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/path_pattern"
+
 module Gapic
   module UriTemplate
     # A URI template parser.
     # see https://tools.ietf.org/html/rfc6570 URI Template
-    #
-    # @!attribute [r] path_pattern
-    #   @return [String] The path pattern to be parsed.
-    # @!attribute [r] segments
-    #   @return [Array<Segment|String>] The segments of the parsed path pattern.
     module Parser
       # @private
       # `/(?<positional>\*\*?)|{(?<name>[^\/]+?)(?:=(?<template>.+?))?}/`
@@ -32,12 +29,23 @@ module Gapic
         {(?<name>[^/]+?)(?:=(?<template>.+?))?}
       }x.freeze
 
+      ##
+      # Parses the arguments out of URI template
+      # with their corresponding patterns
+      #
+      # @param [String] The uri template to be parsed.
+      # @return [Array<Array<String>] The arguments and their corresponding patterns
+      #
       def self.parse_arguments uri_template
         arguments = []
 
         while (match = URI_TEMPLATE.match uri_template)
           # The String before the match needs to be added to the segments
-          arguments << match[:name] if match[:name]
+          if match[:name]
+            name = match[:name]
+            template = match[:template] || ""
+            arguments << [name, template]
+          end
           uri_template = match.post_match
         end
 

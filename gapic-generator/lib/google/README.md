@@ -6,7 +6,7 @@ protoc --plugin=protoc-gen-ruby-protobuf=`which protoc-gen-ruby` --ruby-protobuf
 ```
 
 e.g. 
-!!! Please note that the commands below are written to run from the `gapic-generator/lib/google` folder that contains this README !!!
+!!! Please note that the commands below are written to be run from the `gapic-generator/lib/google` folder that contains this README !!!
 
 Update a `http.proto`
 ```
