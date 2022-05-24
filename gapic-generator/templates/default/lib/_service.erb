@@ -1,37 +1,23 @@
 <%- assert_locals service -%>
 
-<%- if service.generate_rest_clients? -%>
 <% @requires = capture do %>
-require "gapic/config"
-require "gapic/config/method"
-
-require "<%= service.gem.version_require %>"
-
-<%- unless service.generic_endpoint? -%>
-require "<%= service.credentials_require %>"
-<%- end -%>
-<%- if service.paths? -%>
-require "<%= service.paths_require %>"
-<%- end -%>
-<%- if service.nonstandard_lro_provider? -%>
-require "<%= service.rest.nonstandard_lro_require %>"
-<%- end -%>
-require "<%= service.rest.service_rest_require %>"
-<% end %>
-<%- else -%>
-<% @requires = capture do %>
+<%- if service.generate_grpc_clients? -%>
 require "gapic/common"
+<%- end -%>
 require "gapic/config"
 require "gapic/config/method"
 
 require "<%= service.gem.version_require %>"
 
+<%- unless service.generic_endpoint? && !service.path -%>
 <%- unless service.generic_endpoint? -%>
 require "<%= service.credentials_require %>"
 <%- end -%>
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
 <%- end -%>
+<%- end -%>
+<%- if service.generate_grpc_clients? -%>
 <%- if service.lro? -%>
 require "<%= service.operations_require %>"
 <%- end -%>
@@ -39,12 +25,18 @@ require "<%= service.operations_require %>"
 require "<%= service.nonstandard_lro_require %>"
 <%- end -%>
 require "<%= service.client_require %>"
+<%- end -%>
+<%- if service.generate_rest_clients? -%>
+<%- if service.nonstandard_lro_provider? -%>
+require "<%= service.rest.nonstandard_lro_require %>"
+<%- end -%>
+require "<%= service.rest.service_rest_require %>"
+<%- end -%>
 <% end %>
 ##
 <%- if service.doc_description -%>
 <%= indent service.doc_description, "# " %>
 #
-<%- end -%>
 <%- end -%>
 <%- if service.generate_grpc_clients? -%>
 # To load this service and instantiate a <%= service.grpc_client_designation %>:
