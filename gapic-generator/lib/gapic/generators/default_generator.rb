@@ -57,21 +57,40 @@ module Gapic
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
 
           package.services.each do |service|
+            should_generate_grpc = @api.generate_grpc_clients?
+            should_generate_rest = @api.generate_rest_clients? and service.methods_rest_bindings?
+
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
-            files << g("service/rest.erb",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
-            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service) unless @api.generate_rest_clients?
             files << g("service/credentials.erb",            "lib/#{service.credentials_file_path}",             service: service) unless gem.generic_endpoint?
             files << g("service/paths.erb",                  "lib/#{service.paths_file_path}",                   service: service) if service.paths?
-            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && !@api.generate_rest_clients?
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && !service.methods_rest_bindings?
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.nonstandard_lro_provider? && service.methods_rest_bindings?
-            files << g("service/rest/client.erb",            "lib/#{service.rest.client_file_path}",             service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
-            files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
-            files << g("service/rest/test/client.erb",       "test/#{service.rest.test_client_file_path}",       service: service) if @api.generate_rest_clients? and service.methods_rest_bindings?
-            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service) unless @api.generate_rest_clients?
+
+            # Rest module file
+            files << g("service/rest.erb",                   "lib/#{service.rest.service_rest_file_path}",       service: service) if should_generate_rest
+
+            # client.rb
+            files << g("service/client.erb",                 "lib/#{service.client_file_path}",                  service: service) if should_generate_grpc
+            files << g("service/rest/client.erb",            "lib/#{service.rest.client_file_path}",             service: service) if should_generate_rest
+
+            # Standard LRO shim
+            files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && should_generate_grpc
+
+            # Nonstandard LRO shim
+            files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
+            files << g("service/nonstandard_lro.erb",        "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.nonstandard_lro_provider? && should_generate_rest
+            
+            # Rest-only `service.stub` file
+            files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest
+
+            # Unit tests for `client.rb`
+            files << g("service/test/client.erb",            "test/#{service.test_client_file_path}",            service: service) if should_generate_grpc
+            files << g("service/rest/test/client.erb",       "test/#{service.rest.test_client_file_path}",       service: service) if should_generate_rest
+
+            # Unit tests for `paths.rb`
             files << g("service/test/client_paths.erb",      "test/#{service.test_paths_file_path}",             service: service) if service.paths?
-            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && !@api.generate_rest_clients?
+
+            # Unit tests for standard LRO shim
+            files << g("service/test/client_operations.erb", "test/#{service.test_client_operations_file_path}", service: service) if service.lro? && should_generate_grpc
 
             if @api.generate_standalone_snippets?
               service.methods.each do |method|
