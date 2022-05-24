@@ -33,6 +33,7 @@ require "google/showcase/version"
 require "google/showcase/v1beta1/identity/credentials"
 require "google/showcase/v1beta1/identity/paths"
 require "google/showcase/v1beta1/identity/client"
+require "google/showcase/v1beta1/identity/rest"
 
 module Google
   module Showcase
@@ -40,10 +41,15 @@ module Google
       ##
       # A simple identity service.
       #
-      # To load this service and instantiate a client:
+      # To load this service and instantiate a GRPC client:
       #
       #     require "google/showcase/v1beta1/identity"
       #     client = ::Google::Showcase::V1beta1::Identity::Client.new
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/identity"
+      #     client = ::Google::Showcase::V1beta1::Identity::Rest::Client.new
       #
       module Identity
       end

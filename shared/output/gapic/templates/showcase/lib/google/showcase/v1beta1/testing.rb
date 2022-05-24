@@ -33,6 +33,7 @@ require "google/showcase/version"
 require "google/showcase/v1beta1/testing/credentials"
 require "google/showcase/v1beta1/testing/paths"
 require "google/showcase/v1beta1/testing/client"
+require "google/showcase/v1beta1/testing/rest"
 
 module Google
   module Showcase
@@ -41,10 +42,15 @@ module Google
       # A service to facilitate running discrete sets of tests
       # against Showcase.
       #
-      # To load this service and instantiate a client:
+      # To load this service and instantiate a GRPC client:
       #
       #     require "google/showcase/v1beta1/testing"
       #     client = ::Google::Showcase::V1beta1::Testing::Client.new
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/testing"
+      #     client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new
       #
       module Testing
       end
