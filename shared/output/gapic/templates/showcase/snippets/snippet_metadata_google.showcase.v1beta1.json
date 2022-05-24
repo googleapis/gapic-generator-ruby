@@ -12,6 +12,326 @@
   },
   "snippets": [
     {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataBody_sync",
+      "title": "Snippet for repeat_data_body in Compliance",
+      "description": "Basic snippet for repeat_data_body in Compliance",
+      "file": "compliance/repeat_data_body.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_body",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_body",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataBody",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataBody",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyInfo_sync",
+      "title": "Snippet for repeat_data_body_info in Compliance",
+      "description": "Basic snippet for repeat_data_body_info in Compliance",
+      "file": "compliance/repeat_data_body_info.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_body_info",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_info",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataBodyInfo",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataBodyInfo",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataQuery_sync",
+      "title": "Snippet for repeat_data_query in Compliance",
+      "description": "Basic snippet for repeat_data_query in Compliance",
+      "file": "compliance/repeat_data_query.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_query",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_query",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataQuery",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataQuery",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataSimplePath_sync",
+      "title": "Snippet for repeat_data_simple_path in Compliance",
+      "description": "Basic snippet for repeat_data_simple_path in Compliance",
+      "file": "compliance/repeat_data_simple_path.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_simple_path",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_simple_path",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataSimplePath",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataSimplePath",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataPathResource_sync",
+      "title": "Snippet for repeat_data_path_resource in Compliance",
+      "description": "Basic snippet for repeat_data_path_resource in Compliance",
+      "file": "compliance/repeat_data_path_resource.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_path_resource",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_resource",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataPathResource",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataPathResource",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataPathTrailingResource_sync",
+      "title": "Snippet for repeat_data_path_trailing_resource in Compliance",
+      "description": "Basic snippet for repeat_data_path_trailing_resource in Compliance",
+      "file": "compliance/repeat_data_path_trailing_resource.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_path_trailing_resource",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_trailing_resource",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataPathTrailingResource",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataPathTrailingResource",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyPut_sync",
+      "title": "Snippet for repeat_data_body_put in Compliance",
+      "description": "Basic snippet for repeat_data_body_put in Compliance",
+      "file": "compliance/repeat_data_body_put.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_body_put",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_put",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataBodyPut",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataBodyPut",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataBodyPatch_sync",
+      "title": "Snippet for repeat_data_body_patch in Compliance",
+      "description": "Basic snippet for repeat_data_body_patch in Compliance",
+      "file": "compliance/repeat_data_body_patch.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_body_patch",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_patch",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataBodyPatch",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataBodyPatch",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
       "region_tag": "showcase_v0_generated_Echo_Echo_sync",
       "title": "Snippet for echo in Echo",
       "description": "Basic snippet for echo in Echo",
