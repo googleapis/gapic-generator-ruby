@@ -189,7 +189,6 @@ module Google
 
               private
 
-
               ##
               # @private
               #
