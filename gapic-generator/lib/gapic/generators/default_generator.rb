@@ -58,7 +58,7 @@ module Gapic
 
           package.services.each do |service|
             should_generate_grpc = @api.generate_grpc_clients?
-            should_generate_rest = @api.generate_rest_clients? and service.methods_rest_bindings?
+            should_generate_rest = @api.generate_rest_clients? && service.methods_rest_bindings?
 
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)
