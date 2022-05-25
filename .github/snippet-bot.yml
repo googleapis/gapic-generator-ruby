@@ -1,3 +1,4 @@
 ignoreFiles:
   - "*/lib/**/*.rb"
   - "*/test/**/*.rb"
+  - "shared/output/gapic/templates/*/snippets/**/*.rb"
