@@ -9,7 +9,7 @@ require "<%= service.service_require %>"
 class <%= service.client_name_full %>Test < Minitest::Test
 <%= indent render(partial: "service/rest/test/method/setup"), 2 %>
 
-<% service.methods.each do |method| %>
+<% service.rest.methods.each do |method| %>
 <%= indent render(partial: "service/rest/test/method/#{method.kind}",
                   locals: { method: method }), 2 %>
 

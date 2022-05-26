@@ -269,6 +269,17 @@ module Gapic
         @http.body
       end
 
+      ##
+      # Whether this method can be generated in REST clients
+      # Only methods with http bindings can be generated, and
+      # additionally only unary methods are currently supported.
+      #
+      # @return [Boolean]
+      #
+      def can_generate_rest?
+        (@main_method.kind == :normal) && verb? && path?
+      end
+
       private
 
       ##

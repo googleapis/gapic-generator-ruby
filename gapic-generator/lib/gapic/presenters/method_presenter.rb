@@ -316,6 +316,17 @@ module Gapic
         { methods: [name] }
       end
 
+      ##
+      # Whether this method can be generated in REST clients
+      # Only methods with http bindings can be generated, and
+      # additionally only unary methods are currently supported.
+      #
+      # @return [Boolean]
+      #
+      def can_generate_rest?
+        rest.can_generate_rest?
+      end
+
       protected
 
       def message_ruby_type message

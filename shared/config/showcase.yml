@@ -1,4 +1,5 @@
 ---
+:transports: ["rest", "grpc"]
 :gem:
   :name: google-showcase
   :env_prefix: SHOWCASE

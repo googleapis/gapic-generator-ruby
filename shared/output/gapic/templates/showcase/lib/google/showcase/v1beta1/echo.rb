@@ -33,6 +33,7 @@ require "google/showcase/version"
 require "google/showcase/v1beta1/echo/credentials"
 require "google/showcase/v1beta1/echo/operations"
 require "google/showcase/v1beta1/echo/client"
+require "google/showcase/v1beta1/echo/rest"
 
 module Google
   module Showcase
@@ -44,10 +45,15 @@ module Google
       # paginated calls. Set the 'showcase-trailer' metadata key on any method
       # to have the values echoed in the response trailers.
       #
-      # To load this service and instantiate a client:
+      # To load this service and instantiate a GRPC client:
       #
       #     require "google/showcase/v1beta1/echo"
       #     client = ::Google::Showcase::V1beta1::Echo::Client.new
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/echo"
+      #     client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new
       #
       module Echo
       end

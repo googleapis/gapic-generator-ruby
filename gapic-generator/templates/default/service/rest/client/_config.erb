@@ -9,7 +9,7 @@
 # Configuration can be applied globally to all clients, or to a single client
 # on construction.
 #
-<%- unless method_service.methods.empty? -%>
+<%- unless method_service.rest.methods.empty? -%>
 # # Examples
 #
 # To modify the global config, setting the timeout for all calls to 10 seconds:
@@ -101,7 +101,7 @@ class Configuration
   # but is currently not supported for REST Gapic libraries.
   # 
   class Rpcs
-  <%- method_service.methods.each do |method| -%>
+  <%- method_service.rest.methods.each do |method| -%>
     ##
     # RPC-specific configuration for `<%= method.name %>`
     # @return [::Gapic::Config::Method]
@@ -111,7 +111,7 @@ class Configuration
 
     # @private
     def initialize parent_rpcs = nil
-      <%- method_service.methods.each do |method| -%>
+      <%- method_service.rest.methods.each do |method| -%>
       <%= method.name %>_config = parent_rpcs.<%= method.name %> if parent_rpcs.respond_to? :<%= method.name %>
       @<%= method.name %> = ::Gapic::Config::Method.new <%= method.name %>_config
       <%- end -%>

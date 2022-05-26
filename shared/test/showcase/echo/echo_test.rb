@@ -19,14 +19,21 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class EchoTest < ShowcaseTest
-  def setup
-    @client = new_echo_client
+  def setup client=nil
+    @client = client
   end
 
   def test_echo
-    response = @client.echo content: "hi there!"
+    return unless @client
 
+    response = @client.echo content: "hi there!"
     assert_equal "hi there!", response.content
+  end
+end
+
+class EchoGRPCTest < EchoTest
+  def setup
+    super new_echo_client
   end
 
   def test_echo_with_block
@@ -49,6 +56,19 @@ class EchoTest < ShowcaseTest
         { 'showcase-trailer' => ["one", "two"] },
         operation.trailing_metadata
       )
+    end
+  end
+end
+
+class EchoRestTest < EchoTest
+  def setup
+    super new_echo_rest_client
+  end
+
+  def new_echo_rest_client
+    Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+      config.endpoint = "http://localhost:7469"
+      config.credentials = :this_channel_is_insecure
     end
   end
 end

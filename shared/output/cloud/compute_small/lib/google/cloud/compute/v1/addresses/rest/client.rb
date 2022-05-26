@@ -30,8 +30,6 @@ module Google
             ##
             # REST client for the Addresses service.
             #
-            # Services
-            #
             # The Addresses API.
             #
             class Client

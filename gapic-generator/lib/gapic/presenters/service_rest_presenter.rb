@@ -153,7 +153,7 @@ module Gapic
       # @return [String]
       #
       def test_client_file_path
-        main_service.service_file_path.sub ".rb", "_test.rb"
+        main_service.service_file_path.sub ".rb", "_rest_test.rb"
       end
 
       ##
@@ -221,7 +221,7 @@ module Gapic
       # a gem config.
       #
       # @return [Gapic::Presenters::MethodRestPresenter] if there is a method
-      #     appropriatke for quick start
+      #     appropriate for quick start
       # @return [nil] if there is no method appropriate for quick start
       #
       def quick_start_method
@@ -229,10 +229,12 @@ module Gapic
       end
 
       ##
+      # Presenters for methods that can be generated in REST clients.
+      #
       # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
       #
       def methods
-        main_service.methods
+        main_service.methods.select(&:can_generate_rest?)
       end
 
       private
