@@ -46,6 +46,13 @@ class ShowcaseTest < Minitest::Test
     end
   end
 
+  def new_echo_rest_client
+    Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+      config.endpoint = "http://localhost:7469"
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
   def new_identity_client
     Google::Showcase::V1beta1::Identity::Client.new do |config|
       config.credentials = GRPC::Core::Channel.new "localhost:7469", nil, :this_channel_is_insecure
@@ -58,12 +65,19 @@ class ShowcaseTest < Minitest::Test
     end
   end
 
+  def new_compliance_rest_client
+    Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+      config.endpoint = "http://localhost:7469"
+      config.credentials = :this_channel_is_insecure
+    end
+  end
+
   @showcase_id = begin
     server_id = nil
     if ENV['CI'].nil?
       puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-images/gapic-showcase:0.11.0"
+        "gcr.io/gapic-images/gapic-showcase:0.17.0"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!
@@ -76,7 +90,7 @@ class ShowcaseTest < Minitest::Test
   @showcase_library = begin
     library = generate_library_for_test(
       %w[api-common-protos protos],
-      %w[google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
+      %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library
   end

@@ -21,13 +21,14 @@ require "grpc"
 class WaitTest < ShowcaseTest
   def setup
     @client = new_echo_client
+    @retry_policy = Gapic::Operation::RetryPolicy.new initial_delay: 1
   end
 
   def test_wait
     operation = @client.wait ttl: { nanos: 500000 }, success: { content: "hi there!" }
 
     refute operation.done?
-    operation.wait_until_done!
+    operation.wait_until_done! retry_policy: @retry_policy
 
     assert operation.done?
     assert operation.response?
@@ -38,7 +39,7 @@ class WaitTest < ShowcaseTest
     operation = @client.wait ttl: { nanos: 500000 }, error: Google::Rpc::Status.new(message: "nope")
 
     refute operation.done?
-    operation.wait_until_done!
+    operation.wait_until_done! retry_policy: @retry_policy
 
     assert operation.done?
     assert operation.error?
@@ -52,7 +53,7 @@ class WaitTest < ShowcaseTest
     }
     @client.wait({ ttl: { nanos: 500000 }, success: { content: "hi again!" } }, options) do |operation, grpc_operation|
       refute operation.done?
-      operation.wait_until_done!
+      operation.wait_until_done! retry_policy: @retry_policy
 
       assert operation.done?
       assert operation.response?

@@ -765,6 +765,7 @@ message WaitRegionOperationRequest {
 //
 // Services
 //
+
 // The Addresses API.
 service Addresses {
   option (google.api.default_host) =

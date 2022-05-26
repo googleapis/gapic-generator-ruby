@@ -115,7 +115,6 @@ module Google
 
               private
 
-
               ##
               # @private
               #

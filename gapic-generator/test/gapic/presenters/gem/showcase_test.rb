@@ -40,7 +40,7 @@ class ShowcaseGemPresenterTest < PresenterTest
     assert_equal ["google.showcase.v1beta1"], presenter.packages.map(&:name)
     presenter.packages.each { |pp| assert_kind_of Gapic::Presenters::PackagePresenter, pp }
 
-    assert_equal ["Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
+    assert_equal ["Compliance", "Echo", "Identity", "Messaging", "Testing"], presenter.services.map(&:name)
     presenter.services.each { |sp| assert_kind_of Gapic::Presenters::ServicePresenter, sp }
 
     assert_equal ["google/api/field_behavior.proto",
@@ -53,6 +53,7 @@ class ShowcaseGemPresenterTest < PresenterTest
       "google/protobuf/timestamp.proto",
       "google/rpc/error_details.proto",
       "google/rpc/status.proto",
+      "google/showcase/v1beta1/compliance.proto",
       "google/showcase/v1beta1/echo.proto",
       "google/showcase/v1beta1/identity.proto",
       "google/showcase/v1beta1/messaging.proto",

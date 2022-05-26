@@ -226,7 +226,6 @@ module Google
 
               private
 
-
               ##
               # @private
               #
