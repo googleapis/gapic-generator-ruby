@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gem "gapic-common", path: "../gapic-common"
 gem "gapic-generator", path: "../gapic-generator"
-gem "google-style", "~> 1.25.1"
+gem "google-style", "~> 1.26.0"
 gem "grpc-tools", "~> 1.43.0"
 gem "minitest", "~> 5.0"
 gem "minitest-autotest", "~> 1.0"
