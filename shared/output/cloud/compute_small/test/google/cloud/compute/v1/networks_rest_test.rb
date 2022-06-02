@@ -87,16 +87,6 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "direction"
-      assert params.key? "filter"
-      assert params.key? "maxResults"
-      assert params.key? "orderBy"
-      assert params.key? "pageToken"
-      assert params.key? "peeringName"
-      assert params.key? "region"
-      assert params.key? "returnPartialSuccess"
-      assert_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, list_peering_routes_client_stub do
@@ -154,9 +144,6 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
-
-      assert params.key? "requestId"
-      refute_nil body
     end
 
     Gapic::Rest::ClientStub.stub :new, remove_peering_client_stub do

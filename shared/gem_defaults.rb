@@ -74,6 +74,7 @@ def gem_defaults
     },
     showcase: {
       protos: [
+        "google/showcase/v1beta1/compliance.proto",
         "google/showcase/v1beta1/echo.proto",
         "google/showcase/v1beta1/identity.proto",
         "google/showcase/v1beta1/messaging.proto",

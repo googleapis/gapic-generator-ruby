@@ -17,9 +17,9 @@ $ gem install google-showcase
 ```ruby
 require "google/showcase/v1beta1"
 
-client = ::Google::Showcase::V1beta1::Echo::Client.new
-request = ::Google::Showcase::V1beta1::EchoRequest.new # (request fields as keyword arguments...)
-response = client.echo request
+client = ::Google::Showcase::V1beta1::Compliance::Client.new
+request = ::Google::Showcase::V1beta1::RepeatRequest.new # (request fields as keyword arguments...)
+response = client.repeat_data_body request
 ```
 
 ## Supported Ruby Versions
