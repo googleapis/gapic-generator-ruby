@@ -101,6 +101,9 @@ module Testing
             channel_args: @config.channel_args,
             interceptors: @config.interceptors
           )
+
+          # Used by an LRO wrapper for some methods of this service
+          @operations_client = self
         end
 
         # Service calls
