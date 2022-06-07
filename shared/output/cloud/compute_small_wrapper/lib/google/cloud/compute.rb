@@ -54,8 +54,6 @@ module Google
       #
       # ## About Addresses
       #
-      # Services
-      #
       # The Addresses API.
       #
       # @param version [::String, ::Symbol] The API version to connect to. Optional.
