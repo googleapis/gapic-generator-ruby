@@ -123,7 +123,7 @@ module Google
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
-              @operations_client = Operations.new do |config|
+              @operations_client = ::Google::Showcase::V1beta1::Echo::Rest::Operations.new do |config|
                 config.credentials = credentials
                 config.endpoint = @config.endpoint
               end
@@ -301,10 +301,10 @@ module Google
             #   @param success [::Google::Showcase::V1beta1::WaitResponse, ::Hash]
             #     The response to be returned on operation completion.
             # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Longrunning::Operation]
+            # @yieldparam result [::Gapic::Operation]
             # @yieldparam response [::Faraday::Response]
             #
-            # @return [::Google::Longrunning::Operation]
+            # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             def wait request, options = nil
@@ -331,6 +331,7 @@ module Google
                                      metadata:     @config.metadata
 
               @echo_stub.wait request, options do |result, response|
+                result = ::Gapic::Operation.new result, @operations_client, options: options
                 yield result, response if block_given?
                 return result
               end
