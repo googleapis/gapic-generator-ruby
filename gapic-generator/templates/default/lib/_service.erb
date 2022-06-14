@@ -25,9 +25,6 @@ require "<%= service.nonstandard_lro_require %>"
 require "<%= service.client_require %>"
 <%- end -%>
 <%- if service.generate_rest_clients? -%>
-<%- if service.nonstandard_lro_provider? -%>
-require "<%= service.rest.nonstandard_lro_require %>"
-<%- end -%>
 require "<%= service.rest.service_rest_require %>"
 <%- end -%>
 <% end %>
