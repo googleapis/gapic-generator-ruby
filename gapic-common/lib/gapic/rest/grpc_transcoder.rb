@@ -140,7 +140,7 @@ module Gapic
       #   Name to value hash of the variables for the uri template expansion.
       #   The values are percent-escaped with slashes potentially preserved.
       def bind_uri_values! http_binding, request_hash
-        http_binding.field_bindings.map do |field_binding|
+        http_binding.field_bindings.to_h do |field_binding|
           field_path_camel = field_binding.field_path.split(".").map { |part| camel_name_for part }.join(".")
           field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
 
@@ -153,7 +153,7 @@ module Gapic
           end
 
           [field_binding.field_path, field_value]
-        end.to_h
+        end
       end
 
       # Percent-escapes a string.
@@ -289,7 +289,7 @@ module Gapic
       def camel_name_for attr_name
         parts = attr_name.split "_"
         first_part = parts[0]
-        other_parts = parts[1..-1]
+        other_parts = parts[1..]
         other_parts_pascal = other_parts.map(&:capitalize).join
         "#{first_part}#{other_parts_pascal}"
       end
