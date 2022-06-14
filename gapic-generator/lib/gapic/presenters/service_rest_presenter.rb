@@ -215,6 +215,83 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{nonstandard_lro_name}"
       end
 
+      def lro_service
+        main_service.lro_service
+      end
+
+      ##
+      # A presenter for the LRO subclient if needed
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
+      def lro_client_presenter
+        return nil unless lro?
+        Gapic::Presenters::Service::LroClientPresenter.new service: "google.longrunning.operations",
+                                                           client_class_name: "Operations",
+                                                           client_class_docname: operations_name_full,
+                                                           client_var_name: lro_client_var,
+                                                           require_str: operations_file_path,
+                                                           service_description: "long-running operations"
+      end
+
+      ##
+      # Whether an AIP-151 LRO subclient needs to be generated for this service
+      #
+      # @return [Boolean]
+      def lro?
+        methods.find(&:lro?)
+      end
+
+      def lro_client_var
+        main_service.lro_client_var
+      end
+
+      def operations_name
+        "Operations"
+      end
+
+      def operations_name_full
+        fix_namespace @api, "#{service_name_full}::#{operations_name}"
+      end
+
+      def operations_file_path
+        "#{operations_require}.rb"
+      end
+
+      def operations_file_name
+        operations_file_path.split("/").last
+      end
+
+      def operations_require
+        ruby_file_path @api, "#{service_name_full}::#{operations_name}"
+      end
+
+      def operations_stub_name
+        "OperationsServiceStub"
+      end
+
+      ##
+      # Whether there are any subclients to generate with this service.
+      # Subclients are the clients to other services (e.g. an LRO provider service).
+      #
+      # @return [Boolean]
+      def subclients?
+        subclients.any?
+      end
+
+      ##
+      # Subclients for this service
+      # Subclients are the clients to other services (e.g. an LRO provider service).
+      #
+      # The following is typically generated for a subclient:
+      # - a require statement for the subclient's class
+      # - a class-level variable in the host service's client
+      # - a code to initialize this variable with a subclient's class instance in the host service's constructor
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
+      def subclients
+        ([] << lro_client_presenter << main_service.mixins << main_service.nonstandard_lros).flatten.compact
+      end
+
       ##
       # The method to use for quick start samples. Normally this is simply the
       # first non-client-streaming method defined, but it can be overridden via
