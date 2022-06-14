@@ -181,8 +181,7 @@ module Gapic
 
       min_repeated_field_number = fields.map(&:number).min
       if min_repeated_field_number != repeated_field.number
-        raise ArgumentError, "#{@response.class} must have one primary repeated field " \
-          "by both position and number"
+        raise ArgumentError, "#{@response.class} must have one primary repeated field by both position and number"
       end
 
       # We have the correct repeated field, save the field's name

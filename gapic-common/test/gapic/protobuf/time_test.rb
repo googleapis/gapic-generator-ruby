@@ -20,7 +20,7 @@ require "stringio"
 class ProtobufTimeTest < Minitest::Spec
   SECONDS = 271_828_182
   NANOS = 845_904_523
-  A_TIME = Time.at SECONDS + NANOS * 10**-9
+  A_TIME = Time.at SECONDS, NANOS, :nanosecond
   A_TIMESTAMP =
     Google::Protobuf::Timestamp.new seconds: SECONDS, nanos: NANOS
 

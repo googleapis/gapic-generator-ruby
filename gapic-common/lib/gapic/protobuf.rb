@@ -134,7 +134,7 @@ module Gapic
     #
     # @return [Time] The converted Time.
     def self.timestamp_to_time timestamp
-      Time.at timestamp.nanos * 10**-9 + timestamp.seconds
+      Time.at timestamp.seconds, timestamp.nanos, :nanosecond
     end
 
     ##

@@ -1,0 +1,44 @@
+name: CI gapic-common
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  CI:
+    if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            ruby: "2.6"
+          - os: ubuntu-latest
+            ruby: "2.7"
+          - os: ubuntu-latest
+            ruby: "3.0"
+          - os: ubuntu-latest
+            ruby: "3.1"
+          - os: macos-latest
+            ruby: "3.0"
+          - os: windows-latest
+            ruby: "3.0"
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+    - name: Install Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "${{ matrix.ruby }}"
+    - name: Install tools
+      shell: bash
+      run: |
+        cd gapic-common && bundle install && gem install --no-document toys
+    - name: Test ${{ matrix.task }}
+      shell: bash
+      run: |
+        cd gapic-common && bundle exec rake ci
