@@ -90,7 +90,7 @@ class ProtobufCoerceTest < Minitest::Spec
     file = File.new "test/fixtures/fixture_file.txt"
     request_hash = { bytes_field: file }
     user = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::User
-    _(user.bytes_field).must_equal "This is a text file.\n"
+    _(user.bytes_field).must_match(/^This is a text file.\r?\n/)
   end
 
   it "handles StringIO instances" do

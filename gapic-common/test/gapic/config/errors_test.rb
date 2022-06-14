@@ -25,7 +25,7 @@ class ConfigErrorsTest < Minitest::Test
         config_attr "some method", nil, String
       end
     end
-    assert_equal "invalid config name some method", error.message
+    assert_includes error.message, "invalid config name some method"
   end
 
   def test_parent_config
@@ -36,7 +36,7 @@ class ConfigErrorsTest < Minitest::Test
         config_attr "parent_config", nil, String
       end
     end
-    assert_equal "invalid config name parent_config", error.message
+    assert_includes error.message, "invalid config name parent_config"
   end
 
   def test_existing_method
@@ -47,7 +47,7 @@ class ConfigErrorsTest < Minitest::Test
         config_attr "methods", nil, String
       end
     end
-    assert_equal "method methods already exists", error.message
+    assert_includes error.message, "method methods already exists"
   end
 
   def test_missing_validation
@@ -58,6 +58,6 @@ class ConfigErrorsTest < Minitest::Test
         config_attr "missing_validation", nil
       end
     end
-    assert_equal "validation must be provided", error.message
+    assert_includes error.message, "validation must be provided"
   end
 end
