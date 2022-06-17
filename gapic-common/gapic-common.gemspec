@@ -45,7 +45,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "google-cloud-core", "~> 1.5"
   spec.add_development_dependency "google-style", "~> 1.26.0"
-  spec.add_development_dependency "minitest", "~> 5.14"
+  spec.add_development_dependency "minitest", "~> 5.16"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.1"
   spec.add_development_dependency "minitest-rg", "~> 5.2"
