@@ -36,4 +36,15 @@ class RestServerStreamTest < Minitest::Test
     )
     assert_equal "{\"foo\":1}", rest_stream_enum.first
   end
+
+  def test_enumerates_all_resources_good
+    stream = [
+      "[{",      
+      "\"foo\":1}, {",
+    ]
+    rest_stream_enum = Gapic::Rest::ServerStream.new(
+      stream
+    )
+    assert_equal "{\"foo\":1}", rest_stream_enum.first
+  end
 end

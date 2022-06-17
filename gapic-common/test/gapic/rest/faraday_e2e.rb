@@ -28,7 +28,7 @@ class FaradayE2ETest < Minitest::Test
   ##
   # Tests that a `ServerStream` can enumerate all resources via `each`
   #
-  def test_enumerates_all_resources
+  def test_enumerates_all_chunks
     endpoint = "https://firestore.googleapis.com/v1/projects/client-debugging/databases/(default)/documents:runQuery"
 
     conn = Faraday.new url: @endpoint do |conn|
@@ -64,54 +64,37 @@ class FaradayE2ETest < Minitest::Test
       }
     }
     JSON
-    # # old = "{structuredQuery:{from:{collectionId:'large'}}}"
-    # conn.post(endpoint, request) do |req|
-    #   # Set a callback which will receive tuples of chunk Strings
-    #   # and the sum of characters received so far
-    #   req.options.on_data = Proc.new do |chunk, overall_received_bytes|
-    #       puts "Received #{overall_received_bytes} characters"
-    #       streamed << chunk
-    #       #sleep(3)
-    #       pp "@@@Chunk in conn:"
-    #       pp chunk
-    #       # Fiber.yield chunk
-    #       #Enumerable.add_chunk(chunk)
-    #   end
-    # end
-
 
     fiber = Fiber.new do 
-      # old = "{structuredQuery:{from:{collectionId:'large'}}}"
       conn.post(endpoint, request) do |req|
         # Set a callback which will receive tuples of chunk Strings
         # and the sum of characters received so far
         req.options.on_data = Proc.new do |chunk, overall_received_bytes|
             puts "Received #{overall_received_bytes} characters"
             streamed << chunk
-            #sleep(3)
-            # pp "@@@Chunk in conn:"
-            # pp chunk
             Fiber.yield chunk
-            #Enumerable.add_chunk(chunk)
         end
       end
     end
-    #binding.pry
     puts "---------"
     begin
       while true
         chunk = fiber.resume
-        puts "@@@Chunk="
-        pp chunk
+        # puts "@@@Chunk="
+        # pp chunk
       end
     rescue FiberError
-      puts "fiber ends."
+      # puts "fiber ends."
     end
     puts "---------"
     streamed.each do |chunk|
       pp chunk.length
     end
     pp streamed.count
+  end
+
+  def test_rest_stream_wrap
+
   end
 end
 

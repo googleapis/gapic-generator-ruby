@@ -23,18 +23,47 @@ module Gapic
       end
     end
 
+    class FiberEnumerable
+      include Enumberable
+
+      # @return Fiber
+      attr_reader :fiber
+
+      # @param fiber Fiber
+      def initialize fiber
+        @fiber = fiber
+      end
+    end
+
+    # @stub.server_streaming_call_name request, options do |fiber|
+    #   result = ::Gapic::Rest::ServerStream.new ::Gapic::Rest::FiberEnumerable fiber 
+    #   yield result
+    #   return result
+    # end
+
+    # def server_streaming_call_name request, options
+    #   fiber = Fiber.new do 
+    #     @client_stub.make_http_request(:post, request) do |req|
+    #       req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+    #         Fiber.yield chunk
+    #       end
+    #     end
+    #   end
+    #   yield Fiber
+    # end
+
     class ServerStream
       include Enumerable
 
       # @return Enumberable<Object>
       attr_reader :body
 
-      # @return Enumerable<Enumberable<Object>>
+      # @return Enumerable<String>
       attr_reader :bodies
 
-      # @param bodies Enumerable<String>
-      def initialize bodies
-        @bodies = bodies
+      # @param fiber Enumerable<string>
+      def initialize enumerable
+        @fiber = fiber
         @_level = 0
         @_obj = ""
         @_ready_objs = []
