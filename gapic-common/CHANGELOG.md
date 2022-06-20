@@ -1,5 +1,16 @@
 # Release History
 
+### 0.10.0 (2022-06-20)
+
+#### Features
+
+* Require at least Ruby 2.6
+* Support faraday 2.0
+#### Bug Fixes
+
+* Fix precision issues in protobuf timestamp conversion
+* Fix some Ruby 3.0 keyword argument usage errors
+
 ### 0.9.0 (2022-05-18)
 
 #### Features
