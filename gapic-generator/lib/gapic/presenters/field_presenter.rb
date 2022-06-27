@@ -201,7 +201,7 @@ module Gapic
       def camel_name_for attr_name
         parts = attr_name.split "_"
         first_part = parts[0]
-        other_parts = parts[1..-1]
+        other_parts = parts[1..]
         other_parts_pascal = other_parts.map(&:capitalize).join
         "#{first_part}#{other_parts_pascal}"
       end

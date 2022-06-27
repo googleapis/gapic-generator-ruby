@@ -308,13 +308,13 @@ module Gapic
       # @return [Hash<String, String>, Hash{String=>Array<String>}, nil]
       def gem_config_dependencies
         return unless gem_config :extra_dependencies
-        gem_config(:extra_dependencies).map do |dep_name, dep_versions|
+        gem_config(:extra_dependencies).to_h do |dep_name, dep_versions|
           if dep_versions.include? "|"
             [dep_name, dep_versions.split("|")]
           else
             [dep_name, dep_versions]
           end
-        end.to_h
+        end
       end
 
       def blacklist_protos

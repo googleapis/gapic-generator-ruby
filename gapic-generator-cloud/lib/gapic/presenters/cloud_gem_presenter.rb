@@ -83,9 +83,9 @@ module Gapic
       def description
         desc = readme_description
         if has_wrapper?
-          desc += " Note that #{name} is a version-specific client library." \
-            " For most uses, we recommend installing the main client library" \
-            " #{wrapper_name} instead. See the readme for more details."
+          desc += " Note that #{name} is a version-specific client library. " \
+                  "For most uses, we recommend installing the main client library " \
+                  "#{wrapper_name} instead. See the readme for more details."
         end
         desc
       end

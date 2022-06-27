@@ -100,9 +100,8 @@ module Gapic
         # @return [String,Array<String>,Hash{String => String}]
         def parse_validate_param_value param_type, param_name_input, param_config_name, value_str, error_output
           if param_type == :bool && !["true", "false"].include?(unescape(value_str))
-            error_str = "WARNING: parameter #{param_name_input} (recognised as bool " \
-                                          "#{param_config_name}) will be discarded because of " \
-                                          "invalid value. Value should be either 'true' or 'false'."
+            error_str = "WARNING: parameter #{param_name_input} (recognised as bool #{param_config_name}) will be " \
+                        "discarded because of invalid value. Value should be either 'true' or 'false'."
             error_output&.puts error_str
           end
 
@@ -113,10 +112,9 @@ module Gapic
             noncompliant_values = param_value.reject { |pv| allowed_transports.include? pv }
             if noncompliant_values.any?
               noncompliant_values_list = noncompliant_values.join ", "
-              error_str = "WARNING: parameter #{param_name_input} (recognised as string array " \
-                                          "#{param_config_name}) will be discarded because "\
-                                          "it contains invalid values: #{noncompliant_values_list}. "\
-                                          "#{param_config_name} can only contain 'grpc' and/or 'rest' or be empty."
+              error_str = "WARNING: parameter #{param_name_input} (recognised as string array #{param_config_name}) " \
+                          "will be discarded because it contains invalid values: #{noncompliant_values_list}. " \
+                          "#{param_config_name} can only contain 'grpc' and/or 'rest' or be empty."
               error_output&.puts error_str
               param_value = nil
             end

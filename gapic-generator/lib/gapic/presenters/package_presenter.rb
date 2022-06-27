@@ -119,7 +119,7 @@ module Gapic
           language:       "ruby",
           protoPackage:   name,
           libraryPackage: namespace,
-          services:       services.map { |s| [s.grpc_service_name, s.drift_manifest] }.to_h
+          services:       services.to_h { |s| [s.grpc_service_name, s.drift_manifest] }
         }
       end
 

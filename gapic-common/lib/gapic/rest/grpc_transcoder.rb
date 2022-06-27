@@ -49,8 +49,8 @@ module Gapic
         matches.each do |name, _regex, _preserve_slashes|
           unless uri_template =~ /({#{Regexp.quote name}})/
             err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
-                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter" \
-                      " `{#{name}}` in the URI template."
+                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter " \
+                      "`{#{name}}` in the URI template."
             raise ::Gapic::Common::Error, err_msg
           end
 
@@ -60,8 +60,8 @@ module Gapic
         if template =~ /{([a-zA-Z_.]+)}/
           err_name = Regexp.last_match[1]
           err_msg = "Binding configuration is incorrect: missing match configuration.\n" \
-                    "Parameter `{#{err_name}}` is specified in the URI template but there is no" \
-                    " corresponding match configuration for `#{err_name}`."
+                    "Parameter `{#{err_name}}` is specified in the URI template but there is no " \
+                    "corresponding match configuration for `#{err_name}`."
           raise ::Gapic::Common::Error, err_msg
         end
 

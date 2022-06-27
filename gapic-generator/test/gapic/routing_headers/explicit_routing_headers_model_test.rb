@@ -194,7 +194,7 @@ class ExplictRoutingHeadersModelTest < Minitest::Test
       act_val_arr = actual[header_key]
 
       assert_equal(exp_val_arr.count, act_val_arr.count,
-                   "Expected['#{header_key}'] and Actual['#{header_key}'] "\
+                   "Expected['#{header_key}'] and Actual['#{header_key}'] " \
                    "should have same amount of parameters" + error_msg_end)
 
       # Within the header group, the per-parameter comparison.

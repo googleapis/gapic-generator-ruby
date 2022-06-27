@@ -209,7 +209,7 @@ module Gapic
         timestring_nos = timestring.delete_suffix "s"
         unless valid_float? timestring_nos
           error_text = "Was not able to convert the string `#{timestring}` " \
-                        "to a time interval when parsing a grpc service config"
+                       "to a time interval when parsing a grpc service config"
           raise ParsingError, error_text
         end
         Float(timestring_nos)

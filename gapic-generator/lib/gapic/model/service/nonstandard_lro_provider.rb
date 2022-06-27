@@ -166,11 +166,11 @@ module Gapic
           if nonstandard_lro_candidates.length.positive?
             ops_service_method = nonstandard_lro_candidates[0]
             error_text = "A service `#{service.name}` has a method annotated " \
-                        "with `polling_method` (`#{polling_method.name}`), and also a method annotated " \
-                        "with `operation_service` (`#{ops_service_method.name}`). "\
-                        "This means a grpc service tries to be a client " \
-                        "and a provider of the nonstandard LRO at the same time. " \
-                        "This is not supported."
+                         "with `polling_method` (`#{polling_method.name}`), and also a method annotated " \
+                         "with `operation_service` (`#{ops_service_method.name}`). " \
+                         "This means a grpc service tries to be a client " \
+                         "and a provider of the nonstandard LRO at the same time. " \
+                         "This is not supported."
             raise ModelError, error_text
           end
 
@@ -191,9 +191,9 @@ module Gapic
             !f.operation_response_field.nil? && !f.operation_response_field.empty?
           end
 
-          operation_response_fields = ops_response_fields.map do |field|
+          operation_response_fields = ops_response_fields.to_h do |field|
             [field.name, field.operation_response_field]
-          end.to_h
+          end
 
           NonstandardLroProvider.new service.full_name,
                                      polling_method.name,
@@ -242,7 +242,7 @@ module Gapic
           end
           if polling_method_candidates.length > 1
             error_text = "A service #{service.name} has more than one method annotated " \
-                        "with `operation_polling_method`. This should not happen."
+                         "with `operation_polling_method`. This should not happen."
             raise ModelError, error_text
           end
 
