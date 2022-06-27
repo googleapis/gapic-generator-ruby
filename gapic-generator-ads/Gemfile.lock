@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.13.0)
+    gapic-generator (0.14.0)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-ads (0.13.0)
+    gapic-generator-ads (0.14.0)
       actionpack (~> 5.2)
-      gapic-generator (= 0.13.0)
+      gapic-generator (= 0.14.0)
       protobuf (~> 3.8)
 
 GEM
@@ -107,4 +107,4 @@ DEPENDENCIES
   rake (>= 13.0)
 
 BUNDLED WITH
-   2.3.7
+   2.3.16
