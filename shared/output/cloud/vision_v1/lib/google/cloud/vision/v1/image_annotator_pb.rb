@@ -16,6 +16,7 @@ require 'google/protobuf/timestamp_pb'
 require 'google/rpc/status_pb'
 require 'google/type/color_pb'
 require 'google/type/latlng_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/cloud/vision/v1/image_annotator.proto", :syntax => :proto3) do
     add_message "google.cloud.vision.v1.Feature" do

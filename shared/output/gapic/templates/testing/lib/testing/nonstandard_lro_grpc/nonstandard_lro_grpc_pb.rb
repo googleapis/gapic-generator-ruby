@@ -8,6 +8,7 @@ require 'google/api/annotations_pb'
 require 'google/api/field_behavior_pb'
 require 'google/longrunning/operations_pb'
 require 'google/cloud/extended_operations_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("testing/nonstandard_lro_grpc/nonstandard_lro_grpc.proto", :syntax => :proto3) do
     add_message "testing.nonstandardlrogrpc.Request" do
