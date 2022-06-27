@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'google/api/client_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("testing/mixins/mixins.proto", :syntax => :proto3) do
     add_message "testing.mixins.Request" do

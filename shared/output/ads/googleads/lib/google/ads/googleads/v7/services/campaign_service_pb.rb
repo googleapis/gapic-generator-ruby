@@ -11,6 +11,7 @@ require 'google/api/field_behavior_pb'
 require 'google/api/resource_pb'
 require 'google/protobuf/field_mask_pb'
 require 'google/rpc/status_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/ads/googleads/v7/services/campaign_service.proto", :syntax => :proto3) do
     add_message "google.ads.googleads.v7.services.GetCampaignRequest" do

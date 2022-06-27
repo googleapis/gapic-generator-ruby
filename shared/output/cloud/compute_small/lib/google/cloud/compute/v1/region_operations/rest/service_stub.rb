@@ -57,7 +57,7 @@ module Google
 
                 verb, uri, query_string_params, body = transcode_delete_request request_pb
                 query_string_params = if query_string_params.any?
-                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                        query_string_params.to_h { |p| p.split("=", 2) }
                                       else
                                         {}
                                       end
@@ -94,7 +94,7 @@ module Google
 
                 verb, uri, query_string_params, body = transcode_get_request request_pb
                 query_string_params = if query_string_params.any?
-                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                        query_string_params.to_h { |p| p.split("=", 2) }
                                       else
                                         {}
                                       end
@@ -131,7 +131,7 @@ module Google
 
                 verb, uri, query_string_params, body = transcode_list_request request_pb
                 query_string_params = if query_string_params.any?
-                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                        query_string_params.to_h { |p| p.split("=", 2) }
                                       else
                                         {}
                                       end
@@ -168,7 +168,7 @@ module Google
 
                 verb, uri, query_string_params, body = transcode_wait_request request_pb
                 query_string_params = if query_string_params.any?
-                                        query_string_params.map { |p| p.split("=", 2) }.to_h
+                                        query_string_params.to_h { |p| p.split("=", 2) }
                                       else
                                         {}
                                       end

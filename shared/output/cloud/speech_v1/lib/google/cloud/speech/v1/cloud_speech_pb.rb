@@ -12,6 +12,7 @@ require 'google/protobuf/duration_pb'
 require 'google/protobuf/timestamp_pb'
 require 'google/protobuf/wrappers_pb'
 require 'google/rpc/status_pb'
+
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("google/cloud/speech/v1/cloud_speech.proto", :syntax => :proto3) do
     add_message "google.cloud.speech.v1.RecognizeRequest" do
