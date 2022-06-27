@@ -43,10 +43,10 @@ module Gapic
       # @param map_params_list [Array<String>]
       # @return Gapic::Schema::ParameterSchema
       def self.create bool_params_list: [], string_params_list: [], array_params_list: [], map_params_list: []
-        bool_params = bool_params_list.map { |val| [val, val] }.to_h
-        string_params = string_params_list.map { |val| [val, val] }.to_h
-        array_params = array_params_list.map { |val| [val, val] }.to_h
-        map_params = map_params_list.map { |val| [val, val] }.to_h
+        bool_params = bool_params_list.to_h { |val| [val, val] }
+        string_params = string_params_list.to_h { |val| [val, val] }
+        array_params = array_params_list.to_h { |val| [val, val] }
+        map_params = map_params_list.to_h { |val| [val, val] }
 
         ParameterSchema.new bool_params, string_params, array_params, map_params
       end
