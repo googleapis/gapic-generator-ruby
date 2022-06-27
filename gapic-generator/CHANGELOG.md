@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.14.0 / 2022-06-27
+
+* Feature: generate code using full GRPC transcoding for rest libraries
+* Feature: generating libraries with rest and grpc transports
+* Fix: LRO-wrapped methods of the internal Operations client not working
+* Feature: Update minimum Ruby version to 2.6
+
 ### 0.13.0 / 2022-05-11
 
 * Feature: Adjust links and repo metadata based on whether the product is part of gcp/cloud
