@@ -269,7 +269,7 @@ module Gapic
 
       def cached_obj collection, type_name
         # Remove leading dot.
-        type_name = type_name[1..-1] if type_name && type_name[0] == "."
+        type_name = type_name[1..] if type_name && type_name[0] == "."
 
         # Create an address from the type & check cache.
         collection.find { |m| m.address == type_name.split(".") }

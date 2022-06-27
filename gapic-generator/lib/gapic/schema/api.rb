@@ -481,7 +481,7 @@ module Gapic
 
       def str_to_key str
         str = str.to_s
-        str.start_with?(":") ? str[1..-1].to_sym : str
+        str.start_with?(":") ? str[1..].to_sym : str
       end
 
       def key_to_str key

@@ -244,8 +244,7 @@ module Gapic
                        "it contains a multivariate ResourceId segment (e.g. `{foo}~{bar}`)"
                      end
 
-            "A routing header parameter with the path_template #{raw_template}\n " \
-                "is invalid: #{reason}"
+            "A routing header parameter with the path_template #{raw_template}\n is invalid: #{reason}"
           end
         end
 

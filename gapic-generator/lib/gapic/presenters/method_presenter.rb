@@ -180,25 +180,20 @@ module Gapic
         "Access the result along with the RPC operation"
       end
 
+      # Type for MethodPresenter#yield_params
+      YieldParams = Struct.new :name, :doc_types
+
       def yield_params
         if lro?
-          return [
-            OpenStruct.new(
-              name:      "operation",
-              doc_types: "::Gapic::Operation"
-            )
+          [
+            YieldParams.new("operation", "::Gapic::Operation")
+          ]
+        else
+          [
+            YieldParams.new("result", return_type),
+            YieldParams.new("operation", "::GRPC::ActiveCall::Operation")
           ]
         end
-        [
-          OpenStruct.new(
-            name:      "result",
-            doc_types: return_type
-          ),
-          OpenStruct.new(
-            name:      "operation",
-            doc_types: "::GRPC::ActiveCall::Operation"
-          )
-        ]
       end
 
       # @api.incode samples and sample_configs are yaml configuration files such as

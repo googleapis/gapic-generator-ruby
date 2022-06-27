@@ -125,7 +125,7 @@ module Gapic
         return nil if @docs.leading_comments.empty?
 
         lines = @docs.leading_comments.each_line.to_a
-        lines.map! { |line| line.start_with?(" ") ? line[1..-1] : line }
+        lines.map! { |line| line.start_with?(" ") ? line[1..] : line }
         lines = FormattingUtils.format_doc_lines containing_api, lines, disable_xrefs: disable_xrefs
         lines.join
       end

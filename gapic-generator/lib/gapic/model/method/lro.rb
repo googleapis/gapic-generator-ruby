@@ -55,9 +55,9 @@ module Gapic
             !f.operation_request_field.nil? && !f.operation_request_field.empty?
           end
 
-          @operation_request_fields = ops_request_fields.map do |field|
+          @operation_request_fields = ops_request_fields.to_h do |field|
             [field.name, field.operation_request_field]
-          end.to_h
+          end
         end
 
         ##
@@ -138,14 +138,15 @@ module Gapic
             ops_service_lro = api.nonstandard_lro_model_for service_full_name
             unless ops_service_lro.nonstandard_lro?
               error_text = "A service #{service_full_name} specified as a nonstandard LRO service for " \
-              "the method #{method.full_name} was not found."
+                           "the method #{method.full_name} was not found."
               raise ModelError, error_text
             end
 
             unless method.output.full_name == ops_service_lro.lro_object_full_name
               error_text = "A service #{service_full_name} specified as a nonstandard LRO service for " \
-              "the method #{method.full_name} has a different LRO object (#{ops_service_lro.lro_object_full_name}) " \
-              "from the method's return type (#{method.output.full_name})."
+                           "the method #{method.full_name} has a different LRO object " \
+                           "(#{ops_service_lro.lro_object_full_name}) from the method's return type " \
+                           "(#{method.output.full_name})."
               raise ModelError, error_text
             end
 
