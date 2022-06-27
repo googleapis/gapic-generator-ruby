@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.14.0 / 2022-06-27
+
+* Includes changes from gapic-generator 0.14.0
+* Feature: generate code using full GRPC transcoding for rest libraries
+* Feature: Update minimum Ruby version to 2.6
+
 ### 0.13.0 / 2022-05-11
 
 * Includes changes from gapic-generator 0.13.0
