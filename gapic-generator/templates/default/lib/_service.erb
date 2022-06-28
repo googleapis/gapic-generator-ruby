@@ -9,13 +9,11 @@ require "gapic/config/method"
 
 require "<%= service.gem.version_require %>"
 
-<%- unless service.generic_endpoint? && !service.path -%>
 <%- unless service.generic_endpoint? -%>
 require "<%= service.credentials_require %>"
 <%- end -%>
 <%- if service.paths? -%>
 require "<%= service.paths_require %>"
-<%- end -%>
 <%- end -%>
 <%- if service.generate_grpc_clients? -%>
 <%- if service.lro? -%>
