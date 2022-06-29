@@ -18,7 +18,7 @@ require_relative "./gem_defaults"
 
 supported_apis = {
   gapic: [:showcase, :garbage, :testing, :noservice],
-  cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :compute_small],
+  cloud: [:language_v1, :language_v1beta1, :language_v1beta2, :speech_v1, :vision_v1, :grafeas_v1, :compute_small],
   ads: [:googleads]
 }
 
