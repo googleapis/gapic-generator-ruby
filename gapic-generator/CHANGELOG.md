@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.14.1 / 2022-06-29
+
+* Fix: fix crash when generating generic endpoints
+
 ### 0.14.0 / 2022-06-27
 
 * Feature: generate code using full GRPC transcoding for rest libraries
