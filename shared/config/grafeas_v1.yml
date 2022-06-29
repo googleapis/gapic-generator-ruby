@@ -1,0 +1,4 @@
+---
+:gem:
+  :name: "grafeas-v1"
+  :generic_endpoint: true

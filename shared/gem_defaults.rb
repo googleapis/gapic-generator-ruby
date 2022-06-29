@@ -17,6 +17,22 @@
 
 def gem_defaults
   {
+    grafeas_v1: {
+      protos: [
+        "grafeas/v1/attestation.proto",
+        "grafeas/v1/build.proto",
+        "grafeas/v1/common.proto",
+        "grafeas/v1/cvss.proto",
+        "grafeas/v1/deployment.proto",
+        "grafeas/v1/discovery.proto",
+        "grafeas/v1/grafeas.proto",
+        "grafeas/v1/image.proto",
+        "grafeas/v1/package.proto",
+        "grafeas/v1/provenance.proto",
+        "grafeas/v1/upgrade.proto",
+        "grafeas/v1/vulnerability.proto"
+      ]
+    },
     language_v1: {
       protos: [
         "google/cloud/language/v1/language_service.proto"
