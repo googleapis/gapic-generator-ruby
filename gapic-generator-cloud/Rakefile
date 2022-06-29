@@ -38,7 +38,7 @@ task :ci do
 end
 
 rest_libs = [:compute_small]
-grpc_libs = [:language_v1, :language_v1beta1, :language_v1beta2, :secretmanager_v1beta1, :speech_v1, :vision_v1]
+grpc_libs = [:language_v1, :language_v1beta1, :language_v1beta2, :secretmanager_v1beta1, :speech_v1, :vision_v1, :grafeas_v1]
 libs = rest_libs + grpc_libs
 
 desc "Update the proto binary dumps which are used to generate templates"
