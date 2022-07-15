@@ -137,7 +137,7 @@ class FaradayE2ETest < Minitest::Test
         endAt: {
           before: true,
           values: [{
-            referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/VZkD7W3eKKQU11aVufpx"
+            referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/DHascZz7jFwjUezanOjK"
           }]
         },
         from: [{
@@ -159,12 +159,72 @@ class FaradayE2ETest < Minitest::Test
           Fiber.yield chunk
         end
       end
+      nil
     end
 
     rest_stream = Gapic::Rest::ServerStream.new(
       Gapic::Rest::FiberEnumerable.new(fiber)
     )
     rest_stream.each do |x|
+      pp "CHUNK="
+      pp x
+    end
+  end
+
+  def test_rest_stream_wrap3
+    class FirestoreClient
+      def initialize
+        @_endpoint = "https://firestore.googleapis.com/v1/projects/client-debugging/databases/(default)/documents:runQuery"
+        @_conn = Faraday.new url: @endpoint do |conn|
+            conn.headers = { "Content-Type" => "application/json" }
+            conn.request :google_authorization,  ::Google::Auth::Credentials.default
+            conn.request :retry
+            conn.response :raise_error
+            conn.adapter :net_http
+        end
+      end
+
+      def runQuery request
+        fiber = Fiber.new do 
+          conn.post(endpoint, request) do |req|
+            req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+              Fiber.yield chunk
+            end
+          end
+          nil
+        end
+        rest_stream = Gapic::Rest::ServerStream.new(
+          Gapic::Rest::FiberEnumerable.new(fiber)
+        )
+        return rest_stream
+      end
+    end  
+    request = <<-JSON 
+    { parent: "projects/client-debugging/databases/(default)/documents",
+      structuredQuery: {
+        endAt: {
+          before: true,
+          values: [{
+            referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/DHascZz7jFwjUezanOjK"
+          }]
+        },
+        from: [{
+          allDescendants: true,
+          collectionId: "node_5.0.2_0KwCDFyz5uZYxCg3QWPh",
+        }],
+        orderBy: [{
+          direction: 'ASCENDING',
+          field: {
+            fieldPath: '__name__'
+          }
+        }],
+      }
+    }
+    JSON
+    firestore = FirestoreClient()
+    rest_stream = firestore.runQuery(request)
+    rest_stream.each do |x|
+      pp "CHUNK="
       pp x
     end
   end

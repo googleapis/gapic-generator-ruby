@@ -36,7 +36,14 @@ module Gapic
 
       def next
         begin
-          fiber.resume
+          chunk = fiber.resume
+          if chunk.nil?
+            raise StopIteration
+          end
+          if chunk.include? "VZkD7W3eKKQU11aVufpx"
+            raise "found it."
+          end
+          return chunk
         rescue FiberError
           raise StopIteration
         end
@@ -131,6 +138,9 @@ module Gapic
           while @_ready_objs.length == 0
             begin
               chunk = @enumerable.next
+              # if chunk.nil?
+              #   return
+              # end
               next_json!(chunk)
             rescue StopIteration
               return   
