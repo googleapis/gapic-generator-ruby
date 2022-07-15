@@ -1,0 +1,23 @@
+type: google.api.Service
+config_version: 3
+name: showcase.googleapis.com
+title: Client Libraries Showcase API
+
+apis:
+- name: google.showcase.v1beta1.Compliance
+- name: google.showcase.v1beta1.Echo
+- name: google.showcase.v1beta1.Identity
+- name: google.showcase.v1beta1.Messaging
+- name: google.showcase.v1beta1.SequenceService
+- name: google.showcase.v1beta1.Testing
+
+http:
+  rules:
+  - selector: google.longrunning.Operations.ListOperations
+    get: '/v1beta1/operations'
+  - selector: google.longrunning.Operations.GetOperation
+    get: '/v1beta1/{name=operations/**}'
+  - selector: google.longrunning.Operations.DeleteOperation
+    delete: '/v1beta1/{name=operations/**}'
+  - selector: google.longrunning.Operations.CancelOperation
+    post: '/v1beta1/{name=operations/**}:cancel'

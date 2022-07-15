@@ -64,11 +64,4 @@ class EchoRestTest < EchoTest
   def setup
     super new_echo_rest_client
   end
-
-  def new_echo_rest_client
-    Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
-      config.endpoint = "http://localhost:7469"
-      config.credentials = :this_channel_is_insecure
-    end
-  end
 end
