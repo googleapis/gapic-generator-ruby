@@ -239,6 +239,7 @@ module Gapic
       # @return [String]
       #
       def doc_response_type
+        return "::Gapic::Operation" if lro?
         return "::Gapic::Rest::PagedEnumerable<#{pagination.paged_element_doc_type}>" if paged?
         return "::Gapic::GenericLRO::Operation" if nonstandard_lro?
         return_type
@@ -251,6 +252,10 @@ module Gapic
       #
       def paged?
         @pagination.paged?
+      end
+
+      def lro?
+        @main_method.lro?
       end
 
       ##
@@ -280,6 +285,14 @@ module Gapic
         (@main_method.kind == :normal) && verb? && path?
       end
 
+      ##
+      # @private
+      # @return [String] A method path or an empty string if not present
+      #
+      def path
+        @http.path
+      end
+
       private
 
       ##
@@ -299,13 +312,6 @@ module Gapic
             [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
           end
         end
-      end
-
-      ##
-      # @return [String] A method path or an empty string if not present
-      #
-      def path
-        @http.path
       end
     end
   end

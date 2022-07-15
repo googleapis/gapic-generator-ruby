@@ -1,5 +1,11 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
+<%- if service.lro? -%>
+require "<%= service.rest.operations_require %>"
+<%- end -%>
+<%- if service.nonstandard_lro_provider? -%>
+require "<%= service.rest.nonstandard_lro_require %>"
+<%- end -%>
 require "<%= service.rest.client_require %>"
 <% end %>
 module <%= service.module_name %>

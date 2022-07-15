@@ -124,7 +124,7 @@ module Google
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
-              @operations_client = Operations.new do |config|
+              @operations_client = ::Google::Showcase::V1beta1::Messaging::Rest::Operations.new do |config|
                 config.credentials = credentials
                 config.endpoint = @config.endpoint
               end
@@ -809,10 +809,10 @@ module Google
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\SearchBlurbs` method.
             # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Longrunning::Operation]
+            # @yieldparam result [::Gapic::Operation]
             # @yieldparam response [::Faraday::Response]
             #
-            # @return [::Google::Longrunning::Operation]
+            # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             def search_blurbs request, options = nil
@@ -839,6 +839,7 @@ module Google
                                      metadata:     @config.metadata
 
               @messaging_stub.search_blurbs request, options do |result, response|
+                result = ::Gapic::Operation.new result, @operations_client, options: options
                 yield result, response if block_given?
                 return result
               end

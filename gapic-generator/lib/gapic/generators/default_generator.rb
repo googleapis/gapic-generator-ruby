@@ -74,6 +74,7 @@ module Gapic
 
             # Standard LRO shim
             files << g("service/operations.erb",             "lib/#{service.operations_file_path}",              service: service) if service.lro? && should_generate_grpc
+            files << g("service/rest/operations.erb",        "lib/#{service.rest.operations_file_path}",         service: service) if service.rest.lro? && should_generate_rest
 
             # Nonstandard LRO shim
             files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc

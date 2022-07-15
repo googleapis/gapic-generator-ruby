@@ -75,6 +75,21 @@ class GeneratorTest < Minitest::Test
   # @param params_purge [Array<String>, Array{String(frozen)}]
   # @return [Gapic::Schema::Api]
   def api service, params_override: nil, params_purge: nil
+    default_params = case service 
+      when :showcase
+        { "service-yaml" => "protofiles_input/google/showcase/v1beta1/showcase_v1beta1.yaml".freeze }
+      when :testing
+        grpc_service_config_paths = [
+          "protofiles_input/testing/grpc_service_config/grpc_service_config.json",
+          "protofiles_input/testing/grpc_service_config/grpc_service_config2.json"
+        ]
+        { "grpc_service_config" =>  grpc_service_config_paths.join(";") }
+      else
+        { }
+      end
+
+    params_override = default_params.merge(params_override || {})  
+
     Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge)
   end
 
@@ -87,6 +102,14 @@ class GeneratorTest < Minitest::Test
                                                       : grpc_service_config.to_s
 
     api service, params_override: {"grpc_service_config" => grpc_service_config_str.freeze}
+  end
+
+  ##
+  # @param service [Symbol]
+  # @param service_yaml [String]
+  # @return [Gapic::Schema::Api]
+  def api_with_service_yaml service, service_yaml_str
+    api service, params_override: {"service-yaml" => service_yaml_str.freeze}
   end
 
   ##

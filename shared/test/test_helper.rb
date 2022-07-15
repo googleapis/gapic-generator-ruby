@@ -31,6 +31,7 @@ def generate_library_for_test imports, protos
     "--grpc_out=#{client_lib}/lib",
     "--ruby_gapic_out=#{client_lib}",
     "--ruby_gapic_opt=configuration=../shared/config/showcase.yml",
+    "--ruby_gapic_opt=service-yaml=../shared/protos/google/showcase/v1beta1/showcase_v1beta1.yaml",
     "#{protos.join " "}",
   ].join " "
   puts protoc_cmd if ENV["VERBOSE"]
@@ -77,7 +78,7 @@ class ShowcaseTest < Minitest::Test
     if ENV['CI'].nil?
       puts "Starting showcase server..." if ENV["VERBOSE"]
       server_id, status = Open3.capture2 "docker run --rm -d -p 7469:7469/tcp -p 7469:7469/udp "\
-        "gcr.io/gapic-images/gapic-showcase:0.17.0"
+        "gcr.io/gapic-images/gapic-showcase:0.22.0"
       raise "failed to start showcase" unless status.exitstatus.zero?
 
       server_id.chop!

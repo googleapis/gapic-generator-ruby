@@ -100,9 +100,9 @@ class <%= service.rest.client_name %>
     end
     <%- end -%>
     
-    <%- if service.subclients? -%>
-    <%- service.subclients.each do |subclient| -%>
-    @<%= subclient.client_var_name %> = <%= subclient.client_class_name %>.new do |config|
+    <%- if service.rest.subclients? -%>
+    <%- service.rest.subclients.each do |subclient| -%>
+    @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
       config.endpoint = @config.endpoint
     end

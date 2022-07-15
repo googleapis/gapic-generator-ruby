@@ -28,10 +28,19 @@ module Gapic
       #
       class HttpAnnotation
         ##
-        # @param proto_method [Gapic::Schema::Method]
+        # @param proto_method [::Gapic::Schema::Method]
+        #   The proto method this annotation model applies to
+        # @param service_config [::Google::Api::Service]
+        #   The service config that might contain an override for the proto method's
+        #   http annotation.
         #
-        def initialize proto_method
-          @proto_method = proto_method
+        def initialize proto_method, service_config
+          @proto_http = proto_method.http
+          @http_override = begin
+            unless service_config&.http.nil?
+              service_config.http.rules.find { |http_rule| http_rule.selector == proto_method.full_name }
+            end
+          end
         end
 
         ##
@@ -47,17 +56,7 @@ module Gapic
         #
         # @return [Symbol, nil]
         def verb
-          return nil if @proto_method.http.nil?
-
-          method = {
-            get:    @proto_method.http.get,
-            post:   @proto_method.http.post,
-            put:    @proto_method.http.put,
-            patch:  @proto_method.http.patch,
-            delete: @proto_method.http.delete
-          }.find { |_, value| !value.empty? }
-
-          method[0] unless method.nil?
+          verb_path[0] if verb_path
         end
 
         ##
@@ -73,14 +72,8 @@ module Gapic
         #
         # @return [String]
         def path
-          return "" if @proto_method.http.nil?
-
-          verb_path = [
-            @proto_method.http.get, @proto_method.http.post, @proto_method.http.put,
-            @proto_method.http.patch, @proto_method.http.delete
-          ].find { |x| !x.empty? }
-
-          verb_path || @proto_method.http.custom&.path || ""
+          return "" unless verb_path
+          verb_path[1]
         end
 
         ##
@@ -118,9 +111,7 @@ module Gapic
         #
         # @return [Boolean]
         def body?
-          return false if @proto_method.http.nil?
-
-          !@proto_method.http.body.empty?
+          !body.empty?
         end
 
         ##
@@ -129,7 +120,37 @@ module Gapic
         #
         # @return [String]
         def body
-          @proto_method.http&.body || ""
+          http&.body || ""
+        end
+
+        private
+
+        ##
+        # The Http annotation to use -- an override from the service config
+        # or the proto method's one
+        #
+        # @return [::Google::Api::Http, Nil]
+        def http
+          @http_override || @proto_http
+        end
+
+        ##
+        # The combination of verb and path found in the http annotation
+        # (or Nil if the annotation is Nil).
+        #
+        # @return [Array<Symbol, String>, Nil]
+        def verb_path
+          return nil if http.nil?
+
+          method = {
+            get:    http.get,
+            post:   http.post,
+            put:    http.put,
+            patch:  http.patch,
+            delete: http.delete
+          }.find { |_, value| !value.empty? }
+
+          method unless method.nil?
         end
       end
     end

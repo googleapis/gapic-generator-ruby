@@ -329,7 +329,7 @@ module Gapic
 
       ##
       # @return [Enumerable<Gapic::Presenters::MethodPresenter>]
-      #   List of mods for which REST bindings are present and REST methods can be generated
+      #   List of methods for which REST bindings are present and REST methods can be generated
       #
       def methods_rest_bindings
         methods.select { |method| method.rest.path? && method.rest.verb? }

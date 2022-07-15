@@ -49,7 +49,7 @@ module Gapic
         @service_presenter = service_presenter
         @api = api
         @method = method
-        @http = Gapic::Model::Method::HttpAnnotation.new @method
+        @http = Gapic::Model::Method::HttpAnnotation.new @method, @api.service_config
         @routing = Gapic::Model::Method::Routing.new @method.routing, http
         @lro = Gapic::Model::Method.parse_lro @method, api
 

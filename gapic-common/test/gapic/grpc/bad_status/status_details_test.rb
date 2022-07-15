@@ -33,7 +33,7 @@ class GrpcBadStatusStatusDetailsTest < Minitest::Test
   end
 
   def test_wont_deserialize_unknown_type
-    expected_error = Random.new.bytes 8
+    expected_error = '\xD7:R\xAB?\x83\xCE\xFAkO'
 
     any = Google::Protobuf::Any.new(
       type_url: "unknown-type", value: expected_error
@@ -51,7 +51,7 @@ class GrpcBadStatusStatusDetailsTest < Minitest::Test
   def test_wont_deserialize_bad_value
     any = Google::Protobuf::Any.new(
       type_url: "type.googleapis.com/google.rpc.DebugInfo",
-      value: Random.new.bytes(16)
+      value: '\xD7:R\xAB?\x83\xCE\xFAkO\xD7:R\xAB?\x83\xCE\xFAkO'
     )
 
     status = Google::Rpc::Status.new details: [any]
