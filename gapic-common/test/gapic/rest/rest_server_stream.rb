@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "test_helper"
+require "Enumberable"
 
 ##
 # Tests for the REST paged enumerables

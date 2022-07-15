@@ -27,10 +27,103 @@ require "googleauth"
 class FaradayE2ETest < Minitest::Test
   ##
   # Tests that a `ServerStream` can enumerate all resources via `each`
-  #
-  def test_enumerates_all_chunks
-    endpoint = "https://firestore.googleapis.com/v1/projects/client-debugging/databases/(default)/documents:runQuery"
+  # #
+  # def test_enumerates_all_chunks
+  #   endpoint = "https://firestore.googleapis.com/v1/projects/client-debugging/databases/(default)/documents:runQuery"
 
+  #   conn = Faraday.new url: @endpoint do |conn|
+  #       conn.headers = { "Content-Type" => "application/json" }
+  #       conn.request :google_authorization,  ::Google::Auth::Credentials.default
+  #       conn.request :retry
+  #       conn.response :raise_error
+  #       conn.adapter :net_http
+  #   end
+
+  #   # A buffer to store the streamed data
+  #   streamed = []
+
+  #   request = <<-JSON 
+  #   { parent: "projects/client-debugging/databases/(default)/documents",
+  #     structuredQuery: {
+  #       endAt: {
+  #         before: true,
+  #         values: [{
+  #           referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/VZkD7W3eKKQU11aVufpx"
+  #         }]
+  #       },
+  #       from: [{
+  #         allDescendants: true,
+  #         collectionId: "node_5.0.2_0KwCDFyz5uZYxCg3QWPh",
+  #       }],
+  #       orderBy: [{
+  #         direction: 'ASCENDING',
+  #         field: {
+  #           fieldPath: '__name__'
+  #         }
+  #       }],
+  #     }
+  #   }
+  #   JSON
+
+  #   fiber = Fiber.new do 
+  #     conn.post(endpoint, request) do |req|
+  #       # Set a callback which will receive tuples of chunk Strings
+  #       # and the sum of characters received so far
+  #       req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+  #           puts "Received #{overall_received_bytes} characters"
+  #           streamed << chunk
+  #           Fiber.yield chunk
+  #       end
+  #     end
+  #   end
+  #   puts "---------"
+  #   begin
+  #     while true
+  #       chunk = fiber.resume
+  #       # puts "@@@Chunk="
+  #       # pp chunk
+  #     end
+  #   rescue FiberError
+  #     # puts "fiber ends."
+  #   end
+  #   puts "---------"
+  #   streamed.each do |chunk|
+  #     pp chunk.length
+  #   end
+  #   pp streamed.count
+  # end
+
+  def test_rest_stream_wrap
+    # fiber = Fiber.new do 
+    #   conn.post(endpoint, request) do |req|
+    #     req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+    #       Fiber.yield chunk
+    #     end
+    #   end
+    # end
+    enumerable = [
+      "[",
+      "{",
+      "\"foo\":1",
+      "}",
+      ",",
+      "{",
+      "\"bar\":1",
+      "}",
+      "]"
+    ].to_enum
+
+    rest_stream = Gapic::Rest::ServerStream.new(
+      enumerable
+      #Gapic::Rest::FiberEnumerable.new(enumerable)
+    )
+    rest_stream.each do |x|
+      pp x
+    end
+  end
+
+  def test_rest_stream_wrap2
+    endpoint = "https://firestore.googleapis.com/v1/projects/client-debugging/databases/(default)/documents:runQuery"
     conn = Faraday.new url: @endpoint do |conn|
         conn.headers = { "Content-Type" => "application/json" }
         conn.request :google_authorization,  ::Google::Auth::Credentials.default
@@ -38,10 +131,6 @@ class FaradayE2ETest < Minitest::Test
         conn.response :raise_error
         conn.adapter :net_http
     end
-
-    # A buffer to store the streamed data
-    streamed = []
-
     request = <<-JSON 
     { parent: "projects/client-debugging/databases/(default)/documents",
       structuredQuery: {
@@ -64,37 +153,20 @@ class FaradayE2ETest < Minitest::Test
       }
     }
     JSON
-
     fiber = Fiber.new do 
       conn.post(endpoint, request) do |req|
-        # Set a callback which will receive tuples of chunk Strings
-        # and the sum of characters received so far
         req.options.on_data = Proc.new do |chunk, overall_received_bytes|
-            puts "Received #{overall_received_bytes} characters"
-            streamed << chunk
-            Fiber.yield chunk
+          Fiber.yield chunk
         end
       end
     end
-    puts "---------"
-    begin
-      while true
-        chunk = fiber.resume
-        # puts "@@@Chunk="
-        # pp chunk
-      end
-    rescue FiberError
-      # puts "fiber ends."
-    end
-    puts "---------"
-    streamed.each do |chunk|
-      pp chunk.length
-    end
-    pp streamed.count
-  end
 
-  def test_rest_stream_wrap
-
+    rest_stream = Gapic::Rest::ServerStream.new(
+      Gapic::Rest::FiberEnumerable.new(fiber)
+    )
+    rest_stream.each do |x|
+      pp x
+    end
   end
 end
 

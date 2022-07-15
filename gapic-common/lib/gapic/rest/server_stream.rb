@@ -24,7 +24,7 @@ module Gapic
     end
 
     class FiberEnumerable
-      include Enumberable
+      include Enumerable
 
       # @return Fiber
       attr_reader :fiber
@@ -32,6 +32,14 @@ module Gapic
       # @param fiber Fiber
       def initialize fiber
         @fiber = fiber
+      end
+
+      def next
+        begin
+          fiber.resume
+        rescue FiberError
+          raise StopIteration
+        end
       end
     end
 
@@ -61,51 +69,51 @@ module Gapic
       # @return Enumerable<String>
       attr_reader :bodies
 
+      attr_reader :enumberable
+
       # @param fiber Enumerable<string>
       def initialize enumerable
-        @fiber = fiber
+        @enumerable = enumerable
         @_level = 0
         @_obj = ""
         @_ready_objs = []
       end
 
-      def next_json!
-        for body in @bodies
-          for char in body.split("")
-            if char == "{"
-              if @_level == 1
-                @_obj = ""
-              end
-              if not @_in_string
-                @_level += 1
-              end
-              @_obj += char
-            elsif char == "}"
-              @_obj += char
-              if not @_in_string
-                @_level -= 1
-              end
-              if not @_in_string and @_level == 1
-                @_ready_objs.append(@_obj)
-              end
-            elsif char == '"'
-              @_in_string = !@_in_string
-              @_obj += char
-            elsif char == "["
-              if @_level == 0
-                @_level += 1
-              else
-                @_obj += char
-              end
-            elsif char == "]"
-              if @_level == 1
-                @_level -= 1
-              else
-                @_obj += char
-              end
+      def next_json!(chunk)
+        for char in chunk.split("")
+          if char == "{"
+            if @_level == 1
+              @_obj = ""
+            end
+            if not @_in_string
+              @_level += 1
+            end
+            @_obj += char
+          elsif char == "}"
+            @_obj += char
+            if not @_in_string
+              @_level -= 1
+            end
+            if not @_in_string and @_level == 1
+              @_ready_objs.append(@_obj)
+            end
+          elsif char == '"'
+            @_in_string = !@_in_string
+            @_obj += char
+          elsif char == "["
+            if @_level == 0
+              @_level += 1
             else
               @_obj += char
             end
+          elsif char == "]"
+            if @_level == 1
+              @_level -= 1
+            else
+              @_obj += char
+            end
+          else
+            @_obj += char
           end
         end
       end
@@ -120,10 +128,17 @@ module Gapic
       def each &block
         return enum_for :each unless block_given?
         loop do
-          break if @_ready_objs.length > 0
-          next_json!
+          while @_ready_objs.length == 0
+            begin
+              chunk = @enumerable.next
+              next_json!(chunk)
+            rescue StopIteration
+              return   
+            end
+          end
+          yield @_ready_objs.shift
         end
-        yield @_ready_objs.shift
+        #pp "Len = " + @_ready_objs.length
       end
 
       private
@@ -135,9 +150,16 @@ module Gapic
       def each_body
         loop do
           break if @_ready_objs.length > 0
-          next_json!
+          begin
+            chunk = @enumerable.next
+            next_json!(chunk)
+          rescue StopIteration
+            break       
+          end
         end
-        yield @_ready_objs.shift
+        if @_ready_objs.length > 0
+          yield @_ready_objs.shift
+        end
       end
     end
   end
