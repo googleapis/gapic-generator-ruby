@@ -43,6 +43,7 @@ module Google
           # This method echoes the ComplianceData request. This method exercises
           # sending all request fields as query parameters.
           rpc :RepeatDataQuery, ::Google::Showcase::V1beta1::RepeatRequest, ::Google::Showcase::V1beta1::RepeatResponse
+          rpc :RepeatDataPathDemux, ::Google::Showcase::V1beta1::RepeatRequest, ::Google::Showcase::V1beta1::RepeatResponse
           # This method echoes the ComplianceData request. This method exercises
           # sending some parameters as "simple" path variables (i.e., of the form
           # "/bar/{foo}" rather than "/{foo=bar/*}"), and the rest as query parameters.

@@ -383,7 +383,7 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{sessions/[^/]+}, false]
+                                                          ["name", %r{sessions/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -423,7 +423,7 @@ module Google
                                                         uri_method: :delete,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{sessions/[^/]+}, false]
+                                                          ["name", %r{sessions/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -444,7 +444,7 @@ module Google
                                                         uri_method: :post,
                                                         uri_template: "/v1beta1/{name}:report",
                                                         matches: [
-                                                          ["name", %r{sessions/[^/]+}, false]
+                                                          ["name", %r{sessions/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -465,7 +465,7 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/{parent}/tests",
                                                         matches: [
-                                                          ["parent", %r{sessions/[^/]+}, false]
+                                                          ["parent", %r{sessions/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -486,7 +486,7 @@ module Google
                                                         uri_method: :delete,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{sessions/[^/]+/tests/[^/]+}, false]
+                                                          ["name", %r{sessions/[^/]+/tests/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -507,7 +507,7 @@ module Google
                                                         uri_method: :post,
                                                         uri_template: "/v1beta1/{name}:check",
                                                         matches: [
-                                                          ["name", %r{sessions/[^/]+/tests/[^/]+}, false]
+                                                          ["name", %r{sessions/[^/]+/tests/[^/]+}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb

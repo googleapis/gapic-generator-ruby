@@ -313,6 +313,92 @@ p_int32: p_int32, p_int64: p_int64, p_double: p_double }, grpc_options
     end
   end
 
+  def test_repeat_data_path_demux
+    # Create GRPC objects.
+    grpc_response = ::Google::Showcase::V1beta1::RepeatResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    name = "hello world"
+    info = {}
+    server_verify = true
+    f_int32 = 42
+    f_int64 = 42
+    f_double = 3.5
+    p_int32 = 42
+    p_int64 = 42
+    p_double = 3.5
+
+    repeat_data_path_demux_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :repeat_data_path_demux, name
+      assert_kind_of ::Google::Showcase::V1beta1::RepeatRequest, request
+      assert_equal "hello world", request["name"]
+      assert_equal Gapic::Protobuf.coerce({}, to: ::Google::Showcase::V1beta1::ComplianceData), request["info"]
+      assert_equal true, request["server_verify"]
+      assert_equal 42, request["f_int32"]
+      assert_equal 42, request["f_int64"]
+      assert_equal 3.5, request["f_double"]
+      assert_equal 42, request["p_int32"]
+      assert request.has_p_int32?
+      assert_equal 42, request["p_int64"]
+      assert request.has_p_int64?
+      assert_equal 3.5, request["p_double"]
+      assert request.has_p_double?
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, repeat_data_path_demux_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Compliance::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.repeat_data_path_demux({ name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.repeat_data_path_demux name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+                                    f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.repeat_data_path_demux ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info,
+                                                                                   server_verify: server_verify, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.repeat_data_path_demux(
+        { name: name, info: info, server_verify: server_verify, f_int32: f_int32, f_int64: f_int64, f_double: f_double,
+p_int32: p_int32, p_int64: p_int64, p_double: p_double }, grpc_options
+      ) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.repeat_data_path_demux(
+        ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+                                                       f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), grpc_options
+      ) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, repeat_data_path_demux_client_stub.call_rpc_count
+    end
+  end
+
   def test_repeat_data_simple_path
     # Create GRPC objects.
     grpc_response = ::Google::Showcase::V1beta1::RepeatResponse.new

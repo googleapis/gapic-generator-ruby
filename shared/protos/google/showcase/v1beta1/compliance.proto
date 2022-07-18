@@ -57,6 +57,13 @@ service Compliance {
     };
   }
 
+  rpc RepeatDataPathDemux(RepeatRequest) returns (RepeatResponse) {
+    option (google.api.http) = {
+      post: "/v1beta1/repeat/{info.f_string=**}:pathdemux"
+      body: "*"
+    };
+  }
+
   // This method echoes the ComplianceData request. This method exercises
   // sending some parameters as "simple" path variables (i.e., of the form
   // "/bar/{foo}" rather than "/{foo=bar/*}"), and the rest as query parameters.

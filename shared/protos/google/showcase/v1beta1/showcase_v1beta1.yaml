@@ -13,6 +13,10 @@ apis:
 
 http:
   rules:
+  - selector: google.showcase.v1beta1.Compliance.RepeatDataPathDemux
+    get: '/v1beta1/repeat/{info.f_string}/{info.f_int32}/{info.f_double}/{info.f_bool}/{info.f_kingdom}:simplepath'
+    additional_bindings:
+    - get: '/v1beta1/repeat/{info.f_string=first/*}/{info.f_child.f_string=second/*}/bool/{info.f_bool}:pathresource'
   - selector: google.longrunning.Operations.ListOperations
     get: '/v1beta1/operations'
   - selector: google.longrunning.Operations.GetOperation

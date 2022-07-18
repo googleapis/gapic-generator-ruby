@@ -132,6 +132,46 @@
       ]
     },
     {
+      "region_tag": "showcase_v0_generated_Compliance_RepeatDataPathDemux_sync",
+      "title": "Snippet for repeat_data_path_demux in Compliance",
+      "description": "Basic snippet for repeat_data_path_demux in Compliance",
+      "file": "compliance/repeat_data_path_demux.rb",
+      "language": "RUBY",
+      "client_method": {
+        "short_name": "repeat_data_path_demux",
+        "full_name": "::Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_demux",
+        "async": false,
+        "parameters": [
+          {
+            "type": "::Google::Showcase::V1beta1::RepeatRequest",
+            "name": "request"
+          }
+        ],
+        "result_type": "::Google::Showcase::V1beta1::RepeatResponse",
+        "client": {
+          "short_name": "Compliance::Client",
+          "full_name": "::Google::Showcase::V1beta1::Compliance::Client"
+        },
+        "method": {
+          "short_name": "RepeatDataPathDemux",
+          "full_name": "google.showcase.v1beta1.Compliance.RepeatDataPathDemux",
+          "service": {
+            "short_name": "Compliance",
+            "full_name": "google.showcase.v1beta1.Compliance"
+          }
+        }
+      },
+      "canonical": true,
+      "origin": "API_DEFINITION",
+      "segments": [
+        {
+          "start": 28,
+          "end": 40,
+          "type": "FULL"
+        }
+      ]
+    },
+    {
       "region_tag": "showcase_v0_generated_Compliance_RepeatDataSimplePath_sync",
       "title": "Snippet for repeat_data_simple_path in Compliance",
       "description": "Basic snippet for repeat_data_simple_path in Compliance",

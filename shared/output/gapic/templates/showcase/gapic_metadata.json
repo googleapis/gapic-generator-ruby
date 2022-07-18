@@ -25,6 +25,11 @@
                 "repeat_data_query"
               ]
             },
+            "RepeatDataPathDemux": {
+              "methods": [
+                "repeat_data_path_demux"
+              ]
+            },
             "RepeatDataSimplePath": {
               "methods": [
                 "repeat_data_simple_path"

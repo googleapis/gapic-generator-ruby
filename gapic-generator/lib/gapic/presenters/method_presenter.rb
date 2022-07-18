@@ -38,6 +38,9 @@ module Gapic
       # @return [Gapic::Model::Method::HttpAnnotation]
       attr_accessor :http
 
+      # @return [Array<Gapic::Presenters::Method::HttpBindingsPresenter>]
+      attr_accessor :http_bindings
+
       # @return [Gapic::Model::Method::AipLro, Gapic::Model::Method::NonStandardLro, Gapic::Model::Method::NoLro]
       attr_accessor :lro
 
@@ -49,11 +52,13 @@ module Gapic
         @service_presenter = service_presenter
         @api = api
         @method = method
-        @http = Gapic::Model::Method::HttpAnnotation.new @method, @api.service_config
-        @routing = Gapic::Model::Method::Routing.new @method.routing, http
-        @lro = Gapic::Model::Method.parse_lro @method, api
 
-        @rest = MethodRestPresenter.new self, api
+        @http = Gapic::Model::Method::HttpAnnotation.new @method, @api.service_config
+        @http_bindings = @http.bindings.map { |binding| Gapic::Presenters::Method::HttpBindingPresenter.new(binding) }
+        @routing = Gapic::Model::Method::Routing.new @method.routing, @http
+        @lro = Gapic::Model::Method.parse_lro @method, @api
+
+        @rest = MethodRestPresenter.new self, @api
       end
 
       ##

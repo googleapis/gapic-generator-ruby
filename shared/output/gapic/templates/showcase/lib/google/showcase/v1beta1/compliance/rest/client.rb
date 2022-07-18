@@ -344,6 +344,75 @@ module Google
             end
 
             ##
+            # @overload repeat_data_path_demux(request, options = nil)
+            #   Pass arguments to `repeat_data_path_demux` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::RepeatRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::RepeatRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #     Note: currently retry functionality is not implemented. While it is possible
+            #     to set it using ::Gapic::CallOptions, it will not be applied
+            #
+            # @overload repeat_data_path_demux(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+            #   Pass arguments to `repeat_data_path_demux` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param name [::String]
+            #   @param info [::Google::Showcase::V1beta1::ComplianceData, ::Hash]
+            #   @param server_verify [::Boolean]
+            #     If true, the server will verify that the received request matches
+            #     the request with the same name in the compliance test suite.
+            #   @param f_int32 [::Integer]
+            #     Some top level fields, to test that these are encoded correctly
+            #     in query params.
+            #   @param f_int64 [::Integer]
+            #   @param f_double [::Float]
+            #   @param p_int32 [::Integer]
+            #   @param p_int64 [::Integer]
+            #   @param p_double [::Float]
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
+            # @yieldparam response [::Faraday::Response]
+            #
+            # @return [::Google::Showcase::V1beta1::RepeatResponse]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            def repeat_data_path_demux request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::RepeatRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.repeat_data_path_demux.metadata.to_h
+
+              # Set x-goog-api-client header
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              options.apply_defaults timeout:      @config.rpcs.repeat_data_path_demux.timeout,
+                                     metadata:     call_metadata
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata
+
+              @compliance_stub.repeat_data_path_demux request, options do |result, response|
+                yield result, response if block_given?
+                return result
+              end
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
             # This method echoes the ComplianceData request. This method exercises
             # sending some parameters as "simple" path variables (i.e., of the form
             # "/bar/\\{foo}" rather than "/\\{foo=bar/*}"), and the rest as query parameters.
@@ -816,6 +885,11 @@ module Google
                 #
                 attr_reader :repeat_data_query
                 ##
+                # RPC-specific configuration for `repeat_data_path_demux`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :repeat_data_path_demux
+                ##
                 # RPC-specific configuration for `repeat_data_simple_path`
                 # @return [::Gapic::Config::Method]
                 #
@@ -849,6 +923,8 @@ module Google
                   @repeat_data_body_info = ::Gapic::Config::Method.new repeat_data_body_info_config
                   repeat_data_query_config = parent_rpcs.repeat_data_query if parent_rpcs.respond_to? :repeat_data_query
                   @repeat_data_query = ::Gapic::Config::Method.new repeat_data_query_config
+                  repeat_data_path_demux_config = parent_rpcs.repeat_data_path_demux if parent_rpcs.respond_to? :repeat_data_path_demux
+                  @repeat_data_path_demux = ::Gapic::Config::Method.new repeat_data_path_demux_config
                   repeat_data_simple_path_config = parent_rpcs.repeat_data_simple_path if parent_rpcs.respond_to? :repeat_data_simple_path
                   @repeat_data_simple_path = ::Gapic::Config::Method.new repeat_data_simple_path_config
                   repeat_data_path_resource_config = parent_rpcs.repeat_data_path_resource if parent_rpcs.respond_to? :repeat_data_path_resource

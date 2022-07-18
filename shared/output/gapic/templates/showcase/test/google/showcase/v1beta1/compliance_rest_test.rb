@@ -283,6 +283,77 @@ p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options
     end
   end
 
+  def test_repeat_data_path_demux
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::RepeatResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    name = "hello world"
+    info = {}
+    server_verify = true
+    f_int32 = 42
+    f_int64 = 42
+    f_double = 3.5
+    p_int32 = 42
+    p_int64 = 42
+    p_double = 3.5
+
+    repeat_data_path_demux_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
+      assert_equal :get, verb
+
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    Gapic::Rest::ClientStub.stub :new, repeat_data_path_demux_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
+        config.credentials = :dummy_value
+      end
+
+      # Use hash object
+      client.repeat_data_path_demux({ name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double }) do |result, response|
+        assert_equal http_response, response
+      end
+
+      # Use named arguments
+      client.repeat_data_path_demux name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+                                    f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double do |result, response|
+        assert_equal http_response, response
+      end
+
+      # Use protobuf object
+      client.repeat_data_path_demux ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info,
+                                                                                   server_verify: server_verify, f_int32: f_int32, f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double) do |result, response|
+        assert_equal http_response, response
+      end
+
+      # Use hash object with options
+      client.repeat_data_path_demux(
+        { name: name, info: info, server_verify: server_verify, f_int32: f_int32, f_int64: f_int64, f_double: f_double,
+p_int32: p_int32, p_int64: p_int64, p_double: p_double }, call_options
+      ) do |result, response|
+        assert_equal http_response, response
+      end
+
+      # Use protobuf object with options
+      client.repeat_data_path_demux(
+        ::Google::Showcase::V1beta1::RepeatRequest.new(name: name, info: info, server_verify: server_verify, f_int32: f_int32,
+                                                       f_int64: f_int64, f_double: f_double, p_int32: p_int32, p_int64: p_int64, p_double: p_double), call_options
+      ) do |result, response|
+        assert_equal http_response, response
+      end
+
+      # Verify method calls
+      assert_equal 5, repeat_data_path_demux_client_stub.call_count
+    end
+  end
+
   def test_repeat_data_simple_path
     # Create test objects.
     client_result = ::Google::Showcase::V1beta1::RepeatResponse.new
