@@ -312,10 +312,16 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{paths_name}"
       end
 
+      ##
+      # @return [Boolean] Whether the generation of REST clients is requested
+      #
       def generate_rest_clients?
         @api.generate_rest_clients?
       end
 
+      ##
+      # @return [Boolean] Whether the generation of gRPC clients is requested
+      #
       def generate_grpc_clients?
         @api.generate_grpc_clients?
       end
@@ -332,7 +338,7 @@ module Gapic
       #   List of methods for which REST bindings are present and REST methods can be generated
       #
       def methods_rest_bindings
-        methods.select { |method| method.rest.path? && method.rest.verb? }
+        methods.select(&:can_generate_rest?)
       end
 
       def test_client_file_path

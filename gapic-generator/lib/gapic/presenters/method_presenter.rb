@@ -278,7 +278,7 @@ module Gapic
       # @return [Array<String>] The segment key names.
       #
       def routing_params
-        rest.routing_params
+        @http.routing_params
       end
 
       ##

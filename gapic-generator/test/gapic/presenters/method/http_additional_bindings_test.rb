@@ -19,11 +19,11 @@ require "test_helper"
 class HttpAdditionalBindingsTest < PresenterTest
   def test_showcase_compliance
     presenter = method_presenter :showcase, "Compliance", "RepeatDataPathDemux"
-
-    assert presenter.rest.verb?
-    assert_equal presenter.rest.verb, :get
-    assert presenter.rest.path.include? "v1beta1"
-
     assert_equal 2, presenter.http_bindings.count
+    first_binding = presenter.http_bindings.first
+
+    assert first_binding.verb?
+    assert_equal first_binding.verb, :get
+    assert first_binding.path.include? "v1beta1"
   end
 end

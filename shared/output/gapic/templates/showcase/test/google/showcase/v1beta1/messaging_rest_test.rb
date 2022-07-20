@@ -80,9 +80,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     room = {}
 
-    create_room_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    create_room_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -95,28 +93,28 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.create_room({ room: room }) do |result, response|
+      client.create_room({ room: room }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.create_room room: room do |result, response|
+      client.create_room room: room do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.create_room ::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room) do |result, response|
+      client.create_room ::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.create_room({ room: room }, call_options) do |result, response|
+      client.create_room({ room: room }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.create_room(::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room),
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -135,9 +133,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_room_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    get_room_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -150,27 +146,27 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_room({ name: name }) do |result, response|
+      client.get_room({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.get_room name: name do |result, response|
+      client.get_room name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.get_room ::Google::Showcase::V1beta1::GetRoomRequest.new(name: name) do |result, response|
+      client.get_room ::Google::Showcase::V1beta1::GetRoomRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.get_room({ name: name }, call_options) do |result, response|
+      client.get_room({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.get_room(::Google::Showcase::V1beta1::GetRoomRequest.new(name: name), call_options) do |result, response|
+      client.get_room(::Google::Showcase::V1beta1::GetRoomRequest.new(name: name), call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -190,9 +186,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     room = {}
     update_mask = {}
 
-    update_room_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :patch, verb
-
+    update_room_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -205,29 +199,29 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.update_room({ room: room, update_mask: update_mask }) do |result, response|
+      client.update_room({ room: room, update_mask: update_mask }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.update_room room: room, update_mask: update_mask do |result, response|
+      client.update_room room: room, update_mask: update_mask do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room,
-                                                                            update_mask: update_mask) do |result, response|
+                                                                            update_mask: update_mask) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.update_room({ room: room, update_mask: update_mask }, call_options) do |result, response|
+      client.update_room({ room: room, update_mask: update_mask }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.update_room(::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask),
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -246,9 +240,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_room_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :delete, verb
-
+    delete_room_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -261,28 +253,28 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.delete_room({ name: name }) do |result, response|
+      client.delete_room({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.delete_room name: name do |result, response|
+      client.delete_room name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.delete_room ::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name) do |result, response|
+      client.delete_room ::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.delete_room({ name: name }, call_options) do |result, response|
+      client.delete_room({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.delete_room(::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name),
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -302,9 +294,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    list_rooms_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    list_rooms_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -317,23 +307,23 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_rooms({ page_size: page_size, page_token: page_token }) do |result, response|
+      client.list_rooms({ page_size: page_size, page_token: page_token }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.list_rooms page_size: page_size, page_token: page_token do |result, response|
+      client.list_rooms page_size: page_size, page_token: page_token do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
-                                                                          page_token: page_token) do |result, response|
+                                                                          page_token: page_token) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.list_rooms({ page_size: page_size, page_token: page_token }, call_options) do |result, response|
+      client.list_rooms({ page_size: page_size, page_token: page_token }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -341,7 +331,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       client.list_rooms(
         ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
                                                           page_token: page_token), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -361,9 +351,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     parent = "hello world"
     blurb = {}
 
-    create_blurb_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    create_blurb_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -376,29 +364,29 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.create_blurb({ parent: parent, blurb: blurb }) do |result, response|
+      client.create_blurb({ parent: parent, blurb: blurb }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.create_blurb parent: parent, blurb: blurb do |result, response|
+      client.create_blurb parent: parent, blurb: blurb do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent,
-                                                                              blurb: blurb) do |result, response|
+                                                                              blurb: blurb) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.create_blurb({ parent: parent, blurb: blurb }, call_options) do |result, response|
+      client.create_blurb({ parent: parent, blurb: blurb }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.create_blurb(::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb),
-                          call_options) do |result, response|
+                          call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -417,9 +405,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_blurb_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    get_blurb_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -432,27 +418,28 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_blurb({ name: name }) do |result, response|
+      client.get_blurb({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.get_blurb name: name do |result, response|
+      client.get_blurb name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.get_blurb ::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name) do |result, response|
+      client.get_blurb ::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.get_blurb({ name: name }, call_options) do |result, response|
+      client.get_blurb({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.get_blurb(::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), call_options) do |result, response|
+      client.get_blurb(::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name),
+                       call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -472,9 +459,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     blurb = {}
     update_mask = {}
 
-    update_blurb_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :patch, verb
-
+    update_blurb_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -487,29 +472,29 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.update_blurb({ blurb: blurb, update_mask: update_mask }) do |result, response|
+      client.update_blurb({ blurb: blurb, update_mask: update_mask }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.update_blurb blurb: blurb, update_mask: update_mask do |result, response|
+      client.update_blurb blurb: blurb, update_mask: update_mask do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb,
-                                                                              update_mask: update_mask) do |result, response|
+                                                                              update_mask: update_mask) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.update_blurb({ blurb: blurb, update_mask: update_mask }, call_options) do |result, response|
+      client.update_blurb({ blurb: blurb, update_mask: update_mask }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.update_blurb(::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask),
-                          call_options) do |result, response|
+                          call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -528,9 +513,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_blurb_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :delete, verb
-
+    delete_blurb_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -543,28 +526,28 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.delete_blurb({ name: name }) do |result, response|
+      client.delete_blurb({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.delete_blurb name: name do |result, response|
+      client.delete_blurb name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.delete_blurb ::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name) do |result, response|
+      client.delete_blurb ::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.delete_blurb({ name: name }, call_options) do |result, response|
+      client.delete_blurb({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.delete_blurb(::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name),
-                          call_options) do |result, response|
+                          call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -585,9 +568,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    list_blurbs_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    list_blurbs_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -600,24 +581,24 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }) do |result, response|
+      client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.list_blurbs parent: parent, page_size: page_size, page_token: page_token do |result, response|
+      client.list_blurbs parent: parent, page_size: page_size, page_token: page_token do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
-                                                                            page_token: page_token) do |result, response|
+                                                                            page_token: page_token) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
       client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token },
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -625,7 +606,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
       client.list_blurbs(
         ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
                                                            page_token: page_token), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -647,9 +628,7 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    search_blurbs_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    search_blurbs_client_stub = ClientStub.new http_response do |_verb, _uri, _body, _params, options|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -663,25 +642,25 @@ class ::Google::Showcase::V1beta1::Messaging::ClientTest < Minitest::Test
 
       # Use hash object
       client.search_blurbs({ query: query, parent: parent, page_size: page_size,
-page_token: page_token }) do |result, response|
+page_token: page_token }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
       client.search_blurbs query: query, parent: parent, page_size: page_size,
-                           page_token: page_token do |result, response|
+                           page_token: page_token do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent,
-                                                                                page_size: page_size, page_token: page_token) do |result, response|
+                                                                                page_size: page_size, page_token: page_token) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
       client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token },
-                           call_options) do |result, response|
+                           call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -689,7 +668,7 @@ page_token: page_token }) do |result, response|
       client.search_blurbs(
         ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size,
                                                              page_token: page_token), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
