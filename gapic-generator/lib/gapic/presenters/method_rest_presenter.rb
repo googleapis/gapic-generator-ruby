@@ -25,6 +25,8 @@ module Gapic
       # @return [Gapic::Presenters::Method::RestPaginationInfo]
       attr_reader :pagination
 
+      attr_reader :http_bindings
+
       ##
       # @param main_method [Gapic::Presenters::MethodPresenter] the main presenter for this method.
       # @param api [Gapic::Schema::Api]
@@ -34,6 +36,7 @@ module Gapic
         @main_method = main_method
         @proto_method = main_method.method
         @http = main_method.http
+        @http_bindings = main_method.http_bindings
 
         @pagination = Gapic::Presenters::Method::RestPaginationInfo.new @proto_method, api
       end
