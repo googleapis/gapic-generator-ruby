@@ -28,6 +28,14 @@ module Gapic
       #
       class HttpAnnotation
         ##
+        # The Http bindings found in the annotation
+        # this includes main binding in the annotation itself,
+        # as well as those in the `additional_bindings`.
+        #
+        # @return [Array<HttpBinding>]
+        attr_reader :bindings
+
+        ##
         # @param proto_method [::Gapic::Schema::Method]
         #   The proto method this annotation model applies to
         # @param service_config [::Google::Api::Service]
@@ -42,47 +50,12 @@ module Gapic
             end
           end
 
-          @http = http_override || proto_http
-        end
-
-        def bindings
-          @bindings ||= parse_bindings
+          http = http_override || proto_http
+          @bindings = parse_bindings http
         end
 
         ##
-        # Whether a http verb is present for this method
-        #
-        # @return [Boolean]
-        def verb?
-          !verb.nil?
-        end
-
-        ##
-        # The http verb for this method
-        #
-        # @return [Symbol, nil]
-        def verb
-          bindings.first&.verb
-        end
-
-        ##
-        # Whether a method path is present and non-empty
-        #
-        # @return [Boolean]
-        def path?
-          !path.empty?
-        end
-
-        ##
-        # A method path or an empty string if not present
-        #
-        # @return [String]
-        def path
-          bindings.first&.path || ""
-        end
-
-        ##
-        # Whether any routing params are present
+        # Whether any implicit routing parameters are present.
         #
         # @return [Boolean]
         def routing_params?
@@ -90,7 +63,7 @@ module Gapic
         end
 
         ##
-        # The segment key names.
+        # The implicit routing parameter names.
         #
         # @return [Array<String>]
         def routing_params
@@ -98,9 +71,9 @@ module Gapic
         end
 
         ##
-        # The segment key names and their corresponding paterns,
+        # The implicit routing parameter names and their corresponding paterns,
         # including the `*` pattern implied for the named segments
-        # without pattern explicitly specified.
+        # without an explicitly specified pattern.
         #
         # @return [Array<Array<String>>]
         def routing_params_with_patterns
@@ -108,26 +81,12 @@ module Gapic
         end
 
         ##
-        # Whether method has body specified in proto
-        #
-        # @return [Boolean]
-        def body?
-          !body.empty?
-        end
-
-        ##
-        # The body specified for the given method in proto
-        # or an empty string if not specified
-        #
-        # @return [String]
-        def body
-          bindings.first&.body || ""
-        end
-
-        ##
-        # @private
+        # A single Http binding.
         #
         class HttpBinding
+          ##
+          # @param binding [::Google::Api::HttpRule]
+          #   The baseline instance of the Http annotation
           def initialize binding
             @binding = binding
           end
@@ -212,8 +171,8 @@ module Gapic
             @binding&.body || ""
           end
 
-
           private
+
           ##
           # The combination of verb and path found in the http annotation
           # (or Nil if the annotation is Nil).
@@ -236,17 +195,26 @@ module Gapic
 
         private
 
-        def parse_bindings 
+        ##
+        # Parses http bindings from the `google.api.http` annotation, preserving order.
+        #
+        # @param http [::Google::Api::HttpRule]
+        #   The root instance of the HttpRule to parse.
+        #
+        # @return Array<HttpBinding>
+        #  The parsed bindings.
+        def parse_bindings http
           binds = []
-          return binds if @http.nil?
-          raw_binds = [@http]
-          if @http.additional_bindings && @http.additional_bindings.any?
-            for additional_bind in @http.additional_bindings
+          return binds if http.nil?
+
+          raw_binds = [http]
+          if http.additional_bindings&.any?
+            http.additional_bindings.each do |additional_bind|
               raw_binds << additional_bind
             end
           end
 
-          while raw_bind = raw_binds.shift
+          while (raw_bind = raw_binds.shift)
             binds << HttpBinding.new(raw_bind)
           end
           binds
