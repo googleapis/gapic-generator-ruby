@@ -101,7 +101,7 @@ module Gapic
           @routing_params_with_regexes ||= begin
             @binding.routing_params_with_patterns.map do |name, pattern|
               path_pattern = PathPattern.parse pattern
-              [name, path_pattern.to_regex_str, path_pattern.ends_with_double_star_pattern?]
+              [name, path_pattern.to_field_regex_str, path_pattern.ends_with_double_star_pattern?]
             end
           end
         end
