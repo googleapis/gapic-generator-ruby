@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 # frozen_string_literal: true
 
 # Copyright 2022 Google LLC
+=======
+
+# frozen_string_literal: true
+
+# Copyright 2021 Google LLC
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -58,6 +65,7 @@ class FirestoreServerStreamTest < Minitest::Test
 
     # Example method for server streaming code generation.
     def runQuery request
+<<<<<<< HEAD
       rest_stream = Gapic::Rest::ServerStream.new(
         Gapic::Rest::ThreadedFiberEnumerator.new do 
           # @conn.send(:post, @endpoint, request) do |req|
@@ -91,17 +99,40 @@ class FirestoreServerStreamTest < Minitest::Test
   end  
 
   def test_firestore_stream_in_thread
+=======
+      fiber = Fiber.new do 
+        @conn.post(@endpoint, request) do |req|
+          req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+            Fiber.yield chunk
+          end
+        end
+        nil
+      end
+      rest_stream = Gapic::Rest::ServerStream.new(
+        Gapic::Rest::FiberEnumerable.new(fiber)
+      )
+      return rest_stream
+    end
+  end  
+
+  def test_fiber_enumerable_stream
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
     request = <<-JSON 
     { parent: "projects/client-debugging/databases/(default)/documents",
       structuredQuery: {
         endAt: {
           before: true,
           values: [{
+<<<<<<< HEAD
             referenceValue: "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/tGmmVU9OCL3xRXhLokq9"
+=======
+            referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/DHascZz7jFwjUezanOjK"
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
           }]
         },
         from: [{
           allDescendants: true,
+<<<<<<< HEAD
           collectionId: "ruby_enumberable_stream",
         }],
         orderBy: [{
@@ -132,6 +163,9 @@ class FirestoreServerStreamTest < Minitest::Test
         from: [{
           allDescendants: true,
           collectionId: "ruby_enumberable_stream",
+=======
+          collectionId: "node_5.0.2_0KwCDFyz5uZYxCg3QWPh",
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
         }],
         orderBy: [{
           direction: 'ASCENDING',
@@ -144,6 +178,7 @@ class FirestoreServerStreamTest < Minitest::Test
     JSON
     firestore = FirestoreClient.new
     rest_stream = firestore.runQuery(request)
+<<<<<<< HEAD
 
     queue = Queue.new
     Thread.new do
@@ -153,5 +188,8 @@ class FirestoreServerStreamTest < Minitest::Test
 
     count = queue.pop
     assert_equal 9, count
+=======
+    assert_equal rest_stream.count, 77
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
   end
 end

@@ -28,5 +28,9 @@ require "gapic/rest/grpc_transcoder"
 require "gapic/rest/operation"
 require "gapic/rest/paged_enumerable"
 require "gapic/rest/server_stream"
+<<<<<<< HEAD
 require "gapic/rest/threaded_fiber_enumerator"
+=======
+require "gapic/rest/fiber_enumerable"
+>>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
 require "json"
