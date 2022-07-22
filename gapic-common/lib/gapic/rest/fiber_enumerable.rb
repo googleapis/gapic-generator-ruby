@@ -1,4 +1,4 @@
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##
-# Rest GAPIC features are still under development.
-#
+module Gapic
+  module Rest
+    class FiberEnumerable
+      include Enumerable
 
-require "faraday"
-require "gapic/call_options"
-require "gapic/common/version"
-require "gapic/headers"
-require "gapic/protobuf"
-require "gapic/rest/client_stub"
-require "gapic/rest/error"
-require "gapic/rest/faraday_middleware"
-require "gapic/rest/grpc_transcoder"
-require "gapic/rest/operation"
-require "gapic/rest/paged_enumerable"
-require "gapic/rest/server_stream"
-require "gapic/rest/fiber_enumerable"
-require "json"
+      # @return Fiber
+      attr_reader :fiber
+
+      # @param fiber Fiber
+      def initialize fiber
+        @fiber = fiber
+      end
+
+      def next
+        begin
+          chunk = fiber.resume
+          raise StopIteration if chunk.nil?
+          return chunk
+        rescue FiberError
+          raise StopIteration
+        end
+      end
+    end
+  end
+end
