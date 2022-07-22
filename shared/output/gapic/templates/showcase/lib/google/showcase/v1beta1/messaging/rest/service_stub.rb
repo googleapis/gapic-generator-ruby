@@ -579,6 +579,14 @@ module Google
                                                           ["parent", %r{rooms/[^/]+}, false]
                                                         ]
                                                       )
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{parent}/blurbs",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["parent", %r{users/[^/]+/profile}, false]
+                                                        ]
+                                                      )
               transcoder.transcode request_pb
             end
 
@@ -598,6 +606,13 @@ module Google
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
                                                           ["name", %r{rooms/[^/]+/blurbs/[^/]+}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :get,
+                                                        uri_template: "/v1beta1/{name}",
+                                                        matches: [
+                                                          ["name", %r{users/[^/]+/profile/blurbs/[^/]+}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -622,6 +637,14 @@ module Google
                                                           ["blurb.name", %r{rooms/[^/]+/blurbs/[^/]+}, false]
                                                         ]
                                                       )
+                                                      .with_bindings(
+                                                        uri_method: :patch,
+                                                        uri_template: "/v1beta1/{blurb.name}",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["blurb.name", %r{users/[^/]+/profile/blurbs/[^/]+}, false]
+                                                        ]
+                                                      )
               transcoder.transcode request_pb
             end
 
@@ -641,6 +664,13 @@ module Google
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
                                                           ["name", %r{rooms/[^/]+/blurbs/[^/]+}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :delete,
+                                                        uri_template: "/v1beta1/{name}",
+                                                        matches: [
+                                                          ["name", %r{users/[^/]+/profile/blurbs/[^/]+}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -664,6 +694,13 @@ module Google
                                                           ["parent", %r{rooms/[^/]+}, false]
                                                         ]
                                                       )
+                                                      .with_bindings(
+                                                        uri_method: :get,
+                                                        uri_template: "/v1beta1/{parent}/blurbs",
+                                                        matches: [
+                                                          ["parent", %r{users/[^/]+/profile}, false]
+                                                        ]
+                                                      )
               transcoder.transcode request_pb
             end
 
@@ -684,6 +721,13 @@ module Google
                                                         body: "*",
                                                         matches: [
                                                           ["parent", %r{rooms/-}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{parent}/blurbs:search",
+                                                        matches: [
+                                                          ["parent", %r{users/-/profile}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb

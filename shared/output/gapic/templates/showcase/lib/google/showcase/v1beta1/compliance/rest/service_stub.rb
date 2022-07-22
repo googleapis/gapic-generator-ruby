@@ -456,6 +456,15 @@ module Google
                                                           ["info.f_bool", %r{[^/]+}, false]
                                                         ]
                                                       )
+                                                      .with_bindings(
+                                                        uri_method: :get,
+                                                        uri_template: "/v1beta1/repeat/{info.f_child.f_string}/{info.f_string}/bool/{info.f_bool}:childfirstpathresource",
+                                                        matches: [
+                                                          ["info.f_child.f_string", %r{first/[^/]+}, false],
+                                                          ["info.f_string", %r{second/[^/]+}, false],
+                                                          ["info.f_bool", %r{[^/]+}, false]
+                                                        ]
+                                                      )
               transcoder.transcode request_pb
             end
 
