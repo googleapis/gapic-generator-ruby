@@ -3,9 +3,7 @@
 <%- if gem.api_id -%>
     "api_id": "<%= gem.api_id %>",
 <%- end -%>
-<%- if gem.api_shortname -%>
-    "api_shortname": "<%= gem.api_shortname %>",
-<%- end -%>
+    "api_shortname": "<%= gem.api_shortname || 'unknown' %>",
     "client_documentation": "<%= gem.library_documentation_url %>",
     "distribution_name": "<%= gem.name %>",
     "is_cloud": <%= gem.cloud_product? %>,
@@ -20,7 +18,7 @@
 <%- if gem.product_documentation_url -%>
     "product_documentation": "<%= gem.product_documentation_url %>",
 <%- end -%>
-    "release_level": "unknown",
+    "release_level": "unreleased",
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": <%= !gem.free_tier? %>,
 <%- gem.generator_args_for_metadata.each do |key, val| -%>
