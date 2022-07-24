@@ -127,6 +127,16 @@ module Gapic
         end
       end
 
+      ##
+      # Returns true if the given service name is a mixin
+      #
+      # @param name [String]
+      # @return [boolean]
+      #
+      def self.mixin_service_name? name
+        SERVICE_TO_DEPENDENCY.keys.include? name
+      end
+
       private
 
       # @return [Enumerable<String>] Names of all services that are specified

@@ -16,6 +16,7 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Exclude:
     - test/gapic/schema/cloud_api_test.rb
+  Max: 200
 
 Metrics/MethodLength:
   Exclude:

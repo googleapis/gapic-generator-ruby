@@ -21,4 +21,9 @@ class GemPresenterMixinsTest < PresenterTest
     presenter = Gapic::Presenters::GemPresenter.new api :testing
     assert presenter.mixins?
   end
+
+  def test_proto_files_exclude_mixins
+    presenter = Gapic::Presenters::GemPresenter.new api :testing
+    refute_includes presenter.proto_files.map(&:name), "google/cloud/location/locations.proto"
+  end
 end

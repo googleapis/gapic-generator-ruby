@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/model/mixins"
 require "gapic/presenters"
 require "gapic/presenters/wrapper_service_presenter"
 
@@ -29,8 +30,11 @@ module Gapic
 
       def services
         @services ||= begin
-          files = @api.generate_files
-          files.map(&:services).flatten.map { |s| WrapperServicePresenter.new self, @api, s }
+          @api.generate_files
+              .map(&:services)
+              .flatten
+              .find_all { |s| !Gapic::Model::Mixins.mixin_service_name? s.address.join "." }
+              .map { |s| WrapperServicePresenter.new self, @api, s }
         end
       end
 
