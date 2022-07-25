@@ -33,7 +33,7 @@ module Gapic
           @api.generate_files
               .map(&:services)
               .flatten
-              .find_all { |s| !Gapic::Model::Mixins.mixin_service_name? s.address.join "." }
+              .find_all { |s| !Gapic::Model::Mixins.mixin_service_address? s.address, gem_address: address }
               .map { |s| WrapperServicePresenter.new self, @api, s }
         end
       end

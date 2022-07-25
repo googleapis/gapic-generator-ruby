@@ -36,10 +36,12 @@ class MixinsTest < PresenterTest
     assert mx_model.dependencies.key? locations_gem_name
   end
 
-  def test_mixin_service_name_checker
-    assert Gapic::Model::Mixins.mixin_service_name? "google.cloud.location.Locations"
-    assert Gapic::Model::Mixins.mixin_service_name? "google.iam.v1.IAMPolicy"
-    refute Gapic::Model::Mixins.mixin_service_name? "testing.mixins.ServiceWithLoc"
+  def test_mixin_service_address_checker
+    assert Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations"
+    refute Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations",
+                                                       gem_address: "google.cloud.location"
+    assert Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1", "IAMPolicy"]
+    refute Gapic::Model::Mixins.mixin_service_address? "testing.mixins.ServiceWithLoc"
   end
 
   # Test the `Garbage` library, which does NOT have mixins specified
