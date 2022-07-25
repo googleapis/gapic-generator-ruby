@@ -181,15 +181,13 @@ module Gapic
           def verb_path
             return nil if @binding.nil?
 
-            method = {
+            {
               get:    @binding.get,
               post:   @binding.post,
               put:    @binding.put,
               patch:  @binding.patch,
               delete: @binding.delete
             }.find { |_, value| !value.empty? }
-
-            method unless method.nil?
           end
         end
 
@@ -209,15 +207,10 @@ module Gapic
 
           raw_binds = [http]
           if http.additional_bindings&.any?
-            http.additional_bindings.each do |additional_bind|
-              raw_binds << additional_bind
-            end
+            raw_binds += http.additional_bindings.to_a
           end
 
-          while (raw_bind = raw_binds.shift)
-            binds << HttpBinding.new(raw_bind)
-          end
-          binds
+          raw_binds.map { |raw_bind| HttpBinding.new raw_bind }
         end
       end
     end

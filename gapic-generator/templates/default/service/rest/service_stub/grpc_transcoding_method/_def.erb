@@ -10,15 +10,15 @@
 #   Uri, Body, Query string parameters
 def <%= method.rest.transcoding_helper_name %> request_pb
   transcoder = Gapic::Rest::GrpcTranscoder.new
-  <%- method.http_bindings.each do |binding| -%>
+  <%- method.http_bindings.each do |http_binding| -%>
                                           .with_bindings(
-                                            uri_method: :<%= binding.verb %>,
-                                            uri_template: "<%= binding.uri_for_transcoding %>",
-                                            <%- if binding.body? -%>
-                                            body: "<%= binding.body %>",
+                                            uri_method: :<%= http_binding.verb %>,
+                                            uri_template: "<%= http_binding.uri_for_transcoding %>",
+                                            <%- if http_binding.body? -%>
+                                            body: "<%= http_binding.body %>",
                                             <%- end -%>
                                             matches: [
-                                            <%- binding.routing_params_transcoder_matches_strings.each do |match_str| -%>
+                                            <%- http_binding.routing_params_transcoder_matches_strings.each do |match_str| -%>
                                               <%= match_str %>
                                             <%- end -%>
                                             ]

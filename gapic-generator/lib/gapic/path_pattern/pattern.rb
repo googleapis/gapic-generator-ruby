@@ -94,11 +94,7 @@ module Gapic
       # - adds handling of an optional tail `/` if needed
       # @return [String]
       def to_field_regex_str
-        tail_slash_accept = if ends_with_double_star_pattern?
-                              ""
-                            else
-                              "/?"
-                            end
+        tail_slash_accept = ends_with_double_star_pattern? ? "" : "/?"
         "^#{to_regex_str}#{tail_slash_accept}$"
       end
 
