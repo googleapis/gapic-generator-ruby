@@ -1,5 +1,12 @@
 # Release History for gapic-generator-cloud
 
+### 0.15.0 / 2022-07-25
+
+* Includes changes from gapic-generator 0.15.0
+* Fix: Update default generated repo-metadata so it doesn't trigger the lint bot
+* Fix: Wrapper rakefiles do not depend on credentials for generic clients
+* Fix: suppress generation of mixin proto_docs and wrapper client factory methods
+
 ### 0.14.1 / 2022-06-29
 
 * Includes changes from gapic-generator 0.14.1

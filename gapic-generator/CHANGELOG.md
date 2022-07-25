@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.15.0 / 2022-07-25
+
+* Feature: classic (AIP-151) LROs in REST
+* Feature: grpc transcoding with `additional_bindings`
+* Fix: Honor service overrides in yard cross-references
+* Fix: suppress generation of mixin proto_docs and wrapper client factory methods
+
 ### 0.14.1 / 2022-06-29
 
 * Fix: fix crash when generating generic endpoints
