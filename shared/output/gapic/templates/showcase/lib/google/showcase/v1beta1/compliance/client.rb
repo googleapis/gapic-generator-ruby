@@ -156,7 +156,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_body(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_body(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_body` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -166,6 +166,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -244,7 +246,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_body_info(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_body_info(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_body_info` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -254,6 +256,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -331,7 +335,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_query(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_query(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_query` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -341,6 +345,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -419,7 +425,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_simple_path(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_simple_path(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_simple_path` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -429,6 +435,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -525,7 +533,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_path_resource(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_path_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_path_resource` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -535,6 +543,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -625,7 +635,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_path_trailing_resource(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_path_trailing_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_path_trailing_resource` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -635,6 +645,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -723,7 +735,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_body_put(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_body_put(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_body_put` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -733,6 +745,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
@@ -809,7 +823,7 @@ module Google
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries, etc. Optional.
           #
-          # @overload repeat_data_body_patch(name: nil, info: nil, server_verify: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
+          # @overload repeat_data_body_patch(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
           #   Pass arguments to `repeat_data_body_patch` via keyword arguments. Note that at
           #   least one keyword argument is required. To specify no parameters, or to keep all
           #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -819,6 +833,8 @@ module Google
           #   @param server_verify [::Boolean]
           #     If true, the server will verify that the received request matches
           #     the request with the same name in the compliance test suite.
+          #   @param intended_binding_uri [::String]
+          #     The URI template this request is expected to be bound to server-side.
           #   @param f_int32 [::Integer]
           #     Some top level fields, to test that these are encoded correctly
           #     in query params.
