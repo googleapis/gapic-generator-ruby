@@ -202,8 +202,7 @@ module Gapic
         # @return Array<HttpBinding>
         #  The parsed bindings.
         def parse_bindings http
-          binds = []
-          return binds if http.nil?
+          return [] if http.nil?
 
           raw_binds = [http] + http.additional_bindings.to_a
           raw_binds.map { |raw_bind| HttpBinding.new raw_bind }
