@@ -80,9 +80,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     session = {}
 
-    create_session_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    create_session_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -95,28 +93,28 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.create_session({ session: session }) do |result, response|
+      client.create_session({ session: session }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.create_session session: session do |result, response|
+      client.create_session session: session do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |result, response|
+      client.create_session ::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.create_session({ session: session }, call_options) do |result, response|
+      client.create_session({ session: session }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session),
-                            call_options) do |result, response|
+                            call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -135,9 +133,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    get_session_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    get_session_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -150,28 +146,28 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.get_session({ name: name }) do |result, response|
+      client.get_session({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.get_session name: name do |result, response|
+      client.get_session name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |result, response|
+      client.get_session ::Google::Showcase::V1beta1::GetSessionRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.get_session({ name: name }, call_options) do |result, response|
+      client.get_session({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name),
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -191,9 +187,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    list_sessions_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    list_sessions_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -206,23 +200,23 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_sessions({ page_size: page_size, page_token: page_token }) do |result, response|
+      client.list_sessions({ page_size: page_size, page_token: page_token }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.list_sessions page_size: page_size, page_token: page_token do |result, response|
+      client.list_sessions page_size: page_size, page_token: page_token do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
-                                                                                page_token: page_token) do |result, response|
+                                                                                page_token: page_token) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.list_sessions({ page_size: page_size, page_token: page_token }, call_options) do |result, response|
+      client.list_sessions({ page_size: page_size, page_token: page_token }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -230,7 +224,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       client.list_sessions(
         ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
                                                              page_token: page_token), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -249,9 +243,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_session_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :delete, verb
-
+    delete_session_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -264,28 +256,28 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.delete_session({ name: name }) do |result, response|
+      client.delete_session({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.delete_session name: name do |result, response|
+      client.delete_session name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |result, response|
+      client.delete_session ::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.delete_session({ name: name }, call_options) do |result, response|
+      client.delete_session({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name),
-                            call_options) do |result, response|
+                            call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -304,9 +296,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    report_session_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    report_session_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -319,28 +309,28 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.report_session({ name: name }) do |result, response|
+      client.report_session({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.report_session name: name do |result, response|
+      client.report_session name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |result, response|
+      client.report_session ::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.report_session({ name: name }, call_options) do |result, response|
+      client.report_session({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name),
-                            call_options) do |result, response|
+                            call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -361,9 +351,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     page_size = 42
     page_token = "hello world"
 
-    list_tests_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    list_tests_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -376,24 +364,24 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |result, response|
+      client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.list_tests parent: parent, page_size: page_size, page_token: page_token do |result, response|
+      client.list_tests parent: parent, page_size: page_size, page_token: page_token do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
-                                                                          page_token: page_token) do |result, response|
+                                                                          page_token: page_token) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
       client.list_tests({ parent: parent, page_size: page_size, page_token: page_token },
-                        call_options) do |result, response|
+                        call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -401,7 +389,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       client.list_tests(
         ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
                                                           page_token: page_token), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -420,9 +408,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     name = "hello world"
 
-    delete_test_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :delete, verb
-
+    delete_test_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -435,28 +421,28 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.delete_test({ name: name }) do |result, response|
+      client.delete_test({ name: name }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.delete_test name: name do |result, response|
+      client.delete_test name: name do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |result, response|
+      client.delete_test ::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.delete_test({ name: name }, call_options) do |result, response|
+      client.delete_test({ name: name }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
       client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name),
-                         call_options) do |result, response|
+                         call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -477,9 +463,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
     answer = "hello world"
     answers = ["hello world"]
 
-    verify_test_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    verify_test_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -492,23 +476,23 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.verify_test({ name: name, answer: answer, answers: answers }) do |result, response|
+      client.verify_test({ name: name, answer: answer, answers: answers }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.verify_test name: name, answer: answer, answers: answers do |result, response|
+      client.verify_test name: name, answer: answer, answers: answers do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
       client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
-                                                                            answers: answers) do |result, response|
+                                                                            answers: answers) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.verify_test({ name: name, answer: answer, answers: answers }, call_options) do |result, response|
+      client.verify_test({ name: name, answer: answer, answers: answers }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -516,7 +500,7 @@ class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test
       client.verify_test(
         ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
                                                            answers: answers), call_options
-      ) do |result, response|
+      ) do |_result, response|
         assert_equal http_response, response
       end
 
