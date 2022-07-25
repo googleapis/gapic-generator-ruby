@@ -85,4 +85,10 @@ class WrapperGemPresenterTest < PresenterTest
     assert_equal 3, presenter_param.dependencies[GAPIC_COMMON_NAME].length
     assert_includes presenter_param.dependencies[GAPIC_COMMON_NAME], "< 2.a"
   end
+
+  def test_services_omit_mixins
+    api_param = api :testing
+    presenter_param = Gapic::Presenters::WrapperGemPresenter.new api_param
+    refute_includes presenter_param.services.map { |s| s.address.join "." }, "google.cloud.location.Locations"
+  end
 end

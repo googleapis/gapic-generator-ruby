@@ -67,10 +67,9 @@ module Gapic
 
       def proto_files
         @proto_files ||= begin
-          files = @api.files
-          files = files.reject { |f| blacklist_protos.include? f.name }
-          files = files.reject { |f| f.messages.empty? && f.enums.empty? }
-          files.map { |f| FilePresenter.new @api, f }
+          @api.files
+              .select { |f| useful_proto_file? f }
+              .map { |f| FilePresenter.new @api, f }
         end
       end
 
@@ -317,17 +316,27 @@ module Gapic
         end
       end
 
-      def blacklist_protos
-        blacklist = gem_config :blacklist
+      def denylist_protos
+        denylist = gem_config(:denylist) || gem_config(:blacklist)
 
-        return default_blacklist_protos if blacklist.nil?
-        return default_blacklist_protos if blacklist[:protos].nil?
+        return default_denylist_protos if denylist.nil?
+        return default_denylist_protos if denylist[:protos].nil?
 
-        default_blacklist_protos[:protos]
+        default_denylist_protos[:protos]
       end
 
-      def default_blacklist_protos
+      def default_denylist_protos
         ["google/api/http.proto", "google/protobuf/descriptor.proto"]
+      end
+
+      def mixin_paths
+        mixins_model.mixins.map(&:require_str)
+      end
+
+      def useful_proto_file? file
+        return false if file.messages.empty? && file.enums.empty?
+        return false if denylist_protos.include? file.name
+        mixin_paths.none? { |m| file.name.start_with? m }
       end
     end
   end

@@ -21,18 +21,27 @@ class MixinsTest < PresenterTest
   # Test the `Testing` library, which does have mixins specified
   # in its service.yaml
   def test_testing_mixins
-    mx_model = Gapic::Presenters::GemPresenter.new(api(:testing)).mixins_model
+    gem_presenter = Gapic::Presenters::GemPresenter.new api :testing
+    mx_model = gem_presenter.mixins_model
 
     assert mx_model.mixins?
     assert_includes mx_model.api_services, "testing.mixins.ServiceWithLoc"
-    refute_includes mx_model.api_services, "google.cloud.location.Locations"
     assert_includes mx_model.mixin_services, "google.cloud.location.Locations"
     assert_equal ["google.cloud.location.Locations"], mx_model.mixin_services
     assert_equal 1, mx_model.mixins.length
     assert_equal 1, mx_model.dependencies.length
+    refute_includes gem_presenter.services, "google.cloud.location.Locations"
 
     locations_gem_name = Gapic::Model::Mixins::SERVICE_TO_DEPENDENCY[Gapic::Model::Mixins::LOCATIONS_SERVICE].keys[0]
     assert mx_model.dependencies.key? locations_gem_name
+  end
+
+  def test_mixin_service_address_checker
+    assert Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations"
+    refute Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations",
+                                                       gem_address: "google.cloud.location"
+    assert Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1", "IAMPolicy"]
+    refute Gapic::Model::Mixins.mixin_service_address? "testing.mixins.ServiceWithLoc"
   end
 
   # Test the `Garbage` library, which does NOT have mixins specified

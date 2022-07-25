@@ -127,6 +127,27 @@ module Gapic
         end
       end
 
+      ##
+      # Returns true if the given service address is a mixin.
+      # This just checks the service against a (hard-coded) set of known mixins.
+      # If `gem_address` is provided, services directly under that gem's
+      # namespace are not considered mixins.
+      #
+      # @param service_address [String,Array<String>] The address (either array
+      #     or dot-delimited) of the service to check.
+      # @param gem_address [String,Array<String>] The address (either array or
+      #     dot-delimited) of the gem.
+      # @return [boolean]
+      #
+      def self.mixin_service_address? service_address, gem_address: nil
+        service_address = service_address.join "." unless service_address.is_a? String
+        if gem_address
+          gem_address = gem_address.join "." unless gem_address.is_a? String
+          return false if service_address.start_with? gem_address
+        end
+        SERVICE_TO_DEPENDENCY.keys.include? service_address
+      end
+
       private
 
       # @return [Enumerable<String>] Names of all services that are specified
