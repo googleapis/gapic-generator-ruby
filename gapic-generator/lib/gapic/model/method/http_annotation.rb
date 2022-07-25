@@ -205,7 +205,7 @@ module Gapic
           binds = []
           return binds if http.nil?
 
-          raw_binds = [http] += http.additional_bindings.to_a
+          raw_binds = [http] + http.additional_bindings.to_a
           raw_binds.map { |raw_bind| HttpBinding.new raw_bind }
         end
       end
