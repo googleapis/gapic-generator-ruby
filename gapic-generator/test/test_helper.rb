@@ -201,6 +201,8 @@ end
 class FakeApi
   def initialize
     @files = []
+    @namespace_mapping = {}
+    @service_mapping = {}
     yield self if block_given?
   end
 
@@ -295,6 +297,16 @@ class FakeApi
     self
   end
 
+  def add_namespace_mapping! old_name, new_name
+    @namespace_mapping[old_name] = new_name
+    self
+  end
+
+  def add_service_mapping! old_name, new_name
+    @service_mapping[old_name] = new_name
+    self
+  end
+
   def lookup address
     @files.each do |file|
       object = file.lookup address
@@ -308,7 +320,11 @@ class FakeApi
   end
 
   def fix_namespace name
-    name
+    @namespace_mapping[name] || name
+  end
+
+  def fix_service_name name
+    @service_mapping[name] || name
   end
 end
 

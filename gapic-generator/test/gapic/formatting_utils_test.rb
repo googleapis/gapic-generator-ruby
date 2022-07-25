@@ -279,6 +279,34 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {::Google::Cloud::MyExample::Earth World}!\n"], result
   end
 
+  def test_xref_message_with_namespace_mapping
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "World"
+        api.add_message! "Earth"
+      end
+      api.add_namespace_mapping! "Example", "RealExample"
+      api.add_namespace_mapping! "World", "WorldService"
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api,
+      ["Hello, [World][google.cloud.example.World] [Earth][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {::Google::Cloud::RealExample::World::Client World} {::Google::Cloud::RealExample::Earth Earth}!\n"], result
+  end
+
+  def test_xref_message_with_service_mapping
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "World"
+        api.add_message! "Earth"
+      end
+      api.add_service_mapping! "Example", "RealExample"
+      api.add_service_mapping! "World", "WorldService"
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api,
+      ["Hello, [World][google.cloud.example.World] [Earth][google.cloud.example.Earth]!\n"]
+    assert_equal ["Hello, {::Google::Cloud::Example::WorldService::Client World} {::Google::Cloud::Example::Earth Earth}!\n"], result
+  end
+
   def test_xref_multiple_messages
     api = FakeApi.new do |api|
       api.add_file! "google.cloud.example" do
