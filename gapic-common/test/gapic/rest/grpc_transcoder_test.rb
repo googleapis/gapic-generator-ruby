@@ -131,7 +131,7 @@ class GrpcTranscoderTest < Minitest::Test
         request: example_request(id: 15, name: "v1/instances/hello world"),
         expected: {
           method: :patch,
-          uri: "method/v1%2Finstances%2Fhello%20world:patch",
+          uri: "method/v1/instances/hello%20world:patch",
           query_params: ["id=15"],
           body: ""
         }

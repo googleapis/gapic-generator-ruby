@@ -76,9 +76,7 @@ class ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::ClientTest < Mi
     request_id = "hello world"
     size = 42
 
-    resize_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    resize_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -91,27 +89,27 @@ class ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::ClientTest < Mi
       end
 
       # Use hash object
-      client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }) do |result, response|
+      client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.resize instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size do |result, response|
+      client.resize instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.resize ::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size) do |result, response|
+      client.resize ::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }, call_options) do |result, response|
+      client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.resize(::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size), call_options) do |result, response|
+      client.resize(::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size), call_options) do |_result, response|
         assert_equal http_response, response
       end
 

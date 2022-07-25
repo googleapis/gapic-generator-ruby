@@ -130,8 +130,8 @@ module Google
                                                           uri_method: :delete,
                                                           uri_template: "/compute/v1/projects/{project}/global/operations/{operation}",
                                                           matches: [
-                                                            ["project", %r{[^/]+}, false],
-                                                            ["operation", %r{[^/]+}, false]
+                                                            ["project", %r{^[^/]+/?$}, false],
+                                                            ["operation", %r{^[^/]+/?$}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
@@ -152,8 +152,8 @@ module Google
                                                           uri_method: :get,
                                                           uri_template: "/compute/v1/projects/{project}/global/operations/{operation}",
                                                           matches: [
-                                                            ["project", %r{[^/]+}, false],
-                                                            ["operation", %r{[^/]+}, false]
+                                                            ["project", %r{^[^/]+/?$}, false],
+                                                            ["operation", %r{^[^/]+/?$}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb

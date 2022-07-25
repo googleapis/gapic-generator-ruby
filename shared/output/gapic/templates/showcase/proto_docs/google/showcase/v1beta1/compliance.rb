@@ -36,6 +36,9 @@ module Google
       #   @return [::Boolean]
       #     If true, the server will verify that the received request matches
       #     the request with the same name in the compliance test suite.
+      # @!attribute [rw] intended_binding_uri
+      #   @return [::String]
+      #     The URI template this request is expected to be bound to server-side.
       # @!attribute [rw] f_int32
       #   @return [::Integer]
       #     Some top level fields, to test that these are encoded correctly
@@ -57,6 +60,9 @@ module Google
 
       # @!attribute [rw] request
       #   @return [::Google::Showcase::V1beta1::RepeatRequest]
+      # @!attribute [rw] binding_uri
+      #   @return [::String]
+      #     The URI template the request was bound to server-side.
       class RepeatResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods

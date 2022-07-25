@@ -20,10 +20,13 @@ class MethodPresenterRestTest < PresenterTest
   def test_compute_addresses_agglist
     presenter = method_presenter :compute_small, "Addresses", "AggregatedList"
 
+    first_binding = presenter.http_bindings.first
+    refute_nil first_binding
+
     assert presenter.routing_params?
-    assert presenter.rest.verb?
-    assert_equal presenter.rest.verb, :get
-    assert_equal "/compute/v1/projects/\#{request_pb.project}/aggregated/addresses", presenter.rest.uri_interpolated
+
+    assert first_binding.verb?
+    assert_equal first_binding.verb, :get
 
     refute presenter.nonstandard_lro?
   end

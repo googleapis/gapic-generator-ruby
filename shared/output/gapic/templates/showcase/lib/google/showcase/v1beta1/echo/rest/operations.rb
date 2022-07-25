@@ -706,7 +706,7 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{operations(?:/.*)?}, true]
+                                                          ["name", %r{^operations(?:/.*)?$}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -727,7 +727,7 @@ module Google
                                                         uri_method: :delete,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{operations(?:/.*)?}, true]
+                                                          ["name", %r{^operations(?:/.*)?$}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -748,7 +748,7 @@ module Google
                                                         uri_method: :post,
                                                         uri_template: "/v1beta1/{name}:cancel",
                                                         matches: [
-                                                          ["name", %r{operations(?:/.*)?}, true]
+                                                          ["name", %r{^operations(?:/.*)?$}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb

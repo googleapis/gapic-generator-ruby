@@ -54,7 +54,7 @@ class ShowcaseEchoRestServiceTest < PresenterTest
     assert_equal "google/showcase/v1beta1/echo/rest/operations.rb", presenter.operations_file_path
   end
 
-   def test_operations_require
+  def test_operations_require
     assert_equal "google/showcase/v1beta1/echo/rest/operations", presenter.operations_require
   end
 

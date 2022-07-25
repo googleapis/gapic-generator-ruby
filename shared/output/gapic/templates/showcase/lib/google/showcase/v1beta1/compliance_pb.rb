@@ -12,6 +12,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :name, :string, 1
       optional :info, :message, 2, "google.showcase.v1beta1.ComplianceData"
       optional :server_verify, :bool, 3
+      proto3_optional :intended_binding_uri, :string, 10
       optional :f_int32, :int32, 4
       optional :f_int64, :int64, 5
       optional :f_double, :double, 6
@@ -21,6 +22,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     end
     add_message "google.showcase.v1beta1.RepeatResponse" do
       optional :request, :message, 1, "google.showcase.v1beta1.RepeatRequest"
+      optional :binding_uri, :string, 2
     end
     add_message "google.showcase.v1beta1.ComplianceSuite" do
       repeated :group, :message, 1, "google.showcase.v1beta1.ComplianceGroup"

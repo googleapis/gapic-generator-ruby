@@ -81,9 +81,7 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
     region = "hello world"
     return_partial_success = true
 
-    list_peering_routes_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    list_peering_routes_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -96,27 +94,27 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }) do |result, response|
+      client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.list_peering_routes direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success do |result, response|
+      client.list_peering_routes direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.list_peering_routes ::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success) do |result, response|
+      client.list_peering_routes ::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }, call_options) do |result, response|
+      client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.list_peering_routes(::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success), call_options) do |result, response|
+      client.list_peering_routes(::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success), call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -138,9 +136,7 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
     project = "hello world"
     request_id = "hello world"
 
-    remove_peering_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :post, verb
-
+    remove_peering_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -153,27 +149,27 @@ class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }) do |result, response|
+      client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.remove_peering network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id do |result, response|
+      client.remove_peering network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.remove_peering ::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id) do |result, response|
+      client.remove_peering ::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }, call_options) do |result, response|
+      client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.remove_peering(::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id), call_options) do |result, response|
+      client.remove_peering(::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id), call_options) do |_result, response|
         assert_equal http_response, response
       end
 

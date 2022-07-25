@@ -73,9 +73,7 @@ class ::Google::Cloud::Compute::V1::GlobalOperations::ClientTest < Minitest::Tes
     operation = "hello world"
     project = "hello world"
 
-    delete_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :delete, verb
-
+    delete_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -88,27 +86,27 @@ class ::Google::Cloud::Compute::V1::GlobalOperations::ClientTest < Minitest::Tes
       end
 
       # Use hash object
-      client.delete({ operation: operation, project: project }) do |result, response|
+      client.delete({ operation: operation, project: project }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.delete operation: operation, project: project do |result, response|
+      client.delete operation: operation, project: project do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.delete ::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new(operation: operation, project: project) do |result, response|
+      client.delete ::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new(operation: operation, project: project) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.delete({ operation: operation, project: project }, call_options) do |result, response|
+      client.delete({ operation: operation, project: project }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.delete(::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new(operation: operation, project: project), call_options) do |result, response|
+      client.delete(::Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new(operation: operation, project: project), call_options) do |_result, response|
         assert_equal http_response, response
       end
 
@@ -128,9 +126,7 @@ class ::Google::Cloud::Compute::V1::GlobalOperations::ClientTest < Minitest::Tes
     operation = "hello world"
     project = "hello world"
 
-    get_client_stub = ClientStub.new http_response do |verb, uri:, body:, params:, options:|
-      assert_equal :get, verb
-
+    get_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -143,27 +139,27 @@ class ::Google::Cloud::Compute::V1::GlobalOperations::ClientTest < Minitest::Tes
       end
 
       # Use hash object
-      client.get({ operation: operation, project: project }) do |result, response|
+      client.get({ operation: operation, project: project }) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use named arguments
-      client.get operation: operation, project: project do |result, response|
+      client.get operation: operation, project: project do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object
-      client.get ::Google::Cloud::Compute::V1::GetGlobalOperationRequest.new(operation: operation, project: project) do |result, response|
+      client.get ::Google::Cloud::Compute::V1::GetGlobalOperationRequest.new(operation: operation, project: project) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use hash object with options
-      client.get({ operation: operation, project: project }, call_options) do |result, response|
+      client.get({ operation: operation, project: project }, call_options) do |_result, response|
         assert_equal http_response, response
       end
 
       # Use protobuf object with options
-      client.get(::Google::Cloud::Compute::V1::GetGlobalOperationRequest.new(operation: operation, project: project), call_options) do |result, response|
+      client.get(::Google::Cloud::Compute::V1::GetGlobalOperationRequest.new(operation: operation, project: project), call_options) do |_result, response|
         assert_equal http_response, response
       end
 

@@ -269,7 +269,7 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{users/[^/]+}, false]
+                                                          ["name", %r{^users/[^/]+/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -291,7 +291,7 @@ module Google
                                                         uri_template: "/v1beta1/{user.name}",
                                                         body: "*",
                                                         matches: [
-                                                          ["user.name", %r{users/[^/]+}, false]
+                                                          ["user.name", %r{^users/[^/]+/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -312,7 +312,7 @@ module Google
                                                         uri_method: :delete,
                                                         uri_template: "/v1beta1/{name}",
                                                         matches: [
-                                                          ["name", %r{users/[^/]+}, false]
+                                                          ["name", %r{^users/[^/]+/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb

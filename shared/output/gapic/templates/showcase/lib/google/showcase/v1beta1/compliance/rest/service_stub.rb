@@ -426,11 +426,11 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/repeat/{info.f_string}/{info.f_int32}/{info.f_double}/{info.f_bool}/{info.f_kingdom}:simplepath",
                                                         matches: [
-                                                          ["info.f_string", %r{[^/]+}, false],
-                                                          ["info.f_int32", %r{[^/]+}, false],
-                                                          ["info.f_double", %r{[^/]+}, false],
-                                                          ["info.f_bool", %r{[^/]+}, false],
-                                                          ["info.f_kingdom", %r{[^/]+}, false]
+                                                          ["info.f_string", %r{^[^/]+/?$}, false],
+                                                          ["info.f_int32", %r{^[^/]+/?$}, false],
+                                                          ["info.f_double", %r{^[^/]+/?$}, false],
+                                                          ["info.f_bool", %r{^[^/]+/?$}, false],
+                                                          ["info.f_kingdom", %r{^[^/]+/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -451,9 +451,18 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}/bool/{info.f_bool}:pathresource",
                                                         matches: [
-                                                          ["info.f_string", %r{first/[^/]+}, false],
-                                                          ["info.f_child.f_string", %r{second/[^/]+}, false],
-                                                          ["info.f_bool", %r{[^/]+}, false]
+                                                          ["info.f_string", %r{^first/[^/]+/?$}, false],
+                                                          ["info.f_child.f_string", %r{^second/[^/]+/?$}, false],
+                                                          ["info.f_bool", %r{^[^/]+/?$}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :get,
+                                                        uri_template: "/v1beta1/repeat/{info.f_child.f_string}/{info.f_string}/bool/{info.f_bool}:childfirstpathresource",
+                                                        matches: [
+                                                          ["info.f_child.f_string", %r{^first/[^/]+/?$}, false],
+                                                          ["info.f_string", %r{^second/[^/]+/?$}, false],
+                                                          ["info.f_bool", %r{^[^/]+/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb
@@ -474,8 +483,8 @@ module Google
                                                         uri_method: :get,
                                                         uri_template: "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}:pathtrailingresource",
                                                         matches: [
-                                                          ["info.f_string", %r{first/[^/]+}, false],
-                                                          ["info.f_child.f_string", %r{second(?:/.*)?}, true]
+                                                          ["info.f_string", %r{^first/[^/]+/?$}, false],
+                                                          ["info.f_child.f_string", %r{^second(?:/.*)?$}, true]
                                                         ]
                                                       )
               transcoder.transcode request_pb

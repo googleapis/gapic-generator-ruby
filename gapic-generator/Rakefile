@@ -30,6 +30,29 @@ Rake::TestTask.new :test do |t|
 end
 
 namespace :test do
+  Rake::TestTask.new :unit do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/**/*_test.rb"].exclude("test/gapic/generators/*_test.rb")
+  end
+  
+  Rake::TestTask.new :acceptance do |t|
+    t.libs << "test"
+    t.libs << "lib"
+    t.test_files = FileList["test/gapic/generators/*_test.rb"]
+  end
+
+  desc "Run tests in order"
+  task :order do
+    puts "-" * 30
+    puts "Running unit tests"
+    Rake::Task["test:unit"].invoke
+    puts "-" * 30
+    puts "Running acceptance tests"
+    Rake::Task["test:acceptance"].invoke
+    puts "-" * 30
+  end
+
   desc "Run tests on garbage-specific generation only"
   Rake::TestTask.new :garbage do |t|
     t.libs << "test"
@@ -183,7 +206,7 @@ namespace :gen do |namespace|
       lib_dir = File.expand_path File.join("expected_output/templates", String(lib))
       test_res_dir = File.expand_path File.join("../shared/test_resources", String(lib))
       
-      if Dir.exists?(test_res_dir) && !Dir.empty?(test_res_dir)
+      if Dir.exist?(test_res_dir) && !Dir.empty?(test_res_dir)
         puts "!!Adding/overriding files after generation for #{lib} from #{test_res_dir}"
         Dir.glob("#{test_res_dir}/*").each do |file|
           fname = File.basename file

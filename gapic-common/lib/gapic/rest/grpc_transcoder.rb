@@ -145,11 +145,7 @@ module Gapic
           field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
 
           if field_value
-            field_value = if field_binding.preserve_slashes
-                            field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
-                          else
-                            percent_escape field_value
-                          end
+            field_value = field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
           end
 
           [field_binding.field_path, field_value]

@@ -175,8 +175,8 @@ module Gapic
             end
 
             @field_pattern = @path_pattern.simplified_pattern
-            @field_full_regex_str =  to_field_pattern @path_pattern
-            @field_regex_str = to_field_pattern Gapic::PathPattern.parse(@field_pattern)
+            @field_full_regex_str = @path_pattern.to_field_regex_str
+            @field_regex_str = Gapic::PathPattern.parse(@field_pattern).to_field_regex_str
 
             @key = resource_segment.arguments[0]
             @value_pattern = resource_segment.resource_patterns[0]
@@ -199,20 +199,6 @@ module Gapic
           end
 
           private
-
-          # Makes a regex pattern match a field
-          # - adds markers for the beginning and end of the string
-          # - adds handling of an optional tail `/` if needed
-          # @param pattern [String]
-          # @return [String]
-          def to_field_pattern pattern
-            tail_slash_accept = if pattern.segments.last.simplified_pattern == "**"
-                                  ""
-                                else
-                                  "/?"
-                                end
-            "^#{pattern.to_regex_str}#{tail_slash_accept}$"
-          end
 
           # Converts path template simplified forms into canonical
           # ResourceId representations by adding a field as a Resource Id

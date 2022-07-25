@@ -130,8 +130,8 @@ module Google
                                                           uri_method: :get,
                                                           uri_template: "/compute/v1/projects/{project}/global/networks/{network}/listPeeringRoutes",
                                                           matches: [
-                                                            ["project", %r{[^/]+}, false],
-                                                            ["network", %r{[^/]+}, false]
+                                                            ["project", %r{^[^/]+/?$}, false],
+                                                            ["network", %r{^[^/]+/?$}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
@@ -153,8 +153,8 @@ module Google
                                                           uri_template: "/compute/v1/projects/{project}/global/networks/{network}/removePeering",
                                                           body: "networks_remove_peering_request_resource",
                                                           matches: [
-                                                            ["project", %r{[^/]+}, false],
-                                                            ["network", %r{[^/]+}, false]
+                                                            ["project", %r{^[^/]+/?$}, false],
+                                                            ["network", %r{^[^/]+/?$}, false]
                                                           ]
                                                         )
                 transcoder.transcode request_pb
