@@ -1,10 +1,11 @@
 {
+    "api_shortname": "unknown",
     "client_documentation": "https://cloud.google.com/ruby/docs/reference/google-cloud-language-v1beta2/latest",
     "distribution_name": "google-cloud-language-v1beta2",
     "is_cloud": true,
     "language": "ruby",
     "name_pretty": "Google Cloud Language V1beta2 API",
-    "release_level": "unknown",
+    "release_level": "unreleased",
     "repo": "googleapis/google-cloud-ruby",
     "requires_billing": true,
     "ruby-cloud-description": "google-cloud-language-v1beta2 is the official client library for the Google Cloud Language V1beta2 API.",
