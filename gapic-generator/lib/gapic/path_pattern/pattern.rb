@@ -89,6 +89,16 @@ module Gapic
       end
 
       ##
+      # Converts the PathPattern into a regex string that matches a whole field
+      # - adds markers for the beginning and end of the string
+      # - adds handling of an optional tail `/` if needed
+      # @return [String]
+      def to_field_regex_str
+        tail_slash_accept = ends_with_double_star_pattern? ? "" : "/?"
+        "^#{to_regex_str}#{tail_slash_accept}$"
+      end
+
+      ##
       # Whether pattern contains a positional segment
       # @return [Boolean]
       def positional_segments?

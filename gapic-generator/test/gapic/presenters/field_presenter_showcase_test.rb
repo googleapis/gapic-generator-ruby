@@ -37,7 +37,7 @@ class FieldPresenterShowcaseTest < PresenterTest
     assert_nil fp.type_name_full
   end
 
-  def test_showcase_User_name_field
+  def test_showcase_User_age_field
     fp = field_presenter :showcase, "google.showcase.v1beta1.User", "age"
 
     assert_equal "age", fp.name
