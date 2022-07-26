@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.15.1 / 2022-07-26
+
+* Fix: mixin proto_docs removal works for iam
+
 ### 0.15.0 / 2022-07-25
 
 * Feature: classic (AIP-151) LROs in REST
