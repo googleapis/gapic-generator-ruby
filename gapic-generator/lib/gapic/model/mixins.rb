@@ -168,7 +168,7 @@ module Gapic
 
       SERVICE_TO_REQUIRE_STR = {
         LOCATIONS_SERVICE => "google/cloud/location",
-        IAM_SERVICE => "google/iam/v1/iam_policy"
+        IAM_SERVICE => "google/iam/v1"
       }.freeze
 
       SERVICE_TO_CLIENT_CLASS_NAME = {
