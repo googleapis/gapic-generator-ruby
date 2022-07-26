@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.15.1 / 2022-07-26
+
+* Includes changes from gapic-generator 0.15.1
+* Fix: mixin proto_docs removal works for iam
+
 ### 0.15.0 / 2022-07-25
 
 * Includes changes from gapic-generator 0.15.0
