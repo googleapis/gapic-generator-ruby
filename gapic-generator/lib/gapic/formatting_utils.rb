@@ -160,7 +160,8 @@ module Gapic
         last_index = address.size - 1 if service
         address.each_with_index.map do |node, index|
           node = node.camelize
-          index == last_index ? api.fix_service_name(node) : api.fix_namespace(node)
+          node = api.fix_service_name node if index == last_index
+          api.fix_namespace node
         end.join "::"
       end
     end
