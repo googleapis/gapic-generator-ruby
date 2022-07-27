@@ -1,5 +1,13 @@
 # Release History
 
+### 0.11.0 (2022-07-27)
+
+#### Features
+
+* Add CallOptions#merge and CallOptions equality checking ([#802](https://github.com/googleapis/gapic-generator-ruby/issues/802)) 
+* classic (AIP-151) LROs in REST ([#770](https://github.com/googleapis/gapic-generator-ruby/issues/770)) 
+* grpc transcoding with `additional_bindings` ([#795](https://github.com/googleapis/gapic-generator-ruby/issues/795)) 
+
 ### 0.10.0 (2022-06-20)
 
 #### Features
