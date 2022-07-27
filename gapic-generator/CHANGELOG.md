@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.15.2 / 2022-07-27
+
+* Fix: only do service config http binding override on Operations
+* Fix: Apply both namespace and service overrides to service names in yard links
+
 ### 0.15.1 / 2022-07-26
 
 * Fix: mixin proto_docs removal works for iam
