@@ -55,7 +55,8 @@ module Gapic
 
         # Service config override should only happen for Operations.
         # For the main services we expect service config overrides to be rolled into the protos by the publisher.
-        # For all other mixins, since we do not generate them for the service, the overrides should get configured separately.
+        # For all other mixins, since we do not generate them for the service,
+        # the overrides should get configured separately.
         is_lro =  @service_presenter.address.join(".") == Gapic::Model::Mixins::LRO_SERVICE
         service_config_override_http = is_lro ? @api.service_config : nil
         @http = Gapic::Model::Method::HttpAnnotation.new @method, service_config_override_http
