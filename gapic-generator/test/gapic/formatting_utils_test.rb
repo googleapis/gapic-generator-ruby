@@ -290,7 +290,7 @@ class FormattingUtilsTest < Minitest::Test
     end
     result = Gapic::FormattingUtils.format_doc_lines api,
       ["Hello, [World][google.cloud.example.World] [Earth][google.cloud.example.Earth]!\n"]
-    assert_equal ["Hello, {::Google::Cloud::RealExample::World::Client World} {::Google::Cloud::RealExample::Earth Earth}!\n"], result
+    assert_equal ["Hello, {::Google::Cloud::RealExample::WorldService::Client World} {::Google::Cloud::RealExample::Earth Earth}!\n"], result
   end
 
   def test_xref_message_with_service_mapping
