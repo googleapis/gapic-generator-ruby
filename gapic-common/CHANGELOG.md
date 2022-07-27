@@ -1,5 +1,15 @@
 # Release History
 
+### 0.11.0 (2022-07-27)
+
+#### Features
+
+* Add CallOptions#merge and CallOptions equality checking ([#802](https://github.com/googleapis/gapic-generator-ruby/issues/802)) 
+
+#### Bug Fixes
+
+* transcoder should always preserve slashes ([#795](https://github.com/googleapis/gapic-generator-ruby/issues/795)) 
+
 ### 0.10.0 (2022-06-20)
 
 #### Features
