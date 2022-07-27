@@ -65,6 +65,10 @@ module Gapic
         @methods ||= @service.methods.map { |m| MethodPresenter.new self, @api, m }
       end
 
+      ##
+      # The address of this service split into an array
+      #
+      # @return [Array<String>]
       def address
         @service.address
       end

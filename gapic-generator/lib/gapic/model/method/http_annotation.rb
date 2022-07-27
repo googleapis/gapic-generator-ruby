@@ -40,9 +40,10 @@ module Gapic
         #   The proto method this annotation model applies to
         # @param service_config [::Google::Api::Service]
         #   The service config that might contain an override for the proto method's
-        #   http annotation.
+        #   http annotation. This is for `Operations` only, for main service generation
+        #   it is assumed that the service config is merged into protos before generation.
         #
-        def initialize proto_method, service_config
+        def initialize proto_method, service_config = nil
           proto_http = proto_method.http
           http_override = begin
             unless service_config&.http.nil?
