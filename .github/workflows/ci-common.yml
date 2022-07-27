@@ -37,7 +37,7 @@ jobs:
     - name: Install tools
       shell: bash
       run: |
-        cd gapic-common && bundle install && gem install --no-document toys
+        cd gapic-common && gem install --no-document toys bundler && bundle install
     - name: Test ${{ matrix.task }}
       shell: bash
       run: |

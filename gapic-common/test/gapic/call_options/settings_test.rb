@@ -95,4 +95,108 @@ class OptionsSettingsTest < Minitest::Test
     assert_equal 6, options.retry_policy.multiplier
     assert_equal 5, options.retry_policy.max_delay
   end
+
+  def test_to_h_empty
+    options = Gapic::CallOptions.new
+    expected = {
+      timeout: nil,
+      metadata: {},
+      retry_policy: Gapic::CallOptions::RetryPolicy.new
+    }
+    assert_equal expected, options.to_h
+  end
+
+  def test_to_h_with_values
+    options = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    expected_retry_policy = Gapic::CallOptions::RetryPolicy.new(
+      retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+      initial_delay: 4, multiplier: 5, max_delay: 6
+    )
+    expected = {
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: expected_retry_policy
+    }
+    assert_equal expected, options.to_h
+  end
+
+  def test_merge_no_changes
+    options = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    merged = options.merge
+    assert_equal 60, merged.timeout
+    expected_retry_policy = Gapic::CallOptions::RetryPolicy.new(
+      retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+      initial_delay: 4, multiplier: 5, max_delay: 6
+    )
+    assert_equal expected_retry_policy, merged.retry_policy
+    assert_equal({ foo: :bar }, merged.metadata)
+  end
+
+  def test_merge_with_changes
+    options = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    merged = options.merge(
+      timeout: 30,
+      retry_policy: nil,
+      metadata: { bar: :foo }
+    )
+    assert_equal 30, merged.timeout
+    assert_equal Gapic::CallOptions::RetryPolicy.new, merged.retry_policy
+    assert_equal({ bar: :foo }, merged.metadata)
+  end
+
+  def test_equality
+    options = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    other = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    assert_equal other, options
+    assert_equal other.hash, options.hash
+  end
+
+  def test_inequality
+    options = Gapic::CallOptions.new(
+      timeout: 60,
+      metadata: { foo: :bar },
+      retry_policy: {
+        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE],
+        initial_delay: 4, multiplier: 5, max_delay: 6
+      }
+    )
+    other = Gapic::CallOptions.new
+    refute_equal other, options
+    refute_equal other.hash, options.hash
+  end
 end

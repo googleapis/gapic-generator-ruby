@@ -61,18 +61,50 @@ module Gapic
     # @param retry_policy [Hash] the policy for error retry.
     # @param retry_policy [Hash] The policy for error retry. keys must match the arguments for
     #   {RetryPolicy.new}.
+    #
     def apply_defaults timeout: nil, metadata: nil, retry_policy: nil
       @timeout ||= timeout
       @metadata = metadata.merge @metadata if metadata
       @retry_policy.apply_defaults retry_policy if @retry_policy.respond_to? :apply_defaults
     end
 
+    ##
+    # Convert to hash form.
+    #
+    # @return [Hash]
+    #
     def to_h
       {
         timeout:      timeout,
         metadata:     metadata,
         retry_policy: retry_policy
       }
+    end
+
+    ##
+    # Return a new CallOptions with the given modifications. The current object
+    # is not modified.
+    #
+    # @param kwargs [keywords] Updated fields. See {#initialize} for details.
+    # @return [CallOptions] A new CallOptions object.
+    #
+    def merge **kwargs
+      kwargs = to_h.merge kwargs
+      CallOptions.new(**kwargs)
+    end
+
+    # @private Equality test
+    def eql? other
+      other.is_a?(CallOptions) &&
+        other.timeout == timeout &&
+        other.metadata == metadata &&
+        other.retry_policy == retry_policy
+    end
+    alias == eql?
+
+    # @private Hash code
+    def hash
+      to_h.hash
     end
   end
 end

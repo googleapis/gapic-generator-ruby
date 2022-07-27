@@ -74,6 +74,7 @@ module Gapic
       #
       # @param retry_policy [Hash] The policy for error retry. keys must match the arguments for
       #   {RpcCall::RetryPolicy.new}.
+      #
       def apply_defaults retry_policy
         return unless retry_policy.is_a? Hash
 
@@ -83,6 +84,21 @@ module Gapic
         @max_delay     ||= retry_policy[:max_delay]
 
         self
+      end
+
+      # @private Equality test
+      def eql? other
+        other.is_a?(RetryPolicy) &&
+          other.retry_codes == retry_codes &&
+          other.initial_delay == initial_delay &&
+          other.multiplier == multiplier &&
+          other.max_delay == max_delay
+      end
+      alias == eql?
+
+      # @private Hash code
+      def hash
+        [retry_codes, initial_delay, multiplier, max_delay].hash
       end
 
       # @private
