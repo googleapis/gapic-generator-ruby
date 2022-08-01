@@ -111,8 +111,7 @@ module Gapic
           if http_binding.body && http_binding.body != "*"
             # Note that the body template can only point to a top-level field,
             # so there is no need to split the path.
-            body_binding_camel = camel_name_for http_binding.body
-            next unless request_hash.key? body_binding_camel
+            next unless request.respond_to?(http_binding.body.to_sym)
           end
 
           method = http_binding.method
@@ -182,9 +181,14 @@ module Gapic
           #
           # The `request_hash_without_uri` at this point was mutated to delete these fields.
           #
-          # Note that the body template can only point to a top-level field
-          request_hash_without_uri.delete camel_name_for body_template
-          body = request.send(body_template.to_sym).to_json(emit_defaults: true)
+          # Note 1: body template can only point to a top-level field.
+          # Note 2: The field that body template points to can be null, in which case
+          # an empty string should be sent. E.g. `Compute.Projects.SetUsageExportBucket`.
+          if request.respond_to?(body_template.to_sym) && request.send(body_template.to_sym)
+            request_hash_without_uri.delete camel_name_for body_template
+            body = request.send(body_template.to_sym).to_json(emit_defaults: true)
+          end
+
           query_params = build_query_params request_hash_without_uri
         else
           query_params = build_query_params request_hash_without_uri
