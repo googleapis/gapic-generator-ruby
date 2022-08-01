@@ -140,7 +140,7 @@ module Gapic
       # @return [Boolean] Whether an error has been returned.
       #
       def error?
-        done? && (!err.nil? || !error_code.nil?)
+        done? && !(err.nil? && (error_code.nil? || error_code == 0))
       end
 
       ##
