@@ -185,7 +185,7 @@ module Gapic
           # Note 1: body template can only point to a top-level field.
           # Note 2: The field that body template points to can be null, in which case
           # an empty string should be sent. E.g. `Compute.Projects.SetUsageExportBucket`.
-          if request.send(body_template.to_sym)
+          if request.send body_template.to_sym
             request_hash_without_uri.delete camel_name_for body_template
             body = request.send(body_template.to_sym).to_json(emit_defaults: true)
           end
