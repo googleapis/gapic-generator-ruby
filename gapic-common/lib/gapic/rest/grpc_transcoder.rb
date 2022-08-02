@@ -108,10 +108,10 @@ module Gapic
           uri_values = bind_uri_values! http_binding, request_hash
           next if uri_values.any? { |_, value| value.nil? }
 
-          if http_binding.body && http_binding.body != "*"
+          if http_binding.body && http_binding.body != "*" && !(request.respond_to? http_binding.body.to_sym)
             # Note that the body template can only point to a top-level field,
             # so there is no need to split the path.
-            next unless request.respond_to?(http_binding.body.to_sym)
+            next
           end
 
           method = http_binding.method
