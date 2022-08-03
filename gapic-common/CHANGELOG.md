@@ -1,5 +1,11 @@
 # Release History
 
+### 0.11.1 (2022-08-03)
+
+#### Bug Fixes
+
+* error code of 0 is not an error, body template field can be nil ([#805](https://github.com/googleapis/gapic-generator-ruby/issues/805)) 
+
 ### 0.11.0 (2022-07-27)
 
 #### Features
