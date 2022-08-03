@@ -78,7 +78,7 @@ class GenericLROTest < Minitest::Test
   end
 
   # Testing errored-out object for message-type error
-  def test_errored_operation
+  def test_errored_operation_message
     error = OpenStruct.new(code: ERR_CODE, message: ERR_MSG)
     op = create_op MockOperation.new(status: :DONE, err: error), err_field: "err"
     assert op.done?
@@ -97,6 +97,16 @@ class GenericLROTest < Minitest::Test
     assert op.response?
     assert_nil op.error
     assert_equal NAME, op.name
+    refute_nil op.response
+  end
+
+  # Testing done object with error code set to 0
+  def test_done_operation_zeroerrcode
+    op = create_op MockOperation.new(status: :DONE, err_code: 0)
+    assert op.done?
+    refute op.error?
+    assert op.response?
+    assert_nil op.error
     refute_nil op.response
   end
 

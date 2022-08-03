@@ -207,6 +207,7 @@ class GrpcTranscoderTest < Minitest::Test
         uri_template: "{name}/sub/{sub_request.name}",
         matches: [["name", %r{^v3/projects/[^/]+(?:/.*)?$}, true], ["sub_request.name", %r{^instances/[^/]+?$}, true]])
       .with_bindings(uri_method: :get, uri_template: "{name}", body: "IPProtocol", matches: [["name", %r{^v4/projects/[^/]+(?:/.*)?$}, true]])
+      .with_bindings(uri_method: :get, uri_template: "{name}", body: "sub_request", matches: [["name", %r{^v5/projects/[^/]+(?:/.*)?$}, true]])
 
     test_cases = [
       {
@@ -250,6 +251,16 @@ class GrpcTranscoderTest < Minitest::Test
           uri: "v4/projects/100",
           query_params: ["id=34","maybeNum=100"],
           body: '"TCP"'
+        }
+      },
+      {
+        # `body` is a nil message field.
+        request: example_request(id: 35, name: "v5/projects/100"),
+        expected: {
+          method: :get,
+          uri: "v5/projects/100",
+          query_params: ["id=35"],
+          body: ""
         }
       },
     ]
