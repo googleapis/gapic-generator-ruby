@@ -104,11 +104,28 @@ class FirestoreServerStreamTest < Minitest::Test
   end
 
   class Thiber
-    def initialize fiber
-      #...
+    def initialize &block
+      @input_q = Queue.new
+      @output_q = Queue.new
+      
+      @t = Thread.new do
+          fiber = Fiber.new &block
+          while true
+            _ = @input_q.pop # ignore
+            out = fiber.resume
+            @output_q << out
+          end
+          # while input_q
+          #   fret = test
+          #   test = fiber.resume #thiber 
+          # end
+          # queue << fret
+        end
     end
 
     def resume
+      @input_q << 1
+      @output_q.pop
     end
   end
 
@@ -122,21 +139,32 @@ class FirestoreServerStreamTest < Minitest::Test
       nil
     end
 
-    #thiber = Thiber.new fiber
+    thiber = Thiber.new do 
+      10.times do |ix|
+        Fiber.yield ix
+      end
+      nil
+    end
 
+    test = -1
+
+    # while test
+    #   fret = test
+    #   test = thiber.resume #thiber
+    #   pp test
+    # end
+    # TODO: thread safety test.
     queue = Queue.new
     Thread.new do
-     
       fret = -1
       test = -1
       while test
         fret = test
-        test = fiber.resume #thiber
-        
+        test = thiber.resume #thiber
+        pp test
       end
       queue << fret
     end
-    
     last = queue.pop
     assert_equal 9, last
   end
