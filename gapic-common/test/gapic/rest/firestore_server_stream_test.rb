@@ -74,6 +74,7 @@ class FirestoreServerStreamTest < Minitest::Test
     end
   end  
 
+
   def test_fiber_enumerable_stream
     request = <<-JSON 
     { parent: "projects/client-debugging/databases/(default)/documents",
@@ -81,12 +82,12 @@ class FirestoreServerStreamTest < Minitest::Test
         endAt: {
           before: true,
           values: [{
-            referenceValue: "projects/client-debugging/databases/(default)/documents/node_5.0.2_0KwCDFyz5uZYxCg3QWPh/DHascZz7jFwjUezanOjK"
+            referenceValue: "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/tGmmVU9OCL3xRXhLokq9"
           }]
         },
         from: [{
           allDescendants: true,
-          collectionId: "node_5.0.2_0KwCDFyz5uZYxCg3QWPh",
+          collectionId: "ruby_enumberable_stream",
         }],
         orderBy: [{
           direction: 'ASCENDING',
@@ -99,6 +100,82 @@ class FirestoreServerStreamTest < Minitest::Test
     JSON
     firestore = FirestoreClient.new
     rest_stream = firestore.runQuery(request)
-    assert_equal rest_stream.count, 77
+    assert_equal 9, rest_stream.count
   end
+
+  class Thiber
+    def initialize fiber
+      #...
+    end
+
+    def resume
+    end
+  end
+
+  def test_fiber_stream
+    # use Contunuation
+
+    fiber = Fiber.new do 
+      10.times do |ix|
+        Fiber.yield ix
+      end
+      nil
+    end
+
+    #thiber = Thiber.new fiber
+
+    queue = Queue.new
+    Thread.new do
+     
+      fret = -1
+      test = -1
+      while test
+        fret = test
+        test = fiber.resume #thiber
+        
+      end
+      queue << fret
+    end
+    
+    last = queue.pop
+    assert_equal 9, last
+  end
+
+  # def test_fiber_enumerable_stream
+  #   request = <<-JSON 
+  #   { parent: "projects/client-debugging/databases/(default)/documents",
+  #     structuredQuery: {
+  #       endAt: {
+  #         before: true,
+  #         values: [{
+  #           referenceValue: "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/tGmmVU9OCL3xRXhLokq9"
+  #         }]
+  #       },
+  #       from: [{
+  #         allDescendants: true,
+  #         collectionId: "ruby_enumberable_stream",
+  #       }],
+  #       orderBy: [{
+  #         direction: 'ASCENDING',
+  #         field: {
+  #           fieldPath: '__name__'
+  #         }
+  #       }],
+  #     }
+  #   }
+  #   JSON
+  #   firestore = FirestoreClient.new
+  #   rest_stream = firestore.runQuery(request)
+
+  #   queue = Queue.new
+  #   Thread.new do
+  #     ix = rest_stream.count
+  #     queue << ix
+  #   end
+
+  #   count = queue.pop
+   
+  #   assert_equal 9, count
+  # end
+
 end
