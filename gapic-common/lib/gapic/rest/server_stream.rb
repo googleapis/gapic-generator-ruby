@@ -31,34 +31,35 @@ module Gapic
         @ready_objs = []
       end
 
-      def next_json!(chunk)
-        for char in chunk.split("")
-          if char == "{"
+      def next_json! chunk
+        chunk.split("").each do |char|
+          case char
+          when "{"
             if @_level == 1
               @_obj = ""
             end
-            if not @_in_string
+            unless @_in_string
               @_level += 1
             end
             @_obj += char
-          elsif char == "}"
+          when "}"
             @_obj += char
-            if not @_in_string
+            unless @_in_string
               @_level -= 1
             end
-            if not @_in_string and @_level == 1
-              @ready_objs.append(@_obj)
+            if !@_in_string && (@_level == 1)
+              @ready_objs.append @_obj
             end
-          elsif char == '"'
+          when '"'
             @_in_string = !@_in_string
             @_obj += char
-          elsif char == "["
-            if @_level == 0
+          when "["
+            if @_level.zero?
               @_level += 1
             else
               @_obj += char
             end
-          elsif char == "]"
+          when "]"
             if @_level == 1
               @_level -= 1
             else
@@ -79,15 +80,16 @@ module Gapic
       # @return [Enumerator] if no block is provided
       #
       # ?return nil when done.
-      def each &block
+      def each
         return enum_for :each unless block_given?
         loop do
-          while @ready_objs.length == 0
+          while @ready_objs.length.zero?
             begin
               chunk = @enumerable.next
-              next_json!(chunk)
+              return unless chunk
+              next_json! chunk
             rescue StopIteration
-              return  
+              return
             end
           end
           yield @ready_objs.shift

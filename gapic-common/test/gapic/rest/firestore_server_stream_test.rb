@@ -1,7 +1,6 @@
-
 # frozen_string_literal: true
 
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -59,23 +58,50 @@ class FirestoreServerStreamTest < Minitest::Test
 
     # Example method for server streaming code generation.
     def runQuery request
-      fiber = Fiber.new do 
-        @conn.post(@endpoint, request) do |req|
-          req.options.on_data = Proc.new do |chunk, overall_received_bytes|
-            Fiber.yield chunk
-          end
-        end
-        nil
-      end
       rest_stream = Gapic::Rest::ServerStream.new(
-        Gapic::Rest::FiberEnumerable.new(fiber)
+        Gapic::Rest::ThreadedFiberEnumerator.new do 
+          @conn.post(@endpoint, request) do |req|
+            req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+              Fiber.yield chunk
+            end
+          end
+          nil
+        end
       )
       return rest_stream
     end
   end  
 
+  def test_firestore_stream_in_thread
+    request = <<-JSON 
+    { parent: "projects/client-debugging/databases/(default)/documents",
+      structuredQuery: {
+        endAt: {
+          before: true,
+          values: [{
+            referenceValue: "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/tGmmVU9OCL3xRXhLokq9"
+          }]
+        },
+        from: [{
+          allDescendants: true,
+          collectionId: "ruby_enumberable_stream",
+        }],
+        orderBy: [{
+          direction: 'ASCENDING',
+          field: {
+            fieldPath: '__name__'
+          }
+        }],
+      }
+    }
+    JSON
 
-  def test_fiber_enumerable_stream
+    firestore = FirestoreClient.new
+    rest_stream = firestore.runQuery(request)
+    assert_equal 9, rest_stream.count
+  end
+
+  def test_firestore_stream_separate_thread
     request = <<-JSON 
     { parent: "projects/client-debugging/databases/(default)/documents",
       structuredQuery: {
@@ -100,110 +126,14 @@ class FirestoreServerStreamTest < Minitest::Test
     JSON
     firestore = FirestoreClient.new
     rest_stream = firestore.runQuery(request)
-    assert_equal 9, rest_stream.count
-  end
 
-  class Thiber
-    def initialize &block
-      @input_q = Queue.new
-      @output_q = Queue.new
-      
-      @t = Thread.new do
-          fiber = Fiber.new &block
-          while true
-            _ = @input_q.pop # ignore
-            out = fiber.resume
-            @output_q << out
-          end
-          # while input_q
-          #   fret = test
-          #   test = fiber.resume #thiber 
-          # end
-          # queue << fret
-        end
-    end
-
-    def resume
-      @input_q << 1
-      @output_q.pop
-    end
-  end
-
-  def test_fiber_stream
-    # use Contunuation
-
-    fiber = Fiber.new do 
-      10.times do |ix|
-        Fiber.yield ix
-      end
-      nil
-    end
-
-    thiber = Thiber.new do 
-      10.times do |ix|
-        Fiber.yield ix
-      end
-      nil
-    end
-
-    test = -1
-
-    # while test
-    #   fret = test
-    #   test = thiber.resume #thiber
-    #   pp test
-    # end
-    # TODO: thread safety test.
     queue = Queue.new
     Thread.new do
-      fret = -1
-      test = -1
-      while test
-        fret = test
-        test = thiber.resume #thiber
-        pp test
-      end
-      queue << fret
+      ix = rest_stream.count
+      queue << ix
     end
-    last = queue.pop
-    assert_equal 9, last
+
+    count = queue.pop
+    assert_equal 9, count
   end
-
-  # def test_fiber_enumerable_stream
-  #   request = <<-JSON 
-  #   { parent: "projects/client-debugging/databases/(default)/documents",
-  #     structuredQuery: {
-  #       endAt: {
-  #         before: true,
-  #         values: [{
-  #           referenceValue: "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/tGmmVU9OCL3xRXhLokq9"
-  #         }]
-  #       },
-  #       from: [{
-  #         allDescendants: true,
-  #         collectionId: "ruby_enumberable_stream",
-  #       }],
-  #       orderBy: [{
-  #         direction: 'ASCENDING',
-  #         field: {
-  #           fieldPath: '__name__'
-  #         }
-  #       }],
-  #     }
-  #   }
-  #   JSON
-  #   firestore = FirestoreClient.new
-  #   rest_stream = firestore.runQuery(request)
-
-  #   queue = Queue.new
-  #   Thread.new do
-  #     ix = rest_stream.count
-  #     queue << ix
-  #   end
-
-  #   count = queue.pop
-   
-  #   assert_equal 9, count
-  # end
-
 end
