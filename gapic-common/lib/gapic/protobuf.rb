@@ -147,6 +147,16 @@ module Gapic
       Google::Protobuf::Timestamp.new seconds: time.to_i, nanos: time.nsec
     end
 
+    ##
+    # Utility for converting a Ruby Date instance to a Google::Type::Date.
+    #
+    # @param timestamp [Date] The Date to be converted.
+    #
+    # @return [Google::Type::Date] The converted Google::Type::Date.
+    def self.date_to_date_pb date
+      Google::Type::Date.new year: date.year, month: date.month, day: date.day
+    end
+
     private_class_method :coerce_submessages, :coerce_submessage, :coerce_array, :coerce_value, :map_field?
   end
 end
