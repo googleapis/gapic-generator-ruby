@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.15.2)
+    gapic-generator (0.15.3)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.15.2)
+    gapic-generator-cloud (0.15.3)
       actionpack (~> 5.2)
-      gapic-generator (= 0.15.2)
+      gapic-generator (= 0.15.3)
       google-style (~> 1.26.1)
       protobuf (~> 3.8)
 
@@ -53,7 +53,7 @@ GEM
     method_source (1.0.0)
     middleware (0.1.0)
     mini_portile2 (2.8.0)
-    minitest (5.16.2)
+    minitest (5.16.3)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
@@ -122,4 +122,4 @@ DEPENDENCIES
   rake (>= 13.0)
 
 BUNDLED WITH
-   2.3.18
+   2.3.20

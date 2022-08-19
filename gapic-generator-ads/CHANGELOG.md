@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.15.3 / 2022-08-18
+
+* Includes changes from gapic-generator 0.15.3
+* Fix: Fix out of date SDK auth documentation
+
 ### 0.15.2 / 2022-07-27
 
 * Includes changes from gapic-generator 0.15.2
