@@ -13,6 +13,7 @@
 # limitations under the License.
 
 require "gapic/call_options"
+require "grpc/errors"
 
 module Gapic
   class ServiceStub
@@ -116,13 +117,23 @@ module Gapic
         deadline = calculate_deadline options
         metadata = options.metadata
 
+        retried_exception = nil
         begin
           operation = stub_method.call request, deadline: deadline, metadata: metadata, return_op: true
           response = operation.execute
           yield response, operation if block_given?
           response
+        rescue ::GRPC::DeadlineExceeded => e
+          raise Gapic::GRPC::DeadlineExceededError.new e.message, root_cause: retried_exception
         rescue StandardError => e
-          retry if check_retry?(deadline) && options.retry_policy.call(e)
+          if e.is_a?(::GRPC::Unavailable) && /Signet::AuthorizationError/ =~ e.message
+            e = Gapic::GRPC::AuthorizationError.new e.message.gsub(%r{^\d+:}, "")
+          end
+
+          if check_retry?(deadline) && options.retry_policy.call(e)
+            retried_exception = e
+            retry
+          end
 
           raise e
         end
