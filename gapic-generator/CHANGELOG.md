@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.15.3 / 2022-08-18
+
+* Fix: Fix out of date SDK auth documentation
+
 ### 0.15.2 / 2022-07-27
 
 * Fix: only do service config http binding override on Operations

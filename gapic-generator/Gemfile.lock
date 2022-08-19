@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.15.2)
+    gapic-generator (0.15.3)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
@@ -44,7 +44,7 @@ GEM
     method_source (1.0.0)
     middleware (0.1.0)
     mini_portile2 (2.8.0)
-    minitest (5.16.2)
+    minitest (5.16.3)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.3.18
+   2.3.20
