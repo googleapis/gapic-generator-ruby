@@ -135,7 +135,7 @@ module Gapic
 >>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
             end
           end
-          yield @message_cls.decode @ready_objs.shift
+          yield @message_cls.decode_json @ready_objs.shift
         end
       end
     end

@@ -27,6 +27,13 @@ require "pp"
 require 'pry'
 require "googleauth"
 
+class MockProtobufClass
+  def self.decode_json str
+    return str
+  end
+end
+
+
 #
 # Tests for the REST server stream.
 #
@@ -45,7 +52,7 @@ class FirestoreServerStreamTest < Minitest::Test
     ].to_enum
 
     rest_stream = Gapic::Rest::ServerStream.new(
-      enumerable
+      enumerable, MockProtobufClass,
     )
     assert_equal rest_stream.count, 2
   end
@@ -74,7 +81,8 @@ class FirestoreServerStreamTest < Minitest::Test
             end
           end
           nil
-        end
+        end,
+        MockProtobufClass,
       )
       return rest_stream
     end
