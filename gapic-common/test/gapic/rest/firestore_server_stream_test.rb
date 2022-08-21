@@ -60,11 +60,6 @@ class FirestoreServerStreamTest < Minitest::Test
     def runQuery request
       rest_stream = Gapic::Rest::ServerStream.new(
         Gapic::Rest::ThreadedFiberEnumerator.new do 
-          # @conn.send(:post, @endpoint, request) do |req|
-          #   req.options.on_data = Proc.new do |chunk, overall_received_bytes|
-          #     Fiber.yield chunk
-          #   end
-          # end
           runQuery_service_stub request do |req|
             req.options.on_data = Proc.new do |chunk, overall_received_bytes|
               Fiber.yield chunk
