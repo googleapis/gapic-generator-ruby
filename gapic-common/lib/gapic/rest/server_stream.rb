@@ -24,9 +24,10 @@ module Gapic
       attr_reader :enumberable
 
       # @param fiber Enumerable<String>
-      def initialize enumerable
+      def initialize enumerable, message_cls
         @enumerable = enumerable
         @_level = 0
+        @message_cls = message_cls
         @_obj = ""
         @ready_objs = []
       end
@@ -134,7 +135,7 @@ module Gapic
 >>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
             end
           end
-          yield @ready_objs.shift
+          yield @message_cls.decode @ready_objs.shift
         end
       end
     end
