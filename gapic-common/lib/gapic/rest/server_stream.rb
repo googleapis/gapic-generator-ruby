@@ -93,7 +93,7 @@ module Gapic
               return
             end
           end
-          yield @message_cls.decode @ready_objs.shift
+          yield @message_cls.decode_json @ready_objs.shift
         end
       end
     end
