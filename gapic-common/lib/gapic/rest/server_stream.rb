@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'json'
+
 module Gapic
   module Rest
     class ServerStream
@@ -33,40 +35,20 @@ module Gapic
 
       def next_json! chunk
         chunk.split("").each do |char|
-          case char
-          when "{"
-            if @_level == 1
-              @_obj = ""
-            end
-            unless @_in_string
-              @_level += 1
-            end
-            @_obj += char
-          when "}"
-            @_obj += char
-            unless @_in_string
-              @_level -= 1
-            end
-            if !@_in_string && (@_level == 1)
-              @ready_objs.append @_obj
-            end
-          when '"'
-            @_in_string = !@_in_string
-            @_obj += char
-          when "["
-            if @_level.zero?
-              @_level += 1
-            else
-              @_obj += char
-            end
-          when "]"
-            if @_level == 1
-              @_level -= 1
-            else
-              @_obj += char
-            end
-          else
-            @_obj += char
+          @_obj += char
+          # Invariant: @_obj is always either a part of a single JSON object or the entire JSON object.
+          # Hence, it's safe to strip whitespace, commans and array brackets. These characters
+          # are only added after @_obj is a complete JSON object and essentially can be flushed.
+          @_obj = @_obj.lstrip # strip whitespace
+          if @_obj[0] == "[" or @_obj[0] == "," or @_obj[0] == "]"
+            @_obj = @_obj[1..-1]
+          end 
+          begin
+            js = JSON.parse(@_obj)
+            @ready_objs.append @_obj
+            @_obj = ""
+          rescue JSON::ParserError
+            next
           end
         end
       end
