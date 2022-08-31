@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'json'
+require "json"
 
 module Gapic
   module Rest
@@ -30,21 +30,24 @@ module Gapic
         @enumerable = enumerable
         @_level = 0
         @_obj = ""
-        @ready_objs = []
+        @ready_objs = [] # List of strings
       end
 
       def next_json! chunk
-        chunk.split("").each do |char|
+        chunk.chars.each do |char|
           @_obj += char
           # Invariant: @_obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
-          # are only added after @_obj is a complete JSON object and essentially can be flushed.
-          @_obj = @_obj.lstrip # strip whitespace
-          if @_obj[0] == "[" or @_obj[0] == "," or @_obj[0] == "]"
+          # are only added before @_obj is a complete JSON object and essentially can be flushed.
+          @_obj = @_obj.lstrip # strip whitespace.
+          # Eat array delimiter characters.
+          if @_obj[0] == "[" || @_obj[0] == "," || @_obj[0] == "]"
             @_obj = @_obj[1..-1]
-          end 
+          end
           begin
-            js = JSON.parse(@_obj)
+            # Two choices here: append a Ruby object into
+            # ready_objs or a string. Going with the latter here.
+            JSON.parse(@_obj)
             @ready_objs.append @_obj
             @_obj = ""
           rescue JSON::ParserError

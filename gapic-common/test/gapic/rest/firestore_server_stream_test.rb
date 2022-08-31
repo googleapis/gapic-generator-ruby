@@ -25,17 +25,7 @@ require "googleauth"
 #
 class FirestoreServerStreamTest < Minitest::Test
   def test_array_enumerable_stream
-    enumerable = [
-      "[",
-      "{",
-      "\"foo\":1",
-      "}",
-      ",",
-      "{",
-      "\"bar\":1",
-      "}",
-      "]"
-    ].to_enum
+    enumerable = "[{\"foo\":1},{\"bar\":1}]".chars.to_enum
 
     rest_stream = Gapic::Rest::ServerStream.new(
       enumerable
