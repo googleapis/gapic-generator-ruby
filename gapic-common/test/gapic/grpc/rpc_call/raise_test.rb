@@ -84,4 +84,37 @@ class RpcCallRaiseTest < Minitest::Test
     assert_kind_of Time, deadline_arg
     assert_equal 1, call_count
   end
+
+  ##
+  # Tests that if a layer underlying the RpcCall throws a ::GRPC::Unavailable
+  # that contains a Signet::AuthorizationError in its text,
+  # it gets extracted and rewrapped into a G
+  def test_will_rewrap_signet_errors
+    signet_error_text = <<-SIGNET
+    #<Signet::AuthorizationError: Authorization failed.  Server message:
+    # {
+    #   "error": "invalid_grant",
+    #   "error_description": "Bad Request"
+    # }
+    SIGNET
+
+    unauth_error_text = "#{::GRPC::Core::StatusCodes::UNAUTHENTICATED}:#{signet_error_text}"
+
+    api_meth_stub = proc do |*_args|
+      raise GRPC::Unavailable.new(signet_error_text)
+    end
+
+    rpc_call = Gapic::ServiceStub::RpcCall.new(
+      api_meth_stub
+    )
+
+    ex = assert_raises Gapic::GRPC::AuthorizationError do
+      rpc_call.call Object.new
+    end
+
+    assert_equal ::GRPC::Core::StatusCodes::UNAUTHENTICATED, ex.code
+    assert_equal unauth_error_text, ex.message
+    refute_nil ex.cause
+    assert_kind_of GRPC::Unavailable, ex.cause
+  end
 end
