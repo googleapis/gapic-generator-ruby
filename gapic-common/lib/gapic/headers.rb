@@ -25,7 +25,7 @@ module Gapic
     # @param lib_version [String] The client library version.
     # @param gax_version [String] The Gapic version. Defaults to `Gapic::Common::VERSION`.
     # @param gapic_version [String] The Gapic version.
-    # @param grpc_version [String] The GRPC version. Defaults to `GRPC::VERSION`.
+    # @param grpc_version [String] The GRPC version. Defaults to `::GRPC::VERSION`.
     # @param rest_version [String] The Rest Library (Faraday) version. Defaults to `Faraday::VERSION`.
     # @param transports_version_send [Array] Which transports to send versions for.
     #   Allowed values to contain are:

@@ -46,7 +46,7 @@ module Gapic
       #
       # @yield [response, operation] Access the response along with the RPC operation.
       # @yieldparam response [Object] The response object.
-      # @yieldparam operation [GRPC::ActiveCall::Operation] The RPC operation for the response.
+      # @yieldparam operation [::GRPC::ActiveCall::Operation] The RPC operation for the response.
       #
       # @return [Object] The response object.
       #
@@ -56,7 +56,7 @@ module Gapic
       #   require "gapic"
       #   require "gapic/grpc"
       #
-      #   echo_channel = GRPC::Core::Channel.new(
+      #   echo_channel = ::GRPC::Core::Channel.new(
       #     "localhost:7469", nil, :this_channel_is_insecure
       #   )
       #   echo_stub = Gapic::ServiceStub.new(
@@ -74,7 +74,7 @@ module Gapic
       #   require "gapic"
       #   require "gapic/grpc"
       #
-      #   echo_channel = GRPC::Core::Channel.new(
+      #   echo_channel = ::GRPC::Core::Channel.new(
       #     "localhost:7469", nil, :this_channel_is_insecure
       #   )
       #   echo_stub = Gapic::ServiceStub.new(
@@ -86,7 +86,7 @@ module Gapic
       #   request = Google::Showcase::V1beta1::EchoRequest.new
       #   options = Gapic::CallOptions.new(
       #     retry_policy = {
-      #       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
+      #       retry_codes: [::GRPC::Core::StatusCodes::UNAVAILABLE]
       #     }
       #   )
       #   response = echo_call.call request, options: options
@@ -97,7 +97,7 @@ module Gapic
       #   require "gapic"
       #   require "gapic/grpc"
       #
-      #   echo_channel = GRPC::Core::Channel.new(
+      #   echo_channel = ::GRPC::Core::Channel.new(
       #     "localhost:7469", nil, :this_channel_is_insecure
       #   )
       #   echo_stub = Gapic::ServiceStub.new(
