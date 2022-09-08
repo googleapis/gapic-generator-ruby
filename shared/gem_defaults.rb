@@ -141,6 +141,11 @@ def gem_defaults
         "google/cloud/compute/v1/compute_small.proto"
       ]
     },
+    firestore: {
+      protos: [
+	"google/firestore/firestore.proto"
+      ]
+    },
     compute_small_wrapper: {
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
