@@ -22,10 +22,6 @@ Naming/FileName:
   Exclude:
     - "lib/gapic-common.rb"
 
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - "lib/**/*"
-
 Style/Documentation:
   Exclude:
     - "lib/gapic/grpc/service_stub/rpc_call.rb"

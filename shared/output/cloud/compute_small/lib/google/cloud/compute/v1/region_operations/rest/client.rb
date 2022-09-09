@@ -185,11 +185,11 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => faraday_err
+              rescue ::Faraday::Error => e
                 begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error(faraday_err)
+                  raise ::Gapic::Rest::Error.wrap_faraday_error e
                 rescue ::Gapic::Rest::Error => gapic_err
-                  raise ::Google::Cloud::Error.from_error(gapic_err.cause)
+                  raise ::Google::Cloud::Error.from_error gapic_err.cause
                 end
               end
 
@@ -253,11 +253,11 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => faraday_err
+              rescue ::Faraday::Error => e
                 begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error(faraday_err)
+                  raise ::Gapic::Rest::Error.wrap_faraday_error e
                 rescue ::Gapic::Rest::Error => gapic_err
-                  raise ::Google::Cloud::Error.from_error(gapic_err.cause)
+                  raise ::Google::Cloud::Error.from_error gapic_err.cause
                 end
               end
 
@@ -340,11 +340,11 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => faraday_err
+              rescue ::Faraday::Error => e
                 begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error(faraday_err)
+                  raise ::Gapic::Rest::Error.wrap_faraday_error e
                 rescue ::Gapic::Rest::Error => gapic_err
-                  raise ::Google::Cloud::Error.from_error(gapic_err.cause)
+                  raise ::Google::Cloud::Error.from_error gapic_err.cause
                 end
               end
 
@@ -412,11 +412,11 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => faraday_err
+              rescue ::Faraday::Error => e
                 begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error(faraday_err)
+                  raise ::Gapic::Rest::Error.wrap_faraday_error e
                 rescue ::Gapic::Rest::Error => gapic_err
-                  raise ::Google::Cloud::Error.from_error(gapic_err.cause)
+                  raise ::Google::Cloud::Error.from_error gapic_err.cause
                 end
               end
 
