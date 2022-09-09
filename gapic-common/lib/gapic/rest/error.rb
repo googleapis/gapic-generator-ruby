@@ -28,7 +28,7 @@ module Gapic
       # @return [Object, nil] the headers of the REST error
       attr_reader :headers
       # The Cloud error wrapper expect to see a `header` property
-      alias_method :header, :headers
+      alias header headers
 
       ##
       # @param message [String, nil] error message
@@ -80,14 +80,17 @@ module Gapic
         def try_parse_from_body body_str
           body = JSON.parse body_str
 
-          return [nil, nil, nil, nil] unless body && body.is_a?(::Hash) && body.key?("error") && body["error"].is_a?(::Hash)
+          unless body.is_a?(::Hash) && body&.key?("error") && body["error"].is_a?(::Hash)
+            return [nil, nil, nil,
+                    nil]
+          end
           error = body["error"]
 
           message = error["message"] if error.key? "message"
           code = error["code"] if error.key? "code"
           status = error["status"] if error.key? "status"
 
-          details = parse_details(error["details"]) if error.key? "details"
+          details = parse_details error["details"] if error.key? "details"
 
           [message, code, status, details]
         rescue JSON::ParserError
