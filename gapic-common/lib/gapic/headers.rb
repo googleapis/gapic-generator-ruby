@@ -33,13 +33,14 @@ module Gapic
     #     `:rest` to send the REST library version (if defined)
     #   Defaults to `[:grpc]`
     def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil,
-                               gapic_version: nil, grpc_version: nil, rest_version: nil,
+                               gapic_version: nil, grpc_version: nil, rest_version: nil, protobuf_version: nil,
                                transports_version_send: [:grpc]
 
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
       grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION
       rest_version ||= ::Faraday::VERSION if defined? ::Faraday
+      protobuf_version ||= Gem.loaded_specs["google-protobuf"].version.to_s if Gem.loaded_specs.key? "google-protobuf"
 
       x_goog_api_client_header = ["gl-ruby/#{ruby_version}"]
       x_goog_api_client_header << "#{lib_name}/#{lib_version}" if lib_name
@@ -47,6 +48,7 @@ module Gapic
       x_goog_api_client_header << "gapic/#{gapic_version}" if gapic_version
       x_goog_api_client_header << "grpc/#{grpc_version}" if grpc_version && transports_version_send.include?(:grpc)
       x_goog_api_client_header << "rest/#{rest_version}" if rest_version && transports_version_send.include?(:rest)
+      x_goog_api_client_header << "pb/#{protobuf_version}" if protobuf_version
       x_goog_api_client_header.join " ".freeze
     end
   end
