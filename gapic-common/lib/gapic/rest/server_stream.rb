@@ -46,7 +46,6 @@ module Gapic
             @_obj = @_obj[1..-1]
           end
 
-          #binding.pry if char == "}"
           next unless char == "}"
 
           begin
