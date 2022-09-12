@@ -19,17 +19,18 @@ module Gapic
     class ServerStream
       include Enumerable
 
-      # @return Enumerable<String>
+      # @return [Enumerable<String>]
       attr_reader :bodies
 
-      # @return Enumerable<String>
+      # @return [Enumerable<String>]
       attr_reader :enumberable
 
-      # @param fiber Enumerable<String>
-      def initialize enumerable
+      # @param message_klass [Class]
+      # @param enumerable [Enumerable<String>]
+      def initialize message_klass, enumerable
         @enumerable = enumerable
-        @_level = 0
         @_obj = ""
+        @message_klass = message_klass
         @ready_objs = [] # List of strings
       end
 
@@ -44,6 +45,10 @@ module Gapic
           if @_obj[0] == "[" || @_obj[0] == "," || @_obj[0] == "]"
             @_obj = @_obj[1..-1]
           end
+
+          #binding.pry if char == "}"
+          next unless char == "}"
+
           begin
             # Two choices here: append a Ruby object into
             # ready_objs or a string. Going with the latter here.
@@ -58,9 +63,8 @@ module Gapic
 
       #
       # Iterate over JSON objects in the streamed response.
-      # TODO: Conver to Protobuf.
       #
-      # @yield [String] Gives JSON string for one complete object.
+      # @yield [Object] Gives one complete Message object.
       #
       # @return [Enumerator] if no block is provided
       #
@@ -77,7 +81,7 @@ module Gapic
               return
             end
           end
-          yield @ready_objs.shift
+          yield @message_klass.decode_json @ready_objs.shift
         end
       end
     end

@@ -18,13 +18,13 @@ module Gapic
   module Rest
     class ThreadedEnumerator
       attr_reader :in_q, :out_q
-      def initialize in_q, out_q, &block
-        @in_q = in_q
-        @out_q = out_q
+      def initialize &block
+        @in_q = Queue.new
+        @out_q = Queue.new
         @block = block
 
         Thread.new do
-          @block.call
+          @block.call(@in_q, @out_q)
 
           @in_q.close
           @out_q.close

@@ -126,12 +126,17 @@ module Gapic
       # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
-      def make_http_request verb, uri:, body:, params:, options:
+      def make_http_request verb, uri:, body:, params:, options:, is_streaming: false, &block
         @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
           req.headers = req.headers.merge options.metadata
           req.options.timeout = options.timeout if options.timeout&.positive?
+          if is_streaming
+            req.options.on_data = Proc.new do |chunk, overall_received_bytes|
+              block.call(chunk) if block_given?
+            end
+          end
         end
       end
     end
