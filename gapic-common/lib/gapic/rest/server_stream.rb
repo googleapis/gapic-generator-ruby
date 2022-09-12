@@ -13,131 +13,90 @@
 # limitations under the License.
 
 module Gapic
-  module Rest
-    class ServerStream
-      include Enumerable
-
-      # @return Enumerable<String>
-      attr_reader :bodies
-
-      # @return Enumerable<String>
-      attr_reader :enumberable
-
-      # @param fiber Enumerable<String>
-      def initialize enumerable, message_cls
-        @enumerable = enumerable
-        @_level = 0
-        @message_cls = message_cls
-        @_obj = ""
-        @ready_objs = []
-      end
-
-<<<<<<< HEAD
-      def next_json! chunk
-        chunk.split("").each do |char|
-          case char
-          when "{"
-            if @_level == 1
-              @_obj = ""
-            end
-            unless @_in_string
-              @_level += 1
-            end
-            @_obj += char
-          when "}"
-            @_obj += char
-            unless @_in_string
-              @_level -= 1
-            end
-            if !@_in_string && (@_level == 1)
-              @ready_objs.append @_obj
-            end
-          when '"'
-            @_in_string = !@_in_string
-            @_obj += char
-          when "["
-            if @_level.zero?
-=======
-      def next_json!(chunk)
-        for char in chunk.split("")
-          if char == "{"
-            if @_level == 1
-              @_obj = ""
-            end
-            if not @_in_string
-              @_level += 1
-            end
-            @_obj += char
-          elsif char == "}"
-            @_obj += char
-            if not @_in_string
-              @_level -= 1
-            end
-            if not @_in_string and @_level == 1
-              @ready_objs.append(@_obj)
-            end
-          elsif char == '"'
-            @_in_string = !@_in_string
-            @_obj += char
-          elsif char == "["
-            if @_level == 0
->>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
-              @_level += 1
+    module Rest
+      class ServerStream
+        include Enumerable
+  
+        # @return Enumerable<String>
+        attr_reader :bodies
+  
+        # @return Enumerable<String>
+        attr_reader :enumberable
+  
+        # @param fiber Enumerable<String>
+        def initialize enumerable, message_cls
+          @enumerable = enumerable
+          @_level = 0
+          @message_cls = message_cls
+          @_obj = ""
+          @ready_objs = []
+        end
+  
+        def next_json! chunk
+          chunk.split("").each do |char|
+            case char
+            when "{"
+              if @_level == 1
+                @_obj = ""
+              end
+              unless @_in_string
+                @_level += 1
+              end
+              @_obj += char
+            when "}"
+              @_obj += char
+              unless @_in_string
+                @_level -= 1
+              end
+              if !@_in_string && (@_level == 1)
+                @ready_objs.append @_obj
+              end
+            when '"'
+              @_in_string = !@_in_string
+              @_obj += char
+            when "["
+              if @_level.zero?
+                @_level += 1
+              else
+                @_obj += char
+              end
+            when "]"
+              if @_level == 1
+                @_level -= 1
+              else
+                @_obj += char
+              end
             else
               @_obj += char
             end
-<<<<<<< HEAD
-          when "]"
-=======
-          elsif char == "]"
->>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
-            if @_level == 1
-              @_level -= 1
-            else
-              @_obj += char
-            end
-          else
-            @_obj += char
           end
         end
-      end
-
-      #
-      # Iterate over JSON objects in the streamed response.
-      # TODO: Conver to Protobuf.
-      #
-      # @yield [String] Gives JSON string for one complete object.
-      #
-      # @return [Enumerator] if no block is provided
-      #
-      # ?return nil when done.
-<<<<<<< HEAD
-      def each
-        return enum_for :each unless block_given?
-        loop do
-          while @ready_objs.length.zero?
-            begin
-              chunk = @enumerable.next
-              return unless chunk
-              next_json! chunk
-            rescue StopIteration
-              return
-=======
-      def each &block
-        return enum_for :each unless block_given?
-        loop do
-          while @ready_objs.length == 0
-            begin
-              chunk = @enumerable.next
-              next_json!(chunk)
-            rescue StopIteration
-              return  
->>>>>>> 394c9a48 (feat: files for working example using fiber enumerable.)
+  
+        #
+        # Iterate over JSON objects in the streamed response.
+        # TODO: Conver to Protobuf.
+        #
+        # @yield [String] Gives JSON string for one complete object.
+        #
+        # @return [Enumerator] if no block is provided
+        #
+        # ?return nil when done.
+        def each
+          return enum_for :each unless block_given?
+          loop do
+            while @ready_objs.length.zero?
+              begin
+                chunk = @enumerable.next
+                return unless chunk
+                next_json! chunk
+              rescue StopIteration
+                return
+              end
             end
+            yield @message_cls.decode_json @ready_objs.shift
           end
-          yield @message_cls.decode_json @ready_objs.shift
         end
       end
     end
   end
-end
+  

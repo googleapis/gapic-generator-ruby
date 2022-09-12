@@ -18,7 +18,7 @@
 
 require "helper"
 require "gapic/rest"
-require "google/firestore/firestore_pb"
+require "google/firestore/v1/firestore_pb"
 require "google/cloud/firestore/v1/firestore"
 
 

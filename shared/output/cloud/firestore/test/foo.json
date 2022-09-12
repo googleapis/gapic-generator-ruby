@@ -1,0 +1,20 @@
+{ "parent": "projects/client-debugging/databases/(default)/documents",
+          "structuredQuery": {
+            "endAt": {
+              "before": true,
+              "values": [{
+                "referenceValue": "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/zExBtw6XGsPv39HLfITO"
+              }]
+            },
+            "from": [{
+              "allDescendants": true,
+              "collectionId": "ruby_enumberable_stream"
+            }],
+            "orderBy": [{
+              "direction": "ASCENDING",
+              "field": {
+                "fieldPath": "__name__"
+              }
+            }]
+          }
+        }

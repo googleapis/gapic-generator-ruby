@@ -143,7 +143,11 @@ def gem_defaults
     },
     firestore: {
       protos: [
-	"google/firestore/firestore.proto"
+	      "google/firestore/v1/firestore.proto",
+        "google/firestore/v1/query.proto",
+        "google/firestore/v1/write.proto",
+        "google/firestore/v1/common.proto",
+        "google/firestore/v1/document.proto"
       ]
     },
     compute_small_wrapper: {
