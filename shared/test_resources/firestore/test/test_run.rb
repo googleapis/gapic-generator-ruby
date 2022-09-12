@@ -18,13 +18,37 @@
 
 require "helper"
 require "gapic/rest"
-require "google/firestore/firestore_pb"
+require "google/firestore/v1/firestore_pb"
 require "google/cloud/firestore/v1/firestore"
 
 
 class ::Google::Cloud::Firestore::V1::Firestore::ClientTest < Minitest::Test
     def test_run_rb
-        content = Google::Cloud::Firestore::V1::Firestore::Rest::Client new
-        content.runQuery
+        content = Google::Cloud::Firestore::V1::Firestore::Rest::Client.new
+
+        request = <<-JSON 
+        { "parent": "projects/client-debugging/databases/(default)/documents",
+          "structured_query": {
+            "end_at": {
+              "before": true,
+              "values": [{
+                "reference_value": "projects/client-debugging/databases/(default)/documents/ruby_enumberable_stream/zExBtw6XGsPv39HLfITO"
+              }]
+            },
+            "from": [{
+              "all_descendants": true,
+              "collection_id": "ruby_enumberable_stream"
+            }],
+            "order_by": [{
+              "direction": "ASCENDING",
+              "field": {
+                "field_path": "__name__"
+              }
+            }]
+          }
+        }
+        JSON
+        #r = ::Google::Cloud::Firestore::V1::RunQueryRequest.new request
+        content.run_query JSON.parse(request)
     end
 end
