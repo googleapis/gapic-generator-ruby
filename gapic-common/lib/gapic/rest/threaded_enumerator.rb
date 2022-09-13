@@ -19,7 +19,6 @@ module Gapic
     class ThreadedEnumerator
       attr_reader :in_q, :out_q
       def initialize &block
-        binding.pry
         @in_q = Queue.new
         @out_q = Queue.new
         @block = block

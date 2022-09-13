@@ -19,7 +19,7 @@
 require "gapic/config"
 require "gapic/config/method"
 
-require "google/cloud/compute/v1/version"
+require "google/cloud/firestore/v1/version"
 
 require "google/cloud/firestore/v1/firestore/credentials"
 require "google/cloud/firestore/v1/firestore/rest"

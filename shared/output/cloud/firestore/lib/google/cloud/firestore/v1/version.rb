@@ -19,7 +19,7 @@
 
 module Google
   module Cloud
-    module Compute
+    module Firestore
       module V1
         VERSION = "0.0.1"
       end

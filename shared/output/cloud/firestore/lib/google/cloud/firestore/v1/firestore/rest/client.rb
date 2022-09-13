@@ -186,7 +186,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.get_document.timeout,
@@ -279,7 +279,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.list_documents.timeout,
@@ -358,7 +358,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.update_document.timeout,
@@ -423,7 +423,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.delete_document.timeout,
@@ -508,7 +508,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.batch_get_documents.timeout,
@@ -517,9 +517,9 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     @config.metadata
 
-                rest_stream = ::Gapic::Rest::ServerStream.new(
+                rest_stream = Gapic::Rest::ServerStream.new(
                   Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
-                    @service_stub.runQuery(request) do |chunk|
+                    @firestore_stub.batch_get_documents(request, options) do |chunk|
                       in_q.deq
                       out_q.enq chunk
                     end
@@ -579,7 +579,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.begin_transaction.timeout,
@@ -647,7 +647,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.commit.timeout,
@@ -711,7 +711,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.rollback.timeout,
@@ -791,7 +791,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.run_query.timeout,
@@ -800,7 +800,7 @@ module Google
                 options.apply_defaults timeout:      @config.timeout,
                                        metadata:     @config.metadata
 
-                rest_stream = ::Gapic::Rest::ServerStream.new(
+                rest_stream = Gapic::Rest::ServerStream.new(
                   Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
                     @firestore_stub.run_query(request, options) do |chunk|
                       in_q.deq
@@ -899,7 +899,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.partition_query.timeout,
@@ -969,7 +969,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.list_collection_ids.timeout,
@@ -1048,7 +1048,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.batch_write.timeout,
@@ -1124,7 +1124,7 @@ module Google
                 # Set x-goog-api-client header
                 call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
-                  gapic_version: ::Google::Cloud::Compute::V1::VERSION,
+                  gapic_version: ::Google::Cloud::Firestore::V1::VERSION,
                   transports_version_send: [:rest]
 
                 options.apply_defaults timeout:      @config.rpcs.create_document.timeout,

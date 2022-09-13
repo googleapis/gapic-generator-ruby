@@ -48,7 +48,7 @@ class ::Google::Cloud::Firestore::V1::Firestore::ClientTest < Minitest::Test
           }
         }
         JSON
-        #r = ::Google::Cloud::Firestore::V1::RunQueryRequest.new request
-        content.run_query JSON.parse(request)
+        stream = content.run_query JSON.parse(request)
+        assert stream.count == 99
     end
 end

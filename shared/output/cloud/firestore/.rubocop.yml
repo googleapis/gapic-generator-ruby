@@ -3,7 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - "google-cloud-compute-v1.gemspec"
+    - "google-cloud-firestore-v1.gemspec"
     - "lib/**/*_pb.rb"
     - "proto_docs/**/*"
     - "test/**/*"
@@ -27,4 +27,4 @@ Metrics/PerceivedComplexity:
   Enabled: false
 Naming/FileName:
   Exclude:
-    - "lib/google-cloud-compute-v1.rb"
+    - "lib/google-cloud-firestore-v1.rb"

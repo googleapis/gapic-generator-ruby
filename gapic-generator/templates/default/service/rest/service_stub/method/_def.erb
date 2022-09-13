@@ -13,7 +13,7 @@
 #
 # @return [<%= method.rest.return_type %>]
 #   A result object deserialized from the server's reply
-<%- if method.server_streaming -%>
+<%- if method.server_streaming? -%>
 def <%= method.name %> request_pb, options = nil, &block
 <%- else -%>
 def <%= method.name %> request_pb, options = nil

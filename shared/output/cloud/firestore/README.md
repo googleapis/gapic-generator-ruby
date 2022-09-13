@@ -1,15 +1,15 @@
-# Ruby Client for the Google Cloud Compute V1 API
+# Ruby Client for the Google Cloud Firestore V1 API
 
 API Client library (ALPHA) for the Google Cloud Compute V1 API.
 
-google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time.
+google-cloud-firestore-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time.
 
 https://github.com/googleapis/google-cloud-ruby
 
 ## Installation
 
 ```
-$ gem install google-cloud-compute-v1
+$ gem install google-cloud-firestore-v1
 ```
 
 ## Before You Begin
@@ -30,7 +30,7 @@ request = ::Google::Cloud::Firestore::V1::GetDocumentRequest.new # (request fiel
 response = client.get_document request
 ```
 
-View the [Client Library Documentation](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest)
+View the [Client Library Documentation](https://cloud.google.com/ruby/docs/reference/google-cloud-firestore-v1/latest)
 for class and method documentation.
 
 

@@ -1,15 +1,15 @@
 # -*- ruby -*-
 # encoding: utf-8
 
-require File.expand_path("lib/google/cloud/compute/v1/version", __dir__)
+require File.expand_path("lib/google/cloud/firestore/v1/version", __dir__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "google-cloud-compute-v1"
-  gem.version       = Google::Cloud::Compute::V1::VERSION
+  gem.name          = "google-cloud-firestore-v1"
+  gem.version       = Google::Cloud::Firestore::V1::VERSION
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-compute-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time."
+  gem.description   = "google-cloud-firestore-v1 is the official client library for the Google Cloud Compute V1 API. This library is considered to be in alpha. This means it is still a work-in-progress and under active development. Any release is subject to backwards-incompatible changes at any time."
   gem.summary       = "API Client library (ALPHA) for the Google Cloud Compute V1 API."
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"
@@ -35,5 +35,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "redcarpet", "~> 3.0"
   gem.add_development_dependency "simplecov", "~> 0.18"
   gem.add_development_dependency "yard", "~> 0.9"
-  gem.add_development_dependency "pry"
 end

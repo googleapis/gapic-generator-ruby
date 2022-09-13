@@ -200,7 +200,7 @@ module Google
               #
               # @return [::Google::Cloud::Firestore::V1::BatchGetDocumentsResponse]
               #   A result object deserialized from the server's reply
-              def batch_get_documents request_pb, options = nil
+              def batch_get_documents request_pb, options = nil, &block
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
                 verb, uri, query_string_params, body = transcode_batch_get_documents_request request_pb

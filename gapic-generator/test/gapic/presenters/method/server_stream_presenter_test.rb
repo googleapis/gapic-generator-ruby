@@ -22,7 +22,6 @@ class ServerStreamPresenterTest < PresenterTest
   def test_cloud_product_detection
 
     presenter = method_presenter :firestore, "Firestore", "RunQuery"
-    binding.pry    
 
   end
 end
