@@ -36,6 +36,7 @@ class CloudApiTest < Minitest::Test
       ["ruby-cloud-generic-endpoint", API_INFO[:generic_endpoint].to_s],
       ["ruby-cloud-is-cloud-product", API_INFO[:is_cloud_product].to_s],
       ["ruby-cloud-generate-metadata", API_INFO[:generate_metadata].to_s],
+      ["ruby-cloud-rest-numeric-enums", API_INFO[:rest_numeric_enums].to_s],
 
       ["ruby-cloud-gem-name", API_INFO[:name]],
       ["ruby-cloud-gem-namespace", API_INFO[:namespace]],
