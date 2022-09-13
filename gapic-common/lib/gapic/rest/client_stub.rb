@@ -32,15 +32,17 @@ module Gapic
       # @param credentials [Google::Auth::Credentials]
       #   Credentials to send with calls in form of a googleauth credentials object.
       #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+      # @param numeric_enums [Boolean] Whether to signal the server to JSON-encode enums as ints
       #
       # @yield [Faraday::Connection]
       #
-      def initialize endpoint:, credentials:
+      def initialize endpoint:, credentials:, numeric_enums: false
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
         @endpoint = @endpoint.sub %r{/$}, ""
 
         @credentials = credentials
+        @numeric_enums = numeric_enums
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
@@ -127,6 +129,10 @@ module Gapic
       #   Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:
+        if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
+          params = params.merge({"$alt" => "json;enum-encoding=int"})
+        end
+        options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
         @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
