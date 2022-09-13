@@ -36,7 +36,7 @@ module Gapic
       # @param details [Object, nil] Details data of this error
       # @param headers [Object, nil] Http headers data of this error
       #
-      def initialize message, status_code, status, details, headers
+      def initialize message, status_code, status: nil, details: nil, headers: nil
         @status_code = status_code
         @status = status
         @details = details
@@ -66,7 +66,7 @@ module Gapic
             status_code = code unless code.nil?
           end
 
-          Gapic::Rest::Error.new message, status_code, status, details, headers
+          Gapic::Rest::Error.new message, status_code, status: status, details: details, headers: headers
         end
 
         private
@@ -109,7 +109,7 @@ module Gapic
           # For rest errors details will contain json representations of `Protobuf.Any`
           # decoded into hashes. If it's not an array, of its elements are not hashes,
           # it's some other case
-          return details unless details.is_a?(::Array) && details.each { |d| d.is_a?(::Hash) }
+          return details unless details.is_a? ::Array
 
           details.map do |detail_instance|
             # Next, parse detail_instance into a Proto message.
