@@ -91,11 +91,11 @@ class RpcCallRaiseTest < Minitest::Test
   # it gets extracted and rewrapped into a G
   def test_will_rewrap_signet_errors
     signet_error_text = <<-SIGNET
-    #<Signet::AuthorizationError: Authorization failed.  Server message:
-    # {
-    #   "error": "invalid_grant",
-    #   "error_description": "Bad Request"
-    # }
+    <Signet::AuthorizationError: Authorization failed.  Server message:
+    {
+       "error": "invalid_grant",
+       "error_description": "Bad Request"
+    }>
     SIGNET
 
     unauth_error_text = "#{::GRPC::Core::StatusCodes::UNAUTHENTICATED}:#{signet_error_text}"
