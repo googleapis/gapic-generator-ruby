@@ -130,7 +130,7 @@ module Gapic
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:
         if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
-          params = params.merge({"$alt" => "json;enum-encoding=int"})
+          params = params.merge({ "$alt" => "json;enum-encoding=int" })
         end
         options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
         @connection.send verb, uri do |req|

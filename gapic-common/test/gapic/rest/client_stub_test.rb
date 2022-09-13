@@ -54,8 +54,8 @@ class ClientStubTest < Minitest::Test
   def test_make_get_request_simple
     client_stub = make_client_stub
     expected_req = FakeRequest.default
-    mock = expect_connection client_stub, :get, "/blah", expected_req
-    client_stub.make_get_request uri: "/blah"
+    mock = expect_connection client_stub, :get, "/foo", expected_req
+    client_stub.make_get_request uri: "/foo"
     mock.verify
   end
 
@@ -63,8 +63,8 @@ class ClientStubTest < Minitest::Test
     client_stub = make_client_stub
     expected_req = FakeRequest.default
     expected_req.params = {"Foo" => "bar"}
-    mock = expect_connection client_stub, :get, "/blah", expected_req
-    client_stub.make_get_request uri: "/blah", params: {"Foo" => "bar"}
+    mock = expect_connection client_stub, :get, "/foo", expected_req
+    client_stub.make_get_request uri: "/foo", params: {"Foo" => "bar"}
     mock.verify
   end
 
@@ -72,16 +72,25 @@ class ClientStubTest < Minitest::Test
     client_stub = make_client_stub numeric_enums: true
     expected_req = FakeRequest.default
     expected_req.params = {"$alt" => "json;enum-encoding=int"}
-    mock = expect_connection client_stub, :get, "/blah", expected_req
-    client_stub.make_get_request uri: "/blah"
+    mock = expect_connection client_stub, :get, "/foo", expected_req
+    client_stub.make_get_request uri: "/foo"
+    mock.verify
+  end
+
+  def test_make_get_request_with_numeric_enums_and_existing_alt_param
+    client_stub = make_client_stub numeric_enums: true
+    expected_req = FakeRequest.default
+    expected_req.params = {"Foo" => "bar", "$alt" => "json;enum-encoding=int"}
+    mock = expect_connection client_stub, :get, "/foo", expected_req
+    client_stub.make_get_request uri: "/foo", params: {"Foo" => "bar", "$alt" => "json"}
     mock.verify
   end
 
   def test_make_delete_request_simple
     client_stub = make_client_stub
     expected_req = FakeRequest.default
-    mock = expect_connection client_stub, :delete, "/blah", expected_req
-    client_stub.make_delete_request uri: "/blah"
+    mock = expect_connection client_stub, :delete, "/foo", expected_req
+    client_stub.make_delete_request uri: "/foo"
     mock.verify
   end
 
@@ -89,8 +98,8 @@ class ClientStubTest < Minitest::Test
     client_stub = make_client_stub
     expected_req = FakeRequest.default
     expected_req.body = "hello"
-    mock = expect_connection client_stub, :patch, "/blah", expected_req
-    client_stub.make_patch_request uri: "/blah", body: "hello"
+    mock = expect_connection client_stub, :patch, "/foo", expected_req
+    client_stub.make_patch_request uri: "/foo", body: "hello"
     mock.verify
   end
 
@@ -98,8 +107,8 @@ class ClientStubTest < Minitest::Test
     client_stub = make_client_stub
     expected_req = FakeRequest.default
     expected_req.body = "hello"
-    mock = expect_connection client_stub, :post, "/blah", expected_req
-    client_stub.make_post_request uri: "/blah", body: "hello"
+    mock = expect_connection client_stub, :post, "/foo", expected_req
+    client_stub.make_post_request uri: "/foo", body: "hello"
     mock.verify
   end
 
@@ -107,8 +116,8 @@ class ClientStubTest < Minitest::Test
     client_stub = make_client_stub
     expected_req = FakeRequest.default
     expected_req.body = "hello"
-    mock = expect_connection client_stub, :put, "/blah", expected_req
-    client_stub.make_put_request uri: "/blah", body: "hello"
+    mock = expect_connection client_stub, :put, "/foo", expected_req
+    client_stub.make_put_request uri: "/foo", body: "hello"
     mock.verify
   end
 end
