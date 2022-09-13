@@ -802,7 +802,7 @@ module Google
 
                 rest_stream = ::Gapic::Rest::ServerStream.new(
                   Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
-                    @service_stub.runQuery(request) do |chunk|
+                    @firestore_stub.run_query(request, options) do |chunk|
                       in_q.deq
                       out_q.enq chunk
                     end

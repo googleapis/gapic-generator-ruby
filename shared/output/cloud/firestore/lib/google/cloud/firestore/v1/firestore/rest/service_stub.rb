@@ -346,7 +346,7 @@ module Google
               #
               # @return [::Google::Cloud::Firestore::V1::RunQueryResponse]
               #   A result object deserialized from the server's reply
-              def run_query request_pb, options = nil
+              def run_query request_pb, options = nil, &block
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
                 verb, uri, query_string_params, body = transcode_run_query_request request_pb

@@ -49,6 +49,8 @@ class ::Google::Cloud::Firestore::V1::Firestore::ClientTest < Minitest::Test
         }
         JSON
         #r = ::Google::Cloud::Firestore::V1::RunQueryRequest.new request
-        content.run_query JSON.parse(request)
+        r = content.run_query JSON.parse(request)
+        puts r.count
+
     end
 end
