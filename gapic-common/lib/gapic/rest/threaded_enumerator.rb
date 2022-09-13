@@ -12,19 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'monitor'
 
 module Gapic
   module Rest
+    ##
+    # A class to provide the Enumerable interface to an incoming stream of data.
+    #
+    # ThreadedEnumerator provides the enumerations over the individual chunks of data received from the server.
+    #
+    # @example normal iteration over resources.
+    #   chunk = threaded_enumerator.next
+    #
+    # @attribute [r] in_q
+    #   @return [Queue] Input queue.
+    # @attribute [r] out_q
+    #   @return [Queue] Output queue.
     class ThreadedEnumerator
-      attr_reader :in_q, :out_q
+      attr_reader :in_q
+      attr_reader :out_q
       def initialize &block
         @in_q = Queue.new
         @out_q = Queue.new
         @block = block
 
         Thread.new do
-          @block.call(@in_q, @out_q)
+          @block.call @in_q, @out_q
 
           @in_q.close
           @out_q.close

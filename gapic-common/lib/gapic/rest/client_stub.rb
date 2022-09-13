@@ -133,8 +133,8 @@ module Gapic
           req.headers = req.headers.merge options.metadata
           req.options.timeout = options.timeout if options.timeout&.positive?
           if is_streaming
-            req.options.on_data = Proc.new do |chunk, overall_received_bytes|
-              block.call(chunk) if block_given?
+            req.options.on_data = proc do |chunk, _overall_received_bytes|
+              block.call chunk if block_given?
             end
           end
         end

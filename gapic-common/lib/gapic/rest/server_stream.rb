@@ -16,14 +16,16 @@ require "json"
 
 module Gapic
   module Rest
+    ##
+    # A class to provide the Enumerable interface to the response of a REST server-streaming dmethod.
+    #
+    # ServerStream provides the enumerations over the individual response messages within the stream.
+    #
+    # @example normal iteration over resources.
+    #   server_stream.each { |response| puts response }
+    #
     class ServerStream
       include Enumerable
-
-      # @return [Enumerable<String>]
-      attr_reader :bodies
-
-      # @return [Enumerable<String>]
-      attr_reader :enumberable
 
       # @param message_klass [Class]
       # @param enumerable [Enumerable<String>]
@@ -43,7 +45,7 @@ module Gapic
           @_obj = @_obj.lstrip # strip whitespace.
           # Eat array delimiter characters.
           if @_obj[0] == "[" || @_obj[0] == "," || @_obj[0] == "]"
-            @_obj = @_obj[1..-1]
+            @_obj = @_obj[1..]
           end
 
           next unless char == "}"
@@ -51,7 +53,7 @@ module Gapic
           begin
             # Two choices here: append a Ruby object into
             # ready_objs or a string. Going with the latter here.
-            JSON.parse(@_obj)
+            JSON.parse @_obj
             @ready_objs.append @_obj
             @_obj = ""
           rescue JSON::ParserError
