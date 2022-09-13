@@ -39,7 +39,7 @@ module Gapic
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
       grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION
-      rest_version ||= ::Faraday::VERSION if defined? ::Faraday
+      rest_version ||= ::Faraday::VERSION if defined? ::Faraday::VERSION
       protobuf_version ||= Gem.loaded_specs["google-protobuf"].version.to_s if Gem.loaded_specs.key? "google-protobuf"
 
       x_goog_api_client_header = ["gl-ruby/#{ruby_version}"]
