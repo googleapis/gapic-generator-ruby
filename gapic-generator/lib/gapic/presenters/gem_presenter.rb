@@ -188,6 +188,13 @@ module Gapic
       ##
       # @return [Boolean]
       #
+      def rest_numeric_enums?
+        gem_config(:rest_numeric_enums) || false
+      end
+
+      ##
+      # @return [Boolean]
+      #
       def generate_rest_clients?
         @api.generate_rest_clients?
       end

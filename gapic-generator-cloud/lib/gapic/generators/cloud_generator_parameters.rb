@@ -25,6 +25,7 @@ module Gapic
         "ruby-cloud-yard-strict"                  => ":gem.:yard_strict",
         "ruby-cloud-generic-endpoint"             => ":gem.:generic_endpoint",
         "ruby-cloud-is-cloud-product"             => ":gem.:is_cloud_product",
+        "ruby-cloud-rest-numeric-enums"           => ":gem.:rest_numeric_enums",
         "ruby-cloud-generate-metadata"            => ":generate_metadata",
         "ruby-cloud-generate-standalone-snippets" => ":generate_standalone_snippets",
         "ruby-cloud-generate-yardoc-snippets"     => ":generate_yardoc_snippets"

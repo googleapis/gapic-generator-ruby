@@ -59,7 +59,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    protobuf (3.10.6)
+    protobuf (3.10.7)
       activesupport (>= 3.2)
       middleware
       thor
@@ -77,7 +77,7 @@ GEM
     rake (13.0.6)
     regexp_parser (2.5.0)
     rexml (3.2.5)
-    rubocop (1.35.0)
+    rubocop (1.36.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -109,4 +109,4 @@ DEPENDENCIES
   rake (>= 13.0)
 
 BUNDLED WITH
-   2.3.20
+   2.3.18
