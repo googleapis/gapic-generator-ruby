@@ -33,15 +33,16 @@ module Gapic
       ##
       # @param message [String, nil] error message
       # @param status_code [Integer, nil] HTTP status code of this error
+      # @param status [String, nil] The text representation of status as parsed from the response body
       # @param details [Object, nil] Details data of this error
       # @param headers [Object, nil] Http headers data of this error
       #
       def initialize message, status_code, status: nil, details: nil, headers: nil
+        super message
         @status_code = status_code
         @status = status
         @details = details
         @headers = headers
-        super message
       end
 
       class << self
@@ -76,7 +77,7 @@ module Gapic
         # Tries to get the error information from the JSON bodies
         #
         # @param body_str [String]
-        # @return [Array(String, String)]
+        # @return [Array(String, String, String, String)]
         def try_parse_from_body body_str
           body = JSON.parse body_str
 
@@ -112,6 +113,7 @@ module Gapic
           return details unless details.is_a? ::Array
 
           details.map do |detail_instance|
+            next detail_instance unless detail_instance.is_a? ::Hash
             # Next, parse detail_instance into a Proto message.
             # There are three possible issues for the JSON->Any->message parsing
             # - json decoding fails
@@ -120,10 +122,10 @@ module Gapic
             # If we hit any of these three issues we'll just return the original hash
             begin
               any = ::Google::Protobuf::Any.decode_json detail_instance.to_json
-              klass = ::Google::Protobuf::DescriptorPool.generated_pool.lookup(any.type_name).msgclass
-              return detail_instance if klass.nil?
+              klass = ::Google::Protobuf::DescriptorPool.generated_pool.lookup(any.type_name)&.msgclass
+              next detail_instance if klass.nil?
               unpack = any.unpack klass
-              return detail_instance if unpack.nil?
+              next detail_instance if unpack.nil?
               unpack
             rescue ::Google::Protobuf::ParseError
               detail_instance

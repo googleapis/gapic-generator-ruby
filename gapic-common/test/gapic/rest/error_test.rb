@@ -207,6 +207,58 @@ class RestErrorTest < Minitest::Test
     assert_equal int, unpacked_int
   end
 
+  # Tests that if the details contain objects that are not
+  # Protobuf.Any packed messages they are surfaced as whatever
+  # JSON parses them into
+  def test_surface_hash_if_unregistered_klass
+    faraday_err = OpenStruct.new(
+      :message => @err_message,
+      :response_body => @body_json,
+      :response_headers => @headers,
+      :response_status => @status_code
+    )
+
+    mock_pool = Minitest::Mock.new
+    mock_pool.expect :lookup, nil, [String]
+    mock_pool.expect :lookup, nil, [String]
+
+    ::Google::Protobuf::DescriptorPool.stub :generated_pool, mock_pool do
+      gapic_err = ::Gapic::Rest::Error.wrap_faraday_error faraday_err
+      refute_nil gapic_err.details
+      assert gapic_err.details.any?
+      assert gapic_err.details.all? { |detail| detail.is_a? ::Hash}
+    end
+
+    mock_pool.verify
+  end
+
+  # Tests that if the details contain objects that are not
+  # Protobuf.Any packed messages they are surfaced as whatever
+  # JSON parses them into
+  def test_surface_hash_if_unpack_error
+    faraday_err = OpenStruct.new(
+      :message => @err_message,
+      :response_body => @body_json,
+      :response_headers => @headers,
+      :response_status => @status_code
+    )
+
+    descriptor = OpenStruct.new msgclass: ::Google::Rpc::DebugInfo
+
+    mock_pool = Minitest::Mock.new
+    mock_pool.expect :lookup, descriptor, [String]
+    mock_pool.expect :lookup, descriptor, [String]
+
+    ::Google::Protobuf::DescriptorPool.stub :generated_pool, mock_pool do
+      gapic_err = ::Gapic::Rest::Error.wrap_faraday_error faraday_err
+      refute_nil gapic_err.details
+      assert gapic_err.details.any?
+      assert gapic_err.details.all? { |detail| detail.is_a? ::Hash}
+    end
+
+    mock_pool.verify
+  end
+
   # Tests that if the details is not an array
   # it is still surfaced
   def test_surface_nonarray_details
