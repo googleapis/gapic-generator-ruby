@@ -32,15 +32,17 @@ module Gapic
       # @param credentials [Google::Auth::Credentials]
       #   Credentials to send with calls in form of a googleauth credentials object.
       #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
+      # @param numeric_enums [Boolean] Whether to signal the server to JSON-encode enums as ints
       #
       # @yield [Faraday::Connection]
       #
-      def initialize endpoint:, credentials:
+      def initialize endpoint:, credentials:, numeric_enums: false
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
         @endpoint = @endpoint.sub %r{/$}, ""
 
         @credentials = credentials
+        @numeric_enums = numeric_enums
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
@@ -58,8 +60,8 @@ module Gapic
       #
       # @param uri [String] uri to send this request to
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_get_request uri:, params: {}, options: {}
         make_http_request :get, uri: uri, body: nil, params: params, options: options
@@ -70,8 +72,8 @@ module Gapic
       #
       # @param uri [String] uri to send this request to
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_delete_request uri:, params: {}, options: {}
         make_http_request :delete, uri: uri, body: nil, params: params, options: options
@@ -83,8 +85,8 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_patch_request uri:, body:, params: {}, options: {}
         make_http_request :patch, uri: uri, body: body, params: params, options: options
@@ -96,8 +98,8 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_post_request uri:, body: nil, params: {}, options: {}
         make_http_request :post, uri: uri, body: body, params: params, options: options
@@ -109,8 +111,8 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_put_request uri:, body: nil, params: {}, options: {}
         make_http_request :put, uri: uri, body: body, params: params, options: options
@@ -123,10 +125,14 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String, nil] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions] gapic options to be applied to the REST call.
-      #   Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
+      #     to the REST call. Currently only timeout and headers are supported.
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:
+        if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
+          params = params.merge({ "$alt" => "json;enum-encoding=int" })
+        end
+        options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
         @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
