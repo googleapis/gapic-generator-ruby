@@ -128,7 +128,7 @@ module Gapic
               next detail_instance if unpack.nil?
               unpack
             rescue ::Google::Protobuf::ParseError
-              next detail_instance
+              detail_instance
             end
           end.compact
         end
