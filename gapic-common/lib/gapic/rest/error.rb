@@ -82,8 +82,7 @@ module Gapic
           body = JSON.parse body_str
 
           unless body.is_a?(::Hash) && body&.key?("error") && body["error"].is_a?(::Hash)
-            return [nil, nil, nil,
-                    nil]
+            return [nil, nil, nil, nil]
           end
           error = body["error"]
 
