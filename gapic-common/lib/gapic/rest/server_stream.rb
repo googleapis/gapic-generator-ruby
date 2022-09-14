@@ -28,7 +28,7 @@ module Gapic
       include Enumerable
 
       # @param message_klass [Class]
-      # @param enumerable [Enumerable<String>]
+      # @param enumerable [Enumerator<String>]
       def initialize message_klass, enumerable
         @enumerable = enumerable
         @_obj = ""
@@ -36,7 +36,7 @@ module Gapic
         @ready_objs = [] # List of strings
       end
 
-      def next_json! chunk
+      def _next_json! chunk
         chunk.chars.each do |char|
           @_obj += char
           # Invariant: @_obj is always either a part of a single JSON object or the entire JSON object.
@@ -77,7 +77,7 @@ module Gapic
             begin
               chunk = @enumerable.next
               return unless chunk
-              next_json! chunk
+              _next_json! chunk
             rescue StopIteration
               return
             end
