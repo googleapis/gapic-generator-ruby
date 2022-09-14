@@ -21,13 +21,13 @@ class RestErrorTest < Minitest::Test
   def setup
     @status = "PERMISSION_DENIED"
     @status_code = 403
-    @err_message = "Compute Engine API has not been used in project 135460398040 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=135460398040 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
+    @err_message = "Compute Engine API has not been used in project foo before or it is disabled. Enable it by visiting https://example.com/overview?project=foo then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
 
     @help = ::Google::Rpc::Help.new({
       links: [
         {
           description: "Google developers console API activation",
-          url: "https://console.developers.google.com/apis/api/compute.googleapis.com/overview?project=135460398040"
+          url: "https://example.com/overview?project=foo"
         }
       ]
     })
@@ -35,10 +35,10 @@ class RestErrorTest < Minitest::Test
 
     @error_info = ::Google::Rpc::ErrorInfo.new({
       reason: "SERVICE_DISABLED",
-      domain: "googleapis.com",
+      domain: "example.com",
       metadata: {
-        consumer: "projects/135460398040",
-        service: "compute.googleapis.com"
+        consumer: "projects/foo",
+        service: "compute.example.com"
       }
     })
     @error_info_any = ::Google::Protobuf::Any.pack @error_info
