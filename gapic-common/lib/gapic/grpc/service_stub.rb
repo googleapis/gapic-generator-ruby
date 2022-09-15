@@ -34,20 +34,20 @@ module Gapic
     # @param grpc_stub_class [Class] gRPC stub class to create a new instance of.
     # @param endpoint [String] The endpoint of the API.
     # @param credentials [Google::Auth::Credentials, Signet::OAuth2::Client, String, Hash, Proc,
-    #   GRPC::Core::Channel, GRPC::Core::ChannelCredentials] Provides the means for authenticating requests made by
+    #   ::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] Provides the means for authenticating requests made by
     #   the client. This parameter can be many types:
     #
     #   * A `Google::Auth::Credentials` uses a the properties of its represented keyfile for authenticating requests
     #     made by this client.
     #   * A `Signet::OAuth2::Client` object used to apply the OAuth credentials.
-    #   * A `GRPC::Core::Channel` will be used to make calls through.
-    #   * A `GRPC::Core::ChannelCredentials` for the setting up the RPC client. The channel credentials should
-    #     already be composed with a `GRPC::Core::CallCredentials` object.
+    #   * A `::GRPC::Core::Channel` will be used to make calls through.
+    #   * A `::GRPC::Core::ChannelCredentials` for the setting up the RPC client. The channel credentials should
+    #     already be composed with a `::GRPC::Core::CallCredentials` object.
     #   * A `Proc` will be used as an updater_proc for the Grpc channel. The proc transforms the metadata for
     #     requests, generally, to give OAuth credentials.
     # @param channel_args [Hash] The channel arguments. (This argument is ignored when `credentials` is
-    #     provided as a `GRPC::Core::Channel`.)
-    # @param interceptors [Array<GRPC::ClientInterceptor>] An array of {GRPC::ClientInterceptor} objects that will
+    #     provided as a `::GRPC::Core::Channel`.)
+    # @param interceptors [Array<::GRPC::ClientInterceptor>] An array of {::GRPC::ClientInterceptor} objects that will
     #   be used for intercepting calls before they are executed Interceptors are an EXPERIMENTAL API.
     #
     def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
@@ -59,10 +59,10 @@ module Gapic
       interceptors = Array interceptors
 
       @grpc_stub = case credentials
-                   when GRPC::Core::Channel
+                   when ::GRPC::Core::Channel
                      grpc_stub_class.new endpoint, nil, channel_override: credentials,
                                                         interceptors:     interceptors
-                   when GRPC::Core::ChannelCredentials, Symbol
+                   when ::GRPC::Core::ChannelCredentials, Symbol
                      grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
                                                                 interceptors: interceptors
                    else
@@ -70,8 +70,8 @@ module Gapic
                      updater_proc ||= credentials if credentials.is_a? Proc
                      raise ArgumentError, "invalid credentials (#{credentials.class})" if updater_proc.nil?
 
-                     call_creds = GRPC::Core::CallCredentials.new updater_proc
-                     chan_creds = GRPC::Core::ChannelCredentials.new.compose call_creds
+                     call_creds = ::GRPC::Core::CallCredentials.new updater_proc
+                     chan_creds = ::GRPC::Core::ChannelCredentials.new.compose call_creds
                      grpc_stub_class.new endpoint, chan_creds, channel_args: channel_args,
                                                                interceptors: interceptors
                    end
@@ -88,7 +88,7 @@ module Gapic
     #
     # @yield [response, operation] Access the response along with the RPC operation.
     # @yieldparam response [Object] The response object.
-    # @yieldparam operation [GRPC::ActiveCall::Operation] The RPC operation for the response.
+    # @yieldparam operation [::GRPC::ActiveCall::Operation] The RPC operation for the response.
     #
     # @return [Object] The response object.
     #
@@ -98,7 +98,7 @@ module Gapic
     #   require "gapic"
     #   require "gapic/grpc"
     #
-    #   echo_channel = GRPC::Core::Channel.new(
+    #   echo_channel = ::GRPC::Core::Channel.new(
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(
@@ -115,7 +115,7 @@ module Gapic
     #   require "gapic"
     #   require "gapic/grpc"
     #
-    #   echo_channel = GRPC::Core::Channel.new(
+    #   echo_channel = ::GRPC::Core::Channel.new(
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(
@@ -126,7 +126,7 @@ module Gapic
     #   request = Google::Showcase::V1beta1::EchoRequest.new
     #   options = Gapic::CallOptions.new(
     #     retry_policy = {
-    #       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
+    #       retry_codes: [::GRPC::Core::StatusCodes::UNAVAILABLE]
     #     }
     #   )
     #   response = echo_stub.call_rpc :echo, request
@@ -138,7 +138,7 @@ module Gapic
     #   require "gapic"
     #   require "gapic/grpc"
     #
-    #   echo_channel = GRPC::Core::Channel.new(
+    #   echo_channel = ::GRPC::Core::Channel.new(
     #     "localhost:7469", nil, :this_channel_is_insecure
     #   )
     #   echo_stub = Gapic::ServiceStub.new(

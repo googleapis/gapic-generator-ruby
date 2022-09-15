@@ -105,6 +105,53 @@ class RpcCallRetryRaiseTest < Minitest::Test
     sleep_mock.verify
   end
 
+  ##
+  # Tests that if a layer underlying the RpcCall repeatedly throws a retriable exception
+  # and then throws a DeadlineExceeded, the two exceptions get wrapped in a Gapic::GRPC::DeadlineExceededError
+  #
+  def test_deadline_exceeded
+    call_count = 0
+    err_message = "foo"
+    unavailable_err_message = "#{GRPC::Core::StatusCodes::UNAVAILABLE}:#{err_message}"
+
+    api_meth_stub = proc do |deadline: nil, **_kwargs|
+      call_count += 1
+      raise GRPC::DeadlineExceeded if call_count == 3
+      raise GRPC::Unavailable.new(err_message)
+    end
+
+    rpc_call = Gapic::ServiceStub::RpcCall.new api_meth_stub
+
+    sleep_mock = Minitest::Mock.new
+    sleep_mock.expect :sleep, nil, [1]
+    sleep_mock.expect :sleep, nil, [1 * 1.3]
+    sleep_proc = ->(count) { sleep_mock.sleep count }
+
+    options = Gapic::CallOptions.new(
+      timeout: 300,
+      retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
+    )
+
+    Kernel.stub :sleep, sleep_proc do
+      ex = assert_raises Gapic::GRPC::DeadlineExceededError do
+        rpc_call.call Object.new, options: options
+      end
+
+      assert_equal 3, call_count
+
+      assert_equal ::GRPC::Core::StatusCodes::DEADLINE_EXCEEDED, ex.code
+
+      refute_nil ex.cause
+      assert_kind_of ::GRPC::DeadlineExceeded, ex.cause
+
+      refute_nil ex.root_cause
+      assert_kind_of ::GRPC::Unavailable, ex.root_cause
+      assert_equal unavailable_err_message, ex.root_cause.message
+    end
+
+    sleep_mock.verify
+  end
+
   def test_aborts_on_unexpected_exception
     call_count = 0
 

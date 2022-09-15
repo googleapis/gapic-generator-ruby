@@ -132,7 +132,7 @@ module Gapic
       private
 
       def retry? error
-        error.is_a?(GRPC::BadStatus) && retry_codes.include?(error.code)
+        error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)
       end
 
       def delay!
