@@ -6,8 +6,12 @@
 
 * Support numeric_enums in the ClientStub ([#817](https://github.com/googleapis/gapic-generator-ruby/issues/817)) 
 * parse details information from REST errors  ([#815](https://github.com/googleapis/gapic-generator-ruby/issues/815)) 
-* rewrap certain grpc errors ([#810](https://github.com/googleapis/gapic-generator-ruby/issues/810)) 
 * send protobuf version in headers ([#816](https://github.com/googleapis/gapic-generator-ruby/issues/816)) 
+
+#### Bug Fixes
+
+* rewrap certain grpc errors ([#810](https://github.com/googleapis/gapic-generator-ruby/issues/810)) 
+  This will rewrap some GRPC::Unavailable errors that were caused by authentication failing as Gapic::GRPC::AuthorizationError which inherits from ::GRPC::Unauthenticated
 
 ### 0.11.1 (2022-08-03)
 
