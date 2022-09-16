@@ -28,13 +28,39 @@ module Gapic
       include Enumerable
 
       # @param message_klass [Class]
-      # @param enumerable [Enumerator<String>]
-      def initialize message_klass, enumerable
-        @enumerable = enumerable
+      # @param json_enumerator [Enumerator<String>]
+      def initialize message_klass, json_enumerator
+        @json_enumerator = json_enumerator
         @_obj = ""
         @message_klass = message_klass
         @ready_objs = [] # List of strings
       end
+
+      ##
+      # Iterate over JSON objects in the streamed response.
+      #
+      # @yield [Object] Gives one complete Message object.
+      #
+      # @return [Enumerator] if no block is provided
+      #
+      def each
+        return enum_for :each unless block_given?
+
+        loop do
+          while @ready_objs.length.zero?
+            begin
+              chunk = @json_enumerator.next
+              return unless chunk
+              _next_json! chunk
+            rescue StopIteration
+              return
+            end
+          end
+          yield @message_klass.decode_json @ready_objs.shift, ignore_unknown_fields: true
+        end
+      end
+
+      private
 
       def _next_json! chunk
         chunk.chars.each do |char|
@@ -59,30 +85,6 @@ module Gapic
           rescue JSON::ParserError
             next
           end
-        end
-      end
-
-      #
-      # Iterate over JSON objects in the streamed response.
-      #
-      # @yield [Object] Gives one complete Message object.
-      #
-      # @return [Enumerator] if no block is provided
-      #
-      # ?return nil when done.
-      def each
-        return enum_for :each unless block_given?
-        loop do
-          while @ready_objs.length.zero?
-            begin
-              chunk = @enumerable.next
-              return unless chunk
-              _next_json! chunk
-            rescue StopIteration
-              return
-            end
-          end
-          yield @message_klass.decode_json @ready_objs.shift
         end
       end
     end

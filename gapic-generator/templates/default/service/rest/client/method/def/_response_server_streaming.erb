@@ -1,12 +1,11 @@
 <%- assert_locals method -%>
 
-rest_stream = Gapic::Rest::ServerStream.new(
+Gapic::Rest::ServerStream.new(
+  <%= method.return_type %>,
   Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
-    @<%= method.service.stub_name %>.<%= method.name %>(request, options) do |chunk|
+    @<%= method.service.stub_name %>.<%= method.name %> request, options do |chunk|
       in_q.deq
       out_q.enq chunk
     end
-  end,
-   <%= method.return_type %>
+  end
 )
-return rest_stream

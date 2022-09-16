@@ -258,10 +258,15 @@ module Google
               options.apply_defaults timeout:      @config.timeout,
                                      metadata:     @config.metadata
 
-              @echo_stub.expand request, options do |result, response|
-                yield result, response if block_given?
-                return result
-              end
+              Gapic::Rest::ServerStream.new(
+                ::Google::Showcase::V1beta1::EchoResponse,
+                Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+                  @echo_stub.expand request, options do |chunk|
+                    in_q.deq
+                    out_q.enq chunk
+                  end
+                end
+              )
             rescue ::Faraday::Error => e
               raise ::Gapic::Rest::Error.wrap_faraday_error e
             end
