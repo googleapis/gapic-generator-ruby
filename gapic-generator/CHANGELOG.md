@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.16.0 / 2022-09-16
+
+* Feature: Support numeric enums
+
 ### 0.15.3 / 2022-08-18
 
 * Fix: Fix out of date SDK auth documentation

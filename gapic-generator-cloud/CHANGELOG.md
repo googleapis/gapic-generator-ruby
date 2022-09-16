@@ -1,5 +1,11 @@
 # Release History for gapic-generator-cloud
 
+### 0.16.0 / 2022-09-16
+
+* Includes changes from gapic-generator 0.16.0
+* Feature: parse details information from REST errors
+* Feature: Support numeric enums
+
 ### 0.15.3 / 2022-08-18
 
 * Includes changes from gapic-generator 0.15.3
