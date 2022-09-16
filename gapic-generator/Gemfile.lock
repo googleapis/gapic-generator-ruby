@@ -38,7 +38,7 @@ GEM
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     json (2.6.2)
-    loofah (2.18.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
@@ -59,7 +59,7 @@ GEM
     parser (3.1.2.1)
       ast (~> 2.4.1)
     path_expander (1.1.1)
-    protobuf (3.10.6)
+    protobuf (3.10.7)
       activesupport (>= 3.2)
       middleware
       thor
@@ -81,7 +81,7 @@ GEM
     redcarpet (3.5.1)
     regexp_parser (2.5.0)
     rexml (3.2.5)
-    rubocop (1.35.0)
+    rubocop (1.36.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.1.2.1)
@@ -98,7 +98,7 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.10)
       thread_safe (~> 0.1)
-    unicode-display_width (2.2.0)
+    unicode-display_width (2.3.0)
     webrick (1.7.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.3.20
+   2.3.18

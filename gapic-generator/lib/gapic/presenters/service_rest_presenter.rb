@@ -314,6 +314,14 @@ module Gapic
         main_service.methods.select(&:can_generate_rest?)
       end
 
+      ##
+      # Whether this rest service should send the numeric enums signal
+      # @return [Boolean]
+      #
+      def numeric_enums?
+        main_service.gem.rest_numeric_enums?
+      end
+
       private
 
       # @return [Gapic::Presenters::ServicePresenter]

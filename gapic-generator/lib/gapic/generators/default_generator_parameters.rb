@@ -25,6 +25,7 @@ module Gapic
         ":gem.:yard_strict",
         ":gem.:generic_endpoint",
         ":gem.:is_cloud_product",
+        ":gem.:rest_numeric_enums",
         ":generate_metadata",
         ":generate_standalone_snippets",
         ":generate_yardoc_snippets"
@@ -68,7 +69,8 @@ module Gapic
         "gem-free-tier"        => ":gem.:free_tier",
         "gem-yard-strict"      => ":gem.:yard_strict",
         "gem-generic-endpoint" => ":gem.:generic_endpoint",
-        "gem-is-cloud-product" => ":gem.:is_cloud_product"
+        "gem-is-cloud-product" => ":gem.:is_cloud_product",
+        "rest-numeric-enums"   => ":gem.:rest_numeric_enums"
       }.freeze
 
       STRING_PARAMETERS_ALIASES = {
