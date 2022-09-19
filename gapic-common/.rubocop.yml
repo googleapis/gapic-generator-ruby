@@ -13,10 +13,12 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
+    - "lib/gapic/rest/client_stub.rb"
 
 Metrics/PerceivedComplexity:
   Exclude:
     - "lib/gapic/headers.rb"
+    - "lib/gapic/rest/client_stub.rb"
 
 Naming/FileName:
   Exclude:

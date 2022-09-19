@@ -109,6 +109,15 @@ module Gapic
       end
 
       ##
+      # Whether this method is a server-streaming method
+      #
+      # @return [Boolean]
+      #
+      def server_streaming?
+        @main_method.server_streaming?
+      end
+
+      ##
       # Whether this method can be generated in REST clients
       # Only methods with http bindings can be generated, and
       # additionally only unary methods are currently supported.
@@ -116,7 +125,7 @@ module Gapic
       # @return [Boolean]
       #
       def can_generate_rest?
-        (@main_method.kind == :normal) &&
+        (@main_method.kind == :normal || server_streaming?) &&
           http_bindings.first&.verb? &&
           http_bindings.first&.path?
       end

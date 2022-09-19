@@ -7,6 +7,17 @@ query_string_params = if query_string_params.any?
                         {}
                       end
 
+<%- if method.server_streaming? -%>
+@client_stub.make_http_request(
+  verb,
+  uri: uri,
+  body: body || "",
+  params: query_string_params,
+  options: options,
+  is_streaming: true,
+  &block
+)
+<%- else -%>
 response = @client_stub.make_http_request(
   verb,
   uri:     uri,
@@ -18,3 +29,4 @@ result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fie
 
 yield result, response if block_given?
 result
+<%- end -%>

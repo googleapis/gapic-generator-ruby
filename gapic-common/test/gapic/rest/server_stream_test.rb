@@ -19,7 +19,7 @@ require "faraday"
 require "pp"
 
 class MockProtobufClass
-  def self.decode_json str
+  def self.decode_json str, ignore_unknown_fields: true
     return str
   end
 end

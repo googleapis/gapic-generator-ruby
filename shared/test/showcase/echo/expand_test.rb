@@ -19,16 +19,23 @@ require "google/showcase/v1beta1/echo"
 require "grpc"
 
 class ExpandTest < ShowcaseTest
-  def setup
-    @client = new_echo_client
+  def setup client=nil
+    @client = client
   end
 
   def test_expand
+    return unless @client
     request_content = "The quick brown fox jumps over the lazy dog"
 
     response_enum = @client.expand content: request_content
 
     assert_equal request_content, response_enum.to_a.map(&:content).join(" ")
+  end
+end
+
+class ExpandGRPCTest < ExpandTest
+  def setup
+    super new_echo_client
   end
 
   def test_expand_with_metadata
@@ -51,5 +58,11 @@ class ExpandTest < ShowcaseTest
         operation.trailing_metadata
       )
     end
+  end
+end
+
+class ExpandRestTest < ExpandTest
+  def setup
+    super new_echo_rest_client
   end
 end
