@@ -16,7 +16,7 @@
 
 require "test_helper"
 require "faraday"
-
+require "pp"
 #
 # Tests for the ThreadedEnumerator.
 #
@@ -40,6 +40,38 @@ class ThreadedEnumeratorTest < Minitest::Test
 
     assert_raises(StopIteration) do
       te.next
+    end
+  end
+
+  def test_errors
+    in_q = Queue.new
+    out_q = Queue.new
+
+    a = (0..9)
+
+    te = Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+      a.each do |i|
+        in_q.deq
+        out_q.enq i
+        if i == 9
+            raise RuntimeError.new
+        end
+      end
+      out_q.enq nil
+    end
+
+    (0..8).each do |i|
+        assert_equal i, te.next
+    end
+
+
+    assert_raises(RuntimeError) do 
+        te.next
+    end
+
+    assert_raises(StopIteration) do
+        x = te.next
+        pp x
     end
   end
 end

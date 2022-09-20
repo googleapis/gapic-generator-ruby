@@ -31,16 +31,30 @@ module Gapic
       attr_reader :in_q
       attr_reader :out_q
 
+      # Spawns a new thread and does appropriate clean-up
+      # in case thread fails. Propagates exception back
+      # to main thread.
+      #
+      # @yield None
+      # @yieldparam in_q[Queue] input queue
+      # @yieldparam out_q[Queue] output queue
       def initialize &block
         @in_q = Queue.new
         @out_q = Queue.new
         @block = block
 
-        Thread.new do
-          @block.call @in_q, @out_q
-
-          @in_q.close
-          @out_q.close
+        begin
+          t = Thread.new do
+            @block.call @in_q, @out_q
+            @in_q.close
+            @out_q.close
+          end
+          t.abort_on_exception = true
+        rescue => err
+          t.kill
+          @out_q.clear
+          @in_q.clear
+          raise err
         end
       end
 
