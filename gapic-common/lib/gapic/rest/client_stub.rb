@@ -120,11 +120,11 @@ module Gapic
 
       ##
       # @private
-      # Sends chunk to the block if method is streaming.
+      # Yields to the block if method is streaming.
       # @param req [Faraday::Request] request object
       # @param is_server_streaming [Bool] flag if method is streaming
-      # @param block for server streaming
-      # @return [Faraday::Response]
+      # @yield None
+      # @yieldparam chunk[string] The chunk of data received during server streaming.
       def handle_streaming_if_needed req, is_server_streaming, &block
         return unless is_server_streaming
         req.options.on_data = proc do |chunk, _overall_received_bytes|
@@ -142,7 +142,8 @@ module Gapic
       # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
       #     to the REST call. Currently only timeout and headers are supported.
       # @param is_server_streaming [Bool] flag if method is streaming
-      # @param block for server streaming
+      # @yield None
+      # @yieldparam chunk[string] The chunk of data received during server streaming.
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false, &block
         if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
