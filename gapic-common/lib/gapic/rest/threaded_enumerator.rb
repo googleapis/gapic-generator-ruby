@@ -48,12 +48,13 @@ module Gapic
             @block.call @in_q, @out_q
             @in_q.close
             @out_q.close
-          rescue Exception => detail
+          rescue => err
             @out_q.clear
-            @in_q.clear
-            raise detail
+            @out_q.push nil
+            raise err
           end
         end
+        t.abort_on_exception = true
       end
 
       def next
