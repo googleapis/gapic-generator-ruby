@@ -43,18 +43,16 @@ module Gapic
         @out_q = Queue.new
         @block = block
 
-        begin
-          t = Thread.new do
+        t = Thread.new do
+          begin
             @block.call @in_q, @out_q
             @in_q.close
             @out_q.close
+          rescue Exception => detail
+            @out_q.clear
+            @in_q.clear
+            raise detail
           end
-          t.abort_on_exception = true
-        rescue => err
-          t.kill
-          @out_q.clear
-          @in_q.clear
-          raise err
         end
       end
 
