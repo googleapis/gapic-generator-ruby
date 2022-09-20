@@ -14,42 +14,42 @@
 
 
 module Gapic
-    module Rest
-      ##
-      # A class to provide the Enumerable interface to an incoming stream of data.
-      #
-      # ThreadedEnumerator provides the enumerations over the individual chunks of data received from the server.
-      #
-      # @example normal iteration over resources.
-      #   chunk = threaded_enumerator.next
-      #
-      # @attribute [r] in_q
-      #   @return [Queue] Input queue.
-      # @attribute [r] out_q
-      #   @return [Queue] Output queue.
-      class ThreadedEnumerator
-        attr_reader :in_q
-        attr_reader :out_q
-  
-        def initialize &block
-          @in_q = Queue.new
-          @out_q = Queue.new
-          @block = block
-  
-          Thread.new do
-            @block.call @in_q, @out_q
-  
-            @in_q.close
-            @out_q.close
-          end
+  module Rest
+    ##
+    # A class to provide the Enumerable interface to an incoming stream of data.
+    #
+    # ThreadedEnumerator provides the enumerations over the individual chunks of data received from the server.
+    #
+    # @example normal iteration over resources.
+    #   chunk = threaded_enumerator.next
+    #
+    # @attribute [r] in_q
+    #   @return [Queue] Input queue.
+    # @attribute [r] out_q
+    #   @return [Queue] Output queue.
+    class ThreadedEnumerator
+      attr_reader :in_q
+      attr_reader :out_q
+
+      def initialize &block
+        @in_q = Queue.new
+        @out_q = Queue.new
+        @block = block
+
+        Thread.new do
+          @block.call @in_q, @out_q
+
+          @in_q.close
+          @out_q.close
         end
-  
-        def next
-          @in_q.enq :next
-          chunk = @out_q.deq
-          raise StopIteration if chunk.nil?
-          chunk
-        end
+      end
+
+      def next
+        @in_q.enq :next
+        chunk = @out_q.deq
+        raise StopIteration if chunk.nil?
+        chunk
       end
     end
   end
+end
