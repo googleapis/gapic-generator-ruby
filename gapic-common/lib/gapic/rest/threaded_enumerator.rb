@@ -48,10 +48,10 @@ module Gapic
             @block.call @in_q, @out_q
             @in_q.close
             @out_q.close
-          rescue => err
+          rescue StandardError => e
             @out_q.clear
             @out_q.push nil
-            raise err
+            raise e
           end
         end
         t.abort_on_exception = true
