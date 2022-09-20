@@ -1,4 +1,6 @@
-# Copyright 2021 Google LLC
+# frozen_string_literal: true
+
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,21 +14,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-##
-# Rest GAPIC features are still under development.
-#
-
+require "test_helper"
 require "faraday"
-require "gapic/call_options"
-require "gapic/common/version"
-require "gapic/headers"
-require "gapic/protobuf"
-require "gapic/rest/client_stub"
-require "gapic/rest/error"
-require "gapic/rest/faraday_middleware"
-require "gapic/rest/grpc_transcoder"
-require "gapic/rest/operation"
-require "gapic/rest/paged_enumerable"
-require "gapic/rest/server_stream"
-require "gapic/rest/threaded_enumerator"
-require "json"
+
+#
+# Tests for the ThreadedEnumerator.
+#
+class ThreadedEnumeratorTest < Minitest::Test
+  def test_thread_enumerator
+    in_q = Queue.new
+    out_q = Queue.new
+
+    te = Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+      (0..9).each do |i|
+        in_q.deq
+        out_q.enq i
+      end
+
+      out_q.enq nil
+    end
+
+    (0..9).each do |i|
+      assert_equal i, te.next
+    end
+
+    assert_raises(StopIteration) do
+      te.next
+    end
+  end
+end
