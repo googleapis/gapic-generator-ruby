@@ -18,11 +18,11 @@ require "test_helper"
 require "faraday"
 require "pp"
 
-
 #
 # Tests for the ThreadedEnumerator.
 #
 class ThreadedEnumeratorTest < Minitest::Test
+  # Tests the base behavior of the ThreadedEnumerator
   def test_thread_enumerator
     in_q = Queue.new
     out_q = Queue.new
@@ -43,5 +43,32 @@ class ThreadedEnumeratorTest < Minitest::Test
     assert_raises(StopIteration) do
       te.next
     end
+  end
+
+  # Test the error behavior of the ThreadedEnumerator
+  # The error that originates within the block should
+  # be rethrown in the calling thread.
+  def test_thread_enumerator
+    in_q = Queue.new
+    out_q = Queue.new
+
+    te = Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+      (0..2).each do |i|
+        in_q.deq
+        out_q.enq i
+      end
+
+      raise StandardError.new "Error"
+    end
+
+    (0..2).each do |i|
+      assert_equal i, te.next
+    end
+
+    err = assert_raises(StandardError) do
+      te.next
+    end
+
+    assert_equal "Error", err.message
   end
 end
