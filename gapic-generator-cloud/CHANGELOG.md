@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.16.1 / 2022-09-27
+
+* Includes changes from gapic-generator 0.16.1
+* Fix: correct cause of Cloud error
+
 ### 0.16.0 / 2022-09-16
 
 * Includes changes from gapic-generator 0.16.0
