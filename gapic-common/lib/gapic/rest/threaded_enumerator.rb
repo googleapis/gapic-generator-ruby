@@ -16,6 +16,7 @@
 module Gapic
   module Rest
     ##
+    # @private
     # A class to provide the Enumerable interface to an incoming stream of data.
     #
     # ThreadedEnumerator provides the enumerations over the individual chunks of data received from the server.
