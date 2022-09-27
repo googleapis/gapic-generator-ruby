@@ -43,24 +43,28 @@ module Gapic
         @out_q = Queue.new
         @block = block
 
-        t = Thread.new do
-          begin
-            @block.call @in_q, @out_q
-            @in_q.close
-            @out_q.close
-          rescue StandardError => e
-            @out_q.clear
-            @out_q.push nil
-            raise e
-          end
+        Thread.new do
+          @block.call @in_q, @out_q
+        rescue StandardError => e
+          @out_q.push e
         end
-        t.abort_on_exception = true
       end
 
       def next
         @in_q.enq :next
         chunk = @out_q.deq
-        raise StopIteration if chunk.nil?
+
+        if chunk.is_a? StandardError
+          @out_q.close
+          @in_q.close
+          raise chunk
+        end
+
+        if chunk.nil?
+          @out_q.close
+          @in_q.close
+          raise StopIteration
+        end
         chunk
       end
     end
