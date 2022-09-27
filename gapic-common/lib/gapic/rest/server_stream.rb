@@ -69,6 +69,11 @@ module Gapic
 
       private
 
+      ##
+      # Builds the next JSON object of the server stream from chunk.
+      #
+      # @param chunk [String] Contains (partial) JSON object
+      #
       def _next_json! chunk
         chunk.chars.each do |char|
           @_obj += char
