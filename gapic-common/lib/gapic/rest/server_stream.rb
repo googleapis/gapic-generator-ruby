@@ -54,12 +54,13 @@ module Gapic
               _next_json! chunk
             rescue StopIteration
               dangling_content = @_obj.strip
-              error_expl = "Dangling conent left after iterating through the stream. " \
-                           "This means that not all content was received or parsed correctly. " \
-                           "It is likely a result of server or network error."
-              error_text = "#{error_expl}\n Content left unparsed: #{dangling_content}"
-
-              raise Gapic::Common::Error, error_text unless dangling_content.empty?
+              unless dangling_content.empty?
+                error_expl = "Dangling conent left after iterating through the stream. " \
+                             "This means that not all content was received or parsed correctly. " \
+                             "It is likely a result of server or network error."
+                error_text = "#{error_expl}\n Content left unparsed: #{dangling_content}"
+                raise Gapic::Common::Error, error_text
+              end
               return
             end
           end

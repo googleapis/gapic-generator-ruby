@@ -36,16 +36,14 @@ module Gapic
       # in case thread fails. Propagates exception back
       # to main thread.
       #
-      # @yield None
       # @yieldparam in_q[Queue] input queue
       # @yieldparam out_q[Queue] output queue
-      def initialize &block
+      def initialize
         @in_q = Queue.new
         @out_q = Queue.new
-        @block = block
 
         Thread.new do
-          @block.call @in_q, @out_q
+          yield @in_q, @out_q
         rescue StandardError => e
           @out_q.push e
         end

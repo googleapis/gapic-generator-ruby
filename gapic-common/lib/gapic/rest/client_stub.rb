@@ -127,9 +127,8 @@ module Gapic
       # @param params [Hash] query string parameters for the request
       # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
       #     to the REST call. Currently only timeout and headers are supported.
-      # @param is_server_streaming [Bool] flag if method is streaming
-      # @yield None
-      # @yieldparam chunk[String] The chunk of data received during server streaming.
+      # @param is_server_streaming [Boolean] flag if method is streaming
+      # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false, &block
         if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
