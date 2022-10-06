@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_GarbageService_GetSimpleGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#get_simple_garbage
+#
+def get_simple_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::SimpleGarbage.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::SimpleGarbage.new
 
-# Call the get_simple_garbage method.
-result = client.get_simple_garbage request
+  # Call the get_simple_garbage method.
+  result = client.get_simple_garbage request
 
-# The returned object is of type So::Much::Trash::SimpleGarbage.
-p result
+  # The returned object is of type So::Much::Trash::SimpleGarbage.
+  p result
+end
 # [END garbage_v0_generated_GarbageService_GetSimpleGarbage_sync]

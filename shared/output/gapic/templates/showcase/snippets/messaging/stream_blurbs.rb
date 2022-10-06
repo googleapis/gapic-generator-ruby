@@ -27,18 +27,24 @@
 # [START showcase_v0_generated_Messaging_StreamBlurbs_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#stream_blurbs
+#
+def stream_blurbs
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
 
-# Call the stream_blurbs method.
-result = client.stream_blurbs request
+  # Call the stream_blurbs method.
+  result = client.stream_blurbs request
 
-# The returned object is a streamed enumerable yielding elements of
-# type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-result.each do |response|
-  p response
+  # The returned object is a streamed enumerable yielding elements of
+  # type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
+  result.each do |response|
+    p response
+  end
 end
 # [END showcase_v0_generated_Messaging_StreamBlurbs_sync]

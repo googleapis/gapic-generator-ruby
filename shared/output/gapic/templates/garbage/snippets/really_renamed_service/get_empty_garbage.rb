@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_ReallyRenamedService_GetEmptyGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::ReallyRenamedService::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::ReallyRenamedService::Client#get_empty_garbage
+#
+def get_empty_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::ReallyRenamedService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::EmptyGarbage.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::EmptyGarbage.new
 
-# Call the get_empty_garbage method.
-result = client.get_empty_garbage request
+  # Call the get_empty_garbage method.
+  result = client.get_empty_garbage request
 
-# The returned object is of type So::Much::Trash::EmptyGarbage.
-p result
+  # The returned object is of type So::Much::Trash::EmptyGarbage.
+  p result
+end
 # [END garbage_v0_generated_ReallyRenamedService_GetEmptyGarbage_sync]

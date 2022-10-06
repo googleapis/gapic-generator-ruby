@@ -27,18 +27,24 @@
 # [START showcase_v0_generated_Echo_Expand_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Echo::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#expand
+#
+def expand
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Echo::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::ExpandRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::ExpandRequest.new
 
-# Call the expand method.
-result = client.expand request
+  # Call the expand method.
+  result = client.expand request
 
-# The returned object is a streamed enumerable yielding elements of
-# type ::Google::Showcase::V1beta1::EchoResponse.
-result.each do |response|
-  p response
+  # The returned object is a streamed enumerable yielding elements of
+  # type ::Google::Showcase::V1beta1::EchoResponse.
+  result.each do |response|
+    p response
+  end
 end
 # [END showcase_v0_generated_Echo_Expand_sync]

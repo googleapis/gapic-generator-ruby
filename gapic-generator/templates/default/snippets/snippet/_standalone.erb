@@ -1,0 +1,10 @@
+<%- assert_locals snippet -%>
+require "<%= snippet.require_path %>"
+
+##
+# Example demonstrating basic usage of
+# <%= snippet.client_type %>#<%= snippet.method_name %>
+#
+def <%= snippet.method_name %>
+<%= indent render(partial: "snippets/snippet/body", locals: { snippet: snippet }), "  " %>
+end

@@ -1,0 +1,4 @@
+<%- assert_locals snippet -%>
+require "<%= snippet.require_path %>"
+
+<%= render partial: "snippets/snippet/body", locals: { snippet: snippet} -%>

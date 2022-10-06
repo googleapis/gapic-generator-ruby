@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_ResourceNames_ResourceNamePatternMethod_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::ResourceNames::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::ResourceNames::Client#resource_name_pattern_method
+#
+def resource_name_pattern_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::ResourceNames::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::ResourceNamePatternRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::ResourceNamePatternRequest.new
 
-# Call the resource_name_pattern_method method.
-result = client.resource_name_pattern_method request
+  # Call the resource_name_pattern_method method.
+  result = client.resource_name_pattern_method request
 
-# The returned object is of type So::Much::Trash::Response.
-p result
+  # The returned object is of type So::Much::Trash::Response.
+  p result
+end
 # [END garbage_v0_generated_ResourceNames_ResourceNamePatternMethod_sync]

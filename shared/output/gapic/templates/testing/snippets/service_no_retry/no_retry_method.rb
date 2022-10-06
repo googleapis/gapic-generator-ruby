@@ -27,15 +27,21 @@
 # [START testing_v0_generated_ServiceNoRetry_NoRetryMethod_sync]
 require "testing/grpc_service_config"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+##
+# Example demonstrating basic usage of
+# Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method
+#
+def no_retry_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::GrpcServiceConfig::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::GrpcServiceConfig::Request.new
 
-# Call the no_retry_method method.
-result = client.no_retry_method request
+  # Call the no_retry_method method.
+  result = client.no_retry_method request
 
-# The returned object is of type Testing::GrpcServiceConfig::Response.
-p result
+  # The returned object is of type Testing::GrpcServiceConfig::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceNoRetry_NoRetryMethod_sync]

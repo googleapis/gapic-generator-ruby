@@ -27,19 +27,25 @@
 # [START showcase_v0_generated_Messaging_SendBlurbs_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#send_blurbs
+#
+def send_blurbs
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a stream of requests, as an Enumerator.
-# For each request, pass in keyword arguments to set fields.
-request = [
-  Google::Showcase::V1beta1::CreateBlurbRequest.new,
-  Google::Showcase::V1beta1::CreateBlurbRequest.new
-].to_enum
+  # Create a stream of requests, as an Enumerator.
+  # For each request, pass in keyword arguments to set fields.
+  request = [
+    Google::Showcase::V1beta1::CreateBlurbRequest.new,
+    Google::Showcase::V1beta1::CreateBlurbRequest.new
+  ].to_enum
 
-# Call the send_blurbs method.
-result = client.send_blurbs request
+  # Call the send_blurbs method.
+  result = client.send_blurbs request
 
-# The returned object is of type Google::Showcase::V1beta1::SendBlurbsResponse.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::SendBlurbsResponse.
+  p result
+end
 # [END showcase_v0_generated_Messaging_SendBlurbs_sync]

@@ -19,15 +19,21 @@
 # [START compute_v1_generated_RegionOperations_List_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::RegionOperations::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::RegionOperations::Client#list
+#
+def list
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::RegionOperations::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::ListRegionOperationsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::ListRegionOperationsRequest.new
 
-# Call the list method.
-result = client.list request
+  # Call the list method.
+  result = client.list request
 
-# The returned object is of type Google::Cloud::Compute::V1::OperationList.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::OperationList.
+  p result
+end
 # [END compute_v1_generated_RegionOperations_List_sync]

@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_ResourceNames_MultiparentMethod_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::ResourceNames::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::ResourceNames::Client#multiparent_method
+#
+def multiparent_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::ResourceNames::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::MultiparentRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::MultiparentRequest.new
 
-# Call the multiparent_method method.
-result = client.multiparent_method request
+  # Call the multiparent_method method.
+  result = client.multiparent_method request
 
-# The returned object is of type So::Much::Trash::Response.
-p result
+  # The returned object is of type So::Much::Trash::Response.
+  p result
+end
 # [END garbage_v0_generated_ResourceNames_MultiparentMethod_sync]

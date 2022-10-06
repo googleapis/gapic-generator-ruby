@@ -27,15 +27,21 @@
 # [START testing_v0_generated_AllSubclientsConsumer_NoLRO_sync]
 require "testing/nonstandard_lro_grpc"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new
+##
+# Example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#no_lro
+#
+def no_lro
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::NonstandardLroGrpc::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::NonstandardLroGrpc::Request.new
 
-# Call the no_lro method.
-result = client.no_lro request
+  # Call the no_lro method.
+  result = client.no_lro request
 
-# The returned object is of type Testing::NonstandardLroGrpc::Response.
-p result
+  # The returned object is of type Testing::NonstandardLroGrpc::Response.
+  p result
+end
 # [END testing_v0_generated_AllSubclientsConsumer_NoLRO_sync]

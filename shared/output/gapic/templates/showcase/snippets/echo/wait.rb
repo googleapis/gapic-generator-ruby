@@ -27,22 +27,28 @@
 # [START showcase_v0_generated_Echo_Wait_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Echo::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#wait
+#
+def wait
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Echo::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::WaitRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::WaitRequest.new
 
-# Call the wait method.
-result = client.wait request
+  # Call the wait method.
+  result = client.wait request
 
-# The returned object is of type Gapic::Operation. You can use this
-# object to check the status of an operation, cancel it, or wait
-# for results. Here is how to block until completion:
-result.wait_until_done! timeout: 60
-if result.response?
-  p result.response
-else
-  puts "Error!"
+  # The returned object is of type Gapic::Operation. You can use this
+  # object to check the status of an operation, cancel it, or wait
+  # for results. Here is how to block until completion:
+  result.wait_until_done! timeout: 60
+  if result.response?
+    p result.response
+  else
+    puts "Error!"
+  end
 end
 # [END showcase_v0_generated_Echo_Wait_sync]

@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_IAMPolicy_SetIamPolicy_sync]
 require "google/iam/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::IAMPolicy::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::IAMPolicy::Client#set_iam_policy
+#
+def set_iam_policy
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::IAMPolicy::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Iam::V1::SetIamPolicyRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Iam::V1::SetIamPolicyRequest.new
 
-# Call the set_iam_policy method.
-result = client.set_iam_policy request
+  # Call the set_iam_policy method.
+  result = client.set_iam_policy request
 
-# The returned object is of type Google::Iam::V1::Policy.
-p result
+  # The returned object is of type Google::Iam::V1::Policy.
+  p result
+end
 # [END garbage_v0_generated_IAMPolicy_SetIamPolicy_sync]

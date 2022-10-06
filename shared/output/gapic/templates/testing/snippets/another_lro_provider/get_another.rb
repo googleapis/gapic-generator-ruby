@@ -27,15 +27,21 @@
 # [START testing_v0_generated_AnotherLroProvider_GetAnother_sync]
 require "testing/nonstandard_lro_grpc"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new
+##
+# Example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::AnotherLroProvider::Client#get_another
+#
+def get_another
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::NonstandardLroGrpc::LroAnotherGetRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::NonstandardLroGrpc::LroAnotherGetRequest.new
 
-# Call the get_another method.
-result = client.get_another request
+  # Call the get_another method.
+  result = client.get_another request
 
-# The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
-p result
+  # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+  p result
+end
 # [END testing_v0_generated_AnotherLroProvider_GetAnother_sync]

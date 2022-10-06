@@ -19,15 +19,21 @@
 # [START compute_v1_generated_RegionInstanceGroupManagers_Resize_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client#resize
+#
+def resize
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new
 
-# Call the resize method.
-result = client.resize request
+  # Call the resize method.
+  result = client.resize request
 
-# The returned object is of type Google::Cloud::Compute::V1::Operation.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Operation.
+  p result
+end
 # [END compute_v1_generated_RegionInstanceGroupManagers_Resize_sync]

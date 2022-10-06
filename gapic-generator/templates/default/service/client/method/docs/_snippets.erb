@@ -1,6 +1,6 @@
 <%- assert_locals method -%>
 <%- if method.generate_yardoc_snippets? -%>
 # @example Basic example
-<%= indent render(partial: "snippets/snippet/structure", locals: { snippet: method.snippet }), "#   " %>
+<%= indent render(partial: "snippets/snippet/inline", locals: { snippet: method.snippet }), "#   " %>
 #
 <%- end -%>

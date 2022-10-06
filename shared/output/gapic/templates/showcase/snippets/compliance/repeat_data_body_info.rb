@@ -27,15 +27,21 @@
 # [START showcase_v0_generated_Compliance_RepeatDataBodyInfo_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Compliance::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Compliance::Client#repeat_data_body_info
+#
+def repeat_data_body_info
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Compliance::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::RepeatRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::RepeatRequest.new
 
-# Call the repeat_data_body_info method.
-result = client.repeat_data_body_info request
+  # Call the repeat_data_body_info method.
+  result = client.repeat_data_body_info request
 
-# The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::RepeatResponse.
+  p result
+end
 # [END showcase_v0_generated_Compliance_RepeatDataBodyInfo_sync]

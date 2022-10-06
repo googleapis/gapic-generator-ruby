@@ -27,21 +27,27 @@
 # [START garbage_v0_generated_GarbageService_GetPagedGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#get_paged_garbage
+#
+def get_paged_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::PagedGarbageRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::PagedGarbageRequest.new
 
-# Call the get_paged_garbage method.
-result = client.get_paged_garbage request
+  # Call the get_paged_garbage method.
+  result = client.get_paged_garbage request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::So::Much::Trash::GarbageItem.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can
+  # iterate over all elements by calling #each, and the enumerable
+  # will lazily make API calls to fetch subsequent pages. Other
+  # methods are also available for managing paging directly.
+  result.each do |response|
+    # Each element is of type ::So::Much::Trash::GarbageItem.
+    p response
+  end
 end
 # [END garbage_v0_generated_GarbageService_GetPagedGarbage_sync]

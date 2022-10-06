@@ -27,21 +27,27 @@
 # [START showcase_v0_generated_Identity_ListUsers_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Identity::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Identity::Client#list_users
+#
+def list_users
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Identity::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::ListUsersRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::ListUsersRequest.new
 
-# Call the list_users method.
-result = client.list_users request
+  # Call the list_users method.
+  result = client.list_users request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Google::Showcase::V1beta1::User.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can
+  # iterate over all elements by calling #each, and the enumerable
+  # will lazily make API calls to fetch subsequent pages. Other
+  # methods are also available for managing paging directly.
+  result.each do |response|
+    # Each element is of type ::Google::Showcase::V1beta1::User.
+    p response
+  end
 end
 # [END showcase_v0_generated_Identity_ListUsers_sync]

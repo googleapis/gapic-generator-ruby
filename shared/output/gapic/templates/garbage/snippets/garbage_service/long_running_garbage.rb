@@ -27,22 +27,28 @@
 # [START garbage_v0_generated_GarbageService_LongRunningGarbage_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#long_running_garbage
+#
+def long_running_garbage
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::LongRunningGarbageRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::LongRunningGarbageRequest.new
 
-# Call the long_running_garbage method.
-result = client.long_running_garbage request
+  # Call the long_running_garbage method.
+  result = client.long_running_garbage request
 
-# The returned object is of type Gapic::Operation. You can use this
-# object to check the status of an operation, cancel it, or wait
-# for results. Here is how to block until completion:
-result.wait_until_done! timeout: 60
-if result.response?
-  p result.response
-else
-  puts "Error!"
+  # The returned object is of type Gapic::Operation. You can use this
+  # object to check the status of an operation, cancel it, or wait
+  # for results. Here is how to block until completion:
+  result.wait_until_done! timeout: 60
+  if result.response?
+    p result.response
+  else
+    puts "Error!"
+  end
 end
 # [END garbage_v0_generated_GarbageService_LongRunningGarbage_sync]

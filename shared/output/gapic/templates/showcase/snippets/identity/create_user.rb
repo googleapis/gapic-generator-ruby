@@ -27,15 +27,21 @@
 # [START showcase_v0_generated_Identity_CreateUser_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Identity::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Identity::Client#create_user
+#
+def create_user
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Identity::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::CreateUserRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::CreateUserRequest.new
 
-# Call the create_user method.
-result = client.create_user request
+  # Call the create_user method.
+  result = client.create_user request
 
-# The returned object is of type Google::Showcase::V1beta1::User.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::User.
+  p result
+end
 # [END showcase_v0_generated_Identity_CreateUser_sync]
