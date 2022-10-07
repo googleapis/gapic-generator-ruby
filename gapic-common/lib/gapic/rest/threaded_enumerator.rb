@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
 module Gapic
   module Rest
     ##
@@ -30,13 +31,21 @@ module Gapic
       attr_reader :in_q
       attr_reader :out_q
 
+      # Spawns a new thread and does appropriate clean-up
+      # in case thread fails. Propagates exception back
+      # to main thread.
+      #
+      # @yield None
+      # @yieldparam in_q[Queue] input queue
+      # @yieldparam out_q[Queue] output queue
       def initialize &block
         @in_q = Queue.new
         @out_q = Queue.new
         @block = block
 
         Thread.new do
-          @block.call @in_q, @out_q
+          yield @in_q, @out_q
+          @out_q.push nil
         rescue StandardError => e
           @out_q.push e
         end

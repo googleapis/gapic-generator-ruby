@@ -13,7 +13,6 @@
 # limitations under the License.
 
 require "json"
-require "gapic/common/error"
 
 module Gapic
   module Rest
@@ -70,25 +69,30 @@ module Gapic
 
       private
 
-      def _next_json! chunk
+      ##
+      # Builds the next JSON object of the server stream from chunk.
+      #
+      # @param chunk [String] Contains (partial) JSON object
+      #
+      def _next_json! chunk 
+        chunk.sub!(/^([\s\[\],])+/, "")
+        @_obj.sub!(/^([\s\[\],])+/, "")
+
         chunk.chars.each do |char|
+          if char == "]" && @_obj == ""
+            next  # The end of stream
+          end
           @_obj += char
           # Invariant: @_obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
           # are only added before @_obj is a complete JSON object and essentially can be flushed.
-          @_obj = @_obj.lstrip # strip whitespace.
-          # Eat array delimiter characters.
-          if @_obj[0] == "[" || @_obj[0] == "," || @_obj[0] == "]"
-            @_obj = @_obj[1..]
-          end
-
           next unless char == "}"
-
           begin
             # Two choices here: append a Ruby object into
             # ready_objs or a string. Going with the latter here.
             JSON.parse @_obj
             @ready_objs.append @_obj
+            pp @ready_objs
             @_obj = ""
           rescue JSON::ParserError
             next
