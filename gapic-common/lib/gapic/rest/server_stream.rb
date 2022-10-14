@@ -78,14 +78,9 @@ module Gapic
       # @param chunk [String] Contains (partial) JSON object
       #
       def next_json! chunk
-        chunk.sub!(/^([\s\[\],])+/, "")
-        @obj.sub!(/^([\s\[\],])+/, "")
-
         chunk.chars.each do |char|
-          if char == "]" && @obj == ""
-            next # The end of stream
-          end
           @obj += char
+          @obj.sub!(/^([\s\[\],])+/, "")
           # Invariant: @obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
           # are only added before @obj is a complete JSON object and essentially can be flushed.
