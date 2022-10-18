@@ -60,6 +60,7 @@ def ruby_gapic_library_internal(
         yml_configs,
         grpc_service_config,
         service_yaml,
+        rest_numeric_enums,
         **kwargs):
     srcjar_target_name = name
     srcjar_output_suffix = ".srcjar"
@@ -77,6 +78,9 @@ def ruby_gapic_library_internal(
 
             escaped_value = _escape_config_value(value)
             opt_args.append("{key}={value}".format(key = key, value = escaped_value))
+
+    if rest_numeric_enums:
+        opt_args.append("rest-numeric-enums=true")
 
     opt_file_args = {}
     if grpc_service_config:
