@@ -27,11 +27,14 @@ module Gapic
     class ServerStream
       include Enumerable
 
+      ##
+      # Initializes ServerStream object.
+      #
       # @param message_klass [Class]
       # @param json_enumerator [Enumerator<String>]
       def initialize message_klass, json_enumerator
         @json_enumerator = json_enumerator
-        @_obj = ""
+        @obj = ""
         @message_klass = message_klass
         @ready_objs = [] # List of strings
       end
@@ -51,10 +54,10 @@ module Gapic
             begin
               chunk = @json_enumerator.next
               next unless chunk
-              _next_json! chunk
+              next_json! chunk
             rescue StopIteration
-              dangling_content = @_obj.strip
-              error_expl = "Dangling conent left after iterating through the stream. " \
+              dangling_content = @obj.strip
+              error_expl = "Dangling content left after iterating through the stream. " \
                            "This means that not all content was received or parsed correctly. " \
                            "It is likely a result of server or network error."
               error_text = "#{error_expl}\n Content left unparsed: #{dangling_content}"
@@ -74,26 +77,22 @@ module Gapic
       #
       # @param chunk [String] Contains (partial) JSON object
       #
-      def _next_json! chunk 
-        chunk.sub!(/^([\s\[\],])+/, "")
-        @_obj.sub!(/^([\s\[\],])+/, "")
-
+      def next_json! chunk
         chunk.chars.each do |char|
-          if char == "]" && @_obj == ""
-            next  # The end of stream
-          end
-          @_obj += char
-          # Invariant: @_obj is always either a part of a single JSON object or the entire JSON object.
+          # Invariant: @obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
-          # are only added before @_obj is a complete JSON object and essentially can be flushed.
+          # are only added before @obj is a complete JSON object and essentially can be flushed.
+          if @obj.empty? && ([",", "[", "]"].include? char.strip)
+            next
+          end
+          @obj += char
           next unless char == "}"
           begin
             # Two choices here: append a Ruby object into
             # ready_objs or a string. Going with the latter here.
-            JSON.parse @_obj
-            @ready_objs.append @_obj
-            pp @ready_objs
-            @_obj = ""
+            JSON.parse @obj
+            @ready_objs.append @obj
+            @obj = ""
           rescue JSON::ParserError
             next
           end
