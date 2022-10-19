@@ -11,8 +11,13 @@
 # @yieldparam result [<%= method.rest.return_type %>]
 # @yieldparam response [::Faraday::Response]
 #
+<%- if method.server_streaming? -%>
+# @return [Enumerable<<%= method.rest.return_type %>>]
+#   Enumerable of deserialized objects returned from server's stream
+<%- else -%>
 # @return [<%= method.rest.return_type %>]
 #   A result object deserialized from the server's reply
+<%- end -%>
 <%- if method.server_streaming? -%>
 def <%= method.name %> request_pb, options = nil, &block
 <%- else -%>
