@@ -79,11 +79,13 @@ module Gapic
       #
       def next_json! chunk
         chunk.chars.each do |char|
-          @obj += char
-          @obj.sub!(/^([\s\[\],])+/, "")
           # Invariant: @obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
           # are only added before @obj is a complete JSON object and essentially can be flushed.
+          if @obj.empty? && ([",", "[", "]"].include? char.strip)
+            next
+          end
+          @obj += char
           next unless char == "}"
           begin
             # Two choices here: append a Ruby object into
