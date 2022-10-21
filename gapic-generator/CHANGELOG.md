@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.17.0 / 2022-10-21
+
+* Feature: Recognize rest_numeric_enums argument for bazel jobs
+
 ### 0.16.1 / 2022-09-27
 
 No significant changes
