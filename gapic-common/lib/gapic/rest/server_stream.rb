@@ -82,9 +82,7 @@ module Gapic
           # Invariant: @obj is always either a part of a single JSON object or the entire JSON object.
           # Hence, it's safe to strip whitespace, commans and array brackets. These characters
           # are only added before @obj is a complete JSON object and essentially can be flushed.
-          if @obj.empty? && ([",", "[", "]"].include? char.strip)
-            next
-          end
+          next if @obj.empty? && char != "{"
           @obj += char
           next unless char == "}"
           begin
