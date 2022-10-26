@@ -1,5 +1,11 @@
 # Release History
 
+### 0.13.0 (2022-10-26)
+
+#### Features
+
+* implement sever-side stream changes to gapic-common ([#826](https://github.com/googleapis/gapic-generator-ruby/issues/826)) 
+
 ### 0.12.0 (2022-09-15)
 
 #### Features
