@@ -4,7 +4,7 @@
 
 #### Features
 
-* implement sever-side stream changes to gapic-common ([#826](https://github.com/googleapis/gapic-generator-ruby/issues/826)) 
+* Implement server-side streaming support for REST calls in gapic-common ([#826](https://github.com/googleapis/gapic-generator-ruby/issues/826)) 
 
 ### 0.12.0 (2022-09-15)
 
