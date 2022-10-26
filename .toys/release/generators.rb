@@ -95,6 +95,7 @@ def analyze_commits old_version
     files = capture ["git", "diff", "--name-only", "#{sha}^..#{sha}"]
     files.split("\n").each do |file|
       include_base = true if file.start_with? "gapic-generator/"
+      include_base = true if file.start_with? "rules_ruby_gapic/"
       include_ads = true if file.start_with? "gapic-generator-ads/"
       include_cloud = true if file.start_with? "gapic-generator-cloud/"
     end

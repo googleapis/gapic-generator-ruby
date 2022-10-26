@@ -222,8 +222,8 @@ module Google
               rescue ::Faraday::Error => e
                 begin
                   raise ::Gapic::Rest::Error.wrap_faraday_error e
-                rescue ::Gapic::Rest::Error => gapic_err
-                  raise ::Google::Cloud::Error.from_error gapic_err.cause
+                rescue ::Gapic::Rest::Error => gapic_error
+                  raise ::Google::Cloud::Error.from_error gapic_error
                 end
               end
 
