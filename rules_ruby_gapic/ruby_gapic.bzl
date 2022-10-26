@@ -104,7 +104,7 @@ def ruby_cloud_gapic_library(
   # _ruby_gapic_library_internal so that it doesn't also add the generic form
   # of the parameter.
   if rest_numeric_enums:
-    extra_proto_parameters.append("ruby-cloud-rest-numeric-enums=true")
+    extra_protoc_parameters.append("ruby-cloud-rest-numeric-enums=true")
 
   _ruby_gapic_library_internal(
     name,
