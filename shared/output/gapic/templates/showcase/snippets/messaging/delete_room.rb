@@ -27,15 +27,21 @@
 # [START showcase_v0_generated_Messaging_DeleteRoom_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#delete_room
+#
+def delete_room
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::DeleteRoomRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::DeleteRoomRequest.new
 
-# Call the delete_room method.
-result = client.delete_room request
+  # Call the delete_room method.
+  result = client.delete_room request
 
-# The returned object is of type Google::Protobuf::Empty.
-p result
+  # The returned object is of type Google::Protobuf::Empty.
+  p result
+end
 # [END showcase_v0_generated_Messaging_DeleteRoom_sync]

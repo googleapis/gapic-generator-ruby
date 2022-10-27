@@ -1,6 +1,4 @@
 <%- assert_locals snippet -%>
-require "<%= snippet.require_path %>"
-
 # Create a client object. The client can be reused for multiple calls.
 client = <%= snippet.client_type %>.new
 

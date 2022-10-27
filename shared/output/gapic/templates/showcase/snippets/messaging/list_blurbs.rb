@@ -27,21 +27,27 @@
 # [START showcase_v0_generated_Messaging_ListBlurbs_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#list_blurbs
+#
+def list_blurbs
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Showcase::V1beta1::ListBlurbsRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Showcase::V1beta1::ListBlurbsRequest.new
 
-# Call the list_blurbs method.
-result = client.list_blurbs request
+  # Call the list_blurbs method.
+  result = client.list_blurbs request
 
-# The returned object is of type Gapic::PagedEnumerable. You can
-# iterate over all elements by calling #each, and the enumerable
-# will lazily make API calls to fetch subsequent pages. Other
-# methods are also available for managing paging directly.
-result.each do |response|
-  # Each element is of type ::Google::Showcase::V1beta1::Blurb.
-  p response
+  # The returned object is of type Gapic::PagedEnumerable. You can
+  # iterate over all elements by calling #each, and the enumerable
+  # will lazily make API calls to fetch subsequent pages. Other
+  # methods are also available for managing paging directly.
+  result.each do |response|
+    # Each element is of type ::Google::Showcase::V1beta1::Blurb.
+    p response
+  end
 end
 # [END showcase_v0_generated_Messaging_ListBlurbs_sync]

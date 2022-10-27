@@ -19,15 +19,21 @@
 # [START compute_v1_generated_GlobalOperations_Delete_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::GlobalOperations::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::GlobalOperations::Client#delete
+#
+def delete
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::GlobalOperations::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::DeleteGlobalOperationRequest.new
 
-# Call the delete method.
-result = client.delete request
+  # Call the delete method.
+  result = client.delete request
 
-# The returned object is of type Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::DeleteGlobalOperationResponse.
+  p result
+end
 # [END compute_v1_generated_GlobalOperations_Delete_sync]

@@ -27,24 +27,30 @@
 # [START showcase_v0_generated_Messaging_Connect_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Messaging::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#connect
+#
+def connect
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Messaging::Client.new
 
-# Create an input stream
-input = Gapic::StreamInput.new
+  # Create an input stream
+  input = Gapic::StreamInput.new
 
-# Call the connect method to start streaming.
-output = client.connect input
+  # Call the connect method to start streaming.
+  output = client.connect input
 
-# Send requests on the stream. For each request, pass in keyword
-# arguments to set fields. Be sure to close the stream when done.
-input << Google::Showcase::V1beta1::ConnectRequest.new
-input << Google::Showcase::V1beta1::ConnectRequest.new
-input.close
+  # Send requests on the stream. For each request, pass in keyword
+  # arguments to set fields. Be sure to close the stream when done.
+  input << Google::Showcase::V1beta1::ConnectRequest.new
+  input << Google::Showcase::V1beta1::ConnectRequest.new
+  input.close
 
-# Handle streamed responses. These may be interleaved with inputs.
-# Each response is of type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-output.each do |response|
-  p response
+  # Handle streamed responses. These may be interleaved with inputs.
+  # Each response is of type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
+  output.each do |response|
+    p response
+  end
 end
 # [END showcase_v0_generated_Messaging_Connect_sync]

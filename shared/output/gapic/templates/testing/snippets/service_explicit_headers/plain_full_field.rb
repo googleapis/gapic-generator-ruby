@@ -27,15 +27,21 @@
 # [START testing_v0_generated_ServiceExplicitHeaders_PlainFullField_sync]
 require "testing/routing_headers"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
+##
+# Example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_full_field
+#
+def plain_full_field
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::RoutingHeaders::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::RoutingHeaders::Request.new
 
-# Call the plain_full_field method.
-result = client.plain_full_field request
+  # Call the plain_full_field method.
+  result = client.plain_full_field request
 
-# The returned object is of type Testing::RoutingHeaders::Response.
-p result
+  # The returned object is of type Testing::RoutingHeaders::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceExplicitHeaders_PlainFullField_sync]

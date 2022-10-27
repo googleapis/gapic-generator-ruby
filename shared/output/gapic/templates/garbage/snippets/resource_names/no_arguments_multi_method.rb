@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_ResourceNames_NoArgumentsMultiMethod_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::ResourceNames::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::ResourceNames::Client#no_arguments_multi_method
+#
+def no_arguments_multi_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::ResourceNames::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::NoArgumentsMultiRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::NoArgumentsMultiRequest.new
 
-# Call the no_arguments_multi_method method.
-result = client.no_arguments_multi_method request
+  # Call the no_arguments_multi_method method.
+  result = client.no_arguments_multi_method request
 
-# The returned object is of type So::Much::Trash::Response.
-p result
+  # The returned object is of type So::Much::Trash::Response.
+  p result
+end
 # [END garbage_v0_generated_ResourceNames_NoArgumentsMultiMethod_sync]

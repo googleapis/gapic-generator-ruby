@@ -27,19 +27,25 @@
 # [START showcase_v0_generated_Echo_Collect_sync]
 require "google/showcase/v1beta1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Showcase::V1beta1::Echo::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#collect
+#
+def collect
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Showcase::V1beta1::Echo::Client.new
 
-# Create a stream of requests, as an Enumerator.
-# For each request, pass in keyword arguments to set fields.
-request = [
-  Google::Showcase::V1beta1::EchoRequest.new,
-  Google::Showcase::V1beta1::EchoRequest.new
-].to_enum
+  # Create a stream of requests, as an Enumerator.
+  # For each request, pass in keyword arguments to set fields.
+  request = [
+    Google::Showcase::V1beta1::EchoRequest.new,
+    Google::Showcase::V1beta1::EchoRequest.new
+  ].to_enum
 
-# Call the collect method.
-result = client.collect request
+  # Call the collect method.
+  result = client.collect request
 
-# The returned object is of type Google::Showcase::V1beta1::EchoResponse.
-p result
+  # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
+  p result
+end
 # [END showcase_v0_generated_Echo_Collect_sync]

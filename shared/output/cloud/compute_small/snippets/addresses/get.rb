@@ -19,15 +19,21 @@
 # [START compute_v1_generated_Addresses_Get_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Addresses::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Addresses::Client#get
+#
+def get
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Addresses::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::GetAddressRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::GetAddressRequest.new
 
-# Call the get method.
-result = client.get request
+  # Call the get method.
+  result = client.get request
 
-# The returned object is of type Google::Cloud::Compute::V1::Address.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Address.
+  p result
+end
 # [END compute_v1_generated_Addresses_Get_sync]

@@ -19,15 +19,21 @@
 # [START compute_v1_generated_RegionOperations_Wait_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::RegionOperations::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::RegionOperations::Client#wait
+#
+def wait
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::RegionOperations::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::WaitRegionOperationRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::WaitRegionOperationRequest.new
 
-# Call the wait method.
-result = client.wait request
+  # Call the wait method.
+  result = client.wait request
 
-# The returned object is of type Google::Cloud::Compute::V1::Operation.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Operation.
+  p result
+end
 # [END compute_v1_generated_RegionOperations_Wait_sync]

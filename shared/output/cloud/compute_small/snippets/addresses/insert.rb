@@ -19,15 +19,21 @@
 # [START compute_v1_generated_Addresses_Insert_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Addresses::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Addresses::Client#insert
+#
+def insert
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Addresses::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::InsertAddressRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::InsertAddressRequest.new
 
-# Call the insert method.
-result = client.insert request
+  # Call the insert method.
+  result = client.insert request
 
-# The returned object is of type Google::Cloud::Compute::V1::Operation.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Operation.
+  p result
+end
 # [END compute_v1_generated_Addresses_Insert_sync]

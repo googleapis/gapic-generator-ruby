@@ -27,15 +27,21 @@
 # [START testing_v0_generated_ServiceWithLoc_Method_sync]
 require "testing/mixins"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Testing::Mixins::ServiceWithLoc::Client.new
+##
+# Example demonstrating basic usage of
+# Testing::Mixins::ServiceWithLoc::Client#call_method
+#
+def call_method
+  # Create a client object. The client can be reused for multiple calls.
+  client = Testing::Mixins::ServiceWithLoc::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Testing::Mixins::Request.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Testing::Mixins::Request.new
 
-# Call the call_method method.
-result = client.call_method request
+  # Call the call_method method.
+  result = client.call_method request
 
-# The returned object is of type Testing::Mixins::Response.
-p result
+  # The returned object is of type Testing::Mixins::Response.
+  p result
+end
 # [END testing_v0_generated_ServiceWithLoc_Method_sync]

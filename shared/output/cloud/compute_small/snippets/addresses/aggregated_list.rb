@@ -19,15 +19,21 @@
 # [START compute_v1_generated_Addresses_AggregatedList_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Addresses::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Addresses::Client#aggregated_list
+#
+def aggregated_list
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Addresses::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::AggregatedListAddressesRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::AggregatedListAddressesRequest.new
 
-# Call the aggregated_list method.
-result = client.aggregated_list request
+  # Call the aggregated_list method.
+  result = client.aggregated_list request
 
-# The returned object is of type Google::Cloud::Compute::V1::AddressAggregatedList.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::AddressAggregatedList.
+  p result
+end
 # [END compute_v1_generated_Addresses_AggregatedList_sync]

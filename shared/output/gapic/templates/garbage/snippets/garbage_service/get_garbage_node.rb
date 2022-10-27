@@ -27,15 +27,21 @@
 # [START garbage_v0_generated_GarbageService_GetGarbageNode_sync]
 require "so/much/trash"
 
-# Create a client object. The client can be reused for multiple calls.
-client = So::Much::Trash::GarbageService::Client.new
+##
+# Example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#get_garbage_node
+#
+def get_garbage_node
+  # Create a client object. The client can be reused for multiple calls.
+  client = So::Much::Trash::GarbageService::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = So::Much::Trash::GarbageNode.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = So::Much::Trash::GarbageNode.new
 
-# Call the get_garbage_node method.
-result = client.get_garbage_node request
+  # Call the get_garbage_node method.
+  result = client.get_garbage_node request
 
-# The returned object is of type So::Much::Trash::GarbageNode.
-p result
+  # The returned object is of type So::Much::Trash::GarbageNode.
+  p result
+end
 # [END garbage_v0_generated_GarbageService_GetGarbageNode_sync]

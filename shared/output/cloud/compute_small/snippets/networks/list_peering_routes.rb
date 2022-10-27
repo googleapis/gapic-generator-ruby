@@ -19,15 +19,21 @@
 # [START compute_v1_generated_Networks_ListPeeringRoutes_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Networks::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Networks::Client#list_peering_routes
+#
+def list_peering_routes
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Networks::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new
 
-# Call the list_peering_routes method.
-result = client.list_peering_routes request
+  # Call the list_peering_routes method.
+  result = client.list_peering_routes request
 
-# The returned object is of type Google::Cloud::Compute::V1::ExchangedPeeringRoutesList.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::ExchangedPeeringRoutesList.
+  p result
+end
 # [END compute_v1_generated_Networks_ListPeeringRoutes_sync]

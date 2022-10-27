@@ -19,15 +19,21 @@
 # [START compute_v1_generated_Networks_RemovePeering_sync]
 require "google/cloud/compute/v1"
 
-# Create a client object. The client can be reused for multiple calls.
-client = Google::Cloud::Compute::V1::Networks::Client.new
+##
+# Example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Networks::Client#remove_peering
+#
+def remove_peering
+  # Create a client object. The client can be reused for multiple calls.
+  client = Google::Cloud::Compute::V1::Networks::Client.new
 
-# Create a request. To set request fields, pass in keyword arguments.
-request = Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new
+  # Create a request. To set request fields, pass in keyword arguments.
+  request = Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new
 
-# Call the remove_peering method.
-result = client.remove_peering request
+  # Call the remove_peering method.
+  result = client.remove_peering request
 
-# The returned object is of type Google::Cloud::Compute::V1::Operation.
-p result
+  # The returned object is of type Google::Cloud::Compute::V1::Operation.
+  p result
+end
 # [END compute_v1_generated_Networks_RemovePeering_sync]
