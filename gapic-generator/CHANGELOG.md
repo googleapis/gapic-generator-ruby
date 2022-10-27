@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.17.2 / 2022-10-27
+
+* Fix: Update snippetgen phase 1 to conform to standard sample style
+
 ### 0.17.1 / 2022-10-26
 
 * Fix: Fixed typo in rest_numeric_enums bazel field handling

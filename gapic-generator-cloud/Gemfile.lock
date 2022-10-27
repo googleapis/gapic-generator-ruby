@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.17.1)
+    gapic-generator (0.17.2)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.17.1)
+    gapic-generator-cloud (0.17.2)
       actionpack (~> 5.2)
-      gapic-generator (= 0.17.1)
+      gapic-generator (= 0.17.2)
       google-style (~> 1.26.1)
       protobuf (~> 3.8)
 
