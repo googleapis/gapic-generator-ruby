@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.17.1)
+    gapic-generator (0.17.2)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 

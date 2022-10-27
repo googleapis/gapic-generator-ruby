@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.17.2 / 2022-10-27
+
+* Includes changes from gapic-generator 0.17.2
+* Fix: Update snippetgen phase 1 to conform to standard sample style
+
 ### 0.17.1 / 2022-10-26
 
 * Includes changes from gapic-generator 0.17.1
