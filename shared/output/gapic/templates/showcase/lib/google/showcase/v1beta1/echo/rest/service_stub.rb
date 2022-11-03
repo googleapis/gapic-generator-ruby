@@ -114,7 +114,7 @@ module Google
                 body: body || "",
                 params: query_string_params,
                 options: options,
-                is_streaming: true,
+                is_server_streaming: true,
                 &block
               )
             end
