@@ -42,4 +42,9 @@ class MethodPresenterRestTest < PresenterTest
     assert presenter.lro.operation_request_fields.key? "region"
     assert_equal "region", presenter.lro.operation_request_fields["region"]
   end
+
+  def test_showcase_expand_server_streaming
+    presenter = method_presenter :showcase, "Echo", "Expand"
+    assert presenter.rest.server_streaming?
+  end
 end

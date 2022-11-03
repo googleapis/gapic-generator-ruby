@@ -3,4 +3,8 @@
 # @yieldparam result [<%= method.rest.doc_response_type %>]
 # @yieldparam response [::Faraday::Response]
 #
+<%- if method.server_streaming? -%>
+# @return [Enumerable<<%= method.rest.doc_response_type %>>]
+<%- else -%>
 # @return [<%= method.rest.doc_response_type %>]
+<%- end -%>

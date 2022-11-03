@@ -1,0 +1,57 @@
+<%- assert_locals method -%>
+<%- full_client_name = defined?(client_name_full) ? client_name_full : method.service.rest.client_name_full -%>
+<%- fields = method.fields_with_first_oneof -%>
+def test_<%= method.name %>
+  # Create test objects.
+  client_result = <%= method.return_type %>.new
+  http_response = OpenStruct.new body: client_result.to_json
+
+  call_options = {}
+
+  # Create request parameters for a unary method.
+  <%- fields.each do |field| -%>
+  <%= field.name %> = <%= field.default_value %>
+  <%- end -%>
+  <%= method.name %>_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    assert options.metadata.key? :"x-goog-api-client"
+    assert options.metadata[:"x-goog-api-client"].include? "rest"
+    refute options.metadata[:"x-goog-api-client"].include? "grpc"
+  end
+
+  ::Gapic::Rest::ClientStub.stub :new, <%= method.name %>_client_stub do
+    # Create client
+    client = <%= full_client_name %>.new do  |config|
+      config.credentials = :dummy_value
+    end
+
+    # Use hash object
+    client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }) do |_result, response|
+      <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
+    end
+
+    <%- if fields.any? -%>
+    # Use named arguments
+    client.<%= method.name %> <%= fields.map(&:as_kwarg).join ", " %> do |_result, response|
+      <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
+    end
+
+    <%- end -%>
+    # Use protobuf object
+    client.<%= method.name %> <%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>) do |_result, response|
+      <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
+    end
+
+    # Use hash object with options
+    client.<%= method.name %>({ <%= fields.map(&:as_kwarg).join ", " %> }, call_options) do |_result, response|
+      <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
+    end
+
+    # Use protobuf object with options
+    client.<%= method.name %>(<%= method.request_type %>.new(<%= fields.map(&:as_kwarg).join ", " %>), call_options) do |_result, response|
+      <%= indent_tail render(partial: "service/rest/test/method/assert_response", locals: { method: method }), 6 %>
+    end
+
+    # Verify method calls
+    assert_equal <%= fields.any? ? 5 : 4 %>, <%= method.name %>_client_stub.call_count
+  end
+end
