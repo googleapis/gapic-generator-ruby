@@ -58,6 +58,9 @@ class <%= service.operations_name %>
       credentials = Credentials.new credentials, scope: @config.scope
     end
 
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
     @<%= service.lro_service.stub_name %> = <%= service.operations_stub_name %>.new(
       endpoint:     @config.endpoint,
       credentials:  credentials
