@@ -87,6 +87,9 @@ module Google
                 credentials = Credentials.new credentials, scope: @config.scope
               end
 
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
               @operations_stub = OperationsServiceStub.new(
                 endpoint:     @config.endpoint,
                 credentials:  credentials
@@ -153,11 +156,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_operations.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
                                      metadata:     call_metadata
@@ -217,11 +222,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
                                      metadata:     call_metadata
@@ -281,11 +288,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
                                      metadata:     call_metadata
@@ -350,11 +359,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.cancel_operation.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
                                      metadata:     call_metadata
@@ -379,19 +390,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # list_operations to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Longrunning::Operations::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
-            #     ::Google::Longrunning::Operations::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Longrunning::Operations::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Longrunning::Operations::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.list_operations.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -420,8 +433,11 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
@@ -437,6 +453,7 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
