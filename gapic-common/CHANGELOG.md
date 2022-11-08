@@ -1,5 +1,14 @@
 # Release History
 
+### 0.14.0 (2022-11-08)
+
+#### Features
+
+* add support for different types of credentials to REST 
+#### Bug Fixes
+
+* deadlock fix ([#845](https://github.com/googleapis/gapic-generator-ruby/issues/845)) 
+
 ### 0.13.0 (2022-10-26)
 
 #### Features
