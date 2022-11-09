@@ -125,35 +125,26 @@ module Gapic
       # @param uri [String] uri to send this request to
       # @param body [String, nil] a body to send with the request, nil for requests without a body
       # @param params [Hash] query string parameters for the request
-      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied
-      #     to the REST call. Currently only timeout and headers are supported.
+      # @param options [::Gapic::CallOptions,Hash] gapic options to be applied to the REST call.
       # @param is_server_streaming [Boolean] flag if method is streaming
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
-      def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false
+      def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false, &block
         # Converts hash and nil to an options object
         options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
         deadline = calculate_deadline options
-        metadata = options.metadata
-
-        if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
-          params = params.merge({ "$alt" => "json;enum-encoding=int" })
-        end
-
         retried_exception = nil
         next_timeout = get_timeout deadline
+
         begin
-          @connection.send verb, uri do |req|
-            req.params = params if params.any?
-            req.body = body unless body.nil?
-            req.headers = req.headers.merge metadata
-            req.options.timeout = next_timeout if next_timeout&.positive?
-            if is_server_streaming
-              req.options.on_data = proc do |chunk, _overall_received_bytes|
-                yield chunk
-              end
-            end
-          end
+          base_make_http_request(verb,
+                                 uri: uri,
+                                 body: body,
+                                 params: params,
+                                 metadata: options.metadata,
+                                 timeout: next_timeout,
+                                 is_server_streaming: is_server_streaming,
+                                 &block)
         rescue ::Faraday::Error => e
           next_timeout = get_timeout deadline
 
@@ -171,6 +162,35 @@ module Gapic
       end
 
       private
+
+      ##
+      # @private
+      # Sends a http request via Faraday
+      # @param verb [Symbol] http verb
+      # @param uri [String] uri to send this request to
+      # @param body [String, nil] a body to send with the request, nil for requests without a body
+      # @param params [Hash] query string parameters for the request
+      # @param metadata [Hash] additional headers for the request
+      # @param is_server_streaming [Boolean] flag if method is streaming
+      # @yieldparam chunk [String] The chunk of data received during server streaming.
+      # @return [Faraday::Response]
+      def base_make_http_request verb, uri:, body:, params:, metadata:, timeout:, is_server_streaming: false
+        if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
+          params = params.merge({ "$alt" => "json;enum-encoding=int" })
+        end
+
+        @connection.send verb, uri do |req|
+          req.params = params if params.any?
+          req.body = body unless body.nil?
+          req.headers = req.headers.merge metadata
+          req.options.timeout = timeout if timeout&.positive?
+          if is_server_streaming
+            req.options.on_data = proc do |chunk, _overall_received_bytes|
+              yield chunk
+            end
+          end
+        end
+      end
 
       def calculate_deadline options
         return if options.timeout.nil?

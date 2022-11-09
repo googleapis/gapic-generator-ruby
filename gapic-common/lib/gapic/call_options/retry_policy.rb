@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/call_options/error_codes"
+
 module Gapic
   class CallOptions
     ##
@@ -101,60 +103,12 @@ module Gapic
         [retry_codes, initial_delay, multiplier, max_delay].hash
       end
 
-      # @private
-      # See https://grpc.github.io/grpc/core/md_doc_statuscodes.html for a
-      # list of error codes.
-      ERROR_CODE_MAPPING = [
-        "OK",
-        "CANCELLED",
-        "UNKNOWN",
-        "INVALID_ARGUMENT",
-        "DEADLINE_EXCEEDED",
-        "NOT_FOUND",
-        "ALREADY_EXISTS",
-        "PERMISSION_DENIED",
-        "RESOURCE_EXHAUSTED",
-        "FAILED_PRECONDITION",
-        "ABORTED",
-        "OUT_OF_RANGE",
-        "UNIMPLEMENTED",
-        "INTERNAL",
-        "UNAVAILABLE",
-        "DATA_LOSS",
-        "UNAUTHENTICATED"
-      ].freeze
-
-      # @private
-      def self.grpc_error_for http_error_code
-        return 2 unless http_error_code
-
-        # The http status codes mapped to their error classes.
-        {
-          400 => 3, #InvalidArgumentError
-          401 => 16, # UnauthenticatedError
-          403 => 7, # PermissionDeniedError
-          404 => 5, # NotFoundError
-          409 => 6, # AlreadyExistsError
-          412 => 9, # FailedPreconditionError
-          429 => 8, # ResourceExhaustedError
-          499 => 1, # CanceledError
-          500 => 13, # InternalError
-          501 => 12, # UnimplementedError
-          503 => 14, # UnavailableError
-          504 => 4 # DeadlineExceededError
-        }[http_error_code] || 2 # UnknownError
-      end
-
-      # @private
-      ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
-        hash[str] = num
-      end.freeze
-
       private
 
       def retry? error
         (error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
-        (error.respond_to?(:response_status)) && retry_codes.include?(RetryPolicy.grpc_error_for(error.response_status))
+          (error.respond_to?(:response_status) &&
+            retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
       end
 
       def delay!
@@ -167,7 +121,7 @@ module Gapic
         Array(input_codes).map do |obj|
           case obj
           when String
-            ERROR_STRING_MAPPING[obj]
+            ErrorCodes::ERROR_STRING_MAPPING[obj]
           when Integer
             obj
           end
