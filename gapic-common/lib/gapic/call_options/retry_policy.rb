@@ -125,6 +125,27 @@ module Gapic
       ].freeze
 
       # @private
+      def self.grpc_error_for http_error_code
+        return 2 unless http_error_code
+
+        # The http status codes mapped to their error classes.
+        {
+          400 => 3, #InvalidArgumentError
+          401 => 16, # UnauthenticatedError
+          403 => 7, # PermissionDeniedError
+          404 => 5, # NotFoundError
+          409 => 6, # AlreadyExistsError
+          412 => 9, # FailedPreconditionError
+          429 => 8, # ResourceExhaustedError
+          499 => 1, # CanceledError
+          500 => 13, # InternalError
+          501 => 12, # UnimplementedError
+          503 => 14, # UnavailableError
+          504 => 4 # DeadlineExceededError
+        }[http_error_code] || 2 # UnknownError
+      end
+
+      # @private
       ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
         hash[str] = num
       end.freeze
@@ -132,7 +153,8 @@ module Gapic
       private
 
       def retry? error
-        error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)
+        (error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
+        (error.respond_to?(:response_status)) && retry_codes.include?(RetryPolicy.grpc_error_for(error.response_status))
       end
 
       def delay!

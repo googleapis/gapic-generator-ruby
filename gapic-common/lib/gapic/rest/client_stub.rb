@@ -131,21 +131,57 @@ module Gapic
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
       def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false
+        # Converts hash and nil to an options object
+        options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
+        deadline = calculate_deadline options
+        metadata = options.metadata
+
         if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
           params = params.merge({ "$alt" => "json;enum-encoding=int" })
         end
-        options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
-        @connection.send verb, uri do |req|
-          req.params = params if params.any?
-          req.body = body unless body.nil?
-          req.headers = req.headers.merge options.metadata
-          req.options.timeout = options.timeout if options.timeout&.positive?
-          if is_server_streaming
-            req.options.on_data = proc do |chunk, _overall_received_bytes|
-              yield chunk
+
+        retried_exception = nil
+        next_timeout = get_timeout deadline
+        begin
+          @connection.send verb, uri do |req|
+            req.params = params if params.any?
+            req.body = body unless body.nil?
+            req.headers = req.headers.merge metadata
+            req.options.timeout = next_timeout if next_timeout&.positive?
+            if is_server_streaming
+              req.options.on_data = proc do |chunk, _overall_received_bytes|
+                yield chunk
+              end
             end
           end
+        rescue ::Faraday::Error => e
+          next_timeout = get_timeout deadline
+
+          if next_timeout&.positive? && options.retry_policy.call(e)
+            retried_exception = e
+            retry
+          end
+
+          unless next_timeout&.positive?
+            raise Gapic::GRPC::DeadlineExceededError.new e.message, root_cause: retried_exception
+          end
+
+          raise e
         end
+      end
+
+      private
+
+      def calculate_deadline options
+        return if options.timeout.nil?
+        return if options.timeout.negative?
+
+        Time.now + options.timeout
+      end
+
+      def get_timeout deadline
+        return if deadline.nil?
+        deadline - Time.now
       end
     end
   end
