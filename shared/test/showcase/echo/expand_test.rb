@@ -126,6 +126,6 @@ class ExpandRestTest < ExpandTest
       end
     end
 
-    assert_match /Dangling conent left/, ex.message
+    assert_match /Dangling content left/, ex.message
   end
 end

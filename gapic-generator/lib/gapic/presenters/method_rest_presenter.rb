@@ -120,15 +120,6 @@ module Gapic
           http_bindings.first&.verb? &&
           http_bindings.first&.path?
       end
-
-      ##
-      # Whether this method is a server-streaming method
-      #
-      # @return [Boolean]
-      #
-      def server_streaming?
-        @main_method.server_streaming?
-      end
     end
   end
 end
