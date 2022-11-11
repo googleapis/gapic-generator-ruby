@@ -162,9 +162,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -237,9 +234,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -311,9 +305,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -386,9 +377,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -459,9 +447,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -532,9 +517,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -605,9 +587,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -678,9 +657,6 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
-            # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
