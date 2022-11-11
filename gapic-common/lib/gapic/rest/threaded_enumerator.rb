@@ -44,6 +44,7 @@ module Gapic
 
         Thread.new do
           yield @in_q, @out_q
+          @out_q.enq nil
         rescue StandardError => e
           @out_q.push e
         end
