@@ -32,7 +32,6 @@ require "testing/version"
 
 require "testing/routing_headers/service_no_headers/credentials"
 require "testing/routing_headers/service_no_headers/client"
-require "testing/routing_headers/service_no_headers/rest"
 
 module Testing
   module RoutingHeaders
@@ -41,11 +40,6 @@ module Testing
     #
     #     require "testing/routing_headers/service_no_headers"
     #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Client.new
-    #
-    # To load this service and instantiate a REST client:
-    #
-    #     require "testing/routing_headers/service_no_headers"
-    #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Rest::Client.new
     #
     module ServiceNoHeaders
     end

@@ -24,7 +24,7 @@ require "<%= service.nonstandard_lro_require %>"
 <%- end -%>
 require "<%= service.client_require %>"
 <%- end -%>
-<%- if service.generate_rest_clients? -%>
+<%- if service.generate_rest_clients? && service.methods_rest_bindings? -%>
 require "<%= service.rest.service_rest_require %>"
 <%- end -%>
 <% end %>
@@ -40,7 +40,7 @@ require "<%= service.rest.service_rest_require %>"
 #     client = <%= service.create_client_call %>
 #
 <%- end -%>
-<%- if service.generate_rest_clients? -%>
+<%- if service.generate_rest_clients? && service.methods_rest_bindings? -%>
 # To load this service and instantiate a REST client:
 #
 #     require "<%= service.service_require %>"

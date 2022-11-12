@@ -73,6 +73,14 @@ module Gapic
         end
       end
 
+      ##
+      # First service with REST bindings.
+      # @return [Gapic::Presenters::ServicePresenter, nil]
+      #
+      def first_service_with_rest
+        services.find { |s| s.methods_rest_bindings? }
+      end
+
       def address
         @package.split "."
       end
