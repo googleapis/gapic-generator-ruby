@@ -26,7 +26,7 @@
 
 require "testing/routing_headers/routing_headers_pb"
 require "testing/routing_headers/service_explicit_headers/rest/service_stub"
-require "google/cloud/location"
+require "google/cloud/location/rest"
 
 module Testing
   module RoutingHeaders
@@ -117,7 +117,7 @@ module Testing
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
@@ -129,7 +129,7 @@ module Testing
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 

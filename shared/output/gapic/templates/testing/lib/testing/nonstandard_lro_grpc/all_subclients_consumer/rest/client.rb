@@ -26,9 +26,9 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "testing/nonstandard_lro_grpc/all_subclients_consumer/rest/service_stub"
-require "google/cloud/location"
-require "testing/nonstandard_lro_grpc/plain_lro_provider"
-require "testing/nonstandard_lro_grpc/another_lro_provider"
+require "google/cloud/location/rest"
+require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
+require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
 
 module Testing
   module NonstandardLroGrpc
@@ -124,17 +124,17 @@ module Testing
               config.endpoint = @config.endpoint
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
 
-            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
 
-            @another_lro_provider = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new do |config|
+            @another_lro_provider = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
@@ -146,28 +146,28 @@ module Testing
           ##
           # Get the associated client for long-running operations.
           #
-          # @return [::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Operations]
+          # @return [::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Operations]
           #
           attr_reader :operations_client
 
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 
           ##
           # Get the associated client for long-running operations via PlainLroProvider.
           #
-          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Client]
+          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client]
           #
           attr_reader :plain_lro_provider
 
           ##
           # Get the associated client for long-running operations via AnotherLroProvider.
           #
-          # @return [::Testing::NonstandardLroGrpc::AnotherLroProvider::Client]
+          # @return [::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client]
           #
           attr_reader :another_lro_provider
 
@@ -225,7 +225,7 @@ module Testing
                                    metadata:     @config.metadata
 
             @all_subclients_consumer_stub.plain_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: plain_lro_provider,
                 request_values: {
@@ -292,7 +292,7 @@ module Testing
                                    metadata:     @config.metadata
 
             @all_subclients_consumer_stub.another_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: another_lro_provider,
                 request_values: {
@@ -354,7 +354,7 @@ module Testing
                                    metadata:     @config.metadata
 
             @all_subclients_consumer_stub.non_copy_another_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: another_lro_provider,
                 request_values: {},

@@ -1,8 +1,8 @@
 <%- assert_locals method -%>
 @<%= method.service.stub_name %>.<%= method.name %> request, options do |result, response|
-  result = <%= method.nonstandard_lro_client.helper_type %>.create_operation(
+  result = <%= method.rest.nonstandard_lro_client.helper_type %>.create_operation(
     operation: result,
-    client: <%= method.nonstandard_lro_client.client_var_name %>,
+    client: <%= method.rest.nonstandard_lro_client.client_var_name %>,
     <%- if method.lro.operation_request_fields.any? -%>
     request_values: {
       <%- method.lro.operation_request_fields.each_with_index do |(field_from, field_to), i| -%>

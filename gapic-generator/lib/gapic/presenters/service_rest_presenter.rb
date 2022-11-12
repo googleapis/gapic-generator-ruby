@@ -278,6 +278,44 @@ module Gapic
       end
 
       ##
+      # The client presenters of the nonstandard LROs that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
+      def nonstandard_lros
+        return [] unless main_service.nonstandard_lro_consumer?
+        main_service.nonstandard_lros_models.map do |lro|
+          lro_wrapper = @api.lookup lro.service_full_name
+          lro_service = ServicePresenter.new(@gem_presenter, @api, lro_wrapper).rest
+
+          service_description = "long-running operations via #{lro_service.name}"
+          Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
+                                                             client_class_name: lro_service.client_name_full,
+                                                             client_class_docname: lro_service.client_name_full,
+                                                             client_var_name: lro_service.service_directory_name,
+                                                             require_str: lro_service.service_require,
+                                                             service_description: service_description,
+                                                             helper_type: lro_service.nonstandard_lro_name_full
+        end
+      end
+
+      ##
+      # The client presenters of the mixin services that are used by the methods of this service
+      #
+      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
+      def mixin_presenters
+        return [] unless main_service.mixins?
+        main_service.mixins.map do |mixin|
+          Gapic::Presenters::Service::LroClientPresenter.new service: mixin.service,
+                                                             client_class_name: mixin.client_class_name_rest,
+                                                             client_class_docname: mixin.client_class_docname_rest,
+                                                             client_var_name: mixin.client_var_name,
+                                                             require_str: mixin.require_str_rest,
+                                                             service_description: mixin.service_description,
+                                                             helper_type: ""
+        end
+      end
+
+      ##
       # Whether there are any subclients to generate with this service.
       # Subclients are the clients to other services (e.g. an LRO provider service).
       #
@@ -297,7 +335,7 @@ module Gapic
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
-        ([] << lro_client_presenter << main_service.mixins << main_service.nonstandard_lros).flatten.compact
+        ([] << lro_client_presenter << mixin_presenters << nonstandard_lros).flatten.compact
       end
 
       ##

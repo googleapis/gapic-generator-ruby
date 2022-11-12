@@ -109,6 +109,16 @@ module Gapic
       end
 
       ##
+      # The presenter for the nonstandard LRO client of the kind this method uses
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
+      #
+      def nonstandard_lro_client
+        return unless nonstandard_lro?
+        @main_method.service.rest.nonstandard_lros.find { |model| model.service == @main_method.lro.service_full_name }
+      end
+
+      ##
       # Whether this method can be generated in REST clients
       # Only methods with http bindings can be generated, and
       # additionally only unary methods are currently supported.

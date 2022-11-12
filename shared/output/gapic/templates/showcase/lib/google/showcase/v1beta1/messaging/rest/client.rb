@@ -136,7 +136,7 @@ module Google
             ##
             # Get the associated client for long-running operations.
             #
-            # @return [::Google::Showcase::V1beta1::Messaging::Operations]
+            # @return [::Google::Showcase::V1beta1::Messaging::Rest::Operations]
             #
             attr_reader :operations_client
 

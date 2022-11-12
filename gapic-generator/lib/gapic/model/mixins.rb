@@ -95,8 +95,11 @@ module Gapic
         attr_reader :service
         attr_reader :dependency
         attr_reader :require_str
+        attr_reader :require_str_rest
         attr_reader :client_class_name
+        attr_reader :client_class_name_rest
         attr_reader :client_class_docname
+        attr_reader :client_class_docname_rest
         attr_reader :client_var_name
 
         # @param service [String]
@@ -111,12 +114,15 @@ module Gapic
         # @param client_var_name [String]
         #   Name for the variable for the client of the mixin service
         #   to use when generating library's service
-        def initialize service, dependency, require_str, client_class_name, client_var_name
+        def initialize service, dependency, require_str, require_str_rest, client_class_name, client_class_name_rest, client_var_name
           @service = service
           @dependency = dependency
           @require_str = require_str
+          @require_str_rest = require_str_rest
           @client_class_name = client_class_name
+          @client_class_name_rest = client_class_name_rest
           @client_class_docname = client_class_name # For mixins, the doc name should be the full class name
+          @client_class_docname_rest = client_class_name_rest # For mixins, the doc name should be the full class name
           @client_var_name = client_var_name
         end
 
@@ -171,9 +177,19 @@ module Gapic
         IAM_SERVICE => "google/iam/v1"
       }.freeze
 
+      SERVICE_TO_REQUIRE_STR_REST = {
+        LOCATIONS_SERVICE => "google/cloud/location/rest",
+        IAM_SERVICE => "google/iam/v1/rest"
+      }.freeze
+
       SERVICE_TO_CLIENT_CLASS_NAME = {
         LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Client",
         IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Client"
+      }.freeze
+
+      SERVICE_TO_CLIENT_CLASS_NAME_REST = {
+        LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Rest::Client",
+        IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Rest::Client"
       }.freeze
 
       SERVICE_TO_CLIENT_ATTR_NAME = {
@@ -187,8 +203,10 @@ module Gapic
       def create_mixin service
         unless SERVICE_TO_DEPENDENCY.key?(service) &&
                SERVICE_TO_REQUIRE_STR.key?(service) &&
-               SERVICE_TO_CLIENT_CLASS_NAME.key?(service)
-          SERVICE_TO_CLIENT_ATTR_NAME.key? service
+               SERVICE_TO_REQUIRE_STR_REST.key?(service) &&
+               SERVICE_TO_CLIENT_CLASS_NAME.key?(service) &&
+               SERVICE_TO_CLIENT_CLASS_NAME_REST.key?(service) &&
+               SERVICE_TO_CLIENT_ATTR_NAME.key?(service)
 
           error_text = "A mixin service #{service} is specified in service config, but " \
                        "the Generator does not know of it."
@@ -198,7 +216,9 @@ module Gapic
         Mixin.new service,
                   SERVICE_TO_DEPENDENCY[service],
                   SERVICE_TO_REQUIRE_STR[service],
+                  SERVICE_TO_REQUIRE_STR_REST[service],
                   SERVICE_TO_CLIENT_CLASS_NAME[service],
+                  SERVICE_TO_CLIENT_CLASS_NAME_REST[service],
                   SERVICE_TO_CLIENT_ATTR_NAME[service]
       end
     end

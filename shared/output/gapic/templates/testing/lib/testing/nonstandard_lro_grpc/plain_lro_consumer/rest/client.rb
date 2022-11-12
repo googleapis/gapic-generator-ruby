@@ -26,8 +26,8 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest/service_stub"
-require "google/cloud/location"
-require "testing/nonstandard_lro_grpc/plain_lro_provider"
+require "google/cloud/location/rest"
+require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
 
 module Testing
   module NonstandardLroGrpc
@@ -118,12 +118,12 @@ module Testing
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
 
-            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
             end
@@ -135,14 +135,14 @@ module Testing
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 
           ##
           # Get the associated client for long-running operations via PlainLroProvider.
           #
-          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Client]
+          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client]
           #
           attr_reader :plain_lro_provider
 
@@ -198,7 +198,7 @@ module Testing
                                    metadata:     @config.metadata
 
             @plain_lro_consumer_stub.plain_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: plain_lro_provider,
                 request_values: {
