@@ -4,6 +4,7 @@
 require 'google/protobuf'
 
 require 'google/api/client_pb'
+require 'google/api/annotations_pb'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
   add_file("testing/grpc_service_config/grpc_service_config.proto", :syntax => :proto3) do

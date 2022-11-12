@@ -16,6 +16,10 @@ service PlainLroConsumer {
 
     rpc PlainLroRpc(Request) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "PlainLroProvider";
+        option (google.api.http) = {
+            post: "/v1beta1/PlainLroConsumer/PlainLroRpc"
+            body: "*"
+        };
     }
 }
 
@@ -24,6 +28,10 @@ service PlainLroProvider {
 
     rpc Get(LroGetRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_polling_method) = true;
+        option (google.api.http) = {
+            post: "/v1beta1/PlainLroProvider/Get"
+            body: "*"
+        };
     }
 }
 
@@ -32,6 +40,10 @@ service AnotherLroProvider {
 
     rpc GetAnother(LroAnotherGetRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_polling_method) = true;
+        option (google.api.http) = {
+            post: "/v1beta1/AnotherLroProvider/GetAnother"
+            body: "*"
+        };
     }
 }
 
@@ -41,11 +53,19 @@ service AllSubclientsConsumer {
     // A request using a PlainLroProvider
     rpc PlainLroRpc(Request) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "PlainLroProvider";
+        option (google.api.http) = {
+            post: "/v1beta1/AllSubclientsConsumer/PlainLroRpc"
+            body: "*"
+        };
     }
 
     // A request using AnotherLroProvider
     rpc AnotherLroRpc(AnotherRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "AnotherLroProvider";
+        option (google.api.http) = {
+            post: "/v1beta1/AllSubclientsConsumer/AnotherLroRpc"
+            body: "*"
+        };
     }
 
     // A request using AnotherLroProvider. 
@@ -53,6 +73,10 @@ service AllSubclientsConsumer {
     // which does not specify any fields to copy into the LroAnotherGetRequest
     rpc NonCopyAnotherLroRpc(NonCopyRequest) returns(NonstandardOperation) {
         option (google.cloud.operation_service) = "AnotherLroProvider";
+        option (google.api.http) = {
+            post: "/v1beta1/AllSubclientsConsumer/NonCopyAnotherLroRpc"
+            body: "*"
+        };
     }
 
     // A classic (AIP-151) LRO request
@@ -61,10 +85,19 @@ service AllSubclientsConsumer {
             response_type: "AipLroResponse"
             metadata_type: "AipLroMetadata"
         };
+        option (google.api.http) = {
+            post: "/v1beta1/AllSubclientsConsumer/AipLRO"
+            body: "*"
+        };
     }
 
     // Control group
-    rpc NoLRO(Request) returns(Response) {}
+    rpc NoLRO(Request) returns(Response) {
+        option (google.api.http) = {
+            post: "/v1beta1/AllSubclientsConsumer/NoLRO"
+            body: "*"
+        };
+    }
 }
 
 message Request {

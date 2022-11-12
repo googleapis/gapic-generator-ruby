@@ -11,7 +11,7 @@ import "google/api/routing.proto";
 service ServiceNoHeaders {
     option (google.api.default_host) = "routingheaders.example.com";
 
-    rpc Plain(Request) returns(Response);
+    rpc Plain(Request) returns(Response) { }
 }
 
 service ServiceImplicitHeaders {
