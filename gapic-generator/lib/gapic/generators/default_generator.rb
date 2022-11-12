@@ -78,7 +78,7 @@ module Gapic
 
             # Nonstandard LRO shim
             files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.nonstandard_lro_provider? && should_generate_rest
+            files << g("service/rest/nonstandard_lro.erb",   "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.rest.nonstandard_lro_provider? && should_generate_rest
             
             # Rest-only `service.stub` file
             files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest

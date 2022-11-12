@@ -215,6 +215,14 @@ module Gapic
         ruby_file_path @api, "#{service_name_full}::#{nonstandard_lro_name}"
       end
 
+      ##
+      # Whether this service is a provider of the nonstandard LRO functionality
+      #
+      # @return [Boolean]
+      def nonstandard_lro_provider?
+        main_service.nonstandard_lro_provider?
+      end
+
       def lro_service
         main_service.lro_service
       end
