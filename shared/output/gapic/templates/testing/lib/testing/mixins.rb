@@ -29,12 +29,20 @@ require "testing/version"
 
 module Testing
   ##
-  # To load this package, including all its services, and instantiate a client:
+  # To load this package, including all its services, and instantiate a GRPC client:
   #
   # @example
   #
   #     require "testing/mixins"
   #     client = ::Testing::Mixins::ServiceWithLoc::Client.new
+  #
+  ##
+  # To load this package, including all its services, and instantiate a REST client:
+  #
+  # @example
+  #
+  #     require "testing/mixins"
+  #     client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new
   #
   module Mixins
   end

@@ -1,4 +1,5 @@
 ---
+:transports: ["grpc", "rest"]
 :gem:
   :name: testing
   :extra_dependencies:
