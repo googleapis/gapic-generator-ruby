@@ -16,14 +16,14 @@ require "<%= package.gem.version_require %>"
 #     client = <%= package.services.first.create_client_call %>
 #
 <%- end -%>
-<%- if package.services.first.generate_rest_clients? -%>
+<%- if package.first_service_with_rest&.generate_rest_clients? -%>
 ##
 # To load this package, including all its services, and instantiate a REST client:
 #
 # @example
 #
 #     require "<%= package.package_require %>"
-#     client = <%= package.services.first.rest.create_client_call %>
+#     client = <%= package.first_service_with_rest.rest.create_client_call %>
 #
 <%- end -%>
 <%- end -%>

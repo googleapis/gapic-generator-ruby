@@ -44,7 +44,7 @@ module Testing
   # @example
   #
   #     require "testing/routing_headers"
-  #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Rest::Client.new
+  #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
   #
   module RoutingHeaders
   end
