@@ -145,6 +145,11 @@ def gem_defaults
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
       ]
+    },
+    location: {
+      protos: [
+        "google/cloud/location/locations.proto"
+      ],
     }
   }
 end
