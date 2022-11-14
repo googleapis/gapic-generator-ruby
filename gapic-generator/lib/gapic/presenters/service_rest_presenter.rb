@@ -285,7 +285,7 @@ module Gapic
         return [] unless main_service.nonstandard_lro_consumer?
         main_service.nonstandard_lros_models.map do |lro|
           lro_wrapper = @api.lookup lro.service_full_name
-          lro_service = ServicePresenter.new(@gem_presenter, @api, lro_wrapper).rest
+          lro_service = ServicePresenter.new(main_service.gem, @api, lro_wrapper).rest
 
           service_description = "long-running operations via #{lro_service.name}"
           Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
