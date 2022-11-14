@@ -525,6 +525,27 @@ module Gapic
         @gem_presenter.mixins?
       end
 
+
+      ##
+      # Whether this service presenter is a mixin inside a host service's gem
+      # (and not in its own gem)
+      #
+      # @return [Boolean]
+      #
+      def is_hosted_mixin?
+        Gapic::Model::Mixins.mixin_service_address? address, gem_address: @gem_presenter.address
+      end
+
+      ##
+      # Whether this service presenter is a mixin inside it's own gem
+      # (and not in another service's gem)
+      #
+      # @return [Boolean]
+      #
+      def is_main_mixin_service?
+        Gapic::Model::Mixins.mixin_service_address?(address) && !Gapic::Model::Mixins.mixin_service_address?(address, gem_address: @gem_presenter.address)
+      end
+
       ##
       # The mixin services that should be referenced
       # in the client for this service

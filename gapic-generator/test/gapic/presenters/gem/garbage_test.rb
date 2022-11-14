@@ -22,7 +22,7 @@ class GarbageGemPresenterTest < PresenterTest
   end
 
   def test_garbage
-    assert_equal ["Google", "Garbage"], presenter.address
+    assert_equal ["google", "garbage"], presenter.address
     assert_equal "google-garbage", presenter.name
     assert_equal "Google::Garbage", presenter.namespace
     assert_equal "Google Garbage", presenter.title

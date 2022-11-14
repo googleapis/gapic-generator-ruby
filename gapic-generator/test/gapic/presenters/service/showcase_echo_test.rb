@@ -137,7 +137,10 @@ class ShowcaseEchoServiceTest < PresenterTest
   end
 
   def test_lro_service
-    assert_kind_of Gapic::Presenters::ServicePresenter, presenter.lro_service
+    lro_presenter = presenter.lro_service
+    assert_kind_of Gapic::Presenters::ServicePresenter, lro_presenter
+    assert lro_presenter.is_hosted_mixin?
+    refute lro_presenter.is_main_mixin_service?
   end
 
   def test_lro_client_var
