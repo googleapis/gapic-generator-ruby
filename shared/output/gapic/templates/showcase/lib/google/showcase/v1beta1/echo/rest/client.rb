@@ -165,6 +165,9 @@ module Google
             #     The content to be echoed by the server.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error to be thrown by the server.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::EchoResponse]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::EchoResponse]
             #
@@ -225,7 +228,6 @@ module Google
             #     The content that will be split into words and returned on the stream.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error that is thrown after all words are sent on the stream.
-            #
             # @return [Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
@@ -292,6 +294,9 @@ module Google
             #     The amount of words to returned in each page.
             #   @param page_token [::String]
             #     The position of the page to be returned.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
@@ -359,6 +364,9 @@ module Google
             #     to be the OK rpc code, an empty response will be returned.
             #   @param success [::Google::Showcase::V1beta1::WaitResponse, ::Hash]
             #     The response to be returned on operation completion.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Operation]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Operation]
             #
@@ -424,6 +432,9 @@ module Google
             #     to be the OK rpc code, an empty response will be returned.
             #   @param success [::Google::Showcase::V1beta1::BlockResponse, ::Hash]
             #     The response to be returned that will signify successful method call.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::BlockResponse]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::BlockResponse]
             #

@@ -152,6 +152,9 @@ module Google
             #     The session to be created.
             #     Sessions are immutable once they are created (although they can
             #     be deleted).
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::Session]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
@@ -209,6 +212,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be retrieved.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::Session]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
@@ -268,6 +274,9 @@ module Google
             #     The maximum number of sessions to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
             #
@@ -327,6 +336,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be deleted.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Protobuf::Empty]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -386,6 +398,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be reported on.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::ReportSessionResponse]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::ReportSessionResponse]
             #
@@ -447,6 +462,9 @@ module Google
             #     The maximum number of tests to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
             #
@@ -511,6 +529,9 @@ module Google
             #
             #   @param name [::String]
             #     The test to be deleted.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Protobuf::Empty]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -575,6 +596,9 @@ module Google
             #     The answer from the test.
             #   @param answers [::Array<::String>]
             #     The answers from the test if multiple are to be checked
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::VerifyTestResponse]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Showcase::V1beta1::VerifyTestResponse]
             #

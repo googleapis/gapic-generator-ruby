@@ -135,6 +135,9 @@ module Google
             #     The standard list page size.
             #   @param page_token [::String]
             #     The standard list page token.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Operation]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Operation]
             #
@@ -196,6 +199,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Operation]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Gapic::Operation]
             #
@@ -257,6 +263,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be deleted.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Protobuf::Empty]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -323,6 +332,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be cancelled.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Protobuf::Empty]
+            # @yieldparam response [::Faraday::Response]
             #
             # @return [::Google::Protobuf::Empty]
             #
