@@ -19,7 +19,7 @@
 require "helper"
 require "gapic/rest"
 require "google/cloud/vision/v1/product_search_service_pb"
-require "google/cloud/vision/v1/product_search"
+require "google/cloud/vision/v1/product_search/rest"
 
 
 class ::Google::Cloud::Vision::V1::ProductSearch::ClientTest < Minitest::Test

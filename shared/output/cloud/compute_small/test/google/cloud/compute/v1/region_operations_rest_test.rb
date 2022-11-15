@@ -19,7 +19,7 @@
 require "helper"
 require "gapic/rest"
 require "google/cloud/compute/v1/compute_small_pb"
-require "google/cloud/compute/v1/region_operations"
+require "google/cloud/compute/v1/region_operations/rest"
 
 
 class ::Google::Cloud::Compute::V1::RegionOperations::ClientTest < Minitest::Test

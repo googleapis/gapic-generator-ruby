@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "google/showcase/v1beta1/testing_pb"
-require "google/showcase/v1beta1/testing"
+require "google/showcase/v1beta1/testing/rest"
 
 
 class ::Google::Showcase::V1beta1::Testing::ClientTest < Minitest::Test

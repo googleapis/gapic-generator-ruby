@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "google/showcase/v1beta1/identity_pb"
-require "google/showcase/v1beta1/identity"
+require "google/showcase/v1beta1/identity/rest"
 
 
 class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test

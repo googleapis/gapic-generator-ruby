@@ -19,7 +19,7 @@
 require "helper"
 require "gapic/rest"
 require "google/cloud/location/locations_pb"
-require "google/cloud/location/locations"
+require "google/cloud/location/locations/rest"
 
 
 class ::Google::Cloud::Location::Locations::ClientTest < Minitest::Test

@@ -19,7 +19,7 @@
 require "helper"
 require "gapic/rest"
 require "google/cloud/vision/v1/image_annotator_pb"
-require "google/cloud/vision/v1/image_annotator"
+require "google/cloud/vision/v1/image_annotator/rest"
 
 
 class ::Google::Cloud::Vision::V1::ImageAnnotator::ClientTest < Minitest::Test

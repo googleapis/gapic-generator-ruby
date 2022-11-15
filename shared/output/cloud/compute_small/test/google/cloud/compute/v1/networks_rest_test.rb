@@ -19,7 +19,7 @@
 require "helper"
 require "gapic/rest"
 require "google/cloud/compute/v1/compute_small_pb"
-require "google/cloud/compute/v1/networks"
+require "google/cloud/compute/v1/networks/rest"
 
 
 class ::Google::Cloud::Compute::V1::Networks::ClientTest < Minitest::Test
