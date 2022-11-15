@@ -44,7 +44,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/routing_headers/service_implicit_headers"
+    #     require "testing/routing_headers/service_implicit_headers/rest"
     #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
     #
     module ServiceImplicitHeaders

@@ -52,7 +52,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/showcase/v1beta1/messaging"
+      #     require "google/showcase/v1beta1/messaging/rest"
       #     client = ::Google::Showcase::V1beta1::Messaging::Rest::Client.new
       #
       module Messaging

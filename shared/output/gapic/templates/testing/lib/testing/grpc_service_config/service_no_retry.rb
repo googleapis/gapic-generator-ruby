@@ -44,7 +44,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/grpc_service_config/service_no_retry"
+    #     require "testing/grpc_service_config/service_no_retry/rest"
     #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::Client.new
     #
     module ServiceNoRetry

@@ -44,7 +44,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/nonstandard_lro_grpc/plain_lro_consumer"
+    #     require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest"
     #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new
     #
     module PlainLroConsumer

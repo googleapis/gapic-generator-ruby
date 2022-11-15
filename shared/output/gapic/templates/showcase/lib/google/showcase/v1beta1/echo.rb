@@ -52,7 +52,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/showcase/v1beta1/echo"
+      #     require "google/showcase/v1beta1/echo/rest"
       #     client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new
       #
       module Echo

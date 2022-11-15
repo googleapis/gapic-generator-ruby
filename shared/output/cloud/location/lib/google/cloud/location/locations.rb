@@ -41,7 +41,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/cloud/location/locations"
+      #     require "google/cloud/location/locations/rest"
       #     client = ::Google::Cloud::Location::Locations::Rest::Client.new
       #
       module Locations

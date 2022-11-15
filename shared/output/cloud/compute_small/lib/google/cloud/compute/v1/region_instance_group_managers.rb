@@ -33,7 +33,7 @@ module Google
         #
         # To load this service and instantiate a REST client:
         #
-        #     require "google/cloud/compute/v1/region_instance_group_managers"
+        #     require "google/cloud/compute/v1/region_instance_group_managers/rest"
         #     client = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client.new
         #
         module RegionInstanceGroupManagers

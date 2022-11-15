@@ -55,7 +55,7 @@ module Google
         #
         # To load this service and instantiate a REST client:
         #
-        #     require "google/cloud/vision/v1/product_search"
+        #     require "google/cloud/vision/v1/product_search/rest"
         #     client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new
         #
         module ProductSearch
