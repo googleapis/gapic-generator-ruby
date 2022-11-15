@@ -1,0 +1,25 @@
+<%- assert_locals package -%>
+<% @requires = capture do %>
+<%- package.services.select { |s| s.methods_rest_bindings? }.each do |service| -%>
+require "<%= service.rest.service_require %>"
+<%- end -%>
+require "<%= package.gem.version_require %>"
+<% end %>
+<%- unless package.empty? -%>
+<%- if package.first_service_with_rest&.generate_rest_clients? -%>
+##
+# To load just the REST part of this package, including all its services, and instantiate a REST client:
+#
+# @example
+#
+#     require "<%= package.package_rest_require %>"
+#     client = <%= package.first_service_with_rest.rest.create_client_call %>
+#
+<%- end -%>
+<%- end -%>
+module <%= package.module_name %>
+end
+<% @footer = capture do %>
+helper_path = ::File.join __dir__, "<%= package.package_directory_name %>", "<%= package.helpers_file_name %>"
+require "<%= package.helpers_require %>" if ::File.file? helper_path
+<% end %>

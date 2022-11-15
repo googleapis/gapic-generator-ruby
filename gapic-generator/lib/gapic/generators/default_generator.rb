@@ -55,6 +55,7 @@ module Gapic
 
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
+          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if @api.generate_rest_clients? && package.first_service_with_rest
 
           package.services.each do |service|
             should_generate_grpc = @api.generate_grpc_clients?
