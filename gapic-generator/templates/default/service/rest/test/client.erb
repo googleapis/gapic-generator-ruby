@@ -3,7 +3,7 @@
 require "helper"
 require "gapic/rest"
 require "<%= service.proto_service_require %>"
-require "<%= service.service_require %>"
+require "<%= service.rest.service_require %>"
 
 
 class <%= service.client_name_full %>Test < Minitest::Test

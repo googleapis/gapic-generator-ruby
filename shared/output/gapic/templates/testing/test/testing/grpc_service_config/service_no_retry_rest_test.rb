@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "testing/grpc_service_config/grpc_service_config_pb"
-require "testing/grpc_service_config/service_no_retry"
+require "testing/grpc_service_config/service_no_retry/rest"
 
 
 class ::Testing::GrpcServiceConfig::ServiceNoRetry::ClientTest < Minitest::Test

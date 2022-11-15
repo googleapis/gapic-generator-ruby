@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
-require "testing/nonstandard_lro_grpc/another_lro_provider"
+require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
 
 
 class ::Testing::NonstandardLroGrpc::AnotherLroProvider::ClientTest < Minitest::Test

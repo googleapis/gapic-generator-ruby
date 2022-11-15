@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "testing/mixins/mixins_pb"
-require "testing/mixins/service_with_loc"
+require "testing/mixins/service_with_loc/rest"
 
 
 class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test

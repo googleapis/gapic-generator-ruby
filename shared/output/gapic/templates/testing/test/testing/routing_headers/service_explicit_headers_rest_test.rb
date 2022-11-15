@@ -27,7 +27,7 @@
 require "helper"
 require "gapic/rest"
 require "testing/routing_headers/routing_headers_pb"
-require "testing/routing_headers/service_explicit_headers"
+require "testing/routing_headers/service_explicit_headers/rest"
 
 
 class ::Testing::RoutingHeaders::ServiceExplicitHeaders::ClientTest < Minitest::Test
