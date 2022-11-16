@@ -105,6 +105,9 @@ class <%= service.rest.client_name %>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
       config.endpoint = @config.endpoint
+      <%- if subclient.respond_to?(:bindings_override)%>
+      config.bindings_override = @config.bindings_override
+      <%- end -%>
     end
 
     <%- end -%>
