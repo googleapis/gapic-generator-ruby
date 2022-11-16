@@ -44,6 +44,8 @@ module Google
             #   A request object representing the call parameters. Required.
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            #   Binding overrides for the transcoding. Only used internally.
             #
             # @yield [result, response] Access the result along with the Faraday response object
             # @yieldparam result [::Google::Cloud::Location::ListLocationsResponse]
@@ -51,10 +53,10 @@ module Google
             #
             # @return [::Google::Cloud::Location::ListLocationsResponse]
             #   A result object deserialized from the server's reply
-            def list_locations request_pb, options = nil
+            def list_locations request_pb, options = nil, bindings_override: nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_list_locations_request request_pb
+              verb, uri, query_string_params, body = transcode_list_locations_request request_pb, bindings_override: bindings_override
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -81,6 +83,8 @@ module Google
             #   A request object representing the call parameters. Required.
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            #   Binding overrides for the transcoding. Only used internally.
             #
             # @yield [result, response] Access the result along with the Faraday response object
             # @yieldparam result [::Google::Cloud::Location::Location]
@@ -88,10 +92,10 @@ module Google
             #
             # @return [::Google::Cloud::Location::Location]
             #   A result object deserialized from the server's reply
-            def get_location request_pb, options = nil
+            def get_location request_pb, options = nil, bindings_override: nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_get_location_request request_pb
+              verb, uri, query_string_params, body = transcode_get_location_request request_pb, bindings_override: bindings_override
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -121,9 +125,11 @@ module Google
             #
             # @param request_pb [::Google::Cloud::Location::ListLocationsRequest]
             #   A request object representing the call parameters. Required.
+            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            #   Binding overrides for the transcoding.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_list_locations_request request_pb
+            def transcode_list_locations_request request_pb, bindings_override: nil
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -139,6 +145,20 @@ module Google
                                                           ["name", %r{^projects/[^/]+/?$}, false]
                                                         ]
                                                       )
+
+              if bindings_override
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                bindings_override.each do |binding|
+                  transcoder = transcoder.with_bindings(
+                    uri_method: binding.method,
+                    uri_template: binding.template,
+                    body: binding.body,
+                    matches: binding.field_bindings.map do |fb|
+                      [fb.field_path, fb.regex, fb.preserve_slashes]
+                    end
+                  )
+                end
+              end
               transcoder.transcode request_pb
             end
 
@@ -149,9 +169,11 @@ module Google
             #
             # @param request_pb [::Google::Cloud::Location::GetLocationRequest]
             #   A request object representing the call parameters. Required.
+            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            #   Binding overrides for the transcoding.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_get_location_request request_pb
+            def transcode_get_location_request request_pb, bindings_override: nil
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -167,6 +189,20 @@ module Google
                                                           ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false]
                                                         ]
                                                       )
+
+              if bindings_override
+                transcoder = Gapic::Rest::GrpcTranscoder.new
+                bindings_override.each do |binding|
+                  transcoder = transcoder.with_bindings(
+                    uri_method: binding.method,
+                    uri_template: binding.template,
+                    body: binding.body,
+                    matches: binding.field_bindings.map do |fb|
+                      [fb.field_path, fb.regex, fb.preserve_slashes]
+                    end
+                  )
+                end
+              end
               transcoder.transcode request_pb
             end
           end
