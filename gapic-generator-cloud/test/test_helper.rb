@@ -25,7 +25,6 @@ require "action_view"
 
 require "minitest/autorun"
 require "minitest/focus"
-require "pry"
 
 class GeneratorTest < Minitest::Test
   ##
