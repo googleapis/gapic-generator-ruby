@@ -25,6 +25,7 @@ require "action_view"
 
 require "minitest/autorun"
 require "minitest/focus"
+require "pry"
 
 class GeneratorTest < Minitest::Test
   ##
@@ -71,6 +72,15 @@ class GeneratorTest < Minitest::Test
   # @param params_purge [Array<String>, Array{String(frozen)}]
   # @return [Gapic::Schema::Api]
   def api service, params_override: nil, params_purge: nil
+    default_params = case service 
+    when :vision_v1
+      { "service-yaml" => "protofiles_input/google/cloud/vision/v1/vision_v1.yaml".freeze }
+    else
+      { }
+    end
+
+    params_override = default_params.merge(params_override || {})
+
     Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge),
                            parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
   end
@@ -86,7 +96,7 @@ end
 
 class PresenterTest < GeneratorTest
   def service_presenter api_name, service_name
-  api_obj = api api_name
+    api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
     gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
@@ -94,9 +104,13 @@ class PresenterTest < GeneratorTest
   end
 
   def method_presenter api_name, service_name, method_name
-    service_presenter = service_presenter api_name, service_name
+    api_obj = api api_name
+    service = api_obj.services.find { |s| s.name == service_name }
+    refute_nil service
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    service_presenter = Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
     Gapic::Presenters::MethodPresenter.new service_presenter, api_obj, method
   end
 end
