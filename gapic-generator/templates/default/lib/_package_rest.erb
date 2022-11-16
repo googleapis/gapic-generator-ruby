@@ -3,6 +3,9 @@
 <%- package.services.select { |s| s.methods_rest_bindings? }.each do |service| -%>
 require "<%= service.rest.service_require %>"
 <%- end -%>
+<%- if package.mixin_binding_overrides? -%>
+require "<%= package.mixin_binding_overrides_require %>"
+<%- end -%>
 require "<%= package.gem.version_require %>"
 <% end %>
 <%- unless package.empty? -%>

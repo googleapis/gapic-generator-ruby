@@ -1,0 +1,15 @@
+<%- assert_locals http_binding -%>
+Gapic::Rest::GrpcTranscoder::HttpBinding.new(
+  :<%= http_binding.verb %>,
+  "<%= http_binding.uri_for_transcoding %>",
+  [
+  <%- http_binding.routing_params_transcoder_field_binding_strings.each do |match_str| -%>
+    <%= match_str %>
+  <%- end -%>
+  ],
+  <%- if http_binding.body? -%>
+  "<%= http_binding.body %>"
+  <%- else -%>
+  nil
+  <%- end -%>
+)

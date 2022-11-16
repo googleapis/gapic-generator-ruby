@@ -1,0 +1,13 @@
+<%- assert_locals package -%>
+<%- package.first_service_with_rest.rest.mixin_presenters.each do |subclient| -%>
+<%- subclient.bindings_override.each do |method, bindings| -%>
+default_config.bindings_override["<%= method %>"] = [
+
+<%- last_binding_index = bindings.count - 1 -%>
+<%- bindings.each_with_index do |http_binding, index| -%>
+  <%- comma = last_binding_index == index ? "" : "," -%>
+  <%= indent render(partial: "lib/package/self_configure/binding_default", locals: { http_binding: http_binding }), 4 %><%= comma %>
+<%- end -%>
+]
+<%- end -%>
+<%- end -%>

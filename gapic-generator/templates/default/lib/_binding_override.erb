@@ -1,0 +1,23 @@
+<%- assert_locals package -%>
+<% @requires = capture do %>
+require "gapic/config"
+<%- end -%>
+
+module <%= package.module_name %>
+  def self.configure
+<%= indent render(partial: "lib/package/self_configure", locals: { package: package }), 4 %>
+  end
+
+  class Configuration
+    extend ::Gapic::Config
+
+    config_attr :bindings_override, {}, ::Hash, nil
+
+    # @private
+    def initialize parent_config = nil
+      @parent_config = parent_config unless parent_config.nil?
+
+      yield self if block_given?
+    end
+  end
+end
