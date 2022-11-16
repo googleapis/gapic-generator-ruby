@@ -36,23 +36,19 @@ module Gapic
         attr_reader :bindings
 
         ##
-        # @param proto_method [::Gapic::Schema::Method]
-        #   The proto method this annotation model applies to
-        # @param service_config [::Google::Api::Service]
-        #   The service config that might contain an override for the proto method's
-        #   http annotation. This is for `Operations` only, for main service generation
-        #   it is assumed that the service config is merged into protos before generation.
+        # @param proto_http [::Google::Api::HttpRule]
+        #   The base http annotation
         #
-        def initialize proto_method, service_config = nil
-          proto_http = proto_method.http
-          http_override = begin
-            unless service_config&.http.nil?
-              service_config.http.rules.find { |http_rule| http_rule.selector == proto_method.full_name }
-            end
-          end
-
-          http = http_override || proto_http
+        def initialize proto_http
           @bindings = parse_bindings http
+        end
+
+        ##
+        # @param proto_http [::Google::Api::HttpRule]
+        #   The base http annotation
+        #
+        def initialize proto_http
+          @bindings = parse_bindings proto_http
         end
 
         ##
@@ -79,6 +75,29 @@ module Gapic
         # @return [Array<Array<String>>]
         def routing_params_with_patterns
           bindings.first&.routing_params_with_patterns || []
+        end
+
+        ##
+        # @param proto_method [::Gapic::Schema::Method]
+        #   The proto method this annotation model applies to
+        # @param service_config [::Google::Api::Service]
+        #   The service config that might contain an override for the http annotation.
+        #   This is used for mixins: when generating Operations sublients, and when
+        #   setting up overrides for other mixin clients in the host services's classes.
+        #   For non-mixin service generation
+        #   it is assumed that the service config is merged into protos before generation.
+        #
+        def self.create_with_override proto_method, service_config = nil
+          proto_http = proto_method.http
+
+          http_override = begin
+            unless service_config&.http.nil?
+              service_config.http.rules.find { |http_rule| http_rule.selector == proto_method.full_name }
+            end
+          end
+
+          http = http_override || proto_http
+          HttpAnnotation.new http
         end
 
         ##

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "gapic/presenters/service/sub_client_presenter"
-
 module Gapic
   module Presenters
     module Service
       ##
       # @private
-      # Presenter for the generation of the sub-client for LRO
-      # inside a host service's client class
+      # Base class for the presenter for the generation of the clients
+      # for sub-services (mixins, lros) inside a host service's client class
       #
       # @!attribute [r] service
       #   Full name of the service providing the nonstandard LRO functionality
@@ -43,12 +41,14 @@ module Gapic
       #   The description to place in the comments to this client's
       #   attribute in the library services's client class
       #   @return [String]
-      # @!attribute [r] helper_type
-      #   The type of a helper generated for this service if any
-      #   @return [String. nil]
       #
-      class LroClientPresenter < SubClientPresenter
-        attr_reader :helper_type
+      class SubClientPresenter
+        attr_reader :service
+        attr_reader :client_class_name
+        attr_reader :client_class_docname
+        attr_reader :client_var_name
+        attr_reader :require_str
+        attr_reader :service_description
 
         ##
         # @param service [String]
@@ -64,25 +64,19 @@ module Gapic
         # @param service_description [String]
         #   The description to place in the comments to this client's
         #   attribute in the library services's client class
-        # @param helper_type [String, nil]
-        #   The type of a helper generated for this service if any
         #
         def initialize service:,
                        client_class_name:,
                        client_class_docname:,
                        client_var_name:,
                        require_str:,
-                       service_description:,
-                       helper_type: nil
-          super(service: service,
-                client_class_name: client_class_name,
-                client_class_docname: client_class_docname,
-                client_var_name: client_var_name,
-                require_str: require_str,
-                service_description: service_description
-              )
-
-          @helper_type = helper_type
+                       service_description:
+          @service = service
+          @client_class_name = client_class_name
+          @client_class_docname = client_class_docname
+          @client_var_name = client_var_name
+          @require_str = require_str
+          @service_description = service_description
         end
       end
     end

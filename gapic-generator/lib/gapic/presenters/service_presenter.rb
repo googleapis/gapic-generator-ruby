@@ -516,17 +516,6 @@ module Gapic
       end
 
       ##
-      # Whether there are mixin services that should be referenced
-      # in the client for this service
-      #
-      # @return [Boolean]
-      #
-      def mixins?
-        @gem_presenter.mixins?
-      end
-
-
-      ##
       # Whether this service presenter is a mixin inside a host service's gem
       # (and not in its own gem)
       #
@@ -547,13 +536,68 @@ module Gapic
       end
 
       ##
+      # Whether there are mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Boolean]
+      #
+      def mixins?
+        @gem_presenter.mixins?
+      end
+
+      ##
+      # The models for the mixins
+      #
+      # @return [Enumerable<::Gapic::Model::Mixins::Mixin>]
+      #
+      def mixin_models
+        @gem_presenter.mixins_model.mixins
+      end
+      
+
+      ##
+      # Whether there are mixin services that this package has http binding overrides for.
+      #
+      # @return [Boolean]
+      #
+      def mixin_binding_overrides?
+        mixin_presenters.any? { |mixin| !mixin.bindings_override.empty? }
+      end
+
+      ##
       # The mixin services that should be referenced
       # in the client for this service
       #
-      # @return [Enumerable<Gapic::Model::Mixins::Mixin>]
+      # @return [Enumerable<Gapic::Presenters::Service::MixinClientPresenter>]
       #
-      def mixins
-        @gem_presenter.mixins_model.mixins
+      def mixin_presenters
+        return [] unless mixins?
+        mixin_models.map do |model|
+          # we don't have mixin's descriptors loaded, so instead of starting with descriptor's methods
+          # and looking up the override, we'll start with overrides and see if any fit the mixin's namespace
+          bindings_override = begin
+            if @api.service_config&.http.nil?
+              {}
+            else
+              @api.service_config.http.rules.select do |http_rule|
+                 http_rule.selector.include? model.service
+              end.map do |http_rule|
+                bindings = Gapic::Model::Method::HttpAnnotation.new(http_rule).bindings.map do |binding|
+                  Gapic::Presenters::Method::HttpBindingPresenter.new(binding)
+                end
+                [http_rule.selector, bindings]
+              end.to_h
+            end
+          end
+
+          Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
+                                                               client_class_name: model.client_class_name,
+                                                               client_class_docname: model.client_class_docname,
+                                                               client_var_name: model.client_var_name,
+                                                               require_str: model.require_str,
+                                                               service_description: model.service_description,
+                                                               bindings_override: bindings_override
+        end
       end
 
       ##
@@ -675,7 +719,7 @@ module Gapic
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
-        ([] << lro_client_presenter << mixins << nonstandard_lros).flatten.compact
+        ([] << lro_client_presenter << mixin_presenters << nonstandard_lros).flatten.compact
       end
 
       ##

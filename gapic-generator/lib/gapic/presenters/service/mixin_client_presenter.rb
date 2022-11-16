@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ module Gapic
     module Service
       ##
       # @private
-      # Presenter for the generation of the sub-client for LRO
+      # Presenter for the generation of the sub-client for mixins
       # inside a host service's client class
       #
       # @!attribute [r] service
@@ -43,12 +43,13 @@ module Gapic
       #   The description to place in the comments to this client's
       #   attribute in the library services's client class
       #   @return [String]
-      # @!attribute [r] helper_type
-      #   The type of a helper generated for this service if any
-      #   @return [String. nil]
+      # @!attribute [r] bindings_override
+      #   Override of Http bindings for the methods of the mixin service
+      #     methods are specified by their full name, e.g. `google.cloud.location.Locations.ListLocations`
+      #   @return [Hash{String, Array<::Gapic::Model::Method::HttpAnnotation::HttpBinding>}]
       #
-      class LroClientPresenter < SubClientPresenter
-        attr_reader :helper_type
+      class MixinClientPresenter < SubClientPresenter
+        attr_reader :bindings_override
 
         ##
         # @param service [String]
@@ -64,8 +65,6 @@ module Gapic
         # @param service_description [String]
         #   The description to place in the comments to this client's
         #   attribute in the library services's client class
-        # @param helper_type [String, nil]
-        #   The type of a helper generated for this service if any
         #
         def initialize service:,
                        client_class_name:,
@@ -73,7 +72,7 @@ module Gapic
                        client_var_name:,
                        require_str:,
                        service_description:,
-                       helper_type: nil
+                       bindings_override:
           super(service: service,
                 client_class_name: client_class_name,
                 client_class_docname: client_class_docname,
@@ -82,7 +81,7 @@ module Gapic
                 service_description: service_description
               )
 
-          @helper_type = helper_type
+          @bindings_override = bindings_override
         end
       end
     end
