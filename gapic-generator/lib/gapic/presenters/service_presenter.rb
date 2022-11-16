@@ -565,6 +565,20 @@ module Gapic
       end
 
       ##
+      # Whether config for this service should include the `bindings_override` field.
+      # This field is needed:
+      #   * if a service is a mixin in it's own package, e.g. `google.Cloud.Location`
+      #   * if a service hosts a mixin and has bindings overrides for it
+      # but the generated Operations clients should not have it since override for
+      # their bindings are generated instead of set during runtime.
+      #
+      # GRPC clients should not have this for now, since the overrides are not currently used.
+      #
+      def mixin_should_generate_override_config?
+        false
+      end
+
+      ##
       # The mixin services that should be referenced
       # in the client for this service
       #

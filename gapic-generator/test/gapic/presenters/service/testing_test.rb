@@ -48,6 +48,19 @@ class TestingServiceTest < PresenterTest
 
     refute presenter.nonstandard_lro_provider?
     assert presenter.nonstandard_lro_consumer?
+
+    refute presenter.is_hosted_mixin?
+    refute presenter.is_main_mixin_service?
+    assert presenter.mixins?
+    assert presenter.mixin_binding_overrides?
+
+    lro = presenter.lro_service
+    refute_nil lro
+
+    assert_equal lro.name, "Operations"
+    assert lro.grpc_full_name == "google.longrunning.Operations"
+    assert lro.mixin_binding_overrides?
+    refute lro.rest.mixin_should_generate_override_config?
   end
 
   def test_testing_with_loc

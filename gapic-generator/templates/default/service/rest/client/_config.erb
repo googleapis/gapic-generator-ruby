@@ -68,6 +68,15 @@ class Configuration
   config_attr :lib_version,   nil, ::String, nil
   config_attr :timeout,       nil, ::Numeric, nil
   config_attr :metadata,      nil, ::Hash, nil
+  <%- if service.rest.mixin_should_generate_override_config? -%>
+
+  # @private
+  # Overrides for http bindings for the RPCs of this service
+  # are only used when this service is used as mixin, and only
+  # by the host service.
+  # @return [::Hash{::Symbol=>::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}}]
+  config_attr :bindings_override, {}, ::Hash, nil
+  <%- end -%>
 
   # @private
   def initialize parent_config = nil
