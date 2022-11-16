@@ -327,19 +327,41 @@ module Gapic
       end
 
       ##
+      # Whether there are mixin services that should be referenced
+      # in the client for this service
+      #
+      # @return [Boolean]
+      #
+      def mixins?
+        main_service.mixins?
+      end
+
+      ##
+      # Whether there are mixin services that this package has http binding overrides for.
+      #
+      # @return [Boolean]
+      #
+      def mixin_binding_overrides?
+        main_service.mixin_binding_overrides?
+      end
+
+      ##
       # The client presenters of the mixin services that are used by the methods of this service
       #
-      # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
+      # @return [Enumerable<Gapic::Presenters::Service::MixinClientPresenter>]
       def mixin_presenters
         return [] unless main_service.mixins?
-        main_service.mixins.map do |mixin|
-          Gapic::Presenters::Service::LroClientPresenter.new service: mixin.service,
-                                                             client_class_name: mixin.client_class_name_rest,
-                                                             client_class_docname: mixin.client_class_docname_rest,
-                                                             client_var_name: mixin.client_var_name,
-                                                             require_str: mixin.require_str_rest,
-                                                             service_description: mixin.service_description,
-                                                             helper_type: ""
+        main_service.mixin_presenters.map do |grpc_presenter|
+          model = main_service.mixin_models.first { |mdl| mdl.service == grpc_presenter.service }
+          raise "Mismatch between model and presenters in service #{service_name_full}" unless model
+
+          Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
+                                                             client_class_name: model.client_class_name_rest,
+                                                             client_class_docname: model.client_class_docname_rest,
+                                                             client_var_name: model.client_var_name,
+                                                             require_str: model.require_str_rest,
+                                                             service_description: model.service_description,
+                                                             bindings_override: grpc_presenter.bindings_override
         end
       end
 

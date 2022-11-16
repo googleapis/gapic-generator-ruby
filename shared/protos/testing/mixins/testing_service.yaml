@@ -12,5 +12,9 @@ http:
     get: '/v1beta1/operations'
   - selector: google.cloud.location.Locations.GetLocation
     get: '/v1beta1/{name=projects/*/locations/*}'
+    additional_bindings:
+    - get: '/v1beta1/{name=projects/*/locations/*}/{test_name=testingLocations/*}'
   - selector: google.cloud.location.Locations.ListLocations
     get: '/v1beta1/{name=projects/*}/locations'
+    additional_bindings:
+    - get: '/v1beta1/{name=projects/*/locations/*}/testingLocations'

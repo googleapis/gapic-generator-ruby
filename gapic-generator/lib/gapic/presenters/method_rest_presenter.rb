@@ -55,6 +55,12 @@ module Gapic
         @main_method.name
       end
 
+      # Fully qualified proto name of the method (namespace.PascalCase)
+      # @return [String]
+      def grpc_full_name
+        @main_method.grpc.full_name
+      end
+
       ##
       # Full class name of the request type
       #

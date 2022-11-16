@@ -16,13 +16,18 @@
 
 require "test_helper"
 
-class CloudGemPresenterTest < PresenterTest
+class ServicePresenterMixinTest < PresenterTest
   ##
   # Tests that a mixin in it's own gem is not classified as a mixin
   #
-  def test_location_locations_
+  def test_location_locations
     presenter = service_presenter :location, "Locations"
     refute presenter.is_hosted_mixin?
     assert presenter.is_main_mixin_service?
+  end
+    
+  def test_vision_
+    presenter = service_presenter :vision_v1, "ImageAnnotator"
+    refute_empty presenter.rest.mixin_presenters
   end
 end
