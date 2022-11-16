@@ -555,6 +555,13 @@ module Testing
             config_attr :metadata,      nil, ::Hash, nil
 
             # @private
+            # Overrides for http bindings for the RPCs of this service
+            # are only used when this service is used as mixin, and only
+            # by the host service.
+            # @return [::Hash{::Symbol=>::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}}]
+            config_attr :bindings_override, {}, ::Hash, nil
+
+            # @private
             def initialize parent_config = nil
               @parent_config = parent_config unless parent_config.nil?
 
