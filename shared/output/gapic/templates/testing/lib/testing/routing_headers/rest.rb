@@ -26,6 +26,7 @@
 
 require "testing/routing_headers/service_implicit_headers/rest"
 require "testing/routing_headers/service_explicit_headers/rest"
+require "testing/routing_headers/bindings_override"
 require "testing/version"
 
 module Testing

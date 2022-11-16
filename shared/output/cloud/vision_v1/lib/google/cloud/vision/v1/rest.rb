@@ -18,6 +18,7 @@
 
 require "google/cloud/vision/v1/product_search/rest"
 require "google/cloud/vision/v1/image_annotator/rest"
+require "google/cloud/vision/v1/bindings_override"
 require "google/cloud/vision/v1/version"
 
 module Google

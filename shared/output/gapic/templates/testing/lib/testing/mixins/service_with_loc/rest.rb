@@ -29,6 +29,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "testing/version"
+require "testing/mixins/bindings_override"
 
 require "testing/mixins/service_with_loc/credentials"
 require "testing/mixins/service_with_loc/rest/client"
