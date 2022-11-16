@@ -6,6 +6,10 @@
 #   A request object representing the call parameters. Required.
 # @param options [::Gapic::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+<%- if method.service.rest.is_main_mixin_service? -%>
+# @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+#   Binding overrides for the transcoding. Only used internally.
+<%- end %>
 #
 # @yield [result, response] Access the result along with the Faraday response object
 # @yieldparam result [<%= method.rest.return_type %>]
@@ -13,7 +17,8 @@
 #
 # @return [<%= method.rest.return_type %>]
 #   A result object deserialized from the server's reply
-def <%= method.name %> request_pb, options = nil
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: nil" : "" -%>
+def <%= method.name %> request_pb, options = nil<%= boverr_str %>
 <%= indent render(partial: "service/rest/service_stub/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/rest/service_stub/method/def/response", locals: { method: method }), 2 %>

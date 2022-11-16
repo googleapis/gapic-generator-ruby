@@ -12,6 +12,10 @@ def <%= method.name %> request, options = nil
 <%= indent render(partial: "service/client/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/rest/client/method/def/options_defaults", locals: { method: method }), 2 %>
+<%- if method.service.rest.is_main_mixin_service? -%>
+
+bindings_override = @config.bindings_override["<%= method.grpc_full_name %>"]
+<%- end -%>
 
 <%= indent render(partial: "service/rest/client/method/def/response", locals: { method: method }), 2 %>
 <%= render partial: "service/rest/client/method/def/rescue", locals: { method: method } -%>

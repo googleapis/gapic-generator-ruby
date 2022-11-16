@@ -6,9 +6,14 @@
 #
 # @param request_pb [<%= method.request_type %>]
 #   A request object representing the call parameters. Required.
+<%- if method.service.rest.is_main_mixin_service? -%>
+# @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+#   Binding overrides for the transcoding.
+<%- end %>
 # @return [Array(String, [String, nil], Hash{String => String})] 
 #   Uri, Body, Query string parameters
-def <%= method.rest.transcoding_helper_name %> request_pb
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: nil" : "" -%>
+def <%= method.rest.transcoding_helper_name %> request_pb<%= boverr_str %>
   transcoder = Gapic::Rest::GrpcTranscoder.new
   <%- method.http_bindings.each do |http_binding| -%>
                                           .with_bindings(
@@ -23,6 +28,22 @@ def <%= method.rest.transcoding_helper_name %> request_pb
                                             <%- end -%>
                                             ]
                                           )
-  <%- end %>                                          
+  <%- end %>
+<%- if method.service.rest.is_main_mixin_service? -%>
+
+  if bindings_override
+    transcoder = Gapic::Rest::GrpcTranscoder.new
+    bindings_override.each do |binding|
+      transcoder = transcoder.with_bindings(
+        uri_method: binding.method,
+        uri_template: binding.template,
+        body: binding.body,
+        matches: binding.field_bindings.map do |fb|
+          [fb.field_path, fb.regex, fb.preserve_slashes]
+        end
+      )
+    end
+  end
+<%- end %>
   transcoder.transcode request_pb
 end
