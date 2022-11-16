@@ -133,6 +133,7 @@ module Google
                 @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
                   config.credentials = credentials
                   config.endpoint = @config.endpoint
+                  config.bindings_override = @config.bindings_override
                 end
 
                 @image_annotator_stub = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials

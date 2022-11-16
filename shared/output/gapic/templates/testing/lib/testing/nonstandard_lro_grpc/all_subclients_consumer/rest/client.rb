@@ -127,6 +127,7 @@ module Testing
             @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|

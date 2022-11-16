@@ -120,6 +120,7 @@ module Testing
             @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @service_with_loc_stub = ::Testing::Mixins::ServiceWithLoc::Rest::ServiceStub.new endpoint: @config.endpoint,
