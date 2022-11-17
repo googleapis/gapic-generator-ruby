@@ -196,12 +196,12 @@ module Gapic
         return if options.timeout.nil?
         return if options.timeout.negative?
 
-        Time.now + options.timeout
+        Process.clock_gettime(Process::CLOCK_MONOTONIC) + options.timeout
       end
 
       def get_timeout deadline
         return if deadline.nil?
-        deadline - Time.now
+        deadline - Process.clock_gettime(Process::CLOCK_MONOTONIC)
       end
     end
   end
