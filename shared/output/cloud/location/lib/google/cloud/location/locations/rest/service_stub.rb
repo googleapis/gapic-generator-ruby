@@ -130,35 +130,22 @@ module Google
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
             def transcode_list_locations_request request_pb, bindings_override: nil
-              transcoder = Gapic::Rest::GrpcTranscoder.new
-                                                      .with_bindings(
-                                                        uri_method: :get,
-                                                        uri_template: "/v1/{name}",
-                                                        matches: [
-                                                          ["name", %r{^locations/?$}, false]
-                                                        ]
-                                                      )
-                                                      .with_bindings(
-                                                        uri_method: :get,
-                                                        uri_template: "/v1/{name}/locations",
-                                                        matches: [
-                                                          ["name", %r{^projects/[^/]+/?$}, false]
-                                                        ]
-                                                      )
-
-              if bindings_override
-                transcoder = Gapic::Rest::GrpcTranscoder.new
-                bindings_override.each do |binding|
-                  transcoder = transcoder.with_bindings(
-                    uri_method: binding.method,
-                    uri_template: binding.template,
-                    body: binding.body,
-                    matches: binding.field_bindings.map do |fb|
-                      [fb.field_path, fb.regex, fb.preserve_slashes]
-                    end
-                  )
-                end
-              end
+              transcoder = Gapic::Rest::GrpcTranscoder.new(bindings_override) if bindings_override
+              transcoder ||= Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/v1/{name}",
+                                                          matches: [
+                                                            ["name", %r{^locations/?$}, false]
+                                                          ]
+                                                        )
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/v1/{name}/locations",
+                                                          matches: [
+                                                            ["name", %r{^projects/[^/]+/?$}, false]
+                                                          ]
+                                                        )
               transcoder.transcode request_pb
             end
 
@@ -174,35 +161,22 @@ module Google
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
             def transcode_get_location_request request_pb, bindings_override: nil
-              transcoder = Gapic::Rest::GrpcTranscoder.new
-                                                      .with_bindings(
-                                                        uri_method: :get,
-                                                        uri_template: "/v1/{name}",
-                                                        matches: [
-                                                          ["name", %r{^locations/[^/]+/?$}, false]
-                                                        ]
-                                                      )
-                                                      .with_bindings(
-                                                        uri_method: :get,
-                                                        uri_template: "/v1/{name}",
-                                                        matches: [
-                                                          ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false]
-                                                        ]
-                                                      )
-
-              if bindings_override
-                transcoder = Gapic::Rest::GrpcTranscoder.new
-                bindings_override.each do |binding|
-                  transcoder = transcoder.with_bindings(
-                    uri_method: binding.method,
-                    uri_template: binding.template,
-                    body: binding.body,
-                    matches: binding.field_bindings.map do |fb|
-                      [fb.field_path, fb.regex, fb.preserve_slashes]
-                    end
-                  )
-                end
-              end
+              transcoder = Gapic::Rest::GrpcTranscoder.new(bindings_override) if bindings_override
+              transcoder ||= Gapic::Rest::GrpcTranscoder.new
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/v1/{name}",
+                                                          matches: [
+                                                            ["name", %r{^locations/[^/]+/?$}, false]
+                                                          ]
+                                                        )
+                                                        .with_bindings(
+                                                          uri_method: :get,
+                                                          uri_template: "/v1/{name}",
+                                                          matches: [
+                                                            ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false]
+                                                          ]
+                                                        )
               transcoder.transcode request_pb
             end
           end
