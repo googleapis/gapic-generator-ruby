@@ -116,7 +116,7 @@ module Gapic
       # @return [Boolean]
       #
       def can_generate_rest?
-        (@main_method.kind == :normal || @main_method.kind == :server) &&
+        [:normal, :server].include?(@main_method.kind) &&
           http_bindings.first&.verb? &&
           http_bindings.first&.path?
       end

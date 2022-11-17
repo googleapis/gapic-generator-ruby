@@ -120,7 +120,7 @@ class ExpandRestTest < ExpandTest
     a = []
     ex = assert_raises Gapic::Common::Error do
       ret = @client.expand({content: "Sphinx of black quartz, judge my vow.", 
-                                 error: {code: 404, message: "my-error-message" }})
+                            error: {code: 404, message: "my-error-message" }})
       ret.each do |r|
         a << r
       end
