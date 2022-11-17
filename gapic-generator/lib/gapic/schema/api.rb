@@ -42,6 +42,7 @@ module Gapic
     class Api
       attr_accessor :request
       attr_accessor :files
+      attr_reader :snippet_configs
 
       # Initializes an API object with the file descriptors that represent the
       # API.
@@ -65,6 +66,7 @@ module Gapic
 
         parameter_schema ||= Gapic::Generators::DefaultGeneratorParameters.default_schema
         @protoc_parameters = parse_parameter request.parameter, parameter_schema, error_output
+        @snippet_configs = loader.load_snippet_configs self.configuration[:snippet_configs_path]
         sanity_checks error_output
       end
 
@@ -203,6 +205,20 @@ module Gapic
                  .flatten.compact
                  .select { |sample_config| sample_config["sample_type"]&.start_with? "incode/" }
                  .sort_by { |sample_config| sample_config["sample_type"] }
+        end
+      end
+
+      # Return all snippet configs for the given method address. Returns the
+      # empty array if there are no snippet configs.
+      # @param address [String] Method address in the form
+      #   `proto.package.v1.ServiceName.MethodName`
+      # @return [Array<
+      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      def snippet_configs_for address
+        address = address.join "." if address.is_a? ::Array
+        @snippet_configs.find_all do |config|
+          rpc = config.rpc
+          address == "#{rpc.proto_package}.#{rpc.api_version}.#{rpc.service_name}.#{rpc.rpc_name}"
         end
       end
 
@@ -397,6 +413,9 @@ module Gapic
           output.puts "WARNING: configured common service #{k} is not present" unless addrs.include? k
           output.puts "WARNING: configured common service delegate #{v} is not present" unless addrs.include? v
         end
+        # TODO: Sanity check snippet configs to ensure that the type of call
+        # (e.g. streaming, lro, etc) matches the rpc type. Warn and remove any
+        # noncomplying snippet configs to prevent crashes when rendering.
       end
 
       # Does a pre-analysis of all resources defined in the job. This has

@@ -76,6 +76,25 @@ module Gapic
                  services, resources, file_to_generate, registry
       end
 
+      ##
+      # Loads snippet configs from the given directory
+      #
+      # @param path [String] Directory to search for snippet config files
+      # @return [Array<
+      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      #
+      def load_snippet_configs path
+        return [] unless path
+        Dir.chdir path do
+          Dir.glob("**/*.json").map do |file_path|
+            json = JSON.load_file file_path
+            proto = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig.new json
+            proto.json_representation = json
+            proto
+          end
+        end
+      end
+
       # Updates the fields of a message and it's nested messages.
       #
       # @param message [Message] the message whose fields and nested messages

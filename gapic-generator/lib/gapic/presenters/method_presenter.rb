@@ -76,10 +76,22 @@ module Gapic
       end
 
       ##
+      # Return the "primary" snippet for this method. This should be used for
+      # inline snippets.
       # @return [Gapic::Presenters::SnippetPresenter]
       #
       def snippet
-        SnippetPresenter.new self, @api
+        configs = @api.snippet_configs_for @method.full_name
+        SnippetPresenter.new self, @api, configs.first
+      end
+
+      ##
+      # @return [Array<Gapic::Presenters::SnippetPresenter>]
+      #
+      def all_snippets
+        configs = @api.snippet_configs_for @method.full_name
+        configs = [nil] if configs.empty?
+        configs.map { |config| SnippetPresenter.new self, @api, config }
       end
 
       def generate_yardoc_snippets?

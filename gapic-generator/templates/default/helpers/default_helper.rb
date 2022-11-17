@@ -34,6 +34,25 @@ module DefaultHelper
     ret.split("\n").map(&:rstrip).join("\n")
   end
 
+  def wrap input, max_width
+    lines = []
+    input.split("\n").each do |line|
+      cur_width = 0
+      cur_words = []
+      line.split.each do |word|
+        if cur_width.positive? && cur_width + word.length > max_width
+          lines << cur_words.join(" ")
+          cur_width = 0
+          cur_words = []
+        end
+        cur_words << word
+        cur_width += word.length + 1
+      end
+      lines << cur_words.join(" ") if cur_width.positive?
+    end
+    lines.join "\n"
+  end
+
   def indent_tail input, spacing
     return input if input.lines.count < 2
 
