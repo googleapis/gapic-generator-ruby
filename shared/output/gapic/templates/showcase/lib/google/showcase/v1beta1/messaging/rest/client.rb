@@ -872,7 +872,7 @@ module Google
             #     The resource name of a chat room or user profile whose blurbs to stream.
             #   @param expire_time [::Google::Protobuf::Timestamp, ::Hash]
             #     The time at which this stream will close.
-            # @return [Enumerable<::Google::Showcase::V1beta1::StreamBlurbsResponse>]
+            # @return [::Enumerable<::Google::Showcase::V1beta1::StreamBlurbsResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             def stream_blurbs request, options = nil

@@ -228,7 +228,7 @@ module Google
             #     The content that will be split into words and returned on the stream.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error that is thrown after all words are sent on the stream.
-            # @return [Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            # @return [::Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
             def expand request, options = nil

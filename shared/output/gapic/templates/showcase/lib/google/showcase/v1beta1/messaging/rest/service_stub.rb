@@ -463,9 +463,9 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yieldparam chunk [String] The chunk of data received during server streaming.
+            # @yieldparam chunk [::String] The chunk of data received during server streaming.
             #
-            # @return [Faraday::Response]
+            # @return [::Faraday::Response]
             def stream_blurbs request_pb, options = nil, &block
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
