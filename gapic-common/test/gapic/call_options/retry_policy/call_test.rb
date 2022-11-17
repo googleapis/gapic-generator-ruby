@@ -48,6 +48,44 @@ class RetryPolicyCallTest < Minitest::Test
     sleep_mock.verify
   end
 
+  def test_retries_configured_http_errors
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
+      retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
+    )
+    faraday_error = OpenStruct.new response_status: 503
+
+    assert_includes retry_policy.retry_codes, Gapic::CallOptions::ErrorCodes.grpc_error_for(faraday_error.response_status)
+
+    sleep_mock = Minitest::Mock.new
+    sleep_mock.expect :sleep, nil, [1]
+    sleep_proc = ->(count) { sleep_mock.sleep count }
+
+    Kernel.stub :sleep, sleep_proc do
+      assert retry_policy.call(faraday_error)
+    end
+
+    sleep_mock.verify
+  end
+
+  def test_retries_configured_http_errors_with_absent_status
+    retry_policy = Gapic::CallOptions::RetryPolicy.new(
+      retry_codes: [GRPC::Core::StatusCodes::UNKNOWN]
+    )
+    faraday_error = OpenStruct.new response_status: nil
+
+    assert_includes retry_policy.retry_codes, Gapic::CallOptions::ErrorCodes.grpc_error_for(faraday_error.response_status)
+
+    sleep_mock = Minitest::Mock.new
+    sleep_mock.expect :sleep, nil, [1]
+    sleep_proc = ->(count) { sleep_mock.sleep count }
+
+    Kernel.stub :sleep, sleep_proc do
+      assert retry_policy.call(faraday_error)
+    end
+
+    sleep_mock.verify
+  end
+
   def test_wont_retry_unconfigured_grpc_errors
     retry_policy = Gapic::CallOptions::RetryPolicy.new(
       retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE]
