@@ -44,36 +44,11 @@ module Gapic
       #
       # @return [Gapic::Rest::GrpcTranscoder] The updated transcoder.
       def with_bindings uri_method:, uri_template:, matches: [], body: nil
-        template = uri_template
-
-        matches.each do |name, _regex, _preserve_slashes|
-          unless uri_template =~ /({#{Regexp.quote name}})/
-            err_msg = "Binding configuration is incorrect: missing parameter in the URI template.\n" \
-                      "Parameter `#{name}` is specified for matching but there is no corresponding parameter " \
-                      "`{#{name}}` in the URI template."
-            raise ::Gapic::Common::Error, err_msg
-          end
-
-          template = template.gsub "{#{name}}", ""
-        end
-
-        if template =~ /{([a-zA-Z_.]+)}/
-          err_name = Regexp.last_match[1]
-          err_msg = "Binding configuration is incorrect: missing match configuration.\n" \
-                    "Parameter `{#{err_name}}` is specified in the URI template but there is no " \
-                    "corresponding match configuration for `#{err_name}`."
-          raise ::Gapic::Common::Error, err_msg
-        end
-
-        if body&.include? "."
-          raise ::Gapic::Common::Error,
-                "Provided body template `#{body}` points to a field in a sub-message. This is not supported."
-        end
-
-        field_bindings = matches.map do |name, regex, preserve_slashes|
-          HttpBinding::FieldBinding.new name, regex, preserve_slashes
-        end
-        GrpcTranscoder.new @bindings + [HttpBinding.new(uri_method, uri_template, field_bindings, body)]
+        binding = HttpBinding.create_with_validation(uri_method: uri_method,
+                                                     uri_template: uri_template,
+                                                     matches: matches,
+                                                     body: body)
+        GrpcTranscoder.new @bindings + [binding]
       end
 
       ##
