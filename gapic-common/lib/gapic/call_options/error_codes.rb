@@ -18,11 +18,11 @@ module Gapic
     # @private
     # The gRPC error codes and their HTTP mapping
     #
-    class ErrorCodes
+    module ErrorCodes
       # @private
       # See https://grpc.github.io/grpc/core/md_doc_statuscodes.html for a
       # list of error codes.
-      ERROR_CODE_MAPPING = [
+      error_code_mapping = [
         "OK",
         "CANCELLED",
         "UNKNOWN",
@@ -43,9 +43,7 @@ module Gapic
       ].freeze
 
       # @private
-      ERROR_STRING_MAPPING = ERROR_CODE_MAPPING.each_with_index.each_with_object({}) do |(str, num), hash|
-        hash[str] = num
-      end.freeze
+      ERROR_STRING_MAPPING = error_code_mapping.each_with_index.to_h.freeze
 
       # @private
       # Converts http error codes into corresponding gRPC ones
