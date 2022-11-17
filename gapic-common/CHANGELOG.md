@@ -4,10 +4,7 @@
 
 #### Features
 
-* retry policy works with REST 
-#### Bug Fixes
-
-* PR commits 
+* retry policy now works for REST calls
 
 ### 0.14.0 (2022-11-08)
 
