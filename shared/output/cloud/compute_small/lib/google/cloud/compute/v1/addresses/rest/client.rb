@@ -572,7 +572,7 @@ module Google
               # providing control over timeouts, retry behavior, logging, transport
               # parameters, and other low-level controls. Certain parameters can also be
               # applied individually to specific RPCs. See
-              # {::Google::Cloud::Compute::V1::Addresses::Client::Configuration::Rpcs}
+              # {::Google::Cloud::Compute::V1::Addresses::Rest::Client::Configuration::Rpcs}
               # for a list of RPCs that can be configured independently.
               #
               # Configuration can be applied globally to all clients, or to a single client
@@ -583,13 +583,13 @@ module Google
               #   # Modify the global config, setting the timeout for
               #   # aggregated_list to 20 seconds,
               #   # and all remaining timeouts to 10 seconds.
-              #   ::Google::Cloud::Compute::V1::Addresses::Client.configure do |config|
+              #   ::Google::Cloud::Compute::V1::Addresses::Rest::Client.configure do |config|
               #     config.timeout = 10.0
               #     config.rpcs.aggregated_list.timeout = 20.0
               #   end
               #
               #   # Apply the above configuration only to a new client.
-              #   client = ::Google::Cloud::Compute::V1::Addresses::Client.new do |config|
+              #   client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new do |config|
               #     config.timeout = 10.0
               #     config.rpcs.aggregated_list.timeout = 20.0
               #   end
