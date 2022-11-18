@@ -31,6 +31,10 @@ class <%= service.rest.client_name %>
   #
   # See {<%= service.rest.client_name_full %>::Configuration}
   # for a description of the configuration fields.
+<%- if service.is_deprecated? -%>
+  #
+  # @deprecated This service is deprecated and may be removed in the next major version update.
+<%- end -%>
   #
   # @example
   #
@@ -94,16 +98,25 @@ class <%= service.rest.client_name %>
     # Create credentials
     credentials = @config.credentials
     <%- unless service.generic_endpoint? -%>
-    credentials ||= Credentials.default scope: @config.scope
+    # Use self-signed JWT if the endpoint is unchanged from default,
+    # but only if the default endpoint does not have a region prefix.
+    enable_self_signed_jwt = @config.endpoint == <%= service.client_name %>.configure.endpoint &&
+                             !@config.endpoint.split(".").first.include?("-")
+    credentials ||= Credentials.default scope: @config.scope,
+                                        enable_self_signed_jwt: enable_self_signed_jwt
     if credentials.is_a?(::String) || credentials.is_a?(::Hash)
       credentials = Credentials.new credentials, scope: @config.scope
     end
     <%- end -%>
-    
+
+    @quota_project_id = @config.quota_project
+    @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
     <%- if service.rest.subclients? -%>
     <%- service.rest.subclients.each do |subclient| -%>
     @<%= subclient.client_var_name %> = <%= subclient.client_class_docname %>.new do |config|
       config.credentials = credentials
+      config.quota_project = @quota_project_id
       config.endpoint = @config.endpoint
     end
 

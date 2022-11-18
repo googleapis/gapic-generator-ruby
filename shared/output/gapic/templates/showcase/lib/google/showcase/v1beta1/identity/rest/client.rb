@@ -116,10 +116,18 @@ module Google
 
               # Create credentials
               credentials = @config.credentials
-              credentials ||= Credentials.default scope: @config.scope
+              # Use self-signed JWT if the endpoint is unchanged from default,
+              # but only if the default endpoint does not have a region prefix.
+              enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+                                       !@config.endpoint.split(".").first.include?("-")
+              credentials ||= Credentials.default scope: @config.scope,
+                                                  enable_self_signed_jwt: enable_self_signed_jwt
               if credentials.is_a?(::String) || credentials.is_a?(::Hash)
                 credentials = Credentials.new credentials, scope: @config.scope
               end
+
+              @quota_project_id = @config.quota_project
+              @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
               @identity_stub = ::Google::Showcase::V1beta1::Identity::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                             credentials: credentials
@@ -167,11 +175,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.create_user.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.create_user.timeout,
                                      metadata:     call_metadata
@@ -227,11 +237,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.get_user.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.get_user.timeout,
                                      metadata:     call_metadata
@@ -290,11 +302,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.update_user.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.update_user.timeout,
                                      metadata:     call_metadata
@@ -350,11 +364,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.delete_user.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.delete_user.timeout,
                                      metadata:     call_metadata
@@ -415,11 +431,13 @@ module Google
               # Customize the options with defaults
               call_metadata = @config.rpcs.list_users.metadata.to_h
 
-              # Set x-goog-api-client header
+              # Set x-goog-api-client and x-goog-user-project headers
               call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.list_users.timeout,
                                      metadata:     call_metadata
@@ -446,19 +464,21 @@ module Google
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
             #
-            # # Examples
+            # @example
             #
-            # To modify the global config, setting the timeout for all calls to 10 seconds:
+            #   # Modify the global config, setting the timeout for
+            #   # create_user to 20 seconds,
+            #   # and all remaining timeouts to 10 seconds.
+            #   ::Google::Showcase::V1beta1::Identity::Client.configure do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_user.timeout = 20.0
+            #   end
             #
-            #     ::Google::Showcase::V1beta1::Identity::Client.configure do |config|
-            #       config.timeout = 10.0
-            #     end
-            #
-            # To apply the above configuration only to a new client:
-            #
-            #     client = ::Google::Showcase::V1beta1::Identity::Client.new do |config|
-            #       config.timeout = 10.0
-            #     end
+            #   # Apply the above configuration only to a new client.
+            #   client = ::Google::Showcase::V1beta1::Identity::Client.new do |config|
+            #     config.timeout = 10.0
+            #     config.rpcs.create_user.timeout = 20.0
+            #   end
             #
             # @!attribute [rw] endpoint
             #   The hostname or hostname:port of the service endpoint.
@@ -487,8 +507,11 @@ module Google
             #   The call timeout in seconds.
             #   @return [::Numeric]
             # @!attribute [rw] metadata
-            #   Additional REST headers to be sent with the call.
+            #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] quota_project
+            #   A separate project against which to charge quota.
+            #   @return [::String]
             #
             class Configuration
               extend ::Gapic::Config
@@ -504,6 +527,7 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :quota_project, nil, ::String, nil
 
               # @private
               def initialize parent_config = nil
