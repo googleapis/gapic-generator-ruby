@@ -47,7 +47,7 @@ module Gapic
 
       # The namespace of the service. (not the client)
       # Intentionally does not include "Rest", since
-      # we do not want Rest service's configuration to 
+      # we do not want Rest service's configuration to
       # default to GRPC configuration (right now).
       def namespace
         main_service.namespace
