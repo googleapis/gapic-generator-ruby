@@ -3,10 +3,10 @@
 require "helper"
 require "gapic/rest"
 require "<%= service.proto_service_require %>"
-require "<%= service.service_require %>"
+require "<%= service.rest.service_require %>"
 
 
-class <%= service.client_name_full %>Test < Minitest::Test
+class <%= service.rest.client_name_full %>Test < Minitest::Test
 <%= indent render(partial: "service/rest/test/method/setup"), 2 %>
 
 <% service.rest.methods.each do |method| %>

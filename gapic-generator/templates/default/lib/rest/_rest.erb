@@ -1,5 +1,9 @@
 <%- assert_locals service -%>
 <% @requires = capture do %>
+require "gapic/rest"
+require "gapic/config"
+require "gapic/config/method"
+
 <%- if service.lro? -%>
 require "<%= service.rest.operations_require %>"
 <%- end -%>

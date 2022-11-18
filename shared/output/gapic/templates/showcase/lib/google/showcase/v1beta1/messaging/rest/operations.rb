@@ -543,6 +543,8 @@ module Google
             end
           end
 
+          ##
+          # @private
           # REST service stub for the Longrunning Operations API.
           # Service stub contains baseline method implementations
           # including transcoding, making the REST call, and deserialing the response.
@@ -572,7 +574,7 @@ module Google
             def list_operations request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_list_operations_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_list_operations_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -610,7 +612,7 @@ module Google
             def get_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_get_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_get_operation_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -647,7 +649,7 @@ module Google
             def delete_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_delete_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_delete_operation_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -684,7 +686,7 @@ module Google
             def cancel_operation request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_cancel_operation_request request_pb
+              verb, uri, query_string_params, body = OperationsServiceStub.transcode_cancel_operation_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -704,9 +706,6 @@ module Google
               result
             end
 
-
-            private
-
             ##
             # @private
             #
@@ -716,7 +715,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_list_operations_request request_pb
+            def self.transcode_list_operations_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -735,7 +734,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_get_operation_request request_pb
+            def self.transcode_get_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -756,7 +755,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_delete_operation_request request_pb
+            def self.transcode_delete_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -777,7 +776,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_cancel_operation_request request_pb
+            def self.transcode_cancel_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,

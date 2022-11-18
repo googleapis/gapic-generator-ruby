@@ -55,7 +55,7 @@ module Google
               def list_peering_routes request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                verb, uri, query_string_params, body = transcode_list_peering_routes_request request_pb
+                verb, uri, query_string_params, body = ServiceStub.transcode_list_peering_routes_request request_pb
                 query_string_params = if query_string_params.any?
                                         query_string_params.to_h { |p| p.split("=", 2) }
                                       else
@@ -92,7 +92,7 @@ module Google
               def remove_peering request_pb, options = nil
                 raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-                verb, uri, query_string_params, body = transcode_remove_peering_request request_pb
+                verb, uri, query_string_params, body = ServiceStub.transcode_remove_peering_request request_pb
                 query_string_params = if query_string_params.any?
                                         query_string_params.to_h { |p| p.split("=", 2) }
                                       else
@@ -112,9 +112,6 @@ module Google
                 result
               end
 
-
-              private
-
               ##
               # @private
               #
@@ -124,7 +121,7 @@ module Google
               #   A request object representing the call parameters. Required.
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
-              def transcode_list_peering_routes_request request_pb
+              def self.transcode_list_peering_routes_request request_pb
                 transcoder = Gapic::Rest::GrpcTranscoder.new
                                                         .with_bindings(
                                                           uri_method: :get,
@@ -146,7 +143,7 @@ module Google
               #   A request object representing the call parameters. Required.
               # @return [Array(String, [String, nil], Hash{String => String})]
               #   Uri, Body, Query string parameters
-              def transcode_remove_peering_request request_pb
+              def self.transcode_remove_peering_request request_pb
                 transcoder = Gapic::Rest::GrpcTranscoder.new
                                                         .with_bindings(
                                                           uri_method: :post,
