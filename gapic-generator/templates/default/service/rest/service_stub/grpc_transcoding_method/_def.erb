@@ -8,7 +8,7 @@
 #   A request object representing the call parameters. Required.
 # @return [Array(String, [String, nil], Hash{String => String})] 
 #   Uri, Body, Query string parameters
-private_class_method def self.<%= method.rest.transcoding_helper_name %> request_pb
+def self.<%= method.rest.transcoding_helper_name %> request_pb
   transcoder = Gapic::Rest::GrpcTranscoder.new
   <%- method.http_bindings.each do |http_binding| -%>
                                           .with_bindings(

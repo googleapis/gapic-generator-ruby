@@ -464,7 +464,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_create_room_request request_pb
+            def self.transcode_create_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -484,7 +484,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_get_room_request request_pb
+            def self.transcode_get_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -505,7 +505,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_update_room_request request_pb
+            def self.transcode_update_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :patch,
@@ -527,7 +527,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_delete_room_request request_pb
+            def self.transcode_delete_room_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -548,7 +548,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_list_rooms_request request_pb
+            def self.transcode_list_rooms_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -567,7 +567,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_create_blurb_request request_pb
+            def self.transcode_create_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -597,7 +597,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_get_blurb_request request_pb
+            def self.transcode_get_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -625,7 +625,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_update_blurb_request request_pb
+            def self.transcode_update_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :patch,
@@ -656,7 +656,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_delete_blurb_request request_pb
+            def self.transcode_delete_blurb_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -684,7 +684,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_list_blurbs_request request_pb
+            def self.transcode_list_blurbs_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -712,7 +712,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_search_blurbs_request request_pb
+            def self.transcode_search_blurbs_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,

@@ -715,7 +715,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_list_operations_request request_pb
+            def self.transcode_list_operations_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -734,7 +734,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_get_operation_request request_pb
+            def self.transcode_get_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -755,7 +755,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_delete_operation_request request_pb
+            def self.transcode_delete_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :delete,
@@ -776,7 +776,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            private_class_method def self.transcode_cancel_operation_request request_pb
+            def self.transcode_cancel_operation_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
