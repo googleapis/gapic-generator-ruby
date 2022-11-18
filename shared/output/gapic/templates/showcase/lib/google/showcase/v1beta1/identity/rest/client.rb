@@ -147,8 +147,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload create_user(user: nil)
             #   Pass arguments to `create_user` via keyword arguments. Note that at
@@ -184,10 +182,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.create_user.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.create_user.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @identity_stub.create_user request, options do |result, response|
                 yield result, response if block_given?
@@ -209,8 +209,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload get_user(name: nil)
             #   Pass arguments to `get_user` via keyword arguments. Note that at
@@ -246,10 +244,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.get_user.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.get_user.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @identity_stub.get_user request, options do |result, response|
                 yield result, response if block_given?
@@ -271,8 +271,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload update_user(user: nil, update_mask: nil)
             #   Pass arguments to `update_user` via keyword arguments. Note that at
@@ -311,10 +309,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.update_user.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.update_user.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @identity_stub.update_user request, options do |result, response|
                 yield result, response if block_given?
@@ -336,8 +336,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload delete_user(name: nil)
             #   Pass arguments to `delete_user` via keyword arguments. Note that at
@@ -373,10 +371,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.delete_user.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.delete_user.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @identity_stub.delete_user request, options do |result, response|
                 yield result, response if block_given?
@@ -398,8 +398,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload list_users(page_size: nil, page_token: nil)
             #   Pass arguments to `list_users` via keyword arguments. Note that at
@@ -440,10 +438,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.list_users.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.list_users.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @identity_stub.list_users request, options do |result, response|
                 result = ::Gapic::Rest::PagedEnumerable.new @identity_stub, :list_users, "users", request, result,
@@ -459,7 +459,11 @@ module Google
             # Configuration class for the Identity REST API.
             #
             # This class represents the configuration for Identity REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Showcase::V1beta1::Identity::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
@@ -469,13 +473,13 @@ module Google
             #   # Modify the global config, setting the timeout for
             #   # create_user to 20 seconds,
             #   # and all remaining timeouts to 10 seconds.
-            #   ::Google::Showcase::V1beta1::Identity::Client.configure do |config|
+            #   ::Google::Showcase::V1beta1::Identity::Rest::Client.configure do |config|
             #     config.timeout = 10.0
             #     config.rpcs.create_user.timeout = 20.0
             #   end
             #
             #   # Apply the above configuration only to a new client.
-            #   client = ::Google::Showcase::V1beta1::Identity::Client.new do |config|
+            #   client = ::Google::Showcase::V1beta1::Identity::Rest::Client.new do |config|
             #     config.timeout = 10.0
             #     config.rpcs.create_user.timeout = 20.0
             #   end
@@ -509,6 +513,14 @@ module Google
             # @!attribute [rw] metadata
             #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
             # @!attribute [rw] quota_project
             #   A separate project against which to charge quota.
             #   @return [::String]
@@ -527,6 +539,7 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
 
               # @private
@@ -556,9 +569,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##
