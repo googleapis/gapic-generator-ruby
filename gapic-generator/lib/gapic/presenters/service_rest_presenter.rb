@@ -45,6 +45,14 @@ module Gapic
         main_service.name
       end
 
+      # The namespace of the service. (not the client)
+      # Intentionally does not include "Rest", since
+      # we do not want Rest service's configuration to 
+      # default to GRPC configuration (right now).
+      def namespace
+        main_service.namespace
+      end
+
       ##
       # Full Ruby name of this service
       #
@@ -312,6 +320,14 @@ module Gapic
       #
       def methods
         main_service.methods.select(&:can_generate_rest?)
+      end
+
+      def grpc_service_config
+        main_service.grpc_service_config
+      end
+
+      def grpc_service_config_presenter
+        main_service.grpc_service_config_presenter
       end
 
       ##

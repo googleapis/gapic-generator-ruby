@@ -49,7 +49,7 @@ class <%= service.rest.client_name %>
   # @return [<%= service.rest.client_name %>::Configuration]
   #
   def self.configure
-<%= indent render(partial: "service/client/self_configure", locals: { service: service }), 4 %>
+<%= indent render(partial: "service/client/self_configure", locals: { service: service.rest }), 4 %>
   end
 
   ##
