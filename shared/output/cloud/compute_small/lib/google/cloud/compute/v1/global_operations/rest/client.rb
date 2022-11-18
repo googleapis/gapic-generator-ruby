@@ -145,8 +145,6 @@ module Google
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-              #     Note: currently retry functionality is not implemented. While it is possible
-              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload delete(operation: nil, project: nil)
               #   Pass arguments to `delete` via keyword arguments. Note that at
@@ -184,10 +182,12 @@ module Google
                 call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.delete.timeout,
-                                       metadata:     call_metadata
+                                       metadata:     call_metadata,
+                                       retry_policy: @config.rpcs.delete.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
-                                       metadata:     @config.metadata
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
                 @global_operations_stub.delete request, options do |result, response|
                   yield result, response if block_given?
@@ -213,8 +213,6 @@ module Google
               #     parameters, or to keep all the default parameter values, pass an empty Hash.
               #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-              #     Note: currently retry functionality is not implemented. While it is possible
-              #     to set it using ::Gapic::CallOptions, it will not be applied
               #
               # @overload get(operation: nil, project: nil)
               #   Pass arguments to `get` via keyword arguments. Note that at
@@ -252,10 +250,12 @@ module Google
                 call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.get.timeout,
-                                       metadata:     call_metadata
+                                       metadata:     call_metadata,
+                                       retry_policy: @config.rpcs.get.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
-                                       metadata:     @config.metadata
+                                       metadata:     @config.metadata,
+                                       retry_policy: @config.retry_policy
 
                 @global_operations_stub.get request, options do |result, response|
                   yield result, response if block_given?
@@ -273,7 +273,11 @@ module Google
               # Configuration class for the GlobalOperations REST API.
               #
               # This class represents the configuration for GlobalOperations REST,
-              # providing control over credentials, timeouts, retry behavior, logging.
+              # providing control over timeouts, retry behavior, logging, transport
+              # parameters, and other low-level controls. Certain parameters can also be
+              # applied individually to specific RPCs. See
+              # {::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client::Configuration::Rpcs}
+              # for a list of RPCs that can be configured independently.
               #
               # Configuration can be applied globally to all clients, or to a single client
               # on construction.
@@ -283,13 +287,13 @@ module Google
               #   # Modify the global config, setting the timeout for
               #   # delete to 20 seconds,
               #   # and all remaining timeouts to 10 seconds.
-              #   ::Google::Cloud::Compute::V1::GlobalOperations::Client.configure do |config|
+              #   ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.configure do |config|
               #     config.timeout = 10.0
               #     config.rpcs.delete.timeout = 20.0
               #   end
               #
               #   # Apply the above configuration only to a new client.
-              #   client = ::Google::Cloud::Compute::V1::GlobalOperations::Client.new do |config|
+              #   client = ::Google::Cloud::Compute::V1::GlobalOperations::Rest::Client.new do |config|
               #     config.timeout = 10.0
               #     config.rpcs.delete.timeout = 20.0
               #   end
@@ -323,6 +327,14 @@ module Google
               # @!attribute [rw] metadata
               #   Additional headers to be sent with the call.
               #   @return [::Hash{::Symbol=>::String}]
+              # @!attribute [rw] retry_policy
+              #   The retry policy. The value is a hash with the following keys:
+              #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #       trigger a retry.
+              #   @return [::Hash]
               # @!attribute [rw] quota_project
               #   A separate project against which to charge quota.
               #   @return [::String]
@@ -340,6 +352,7 @@ module Google
                 config_attr :lib_version,   nil, ::String, nil
                 config_attr :timeout,       nil, ::Numeric, nil
                 config_attr :metadata,      nil, ::Hash, nil
+                config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
                 config_attr :quota_project, nil, ::String, nil
 
                 # @private
@@ -369,9 +382,14 @@ module Google
                 # the following configuration fields:
                 #
                 #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-                #
-                # there is one other field (`retry_policy`) that can be set
-                # but is currently not supported for REST Gapic libraries.
+                #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+                #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+                #     include the following keys:
+                #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+                #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+                #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+                #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+                #         trigger a retry.
                 #
                 class Rpcs
                   ##

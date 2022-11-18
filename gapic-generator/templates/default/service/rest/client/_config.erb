@@ -4,7 +4,11 @@
 # Configuration class for the <%= service.name %> REST API.
 #
 # This class represents the configuration for <%= service.name %> REST,
-# providing control over credentials, timeouts, retry behavior, logging. 
+# providing control over timeouts, retry behavior, logging, transport
+# parameters, and other low-level controls. Certain parameters can also be
+# applied individually to specific RPCs. See
+# {<%= service.rest.client_name_full %>::Configuration::Rpcs}
+# for a list of RPCs that can be configured independently.
 #
 # Configuration can be applied globally to all clients, or to a single client
 # on construction.
@@ -13,17 +17,17 @@
 # @example
 #
 #   # Modify the global config, setting the timeout for
-#   # <%= method_service.methods.first.name %> to 20 seconds,
+#   # <%= method_service.rest.methods.first.name %> to 20 seconds,
 #   # and all remaining timeouts to 10 seconds.
-#   <%= service.client_name_full %>.configure do |config|
+#   <%= service.rest.client_name_full %>.configure do |config|
 #     config.timeout = 10.0
-#     config.rpcs.<%= method_service.methods.first.name %>.timeout = 20.0
+#     config.rpcs.<%= method_service.rest.methods.first.name %>.timeout = 20.0
 #   end
 #
 #   # Apply the above configuration only to a new client.
-#   client = <%= service.client_name_full %>.new do |config|
+#   client = <%= service.rest.client_name_full %>.new do |config|
 #     config.timeout = 10.0
-#     config.rpcs.<%= method_service.methods.first.name %>.timeout = 20.0
+#     config.rpcs.<%= method_service.rest.methods.first.name %>.timeout = 20.0
 #   end
 #
 <%- end -%>
@@ -56,6 +60,14 @@
 # @!attribute [rw] metadata
 #   Additional headers to be sent with the call.
 #   @return [::Hash{::Symbol=>::String}]
+# @!attribute [rw] retry_policy
+#   The retry policy. The value is a hash with the following keys:
+#    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+#    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+#    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+#    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+#       trigger a retry.
+#   @return [::Hash]
 # @!attribute [rw] quota_project
 #   A separate project against which to charge quota.
 #   @return [::String]
@@ -73,6 +85,7 @@ class Configuration
   config_attr :lib_version,   nil, ::String, nil
   config_attr :timeout,       nil, ::Numeric, nil
   config_attr :metadata,      nil, ::Hash, nil
+  config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
   config_attr :quota_project, nil, ::String, nil
 
   # @private
@@ -102,9 +115,14 @@ class Configuration
   # the following configuration fields:
   #
   #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-  #
-  # there is one other field (`retry_policy`) that can be set
-  # but is currently not supported for REST Gapic libraries.
+  #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+  #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+  #     include the following keys:
+  #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+  #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+  #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+  #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+  #         trigger a retry.
   # 
   class Rpcs
   <%- method_service.rest.methods.each do |method| -%>
