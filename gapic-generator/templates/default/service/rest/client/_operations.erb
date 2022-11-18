@@ -97,9 +97,6 @@ class <%= service.operations_stub_name %>
   <%= indent_tail render(partial: "service/rest/service_stub/method/def", locals: { method: method, service_stub_name: service.operations_stub_name }), 2 %>
   
   <%- end %>
-
-  private
-
   <%- service.lro_service.rest.methods.each do |method| -%>
   <%= indent_tail render(partial: "service/rest/service_stub/grpc_transcoding_method/def", locals: { method: method }), 2 %>
 
