@@ -14,7 +14,9 @@ call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
 call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
 options.apply_defaults timeout:      @config.rpcs.<%= method.name %>.timeout,
-                       metadata:     call_metadata
+                       metadata:     call_metadata,
+                       retry_policy: @config.rpcs.<%= method.name %>.retry_policy
 
 options.apply_defaults timeout:      @config.timeout,
-                       metadata:     @config.metadata
+                       metadata:     @config.metadata,
+                       retry_policy: @config.retry_policy
