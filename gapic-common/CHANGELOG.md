@@ -1,5 +1,11 @@
 # Release History
 
+### 0.15.0 (2022-11-17)
+
+#### Features
+
+* retry policy now works for REST calls
+
 ### 0.14.0 (2022-11-08)
 
 #### Features
