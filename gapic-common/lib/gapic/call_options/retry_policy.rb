@@ -106,7 +106,7 @@ module Gapic
       private
 
       def retry? error
-        (error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
+        (defined?(::GRPC) && error.is_a?(::GRPC::BadStatus) && retry_codes.include?(error.code)) ||
           (error.respond_to?(:response_status) &&
             retry_codes.include?(ErrorCodes.grpc_error_for(error.response_status)))
       end
