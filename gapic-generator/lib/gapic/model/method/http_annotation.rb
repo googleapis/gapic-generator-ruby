@@ -40,14 +40,6 @@ module Gapic
         #   The base http annotation
         #
         def initialize proto_http
-          @bindings = parse_bindings http
-        end
-
-        ##
-        # @param proto_http [::Google::Api::HttpRule]
-        #   The base http annotation
-        #
-        def initialize proto_http
           @bindings = parse_bindings proto_http
         end
 

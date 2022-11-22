@@ -25,7 +25,7 @@ class ServicePresenterMixinTest < PresenterTest
     refute presenter.is_hosted_mixin?
     assert presenter.is_main_mixin_service?
   end
-    
+
   def test_vision_
     presenter = service_presenter :vision_v1, "ImageAnnotator"
     refute_empty presenter.rest.mixin_presenters

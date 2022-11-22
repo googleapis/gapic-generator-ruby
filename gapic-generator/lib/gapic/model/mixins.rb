@@ -114,7 +114,8 @@ module Gapic
         # @param client_var_name [String]
         #   Name for the variable for the client of the mixin service
         #   to use when generating library's service
-        def initialize service, dependency, require_str, require_str_rest, client_class_name, client_class_name_rest, client_var_name
+        def initialize service, dependency, require_str, require_str_rest, client_class_name, client_class_name_rest,
+                       client_var_name
           @service = service
           @dependency = dependency
           @require_str = require_str

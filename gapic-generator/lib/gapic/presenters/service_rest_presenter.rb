@@ -356,12 +356,12 @@ module Gapic
           raise "Mismatch between model and presenters in service #{service_name_full}" unless model
 
           Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
-                                                             client_class_name: model.client_class_name_rest,
-                                                             client_class_docname: model.client_class_docname_rest,
-                                                             client_var_name: model.client_var_name,
-                                                             require_str: model.require_str_rest,
-                                                             service_description: model.service_description,
-                                                             bindings_override: grpc_presenter.bindings_override
+                                                               client_class_name: model.client_class_name_rest,
+                                                               client_class_docname: model.client_class_docname_rest,
+                                                               client_var_name: model.client_var_name,
+                                                               require_str: model.require_str_rest,
+                                                               service_description: model.service_description,
+                                                               bindings_override: grpc_presenter.bindings_override
         end
       end
 

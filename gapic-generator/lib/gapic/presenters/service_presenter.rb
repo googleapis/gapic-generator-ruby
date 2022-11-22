@@ -539,7 +539,8 @@ module Gapic
       # @return [Boolean]
       #
       def is_main_mixin_service?
-        Gapic::Model::Mixins.mixin_service_address?(address) && !Gapic::Model::Mixins.mixin_service_address?(address, gem_address: @gem_presenter.address)
+        Gapic::Model::Mixins.mixin_service_address?(address) &&
+          !Gapic::Model::Mixins.mixin_service_address?(address, gem_address: @gem_presenter.address)
       end
 
       ##
@@ -560,7 +561,6 @@ module Gapic
       def mixin_models
         @gem_presenter.mixins_model.mixins
       end
-      
 
       ##
       # Whether there are mixin services that this package has http binding overrides for.
@@ -586,14 +586,16 @@ module Gapic
             if @api.service_config&.http.nil?
               {}
             else
-              @api.service_config.http.rules.select do |http_rule|
-                 http_rule.selector.include? model.service
-              end.map do |http_rule|
+              service_http_rules = @api.service_config.http.rules.select do |http_rule|
+                http_rule.selector.include? model.service
+              end
+
+              service_http_rules.to_h do |http_rule|
                 bindings = Gapic::Model::Method::HttpAnnotation.new(http_rule).bindings.map do |binding|
-                  Gapic::Presenters::Method::HttpBindingPresenter.new(binding)
+                  Gapic::Presenters::Method::HttpBindingPresenter.new binding
                 end
                 [http_rule.selector, bindings]
-              end.to_h
+              end
             end
           end
 
@@ -693,7 +695,7 @@ module Gapic
         return [] unless nonstandard_lro_consumer?
         nonstandard_lros_models.map do |lro|
           lro_wrapper = @api.lookup lro.service_full_name
-          lro_service = ServicePresenter.new(@gem_presenter, @api, lro_wrapper)
+          lro_service = ServicePresenter.new @gem_presenter, @api, lro_wrapper
 
           service_description = "long-running operations via #{lro_service.name}"
           Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,

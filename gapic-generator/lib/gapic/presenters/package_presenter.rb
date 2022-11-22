@@ -78,7 +78,7 @@ module Gapic
       # @return [Gapic::Presenters::ServicePresenter, nil]
       #
       def first_service_with_rest
-        services.find { |s| s.methods_rest_bindings? }
+        services.find(&:methods_rest_bindings?)
       end
 
       def address
@@ -90,7 +90,7 @@ module Gapic
       end
 
       def package_rest_require
-        ruby_file_path(@api, namespace) + "/rest"
+        "#{ruby_file_path @api, namespace}/rest"
       end
 
       def package_file_path
