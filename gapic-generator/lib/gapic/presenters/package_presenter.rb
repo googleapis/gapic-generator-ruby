@@ -89,8 +89,16 @@ module Gapic
         ruby_file_path @api, namespace
       end
 
+      def package_rest_require
+        ruby_file_path(@api, namespace) + "/rest"
+      end
+
       def package_file_path
         "#{package_require}.rb"
+      end
+
+      def package_rest_file_path
+        "#{package_rest_require}.rb"
       end
 
       def package_directory_name
