@@ -151,7 +151,7 @@ module Gapic
           gem_address = gem_address.join "." unless gem_address.is_a? String
           return false if service_address.start_with? gem_address
         end
-        SERVICE_TO_DEPENDENCY.keys.include? service_address
+        (service_address == LRO_SERVICE) || SERVICE_TO_DEPENDENCY.keys.include?(service_address)
       end
 
       private

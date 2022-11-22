@@ -717,10 +717,8 @@ module Testing
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
-                                                      uri_template: "/v1/{name}",
-                                                      matches: [
-                                                        ["name", %r{^operations/?$}, false]
-                                                      ]
+                                                      uri_template: "/v1beta1/operations",
+                                                      matches: []
                                                     )
             transcoder.transcode request_pb
           end

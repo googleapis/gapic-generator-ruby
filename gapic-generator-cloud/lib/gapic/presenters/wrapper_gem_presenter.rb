@@ -33,8 +33,8 @@ module Gapic
           @api.generate_files
               .map(&:services)
               .flatten
-              .find_all { |s| !Gapic::Model::Mixins.mixin_service_address? s.address, gem_address: address }
               .map { |s| WrapperServicePresenter.new self, @api, s }
+              .find_all { |s| !s.is_hosted_mixin? }
         end
       end
 

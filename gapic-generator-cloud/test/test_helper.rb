@@ -85,14 +85,18 @@ class GeneratorTest < Minitest::Test
 end
 
 class PresenterTest < GeneratorTest
-  def method_presenter api_name, service_name, method_name
-    api_obj = api api_name
+  def service_presenter api_name, service_name
+  api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
     refute_nil service
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
+  end
+
+  def method_presenter api_name, service_name, method_name
+    service_presenter = service_presenter api_name, service_name
     method = service.methods.find { |s| s.name == method_name }
     refute_nil method
-    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
-    service_presenter = Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
     Gapic::Presenters::MethodPresenter.new service_presenter, api_obj, method
   end
 end

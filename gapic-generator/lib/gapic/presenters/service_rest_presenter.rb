@@ -307,6 +307,26 @@ module Gapic
       end
 
       ##
+      # Whether this service presenter is a mixin inside a host service's gem
+      # (and not in its own gem)
+      #
+      # @return [Boolean]
+      #
+      def is_hosted_mixin?
+        main_service.is_hosted_mixin?
+      end
+
+      ##
+      # Whether this service presenter is a mixin inside it's own gem
+      # (and not in another service's gem)
+      #
+      # @return [Boolean]
+      #
+      def is_main_mixin_service?
+        main_service.is_main_mixin_service?
+      end
+
+      ##
       # The client presenters of the mixin services that are used by the methods of this service
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter>]
