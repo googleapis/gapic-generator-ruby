@@ -1,0 +1,13 @@
+{
+    "api_shortname": "unknown",
+    "client_documentation": "https://cloud.google.com/ruby/docs/reference/google-cloud-location/latest",
+    "distribution_name": "google-cloud-location",
+    "is_cloud": true,
+    "language": "ruby",
+    "name_pretty": "Google Cloud Location API",
+    "release_level": "unreleased",
+    "repo": "googleapis/google-cloud-ruby",
+    "requires_billing": true,
+    "ruby-cloud-description": "google-cloud-location is the official client library for the Google Cloud Location API.",
+    "library_type": "GAPIC_AUTO"
+}
