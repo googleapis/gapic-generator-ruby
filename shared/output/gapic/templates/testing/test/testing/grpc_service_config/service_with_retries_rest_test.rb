@@ -27,10 +27,10 @@
 require "helper"
 require "gapic/rest"
 require "testing/grpc_service_config/grpc_service_config_pb"
-require "testing/grpc_service_config/service_with_retries"
+require "testing/grpc_service_config/service_with_retries/rest"
 
 
-class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::Test
+class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_count, :requests
 
@@ -85,35 +85,38 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    Gapic::Rest::ClientStub.stub :new, service_level_retry_method_client_stub do
-      # Create client
-      client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
-        config.credentials = :dummy_value
-      end
+    ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.stub :transcode_service_level_retry_method_request,
+                                                                             ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, service_level_retry_method_client_stub do
+        # Create client
+        client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
 
-      # Use hash object
-      client.service_level_retry_method({}) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object
+        client.service_level_retry_method({}) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object
-      client.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object
+        client.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use hash object with options
-      client.service_level_retry_method({}, call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object with options
+        client.service_level_retry_method({}, call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object with options
-      client.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(),
-                                        call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object with options
+        client.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(),
+                                          call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Verify method calls
-      assert_equal 4, service_level_retry_method_client_stub.call_count
+        # Verify method calls
+        assert_equal 4, service_level_retry_method_client_stub.call_count
+      end
     end
   end
 
@@ -132,34 +135,38 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::ClientTest < Minitest::T
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    Gapic::Rest::ClientStub.stub :new, method_level_retry_method_client_stub do
-      # Create client
-      client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
-        config.credentials = :dummy_value
-      end
+    ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.stub :transcode_method_level_retry_method_request,
+                                                                             ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, method_level_retry_method_client_stub do
+        # Create client
+        client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
 
-      # Use hash object
-      client.method_level_retry_method({}) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object
+        client.method_level_retry_method({}) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object
-      client.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object
+        client.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use hash object with options
-      client.method_level_retry_method({}, call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object with options
+        client.method_level_retry_method({}, call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object with options
-      client.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object with options
+        client.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(),
+                                         call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Verify method calls
-      assert_equal 4, method_level_retry_method_client_stub.call_count
+        # Verify method calls
+        assert_equal 4, method_level_retry_method_client_stub.call_count
+      end
     end
   end
 

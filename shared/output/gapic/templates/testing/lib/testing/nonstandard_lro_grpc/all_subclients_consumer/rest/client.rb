@@ -26,9 +26,9 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "testing/nonstandard_lro_grpc/all_subclients_consumer/rest/service_stub"
-require "google/cloud/location"
-require "testing/nonstandard_lro_grpc/plain_lro_provider"
-require "testing/nonstandard_lro_grpc/another_lro_provider"
+require "google/cloud/location/rest"
+require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
+require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
 
 module Testing
   module NonstandardLroGrpc
@@ -114,28 +114,40 @@ module Testing
 
             # Create credentials
             credentials = @config.credentials
-            credentials ||= Credentials.default scope: @config.scope
+            # Use self-signed JWT if the endpoint is unchanged from default,
+            # but only if the default endpoint does not have a region prefix.
+            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+                                     !@config.endpoint.split(".").first.include?("-")
+            credentials ||= Credentials.default scope: @config.scope,
+                                                enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(::String) || credentials.is_a?(::Hash)
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
+            @quota_project_id = @config.quota_project
+            @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
             @operations_client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Operations.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
-            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new do |config|
+            @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
-            @another_lro_provider = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Client.new do |config|
+            @another_lro_provider = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
@@ -146,28 +158,28 @@ module Testing
           ##
           # Get the associated client for long-running operations.
           #
-          # @return [::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Operations]
+          # @return [::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Operations]
           #
           attr_reader :operations_client
 
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 
           ##
           # Get the associated client for long-running operations via PlainLroProvider.
           #
-          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Client]
+          # @return [::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client]
           #
           attr_reader :plain_lro_provider
 
           ##
           # Get the associated client for long-running operations via AnotherLroProvider.
           #
-          # @return [::Testing::NonstandardLroGrpc::AnotherLroProvider::Client]
+          # @return [::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client]
           #
           attr_reader :another_lro_provider
 
@@ -185,8 +197,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload plain_lro_rpc(request_id: nil)
           #   Pass arguments to `plain_lro_rpc` via keyword arguments. Note that at
@@ -212,20 +222,24 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.plain_lro_rpc.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.plain_lro_rpc.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.plain_lro_rpc.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @all_subclients_consumer_stub.plain_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: plain_lro_provider,
                 request_values: {
@@ -252,8 +266,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload another_lro_rpc(request_id: nil)
           #   Pass arguments to `another_lro_rpc` via keyword arguments. Note that at
@@ -279,20 +291,24 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.another_lro_rpc.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.another_lro_rpc.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.another_lro_rpc.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @all_subclients_consumer_stub.another_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: another_lro_provider,
                 request_values: {
@@ -321,8 +337,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           # @yield [result, response] Access the result along with the Faraday response object
           # @yieldparam result [::Gapic::GenericLRO::Operation]
           # @yieldparam response [::Faraday::Response]
@@ -341,20 +355,24 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.non_copy_another_lro_rpc.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.non_copy_another_lro_rpc.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.non_copy_another_lro_rpc.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @all_subclients_consumer_stub.non_copy_another_lro_rpc request, options do |result, response|
-              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::NonstandardLro.create_operation(
+              result = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::NonstandardLro.create_operation(
                 operation: result,
                 client: another_lro_provider,
                 request_values: {},
@@ -379,8 +397,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload aip_lro(request_id: nil)
           #   Pass arguments to `aip_lro` via keyword arguments. Note that at
@@ -406,17 +422,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.aip_lro.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.aip_lro.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.aip_lro.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @all_subclients_consumer_stub.aip_lro request, options do |result, response|
               result = ::Gapic::Operation.new result, @operations_client, options: options
@@ -439,8 +459,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload no_lro(request_id: nil)
           #   Pass arguments to `no_lro` via keyword arguments. Note that at
@@ -466,17 +484,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.no_lro.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.no_lro.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.no_lro.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @all_subclients_consumer_stub.no_lro request, options do |result, response|
               yield result, response if block_given?
@@ -490,24 +512,30 @@ module Testing
           # Configuration class for the AllSubclientsConsumer REST API.
           #
           # This class represents the configuration for AllSubclientsConsumer REST,
-          # providing control over credentials, timeouts, retry behavior, logging.
+          # providing control over timeouts, retry behavior, logging, transport
+          # parameters, and other low-level controls. Certain parameters can also be
+          # applied individually to specific RPCs. See
+          # {::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client::Configuration::Rpcs}
+          # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for all calls to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # plain_lro_rpc to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.plain_lro_rpc.timeout = 20.0
+          #   end
           #
-          #     ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.plain_lro_rpc.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
@@ -536,8 +564,19 @@ module Testing
           #   The call timeout in seconds.
           #   @return [::Numeric]
           # @!attribute [rw] metadata
-          #   Additional REST headers to be sent with the call.
+          #   Additional headers to be sent with the call.
           #   @return [::Hash{::Symbol=>::String}]
+          # @!attribute [rw] retry_policy
+          #   The retry policy. The value is a hash with the following keys:
+          #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+          #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+          #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+          #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+          #       trigger a retry.
+          #   @return [::Hash]
+          # @!attribute [rw] quota_project
+          #   A separate project against which to charge quota.
+          #   @return [::String]
           #
           class Configuration
             extend ::Gapic::Config
@@ -552,6 +591,8 @@ module Testing
             config_attr :lib_version,   nil, ::String, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
+            config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+            config_attr :quota_project, nil, ::String, nil
 
             # @private
             def initialize parent_config = nil
@@ -580,9 +621,14 @@ module Testing
             # the following configuration fields:
             #
             #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-            #
-            # there is one other field (`retry_policy`) that can be set
-            # but is currently not supported for REST Gapic libraries.
+            #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+            #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+            #     include the following keys:
+            #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #         trigger a retry.
             #
             class Rpcs
               ##

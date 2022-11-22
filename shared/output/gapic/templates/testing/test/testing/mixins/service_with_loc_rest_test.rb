@@ -27,10 +27,10 @@
 require "helper"
 require "gapic/rest"
 require "testing/mixins/mixins_pb"
-require "testing/mixins/service_with_loc"
+require "testing/mixins/service_with_loc/rest"
 
 
-class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
+class ::Testing::Mixins::ServiceWithLoc::Rest::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_count, :requests
 
@@ -85,34 +85,36 @@ class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    Gapic::Rest::ClientStub.stub :new, call_method_client_stub do
-      # Create client
-      client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new do |config|
-        config.credentials = :dummy_value
-      end
+    ::Testing::Mixins::ServiceWithLoc::Rest::ServiceStub.stub :transcode_call_method_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, call_method_client_stub do
+        # Create client
+        client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
 
-      # Use hash object
-      client.call_method({}) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object
+        client.call_method({}) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object
-      client.call_method ::Testing::Mixins::Request.new() do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object
+        client.call_method ::Testing::Mixins::Request.new() do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use hash object with options
-      client.call_method({}, call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object with options
+        client.call_method({}, call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object with options
-      client.call_method(::Testing::Mixins::Request.new(), call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object with options
+        client.call_method(::Testing::Mixins::Request.new(), call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Verify method calls
-      assert_equal 4, call_method_client_stub.call_count
+        # Verify method calls
+        assert_equal 4, call_method_client_stub.call_count
+      end
     end
   end
 

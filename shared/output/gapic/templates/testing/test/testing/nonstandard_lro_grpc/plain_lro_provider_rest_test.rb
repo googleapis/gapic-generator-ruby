@@ -27,10 +27,10 @@
 require "helper"
 require "gapic/rest"
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
-require "testing/nonstandard_lro_grpc/plain_lro_provider"
+require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
 
 
-class ::Testing::NonstandardLroGrpc::PlainLroProvider::ClientTest < Minitest::Test
+class ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::ClientTest < Minitest::Test
   class ClientStub
     attr_accessor :call_count, :requests
 
@@ -87,43 +87,45 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::ClientTest < Minitest::Te
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    Gapic::Rest::ClientStub.stub :new, get_client_stub do
-      # Create client
-      client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
-        config.credentials = :dummy_value
-      end
+    ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::ServiceStub.stub :transcode_get_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, get_client_stub do
+        # Create client
+        client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
 
-      # Use hash object
-      client.get({ initial_request_id: initial_request_id, lro_name: lro_name }) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object
+        client.get({ initial_request_id: initial_request_id, lro_name: lro_name }) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use named arguments
-      client.get initial_request_id: initial_request_id, lro_name: lro_name do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use named arguments
+        client.get initial_request_id: initial_request_id, lro_name: lro_name do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object
-      client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
-                                                                  lro_name: lro_name) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object
+        client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
+                                                                    lro_name: lro_name) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use hash object with options
-      client.get({ initial_request_id: initial_request_id, lro_name: lro_name }, call_options) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use hash object with options
+        client.get({ initial_request_id: initial_request_id, lro_name: lro_name }, call_options) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Use protobuf object with options
-      client.get(
-        ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
-                                                         lro_name: lro_name), call_options
-      ) do |_result, response|
-        assert_equal http_response, response
-      end
+        # Use protobuf object with options
+        client.get(
+          ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
+                                                           lro_name: lro_name), call_options
+        ) do |_result, response|
+          assert_equal http_response, response
+        end
 
-      # Verify method calls
-      assert_equal 5, get_client_stub.call_count
+        # Verify method calls
+        assert_equal 5, get_client_stub.call_count
+      end
     end
   end
 

@@ -62,7 +62,7 @@ module Testing
           def plain_no_template request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_plain_no_template_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_plain_no_template_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -99,7 +99,7 @@ module Testing
           def plain_full_field request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_plain_full_field_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_plain_full_field_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -136,7 +136,7 @@ module Testing
           def plain_extract request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_plain_extract_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_plain_extract_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -173,7 +173,7 @@ module Testing
           def complex request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_complex_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_complex_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -210,7 +210,7 @@ module Testing
           def with_sub_message request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_with_sub_message_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_with_sub_message_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -230,9 +230,6 @@ module Testing
             result
           end
 
-
-          private
-
           ##
           # @private
           #
@@ -242,7 +239,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_plain_no_template_request request_pb
+          def self.transcode_plain_no_template_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -264,7 +261,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_plain_full_field_request request_pb
+          def self.transcode_plain_full_field_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -286,7 +283,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_plain_extract_request request_pb
+          def self.transcode_plain_extract_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -308,7 +305,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_complex_request request_pb
+          def self.transcode_complex_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -330,7 +327,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_with_sub_message_request request_pb
+          def self.transcode_with_sub_message_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,

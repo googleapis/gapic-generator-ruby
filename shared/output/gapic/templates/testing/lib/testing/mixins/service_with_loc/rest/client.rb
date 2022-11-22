@@ -26,7 +26,7 @@
 
 require "testing/mixins/mixins_pb"
 require "testing/mixins/service_with_loc/rest/service_stub"
-require "google/cloud/location"
+require "google/cloud/location/rest"
 
 module Testing
   module Mixins
@@ -112,13 +112,22 @@ module Testing
 
             # Create credentials
             credentials = @config.credentials
-            credentials ||= Credentials.default scope: @config.scope
+            # Use self-signed JWT if the endpoint is unchanged from default,
+            # but only if the default endpoint does not have a region prefix.
+            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+                                     !@config.endpoint.split(".").first.include?("-")
+            credentials ||= Credentials.default scope: @config.scope,
+                                                enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(::String) || credentials.is_a?(::Hash)
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @quota_project_id = @config.quota_project
+            @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
@@ -129,7 +138,7 @@ module Testing
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 
@@ -145,8 +154,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           # @yield [result, response] Access the result along with the Faraday response object
           # @yieldparam result [::Testing::Mixins::Response]
           # @yieldparam response [::Faraday::Response]
@@ -165,17 +172,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.call_method.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.call_method.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.call_method.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_with_loc_stub.call_method request, options do |result, response|
               yield result, response if block_given?
@@ -189,24 +200,30 @@ module Testing
           # Configuration class for the ServiceWithLoc REST API.
           #
           # This class represents the configuration for ServiceWithLoc REST,
-          # providing control over credentials, timeouts, retry behavior, logging.
+          # providing control over timeouts, retry behavior, logging, transport
+          # parameters, and other low-level controls. Certain parameters can also be
+          # applied individually to specific RPCs. See
+          # {::Testing::Mixins::ServiceWithLoc::Rest::Client::Configuration::Rpcs}
+          # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for all calls to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # call_method to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Testing::Mixins::ServiceWithLoc::Rest::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.call_method.timeout = 20.0
+          #   end
           #
-          #     ::Testing::Mixins::ServiceWithLoc::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Testing::Mixins::ServiceWithLoc::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.call_method.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
@@ -235,8 +252,19 @@ module Testing
           #   The call timeout in seconds.
           #   @return [::Numeric]
           # @!attribute [rw] metadata
-          #   Additional REST headers to be sent with the call.
+          #   Additional headers to be sent with the call.
           #   @return [::Hash{::Symbol=>::String}]
+          # @!attribute [rw] retry_policy
+          #   The retry policy. The value is a hash with the following keys:
+          #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+          #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+          #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+          #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+          #       trigger a retry.
+          #   @return [::Hash]
+          # @!attribute [rw] quota_project
+          #   A separate project against which to charge quota.
+          #   @return [::String]
           #
           class Configuration
             extend ::Gapic::Config
@@ -251,6 +279,8 @@ module Testing
             config_attr :lib_version,   nil, ::String, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
+            config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+            config_attr :quota_project, nil, ::String, nil
 
             # @private
             def initialize parent_config = nil
@@ -279,9 +309,14 @@ module Testing
             # the following configuration fields:
             #
             #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-            #
-            # there is one other field (`retry_policy`) that can be set
-            # but is currently not supported for REST Gapic libraries.
+            #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+            #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+            #     include the following keys:
+            #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #         trigger a retry.
             #
             class Rpcs
               ##

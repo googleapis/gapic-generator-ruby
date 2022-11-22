@@ -26,7 +26,7 @@
 
 require "testing/routing_headers/routing_headers_pb"
 require "testing/routing_headers/service_explicit_headers/rest/service_stub"
-require "google/cloud/location"
+require "google/cloud/location/rest"
 
 module Testing
   module RoutingHeaders
@@ -112,13 +112,22 @@ module Testing
 
             # Create credentials
             credentials = @config.credentials
-            credentials ||= Credentials.default scope: @config.scope
+            # Use self-signed JWT if the endpoint is unchanged from default,
+            # but only if the default endpoint does not have a region prefix.
+            enable_self_signed_jwt = @config.endpoint == Client.configure.endpoint &&
+                                     !@config.endpoint.split(".").first.include?("-")
+            credentials ||= Credentials.default scope: @config.scope,
+                                                enable_self_signed_jwt: enable_self_signed_jwt
             if credentials.is_a?(::String) || credentials.is_a?(::Hash)
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
-            @location_client = Google::Cloud::Location::Locations::Client.new do |config|
+            @quota_project_id = @config.quota_project
+            @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
               config.credentials = credentials
+              config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
             end
 
@@ -129,7 +138,7 @@ module Testing
           ##
           # Get the associated client for mix-in of the Locations.
           #
-          # @return [Google::Cloud::Location::Locations::Client]
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
           #
           attr_reader :location_client
 
@@ -145,8 +154,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload plain_no_template(table_name: nil, app_profile_id: nil, resource: nil)
           #   Pass arguments to `plain_no_template` via keyword arguments. Note that at
@@ -183,17 +190,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.plain_no_template.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.plain_no_template.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.plain_no_template.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_explicit_headers_stub.plain_no_template request, options do |result, response|
               yield result, response if block_given?
@@ -213,8 +224,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload plain_full_field(table_name: nil, app_profile_id: nil, resource: nil)
           #   Pass arguments to `plain_full_field` via keyword arguments. Note that at
@@ -251,17 +260,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.plain_full_field.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.plain_full_field.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.plain_full_field.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_explicit_headers_stub.plain_full_field request, options do |result, response|
               yield result, response if block_given?
@@ -281,8 +294,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload plain_extract(table_name: nil, app_profile_id: nil, resource: nil)
           #   Pass arguments to `plain_extract` via keyword arguments. Note that at
@@ -319,17 +330,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.plain_extract.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.plain_extract.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.plain_extract.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_explicit_headers_stub.plain_extract request, options do |result, response|
               yield result, response if block_given?
@@ -349,8 +364,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload complex(table_name: nil, app_profile_id: nil, resource: nil)
           #   Pass arguments to `complex` via keyword arguments. Note that at
@@ -387,17 +400,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.complex.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.complex.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.complex.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_explicit_headers_stub.complex request, options do |result, response|
               yield result, response if block_given?
@@ -417,8 +434,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload with_sub_message(table_name: nil, app_profile_id: nil, resource: nil)
           #   Pass arguments to `with_sub_message` via keyword arguments. Note that at
@@ -455,17 +470,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.with_sub_message.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.with_sub_message.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.with_sub_message.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @service_explicit_headers_stub.with_sub_message request, options do |result, response|
               yield result, response if block_given?
@@ -479,24 +498,30 @@ module Testing
           # Configuration class for the ServiceExplicitHeaders REST API.
           #
           # This class represents the configuration for ServiceExplicitHeaders REST,
-          # providing control over credentials, timeouts, retry behavior, logging.
+          # providing control over timeouts, retry behavior, logging, transport
+          # parameters, and other low-level controls. Certain parameters can also be
+          # applied individually to specific RPCs. See
+          # {::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client::Configuration::Rpcs}
+          # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for all calls to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # plain_no_template to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.plain_no_template.timeout = 20.0
+          #   end
           #
-          #     ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.plain_no_template.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
@@ -525,8 +550,19 @@ module Testing
           #   The call timeout in seconds.
           #   @return [::Numeric]
           # @!attribute [rw] metadata
-          #   Additional REST headers to be sent with the call.
+          #   Additional headers to be sent with the call.
           #   @return [::Hash{::Symbol=>::String}]
+          # @!attribute [rw] retry_policy
+          #   The retry policy. The value is a hash with the following keys:
+          #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+          #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+          #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+          #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+          #       trigger a retry.
+          #   @return [::Hash]
+          # @!attribute [rw] quota_project
+          #   A separate project against which to charge quota.
+          #   @return [::String]
           #
           class Configuration
             extend ::Gapic::Config
@@ -541,6 +577,8 @@ module Testing
             config_attr :lib_version,   nil, ::String, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
+            config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+            config_attr :quota_project, nil, ::String, nil
 
             # @private
             def initialize parent_config = nil
@@ -569,9 +607,14 @@ module Testing
             # the following configuration fields:
             #
             #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-            #
-            # there is one other field (`retry_policy`) that can be set
-            # but is currently not supported for REST Gapic libraries.
+            #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+            #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+            #     include the following keys:
+            #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #         trigger a retry.
             #
             class Rpcs
               ##

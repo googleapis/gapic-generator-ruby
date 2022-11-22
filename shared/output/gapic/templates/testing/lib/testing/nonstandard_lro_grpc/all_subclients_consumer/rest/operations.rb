@@ -86,6 +86,9 @@ module Testing
               credentials = Credentials.new credentials, scope: @config.scope
             end
 
+            @quota_project_id = @config.quota_project
+            @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
+
             @operations_stub = OperationsServiceStub.new(
               endpoint:     @config.endpoint,
               credentials:  credentials
@@ -118,8 +121,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload list_operations(name: nil, filter: nil, page_size: nil, page_token: nil)
           #   Pass arguments to `list_operations` via keyword arguments. Note that at
@@ -152,17 +153,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.list_operations.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.list_operations.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.list_operations.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @operations_stub.list_operations request, options do |result, response|
               result = ::Gapic::Rest::PagedEnumerable.new @operations_stub, :list_operations, "operations", request,
@@ -188,8 +193,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload get_operation(name: nil)
           #   Pass arguments to `get_operation` via keyword arguments. Note that at
@@ -216,17 +219,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.get_operation.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.get_operation.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.get_operation.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @operations_stub.get_operation request, options do |result, response|
               result = ::Gapic::Operation.new result, @operations_client, options: options
@@ -252,8 +259,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload delete_operation(name: nil)
           #   Pass arguments to `delete_operation` via keyword arguments. Note that at
@@ -280,17 +285,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.delete_operation.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.delete_operation.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.delete_operation.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @operations_stub.delete_operation request, options do |result, response|
               yield result, response if block_given?
@@ -321,8 +330,6 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          #     Note: currently retry functionality is not implemented. While it is possible
-          #     to set it using ::Gapic::CallOptions, it will not be applied
           #
           # @overload cancel_operation(name: nil)
           #   Pass arguments to `cancel_operation` via keyword arguments. Note that at
@@ -349,17 +356,21 @@ module Testing
             # Customize the options with defaults
             call_metadata = @config.rpcs.cancel_operation.metadata.to_h
 
-            # Set x-goog-api-client header
+            # Set x-goog-api-client and x-goog-user-project headers
             call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
+            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
             options.apply_defaults timeout:      @config.rpcs.cancel_operation.timeout,
-                                   metadata:     call_metadata
+                                   metadata:     call_metadata,
+                                   retry_policy: @config.rpcs.cancel_operation.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
-                                   metadata:     @config.metadata
+                                   metadata:     @config.metadata,
+                                   retry_policy: @config.retry_policy
 
             @operations_stub.cancel_operation request, options do |result, response|
               yield result, response if block_given?
@@ -373,24 +384,30 @@ module Testing
           # Configuration class for the Operations REST API.
           #
           # This class represents the configuration for Operations REST,
-          # providing control over credentials, timeouts, retry behavior, logging.
+          # providing control over timeouts, retry behavior, logging, transport
+          # parameters, and other low-level controls. Certain parameters can also be
+          # applied individually to specific RPCs. See
+          # {::Google::Longrunning::Operations::Rest::Client::Configuration::Rpcs}
+          # for a list of RPCs that can be configured independently.
           #
           # Configuration can be applied globally to all clients, or to a single client
           # on construction.
           #
-          # # Examples
+          # @example
           #
-          # To modify the global config, setting the timeout for all calls to 10 seconds:
+          #   # Modify the global config, setting the timeout for
+          #   # list_operations to 20 seconds,
+          #   # and all remaining timeouts to 10 seconds.
+          #   ::Google::Longrunning::Operations::Rest::Client.configure do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.list_operations.timeout = 20.0
+          #   end
           #
-          #     ::Google::Longrunning::Operations::Client.configure do |config|
-          #       config.timeout = 10.0
-          #     end
-          #
-          # To apply the above configuration only to a new client:
-          #
-          #     client = ::Google::Longrunning::Operations::Client.new do |config|
-          #       config.timeout = 10.0
-          #     end
+          #   # Apply the above configuration only to a new client.
+          #   client = ::Google::Longrunning::Operations::Rest::Client.new do |config|
+          #     config.timeout = 10.0
+          #     config.rpcs.list_operations.timeout = 20.0
+          #   end
           #
           # @!attribute [rw] endpoint
           #   The hostname or hostname:port of the service endpoint.
@@ -419,8 +436,19 @@ module Testing
           #   The call timeout in seconds.
           #   @return [::Numeric]
           # @!attribute [rw] metadata
-          #   Additional REST headers to be sent with the call.
+          #   Additional headers to be sent with the call.
           #   @return [::Hash{::Symbol=>::String}]
+          # @!attribute [rw] retry_policy
+          #   The retry policy. The value is a hash with the following keys:
+          #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+          #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+          #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+          #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+          #       trigger a retry.
+          #   @return [::Hash]
+          # @!attribute [rw] quota_project
+          #   A separate project against which to charge quota.
+          #   @return [::String]
           #
           class Configuration
             extend ::Gapic::Config
@@ -435,6 +463,8 @@ module Testing
             config_attr :lib_version,   nil, ::String, nil
             config_attr :timeout,       nil, ::Numeric, nil
             config_attr :metadata,      nil, ::Hash, nil
+            config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
+            config_attr :quota_project, nil, ::String, nil
 
             # @private
             def initialize parent_config = nil
@@ -463,9 +493,14 @@ module Testing
             # the following configuration fields:
             #
             #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-            #
-            # there is one other field (`retry_policy`) that can be set
-            # but is currently not supported for REST Gapic libraries.
+            #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+            #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+            #     include the following keys:
+            #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #         trigger a retry.
             #
             class Rpcs
               ##
@@ -506,6 +541,8 @@ module Testing
           end
         end
 
+        ##
+        # @private
         # REST service stub for the Longrunning Operations API.
         # Service stub contains baseline method implementations
         # including transcoding, making the REST call, and deserialing the response.
@@ -535,7 +572,7 @@ module Testing
           def list_operations request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_list_operations_request request_pb
+            verb, uri, query_string_params, body = OperationsServiceStub.transcode_list_operations_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -573,7 +610,7 @@ module Testing
           def get_operation request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_get_operation_request request_pb
+            verb, uri, query_string_params, body = OperationsServiceStub.transcode_get_operation_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -610,7 +647,7 @@ module Testing
           def delete_operation request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_delete_operation_request request_pb
+            verb, uri, query_string_params, body = OperationsServiceStub.transcode_delete_operation_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -647,7 +684,7 @@ module Testing
           def cancel_operation request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_cancel_operation_request request_pb
+            verb, uri, query_string_params, body = OperationsServiceStub.transcode_cancel_operation_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -667,9 +704,6 @@ module Testing
             result
           end
 
-
-          private
-
           ##
           # @private
           #
@@ -679,7 +713,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_list_operations_request request_pb
+          def self.transcode_list_operations_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -700,7 +734,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_get_operation_request request_pb
+          def self.transcode_get_operation_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :get,
@@ -721,7 +755,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_delete_operation_request request_pb
+          def self.transcode_delete_operation_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :delete,
@@ -742,7 +776,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_cancel_operation_request request_pb
+          def self.transcode_cancel_operation_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,

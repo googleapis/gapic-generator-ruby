@@ -62,7 +62,7 @@ module Testing
           def get request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_get_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_get_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -83,9 +83,6 @@ module Testing
             result
           end
 
-
-          private
-
           ##
           # @private
           #
@@ -95,7 +92,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_get_request request_pb
+          def self.transcode_get_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,

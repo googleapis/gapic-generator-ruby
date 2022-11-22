@@ -62,7 +62,7 @@ module Testing
           def plain_lro_rpc request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_plain_lro_rpc_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_plain_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -100,7 +100,7 @@ module Testing
           def another_lro_rpc request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_another_lro_rpc_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_another_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -138,7 +138,7 @@ module Testing
           def non_copy_another_lro_rpc request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_non_copy_another_lro_rpc_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_non_copy_another_lro_rpc_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -176,7 +176,7 @@ module Testing
           def aip_lro request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_aip_lro_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_aip_lro_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -213,7 +213,7 @@ module Testing
           def no_lro request_pb, options = nil
             raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-            verb, uri, query_string_params, body = transcode_no_lro_request request_pb
+            verb, uri, query_string_params, body = ServiceStub.transcode_no_lro_request request_pb
             query_string_params = if query_string_params.any?
                                     query_string_params.to_h { |p| p.split("=", 2) }
                                   else
@@ -233,9 +233,6 @@ module Testing
             result
           end
 
-
-          private
-
           ##
           # @private
           #
@@ -245,7 +242,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_plain_lro_rpc_request request_pb
+          def self.transcode_plain_lro_rpc_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,
@@ -265,7 +262,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_another_lro_rpc_request request_pb
+          def self.transcode_another_lro_rpc_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,
@@ -285,7 +282,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_non_copy_another_lro_rpc_request request_pb
+          def self.transcode_non_copy_another_lro_rpc_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,
@@ -305,7 +302,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_aip_lro_request request_pb
+          def self.transcode_aip_lro_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,
@@ -325,7 +322,7 @@ module Testing
           #   A request object representing the call parameters. Required.
           # @return [Array(String, [String, nil], Hash{String => String})]
           #   Uri, Body, Query string parameters
-          def transcode_no_lro_request request_pb
+          def self.transcode_no_lro_request request_pb
             transcoder = Gapic::Rest::GrpcTranscoder.new
                                                     .with_bindings(
                                                       uri_method: :post,
