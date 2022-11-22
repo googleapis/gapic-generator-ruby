@@ -27,6 +27,8 @@ class ServicePresenterMixinTest < PresenterTest
   end
 
   def test_vision_
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Vision"
     presenter = service_presenter :vision_v1, "ImageAnnotator"
     refute_empty presenter.rest.mixin_presenters
   end
