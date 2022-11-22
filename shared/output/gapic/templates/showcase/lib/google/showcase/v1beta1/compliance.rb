@@ -48,7 +48,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/showcase/v1beta1/compliance"
+      #     require "google/showcase/v1beta1/compliance/rest"
       #     client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new
       #
       module Compliance

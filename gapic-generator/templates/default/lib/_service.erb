@@ -43,7 +43,7 @@ require "<%= service.rest.service_rest_require %>"
 <%- if service.generate_rest_clients? && service.methods_rest_bindings? -%>
 # To load this service and instantiate a REST client:
 #
-#     require "<%= service.service_require %>"
+#     require "<%= service.rest.service_require %>"
 #     client = <%= service.rest.create_client_call %>
 #
 <%- end -%>

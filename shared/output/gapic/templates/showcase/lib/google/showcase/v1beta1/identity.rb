@@ -48,7 +48,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/showcase/v1beta1/identity"
+      #     require "google/showcase/v1beta1/identity/rest"
       #     client = ::Google::Showcase::V1beta1::Identity::Rest::Client.new
       #
       module Identity

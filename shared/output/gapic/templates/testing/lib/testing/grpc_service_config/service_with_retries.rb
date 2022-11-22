@@ -44,7 +44,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/grpc_service_config/service_with_retries"
+    #     require "testing/grpc_service_config/service_with_retries/rest"
     #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new
     #
     module ServiceWithRetries

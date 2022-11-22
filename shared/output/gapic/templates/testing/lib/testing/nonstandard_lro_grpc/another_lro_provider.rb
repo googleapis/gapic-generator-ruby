@@ -45,7 +45,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/nonstandard_lro_grpc/another_lro_provider"
+    #     require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
     #     client = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client.new
     #
     module AnotherLroProvider

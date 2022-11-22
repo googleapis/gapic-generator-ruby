@@ -44,7 +44,7 @@ module Google
         #
         # To load this service and instantiate a REST client:
         #
-        #     require "google/cloud/vision/v1/image_annotator"
+        #     require "google/cloud/vision/v1/image_annotator/rest"
         #     client = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::Client.new
         #
         module ImageAnnotator

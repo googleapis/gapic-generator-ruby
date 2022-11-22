@@ -49,7 +49,7 @@ module Google
       #
       # To load this service and instantiate a REST client:
       #
-      #     require "google/showcase/v1beta1/testing"
+      #     require "google/showcase/v1beta1/testing/rest"
       #     client = ::Google::Showcase::V1beta1::Testing::Rest::Client.new
       #
       module Testing

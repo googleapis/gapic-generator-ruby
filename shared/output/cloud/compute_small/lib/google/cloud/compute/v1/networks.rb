@@ -33,7 +33,7 @@ module Google
         #
         # To load this service and instantiate a REST client:
         #
-        #     require "google/cloud/compute/v1/networks"
+        #     require "google/cloud/compute/v1/networks/rest"
         #     client = ::Google::Cloud::Compute::V1::Networks::Rest::Client.new
         #
         module Networks

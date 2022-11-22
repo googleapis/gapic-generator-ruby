@@ -44,7 +44,7 @@ module Testing
     #
     # To load this service and instantiate a REST client:
     #
-    #     require "testing/mixins/service_with_loc"
+    #     require "testing/mixins/service_with_loc/rest"
     #     client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new
     #
     module ServiceWithLoc
