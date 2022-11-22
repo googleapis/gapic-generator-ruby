@@ -20,6 +20,10 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/vision/v1/version"
+
+require "google/cloud/vision/v1/product_search/credentials"
+require "google/cloud/vision/v1/product_search/paths"
 require "google/cloud/vision/v1/product_search/rest/operations"
 require "google/cloud/vision/v1/product_search/rest/client"
 
@@ -27,6 +31,27 @@ module Google
   module Cloud
     module Vision
       module V1
+        ##
+        # Manages Products and ProductSets of reference images for use in product
+        # search. It uses the following resource model:
+        #
+        # - The API has a collection of {::Google::Cloud::Vision::V1::ProductSet ProductSet} resources, named
+        # `projects/*/locations/*/productSets/*`, which acts as a way to put different
+        # products into groups to limit identification.
+        #
+        # In parallel,
+        #
+        # - The API has a collection of {::Google::Cloud::Vision::V1::Product Product} resources, named
+        #   `projects/*/locations/*/products/*`
+        #
+        # - Each {::Google::Cloud::Vision::V1::Product Product} has a collection of {::Google::Cloud::Vision::V1::ReferenceImage ReferenceImage} resources, named
+        #   `projects/*/locations/*/products/*/referenceImages/*`
+        #
+        # To load this service and instantiate a REST client:
+        #
+        #     require "google/cloud/vision/v1/product_search/rest"
+        #     client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new
+        #
         module ProductSearch
           # Client for the REST transport
           module Rest
@@ -36,3 +61,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "product_search", "helpers.rb"
+require "google/cloud/vision/v1/product_search/helpers" if ::File.file? helper_path

@@ -28,11 +28,23 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/showcase/version"
+
+require "google/showcase/v1beta1/identity/credentials"
+require "google/showcase/v1beta1/identity/paths"
 require "google/showcase/v1beta1/identity/rest/client"
 
 module Google
   module Showcase
     module V1beta1
+      ##
+      # A simple identity service.
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/identity/rest"
+      #     client = ::Google::Showcase::V1beta1::Identity::Rest::Client.new
+      #
       module Identity
         # Client for the REST transport
         module Rest
@@ -41,3 +53,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "identity", "helpers.rb"
+require "google/showcase/v1beta1/identity/helpers" if ::File.file? helper_path

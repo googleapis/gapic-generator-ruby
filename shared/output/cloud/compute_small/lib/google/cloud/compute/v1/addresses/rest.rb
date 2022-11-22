@@ -20,12 +20,23 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/compute/v1/version"
+
+require "google/cloud/compute/v1/addresses/credentials"
 require "google/cloud/compute/v1/addresses/rest/client"
 
 module Google
   module Cloud
     module Compute
       module V1
+        ##
+        # The Addresses API.
+        #
+        # To load this service and instantiate a REST client:
+        #
+        #     require "google/cloud/compute/v1/addresses/rest"
+        #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new
+        #
         module Addresses
           # Client for the REST transport
           module Rest
@@ -35,3 +46,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "addresses", "helpers.rb"
+require "google/cloud/compute/v1/addresses/helpers" if ::File.file? helper_path

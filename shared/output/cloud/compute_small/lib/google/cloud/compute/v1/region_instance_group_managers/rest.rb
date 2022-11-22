@@ -20,12 +20,23 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/compute/v1/version"
+
+require "google/cloud/compute/v1/region_instance_group_managers/credentials"
 require "google/cloud/compute/v1/region_instance_group_managers/rest/client"
 
 module Google
   module Cloud
     module Compute
       module V1
+        ##
+        # The RegionInstanceGroupManagers API.
+        #
+        # To load this service and instantiate a REST client:
+        #
+        #     require "google/cloud/compute/v1/region_instance_group_managers/rest"
+        #     client = ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client.new
+        #
         module RegionInstanceGroupManagers
           # Client for the REST transport
           module Rest
@@ -35,3 +46,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "region_instance_group_managers", "helpers.rb"
+require "google/cloud/compute/v1/region_instance_group_managers/helpers" if ::File.file? helper_path

@@ -20,6 +20,10 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/vision/v1/version"
+
+require "google/cloud/vision/v1/image_annotator/credentials"
+require "google/cloud/vision/v1/image_annotator/paths"
 require "google/cloud/vision/v1/image_annotator/rest/operations"
 require "google/cloud/vision/v1/image_annotator/rest/client"
 
@@ -27,6 +31,16 @@ module Google
   module Cloud
     module Vision
       module V1
+        ##
+        # Service that performs Google Cloud Vision API detection tasks over client
+        # images, such as face, landmark, logo, label, and text detection. The
+        # ImageAnnotator service returns detected entities from the images.
+        #
+        # To load this service and instantiate a REST client:
+        #
+        #     require "google/cloud/vision/v1/image_annotator/rest"
+        #     client = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::Client.new
+        #
         module ImageAnnotator
           # Client for the REST transport
           module Rest
@@ -36,3 +50,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "image_annotator", "helpers.rb"
+require "google/cloud/vision/v1/image_annotator/helpers" if ::File.file? helper_path

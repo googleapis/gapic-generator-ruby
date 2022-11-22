@@ -28,10 +28,19 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "testing/version"
+
+require "testing/routing_headers/service_implicit_headers/credentials"
 require "testing/routing_headers/service_implicit_headers/rest/client"
 
 module Testing
   module RoutingHeaders
+    ##
+    # To load this service and instantiate a REST client:
+    #
+    #     require "testing/routing_headers/service_implicit_headers/rest"
+    #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new
+    #
     module ServiceImplicitHeaders
       # Client for the REST transport
       module Rest
@@ -39,3 +48,6 @@ module Testing
     end
   end
 end
+
+helper_path = ::File.join __dir__, "service_implicit_headers", "helpers.rb"
+require "testing/routing_headers/service_implicit_headers/helpers" if ::File.file? helper_path

@@ -20,6 +20,9 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/cloud/compute/v1/version"
+
+require "google/cloud/compute/v1/region_operations/credentials"
 require "google/cloud/compute/v1/region_operations/rest/nonstandard_lro"
 require "google/cloud/compute/v1/region_operations/rest/client"
 
@@ -27,6 +30,14 @@ module Google
   module Cloud
     module Compute
       module V1
+        ##
+        # The RegionOperations API.
+        #
+        # To load this service and instantiate a REST client:
+        #
+        #     require "google/cloud/compute/v1/region_operations/rest"
+        #     client = ::Google::Cloud::Compute::V1::RegionOperations::Rest::Client.new
+        #
         module RegionOperations
           # Client for the REST transport
           module Rest
@@ -36,3 +47,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "region_operations", "helpers.rb"
+require "google/cloud/compute/v1/region_operations/helpers" if ::File.file? helper_path

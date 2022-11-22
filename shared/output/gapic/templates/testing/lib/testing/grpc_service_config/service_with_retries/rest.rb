@@ -28,10 +28,19 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "testing/version"
+
+require "testing/grpc_service_config/service_with_retries/credentials"
 require "testing/grpc_service_config/service_with_retries/rest/client"
 
 module Testing
   module GrpcServiceConfig
+    ##
+    # To load this service and instantiate a REST client:
+    #
+    #     require "testing/grpc_service_config/service_with_retries/rest"
+    #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new
+    #
     module ServiceWithRetries
       # Client for the REST transport
       module Rest
@@ -39,3 +48,6 @@ module Testing
     end
   end
 end
+
+helper_path = ::File.join __dir__, "service_with_retries", "helpers.rb"
+require "testing/grpc_service_config/service_with_retries/helpers" if ::File.file? helper_path

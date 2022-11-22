@@ -28,10 +28,19 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "testing/version"
+
+require "testing/nonstandard_lro_grpc/plain_lro_consumer/credentials"
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest/client"
 
 module Testing
   module NonstandardLroGrpc
+    ##
+    # To load this service and instantiate a REST client:
+    #
+    #     require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest"
+    #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new
+    #
     module PlainLroConsumer
       # Client for the REST transport
       module Rest
@@ -39,3 +48,6 @@ module Testing
     end
   end
 end
+
+helper_path = ::File.join __dir__, "plain_lro_consumer", "helpers.rb"
+require "testing/nonstandard_lro_grpc/plain_lro_consumer/helpers" if ::File.file? helper_path
