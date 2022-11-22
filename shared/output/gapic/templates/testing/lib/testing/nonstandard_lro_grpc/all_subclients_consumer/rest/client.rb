@@ -26,7 +26,6 @@
 
 require "testing/nonstandard_lro_grpc/nonstandard_lro_grpc_pb"
 require "testing/nonstandard_lro_grpc/all_subclients_consumer/rest/service_stub"
-require "google/cloud/location/rest"
 require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
 require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
 
@@ -133,12 +132,6 @@ module Testing
               config.endpoint = @config.endpoint
             end
 
-            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
-              config.credentials = credentials
-              config.quota_project = @quota_project_id
-              config.endpoint = @config.endpoint
-            end
-
             @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|
               config.credentials = credentials
               config.quota_project = @quota_project_id
@@ -161,13 +154,6 @@ module Testing
           # @return [::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Operations]
           #
           attr_reader :operations_client
-
-          ##
-          # Get the associated client for mix-in of the Locations.
-          #
-          # @return [Google::Cloud::Location::Locations::Rest::Client]
-          #
-          attr_reader :location_client
 
           ##
           # Get the associated client for long-running operations via PlainLroProvider.

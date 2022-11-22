@@ -3,7 +3,6 @@ config_version: 3
 
 apis:
 - name: testing.mixins.ServiceWithLoc
-- name: google.cloud.location.Locations
 - name: google.longrunning.Operations
 
 http:

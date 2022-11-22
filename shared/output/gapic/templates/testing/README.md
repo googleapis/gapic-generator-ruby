@@ -15,7 +15,7 @@ $ gem install testing
 ## Quick Start
 
 ```ruby
-require "testing/grpc_service_config"
+require "google/cloud/location"
 
 client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
 request = ::Testing::GrpcServiceConfig::Request.new # (request fields as keyword arguments...)
