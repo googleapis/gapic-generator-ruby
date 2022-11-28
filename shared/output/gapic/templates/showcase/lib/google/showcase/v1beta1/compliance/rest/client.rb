@@ -147,8 +147,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body` via keyword arguments. Note that at
@@ -197,10 +195,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_body request, options do |result, response|
                 yield result, response if block_given?
@@ -224,8 +224,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_info(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_info` via keyword arguments. Note that at
@@ -274,10 +272,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_info.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_info.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_body_info request, options do |result, response|
                 yield result, response if block_given?
@@ -300,8 +300,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_query(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_query` via keyword arguments. Note that at
@@ -350,10 +348,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_query.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_query.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_query request, options do |result, response|
                 yield result, response if block_given?
@@ -377,8 +377,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_simple_path(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_simple_path` via keyword arguments. Note that at
@@ -427,10 +425,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_simple_path.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_simple_path.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_simple_path request, options do |result, response|
                 yield result, response if block_given?
@@ -452,8 +452,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_path_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_path_resource` via keyword arguments. Note that at
@@ -502,10 +500,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_path_resource.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_path_resource.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_path_resource request, options do |result, response|
                 yield result, response if block_given?
@@ -527,8 +527,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_path_trailing_resource(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_path_trailing_resource` via keyword arguments. Note that at
@@ -577,10 +575,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_path_trailing_resource.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_path_trailing_resource.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_path_trailing_resource request, options do |result, response|
                 yield result, response if block_given?
@@ -602,8 +602,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_put(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_put` via keyword arguments. Note that at
@@ -652,10 +650,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_put.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_put.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_body_put request, options do |result, response|
                 yield result, response if block_given?
@@ -677,8 +677,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload repeat_data_body_patch(name: nil, info: nil, server_verify: nil, intended_binding_uri: nil, f_int32: nil, f_int64: nil, f_double: nil, p_int32: nil, p_int64: nil, p_double: nil)
             #   Pass arguments to `repeat_data_body_patch` via keyword arguments. Note that at
@@ -727,10 +725,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.repeat_data_body_patch.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.repeat_data_body_patch.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               @compliance_stub.repeat_data_body_patch request, options do |result, response|
                 yield result, response if block_given?
@@ -744,7 +744,11 @@ module Google
             # Configuration class for the Compliance REST API.
             #
             # This class represents the configuration for Compliance REST,
-            # providing control over credentials, timeouts, retry behavior, logging.
+            # providing control over timeouts, retry behavior, logging, transport
+            # parameters, and other low-level controls. Certain parameters can also be
+            # applied individually to specific RPCs. See
+            # {::Google::Showcase::V1beta1::Compliance::Rest::Client::Configuration::Rpcs}
+            # for a list of RPCs that can be configured independently.
             #
             # Configuration can be applied globally to all clients, or to a single client
             # on construction.
@@ -754,13 +758,13 @@ module Google
             #   # Modify the global config, setting the timeout for
             #   # repeat_data_body to 20 seconds,
             #   # and all remaining timeouts to 10 seconds.
-            #   ::Google::Showcase::V1beta1::Compliance::Client.configure do |config|
+            #   ::Google::Showcase::V1beta1::Compliance::Rest::Client.configure do |config|
             #     config.timeout = 10.0
             #     config.rpcs.repeat_data_body.timeout = 20.0
             #   end
             #
             #   # Apply the above configuration only to a new client.
-            #   client = ::Google::Showcase::V1beta1::Compliance::Client.new do |config|
+            #   client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new do |config|
             #     config.timeout = 10.0
             #     config.rpcs.repeat_data_body.timeout = 20.0
             #   end
@@ -794,6 +798,14 @@ module Google
             # @!attribute [rw] metadata
             #   Additional headers to be sent with the call.
             #   @return [::Hash{::Symbol=>::String}]
+            # @!attribute [rw] retry_policy
+            #   The retry policy. The value is a hash with the following keys:
+            #    *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+            #    *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+            #    *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+            #    *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+            #       trigger a retry.
+            #   @return [::Hash]
             # @!attribute [rw] quota_project
             #   A separate project against which to charge quota.
             #   @return [::String]
@@ -812,6 +824,7 @@ module Google
               config_attr :lib_version,   nil, ::String, nil
               config_attr :timeout,       nil, ::Numeric, nil
               config_attr :metadata,      nil, ::Hash, nil
+              config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
               config_attr :quota_project, nil, ::String, nil
 
               # @private
@@ -841,9 +854,14 @@ module Google
               # the following configuration fields:
               #
               #  *  `timeout` (*type:* `Numeric`) - The call timeout in seconds
-              #
-              # there is one other field (`retry_policy`) that can be set
-              # but is currently not supported for REST Gapic libraries.
+              #  *  `metadata` (*type:* `Hash{Symbol=>String}`) - Additional headers
+              #  *  `retry_policy (*type:* `Hash`) - The retry policy. The policy fields
+              #     include the following keys:
+              #      *  `:initial_delay` (*type:* `Numeric`) - The initial delay in seconds.
+              #      *  `:max_delay` (*type:* `Numeric`) - The max delay in seconds.
+              #      *  `:multiplier` (*type:* `Numeric`) - The incremental backoff multiplier.
+              #      *  `:retry_codes` (*type:* `Array<String>`) - The error codes that should
+              #         trigger a retry.
               #
               class Rpcs
                 ##

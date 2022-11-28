@@ -63,7 +63,7 @@ module Google
             def repeat_data_body request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_body_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_body_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -101,7 +101,7 @@ module Google
             def repeat_data_body_info request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_body_info_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_body_info_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -139,7 +139,7 @@ module Google
             def repeat_data_query request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_query_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_query_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -177,7 +177,7 @@ module Google
             def repeat_data_simple_path request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_simple_path_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_simple_path_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -215,7 +215,7 @@ module Google
             def repeat_data_path_resource request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_path_resource_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_path_resource_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -253,7 +253,7 @@ module Google
             def repeat_data_path_trailing_resource request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_path_trailing_resource_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_path_trailing_resource_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -291,7 +291,7 @@ module Google
             def repeat_data_body_put request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_body_put_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_body_put_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -329,7 +329,7 @@ module Google
             def repeat_data_body_patch request_pb, options = nil
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_repeat_data_body_patch_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_repeat_data_body_patch_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -350,9 +350,6 @@ module Google
               result
             end
 
-
-            private
-
             ##
             # @private
             #
@@ -362,7 +359,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_body_request request_pb
+            def self.transcode_repeat_data_body_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -382,7 +379,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_body_info_request request_pb
+            def self.transcode_repeat_data_body_info_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,
@@ -402,7 +399,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_query_request request_pb
+            def self.transcode_repeat_data_query_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -421,7 +418,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_simple_path_request request_pb
+            def self.transcode_repeat_data_simple_path_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -446,7 +443,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_path_resource_request request_pb
+            def self.transcode_repeat_data_path_resource_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -478,7 +475,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_path_trailing_resource_request request_pb
+            def self.transcode_repeat_data_path_trailing_resource_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :get,
@@ -500,7 +497,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_body_put_request request_pb
+            def self.transcode_repeat_data_body_put_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :put,
@@ -520,7 +517,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_repeat_data_body_patch_request request_pb
+            def self.transcode_repeat_data_body_patch_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :patch,

@@ -1,5 +1,11 @@
 # Release History
 
+### 0.15.1 (2022-11-18)
+
+#### Bug Fixes
+
+* Fixed uninitialized constant when checking retry policy for a REST call ([#857](https://github.com/googleapis/gapic-generator-ruby/issues/857)) 
+
 ### 0.15.0 (2022-11-17)
 
 #### Features
