@@ -469,7 +469,7 @@ module Google
             def stream_blurbs request_pb, options = nil, &block
               raise ::ArgumentError, "request must be provided" if request_pb.nil?
 
-              verb, uri, query_string_params, body = transcode_stream_blurbs_request request_pb
+              verb, uri, query_string_params, body = ServiceStub.transcode_stream_blurbs_request request_pb
               query_string_params = if query_string_params.any?
                                       query_string_params.to_h { |p| p.split("=", 2) }
                                     else
@@ -486,9 +486,6 @@ module Google
                 &block
               )
             end
-
-
-            private
 
             ##
             # @private
@@ -776,7 +773,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
-            def transcode_stream_blurbs_request request_pb
+            def self.transcode_stream_blurbs_request request_pb
               transcoder = Gapic::Rest::GrpcTranscoder.new
                                                       .with_bindings(
                                                         uri_method: :post,

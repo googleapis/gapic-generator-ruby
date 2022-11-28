@@ -891,8 +891,6 @@ module Google
             #     parameters, or to keep all the default parameter values, pass an empty Hash.
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            #     Note: currently retry functionality is not implemented. While it is possible
-            #     to set it using ::Gapic::CallOptions, it will not be applied
             #
             # @overload stream_blurbs(name: nil, expire_time: nil)
             #   Pass arguments to `stream_blurbs` via keyword arguments. Note that at
@@ -926,10 +924,12 @@ module Google
               call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
-                                     metadata:     call_metadata
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.stream_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
-                                     metadata:     @config.metadata
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
 
               ::Gapic::Rest::ServerStream.new(
                 ::Google::Showcase::V1beta1::StreamBlurbsResponse,
