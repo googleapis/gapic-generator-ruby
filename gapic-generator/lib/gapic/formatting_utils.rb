@@ -39,9 +39,12 @@ module Gapic
       # @param disable_xrefs [Boolean] (default is `false`) Disable linking to
       #   cross-references, and render them simply as text. This can be used if
       #   it is known that the targets are not present in the current library.
+      # @param transport [:grpc,:rest] Whether xref links should go to REST or
+      #   gRPC client classes. Uses the default transport if not provided.
       # @return [Enumerable<String>]
       #
-      def format_doc_lines api, lines, disable_xrefs: false
+      def format_doc_lines api, lines, disable_xrefs: false, transport: nil
+        transport ||= api&.default_transport || :grpc
         # To detect preformatted blocks, this tracks the "expected" base indent
         # according to Markdown. Specifically, this is the effective indent of
         # previous block, which is normally 0 except if we're in a list item.
@@ -58,7 +61,7 @@ module Gapic
             in_block, base_indent = update_indent_state in_block, base_indent, line, indent
             if in_block == false
               line = escape_line_braces line
-              line = format_line_xrefs api, line, disable_xrefs
+              line = format_line_xrefs api, line, disable_xrefs, transport
             end
           end
           line
@@ -109,12 +112,12 @@ module Gapic
         line
       end
 
-      def format_line_xrefs api, line, disable_xrefs
+      def format_line_xrefs api, line, disable_xrefs, transport
         while (m = @xref_detector.match line)
           entity = api.lookup m[:addr]
           return line if entity.nil?
           text = m[:text]
-          yard_link = disable_xrefs ? text : yard_link_for_entity(entity, text)
+          yard_link = disable_xrefs ? text : yard_link_for_entity(entity, text, transport)
           return line if yard_link.nil?
           line = "#{m[:pre]}#{yard_link}#{m[:post]}"
         end
@@ -126,9 +129,10 @@ module Gapic
       #
       # @param entity [Gapic::Schema::Proto] the entity to link to
       # @param text [String] the text for the link
+      # @param transport [:rest,:grpc] The transport for client classes
       # @return [String] YARD cross-reference syntax
       #
-      def yard_link_for_entity entity, text
+      def yard_link_for_entity entity, text, transport
         # As a special case, omit the service "google.longrunning.Operations"
         # and its methods. This is because the generator creates
         # service-specific copies of the operations client, rather than a
@@ -136,11 +140,14 @@ module Gapic
         # general no way to tell what the actual service-specific namespace is.
         return text if entity.address[0, 3] == ["google", "longrunning", "Operations"]
 
+        client_class = transport == :grpc ? "Client" : "Rest::Client"
         case entity
         when Gapic::Schema::Service
-          "{::#{convert_address_to_ruby entity, service: true}::Client #{text}}"
+          "{::#{convert_address_to_ruby entity, service: true}::#{client_class} #{text}}"
         when Gapic::Schema::Method
-          "{::#{convert_address_to_ruby entity.parent, service: true}::Client##{entity.name.underscore} #{text}}"
+          namespace = convert_address_to_ruby entity.parent, service: true
+          method_name = entity.name.underscore
+          "{::#{namespace}::#{client_class}##{method_name} #{text}}"
         when Gapic::Schema::Message, Gapic::Schema::Enum
           "{::#{convert_address_to_ruby entity} #{text}}"
         when Gapic::Schema::EnumValue

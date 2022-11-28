@@ -1,7 +1,7 @@
 <%- assert_locals method -%>
 ##
 <%- if method.doc_description -%>
-<%= indent method.doc_description, "# " %>
+<%= indent method.doc_description(transport: :grpc), "# " %>
 #
 <%- end -%>
 <%= render partial: "service/client/method/docs/deprecated", locals: { method: method } -%>
