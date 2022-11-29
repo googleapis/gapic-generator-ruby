@@ -529,7 +529,7 @@ module Gapic
       # @return [Boolean]
       #
       def is_hosted_mixin?
-        Gapic::Model::Mixins.mixin_service_address? address, gem_address: @gem_presenter.address
+        Gapic::Model::Mixins.mixin_service_address? address, gem_name: @gem_presenter.name
       end
 
       ##
@@ -540,7 +540,7 @@ module Gapic
       #
       def is_main_mixin_service?
         Gapic::Model::Mixins.mixin_service_address?(address) &&
-          !Gapic::Model::Mixins.mixin_service_address?(address, gem_address: @gem_presenter.address)
+          !Gapic::Model::Mixins.mixin_service_address?(address, gem_name: @gem_presenter.name)
       end
 
       ##

@@ -150,22 +150,16 @@ module Gapic
       ##
       # Returns true if the given service address is a mixin.
       # This just checks the service against a (hard-coded) set of known mixins.
-      # If `gem_address` is provided, services directly under that gem's
-      # namespace are not considered mixins.
+      # If `gem_name` is provided, services that correspond to that gem_name are not considered mixins.
       #
       # @param service_address [String,Array<String>] The address (either array
       #     or dot-delimited) of the service to check.
-      # @param gem_address [String,Array<String>] The address (either array or
-      #     dot-delimited) of the gem.
+      # @param gem_name [String] The name of the gem.
       # @return [boolean]
       #
-      def self.mixin_service_address? service_address, gem_address: nil
+      def self.mixin_service_address? service_address, gem_name: nil
         service_address = service_address.join "." unless service_address.is_a? String
-        if gem_address
-          gem_address = gem_address.join "." unless gem_address.is_a? String
-          return false if service_address.start_with? gem_address
-        end
-        (service_address == LRO_SERVICE) || SERVICE_TO_DEPENDENCY.keys.include?(service_address)
+        MIXIN_GEM_NAMES.include?(service_address) && gem_name != MIXIN_GEM_NAMES[service_address]
       end
 
       private
@@ -177,6 +171,12 @@ module Gapic
         return [] unless @service_config&.apis
         @service_config.apis.map(&:name)
       end
+
+      MIXIN_GEM_NAMES = {
+        LOCATIONS_SERVICE => "google-cloud-location",
+        IAM_SERVICE => "google-iam-v1",
+        LRO_SERVICE => "google-longrunning-operations"
+      }
 
       # Since mixins are scope-limited to a couple of services, it is easier to
       # have these in lookup tables than to construct a ServicePresenter

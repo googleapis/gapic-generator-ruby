@@ -22,7 +22,6 @@ class ShowcaseGemPresenterTest < PresenterTest
   end
 
   def test_showcase
-    assert_equal ["google", "showcase"], presenter.address
     assert_equal "google-showcase", presenter.name
     assert_equal "Google::Showcase", presenter.namespace
     assert_equal "Google Showcase", presenter.title

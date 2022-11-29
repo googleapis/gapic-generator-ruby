@@ -73,22 +73,13 @@ module Gapic
         end
       end
 
-      ##
-      # Protobuf-style address of this gem.
-      # This looks like an address of the package,
-      # e.g. "["google", "cloud", "location"]
-      #
-      def address
-        name.split("-").map(&:downcase)
-      end
-
       def name
         gem_config :name
       end
 
       def namespace
         gem_config(:namespace) ||
-          fix_namespace(@api, address.map(&:camelize).join("::"))
+          fix_namespace(@api, name.split("-").map(&:camelize).join("::"))
       end
 
       def title
