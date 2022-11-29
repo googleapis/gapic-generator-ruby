@@ -3,3 +3,4 @@ ignoreFiles:
   - "*/test/**/*.rb"
   - "shared/output/gapic/templates/*/snippets/**/*.rb"
   - "shared/output/cloud/grafeas_v1/snippets/**/*.rb"
+  - "shared/output/cloud/location/snippets/**/*.rb"

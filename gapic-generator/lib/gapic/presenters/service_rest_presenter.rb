@@ -280,7 +280,7 @@ module Gapic
       def mixin_presenters
         return [] unless main_service.mixins?
         main_service.mixin_presenters.map do |grpc_presenter|
-          model = main_service.mixin_models.first { |mdl| mdl.service == grpc_presenter.service }
+          model = main_service.mixin_models.find { |mdl| mdl.service == grpc_presenter.service }
           raise "Mismatch between model and presenters in service #{service_name_full}" unless model
 
           Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
