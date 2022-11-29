@@ -29,7 +29,15 @@ module Gapic
       include Gapic::Helpers::NamespaceHelper
 
       extend Forwardable
-      def_delegator :@main_service, :helpers_file_name
+      def_delegators :@main_service, :name, :helpers_file_name, :is_hosted_mixin?, :is_main_mixin_service?, :mixins?,
+                     :mixin_binding_overrides?, :grpc_service_config, :grpc_service_config_presenter, :lro_service,
+                     :lro_client_var, :nonstandard_lro_provider?, :credentials_class_xref, :client_name
+
+      # The namespace of the service. (not the client)
+      # Intentionally does not include "Rest", since
+      # we do not want Rest service's configuration to
+      # default to GRPC configuration (right now).
+      def_delegators :@main_service, :namespace
 
       ##
       # @param main_service [Gapic::Presenters::ServicePresenter]
@@ -38,23 +46,6 @@ module Gapic
       def initialize main_service, api
         @main_service = main_service
         @api = api
-      end
-
-      ##
-      # Ruby name of this service
-      #
-      # @return [String]
-      #
-      def name
-        main_service.name
-      end
-
-      # The namespace of the service. (not the client)
-      # Intentionally does not include "Rest", since
-      # we do not want Rest service's configuration to
-      # default to GRPC configuration (right now).
-      def namespace
-        main_service.namespace
       end
 
       ##
@@ -116,13 +107,6 @@ module Gapic
       ##
       # @return [String]
       #
-      def client_name
-        main_service.client_name
-      end
-
-      ##
-      # @return [String]
-      #
       def client_name_full
         fix_namespace api, "#{service_name_full}::#{client_name}"
       end
@@ -167,13 +151,6 @@ module Gapic
       #
       def test_client_file_path
         main_service.service_file_path.sub ".rb", "_rest_test.rb"
-      end
-
-      ##
-      # @return [String]
-      #
-      def credentials_class_xref
-        main_service.credentials_class_xref
       end
 
       ##
@@ -229,18 +206,6 @@ module Gapic
       end
 
       ##
-      # Whether this service is a provider of the nonstandard LRO functionality
-      #
-      # @return [Boolean]
-      def nonstandard_lro_provider?
-        main_service.nonstandard_lro_provider?
-      end
-
-      def lro_service
-        main_service.lro_service
-      end
-
-      ##
       # A presenter for the LRO subclient if needed
       #
       # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
@@ -260,10 +225,6 @@ module Gapic
       # @return [Boolean]
       def lro?
         methods.find(&:lro?)
-      end
-
-      def lro_client_var
-        main_service.lro_client_var
       end
 
       def operations_name
@@ -301,53 +262,15 @@ module Gapic
           lro_service = ServicePresenter.new(main_service.gem, @api, lro_wrapper).rest
 
           service_description = "long-running operations via #{lro_service.name}"
+          client_var_name = ruby_file_path_for_namespace lro_service.name
           Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
                                                              client_class_name: lro_service.client_name_full,
                                                              client_class_docname: lro_service.client_name_full,
-                                                             client_var_name: ruby_file_path_for_namespace(lro_service.name),
+                                                             client_var_name: client_var_name,
                                                              require_str: lro_service.service_require,
                                                              service_description: service_description,
                                                              helper_type: lro_service.nonstandard_lro_name_full
         end
-      end
-
-      ##
-      # Whether this service presenter is a mixin inside a host service's gem
-      # (and not in its own gem)
-      #
-      # @return [Boolean]
-      #
-      def is_hosted_mixin?
-        main_service.is_hosted_mixin?
-      end
-
-      ##
-      # Whether this service presenter is a mixin inside it's own gem
-      # (and not in another service's gem)
-      #
-      # @return [Boolean]
-      #
-      def is_main_mixin_service?
-        main_service.is_main_mixin_service?
-      end
-
-      ##
-      # Whether there are mixin services that should be referenced
-      # in the client for this service
-      #
-      # @return [Boolean]
-      #
-      def mixins?
-        main_service.mixins?
-      end
-
-      ##
-      # Whether there are mixin services that this package has http binding overrides for.
-      #
-      # @return [Boolean]
-      #
-      def mixin_binding_overrides?
-        main_service.mixin_binding_overrides?
       end
 
       ##
@@ -413,14 +336,6 @@ module Gapic
       #
       def methods
         main_service.methods.select(&:can_generate_rest?)
-      end
-
-      def grpc_service_config
-        main_service.grpc_service_config
-      end
-
-      def grpc_service_config_presenter
-        main_service.grpc_service_config_presenter
       end
 
       ##

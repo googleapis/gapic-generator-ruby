@@ -176,7 +176,7 @@ module Gapic
         LOCATIONS_SERVICE => "google-cloud-location",
         IAM_SERVICE => "google-iam-v1",
         LRO_SERVICE => "google-longrunning-operations"
-      }
+      }.freeze
 
       # Since mixins are scope-limited to a couple of services, it is easier to
       # have these in lookup tables than to construct a ServicePresenter
