@@ -14,7 +14,7 @@ require "<%= subclient.require_str %>"
 # Client for the <%= service.name %> service.
 #
 <%- if service.doc_description -%>
-<%= indent service.doc_description, "# " %>
+<%= indent service.doc_description(transport: :grpc), "# " %>
 #
 <%- end -%>
 class <%= service.client_name %>

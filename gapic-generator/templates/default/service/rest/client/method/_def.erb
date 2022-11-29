@@ -1,7 +1,7 @@
 <%- assert_locals method -%>
 ##
 <%- if method.doc_description -%>
-  <%= indent method.doc_description, "# " %>
+  <%= indent method.doc_description(transport: :rest), "# " %>
 #
 <%- end -%>
 <%= render partial: "service/rest/client/method/docs/request", locals: { method: method } -%>

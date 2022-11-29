@@ -102,8 +102,15 @@ module Gapic
         ActiveSupport::Inflector.camelize @service.address[-2]
       end
 
-      def doc_description disable_xrefs: false
-        @service.docs_leading_comments disable_xrefs: disable_xrefs
+      ##
+      # The description as it should appear in YARD docs.
+      #
+      # @param transport [:grpc,:rest] Whether xref links should go to REST or
+      #   gRPC client classes. Uses the default transport if not provided.
+      # @return [String]
+      #
+      def doc_description disable_xrefs: false, transport: nil
+        @service.docs_leading_comments disable_xrefs: disable_xrefs, transport: transport
       end
 
       def name
