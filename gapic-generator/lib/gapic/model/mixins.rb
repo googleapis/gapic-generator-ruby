@@ -81,11 +81,20 @@ module Gapic
       # @!attribute [r] require_str
       #   Path to `require` the client of the service
       #   @return [String]
+      # @!attribute [r] require_str_rest
+      #   Path to `require` the REST client of the service
+      #   @return [String]
       # @!attribute [r] client_class_name
       #   Full name of the class of the client of the service
       #   @return [String]
+      # @!attribute [r] client_class_name_rest
+      #   Full name of the class of the REST client of the service
+      #   @return [String]
       # @!attribute [r] client_class_docname
       #   Name of the class as it should appear in the documentation
+      #   @return [String]
+      # @!attribute [r] client_class_docname_rest
+      #   Name of the REST class as it should appear in the documentation
       #   @return [String]
       # @!attribute [r] client_var_name
       #   Name for the variable for the client of the
@@ -109,8 +118,12 @@ module Gapic
         #   `{ gem_name => version pattern }` format
         # @param require_str [String]
         #   Path to require the client of the service
+        # @param require_str_rest [String]
+        #   Path to require the REST client of the service
         # @param client_class_name [String]
         #   Full name of the class of the client of the service
+        # @param client_class_name_rest [String]
+        #   Full name of the class of the REST client of the service
         # @param client_var_name [String]
         #   Name for the variable for the client of the mixin service
         #   to use when generating library's service
