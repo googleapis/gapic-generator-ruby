@@ -55,5 +55,5 @@ module Google
   end
 end
 
-helper_path = ::File.join __dir__, "testing", "helpers.rb"
-require "google/showcase/v1beta1/testing/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "google/showcase/v1beta1/testing/rest/helpers" if ::File.file? helper_path

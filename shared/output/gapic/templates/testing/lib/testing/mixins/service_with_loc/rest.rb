@@ -49,5 +49,5 @@ module Testing
   end
 end
 
-helper_path = ::File.join __dir__, "service_with_loc", "helpers.rb"
-require "testing/mixins/service_with_loc/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "testing/mixins/service_with_loc/rest/helpers" if ::File.file? helper_path

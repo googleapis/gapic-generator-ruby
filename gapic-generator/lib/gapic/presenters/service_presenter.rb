@@ -701,7 +701,7 @@ module Gapic
           Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
                                                              client_class_name: lro_service.client_name_full,
                                                              client_class_docname: lro_service.client_name_full,
-                                                             client_var_name: lro_service.service_directory_name,
+                                                             client_var_name: ruby_file_path_for_namespace(lro_service.name),
                                                              require_str: lro_service.service_require,
                                                              service_description: service_description,
                                                              helper_type: lro_service.nonstandard_lro_name_full

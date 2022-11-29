@@ -39,5 +39,5 @@ end
 
 
 <% @footer = capture do %>
-<%= render partial: "service/helpers", locals: { service: service} -%>
+<%= render partial: "service/helpers", locals: { service: service.rest} -%>
 <% end %>

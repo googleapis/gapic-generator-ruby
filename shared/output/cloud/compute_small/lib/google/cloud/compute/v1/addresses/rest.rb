@@ -47,5 +47,5 @@ module Google
   end
 end
 
-helper_path = ::File.join __dir__, "addresses", "helpers.rb"
-require "google/cloud/compute/v1/addresses/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "google/cloud/compute/v1/addresses/rest/helpers" if ::File.file? helper_path

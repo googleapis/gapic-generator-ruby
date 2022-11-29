@@ -49,5 +49,5 @@ module Testing
   end
 end
 
-helper_path = ::File.join __dir__, "service_implicit_headers", "helpers.rb"
-require "testing/routing_headers/service_implicit_headers/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "testing/routing_headers/service_implicit_headers/rest/helpers" if ::File.file? helper_path

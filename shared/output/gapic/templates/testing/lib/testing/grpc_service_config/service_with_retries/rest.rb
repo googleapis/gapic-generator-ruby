@@ -49,5 +49,5 @@ module Testing
   end
 end
 
-helper_path = ::File.join __dir__, "service_with_retries", "helpers.rb"
-require "testing/grpc_service_config/service_with_retries/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "testing/grpc_service_config/service_with_retries/rest/helpers" if ::File.file? helper_path

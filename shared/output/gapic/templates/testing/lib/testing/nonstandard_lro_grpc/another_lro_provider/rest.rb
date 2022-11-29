@@ -50,5 +50,5 @@ module Testing
   end
 end
 
-helper_path = ::File.join __dir__, "another_lro_provider", "helpers.rb"
-require "testing/nonstandard_lro_grpc/another_lro_provider/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "testing/nonstandard_lro_grpc/another_lro_provider/rest/helpers" if ::File.file? helper_path

@@ -51,5 +51,5 @@ module Google
   end
 end
 
-helper_path = ::File.join __dir__, "image_annotator", "helpers.rb"
-require "google/cloud/vision/v1/image_annotator/helpers" if ::File.file? helper_path
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "google/cloud/vision/v1/image_annotator/rest/helpers" if ::File.file? helper_path
