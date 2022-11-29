@@ -712,7 +712,7 @@ page_token: page_token }) do |_result, response|
     # Create request parameters for a unary method.
     name = "hello world"
     expire_time = {}
-    stream_blurbs_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    stream_blurbs_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -728,23 +728,23 @@ page_token: page_token }) do |_result, response|
         # Use hash object
         client.stream_blurbs({ name: name, expire_time: expire_time }) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use named arguments
         client.stream_blurbs name: name, expire_time: expire_time do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use protobuf object
         client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
                                                                                   expire_time: expire_time) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use hash object with options
         client.stream_blurbs({ name: name, expire_time: expire_time }, call_options) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use protobuf object with options
         client.stream_blurbs(
@@ -752,7 +752,7 @@ page_token: page_token }) do |_result, response|
                                                                expire_time: expire_time), call_options
         ) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Verify method calls
         assert_equal 5, stream_blurbs_client_stub.call_count

@@ -134,7 +134,7 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     # Create request parameters for a unary method.
     content = "hello world"
     error = {}
-    expand_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+    expand_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
@@ -150,29 +150,29 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
         # Use hash object
         client.expand({ content: content, error: error }) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use named arguments
         client.expand content: content, error: error do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use protobuf object
         client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content,
                                                                      error: error) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use hash object with options
         client.expand({ content: content, error: error }, call_options) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Use protobuf object with options
         client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error),
                       call_options) do |_result, response|
           assert_equal http_response, response
-        end
+        end.first
 
         # Verify method calls
         assert_equal 5, expand_client_stub.call_count
