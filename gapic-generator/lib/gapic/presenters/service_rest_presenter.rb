@@ -385,7 +385,7 @@ module Gapic
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
-        ([] << lro_client_presenter << mixin_presenters << nonstandard_lros).flatten.compact
+        [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
       ##
