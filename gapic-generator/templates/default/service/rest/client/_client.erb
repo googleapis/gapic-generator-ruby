@@ -15,7 +15,7 @@ require "<%= subclient.require_str %>"
 # REST client for the <%= service.name %> service.
 #
 <%- if service.doc_description -%>
-<%= indent service.doc_description, "# " %>
+<%= indent service.doc_description(transport: :rest), "# " %>
 #
 <%- end -%>
 class <%= service.rest.client_name %>

@@ -387,6 +387,16 @@ class FormattingUtilsTest < Minitest::Test
     assert_equal ["Hello, {::Google::Cloud::Example::Earth::Client World}!\n"], result
   end
 
+  def test_xref_service_rest
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "Earth"
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth]!\n"], transport: :rest
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth::Rest::Client World}!\n"], result
+  end
+
   def test_xref_with_method
     api = FakeApi.new do |api|
       api.add_file! "google.cloud.example" do
@@ -397,6 +407,18 @@ class FormattingUtilsTest < Minitest::Test
     end
     result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.get_name]!\n"]
     assert_equal ["Hello, {::Google::Cloud::Example::Earth::Client#get_name World}!\n"], result
+  end
+
+  def test_xref_with_method_rest
+    api = FakeApi.new do |api|
+      api.add_file! "google.cloud.example" do
+        api.add_service! "Earth" do
+          api.add_method! "get_name"
+        end
+      end
+    end
+    result = Gapic::FormattingUtils.format_doc_lines api, ["Hello, [World][google.cloud.example.Earth.get_name]!\n"], transport: :rest
+    assert_equal ["Hello, {::Google::Cloud::Example::Earth::Rest::Client#get_name World}!\n"], result
   end
 
   def test_xref_operations_service

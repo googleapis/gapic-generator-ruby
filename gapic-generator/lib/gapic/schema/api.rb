@@ -250,6 +250,16 @@ module Gapic
         configuration[:transports].include? "grpc"
       end
 
+      ##
+      # The default transport, used when choosing which client class a docs
+      # xref should link to.
+      #
+      # @return [:grpc,:rest]
+      #
+      def default_transport
+        generate_grpc_clients? ? :grpc : :rest
+      end
+
       # Whether to generate standalone snippets
       def generate_standalone_snippets?
         configuration.fetch :generate_standalone_snippets, true

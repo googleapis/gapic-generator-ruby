@@ -203,8 +203,11 @@ class FakeApi
     @files = []
     @namespace_mapping = {}
     @service_mapping = {}
+    @default_transport = :grpc
     yield self if block_given?
   end
+
+  attr_accessor :default_transport
 
   def add_file! package, ruby_package = nil
     @cur_registry = {}
