@@ -42,6 +42,3 @@ module Testing
   module NonstandardLroGrpc
   end
 end
-
-helper_path = ::File.join __dir__, "nonstandard_lro_grpc", "_helpers.rb"
-require "testing/nonstandard_lro_grpc/_helpers" if ::File.file? helper_path

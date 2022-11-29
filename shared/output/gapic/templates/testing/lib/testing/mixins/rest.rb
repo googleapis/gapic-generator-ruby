@@ -39,6 +39,3 @@ module Testing
   module Mixins
   end
 end
-
-helper_path = ::File.join __dir__, "mixins", "_helpers.rb"
-require "testing/mixins/_helpers" if ::File.file? helper_path

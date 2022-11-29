@@ -40,6 +40,3 @@ module Testing
   module RoutingHeaders
   end
 end
-
-helper_path = ::File.join __dir__, "routing_headers", "_helpers.rb"
-require "testing/routing_headers/_helpers" if ::File.file? helper_path
