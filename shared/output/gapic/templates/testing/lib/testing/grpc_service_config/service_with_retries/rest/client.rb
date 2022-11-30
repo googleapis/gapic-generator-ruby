@@ -139,6 +139,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @service_with_retries_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.new endpoint: @config.endpoint,

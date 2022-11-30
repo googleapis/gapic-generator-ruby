@@ -129,6 +129,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @another_lro_provider_stub = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ServiceStub.new endpoint: @config.endpoint,

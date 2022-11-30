@@ -130,6 +130,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @plain_lro_provider = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new do |config|

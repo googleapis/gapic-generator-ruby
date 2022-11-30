@@ -129,6 +129,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @service_explicit_headers_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.new endpoint: @config.endpoint,

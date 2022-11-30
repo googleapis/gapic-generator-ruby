@@ -143,6 +143,7 @@ module Google
                   config.credentials = credentials
                   config.quota_project = @quota_project_id
                   config.endpoint = @config.endpoint
+                  config.bindings_override = @config.bindings_override
                 end
 
                 @image_annotator_stub = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials

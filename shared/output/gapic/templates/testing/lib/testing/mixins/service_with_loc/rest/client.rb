@@ -129,6 +129,7 @@ module Testing
               config.credentials = credentials
               config.quota_project = @quota_project_id
               config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
             end
 
             @service_with_loc_stub = ::Testing::Mixins::ServiceWithLoc::Rest::ServiceStub.new endpoint: @config.endpoint,

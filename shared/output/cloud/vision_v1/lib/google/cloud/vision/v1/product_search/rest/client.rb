@@ -154,6 +154,7 @@ module Google
                   config.credentials = credentials
                   config.quota_project = @quota_project_id
                   config.endpoint = @config.endpoint
+                  config.bindings_override = @config.bindings_override
                 end
 
                 @product_search_stub = ::Google::Cloud::Vision::V1::ProductSearch::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
