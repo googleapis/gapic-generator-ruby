@@ -7,13 +7,23 @@
 # @param options [::Gapic::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
 #
+<%- if method.server_streaming? -%>
+# @yieldparam chunk [::String] The chunk of data received during server streaming.
+#
+# @return [::Faraday::Response]
+<%- else -%>
 # @yield [result, response] Access the result along with the Faraday response object
 # @yieldparam result [<%= method.rest.return_type %>]
 # @yieldparam response [::Faraday::Response]
 #
 # @return [<%= method.rest.return_type %>]
 #   A result object deserialized from the server's reply
+<%- end -%>
+<%- if method.server_streaming? -%>
+def <%= method.name %> request_pb, options = nil, &block
+<%- else -%>
 def <%= method.name %> request_pb, options = nil
+<%- end -%>
 <%= indent render(partial: "service/rest/service_stub/method/def/request", locals: { method: method }), 2 %>
 
 <%= indent render(partial: "service/rest/service_stub/method/def/response", locals: { method: method, service_stub_name: service_stub_name }), 2 %>

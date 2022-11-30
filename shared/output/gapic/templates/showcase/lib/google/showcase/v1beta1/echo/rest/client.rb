@@ -215,6 +215,72 @@ module Google
             end
 
             ##
+            # This method split the given content into words and will pass each word back
+            # through the stream. This method showcases server-side streaming rpcs.
+            #
+            # @overload expand(request, options = nil)
+            #   Pass arguments to `expand` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::ExpandRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::ExpandRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload expand(content: nil, error: nil)
+            #   Pass arguments to `expand` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param content [::String]
+            #     The content that will be split into words and returned on the stream.
+            #   @param error [::Google::Rpc::Status, ::Hash]
+            #     The error that is thrown after all words are sent on the stream.
+            # @return [::Enumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            def expand request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::ExpandRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.expand.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.expand.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.expand.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              ::Gapic::Rest::ServerStream.new(
+                ::Google::Showcase::V1beta1::EchoResponse,
+                ::Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+                  @echo_stub.expand request, options do |chunk|
+                    in_q.deq
+                    out_q.enq chunk
+                  end
+                end
+              )
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
             # This is similar to the Expand method but instead of returning a stream of
             # expanded words, this method returns a paged list of expanded words.
             #
@@ -553,6 +619,11 @@ module Google
                 #
                 attr_reader :echo
                 ##
+                # RPC-specific configuration for `expand`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :expand
+                ##
                 # RPC-specific configuration for `paged_expand`
                 # @return [::Gapic::Config::Method]
                 #
@@ -572,6 +643,8 @@ module Google
                 def initialize parent_rpcs = nil
                   echo_config = parent_rpcs.echo if parent_rpcs.respond_to? :echo
                   @echo = ::Gapic::Config::Method.new echo_config
+                  expand_config = parent_rpcs.expand if parent_rpcs.respond_to? :expand
+                  @expand = ::Gapic::Config::Method.new expand_config
                   paged_expand_config = parent_rpcs.paged_expand if parent_rpcs.respond_to? :paged_expand
                   @paged_expand = ::Gapic::Config::Method.new paged_expand_config
                   wait_config = parent_rpcs.wait if parent_rpcs.respond_to? :wait

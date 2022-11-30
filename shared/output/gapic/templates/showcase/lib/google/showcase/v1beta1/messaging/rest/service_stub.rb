@@ -456,6 +456,38 @@ module Google
             end
 
             ##
+            # Baseline implementation for the stream_blurbs REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::StreamBlurbsRequest]
+            #   A request object representing the call parameters. Required.
+            # @param options [::Gapic::CallOptions]
+            #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @yieldparam chunk [::String] The chunk of data received during server streaming.
+            #
+            # @return [::Faraday::Response]
+            def stream_blurbs request_pb, options = nil, &block
+              raise ::ArgumentError, "request must be provided" if request_pb.nil?
+
+              verb, uri, query_string_params, body = ServiceStub.transcode_stream_blurbs_request request_pb
+              query_string_params = if query_string_params.any?
+                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                    else
+                                      {}
+                                    end
+
+              @client_stub.make_http_request(
+                verb,
+                uri: uri,
+                body: body || "",
+                params: query_string_params,
+                options: options,
+                is_server_streaming: true,
+                &block
+              )
+            end
+
+            ##
             # @private
             #
             # GRPC transcoding helper method for the create_room REST call
@@ -727,6 +759,36 @@ module Google
                                                         uri_template: "/v1beta1/{parent}/blurbs:search",
                                                         matches: [
                                                           ["parent", %r{^users/-/profile/?$}, false]
+                                                        ]
+                                                      )
+              transcoder.transcode request_pb
+            end
+
+            ##
+            # @private
+            #
+            # GRPC transcoding helper method for the stream_blurbs REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::StreamBlurbsRequest]
+            #   A request object representing the call parameters. Required.
+            # @return [Array(String, [String, nil], Hash{String => String})]
+            #   Uri, Body, Query string parameters
+            def self.transcode_stream_blurbs_request request_pb
+              transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{name}/blurbs:stream",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["name", %r{^rooms/[^/]+/?$}, false]
+                                                        ]
+                                                      )
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/{name}/blurbs:stream",
+                                                        body: "*",
+                                                        matches: [
+                                                          ["name", %r{^users/[^/]+/profile/?$}, false]
                                                         ]
                                                       )
               transcoder.transcode request_pb

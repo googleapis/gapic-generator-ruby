@@ -879,6 +879,72 @@ module Google
             end
 
             ##
+            # This returns a stream that emits the blurbs that are created for a
+            # particular chat room or user profile.
+            #
+            # @overload stream_blurbs(request, options = nil)
+            #   Pass arguments to `stream_blurbs` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::StreamBlurbsRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::StreamBlurbsRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload stream_blurbs(name: nil, expire_time: nil)
+            #   Pass arguments to `stream_blurbs` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param name [::String]
+            #     The resource name of a chat room or user profile whose blurbs to stream.
+            #   @param expire_time [::Google::Protobuf::Timestamp, ::Hash]
+            #     The time at which this stream will close.
+            # @return [::Enumerable<::Google::Showcase::V1beta1::StreamBlurbsResponse>]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            def stream_blurbs request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::StreamBlurbsRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.stream_blurbs.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.stream_blurbs.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              ::Gapic::Rest::ServerStream.new(
+                ::Google::Showcase::V1beta1::StreamBlurbsResponse,
+                ::Gapic::Rest::ThreadedEnumerator.new do |in_q, out_q|
+                  @messaging_stub.stream_blurbs request, options do |chunk|
+                    in_q.deq
+                    out_q.enq chunk
+                  end
+                end
+              )
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
             # Configuration class for the Messaging REST API.
             #
             # This class represents the configuration for Messaging REST,
@@ -1057,6 +1123,11 @@ module Google
                 # @return [::Gapic::Config::Method]
                 #
                 attr_reader :search_blurbs
+                ##
+                # RPC-specific configuration for `stream_blurbs`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :stream_blurbs
 
                 # @private
                 def initialize parent_rpcs = nil
@@ -1082,6 +1153,8 @@ module Google
                   @list_blurbs = ::Gapic::Config::Method.new list_blurbs_config
                   search_blurbs_config = parent_rpcs.search_blurbs if parent_rpcs.respond_to? :search_blurbs
                   @search_blurbs = ::Gapic::Config::Method.new search_blurbs_config
+                  stream_blurbs_config = parent_rpcs.stream_blurbs if parent_rpcs.respond_to? :stream_blurbs
+                  @stream_blurbs = ::Gapic::Config::Method.new stream_blurbs_config
 
                   yield self if block_given?
                 end

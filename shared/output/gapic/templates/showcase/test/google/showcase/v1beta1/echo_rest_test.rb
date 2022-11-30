@@ -124,6 +124,62 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
     end
   end
 
+  def test_expand
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::EchoResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    content = "hello world"
+    error = {}
+    expand_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_expand_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, expand_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.expand({ content: content, error: error }) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use named arguments
+        client.expand content: content, error: error do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use protobuf object
+        client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content,
+                                                                     error: error) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use hash object with options
+        client.expand({ content: content, error: error }, call_options) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use protobuf object with options
+        client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error),
+                      call_options) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Verify method calls
+        assert_equal 5, expand_client_stub.call_count
+      end
+    end
+  end
+
   def test_paged_expand
     # Create test objects.
     client_result = ::Google::Showcase::V1beta1::PagedExpandResponse.new

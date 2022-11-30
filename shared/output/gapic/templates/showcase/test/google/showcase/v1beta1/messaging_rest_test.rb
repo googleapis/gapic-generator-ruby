@@ -702,6 +702,64 @@ page_token: page_token }) do |_result, response|
     end
   end
 
+  def test_stream_blurbs
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::StreamBlurbsResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    name = "hello world"
+    expire_time = {}
+    stream_blurbs_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Messaging::Rest::ServiceStub.stub :transcode_stream_blurbs_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, stream_blurbs_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Messaging::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.stream_blurbs({ name: name, expire_time: expire_time }) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use named arguments
+        client.stream_blurbs name: name, expire_time: expire_time do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use protobuf object
+        client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
+                                                                                  expire_time: expire_time) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use hash object with options
+        client.stream_blurbs({ name: name, expire_time: expire_time }, call_options) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Use protobuf object with options
+        client.stream_blurbs(
+          ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
+                                                               expire_time: expire_time), call_options
+        ) do |_result, response|
+          assert_equal http_response, response
+        end.first
+
+        # Verify method calls
+        assert_equal 5, stream_blurbs_client_stub.call_count
+      end
+    end
+  end
+
   def test_configure
     credentials_token = :dummy_value
 
