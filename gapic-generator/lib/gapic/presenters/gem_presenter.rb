@@ -73,10 +73,6 @@ module Gapic
         end
       end
 
-      def address
-        name.split("-").map(&:camelize)
-      end
-
       def name
         gem_config :name
       end

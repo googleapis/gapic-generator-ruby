@@ -73,6 +73,14 @@ module Gapic
         end
       end
 
+      ##
+      # First service with REST bindings.
+      # @return [Gapic::Presenters::ServicePresenter, nil]
+      #
+      def first_service_with_rest
+        services.find(&:methods_rest_bindings?)
+      end
+
       def address
         @package.split "."
       end
@@ -81,8 +89,16 @@ module Gapic
         ruby_file_path @api, namespace
       end
 
+      def package_rest_require
+        "#{ruby_file_path @api, namespace}/rest"
+      end
+
       def package_file_path
         "#{package_require}.rb"
+      end
+
+      def package_rest_file_path
+        "#{package_rest_require}.rb"
       end
 
       def package_directory_name

@@ -86,7 +86,9 @@ def gem_defaults
         "google/cloud/vision/v1/product_search_service.proto",
         "google/cloud/vision/v1/text_annotation.proto",
         "google/cloud/vision/v1/web_detection.proto"
-      ]
+      ],
+      # vision yaml modified from the googleapis one -- added Location mixin
+      service_yaml: "../shared/protos/google/cloud/vision/v1/vision_v1.yaml"
     },
     showcase: {
       protos: [
@@ -145,6 +147,11 @@ def gem_defaults
       protos: [
         "google/cloud/compute/v1/compute_small.proto"
       ]
+    },
+    location: {
+      protos: [
+        "google/cloud/location/locations.proto"
+      ],
     }
   }
 end

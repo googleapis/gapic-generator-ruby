@@ -55,6 +55,12 @@ module Gapic
         @main_method.name
       end
 
+      # Fully qualified proto name of the method (namespace.PascalCase)
+      # @return [String]
+      def grpc_full_name
+        @main_method.grpc.full_name
+      end
+
       ##
       # Full class name of the request type
       #
@@ -106,6 +112,16 @@ module Gapic
       #
       def nonstandard_lro?
         @main_method.nonstandard_lro?
+      end
+
+      ##
+      # The presenter for the nonstandard LRO client of the kind this method uses
+      #
+      # @return [Gapic::Presenters::Service::LroClientPresenter, nil]
+      #
+      def nonstandard_lro_client
+        return unless nonstandard_lro?
+        @main_method.service.rest.nonstandard_lros.find { |model| model.service == @main_method.lro.service_full_name }
       end
 
       ##

@@ -28,11 +28,23 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/showcase/version"
+
+require "google/showcase/v1beta1/compliance/credentials"
 require "google/showcase/v1beta1/compliance/rest/client"
 
 module Google
   module Showcase
     module V1beta1
+      ##
+      # This service is used to test that GAPICs can transcode proto3 requests to
+      # REST format correctly for various types of HTTP annotations.
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/compliance/rest"
+      #     client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new
+      #
       module Compliance
         # Client for the REST transport
         module Rest
@@ -41,3 +53,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "google/showcase/v1beta1/compliance/rest/helpers" if ::File.file? helper_path

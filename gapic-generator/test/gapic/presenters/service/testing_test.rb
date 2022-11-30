@@ -49,4 +49,12 @@ class TestingServiceTest < PresenterTest
     refute presenter.nonstandard_lro_provider?
     assert presenter.nonstandard_lro_consumer?
   end
+
+  def test_testing_with_loc
+    # TODO [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Testing"
+    presenter = service_presenter(:testing, "ServiceWithLoc").rest
+    loc_presenter = presenter.mixin_presenters.first
+    refute_nil loc_presenter.bindings_override
+  end
 end

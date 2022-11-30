@@ -4,19 +4,35 @@ package testing.grpcserviceconfig;
 option ruby_package = "Testing::GrpcServiceConfig";
 
 import "google/api/client.proto";
+import "google/api/annotations.proto";
 
 service ServiceNoRetry {
   option (google.api.default_host) = "grpcserviceconfig.example.com";
 
-  rpc NoRetryMethod(Request) returns(Response);
+  rpc NoRetryMethod(Request) returns(Response) {
+    option (google.api.http) = {
+      post: "/v1beta1/ServiceNoRetry/NoRetryMethod"
+      body: "*"
+    };
+  }
 }
 
 service ServiceWithRetries {
   option (google.api.default_host) = "grpcserviceconfig.example.com";
 
-  rpc ServiceLevelRetryMethod(Request) returns(Response);
+  rpc ServiceLevelRetryMethod(Request) returns(Response) {
+    option (google.api.http) = {
+      post: "/v1beta1/ServiceWithRetries/ServiceLevelRetryMethod"
+      body: "*"
+    };
+  }
 
-  rpc MethodLevelRetryMethod(Request) returns(Response);
+  rpc MethodLevelRetryMethod(Request) returns(Response) {
+    option (google.api.http) = {
+      post: "/v1beta1/ServiceWithRetries/MethodLevelRetryMethod"
+      body: "*"
+    };
+  }
 }
 
 message Request {

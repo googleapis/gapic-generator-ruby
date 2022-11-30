@@ -81,11 +81,20 @@ module Gapic
       # @!attribute [r] require_str
       #   Path to `require` the client of the service
       #   @return [String]
+      # @!attribute [r] require_str_rest
+      #   Path to `require` the REST client of the service
+      #   @return [String]
       # @!attribute [r] client_class_name
       #   Full name of the class of the client of the service
       #   @return [String]
+      # @!attribute [r] client_class_name_rest
+      #   Full name of the class of the REST client of the service
+      #   @return [String]
       # @!attribute [r] client_class_docname
       #   Name of the class as it should appear in the documentation
+      #   @return [String]
+      # @!attribute [r] client_class_docname_rest
+      #   Name of the REST class as it should appear in the documentation
       #   @return [String]
       # @!attribute [r] client_var_name
       #   Name for the variable for the client of the
@@ -95,8 +104,11 @@ module Gapic
         attr_reader :service
         attr_reader :dependency
         attr_reader :require_str
+        attr_reader :require_str_rest
         attr_reader :client_class_name
+        attr_reader :client_class_name_rest
         attr_reader :client_class_docname
+        attr_reader :client_class_docname_rest
         attr_reader :client_var_name
 
         # @param service [String]
@@ -106,17 +118,25 @@ module Gapic
         #   `{ gem_name => version pattern }` format
         # @param require_str [String]
         #   Path to require the client of the service
+        # @param require_str_rest [String]
+        #   Path to require the REST client of the service
         # @param client_class_name [String]
         #   Full name of the class of the client of the service
+        # @param client_class_name_rest [String]
+        #   Full name of the class of the REST client of the service
         # @param client_var_name [String]
         #   Name for the variable for the client of the mixin service
         #   to use when generating library's service
-        def initialize service, dependency, require_str, client_class_name, client_var_name
+        def initialize service, dependency, require_str, require_str_rest, client_class_name, client_class_name_rest,
+                       client_var_name
           @service = service
           @dependency = dependency
           @require_str = require_str
+          @require_str_rest = require_str_rest
           @client_class_name = client_class_name
+          @client_class_name_rest = client_class_name_rest
           @client_class_docname = client_class_name # For mixins, the doc name should be the full class name
+          @client_class_docname_rest = client_class_name_rest # For mixins, the doc name should be the full class name
           @client_var_name = client_var_name
         end
 
@@ -130,22 +150,16 @@ module Gapic
       ##
       # Returns true if the given service address is a mixin.
       # This just checks the service against a (hard-coded) set of known mixins.
-      # If `gem_address` is provided, services directly under that gem's
-      # namespace are not considered mixins.
+      # If `gem_name` is provided, services that correspond to that gem_name are not considered mixins.
       #
       # @param service_address [String,Array<String>] The address (either array
       #     or dot-delimited) of the service to check.
-      # @param gem_address [String,Array<String>] The address (either array or
-      #     dot-delimited) of the gem.
+      # @param gem_name [String] The name of the gem.
       # @return [boolean]
       #
-      def self.mixin_service_address? service_address, gem_address: nil
+      def self.mixin_service_address? service_address, gem_name: nil
         service_address = service_address.join "." unless service_address.is_a? String
-        if gem_address
-          gem_address = gem_address.join "." unless gem_address.is_a? String
-          return false if service_address.start_with? gem_address
-        end
-        SERVICE_TO_DEPENDENCY.keys.include? service_address
+        MIXIN_GEM_NAMES.include?(service_address) && gem_name != MIXIN_GEM_NAMES[service_address]
       end
 
       private
@@ -157,6 +171,12 @@ module Gapic
         return [] unless @service_config&.apis
         @service_config.apis.map(&:name)
       end
+
+      MIXIN_GEM_NAMES = {
+        LOCATIONS_SERVICE => "google-cloud-location",
+        IAM_SERVICE => "google-iam-v1",
+        LRO_SERVICE => "google-longrunning-operations"
+      }.freeze
 
       # Since mixins are scope-limited to a couple of services, it is easier to
       # have these in lookup tables than to construct a ServicePresenter
@@ -171,9 +191,19 @@ module Gapic
         IAM_SERVICE => "google/iam/v1"
       }.freeze
 
+      SERVICE_TO_REQUIRE_STR_REST = {
+        LOCATIONS_SERVICE => "google/cloud/location/rest",
+        IAM_SERVICE => "google/iam/v1/rest"
+      }.freeze
+
       SERVICE_TO_CLIENT_CLASS_NAME = {
         LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Client",
         IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Client"
+      }.freeze
+
+      SERVICE_TO_CLIENT_CLASS_NAME_REST = {
+        LOCATIONS_SERVICE => "Google::Cloud::Location::Locations::Rest::Client",
+        IAM_SERVICE => "Google::Iam::V1::IAMPolicy::Rest::Client"
       }.freeze
 
       SERVICE_TO_CLIENT_ATTR_NAME = {
@@ -187,8 +217,10 @@ module Gapic
       def create_mixin service
         unless SERVICE_TO_DEPENDENCY.key?(service) &&
                SERVICE_TO_REQUIRE_STR.key?(service) &&
-               SERVICE_TO_CLIENT_CLASS_NAME.key?(service)
-          SERVICE_TO_CLIENT_ATTR_NAME.key? service
+               SERVICE_TO_REQUIRE_STR_REST.key?(service) &&
+               SERVICE_TO_CLIENT_CLASS_NAME.key?(service) &&
+               SERVICE_TO_CLIENT_CLASS_NAME_REST.key?(service) &&
+               SERVICE_TO_CLIENT_ATTR_NAME.key?(service)
 
           error_text = "A mixin service #{service} is specified in service config, but " \
                        "the Generator does not know of it."
@@ -198,7 +230,9 @@ module Gapic
         Mixin.new service,
                   SERVICE_TO_DEPENDENCY[service],
                   SERVICE_TO_REQUIRE_STR[service],
+                  SERVICE_TO_REQUIRE_STR_REST[service],
                   SERVICE_TO_CLIENT_CLASS_NAME[service],
+                  SERVICE_TO_CLIENT_CLASS_NAME_REST[service],
                   SERVICE_TO_CLIENT_ATTR_NAME[service]
       end
     end

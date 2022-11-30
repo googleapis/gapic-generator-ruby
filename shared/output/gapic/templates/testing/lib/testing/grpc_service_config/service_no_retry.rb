@@ -32,14 +32,20 @@ require "testing/version"
 
 require "testing/grpc_service_config/service_no_retry/credentials"
 require "testing/grpc_service_config/service_no_retry/client"
+require "testing/grpc_service_config/service_no_retry/rest"
 
 module Testing
   module GrpcServiceConfig
     ##
-    # To load this service and instantiate a client:
+    # To load this service and instantiate a GRPC client:
     #
     #     require "testing/grpc_service_config/service_no_retry"
     #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
+    #
+    # To load this service and instantiate a REST client:
+    #
+    #     require "testing/grpc_service_config/service_no_retry/rest"
+    #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Rest::Client.new
     #
     module ServiceNoRetry
     end

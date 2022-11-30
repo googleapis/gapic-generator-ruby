@@ -28,12 +28,27 @@ require "gapic/rest"
 require "gapic/config"
 require "gapic/config/method"
 
+require "google/showcase/version"
+
+require "google/showcase/v1beta1/echo/credentials"
 require "google/showcase/v1beta1/echo/rest/operations"
 require "google/showcase/v1beta1/echo/rest/client"
 
 module Google
   module Showcase
     module V1beta1
+      ##
+      # This service is used showcase the four main types of rpcs - unary, server
+      # side streaming, client side streaming, and bidirectional streaming. This
+      # service also exposes methods that explicitly implement server delay, and
+      # paginated calls. Set the 'showcase-trailer' metadata key on any method
+      # to have the values echoed in the response trailers.
+      #
+      # To load this service and instantiate a REST client:
+      #
+      #     require "google/showcase/v1beta1/echo/rest"
+      #     client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new
+      #
       module Echo
         # Client for the REST transport
         module Rest
@@ -42,3 +57,6 @@ module Google
     end
   end
 end
+
+helper_path = ::File.join __dir__, "rest", "helpers.rb"
+require "google/showcase/v1beta1/echo/rest/helpers" if ::File.file? helper_path

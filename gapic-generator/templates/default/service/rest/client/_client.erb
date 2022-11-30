@@ -3,8 +3,8 @@
 <%= render partial: "service/client/requires", locals: { service: service} -%>
 require "<%= service.proto_service_require %>"
 require "<%= service.rest.service_stub_require %>"
-<%- if service.subclients? -%>
-<%- service.subclients.each do |subclient| -%>
+<%- if service.rest.subclients? -%>
+<%- service.rest.subclients.each do |subclient| -%>
 <%- unless subclient.client_class_name == "Operations" -%>
 require "<%= subclient.require_str %>"
 <%- end -%>
@@ -125,8 +125,8 @@ class <%= service.rest.client_name %>
     @<%= service.stub_name %> = <%= service.rest.service_stub_name_full %>.new endpoint: @config.endpoint, credentials: credentials
   end
 
-  <%- if service.subclients? -%>
-  <%- service.subclients.each do |subclient| -%>
+  <%- if service.rest.subclients? -%>
+  <%- service.rest.subclients.each do |subclient| -%>
   ##
   # Get the associated client for <%= subclient.service_description %>.
   #

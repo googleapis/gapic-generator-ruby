@@ -523,6 +523,27 @@ module Gapic
       end
 
       ##
+      # Whether this service presenter is a mixin inside a host service's gem
+      # (and not in its own gem)
+      #
+      # @return [Boolean]
+      #
+      def is_hosted_mixin?
+        Gapic::Model::Mixins.mixin_service_address? address, gem_name: @gem_presenter.name
+      end
+
+      ##
+      # Whether this service presenter is a mixin inside it's own gem
+      # (and not in another service's gem)
+      #
+      # @return [Boolean]
+      #
+      def is_main_mixin_service?
+        Gapic::Model::Mixins.mixin_service_address?(address) &&
+          !Gapic::Model::Mixins.mixin_service_address?(address, gem_name: @gem_presenter.name)
+      end
+
+      ##
       # Whether there are mixin services that should be referenced
       # in the client for this service
       #
@@ -533,13 +554,59 @@ module Gapic
       end
 
       ##
+      # The models for the mixins
+      #
+      # @return [Enumerable<::Gapic::Model::Mixins::Mixin>]
+      #
+      def mixin_models
+        @gem_presenter.mixins_model.mixins
+      end
+
+      ##
+      # Whether there are mixin services that this package has http binding overrides for.
+      #
+      # @return [Boolean]
+      #
+      def mixin_binding_overrides?
+        mixin_presenters.any? { |mixin| !mixin.bindings_override.empty? }
+      end
+
+      ##
       # The mixin services that should be referenced
       # in the client for this service
       #
-      # @return [Enumerable<Gapic::Model::Mixins::Mixin>]
+      # @return [Enumerable<Gapic::Presenters::Service::MixinClientPresenter>]
       #
-      def mixins
-        @gem_presenter.mixins_model.mixins
+      def mixin_presenters
+        return [] unless mixins?
+        mixin_models.map do |model|
+          # we don't have mixin's descriptors loaded, so instead of starting with descriptor's methods
+          # and looking up the override, we'll start with overrides and see if any fit the mixin's namespace
+          bindings_override = begin
+            if @api.service_config&.http.nil?
+              {}
+            else
+              service_http_rules = @api.service_config.http.rules.select do |http_rule|
+                http_rule.selector.include? model.service
+              end
+
+              service_http_rules.to_h do |http_rule|
+                bindings = Gapic::Model::Method::HttpAnnotation.new(http_rule).bindings.map do |binding|
+                  Gapic::Presenters::Method::HttpBindingPresenter.new binding
+                end
+                [http_rule.selector, bindings]
+              end
+            end
+          end
+
+          Gapic::Presenters::Service::MixinClientPresenter.new service: model.service,
+                                                               client_class_name: model.client_class_name,
+                                                               client_class_docname: model.client_class_docname,
+                                                               client_var_name: model.client_var_name,
+                                                               require_str: model.require_str,
+                                                               service_description: model.service_description,
+                                                               bindings_override: bindings_override
+        end
       end
 
       ##
@@ -628,13 +695,14 @@ module Gapic
         return [] unless nonstandard_lro_consumer?
         nonstandard_lros_models.map do |lro|
           lro_wrapper = @api.lookup lro.service_full_name
-          lro_service = ServicePresenter.new(@gem_presenter, @api, lro_wrapper).usable_service_presenter
+          lro_service = ServicePresenter.new @gem_presenter, @api, lro_wrapper
 
           service_description = "long-running operations via #{lro_service.name}"
+          client_var_name = ruby_file_path_for_namespace lro_service.name
           Gapic::Presenters::Service::LroClientPresenter.new service: lro.service_full_name,
                                                              client_class_name: lro_service.client_name_full,
                                                              client_class_docname: lro_service.client_name_full,
-                                                             client_var_name: lro_service.service_directory_name,
+                                                             client_var_name: client_var_name,
                                                              require_str: lro_service.service_require,
                                                              service_description: service_description,
                                                              helper_type: lro_service.nonstandard_lro_name_full
@@ -661,12 +729,11 @@ module Gapic
       #
       # @return [Enumerable<Gapic::Presenters::Service::LroClientPresenter, Gapic::Model::Mixins::Mixin>]
       def subclients
-        ([] << lro_client_presenter << mixins << nonstandard_lros).flatten.compact
+        [lro_client_presenter, mixin_presenters, nonstandard_lros].flatten.compact
       end
 
-      private
-
       ##
+      # @private
       # The nonstandard LRO models for the nonstandard LROs that are used by the methods of this service
       #
       # @return [Enumerable<Gapic::Model::Method::Lro>]
@@ -674,6 +741,8 @@ module Gapic
         return [] unless nonstandard_lro_consumer?
         methods.select(&:nonstandard_lro?).map(&:lro).uniq(&:service_full_name)
       end
+
+      private
 
       def default_config key
         return unless @service.parent.parent.configuration[:defaults]

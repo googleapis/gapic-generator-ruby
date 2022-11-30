@@ -36,7 +36,7 @@ require "testing/routing_headers/service_no_headers/client"
 module Testing
   module RoutingHeaders
     ##
-    # To load this service and instantiate a client:
+    # To load this service and instantiate a GRPC client:
     #
     #     require "testing/routing_headers/service_no_headers"
     #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Client.new

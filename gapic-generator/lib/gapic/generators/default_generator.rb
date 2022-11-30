@@ -55,6 +55,7 @@ module Gapic
 
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
+          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if @api.generate_rest_clients? && package.first_service_with_rest
 
           package.services.each do |service|
             should_generate_grpc = @api.generate_grpc_clients?
@@ -78,7 +79,7 @@ module Gapic
 
             # Nonstandard LRO shim
             files << g("service/nonstandard_lro.erb",        "lib/#{service.nonstandard_lro_file_path}",         service: service) if service.nonstandard_lro_provider? && should_generate_grpc
-            files << g("service/nonstandard_lro.erb",        "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.nonstandard_lro_provider? && should_generate_rest
+            files << g("service/rest/nonstandard_lro.erb",   "lib/#{service.rest.nonstandard_lro_file_path}",    service: service) if service.rest.nonstandard_lro_provider? && should_generate_rest
             
             # Rest-only `service.stub` file
             files << g("service/rest/service_stub.erb",      "lib/#{service.rest.service_stub_file_path}",       service: service) if should_generate_rest

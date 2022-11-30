@@ -59,7 +59,7 @@ module Gapic
         # the overrides should get configured separately.
         is_lro =  @service_presenter.address.join(".") == Gapic::Model::Mixins::LRO_SERVICE
         service_config_override_http = is_lro ? @api.service_config : nil
-        @http = Gapic::Model::Method::HttpAnnotation.new @method, service_config_override_http
+        @http = Gapic::Model::Method::HttpAnnotation.create_with_override @method, service_config_override_http
 
         @http_bindings = @http.bindings.map { |binding| Gapic::Presenters::Method::HttpBindingPresenter.new(binding) }
         @routing = Gapic::Model::Method::Routing.new @method.routing, @http

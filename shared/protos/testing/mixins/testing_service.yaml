@@ -3,11 +3,17 @@ config_version: 3
 
 apis:
 - name: testing.mixins.ServiceWithLoc
-- name: google.cloud.location.Locations
+- name: google.longrunning.Operations
 
 http:
   rules:
+  - selector: google.longrunning.Operations.ListOperations
+    get: '/v1beta1/operations'
   - selector: google.cloud.location.Locations.GetLocation
-    get: '/v1/{name=projects/*/locations/*}'
+    get: '/v1beta1/{name=projects/*/locations/*}'
+    additional_bindings:
+    - get: '/v1beta1/{name=projects/*/locations/*}/{test_name=testingLocations/*}'
   - selector: google.cloud.location.Locations.ListLocations
-    get: '/v1/{name=projects/*}/locations'
+    get: '/v1beta1/{name=projects/*}/locations'
+    additional_bindings:
+    - get: '/v1beta1/{name=projects/*/locations/*}/testingLocations'

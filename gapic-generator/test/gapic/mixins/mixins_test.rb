@@ -21,6 +21,9 @@ class MixinsTest < PresenterTest
   # Test the `Testing` library, which does have mixins specified
   # in its service.yaml
   def test_testing_mixins
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Testing"
+
     gem_presenter = Gapic::Presenters::GemPresenter.new api :testing
     mx_model = gem_presenter.mixins_model
 
@@ -37,6 +40,8 @@ class MixinsTest < PresenterTest
   end
 
   def test_mixin_service_address_checker
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Testing"
     assert Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations"
     refute Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations",
                                                        gem_address: "google.cloud.location"
@@ -47,6 +52,8 @@ class MixinsTest < PresenterTest
   # Test the `Garbage` library, which does NOT have mixins specified
   # in its service.yaml (or service.yaml at all)
   def test_garbage_mixins
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Testing"
     mx_model = Gapic::Presenters::GemPresenter.new(api(:garbage)).mixins_model
 
     refute mx_model.mixins?

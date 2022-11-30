@@ -14,11 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require "gapic/presenters/service/sub_client_presenter"
+
 module Gapic
   module Presenters
     module Service
       ##
-      # Presenter for the generation of the client for nonstandard LROs
+      # @private
+      # Presenter for the generation of the sub-client for LRO
+      # inside a host service's client class
       #
       # @!attribute [r] service
       #   Full name of the service providing the nonstandard LRO functionality
@@ -43,13 +47,7 @@ module Gapic
       #   The type of a helper generated for this service if any
       #   @return [String. nil]
       #
-      class LroClientPresenter
-        attr_reader :service
-        attr_reader :client_class_name
-        attr_reader :client_class_docname
-        attr_reader :client_var_name
-        attr_reader :require_str
-        attr_reader :service_description
+      class LroClientPresenter < SubClientPresenter
         attr_reader :helper_type
 
         ##
@@ -76,12 +74,14 @@ module Gapic
                        require_str:,
                        service_description:,
                        helper_type: nil
-          @service = service
-          @client_class_name = client_class_name
-          @client_class_docname = client_class_docname
-          @client_var_name = client_var_name
-          @require_str = require_str
-          @service_description = service_description
+          super(service: service,
+                client_class_name: client_class_name,
+                client_class_docname: client_class_docname,
+                client_var_name: client_var_name,
+                require_str: require_str,
+                service_description: service_description
+              )
+
           @helper_type = helper_type
         end
       end

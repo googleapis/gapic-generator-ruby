@@ -1,4 +1,5 @@
 ---
+:transports: ["grpc", "rest"]
 :gem:
   :name: "google-cloud-vision-v1"
   :env_prefix: VISION

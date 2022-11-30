@@ -71,6 +71,15 @@ class GeneratorTest < Minitest::Test
   # @param params_purge [Array<String>, Array{String(frozen)}]
   # @return [Gapic::Schema::Api]
   def api service, params_override: nil, params_purge: nil
+    default_params = case service 
+    when :vision_v1
+      { "service-yaml" => "protofiles_input/google/cloud/vision/v1/vision_v1.yaml".freeze }
+    else
+      { }
+    end
+
+    params_override = default_params.merge(params_override || {})
+
     Gapic::Schema::Api.new request(service, params_override: params_override, params_purge: params_purge),
                            parameter_schema: Gapic::Generators::CloudGeneratorParameters.default_schema
   end
@@ -85,6 +94,14 @@ class GeneratorTest < Minitest::Test
 end
 
 class PresenterTest < GeneratorTest
+  def service_presenter api_name, service_name
+    api_obj = api api_name
+    service = api_obj.services.find { |s| s.name == service_name }
+    refute_nil service
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_obj
+    Gapic::Presenters::ServicePresenter.new gem_presenter, api_obj, service
+  end
+
   def method_presenter api_name, service_name, method_name
     api_obj = api api_name
     service = api_obj.services.find { |s| s.name == service_name }
