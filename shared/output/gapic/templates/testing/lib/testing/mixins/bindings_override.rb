@@ -40,45 +40,41 @@ module Testing
 
         default_config = Configuration.new parent_config
         default_config.bindings_override["google.cloud.location.Locations.GetLocation"] = [
-          Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-            :get,
-            "/v1beta1/{name}",
-            [
-              Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name",
-                                                                         %r{^projects/[^/]+/locations/[^/]+/?$}, false)
+          Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+            uri_method: :get,
+            uri_template: "/v1beta1/{name}",
+            matches: [
+              ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false]
             ],
-            nil
+            body: nil
           ),
-          Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-            :get,
-            "/v1beta1/{name}/{test_name}",
-            [
-              Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name",
-                                                                         %r{^projects/[^/]+/locations/[^/]+/?$}, false),
-              Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("test_name", %r{^testingLocations/[^/]+/?$},
-                                                                         false)
+          Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+            uri_method: :get,
+            uri_template: "/v1beta1/{name}/{test_name}",
+            matches: [
+              ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false],
+              ["test_name", %r{^testingLocations/[^/]+/?$}, false]
             ],
-            nil
+            body: nil
           )
         ]
         default_config.bindings_override["google.cloud.location.Locations.ListLocations"] = [
 
-          Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-            :get,
-            "/v1beta1/{name}/locations",
-            [
-              Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name", %r{^projects/[^/]+/?$}, false)
+          Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+            uri_method: :get,
+            uri_template: "/v1beta1/{name}/locations",
+            matches: [
+              ["name", %r{^projects/[^/]+/?$}, false]
             ],
-            nil
+            body: nil
           ),
-          Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-            :get,
-            "/v1beta1/{name}/testingLocations",
-            [
-              Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name",
-                                                                         %r{^projects/[^/]+/locations/[^/]+/?$}, false)
+          Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+            uri_method: :get,
+            uri_template: "/v1beta1/{name}/testingLocations",
+            matches: [
+              ["name", %r{^projects/[^/]+/locations/[^/]+/?$}, false]
             ],
-            nil
+            body: nil
           )
         ]
         default_config

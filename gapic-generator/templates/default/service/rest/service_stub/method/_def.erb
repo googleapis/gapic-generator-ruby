@@ -1,4 +1,4 @@
-<%- assert_locals method, service_stub_name -%>
+<%- assert_locals method -%>
 ##
 # Baseline implementation for the <%= method.name %> REST call
 #
@@ -6,6 +6,10 @@
 #   A request object representing the call parameters. Required.
 # @param options [::Gapic::CallOptions]
 #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+<%- if method.service.rest.is_main_mixin_service? -%>
+# @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+#   Binding overrides for the transcoding. Only used internally.
+<%- end %>
 #
 <%- if method.server_streaming? -%>
 # @yieldparam chunk [::String] The chunk of data received during server streaming.
@@ -22,7 +26,8 @@
 <%- if method.server_streaming? -%>
 def <%= method.name %> request_pb, options = nil, &block
 <%- else -%>
-def <%= method.name %> request_pb, options = nil
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: nil" : "" -%>
+def <%= method.name %> request_pb, options = nil<%= boverr_str %>
 <%- end -%>
 <%= indent render(partial: "service/rest/service_stub/method/def/request", locals: { method: method }), 2 %>
 

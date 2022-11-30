@@ -34,24 +34,24 @@ module Google
 
             default_config = Configuration.new parent_config
             default_config.bindings_override["google.cloud.location.Locations.GetLocation"] = [
-              Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-                :get,
-                "/v1/{name}",
-                [
-                  Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name", %r{^projects/[^/]+/visionLocations/[^/]+/?$}, false)
+              Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+                uri_method: :get,
+                uri_template: "/v1/{name}",
+                matches: [
+                  ["name", %r{^projects/[^/]+/visionLocations/[^/]+/?$}, false]
                 ],
-                nil
+                body: nil
               )
             ]
             default_config.bindings_override["google.cloud.location.Locations.ListLocations"] = [
 
-              Gapic::Rest::GrpcTranscoder::HttpBinding.new(
-                :get,
-                "/v1/{name}/visionLocations",
-                [
-                  Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new("name", %r{^projects/[^/]+/?$}, false)
+              Gapic::Rest::GrpcTranscoder::HttpBinding.create_with_validation(
+                uri_method: :get,
+                uri_template: "/v1/{name}/visionLocations",
+                matches: [
+                  ["name", %r{^projects/[^/]+/?$}, false]
                 ],
-                nil
+                body: nil
               )
             ]
             default_config
