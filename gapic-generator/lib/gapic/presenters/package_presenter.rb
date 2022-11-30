@@ -81,6 +81,33 @@ module Gapic
         services.find(&:methods_rest_bindings?)
       end
 
+      ##
+      # Whether there are mixin services that this package has http binding overrides for.
+      #
+      # @return [Boolean]
+      #
+      def mixin_binding_overrides?
+        first_service_with_rest&.rest&.mixin_binding_overrides? || false
+      end
+
+      ##
+      # Requires path for the mixin binding overrides file
+      #
+      # @return [String]
+      #
+      def mixin_binding_overrides_require
+        "#{ruby_file_path @api, namespace}/bindings_override"
+      end
+
+      ##
+      # File path for the mixin binding overrides file
+      #
+      # @return [String]
+      #
+      def mixin_binding_overrides_file_path
+        "#{mixin_binding_overrides_require}.rb"
+      end
+
       def address
         @package.split "."
       end
