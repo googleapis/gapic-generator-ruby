@@ -26,6 +26,7 @@
 
 require "testing/mixins/mixins_pb"
 require "testing/mixins/service_with_loc/rest/service_stub"
+require "google/cloud/location/rest"
 
 module Testing
   module Mixins
@@ -124,9 +125,22 @@ module Testing
             @quota_project_id = @config.quota_project
             @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+              config.credentials = credentials
+              config.quota_project = @quota_project_id
+              config.endpoint = @config.endpoint
+            end
+
             @service_with_loc_stub = ::Testing::Mixins::ServiceWithLoc::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                               credentials: credentials
           end
+
+          ##
+          # Get the associated client for mix-in of the Locations.
+          #
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
+          #
+          attr_reader :location_client
 
           # Service calls
 

@@ -26,6 +26,7 @@
 
 require "testing/grpc_service_config/grpc_service_config_pb"
 require "testing/grpc_service_config/service_with_retries/rest/service_stub"
+require "google/cloud/location/rest"
 
 module Testing
   module GrpcServiceConfig
@@ -134,9 +135,22 @@ module Testing
             @quota_project_id = @config.quota_project
             @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+              config.credentials = credentials
+              config.quota_project = @quota_project_id
+              config.endpoint = @config.endpoint
+            end
+
             @service_with_retries_stub = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                                                  credentials: credentials
           end
+
+          ##
+          # Get the associated client for mix-in of the Locations.
+          #
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
+          #
+          attr_reader :location_client
 
           # Service calls
 

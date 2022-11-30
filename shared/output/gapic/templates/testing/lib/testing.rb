@@ -26,7 +26,6 @@
 
 # This gem does not autoload during Bundler.require. To load this gem,
 # issue explicit require statements for the packages desired, e.g.:
-# require "google/cloud/location"
 # require "testing/grpc_service_config"
 # require "testing/mixins"
 # require "testing/nonstandard_lro_grpc"
