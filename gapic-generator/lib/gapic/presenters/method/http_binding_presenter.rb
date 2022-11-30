@@ -71,7 +71,8 @@ module Gapic
         def routing_params_transcoder_field_binding_strings
           return [] if routing_params_with_regexes.empty?
           match_init_strings = routing_params_with_regexes.map do |name, regex, preserve_slashes|
-            "Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding.new(\"#{name}\", %r{#{regex}}, #{preserve_slashes}),"
+            "Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding" \
+              ".new(\"#{name}\", %r{#{regex}}, #{preserve_slashes}),"
           end
           match_init_strings << match_init_strings.pop.chop # remove the trailing comma for the last element
           match_init_strings
