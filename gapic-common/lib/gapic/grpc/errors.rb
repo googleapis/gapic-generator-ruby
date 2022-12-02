@@ -14,6 +14,7 @@
 
 require "googleauth"
 require "gapic/common/error"
+require "grpc/errors"
 
 module Gapic
   module GRPC

@@ -15,6 +15,7 @@
 require "googleauth"
 require "gapic/rest/faraday_middleware"
 require "faraday/retry"
+require "gapic/grpc/errors"
 
 module Gapic
   module Rest
