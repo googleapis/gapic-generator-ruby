@@ -55,6 +55,17 @@ module Gapic
         #
         # @return [ Gapic::Rest::Error]
         def wrap_faraday_error err
+          message, status_code, status, details, headers = parse_faraday_error err
+          Gapic::Rest::Error.new message, status_code, status: status, details: details, headers: headers
+        end
+
+        ##
+        # @private
+        # Tries to get the error information from Faraday error
+        #
+        # @param err [Faraday::Error] the Faraday error to extract information from
+        # @return [Array(String, String, String, String, String)]
+        def parse_faraday_error err
           message = err.message
           status_code = err.response_status
           status = nil
@@ -67,7 +78,7 @@ module Gapic
             status_code = code unless code.nil?
           end
 
-          Gapic::Rest::Error.new message, status_code, status: status, details: details, headers: headers
+          [message, status_code, status, details, headers]
         end
 
         private
@@ -130,6 +141,63 @@ module Gapic
               detail_instance
             end
           end.compact
+        end
+      end
+    end
+
+    ##
+    # An error class that represents DeadlineExceeded error for Rest
+    # with an optional retry root cause.
+    #
+    # If the deadline for making a call was exceeded during the rest calls,
+    # this exception is thrown wrapping Faraday::TimeoutError.
+    #
+    # If there were other exceptions retried before that, the last one will be
+    # saved as a "root_cause".
+    #
+    # @!attribute [r] root_cause
+    #   @return [Object, nil] The exception that was being retried
+    #     when the Faraday::TimeoutError error occured.
+    #
+    class DeadlineExceededError < Error
+      attr_reader :root_cause
+
+      ##
+      # @private
+      # @param message [String, nil] error message
+      # @param status_code [Integer, nil] HTTP status code of this error
+      # @param status [String, nil] The text representation of status as parsed from the response body
+      # @param details [Object, nil] Details data of this error
+      # @param headers [Object, nil] Http headers data of this error
+      # @param root_cause [Object, nil] The exception that was being retried
+      #   when the Faraday::TimeoutError occured.
+      #
+      def initialize message, status_code, status: nil, details: nil, headers: nil, root_cause: nil
+        super message, status_code, status: status, details: details, headers: headers
+        @root_cause = root_cause
+      end
+
+      class << self
+        ##
+        # @private
+        # This creates a new error message wrapping the Faraday's one. Additionally
+        # it tries to parse and set a detailed message and an error code from
+        # from the Google Cloud's response body
+        #
+        # @param err [Faraday::TimeoutError] the Faraday error to wrap
+        #
+        # @param root_cause [Object, nil] The exception that was being retried
+        #   when the Faraday::TimeoutError occured.
+        #
+        # @return [ Gapic::Rest::DeadlineExceededError]
+        def wrap_faraday_error err, root_cause: nil
+          message, status_code, status, details, headers = parse_faraday_error err
+          Gapic::Rest::DeadlineExceededError.new message,
+                                                 status_code,
+                                                 status: status,
+                                                 details: details,
+                                                 headers: headers,
+                                                 root_cause: root_cause
         end
       end
     end

@@ -46,25 +46,28 @@ module Gapic
       ERROR_STRING_MAPPING = error_code_mapping.each_with_index.to_h.freeze
 
       # @private
+      HTTP_GRPC_CODE_MAP = {
+        400 => 3, # InvalidArgumentError
+        401 => 16, # UnauthenticatedError
+        403 => 7, # PermissionDeniedError
+        404 => 5, # NotFoundError
+        409 => 6, # AlreadyExistsError
+        412 => 9, # FailedPreconditionError
+        429 => 8, # ResourceExhaustedError
+        499 => 1, # CanceledError
+        500 => 13, # InternalError
+        501 => 12, # UnimplementedError
+        503 => 14, # UnavailableError
+        504 => 4 # DeadlineExceededError
+      }.freeze
+
+      # @private
       # Converts http error codes into corresponding gRPC ones
       def self.grpc_error_for http_error_code
         return 2 unless http_error_code
 
         # The http status codes mapped to their error classes.
-        {
-          400 => 3, # InvalidArgumentError
-          401 => 16, # UnauthenticatedError
-          403 => 7, # PermissionDeniedError
-          404 => 5, # NotFoundError
-          409 => 6, # AlreadyExistsError
-          412 => 9, # FailedPreconditionError
-          429 => 8, # ResourceExhaustedError
-          499 => 1, # CanceledError
-          500 => 13, # InternalError
-          501 => 12, # UnimplementedError
-          503 => 14, # UnavailableError
-          504 => 4 # DeadlineExceededError
-        }[http_error_code] || 2 # UnknownError
+        HTTP_GRPC_CODE_MAP[http_error_code] || 2 # UnknownError
       end
     end
   end
