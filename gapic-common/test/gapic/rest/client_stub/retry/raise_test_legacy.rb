@@ -15,35 +15,14 @@
 require "test_helper"
 require "gapic/rest"
 
-class ClientStubRetryRaiseTest < ClientStubTestBase
-  ##
-  # Tests that no retrying happens then the call simply completes with no response
-  #
-  def test_no_retry_when_no_response
-    call_count = 0
-    client_stub = make_client_stub
-
-    make_request_proc = lambda do |args|
-      call_count += 1
-    end
-
-    options = Gapic::CallOptions.new(
-      retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
-    )
-
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
-      client_stub.make_get_request uri: "/foo", options: options
-    end
-
-    assert_equal 1, call_count
-  end
-
+class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
   ##
   # Tests that if options don't have retry code, retrying does not happen
+  # in legacy `raise_faraday_errors` mode.
   #
-  def test_no_retry_without_codes
+  def test_no_retry_without_codes_legacy
     call_count = 0
-    client_stub = make_client_stub
+    client_stub = make_client_stub raise_faraday_errors: true
 
     make_request_proc = lambda do |args|
       call_count += 1
@@ -52,13 +31,11 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
     options = Gapic::CallOptions.new # no codes
     ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
-      ex = assert_raises Gapic::Rest::Error do
+      ex = assert_raises FakeFaradayError do
         client_stub.make_get_request uri: "/foo", options: options
       end
 
-      refute_nil ex.cause
-      assert_kind_of FakeFaradayError, ex.cause
-      assert_equal GRPC::Core::StatusCodes::INTERNAL, ex.cause.grpc_code
+      assert_equal GRPC::Core::StatusCodes::INTERNAL, ex.grpc_code
     end
 
     assert_equal 1, call_count
@@ -66,8 +43,9 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
   ##
   # Tests that if error has a code different from one in options, retrying does not happen
+  # in legacy `raise_faraday_errors` mode.
   #
-  def test_no_retry_with_mismatched_error
+  def test_no_retry_with_mismatched_error_legacy
     call_count = 0
     client_stub = make_client_stub
 
@@ -81,80 +59,21 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
     )
 
     ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
-      ex = assert_raises Gapic::Rest::Error do
+      ex = assert_raises FakeFaradayError do
         client_stub.make_get_request uri: "/foo", options: options
       end
 
-      refute_nil ex.cause
-      assert_kind_of FakeFaradayError, ex.cause
-      assert_equal GRPC::Core::StatusCodes::INTERNAL, ex.cause.grpc_code
+      assert_equal GRPC::Core::StatusCodes::INTERNAL, ex.grpc_code
     end
     assert_equal 1, call_count
   end
 
   ##
-  # Test that if it retries specified exceptions until it runs out of time,
-  # without Faraday layer throwing a ::Faraday::Timeout, the last exception gets surfaced.
-  #
-  def test_times_outs
-    client_stub = make_client_stub
-    to_attempt = 5
-    time_delay = 60
-
-    call_count = 0
-    make_request_proc = lambda do |args|
-      call_count += 1
-      raise FakeFaradayError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
-    end
-
-    time_now = 1
-    time_proc = ->(_) do
-      time_now += time_delay
-    end
-
-    # Default delay and multiplier are 1 and 1.3
-    # The number of expects here is `to_attempt-1`, spelt out for visibility
-    sleep_mock = Minitest::Mock.new
-    sleep_mock.expect :sleep, nil, [1]
-    sleep_mock.expect :sleep, nil, [1 * 1.3]
-    sleep_mock.expect :sleep, nil, [1 * 1.3 * 1.3]
-    sleep_mock.expect :sleep, nil, [1 * 1.3 * 1.3 * 1.3]
-    sleep_proc = ->(count) { sleep_mock.sleep count }
-
-    options = Gapic::CallOptions.new(
-      timeout: time_delay * to_attempt + 0.1, # `+0.1` means that timeout stays positive on last cycle  
-      retry_policy: {
-        retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE], 
-      }
-    )
-
-    Kernel.stub :sleep, sleep_proc do
-      ::Process.stub :clock_gettime, time_proc do
-        ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
-          ex = assert_raises ::Gapic::Rest::Error do
-            client_stub.make_get_request uri: "/foo", options: options
-          end
-
-          refute_nil ex.cause
-          assert_kind_of FakeFaradayError, ex.cause
-
-          # Note that this is not a DEADLINE_EXCEEDED
-          # Our fake never throws ::Faraday::TimeoutError so the error gets wrapped as is.
-          # This mirrors the gRPC test
-          assert_equal GRPC::Core::StatusCodes::UNAVAILABLE, ex.cause.grpc_code
-        end
-      end
-    end
-
-    assert_equal to_attempt, call_count
-    sleep_mock.verify
-  end
-
-  ##
   # Test that if it retries specified exceptions and then raises
-  # a ::Faraday::Timeout, the two exceptions get wrapped in a Gapic::Rest::DeadlineExceededError
+  # a ::Faraday::TimeoutError, ::Faraday::TimeoutError gets raised as is
+  # in legacy `raise_faraday_errors` mode.
   #
-  def test_deadline_exceeded
+  def test_deadline_exceeded_legacy
     client_stub = make_client_stub
 
     call_count = 0
@@ -178,15 +97,9 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
     Kernel.stub :sleep, sleep_proc do
       ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
-        ex = assert_raises ::Gapic::Rest::DeadlineExceededError do
+        ex = assert_raises Faraday::TimeoutError do
           client_stub.make_get_request uri: "/foo", options: options
         end
-
-        refute_nil ex.cause
-        assert_kind_of Faraday::TimeoutError, ex.cause
-
-        refute_nil ex.root_cause
-        assert_equal GRPC::Core::StatusCodes::UNAVAILABLE, ex.root_cause.grpc_code
       end
     end
 
@@ -197,8 +110,9 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
   ##
   # Test that it retries specified exceptions and then raises
   # an unspecified exception, when unspecified one is NOT a Faraday exception
+  # in legacy `raise_faraday_errors` mode.
   #
-  def test_retries_then_raises_unexpected_exception
+  def test_retries_then_raises_unexpected_exception_legacy
     client_stub = make_client_stub
 
     call_count = 0

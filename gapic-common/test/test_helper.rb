@@ -24,6 +24,28 @@ require "google/protobuf/any_pb"
 require_relative "./fixtures/fixture_pb"
 require_relative "./fixtures/transcoding_example_pb"
 
+class FakeFaradayError < ::Faraday::Error
+  def initialize code
+    if code < 100 && ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert.key?(code)
+      code = ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert[code]
+    end
+
+    @code = code
+  end
+
+  def http_code
+    @code if @code >= 100
+  end
+
+  def grpc_code
+    ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP[@code]
+  end
+
+  def response_status
+    @code
+  end
+end
+
 class FakeCodeError < StandardError
   attr_reader :code
 
@@ -69,5 +91,19 @@ class FakeReGapicServiceStub
     @count += 1
     yield result, result if block_given?
     result
+  end
+end
+
+class ClientStubTestBase < Minitest::Test
+  ##
+  # NB: raise_faraday_errors is set to false here by default,
+  # even though it's default-true in `::Gapic::Rest::ClientStub`'s initialize
+  # for backward compatibility reasons
+  #
+  def make_client_stub numeric_enums: false, raise_faraday_errors: false
+    ::Gapic::Rest::ClientStub.new endpoint: "google.example.com",
+                                  credentials: :dummy_credentials,
+                                  numeric_enums: numeric_enums,
+                                  raise_faraday_errors: raise_faraday_errors
   end
 end

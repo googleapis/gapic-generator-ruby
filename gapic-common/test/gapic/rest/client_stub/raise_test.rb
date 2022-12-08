@@ -15,13 +15,7 @@
 require "test_helper"
 require "gapic/rest"
 
-class ClientStubRaiseTest < Minitest::Test
-  def make_client_stub numeric_enums: false
-    ::Gapic::Rest::ClientStub.new endpoint: "google.example.com",
-                                  credentials: :dummy_credentials,
-                                  numeric_enums: numeric_enums
-  end
-
+class ClientStubRaiseTest < ClientStubTestBase
   def expect_connection client_stub, verb, uri
     mock = ::Minitest::Mock.new
     client_stub.instance_variable_set :@connection, mock
@@ -38,10 +32,27 @@ class ClientStubRaiseTest < Minitest::Test
     client_stub = make_client_stub
 
     mock = expect_connection client_stub, :get, "/foo" do
-      raise Faraday::Error.new
+      raise ::Faraday::Error.new
     end
 
     assert_raises ::Gapic::Rest::Error do
+      client_stub.make_get_request uri: "/foo"
+    end
+    mock.verify
+  end
+
+  ##
+  # Tests that a faraday exception gets raised as is if 
+  # `raise_faraday_errors` is true
+  #
+  def test_raises_faraday_exception_if_option_set
+    client_stub = make_client_stub raise_faraday_errors: true
+
+    mock = expect_connection client_stub, :get, "/foo" do
+      raise ::Faraday::Error.new
+    end
+
+    assert_raises ::Faraday::Error do
       client_stub.make_get_request uri: "/foo"
     end
     mock.verify

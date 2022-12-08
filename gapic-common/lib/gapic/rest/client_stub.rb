@@ -34,15 +34,21 @@ module Gapic
       #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
       # @param numeric_enums [Boolean] Whether to signal the server to JSON-encode enums as ints
       #
+      # @param raise_faraday_errors [Boolean]
+      #   Whether to raise Faraday errors instead of wrapping them in `Gapic::Rest::Error`
+      #   Added for backwards compatibility.
+      #
       # @yield [Faraday::Connection]
       #
-      def initialize endpoint:, credentials:, numeric_enums: false
+      def initialize endpoint:, credentials:, numeric_enums: false, raise_faraday_errors: true
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
         @endpoint = @endpoint.sub %r{/$}, ""
 
         @credentials = credentials
         @numeric_enums = numeric_enums
+
+        @raise_faraday_errors = raise_faraday_errors
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
@@ -129,6 +135,8 @@ module Gapic
       # @param is_server_streaming [Boolean] flag if method is streaming
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
+      #
+      #
       def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false, &block
         # Converts hash and nil to an options object
         options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
@@ -137,17 +145,14 @@ module Gapic
         next_timeout = get_timeout deadline
 
         begin
-          ClientStub.base_make_http_request(connection: @connection,
-                                            verb: verb,
-                                            uri: uri,
-                                            body: body,
-                                            params: params,
-                                            metadata: options.metadata,
+          ClientStub.base_make_http_request(connection: @connection, verb: verb, uri: uri, body: body,
+                                            params: params, metadata: options.metadata,
                                             timeout: next_timeout,
                                             is_server_streaming: is_server_streaming,
                                             numeric_enums: @numeric_enums,
                                             &block)
         rescue ::Faraday::TimeoutError => e
+          raise if @raise_faraday_errors
           raise Gapic::Rest::DeadlineExceededError.wrap_faraday_error e, root_cause: retried_exception
         rescue ::Faraday::Error => e
           next_timeout = get_timeout deadline
@@ -157,6 +162,7 @@ module Gapic
             retry
           end
 
+          raise if @raise_faraday_errors
           raise ::Gapic::Rest::Error.wrap_faraday_error e
         end
       end

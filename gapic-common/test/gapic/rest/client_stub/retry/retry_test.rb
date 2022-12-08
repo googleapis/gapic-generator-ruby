@@ -15,35 +15,7 @@
 require "test_helper"
 require "gapic/rest"
 
-class ClientStubRetryRetryTest < Minitest::Test
-  class FakeError < ::Faraday::Error
-    def initialize code
-      if code < 100 && ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert.key?(code)
-        code = ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP.invert[code]
-      end
-
-      @code = code
-    end
-
-    def http_code
-      @code if @code >= 100
-    end
-
-    def grpc_code
-      ::Gapic::CallOptions::ErrorCodes::HTTP_GRPC_CODE_MAP[@code]
-    end
-
-    def response_status
-      @code
-    end
-  end
-
-  def make_client_stub numeric_enums: false
-    ::Gapic::Rest::ClientStub.new endpoint: "google.example.com",
-                                  credentials: :dummy_credentials,
-                                  numeric_enums: numeric_enums
-  end
-
+class ClientStubRetryRetryTest < ClientStubTestBase
   ##
   # Test that the default retry strategy works
   #
@@ -53,7 +25,7 @@ class ClientStubRetryRetryTest < Minitest::Test
     time_delay = 60
 
     inner_responses = Array.new 4 do
-      FakeError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
+      FakeFaradayError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
     end
     inner_responses += [1729]
 
@@ -109,7 +81,7 @@ class ClientStubRetryRetryTest < Minitest::Test
     client_stub = make_client_stub
 
     inner_responses = Array.new 4 do
-      FakeError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
+      FakeFaradayError.new(GRPC::Core::StatusCodes::UNAVAILABLE)
     end
     inner_responses += [1729]
 
