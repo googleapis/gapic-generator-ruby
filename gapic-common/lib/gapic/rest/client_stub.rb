@@ -169,7 +169,6 @@ module Gapic
       ##
       # @private
       # Sends a http request via Faraday
-      # "11. If you have a procedure with ten parameters, you probably missed some."
       #
       # @param verb [Symbol] http verb
       # @param uri [String] uri to send this request to
