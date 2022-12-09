@@ -26,7 +26,6 @@
 
 require "testing/grpc_service_config/service_no_retry/rest"
 require "testing/grpc_service_config/service_with_retries/rest"
-require "testing/grpc_service_config/bindings_override"
 require "testing/version"
 
 module Testing

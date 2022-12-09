@@ -21,7 +21,6 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/vision/v1/version"
-require "google/cloud/vision/v1/bindings_override"
 
 require "google/cloud/vision/v1/image_annotator/credentials"
 require "google/cloud/vision/v1/image_annotator/paths"

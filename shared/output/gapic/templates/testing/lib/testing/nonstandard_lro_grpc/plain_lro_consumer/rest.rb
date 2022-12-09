@@ -29,7 +29,6 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "testing/version"
-require "testing/nonstandard_lro_grpc/bindings_override"
 
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/credentials"
 require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest/client"

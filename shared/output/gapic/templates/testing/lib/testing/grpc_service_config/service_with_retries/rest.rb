@@ -29,7 +29,6 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "testing/version"
-require "testing/grpc_service_config/bindings_override"
 
 require "testing/grpc_service_config/service_with_retries/credentials"
 require "testing/grpc_service_config/service_with_retries/rest/client"
