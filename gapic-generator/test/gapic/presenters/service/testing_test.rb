@@ -19,7 +19,7 @@ require "test_helper"
 class TestingServiceTest < PresenterTest
   def test_testing_nonstandardlro_consumer
     presenter = service_presenter :testing, "PlainLroConsumer"
-
+    
     refute presenter.nonstandard_lro_provider?
     assert presenter.nonstandard_lro_consumer?
   end
@@ -48,10 +48,25 @@ class TestingServiceTest < PresenterTest
 
     refute presenter.nonstandard_lro_provider?
     assert presenter.nonstandard_lro_consumer?
+
+    refute presenter.is_hosted_mixin?
+    refute presenter.is_main_mixin_service?
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    # assert presenter.mixins?
+    # assert presenter.mixin_binding_overrides?
+
+    lro = presenter.lro_service
+    refute_nil lro
+
+    assert_equal lro.name, "Operations"
+    assert lro.grpc_full_name == "google.longrunning.Operations"
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    # assert lro.mixin_binding_overrides?
+    # refute lro.rest.mixin_should_generate_override_config?
   end
 
   def test_testing_with_loc
-    # TODO [virost, 2022-11] Restore after location is released with REST transport
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
     skip "Mixins are temporarily removed from Testing"
     presenter = service_presenter(:testing, "ServiceWithLoc").rest
     loc_presenter = presenter.mixin_presenters.first

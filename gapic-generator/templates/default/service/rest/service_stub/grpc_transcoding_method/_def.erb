@@ -6,10 +6,19 @@
 #
 # @param request_pb [<%= method.request_type %>]
 #   A request object representing the call parameters. Required.
-# @return [Array(String, [String, nil], Hash{String => String})] 
+<%- if method.service.rest.is_main_mixin_service? -%>
+# @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
+#   Binding overrides for the transcoding.
+<%- end %>
+# @return [Array(String, [String, nil], Hash{String => String})]
 #   Uri, Body, Query string parameters
-def self.<%= method.rest.transcoding_helper_name %> request_pb
-  transcoder = Gapic::Rest::GrpcTranscoder.new
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: nil" : "" -%>
+def self.<%= method.rest.transcoding_helper_name %> request_pb<%= boverr_str %>
+  <%- if method.service.rest.is_main_mixin_service? -%>
+  transcoder = Gapic::Rest::GrpcTranscoder.new(bindings_override) if bindings_override
+  <%- end %>
+  <%- assignment = method.service.rest.is_main_mixin_service? ? "||=" : "=" -%>
+  transcoder <%= assignment %> Gapic::Rest::GrpcTranscoder.new
   <%- method.http_bindings.each do |http_binding| -%>
                                           .with_bindings(
                                             uri_method: :<%= http_binding.verb %>,
@@ -23,6 +32,6 @@ def self.<%= method.rest.transcoding_helper_name %> request_pb
                                             <%- end -%>
                                             ]
                                           )
-  <%- end %>                                          
+  <%- end %>
   transcoder.transcode request_pb
 end

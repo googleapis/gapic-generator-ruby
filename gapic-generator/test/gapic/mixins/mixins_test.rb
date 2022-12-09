@@ -44,7 +44,7 @@ class MixinsTest < PresenterTest
     skip "Mixins are temporarily removed from Testing"
     assert Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations"
     refute Gapic::Model::Mixins.mixin_service_address? "google.cloud.location.Locations",
-                                                       gem_address: "google.cloud.location"
+                                                       gem_name: "google-cloud-location"
     assert Gapic::Model::Mixins.mixin_service_address? ["google", "iam", "v1", "IAMPolicy"]
     refute Gapic::Model::Mixins.mixin_service_address? "testing.mixins.ServiceWithLoc"
   end

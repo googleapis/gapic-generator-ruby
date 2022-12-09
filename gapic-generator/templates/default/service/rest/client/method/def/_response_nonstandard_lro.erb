@@ -1,5 +1,6 @@
 <%- assert_locals method -%>
-@<%= method.service.stub_name %>.<%= method.name %> request, options do |result, response|
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: bindings_override" : "" -%>
+@<%= method.service.stub_name %>.<%= method.name %> request, options<%= boverr_str %> do |result, response|
   result = <%= method.rest.nonstandard_lro_client.helper_type %>.create_operation(
     operation: result,
     client: <%= method.rest.nonstandard_lro_client.client_var_name %>,

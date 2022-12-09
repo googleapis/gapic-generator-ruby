@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright 2021 Google LLC
+# Copyright 2022 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,18 +16,13 @@
 
 require "test_helper"
 
-class GemPresenterMixinsTest < PresenterTest
-  def test_explicit_plain
+class TestingPackagePresenterTest < PresenterTest
+  def test_testing_mixins
     # TODO: [virost, 2022-11] Restore after location is released with REST transport
     skip "Mixins are temporarily removed from Testing"
-    presenter = Gapic::Presenters::GemPresenter.new api :testing
-    assert presenter.mixins?
-  end
-
-  def test_proto_files_exclude_mixins
-    # TODO: [virost, 2022-11] Restore after location is released with REST transport
-    skip "Mixins are temporarily removed from Testing"
-    presenter = Gapic::Presenters::GemPresenter.new api :testing
-    refute_includes presenter.proto_files.map(&:name), "google/cloud/location/locations.proto"
+    api_schema = api :testing
+    gem_presenter = Gapic::Presenters::GemPresenter.new api_schema
+    presenter = Gapic::Presenters::PackagePresenter.new gem_presenter, api_schema, "testing.mixins"
+    assert presenter.mixin_binding_overrides?
   end
 end

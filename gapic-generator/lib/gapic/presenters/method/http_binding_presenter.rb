@@ -61,6 +61,23 @@ module Gapic
           match_init_strings
         end
 
+        ##
+        # The strings to initialize the `bindings` parameter when initializing a
+        # gapic http binding. The `bindings` parameter is an array of FieldBinding objects,
+        # All strings except for the last one have a comma at the end.
+        #
+        # @return [Array<String>]
+        #
+        def routing_params_transcoder_field_binding_strings
+          return [] if routing_params_with_regexes.empty?
+          match_init_strings = routing_params_with_regexes.map do |name, regex, preserve_slashes|
+            "Gapic::Rest::GrpcTranscoder::HttpBinding::FieldBinding" \
+              ".new(\"#{name}\", %r{#{regex}}, #{preserve_slashes}),"
+          end
+          match_init_strings << match_init_strings.pop.chop # remove the trailing comma for the last element
+          match_init_strings
+        end
+
         # @!method verb?
         #   @return [Boolean]
         #     Whether a http verb is present for this binding.

@@ -1,6 +1,6 @@
 <%- assert_locals method, service_stub_name -%>
-
-verb, uri, query_string_params, body = <%= service_stub_name %>.<%= method.rest.transcoding_helper_name %> request_pb
+<%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: bindings_override" : "" -%>
+verb, uri, query_string_params, body = <%= service_stub_name %>.<%= method.rest.transcoding_helper_name %> request_pb<%= boverr_str %>
 query_string_params = if query_string_params.any?
                         query_string_params.to_h { |p| p.split("=", 2) }
                       else

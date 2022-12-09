@@ -130,7 +130,6 @@ def gem_defaults
         "testing/mixins/mixins.proto",
         "testing/routing_headers/routing_headers.proto",
         "testing/nonstandard_lro_grpc/nonstandard_lro_grpc.proto",
-        "../shared/googleapis/google/cloud/location/locations.proto",
       ],
       grpc_service_config: [
         "../shared/protos/testing/grpc_service_config/grpc_service_config.json",
