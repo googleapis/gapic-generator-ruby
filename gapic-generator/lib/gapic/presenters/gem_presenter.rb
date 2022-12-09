@@ -213,8 +213,9 @@ module Gapic
           deps = { "gapic-common" => [">= 0.12", "< 2.a"] }
           deps["grpc-google-iam-v1"] = "~> 1.1" if iam_dependency?
           extra_deps = gem_config_dependencies
-          deps.merge! extra_deps if extra_deps
           deps.merge! mixins_model.dependencies if mixins_model.mixins?
+          # extra deps should be last, overriding mixins or defaults
+          deps.merge! extra_deps if extra_deps
           # google-iam-v1 is a superset of grpc-google-iam-v1, so if both are
           # listed, use only google-iam-v1.
           deps.delete "grpc-google-iam-v1" if deps.include? "google-iam-v1"
