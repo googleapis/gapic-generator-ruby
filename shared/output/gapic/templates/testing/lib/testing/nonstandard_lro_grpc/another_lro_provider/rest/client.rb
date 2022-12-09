@@ -295,7 +295,7 @@ module Testing
             # Overrides for http bindings for the RPCs of this service
             # are only used when this service is used as mixin, and only
             # by the host service.
-            # @return [::Hash{::Symbol=>::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}}]
+            # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
             config_attr :bindings_override, {}, ::Hash, nil
 
             # @private
