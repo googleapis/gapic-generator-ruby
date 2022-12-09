@@ -44,7 +44,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            # @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
             #   Binding overrides for the transcoding. Only used internally.
             #
             # @yield [result, response] Access the result along with the Faraday response object
@@ -83,7 +83,7 @@ module Google
             #   A request object representing the call parameters. Required.
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            # @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
             #   Binding overrides for the transcoding. Only used internally.
             #
             # @yield [result, response] Access the result along with the Faraday response object
@@ -122,7 +122,7 @@ module Google
             #
             # @param request_pb [::Google::Cloud::Location::ListLocationsRequest]
             #   A request object representing the call parameters. Required.
-            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            # @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
             #   Binding overrides for the transcoding.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters
@@ -153,7 +153,7 @@ module Google
             #
             # @param request_pb [::Google::Cloud::Location::GetLocationRequest]
             #   A request object representing the call parameters. Required.
-            # @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+            # @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
             #   Binding overrides for the transcoding.
             # @return [Array(String, [String, nil], Hash{String => String})]
             #   Uri, Body, Query string parameters

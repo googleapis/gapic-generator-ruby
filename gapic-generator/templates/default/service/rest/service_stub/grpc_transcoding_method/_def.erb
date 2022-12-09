@@ -7,10 +7,10 @@
 # @param request_pb [<%= method.request_type %>]
 #   A request object representing the call parameters. Required.
 <%- if method.service.rest.is_main_mixin_service? -%>
-# @param bindings_override [::Array{::Gapic::Rest::GrpcTranscoder::HttpBinding}, nil]
+# @param bindings_override [::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>, nil]
 #   Binding overrides for the transcoding.
 <%- end %>
-# @return [Array(String, [String, nil], Hash{String => String})] 
+# @return [Array(String, [String, nil], Hash{String => String})]
 #   Uri, Body, Query string parameters
 <%- boverr_str = method.service.rest.is_main_mixin_service? ? ", bindings_override: nil" : "" -%>
 def self.<%= method.rest.transcoding_helper_name %> request_pb<%= boverr_str %>
