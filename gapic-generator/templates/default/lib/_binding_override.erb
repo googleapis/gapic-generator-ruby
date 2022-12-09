@@ -3,14 +3,42 @@
 require "gapic/config"
 <%- end -%>
 
+<%- if package.first_service_with_rest&.generate_rest_clients? -%>
+##
+# To load just the REST part of this package, including all its services, and instantiate a REST client:
+#
+# @example
+#
+#     require "<%= package.package_rest_require %>"
+#     client = <%= package.first_service_with_rest.rest.create_client_call %>
+#
+<%- end -%>
 module <%= package.module_name %>
+  ##
+  # @private
+  # Initialize the mixin bindings configuration
+  #
   def self.configure
 <%= indent render(partial: "lib/package/self_configure", locals: { package: package }), 4 %>
   end
 
+  ##
+  # @private
+  # Configuration class for the <%= package.name %> package.
+  #
+  # This class contains common configuration for all services
+  # of the <%= package.name %> package.
+  #
+  # This configuration is for internal use of the client library classes,
+  # and it is not intended that the end-users will read or change it.
+  #
   class Configuration
     extend ::Gapic::Config
 
+    # @private
+    # Overrides for http bindings for the RPC of the mixins for this package.
+    # Services in this package should use these when creating clients for the mixin services.
+    # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
     config_attr :bindings_override, {}, ::Hash, nil
 
     # @private

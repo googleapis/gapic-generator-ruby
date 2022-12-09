@@ -21,7 +21,19 @@ require "gapic/config"
 module Google
   module Cloud
     module Vision
+      ##
+      # To load just the REST part of this package, including all its services, and instantiate a REST client:
+      #
+      # @example
+      #
+      #     require "google/cloud/vision/v1/rest"
+      #     client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new
+      #
       module V1
+        ##
+        # @private
+        # Initialize the mixin bindings configuration
+        #
         def self.configure
           @configure ||= begin
             namespace = ["Google", "Cloud", "Vision"]
@@ -60,9 +72,23 @@ module Google
           @configure
         end
 
+        ##
+        # @private
+        # Configuration class for the google.cloud.vision.v1 package.
+        #
+        # This class contains common configuration for all services
+        # of the google.cloud.vision.v1 package.
+        #
+        # This configuration is for internal use of the client library classes,
+        # and it is not intended that the end-users will read or change it.
+        #
         class Configuration
           extend ::Gapic::Config
 
+          # @private
+          # Overrides for http bindings for the RPC of the mixins for this package.
+          # Services in this package should use these when creating clients for the mixin services.
+          # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
           config_attr :bindings_override, {}, ::Hash, nil
 
           # @private
