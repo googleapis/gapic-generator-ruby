@@ -18,6 +18,8 @@ require "test_helper"
 
 class TestingPackagePresenterTest < PresenterTest
   def test_testing_mixins
+    # TODO: [virost, 2022-11] Restore after location is released with REST transport
+    skip "Mixins are temporarily removed from Testing"
     api_schema = api :testing
     gem_presenter = Gapic::Presenters::GemPresenter.new api_schema
     presenter = Gapic::Presenters::PackagePresenter.new gem_presenter, api_schema, "testing.mixins"

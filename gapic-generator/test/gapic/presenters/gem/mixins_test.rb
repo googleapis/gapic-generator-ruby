@@ -19,14 +19,14 @@ require "test_helper"
 class GemPresenterMixinsTest < PresenterTest
   def test_explicit_plain
     # TODO: [virost, 2022-11] Restore after location is released with REST transport
-    # skip "Mixins are temporarily removed from Testing"
+    skip "Mixins are temporarily removed from Testing"
     presenter = Gapic::Presenters::GemPresenter.new api :testing
     assert presenter.mixins?
   end
 
   def test_proto_files_exclude_mixins
     # TODO: [virost, 2022-11] Restore after location is released with REST transport
-    # skip "Mixins are temporarily removed from Testing"
+    skip "Mixins are temporarily removed from Testing"
     presenter = Gapic::Presenters::GemPresenter.new api :testing
     refute_includes presenter.proto_files.map(&:name), "google/cloud/location/locations.proto"
   end

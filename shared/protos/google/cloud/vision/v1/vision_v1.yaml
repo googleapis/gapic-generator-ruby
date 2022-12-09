@@ -6,7 +6,6 @@ title: Cloud Vision API
 apis:
 - name: google.cloud.vision.v1.ImageAnnotator
 - name: google.cloud.vision.v1.ProductSearch
-- name: google.cloud.location.Locations
 
 types:
 - name: google.cloud.vision.v1.AnnotateFileResponse
