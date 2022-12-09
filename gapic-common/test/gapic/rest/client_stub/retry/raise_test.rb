@@ -31,7 +31,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
 
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+    client_stub.stub :base_make_http_request, make_request_proc do
       client_stub.make_get_request uri: "/foo", options: options
     end
 
@@ -51,7 +51,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
     end
 
     options = Gapic::CallOptions.new # no codes
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+    client_stub.stub :base_make_http_request, make_request_proc do
       ex = assert_raises Gapic::Rest::Error do
         client_stub.make_get_request uri: "/foo", options: options
       end
@@ -80,7 +80,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
 
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+    client_stub.stub :base_make_http_request, make_request_proc do
       ex = assert_raises Gapic::Rest::Error do
         client_stub.make_get_request uri: "/foo", options: options
       end
@@ -130,7 +130,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
 
     Kernel.stub :sleep, sleep_proc do
       ::Process.stub :clock_gettime, time_proc do
-        ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+        client_stub.stub :base_make_http_request, make_request_proc do
           ex = assert_raises ::Gapic::Rest::Error do
             client_stub.make_get_request uri: "/foo", options: options
           end
@@ -177,7 +177,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
     )
 
     Kernel.stub :sleep, sleep_proc do
-      ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+      client_stub.stub :base_make_http_request, make_request_proc do
         ex = assert_raises ::Gapic::Rest::DeadlineExceededError do
           client_stub.make_get_request uri: "/foo", options: options
         end
@@ -218,7 +218,7 @@ class ClientStubRetryRaiseTest < ClientStubTestBase
     )
 
     Kernel.stub :sleep, sleep_proc do
-      ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+      client_stub.stub :base_make_http_request, make_request_proc do
         ex = assert_raises RuntimeError do
           client_stub.make_get_request uri: "/foo", options: options
         end

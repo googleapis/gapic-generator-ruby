@@ -62,7 +62,7 @@ class ClientStubRetryRetryTest < ClientStubTestBase
 
     Kernel.stub :sleep, sleep_proc do
       ::Process.stub :clock_gettime, time_proc do
-        ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+        client_stub.stub :base_make_http_request, make_request_proc do
           assert_equal 1729, client_stub.make_get_request(uri: "/foo", options: options)
         end
       end
@@ -117,7 +117,7 @@ class ClientStubRetryRetryTest < ClientStubTestBase
     sleep_proc = ->(count) { sleep_mock.sleep count }
 
     Kernel.stub :sleep, sleep_proc do
-      ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+      client_stub.stub :base_make_http_request, make_request_proc do
         assert_equal 1729, client_stub.make_get_request(uri: "/foo", options: options)
       end
     end

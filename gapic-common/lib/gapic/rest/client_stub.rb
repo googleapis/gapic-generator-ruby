@@ -37,6 +37,8 @@ module Gapic
       # @param raise_faraday_errors [Boolean]
       #   Whether to raise Faraday errors instead of wrapping them in `Gapic::Rest::Error`
       #   Added for backwards compatibility.
+      #   Default is `true`. All REST clients (except for old versions of `google-cloud-compute-v1`)
+      #   should explicitly set this parameter to `false`.
       #
       # @yield [Faraday::Connection]
       #
@@ -135,8 +137,6 @@ module Gapic
       # @param is_server_streaming [Boolean] flag if method is streaming
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
-      #
-      #
       def make_http_request verb, uri:, body:, params:, options:, is_server_streaming: false, &block
         # Converts hash and nil to an options object
         options = ::Gapic::CallOptions.new(**options.to_h) unless options.is_a? ::Gapic::CallOptions
@@ -145,12 +145,11 @@ module Gapic
         next_timeout = get_timeout deadline
 
         begin
-          ClientStub.base_make_http_request(connection: @connection, verb: verb, uri: uri, body: body,
-                                            params: params, metadata: options.metadata,
-                                            timeout: next_timeout,
-                                            is_server_streaming: is_server_streaming,
-                                            numeric_enums: @numeric_enums,
-                                            &block)
+          base_make_http_request(verb: verb, uri: uri, body: body,
+                                 params: params, metadata: options.metadata,
+                                 timeout: next_timeout,
+                                 is_server_streaming: is_server_streaming,
+                                 &block)
         rescue ::Faraday::TimeoutError => e
           raise if @raise_faraday_errors
           raise Gapic::Rest::DeadlineExceededError.wrap_faraday_error e, root_cause: retried_exception
@@ -180,13 +179,13 @@ module Gapic
       # @param is_server_streaming [Boolean] flag if method is streaming
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
-      def self.base_make_http_request connection:, verb:, uri:, body:, params:, metadata:,
-                                      timeout:, numeric_enums:, is_server_streaming: false
-        if numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
+      def base_make_http_request verb:, uri:, body:, params:, metadata:,
+                                 timeout:, is_server_streaming: false
+        if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
           params = params.merge({ "$alt" => "json;enum-encoding=int" })
         end
 
-        connection.send verb, uri do |req|
+        @connection.send verb, uri do |req|
           req.params = params if params.any?
           req.body = body unless body.nil?
           req.headers = req.headers.merge metadata

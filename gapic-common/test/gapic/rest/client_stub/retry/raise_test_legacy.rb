@@ -30,7 +30,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
     end
 
     options = Gapic::CallOptions.new # no codes
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+    client_stub.stub :base_make_http_request, make_request_proc do
       ex = assert_raises FakeFaradayError do
         client_stub.make_get_request uri: "/foo", options: options
       end
@@ -47,7 +47,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
   #
   def test_no_retry_with_mismatched_error_legacy
     call_count = 0
-    client_stub = make_client_stub
+    client_stub = make_client_stub raise_faraday_errors: true
 
     make_request_proc = lambda do |args|
       call_count += 1
@@ -58,7 +58,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
       retry_policy: { retry_codes: [GRPC::Core::StatusCodes::UNAVAILABLE] }
     )
 
-    ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+    client_stub.stub :base_make_http_request, make_request_proc do
       ex = assert_raises FakeFaradayError do
         client_stub.make_get_request uri: "/foo", options: options
       end
@@ -74,7 +74,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
   # in legacy `raise_faraday_errors` mode.
   #
   def test_deadline_exceeded_legacy
-    client_stub = make_client_stub
+    client_stub = make_client_stub raise_faraday_errors: true
 
     call_count = 0
     make_request_proc = lambda do |args|
@@ -96,7 +96,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
     )
 
     Kernel.stub :sleep, sleep_proc do
-      ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+      client_stub.stub :base_make_http_request, make_request_proc do
         ex = assert_raises Faraday::TimeoutError do
           client_stub.make_get_request uri: "/foo", options: options
         end
@@ -113,7 +113,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
   # in legacy `raise_faraday_errors` mode.
   #
   def test_retries_then_raises_unexpected_exception_legacy
-    client_stub = make_client_stub
+    client_stub = make_client_stub raise_faraday_errors: true
 
     call_count = 0
     make_request_proc = lambda do |args|
@@ -132,7 +132,7 @@ class ClientStubRetryRaiseLegacyTest < ClientStubTestBase
     )
 
     Kernel.stub :sleep, sleep_proc do
-      ::Gapic::Rest::ClientStub.stub :base_make_http_request, make_request_proc do
+      client_stub.stub :base_make_http_request, make_request_proc do
         ex = assert_raises RuntimeError do
           client_stub.make_get_request uri: "/foo", options: options
         end
