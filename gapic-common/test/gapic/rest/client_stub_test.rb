@@ -15,7 +15,7 @@
 require "test_helper"
 require "gapic/rest"
 
-class ClientStubTest < Minitest::Test
+class ClientStubTest < ClientStubTestBase
   ENDPOINT = "google.example.com"
   CREDENTIALS = :dummy_credentials
   STANDARD_HEADER = { "Content-Type" => "application/json" }
@@ -33,12 +33,6 @@ class ClientStubTest < Minitest::Test
       req.headers = STANDARD_HEADER.dup
       req
     end
-  end
-
-  def make_client_stub numeric_enums: false
-    ::Gapic::Rest::ClientStub.new endpoint: ENDPOINT,
-                                  credentials: CREDENTIALS,
-                                  numeric_enums: numeric_enums
   end
 
   def expect_connection client_stub, verb, uri, req

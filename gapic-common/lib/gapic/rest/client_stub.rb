@@ -34,15 +34,23 @@ module Gapic
       #   (see the [googleauth docs](https://googleapis.dev/ruby/googleauth/latest/index.html))
       # @param numeric_enums [Boolean] Whether to signal the server to JSON-encode enums as ints
       #
+      # @param raise_faraday_errors [Boolean]
+      #   Whether to raise Faraday errors instead of wrapping them in `Gapic::Rest::Error`
+      #   Added for backwards compatibility.
+      #   Default is `true`. All REST clients (except for old versions of `google-cloud-compute-v1`)
+      #   should explicitly set this parameter to `false`.
+      #
       # @yield [Faraday::Connection]
       #
-      def initialize endpoint:, credentials:, numeric_enums: false
+      def initialize endpoint:, credentials:, numeric_enums: false, raise_faraday_errors: true
         @endpoint = endpoint
         @endpoint = "https://#{endpoint}" unless /^https?:/.match? endpoint
         @endpoint = @endpoint.sub %r{/$}, ""
 
         @credentials = credentials
         @numeric_enums = numeric_enums
+
+        @raise_faraday_errors = raise_faraday_errors
 
         @connection = Faraday.new url: @endpoint do |conn|
           conn.headers = { "Content-Type" => "application/json" }
@@ -137,35 +145,31 @@ module Gapic
         next_timeout = get_timeout deadline
 
         begin
-          base_make_http_request(verb,
-                                 uri: uri,
-                                 body: body,
-                                 params: params,
-                                 metadata: options.metadata,
+          base_make_http_request(verb: verb, uri: uri, body: body,
+                                 params: params, metadata: options.metadata,
                                  timeout: next_timeout,
                                  is_server_streaming: is_server_streaming,
                                  &block)
+        rescue ::Faraday::TimeoutError => e
+          raise if @raise_faraday_errors
+          raise Gapic::Rest::DeadlineExceededError.wrap_faraday_error e, root_cause: retried_exception
         rescue ::Faraday::Error => e
           next_timeout = get_timeout deadline
 
-          if next_timeout&.positive? && options.retry_policy.call(e)
+          if check_retry?(next_timeout) && options.retry_policy.call(e)
             retried_exception = e
             retry
           end
 
-          unless next_timeout&.positive?
-            raise Gapic::GRPC::DeadlineExceededError.new e.message, root_cause: retried_exception
-          end
-
-          raise e
+          raise if @raise_faraday_errors
+          raise ::Gapic::Rest::Error.wrap_faraday_error e
         end
       end
-
-      private
 
       ##
       # @private
       # Sends a http request via Faraday
+      #
       # @param verb [Symbol] http verb
       # @param uri [String] uri to send this request to
       # @param body [String, nil] a body to send with the request, nil for requests without a body
@@ -174,7 +178,8 @@ module Gapic
       # @param is_server_streaming [Boolean] flag if method is streaming
       # @yieldparam chunk [String] The chunk of data received during server streaming.
       # @return [Faraday::Response]
-      def base_make_http_request verb, uri:, body:, params:, metadata:, timeout:, is_server_streaming: false
+      def base_make_http_request verb:, uri:, body:, params:, metadata:,
+                                 timeout:, is_server_streaming: false
         if @numeric_enums && (!params.key?("$alt") || params["$alt"] == "json")
           params = params.merge({ "$alt" => "json;enum-encoding=int" })
         end
@@ -192,6 +197,14 @@ module Gapic
         end
       end
 
+      private
+
+      ##
+      # Calculates deadline
+      #
+      # @param options [Gapic::CallOptions] call options for this call
+      #
+      # @return [Numeric, nil] Deadline against a POSIX clock_gettime()
       def calculate_deadline options
         return if options.timeout.nil?
         return if options.timeout.negative?
@@ -199,9 +212,27 @@ module Gapic
         Process.clock_gettime(Process::CLOCK_MONOTONIC) + options.timeout
       end
 
+      ##
+      # Calculates timeout (seconds) to use as a Faraday timeout
+      #
+      # @param deadline [Numeric, nil] deadline
+      #
+      # @return [Numeric, nil] Timeout (seconds)
       def get_timeout deadline
         return if deadline.nil?
         deadline - Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      end
+
+      ##
+      # Whether the timeout should be retried
+      #
+      # @param timeout [Numeric, nil]
+      #
+      # @return [Boolean] whether the timeout should be retried
+      def check_retry? timeout
+        return true if timeout.nil?
+
+        timeout.positive?
       end
     end
   end
