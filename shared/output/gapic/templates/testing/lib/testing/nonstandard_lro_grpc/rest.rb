@@ -28,6 +28,7 @@ require "testing/nonstandard_lro_grpc/plain_lro_consumer/rest"
 require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
 require "testing/nonstandard_lro_grpc/another_lro_provider/rest"
 require "testing/nonstandard_lro_grpc/all_subclients_consumer/rest"
+require "testing/nonstandard_lro_grpc/bindings_override"
 require "testing/version"
 
 module Testing

@@ -29,6 +29,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "testing/version"
+require "testing/routing_headers/bindings_override"
 
 require "testing/routing_headers/service_implicit_headers/credentials"
 require "testing/routing_headers/service_implicit_headers/rest/client"

@@ -19,6 +19,7 @@
 require "google/cloud/errors"
 require "google/cloud/vision/v1/image_annotator_pb"
 require "google/cloud/vision/v1/image_annotator/rest/service_stub"
+require "google/cloud/location/rest"
 
 module Google
   module Cloud
@@ -138,6 +139,13 @@ module Google
                   config.endpoint = @config.endpoint
                 end
 
+                @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+                  config.credentials = credentials
+                  config.quota_project = @quota_project_id
+                  config.endpoint = @config.endpoint
+                  config.bindings_override = @config.bindings_override
+                end
+
                 @image_annotator_stub = ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ServiceStub.new endpoint: @config.endpoint, credentials: credentials
               end
 
@@ -147,6 +155,13 @@ module Google
               # @return [::Google::Cloud::Vision::V1::ImageAnnotator::Rest::Operations]
               #
               attr_reader :operations_client
+
+              ##
+              # Get the associated client for mix-in of the Locations.
+              #
+              # @return [Google::Cloud::Location::Locations::Rest::Client]
+              #
+              attr_reader :location_client
 
               # Service calls
 
@@ -575,6 +590,13 @@ module Google
                 config_attr :metadata,      nil, ::Hash, nil
                 config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
                 config_attr :quota_project, nil, ::String, nil
+
+                # @private
+                # Overrides for http bindings for the RPCs of this service
+                # are only used when this service is used as mixin, and only
+                # by the host service.
+                # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
+                config_attr :bindings_override, {}, ::Hash, nil
 
                 # @private
                 def initialize parent_config = nil
