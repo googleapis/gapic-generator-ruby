@@ -26,6 +26,7 @@
 
 require "testing/routing_headers/routing_headers_pb"
 require "testing/routing_headers/service_explicit_headers/rest/service_stub"
+require "google/cloud/location/rest"
 
 module Testing
   module RoutingHeaders
@@ -124,9 +125,23 @@ module Testing
             @quota_project_id = @config.quota_project
             @quota_project_id ||= credentials.quota_project_id if credentials.respond_to? :quota_project_id
 
+            @location_client = Google::Cloud::Location::Locations::Rest::Client.new do |config|
+              config.credentials = credentials
+              config.quota_project = @quota_project_id
+              config.endpoint = @config.endpoint
+              config.bindings_override = @config.bindings_override
+            end
+
             @service_explicit_headers_stub = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.new endpoint: @config.endpoint,
                                                                                                                       credentials: credentials
           end
+
+          ##
+          # Get the associated client for mix-in of the Locations.
+          #
+          # @return [Google::Cloud::Location::Locations::Rest::Client]
+          #
+          attr_reader :location_client
 
           # Service calls
 
@@ -565,6 +580,13 @@ module Testing
             config_attr :metadata,      nil, ::Hash, nil
             config_attr :retry_policy,  nil, ::Hash, ::Proc, nil
             config_attr :quota_project, nil, ::String, nil
+
+            # @private
+            # Overrides for http bindings for the RPCs of this service
+            # are only used when this service is used as mixin, and only
+            # by the host service.
+            # @return [::Hash{::Symbol=>::Array<::Gapic::Rest::GrpcTranscoder::HttpBinding>}]
+            config_attr :bindings_override, {}, ::Hash, nil
 
             # @private
             def initialize parent_config = nil

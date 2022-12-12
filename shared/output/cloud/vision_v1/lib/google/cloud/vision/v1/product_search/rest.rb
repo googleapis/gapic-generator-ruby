@@ -21,6 +21,7 @@ require "gapic/config"
 require "gapic/config/method"
 
 require "google/cloud/vision/v1/version"
+require "google/cloud/vision/v1/bindings_override"
 
 require "google/cloud/vision/v1/product_search/credentials"
 require "google/cloud/vision/v1/product_search/paths"
