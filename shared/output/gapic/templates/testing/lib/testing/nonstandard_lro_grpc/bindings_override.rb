@@ -28,9 +28,7 @@ require "gapic/config"
 
 module Testing
   ##
-  # To load just the REST part of this package, including all its services, and instantiate a REST client:
-  #
-  # @example
+  # @example Loading just the REST part of this package, including all its services, and instantiating a REST client
   #
   #     require "testing/nonstandard_lro_grpc/rest"
   #     client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new

@@ -5,9 +5,7 @@ require "gapic/config"
 
 <%- if package.first_service_with_rest&.generate_rest_clients? -%>
 ##
-# To load just the REST part of this package, including all its services, and instantiate a REST client:
-#
-# @example
+# @example Loading just the REST part of this package, including all its services, and instantiating a REST client
 #
 #     require "<%= package.package_rest_require %>"
 #     client = <%= package.first_service_with_rest.rest.create_client_call %>

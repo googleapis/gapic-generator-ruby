@@ -22,9 +22,7 @@ module Google
   module Cloud
     module Vision
       ##
-      # To load just the REST part of this package, including all its services, and instantiate a REST client:
-      #
-      # @example
+      # @example Loading just the REST part of this package, including all its services, and instantiating a REST client
       #
       #     require "google/cloud/vision/v1/rest"
       #     client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new
