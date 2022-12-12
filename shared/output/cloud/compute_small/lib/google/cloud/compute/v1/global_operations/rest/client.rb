@@ -193,12 +193,8 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => e
-                begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error e
-                rescue ::Gapic::Rest::Error => gapic_error
-                  raise ::Google::Cloud::Error.from_error gapic_error
-                end
+              rescue ::Gapic::Rest::Error => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
 
               ##
@@ -261,12 +257,8 @@ module Google
                   yield result, response if block_given?
                   return result
                 end
-              rescue ::Faraday::Error => e
-                begin
-                  raise ::Gapic::Rest::Error.wrap_faraday_error e
-                rescue ::Gapic::Rest::Error => gapic_error
-                  raise ::Google::Cloud::Error.from_error gapic_error
-                end
+              rescue ::Gapic::Rest::Error => e
+                raise ::Google::Cloud::Error.from_error(e)
               end
 
               ##

@@ -42,7 +42,8 @@ module Testing
             require "gapic/rest"
 
             @client_stub = ::Gapic::Rest::ClientStub.new endpoint: endpoint, credentials: credentials,
-                                                         numeric_enums: false
+                                                         numeric_enums: false,
+                                                         raise_faraday_errors: false
           end
 
           ##
