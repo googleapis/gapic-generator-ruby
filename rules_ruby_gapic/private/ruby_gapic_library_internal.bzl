@@ -61,6 +61,7 @@ def ruby_gapic_library_internal(
         grpc_service_config,
         service_yaml,
         rest_numeric_enums,
+        transport,
         **kwargs):
     srcjar_target_name = name
     srcjar_output_suffix = ".srcjar"
@@ -81,6 +82,9 @@ def ruby_gapic_library_internal(
 
     if rest_numeric_enums:
         opt_args.append("rest-numeric-enums=true")
+    if transport:
+        transport = transport.strip().replace("+", ";")
+        opt_args.append("transports={transport}".format(transport = transport))
 
     opt_file_args = {}
     if grpc_service_config:
