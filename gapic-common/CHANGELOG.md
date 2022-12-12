@@ -1,5 +1,11 @@
 # Release History
 
+### 0.16.0 (2022-12-12)
+
+#### Features
+
+* custom regapic exception wrapping ([#866](https://github.com/googleapis/gapic-generator-ruby/issues/866)) 
+
 ### 0.15.1 (2022-11-18)
 
 #### Bug Fixes
