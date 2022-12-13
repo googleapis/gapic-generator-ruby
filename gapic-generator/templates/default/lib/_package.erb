@@ -9,14 +9,14 @@ require "<%= package.gem.version_require %>"
 ##
 # API client module.
 #
-<%- if package.gem.generate_grpc_clients? -%>
-# @example Load this package, including all its services, and instantiate a <%= package.grpc_client_designation %>
+<%- if package.generate_grpc_clients? -%>
+# @example Load this package, including all its services, and instantiate a gRPC client
 #
 #     require "<%= package.package_require %>"
 #     client = <%= package.services.first.create_client_call %>
 #
 <%- end -%>
-<%- if package.gem.generate_rest_clients? -%>
+<%- if package.generate_rest_clients? -%>
 # @example Load this package, including all its services, and instantiate a REST client
 #
 #     require "<%= package.package_require %>"

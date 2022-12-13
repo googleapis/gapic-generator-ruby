@@ -24,7 +24,7 @@ module Google
     ##
     # API client module.
     #
-    # @example Load this package, including all its services, and instantiate a GRPC client
+    # @example Load this package, including all its services, and instantiate a gRPC client
     #
     #     require "google/cloud/location"
     #     client = ::Google::Cloud::Location::Locations::Client.new

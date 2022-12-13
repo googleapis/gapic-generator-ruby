@@ -37,12 +37,12 @@ require "testing/routing_headers/service_implicit_headers/rest"
 module Testing
   module RoutingHeaders
     ##
-    # To load this service and instantiate a GRPC client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "testing/routing_headers/service_implicit_headers"
     #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Client.new
     #
-    # To load this service and instantiate a REST client:
+    # @example Load this service and instantiate a REST client
     #
     #     require "testing/routing_headers/service_implicit_headers/rest"
     #     client = ::Testing::RoutingHeaders::ServiceImplicitHeaders::Rest::Client.new

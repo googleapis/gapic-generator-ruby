@@ -33,7 +33,7 @@ module Testing
   ##
   # API client module.
   #
-  # @example Load this package, including all its services, and instantiate a GRPC client
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "testing/routing_headers"
   #     client = ::Testing::RoutingHeaders::ServiceNoHeaders::Client.new

@@ -31,7 +31,7 @@ module Testing
   ##
   # API client module.
   #
-  # @example Load this package, including all its services, and instantiate a GRPC client
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "testing/mixins"
   #     client = ::Testing::Mixins::ServiceWithLoc::Client.new

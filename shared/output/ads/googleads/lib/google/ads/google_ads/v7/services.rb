@@ -26,7 +26,7 @@ module Google
         ##
         # API client module.
         #
-        # @example Load this package, including all its services, and instantiate a client
+        # @example Load this package, including all its services, and instantiate a gRPC client
         #
         #     require "google/ads/google_ads/v7/services"
         #     client = ::Google::Ads::GoogleAds::V7::Services::CampaignService::Client.new

@@ -36,7 +36,7 @@ module So
     ##
     # API client module.
     #
-    # @example Load this package, including all its services, and instantiate a client
+    # @example Load this package, including all its services, and instantiate a gRPC client
     #
     #     require "so/much/trash"
     #     client = ::So::Much::Trash::GarbageService::Client.new

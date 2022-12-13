@@ -41,12 +41,12 @@ module Google
       # This service is used to test that GAPICs can transcode proto3 requests to
       # REST format correctly for various types of HTTP annotations.
       #
-      # To load this service and instantiate a GRPC client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "google/showcase/v1beta1/compliance"
       #     client = ::Google::Showcase::V1beta1::Compliance::Client.new
       #
-      # To load this service and instantiate a REST client:
+      # @example Load this service and instantiate a REST client
       #
       #     require "google/showcase/v1beta1/compliance/rest"
       #     client = ::Google::Showcase::V1beta1::Compliance::Rest::Client.new

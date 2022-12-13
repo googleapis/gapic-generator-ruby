@@ -37,12 +37,12 @@ require "testing/grpc_service_config/service_with_retries/rest"
 module Testing
   module GrpcServiceConfig
     ##
-    # To load this service and instantiate a GRPC client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "testing/grpc_service_config/service_with_retries"
     #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Client.new
     #
-    # To load this service and instantiate a REST client:
+    # @example Load this service and instantiate a REST client
     #
     #     require "testing/grpc_service_config/service_with_retries/rest"
     #     client = ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::Client.new

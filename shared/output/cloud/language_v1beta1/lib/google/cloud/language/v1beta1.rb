@@ -25,7 +25,7 @@ module Google
       ##
       # API client module.
       #
-      # @example Load this package, including all its services, and instantiate a client
+      # @example Load this package, including all its services, and instantiate a gRPC client
       #
       #     require "google/cloud/language/v1beta1"
       #     client = ::Google::Cloud::Language::V1beta1::LanguageService::Client.new

@@ -63,7 +63,7 @@ module So
       # are created and deleted implicitly with the resources to which they are
       # attached.
       #
-      # To load this service and instantiate a client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "so/much/trash/iam_policy"
       #     client = ::So::Much::Trash::IAMPolicy::Client.new

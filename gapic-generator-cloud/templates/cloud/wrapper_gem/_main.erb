@@ -40,7 +40,7 @@ end
 # `version` parameter. If the <%= service.module_name %> service is
 # supported by that API version, and the corresponding gem is available, the
 # appropriate versioned client will be returned.
-<%- if gem.supports_multiple_transports? -%>
+<%- if service.supports_multiple_transports? -%>
 # You can also specify a different transport by passing `:rest` or `:grpc` in
 # the `transport` parameter.
 <%- end -%>
@@ -53,12 +53,12 @@ end
 <%- end -%>
 # @param version [::String, ::Symbol] The API version to connect to. Optional.
 #   Defaults to `:<%= gem.default_version %>`.
-<%- if gem.supports_multiple_transports? -%>
+<%- if service.supports_multiple_transports? -%>
 # @param transport [:grpc, :rest] The transport to use. Defaults to `<%= gem.default_transport.inspect %>`.
 <%- end -%>
 # @return [::Object] A client object for the specified version.
 #
-def self.<%= service.factory_method_name %> version: :<%= gem.default_version %><% if gem.supports_multiple_transports? %>, transport: <%= gem.default_transport.inspect %><% end %>, &block
+def self.<%= service.factory_method_name %> version: :<%= gem.default_version %><% if service.supports_multiple_transports? %>, transport: <%= gem.default_transport.inspect %><% end %>, &block
   require "<%= gem.namespace_require %>/#{version.to_s.downcase}"
 
   package_name = <%= gem.namespace %>
@@ -66,7 +66,7 @@ def self.<%= service.factory_method_name %> version: :<%= gem.default_version %>
                   .select { |sym| sym.to_s.downcase == version.to_s.downcase.tr("_", "") }
                   .first
   service_module = <%= gem.namespace %>.const_get(package_name).const_get(:<%= service.module_name %>)
-<%- if gem.supports_multiple_transports? -%>
+<%- if service.supports_multiple_transports? -%>
   service_module = service_module.const_get(:Rest) if transport == :rest
   service_module.const_get(:Client).new(&block)
 <%- else -%>

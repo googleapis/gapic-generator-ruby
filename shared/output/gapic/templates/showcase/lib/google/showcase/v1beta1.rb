@@ -36,7 +36,7 @@ module Google
     ##
     # API client module.
     #
-    # @example Load this package, including all its services, and instantiate a GRPC client
+    # @example Load this package, including all its services, and instantiate a gRPC client
     #
     #     require "google/showcase/v1beta1"
     #     client = ::Google::Showcase::V1beta1::Compliance::Client.new

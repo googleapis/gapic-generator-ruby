@@ -32,7 +32,7 @@ module Testing
   ##
   # API client module.
   #
-  # @example Load this package, including all its services, and instantiate a GRPC client
+  # @example Load this package, including all its services, and instantiate a gRPC client
   #
   #     require "testing/grpc_service_config"
   #     client = ::Testing::GrpcServiceConfig::ServiceNoRetry::Client.new
