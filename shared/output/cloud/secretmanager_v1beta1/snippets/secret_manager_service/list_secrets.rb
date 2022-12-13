@@ -33,13 +33,11 @@ def list_secrets
   # Call the list_secrets method.
   result = client.list_secrets request
 
-  # The returned object is of type Gapic::PagedEnumerable. You can
-  # iterate over all elements by calling #each, and the enumerable
-  # will lazily make API calls to fetch subsequent pages. Other
-  # methods are also available for managing paging directly.
-  result.each do |response|
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # overal elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
     # Each element is of type ::Google::Cloud::SecretManager::V1beta1::Secret.
-    p response
+    p item
   end
 end
 # [END secretmanager_v1beta1_generated_SecretManagerService_ListSecrets_sync]

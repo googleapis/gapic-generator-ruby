@@ -20,8 +20,7 @@
 require "grafeas/v1"
 
 ##
-# Example demonstrating basic usage of
-# Grafeas::V1::Grafeas::Client#create_note
+# Example demonstrating basic usage of Grafeas::V1::Grafeas::Client#create_note
 #
 def create_note
   # Create a client object. The client can be reused for multiple calls.

@@ -35,15 +35,17 @@ def send_blurbs
   # Create a client object. The client can be reused for multiple calls.
   client = Google::Showcase::V1beta1::Messaging::Client.new
 
-  # Create a stream of requests, as an Enumerator.
-  # For each request, pass in keyword arguments to set fields.
-  request = [
-    Google::Showcase::V1beta1::CreateBlurbRequest.new,
-    Google::Showcase::V1beta1::CreateBlurbRequest.new
-  ].to_enum
+  # Create an input stream
+  input = Gapic::StreamInput.new
 
-  # Call the send_blurbs method.
-  result = client.send_blurbs request
+  # Call the send_blurbs method to start streaming.
+  result = client.send_blurbs input
+
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
+  input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+  input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+  input.close
 
   # The returned object is of type Google::Showcase::V1beta1::SendBlurbsResponse.
   p result

@@ -41,16 +41,16 @@ def chat
   # Call the chat method to start streaming.
   output = client.chat input
 
-  # Send requests on the stream. For each request, pass in keyword
-  # arguments to set fields. Be sure to close the stream when done.
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
   input << Google::Showcase::V1beta1::EchoRequest.new
   input << Google::Showcase::V1beta1::EchoRequest.new
   input.close
 
-  # Handle streamed responses. These may be interleaved with inputs.
-  # Each response is of type ::Google::Showcase::V1beta1::EchoResponse.
-  output.each do |response|
-    p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::Google::Showcase::V1beta1::EchoResponse
+  output.each do |current_response|
+    p current_response
   end
 end
 # [END showcase_v0_generated_Echo_Chat_sync]
