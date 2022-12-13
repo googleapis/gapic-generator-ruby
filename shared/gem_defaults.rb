@@ -54,6 +54,11 @@ def gem_defaults
         "google/cloud/language/v1beta2/language_service.proto"
       ]
     },
+    language_wrapper: {
+      protos: [
+        "google/cloud/language/v1/language_service.proto"
+      ]
+    },
     secretmanager_v1beta1: {
       protos: [
         "google/cloud/secrets/v1beta1/resources.proto",
