@@ -27,9 +27,9 @@ module Google
   module Cloud
     module Compute
       ##
-      # To load this package, including all its services, and instantiate a REST client:
+      # API client module.
       #
-      # @example
+      # @example Load this package, including all its services, and instantiate a REST client
       #
       #     require "google/cloud/compute/v1"
       #     client = ::Google::Cloud::Compute::V1::Addresses::Rest::Client.new

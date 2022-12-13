@@ -34,9 +34,9 @@ require "google/garbage/version"
 module So
   module Much
     ##
-    # To load this package, including all its services, and instantiate a client:
+    # API client module.
     #
-    # @example
+    # @example Load this package, including all its services, and instantiate a client
     #
     #     require "so/much/trash"
     #     client = ::So::Much::Trash::GarbageService::Client.new
