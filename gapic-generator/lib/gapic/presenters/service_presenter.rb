@@ -337,6 +337,14 @@ module Gapic
         @api.generate_grpc_clients?
       end
 
+      def client_suffix_for_default_transport
+        if @api.default_transport == :grpc
+          "#{module_name}::#{client_name}"
+        else
+          "#{module_name}::Rest::#{client_name}"
+        end
+      end
+
       ##
       # @return [Boolean] whether this service contains any methods with REST bindings
       #

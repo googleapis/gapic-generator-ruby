@@ -195,6 +195,35 @@ module Gapic
         @api.generate_rest_clients?
       end
 
+      ##
+      # @return [Boolean]
+      #
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
+      ##
+      # @return [:grpc] If gRPC is the default transport
+      # @return [:rest] if REST is the default transport
+      #
+      def default_transport
+        @api.default_transport
+      end
+
+      ##
+      # @return [String] Pretty name of the default transport
+      #
+      def default_transport_name
+        @api.default_transport == :grpc ? "gRPC" : "REST"
+      end
+
+      ##
+      # @return [Boolean]
+      #
+      def supports_multiple_transports?
+        @api.generate_rest_clients? && @api.generate_grpc_clients?
+      end
+
       def entrypoint_require
         return "" unless packages?
         packages.first.package_require
