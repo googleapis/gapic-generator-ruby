@@ -46,11 +46,13 @@ _ruby_gapic_library_add_gapicinfo = rule(
 # name: name of the rule
 # srcs: proto files wrapped in the proto_library rule
 # plugin: a label to the ruby_binary rule wrapping the plugin entrypoint
-# 
 # extra_protoc_parameters: a list of the generator parameters in the form of "key=value" strings
 #   (e.g. gem-name=a-gem-name-v1)
 # yml_configs: a list of labels of the yaml configs (or an empty list)
 # grpc_service_config: a label to the grpc service config
+# service_yaml: a label to the service yaml
+# rest_numeric_enums: set to True to enable numeric enums for REST clients
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_gapic_library_internal(
         name,
@@ -61,6 +63,7 @@ def ruby_gapic_library_internal(
         grpc_service_config,
         service_yaml,
         rest_numeric_enums,
+        transport,
         **kwargs):
     srcjar_target_name = name
     srcjar_output_suffix = ".srcjar"
@@ -81,6 +84,9 @@ def ruby_gapic_library_internal(
 
     if rest_numeric_enums:
         opt_args.append("rest-numeric-enums=true")
+    if transport:
+        transport = transport.strip().replace("+", ";")
+        opt_args.append("transports={transport}".format(transport = transport))
 
     opt_file_args = {}
     if grpc_service_config:
