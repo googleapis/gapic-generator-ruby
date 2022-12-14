@@ -40,7 +40,7 @@ module So
       ##
       # A service that exposes the messages that test the various combinations of path patterns
       #
-      # To load this service and instantiate a client:
+      # @example Load this service and instantiate a gRPC client
       #
       #     require "so/much/trash/resource_names"
       #     client = ::So::Much::Trash::ResourceNames::Client.new

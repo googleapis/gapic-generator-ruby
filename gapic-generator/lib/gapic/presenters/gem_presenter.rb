@@ -189,10 +189,33 @@ module Gapic
       end
 
       ##
-      # @return [Boolean]
+      # @return [Boolean] Whether the generation of REST clients is requested
+      #    and can be done because at least one method has rest bindings.
       #
       def generate_rest_clients?
-        @api.generate_rest_clients?
+        @api.generate_rest_clients? && packages.any? { |package| !package.first_service_with_rest.nil? }
+      end
+
+      ##
+      # @return [Boolean] Whether generation of gRPC clients is requested.
+      #
+      def generate_grpc_clients?
+        @api.generate_grpc_clients?
+      end
+
+      ##
+      # @return [:grpc] If gRPC is the default transport
+      # @return [:rest] if REST is the default transport
+      #
+      def default_transport
+        @api.default_transport
+      end
+
+      ##
+      # @return [String] Pretty name of the default transport
+      #
+      def default_transport_name
+        @api.default_transport == :grpc ? "gRPC" : "REST"
       end
 
       def entrypoint_require

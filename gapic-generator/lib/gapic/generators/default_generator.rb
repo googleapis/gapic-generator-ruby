@@ -55,12 +55,12 @@ module Gapic
 
           # Package level files
           files << g("package.erb", "lib/#{package.package_file_path}", package: package)
-          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if @api.generate_rest_clients? && package.first_service_with_rest
+          files << g("package_rest.erb", "lib/#{package.package_rest_file_path}", package: package) if package.generate_rest_clients?
           files << g("binding_override.erb", "lib/#{package.mixin_binding_overrides_file_path}", package: package) if package.mixin_binding_overrides?
 
           package.services.each do |service|
-            should_generate_grpc = @api.generate_grpc_clients?
-            should_generate_rest = @api.generate_rest_clients? && service.methods_rest_bindings?
+            should_generate_grpc = service.generate_grpc_clients?
+            should_generate_rest = service.generate_rest_clients?
 
             # Service level files
             files << g("service.erb",                        "lib/#{service.service_file_path}",                 service: service)

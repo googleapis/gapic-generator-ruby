@@ -37,12 +37,12 @@ require "testing/mixins/service_with_loc/rest"
 module Testing
   module Mixins
     ##
-    # To load this service and instantiate a GRPC client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "testing/mixins/service_with_loc"
     #     client = ::Testing::Mixins::ServiceWithLoc::Client.new
     #
-    # To load this service and instantiate a REST client:
+    # @example Load this service and instantiate a REST client
     #
     #     require "testing/mixins/service_with_loc/rest"
     #     client = ::Testing::Mixins::ServiceWithLoc::Rest::Client.new

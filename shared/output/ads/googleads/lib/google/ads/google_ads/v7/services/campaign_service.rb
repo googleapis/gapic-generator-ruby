@@ -34,7 +34,7 @@ module Google
           ##
           # Service to manage campaigns.
           #
-          # To load this service and instantiate a client:
+          # @example Load this service and instantiate a gRPC client
           #
           #     require "google/ads/google_ads/v7/services/campaign_service"
           #     client = ::Google::Ads::GoogleAds::V7::Services::CampaignService::Client.new

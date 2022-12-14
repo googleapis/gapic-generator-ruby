@@ -39,7 +39,7 @@ end
 
 rest_libs = [:compute_small]
 grpc_libs = [:language_v1, :language_v1beta1, :language_v1beta2, :secretmanager_v1beta1, :speech_v1, :vision_v1, :grafeas_v1, :location]
-libs = rest_libs + grpc_libs
+libs = (rest_libs + grpc_libs).uniq
 
 desc "Update the proto binary dumps which are used to generate templates"
 task :bin do
@@ -67,6 +67,7 @@ desc "Generate the expected output for tests"
 task :gen do
   Rake::Task["gen:templates"].invoke
   Rake::Task["gen:secretmanager_wrapper"].invoke
+  Rake::Task["gen:language_wrapper"].invoke
   Rake::Task["gen:compute_small_wrapper"].invoke
 end
 namespace :gen do |namespace|
@@ -82,7 +83,7 @@ namespace :gen do |namespace|
   libs.each do |lib|
     desc "Generate the expected output for #{lib}"
     task lib do
-      rest_only = rest_libs.include? lib
+      rest_only = rest_libs.include?(lib) && !grpc_libs.include?(lib)
       generate_cloud_templates lib, rest_only: rest_only
 
       # For testing purposes, copy the files from the shared/test_resources/{lib_name}
@@ -108,6 +109,11 @@ namespace :gen do |namespace|
   desc "Generate the expected output for secretmanager_wrapper"
   task :secretmanager_wrapper do
     generate_cloud_templates :secretmanager_wrapper, wrapper: true
+  end
+
+  desc "Generate the expected output for language_wrapper"
+  task :language_wrapper do
+    generate_cloud_templates :language_wrapper, wrapper: true
   end
 
   desc "Generate the expected output for compute_small_wrapper"

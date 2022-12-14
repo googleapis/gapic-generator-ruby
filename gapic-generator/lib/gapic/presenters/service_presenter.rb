@@ -325,9 +325,10 @@ module Gapic
 
       ##
       # @return [Boolean] Whether the generation of REST clients is requested
+      #    and can be done because at least one method has rest bindings.
       #
       def generate_rest_clients?
-        @api.generate_rest_clients?
+        @api.generate_rest_clients? && methods_rest_bindings?
       end
 
       ##
@@ -335,6 +336,21 @@ module Gapic
       #
       def generate_grpc_clients?
         @api.generate_grpc_clients?
+      end
+
+      ##
+      # @return [Boolean]
+      #
+      def supports_multiple_transports?
+        generate_rest_clients? && generate_grpc_clients?
+      end
+
+      def client_suffix_for_default_transport
+        if @api.default_transport == :grpc
+          "#{module_name}::#{client_name}"
+        else
+          "#{module_name}::Rest::#{client_name}"
+        end
       end
 
       ##
@@ -483,16 +499,6 @@ module Gapic
       end
 
       ##
-      # How comments in the generated libraries refer to the GRPC client
-      # if no REST code is generated, this should just be "client",
-      # if REST code is generated, this should be disambiguated into the "GRPC client"
-      #
-      # @return [String]
-      def grpc_client_designation
-        generate_rest_clients? ? "GRPC client" : "client"
-      end
-
-      ##
       # The method to use for quick start samples. Normally this is simply the
       # first non-client-streaming method defined, but it can be overridden via
       # a gem config.
@@ -515,9 +521,9 @@ module Gapic
       # @return [ServicePresenter,ServiceRestPresenter,nil]
       #
       def usable_service_presenter
-        if @api.generate_grpc_clients?
+        if generate_grpc_clients?
           self
-        elsif @api.generate_rest_clients? && methods_rest_bindings?
+        elsif generate_rest_clients?
           rest
         end
       end

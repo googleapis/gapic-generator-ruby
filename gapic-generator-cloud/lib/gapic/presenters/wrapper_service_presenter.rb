@@ -48,9 +48,9 @@ module Gapic
       # @return [WrapperServicePresenter,WrapperServiceRestPresenter,nil]
       #
       def usable_service_presenter
-        if @api.generate_grpc_clients?
+        if generate_grpc_clients?
           self
-        elsif @api.generate_rest_clients? && methods_rest_bindings?
+        elsif generate_rest_clients?
           rest
         end
       end

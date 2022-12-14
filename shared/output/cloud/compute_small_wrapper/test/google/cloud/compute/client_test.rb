@@ -22,8 +22,8 @@ require "gapic/common"
 require "gapic/grpc"
 
 class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
-  def test_addresses
-    Gapic::ServiceStub.stub :new, :stub do
+  def test_addresses_rest
+    Gapic::Rest::ClientStub.stub :new, :stub do
       client = Google::Cloud::Compute.addresses do |config|
         config.credentials = :dummy_credentials
       end
@@ -31,8 +31,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
     end
   end
 
-  def test_region_operations
-    Gapic::ServiceStub.stub :new, :stub do
+  def test_region_operations_rest
+    Gapic::Rest::ClientStub.stub :new, :stub do
       client = Google::Cloud::Compute.region_operations do |config|
         config.credentials = :dummy_credentials
       end
@@ -40,8 +40,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
     end
   end
 
-  def test_region_instance_group_managers
-    Gapic::ServiceStub.stub :new, :stub do
+  def test_region_instance_group_managers_rest
+    Gapic::Rest::ClientStub.stub :new, :stub do
       client = Google::Cloud::Compute.region_instance_group_managers do |config|
         config.credentials = :dummy_credentials
       end
@@ -49,8 +49,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
     end
   end
 
-  def test_networks
-    Gapic::ServiceStub.stub :new, :stub do
+  def test_networks_rest
+    Gapic::Rest::ClientStub.stub :new, :stub do
       client = Google::Cloud::Compute.networks do |config|
         config.credentials = :dummy_credentials
       end
@@ -58,8 +58,8 @@ class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
     end
   end
 
-  def test_global_operations
-    Gapic::ServiceStub.stub :new, :stub do
+  def test_global_operations_rest
+    Gapic::Rest::ClientStub.stub :new, :stub do
       client = Google::Cloud::Compute.global_operations do |config|
         config.credentials = :dummy_credentials
       end

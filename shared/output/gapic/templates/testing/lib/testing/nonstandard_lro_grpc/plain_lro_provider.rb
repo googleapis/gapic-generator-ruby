@@ -38,12 +38,12 @@ require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
 module Testing
   module NonstandardLroGrpc
     ##
-    # To load this service and instantiate a GRPC client:
+    # @example Load this service and instantiate a gRPC client
     #
     #     require "testing/nonstandard_lro_grpc/plain_lro_provider"
     #     client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Client.new
     #
-    # To load this service and instantiate a REST client:
+    # @example Load this service and instantiate a REST client
     #
     #     require "testing/nonstandard_lro_grpc/plain_lro_provider/rest"
     #     client = ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new

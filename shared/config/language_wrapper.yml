@@ -1,0 +1,9 @@
+---
+:gem:
+  :name: google-cloud-language
+  :title: Language
+  :summary: Natural language API.
+  :version_dependencies: v1:0.0
+  :product_documentation_url: https://cloud.google.com/natural-language
+  :api_id: language
+:transports: ["grpc", "rest"]
