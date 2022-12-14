@@ -4,7 +4,12 @@
 require "helper"
 require "<%= gem.namespace_require %>"
 require "gapic/common"
+<%- if gem.generate_grpc_clients? -%>
 require "gapic/grpc"
+<%- end -%>
+<%- if gem.generate_rest_clients? -%>
+require "gapic/rest"
+<%- end -%>
 
 class <%= gem.namespace %>::ClientConstructionMinitest < Minitest::Test
 <%- gem.services.each do |service| -%>
