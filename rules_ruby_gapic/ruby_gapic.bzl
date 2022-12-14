@@ -34,7 +34,7 @@ load("@rules_gapic//:gapic.bzl", "proto_custom_library")
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
-# transport: the transports "rest" and/or "grpc"
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_gapic_library(
   name,
@@ -74,7 +74,7 @@ def ruby_gapic_library(
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
-# transport: the transports "rest" and/or "grpc"
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_cloud_gapic_library(
   name,
@@ -137,7 +137,7 @@ def ruby_cloud_gapic_library(
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
-# transport: the transports "rest" and/or "grpc"
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_ads_gapic_library(
   name,
