@@ -34,6 +34,7 @@ load("@rules_gapic//:gapic.bzl", "proto_custom_library")
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_gapic_library(
   name,
@@ -43,6 +44,7 @@ def ruby_gapic_library(
   grpc_service_config = None,
   service_yaml = None,
   rest_numeric_enums = None,
+  transport = None,
   **kwargs):
   
   _ruby_gapic_library_internal(
@@ -53,7 +55,8 @@ def ruby_gapic_library(
     yml_configs,
     grpc_service_config,
     service_yaml,
-    rest_numeric_enums
+    rest_numeric_enums,
+    transport
   )
 
 ##
@@ -71,6 +74,7 @@ def ruby_gapic_library(
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_cloud_gapic_library(
   name,
@@ -81,6 +85,7 @@ def ruby_cloud_gapic_library(
   grpc_service_config = None,
   service_yaml = None,
   rest_numeric_enums = None,
+  transport = None,
   **kwargs):
   
   if extra_protoc_parameters:
@@ -100,11 +105,14 @@ def ruby_cloud_gapic_library(
   if ruby_cloud_description:
     extra_protoc_parameters.append("ruby-cloud-description={value}".format(value = ruby_cloud_description))
   
-  # Add the cloud form of the generator parameter here. We then pass None to
-  # _ruby_gapic_library_internal so that it doesn't also add the generic form
-  # of the parameter.
+  # Add the cloud form of these generator parameters here. We then pass None to
+  # _ruby_gapic_library_internal so that it doesn't also add the generic forms
+  # of the parameters.
   if rest_numeric_enums:
     extra_protoc_parameters.append("ruby-cloud-rest-numeric-enums=true")
+  if transport:
+    transport = transport.strip().replace("+", ";")
+    extra_protoc_parameters.append("ruby-cloud-generate-transports={transport}".format(transport = transport))
 
   _ruby_gapic_library_internal(
     name,
@@ -114,6 +122,7 @@ def ruby_cloud_gapic_library(
     [],
     grpc_service_config,
     service_yaml,
+    None,
     None
   )
 
@@ -128,6 +137,7 @@ def ruby_cloud_gapic_library(
 # grpc_service_config: a label to the grpc service config
 # service_yaml: a label to the service yaml
 # rest_numeric_enums: set to True to enable numeric enums for REST clients
+# transport: set to "grpc", "rest", or "rest+grpc"
 #
 def ruby_ads_gapic_library(
   name,
@@ -136,6 +146,7 @@ def ruby_ads_gapic_library(
   grpc_service_config = None,
   service_yaml = None,
   rest_numeric_enums = None,
+  transport = None,
   **kwargs):
   
   _ruby_gapic_library_internal(
@@ -146,7 +157,8 @@ def ruby_ads_gapic_library(
     [],
     grpc_service_config,
     service_yaml,
-    rest_numeric_enums
+    rest_numeric_enums,
+    transport
   )
 
 ##
