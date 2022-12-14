@@ -20,6 +20,7 @@ require "helper"
 require "google/cloud/language"
 require "gapic/common"
 require "gapic/grpc"
+require "gapic/rest"
 
 class Google::Cloud::Language::ClientConstructionMinitest < Minitest::Test
   def test_language_service_grpc
