@@ -19,7 +19,7 @@
 require "helper"
 require "google/cloud/compute"
 require "gapic/common"
-require "gapic/grpc"
+require "gapic/rest"
 
 class Google::Cloud::Compute::ClientConstructionMinitest < Minitest::Test
   def test_addresses_rest
