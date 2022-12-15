@@ -51,7 +51,8 @@ module Gapic
         "ruby-cloud-default-service-host"  => ":defaults.:service.:default_host",
         "ruby-cloud-grpc-service-config"   => "grpc_service_config",
         "ruby-cloud-service-yaml"          => ":service_yaml",
-        "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name"
+        "ruby-cloud-wrapper-gem-override"  => ":overrides.:wrapper_gem_name",
+        "ruby-cloud-snippet-configs-path"  => ":snippet_configs_path"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
