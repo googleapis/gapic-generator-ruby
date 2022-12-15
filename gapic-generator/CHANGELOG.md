@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.18.1 / 2022-12-15
+
+* Fix: Don't generate bindings_override.rb unless REST transport is active
+
 ### 0.18.0 / 2022-12-15
 
 * Feature: add quota project and misc to REGAPIC templates
