@@ -1,5 +1,13 @@
 # Release History for gapic-generator-cloud
 
+### 0.18.0 / 2022-12-15
+
+* Includes changes from gapic-generator 0.18.0
+* Fix: Cross-ref links use the REST client class in REST client docs
+* Feature: all fixes for the combined rest+grpc libraries
+* Fix: handle only regapic errors for REST libraries
+* Feature: Updated wrapper generator to support multi-transport clients
+
 ### 0.17.2 / 2022-10-27
 
 * Includes changes from gapic-generator 0.17.2

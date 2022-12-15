@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.17.2)
+    gapic-generator (0.18.0)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.3.24
+   2.3.26

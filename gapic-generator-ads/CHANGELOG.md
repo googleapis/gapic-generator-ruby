@@ -1,5 +1,11 @@
 # Release History for gapic-generator-ads
 
+### 0.18.0 / 2022-12-15
+
+* Includes changes from gapic-generator 0.18.0
+* Fix: Cross-ref links use the REST client class in REST client docs
+* Feature: Updated wrapper generator to support multi-transport clients
+
 ### 0.17.2 / 2022-10-27
 
 * Includes changes from gapic-generator 0.17.2

@@ -1,5 +1,19 @@
 # Release History for gapic-generator
 
+### 0.18.0 / 2022-12-15
+
+* Feature: add quota project and misc to REGAPIC templates
+* Feature: use retry policy in regapic templates
+* Fix: avoid creating rest default configuration for non-rest methods
+* Fix: transcoding in regapic tests
+* Fix: Cross-ref links use the REST client class in REST client docs
+* Feature: implements template changes for REST server-streaming.
+* Feature: all fixes for the combined rest+grpc libraries
+* Feature: generate bindings override for REST mixins
+* Fix: handle only regapic errors for REST libraries
+* Feature: Recognize transport argument for bazel jobs
+* Feature: Updated wrapper generator to support multi-transport clients
+
 ### 0.17.2 / 2022-10-27
 
 * Fix: Update snippetgen phase 1 to conform to standard sample style
