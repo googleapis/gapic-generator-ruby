@@ -2,9 +2,22 @@
 require "<%= snippet.require_path %>"
 
 ##
-# Example demonstrating basic usage of
-# <%= snippet.client_type %>#<%= snippet.method_name %>
+# <%= snippet.snippet_name %>
 #
-def <%= snippet.method_name %>
+<%= indent wrap(snippet.description, 78), "# " %>
+<%- unless snippet.snippet_method_parameters.empty? -%>
+#
+<%- end -%>
+<%- snippet.snippet_method_parameters.each do |param| -%>
+# @param <%= param.name %> [<%= param.type.render %>]
+<%- if param.description -%>
+<%= indent wrap(param.description, 74), "#     " %>
+<%- end -%>
+<%- if param.example.exist? -%>
+#     (Example: `<%= param.example.render %>`)
+<%- end -%>
+<%- end -%>
+#
+def <%= snippet.snippet_method_name %><%= snippet.snippet_method_parameters_render %>
 <%= indent render(partial: "snippets/snippet/body", locals: { snippet: snippet }), "  " %>
 end

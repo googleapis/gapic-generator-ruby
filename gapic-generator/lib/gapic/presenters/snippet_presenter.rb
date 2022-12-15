@@ -19,6 +19,7 @@ require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language
 require "gapic/presenters/snippet/client_call_presenter"
 require "gapic/presenters/snippet/client_initialization_presenter"
 require "gapic/presenters/snippet/expression_presenter"
+require "gapic/presenters/snippet/parameter_presenter"
 require "gapic/presenters/snippet/request_initialization_presenters"
 require "gapic/presenters/snippet/response_handling_presenters"
 require "gapic/presenters/snippet/statement_presenter"
@@ -75,6 +76,10 @@ module Gapic
         @method_presenter.service.client_name_full.sub(/^::/, "")
       end
 
+      def service_name_short
+        @method_presenter.service.module_name
+      end
+
       def request_type
         @method_presenter.request_type.sub(/^::/, "")
       end
@@ -103,12 +108,34 @@ module Gapic
       end
 
       def snippet_name
-        @config&.metadata&.snippet_name
+        @config&.metadata&.snippet_name ||
+          "Snippet for the #{method_name} call in the #{service_name_short} service"
       end
 
       def description
         @config&.metadata&.snippet_description ||
-          "Example demonstrating basic usage of #{client_type}##{method_name}"
+          "This is an auto-generated example demonstrating basic usage of #{client_type}##{method_name}. " \
+          "It may require modification in order to execute successfully."
+      end
+
+      def snippet_method_parameters
+        @snippet_method_parameters ||= begin
+          parameters_proto = @config&.signature&.parameters
+          if parameters_proto
+            parameters_json = @config.json_representation["signature"]["parameters"]
+            parameters_proto.each_with_index.map do |param_proto, index|
+              ParameterPresenter.new param_proto, parameters_json[index]
+            end
+          else
+            []
+          end
+        end
+      end
+
+      def snippet_method_parameters_render
+        return "" if snippet_method_parameters.empty?
+        names = snippet_method_parameters.map { |param| "#{param.name}:" }.join ", "
+        "(#{names})"
       end
 
       attr_reader :client_initialization
