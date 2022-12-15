@@ -17,6 +17,8 @@
 require "gapic/formatting_utils"
 require "gapic/path_pattern"
 
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+
 module Gapic
   module Schema
     # Base class for all generic proto types including: enums, messages,
@@ -993,6 +995,25 @@ module Gapic
         :pattern,
         :name_field
       )
+    end
+  end
+end
+
+module Google
+  module Cloud
+    module Tools
+      module Snippetgen
+        module Configlanguage
+          module V1
+            ##
+            # Additions to the SnippetConfig message
+            #
+            class SnippetConfig < ::Protobuf::Message
+              attr_accessor :json_representation
+            end
+          end
+        end
+      end
     end
   end
 end
