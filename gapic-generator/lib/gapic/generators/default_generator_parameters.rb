@@ -49,7 +49,8 @@ module Gapic
         ":defaults.:service.:default_host",
         "grpc_service_config",
         ":service_yaml",
-        ":overrides.:wrapper_gem_name"
+        ":overrides.:wrapper_gem_name",
+        ":snippet_configs_path"
       ].freeze
 
       ARRAY_PARAMETERS = [
@@ -90,7 +91,8 @@ module Gapic
         "gem-factory-method-suffix" => ":gem.:factory_method_suffix",
         "default-service-host"      => ":defaults.:service.:default_host",
         "grpc-service-config"       => "grpc_service_config",
-        "service-yaml"              => ":service_yaml"
+        "service-yaml"              => ":service_yaml",
+        "snippet-configs-path"      => ":snippet_configs_path"
       }.freeze
 
       ARRAY_PARAMETERS_ALIASES = {
