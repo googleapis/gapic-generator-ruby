@@ -101,9 +101,10 @@ module Gapic
 
             if @api.generate_standalone_snippets?
               service.methods.each do |method|
-                snippet = method.snippet
-                snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
-                package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
+                method.all_snippets.each do |snippet|
+                  snippet_file = g("snippets/standalone.erb", "snippets/#{snippet.snippet_file_path}", snippet: snippet)
+                  package_snippets.add(method_presenter: method, snippet_presenter: snippet, snippet_file: snippet_file)
+                end
               end
             end
           end
