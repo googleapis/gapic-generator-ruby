@@ -76,6 +76,26 @@ module Gapic
                  services, resources, file_to_generate, registry
       end
 
+      ##
+      # Loads snippet configs from the given directory
+      #
+      # @param path [String] Directory to search for snippet config files
+      # @return [Array<
+      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      #
+      def load_snippet_configs path
+        return [] unless path
+        Dir.chdir path do
+          Dir.glob("**/*.json").map do |file_path|
+            json = JSON.load_file file_path
+            json = underscore_keys json
+            proto = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig.new json
+            proto.json_representation = json
+            proto
+          end
+        end
+      end
+
       # Updates the fields of a message and it's nested messages.
       #
       # @param message [Message] the message whose fields and nested messages
@@ -261,6 +281,19 @@ module Gapic
       end
 
       private
+
+      ##
+      # Transforms all keys in the given hash to snake case.
+      #
+      def underscore_keys input
+        if input.is_a? Hash
+          input.to_h { |key, value| [ActiveSupport::Inflector.underscore(key), underscore_keys(value)] }
+        elsif input.is_a? Array
+          input.map { |elem| underscore_keys elem }
+        else
+          input
+        end
+      end
 
       def add_to_registry registry, address, obj
         registry[address.join(".")] = obj
