@@ -48,6 +48,10 @@ module Gapic
 
         gem = gem_presenter || Gapic::Presenters.gem_presenter(@api)
 
+        if @api.generate_rest_clients? && gem.packages.find(&:generate_rest_clients?).nil?
+          raise "Rest transport specified but no services have HTTP bindings"
+        end
+
         gem.packages.each do |package|
           package_snippets = PackageSnippets.new snippet_dir: "snippets",
                                                  proto_package: package.name,
