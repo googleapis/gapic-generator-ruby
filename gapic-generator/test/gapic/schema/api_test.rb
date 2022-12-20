@@ -21,6 +21,15 @@ class ApiTest < Minitest::Test
   API_INFO = ApiTestResources::API_INFO
   CONFIG_EXPECTED = ApiTestResources::CONFIG_EXPECTED
 
+  def test_load_snippetgen_config
+    literal_params = ":snippet_configs_path=../shared/snippet_config/speech_v1"
+    request = OpenStruct.new parameter: literal_params, proto_file: []
+    api = Gapic::Schema::Api.new request
+    assert_equal 1, api.snippet_configs.size
+    assert_equal 1, api.snippet_configs_for("google.cloud.speech.v1.Adaptation.CreateCustomClass").size
+    assert_empty api.snippet_configs_for("google.cloud.speech.v2.Adaptation.CreateCustomClass")
+  end
+
   # Verify that the full range of API parameters options
   # are parsed correctly into the configuration structure
   # when provided with literal configuration parameter names
