@@ -532,13 +532,11 @@ module Google
           #   # Call the list_rooms method.
           #   result = client.list_rooms request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::Room.
-          #     p response
+          #     p item
           #   end
           #
           def list_rooms request, options = nil
@@ -964,13 +962,11 @@ module Google
           #   # Call the list_blurbs method.
           #   result = client.list_blurbs request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::Blurb.
-          #     p response
+          #     p item
           #   end
           #
           def list_blurbs request, options = nil
@@ -1070,14 +1066,14 @@ module Google
           #   # Call the search_blurbs method.
           #   result = client.search_blurbs request
           #
-          #   # The returned object is of type Gapic::Operation. You can use this
-          #   # object to check the status of an operation, cancel it, or wait
-          #   # for results. Here is how to block until completion:
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
           #   result.wait_until_done! timeout: 60
           #   if result.response?
           #     p result.response
           #   else
-          #     puts "Error!"
+          #     puts "No response received."
           #   end
           #
           def search_blurbs request, options = nil
@@ -1161,13 +1157,13 @@ module Google
           #   # Create a request. To set request fields, pass in keyword arguments.
           #   request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
           #
-          #   # Call the stream_blurbs method.
-          #   result = client.stream_blurbs request
+          #   # Call the stream_blurbs method to start streaming.
+          #   output = client.stream_blurbs request
           #
-          #   # The returned object is a streamed enumerable yielding elements of
-          #   # type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-          #   result.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def stream_blurbs request, options = nil
@@ -1232,15 +1228,17 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Messaging::Client.new
           #
-          #   # Create a stream of requests, as an Enumerator.
-          #   # For each request, pass in keyword arguments to set fields.
-          #   request = [
-          #     Google::Showcase::V1beta1::CreateBlurbRequest.new,
-          #     Google::Showcase::V1beta1::CreateBlurbRequest.new
-          #   ].to_enum
+          #   # Create an input stream.
+          #   input = Gapic::StreamInput.new
           #
-          #   # Call the send_blurbs method.
-          #   result = client.send_blurbs request
+          #   # Call the send_blurbs method to start streaming.
+          #   result = client.send_blurbs input
+          #
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
+          #   input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+          #   input << Google::Showcase::V1beta1::CreateBlurbRequest.new
+          #   input.close
           #
           #   # The returned object is of type Google::Showcase::V1beta1::SendBlurbsResponse.
           #   p result
@@ -1306,22 +1304,22 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Messaging::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the connect method to start streaming.
           #   output = client.connect input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << Google::Showcase::V1beta1::ConnectRequest.new
           #   input << Google::Showcase::V1beta1::ConnectRequest.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def connect request, options = nil

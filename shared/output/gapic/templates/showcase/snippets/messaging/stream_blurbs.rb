@@ -38,13 +38,13 @@ def stream_blurbs
   # Create a request. To set request fields, pass in keyword arguments.
   request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
 
-  # Call the stream_blurbs method.
-  result = client.stream_blurbs request
+  # Call the stream_blurbs method to start streaming.
+  output = client.stream_blurbs request
 
-  # The returned object is a streamed enumerable yielding elements of
-  # type ::Google::Showcase::V1beta1::StreamBlurbsResponse.
-  result.each do |response|
-    p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+  output.each do |current_response|
+    p current_response
   end
 end
 # [END showcase_v0_generated_Messaging_StreamBlurbs_sync]

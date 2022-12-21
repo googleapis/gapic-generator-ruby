@@ -324,13 +324,13 @@ module Google
           #   # Create a request. To set request fields, pass in keyword arguments.
           #   request = Google::Showcase::V1beta1::ExpandRequest.new
           #
-          #   # Call the expand method.
-          #   result = client.expand request
+          #   # Call the expand method to start streaming.
+          #   output = client.expand request
           #
-          #   # The returned object is a streamed enumerable yielding elements of
-          #   # type ::Google::Showcase::V1beta1::EchoResponse.
-          #   result.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::EchoResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def expand request, options = nil
@@ -388,15 +388,17 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Echo::Client.new
           #
-          #   # Create a stream of requests, as an Enumerator.
-          #   # For each request, pass in keyword arguments to set fields.
-          #   request = [
-          #     Google::Showcase::V1beta1::EchoRequest.new,
-          #     Google::Showcase::V1beta1::EchoRequest.new
-          #   ].to_enum
+          #   # Create an input stream.
+          #   input = Gapic::StreamInput.new
           #
-          #   # Call the collect method.
-          #   result = client.collect request
+          #   # Call the collect method to start streaming.
+          #   result = client.collect input
+          #
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input << Google::Showcase::V1beta1::EchoRequest.new
+          #   input.close
           #
           #   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
           #   p result
@@ -461,22 +463,22 @@ module Google
           #   # Create a client object. The client can be reused for multiple calls.
           #   client = Google::Showcase::V1beta1::Echo::Client.new
           #
-          #   # Create an input stream
+          #   # Create an input stream.
           #   input = Gapic::StreamInput.new
           #
           #   # Call the chat method to start streaming.
           #   output = client.chat input
           #
-          #   # Send requests on the stream. For each request, pass in keyword
-          #   # arguments to set fields. Be sure to close the stream when done.
+          #   # Send requests on the stream. For each request object, set fields by
+          #   # passing keyword arguments. Be sure to close the stream when done.
           #   input << Google::Showcase::V1beta1::EchoRequest.new
           #   input << Google::Showcase::V1beta1::EchoRequest.new
           #   input.close
           #
-          #   # Handle streamed responses. These may be interleaved with inputs.
-          #   # Each response is of type ::Google::Showcase::V1beta1::EchoResponse.
-          #   output.each do |response|
-          #     p response
+          #   # The returned object is a streamed enumerable yielding elements of type
+          #   # ::Google::Showcase::V1beta1::EchoResponse
+          #   output.each do |current_response|
+          #     p current_response
           #   end
           #
           def chat request, options = nil
@@ -561,13 +563,11 @@ module Google
           #   # Call the paged_expand method.
           #   result = client.paged_expand request
           #
-          #   # The returned object is of type Gapic::PagedEnumerable. You can
-          #   # iterate over all elements by calling #each, and the enumerable
-          #   # will lazily make API calls to fetch subsequent pages. Other
-          #   # methods are also available for managing paging directly.
-          #   result.each do |response|
+          #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+          #   # over elements, and API calls will be issued to fetch pages as needed.
+          #   result.each do |item|
           #     # Each element is of type ::Google::Showcase::V1beta1::EchoResponse.
-          #     p response
+          #     p item
           #   end
           #
           def paged_expand request, options = nil
@@ -825,14 +825,14 @@ module Google
           #   # Call the wait method.
           #   result = client.wait request
           #
-          #   # The returned object is of type Gapic::Operation. You can use this
-          #   # object to check the status of an operation, cancel it, or wait
-          #   # for results. Here is how to block until completion:
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
           #   result.wait_until_done! timeout: 60
           #   if result.response?
           #     p result.response
           #   else
-          #     puts "Error!"
+          #     puts "No response received."
           #   end
           #
           def wait request, options = nil

@@ -38,13 +38,13 @@ def server_garbage
   # Create a request. To set request fields, pass in keyword arguments.
   request = So::Much::Trash::ListGarbageRequest.new
 
-  # Call the server_garbage method.
-  result = client.server_garbage request
+  # Call the server_garbage method to start streaming.
+  output = client.server_garbage request
 
-  # The returned object is a streamed enumerable yielding elements of
-  # type ::So::Much::Trash::GarbageItem.
-  result.each do |response|
-    p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::So::Much::Trash::GarbageItem
+  output.each do |current_response|
+    p current_response
   end
 end
 # [END garbage_v0_generated_GarbageService_ServerGarbage_sync]

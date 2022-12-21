@@ -33,13 +33,11 @@ def list_note_occurrences
   # Call the list_note_occurrences method.
   result = client.list_note_occurrences request
 
-  # The returned object is of type Gapic::PagedEnumerable. You can
-  # iterate over all elements by calling #each, and the enumerable
-  # will lazily make API calls to fetch subsequent pages. Other
-  # methods are also available for managing paging directly.
-  result.each do |response|
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
     # Each element is of type ::Grafeas::V1::Occurrence.
-    p response
+    p item
   end
 end
 # [END grafeas_v1_generated_Grafeas_ListNoteOccurrences_sync]

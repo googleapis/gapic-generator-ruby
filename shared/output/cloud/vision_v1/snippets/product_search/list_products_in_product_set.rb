@@ -33,13 +33,11 @@ def list_products_in_product_set
   # Call the list_products_in_product_set method.
   result = client.list_products_in_product_set request
 
-  # The returned object is of type Gapic::PagedEnumerable. You can
-  # iterate over all elements by calling #each, and the enumerable
-  # will lazily make API calls to fetch subsequent pages. Other
-  # methods are also available for managing paging directly.
-  result.each do |response|
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
     # Each element is of type ::Google::Cloud::Vision::V1::Product.
-    p response
+    p item
   end
 end
 # [END vision_v1_generated_ProductSearch_ListProductsInProductSet_sync]
