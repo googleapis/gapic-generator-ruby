@@ -291,6 +291,7 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
     # Create request parameters for a unary method.
     document = {}
+    classification_model_options = {}
 
     classify_text_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
@@ -306,27 +307,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
         end
 
         # Use hash object
-        client.classify_text({ document: document }) do |_result, response|
+        client.classify_text({ document: document, classification_model_options: classification_model_options }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.classify_text document: document do |_result, response|
+        client.classify_text document: document, classification_model_options: classification_model_options do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.classify_text ::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document) do |_result, response|
+        client.classify_text ::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document, classification_model_options: classification_model_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.classify_text({ document: document }, call_options) do |_result, response|
+        client.classify_text({ document: document, classification_model_options: classification_model_options }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.classify_text(::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document), call_options) do |_result, response|
+        client.classify_text(::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document, classification_model_options: classification_model_options), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

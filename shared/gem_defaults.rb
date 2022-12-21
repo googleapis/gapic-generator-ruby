@@ -22,13 +22,20 @@ def gem_defaults
         "grafeas/v1/attestation.proto",
         "grafeas/v1/build.proto",
         "grafeas/v1/common.proto",
+        "grafeas/v1/compliance.proto",
         "grafeas/v1/cvss.proto",
         "grafeas/v1/deployment.proto",
         "grafeas/v1/discovery.proto",
+        "grafeas/v1/dsse_attestation.proto",
         "grafeas/v1/grafeas.proto",
         "grafeas/v1/image.proto",
+        "grafeas/v1/intoto_provenance.proto",
+        "grafeas/v1/intoto_statement.proto",
         "grafeas/v1/package.proto",
         "grafeas/v1/provenance.proto",
+        "grafeas/v1/severity.proto",
+        "grafeas/v1/slsa_provenance.proto",
+        "grafeas/v1/slsa_provenance_zero_two.proto",
         "grafeas/v1/upgrade.proto",
         "grafeas/v1/vulnerability.proto"
       ]
@@ -75,13 +82,10 @@ def gem_defaults
     },
     speech_v1: {
       protos: [
-        "google/cloud/speech/v1/cloud_speech.proto"
-      ],
-      samples: Dir.glob([
-        "../shared/googleapis/google/cloud/speech/v1/samples/*.yaml",
-        "../shared/googleapis/google/cloud/speech/v1/samples/test/*.yaml",
-        "../shared/samples/speech/*.yaml"
-      ])
+        "google/cloud/speech/v1/resource.proto",
+        "google/cloud/speech/v1/cloud_speech.proto",
+        "google/cloud/speech/v1/cloud_speech_adaptation.proto"
+      ]
     },
     vision_v1: {
       protos: [
@@ -125,7 +129,7 @@ def gem_defaults
     },
     googleads: {
       protos: [
-        "google/ads/googleads/v7/services/campaign_service.proto"
+        "google/ads/googleads/v12/services/campaign_service.proto"
       ]
     },
     testing: {
