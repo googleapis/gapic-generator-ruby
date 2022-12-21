@@ -28,8 +28,11 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::GarbageService::Client#server_garbage
+# Snippet for the server_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#server_garbage. It may require
+# modification in order to execute successfully.
 #
 def server_garbage
   # Create a client object. The client can be reused for multiple calls.

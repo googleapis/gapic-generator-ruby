@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Echo::Client#wait
+# Snippet for the wait call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#wait. It may require modification in
+# order to execute successfully.
 #
 def wait
   # Create a client object. The client can be reused for multiple calls.

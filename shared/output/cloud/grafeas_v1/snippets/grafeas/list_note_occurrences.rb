@@ -20,8 +20,11 @@
 require "grafeas/v1"
 
 ##
-# Example demonstrating basic usage of
-# Grafeas::V1::Grafeas::Client#list_note_occurrences
+# Snippet for the list_note_occurrences call in the Grafeas service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Grafeas::V1::Grafeas::Client#list_note_occurrences. It may require
+# modification in order to execute successfully.
 #
 def list_note_occurrences
   # Create a client object. The client can be reused for multiple calls.

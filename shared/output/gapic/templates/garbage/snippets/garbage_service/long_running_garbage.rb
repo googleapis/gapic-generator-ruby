@@ -28,8 +28,11 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::GarbageService::Client#long_running_garbage
+# Snippet for the long_running_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#long_running_garbage. It may require
+# modification in order to execute successfully.
 #
 def long_running_garbage
   # Create a client object. The client can be reused for multiple calls.

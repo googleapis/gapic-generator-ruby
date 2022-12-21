@@ -28,8 +28,11 @@
 require "testing/grpc_service_config"
 
 ##
-# Example demonstrating basic usage of
-# Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method
+# Snippet for the service_level_retry_method call in the ServiceWithRetries service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::GrpcServiceConfig::ServiceWithRetries::Client#service_level_retry_method.
+# It may require modification in order to execute successfully.
 #
 def service_level_retry_method
   # Create a client object. The client can be reused for multiple calls.

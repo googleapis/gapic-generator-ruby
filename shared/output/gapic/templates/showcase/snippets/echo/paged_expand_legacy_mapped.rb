@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy_mapped
+# Snippet for the paged_expand_legacy_mapped call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#paged_expand_legacy_mapped. It may
+# require modification in order to execute successfully.
 #
 def paged_expand_legacy_mapped
   # Create a client object. The client can be reused for multiple calls.
@@ -41,13 +44,11 @@ def paged_expand_legacy_mapped
   # Call the paged_expand_legacy_mapped method.
   result = client.paged_expand_legacy_mapped request
 
-  # The returned object is of type Gapic::PagedEnumerable. You can
-  # iterate over all elements by calling #each, and the enumerable
-  # will lazily make API calls to fetch subsequent pages. Other
-  # methods are also available for managing paging directly.
-  result.each do |response|
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
     # Each element is of type ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse::AlphabetizedEntry.
-    p response
+    p item
   end
 end
 # [END showcase_v0_generated_Echo_PagedExpandLegacyMapped_sync]

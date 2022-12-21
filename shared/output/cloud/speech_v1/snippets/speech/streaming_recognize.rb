@@ -20,8 +20,11 @@
 require "google/cloud/speech/v1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Cloud::Speech::V1::Speech::Client#streaming_recognize
+# Snippet for the streaming_recognize call in the Speech service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Speech::V1::Speech::Client#streaming_recognize. It may require
+# modification in order to execute successfully.
 #
 def streaming_recognize
   # Create a client object. The client can be reused for multiple calls.

@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Messaging::Client#delete_blurb
+# Snippet for the delete_blurb call in the Messaging service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Messaging::Client#delete_blurb. It may require
+# modification in order to execute successfully.
 #
 def delete_blurb
   # Create a client object. The client can be reused for multiple calls.

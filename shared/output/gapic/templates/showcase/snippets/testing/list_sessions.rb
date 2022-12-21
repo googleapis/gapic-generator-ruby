@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Testing::Client#list_sessions
+# Snippet for the list_sessions call in the Testing service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Testing::Client#list_sessions. It may require
+# modification in order to execute successfully.
 #
 def list_sessions
   # Create a client object. The client can be reused for multiple calls.

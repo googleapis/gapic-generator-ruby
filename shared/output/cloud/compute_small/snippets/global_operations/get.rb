@@ -20,8 +20,11 @@
 require "google/cloud/compute/v1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Cloud::Compute::V1::GlobalOperations::Client#get
+# Snippet for the get call in the GlobalOperations service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Compute::V1::GlobalOperations::Client#get. It may require
+# modification in order to execute successfully.
 #
 def get
   # Create a client object. The client can be reused for multiple calls.

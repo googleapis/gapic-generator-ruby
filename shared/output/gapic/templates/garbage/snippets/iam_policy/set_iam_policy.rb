@@ -28,8 +28,11 @@
 require "google/iam/v1"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::IAMPolicy::Client#set_iam_policy
+# Snippet for the set_iam_policy call in the IAMPolicy service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::IAMPolicy::Client#set_iam_policy. It may require modification
+# in order to execute successfully.
 #
 def set_iam_policy
   # Create a client object. The client can be reused for multiple calls.

@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_trailing_resource
+# Snippet for the repeat_data_path_trailing_resource call in the Compliance service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Compliance::Client#repeat_data_path_trailing_resource.
+# It may require modification in order to execute successfully.
 #
 def repeat_data_path_trailing_resource
   # Create a client object. The client can be reused for multiple calls.

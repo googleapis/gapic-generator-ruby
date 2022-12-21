@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Compliance::Client#repeat_data_simple_path
+# Snippet for the repeat_data_simple_path call in the Compliance service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Compliance::Client#repeat_data_simple_path. It may
+# require modification in order to execute successfully.
 #
 def repeat_data_simple_path
   # Create a client object. The client can be reused for multiple calls.

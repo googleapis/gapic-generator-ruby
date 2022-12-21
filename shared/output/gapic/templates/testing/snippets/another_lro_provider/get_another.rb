@@ -28,8 +28,11 @@
 require "testing/nonstandard_lro_grpc"
 
 ##
-# Example demonstrating basic usage of
-# Testing::NonstandardLroGrpc::AnotherLroProvider::Client#get_another
+# Snippet for the get_another call in the AnotherLroProvider service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::AnotherLroProvider::Client#get_another. It may
+# require modification in order to execute successfully.
 #
 def get_another
   # Create a client object. The client can be reused for multiple calls.

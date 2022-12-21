@@ -20,8 +20,11 @@
 require "google/cloud/compute/v1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Cloud::Compute::V1::RegionOperations::Client#delete
+# Snippet for the delete call in the RegionOperations service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Compute::V1::RegionOperations::Client#delete. It may require
+# modification in order to execute successfully.
 #
 def delete
   # Create a client object. The client can be reused for multiple calls.

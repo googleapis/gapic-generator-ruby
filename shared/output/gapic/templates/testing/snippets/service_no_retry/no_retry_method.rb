@@ -28,8 +28,11 @@
 require "testing/grpc_service_config"
 
 ##
-# Example demonstrating basic usage of
-# Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method
+# Snippet for the no_retry_method call in the ServiceNoRetry service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::GrpcServiceConfig::ServiceNoRetry::Client#no_retry_method. It may
+# require modification in order to execute successfully.
 #
 def no_retry_method
   # Create a client object. The client can be reused for multiple calls.

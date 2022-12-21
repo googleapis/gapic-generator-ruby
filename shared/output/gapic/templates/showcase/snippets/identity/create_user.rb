@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Identity::Client#create_user
+# Snippet for the create_user call in the Identity service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Identity::Client#create_user. It may require
+# modification in order to execute successfully.
 #
 def create_user
   # Create a client object. The client can be reused for multiple calls.
