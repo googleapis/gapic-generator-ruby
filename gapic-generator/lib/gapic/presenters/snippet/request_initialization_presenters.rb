@@ -122,15 +122,19 @@ module Gapic
         # @param request_type [String] The fully qualified request message class
         # @param phase1 [Boolean] True if this is a phase 1 snippet without config
         #
-        def initialize _proto, _json, request_name:, request_type:, phase1:
+        def initialize proto, json, request_name:, request_type:, phase1:
           @request_name = request_name
           @render_precall_lines = []
           @render_precall_lines << "# Create an input stream." if phase1
           @render_precall_lines << "#{request_name} = Gapic::StreamInput.new"
           @render_precall = @render_precall_lines.join "\n"
 
-          # TODO
-          @render_postcall_lines = fallback_lines request_name, request_type
+          @render_postcall_lines =
+            if proto && json
+              configured_lines proto, json, request_name, request_type
+            else
+              fallback_lines request_name, request_type
+            end
           @render_postcall = @render_postcall_lines.join "\n"
         end
 
@@ -165,6 +169,26 @@ module Gapic
         attr_reader :request_name
 
         private
+
+        def configured_lines proto, json, request_name, request_type
+          lines = []
+          if json.key? "firstStreamingRequest"
+            first_request = SimpleRequestInitializationPresenter.new \
+              proto.first_streaming_request, json["firstStreamingRequest"],
+              default_request_name: "stream_item", request_type: request_type, phase1: false
+            lines += first_request.render_precall_lines
+            lines << "#{request_name} << #{first_request.request_name}"
+          end
+          next_request = SimpleRequestInitializationPresenter.new \
+            proto.streaming_request, json["streamingRequest"],
+            default_request_name: "stream_item", request_type: request_type, phase1: false
+          iteration = IterationPresenter.new proto.iteration, json["iteration"]
+          lines += iteration.prelude_render_lines
+          lines += next_request.render_precall_lines.map { |line| "  #{line}" }
+          lines << "  #{request_name} << #{next_request.request_name}"
+          lines += iteration.postlude_render_lines
+          lines + ["#{request_name}.close"]
+        end
 
         def fallback_lines request_name, request_type
           [

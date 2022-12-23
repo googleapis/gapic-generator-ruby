@@ -32,7 +32,7 @@ module Gapic
         # @param json [String]
         #     The JSON representation of the expression
         #
-        def initialize proto, json
+        def initialize proto, json # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
           @render_lines =
             if json&.key? "stringValue"
               render_string proto
@@ -43,9 +43,13 @@ module Gapic
             elsif json&.key? "nullValue"
               ["nil"]
             elsif json&.key? "nameValue"
-              render_name proto
+              render_name proto.name_value
             elsif json&.key? "complexValue"
-              render_complex proto, json
+              render_complex proto.complex_value.properties, json["complexValue"]["properties"]
+            elsif json&.key? "listValue"
+              render_list proto.list_value.values, json["listValue"]["values"]
+            elsif json&.key? "mapValue"
+              render_map proto.map_value, json["mapValue"]
             end
           @render = @render_lines&.join " "
         end
@@ -87,14 +91,11 @@ module Gapic
         end
 
         def render_name proto
-          proto = proto.name_value
           line = ([proto.name] + Array(proto.path&.to_a)).join "."
           [line]
         end
 
         def render_complex proto, json
-          proto = proto.complex_value.properties
-          json = json["complexValue"]["properties"]
           lines = ["{"]
           proto.each do |key, value_expr|
             value_presenter = ExpressionPresenter.new value_expr, json[key]
@@ -103,6 +104,30 @@ module Gapic
             lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
             value_lines[0] = "#{key}: #{value_lines.first}"
             lines += value_lines.map { |line| "  #{line}" }
+          end
+          lines + ["}"]
+        end
+
+        def render_list proto, json
+          lines = ["["]
+          proto.each_with_index do |item, index|
+            expr = ExpressionPresenter.new item, json[index]
+            value_lines = expr.render_lines
+            lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
+            lines += value_lines.map { |line| "  #{line}" }
+          end
+          lines + ["]"]
+        end
+
+        def render_map proto, json
+          lines = ["{"]
+          proto.keys.zip(proto.values).each_with_index do |(key, value), index|
+            key_lines = ExpressionPresenter.new(key, json["keys"][index]).render_lines
+            value_lines = ExpressionPresenter.new(value, json["values"][index]).render_lines
+            next unless key_lines && value_lines
+            elem_lines = key_lines[0..-2] + ["#{key_lines.last} => #{value_lines.first}"] + value_lines[1..]
+            lines[lines.size - 1] = "#{lines.last}," if lines.size > 1
+            lines += elem_lines.map { |line| "  #{line}" }
           end
           lines + ["}"]
         end
