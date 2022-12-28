@@ -93,8 +93,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::ClientTest < Minitest::Te
       end
 
       # Use protobuf object
-      client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
-                                                                  lro_name: lro_name) do |response, operation|
+      client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -106,10 +105,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::ClientTest < Minitest::Te
       end
 
       # Use protobuf object with options
-      client.get(
-        ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id,
-                                                         lro_name: lro_name), grpc_options
-      ) do |response, operation|
+      client.get(::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

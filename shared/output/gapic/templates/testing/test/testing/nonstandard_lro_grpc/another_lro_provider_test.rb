@@ -81,39 +81,31 @@ class ::Testing::NonstandardLroGrpc::AnotherLroProvider::ClientTest < Minitest::
       end
 
       # Use hash object
-      client.get_another({ another_request_id: another_request_id,
-another_lro_name: another_lro_name }) do |response, operation|
+      client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.get_another another_request_id: another_request_id,
-                         another_lro_name: another_lro_name do |response, operation|
+      client.get_another another_request_id: another_request_id, another_lro_name: another_lro_name do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(
-        another_request_id: another_request_id, another_lro_name: another_lro_name
-      ) do |response, operation|
+      client.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name },
-                         grpc_options) do |response, operation|
+      client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.get_another(
-        ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id,
-                                                                another_lro_name: another_lro_name), grpc_options
-      ) do |response, operation|
+      client.get_another(::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

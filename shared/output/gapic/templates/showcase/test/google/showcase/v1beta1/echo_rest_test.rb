@@ -144,6 +144,7 @@ other_header: other_header }) do |_result, response|
     # Create request parameters for a unary method.
     content = "hello world"
     error = {}
+
     expand_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
@@ -168,8 +169,7 @@ other_header: other_header }) do |_result, response|
         end.first
 
         # Use protobuf object
-        client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content,
-                                                                     error: error) do |_result, response|
+        client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error) do |_result, response|
           assert_equal http_response, response
         end.first
 
@@ -179,8 +179,7 @@ other_header: other_header }) do |_result, response|
         end.first
 
         # Use protobuf object with options
-        client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error),
-                      call_options) do |_result, response|
+        client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error), call_options) do |_result, response|
           assert_equal http_response, response
         end.first
 
@@ -226,22 +225,17 @@ other_header: other_header }) do |_result, response|
         end
 
         # Use protobuf object
-        client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
-                                                                                page_token: page_token) do |_result, response|
+        client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.paged_expand({ content: content, page_size: page_size, page_token: page_token },
-                            call_options) do |_result, response|
+        client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.paged_expand(
-          ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
-                                                              page_token: page_token), call_options
-        ) do |_result, response|
+        client.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -413,8 +407,7 @@ page_token: page_token }) do |_result, response|
         end
 
         # Use protobuf object
-        client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time,
-                                                                 error: error) do |_result, response|
+        client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -424,8 +417,7 @@ page_token: page_token }) do |_result, response|
         end
 
         # Use protobuf object with options
-        client.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error),
-                    call_options) do |_result, response|
+        client.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -470,8 +462,7 @@ page_token: page_token }) do |_result, response|
         end
 
         # Use protobuf object
-        client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay,
-                                                                   error: error) do |_result, response|
+        client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -481,8 +472,7 @@ page_token: page_token }) do |_result, response|
         end
 
         # Use protobuf object with options
-        client.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error),
-                     call_options) do |_result, response|
+        client.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

@@ -114,8 +114,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.create_room(::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room),
-                           call_options) do |_result, response|
+        client.create_room(::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -169,8 +168,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.get_room(::Google::Showcase::V1beta1::GetRoomRequest.new(name: name),
-                        call_options) do |_result, response|
+        client.get_room(::Google::Showcase::V1beta1::GetRoomRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -215,8 +213,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room,
-                                                                              update_mask: update_mask) do |_result, response|
+        client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -226,8 +223,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.update_room(::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask),
-                           call_options) do |_result, response|
+        client.update_room(::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -281,8 +277,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.delete_room(::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name),
-                           call_options) do |_result, response|
+        client.delete_room(::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -327,8 +322,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
-                                                                            page_token: page_token) do |_result, response|
+        client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -338,10 +332,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.list_rooms(
-          ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size,
-                                                            page_token: page_token), call_options
-        ) do |_result, response|
+        client.list_rooms(::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -386,8 +377,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent,
-                                                                                blurb: blurb) do |_result, response|
+        client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -397,8 +387,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.create_blurb(::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb),
-                            call_options) do |_result, response|
+        client.create_blurb(::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -452,8 +441,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.get_blurb(::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name),
-                         call_options) do |_result, response|
+        client.get_blurb(::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -498,8 +486,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb,
-                                                                                update_mask: update_mask) do |_result, response|
+        client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -509,10 +496,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.update_blurb(
-          ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb,
-                                                              update_mask: update_mask), call_options
-        ) do |_result, response|
+        client.update_blurb(::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -566,8 +550,7 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.delete_blurb(::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name),
-                            call_options) do |_result, response|
+        client.delete_blurb(::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -613,22 +596,17 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
-                                                                              page_token: page_token) do |_result, response|
+        client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token },
-                           call_options) do |_result, response|
+        client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.list_blurbs(
-          ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size,
-                                                             page_token: page_token), call_options
-        ) do |_result, response|
+        client.list_blurbs(::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -665,34 +643,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object
-        client.search_blurbs({ query: query, parent: parent, page_size: page_size,
-page_token: page_token }) do |_result, response|
+        client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.search_blurbs query: query, parent: parent, page_size: page_size,
-                             page_token: page_token do |_result, response|
+        client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent,
-                                                                                  page_size: page_size, page_token: page_token) do |_result, response|
+        client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token },
-                             call_options) do |_result, response|
+        client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.search_blurbs(
-          ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size,
-                                                               page_token: page_token), call_options
-        ) do |_result, response|
+        client.search_blurbs(::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -712,6 +683,7 @@ page_token: page_token }) do |_result, response|
     # Create request parameters for a unary method.
     name = "hello world"
     expire_time = {}
+
     stream_blurbs_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:, is_server_streaming:|
       assert options.metadata.key? :"x-goog-api-client"
       assert options.metadata[:"x-goog-api-client"].include? "rest"
@@ -736,8 +708,7 @@ page_token: page_token }) do |_result, response|
         end.first
 
         # Use protobuf object
-        client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
-                                                                                  expire_time: expire_time) do |_result, response|
+        client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time) do |_result, response|
           assert_equal http_response, response
         end.first
 
@@ -747,10 +718,7 @@ page_token: page_token }) do |_result, response|
         end.first
 
         # Use protobuf object with options
-        client.stream_blurbs(
-          ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name,
-                                                               expire_time: expire_time), call_options
-        ) do |_result, response|
+        client.stream_blurbs(::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time), call_options) do |_result, response|
           assert_equal http_response, response
         end.first
 

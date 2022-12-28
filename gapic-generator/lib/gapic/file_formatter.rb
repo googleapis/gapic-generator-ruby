@@ -36,27 +36,20 @@ module Gapic
 
     def format! configuration, files
       Dir.mktmpdir do |dir|
-        files.each do |file|
-          write_file dir, file
-        end
+        Dir.chdir dir do
+          files.each do |file|
+            FileUtils.mkdir_p File.dirname file.name
+            File.write file.name, file.content
+          end
 
-        system "rubocop --cache false -x #{dir} -o #{dir}/rubocop.out -c #{configuration}"
+          output = `rubocop --cache false -a -o rubocop.out -c #{configuration}`.strip
+          warn output unless output.empty?
 
-        files.each do |file|
-          read_file dir, file
+          files.each do |file|
+            file.content = File.read file.name
+          end
         end
       end
-    end
-
-    def write_file dir, file
-      tmp_file = File.join dir, file.name
-      FileUtils.mkdir_p File.dirname tmp_file
-      File.write tmp_file, file.content
-    end
-
-    def read_file dir, file
-      tmp_file = File.join dir, file.name
-      file.content = File.read tmp_file
     end
   end
 end

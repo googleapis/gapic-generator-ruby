@@ -86,8 +86,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request,
-                                                                                 ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_lro_rpc_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
@@ -115,8 +114,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use protobuf object with options
-        client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                             call_options) do |_result, response|
+        client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -142,8 +140,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_another_lro_rpc_request,
-                                                                                 ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_another_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, another_lro_rpc_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
@@ -171,8 +168,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use protobuf object with options
-        client.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id),
-                               call_options) do |_result, response|
+        client.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -197,8 +193,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_non_copy_another_lro_rpc_request,
-                                                                                 ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_non_copy_another_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, non_copy_another_lro_rpc_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
@@ -206,7 +201,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use hash object
-        client.non_copy_another_lro_rpc({}) do |_result, response|
+        client.non_copy_another_lro_rpc({  }) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -216,13 +211,12 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use hash object with options
-        client.non_copy_another_lro_rpc({}, call_options) do |_result, response|
+        client.non_copy_another_lro_rpc({  }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(),
-                                        call_options) do |_result, response|
+        client.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -248,8 +242,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_aip_lro_request,
-                                                                                 ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_aip_lro_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, aip_lro_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
@@ -277,8 +270,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use protobuf object with options
-        client.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                       call_options) do |_result, response|
+        client.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -304,8 +296,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_no_lro_request,
-                                                                                 ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ServiceStub.stub :transcode_no_lro_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, no_lro_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new do |config|
@@ -333,8 +324,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::ClientTest < M
         end
 
         # Use protobuf object with options
-        client.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                      call_options) do |_result, response|
+        client.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

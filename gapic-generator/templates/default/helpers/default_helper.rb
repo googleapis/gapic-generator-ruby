@@ -66,4 +66,17 @@ module DefaultHelper
   def assert_locals *locals
     locals.each { |local| raise "missing local in template" if local.nil? }
   end
+
+  def start_line_spacer name = :default
+    (@line_spacers ||= {})[name] = false
+  end
+
+  def line_spacer name = :default
+    if @line_spacers[name]
+      "\n"
+    else
+      @line_spacers[name] = true
+      ""
+    end
+  end
 end

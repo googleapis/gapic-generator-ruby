@@ -86,8 +86,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ClientTest < Minite
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request,
-                                                                            ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ServiceStub.stub :transcode_plain_lro_rpc_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_lro_rpc_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::Client.new do |config|
@@ -115,8 +114,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::Rest::ClientTest < Minite
         end
 
         # Use protobuf object with options
-        client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                             call_options) do |_result, response|
+        client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

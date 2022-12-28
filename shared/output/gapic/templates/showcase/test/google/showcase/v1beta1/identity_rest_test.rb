@@ -114,8 +114,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.create_user(::Google::Showcase::V1beta1::CreateUserRequest.new(user: user),
-                           call_options) do |_result, response|
+        client.create_user(::Google::Showcase::V1beta1::CreateUserRequest.new(user: user), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -169,8 +168,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.get_user(::Google::Showcase::V1beta1::GetUserRequest.new(name: name),
-                        call_options) do |_result, response|
+        client.get_user(::Google::Showcase::V1beta1::GetUserRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -215,8 +213,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user,
-                                                                              update_mask: update_mask) do |_result, response|
+        client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -226,8 +223,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.update_user(::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask),
-                           call_options) do |_result, response|
+        client.update_user(::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -281,8 +277,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.delete_user(::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name),
-                           call_options) do |_result, response|
+        client.delete_user(::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -327,8 +322,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.list_users ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size,
-                                                                            page_token: page_token) do |_result, response|
+        client.list_users ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -338,10 +332,7 @@ class ::Google::Showcase::V1beta1::Identity::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.list_users(
-          ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size,
-                                                            page_token: page_token), call_options
-        ) do |_result, response|
+        client.list_users(::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

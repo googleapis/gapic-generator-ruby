@@ -88,8 +88,7 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ClientTest < Mini
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_no_template_request,
-                                                                              ["", "", {}] do
+    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_no_template_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_no_template_client_stub do
         # Create client
         client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
@@ -97,34 +96,27 @@ class ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ClientTest < Mini
         end
 
         # Use hash object
-        client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id,
-resource: resource }) do |_result, response|
+        client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.plain_no_template table_name: table_name, app_profile_id: app_profile_id,
-                                 resource: resource do |_result, response|
+        client.plain_no_template table_name: table_name, app_profile_id: app_profile_id, resource: resource do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.plain_no_template ::Testing::RoutingHeaders::Request.new(table_name: table_name,
-                                                                        app_profile_id: app_profile_id, resource: resource) do |_result, response|
+        client.plain_no_template ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
-                                 call_options) do |_result, response|
+        client.plain_no_template({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.plain_no_template(
-          ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                 resource: resource), call_options
-        ) do |_result, response|
+        client.plain_no_template(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -152,8 +144,7 @@ resource: resource }) do |_result, response|
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_full_field_request,
-                                                                              ["", "", {}] do
+    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_full_field_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_full_field_client_stub do
         # Create client
         client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
@@ -161,34 +152,27 @@ resource: resource }) do |_result, response|
         end
 
         # Use hash object
-        client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id,
-resource: resource }) do |_result, response|
+        client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.plain_full_field table_name: table_name, app_profile_id: app_profile_id,
-                                resource: resource do |_result, response|
+        client.plain_full_field table_name: table_name, app_profile_id: app_profile_id, resource: resource do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.plain_full_field ::Testing::RoutingHeaders::Request.new(table_name: table_name,
-                                                                       app_profile_id: app_profile_id, resource: resource) do |_result, response|
+        client.plain_full_field ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
-                                call_options) do |_result, response|
+        client.plain_full_field({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.plain_full_field(
-          ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                 resource: resource), call_options
-        ) do |_result, response|
+        client.plain_full_field(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -216,8 +200,7 @@ resource: resource }) do |_result, response|
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_extract_request,
-                                                                              ["", "", {}] do
+    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_plain_extract_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, plain_extract_client_stub do
         # Create client
         client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
@@ -225,34 +208,27 @@ resource: resource }) do |_result, response|
         end
 
         # Use hash object
-        client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id,
-resource: resource }) do |_result, response|
+        client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.plain_extract table_name: table_name, app_profile_id: app_profile_id,
-                             resource: resource do |_result, response|
+        client.plain_extract table_name: table_name, app_profile_id: app_profile_id, resource: resource do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.plain_extract ::Testing::RoutingHeaders::Request.new(table_name: table_name,
-                                                                    app_profile_id: app_profile_id, resource: resource) do |_result, response|
+        client.plain_extract ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
-                             call_options) do |_result, response|
+        client.plain_extract({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.plain_extract(
-          ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                 resource: resource), call_options
-        ) do |_result, response|
+        client.plain_extract(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -280,8 +256,7 @@ resource: resource }) do |_result, response|
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_complex_request,
-                                                                              ["", "", {}] do
+    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_complex_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, complex_client_stub do
         # Create client
         client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
@@ -289,8 +264,7 @@ resource: resource }) do |_result, response|
         end
 
         # Use hash object
-        client.complex({ table_name: table_name, app_profile_id: app_profile_id,
-resource: resource }) do |_result, response|
+        client.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -300,22 +274,17 @@ resource: resource }) do |_result, response|
         end
 
         # Use protobuf object
-        client.complex ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                              resource: resource) do |_result, response|
+        client.complex ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
-                       call_options) do |_result, response|
+        client.complex({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.complex(
-          ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                 resource: resource), call_options
-        ) do |_result, response|
+        client.complex(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -343,8 +312,7 @@ resource: resource }) do |_result, response|
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_with_sub_message_request,
-                                                                              ["", "", {}] do
+    ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::ServiceStub.stub :transcode_with_sub_message_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, with_sub_message_client_stub do
         # Create client
         client = ::Testing::RoutingHeaders::ServiceExplicitHeaders::Rest::Client.new do |config|
@@ -352,34 +320,27 @@ resource: resource }) do |_result, response|
         end
 
         # Use hash object
-        client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id,
-resource: resource }) do |_result, response|
+        client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.with_sub_message table_name: table_name, app_profile_id: app_profile_id,
-                                resource: resource do |_result, response|
+        client.with_sub_message table_name: table_name, app_profile_id: app_profile_id, resource: resource do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.with_sub_message ::Testing::RoutingHeaders::Request.new(table_name: table_name,
-                                                                       app_profile_id: app_profile_id, resource: resource) do |_result, response|
+        client.with_sub_message ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource },
-                                call_options) do |_result, response|
+        client.with_sub_message({ table_name: table_name, app_profile_id: app_profile_id, resource: resource }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.with_sub_message(
-          ::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id,
-                                                 resource: resource), call_options
-        ) do |_result, response|
+        client.with_sub_message(::Testing::RoutingHeaders::Request.new(table_name: table_name, app_profile_id: app_profile_id, resource: resource), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

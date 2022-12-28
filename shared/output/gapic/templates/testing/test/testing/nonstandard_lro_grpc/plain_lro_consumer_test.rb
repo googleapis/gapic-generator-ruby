@@ -107,8 +107,7 @@ class ::Testing::NonstandardLroGrpc::PlainLroConsumer::ClientTest < Minitest::Te
       end
 
       # Use protobuf object with options
-      client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                           grpc_options) do |response, operation|
+      client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
