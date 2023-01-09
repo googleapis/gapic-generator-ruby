@@ -277,7 +277,7 @@ module Gapic
             raise ModelError, error_text
           end
 
-          if status_candidates.length.zero?
+          if status_candidates.empty?
             error_text = "A nonstandard LRO provider service `#{service.name}`'s " \
                          "polling method `#{polling_method.name}`'s output message " \
                          "`#{polling_method.output.name}` does not have any fields annotated " \
