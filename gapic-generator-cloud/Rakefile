@@ -91,7 +91,7 @@ namespace :gen do |namespace|
       lib_dir = File.expand_path File.join("expected_output", String(lib))
       test_res_dir = File.expand_path File.join("../shared/test_resources", String(lib))
       
-      if Dir.exists?(test_res_dir) && !Dir.empty?(test_res_dir)
+      if File.directory?(test_res_dir) && !Dir.empty?(test_res_dir)
         puts "!!Adding/overriding files after generation for #{lib} from #{test_res_dir}"
         Dir.glob("#{test_res_dir}/*").each do |file|
           fname = File.basename file
