@@ -50,7 +50,7 @@ module Gapic
         return enum_for :each unless block_given?
 
         loop do
-          while @ready_objs.length.zero?
+          while @ready_objs.empty?
             begin
               chunk = @json_enumerator.next
               next unless chunk
