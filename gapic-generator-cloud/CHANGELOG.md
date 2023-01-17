@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.19.0 / 2023-01-17
+
+* Includes changes from gapic-generator 0.19.0
+* Fix: remove a deprecated method usage that new Ruby does not like
+
 ### 0.18.1 / 2022-12-15
 
 * Includes changes from gapic-generator 0.18.1

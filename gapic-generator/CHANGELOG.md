@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.19.0 / 2023-01-17
+
+* Fix: fail on rest transport and no bindings
+* Feature: Bump mixin minimum version to 0.3
+
 ### 0.18.1 / 2022-12-15
 
 * Fix: Don't generate bindings_override.rb unless REST transport is active
