@@ -62,12 +62,12 @@ def gapic_generator_ruby_customgems(list_of_gems):
   # Create the common ruby runtime used for checks
   ruby_runtime(
     name = "ruby_runtime",
-    urls = ["https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz"],
-    strip_prefix = "ruby-2.6.6",
+    urls = ["https://cache.ruby-lang.org/pub/ruby/3.1/ruby-3.1.3.tar.gz"],
+    strip_prefix = "ruby-3.1.3",
     prebuilt_rubys = [
-      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-2.6.6_glinux_x86_64.tar.gz",
+      "@gapic_generator_ruby//rules_ruby_gapic:prebuilt/ruby-3.1.3_glinux_x86_64.tar.gz",
     ],
-    bundler_version_to_install = "2.1.4",
+    bundler_version_to_install = "2.4.4",
     gems_to_install = list_of_gems,
   )
 
