@@ -4,4 +4,3 @@
   :name: testing
   :extra_dependencies:
     google-cloud-common: "~>1.0"
-    google-cloud-location: "=0.3.beta.2"
