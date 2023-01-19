@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.20.0 / 2023-01-19
+
+* Fix: update Ruby prebuilt binary, version 3.1.3
+* Feature: migrate generator bazel (including prebuilts) to 3.1.3
+
 ### 0.19.0 / 2023-01-17
 
 * Fix: fail on rest transport and no bindings
