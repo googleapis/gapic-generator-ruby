@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "grpc"
-require "gapic/grpc/errors"
-require "gapic/grpc/service_stub"
-require "gapic/grpc/status_details"
-require "gapic/routing_headers"
+require "gapic/routing_headers/headers_extractor"

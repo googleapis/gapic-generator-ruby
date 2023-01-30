@@ -29,4 +29,6 @@ require "gapic/rest/operation"
 require "gapic/rest/paged_enumerable"
 require "gapic/rest/server_stream"
 require "gapic/rest/threaded_enumerator"
+require "gapic/routing_headers"
 require "json"
+
