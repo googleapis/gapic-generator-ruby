@@ -39,7 +39,9 @@ module Google
           # side streaming, client side streaming, and bidirectional streaming. This
           # service also exposes methods that explicitly implement server delay, and
           # paginated calls. Set the 'showcase-trailer' metadata key on any method
-          # to have the values echoed in the response trailers.
+          # to have the values echoed in the response trailers. Set the
+          # 'x-goog-request-params' metadata key on any method to have the values
+          # echoed in the response headers.
           #
           class Client
             # @private
@@ -151,7 +153,7 @@ module Google
             # Service calls
 
             ##
-            # This method simply echos the request. This method is showcases unary rpcs.
+            # This method simply echoes the request. This method showcases unary RPCs.
             #
             # @overload echo(request, options = nil)
             #   Pass arguments to `echo` via a request object, either of type
@@ -163,7 +165,7 @@ module Google
             #   @param options [::Gapic::CallOptions, ::Hash]
             #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @overload echo(content: nil, error: nil)
+            # @overload echo(content: nil, error: nil, severity: nil, header: nil, other_header: nil)
             #   Pass arguments to `echo` via keyword arguments. Note that at
             #   least one keyword argument is required. To specify no parameters, or to keep all
             #   the default parameter values, pass an empty Hash as a request object (see above).
@@ -172,6 +174,12 @@ module Google
             #     The content to be echoed by the server.
             #   @param error [::Google::Rpc::Status, ::Hash]
             #     The error to be thrown by the server.
+            #   @param severity [::Google::Showcase::V1beta1::Severity]
+            #     The severity to be echoed by the server.
+            #   @param header [::String]
+            #     Optional. This field can be set to test the routing annotation on the Echo method.
+            #   @param other_header [::String]
+            #     Optional. This field can be set to test the routing annotation on the Echo method.
             # @yield [result, response] Access the result along with the Faraday response object
             # @yieldparam result [::Google::Showcase::V1beta1::EchoResponse]
             # @yieldparam response [::Faraday::Response]
@@ -215,8 +223,8 @@ module Google
             end
 
             ##
-            # This method split the given content into words and will pass each word back
-            # through the stream. This method showcases server-side streaming rpcs.
+            # This method splits the given content into words and will pass each word back
+            # through the stream. This method showcases server-side streaming RPCs.
             #
             # @overload expand(request, options = nil)
             #   Pass arguments to `expand` via a request object, either of type
@@ -302,7 +310,7 @@ module Google
             #   @param content [::String]
             #     The string to expand.
             #   @param page_size [::Integer]
-            #     The amount of words to returned in each page.
+            #     The number of words to returned in each page.
             #   @param page_token [::String]
             #     The position of the page to be returned.
             # @yield [result, response] Access the result along with the Faraday response object
@@ -350,8 +358,152 @@ module Google
             end
 
             ##
-            # This method will wait the requested amount of and then return.
-            # This method showcases how a client handles a request timing out.
+            # This is similar to the PagedExpand except that it uses
+            # max_results instead of page_size, as some legacy APIs still
+            # do. New APIs should NOT use this pattern.
+            #
+            # @overload paged_expand_legacy(request, options = nil)
+            #   Pass arguments to `paged_expand_legacy` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::PagedExpandLegacyRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::PagedExpandLegacyRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload paged_expand_legacy(content: nil, max_results: nil, page_token: nil)
+            #   Pass arguments to `paged_expand_legacy` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param content [::String]
+            #     The string to expand.
+            #   @param max_results [::Integer]
+            #     The number of words to returned in each page.
+            #     (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that
+            #         violates aip.dev/158. Ordinarily, this should be page_size. --)
+            #   @param page_token [::String]
+            #     The position of the page to be returned.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            # @yieldparam response [::Faraday::Response]
+            #
+            # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            def paged_expand_legacy request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::PagedExpandLegacyRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.paged_expand_legacy.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.paged_expand_legacy.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              @echo_stub.paged_expand_legacy request, options do |result, response|
+                result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand_legacy, "responses", request,
+                                                            result, options
+                yield result, response if block_given?
+                return result
+              end
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
+            # This method returns a map containing lists of words that appear in the input, keyed by their
+            # initial character. The only words returned are the ones included in the current page,
+            # as determined by page_token and page_size, which both refer to the word indices in the
+            # input. This paging result consisting of a map of lists is a pattern used by some legacy
+            # APIs. New APIs should NOT use this pattern.
+            #
+            # @overload paged_expand_legacy_mapped(request, options = nil)
+            #   Pass arguments to `paged_expand_legacy_mapped` via a request object, either of type
+            #   {::Google::Showcase::V1beta1::PagedExpandRequest} or an equivalent Hash.
+            #
+            #   @param request [::Google::Showcase::V1beta1::PagedExpandRequest, ::Hash]
+            #     A request object representing the call parameters. Required. To specify no
+            #     parameters, or to keep all the default parameter values, pass an empty Hash.
+            #   @param options [::Gapic::CallOptions, ::Hash]
+            #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @overload paged_expand_legacy_mapped(content: nil, page_size: nil, page_token: nil)
+            #   Pass arguments to `paged_expand_legacy_mapped` via keyword arguments. Note that at
+            #   least one keyword argument is required. To specify no parameters, or to keep all
+            #   the default parameter values, pass an empty Hash as a request object (see above).
+            #
+            #   @param content [::String]
+            #     The string to expand.
+            #   @param page_size [::Integer]
+            #     The number of words to returned in each page.
+            #   @param page_token [::String]
+            #     The position of the page to be returned.
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
+            # @yieldparam response [::Faraday::Response]
+            #
+            # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
+            #
+            # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            def paged_expand_legacy_mapped request, options = nil
+              raise ::ArgumentError, "request must be provided" if request.nil?
+
+              request = ::Gapic::Protobuf.coerce request, to: ::Google::Showcase::V1beta1::PagedExpandRequest
+
+              # Converts hash and nil to an options object
+              options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
+
+              # Customize the options with defaults
+              call_metadata = @config.rpcs.paged_expand_legacy_mapped.metadata.to_h
+
+              # Set x-goog-api-client and x-goog-user-project headers
+              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                lib_name: @config.lib_name, lib_version: @config.lib_version,
+                gapic_version: ::Google::Showcase::VERSION,
+                transports_version_send: [:rest]
+
+              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              options.apply_defaults timeout:      @config.rpcs.paged_expand_legacy_mapped.timeout,
+                                     metadata:     call_metadata,
+                                     retry_policy: @config.rpcs.paged_expand_legacy_mapped.retry_policy
+
+              options.apply_defaults timeout:      @config.timeout,
+                                     metadata:     @config.metadata,
+                                     retry_policy: @config.retry_policy
+
+              @echo_stub.paged_expand_legacy_mapped request, options do |result, response|
+                result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand_legacy_mapped, "alphabetized",
+                                                            request, result, options
+                yield result, response if block_given?
+                return result
+              end
+            rescue ::Faraday::Error => e
+              raise ::Gapic::Rest::Error.wrap_faraday_error e
+            end
+
+            ##
+            # This method will wait for the requested amount of time and then return.
+            # This method showcases how a client handles a request timeout.
             #
             # @overload wait(request, options = nil)
             #   Pass arguments to `wait` via a request object, either of type
@@ -629,6 +781,16 @@ module Google
                 #
                 attr_reader :paged_expand
                 ##
+                # RPC-specific configuration for `paged_expand_legacy`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :paged_expand_legacy
+                ##
+                # RPC-specific configuration for `paged_expand_legacy_mapped`
+                # @return [::Gapic::Config::Method]
+                #
+                attr_reader :paged_expand_legacy_mapped
+                ##
                 # RPC-specific configuration for `wait`
                 # @return [::Gapic::Config::Method]
                 #
@@ -647,6 +809,10 @@ module Google
                   @expand = ::Gapic::Config::Method.new expand_config
                   paged_expand_config = parent_rpcs.paged_expand if parent_rpcs.respond_to? :paged_expand
                   @paged_expand = ::Gapic::Config::Method.new paged_expand_config
+                  paged_expand_legacy_config = parent_rpcs.paged_expand_legacy if parent_rpcs.respond_to? :paged_expand_legacy
+                  @paged_expand_legacy = ::Gapic::Config::Method.new paged_expand_legacy_config
+                  paged_expand_legacy_mapped_config = parent_rpcs.paged_expand_legacy_mapped if parent_rpcs.respond_to? :paged_expand_legacy_mapped
+                  @paged_expand_legacy_mapped = ::Gapic::Config::Method.new paged_expand_legacy_mapped_config
                   wait_config = parent_rpcs.wait if parent_rpcs.respond_to? :wait
                   @wait = ::Gapic::Config::Method.new wait_config
                   block_config = parent_rpcs.block if parent_rpcs.respond_to? :block

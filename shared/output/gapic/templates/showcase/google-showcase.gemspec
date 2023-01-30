@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
                       ["README.md", "LICENSE.md", ".yardopts"]
   gem.require_paths = ["lib"]
 
-  gem.required_ruby_version = ">= 2.6"
+  gem.required_ruby_version = ">= 3.1"
 
   gem.add_dependency "gapic-common", ">= 0.16.0", "< 2.a"
 
@@ -33,4 +33,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "redcarpet", "~> 3.0"
   gem.add_development_dependency "simplecov", "~> 0.18"
   gem.add_development_dependency "yard", "~> 0.9"
+  gem.add_development_dependency "debug"
 end

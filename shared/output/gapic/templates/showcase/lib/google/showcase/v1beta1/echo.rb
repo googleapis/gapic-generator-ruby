@@ -43,7 +43,9 @@ module Google
       # side streaming, client side streaming, and bidirectional streaming. This
       # service also exposes methods that explicitly implement server delay, and
       # paginated calls. Set the 'showcase-trailer' metadata key on any method
-      # to have the values echoed in the response trailers.
+      # to have the values echoed in the response trailers. Set the
+      # 'x-goog-request-params' metadata key on any method to have the values
+      # echoed in the response headers.
       #
       # @example Load this service and instantiate a gRPC client
       #

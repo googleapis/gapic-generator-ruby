@@ -79,6 +79,9 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
     # Create request parameters for a unary method.
     content = "hello world"
+    severity = :UNNECESSARY
+    header = "hello world"
+    other_header = "hello world"
 
     echo_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
       assert options.metadata.key? :"x-goog-api-client"
@@ -94,27 +97,34 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object
-        client.echo({ content: content }) do |_result, response|
+        client.echo({ content: content, severity: severity, header: header,
+other_header: other_header }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.echo content: content do |_result, response|
+        client.echo content: content, severity: severity, header: header,
+                    other_header: other_header do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content) do |_result, response|
+        client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header,
+                                                                 other_header: other_header) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.echo({ content: content }, call_options) do |_result, response|
+        client.echo({ content: content, severity: severity, header: header, other_header: other_header },
+                    call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content), call_options) do |_result, response|
+        client.echo(
+          ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header,
+                                                       other_header: other_header), call_options
+        ) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -237,6 +247,133 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Verify method calls
         assert_equal 5, paged_expand_client_stub.call_count
+      end
+    end
+  end
+
+  def test_paged_expand_legacy
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::PagedExpandResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    content = "hello world"
+    max_results = 42
+    page_token = "hello world"
+
+    paged_expand_legacy_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_paged_expand_legacy_request, ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, paged_expand_legacy_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do  |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.paged_expand_legacy({ content: content, max_results: max_results,
+page_token: page_token }) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use named arguments
+        client.paged_expand_legacy content: content, max_results: max_results,
+                                   page_token: page_token do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use protobuf object
+        client.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content,
+                                                                                             max_results: max_results, page_token: page_token) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use hash object with options
+        client.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token },
+                                   call_options) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use protobuf object with options
+        client.paged_expand_legacy(
+          ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results,
+                                                                    page_token: page_token), call_options
+        ) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Verify method calls
+        assert_equal 5, paged_expand_legacy_client_stub.call_count
+      end
+    end
+  end
+
+  def test_paged_expand_legacy_mapped
+    # Create test objects.
+    client_result = ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse.new
+    http_response = OpenStruct.new body: client_result.to_json
+
+    call_options = {}
+
+    # Create request parameters for a unary method.
+    content = "hello world"
+    page_size = 42
+    page_token = "hello world"
+
+    paged_expand_legacy_mapped_client_stub = ClientStub.new http_response do |_verb, uri:, body:, params:, options:|
+      assert options.metadata.key? :"x-goog-api-client"
+      assert options.metadata[:"x-goog-api-client"].include? "rest"
+      refute options.metadata[:"x-goog-api-client"].include? "grpc"
+    end
+
+    ::Google::Showcase::V1beta1::Echo::Rest::ServiceStub.stub :transcode_paged_expand_legacy_mapped_request,
+                                                              ["", "", {}] do
+      Gapic::Rest::ClientStub.stub :new, paged_expand_legacy_mapped_client_stub do
+        # Create client
+        client = ::Google::Showcase::V1beta1::Echo::Rest::Client.new do |config|
+          config.credentials = :dummy_value
+        end
+
+        # Use hash object
+        client.paged_expand_legacy_mapped({ content: content, page_size: page_size,
+page_token: page_token }) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use named arguments
+        client.paged_expand_legacy_mapped content: content, page_size: page_size,
+                                          page_token: page_token do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use protobuf object
+        client.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content,
+                                                                                              page_size: page_size, page_token: page_token) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use hash object with options
+        client.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token },
+                                          call_options) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Use protobuf object with options
+        client.paged_expand_legacy_mapped(
+          ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
+                                                              page_token: page_token), call_options
+        ) do |_result, response|
+          assert_equal http_response, response
+        end
+
+        # Verify method calls
+        assert_equal 5, paged_expand_legacy_mapped_client_stub.call_count
       end
     end
   end

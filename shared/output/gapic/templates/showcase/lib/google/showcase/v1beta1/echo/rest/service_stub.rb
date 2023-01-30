@@ -156,6 +156,82 @@ module Google
             end
 
             ##
+            # Baseline implementation for the paged_expand_legacy REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::PagedExpandLegacyRequest]
+            #   A request object representing the call parameters. Required.
+            # @param options [::Gapic::CallOptions]
+            #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::PagedExpandResponse]
+            # @yieldparam response [::Faraday::Response]
+            #
+            # @return [::Google::Showcase::V1beta1::PagedExpandResponse]
+            #   A result object deserialized from the server's reply
+            def paged_expand_legacy request_pb, options = nil
+              raise ::ArgumentError, "request must be provided" if request_pb.nil?
+
+              verb, uri, query_string_params, body = ServiceStub.transcode_paged_expand_legacy_request request_pb
+              query_string_params = if query_string_params.any?
+                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                    else
+                                      {}
+                                    end
+
+              response = @client_stub.make_http_request(
+                verb,
+                uri:     uri,
+                body:    body || "",
+                params:  query_string_params,
+                options: options
+              )
+              result = ::Google::Showcase::V1beta1::PagedExpandResponse.decode_json response.body,
+                                                                                    ignore_unknown_fields: true
+
+              yield result, response if block_given?
+              result
+            end
+
+            ##
+            # Baseline implementation for the paged_expand_legacy_mapped REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::PagedExpandRequest]
+            #   A request object representing the call parameters. Required.
+            # @param options [::Gapic::CallOptions]
+            #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
+            #
+            # @yield [result, response] Access the result along with the Faraday response object
+            # @yieldparam result [::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse]
+            # @yieldparam response [::Faraday::Response]
+            #
+            # @return [::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse]
+            #   A result object deserialized from the server's reply
+            def paged_expand_legacy_mapped request_pb, options = nil
+              raise ::ArgumentError, "request must be provided" if request_pb.nil?
+
+              verb, uri, query_string_params, body = ServiceStub.transcode_paged_expand_legacy_mapped_request request_pb
+              query_string_params = if query_string_params.any?
+                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                    else
+                                      {}
+                                    end
+
+              response = @client_stub.make_http_request(
+                verb,
+                uri:     uri,
+                body:    body || "",
+                params:  query_string_params,
+                options: options
+              )
+              result = ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse.decode_json response.body,
+                                                                                                ignore_unknown_fields: true
+
+              yield result, response if block_given?
+              result
+            end
+
+            ##
             # Baseline implementation for the wait REST call
             #
             # @param request_pb [::Google::Showcase::V1beta1::WaitRequest]
@@ -284,6 +360,46 @@ module Google
                                                       .with_bindings(
                                                         uri_method: :post,
                                                         uri_template: "/v1beta1/echo:pagedExpand",
+                                                        body: "*",
+                                                        matches: []
+                                                      )
+              transcoder.transcode request_pb
+            end
+
+            ##
+            # @private
+            #
+            # GRPC transcoding helper method for the paged_expand_legacy REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::PagedExpandLegacyRequest]
+            #   A request object representing the call parameters. Required.
+            # @return [Array(String, [String, nil], Hash{String => String})]
+            #   Uri, Body, Query string parameters
+            def self.transcode_paged_expand_legacy_request request_pb
+              transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/echo:pagedExpandLegacy",
+                                                        body: "*",
+                                                        matches: []
+                                                      )
+              transcoder.transcode request_pb
+            end
+
+            ##
+            # @private
+            #
+            # GRPC transcoding helper method for the paged_expand_legacy_mapped REST call
+            #
+            # @param request_pb [::Google::Showcase::V1beta1::PagedExpandRequest]
+            #   A request object representing the call parameters. Required.
+            # @return [Array(String, [String, nil], Hash{String => String})]
+            #   Uri, Body, Query string parameters
+            def self.transcode_paged_expand_legacy_mapped_request request_pb
+              transcoder = Gapic::Rest::GrpcTranscoder.new
+                                                      .with_bindings(
+                                                        uri_method: :post,
+                                                        uri_template: "/v1beta1/echo:pagedExpandLegacyMapped",
                                                         body: "*",
                                                         matches: []
                                                       )

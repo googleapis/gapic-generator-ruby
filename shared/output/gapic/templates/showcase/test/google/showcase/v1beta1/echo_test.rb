@@ -64,12 +64,18 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     # Create request parameters for a unary method.
     content = "hello world"
+    severity = :UNNECESSARY
+    header = "hello world"
+    other_header = "hello world"
 
     echo_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :echo, name
       assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, request
       assert_equal "hello world", request["content"]
       assert_equal :content, request.response
+      assert_equal :UNNECESSARY, request["severity"]
+      assert_equal "hello world", request["header"]
+      assert_equal "hello world", request["other_header"]
       refute_nil options
     end
 
@@ -80,31 +86,38 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.echo({ content: content }) do |response, operation|
+      client.echo({ content: content, severity: severity, header: header,
+other_header: other_header }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use named arguments
-      client.echo content: content do |response, operation|
+      client.echo content: content, severity: severity, header: header,
+                  other_header: other_header do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object
-      client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content) do |response, operation|
+      client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header,
+                                                               other_header: other_header) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use hash object with options
-      client.echo({ content: content }, grpc_options) do |response, operation|
+      client.echo({ content: content, severity: severity, header: header, other_header: other_header },
+                  grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content), grpc_options) do |response, operation|
+      client.echo(
+        ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header,
+                                                     other_header: other_header), grpc_options
+      ) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -200,6 +213,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     # Create request parameters for a client streaming method.
     content = "hello world"
+    severity = :UNNECESSARY
+    header = "hello world"
+    other_header = "hello world"
 
     collect_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
       assert_equal :collect, name
@@ -215,8 +231,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use enumerable object with hash and protobuf object.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       enum_input = [request_hash, request_proto].to_enum
       client.collect enum_input do |response, operation|
         assert_equal grpc_response, response
@@ -224,8 +241,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common).
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       stream_input = Gapic::StreamInput.new
       client.collect stream_input do |response, operation|
         assert_equal grpc_response, response
@@ -236,8 +254,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       stream_input.close
 
       # Use enumerable object with hash and protobuf object with options.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       enum_input = [request_hash, request_proto].to_enum
       client.collect enum_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -245,8 +264,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common) with options.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       stream_input = Gapic::StreamInput.new
       client.collect stream_input, grpc_options do |response, operation|
         assert_equal grpc_response, response
@@ -263,6 +283,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
           assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, r
           assert_equal "hello world", r["content"]
           assert_equal :content, r.response
+          assert_equal :UNNECESSARY, r["severity"]
+          assert_equal "hello world", r["header"]
+          assert_equal "hello world", r["other_header"]
         end
       end
     end
@@ -277,6 +300,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
     # Create request parameters for a bidi streaming method.
     content = "hello world"
+    severity = :UNNECESSARY
+    header = "hello world"
+    other_header = "hello world"
 
     chat_client_stub = ClientStub.new [grpc_response].to_enum, grpc_operation do |name, request, options:|
       assert_equal :chat, name
@@ -292,8 +318,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use enumerable object with hash and protobuf object.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       enum_input = [request_hash, request_proto].to_enum
       client.chat enum_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -304,8 +331,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common).
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       stream_input = Gapic::StreamInput.new
       client.chat stream_input do |response, operation|
         assert_kind_of Enumerable, response
@@ -319,8 +347,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       stream_input.close
 
       # Use enumerable object with hash and protobuf object with options.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       enum_input = [request_hash, request_proto].to_enum
       client.chat enum_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
@@ -331,8 +360,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
       end
 
       # Use stream input object (from gapic-common) with options.
-      request_hash = { content: content }
-      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content
+      request_hash = { content: content, severity: severity, header: header, other_header: other_header }
+      request_proto = ::Google::Showcase::V1beta1::EchoRequest.new content: content, severity: severity,
+                                                                   header: header, other_header: other_header
       stream_input = Gapic::StreamInput.new
       client.chat stream_input, grpc_options do |response, operation|
         assert_kind_of Enumerable, response
@@ -352,6 +382,9 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
           assert_kind_of ::Google::Showcase::V1beta1::EchoRequest, r
           assert_equal "hello world", r["content"]
           assert_equal :content, r.response
+          assert_equal :UNNECESSARY, r["severity"]
+          assert_equal "hello world", r["header"]
+          assert_equal "hello world", r["other_header"]
         end
       end
     end
@@ -426,6 +459,149 @@ class ::Google::Showcase::V1beta1::Echo::ClientTest < Minitest::Test
 
       # Verify method calls
       assert_equal 5, paged_expand_client_stub.call_rpc_count
+    end
+  end
+
+  def test_paged_expand_legacy
+    # Create GRPC objects.
+    grpc_response = ::Google::Showcase::V1beta1::PagedExpandResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    content = "hello world"
+    max_results = 42
+    page_token = "hello world"
+
+    paged_expand_legacy_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :paged_expand_legacy, name
+      assert_kind_of ::Google::Showcase::V1beta1::PagedExpandLegacyRequest, request
+      assert_equal "hello world", request["content"]
+      assert_equal 42, request["max_results"]
+      assert_equal "hello world", request["page_token"]
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, paged_expand_legacy_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.paged_expand_legacy({ content: content, max_results: max_results,
+page_token: page_token }) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.paged_expand_legacy content: content, max_results: max_results,
+                                 page_token: page_token do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content,
+                                                                                           max_results: max_results, page_token: page_token) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token },
+                                 grpc_options) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.paged_expand_legacy(
+        ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results,
+                                                                  page_token: page_token), grpc_options
+      ) do |response, operation|
+        assert_equal grpc_response, response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, paged_expand_legacy_client_stub.call_rpc_count
+    end
+  end
+
+  def test_paged_expand_legacy_mapped
+    # Create GRPC objects.
+    grpc_response = ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse.new
+    grpc_operation = GRPC::ActiveCall::Operation.new nil
+    grpc_channel = GRPC::Core::Channel.new "localhost:8888", nil, :this_channel_is_insecure
+    grpc_options = {}
+
+    # Create request parameters for a unary method.
+    content = "hello world"
+    page_size = 42
+    page_token = "hello world"
+
+    paged_expand_legacy_mapped_client_stub = ClientStub.new grpc_response, grpc_operation do |name, request, options:|
+      assert_equal :paged_expand_legacy_mapped, name
+      assert_kind_of ::Google::Showcase::V1beta1::PagedExpandRequest, request
+      assert_equal "hello world", request["content"]
+      assert_equal 42, request["page_size"]
+      assert_equal "hello world", request["page_token"]
+      refute_nil options
+    end
+
+    Gapic::ServiceStub.stub :new, paged_expand_legacy_mapped_client_stub do
+      # Create client
+      client = ::Google::Showcase::V1beta1::Echo::Client.new do |config|
+        config.credentials = grpc_channel
+      end
+
+      # Use hash object
+      client.paged_expand_legacy_mapped({ content: content, page_size: page_size,
+page_token: page_token }) do |response, operation|
+        assert_kind_of Gapic::PagedEnumerable, response
+        assert_equal grpc_response, response.response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use named arguments
+      client.paged_expand_legacy_mapped content: content, page_size: page_size,
+                                        page_token: page_token do |response, operation|
+        assert_kind_of Gapic::PagedEnumerable, response
+        assert_equal grpc_response, response.response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object
+      client.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content,
+                                                                                            page_size: page_size, page_token: page_token) do |response, operation|
+        assert_kind_of Gapic::PagedEnumerable, response
+        assert_equal grpc_response, response.response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use hash object with options
+      client.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token },
+                                        grpc_options) do |response, operation|
+        assert_kind_of Gapic::PagedEnumerable, response
+        assert_equal grpc_response, response.response
+        assert_equal grpc_operation, operation
+      end
+
+      # Use protobuf object with options
+      client.paged_expand_legacy_mapped(
+        ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size,
+                                                            page_token: page_token), grpc_options
+      ) do |response, operation|
+        assert_kind_of Gapic::PagedEnumerable, response
+        assert_equal grpc_response, response.response
+        assert_equal grpc_operation, operation
+      end
+
+      # Verify method calls
+      assert_equal 5, paged_expand_legacy_mapped_client_stub.call_rpc_count
     end
   end
 
