@@ -144,7 +144,7 @@ class EchoRoutingTest < ShowcaseTest
   end
 end
 
-class EchoRoutingGRPCTest < EchoTest
+class EchoRoutingGRPCTest < EchoRoutingTest
   def setup
     super new_echo_client
   end

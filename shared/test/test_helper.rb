@@ -90,7 +90,7 @@ class ShowcaseTest < Minitest::Test
 
   @showcase_library = begin
     library = generate_library_for_test(
-      %w[api-common-protos protos],
+      %w[api-common-protos protos googleapis],
       %w[google/showcase/v1beta1/compliance.proto google/showcase/v1beta1/echo.proto google/showcase/v1beta1/identity.proto])
     $LOAD_PATH.unshift "#{library}/lib"
     library
