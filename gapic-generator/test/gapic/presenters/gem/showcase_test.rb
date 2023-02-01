@@ -44,6 +44,7 @@ class ShowcaseGemPresenterTest < PresenterTest
 
     assert_equal ["google/api/field_behavior.proto",
       "google/api/resource.proto",
+      "google/api/routing.proto",
       "google/longrunning/operations.proto",
       "google/protobuf/any.proto",
       "google/protobuf/duration.proto",
