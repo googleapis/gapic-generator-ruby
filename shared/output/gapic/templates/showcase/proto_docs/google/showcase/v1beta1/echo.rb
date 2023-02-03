@@ -28,15 +28,25 @@
 module Google
   module Showcase
     module V1beta1
-      # The request message used for the Echo, Collect and Chat methods. If content
-      # is set in this message then the request will succeed. If status is set in
-      # this message then the status will be returned as an error.
+      # The request message used for the Echo, Collect and Chat methods.
+      # If content or opt are set in this message then the request will succeed.
+      # If status is set in this message then the status will be returned as an
+      # error.
       # @!attribute [rw] content
       #   @return [::String]
       #     The content to be echoed by the server.
       # @!attribute [rw] error
       #   @return [::Google::Rpc::Status]
       #     The error to be thrown by the server.
+      # @!attribute [rw] severity
+      #   @return [::Google::Showcase::V1beta1::Severity]
+      #     The severity to be echoed by the server.
+      # @!attribute [rw] header
+      #   @return [::String]
+      #     Optional. This field can be set to test the routing annotation on the Echo method.
+      # @!attribute [rw] other_header
+      #   @return [::String]
+      #     Optional. This field can be set to test the routing annotation on the Echo method.
       class EchoRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -46,6 +56,9 @@ module Google
       # @!attribute [rw] content
       #   @return [::String]
       #     The content specified in the request.
+      # @!attribute [rw] severity
+      #   @return [::Google::Showcase::V1beta1::Severity]
+      #     The severity specified in the request.
       class EchoResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -69,11 +82,30 @@ module Google
       #     The string to expand.
       # @!attribute [rw] page_size
       #   @return [::Integer]
-      #     The amount of words to returned in each page.
+      #     The number of words to returned in each page.
       # @!attribute [rw] page_token
       #   @return [::String]
       #     The position of the page to be returned.
       class PagedExpandRequest
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # The request for the PagedExpandLegacy method.  This is a pattern used by some legacy APIs. New
+      # APIs should NOT use this pattern, but rather something like PagedExpandRequest which conforms to
+      # aip.dev/158.
+      # @!attribute [rw] content
+      #   @return [::String]
+      #     The string to expand.
+      # @!attribute [rw] max_results
+      #   @return [::Integer]
+      #     The number of words to returned in each page.
+      #     (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that
+      #         violates aip.dev/158. Ordinarily, this should be page_size. --)
+      # @!attribute [rw] page_token
+      #   @return [::String]
+      #     The position of the page to be returned.
+      class PagedExpandLegacyRequest
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
       end
@@ -88,6 +120,36 @@ module Google
       class PagedExpandResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # A list of words.
+      # @!attribute [rw] words
+      #   @return [::Array<::String>]
+      class PagedExpandResponseList
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # @!attribute [rw] alphabetized
+      #   @return [::Google::Protobuf::Map{::String => ::Google::Showcase::V1beta1::PagedExpandResponseList}]
+      #     The words that were expanded, indexed by their initial character.
+      #     (-- aip.dev/not-precedent: This is a legacy, non-standard pattern that violates
+      #         aip.dev/158. Ordinarily, this should be a `repeated` field, as in PagedExpandResponse. --)
+      # @!attribute [rw] next_page_token
+      #   @return [::String]
+      #     The next page token.
+      class PagedExpandLegacyMappedResponse
+        include ::Google::Protobuf::MessageExts
+        extend ::Google::Protobuf::MessageExts::ClassMethods
+
+        # @!attribute [rw] key
+        #   @return [::String]
+        # @!attribute [rw] value
+        #   @return [::Google::Showcase::V1beta1::PagedExpandResponseList]
+        class AlphabetizedEntry
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
       end
 
       # The request for Wait method.
@@ -151,6 +213,17 @@ module Google
       class BlockResponse
         include ::Google::Protobuf::MessageExts
         extend ::Google::Protobuf::MessageExts::ClassMethods
+      end
+
+      # A severity enum used to test enum capabilities in GAPIC surfaces.
+      module Severity
+        UNNECESSARY = 0
+
+        NECESSARY = 1
+
+        URGENT = 2
+
+        CRITICAL = 3
       end
     end
   end

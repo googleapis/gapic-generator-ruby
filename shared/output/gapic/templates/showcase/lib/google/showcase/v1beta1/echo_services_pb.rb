@@ -27,7 +27,9 @@ module Google
         # side streaming, client side streaming, and bidirectional streaming. This
         # service also exposes methods that explicitly implement server delay, and
         # paginated calls. Set the 'showcase-trailer' metadata key on any method
-        # to have the values echoed in the response trailers.
+        # to have the values echoed in the response trailers. Set the 
+        # 'x-goog-request-params' metadata key on any method to have the values
+        # echoed in the response headers.
         class Service
 
           include ::GRPC::GenericService
@@ -36,26 +38,36 @@ module Google
           self.unmarshal_class_method = :decode
           self.service_name = 'google.showcase.v1beta1.Echo'
 
-          # This method simply echos the request. This method is showcases unary rpcs.
+          # This method simply echoes the request. This method showcases unary RPCs.
           rpc :Echo, ::Google::Showcase::V1beta1::EchoRequest, ::Google::Showcase::V1beta1::EchoResponse
-          # This method split the given content into words and will pass each word back
-          # through the stream. This method showcases server-side streaming rpcs.
+          # This method splits the given content into words and will pass each word back
+          # through the stream. This method showcases server-side streaming RPCs.
           rpc :Expand, ::Google::Showcase::V1beta1::ExpandRequest, stream(::Google::Showcase::V1beta1::EchoResponse)
           # This method will collect the words given to it. When the stream is closed
           # by the client, this method will return the a concatenation of the strings
-          # passed to it. This method showcases client-side streaming rpcs.
+          # passed to it. This method showcases client-side streaming RPCs.
           rpc :Collect, stream(::Google::Showcase::V1beta1::EchoRequest), ::Google::Showcase::V1beta1::EchoResponse
-          # This method, upon receiving a request on the stream, the same content will
-          # be passed  back on the stream. This method showcases bidirectional
-          # streaming rpcs.
+          # This method, upon receiving a request on the stream, will pass the same
+          # content back on the stream. This method showcases bidirectional
+          # streaming RPCs.
           rpc :Chat, stream(::Google::Showcase::V1beta1::EchoRequest), stream(::Google::Showcase::V1beta1::EchoResponse)
           # This is similar to the Expand method but instead of returning a stream of
           # expanded words, this method returns a paged list of expanded words.
           rpc :PagedExpand, ::Google::Showcase::V1beta1::PagedExpandRequest, ::Google::Showcase::V1beta1::PagedExpandResponse
-          # This method will wait the requested amount of and then return.
-          # This method showcases how a client handles a request timing out.
+          # This is similar to the PagedExpand except that it uses
+          # max_results instead of page_size, as some legacy APIs still
+          # do. New APIs should NOT use this pattern.
+          rpc :PagedExpandLegacy, ::Google::Showcase::V1beta1::PagedExpandLegacyRequest, ::Google::Showcase::V1beta1::PagedExpandResponse
+          # This method returns a map containing lists of words that appear in the input, keyed by their
+          # initial character. The only words returned are the ones included in the current page,
+          # as determined by page_token and page_size, which both refer to the word indices in the
+          # input. This paging result consisting of a map of lists is a pattern used by some legacy
+          # APIs. New APIs should NOT use this pattern.
+          rpc :PagedExpandLegacyMapped, ::Google::Showcase::V1beta1::PagedExpandRequest, ::Google::Showcase::V1beta1::PagedExpandLegacyMappedResponse
+          # This method will wait for the requested amount of time and then return.
+          # This method showcases how a client handles a request timeout.
           rpc :Wait, ::Google::Showcase::V1beta1::WaitRequest, ::Google::Longrunning::Operation
-          # This method will block (wait) for the requested amount of time 
+          # This method will block (wait) for the requested amount of time
           # and then return the response or error.
           # This method showcases how a client handles delays or retries.
           rpc :Block, ::Google::Showcase::V1beta1::BlockRequest, ::Google::Showcase::V1beta1::BlockResponse
