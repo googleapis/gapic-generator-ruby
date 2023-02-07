@@ -28,8 +28,11 @@
 require "testing/routing_headers"
 
 ##
-# Example demonstrating basic usage of
-# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract
+# Snippet for the plain_extract call in the ServiceExplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_extract. It may
+# require modification in order to execute successfully.
 #
 def plain_extract
   # Create a client object. The client can be reused for multiple calls.

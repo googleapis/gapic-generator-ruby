@@ -28,8 +28,11 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::GarbageService::Client#get_paged_garbage
+# Snippet for the get_paged_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#get_paged_garbage. It may require
+# modification in order to execute successfully.
 #
 def get_paged_garbage
   # Create a client object. The client can be reused for multiple calls.
@@ -41,13 +44,11 @@ def get_paged_garbage
   # Call the get_paged_garbage method.
   result = client.get_paged_garbage request
 
-  # The returned object is of type Gapic::PagedEnumerable. You can
-  # iterate over all elements by calling #each, and the enumerable
-  # will lazily make API calls to fetch subsequent pages. Other
-  # methods are also available for managing paging directly.
-  result.each do |response|
+  # The returned object is of type Gapic::PagedEnumerable. You can iterate
+  # over elements, and API calls will be issued to fetch pages as needed.
+  result.each do |item|
     # Each element is of type ::So::Much::Trash::GarbageItem.
-    p response
+    p item
   end
 end
 # [END garbage_v0_generated_GarbageService_GetPagedGarbage_sync]

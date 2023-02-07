@@ -13,8 +13,8 @@
   "snippets": [
     {
       "region_tag": "testing_v0_generated_ServiceWithLoc_Method_sync",
-      "title": "Snippet for call_method in ServiceWithLoc",
-      "description": "Basic snippet for call_method in ServiceWithLoc",
+      "title": "Snippet for the call_method call in the ServiceWithLoc service",
+      "description": "This is an auto-generated example demonstrating basic usage of Testing::Mixins::ServiceWithLoc::Client#call_method. It may require modification in order to execute successfully.",
       "file": "service_with_loc/call_method.rb",
       "language": "RUBY",
       "client_method": {
@@ -46,7 +46,7 @@
       "segments": [
         {
           "start": 28,
-          "end": 46,
+          "end": 49,
           "type": "FULL"
         }
       ]

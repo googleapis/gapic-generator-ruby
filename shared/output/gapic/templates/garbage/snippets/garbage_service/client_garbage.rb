@@ -28,22 +28,27 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::GarbageService::Client#client_garbage
+# Snippet for the client_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#client_garbage. It may require
+# modification in order to execute successfully.
 #
 def client_garbage
   # Create a client object. The client can be reused for multiple calls.
   client = So::Much::Trash::GarbageService::Client.new
 
-  # Create a stream of requests, as an Enumerator.
-  # For each request, pass in keyword arguments to set fields.
-  request = [
-    So::Much::Trash::ListGarbageRequest.new,
-    So::Much::Trash::ListGarbageRequest.new
-  ].to_enum
+  # Create an input stream.
+  input = Gapic::StreamInput.new
 
-  # Call the client_garbage method.
-  result = client.client_garbage request
+  # Call the client_garbage method to start streaming.
+  result = client.client_garbage input
+
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
+  input << So::Much::Trash::ListGarbageRequest.new
+  input << So::Much::Trash::ListGarbageRequest.new
+  input.close
 
   # The returned object is of type So::Much::Trash::ListGarbageResponse.
   p result

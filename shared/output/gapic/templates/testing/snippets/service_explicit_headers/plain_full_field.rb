@@ -28,8 +28,11 @@
 require "testing/routing_headers"
 
 ##
-# Example demonstrating basic usage of
-# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_full_field
+# Snippet for the plain_full_field call in the ServiceExplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#plain_full_field. It
+# may require modification in order to execute successfully.
 #
 def plain_full_field
   # Create a client object. The client can be reused for multiple calls.

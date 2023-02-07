@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Echo::Client#wait
+# Snippet for the wait call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#wait. It may require modification in
+# order to execute successfully.
 #
 def wait
   # Create a client object. The client can be reused for multiple calls.
@@ -41,14 +44,14 @@ def wait
   # Call the wait method.
   result = client.wait request
 
-  # The returned object is of type Gapic::Operation. You can use this
-  # object to check the status of an operation, cancel it, or wait
-  # for results. Here is how to block until completion:
+  # The returned object is of type Gapic::Operation. You can use it to
+  # check the status of an operation, cancel it, or wait for results.
+  # Here is how to wait for a response.
   result.wait_until_done! timeout: 60
   if result.response?
     p result.response
   else
-    puts "Error!"
+    puts "No response received."
   end
 end
 # [END showcase_v0_generated_Echo_Wait_sync]

@@ -28,8 +28,11 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::ResourceNames::Client#multiparent_method
+# Snippet for the multiparent_method call in the ResourceNames service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::ResourceNames::Client#multiparent_method. It may require
+# modification in order to execute successfully.
 #
 def multiparent_method
   # Create a client object. The client can be reused for multiple calls.

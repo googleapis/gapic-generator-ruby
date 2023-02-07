@@ -28,8 +28,11 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::DeprecatedService::Client#deprecated_get
+# Snippet for the deprecated_get call in the DeprecatedService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::DeprecatedService::Client#deprecated_get. It may require
+# modification in order to execute successfully.
 #
 def deprecated_get
   # Create a client object. The client can be reused for multiple calls.

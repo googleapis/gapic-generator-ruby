@@ -28,22 +28,27 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Echo::Client#collect
+# Snippet for the collect call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#collect. It may require modification
+# in order to execute successfully.
 #
 def collect
   # Create a client object. The client can be reused for multiple calls.
   client = Google::Showcase::V1beta1::Echo::Client.new
 
-  # Create a stream of requests, as an Enumerator.
-  # For each request, pass in keyword arguments to set fields.
-  request = [
-    Google::Showcase::V1beta1::EchoRequest.new,
-    Google::Showcase::V1beta1::EchoRequest.new
-  ].to_enum
+  # Create an input stream.
+  input = Gapic::StreamInput.new
 
-  # Call the collect method.
-  result = client.collect request
+  # Call the collect method to start streaming.
+  result = client.collect input
+
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
+  input << Google::Showcase::V1beta1::EchoRequest.new
+  input << Google::Showcase::V1beta1::EchoRequest.new
+  input.close
 
   # The returned object is of type Google::Showcase::V1beta1::EchoResponse.
   p result

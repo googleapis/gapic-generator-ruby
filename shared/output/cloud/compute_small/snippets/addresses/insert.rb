@@ -20,8 +20,11 @@
 require "google/cloud/compute/v1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Cloud::Compute::V1::Addresses::Client#insert
+# Snippet for the insert call in the Addresses service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Compute::V1::Addresses::Client#insert. It may require
+# modification in order to execute successfully.
 #
 def insert
   # Create a client object. The client can be reused for multiple calls.

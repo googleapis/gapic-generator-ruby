@@ -28,29 +28,32 @@
 require "so/much/trash"
 
 ##
-# Example demonstrating basic usage of
-# So::Much::Trash::GarbageService::Client#bidi_garbage
+# Snippet for the bidi_garbage call in the GarbageService service
+#
+# This is an auto-generated example demonstrating basic usage of
+# So::Much::Trash::GarbageService::Client#bidi_garbage. It may require
+# modification in order to execute successfully.
 #
 def bidi_garbage
   # Create a client object. The client can be reused for multiple calls.
   client = So::Much::Trash::GarbageService::Client.new
 
-  # Create an input stream
+  # Create an input stream.
   input = Gapic::StreamInput.new
 
   # Call the bidi_garbage method to start streaming.
   output = client.bidi_garbage input
 
-  # Send requests on the stream. For each request, pass in keyword
-  # arguments to set fields. Be sure to close the stream when done.
+  # Send requests on the stream. For each request object, set fields by
+  # passing keyword arguments. Be sure to close the stream when done.
   input << So::Much::Trash::ListGarbageRequest.new
   input << So::Much::Trash::ListGarbageRequest.new
   input.close
 
-  # Handle streamed responses. These may be interleaved with inputs.
-  # Each response is of type ::So::Much::Trash::GarbageItem.
-  output.each do |response|
-    p response
+  # The returned object is a streamed enumerable yielding elements of type
+  # ::So::Much::Trash::GarbageItem
+  output.each do |current_response|
+    p current_response
   end
 end
 # [END garbage_v0_generated_GarbageService_BidiGarbage_sync]

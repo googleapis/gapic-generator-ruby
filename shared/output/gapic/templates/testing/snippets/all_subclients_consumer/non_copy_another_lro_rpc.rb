@@ -28,8 +28,11 @@
 require "testing/nonstandard_lro_grpc"
 
 ##
-# Example demonstrating basic usage of
-# Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#non_copy_another_lro_rpc
+# Snippet for the non_copy_another_lro_rpc call in the AllSubclientsConsumer service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::NonstandardLroGrpc::AllSubclientsConsumer::Client#non_copy_another_lro_rpc.
+# It may require modification in order to execute successfully.
 #
 def non_copy_another_lro_rpc
   # Create a client object. The client can be reused for multiple calls.

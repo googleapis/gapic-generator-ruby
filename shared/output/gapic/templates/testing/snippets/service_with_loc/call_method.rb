@@ -28,8 +28,11 @@
 require "testing/mixins"
 
 ##
-# Example demonstrating basic usage of
-# Testing::Mixins::ServiceWithLoc::Client#call_method
+# Snippet for the call_method call in the ServiceWithLoc service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::Mixins::ServiceWithLoc::Client#call_method. It may require
+# modification in order to execute successfully.
 #
 def call_method
   # Create a client object. The client can be reused for multiple calls.

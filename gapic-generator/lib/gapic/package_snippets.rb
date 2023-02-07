@@ -90,8 +90,8 @@ module Gapic
     def build_snippet_object snippet_presenter, method_presenter, service_presenter, snippet_lines
       SnippetIndex::Snippet.new(
         region_tag: snippet_presenter.region_tag,
-        title: "Snippet for #{method_presenter.name} in #{service_presenter.module_name}",
-        description: "Basic snippet for #{method_presenter.name} in #{service_presenter.module_name}",
+        title: snippet_presenter.snippet_name,
+        description: snippet_presenter.description,
         file: snippet_presenter.snippet_file_path,
         language: "RUBY",
         client_method: build_client_method_object(method_presenter, service_presenter),

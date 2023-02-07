@@ -28,8 +28,11 @@
 require "google/showcase/v1beta1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Showcase::V1beta1::Echo::Client#echo
+# Snippet for the echo call in the Echo service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Showcase::V1beta1::Echo::Client#echo. It may require modification in
+# order to execute successfully.
 #
 def echo
   # Create a client object. The client can be reused for multiple calls.

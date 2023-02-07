@@ -28,8 +28,11 @@
 require "testing/routing_headers"
 
 ##
-# Example demonstrating basic usage of
-# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#with_sub_message
+# Snippet for the with_sub_message call in the ServiceExplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceExplicitHeaders::Client#with_sub_message. It
+# may require modification in order to execute successfully.
 #
 def with_sub_message
   # Create a client object. The client can be reused for multiple calls.

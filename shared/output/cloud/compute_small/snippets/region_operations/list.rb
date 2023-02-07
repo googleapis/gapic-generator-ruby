@@ -20,8 +20,11 @@
 require "google/cloud/compute/v1"
 
 ##
-# Example demonstrating basic usage of
-# Google::Cloud::Compute::V1::RegionOperations::Client#list
+# Snippet for the list call in the RegionOperations service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Google::Cloud::Compute::V1::RegionOperations::Client#list. It may require
+# modification in order to execute successfully.
 #
 def list
   # Create a client object. The client can be reused for multiple calls.

@@ -28,8 +28,11 @@
 require "testing/routing_headers"
 
 ##
-# Example demonstrating basic usage of
-# Testing::RoutingHeaders::ServiceImplicitHeaders::Client#plain
+# Snippet for the plain call in the ServiceImplicitHeaders service
+#
+# This is an auto-generated example demonstrating basic usage of
+# Testing::RoutingHeaders::ServiceImplicitHeaders::Client#plain. It may require
+# modification in order to execute successfully.
 #
 def plain
   # Create a client object. The client can be reused for multiple calls.
