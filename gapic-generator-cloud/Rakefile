@@ -245,6 +245,12 @@ def generate_cloud_templates service, wrapper: false, rest_only: false
     protoc_cmd << "--ruby_gapic_opt='service-yaml=#{service_yaml}'"
   end
 
+  # Add snippet configs if present
+  snippet_configs_path = "../shared/snippet_config/#{service}"
+  if File.directory? snippet_configs_path
+    protoc_cmd << "--ruby_gapic_opt='snippet-configs-path=#{snippet_configs_path}'"
+  end
+
   # Add the proto files
   protoc_cmd << protos_for(service).join(" ")
 
