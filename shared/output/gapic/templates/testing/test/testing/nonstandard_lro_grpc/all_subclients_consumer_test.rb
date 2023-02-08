@@ -107,8 +107,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use protobuf object with options
-      client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                           grpc_options) do |response, operation|
+      client.plain_lro_rpc(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
@@ -171,8 +170,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use protobuf object with options
-      client.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id),
-                             grpc_options) do |response, operation|
+      client.another_lro_rpc(::Testing::NonstandardLroGrpc::AnotherRequest.new(request_id: request_id), grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
@@ -205,7 +203,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use hash object
-      client.non_copy_another_lro_rpc({}) do |response, operation|
+      client.non_copy_another_lro_rpc({  }) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
@@ -219,15 +217,14 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use hash object with options
-      client.non_copy_another_lro_rpc({}, grpc_options) do |response, operation|
+      client.non_copy_another_lro_rpc({  }, grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
       end
 
       # Use protobuf object with options
-      client.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(),
-                                      grpc_options) do |response, operation|
+      client.non_copy_another_lro_rpc(::Testing::NonstandardLroGrpc::NonCopyRequest.new(), grpc_options) do |response, operation|
         assert_kind_of Gapic::GenericLRO::Operation, response
         assert_equal grpc_response, response.operation
         assert_equal grpc_operation, operation
@@ -290,8 +287,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use protobuf object with options
-      client.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                     grpc_options) do |response, operation|
+      client.aip_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
         assert_kind_of Gapic::Operation, response
         assert_equal grpc_response, response.grpc_op
         assert_equal grpc_operation, operation
@@ -350,8 +346,7 @@ class ::Testing::NonstandardLroGrpc::AllSubclientsConsumer::ClientTest < Minites
       end
 
       # Use protobuf object with options
-      client.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id),
-                    grpc_options) do |response, operation|
+      client.no_lro(::Testing::NonstandardLroGrpc::Request.new(request_id: request_id), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

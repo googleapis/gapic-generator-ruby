@@ -103,8 +103,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.create_user(::Google::Showcase::V1beta1::CreateUserRequest.new(user: user),
-                         grpc_options) do |response, operation|
+      client.create_user(::Google::Showcase::V1beta1::CreateUserRequest.new(user: user), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -162,8 +161,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.get_user(::Google::Showcase::V1beta1::GetUserRequest.new(name: name),
-                      grpc_options) do |response, operation|
+      client.get_user(::Google::Showcase::V1beta1::GetUserRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -211,8 +209,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user,
-                                                                            update_mask: update_mask) do |response, operation|
+      client.update_user ::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -224,8 +221,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.update_user(::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask),
-                         grpc_options) do |response, operation|
+      client.update_user(::Google::Showcase::V1beta1::UpdateUserRequest.new(user: user, update_mask: update_mask), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -283,8 +279,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.delete_user(::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name),
-                         grpc_options) do |response, operation|
+      client.delete_user(::Google::Showcase::V1beta1::DeleteUserRequest.new(name: name), grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -334,8 +329,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object
-      client.list_users ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size,
-                                                                          page_token: page_token) do |response, operation|
+      client.list_users ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size, page_token: page_token) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation
@@ -349,10 +343,7 @@ class ::Google::Showcase::V1beta1::Identity::ClientTest < Minitest::Test
       end
 
       # Use protobuf object with options
-      client.list_users(
-        ::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size,
-                                                          page_token: page_token), grpc_options
-      ) do |response, operation|
+      client.list_users(::Google::Showcase::V1beta1::ListUsersRequest.new(page_size: page_size, page_token: page_token), grpc_options) do |response, operation|
         assert_kind_of Gapic::PagedEnumerable, response
         assert_equal grpc_response, response.response
         assert_equal grpc_operation, operation

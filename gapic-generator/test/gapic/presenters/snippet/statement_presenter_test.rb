@@ -298,4 +298,58 @@ class StatementPresenterTest < PresenterTest
     ]
     assert_equal expected, presenter.render_lines
   end
+
+  def test_iteration
+    json = {
+      "iteration" => {
+        "repeatedIteration" => {
+          "repeatedElements" => {
+            "type" => {
+              "repeatedType" => {
+                "elementType" => {
+                  "scalarType" => "TYPE_STRING"
+                }
+              }
+            },
+            "name" => "collection",
+            "value" => {
+              "listValue" => {
+                "values" => [
+                  {
+                    "stringValue" => "foo"
+                  },
+                  {
+                    "stringValue" => "bar"
+                  }
+                ]
+              }
+            }
+          },
+          "currentName" => "item"
+        },
+        "statements" => [
+          {
+            "standardOutput" => {
+              "value" => {
+                "nameValue" => {
+                  "name" => "item"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+    presenter = build_statement_presenter json
+    expected = [
+      "collection = [",
+      '  "foo",',
+      '  "bar"',
+      "]",
+      "collection.each do |item|",
+      "  puts(item)",
+      "end"
+    ]
+    assert_equal expected, presenter.render_lines
+  end
 end

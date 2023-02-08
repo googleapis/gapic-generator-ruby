@@ -114,8 +114,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session),
-                              call_options) do |_result, response|
+        client.create_session(::Google::Showcase::V1beta1::CreateSessionRequest.new(session: session), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -169,8 +168,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name),
-                           call_options) do |_result, response|
+        client.get_session(::Google::Showcase::V1beta1::GetSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -215,8 +213,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
-                                                                                  page_token: page_token) do |_result, response|
+        client.list_sessions ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -226,10 +223,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.list_sessions(
-          ::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size,
-                                                               page_token: page_token), call_options
-        ) do |_result, response|
+        client.list_sessions(::Google::Showcase::V1beta1::ListSessionsRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -283,8 +277,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name),
-                              call_options) do |_result, response|
+        client.delete_session(::Google::Showcase::V1beta1::DeleteSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -338,8 +331,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name),
-                              call_options) do |_result, response|
+        client.report_session(::Google::Showcase::V1beta1::ReportSessionRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -385,22 +377,17 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
-                                                                            page_token: page_token) do |_result, response|
+        client.list_tests ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.list_tests({ parent: parent, page_size: page_size, page_token: page_token },
-                          call_options) do |_result, response|
+        client.list_tests({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.list_tests(
-          ::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size,
-                                                            page_token: page_token), call_options
-        ) do |_result, response|
+        client.list_tests(::Google::Showcase::V1beta1::ListTestsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -454,8 +441,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name),
-                           call_options) do |_result, response|
+        client.delete_test(::Google::Showcase::V1beta1::DeleteTestRequest.new(name: name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -501,8 +487,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object
-        client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
-                                                                              answers: answers) do |_result, response|
+        client.verify_test ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -512,10 +497,7 @@ class ::Google::Showcase::V1beta1::Testing::Rest::ClientTest < Minitest::Test
         end
 
         # Use protobuf object with options
-        client.verify_test(
-          ::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer,
-                                                             answers: answers), call_options
-        ) do |_result, response|
+        client.verify_test(::Google::Showcase::V1beta1::VerifyTestRequest.new(name: name, answer: answer, answers: answers), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

@@ -55,4 +55,28 @@ class DefaultHelperTest < Minitest::Test
     result = helper_object.wrap "hello world\nruby rules", 10
     assert_equal "hello\nworld\nruby rules", result
   end
+
+  def test_line_spacer
+    helper = helper_object
+    helper.start_line_spacer
+    assert_equal "", helper.line_spacer
+    assert_equal "\n", helper.line_spacer
+    assert_equal "\n", helper.line_spacer
+    helper.start_line_spacer
+    assert_equal "", helper.line_spacer
+    assert_equal "\n", helper.line_spacer
+  end
+
+  def test_line_spacer_named
+    helper = helper_object
+    helper.start_line_spacer
+    helper.start_line_spacer :second
+    assert_equal "", helper.line_spacer
+    assert_equal "", helper.line_spacer(:second)
+    assert_equal "\n", helper.line_spacer
+    assert_equal "\n", helper.line_spacer(:second)
+    helper.start_line_spacer :second
+    assert_equal "\n", helper.line_spacer
+    assert_equal "", helper.line_spacer(:second)
+  end
 end

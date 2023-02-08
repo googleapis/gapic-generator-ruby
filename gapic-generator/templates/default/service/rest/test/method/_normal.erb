@@ -19,10 +19,10 @@ def test_<%= method.name %>
     refute options.metadata[:"x-goog-api-client"].include? "grpc"
   end
 
-  <%= method.service.rest.service_name_full %>:: <%= method.service.rest.service_stub_name %>.stub :<%= method.rest.transcoding_helper_name %>, ["", "", {}] do
+  <%= method.service.rest.service_name_full %>::<%= method.service.rest.service_stub_name %>.stub :<%= method.rest.transcoding_helper_name %>, ["", "", {}] do
     Gapic::Rest::ClientStub.stub :new, <%= method.name %>_client_stub do
       # Create client
-      client = <%= full_client_name %>.new do  |config|
+      client = <%= full_client_name %>.new do |config|
         config.credentials = :dummy_value
       end
 

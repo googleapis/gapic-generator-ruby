@@ -963,7 +963,7 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
     ::Google::Cloud::Vision::V1::ProductSearch::Rest::ServiceStub.stub :transcode_list_products_in_product_set_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, list_products_in_product_set_client_stub do
         # Create client
-        client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new do  |config|
+        client = ::Google::Cloud::Vision::V1::ProductSearch::Rest::Client.new do |config|
           config.credentials = :dummy_value
         end
 

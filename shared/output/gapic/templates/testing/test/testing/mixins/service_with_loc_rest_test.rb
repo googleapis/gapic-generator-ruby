@@ -93,7 +93,7 @@ class ::Testing::Mixins::ServiceWithLoc::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object
-        client.call_method({}) do |_result, response|
+        client.call_method({  }) do |_result, response|
           assert_equal http_response, response
         end
 
@@ -103,7 +103,7 @@ class ::Testing::Mixins::ServiceWithLoc::Rest::ClientTest < Minitest::Test
         end
 
         # Use hash object with options
-        client.call_method({}, call_options) do |_result, response|
+        client.call_method({  }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 

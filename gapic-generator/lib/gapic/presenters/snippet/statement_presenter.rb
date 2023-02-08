@@ -17,6 +17,8 @@
 require "active_support/inflector"
 require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
 require "gapic/presenters/snippet/expression_presenter"
+require "gapic/presenters/snippet/declaration_presenter"
+require "gapic/presenters/snippet/iteration_presenter"
 
 module Gapic
   module Presenters
@@ -66,14 +68,12 @@ module Gapic
         private
 
         def declaration_lines proto, json
-          expr = ExpressionPresenter.new proto.value, json["value"]
-          return ["# Unknown declaration statement omitted here."] unless expr.exist?
-          lines = expr.render_lines
-          lines[0] = "#{proto.name} = #{lines.first}"
-          if proto.description && !proto.description.empty?
-            lines.unshift "# #{proto.description}"
+          declaration = DeclarationPresenter.new proto, json
+          if declaration.exist?
+            declaration.render_lines
+          else
+            ["# Unknown declaration statement omitted here."]
           end
-          lines
         end
 
         def output_lines proto, json
@@ -125,9 +125,13 @@ module Gapic
           lines
         end
 
-        def iteration_lines _proto, _json
-          # TODO
-          ["# Unknown iteration statement omitted here."]
+        def iteration_lines proto, json
+          iteration = IterationPresenter.new proto, json
+          if iteration.exist?
+            iteration.render_lines
+          else
+            ["# Unknown iteration statement omitted here."]
+          end
         end
       end
     end

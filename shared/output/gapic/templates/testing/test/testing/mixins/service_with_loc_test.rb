@@ -77,7 +77,7 @@ class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
       end
 
       # Use hash object
-      client.call_method({}) do |response, operation|
+      client.call_method({  }) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end
@@ -89,7 +89,7 @@ class ::Testing::Mixins::ServiceWithLoc::ClientTest < Minitest::Test
       end
 
       # Use hash object with options
-      client.call_method({}, grpc_options) do |response, operation|
+      client.call_method({  }, grpc_options) do |response, operation|
         assert_equal grpc_response, response
         assert_equal grpc_operation, operation
       end

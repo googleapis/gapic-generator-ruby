@@ -183,7 +183,7 @@ module Google
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate sentence offsets.
               # @yield [result, response] Access the result along with the Faraday response object
@@ -249,7 +249,7 @@ module Google
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
               # @yield [result, response] Access the result along with the Faraday response object
@@ -314,7 +314,7 @@ module Google
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
               # @yield [result, response] Access the result along with the Faraday response object
@@ -380,7 +380,7 @@ module Google
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
               # @yield [result, response] Access the result along with the Faraday response object
@@ -438,13 +438,16 @@ module Google
               #   @param options [::Gapic::CallOptions, ::Hash]
               #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
               #
-              # @overload classify_text(document: nil)
+              # @overload classify_text(document: nil, classification_model_options: nil)
               #   Pass arguments to `classify_text` via keyword arguments. Note that at
               #   least one keyword argument is required. To specify no parameters, or to keep all
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
+              #   @param classification_model_options [::Google::Cloud::Language::V1::ClassificationModelOptions, ::Hash]
+              #     Model options to use for classification. Defaults to v1 options if not
+              #     specified.
               # @yield [result, response] Access the result along with the Faraday response object
               # @yieldparam result [::Google::Cloud::Language::V1::ClassifyTextResponse]
               # @yieldparam response [::Faraday::Response]
@@ -507,9 +510,9 @@ module Google
               #   the default parameter values, pass an empty Hash as a request object (see above).
               #
               #   @param document [::Google::Cloud::Language::V1::Document, ::Hash]
-              #     Input document.
+              #     Required. Input document.
               #   @param features [::Google::Cloud::Language::V1::AnnotateTextRequest::Features, ::Hash]
-              #     The enabled features.
+              #     Required. The enabled features.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
               # @yield [result, response] Access the result along with the Faraday response object

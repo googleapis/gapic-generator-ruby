@@ -3,6 +3,8 @@
 
 require 'google/protobuf'
 
+require 'grafeas/v1/intoto_provenance_pb'
+require 'grafeas/v1/intoto_statement_pb'
 require 'grafeas/v1/provenance_pb'
 
 Google::Protobuf::DescriptorPool.generated_pool.build do
@@ -13,6 +15,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "grafeas.v1.BuildOccurrence" do
       optional :provenance, :message, 1, "grafeas.v1.BuildProvenance"
       optional :provenance_bytes, :string, 2
+      optional :intoto_provenance, :message, 3, "grafeas.v1.InTotoProvenance"
+      optional :intoto_statement, :message, 4, "grafeas.v1.InTotoStatement"
     end
   end
 end

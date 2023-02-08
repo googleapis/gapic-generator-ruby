@@ -15,7 +15,7 @@ class <%= service.client_name_full %>Test < Minitest::Test
 <%= indent render(partial: "service/test/method/#{method.kind}",
                   locals: { method: method }), 2 %>
 
-<% end %>
+<%- end -%>
 <%= indent render(partial: "service/test/method/configure", locals: { service: service }), 2 %>
 <%- if service.lro? -%>
 

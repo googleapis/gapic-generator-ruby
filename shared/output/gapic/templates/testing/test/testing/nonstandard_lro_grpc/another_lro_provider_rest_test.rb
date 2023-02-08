@@ -87,8 +87,7 @@ class ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ClientTest < Mini
       refute options.metadata[:"x-goog-api-client"].include? "grpc"
     end
 
-    ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ServiceStub.stub :transcode_get_another_request,
-                                                                              ["", "", {}] do
+    ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ServiceStub.stub :transcode_get_another_request, ["", "", {}] do
       Gapic::Rest::ClientStub.stub :new, get_another_client_stub do
         # Create client
         client = ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::Client.new do |config|
@@ -96,35 +95,27 @@ class ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ClientTest < Mini
         end
 
         # Use hash object
-        client.get_another({ another_request_id: another_request_id,
-another_lro_name: another_lro_name }) do |_result, response|
+        client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use named arguments
-        client.get_another another_request_id: another_request_id,
-                           another_lro_name: another_lro_name do |_result, response|
+        client.get_another another_request_id: another_request_id, another_lro_name: another_lro_name do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object
-        client.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(
-          another_request_id: another_request_id, another_lro_name: another_lro_name
-        ) do |_result, response|
+        client.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use hash object with options
-        client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name },
-                           call_options) do |_result, response|
+        client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }, call_options) do |_result, response|
           assert_equal http_response, response
         end
 
         # Use protobuf object with options
-        client.get_another(
-          ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id,
-                                                                  another_lro_name: another_lro_name), call_options
-        ) do |_result, response|
+        client.get_another(::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name), call_options) do |_result, response|
           assert_equal http_response, response
         end
 

@@ -135,4 +135,132 @@ class RequestInitializationPresenterTest < PresenterTest
     assert_equal expected_postcall, presenter.render_postcall_lines
     assert_equal "request", presenter.request_name
   end
+
+  def test_streaming_full
+    json = {
+      "firstStreamingRequest" => {
+        "preRequestInitialization" => [
+          {
+            "declaration" => {
+              "name" => "field1",
+              "value" => {
+                "stringValue" => "NAME"
+              }
+            }
+          },
+          {
+            "declaration" => {
+              "name" => "field2",
+              "value" => {
+                "stringValue" => "AGE"
+              }
+            }
+          }
+        ],
+        "requestValue" => {
+          "listValue" => {
+            "values" => [
+              {
+                "nameValue" => {
+                  "name" => "field1"
+                }
+              },
+              {
+                "nameValue" => {
+                  "name" => "field2"
+                }
+              }
+            ]
+          }
+        },
+        "requestName" => "first_request"
+      },
+      "iteration" => {
+        "mapIteration" => {
+          "map" => {
+            "type" => {
+              "mapType" => {
+                "keyType" => {
+                  "scalarType" => "TYPE_STRING"
+                },
+                "valueType" => {
+                  "scalarType" => "TYPE_DOUBLE"
+                }
+              }
+            },
+            "name" => "people",
+            "value" => {
+              "mapValue" => {
+                "keys" => [
+                  {
+                    "stringValue" => "Jane Doe"
+                  },
+                  {
+                    "stringValue" => "John Doe"
+                  }
+                ],
+                "values" => [
+                  {
+                    "numberValue" => 21
+                  },
+                  {
+                    "numberValue" => 20
+                  }
+                ]
+              }
+            }
+          },
+          "currentKeyName" => "name",
+          "currentValueName" => "age"
+        }
+      },
+      "streamingRequest" => {
+        "requestValue" => {
+          "complexValue" => {
+            "properties" => {
+              "name" => {
+                "nameValue" => {
+                  "name" => "name"
+                }
+              },
+              "age" => {
+                "nameValue" => {
+                  "name" => "age"
+                }
+              }
+            }
+          }
+        },
+        "requestName" => "next_request"
+      }
+    }
+    presenter = build_streaming_presenter json
+    expected_precall = [
+      "request = Gapic::StreamInput.new"
+    ]
+    expected_postcall = [
+      'field1 = "NAME"',
+      'field2 = "AGE"',
+      "first_request = [",
+      "  field1,",
+      "  field2",
+      "]",
+      "request << first_request",
+      "people = {",
+      '  "Jane Doe" => 21,',
+      '  "John Doe" => 20',
+      "}",
+      "people.each do |name, age|",
+      "  next_request = {",
+      "    name: name,",
+      "    age: age",
+      "  }",
+      "  request << next_request",
+      "end",
+      "request.close"
+    ]
+    assert_equal expected_precall, presenter.render_precall_lines
+    assert_equal expected_postcall, presenter.render_postcall_lines
+    assert_equal "request", presenter.request_name
+  end
 end

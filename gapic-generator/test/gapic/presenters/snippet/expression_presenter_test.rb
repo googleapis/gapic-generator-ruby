@@ -142,4 +142,184 @@ class ExpressionPresenterTest < PresenterTest
     ]
     assert_equal expected, presenter.render_lines
   end
+
+  def test_repeated_string
+    json = {
+      "listValue" => {
+        "values" => [
+          {
+            "numberValue" => 1.2
+          },
+          {
+            "numberValue" => 2
+          }
+        ]
+      }
+    }
+    presenter = build_expression_presenter json
+    expected = [
+      "[",
+      "  1.2,",
+      "  2",
+      "]"
+    ]
+    assert_equal expected, presenter.render_lines
+  end
+
+  def test_repeated_complex
+    json = {
+      "listValue" => {
+        "values" => [
+          {
+            "complexValue" => {
+              "properties" => {
+                "name" => {
+                  "stringValue" => "Jane Doe"
+                },
+                "age" => {
+                  "numberValue" => 21
+                }
+              }
+            }
+          },
+          {
+            "complexValue" => {
+              "properties" => {
+                "name" => {
+                  "stringValue" => "John Doe"
+                },
+                "age" => {
+                  "numberValue" => 20
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+    presenter = build_expression_presenter json
+    expected = [
+      "[",
+      "  {",
+      '    name: "Jane Doe",',
+      "    age: 21",
+      "  },",
+      "  {",
+      '    name: "John Doe",',
+      "    age: 20",
+      "  }",
+      "]"
+    ]
+    assert_equal expected, presenter.render_lines
+  end
+
+  def test_map_simple
+    json = {
+      "mapValue" => {
+        "keys" => [
+          {
+            "stringValue" => "Jane Doe"
+          },
+          {
+            "stringValue" => "John Doe"
+          }
+        ],
+        "values" => [
+          {
+            "numberValue" => 21
+          },
+          {
+            "numberValue" => 20
+          }
+        ]
+      }
+    }
+    presenter = build_expression_presenter json
+    expected = [
+      "{",
+      '  "Jane Doe" => 21,',
+      '  "John Doe" => 20',
+      "}"
+    ]
+    assert_equal expected, presenter.render_lines
+  end
+
+  def test_map_multiline
+    json = {
+      "mapValue" => {
+        "keys" => [
+          {
+            "listValue" => {
+              "values" => [
+                {
+                  "numberValue" => 1
+                },
+                {
+                  "numberValue" => 2
+                }
+              ]
+            }
+          },
+          {
+            "listValue" => {
+              "values" => [
+                {
+                  "numberValue" => 4
+                },
+                {
+                  "numberValue" => 5
+                }
+              ]
+            }
+          }
+        ],
+        "values" => [
+          {
+            "listValue" => {
+              "values" => [
+                {
+                  "stringValue" => "odd"
+                },
+                {
+                  "stringValue" => "even"
+                }
+              ]
+            }
+          },
+          {
+            "listValue" => {
+              "values" => [
+                {
+                  "stringValue" => "even"
+                },
+                {
+                  "stringValue" => "odd"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+    presenter = build_expression_presenter json
+    expected = [
+      "{",
+      "  [",
+      "    1,",
+      "    2",
+      "  ] => [",
+      '    "odd",',
+      '    "even"',
+      "  ],",
+      "  [",
+      "    4,",
+      "    5",
+      "  ] => [",
+      '    "even",',
+      '    "odd"',
+      "  ]",
+      "}"
+    ]
+    assert_equal expected, presenter.render_lines
+  end
 end

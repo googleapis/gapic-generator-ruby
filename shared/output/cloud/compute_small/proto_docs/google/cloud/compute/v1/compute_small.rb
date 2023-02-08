@@ -75,55 +75,55 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_CODE = 0
 
-            CLEANUP_FAILED = 150308440
+            CLEANUP_FAILED = 150_308_440
 
-            DEPRECATED_RESOURCE_USED = 123400130
+            DEPRECATED_RESOURCE_USED = 123_400_130
 
-            DEPRECATED_TYPE_USED = 78090774
+            DEPRECATED_TYPE_USED = 78_090_774
 
-            DISK_SIZE_LARGER_THAN_IMAGE_SIZE = 101007511
+            DISK_SIZE_LARGER_THAN_IMAGE_SIZE = 101_007_511
 
-            EXPERIMENTAL_TYPE_USED = 183518987
+            EXPERIMENTAL_TYPE_USED = 183_518_987
 
-            EXTERNAL_API_WARNING = 175546307
+            EXTERNAL_API_WARNING = 175_546_307
 
-            FIELD_VALUE_OVERRIDEN = 61233967
+            FIELD_VALUE_OVERRIDEN = 61_233_967
 
-            INJECTED_KERNELS_DEPRECATED = 148941963
+            INJECTED_KERNELS_DEPRECATED = 148_941_963
 
-            LARGE_DEPLOYMENT_WARNING = 213005222
+            LARGE_DEPLOYMENT_WARNING = 213_005_222
 
-            MISSING_TYPE_DEPENDENCY = 76070007
+            MISSING_TYPE_DEPENDENCY = 76_070_007
 
-            NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56529543
+            NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56_529_543
 
-            NEXT_HOP_CANNOT_IP_FORWARD = 114947431
+            NEXT_HOP_CANNOT_IP_FORWARD = 114_947_431
 
-            NEXT_HOP_INSTANCE_NOT_FOUND = 195814990
+            NEXT_HOP_INSTANCE_NOT_FOUND = 195_814_990
 
-            NEXT_HOP_INSTANCE_NOT_ON_NETWORK = 243758146
+            NEXT_HOP_INSTANCE_NOT_ON_NETWORK = 243_758_146
 
-            NEXT_HOP_NOT_RUNNING = 148645809
+            NEXT_HOP_NOT_RUNNING = 148_645_809
 
-            NOT_CRITICAL_ERROR = 105763924
+            NOT_CRITICAL_ERROR = 105_763_924
 
-            NO_RESULTS_ON_PAGE = 30036744
+            NO_RESULTS_ON_PAGE = 30_036_744
 
-            PARTIAL_SUCCESS = 39966469
+            PARTIAL_SUCCESS = 39_966_469
 
-            REQUIRED_TOS_AGREEMENT = 3745539
+            REQUIRED_TOS_AGREEMENT = 3_745_539
 
-            RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING = 228293185
+            RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING = 228_293_185
 
-            RESOURCE_NOT_DELETED = 168598460
+            RESOURCE_NOT_DELETED = 168_598_460
 
-            SCHEMA_VALIDATION_IGNORED = 6810186
+            SCHEMA_VALIDATION_IGNORED = 6_810_186
 
-            SINGLE_INSTANCE_PROPERTY_TEMPLATE = 268305617
+            SINGLE_INSTANCE_PROPERTY_TEMPLATE = 268_305_617
 
-            UNDECLARED_PROPERTIES = 122077983
+            UNDECLARED_PROPERTIES = 122_077_983
 
-            UNREACHABLE = 13328052
+            UNREACHABLE = 13_328_052
           end
         end
 
@@ -222,11 +222,11 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_STATUS = 0
 
-            DONE = 2104194
+            DONE = 2_104_194
 
-            PENDING = 35394935
+            PENDING = 35_394_935
 
-            RUNNING = 121282975
+            RUNNING = 121_282_975
           end
         end
 
@@ -250,55 +250,55 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_CODE = 0
 
-            CLEANUP_FAILED = 150308440
+            CLEANUP_FAILED = 150_308_440
 
-            DEPRECATED_RESOURCE_USED = 123400130
+            DEPRECATED_RESOURCE_USED = 123_400_130
 
-            DEPRECATED_TYPE_USED = 78090774
+            DEPRECATED_TYPE_USED = 78_090_774
 
-            DISK_SIZE_LARGER_THAN_IMAGE_SIZE = 101007511
+            DISK_SIZE_LARGER_THAN_IMAGE_SIZE = 101_007_511
 
-            EXPERIMENTAL_TYPE_USED = 183518987
+            EXPERIMENTAL_TYPE_USED = 183_518_987
 
-            EXTERNAL_API_WARNING = 175546307
+            EXTERNAL_API_WARNING = 175_546_307
 
-            FIELD_VALUE_OVERRIDEN = 61233967
+            FIELD_VALUE_OVERRIDEN = 61_233_967
 
-            INJECTED_KERNELS_DEPRECATED = 148941963
+            INJECTED_KERNELS_DEPRECATED = 148_941_963
 
-            LARGE_DEPLOYMENT_WARNING = 213005222
+            LARGE_DEPLOYMENT_WARNING = 213_005_222
 
-            MISSING_TYPE_DEPENDENCY = 76070007
+            MISSING_TYPE_DEPENDENCY = 76_070_007
 
-            NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56529543
+            NEXT_HOP_ADDRESS_NOT_ASSIGNED = 56_529_543
 
-            NEXT_HOP_CANNOT_IP_FORWARD = 114947431
+            NEXT_HOP_CANNOT_IP_FORWARD = 114_947_431
 
-            NEXT_HOP_INSTANCE_NOT_FOUND = 195814990
+            NEXT_HOP_INSTANCE_NOT_FOUND = 195_814_990
 
-            NEXT_HOP_INSTANCE_NOT_ON_NETWORK = 243758146
+            NEXT_HOP_INSTANCE_NOT_ON_NETWORK = 243_758_146
 
-            NEXT_HOP_NOT_RUNNING = 148645809
+            NEXT_HOP_NOT_RUNNING = 148_645_809
 
-            NOT_CRITICAL_ERROR = 105763924
+            NOT_CRITICAL_ERROR = 105_763_924
 
-            NO_RESULTS_ON_PAGE = 30036744
+            NO_RESULTS_ON_PAGE = 30_036_744
 
-            PARTIAL_SUCCESS = 39966469
+            PARTIAL_SUCCESS = 39_966_469
 
-            REQUIRED_TOS_AGREEMENT = 3745539
+            REQUIRED_TOS_AGREEMENT = 3_745_539
 
-            RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING = 228293185
+            RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING = 228_293_185
 
-            RESOURCE_NOT_DELETED = 168598460
+            RESOURCE_NOT_DELETED = 168_598_460
 
-            SCHEMA_VALIDATION_IGNORED = 6810186
+            SCHEMA_VALIDATION_IGNORED = 6_810_186
 
-            SINGLE_INSTANCE_PROPERTY_TEMPLATE = 268305617
+            SINGLE_INSTANCE_PROPERTY_TEMPLATE = 268_305_617
 
-            UNDECLARED_PROPERTIES = 122077983
+            UNDECLARED_PROPERTIES = 122_077_983
 
-            UNREACHABLE = 13328052
+            UNREACHABLE = 13_328_052
           end
         end
 
@@ -384,11 +384,11 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_ADDRESS_TYPE = 0
 
-            EXTERNAL = 35607499
+            EXTERNAL = 35_607_499
 
-            INTERNAL = 10860221
+            INTERNAL = 10_860_221
 
-            UNSPECIFIED_TYPE = 53933922
+            UNSPECIFIED_TYPE = 53_933_922
           end
 
           # The IP version that will be used by this address. Valid options are IPV4 or IPV6. This can only be specified for a global address.
@@ -396,11 +396,11 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_IP_VERSION = 0
 
-            IPV4 = 2254341
+            IPV4 = 2_254_341
 
-            IPV6 = 2254343
+            IPV6 = 2_254_343
 
-            UNSPECIFIED_VERSION = 21850000
+            UNSPECIFIED_VERSION = 21_850_000
           end
 
           # This signifies the networking tier used for configuring this address and can only take the following values: PREMIUM or STANDARD. Global forwarding rules can only be Premium Tier. Regional forwarding rules can be either Premium or Standard Tier. Standard Tier addresses applied to regional forwarding rules can be used with any external load balancer. Regional forwarding rules in Premium Tier can only be used with a network load balancer.
@@ -410,9 +410,9 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_NETWORK_TIER = 0
 
-            PREMIUM = 131095095
+            PREMIUM = 131_095_095
 
-            STANDARD = 216207037
+            STANDARD = 216_207_037
           end
 
           # The purpose of this resource, which can be one of the following values:
@@ -425,15 +425,15 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_PURPOSE = 0
 
-            DNS_RESOLVER = 207679100
+            DNS_RESOLVER = 207_679_100
 
-            GCE_ENDPOINT = 230515243
+            GCE_ENDPOINT = 230_515_243
 
-            NAT_AUTO = 163666477
+            NAT_AUTO = 163_666_477
 
-            SHARED_LOADBALANCER_VIP = 26012116
+            SHARED_LOADBALANCER_VIP = 26_012_116
 
-            VPC_PEERING = 132364714
+            VPC_PEERING = 132_364_714
           end
 
           # [Output Only] The status of the address, which can be one of RESERVING, RESERVED, or IN_USE. An address that is RESERVING is currently in the process of being reserved. A RESERVED address is currently reserved and available to use. An IN_USE address is currently being used by another resource and is not available.
@@ -441,11 +441,11 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_STATUS = 0
 
-            IN_USE = 17393485
+            IN_USE = 17_393_485
 
-            RESERVED = 163805992
+            RESERVED = 163_805_992
 
-            RESERVING = 246151769
+            RESERVING = 246_151_769
           end
         end
 
@@ -813,11 +813,11 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_TYPE = 0
 
-            DYNAMIC_PEERING_ROUTE = 201359402
+            DYNAMIC_PEERING_ROUTE = 201_359_402
 
-            STATIC_PEERING_ROUTE = 204972089
+            STATIC_PEERING_ROUTE = 204_972_089
 
-            SUBNET_PEERING_ROUTE = 197347048
+            SUBNET_PEERING_ROUTE = 197_347_048
           end
         end
 
@@ -894,9 +894,9 @@ module Google
             # A value indicating that the enum field is not set.
             UNDEFINED_DIRECTION = 0
 
-            INCOMING = 70117414
+            INCOMING = 70_117_414
 
-            OUTGOING = 39002988
+            OUTGOING = 39_002_988
           end
         end
 

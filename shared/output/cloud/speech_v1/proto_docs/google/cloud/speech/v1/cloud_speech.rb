@@ -147,8 +147,7 @@ module Google
         #   @return [::Integer]
         #     The number of channels in the input audio data.
         #     ONLY set this for MULTI-CHANNEL recognition.
-        #     Valid values for LINEAR16 and FLAC are `1`-`8`.
-        #     Valid values for OGG_OPUS are '1'-'254'.
+        #     Valid values for LINEAR16, OGG_OPUS and FLAC are `1`-`8`.
         #     Valid value for MULAW, AMR, AMR_WB and SPEEX_WITH_HEADER_BYTE is only `1`.
         #     If `0` or omitted, defaults to one channel (mono).
         #     Note: We only recognize the first channel by default.
@@ -170,6 +169,20 @@ module Google
         #     See [Language
         #     Support](https://cloud.google.com/speech-to-text/docs/languages) for a list
         #     of the currently supported language codes.
+        # @!attribute [rw] alternative_language_codes
+        #   @return [::Array<::String>]
+        #     A list of up to 3 additional
+        #     [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tags,
+        #     listing possible alternative languages of the supplied audio.
+        #     See [Language
+        #     Support](https://cloud.google.com/speech-to-text/docs/languages) for a list
+        #     of the currently supported language codes. If alternative languages are
+        #     listed, recognition result will contain recognition in the most likely
+        #     language detected including the main language_code. The recognition result
+        #     will include the language tag of the language detected in the audio. Note:
+        #     This feature is only supported for Voice Command and Voice Search use cases
+        #     and performance may vary for other use cases (e.g., phone call
+        #     transcription).
         # @!attribute [rw] max_alternatives
         #   @return [::Integer]
         #     Maximum number of recognition hypotheses to be returned.
@@ -184,6 +197,13 @@ module Google
         #     profanities, replacing all but the initial character in each filtered word
         #     with asterisks, e.g. "f***". If set to `false` or omitted, profanities
         #     won't be filtered out.
+        # @!attribute [rw] adaptation
+        #   @return [::Google::Cloud::Speech::V1::SpeechAdaptation]
+        #     Speech adaptation configuration improves the accuracy of speech
+        #     recognition. For more information, see the [speech
+        #     adaptation](https://cloud.google.com/speech-to-text/docs/adaptation)
+        #     documentation.
+        #     When speech adaptation is set it supersedes the `speech_contexts` field.
         # @!attribute [rw] speech_contexts
         #   @return [::Array<::Google::Cloud::Speech::V1::SpeechContext>]
         #     Array of {::Google::Cloud::Speech::V1::SpeechContext SpeechContext}.
@@ -197,12 +217,33 @@ module Google
         #     the start and end time offsets (timestamps) for those words. If
         #     `false`, no word-level time offset information is returned. The default is
         #     `false`.
+        # @!attribute [rw] enable_word_confidence
+        #   @return [::Boolean]
+        #     If `true`, the top result includes a list of words and the
+        #     confidence for those words. If `false`, no word-level confidence
+        #     information is returned. The default is `false`.
         # @!attribute [rw] enable_automatic_punctuation
         #   @return [::Boolean]
         #     If 'true', adds punctuation to recognition result hypotheses.
         #     This feature is only available in select languages. Setting this for
         #     requests in other languages has no effect at all.
         #     The default 'false' value does not add punctuation to result hypotheses.
+        # @!attribute [rw] enable_spoken_punctuation
+        #   @return [::Google::Protobuf::BoolValue]
+        #     The spoken punctuation behavior for the call
+        #     If not set, uses default behavior based on model of choice
+        #     e.g. command_and_search will enable spoken punctuation by default
+        #     If 'true', replaces spoken punctuation with the corresponding symbols in
+        #     the request. For example, "how are you question mark" becomes "how are
+        #     you?". See https://cloud.google.com/speech-to-text/docs/spoken-punctuation
+        #     for support. If 'false', spoken punctuation is not replaced.
+        # @!attribute [rw] enable_spoken_emojis
+        #   @return [::Google::Protobuf::BoolValue]
+        #     The spoken emoji behavior for the call
+        #     If not set, uses default behavior based on model of choice
+        #     If 'true', adds spoken emoji formatting for the request. This will replace
+        #     spoken emojis with the corresponding Unicode symbols in the final
+        #     transcript. If 'false', spoken emojis are not replaced.
         # @!attribute [rw] diarization_config
         #   @return [::Google::Cloud::Speech::V1::SpeakerDiarizationConfig]
         #     Config to enable speaker diarization and set additional
@@ -228,6 +269,15 @@ module Google
         #         <td><b>Description</b></td>
         #       </tr>
         #       <tr>
+        #         <td><code>latest_long</code></td>
+        #         <td>Best for long form content like media or conversation.</td>
+        #       </tr>
+        #       <tr>
+        #         <td><code>latest_short</code></td>
+        #         <td>Best for short form content like commands or single shot directed
+        #         speech.</td>
+        #       </tr>
+        #       <tr>
         #         <td><code>command_and_search</code></td>
         #         <td>Best for short queries such as voice commands or voice search.</td>
         #       </tr>
@@ -248,6 +298,16 @@ module Google
         #         <td>Best for audio that is not one of the specific audio models.
         #             For example, long-form audio. Ideally the audio is high-fidelity,
         #             recorded at a 16khz or greater sampling rate.</td>
+        #       </tr>
+        #       <tr>
+        #         <td><code>medical_conversation</code></td>
+        #         <td>Best for audio that originated from a conversation between a
+        #             medical provider and patient.</td>
+        #       </tr>
+        #       <tr>
+        #         <td><code>medical_dictation</code></td>
+        #         <td>Best for audio that originated from dictation notes by a medical
+        #             provider.</td>
         #       </tr>
         #     </table>
         # @!attribute [rw] use_enhanced
@@ -274,7 +334,8 @@ module Google
           # a lossless encoding (`FLAC` or `LINEAR16`). The accuracy of the speech
           # recognition can be reduced if lossy codecs are used to capture or transmit
           # audio, particularly if background noise is present. Lossy codecs include
-          # `MULAW`, `AMR`, `AMR_WB`, `OGG_OPUS`, `SPEEX_WITH_HEADER_BYTE`, `MP3`.
+          # `MULAW`, `AMR`, `AMR_WB`, `OGG_OPUS`, `SPEEX_WITH_HEADER_BYTE`, `MP3`,
+          # and `WEBM_OPUS`.
           #
           # The `FLAC` and `WAV` audio file formats include a header that describes the
           # included audio content. You can request recognition for `WAV` files that
@@ -329,6 +390,11 @@ module Google
             # is replaced with a single byte containing the block length. Only Speex
             # wideband is supported. `sample_rate_hertz` must be 16000.
             SPEEX_WITH_HEADER_BYTE = 7
+
+            # Opus encoded audio frames in WebM container
+            # ([OggOpus](https://wiki.xiph.org/OggOpus)). `sample_rate_hertz` must be
+            # one of 8000, 12000, 16000, 24000, or 48000.
+            WEBM_OPUS = 9
           end
         end
 
@@ -502,6 +568,16 @@ module Google
         #     providing phrase hints for every month of the year, using the $MONTH class
         #     improves the likelihood of correctly transcribing audio that includes
         #     months.
+        # @!attribute [rw] boost
+        #   @return [::Float]
+        #     Hint Boost. Positive value will increase the probability that a specific
+        #     phrase will be recognized over other similar sounding phrases. The higher
+        #     the boost, the higher the chance of false positive recognition as well.
+        #     Negative boost values would correspond to anti-biasing. Anti-biasing is not
+        #     enabled, so negative boost will simply be ignored. Though `boost` can
+        #     accept a wide range of positive values, most use cases are best served with
+        #     values between 0 and 20. We recommend using a binary search approach to
+        #     finding the optimal value for your use case.
         class SpeechContext
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -540,6 +616,13 @@ module Google
         # @!attribute [rw] total_billed_time
         #   @return [::Google::Protobuf::Duration]
         #     When available, billed audio seconds for the corresponding request.
+        # @!attribute [rw] speech_adaptation_info
+        #   @return [::Google::Cloud::Speech::V1::SpeechAdaptationInfo]
+        #     Provides information on adaptation behavior in response
+        # @!attribute [rw] request_id
+        #   @return [::Integer]
+        #     The ID associated with the request. This is a unique ID specific only to
+        #     the given request.
         class RecognizeResponse
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -557,6 +640,19 @@ module Google
         # @!attribute [rw] total_billed_time
         #   @return [::Google::Protobuf::Duration]
         #     When available, billed audio seconds for the corresponding request.
+        # @!attribute [rw] output_config
+        #   @return [::Google::Cloud::Speech::V1::TranscriptOutputConfig]
+        #     Original output config if present in the request.
+        # @!attribute [rw] output_error
+        #   @return [::Google::Rpc::Status]
+        #     If the transcript output fails this field contains the relevant error.
+        # @!attribute [rw] speech_adaptation_info
+        #   @return [::Google::Cloud::Speech::V1::SpeechAdaptationInfo]
+        #     Provides information on speech adaptation behavior in response
+        # @!attribute [rw] request_id
+        #   @return [::Integer]
+        #     The ID associated with the request. This is a unique ID specific only to
+        #     the given request.
         class LongRunningRecognizeResponse
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -650,6 +746,13 @@ module Google
         #   @return [::Google::Protobuf::Duration]
         #     When available, billed audio seconds for the stream.
         #     Set only if this is the last response in the stream.
+        # @!attribute [rw] speech_adaptation_info
+        #   @return [::Google::Cloud::Speech::V1::SpeechAdaptationInfo]
+        #     Provides information on adaptation behavior in response
+        # @!attribute [rw] request_id
+        #   @return [::Integer]
+        #     The ID associated with the request. This is a unique ID specific only to
+        #     the given request.
         class StreamingRecognizeResponse
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -703,9 +806,9 @@ module Google
         #     For audio_channel_count = N, its output values can range from '1' to 'N'.
         # @!attribute [r] language_code
         #   @return [::String]
-        #     The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag of
-        #     the language in this result. This language code was detected to have the
-        #     most likelihood of being spoken in the audio.
+        #     Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag
+        #     of the language in this result. This language code was detected to have
+        #     the most likelihood of being spoken in the audio.
         class StreamingRecognitionResult
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -723,6 +826,15 @@ module Google
         #     For multi-channel audio, this is the channel number corresponding to the
         #     recognized result for the audio from that channel.
         #     For audio_channel_count = N, its output values can range from '1' to 'N'.
+        # @!attribute [rw] result_end_time
+        #   @return [::Google::Protobuf::Duration]
+        #     Time offset of the end of this result relative to the
+        #     beginning of the audio.
+        # @!attribute [r] language_code
+        #   @return [::String]
+        #     Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag
+        #     of the language in this result. This language code was detected to have
+        #     the most likelihood of being spoken in the audio.
         class SpeechRecognitionResult
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
@@ -732,6 +844,9 @@ module Google
         # @!attribute [rw] transcript
         #   @return [::String]
         #     Transcript text representing the words that the user spoke.
+        #     In languages that use spaces to separate words, the transcript might have a
+        #     leading space if it isn't the first result. You can concatenate each result
+        #     to obtain the full transcript without using a separator.
         # @!attribute [rw] confidence
         #   @return [::Float]
         #     The confidence estimate between 0.0 and 1.0. A higher number
@@ -771,6 +886,15 @@ module Google
         # @!attribute [rw] word
         #   @return [::String]
         #     The word corresponding to this set of information.
+        # @!attribute [rw] confidence
+        #   @return [::Float]
+        #     The confidence estimate between 0.0 and 1.0. A higher number
+        #     indicates an estimated greater likelihood that the recognized words are
+        #     correct. This field is set only for the top alternative of a non-streaming
+        #     result or, of a streaming result where `is_final=true`.
+        #     This field is not guaranteed to be accurate and users should not rely on it
+        #     to be always provided.
+        #     The default of 0.0 is a sentinel value indicating `confidence` was not set.
         # @!attribute [r] speaker_tag
         #   @return [::Integer]
         #     Output only. A distinct integer value is assigned for every speaker within
@@ -779,6 +903,20 @@ module Google
         #     speaker_tag is set if enable_speaker_diarization = 'true' and only in the
         #     top alternative.
         class WordInfo
+          include ::Google::Protobuf::MessageExts
+          extend ::Google::Protobuf::MessageExts::ClassMethods
+        end
+
+        # Information on speech adaptation use in results
+        # @!attribute [rw] adaptation_timeout
+        #   @return [::Boolean]
+        #     Whether there was a timeout when applying speech adaptation. If true,
+        #     adaptation had no effect in the response transcript.
+        # @!attribute [rw] timeout_message
+        #   @return [::String]
+        #     If set, returns a message specifying which part of the speech adaptation
+        #     request timed out.
+        class SpeechAdaptationInfo
           include ::Google::Protobuf::MessageExts
           extend ::Google::Protobuf::MessageExts::ClassMethods
         end
