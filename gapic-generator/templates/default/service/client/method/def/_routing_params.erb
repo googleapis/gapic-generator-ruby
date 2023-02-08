@@ -1,36 +1,21 @@
 <%- assert_locals method -%>
-header_params = {}
+extractor = Gapic::RoutingHeaders::HeadersExtractor.new
 <%- if method.routing.explicit_params? -%>
 <%- method.routing.explicit_params.each do |key_name, routing_infos| -%>
 <%- routing_infos.each do |routing_info| -%>
 <%- if routing_info.pattern_matching_not_needed? -%>
-if request.<%= routing_info.field.gsub(".", "&.") %> && !request.<%= routing_info.field %>.empty?
-  header_params["<%= key_name %>"] = request.<%= routing_info.field %>
-end
-<%- elsif routing_info.value_is_full_field? -%>
-if request.<%= routing_info.field.gsub(".", "&.") %> &&
-  %r{<%= routing_info.field_regex_str %>}.match?(request.<%= routing_info.field %>)
-  header_params["<%= key_name %>"] = request.<%= routing_info.field %> 
-end
+  .with_bindings(field: "<%= routing_info.field %>", header_name: "<%= key_name %>")
 <%- else -%>
-if request.<%= routing_info.field.gsub(".", "&.") %>
-  regex_match = %r{<%= routing_info.field_full_regex_str %>}.match request.<%= routing_info.field %>
-  if regex_match
-    header_params["<%= key_name %>"] = regex_match["<%= key_name %>".to_s] 
-  end
-end
+  .with_bindings(field: "<%= routing_info.field %>", header_name: "<%= key_name %>", regex: %r{<%= routing_info.field_full_regex_str %>})
 <%- end -%>
 <%- end -%>
 <%- end -%>
-
-request_params_header = URI.encode_www_form header_params
 <%- else -%>
 <%- method.routing_params.each_with_index do |routing_param, index| -%>
-if request.<%= routing_param.gsub(".", "&.") %>
-  header_params["<%= routing_param %>"] = request.<%= routing_param %>
-end
+  .with_bindings(field: "<%= routing_param %>")
+<%- end -%>
 <%- end -%>
 
-request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
-<%- end -%>
+header_params = extractor.extract_headers request
+request_params_header = URI.encode_www_form header_params
 metadata[:"x-goog-request-params"] ||= request_params_header
