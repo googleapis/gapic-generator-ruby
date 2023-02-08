@@ -187,18 +187,18 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.create_room.metadata.to_h
+              metadata = @config.rpcs.create_room.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.create_room.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.create_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -249,18 +249,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.get_room.metadata.to_h
+              metadata = @config.rpcs.get_room.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_room.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.get_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -314,18 +321,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.update_room.metadata.to_h
+              metadata = @config.rpcs.update_room.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "room.name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.update_room.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.update_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -376,18 +390,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.delete_room.metadata.to_h
+              metadata = @config.rpcs.delete_room.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_room.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_room.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -443,18 +464,18 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.list_rooms.metadata.to_h
+              metadata = @config.rpcs.list_rooms.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
               options.apply_defaults timeout:      @config.rpcs.list_rooms.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.list_rooms.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -512,18 +533,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.create_blurb.metadata.to_h
+              metadata = @config.rpcs.create_blurb.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.create_blurb.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.create_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -574,18 +602,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.get_blurb.metadata.to_h
+              metadata = @config.rpcs.get_blurb.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_blurb.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.get_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -639,18 +674,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.update_blurb.metadata.to_h
+              metadata = @config.rpcs.update_blurb.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "blurb.name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.update_blurb.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.update_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -701,18 +743,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.delete_blurb.metadata.to_h
+              metadata = @config.rpcs.delete_blurb.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_blurb.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.delete_blurb.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -772,18 +821,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.list_blurbs.metadata.to_h
+              metadata = @config.rpcs.list_blurbs.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_blurbs.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.list_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -851,18 +907,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.search_blurbs.metadata.to_h
+              metadata = @config.rpcs.search_blurbs.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.search_blurbs.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.search_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,
@@ -913,18 +976,25 @@ module Google
               options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
               # Customize the options with defaults
-              call_metadata = @config.rpcs.stream_blurbs.metadata.to_h
+              metadata = @config.rpcs.stream_blurbs.metadata.to_h
 
               # Set x-goog-api-client and x-goog-user-project headers
-              call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+              metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                 lib_name: @config.lib_name, lib_version: @config.lib_version,
                 gapic_version: ::Google::Showcase::VERSION,
                 transports_version_send: [:rest]
 
-              call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+              metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
+
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
+              metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.stream_blurbs.timeout,
-                                     metadata:     call_metadata,
+                                     metadata:     metadata,
                                      retry_policy: @config.rpcs.stream_blurbs.retry_policy
 
               options.apply_defaults timeout:      @config.timeout,

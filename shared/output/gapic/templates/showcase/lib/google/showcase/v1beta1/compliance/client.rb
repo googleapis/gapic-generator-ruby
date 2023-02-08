@@ -486,24 +486,15 @@ module Google
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.info&.f_string
-              header_params["info.f_string"] = request.info.f_string
-            end
-            if request.info&.f_int32
-              header_params["info.f_int32"] = request.info.f_int32
-            end
-            if request.info&.f_double
-              header_params["info.f_double"] = request.info.f_double
-            end
-            if request.info&.f_bool
-              header_params["info.f_bool"] = request.info.f_bool
-            end
-            if request.info&.f_kingdom
-              header_params["info.f_kingdom"] = request.info.f_kingdom
-            end
+            extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                               .with_bindings(field: "info.f_string")
+                                                               .with_bindings(field: "info.f_int32")
+                                                               .with_bindings(field: "info.f_double")
+                                                               .with_bindings(field: "info.f_bool")
+                                                               .with_bindings(field: "info.f_kingdom")
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            header_params = extractor.extract_headers request
+            request_params_header = URI.encode_www_form header_params
             metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.rpcs.repeat_data_simple_path.timeout,
@@ -594,18 +585,13 @@ module Google
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.info&.f_string
-              header_params["info.f_string"] = request.info.f_string
-            end
-            if request.info&.f_child&.f_string
-              header_params["info.f_child.f_string"] = request.info.f_child.f_string
-            end
-            if request.info&.f_bool
-              header_params["info.f_bool"] = request.info.f_bool
-            end
+            extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                               .with_bindings(field: "info.f_string")
+                                                               .with_bindings(field: "info.f_child.f_string")
+                                                               .with_bindings(field: "info.f_bool")
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            header_params = extractor.extract_headers request
+            request_params_header = URI.encode_www_form header_params
             metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.rpcs.repeat_data_path_resource.timeout,
@@ -696,15 +682,12 @@ module Google
               gapic_version: ::Google::Showcase::VERSION
             metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-            header_params = {}
-            if request.info&.f_string
-              header_params["info.f_string"] = request.info.f_string
-            end
-            if request.info&.f_child&.f_string
-              header_params["info.f_child.f_string"] = request.info.f_child.f_string
-            end
+            extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                               .with_bindings(field: "info.f_string")
+                                                               .with_bindings(field: "info.f_child.f_string")
 
-            request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+            header_params = extractor.extract_headers request
+            request_params_header = URI.encode_www_form header_params
             metadata[:"x-goog-request-params"] ||= request_params_header
 
             options.apply_defaults timeout:      @config.rpcs.repeat_data_path_trailing_resource.timeout,
