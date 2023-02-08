@@ -208,12 +208,11 @@ module Google
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-                header_params = {}
-                if request.resource_name
-                  header_params["resource_name"] = request.resource_name
-                end
+                extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                   .with_bindings(field: "resource_name")
 
-                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                header_params = extractor.extract_headers request
+                request_params_header = URI.encode_www_form header_params
                 metadata[:"x-goog-request-params"] ||= request_params_header
 
                 options.apply_defaults timeout:      @config.rpcs.get_campaign.timeout,
@@ -344,12 +343,11 @@ module Google
                   gapic_version: ::Google::Ads::GoogleAds::VERSION
                 metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-                header_params = {}
-                if request.customer_id
-                  header_params["customer_id"] = request.customer_id
-                end
+                extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                   .with_bindings(field: "customer_id")
 
-                request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+                header_params = extractor.extract_headers request
+                request_params_header = URI.encode_www_form header_params
                 metadata[:"x-goog-request-params"] ||= request_params_header
 
                 options.apply_defaults timeout:      @config.rpcs.mutate_campaigns.timeout,

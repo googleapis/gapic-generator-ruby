@@ -211,18 +211,26 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.list_peering_routes.metadata.to_h
+                metadata = @config.rpcs.list_peering_routes.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+                extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                   .with_bindings(field: "project")
+                                                                   .with_bindings(field: "network")
+
+                header_params = extractor.extract_headers request
+                request_params_header = URI.encode_www_form header_params
+                metadata[:"x-goog-request-params"] ||= request_params_header
 
                 options.apply_defaults timeout:      @config.rpcs.list_peering_routes.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.list_peering_routes.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -284,18 +292,26 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.remove_peering.metadata.to_h
+                metadata = @config.rpcs.remove_peering.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Compute::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+
+                extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                   .with_bindings(field: "project")
+                                                                   .with_bindings(field: "network")
+
+                header_params = extractor.extract_headers request
+                request_params_header = URI.encode_www_form header_params
+                metadata[:"x-goog-request-params"] ||= request_params_header
 
                 options.apply_defaults timeout:      @config.rpcs.remove_peering.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.remove_peering.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,

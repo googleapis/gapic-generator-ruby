@@ -259,12 +259,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.create_product_set.timeout,
@@ -361,12 +360,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_product_sets.timeout,
@@ -454,12 +452,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_product_set.timeout,
@@ -551,12 +548,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.product_set&.name
-                header_params["product_set.name"] = request.product_set.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "product_set.name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.update_product_set.timeout,
@@ -642,12 +638,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_product_set.timeout,
@@ -744,12 +739,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.create_product.timeout,
@@ -846,12 +840,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_products.timeout,
@@ -939,12 +932,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_product.timeout,
@@ -1045,12 +1037,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.product&.name
-                header_params["product.name"] = request.product.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "product.name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.update_product.timeout,
@@ -1137,12 +1128,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_product.timeout,
@@ -1251,12 +1241,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.create_reference_image.timeout,
@@ -1345,12 +1334,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_reference_image.timeout,
@@ -1452,12 +1440,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_reference_images.timeout,
@@ -1545,12 +1532,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_reference_image.timeout,
@@ -1645,12 +1631,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.add_product_to_product_set.timeout,
@@ -1738,12 +1723,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.remove_product_from_product_set.timeout,
@@ -1842,12 +1826,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_products_in_product_set.timeout,
@@ -1949,12 +1932,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.import_product_sets.timeout,
@@ -2075,12 +2057,11 @@ module Google
                 gapic_version: ::Google::Cloud::Vision::V1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.purge_products.timeout,

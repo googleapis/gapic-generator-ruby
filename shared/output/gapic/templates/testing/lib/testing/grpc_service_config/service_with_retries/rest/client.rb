@@ -181,18 +181,18 @@ module Testing
             options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
-            call_metadata = @config.rpcs.service_level_retry_method.metadata.to_h
+            metadata = @config.rpcs.service_level_retry_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
-            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             options.apply_defaults timeout:      @config.rpcs.service_level_retry_method.timeout,
-                                   metadata:     call_metadata,
+                                   metadata:     metadata,
                                    retry_policy: @config.rpcs.service_level_retry_method.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,
@@ -233,18 +233,18 @@ module Testing
             options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
             # Customize the options with defaults
-            call_metadata = @config.rpcs.method_level_retry_method.metadata.to_h
+            metadata = @config.rpcs.method_level_retry_method.metadata.to_h
 
             # Set x-goog-api-client and x-goog-user-project headers
-            call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+            metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
               lib_name: @config.lib_name, lib_version: @config.lib_version,
               gapic_version: ::Testing::VERSION,
               transports_version_send: [:rest]
 
-            call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+            metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
             options.apply_defaults timeout:      @config.rpcs.method_level_retry_method.timeout,
-                                   metadata:     call_metadata,
+                                   metadata:     metadata,
                                    retry_policy: @config.rpcs.method_level_retry_method.retry_policy
 
             options.apply_defaults timeout:      @config.timeout,

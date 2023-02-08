@@ -225,12 +225,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_secrets.timeout,
@@ -320,12 +319,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.create_secret.timeout,
@@ -409,12 +407,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.add_secret_version.timeout,
@@ -494,12 +491,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_secret.timeout,
@@ -581,12 +577,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.secret&.name
-                header_params["secret.name"] = request.secret.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "secret.name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.update_secret.timeout,
@@ -667,12 +662,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.delete_secret.timeout,
@@ -768,12 +762,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.parent
-                header_params["parent"] = request.parent
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "parent")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.list_secret_versions.timeout,
@@ -860,12 +853,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_secret_version.timeout,
@@ -949,12 +941,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.access_secret_version.timeout,
@@ -1038,12 +1029,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.disable_secret_version.timeout,
@@ -1127,12 +1117,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.enable_secret_version.timeout,
@@ -1217,12 +1206,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.name
-                header_params["name"] = request.name
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "name")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.destroy_secret_version.timeout,
@@ -1312,12 +1300,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "resource")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.set_iam_policy.timeout,
@@ -1402,12 +1389,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "resource")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.get_iam_policy.timeout,
@@ -1499,12 +1485,11 @@ module Google
                 gapic_version: ::Google::Cloud::SecretManager::V1beta1::VERSION
               metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-              header_params = {}
-              if request.resource
-                header_params["resource"] = request.resource
-              end
+              extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                                 .with_bindings(field: "resource")
 
-              request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+              header_params = extractor.extract_headers request
+              request_params_header = URI.encode_www_form header_params
               metadata[:"x-goog-request-params"] ||= request_params_header
 
               options.apply_defaults timeout:      @config.rpcs.test_iam_permissions.timeout,

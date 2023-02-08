@@ -221,12 +221,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name
-            header_params["table_name"] = request.table_name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "table_name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.plain.timeout,
@@ -312,12 +311,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.resource&.resource_name
-            header_params["resource.resource_name"] = request.resource.resource_name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "resource.resource_name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.with_sub_message.timeout,
@@ -403,12 +401,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.resource&.inner&.inner_name
-            header_params["resource.inner.inner_name"] = request.resource.inner.inner_name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "resource.inner.inner_name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.with_multiple_levels.timeout,

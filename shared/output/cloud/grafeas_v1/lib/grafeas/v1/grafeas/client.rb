@@ -208,12 +208,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.get_occurrence.timeout,
@@ -307,12 +306,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.list_occurrences.timeout,
@@ -396,12 +394,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.delete_occurrence.timeout,
@@ -484,12 +481,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.create_occurrence.timeout,
@@ -572,12 +568,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.batch_create_occurrences.timeout,
@@ -662,12 +657,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.update_occurrence.timeout,
@@ -749,12 +743,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.get_occurrence_note.timeout,
@@ -835,12 +828,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.get_note.timeout,
@@ -934,12 +926,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.list_notes.timeout,
@@ -1021,12 +1012,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.delete_note.timeout,
@@ -1111,12 +1101,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.create_note.timeout,
@@ -1199,12 +1188,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.parent
-            header_params["parent"] = request.parent
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "parent")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.batch_create_notes.timeout,
@@ -1289,12 +1277,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.update_note.timeout,
@@ -1389,12 +1376,11 @@ module Grafeas
             gapic_version: ::Grafeas::V1::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.name
-            header_params["name"] = request.name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "name")
 
-          request_params_header = header_params.map { |k, v| "#{k}=#{v}" }.join("&")
+          header_params = extractor.extract_headers request
+          request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
           options.apply_defaults timeout:      @config.rpcs.list_note_occurrences.timeout,

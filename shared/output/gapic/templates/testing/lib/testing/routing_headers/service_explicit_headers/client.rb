@@ -221,11 +221,10 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name && !request.table_name.empty?
-            header_params["table_name"] = request.table_name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "table_name", header_name: "table_name")
 
+          header_params = extractor.extract_headers request
           request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -312,12 +311,10 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "table_name", header_name: "table_name", regex: %r{^(?<table_name>projects/[^/]+/instances/[^/]+/tables/[^/]+)/?$})
 
+          header_params = extractor.extract_headers request
           request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -404,14 +401,10 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_name>tables/[^/]+)/?$}.match request.table_name
-            if regex_match
-              header_params["table_name"] = regex_match["table_name".to_s]
-            end
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "table_name", header_name: "table_name", regex: %r{^projects/[^/]+/instances/[^/]+/(?<table_name>tables/[^/]+)/?$})
 
+          header_params = extractor.extract_headers request
           request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -498,40 +491,16 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.table_name
-            regex_match = %r{^(?<project_id>projects/[^/]+)/instances/[^/]+/tables/[^/]+/?$}.match request.table_name
-            if regex_match
-              header_params["project_id"] = regex_match["project_id".to_s]
-            end
-          end
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)/tables/[^/]+/?$}.match request.table_name
-            if regex_match
-              header_params["instance_id"] = regex_match["instance_id".to_s]
-            end
-          end
-          if request.table_name
-            regex_match = %r{^projects/[^/]+/instances/[^/]+/(?<table_id>tables/[^/]+)/?$}.match request.table_name
-            if regex_match
-              header_params["table_id"] = regex_match["table_id".to_s]
-            end
-          end
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
-          if request.table_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?$}.match?(request.table_name)
-            header_params["table_name"] = request.table_name
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id"] = request.app_profile_id
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id_renamed"] = request.app_profile_id
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "table_name", header_name: "project_id", regex: %r{^(?<project_id>projects/[^/]+)/instances/[^/]+/tables/[^/]+/?$})
+                                                             .with_bindings(field: "table_name", header_name: "instance_id", regex: %r{^projects/[^/]+/(?<instance_id>instances/[^/]+)/tables/[^/]+/?$})
+                                                             .with_bindings(field: "table_name", header_name: "table_id", regex: %r{^projects/[^/]+/instances/[^/]+/(?<table_id>tables/[^/]+)/?$})
+                                                             .with_bindings(field: "table_name", header_name: "table_name", regex: %r{^(?<table_name>projects/[^/]+/instances/[^/]+/tables/[^/]+)/?$})
+                                                             .with_bindings(field: "table_name", header_name: "table_name", regex: %r{^(?<table_name>projects/[^/]+/instances/[^/]+/tables/[^/]+/aliases(?:/.*)?)/?$})
+                                                             .with_bindings(field: "app_profile_id", header_name: "app_profile_id")
+                                                             .with_bindings(field: "app_profile_id", header_name: "app_profile_id_renamed")
 
+          header_params = extractor.extract_headers request
           request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 
@@ -618,15 +587,11 @@ module Testing
             gapic_version: ::Testing::VERSION
           metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
-          header_params = {}
-          if request.resource&.resource_name &&
-             %r{^projects/[^/]+/instances/[^/]+/tables/[^/]+/?$}.match?(request.resource.resource_name)
-            header_params["table_name"] = request.resource.resource_name
-          end
-          if request.app_profile_id && !request.app_profile_id.empty?
-            header_params["app_profile_id"] = request.app_profile_id
-          end
+          extractor = Gapic::RoutingHeaders::HeadersExtractor.new
+                                                             .with_bindings(field: "resource.resource_name", header_name: "table_name", regex: %r{^(?<table_name>projects/[^/]+/instances/[^/]+/tables/[^/]+)/?$})
+                                                             .with_bindings(field: "app_profile_id", header_name: "app_profile_id")
 
+          header_params = extractor.extract_headers request
           request_params_header = URI.encode_www_form header_params
           metadata[:"x-goog-request-params"] ||= request_params_header
 

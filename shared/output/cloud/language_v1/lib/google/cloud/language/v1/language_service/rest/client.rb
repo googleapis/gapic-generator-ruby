@@ -202,18 +202,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.analyze_sentiment.metadata.to_h
+                metadata = @config.rpcs.analyze_sentiment.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.analyze_sentiment.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.analyze_sentiment.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -268,18 +268,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.analyze_entities.metadata.to_h
+                metadata = @config.rpcs.analyze_entities.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.analyze_entities.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.analyze_entities.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -333,18 +333,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.analyze_entity_sentiment.metadata.to_h
+                metadata = @config.rpcs.analyze_entity_sentiment.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.analyze_entity_sentiment.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.analyze_entity_sentiment.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -399,18 +399,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.analyze_syntax.metadata.to_h
+                metadata = @config.rpcs.analyze_syntax.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.analyze_syntax.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.analyze_syntax.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -461,18 +461,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.classify_text.metadata.to_h
+                metadata = @config.rpcs.classify_text.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.classify_text.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.classify_text.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
@@ -528,18 +528,18 @@ module Google
                 options = ::Gapic::CallOptions.new(**options.to_h) if options.respond_to? :to_h
 
                 # Customize the options with defaults
-                call_metadata = @config.rpcs.annotate_text.metadata.to_h
+                metadata = @config.rpcs.annotate_text.metadata.to_h
 
                 # Set x-goog-api-client and x-goog-user-project headers
-                call_metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
+                metadata[:"x-goog-api-client"] ||= ::Gapic::Headers.x_goog_api_client \
                   lib_name: @config.lib_name, lib_version: @config.lib_version,
                   gapic_version: ::Google::Cloud::Language::V1::VERSION,
                   transports_version_send: [:rest]
 
-                call_metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
+                metadata[:"x-goog-user-project"] = @quota_project_id if @quota_project_id
 
                 options.apply_defaults timeout:      @config.rpcs.annotate_text.timeout,
-                                       metadata:     call_metadata,
+                                       metadata:     metadata,
                                        retry_policy: @config.rpcs.annotate_text.retry_policy
 
                 options.apply_defaults timeout:      @config.timeout,
