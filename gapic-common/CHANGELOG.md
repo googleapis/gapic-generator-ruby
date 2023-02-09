@@ -1,5 +1,11 @@
 # Release History
 
+### 0.17.0 (2023-02-09)
+
+#### Features
+
+* add a transport operation class in Rest ([#911](https://github.com/googleapis/gapic-generator-ruby/issues/911)) 
+
 ### 0.16.0 (2022-12-12)
 
 #### Features
