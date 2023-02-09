@@ -96,27 +96,32 @@ class ::Google::Cloud::Compute::V1::Networks::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_peering_routes direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_peering_routes ::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_peering_routes({ direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_peering_routes(::Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new(direction: direction, filter: filter, max_results: max_results, network: network, order_by: order_by, page_token: page_token, peering_name: peering_name, project: project, region: region, return_partial_success: return_partial_success), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -153,27 +158,32 @@ class ::Google::Cloud::Compute::V1::Networks::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.remove_peering network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.remove_peering ::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.remove_peering({ network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.remove_peering(::Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new(network: network, networks_remove_peering_request_resource: networks_remove_peering_request_resource, project: project, request_id: request_id), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

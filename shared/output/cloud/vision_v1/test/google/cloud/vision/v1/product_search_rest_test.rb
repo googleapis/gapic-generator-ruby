@@ -89,27 +89,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.create_product_set({ parent: parent, product_set: product_set, product_set_id: product_set_id }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.create_product_set parent: parent, product_set: product_set, product_set_id: product_set_id do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.create_product_set ::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.create_product_set({ parent: parent, product_set: product_set, product_set_id: product_set_id }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.create_product_set(::Google::Cloud::Vision::V1::CreateProductSetRequest.new(parent: parent, product_set: product_set, product_set_id: product_set_id), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -145,27 +150,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.list_product_sets({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_product_sets parent: parent, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_product_sets ::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_product_sets({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_product_sets(::Google::Cloud::Vision::V1::ListProductSetsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -199,27 +209,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.get_product_set({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_product_set name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_product_set ::Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_product_set({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_product_set(::Google::Cloud::Vision::V1::GetProductSetRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -254,27 +269,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.update_product_set({ product_set: product_set, update_mask: update_mask }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.update_product_set product_set: product_set, update_mask: update_mask do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.update_product_set ::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.update_product_set({ product_set: product_set, update_mask: update_mask }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.update_product_set(::Google::Cloud::Vision::V1::UpdateProductSetRequest.new(product_set: product_set, update_mask: update_mask), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -308,27 +328,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.delete_product_set({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.delete_product_set name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.delete_product_set ::Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.delete_product_set({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.delete_product_set(::Google::Cloud::Vision::V1::DeleteProductSetRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -364,27 +389,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.create_product({ parent: parent, product: product, product_id: product_id }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.create_product parent: parent, product: product, product_id: product_id do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.create_product ::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.create_product({ parent: parent, product: product, product_id: product_id }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.create_product(::Google::Cloud::Vision::V1::CreateProductRequest.new(parent: parent, product: product, product_id: product_id), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -420,27 +450,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.list_products({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_products parent: parent, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_products ::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_products({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_products(::Google::Cloud::Vision::V1::ListProductsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -474,27 +509,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.get_product({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_product name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_product ::Google::Cloud::Vision::V1::GetProductRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_product({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_product(::Google::Cloud::Vision::V1::GetProductRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -529,27 +569,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.update_product({ product: product, update_mask: update_mask }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.update_product product: product, update_mask: update_mask do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.update_product ::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.update_product({ product: product, update_mask: update_mask }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.update_product(::Google::Cloud::Vision::V1::UpdateProductRequest.new(product: product, update_mask: update_mask), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -583,27 +628,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.delete_product({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.delete_product name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.delete_product ::Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.delete_product({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.delete_product(::Google::Cloud::Vision::V1::DeleteProductRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -639,27 +689,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.create_reference_image({ parent: parent, reference_image: reference_image, reference_image_id: reference_image_id }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.create_reference_image parent: parent, reference_image: reference_image, reference_image_id: reference_image_id do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.create_reference_image ::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.create_reference_image({ parent: parent, reference_image: reference_image, reference_image_id: reference_image_id }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.create_reference_image(::Google::Cloud::Vision::V1::CreateReferenceImageRequest.new(parent: parent, reference_image: reference_image, reference_image_id: reference_image_id), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -693,27 +748,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.delete_reference_image({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.delete_reference_image name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.delete_reference_image ::Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.delete_reference_image({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.delete_reference_image(::Google::Cloud::Vision::V1::DeleteReferenceImageRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -749,27 +809,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.list_reference_images({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_reference_images parent: parent, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_reference_images ::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_reference_images({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_reference_images(::Google::Cloud::Vision::V1::ListReferenceImagesRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -803,27 +868,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.get_reference_image({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_reference_image name: name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_reference_image ::Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_reference_image({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_reference_image(::Google::Cloud::Vision::V1::GetReferenceImageRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -858,27 +928,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.add_product_to_product_set({ name: name, product: product }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.add_product_to_product_set name: name, product: product do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.add_product_to_product_set ::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.add_product_to_product_set({ name: name, product: product }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.add_product_to_product_set(::Google::Cloud::Vision::V1::AddProductToProductSetRequest.new(name: name, product: product), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -913,27 +988,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.remove_product_from_product_set({ name: name, product: product }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.remove_product_from_product_set name: name, product: product do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.remove_product_from_product_set ::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.remove_product_from_product_set({ name: name, product: product }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.remove_product_from_product_set(::Google::Cloud::Vision::V1::RemoveProductFromProductSetRequest.new(name: name, product: product), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -969,27 +1049,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.list_products_in_product_set({ name: name, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_products_in_product_set name: name, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_products_in_product_set ::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_products_in_product_set({ name: name, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_products_in_product_set(::Google::Cloud::Vision::V1::ListProductsInProductSetRequest.new(name: name, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -1024,27 +1109,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.import_product_sets({ parent: parent, input_config: input_config }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.import_product_sets parent: parent, input_config: input_config do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.import_product_sets ::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.import_product_sets({ parent: parent, input_config: input_config }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.import_product_sets(::Google::Cloud::Vision::V1::ImportProductSetsRequest.new(parent: parent, input_config: input_config), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -1080,27 +1170,32 @@ class ::Google::Cloud::Vision::V1::ProductSearch::Rest::ClientTest < Minitest::T
 
         # Use hash object
         client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent, force: force }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.purge_products product_set_purge_config: product_set_purge_config, parent: parent, force: force do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.purge_products ::Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config, parent: parent, force: force) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.purge_products({ product_set_purge_config: product_set_purge_config, parent: parent, force: force }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.purge_products(::Google::Cloud::Vision::V1::PurgeProductsRequest.new(product_set_purge_config: product_set_purge_config, parent: parent, force: force), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

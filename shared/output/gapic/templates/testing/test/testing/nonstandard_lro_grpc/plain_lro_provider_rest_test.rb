@@ -96,27 +96,32 @@ class ::Testing::NonstandardLroGrpc::PlainLroProvider::Rest::ClientTest < Minite
 
         # Use hash object
         client.get({ initial_request_id: initial_request_id, lro_name: lro_name }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get initial_request_id: initial_request_id, lro_name: lro_name do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get ::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get({ initial_request_id: initial_request_id, lro_name: lro_name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get(::Testing::NonstandardLroGrpc::LroGetRequest.new(initial_request_id: initial_request_id, lro_name: lro_name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

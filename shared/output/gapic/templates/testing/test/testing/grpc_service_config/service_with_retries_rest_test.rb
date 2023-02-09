@@ -94,22 +94,26 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minit
 
         # Use hash object
         client.service_level_retry_method({  }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.service_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.service_level_retry_method({  }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.service_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -142,22 +146,26 @@ class ::Testing::GrpcServiceConfig::ServiceWithRetries::Rest::ClientTest < Minit
 
         # Use hash object
         client.method_level_retry_method({  }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.method_level_retry_method ::Testing::GrpcServiceConfig::Request.new() do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.method_level_retry_method({  }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.method_level_retry_method(::Testing::GrpcServiceConfig::Request.new(), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

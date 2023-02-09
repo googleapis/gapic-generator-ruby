@@ -98,27 +98,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.echo({ content: content, severity: severity, header: header, other_header: other_header }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.echo content: content, severity: severity, header: header, other_header: other_header do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.echo ::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.echo({ content: content, severity: severity, header: header, other_header: other_header }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.echo(::Google::Showcase::V1beta1::EchoRequest.new(content: content, severity: severity, header: header, other_header: other_header), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -153,27 +158,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.expand({ content: content, error: error }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end.first
 
         # Use named arguments
         client.expand content: content, error: error do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object
         client.expand ::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end.first
 
         # Use hash object with options
         client.expand({ content: content, error: error }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object with options
         client.expand(::Google::Showcase::V1beta1::ExpandRequest.new(content: content, error: error), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end.first
 
         # Verify method calls
@@ -209,27 +219,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.paged_expand({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.paged_expand content: content, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.paged_expand ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.paged_expand({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.paged_expand(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -265,27 +280,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.paged_expand_legacy content: content, max_results: max_results, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.paged_expand_legacy ::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.paged_expand_legacy({ content: content, max_results: max_results, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.paged_expand_legacy(::Google::Showcase::V1beta1::PagedExpandLegacyRequest.new(content: content, max_results: max_results, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -321,27 +341,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.paged_expand_legacy_mapped content: content, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.paged_expand_legacy_mapped ::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.paged_expand_legacy_mapped({ content: content, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.paged_expand_legacy_mapped(::Google::Showcase::V1beta1::PagedExpandRequest.new(content: content, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -376,27 +401,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.wait({ end_time: end_time, error: error }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.wait end_time: end_time, error: error do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.wait ::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.wait({ end_time: end_time, error: error }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.wait(::Google::Showcase::V1beta1::WaitRequest.new(end_time: end_time, error: error), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -431,27 +461,32 @@ class ::Google::Showcase::V1beta1::Echo::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.block({ response_delay: response_delay, error: error }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.block response_delay: response_delay, error: error do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.block ::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.block({ response_delay: response_delay, error: error }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.block(::Google::Showcase::V1beta1::BlockRequest.new(response_delay: response_delay, error: error), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

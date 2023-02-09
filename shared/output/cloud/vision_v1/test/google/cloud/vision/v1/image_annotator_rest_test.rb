@@ -88,27 +88,32 @@ class ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ClientTest < Minitest::
 
         # Use hash object
         client.batch_annotate_images({ requests: requests, parent: parent }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.batch_annotate_images requests: requests, parent: parent do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.batch_annotate_images ::Google::Cloud::Vision::V1::BatchAnnotateImagesRequest.new(requests: requests, parent: parent) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.batch_annotate_images({ requests: requests, parent: parent }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.batch_annotate_images(::Google::Cloud::Vision::V1::BatchAnnotateImagesRequest.new(requests: requests, parent: parent), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -143,27 +148,32 @@ class ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ClientTest < Minitest::
 
         # Use hash object
         client.batch_annotate_files({ requests: requests, parent: parent }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.batch_annotate_files requests: requests, parent: parent do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.batch_annotate_files ::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new(requests: requests, parent: parent) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.batch_annotate_files({ requests: requests, parent: parent }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.batch_annotate_files(::Google::Cloud::Vision::V1::BatchAnnotateFilesRequest.new(requests: requests, parent: parent), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -199,27 +209,32 @@ class ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ClientTest < Minitest::
 
         # Use hash object
         client.async_batch_annotate_images({ requests: requests, output_config: output_config, parent: parent }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.async_batch_annotate_images requests: requests, output_config: output_config, parent: parent do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.async_batch_annotate_images ::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest.new(requests: requests, output_config: output_config, parent: parent) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.async_batch_annotate_images({ requests: requests, output_config: output_config, parent: parent }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.async_batch_annotate_images(::Google::Cloud::Vision::V1::AsyncBatchAnnotateImagesRequest.new(requests: requests, output_config: output_config, parent: parent), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -254,27 +269,32 @@ class ::Google::Cloud::Vision::V1::ImageAnnotator::Rest::ClientTest < Minitest::
 
         # Use hash object
         client.async_batch_annotate_files({ requests: requests, parent: parent }) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.async_batch_annotate_files requests: requests, parent: parent do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.async_batch_annotate_files ::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest.new(requests: requests, parent: parent) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.async_batch_annotate_files({ requests: requests, parent: parent }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.async_batch_annotate_files(::Google::Cloud::Vision::V1::AsyncBatchAnnotateFilesRequest.new(requests: requests, parent: parent), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_kind_of ::Gapic::Rest::TransportOperation, response
+        assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
