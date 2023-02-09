@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.21.0 / 2023-02-09
+
+* Includes changes from gapic-generator 0.21.0
+* Feature: Implemented enough of SnippetGen phase 2 to generate the initial test case
+
 ### 0.20.0 / 2023-01-19
 
 * Includes changes from gapic-generator 0.20.0

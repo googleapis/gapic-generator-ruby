@@ -1,5 +1,12 @@
 # Release History for gapic-generator-cloud
 
+### 0.21.0 / 2023-02-09
+
+* Includes changes from gapic-generator 0.21.0
+* Feature: Load and interpret snippetgen phase 2 config data
+* Feature: Implemented enough of SnippetGen phase 2 to generate the initial test case
+* Feature: add a transport operation class in Rest
+
 ### 0.20.0 / 2023-01-19
 
 * Includes changes from gapic-generator 0.20.0
