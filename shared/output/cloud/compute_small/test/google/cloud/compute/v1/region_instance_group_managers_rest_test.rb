@@ -91,32 +91,27 @@ class ::Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::ClientTes
 
         # Use hash object
         client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.resize instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.resize ::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.resize({ instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size }, call_options) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.resize(::Google::Cloud::Compute::V1::ResizeRegionInstanceGroupManagerRequest.new(instance_group_manager: instance_group_manager, project: project, region: region, request_id: request_id, size: size), call_options) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

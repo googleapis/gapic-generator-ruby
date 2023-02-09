@@ -96,32 +96,27 @@ class ::Testing::NonstandardLroGrpc::AnotherLroProvider::Rest::ClientTest < Mini
 
         # Use hash object
         client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_another another_request_id: another_request_id, another_lro_name: another_lro_name do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_another ::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_another({ another_request_id: another_request_id, another_lro_name: another_lro_name }, call_options) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_another(::Testing::NonstandardLroGrpc::LroAnotherGetRequest.new(another_request_id: another_request_id, another_lro_name: another_lro_name), call_options) do |_result, response|
-          assert_kind_of ::Gapic::Rest::TransportOperation, response
-        assert_equal http_response, response.underlying_op
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
