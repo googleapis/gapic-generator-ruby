@@ -54,9 +54,9 @@ module Testing
           # @param options [::Gapic::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
           #
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::NonstandardLroGrpc::NonstandardOperation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #   A result object deserialized from the server's reply
@@ -77,10 +77,11 @@ module Testing
               params:  query_string_params,
               options: options
             )
+            operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Testing::NonstandardLroGrpc::NonstandardOperation.decode_json response.body,
                                                                                      ignore_unknown_fields: true
 
-            yield result, response if block_given?
+            yield result, operation if block_given?
             result
           end
 
@@ -92,9 +93,9 @@ module Testing
           # @param options [::Gapic::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
           #
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::NonstandardLroGrpc::NonstandardOperation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #   A result object deserialized from the server's reply
@@ -115,10 +116,11 @@ module Testing
               params:  query_string_params,
               options: options
             )
+            operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Testing::NonstandardLroGrpc::NonstandardOperation.decode_json response.body,
                                                                                      ignore_unknown_fields: true
 
-            yield result, response if block_given?
+            yield result, operation if block_given?
             result
           end
 
@@ -130,9 +132,9 @@ module Testing
           # @param options [::Gapic::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
           #
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::NonstandardLroGrpc::NonstandardOperation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #   A result object deserialized from the server's reply
@@ -153,10 +155,11 @@ module Testing
               params:  query_string_params,
               options: options
             )
+            operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Testing::NonstandardLroGrpc::NonstandardOperation.decode_json response.body,
                                                                                      ignore_unknown_fields: true
 
-            yield result, response if block_given?
+            yield result, operation if block_given?
             result
           end
 
@@ -168,9 +171,9 @@ module Testing
           # @param options [::Gapic::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
           #
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Google::Longrunning::Operation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Google::Longrunning::Operation]
           #   A result object deserialized from the server's reply
@@ -191,9 +194,10 @@ module Testing
               params:  query_string_params,
               options: options
             )
+            operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Google::Longrunning::Operation.decode_json response.body, ignore_unknown_fields: true
 
-            yield result, response if block_given?
+            yield result, operation if block_given?
             result
           end
 
@@ -205,9 +209,9 @@ module Testing
           # @param options [::Gapic::CallOptions]
           #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
           #
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::NonstandardLroGrpc::Response]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::NonstandardLroGrpc::Response]
           #   A result object deserialized from the server's reply
@@ -228,9 +232,10 @@ module Testing
               params:  query_string_params,
               options: options
             )
+            operation = ::Gapic::Rest::TransportOperation.new response
             result = ::Testing::NonstandardLroGrpc::Response.decode_json response.body, ignore_unknown_fields: true
 
-            yield result, response if block_given?
+            yield result, operation if block_given?
             result
           end
 

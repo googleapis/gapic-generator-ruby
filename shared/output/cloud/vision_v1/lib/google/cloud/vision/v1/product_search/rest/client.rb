@@ -210,9 +210,9 @@ module Google
               #     attempt to use this value as the resource id. If it is already in use, an
               #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
               #     long. It cannot contain the character `/`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::ProductSet]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::ProductSet]
               #
@@ -244,8 +244,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.create_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.create_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -283,9 +283,9 @@ module Google
               #     The maximum number of items to return. Default 10, maximum 100.
               #   @param page_token [::String]
               #     The next_page_token returned from a previous List request, if any.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::ProductSet>]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::ProductSet>]
               #
@@ -317,9 +317,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.list_product_sets request, options do |result, response|
+                @product_search_stub.list_product_sets request, options do |result, operation|
                   result = ::Gapic::Rest::PagedEnumerable.new @product_search_stub, :list_product_sets, "product_sets", request, result, options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -353,9 +353,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::ProductSet]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::ProductSet]
               #
@@ -387,8 +387,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.get_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.get_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -427,9 +427,9 @@ module Google
               #     update.
               #     If update_mask isn't specified, all mutable fields are to be updated.
               #     Valid mask path is `display_name`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::ProductSet]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::ProductSet]
               #
@@ -461,8 +461,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.update_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.update_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -495,9 +495,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/productSets/PRODUCT_SET_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Protobuf::Empty]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Protobuf::Empty]
               #
@@ -529,8 +529,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.delete_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.delete_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -574,9 +574,9 @@ module Google
               #     attempt to use this value as the resource id. If it is already in use, an
               #     error is returned with code ALREADY_EXISTS. Must be at most 128 characters
               #     long. It cannot contain the character `/`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::Product]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::Product]
               #
@@ -608,8 +608,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.create_product request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.create_product request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -647,9 +647,9 @@ module Google
               #     The maximum number of items to return. Default 10, maximum 100.
               #   @param page_token [::String]
               #     The next_page_token returned from a previous List request, if any.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::Product>]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::Product>]
               #
@@ -681,9 +681,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.list_products request, options do |result, response|
+                @product_search_stub.list_products request, options do |result, operation|
                   result = ::Gapic::Rest::PagedEnumerable.new @product_search_stub, :list_products, "products", request, result, options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -717,9 +717,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::Product]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::Product]
               #
@@ -751,8 +751,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.get_product request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.get_product request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -800,9 +800,9 @@ module Google
               #     If update_mask isn't specified, all mutable fields are to be updated.
               #     Valid mask paths include `product_labels`, `display_name`, and
               #     `description`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::Product]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::Product]
               #
@@ -834,8 +834,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.update_product request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.update_product request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -869,9 +869,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Protobuf::Empty]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Protobuf::Empty]
               #
@@ -903,8 +903,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.delete_product request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.delete_product request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -960,9 +960,9 @@ module Google
               #     the server will attempt to use this value as the resource id. If it is
               #     already in use, an error is returned with code ALREADY_EXISTS. Must be at
               #     most 128 characters long. It cannot contain the character `/`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::ReferenceImage]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::ReferenceImage]
               #
@@ -994,8 +994,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.create_reference_image request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.create_reference_image request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1031,9 +1031,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Protobuf::Empty]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Protobuf::Empty]
               #
@@ -1065,8 +1065,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.delete_reference_image request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.delete_reference_image request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1109,9 +1109,9 @@ module Google
               #     of `nextPageToken` returned in a previous reference image list request.
               #
               #     Defaults to the first page if not specified.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::ReferenceImage>]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::ReferenceImage>]
               #
@@ -1143,9 +1143,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.list_reference_images request, options do |result, response|
+                @product_search_stub.list_reference_images request, options do |result, operation|
                   result = ::Gapic::Rest::PagedEnumerable.new @product_search_stub, :list_reference_images, "reference_images", request, result, options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1179,9 +1179,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID/referenceImages/IMAGE_ID`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::ReferenceImage]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::ReferenceImage]
               #
@@ -1213,8 +1213,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.get_reference_image request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.get_reference_image request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1256,9 +1256,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Protobuf::Empty]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Protobuf::Empty]
               #
@@ -1290,8 +1290,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.add_product_to_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.add_product_to_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1326,9 +1326,9 @@ module Google
               #
               #     Format is:
               #     `projects/PROJECT_ID/locations/LOC_ID/products/PRODUCT_ID`
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Protobuf::Empty]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Protobuf::Empty]
               #
@@ -1360,8 +1360,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.remove_product_from_product_set request, options do |result, response|
-                  yield result, response if block_given?
+                @product_search_stub.remove_product_from_product_set request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1401,9 +1401,9 @@ module Google
               #     The maximum number of items to return. Default 10, maximum 100.
               #   @param page_token [::String]
               #     The next_page_token returned from a previous List request, if any.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::Product>]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Rest::PagedEnumerable<::Google::Cloud::Vision::V1::Product>]
               #
@@ -1435,9 +1435,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.list_products_in_product_set request, options do |result, response|
+                @product_search_stub.list_products_in_product_set request, options do |result, operation|
                   result = ::Gapic::Rest::PagedEnumerable.new @product_search_stub, :list_products_in_product_set, "products", request, result, options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1478,9 +1478,9 @@ module Google
               #     Format is `projects/PROJECT_ID/locations/LOC_ID`.
               #   @param input_config [::Google::Cloud::Vision::V1::ImportProductSetsInputConfig, ::Hash]
               #     Required. The input content for the list of requests.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Operation]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Operation]
               #
@@ -1512,9 +1512,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.import_product_sets request, options do |result, response|
+                @product_search_stub.import_product_sets request, options do |result, operation|
                   result = ::Gapic::Operation.new result, @operations_client, options: options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -1574,9 +1574,9 @@ module Google
               #   @param force [::Boolean]
               #     The default value is false. Override this value to true to actually perform
               #     the purge.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Operation]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Operation]
               #
@@ -1608,9 +1608,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @product_search_stub.purge_products request, options do |result, response|
+                @product_search_stub.purge_products request, options do |result, operation|
                   result = ::Gapic::Operation.new result, @operations_client, options: options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e

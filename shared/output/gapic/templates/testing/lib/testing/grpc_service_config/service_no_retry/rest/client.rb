@@ -155,9 +155,9 @@ module Testing
           #     parameters, or to keep all the default parameter values, pass an empty Hash.
           #   @param options [::Gapic::CallOptions, ::Hash]
           #     Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::GrpcServiceConfig::Response]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::GrpcServiceConfig::Response]
           #
@@ -189,8 +189,8 @@ module Testing
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @service_no_retry_stub.no_retry_method request, options do |result, response|
-              yield result, response if block_given?
+            @service_no_retry_stub.no_retry_method request, options do |result, operation|
+              yield result, operation if block_given?
               return result
             end
           rescue ::Faraday::Error => e

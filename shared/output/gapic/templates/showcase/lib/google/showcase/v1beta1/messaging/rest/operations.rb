@@ -136,9 +136,9 @@ module Google
             #     The standard list page size.
             #   @param page_token [::String]
             #     The standard list page token.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
@@ -170,10 +170,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.list_operations request, options do |result, response|
+              @operations_stub.list_operations request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @operations_stub, :list_operations, "operations", request,
                                                             result, options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -202,9 +202,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
@@ -236,9 +236,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.get_operation request, options do |result, response|
+              @operations_stub.get_operation request, options do |result, operation|
                 result = ::Gapic::Operation.new result, @operations_client, options: options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -268,9 +268,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -302,8 +302,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.delete_operation request, options do |result, response|
-                yield result, response if block_given?
+              @operations_stub.delete_operation request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -339,9 +339,9 @@ module Google
             #
             #   @param name [::String]
             #     The name of the operation resource to be cancelled.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -373,8 +373,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @operations_stub.cancel_operation request, options do |result, response|
-                yield result, response if block_given?
+              @operations_stub.cancel_operation request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -565,9 +565,9 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Longrunning::ListOperationsResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Longrunning::ListOperationsResponse]
             #   A result object deserialized from the server's reply
@@ -588,10 +588,11 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Longrunning::ListOperationsResponse.decode_json response.body,
                                                                                  ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -603,9 +604,9 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Longrunning::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Longrunning::Operation]
             #   A result object deserialized from the server's reply
@@ -626,9 +627,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Longrunning::Operation.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -640,9 +642,9 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
@@ -663,9 +665,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
@@ -677,9 +680,9 @@ module Google
             # @param options [::Gapic::CallOptions]
             #   Overrides the default settings for this call, e.g, timeout, retries etc. Optional.
             #
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #   A result object deserialized from the server's reply
@@ -700,9 +703,10 @@ module Google
                 params:  query_string_params,
                 options: options
               )
+              operation = ::Gapic::Rest::TransportOperation.new response
               result = ::Google::Protobuf::Empty.decode_json response.body, ignore_unknown_fields: true
 
-              yield result, response if block_given?
+              yield result, operation if block_given?
               result
             end
 
