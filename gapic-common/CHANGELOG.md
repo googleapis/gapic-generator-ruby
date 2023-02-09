@@ -1,5 +1,11 @@
 # Release History
 
+### 0.17.1 (2023-02-09)
+
+#### Bug Fixes
+
+* add new class to the rest imports ([#913](https://github.com/googleapis/gapic-generator-ruby/issues/913)) 
+
 ### 0.17.0 (2023-02-09)
 
 #### Features
