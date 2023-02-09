@@ -15,19 +15,21 @@
 module Gapic
   module Rest
     ##
-    # Surfaces information from the underlying transport library.
+    # Surfaces information about the active call
+    # from the underlying transport library.
     #
-    # @!attribute [r] underlying_op
-    #   The underlying transport's library operation object.
-    #   @return [::Object, nil, ::Faraday::Response]
     class TransportOperation
+      ##
+      # @private
+      # The underlying transport's library object that describes the active call, if any.
+      # It is not guaranteed to be any specific type, and its value is not guarateed to be stable.
+      # @return [::Object, nil, ::Faraday::Response]
       attr_reader :underlying_op
 
       ##
       # @private
       # @param request [::Object, nil, ::Faraday::Response]
-      #  The underlying transport's library operation object.
-      #
+      #   The underlying transport's library object that describes the active call, if any.
       def initialize underlying_op
         @underlying_op = underlying_op
       end
