@@ -8,7 +8,7 @@ query_string_params = if query_string_params.any?
                       end
 
 <%- if method.server_streaming? -%>
-@client_stub.make_http_request(
+response = @client_stub.make_http_request(
   verb,
   uri: uri,
   body: body || "",
@@ -17,6 +17,7 @@ query_string_params = if query_string_params.any?
   is_server_streaming: true,
   &block
 )
+::Gapic::Rest::TransportOperation.new response
 <%- else -%>
 response = @client_stub.make_http_request(
   verb,
@@ -25,8 +26,9 @@ response = @client_stub.make_http_request(
   params:  query_string_params,
   options: options
 )
+operation = ::Gapic::Rest::TransportOperation.new response
 result = <%= method.return_type %>.decode_json response.body, ignore_unknown_fields: true
 
-yield result, response if block_given?
+yield result, operation if block_given?
 result
 <%- end -%>
