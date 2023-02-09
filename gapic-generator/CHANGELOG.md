@@ -1,5 +1,14 @@
 # Release History for gapic-generator
 
+### 0.21.0 / 2023-02-09
+
+* Feature: Load and interpret snippetgen phase 2 config data
+* Feature: Added SnippetGen phase2 implementation
+* Feature: Reimplemented snippetgen phase 1 using phase 2
+* Feature: Implemented enough of SnippetGen phase 2 to generate the initial test case
+* Feature: add a transport operation class in Rest
+* Fix: yield TransportOperation class instead of Faraday's
+
 ### 0.20.0 / 2023-01-19
 
 * Feature: migrate generator bazel (including prebuilts) to 3.1.3
