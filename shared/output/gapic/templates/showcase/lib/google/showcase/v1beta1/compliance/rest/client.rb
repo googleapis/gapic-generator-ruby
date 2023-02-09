@@ -168,9 +168,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -202,8 +202,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -245,9 +245,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -279,8 +279,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_info request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_info request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -321,9 +321,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -355,8 +355,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_query request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_query request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -398,9 +398,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -432,8 +432,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_simple_path request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_simple_path request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -473,9 +473,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -507,8 +507,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_path_resource request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_path_resource request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -548,9 +548,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -582,8 +582,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_path_trailing_resource request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_path_trailing_resource request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -623,9 +623,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -657,8 +657,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_put request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_put request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -698,9 +698,9 @@ module Google
             #   @param p_int32 [::Integer]
             #   @param p_int64 [::Integer]
             #   @param p_double [::Float]
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::RepeatResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::RepeatResponse]
             #
@@ -732,8 +732,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @compliance_stub.repeat_data_body_patch request, options do |result, response|
-                yield result, response if block_given?
+              @compliance_stub.repeat_data_body_patch request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e

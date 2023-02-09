@@ -155,9 +155,9 @@ module Google
             #
             #   @param user [::Google::Showcase::V1beta1::User, ::Hash]
             #     The user to create.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::User]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::User]
             #
@@ -189,8 +189,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @identity_stub.create_user request, options do |result, response|
-                yield result, response if block_given?
+              @identity_stub.create_user request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -217,9 +217,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested user.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::User]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::User]
             #
@@ -251,8 +251,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @identity_stub.get_user request, options do |result, response|
-                yield result, response if block_given?
+              @identity_stub.get_user request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -282,9 +282,9 @@ module Google
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
             #     The field mask to determine wich fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::User]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::User]
             #
@@ -316,8 +316,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @identity_stub.update_user request, options do |result, response|
-                yield result, response if block_given?
+              @identity_stub.update_user request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -344,9 +344,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the user to delete.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -378,8 +378,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @identity_stub.delete_user request, options do |result, response|
-                yield result, response if block_given?
+              @identity_stub.delete_user request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -411,9 +411,9 @@ module Google
             #     The value of google.showcase.v1beta1.ListUsersResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Identity\ListUsers` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::User>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::User>]
             #
@@ -445,10 +445,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @identity_stub.list_users request, options do |result, response|
+              @identity_stub.list_users request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @identity_stub, :list_users, "users", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e

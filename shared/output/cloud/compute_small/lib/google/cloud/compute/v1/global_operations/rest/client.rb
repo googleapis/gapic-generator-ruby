@@ -155,9 +155,9 @@ module Google
               #     Name of the Operations resource to delete.
               #   @param project [::String]
               #     Project ID for this request.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Compute::V1::DeleteGlobalOperationResponse]
               #
@@ -189,8 +189,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @global_operations_stub.delete request, options do |result, response|
-                  yield result, response if block_given?
+                @global_operations_stub.delete request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -219,9 +219,9 @@ module Google
               #     Name of the Operations resource to return.
               #   @param project [::String]
               #     Project ID for this request.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Compute::V1::Operation]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Compute::V1::Operation]
               #
@@ -253,8 +253,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @global_operations_stub.get request, options do |result, response|
-                  yield result, response if block_given?
+                @global_operations_stub.get request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e

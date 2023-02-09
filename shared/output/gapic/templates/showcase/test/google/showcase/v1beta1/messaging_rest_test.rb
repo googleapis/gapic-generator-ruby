@@ -95,27 +95,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.create_room({ room: room }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.create_room room: room do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.create_room ::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.create_room({ room: room }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.create_room(::Google::Showcase::V1beta1::CreateRoomRequest.new(room: room), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -149,27 +149,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.get_room({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_room name: name do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_room ::Google::Showcase::V1beta1::GetRoomRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_room({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_room(::Google::Showcase::V1beta1::GetRoomRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -204,27 +204,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.update_room({ room: room, update_mask: update_mask }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.update_room room: room, update_mask: update_mask do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.update_room ::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.update_room({ room: room, update_mask: update_mask }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.update_room(::Google::Showcase::V1beta1::UpdateRoomRequest.new(room: room, update_mask: update_mask), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -258,27 +258,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.delete_room({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.delete_room name: name do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.delete_room ::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.delete_room({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.delete_room(::Google::Showcase::V1beta1::DeleteRoomRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -313,27 +313,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.list_rooms({ page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_rooms page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_rooms ::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_rooms({ page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_rooms(::Google::Showcase::V1beta1::ListRoomsRequest.new(page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -368,27 +368,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.create_blurb({ parent: parent, blurb: blurb }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.create_blurb parent: parent, blurb: blurb do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.create_blurb ::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.create_blurb({ parent: parent, blurb: blurb }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.create_blurb(::Google::Showcase::V1beta1::CreateBlurbRequest.new(parent: parent, blurb: blurb), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -422,27 +422,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.get_blurb({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.get_blurb name: name do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.get_blurb ::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.get_blurb({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.get_blurb(::Google::Showcase::V1beta1::GetBlurbRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -477,27 +477,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.update_blurb({ blurb: blurb, update_mask: update_mask }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.update_blurb blurb: blurb, update_mask: update_mask do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.update_blurb ::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.update_blurb({ blurb: blurb, update_mask: update_mask }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.update_blurb(::Google::Showcase::V1beta1::UpdateBlurbRequest.new(blurb: blurb, update_mask: update_mask), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -531,27 +531,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.delete_blurb({ name: name }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.delete_blurb name: name do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.delete_blurb ::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.delete_blurb({ name: name }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.delete_blurb(::Google::Showcase::V1beta1::DeleteBlurbRequest.new(name: name), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -587,27 +587,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.list_blurbs parent: parent, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.list_blurbs ::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.list_blurbs({ parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.list_blurbs(::Google::Showcase::V1beta1::ListBlurbsRequest.new(parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -644,27 +644,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.search_blurbs query: query, parent: parent, page_size: page_size, page_token: page_token do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.search_blurbs ::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.search_blurbs({ query: query, parent: parent, page_size: page_size, page_token: page_token }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.search_blurbs(::Google::Showcase::V1beta1::SearchBlurbsRequest.new(query: query, parent: parent, page_size: page_size, page_token: page_token), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -699,27 +699,27 @@ class ::Google::Showcase::V1beta1::Messaging::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.stream_blurbs({ name: name, expire_time: expire_time }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end.first
 
         # Use named arguments
         client.stream_blurbs name: name, expire_time: expire_time do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object
         client.stream_blurbs ::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end.first
 
         # Use hash object with options
         client.stream_blurbs({ name: name, expire_time: expire_time }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end.first
 
         # Use protobuf object with options
         client.stream_blurbs(::Google::Showcase::V1beta1::StreamBlurbsRequest.new(name: name, expire_time: expire_time), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end.first
 
         # Verify method calls

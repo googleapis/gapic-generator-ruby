@@ -180,9 +180,9 @@ module Google
             #     Optional. This field can be set to test the routing annotation on the Echo method.
             #   @param other_header [::String]
             #     Optional. This field can be set to test the routing annotation on the Echo method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::EchoResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::EchoResponse]
             #
@@ -214,8 +214,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.echo request, options do |result, response|
-                yield result, response if block_given?
+              @echo_stub.echo request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -313,9 +313,9 @@ module Google
             #     The number of words to returned in each page.
             #   @param page_token [::String]
             #     The position of the page to be returned.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
@@ -347,10 +347,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.paged_expand request, options do |result, response|
+              @echo_stub.paged_expand request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand, "responses", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -385,9 +385,9 @@ module Google
             #         violates aip.dev/158. Ordinarily, this should be page_size. --)
             #   @param page_token [::String]
             #     The position of the page to be returned.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::EchoResponse>]
             #
@@ -419,10 +419,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.paged_expand_legacy request, options do |result, response|
+              @echo_stub.paged_expand_legacy request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand_legacy, "responses", request,
                                                             result, options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -457,9 +457,9 @@ module Google
             #     The number of words to returned in each page.
             #   @param page_token [::String]
             #     The position of the page to be returned.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::String, ::Google::Showcase::V1beta1::PagedExpandResponseList>]
             #
@@ -491,10 +491,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.paged_expand_legacy_mapped request, options do |result, response|
+              @echo_stub.paged_expand_legacy_mapped request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @echo_stub, :paged_expand_legacy_mapped, "alphabetized",
                                                             request, result, options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -529,9 +529,9 @@ module Google
             #     to be the OK rpc code, an empty response will be returned.
             #   @param success [::Google::Showcase::V1beta1::WaitResponse, ::Hash]
             #     The response to be returned on operation completion.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
@@ -563,9 +563,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.wait request, options do |result, response|
+              @echo_stub.wait request, options do |result, operation|
                 result = ::Gapic::Operation.new result, @operations_client, options: options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -599,9 +599,9 @@ module Google
             #     to be the OK rpc code, an empty response will be returned.
             #   @param success [::Google::Showcase::V1beta1::BlockResponse, ::Hash]
             #     The response to be returned that will signify successful method call.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::BlockResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::BlockResponse]
             #
@@ -633,8 +633,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @echo_stub.block request, options do |result, response|
-                yield result, response if block_given?
+              @echo_stub.block request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e

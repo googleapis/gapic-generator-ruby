@@ -163,9 +163,9 @@ module Testing
           #
           #   @param another_request_id [::String]
           #   @param another_lro_name [::String]
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::NonstandardLroGrpc::NonstandardOperation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #
@@ -197,8 +197,8 @@ module Testing
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @another_lro_provider_stub.get_another request, options do |result, response|
-              yield result, response if block_given?
+            @another_lro_provider_stub.get_another request, options do |result, operation|
+              yield result, operation if block_given?
               return result
             end
           rescue ::Faraday::Error => e

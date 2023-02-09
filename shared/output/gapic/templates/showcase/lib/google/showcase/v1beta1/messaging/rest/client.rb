@@ -171,9 +171,9 @@ module Google
             #
             #   @param room [::Google::Showcase::V1beta1::Room, ::Hash]
             #     The room to create.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
@@ -205,8 +205,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.create_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.create_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -233,9 +233,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested room.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
@@ -267,8 +267,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.get_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.get_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -298,9 +298,9 @@ module Google
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
             #     The field mask to determine wich fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Room]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Room]
             #
@@ -332,8 +332,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.update_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.update_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -360,9 +360,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested room.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -394,8 +394,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.delete_room request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.delete_room request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -427,9 +427,9 @@ module Google
             #     The value of google.showcase.v1beta1.ListRoomsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\ListRooms` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Room>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Room>]
             #
@@ -461,10 +461,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.list_rooms request, options do |result, response|
+              @messaging_stub.list_rooms request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @messaging_stub, :list_rooms, "rooms", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -496,9 +496,9 @@ module Google
             #     be tied to.
             #   @param blurb [::Google::Showcase::V1beta1::Blurb, ::Hash]
             #     The blurb to create.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
@@ -530,8 +530,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.create_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.create_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -558,9 +558,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested blurb.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
@@ -592,8 +592,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.get_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.get_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -623,9 +623,9 @@ module Google
             #   @param update_mask [::Google::Protobuf::FieldMask, ::Hash]
             #     The field mask to determine wich fields are to be updated. If empty, the
             #     server will assume all fields are to be updated.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Blurb]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
@@ -657,8 +657,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.update_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.update_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -685,9 +685,9 @@ module Google
             #
             #   @param name [::String]
             #     The resource name of the requested blurb.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -719,8 +719,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.delete_blurb request, options do |result, response|
-                yield result, response if block_given?
+              @messaging_stub.delete_blurb request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -756,9 +756,9 @@ module Google
             #     The value of google.showcase.v1beta1.ListBlurbsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\ListBlurbs` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Blurb>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Blurb>]
             #
@@ -790,10 +790,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.list_blurbs request, options do |result, response|
+              @messaging_stub.list_blurbs request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @messaging_stub, :list_blurbs, "blurbs", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -835,9 +835,9 @@ module Google
             #     google.showcase.v1beta1.SearchBlurbsResponse.next_page_token
             #     returned from the previous call to
             #     `google.showcase.v1beta1.Messaging\SearchBlurbs` method.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Operation]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Operation]
             #
@@ -869,9 +869,9 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @messaging_stub.search_blurbs request, options do |result, response|
+              @messaging_stub.search_blurbs request, options do |result, operation|
                 result = ::Gapic::Operation.new result, @operations_client, options: options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e

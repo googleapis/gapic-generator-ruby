@@ -158,9 +158,9 @@ module Google
             #     The session to be created.
             #     Sessions are immutable once they are created (although they can
             #     be deleted).
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Session]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
@@ -192,8 +192,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.create_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.create_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -220,9 +220,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be retrieved.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::Session]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::Session]
             #
@@ -254,8 +254,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.get_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.get_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -284,9 +284,9 @@ module Google
             #     The maximum number of sessions to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Session>]
             #
@@ -318,10 +318,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.list_sessions request, options do |result, response|
+              @testing_stub.list_sessions request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @testing_stub, :list_sessions, "sessions", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -348,9 +348,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -382,8 +382,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.delete_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.delete_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -412,9 +412,9 @@ module Google
             #
             #   @param name [::String]
             #     The session to be reported on.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::ReportSessionResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::ReportSessionResponse]
             #
@@ -446,8 +446,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.report_session request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.report_session request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -478,9 +478,9 @@ module Google
             #     The maximum number of tests to return per page.
             #   @param page_token [::String]
             #     The page token, for retrieving subsequent pages.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Test>]
             #
@@ -512,10 +512,10 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.list_tests request, options do |result, response|
+              @testing_stub.list_tests request, options do |result, operation|
                 result = ::Gapic::Rest::PagedEnumerable.new @testing_stub, :list_tests, "tests", request, result,
                                                             options
-                yield result, response if block_given?
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -547,9 +547,9 @@ module Google
             #
             #   @param name [::String]
             #     The test to be deleted.
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Protobuf::Empty]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Protobuf::Empty]
             #
@@ -581,8 +581,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.delete_test request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.delete_test request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e
@@ -616,9 +616,9 @@ module Google
             #     The answer from the test.
             #   @param answers [::Array<::String>]
             #     The answers from the test if multiple are to be checked
-            # @yield [result, response] Access the result along with the Faraday response object
+            # @yield [result, operation] Access the result along with the TransportOperation object
             # @yieldparam result [::Google::Showcase::V1beta1::VerifyTestResponse]
-            # @yieldparam response [::Faraday::Response]
+            # @yieldparam operation [::Gapic::Rest::TransportOperation]
             #
             # @return [::Google::Showcase::V1beta1::VerifyTestResponse]
             #
@@ -650,8 +650,8 @@ module Google
                                      metadata:     @config.metadata,
                                      retry_policy: @config.retry_policy
 
-              @testing_stub.verify_test request, options do |result, response|
-                yield result, response if block_given?
+              @testing_stub.verify_test request, options do |result, operation|
+                yield result, operation if block_given?
                 return result
               end
             rescue ::Faraday::Error => e

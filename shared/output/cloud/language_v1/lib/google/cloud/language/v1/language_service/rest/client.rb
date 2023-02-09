@@ -186,9 +186,9 @@ module Google
               #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate sentence offsets.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::AnalyzeSentimentResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::AnalyzeSentimentResponse]
               #
@@ -220,8 +220,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.analyze_sentiment request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.analyze_sentiment request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -252,9 +252,9 @@ module Google
               #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::AnalyzeEntitiesResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::AnalyzeEntitiesResponse]
               #
@@ -286,8 +286,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.analyze_entities request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.analyze_entities request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -317,9 +317,9 @@ module Google
               #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::AnalyzeEntitySentimentResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::AnalyzeEntitySentimentResponse]
               #
@@ -351,8 +351,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.analyze_entity_sentiment request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.analyze_entity_sentiment request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -383,9 +383,9 @@ module Google
               #     Required. Input document.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::AnalyzeSyntaxResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::AnalyzeSyntaxResponse]
               #
@@ -417,8 +417,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.analyze_syntax request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.analyze_syntax request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -448,9 +448,9 @@ module Google
               #   @param classification_model_options [::Google::Cloud::Language::V1::ClassificationModelOptions, ::Hash]
               #     Model options to use for classification. Defaults to v1 options if not
               #     specified.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::ClassifyTextResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::ClassifyTextResponse]
               #
@@ -482,8 +482,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.classify_text request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.classify_text request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -515,9 +515,9 @@ module Google
               #     Required. The enabled features.
               #   @param encoding_type [::Google::Cloud::Language::V1::EncodingType]
               #     The encoding type used by the API to calculate offsets.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Language::V1::AnnotateTextResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Language::V1::AnnotateTextResponse]
               #
@@ -549,8 +549,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @language_service_stub.annotate_text request, options do |result, response|
-                  yield result, response if block_given?
+                @language_service_stub.annotate_text request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e

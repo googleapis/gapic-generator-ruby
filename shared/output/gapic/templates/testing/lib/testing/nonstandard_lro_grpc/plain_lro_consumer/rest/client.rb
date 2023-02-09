@@ -176,9 +176,9 @@ module Testing
           #   the default parameter values, pass an empty Hash as a request object (see above).
           #
           #   @param request_id [::String]
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Gapic::GenericLRO::Operation]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Gapic::GenericLRO::Operation]
           #

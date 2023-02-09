@@ -173,9 +173,9 @@ module Testing
           #     - profiles/<profile_id>
           #     - a legacy profile_id that can be any string
           #   @param resource [::Testing::RoutingHeaders::RequestResource, ::Hash]
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::RoutingHeaders::Response]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::RoutingHeaders::Response]
           #
@@ -207,8 +207,8 @@ module Testing
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @service_implicit_headers_stub.plain request, options do |result, response|
-              yield result, response if block_given?
+            @service_implicit_headers_stub.plain request, options do |result, operation|
+              yield result, operation if block_given?
               return result
             end
           rescue ::Faraday::Error => e
@@ -243,9 +243,9 @@ module Testing
           #     - profiles/<profile_id>
           #     - a legacy profile_id that can be any string
           #   @param resource [::Testing::RoutingHeaders::RequestResource, ::Hash]
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::RoutingHeaders::Response]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::RoutingHeaders::Response]
           #
@@ -277,8 +277,8 @@ module Testing
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @service_implicit_headers_stub.with_sub_message request, options do |result, response|
-              yield result, response if block_given?
+            @service_implicit_headers_stub.with_sub_message request, options do |result, operation|
+              yield result, operation if block_given?
               return result
             end
           rescue ::Faraday::Error => e
@@ -313,9 +313,9 @@ module Testing
           #     - profiles/<profile_id>
           #     - a legacy profile_id that can be any string
           #   @param resource [::Testing::RoutingHeaders::RequestResource, ::Hash]
-          # @yield [result, response] Access the result along with the Faraday response object
+          # @yield [result, operation] Access the result along with the TransportOperation object
           # @yieldparam result [::Testing::RoutingHeaders::Response]
-          # @yieldparam response [::Faraday::Response]
+          # @yieldparam operation [::Gapic::Rest::TransportOperation]
           #
           # @return [::Testing::RoutingHeaders::Response]
           #
@@ -347,8 +347,8 @@ module Testing
                                    metadata:     @config.metadata,
                                    retry_policy: @config.retry_policy
 
-            @service_implicit_headers_stub.with_multiple_levels request, options do |result, response|
-              yield result, response if block_given?
+            @service_implicit_headers_stub.with_multiple_levels request, options do |result, operation|
+              yield result, operation if block_given?
               return result
             end
           rescue ::Faraday::Error => e

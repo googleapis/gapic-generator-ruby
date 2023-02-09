@@ -88,27 +88,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.analyze_sentiment({ document: document, encoding_type: encoding_type }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.analyze_sentiment document: document, encoding_type: encoding_type do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.analyze_sentiment ::Google::Cloud::Language::V1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.analyze_sentiment({ document: document, encoding_type: encoding_type }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.analyze_sentiment(::Google::Cloud::Language::V1::AnalyzeSentimentRequest.new(document: document, encoding_type: encoding_type), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -143,27 +143,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.analyze_entities({ document: document, encoding_type: encoding_type }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.analyze_entities document: document, encoding_type: encoding_type do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.analyze_entities ::Google::Cloud::Language::V1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.analyze_entities({ document: document, encoding_type: encoding_type }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.analyze_entities(::Google::Cloud::Language::V1::AnalyzeEntitiesRequest.new(document: document, encoding_type: encoding_type), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -198,27 +198,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.analyze_entity_sentiment({ document: document, encoding_type: encoding_type }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.analyze_entity_sentiment document: document, encoding_type: encoding_type do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.analyze_entity_sentiment ::Google::Cloud::Language::V1::AnalyzeEntitySentimentRequest.new(document: document, encoding_type: encoding_type) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.analyze_entity_sentiment({ document: document, encoding_type: encoding_type }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.analyze_entity_sentiment(::Google::Cloud::Language::V1::AnalyzeEntitySentimentRequest.new(document: document, encoding_type: encoding_type), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -253,27 +253,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.analyze_syntax({ document: document, encoding_type: encoding_type }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.analyze_syntax document: document, encoding_type: encoding_type do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.analyze_syntax ::Google::Cloud::Language::V1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.analyze_syntax({ document: document, encoding_type: encoding_type }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.analyze_syntax(::Google::Cloud::Language::V1::AnalyzeSyntaxRequest.new(document: document, encoding_type: encoding_type), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -308,27 +308,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.classify_text({ document: document, classification_model_options: classification_model_options }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.classify_text document: document, classification_model_options: classification_model_options do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.classify_text ::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document, classification_model_options: classification_model_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.classify_text({ document: document, classification_model_options: classification_model_options }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.classify_text(::Google::Cloud::Language::V1::ClassifyTextRequest.new(document: document, classification_model_options: classification_model_options), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls
@@ -364,27 +364,27 @@ class ::Google::Cloud::Language::V1::LanguageService::Rest::ClientTest < Minites
 
         # Use hash object
         client.annotate_text({ document: document, features: features, encoding_type: encoding_type }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use named arguments
         client.annotate_text document: document, features: features, encoding_type: encoding_type do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.annotate_text ::Google::Cloud::Language::V1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.annotate_text({ document: document, features: features, encoding_type: encoding_type }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.annotate_text(::Google::Cloud::Language::V1::AnnotateTextRequest.new(document: document, features: features, encoding_type: encoding_type), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

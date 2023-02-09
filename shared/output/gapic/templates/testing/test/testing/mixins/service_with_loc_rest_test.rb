@@ -94,22 +94,22 @@ class ::Testing::Mixins::ServiceWithLoc::Rest::ClientTest < Minitest::Test
 
         # Use hash object
         client.call_method({  }) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object
         client.call_method ::Testing::Mixins::Request.new() do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use hash object with options
         client.call_method({  }, call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Use protobuf object with options
         client.call_method(::Testing::Mixins::Request.new(), call_options) do |_result, response|
-          assert_equal http_response, response
+          assert_equal http_response, response.underlying_op
         end
 
         # Verify method calls

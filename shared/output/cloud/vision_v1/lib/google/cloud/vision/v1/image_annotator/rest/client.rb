@@ -198,9 +198,9 @@ module Google
               #         `eu`: The European Union.
               #
               #     Example: `projects/project-A/locations/eu`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::BatchAnnotateImagesResponse]
               #
@@ -232,8 +232,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @image_annotator_stub.batch_annotate_images request, options do |result, response|
-                  yield result, response if block_given?
+                @image_annotator_stub.batch_annotate_images request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -280,9 +280,9 @@ module Google
               #         `eu`: The European Union.
               #
               #     Example: `projects/project-A/locations/eu`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Google::Cloud::Vision::V1::BatchAnnotateFilesResponse]
               #
@@ -314,8 +314,8 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @image_annotator_stub.batch_annotate_files request, options do |result, response|
-                  yield result, response if block_given?
+                @image_annotator_stub.batch_annotate_files request, options do |result, operation|
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -365,9 +365,9 @@ module Google
               #         `eu`: The European Union.
               #
               #     Example: `projects/project-A/locations/eu`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Operation]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Operation]
               #
@@ -399,9 +399,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @image_annotator_stub.async_batch_annotate_images request, options do |result, response|
+                @image_annotator_stub.async_batch_annotate_images request, options do |result, operation|
                   result = ::Gapic::Operation.new result, @operations_client, options: options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
@@ -446,9 +446,9 @@ module Google
               #         `eu`: The European Union.
               #
               #     Example: `projects/project-A/locations/eu`.
-              # @yield [result, response] Access the result along with the Faraday response object
+              # @yield [result, operation] Access the result along with the TransportOperation object
               # @yieldparam result [::Gapic::Operation]
-              # @yieldparam response [::Faraday::Response]
+              # @yieldparam operation [::Gapic::Rest::TransportOperation]
               #
               # @return [::Gapic::Operation]
               #
@@ -480,9 +480,9 @@ module Google
                                        metadata:     @config.metadata,
                                        retry_policy: @config.retry_policy
 
-                @image_annotator_stub.async_batch_annotate_files request, options do |result, response|
+                @image_annotator_stub.async_batch_annotate_files request, options do |result, operation|
                   result = ::Gapic::Operation.new result, @operations_client, options: options
-                  yield result, response if block_given?
+                  yield result, operation if block_given?
                   return result
                 end
               rescue ::Gapic::Rest::Error => e
