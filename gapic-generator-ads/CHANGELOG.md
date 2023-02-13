@@ -1,5 +1,10 @@
 # Release History for gapic-generator-ads
 
+### 0.21.1 / 2023-02-13
+
+* Includes changes from gapic-generator 0.21.1
+* Fix: Get rubocop working in bazel
+
 ### 0.21.0 / 2023-02-09
 
 * Includes changes from gapic-generator 0.21.0

@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.21.1 / 2023-02-13
+
+* Fix: Get rubocop working in bazel
+
 ### 0.21.0 / 2023-02-09
 
 * Feature: Load and interpret snippetgen phase 2 config data
