@@ -79,8 +79,7 @@ module Google
                 options: options
               )
               operation = ::Gapic::Rest::TransportOperation.new response
-              result = ::Google::Showcase::V1beta1::EchoResponse.decode_json response.body,
-                                                                             ignore_unknown_fields: true
+              result = ::Google::Showcase::V1beta1::EchoResponse.decode_json response.body, ignore_unknown_fields: true
 
               yield result, operation if block_given?
               result
@@ -306,8 +305,7 @@ module Google
                 options: options
               )
               operation = ::Gapic::Rest::TransportOperation.new response
-              result = ::Google::Showcase::V1beta1::BlockResponse.decode_json response.body,
-                                                                              ignore_unknown_fields: true
+              result = ::Google::Showcase::V1beta1::BlockResponse.decode_json response.body, ignore_unknown_fields: true
 
               yield result, operation if block_given?
               result
