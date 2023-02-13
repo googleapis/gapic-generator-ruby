@@ -29,12 +29,12 @@ module Gapic
     #
     def initialize configuration, files
       @configuration = configuration
-      @files = format! configuration, files
+      @files = format! files
     end
 
     protected
 
-    def format! configuration, files
+    def format! files
       Dir.mktmpdir do |dir|
         Dir.chdir dir do
           files.each do |file|
@@ -42,8 +42,17 @@ module Gapic
             File.write file.name, file.content
           end
 
-          output = `rubocop --cache false -a -o rubocop.out -c #{configuration}`.strip
-          warn output unless output.empty?
+          # Use the current Ruby binary path and invoke the CLI class directly
+          # rather than the normal rubocop executable, since the latter uses
+          # "/usr/bin/env ruby" which doesn't seem to work in the current bazel
+          # environment.
+          script = 'require "rubocop"; exit RuboCop::CLI.new.run'
+          rubocop_cmd = "#{RbConfig.ruby} -e '#{script}' -- --cache false -a -o rubocop.out -c #{configuration}"
+          output = `#{rubocop_cmd}`.strip
+          unless output.empty?
+            warn "**** Rubocop output:"
+            warn output
+          end
 
           files.each do |file|
             file.content = File.read file.name
