@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.22.0 / 2023-02-14
+
+* Includes changes from gapic-generator 0.22.0
+* Feature: Update mixin dependency versions to 0.4
+
 ### 0.21.1 / 2023-02-13
 
 * Includes changes from gapic-generator 0.21.1
