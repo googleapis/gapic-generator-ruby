@@ -84,6 +84,7 @@ module Gapic
 
       def title
         gem_config(:title) ||
+          @api.api_metadata.title ||
           namespace.split("::").join(" ")
       end
 
@@ -116,11 +117,13 @@ module Gapic
 
       def description
         gem_config(:description) ||
+          @api.api_metadata.description ||
           "#{name} is the official client library for the #{title} API."
       end
 
       def summary
         gem_config(:summary) ||
+          @api.api_metadata.summary ||
           "API Client library for the #{title} API"
       end
 
@@ -142,17 +145,21 @@ module Gapic
       end
 
       def product_documentation_url
-        gem_config :product_documentation_url
+        gem_config(:product_documentation_url) || @api.api_metadata.documentation_url
       end
 
       def api_id
-        raw_id = gem_config :api_id
+        raw_id = gem_config(:api_id) || @api.api_metadata.name
         return nil unless raw_id
         raw_id.include?(".") ? raw_id : "#{raw_id}.googleapis.com"
       end
 
       def api_shortname
-        gem_config :api_shortname
+        gem_config(:api_shortname) || @api.api_metadata.short_name
+      end
+
+      def doc_tag_prefix
+        @api.api_metadata.doc_tag_prefix || api_shortname || api_id&.split(".")&.first
       end
 
       def issue_tracker_url

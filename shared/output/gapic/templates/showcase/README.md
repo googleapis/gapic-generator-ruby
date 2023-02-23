@@ -1,8 +1,8 @@
-# Ruby Client for the Google Showcase API
+# Ruby Client for the Client Libraries Showcase API
 
-API Client library for the Google Showcase API
+API Client library for the Client Libraries Showcase API
 
-google-showcase is the official client library for the Google Showcase API.
+google-showcase is the official client library for the Client Libraries Showcase API.
 
 https://github.com/googleapis/googleapis
 

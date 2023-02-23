@@ -146,22 +146,22 @@ module Gapic
 
       def region_tag
         gem_presenter = @method_presenter.service.gem
-        api_id = gem_presenter.api_shortname || gem_presenter.api_id&.split(".")&.first
+        prefix = gem_presenter.doc_tag_prefix
         names = gem_presenter.name.split "-"
         final_name = names.pop
         if final_name =~ /^v\d/
           api_version = final_name
-          api_id ||= names.last
+          prefix ||= names.last
         else
-          api_id ||= final_name
+          prefix ||= final_name
           api_version = "v0"
         end
-        api_id = api_id.downcase.gsub(/[^a-z0-9]/, "")
+        prefix = prefix.downcase.gsub(/[^a-z0-9]/, "")
         service_name = @method_presenter.service.module_name
         method_name = @method_presenter.method.name
         type = config? ? "config" : "generated"
         config_id = config? ? "#{@config.metadata.config_id}_" : ""
-        "#{api_id}_#{api_version}_#{type}_#{service_name}_#{method_name}_#{config_id}sync"
+        "#{prefix}_#{api_version}_#{type}_#{service_name}_#{method_name}_#{config_id}sync"
       end
 
       private

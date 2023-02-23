@@ -21,6 +21,7 @@ require "gapic/schema/loader"
 require "gapic/schema/request_param_parser"
 require "gapic/grpc_service_config/parser"
 require "gapic/schema/service_config_parser"
+require "gapic/model/api_metadata"
 
 module Gapic
   module Schema
@@ -340,6 +341,19 @@ module Gapic
       # @return [Google::Api::Service]
       def service_config
         @service_config ||= Gapic::Schema::ServiceConfigParser.parse_service_yaml service_config_raw
+      end
+
+      # Parsed API Metadata model
+      # @return [Gapic::Model::ApiMetadata]
+      def api_metadata
+        @api_metadata ||= begin
+          api_metadata = Gapic::Model::ApiMetadata.new
+          Gapic::Schema::ServiceConfigParser.parse_api_metadata service_config_raw, api_metadata
+          api_metadata.standardize_names!
+          api_metadata.standardize_title! gem_name: configuration.fetch(:gem, nil)&.fetch(:name, "")
+          api_metadata.standardize_descriptions!
+          api_metadata
+        end
       end
 
       # Get a resource given its type string
