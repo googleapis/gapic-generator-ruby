@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
 
   gem.authors       = ["Google LLC"]
   gem.email         = "googleapis-packages@google.com"
-  gem.description   = "google-cloud-vision-v1 is the official client library for the Google Cloud Vision V1 API. Note that google-cloud-vision-v1 is a version-specific client library. For most uses, we recommend installing the main client library google-cloud-vision instead. See the readme for more details."
-  gem.summary       = "API Client library for the Google Cloud Vision V1 API"
+  gem.description   = "Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications. Note that google-cloud-vision-v1 is a version-specific client library. For most uses, we recommend installing the main client library google-cloud-vision instead. See the readme for more details."
+  gem.summary       = "Integrates Google Vision features, including image labeling, face, logo, and landmark detection, optical character recognition (OCR), and detection of explicit content, into applications."
   gem.homepage      = "https://github.com/googleapis/google-cloud-ruby"
   gem.license       = "Apache-2.0"
 

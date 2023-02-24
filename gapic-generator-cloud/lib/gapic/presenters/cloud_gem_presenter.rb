@@ -143,6 +143,7 @@ module Gapic
       def cloud_product?
         configured = gem_config :is_cloud_product
         return configured unless configured.nil?
+        return @api.api_metadata.organization == "CLOUD" if @api.api_metadata.organization
         return true if PSEUDO_CLOUD_GEMS.any? { |pattern| pattern === name }
         return false if NON_CLOUD_GEMS.any? { |pattern| pattern === name }
         services.any? do |service|

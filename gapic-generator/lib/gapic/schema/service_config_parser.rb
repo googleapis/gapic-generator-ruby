@@ -35,6 +35,14 @@ module Gapic
         HTTP_RULES_VERBS_ALLOWED = ["get", "post", "put", "patch", "delete"].freeze
         HTTP_RULES_BODY_KEY = "body"
         HTTP_RULES_ADDITIONAL_BINDINGS_KEY = "additional_bindings"
+        PUBS_KEY = "publishing"
+        PUBS_SHORTNAME_KEY = "api_short_name"
+        PUBS_ORGANIZATION_KEY = "organization"
+        PUBS_DOCURL_KEY = "documentation_uri"
+        PUBS_DOCTAG_KEY = "doc_tag_prefix"
+        DOCS_KEY = "documentation"
+        DOCS_SUMMARY_KEY = "summary"
+        DOCS_OVERVIEW_KEY = "overview"
 
         ##
         # Returns the parsed Google::Api::Service object.
@@ -60,6 +68,30 @@ module Gapic
           service.apis = parse_apis service_yaml[APIS_KEY] if service_yaml.key? APIS_KEY
           service.http = parse_http service_yaml[HTTP_KEY] if service_yaml.key? HTTP_KEY
           service
+        end
+
+        ##
+        # Populates Gapic::Model::ApiMetadata from a service yaml file.
+        #
+        # @param service_yaml_text [String] YAML content
+        # @param api_metadata [Gapic::Model::ApiMetadata] model to populate
+        #
+        def parse_api_metadata service_yaml_text, api_metadata = nil
+          api_metadata ||= Gapic::Model::ApiMetadata.new
+          if service_yaml_text && !service_yaml_text.empty?
+            service_yaml = YAML.safe_load service_yaml_text
+            pubs_yaml = service_yaml[PUBS_KEY] || {}
+            docs_yaml = service_yaml[DOCS_KEY] || {}
+            api_metadata.update! name: service_yaml[NAME_KEY],
+                                 short_name: pubs_yaml[PUBS_SHORTNAME_KEY],
+                                 title: service_yaml[TITLE_KEY],
+                                 summary: docs_yaml[DOCS_SUMMARY_KEY],
+                                 description: docs_yaml[DOCS_OVERVIEW_KEY],
+                                 organization: pubs_yaml[PUBS_ORGANIZATION_KEY],
+                                 documentation_url: pubs_yaml[PUBS_DOCURL_KEY],
+                                 doc_tag_prefix: pubs_yaml[PUBS_DOCTAG_KEY]
+          end
+          api_metadata
         end
 
         private
