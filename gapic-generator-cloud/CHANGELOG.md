@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.23.0 / 2023-02-27
+
+* Includes changes from gapic-generator 0.23.0
+* Feature: Honor metadata from the service yaml
+
 ### 0.22.0 / 2023-02-14
 
 * Includes changes from gapic-generator 0.22.0
