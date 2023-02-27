@@ -14,6 +14,9 @@
 
 require "json"
 require "gapic/common/error"
+require "google/protobuf/well_known_types"
+# Not technically required but GRPC counterpart loads it and so should we for test parity
+require "google/rpc/error_details_pb"
 
 module Gapic
   module Rest
@@ -25,6 +28,8 @@ module Gapic
       attr_reader :status
       # @return [Object, nil] the details as parsed from the response body
       attr_reader :details
+      # The Cloud error wrapper expect to see a `status_details` property
+      alias status_details details
       # @return [Object, nil] the headers of the REST error
       attr_reader :headers
       # The Cloud error wrapper expect to see a `header` property

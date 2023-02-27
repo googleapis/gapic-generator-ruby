@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.23.0 / 2023-02-27
+
+* Feature: Honor metadata from the service yaml
+
 ### 0.22.0 / 2023-02-14
 
 * Feature: Update mixin dependency versions to 0.4
