@@ -74,8 +74,14 @@ module Gapic
 
       # @private
       def update! **keywords
+        omit_patterns = [
+          nil,
+          "",
+          "CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED",
+          /\A\s*\(==.+==\)\s*\Z/
+        ]
         keywords.each do |key, value|
-          instance_variable_set "@#{key}", value unless value.nil?
+          instance_variable_set "@#{key}", value unless omit_patterns.any? { |pat| pat === value }
         end
         self
       end
