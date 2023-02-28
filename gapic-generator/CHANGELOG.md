@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.23.1 / 2023-02-28
+
+* Fix: update gapic-common version
+* Fix: Handle empty fields in service yaml
+
 ### 0.23.0 / 2023-02-27
 
 * Feature: Honor metadata from the service yaml

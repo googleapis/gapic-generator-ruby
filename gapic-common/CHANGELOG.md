@@ -1,5 +1,11 @@
 # Release History
 
+### 0.18.0 (2023-02-27)
+
+#### Features
+
+* add alias for details field in Rest Error ([#928](https://github.com/googleapis/gapic-generator-ruby/issues/928)) 
+
 ### 0.17.1 (2023-02-09)
 
 #### Bug Fixes

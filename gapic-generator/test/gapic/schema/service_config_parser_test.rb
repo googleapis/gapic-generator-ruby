@@ -108,7 +108,7 @@ class ServiceConfigParserTest < Minitest::Test
 
   def test_parse_api_metadata
     expected_name = "testapi.googleapis.com"
-    expected_shortname = "testapi"
+    expected_shortname = "testapiname"
     expected_url = "https://example.com/my-docs"
     expected_title = "My Test"
     expected_organization = "CLOUD"
@@ -145,6 +145,43 @@ class ServiceConfigParserTest < Minitest::Test
     assert_equal expected_description, metadata.description
     assert_equal expected_organization, metadata.organization
     assert_equal expected_url, metadata.documentation_url
+    assert_equal expected_doctag, metadata.doc_tag_prefix
+  end
+
+  def test_parse_api_metadata_omit_values
+    expected_name = "testapi.googleapis.com"
+    expected_shortname = "testapi"
+    expected_title = "My Test"
+    expected_summary = "This is the summary for My Test API."
+    expected_doctag = "testapitag"
+
+    yaml = <<~YAML
+      type: google.api.Service
+      config_version: 3
+      name: #{expected_name}
+      title: #{expected_title} API
+      documentation:
+        summary: #{expected_summary}
+        overview: '(== hello.md ==)'
+      publishing:
+        organization: CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED
+        documentation_uri: ''
+        api_short_name: ''
+        doc_tag_prefix: #{expected_doctag}
+    YAML
+
+    metadata = Gapic::Schema::ServiceConfigParser.parse_api_metadata yaml
+    metadata.standardize_names!
+    metadata.standardize_title! gem_name: "google-testapi-v9"
+    metadata.standardize_descriptions!
+
+    assert_equal expected_name, metadata.name
+    assert_equal expected_shortname, metadata.short_name
+    assert_equal "#{expected_title} V9", metadata.title
+    assert_equal expected_summary, metadata.summary
+    assert_equal expected_summary, metadata.description
+    assert_nil metadata.organization
+    assert_nil metadata.documentation_url
     assert_equal expected_doctag, metadata.doc_tag_prefix
   end
 end
