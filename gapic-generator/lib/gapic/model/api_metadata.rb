@@ -111,11 +111,23 @@ module Gapic
       def standardize_descriptions!
         return unless summary || description
         @description ||= summary
-        @summary = summary.gsub(/\s+/, " ").strip if summary
-        @summary = "#{summary}." if summary && summary =~ /\w\z/
+        if summary
+          @summary = summary.gsub(/\s+/, " ").strip
+          @summary = "#{summary}." if summary =~ /\w\z/
+          @summary = remove_html_tags summary
+        end
         @description = description.gsub(/\s+/, " ").strip
         @description = "#{description}." if description =~ /\w\z/
+        @description = remove_html_tags description
         self
+      end
+
+      # @private
+      # Remove html tags and markdown links
+      def remove_html_tags str
+        str
+          .gsub(%r{</?[[:alpha:]]+(?:\s+[[:alpha:]]+\s*=\s*(?:"[^"]+"|'[^']+'|[^\s">]+))*\s*/?>}, "")
+          .gsub(%r{\[([^\]]+)\]\([^)]+\)}, "\\1")
       end
     end
   end
