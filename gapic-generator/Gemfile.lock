@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.22.0)
+    gapic-generator (0.23.1)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
@@ -29,7 +29,7 @@ GEM
     ast (2.4.2)
     builder (3.2.4)
     coderay (1.1.3)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     crass (1.0.6)
     erubi (1.12.0)
     google-style (1.26.3)
@@ -81,14 +81,14 @@ GEM
     redcarpet (3.6.0)
     regexp_parser (2.7.0)
     rexml (3.2.5)
-    rubocop (1.45.1)
+    rubocop (1.46.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.24.1, < 2.0)
+      rubocop-ast (>= 1.26.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.26.0)
@@ -119,4 +119,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.6
+   2.4.7
