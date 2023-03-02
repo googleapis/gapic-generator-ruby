@@ -74,8 +74,14 @@ module Gapic
 
       # @private
       def update! **keywords
+        omit_patterns = [
+          nil,
+          "",
+          "CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED",
+          /\A\s*\(==.+==\)\s*\Z/
+        ]
         keywords.each do |key, value|
-          instance_variable_set "@#{key}", value unless value.nil?
+          instance_variable_set "@#{key}", value unless omit_patterns.any? { |pat| pat === value }
         end
         self
       end
@@ -105,11 +111,23 @@ module Gapic
       def standardize_descriptions!
         return unless summary || description
         @description ||= summary
-        @summary = summary.gsub(/\s+/, " ").strip if summary
-        @summary = "#{summary}." if summary && summary =~ /\w\z/
+        if summary
+          @summary = summary.gsub(/\s+/, " ").strip
+          @summary = "#{summary}." if summary =~ /\w\z/
+          @summary = remove_html_tags summary
+        end
         @description = description.gsub(/\s+/, " ").strip
         @description = "#{description}." if description =~ /\w\z/
+        @description = remove_html_tags description
         self
+      end
+
+      # @private
+      # Remove html tags and markdown links
+      def remove_html_tags str
+        str
+          .gsub(%r{</?[[:alpha:]]+(?:\s+[[:alpha:]]+\s*=\s*(?:"[^"]+"|'[^']+'|[^\s">]+))*\s*/?>}, "")
+          .gsub(%r{\[([^\]]+)\]\([^)]+\)}, "\\1")
       end
     end
   end

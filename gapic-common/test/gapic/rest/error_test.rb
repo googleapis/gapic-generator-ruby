@@ -95,6 +95,8 @@ class RestErrorTest < Minitest::Test
     refute_nil grpc_help
     assert_equal @help.links.first.description, grpc_help.links.first&.description
     assert_equal @help.links.first.url, grpc_help.links.first&.url
+
+    assert_equal gapic_err.details, gapic_err.status_details
   end
 
   # Tests that the message and the status code from within body
