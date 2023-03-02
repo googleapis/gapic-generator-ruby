@@ -47,7 +47,7 @@ module Google
       # Create a new client object for Addresses.
       #
       # By default, this returns an instance of
-      # [Google::Cloud::Compute::V1::Addresses::Rest::Client](https://googleapis.dev/ruby/google-cloud-compute-v1/latest/Google/Cloud/Compute/V1/Addresses/Rest/Client.html)
+      # [Google::Cloud::Compute::V1::Addresses::Rest::Client](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest/Google-Cloud-Compute-V1-Addresses-Rest-Client)
       # for a REST client for version V1 of the API.
       # However, you can specify a different API version by passing it in the
       # `version` parameter. If the Addresses service is
@@ -77,7 +77,7 @@ module Google
       # Create a new client object for RegionOperations.
       #
       # By default, this returns an instance of
-      # [Google::Cloud::Compute::V1::RegionOperations::Rest::Client](https://googleapis.dev/ruby/google-cloud-compute-v1/latest/Google/Cloud/Compute/V1/RegionOperations/Rest/Client.html)
+      # [Google::Cloud::Compute::V1::RegionOperations::Rest::Client](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest/Google-Cloud-Compute-V1-RegionOperations-Rest-Client)
       # for a REST client for version V1 of the API.
       # However, you can specify a different API version by passing it in the
       # `version` parameter. If the RegionOperations service is
@@ -107,7 +107,7 @@ module Google
       # Create a new client object for RegionInstanceGroupManagers.
       #
       # By default, this returns an instance of
-      # [Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client](https://googleapis.dev/ruby/google-cloud-compute-v1/latest/Google/Cloud/Compute/V1/RegionInstanceGroupManagers/Rest/Client.html)
+      # [Google::Cloud::Compute::V1::RegionInstanceGroupManagers::Rest::Client](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest/Google-Cloud-Compute-V1-RegionInstanceGroupManagers-Rest-Client)
       # for a REST client for version V1 of the API.
       # However, you can specify a different API version by passing it in the
       # `version` parameter. If the RegionInstanceGroupManagers service is
@@ -137,7 +137,7 @@ module Google
       # Create a new client object for Networks.
       #
       # By default, this returns an instance of
-      # [Google::Cloud::Compute::V1::Networks::Rest::Client](https://googleapis.dev/ruby/google-cloud-compute-v1/latest/Google/Cloud/Compute/V1/Networks/Rest/Client.html)
+      # [Google::Cloud::Compute::V1::Networks::Rest::Client](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest/Google-Cloud-Compute-V1-Networks-Rest-Client)
       # for a REST client for version V1 of the API.
       # However, you can specify a different API version by passing it in the
       # `version` parameter. If the Networks service is
@@ -167,7 +167,7 @@ module Google
       # Create a new client object for GlobalOperations.
       #
       # By default, this returns an instance of
-      # [Google::Cloud::Compute::V1::GlobalOperations::Rest::Client](https://googleapis.dev/ruby/google-cloud-compute-v1/latest/Google/Cloud/Compute/V1/GlobalOperations/Rest/Client.html)
+      # [Google::Cloud::Compute::V1::GlobalOperations::Rest::Client](https://cloud.google.com/ruby/docs/reference/google-cloud-compute-v1/latest/Google-Cloud-Compute-V1-GlobalOperations-Rest-Client)
       # for a REST client for version V1 of the API.
       # However, you can specify a different API version by passing it in the
       # `version` parameter. If the GlobalOperations service is
