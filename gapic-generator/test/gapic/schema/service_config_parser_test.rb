@@ -161,7 +161,7 @@ class ServiceConfigParserTest < Minitest::Test
       name: #{expected_name}
       title: #{expected_title} API
       documentation:
-        summary: #{expected_summary}
+        summary: This is the summary for <a href="blah">My Test API</a>.
         overview: '(== hello.md ==)'
       publishing:
         organization: CLIENT_LIBRARY_ORGANIZATION_UNSPECIFIED

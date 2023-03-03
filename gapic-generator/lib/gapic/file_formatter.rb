@@ -16,6 +16,7 @@
 
 require "tmpdir"
 require "fileutils"
+require "English"
 
 module Gapic
   ##
@@ -46,13 +47,14 @@ module Gapic
           # rather than the normal rubocop executable, since the latter uses
           # "/usr/bin/env ruby" which doesn't seem to work in the current bazel
           # environment.
-          script = 'require "rubocop"; exit RuboCop::CLI.new.run'
+          script = 'require "rubocop"; begin; RuboCop::CLI.new.run; rescue => e; p e; exit 1; end'
           rubocop_cmd = "#{RbConfig.ruby} -e '#{script}' -- --cache false -a -o rubocop.out -c #{configuration}"
           output = `#{rubocop_cmd}`.strip
           unless output.empty?
             warn "**** Rubocop output:"
             warn output
           end
+          raise "Rubocop failed" unless $CHILD_STATUS.success?
 
           files.each do |file|
             file.content = File.read file.name
