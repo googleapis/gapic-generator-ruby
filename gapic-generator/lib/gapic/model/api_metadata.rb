@@ -72,6 +72,14 @@ module Gapic
 
       ######## Internal ########
 
+      ##
+      # @private
+      # Special cases for short names
+      #
+      SHORT_NAME_MAPPING = {
+        "iam-meta-api" => "iam"
+      }.freeze
+
       # @private
       def update! **keywords
         omit_patterns = [
@@ -93,6 +101,7 @@ module Gapic
         @short_name ||= name
         @name = "#{name}.googleapis.com" unless name.include? "."
         @short_name = short_name.split(".").first
+        @short_name = SHORT_NAME_MAPPING.fetch @short_name, @short_name
         @doc_tag_prefix ||= short_name
         self
       end

@@ -19,7 +19,7 @@ require "gapic/model/api_metadata"
 
 class ApiMetadataTest < Minitest::Test
   def api_metadata
-    Gapic::Model::ApiMetadata.new
+    @api_metadata ||= Gapic::Model::ApiMetadata.new
   end
 
   def test_remove_html_tags_removes_opening_tag
@@ -60,5 +60,12 @@ class ApiMetadataTest < Minitest::Test
   def test_remove_html_tags_removes_markdown_link
     result = api_metadata.remove_html_tags "hello [ruby](http) world"
     assert_equal "hello ruby world", result
+  end
+
+  def test_short_name_mapping
+    api_metadata.update! name: "iam-meta-api.googleapis.com"
+    api_metadata.standardize_names!
+    assert_equal "iam", api_metadata.short_name
+    assert_equal "iam", api_metadata.doc_tag_prefix
   end
 end
