@@ -1,5 +1,12 @@
 # Release History for gapic-generator
 
+### 0.23.2 / 2023-03-08
+
+* Fix: Remove html tags from description text parsed from service yaml
+* Fix: Fail generation if Rubocop autoformatting fails
+* Fix: Replace googleapis.dev links with equivalent cloud.google.com or rubydoc.info links
+* Fix: Fix special case iam API shortname
+
 ### 0.23.1 / 2023-02-28
 
 * Fix: update gapic-common version

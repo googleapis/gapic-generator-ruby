@@ -1,5 +1,12 @@
 # Release History for gapic-generator-cloud
 
+### 0.23.2 / 2023-03-08
+
+* Includes changes from gapic-generator 0.23.2
+* Fix: Replace googleapis.dev links with equivalent cloud.google.com or rubydoc.info links
+* Fix: Fix broken ruby-doc logger class links in readme templates
+* Fix: Path override now affects wrapper factory method names
+
 ### 0.23.1 / 2023-02-28
 
 * Includes changes from gapic-generator 0.23.1
