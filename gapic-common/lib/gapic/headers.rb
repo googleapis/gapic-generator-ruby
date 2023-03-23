@@ -38,7 +38,6 @@ module Gapic
     def self.x_goog_api_client ruby_version: nil, lib_name: nil, lib_version: nil, gax_version: nil,
                                gapic_version: nil, grpc_version: nil, rest_version: nil, protobuf_version: nil,
                                transports_version_send: [:grpc]
-
       ruby_version ||= ::RUBY_VERSION
       gax_version  ||= ::Gapic::Common::VERSION
       grpc_version ||= ::GRPC::VERSION if defined? ::GRPC::VERSION

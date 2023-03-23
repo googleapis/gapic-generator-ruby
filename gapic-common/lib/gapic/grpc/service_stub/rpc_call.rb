@@ -145,13 +145,23 @@ module Gapic
         return if options.timeout.nil?
         return if options.timeout.negative?
 
-        Time.now + options.timeout
+        current_time + options.timeout
       end
 
       def check_retry? deadline
         return true if deadline.nil?
 
-        deadline > Time.now
+        deadline > current_time
+      end
+
+      def current_time
+        # An alternative way of saying Time.now without actually calling
+        # Time.now. This allows clients that replace Time.now (e.g. via the
+        # timecop gem) to do so without interfering with the deadline.
+        nanos = Process.clock_gettime Process::CLOCK_REALTIME, :nanosecond
+        secs_part = nanos / 1_000_000_000
+        nsecs_part = nanos % 1_000_000_000
+        Time.at secs_part, nsecs_part, :nanosecond
       end
     end
   end
