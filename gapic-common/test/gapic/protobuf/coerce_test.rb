@@ -75,13 +75,24 @@ class ProtobufCoerceTest < Minitest::Spec
     end
   end
 
-  it "handles maps" do
+  it "handles maps using the DSL" do
     request_hash = { name: USER_NAME, map_field: MAP }
     user = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::User
     _(user).must_be_kind_of Gapic::Examples::User
     _(user.name).must_equal USER_NAME
     _(user.map_field).must_be_kind_of Google::Protobuf::Map
     user.map_field.each do |k, v|
+      _(MAP[k]).must_equal v
+    end
+  end
+
+  it "handles maps using raw descriptor strings" do
+    request_hash = { name: USER_NAME, map_field: MAP }
+    obj = Gapic::Protobuf.coerce request_hash, to: Gapic::Examples::MapTest
+    _(obj).must_be_kind_of Gapic::Examples::MapTest
+    _(obj.name).must_equal USER_NAME
+    _(obj.map_field).must_be_kind_of Google::Protobuf::Map
+    obj.map_field.each do |k, v|
       _(MAP[k]).must_equal v
     end
   end
