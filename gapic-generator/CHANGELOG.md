@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.23.3 / 2023-05-26
+
+* Fix: Generated clients depend on gapic-common 0.19
+
 ### 0.23.2 / 2023-03-08
 
 * Fix: Remove html tags from description text parsed from service yaml

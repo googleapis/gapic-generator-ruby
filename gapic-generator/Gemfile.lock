@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gapic-generator (0.23.2)
+    gapic-generator (0.23.3)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
@@ -52,8 +52,8 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.7)
       minitest (~> 5.16)
-    nokogiri (1.15.2)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.1)
@@ -81,7 +81,7 @@ GEM
     redcarpet (3.6.0)
     regexp_parser (2.8.0)
     rexml (3.2.5)
-    rubocop (1.51.0)
+    rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -117,4 +117,4 @@ DEPENDENCIES
   yard (~> 0.9)
 
 BUNDLED WITH
-   2.4.7
+   2.4.13
