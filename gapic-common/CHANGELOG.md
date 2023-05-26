@@ -1,5 +1,11 @@
 # Release History
 
+### 0.19.0 (2023-05-26)
+
+#### Features
+
+* Compatibility with protobuf v23 generated map fields ([#948](https://github.com/googleapis/gapic-generator-ruby/issues/948)) 
+
 ### 0.18.0 (2023-02-27)
 
 #### Features
