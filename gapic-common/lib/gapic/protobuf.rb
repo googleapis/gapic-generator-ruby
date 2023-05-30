@@ -31,6 +31,7 @@ module Gapic
     # @return [Object] An instance of the given message class.
     def self.coerce hash, to:
       return hash if hash.is_a? to
+      return nil if hash.nil?
 
       # Special case handling of certain types
       return time_to_timestamp hash if to == Google::Protobuf::Timestamp && hash.is_a?(Time)
