@@ -1,5 +1,11 @@
 # Release History
 
+### 0.19.1 (2023-05-30)
+
+#### Bug Fixes
+
+* Fixed handling of optional fields in coerce ([#954](https://github.com/googleapis/gapic-generator-ruby/issues/954)) 
+
 ### 0.19.0 (2023-05-26)
 
 #### Features
