@@ -2,7 +2,9 @@
 
 ### 0.23.4 / 2023-06-03
 
-* Fix: Several fixes for the generator
+* Fix: Updates to the bundle locks
+* Fix: Generated clients depend on gapic-common 0.19.1
+* Fix: Fixes the enable_self_signed_jwt determination when the endpoint in the global configuration object (as opposed to the constructor configuration block) is modified
 
 ### 0.23.3 / 2023-05-26
 
