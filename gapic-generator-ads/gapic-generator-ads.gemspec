@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.6"
 
-  spec.add_dependency "actionpack", "~> 5.2"
+  spec.add_dependency "actionpack", ">= 5.2", "< 8.0"
   spec.add_dependency "gapic-generator", "= #{Gapic::Generator::Ads::VERSION}"
   spec.add_dependency "protobuf", "~> 3.8"
 
