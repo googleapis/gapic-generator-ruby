@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.23.3)
+    gapic-generator (0.23.4)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.23.3)
+    gapic-generator-cloud (0.23.4)
       actionpack (~> 5.2)
-      gapic-generator (= 0.23.3)
+      gapic-generator (= 0.23.4)
       google-style (~> 1.26.1)
       protobuf (~> 3.8)
 
@@ -61,8 +61,8 @@ GEM
       minitest (>= 4, < 6)
     minitest-server (1.0.7)
       minitest (~> 5.16)
-    nokogiri (1.15.2)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     parallel (1.23.0)
     parser (3.2.2.1)
@@ -83,14 +83,13 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.0)
-      loofah (~> 2.21)
-      nokogiri (~> 1.14)
+    rails-html-sanitizer (1.5.0)
+      loofah (~> 2.19, >= 2.19.1)
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.8.0)
     rexml (3.2.5)
-    rubocop (1.52.0)
+    rubocop (1.50.2)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
@@ -123,4 +122,4 @@ DEPENDENCIES
   rake (>= 13.0)
 
 BUNDLED WITH
-   2.4.10
+   2.4.13
