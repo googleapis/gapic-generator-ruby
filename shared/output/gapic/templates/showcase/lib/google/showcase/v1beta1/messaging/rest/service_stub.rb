@@ -66,7 +66,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_create_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -104,7 +104,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_get_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -142,7 +142,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_update_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -180,7 +180,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_delete_room_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -218,7 +218,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_list_rooms_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -257,7 +257,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_create_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -295,7 +295,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_get_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -333,7 +333,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_update_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -371,7 +371,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_delete_blurb_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -409,7 +409,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_list_blurbs_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -448,7 +448,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_search_blurbs_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
@@ -483,7 +483,7 @@ module Google
 
               verb, uri, query_string_params, body = ServiceStub.transcode_stream_blurbs_request request_pb
               query_string_params = if query_string_params.any?
-                                      query_string_params.to_h { |p| p.split("=", 2) }
+                                      query_string_params.to_h { |p| p.split "=", 2 }
                                     else
                                       {}
                                     end
