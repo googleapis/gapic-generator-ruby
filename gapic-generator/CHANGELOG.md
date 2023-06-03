@@ -1,5 +1,9 @@
 # Release History for gapic-generator
 
+### 0.23.4 / 2023-06-03
+
+* Fix: Several fixes for the generator
+
 ### 0.23.3 / 2023-05-26
 
 * Fix: Generated clients depend on gapic-common 0.19
