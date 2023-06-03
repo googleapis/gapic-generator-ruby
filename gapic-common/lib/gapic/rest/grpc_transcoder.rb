@@ -117,7 +117,7 @@ module Gapic
           field_value = extract_scalar_value! request_hash, field_path_camel, field_binding.regex
 
           if field_value
-            field_value = field_value.split("/").map { |segment| percent_escape(segment) }.join("/")
+            field_value = field_value.split("/").map { |segment| percent_escape segment }.join("/")
           end
 
           [field_binding.field_path, field_value]
@@ -126,7 +126,7 @@ module Gapic
 
       # Percent-escapes a string.
       # @param str [String] String to escape.
-      # @return str [String] Escaped string.
+      # @return [String] Escaped string.
       def percent_escape str
         # `+` to represent spaces is not currently supported in Showcase server.
         CGI.escape(str).gsub("+", "%20")

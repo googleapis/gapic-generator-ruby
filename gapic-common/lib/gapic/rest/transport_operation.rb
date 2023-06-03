@@ -28,7 +28,7 @@ module Gapic
 
       ##
       # @private
-      # @param request [::Object, nil, ::Faraday::Response]
+      # @param underlying_op [::Object, nil, ::Faraday::Response]
       #   The underlying transport's library object that describes the active call, if any.
       def initialize underlying_op
         @underlying_op = underlying_op

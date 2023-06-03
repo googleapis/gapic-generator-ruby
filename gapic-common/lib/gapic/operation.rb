@@ -99,7 +99,7 @@ module Gapic
     # returned. Otherwise returns nil.
     #
     # @return [Object, Google::Rpc::Status, nil] The result of the operation. If it is an error a
-    #   {Google::Rpc::Status} will be returned.
+    #   `Google::Rpc::Status` will be returned.
     def results
       return error if error?
       return response if response?
@@ -119,7 +119,7 @@ module Gapic
     # Returns the metadata of an operation. If a type is provided, the metadata will be unpacked using the type
     # provided; returning nil if the metadata is not of the type provided. If the type is not of provided, the
     # metadata will be unpacked using the metadata's type_url if the type_url is found in the
-    # {Google::Protobuf::DescriptorPool.generated_pool}. If the type cannot be found the raw metadata is retuned.
+    # `Google::Protobuf::DescriptorPool.generated_pool`. If the type cannot be found the raw metadata is retuned.
     #
     # @return [Object, nil] The metadata of the operation. Can be nil.
     #
@@ -250,7 +250,7 @@ module Gapic
     # @param retry_policy [RetryPolicy, Hash, Proc] The policy for retry. A custom proc that takes the error as an
     #   argument and blocks can also be provided.
     #
-    # @yield operation [Gapic::Operation] Yields the finished Operation.
+    # @yieldparam operation [Gapic::Operation] Yields the finished Operation.
     #
     def wait_until_done! retry_policy: nil
       retry_policy = RetryPolicy.new(**retry_policy) if retry_policy.is_a? Hash
@@ -270,7 +270,7 @@ module Gapic
     # Registers a callback to be run when a refreshed operation is marked as done. If the operation has completed
     # prior to a call to this function the callback will be called instead of registered.
     #
-    # @yield operation [Gapic::Operation] Yields the finished Operation.
+    # @yieldparam operation [Gapic::Operation] Yields the finished Operation.
     #
     def on_done &block
       if done?
