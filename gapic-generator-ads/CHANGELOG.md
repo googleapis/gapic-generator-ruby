@@ -3,7 +3,6 @@
 ### 0.23.4 / 2023-06-03
 
 * Includes changes from gapic-generator 0.23.4
-* Fix: Several fixes for the generator
 
 ### 0.23.3 / 2023-05-26
 
