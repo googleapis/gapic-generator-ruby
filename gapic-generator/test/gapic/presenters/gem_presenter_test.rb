@@ -81,11 +81,27 @@ class GemPresenterTest < PresenterTest
   end
 
   ##
+  # Testing that we can add a new dependency with a one-part gem pattern
+  # without a space and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_simple_new_without_spaces
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>=0.4.1"
+    }
+
+    api_param = api :testing, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? NEW_GEM_NAME
+    assert_kind_of String, presenter_param.dependencies[NEW_GEM_NAME]
+    assert_equal ">= 0.4.1", presenter_param.dependencies[NEW_GEM_NAME]
+  end
+
+  ##
   # Testing that we can add a new dependency with a multi-part gem pattern
   # and have it reflected correctly in the gem presenter
-  def test_gem_dependencies_complex_new
+  def test_gem_dependencies_complex_bar_new
     complex_version_param = {
-      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1|< 2.a|foobar"
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1|< 2.a"
     }
 
     api_param = api :testing, params_override: complex_version_param
@@ -93,8 +109,42 @@ class GemPresenterTest < PresenterTest
 
     assert presenter_param.dependencies.key? NEW_GEM_NAME
     assert_kind_of Array, presenter_param.dependencies[NEW_GEM_NAME]
-    assert_equal 3, presenter_param.dependencies[NEW_GEM_NAME].length
+    assert_equal 2, presenter_param.dependencies[NEW_GEM_NAME].length
     assert_includes presenter_param.dependencies[NEW_GEM_NAME], "< 2.a"
+    assert_includes presenter_param.dependencies[NEW_GEM_NAME], ">= 0.4.1"
+  end
+
+  ##
+  # Testing that we can add a new dependency with a multi-part gem pattern
+  # and have it reflected correctly in the gem presenter
+  def test_gem_dependencies_complex_plus_new
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1+<2.a"
+    }
+
+    api_param = api :testing, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert presenter_param.dependencies.key? NEW_GEM_NAME
+    assert_kind_of Array, presenter_param.dependencies[NEW_GEM_NAME]
+    assert_equal 2, presenter_param.dependencies[NEW_GEM_NAME].length
+    assert_includes presenter_param.dependencies[NEW_GEM_NAME], "< 2.a"
+    assert_includes presenter_param.dependencies[NEW_GEM_NAME], ">= 0.4.1"
+  end
+
+  ##
+  # Testing that bad syntax causes the right exception
+  def test_gem_dependencies_bad_syntax
+    complex_version_param = {
+      ":gem.:extra_dependencies" => "#{NEW_GEM_NAME}=>= 0.4.1+foobar+< 2.a"
+    }
+
+    api_param = api :testing, params_override: complex_version_param
+    presenter_param = Gapic::Presenters::GemPresenter.new api_param
+
+    assert_raises RuntimeError, "Bad syntax for extra_dependency: foobar" do
+      presenter_param.dependencies
+    end
   end
 
   ##
@@ -102,7 +152,7 @@ class GemPresenterTest < PresenterTest
   # and have it reflected correctly in the gem presenter
   def test_gem_dependencies_simple_override
     complex_version_param = {
-      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1"
+      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=~>0.4.1"
     }
 
     api_param = api :testing, params_override: complex_version_param
@@ -110,7 +160,7 @@ class GemPresenterTest < PresenterTest
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
     assert_kind_of String, presenter_param.dependencies[GAPIC_COMMON_NAME]
-    assert_equal ">= 0.4.1", presenter_param.dependencies[GAPIC_COMMON_NAME]
+    assert_equal "~> 0.4.1", presenter_param.dependencies[GAPIC_COMMON_NAME]
   end
 
   ##
@@ -118,7 +168,7 @@ class GemPresenterTest < PresenterTest
   # and have it reflected correctly in the gem presenter
   def test_gem_dependencies_complex_override
     complex_version_param = {
-      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1|< 2.a|foobar"
+      ":gem.:extra_dependencies" => "#{GAPIC_COMMON_NAME}=>= 0.4.1|< 2.a"
     }
 
     api_param = api :testing, params_override: complex_version_param
@@ -126,7 +176,8 @@ class GemPresenterTest < PresenterTest
 
     assert presenter_param.dependencies.key? GAPIC_COMMON_NAME
     assert_kind_of Array, presenter_param.dependencies[GAPIC_COMMON_NAME]
-    assert_equal 3, presenter_param.dependencies[GAPIC_COMMON_NAME].length
+    assert_equal 2, presenter_param.dependencies[GAPIC_COMMON_NAME].length
     assert_includes presenter_param.dependencies[GAPIC_COMMON_NAME], "< 2.a"
+    assert_includes presenter_param.dependencies[GAPIC_COMMON_NAME], ">= 0.4.1"
   end
 end
