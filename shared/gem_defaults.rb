@@ -37,6 +37,7 @@ def gem_defaults
         "grafeas/v1/slsa_provenance.proto",
         "grafeas/v1/slsa_provenance_zero_two.proto",
         "grafeas/v1/upgrade.proto",
+        "grafeas/v1/vex.proto",
         "grafeas/v1/vulnerability.proto"
       ]
     },
