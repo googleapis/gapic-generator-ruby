@@ -1,5 +1,10 @@
 # Release History for gapic-generator-cloud
 
+### 0.24.0 / 2023-07-05
+
+* Includes changes from gapic-generator 0.24.0
+* Feature: Loosen parsing for extra_dependencies
+
 ### 0.23.4 / 2023-06-03
 
 * Includes changes from gapic-generator 0.23.4
