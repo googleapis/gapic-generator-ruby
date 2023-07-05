@@ -350,6 +350,12 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "google.cloud.language.v1beta2.ClassifyTextResponse" do
       repeated :categories, :message, 1, "google.cloud.language.v1beta2.ClassificationCategory"
     end
+    add_message "google.cloud.language.v1beta2.ModerateTextRequest" do
+      optional :document, :message, 1, "google.cloud.language.v1beta2.Document"
+    end
+    add_message "google.cloud.language.v1beta2.ModerateTextResponse" do
+      repeated :moderation_categories, :message, 1, "google.cloud.language.v1beta2.ClassificationCategory"
+    end
     add_message "google.cloud.language.v1beta2.AnnotateTextRequest" do
       optional :document, :message, 1, "google.cloud.language.v1beta2.Document"
       optional :features, :message, 2, "google.cloud.language.v1beta2.AnnotateTextRequest.Features"
@@ -361,6 +367,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :extract_document_sentiment, :bool, 3
       optional :extract_entity_sentiment, :bool, 4
       optional :classify_text, :bool, 6
+      optional :moderate_text, :bool, 11
       optional :classification_model_options, :message, 10, "google.cloud.language.v1beta2.ClassificationModelOptions"
     end
     add_message "google.cloud.language.v1beta2.AnnotateTextResponse" do
@@ -370,6 +377,7 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :document_sentiment, :message, 4, "google.cloud.language.v1beta2.Sentiment"
       optional :language, :string, 5
       repeated :categories, :message, 6, "google.cloud.language.v1beta2.ClassificationCategory"
+      repeated :moderation_categories, :message, 8, "google.cloud.language.v1beta2.ClassificationCategory"
     end
     add_enum "google.cloud.language.v1beta2.EncodingType" do
       value :NONE, 0
@@ -425,6 +433,8 @@ module Google
         AnalyzeSyntaxResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.AnalyzeSyntaxResponse").msgclass
         ClassifyTextRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.ClassifyTextRequest").msgclass
         ClassifyTextResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.ClassifyTextResponse").msgclass
+        ModerateTextRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.ModerateTextRequest").msgclass
+        ModerateTextResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.ModerateTextResponse").msgclass
         AnnotateTextRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.AnnotateTextRequest").msgclass
         AnnotateTextRequest::Features = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.AnnotateTextRequest.Features").msgclass
         AnnotateTextResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("google.cloud.language.v1beta2.AnnotateTextResponse").msgclass
