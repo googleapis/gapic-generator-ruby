@@ -19,7 +19,7 @@ require "gapic/grpc/service_stub/rpc_call"
 module Gapic
   class ServiceStub
     ##
-    # Gapic gRPC service stub channel.
+    # Gapic gRPC ServiceStub Channel.
     #
     # This class wraps the gRPC stub object and it's RPC methods.
     #
@@ -29,7 +29,8 @@ module Gapic
       ##
       # Creates a new Channel instance
       #
-      def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
+      def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil,
+                     on_channel_create: nil
         @grpc_stub_class = grpc_stub_class
         @endpoint = endpoint
         @credentials = credentials
@@ -38,6 +39,7 @@ module Gapic
         @concurrent_streams = 0
         @mutex = Mutex.new
         setup_grpc_stub
+        on_channel_create&.call self
       end
 
       ##

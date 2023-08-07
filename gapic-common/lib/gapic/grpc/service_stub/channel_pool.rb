@@ -20,10 +20,9 @@ require "gapic/config"
 module Gapic
   class ServiceStub
     ##
-    # Gapic gRPC ServiceStub channel pool
+    # Gapic gRPC ServiceStub ChannelPool
     #
-    # This class creates multiple gRPC connection and sends RPC through
-    # them using the algorithm configured by the user
+    # This class wraps multiple channels for sending RPCs.
     #
     class ChannelPool
       ##
@@ -42,6 +41,7 @@ module Gapic
         @config = config || Configuration.new
 
         yield @config if block_given?
+
         @channels = (1..@config.channel_count).map { create_channel }
       end
 
@@ -49,7 +49,7 @@ module Gapic
       # Creates a new channel.
       def create_channel
         Channel.new @grpc_stub_class, endpoint: @endpoint, credentials: @credentials, channel_args: @channel_args,
-                    interceptors: @interceptors
+                    interceptors: @interceptors, on_channel_create: @config.on_channel_create
       end
 
       ##
@@ -90,6 +90,10 @@ module Gapic
       # @!attribute [rw] channel_count
       #  The number of channels in the channel pool.
       #  return [Integer]
+      # @!attribute [rw] on_channel_create
+      #  Proc to run at the end of each channel initialization.
+      #  Proc is provided ::Gapic::ServiceStub::Channel object as input.
+      #  return [Proc]
       # @!attribute [rw] channel_selection
       #  The algorithm for selecting a channel for an RPC.
       #  return [Symbol]
@@ -97,7 +101,8 @@ module Gapic
       class Configuration
         extend ::Gapic::Config
 
-        config_attr :channel_count, 1, ::Integer, nil
+        config_attr :channel_count, 1, ::Integer
+        config_attr :on_channel_create, nil, ::Proc
         config_attr :channel_selection, :least_loaded do |value|
           allowed = [:least_loaded]
           allowed.any? { |klass| klass === value }

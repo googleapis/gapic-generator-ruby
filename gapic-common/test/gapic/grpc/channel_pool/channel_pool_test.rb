@@ -204,4 +204,28 @@ class ChannelPoolTest < Minitest::Test
     end
     assert_equal rpc_count, 1
   end
+
+  def test_on_channel_create_config
+    creds = :this_channel_is_insecure
+    channel_create_proc_count = 0
+    channel_create_proc = Proc.new do |channel|
+      assert channel.is_a?(Gapic::ServiceStub::Channel)
+      channel_create_proc_count += 1
+    end
+    mock = Minitest::Mock.new
+    (1..2).each do
+      mock.expect :nil?, false
+      mock.expect :new, nil, ["service:port", creds], channel_args: {}, interceptors: []
+    end
+
+    Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds do |config|
+      config.channel_count = 2
+      config.on_channel_create = channel_create_proc
+      assert_equal 2, config.channel_count
+      assert config.on_channel_create.is_a?(Proc)
+    end
+
+    assert_equal channel_create_proc_count, 2
+    mock.verify
+  end
 end

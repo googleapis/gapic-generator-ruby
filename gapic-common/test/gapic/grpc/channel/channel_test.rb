@@ -197,4 +197,22 @@ class ChannelTest < Minitest::Test
     end
     assert_equal rpc_count, 2
   end
+
+  def test_on_channel_create
+    creds = :this_channel_is_insecure
+    channel_count = 0
+    channel_create_proc = Proc.new do |channel|
+      assert channel.is_a?(Gapic::ServiceStub::Channel)
+      channel_count += 1
+    end
+    mock = Minitest::Mock.new
+    mock.expect :nil?, false
+    mock.expect :new, mock, ["service:port", creds], channel_args: {}, interceptors: []
+
+    Gapic::ServiceStub::Channel.new mock, endpoint: "service:port", credentials: creds,
+                                                on_channel_create: channel_create_proc
+
+    assert_equal channel_count, 1
+    mock.verify
+  end
 end
