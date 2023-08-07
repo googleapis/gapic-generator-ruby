@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MT_COMPAT: true
+
 jobs:
   tests:
     if: ${{ github.repository == 'googleapis/gapic-generator-ruby' }}
