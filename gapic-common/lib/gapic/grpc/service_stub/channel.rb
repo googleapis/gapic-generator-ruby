@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,9 +19,11 @@ require "gapic/grpc/service_stub/rpc_call"
 module Gapic
   class ServiceStub
     ##
+    # @private
+    #
     # Gapic gRPC ServiceStub Channel.
     #
-    # This class wraps the gRPC stub object and it's RPC methods.
+    # This class wraps the gRPC stub object and its RPC methods.
     #
     class Channel
       attr_reader :concurrent_streams

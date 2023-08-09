@@ -62,14 +62,14 @@ class ServiceStubTest < Minitest::Test
     channel_pool_config = Gapic::ServiceStub::ChannelPool::Configuration.new
     channel_pool_config.channel_count = 2
     mock = Minitest::Mock.new
-    (1..2).each do
-      mock.expect :nil?, false
-      mock.expect :new, nil, ["service:port", nil], channel_override: fake_channel, interceptors: []
-    end
+    mock.expect :nil?, false
+    mock.expect :nil?, false
+    mock.expect :new, nil, ["service:port", nil], channel_override: fake_channel, interceptors: []
 
-    service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel,
-                           channel_pool_config: channel_pool_config
-    assert service_stub.instance_variable_get(:@channel_pool).nil?
+    assert_raises ArgumentError do
+      Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel,
+                             channel_pool_config: channel_pool_config
+    end
 
     service_stub = Gapic::ServiceStub.new mock, endpoint: "service:port", credentials: fake_channel
     assert service_stub.instance_variable_get(:@channel_pool).nil?

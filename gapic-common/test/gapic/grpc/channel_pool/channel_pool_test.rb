@@ -89,7 +89,6 @@ class ChannelPoolTest < Minitest::Test
     mock.expect :nil?, false
     mock.expect :new, nil, ["service:port", creds], channel_args: {}, interceptors: []
 
-
     Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds
 
     mock.verify
@@ -127,20 +126,16 @@ class ChannelPoolTest < Minitest::Test
 
   def test_channel_config
     creds = :this_channel_is_insecure
-
+    config = Gapic::ServiceStub::ChannelPool::Configuration.new
+    config.channel_count = 5
+    config.channel_selection = :least_loaded
     mock = Minitest::Mock.new
     (1..5).each do
       mock.expect :nil?, false
       mock.expect :new, nil, ["service:port", creds], channel_args: {}, interceptors: []
     end
 
-    channel_pool = Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds do |config|
-      config.channel_count = 5
-      config.channel_selection = nil
-
-      assert_equal 5, config.channel_count
-      assert_equal :least_loaded, config.channel_selection
-    end
+    channel_pool = Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds, config: config
 
     assert_equal 5, channel_pool.instance_variable_get(:@channels).count
     assert_equal :least_loaded, channel_pool.instance_variable_get(:@config).channel_selection
@@ -177,6 +172,8 @@ class ChannelPoolTest < Minitest::Test
       sleep 3
       rpc_count += 1
     end
+    config = Gapic::ServiceStub::ChannelPool::Configuration.new
+    config.channel_count = 2
     mock = Minitest::Mock.new
     (1..2).each do
       mock.expect :nil?, false
@@ -185,9 +182,7 @@ class ChannelPoolTest < Minitest::Test
     mock.expect :method, method_stub, ["sample_rpc"]
 
     Gapic::ServiceStub::RpcCall.stub :new, FakeRpcCall.method(:new) do
-      channel_pool = Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds do |config|
-        config.channel_count = 2
-      end
+      channel_pool = Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds, config: config
       channels = channel_pool.instance_variable_get :@channels
       assert_equal 2, channels.count
 
@@ -212,18 +207,18 @@ class ChannelPoolTest < Minitest::Test
       assert channel.is_a?(Gapic::ServiceStub::Channel)
       channel_create_proc_count += 1
     end
+    config = Gapic::ServiceStub::ChannelPool::Configuration.new
+    config.channel_count = 2
+    config.on_channel_create = channel_create_proc
     mock = Minitest::Mock.new
     (1..2).each do
       mock.expect :nil?, false
       mock.expect :new, nil, ["service:port", creds], channel_args: {}, interceptors: []
     end
 
-    Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds do |config|
-      config.channel_count = 2
-      config.on_channel_create = channel_create_proc
-      assert_equal 2, config.channel_count
-      assert config.on_channel_create.is_a?(Proc)
-    end
+
+
+    Gapic::ServiceStub::ChannelPool.new mock, endpoint: "service:port", credentials: creds, config: config
 
     assert_equal channel_create_proc_count, 2
     mock.verify

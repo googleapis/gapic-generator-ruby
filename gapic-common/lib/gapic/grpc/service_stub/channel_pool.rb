@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ require "gapic/config"
 module Gapic
   class ServiceStub
     ##
+    # @private
+    #
     # Gapic gRPC ServiceStub ChannelPool
     #
     # This class wraps multiple channels for sending RPCs.
@@ -39,8 +41,6 @@ module Gapic
         @channel_args = channel_args
         @interceptors = interceptors
         @config = config || Configuration.new
-
-        yield @config if block_given?
 
         @channels = (1..@config.channel_count).map { create_channel }
       end
@@ -87,6 +87,9 @@ module Gapic
         @channels.min_by(&:concurrent_streams)
       end
 
+      ##
+      # Configuration class for ChannelPool
+      #
       # @!attribute [rw] channel_count
       #  The number of channels in the channel pool.
       #  return [Integer]
@@ -103,10 +106,7 @@ module Gapic
 
         config_attr :channel_count, 1, ::Integer
         config_attr :on_channel_create, nil, ::Proc
-        config_attr :channel_selection, :least_loaded do |value|
-          allowed = [:least_loaded]
-          allowed.any? { |klass| klass === value }
-        end
+        config_attr :channel_selection, :least_loaded, :least_loaded
       end
     end
   end
