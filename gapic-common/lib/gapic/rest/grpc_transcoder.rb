@@ -218,7 +218,7 @@ module Gapic
 
         # Covers the case where in `foo.bar.baz`, `baz` is still a submessage or an array.
         return nil if value.is_a?(::Hash) || value.is_a?(::Array)
-        return value.to_s if value.to_s =~ regex
+        value.to_s if value.to_s =~ regex
       end
 
       # Finds a value in the hash by path.
