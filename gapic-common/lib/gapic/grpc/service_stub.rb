@@ -23,7 +23,7 @@ module Gapic
   ##
   # Gapic gRPC Stub
   #
-  # This class wraps the actual gRPC Stub and ChannelPool.
+  # This class wraps the actual gRPC Stub and ChannelPool objects.
   #
   # @!attribute [r] grpc_stub
   #   @return [Object] The instance of the gRPC stub class (`grpc_stub_class`) constructor argument.
@@ -50,7 +50,7 @@ module Gapic
     #   * A `::GRPC::Core::ChannelCredentials` for the setting up the RPC client. The channel credentials should
     #     already be composed with a `::GRPC::Core::CallCredentials` object.
     #   * A `Proc` will be used as an updater_proc for the Grpc channel. The proc transforms the metadata for
-    #     requests, generall  y, to give OAuth credentials.
+    #     requests, generally, to give OAuth credentials.
     # @param channel_args [Hash] The channel arguments. (This argument is ignored when `credentials` is
     #     provided as a `::GRPC::Core::Channel`.)
     # @param interceptors [Array<::GRPC::ClientInterceptor>] An array of {::GRPC::ClientInterceptor} objects that will
