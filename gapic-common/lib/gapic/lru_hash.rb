@@ -14,6 +14,8 @@
 
 module Gapic
   ##
+  # @private
+  #
   # Linked list based hash maintaining the order of
   # access/creation of the keys.
   #
@@ -49,9 +51,9 @@ module Gapic
     private
 
     def move_to_top node
-      return if node == @start
+      return if node.equal? @start
 
-      if node == @end
+      if node.equal? @end
         @end = node.prev
         @end.next = nil
       else
@@ -83,7 +85,10 @@ module Gapic
     end
 
     ##
+    # @private
+    #
     # Node class for linked list.
+    #
     class Node
       attr_accessor :key
       attr_accessor :value

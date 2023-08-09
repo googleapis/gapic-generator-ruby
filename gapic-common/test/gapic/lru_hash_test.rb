@@ -15,21 +15,23 @@
 require "test_helper"
 require "gapic/lru_hash"
 
+##
+# Tests LRU hash class
+#
 class LruHashTest < Minitest::Test
-
   def test_hash_size_exceed
-    lru_cache = Gapic::LruHash.new(3)
-    lru_cache.put 1, 'one'
-    lru_cache.put 2, 'two'
-    lru_cache.put 3, 'three'
-    lru_cache.put(4, 'four')
+    lru_cache = Gapic::LruHash.new 3
+    lru_cache.put 1, "one"
+    lru_cache.put 2, "two"
+    lru_cache.put 3, "three"
+    lru_cache.put 4, "four"
     assert lru_cache.get(1).nil?
-    assert_equal 'four', lru_cache.get(4)
+    assert_equal "four", lru_cache.get(4)
   end
 
   def test_hash_size_value
     assert_raises ArgumentError do
-      Gapic::LruHash.new(0)
+      Gapic::LruHash.new 0
     end
     assert_raises ArgumentError do
       Gapic::LruHash.new(-1)
@@ -37,16 +39,16 @@ class LruHashTest < Minitest::Test
   end
 
   def test_hash_removes_lru_value
-    lru_cache = Gapic::LruHash.new(3)
-    lru_cache.put 1, 'one'
-    lru_cache.put 2, 'two'
-    lru_cache.put 3, 'three'
+    lru_cache = Gapic::LruHash.new 3
+    lru_cache.put 1, "one"
+    lru_cache.put 2, "two"
+    lru_cache.put 3, "three"
     lru_cache.get 3
     lru_cache.get 2
     lru_cache.get 1
 
-    lru_cache.put(4, 'four')
+    lru_cache.put 4, "four"
     assert lru_cache.get(3).nil?
-    assert_equal 'four', lru_cache.get(4)
+    assert_equal "four", lru_cache.get(4)
   end
 end
