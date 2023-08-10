@@ -17,15 +17,16 @@
 flag :git_remote, "--remote=NAME" do
   desc "The name of the git remote to use as the pull request head. If omitted, does not open a pull request."
 end
+flag :enable_fork, "--fork" do
+  desc "Use a fork to open the pull request"
+end
 
 include :fileutils
 include :exec, e: true
 include "yoshi-pr-generator"
 
 def run
-  Dir.chdir context_directory
-  yoshi_utils.git_ensure_identity
-  git_unshallow
+  setup
   analyze
   branch_name = "release-generators-#{@release_timestamp}"
   message = "release: gapic-generator #{@new_version}"
@@ -43,6 +44,16 @@ def run
                                       pr_body: pr_body,
                                       commit_message: message do
     prepare_changes
+  end
+end
+
+def setup
+  Dir.chdir context_directory
+  yoshi_utils.git_ensure_identity
+  git_unshallow
+  if enable_fork
+    set :git_remote, "release-generators-fork" unless git_remote
+    yoshi_utils.gh_ensure_fork remote: git_remote
   end
 end
 

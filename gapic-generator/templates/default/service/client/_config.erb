@@ -84,7 +84,9 @@
 class Configuration
   extend ::Gapic::Config
 
-  config_attr :endpoint,      <%= service.client_endpoint.inspect %>, ::String
+  DEFAULT_ENDPOINT = <%= service.client_endpoint.inspect %>
+
+  config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
   config_attr :credentials,   nil do |value|
     allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
     allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
@@ -117,6 +119,14 @@ class Configuration
       parent_rpcs = @parent_config.rpcs if defined?(@parent_config) && @parent_config.respond_to?(:rpcs)
       Rpcs.new parent_rpcs
     end
+  end
+
+  ##
+  # Configuration for the channel pool
+  # @return [::Gapic::ServiceStub::ChannelPool::Configurations]
+  #
+  def channel_pool
+    @channel_pool ||= ::Gapic::ServiceStub::ChannelPool::Configuration.new
   end
 
   ##

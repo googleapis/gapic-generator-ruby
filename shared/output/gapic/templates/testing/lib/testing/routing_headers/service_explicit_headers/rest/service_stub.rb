@@ -65,7 +65,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_plain_no_template_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -103,7 +103,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_plain_full_field_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -141,7 +141,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_plain_extract_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -179,7 +179,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_complex_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end
@@ -217,7 +217,7 @@ module Testing
 
             verb, uri, query_string_params, body = ServiceStub.transcode_with_sub_message_request request_pb
             query_string_params = if query_string_params.any?
-                                    query_string_params.to_h { |p| p.split("=", 2) }
+                                    query_string_params.to_h { |p| p.split "=", 2 }
                                   else
                                     {}
                                   end

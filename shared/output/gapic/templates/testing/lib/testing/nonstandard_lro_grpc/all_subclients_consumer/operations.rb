@@ -653,7 +653,9 @@ module Testing
         class Configuration
           extend ::Gapic::Config
 
-          config_attr :endpoint,      "nonstandardlro.example.com", ::String
+          DEFAULT_ENDPOINT = "nonstandardlro.example.com"
+
+          config_attr :endpoint,      DEFAULT_ENDPOINT, ::String
           config_attr :credentials,   nil do |value|
             allowed = [::String, ::Hash, ::Proc, ::Symbol, ::Google::Auth::Credentials, ::Signet::OAuth2::Client, nil]
             allowed += [::GRPC::Core::Channel, ::GRPC::Core::ChannelCredentials] if defined? ::GRPC
