@@ -90,7 +90,7 @@ module Gapic
       #
       def results
         return error if error?
-        return response if response?
+        response if response?
       end
 
       ##

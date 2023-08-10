@@ -102,7 +102,7 @@ module Gapic
     #   `Google::Rpc::Status` will be returned.
     def results
       return error if error?
-      return response if response?
+      response if response?
     end
 
     ##
