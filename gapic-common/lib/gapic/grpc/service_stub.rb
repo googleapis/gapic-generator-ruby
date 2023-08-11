@@ -28,7 +28,7 @@ module Gapic
   # @!attribute [r] grpc_stub
   #   @return [Object] The instance of the gRPC stub class (`grpc_stub_class`) constructor argument.
   # @!attribute [r] channel_pool
-  #   @return [Object] The instance of the ChannelPool class.
+  #   @return [Gapic::ServiceStub::ChannelPool] The instance of the ChannelPool class.
   #
   class ServiceStub
     attr_reader :grpc_stub
