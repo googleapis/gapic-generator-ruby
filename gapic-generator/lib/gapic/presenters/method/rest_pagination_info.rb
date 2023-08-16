@@ -109,7 +109,7 @@ module Gapic
         def request_page_token_field
           # Has a String page_token field which specifies the actual (next) page to retrieve.
           @request_page_token_field ||= @request.fields.find do |f|
-            f.name == "page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+            f.name == "page_token" && f.type == :TYPE_STRING
           end
         end
 
@@ -125,10 +125,7 @@ module Gapic
 
               # Has the int32 page_size or int32 max_results field
               # which defines the maximum number of paginated resources to return in the response.
-              page_size_types = [
-                Google::Protobuf::FieldDescriptorProto::Type::TYPE_UINT32,
-                Google::Protobuf::FieldDescriptorProto::Type::TYPE_INT32
-              ]
+              page_size_types = [:TYPE_UINT32, :TYPE_INT32]
 
               field = @request.fields.find do |f|
                 page_size_names.include?(f.name) && page_size_types.include?(f.type)
@@ -156,7 +153,7 @@ module Gapic
         def response_next_page_token_field
           # Has the string next_page_token field to be used in the next request as page_token to retrieve the next page.
           @response_next_page_token_field ||= @response.fields.find do |f|
-            f.name == "next_page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+            f.name == "next_page_token" && f.type == :TYPE_STRING
           end
         end
 
@@ -169,8 +166,7 @@ module Gapic
           @response_results_field ||= begin
             map_fields = @response.fields.find_all(&:map?)
             repeated_fields = @response.fields.find_all do |f|
-              !f.map? &&
-                f.label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED
+              !f.map? && f.label == :LABEL_REPEATED
             end
 
             if map_fields.count == 1
@@ -187,6 +183,25 @@ module Gapic
           end
         end
 
+        # @private
+        FIELD_TYPE_MAPPING = {
+          TYPE_DOUBLE: "::Float",
+          TYPE_FLOAT: "::Float",
+          TYPE_INT64: "::Integer",
+          TYPE_UINT64: "::Integer",
+          TYPE_INT32: "::Integer",
+          TYPE_FIXED64: "::Integer",
+          TYPE_FIXED32: "::Integer",
+          TYPE_BOOL: "::Boolean",
+          TYPE_STRING: "::String",
+          TYPE_BYTES: "::String",
+          TYPE_UINT32: "::Integer",
+          TYPE_SFIXED32: "::Integer",
+          TYPE_SFIXED64: "::Integer",
+          TYPE_SINT32: "::Integer",
+          TYPE_SINT64: "::Integer"
+        }.freeze
+
         ##
         # A helper to get a Ruby doc-type for a paginated element.
         #
@@ -201,14 +216,7 @@ module Gapic
             # TODO: handle when arg message is nil and enum is the type
             message_ruby_type field.enum
           else
-            case field.type
-            when 1, 2                              then "::Float"
-            when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "::Integer"
-            when 9, 12                             then "::String"
-            when 8                                 then "::Boolean"
-            else
-              "::Object"
-            end
+            FIELD_TYPE_MAPPING[field.type] || "::Object"
           end
         end
 

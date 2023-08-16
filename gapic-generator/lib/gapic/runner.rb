@@ -17,7 +17,7 @@
 require "gapic/generator"
 require "gapic/schema"
 require "gapic/schema/request_param_parser"
-require "google/protobuf/compiler/plugin.pb"
+require "google/protobuf/compiler/plugin_pb"
 
 module Gapic
   # TODO: Enter docs

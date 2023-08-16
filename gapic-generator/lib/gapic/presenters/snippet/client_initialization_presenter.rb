@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 require "gapic/presenters/snippet/statement_presenter"
 
 module Gapic
@@ -28,7 +28,7 @@ module Gapic
         ##
         # Create an client init presenter.
         #
-        # @param proto [Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::ClientInitialization]
+        # @param proto [Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::ClientInitialization]
         #     The protobuf representation
         # @param json [String]
         #     The JSON representation
@@ -78,7 +78,7 @@ module Gapic
         end
 
         def build_endpoint proto
-          init_module = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::ClientInitialization
+          init_module = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::ClientInitialization
           schema = proto.schema == init_module::ServiceEndpoint::ServiceEndpointSchema::HTTP ? "http://" : "https://"
           region = proto.region.to_s.empty? ? "" : "#{proto.region}-"
           port = proto.port.zero? ? "" : ":#{proto.port}"

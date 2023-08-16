@@ -22,7 +22,7 @@ class ExpressionPresenterTest < PresenterTest
   include SnippetTestHelper
 
   def build_expression_presenter json
-    proto = build_proto_fragment Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Expression, json
+    proto = build_proto_fragment Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Expression, json
     Gapic::Presenters::SnippetPresenter::ExpressionPresenter.new proto, json
   end
 
@@ -94,9 +94,9 @@ class ExpressionPresenterTest < PresenterTest
     presenter = build_expression_presenter json
     expected = [
       "{",
+      "  age: 21,",
       "  id: my_id,",
-      '  name: "Jane Doe",',
-      "  age: 21",
+      '  name: "Jane Doe"',
       "}"
     ]
     assert_equal expected, presenter.render_lines
@@ -134,8 +134,8 @@ class ExpressionPresenterTest < PresenterTest
       "{",
       "  id: my_id,",
       "  stats: {",
-      '    eyes: "brown",',
-      '    hair: "black"',
+      '    hair: "black",',
+      '    eyes: "brown"',
       "  },",
       '  name: "Jane Doe"',
       "}"
@@ -201,12 +201,12 @@ class ExpressionPresenterTest < PresenterTest
     expected = [
       "[",
       "  {",
-      '    name: "Jane Doe",',
-      "    age: 21",
+      "    age: 21,",
+      '    name: "Jane Doe"',
       "  },",
       "  {",
-      '    name: "John Doe",',
-      "    age: 20",
+      "    age: 20,",
+      '    name: "John Doe"',
       "  }",
       "]"
     ]

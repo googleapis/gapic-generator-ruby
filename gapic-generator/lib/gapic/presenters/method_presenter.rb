@@ -293,8 +293,7 @@ module Gapic
         return nil unless paged_response? @method.output
 
         repeated_field = @method.output.fields.find do |f|
-          f.label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED &&
-            f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_MESSAGE
+          f.label == :LABEL_REPEATED && f.type == :TYPE_MESSAGE
         end
         message_ruby_type repeated_field.message
       end
@@ -358,6 +357,8 @@ module Gapic
         ruby_namespace @api, message.address.join(".")
       end
 
+      # @private
+      # BUG: This code seems to be dead
       def doc_types_for arg
         if arg.message?
           "#{message_ruby_type arg.message}, Hash"
@@ -376,12 +377,16 @@ module Gapic
         end
       end
 
+      # @private
+      # BUG: This code seems to be dead
       def doc_desc_for arg
         return nil if arg.docs.leading_comments.empty?
 
         arg.docs.leading_comments
       end
 
+      # @private
+      # BUG: This code seems to be dead
       def default_value_for arg
         if arg.message?
           "{}"
@@ -403,14 +408,11 @@ module Gapic
 
       def paged_request? request
         page_token = request.fields.find do |f|
-          f.name == "page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+          f.name == "page_token" && f.type == :TYPE_STRING
         end
         return false if page_token.nil?
 
-        page_size_types = [
-          Google::Protobuf::FieldDescriptorProto::Type::TYPE_INT32,
-          Google::Protobuf::FieldDescriptorProto::Type::TYPE_INT64
-        ]
+        page_size_types = [:TYPE_INT32, :TYPE_INT64]
         page_size = request.fields.find do |f|
           f.name == "page_size" && page_size_types.include?(f.type)
         end
@@ -421,13 +423,12 @@ module Gapic
 
       def paged_response? response
         next_page_token = response.fields.find do |f|
-          f.name == "next_page_token" && f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_STRING
+          f.name == "next_page_token" && f.type == :TYPE_STRING
         end
         return false if next_page_token.nil?
 
         repeated_field = response.fields.find do |f|
-          f.label == Google::Protobuf::FieldDescriptorProto::Label::LABEL_REPEATED &&
-            f.type == Google::Protobuf::FieldDescriptorProto::Type::TYPE_MESSAGE
+          f.label == :LABEL_REPEATED && f.type == :TYPE_MESSAGE
         end
         return false if repeated_field.nil?
 

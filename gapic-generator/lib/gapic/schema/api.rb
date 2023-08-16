@@ -214,7 +214,7 @@ module Gapic
       # @param address [String] Method address in the form
       #   `proto.package.v1.ServiceName.MethodName`
       # @return [Array<
-      #   Google::Cloud::Tools::Snippetgen::Configlanguage::V1::SnippetConfig>]
+      #   Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::SnippetConfig>]
       def snippet_configs_for address
         address = address.join "." if address.is_a? ::Array
         @snippet_configs.find_all do |config|

@@ -24,7 +24,7 @@ class ClientInitializationPresenterTest < PresenterTest
   CLIENT_TYPE = "Google::Cloud::MyAPI::V1::MyService::Client"
 
   def build_client_init_presenter json, phase1: false
-    klass = Google::Cloud::Tools::Snippetgen::Configlanguage::V1::Snippet::ClientInitialization
+    klass = Google::Cloud::Tools::SnippetGen::ConfigLanguage::V1::Snippet::ClientInitialization
     proto = build_proto_fragment klass, json if json
     Gapic::Presenters::SnippetPresenter::ClientInitializationPresenter.new \
       proto, json, phase1: phase1, client_type: CLIENT_TYPE

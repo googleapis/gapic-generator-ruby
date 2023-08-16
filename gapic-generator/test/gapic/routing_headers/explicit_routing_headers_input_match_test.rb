@@ -394,7 +394,7 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       request = test_case[:request]
       expected = test_case[:expected]
 
-      err_str = "Test case:\nRequest: \n#{request.pretty_inspect}\nExpected: \n#{expected.pretty_inspect}"
+      err_str = "Test case:\nRequest: \n#{request.inspect}\nExpected: \n#{expected.inspect}"
 
       headers = {}
       routing.explicit_params.each do |key, param_arr|
@@ -406,8 +406,8 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
         end
       end
 
-      err_str = "#{err_str}\nHeaders formed: \n #{headers.pretty_inspect}"
-      err_str = "#{err_str}\nRouting: #{routing.explicit_params.pretty_inspect}"
+      err_str = "#{err_str}\nHeaders formed: \n #{headers.inspect}"
+      err_str = "#{err_str}\nRouting: #{routing.explicit_params.inspect}"
 
       if percent_encode
         assert_equal expected, URI.encode_www_form(headers), err_str

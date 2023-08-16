@@ -23,8 +23,8 @@ class AnnotationServiceTest < AnnotationTest
     refute_nil service
 
     assert_kind_of Google::Protobuf::ServiceOptions, service.options
-    assert_equal "localhost:7469", service.options[:default_host]
-    assert_equal "", service.options[:oauth_scopes]
+    assert_equal "localhost:7469", service.option_named("default_host")
+    assert_equal "", service.option_named("oauth_scopes")
 
     assert_equal "localhost:7469", service.host
     assert_empty service.scopes
@@ -37,13 +37,13 @@ class AnnotationServiceTest < AnnotationTest
 
     assert_kind_of Google::Protobuf::ServiceOptions, service.options
     garbage_host = "endlesstrash.example.net"
-    assert_equal garbage_host, service.options[:default_host]
+    assert_equal garbage_host, service.option_named("default_host")
     garbage_scopes = %w[
       https://endlesstrash.example.net/garbage-admin
       https://endlesstrash.example.net/garbage-read
       https://endlesstrash.example.net/garbage-write
     ]
-    assert_equal garbage_scopes.join(","), service.options[:oauth_scopes]
+    assert_equal garbage_scopes.join(","), service.option_named("oauth_scopes")
 
     assert_equal garbage_host, service.host
     assert_equal garbage_scopes, service.scopes

@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "active_support/inflector"
-require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language.pb"
+require "google/cloud/tools/snippetgen/configlanguage/v1/snippet_config_language_pb"
 require "gapic/presenters/snippet/client_call_presenter"
 require "gapic/presenters/snippet/client_initialization_presenter"
 require "gapic/presenters/snippet/expression_presenter"

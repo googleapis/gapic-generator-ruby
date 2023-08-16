@@ -26,9 +26,9 @@ class AnnotationPackageTest < AnnotationTest
 
     refute_nil file.options
     assert_kind_of Google::Protobuf::FileOptions, file.options
-    refute_nil file.options[:ruby_package]
-    assert_kind_of String, file.options[:ruby_package]
-    assert_equal "So::Much::Trash", file.options[:ruby_package]
+    refute_nil file.options["ruby_package"]
+    assert_kind_of String, file.options["ruby_package"]
+    assert_equal "So::Much::Trash", file.options["ruby_package"]
 
     assert_kind_of String, file.ruby_package
     assert_equal "So::Much::Trash", file.ruby_package

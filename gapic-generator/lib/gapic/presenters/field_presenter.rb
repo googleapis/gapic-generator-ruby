@@ -141,6 +141,44 @@ module Gapic
 
       protected
 
+      # @private
+      FIELD_TYPE_MAPPING = {
+        TYPE_DOUBLE: "::Float",
+        TYPE_FLOAT: "::Float",
+        TYPE_INT64: "::Integer",
+        TYPE_UINT64: "::Integer",
+        TYPE_INT32: "::Integer",
+        TYPE_FIXED64: "::Integer",
+        TYPE_FIXED32: "::Integer",
+        TYPE_BOOL: "::Boolean",
+        TYPE_STRING: "::String",
+        TYPE_BYTES: "::String",
+        TYPE_UINT32: "::Integer",
+        TYPE_SFIXED32: "::Integer",
+        TYPE_SFIXED64: "::Integer",
+        TYPE_SINT32: "::Integer",
+        TYPE_SINT64: "::Integer"
+      }.freeze
+
+      # @private
+      FIELD_VALUE_MAPPING = {
+        TYPE_DOUBLE: "3.5",
+        TYPE_FLOAT: "3.5",
+        TYPE_INT64: "42",
+        TYPE_UINT64: "42",
+        TYPE_INT32: "42",
+        TYPE_FIXED64: "42",
+        TYPE_FIXED32: "42",
+        TYPE_BOOL: "true",
+        TYPE_STRING: "\"hello world\"",
+        TYPE_BYTES: "\"hello world\"",
+        TYPE_UINT32: "42",
+        TYPE_SFIXED32: "42",
+        TYPE_SFIXED64: "42",
+        TYPE_SINT32: "42",
+        TYPE_SINT64: "42"
+      }.freeze
+
       def field_doc_types field, output
         return field_map_type field.message, output if field.map?
         base_type =
@@ -151,14 +189,7 @@ module Gapic
             # TODO: handle when arg message is nil and enum is the type
             message_ruby_type field.enum
           else
-            case field.type
-            when 1, 2                              then "::Float"
-            when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "::Integer"
-            when 9, 12                             then "::String"
-            when 8                                 then "::Boolean"
-            else
-              "::Object"
-            end
+            FIELD_TYPE_MAPPING[field.type] || "::Object"
           end
         field.repeated? ? "::Array<#{base_type}>" : base_type
       end
@@ -186,14 +217,8 @@ module Gapic
           # TODO: select the first non-0 enum value
           ":#{@field.enum.values.first.name}"
         else
-          case @field.type
-          when 1, 2                              then "3.5"
-          when 3, 4, 5, 6, 7, 13, 15, 16, 17, 18 then "42"
-          when 9, 12                             then "\"hello world\""
-          when 8                                 then "true"
-          else
-            "::Object"
-          end
+          # BUG: This should default to a better value
+          FIELD_VALUE_MAPPING[@field.type] || "::Object"
         end
       end
 

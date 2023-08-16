@@ -26,7 +26,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options
-    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].field_behavior
     refute message.fields[0].optional?
@@ -38,7 +38,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "int32", message.fields[1].name
     refute_nil message.fields[1].options
-    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[1].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[1].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[1].field_behavior
     refute message.fields[1].optional?
@@ -83,7 +83,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "bool", message.fields[5].name
     refute_nil message.fields[5].options
-    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[5].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[5].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[5].field_behavior
     refute message.fields[5].optional?
@@ -150,7 +150,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "msg", message.fields[11].name
     refute_nil message.fields[11].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[11].field_behavior
     refute message.fields[11].optional?
@@ -181,7 +181,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "name", message.fields[0].name
     refute_nil message.fields[0].options
-    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].field_behavior
     refute message.fields[0].optional?
@@ -272,7 +272,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "msg", message.fields[9].name
     refute_nil message.fields[9].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
     refute message.fields[9].optional?
@@ -311,7 +311,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "repeated_name", message.fields[0].name
     refute_nil message.fields[0].options
-    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::REQUIRED], message.fields[0].field_behavior
     refute message.fields[0].optional?
@@ -411,7 +411,7 @@ class AnnotationFieldTest < AnnotationTest
 
     assert_equal "repeated_msg", message.fields[9].name
     refute_nil message.fields[9].options
-    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].options[:field_behavior]
+    assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].option_named("field_behavior")
 
     assert_equal [Google::Api::FieldBehavior::OUTPUT_ONLY], message.fields[9].field_behavior
     refute message.fields[9].optional?

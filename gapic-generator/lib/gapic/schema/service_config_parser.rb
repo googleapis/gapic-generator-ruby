@@ -15,7 +15,7 @@
 # limitations under the License.
 
 require "yaml"
-require "google/api/service.pb"
+require "google/api/service_pb"
 
 module Gapic
   module Schema
@@ -65,7 +65,7 @@ module Gapic
           service.id = service_yaml[ID_KEY] if service_yaml.key? ID_KEY
           service.title = service_yaml[TITLE_KEY] if service_yaml.key? TITLE_KEY
 
-          service.apis = parse_apis service_yaml[APIS_KEY] if service_yaml.key? APIS_KEY
+          service.apis += parse_apis service_yaml[APIS_KEY] if service_yaml.key? APIS_KEY
           service.http = parse_http service_yaml[HTTP_KEY] if service_yaml.key? HTTP_KEY
           service
         end
@@ -119,7 +119,7 @@ module Gapic
           http = Google::Api::Http.new
 
           if http_yaml.key? HTTP_RULES_KEY
-            http.rules = http_yaml[HTTP_RULES_KEY].map { |rule_yaml| parse_http_rule rule_yaml }
+            http.rules += http_yaml[HTTP_RULES_KEY].map { |rule_yaml| parse_http_rule rule_yaml }
           end
 
           http
@@ -137,7 +137,7 @@ module Gapic
           rule.body = rule_yaml[HTTP_RULES_BODY_KEY] if rule_yaml.key? HTTP_RULES_BODY_KEY
 
           if rule_yaml.key? HTTP_RULES_ADDITIONAL_BINDINGS_KEY
-            rule.additional_bindings = rule_yaml[HTTP_RULES_ADDITIONAL_BINDINGS_KEY].map do |binding_yaml|
+            rule.additional_bindings += rule_yaml[HTTP_RULES_ADDITIONAL_BINDINGS_KEY].map do |binding_yaml|
               parse_http_rule binding_yaml
             end
           end

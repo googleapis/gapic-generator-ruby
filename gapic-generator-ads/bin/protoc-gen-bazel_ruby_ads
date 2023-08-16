@@ -20,7 +20,7 @@ $LOAD_PATH.unshift ::File.expand_path("../../gapic-generator/lib", __dir__)
 
 require "gapic/generator/version"
 require "gapic/runner"
-require "google/protobuf/compiler/plugin.pb"
+require "google/protobuf/compiler/plugin_pb"
 
 # Ensure that no encoding conversions are done on STDIN and STDOUT
 # since we are passing binary data back and forth. Otherwise these
@@ -33,4 +33,4 @@ request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode $stdin.read
 # Run the request, specifying the ads generator
 response = Gapic::Runner.run request, generator: :ads
 
-$stdout.print response.serialize
+$stdout.print Google::Protobuf::Compiler::CodeGeneratorResponse.encode response

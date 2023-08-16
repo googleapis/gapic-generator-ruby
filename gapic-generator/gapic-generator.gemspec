@@ -41,10 +41,12 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 2.6"
 
   spec.add_dependency "actionpack", "~> 5.2"
-  spec.add_dependency "protobuf", "~> 3.8"
+  spec.add_dependency "googleapis-common-protos-types", "~> 1.8"
+  spec.add_dependency "google-cloud-common", "~> 1.2"
+  spec.add_dependency "google-protobuf", "~> 3.25", ">= 3.25.1"
 
   spec.add_development_dependency "google-style", "~> 1.26.1"
-  spec.add_development_dependency "grpc-tools", "~> 1.58.0"
+  spec.add_development_dependency "grpc-tools", "~> 1.59.2"
   spec.add_development_dependency "minitest", "~> 5.16"
   spec.add_development_dependency "minitest-autotest", "~> 1.0"
   spec.add_development_dependency "minitest-focus", "~> 1.0"

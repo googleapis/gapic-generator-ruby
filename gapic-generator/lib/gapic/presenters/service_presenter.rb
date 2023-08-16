@@ -225,10 +225,16 @@ module Gapic
       end
 
       def client_scopes
-        common_service_delegate&.client_scopes ||
-          @service.scopes ||
-          default_config(:oauth_scopes) ||
-          []
+        scopes = Array(common_service_delegate&.client_scopes)
+        return scopes unless scopes.empty?
+
+        scopes = Array(@service.scopes)
+        return scopes unless scopes.empty?
+
+        scopes = Array(default_config(:oauth_scopes))
+        return scopes unless scopes.empty?
+
+        []
       end
 
       def credentials_name

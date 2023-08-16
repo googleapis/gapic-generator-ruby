@@ -3,7 +3,7 @@ inherit_gem:
 
 AllCops:
   Exclude:
-    - lib/**/*.pb.rb
+    - lib/**/*_pb.rb
     - expected_output/**/*
     - test/gapic/annotations/**/*
     - test/gapic/presenters/**/*
@@ -24,6 +24,9 @@ Metrics/ClassLength:
     - test/gapic/routing_headers/**/*_test.rb
   Max: 200
 
+Metrics/CyclomaticComplexity:
+  Max: 15
+
 Metrics/MethodLength:
   Exclude:
     - lib/gapic/ruby_info.rb
@@ -32,12 +35,10 @@ Metrics/MethodLength:
     - test/gapic/routing_headers/**/*_test.rb
 
 Metrics/ModuleLength:
-  Exclude:
-    - lib/gapic/grpc_service_config/parser.rb
+  Max: 200
 
 Metrics/PerceivedComplexity:
-  Exclude:
-    - test/gapic/routing_headers/explicit_routing_headers_input_match_test.rb
+  Max: 15
 
 Style/Documentation:
   Exclude:
