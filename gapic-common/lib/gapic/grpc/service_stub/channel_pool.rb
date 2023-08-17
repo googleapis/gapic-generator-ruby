@@ -68,11 +68,11 @@ module Gapic
       # @return [Object] The response object.
       #
       def call_rpc method_name, request, options: nil, &block
-        case @config.channel_selection.downcase.to_sym
-        when :least_loaded
-          channel = least_loaded_channel
-          channel.call_rpc method_name, request, options: options, &block
+        unless @config.channel_selection == :least_loaded
+          warn "Invalid channel selection configuration, resorting to least loaded channel"
         end
+        channel = least_loaded_channel
+        channel.call_rpc method_name, request, options: options, &block
       end
 
 
