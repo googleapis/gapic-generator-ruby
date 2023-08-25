@@ -23,12 +23,12 @@ require "google/cloud/compute/v1"
 # Snippet for the remove_peering call in the Networks service
 #
 # This is an auto-generated example demonstrating basic usage of
-# Google::Cloud::Compute::V1::Networks::Client#remove_peering. It may require
-# modification in order to execute successfully.
+# Google::Cloud::Compute::V1::Networks::Rest::Client#remove_peering. It may
+# require modification in order to execute successfully.
 #
 def remove_peering
   # Create a client object. The client can be reused for multiple calls.
-  client = Google::Cloud::Compute::V1::Networks::Client.new
+  client = Google::Cloud::Compute::V1::Networks::Rest::Client.new
 
   # Create a request. To set request fields, pass in keyword arguments.
   request = Google::Cloud::Compute::V1::RemovePeeringNetworkRequest.new

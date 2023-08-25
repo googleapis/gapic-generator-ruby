@@ -23,12 +23,12 @@ require "google/cloud/compute/v1"
 # Snippet for the list_peering_routes call in the Networks service
 #
 # This is an auto-generated example demonstrating basic usage of
-# Google::Cloud::Compute::V1::Networks::Client#list_peering_routes. It may
+# Google::Cloud::Compute::V1::Networks::Rest::Client#list_peering_routes. It may
 # require modification in order to execute successfully.
 #
 def list_peering_routes
   # Create a client object. The client can be reused for multiple calls.
-  client = Google::Cloud::Compute::V1::Networks::Client.new
+  client = Google::Cloud::Compute::V1::Networks::Rest::Client.new
 
   # Create a request. To set request fields, pass in keyword arguments.
   request = Google::Cloud::Compute::V1::ListPeeringRoutesNetworksRequest.new

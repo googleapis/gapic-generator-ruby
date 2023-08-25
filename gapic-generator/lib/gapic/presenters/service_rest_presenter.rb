@@ -31,7 +31,8 @@ module Gapic
       extend Forwardable
       def_delegators :@main_service, :name, :helpers_file_name, :is_hosted_mixin?, :is_main_mixin_service?, :mixins?,
                      :mixin_binding_overrides?, :grpc_service_config, :grpc_service_config_presenter, :lro_service,
-                     :lro_client_var, :nonstandard_lro_provider?, :credentials_class_xref, :client_name
+                     :lro_client_var, :nonstandard_lro_provider?, :credentials_class_xref, :client_name, :module_name,
+                     :grpc_full_name, :client_suffix_for_default_transport
 
       # The namespace of the service. (not the client)
       # Intentionally does not include "Rest", since

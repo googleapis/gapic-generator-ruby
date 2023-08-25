@@ -88,6 +88,7 @@ module Gapic
     private
 
     def build_snippet_object snippet_presenter, method_presenter, service_presenter, snippet_lines
+      service_presenter = service_presenter.rest if snippet_presenter.transport == :rest
       SnippetIndex::Snippet.new(
         region_tag: snippet_presenter.region_tag,
         title: snippet_presenter.snippet_name,
@@ -107,7 +108,7 @@ module Gapic
         name: "request"
       )
       client = SnippetIndex::ServiceClient.new(
-        short_name: "#{service_presenter.module_name}::#{service_presenter.client_name}",
+        short_name: service_presenter.client_suffix_for_default_transport,
         full_name: service_presenter.client_name_full
       )
       SnippetIndex::ClientMethod.new(
