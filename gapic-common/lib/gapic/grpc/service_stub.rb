@@ -15,18 +15,24 @@
 require "grpc"
 require "googleauth"
 require "gapic/grpc/service_stub/rpc_call"
+require "gapic/grpc/service_stub/channel"
+require "gapic/grpc/service_stub/channel_pool"
+
 
 module Gapic
   ##
   # Gapic gRPC Stub
   #
-  # This class wraps the actual gRPC Stub object and it's RPC methods.
+  # This class wraps the actual gRPC Stub and ChannelPool objects.
   #
   # @!attribute [r] grpc_stub
   #   @return [Object] The instance of the gRPC stub class (`grpc_stub_class`) constructor argument.
+  # @!attribute [r] channel_pool
+  #   @return [Gapic::ServiceStub::ChannelPool] The instance of the ChannelPool class.
   #
   class ServiceStub
     attr_reader :grpc_stub
+    attr_reader :channel_pool
 
     ##
     # Creates a Gapic gRPC stub object.
@@ -49,22 +55,49 @@ module Gapic
     #     provided as a `::GRPC::Core::Channel`.)
     # @param interceptors [Array<::GRPC::ClientInterceptor>] An array of {::GRPC::ClientInterceptor} objects that will
     #   be used for intercepting calls before they are executed Interceptors are an EXPERIMENTAL API.
+    # @param channel_pool_config [::Gapic::ServiceStub:ChannelPool::Configuration] The configuration for channel
+    #     pool. This argument will raise error when `credentials` is provided as a `::GRPC::Core::Channel`.
     #
-    def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
+    def initialize grpc_stub_class, endpoint:, credentials:, channel_args: nil,
+                   interceptors: nil, channel_pool_config: nil
       raise ArgumentError, "grpc_stub_class is required" if grpc_stub_class.nil?
       raise ArgumentError, "endpoint is required" if endpoint.nil?
       raise ArgumentError, "credentials is required" if credentials.nil?
 
+      @channel_pool = nil
+      @grpc_stub = nil
       channel_args = Hash channel_args
       interceptors = Array interceptors
 
+
+      if channel_pool_config && channel_pool_config.channel_count > 1
+        create_channel_pool grpc_stub_class, endpoint: endpoint, credentials: credentials,
+                            channel_args: channel_args, interceptors: interceptors,
+                            channel_pool_config: channel_pool_config
+      else
+        create_grpc_stub grpc_stub_class, endpoint: endpoint, credentials: credentials,
+                         channel_args: channel_args, interceptors: interceptors
+      end
+    end
+
+    def create_channel_pool grpc_stub_class, endpoint:, credentials:, channel_args: nil,
+                            interceptors: nil, channel_pool_config: nil
+      if credentials.is_a? ::GRPC::Core::Channel
+        raise ArgumentError, "Cannot create a channel pool with GRPC::Core::Channel as credentials"
+      end
+      @channel_pool = ChannelPool.new grpc_stub_class, endpoint: endpoint, credentials: credentials,
+                        channel_args: channel_args, interceptors: interceptors,
+                        config: channel_pool_config
+    end
+
+    def create_grpc_stub grpc_stub_class, endpoint:, credentials:, channel_args: nil, interceptors: nil
       @grpc_stub = case credentials
                    when ::GRPC::Core::Channel
                      grpc_stub_class.new endpoint, nil, channel_override: credentials,
-                                                        interceptors:     interceptors
+                                         interceptors: interceptors
                    when ::GRPC::Core::ChannelCredentials, Symbol
                      grpc_stub_class.new endpoint, credentials, channel_args: channel_args,
-                                                                interceptors: interceptors
+                                         interceptors: interceptors
                    else
                      updater_proc = credentials.updater_proc if credentials.respond_to? :updater_proc
                      updater_proc ||= credentials if credentials.is_a? Proc
@@ -73,7 +106,7 @@ module Gapic
                      call_creds = ::GRPC::Core::CallCredentials.new updater_proc
                      chan_creds = ::GRPC::Core::ChannelCredentials.new.compose call_creds
                      grpc_stub_class.new endpoint, chan_creds, channel_args: channel_args,
-                                                               interceptors: interceptors
+                                         interceptors: interceptors
                    end
     end
 
@@ -152,8 +185,12 @@ module Gapic
     #   end
     #
     def call_rpc method_name, request, options: nil, &block
-      rpc_call = RpcCall.new @grpc_stub.method method_name
-      rpc_call.call request, options: options, &block
+      if @channel_pool.nil?
+        rpc_call = RpcCall.new @grpc_stub.method method_name
+        rpc_call.call request, options: options, &block
+      else
+        @channel_pool.call_rpc method_name, request, options: options, &block
+      end
     end
   end
 end
