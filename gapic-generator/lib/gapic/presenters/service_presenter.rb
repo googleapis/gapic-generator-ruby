@@ -444,7 +444,7 @@ module Gapic
 
       def lro_service
         lro = @service.parent.parent.files.find { |file| file.name == "google/longrunning/operations.proto" }
-        return ServicePresenter.new @gem_presenter, @api, lro.services.first, parent_service: self unless lro.nil?
+        ServicePresenter.new @gem_presenter, @api, lro.services.first, parent_service: self unless lro.nil?
       end
 
       def config_channel_args

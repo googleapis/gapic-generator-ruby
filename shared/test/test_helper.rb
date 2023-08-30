@@ -22,6 +22,7 @@ require "tmpdir"
 
 def generate_library_for_test imports, protos
   client_lib = Dir.mktmpdir
+  FileUtils.mkdir "#{client_lib}/lib"
 
   protoc_cmd = [
     "grpc_tools_ruby_protoc",
