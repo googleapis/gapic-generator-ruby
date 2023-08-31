@@ -1,5 +1,15 @@
 # Release History
 
+### 0.20.0 (2023-08-31)
+
+#### Features
+
+* Add channel pooling for gapic clients ([#969](https://github.com/googleapis/gapic-generator-ruby/issues/969)) 
+* Add LRU hash ([#970](https://github.com/googleapis/gapic-generator-ruby/issues/970)) 
+#### Documentation
+
+* Minor fixes to YARD documentation links and parameters ([#959](https://github.com/googleapis/gapic-generator-ruby/issues/959)) 
+
 ### 0.19.1 (2023-05-30)
 
 #### Bug Fixes
