@@ -21,3 +21,38 @@ expand :minitest do |t|
   t.files = ["test/**/*_test.rb"]
   t.bundler = true
 end
+
+tool "gen" do
+  desc "Regenerates output for goldens"
+
+  remaining_args :services
+
+  include :exec, e: true
+  include :terminal
+  load File.join __dir__, "gem_defaults.rb"
+
+  def run
+    set :services, all_service_names(generator: :ads) if services.empty?
+    Dir.chdir "#{context_directory}/shared" do
+      cmd = ["gen"] + services + verbosity_flags
+      cmd += ["--generator", generator] if generator
+      exec_separate_tool cmd
+    end
+  end
+end
+
+tool "bin" do
+  desc "Regenerates binary input for goldens"
+
+  remaining_args :services
+
+  include :exec, e: true
+  include :terminal
+
+  def run
+    set :services, all_service_names(generator: :ads) if services.empty?
+    Dir.chdir "#{context_directory}/shared" do
+      exec_separate_tool ["bin"] + services + verbosity_flags
+    end
+  end
+end

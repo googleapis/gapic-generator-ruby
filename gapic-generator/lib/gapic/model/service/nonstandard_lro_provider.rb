@@ -221,7 +221,7 @@ module Gapic
           name_candidate = polling_method.output.fields.find do |f|
             f.operation_field == ops_response_field
           end
-          return name_candidate.name if name_candidate
+          name_candidate&.name
         end
 
         ##

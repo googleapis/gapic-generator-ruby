@@ -53,7 +53,7 @@ module Gapic
       #   List of Mixin objects, providing the information that is needed
       #   to add the mixin service references to the generated library
       def mixins
-        @mixins ||= mixin_services.map { |service| create_mixin(service) }
+        @mixins ||= mixin_services.map { |service| create_mixin service }
       end
 
       # @return [Enumerable<String>] Full proto names of the mix-in services
