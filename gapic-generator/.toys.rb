@@ -22,6 +22,13 @@ expand :minitest do |t|
   t.bundler = true
 end
 
+expand :yardoc do |t|
+  t.generate_output_flag = true
+  t.fail_on_warning = false # TODO: Fix so this can be enabled
+  t.fail_on_undocumented_objects = false # TODO: Fix so this can be enabled
+  t.bundler = true
+end
+
 tool "gen" do
   desc "Regenerates output for goldens"
 
@@ -29,7 +36,7 @@ tool "gen" do
 
   include :exec, e: true
   include :terminal
-  load File.join __dir__, "gem_defaults.rb"
+  load File.expand_path "../shared/gem_defaults.rb", context_directory
 
   def run
     set :services, all_service_names(generator: :gapic) if services.empty?
@@ -57,8 +64,37 @@ tool "bin" do
   end
 end
 
+tool "irb" do
+  desc "Open an IRB console with the gem loaded"
+
+  include :bundler
+
+  def run
+    require "irb"
+    require "irb/completion"
+
+    ARGV.clear
+    IRB.start
+  end
+end
+
+tool "image" do
+  desc "Build the docker image"
+  flag :local, "--local=NAME", default: "ruby-gapic-generator"
+
+  include :exec, e: true
+
+  def run
+    Dir.chdir context_directory
+    tag = capture(["git", "rev-parse", "HEAD"]).strip
+    exec ["docker", "build", "-t", "#{local}:#{tag}", "."]
+  end
+end
+
 tool "snippetgen" do
   tool "generate-protos" do
+    desc "Generate snippetgen tool protos"
+
     include :bundler
     include :exec, e: true
 

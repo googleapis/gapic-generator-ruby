@@ -42,3 +42,15 @@ tool "ci" do
     exec_tool ["yardoc"] + verbosity_flags
   end
 end
+
+tool "irb" do
+  include :bundler
+
+  def run
+    require "irb"
+    require "irb/completion"
+
+    ARGV.clear
+    IRB.start
+  end
+end
