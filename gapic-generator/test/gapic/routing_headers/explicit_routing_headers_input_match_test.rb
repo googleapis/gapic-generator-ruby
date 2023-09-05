@@ -435,6 +435,6 @@ class ExplictRoutingHeadersInputMatchTest < Minitest::Test
       curr_submessage = curr_submessage.send curr_field
     end
 
-    return curr_submessage.to_s if curr_submessage
+    curr_submessage&.to_s
   end
 end
