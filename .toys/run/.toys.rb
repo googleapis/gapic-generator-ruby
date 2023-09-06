@@ -19,18 +19,21 @@ desc "Run the generator manually"
 long_desc \
   "Run the generator manually",
   "",
-  "This tool can be used to do ad hoc generator runs for testing purposes. " \
-    "You much provide the input proto files (as individual files or " \
-    "directories). Those inputs must be within the googleapis directory " \
-    "structure. (You can use the googleapis submodule or provide your own " \
-    "clone of googleapis.) The tool also requires a BUILD.bazel file; you " \
-    "can provide the path to it directly or have the tool search for one " \
-    "colocated with the input protos. The tool will then generate the gem " \
-    "output files in the current directory or a configured output directory.",
+  "This tool runs the generator using the current local generator code. It " \
+    "can be invoked either as part of a production codegen pipeline, or for " \
+    "ad hoc testing runs.",
+  "",
+  "You much provide the input proto files (as individual files or " \
+    "directories that will be searched for proto files). You should also " \
+    "provide proto include paths (which will default to the googleapis " \
+    "submodule in this repo.) Finally, you will need to provide a source for " \
+    "generator configuration, either a configuration YAML file or a bazel " \
+    "build file. The tool will then generate the gem output files in the " \
+    "provided output directory.",
   "",
   "Note that the tool reads some settings from the BUILD.bazel file, but " \
     "cannot determine the protos to compile from the bazel settings, so you " \
-    "must explicitly include all such proto paths on the command line.",
+    "must always explicitly specify proto files on the command line.",
   "",
   "Example:",
   ["  toys run google/cloud/secretmanager/v1 --output=tmp"]
@@ -42,54 +45,81 @@ include :fileutils
 remaining_args :inputs do
   desc "Paths to input protos or directories that will be searched for protos"
 end
-flag :bazel_file, "--bazel-file=PATH" do
-  desc "Path to the bazel file."
-  long_desc \
-    "Path to the bazel file. If omitted, uses the first BUILD.bazel file " \
-      "found either at the top level of an input directory or as a sibling " \
-      "of an input proto file."
+flag :generator, "--generator=GENERATOR" do
+  desc "Specify which generator to use. Valid values are cloud, ads, and gapic. Default is cloud."
+  accept [:cloud, :ads, :gapic]
+  default :cloud
 end
-flag :proto_dir, "--proto-dir=PATH" do
-  desc "Path to the protos dir. Defaults to shared/googleapis in this repo."
+flag :base_dir, "--base-dir=PATH" do
+  desc "The base directory within which other directory paths are resolved. Defaults to the current directory."
+end
+flag :proto_paths, "--proto-path=PATH", "-IPATH" do
+  desc "Provide an include path for protos."
+  long_desc \
+    "Provide an include path for protos. Relative paths are resolved " \
+      "relative to the base-dir. You can add any number of paths. If none " \
+      "are provided, shared/googleapis in this repo is used by default."
+  handler :push
+end
+flag :input_dir, "--input-dir=PATH" do
+  desc "The directory within which relative input file paths are resolved. Defaults to shared/googleapis."
 end
 flag :output_dir, "--output-dir=PATH" do
-  desc "Path to the directory to write output files. Defaults to the current directory."
+  desc "Path to the directory to write output files. Defaults to the base-dir."
+end
+flag :clean do
+  desc "Clean output directory before generating"
+end
+at_most_one desc: "Configuration source" do
+  long_desc \
+    "Specify the configuration source file using at most one of these flags. " \
+      "If no flag is provided, the tool will search for a BUILD.bazel either " \
+      "at the top level of an input directory or as a sibling of an input " \
+      "proto file, and use the first one it finds. If it doesn't find any " \
+      "such file, an error is reported."
+  flag :bazel_file, "--bazel-file=PATH" do
+    desc "Path to the BUILD.bazel file."
+  end
+  flag :config_file, "--config-file=PATH" do
+    desc "Path to the configuration YAML file."
+  end
 end
 
 def run
-  setup
-  load_bazel_params
+  resolve_paths
+  search_inputs
+  load_configs
+  rm_rf output_dir if clean
+  output_lib_dir = File.join output_dir, "lib"
+  mkdir_p output_lib_dir
   cmd = [
     "grpc_tools_ruby_protoc",
-    "--ruby_out", output_dir,
-    "--grpc_out", output_dir,
-    "--ruby_cloud_out", output_dir,
-    "--proto_path", proto_dir,
-    "--ruby_cloud_opt", @protoc_params.join(","),
-  ] + inputs
+    "--ruby_out", output_lib_dir,
+    "--grpc_out", output_lib_dir,
+    "--ruby_#{generator}_out", output_dir,
+    "--ruby_#{generator}_opt", @protoc_params.join(","),
+  ] + proto_paths.map { |path| "--proto_path=#{path}" } + inputs
   exec cmd
 end
 
-def setup
-  set :proto_dir, File.join(context_directory, "shared", "googleapis") unless proto_dir
-  set :output_dir, File.expand_path(output_dir, Dir.getwd)
-  mkdir_p output_dir
-  search_inputs
-  unless bazel_file
-    puts "Did not find BUILD.bazel"
-    exit 1
-  end
-  if inputs.empty?
-    puts "Did not find any input proto files"
-    exit 1
-  end
+def resolve_paths
+  googleapis_dir = File.join context_directory, "shared", "googleapis"
+  set :base_dir, Dir.getwd unless base_dir
+  set :input_dir, googleapis_dir unless input_dir
+  set :input_dir, File.expand_path(input_dir, base_dir)
+  set :proto_paths, [googleapis_dir] unless proto_paths
+  set :proto_paths, proto_paths.map { |path| File.expand_path path, base_dir }
+  set :proto_paths, (proto_paths + [input_dir]).uniq
+  set :output_dir, File.expand_path(output_dir || context_directory, base_dir)
+  set :bazel_file, File.expand_path(bazel_file, base_dir) if bazel_file
+  set :config_file, File.expand_path(config_file, base_dir) if config_file
+  set :inputs, inputs.map { |path| File.expand_path path, input_dir }
 end
 
 def search_inputs
   found_inputs = []
   found_bazel_file = nil
   inputs.each do |input|
-    input = File.expand_path(input, proto_dir)
     if File.directory? input
       found_inputs += Dir.glob("#{input}/**/*.proto")
     elsif File.file? input
@@ -100,8 +130,23 @@ def search_inputs
     file = File.join input, "BUILD.bazel"
     found_bazel_file = file if File.file? file
   end
+  if found_inputs.empty?
+    puts "Did not find any input proto files"
+    exit 1
+  end
   set :inputs, found_inputs
-  set :bazel_file, found_bazel_file
+  set :bazel_file, found_bazel_file unless config_file || bazel_file
+end
+
+def load_configs
+  if config_file
+    @protoc_params = ["configuration=#{config_file}"]
+  elsif bazel_file
+    load_bazel_params
+  else
+    puts "Did not find any configuration or bazel file"
+    exit 1
+  end
 end
 
 def load_bazel_params
