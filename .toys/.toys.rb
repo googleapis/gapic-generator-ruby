@@ -102,11 +102,12 @@ tool "ci" do
     in_directories_with_bundles generator_only: generator_only do |dirname|
       ["test", "rubocop"].each do |task_name|
         if tool_defined? task_name
-          puts "Running #{task_name} in #{dirname}", :cyan, :bold
+          full_task_name = "#{dirname}: #{task_name}"
+          puts "Running #{full_task_name}", :cyan, :bold
           result = exec_separate_tool [task_name]
           unless result.success?
-            failures << "#{dirname}: #{task_name}"
-            puts "FAILED: #{dirname} #{task_name}", :red, :bold
+            failures << "#{full_task_name}"
+            puts "FAILED: #{full_task_name}", :red, :bold
           end
         else
           puts "No #{task_name} task defined in #{dirname}", :yellow

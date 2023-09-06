@@ -26,7 +26,6 @@ mixin "golden-tools" do
   load File.join __dir__, "gem_defaults.rb"
 
   def run_protoc service, output_dir, extra_opts: nil, generator: nil
-    rm_rf output_dir
     mkdir_p "#{output_dir}/lib"
 
     protoc_cmd = [
@@ -44,8 +43,6 @@ mixin "golden-tools" do
         protoc_cmd << "--grpc_out=#{output_dir}/lib"
       end
     end
-
-    generator ||= generator_for service
 
     protoc_cmd += [
       "--ruby_#{generator}_out=#{output_dir}",
@@ -93,6 +90,8 @@ mixin "golden-tools" do
         "output/cloud"
       when :ads
         "output/ads"
+      when :gem_builder
+        "output/gapic/gems"
       else
         "output/gapic/templates"
       end
@@ -113,9 +112,22 @@ tool "gen" do
     set :services, all_service_names if services.empty?
     services.each do |service|
       puts "Generating output for #{service}", :bold
-      output_dir = output_dir_for service, generator: generator
-      run_protoc service, output_dir, generator: generator
+      service_generator = generator || generator_for(service)
+      output_dir = output_dir_for service, generator: service_generator
+      rm_rf output_dir
+      mkdir_p output_dir
+      if service_generator == :gem_builder
+        run_gem_builder service, output_dir
+      else
+        run_protoc service, output_dir, generator: service_generator
+      end
     end
+  end
+
+  def run_gem_builder service, output_dir
+    require "gapic/gem_builder"
+    builder = Gapic::GemBuilder.new service, output_dir
+    builder.bootstrap
   end
 end
 
@@ -129,7 +141,7 @@ tool "bin" do
   def run
     require "tmpdir"
     Dir.chdir context_directory
-    set :services, all_service_names if services.empty?
+    set :services, all_service_names(omit_generator: :gem_builder) if services.empty?
     services.each do |service|
       Dir.mktmpdir do |tmp|
         puts "Generating binary input for #{service}", :bold
@@ -151,7 +163,7 @@ tool "test" do
     desc "Runs tests on golden outputs"
 
     remaining_args :services, accept: proc(&:to_sym)
-    static :test_output_exceptions, [:noservice, :googleads]
+    static :test_output_exceptions, [:noservice, :googleads, :my_plugin]
 
     include "golden-tools"
 
@@ -181,5 +193,36 @@ tool "test" do
   def run
     exec_tool ["test", "showcase"] + verbosity_flags
     exec_tool ["test", "output"] + verbosity_flags
+  end
+end
+
+tool "irb" do
+  desc "Open an IRB console"
+
+  include :bundler
+
+  class GapicMain
+    def schema service
+      bin_proto = File.binread "input/#{service}_desc.bin"
+      request = Google::Protobuf::Compiler::CodeGeneratorRequest.decode bin_proto
+      Gapic::Schema::Api.new request
+    end
+
+    def to_s
+      "gapic"
+    end
+  end
+
+  def run
+    require "irb"
+    require "irb/completion"
+    require "gapic/schema"
+    require "gapic/model"
+
+    Dir.chdir context_directory
+    ARGV.clear
+    IRB.setup nil
+    irb = IRB::Irb.new IRB::WorkSpace.new GapicMain.new
+    irb.run
   end
 end

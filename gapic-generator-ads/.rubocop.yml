@@ -6,4 +6,3 @@ AllCops:
     - expected_output/**/*
     - bin/*
     - test/test_helper.rb
-    - Rakefile
