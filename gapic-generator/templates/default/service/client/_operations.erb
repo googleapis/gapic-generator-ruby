@@ -72,7 +72,8 @@ class <%= service.operations_name %>
       credentials:  credentials,
       endpoint:     @config.endpoint,
       channel_args: @config.channel_args,
-      interceptors: @config.interceptors
+      interceptors: @config.interceptors,
+      channel_pool_config: @config.channel_pool
     )
 
     # Used by an LRO wrapper for some methods of this service
