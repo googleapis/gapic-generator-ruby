@@ -162,6 +162,22 @@ module Testing
           # @return [::Testing::GrpcServiceConfig::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/grpc_service_config"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::GrpcServiceConfig::ServiceNoRetry::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::GrpcServiceConfig::Request.new
+          #
+          #   # Call the no_retry_method method.
+          #   result = client.no_retry_method request
+          #
+          #   # The returned object is of type Testing::GrpcServiceConfig::Response.
+          #   p result
+          #
           def no_retry_method request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 

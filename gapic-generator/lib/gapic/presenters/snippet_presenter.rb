@@ -31,14 +31,16 @@ module Gapic
     # A presenter for snippets.
     #
     class SnippetPresenter
-      def initialize method_presenter, api, config = nil
+      def initialize method_presenter, api, config: nil, transport: nil
         @method_presenter = method_presenter
         @api = api
         @config = config
+        @transport = transport || @api.default_transport
         analyze_config
       end
 
       attr_reader :config
+      attr_reader :transport
 
       def config?
         !config.nil?
@@ -73,7 +75,9 @@ module Gapic
       end
 
       def client_type
-        @method_presenter.service.client_name_full.sub(/^::/, "")
+        service = @method_presenter.service
+        service = service.rest if transport == :rest
+        service.client_name_full.sub(/^::/, "")
       end
 
       def service_name_short

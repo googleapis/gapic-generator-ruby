@@ -178,6 +178,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateRoomRequest.new
+            #
+            #   # Call the create_room method.
+            #   result = client.create_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def create_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -240,6 +256,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetRoomRequest.new
+            #
+            #   # Call the get_room method.
+            #   result = client.get_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def get_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -305,6 +337,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Room]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::UpdateRoomRequest.new
+            #
+            #   # Call the update_room method.
+            #   result = client.update_room request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Room.
+            #   p result
+            #
             def update_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -367,6 +415,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteRoomRequest.new
+            #
+            #   # Call the delete_room method.
+            #   result = client.delete_room request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_room request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -434,6 +498,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Room>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListRoomsRequest.new
+            #
+            #   # Call the list_rooms method.
+            #   result = client.list_rooms request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Room.
+            #     p item
+            #   end
+            #
             def list_rooms request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -503,6 +587,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::CreateBlurbRequest.new
+            #
+            #   # Call the create_blurb method.
+            #   result = client.create_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def create_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -565,6 +665,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::GetBlurbRequest.new
+            #
+            #   # Call the get_blurb method.
+            #   result = client.get_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def get_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -630,6 +746,22 @@ module Google
             # @return [::Google::Showcase::V1beta1::Blurb]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::UpdateBlurbRequest.new
+            #
+            #   # Call the update_blurb method.
+            #   result = client.update_blurb request
+            #
+            #   # The returned object is of type Google::Showcase::V1beta1::Blurb.
+            #   p result
+            #
             def update_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -692,6 +824,22 @@ module Google
             # @return [::Google::Protobuf::Empty]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::DeleteBlurbRequest.new
+            #
+            #   # Call the delete_blurb method.
+            #   result = client.delete_blurb request
+            #
+            #   # The returned object is of type Google::Protobuf::Empty.
+            #   p result
+            #
             def delete_blurb request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -763,6 +911,26 @@ module Google
             # @return [::Gapic::Rest::PagedEnumerable<::Google::Showcase::V1beta1::Blurb>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::ListBlurbsRequest.new
+            #
+            #   # Call the list_blurbs method.
+            #   result = client.list_blurbs request
+            #
+            #   # The returned object is of type Gapic::PagedEnumerable. You can iterate
+            #   # over elements, and API calls will be issued to fetch pages as needed.
+            #   result.each do |item|
+            #     # Each element is of type ::Google::Showcase::V1beta1::Blurb.
+            #     p item
+            #   end
+            #
             def list_blurbs request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -842,6 +1010,29 @@ module Google
             # @return [::Gapic::Operation]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::SearchBlurbsRequest.new
+            #
+            #   # Call the search_blurbs method.
+            #   result = client.search_blurbs request
+            #
+            #   # The returned object is of type Gapic::Operation. You can use it to
+            #   # check the status of an operation, cancel it, or wait for results.
+            #   # Here is how to wait for a response.
+            #   result.wait_until_done! timeout: 60
+            #   if result.response?
+            #     p result.response
+            #   else
+            #     puts "No response received."
+            #   end
+            #
             def search_blurbs request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -904,6 +1095,25 @@ module Google
             # @return [::Enumerable<::Google::Showcase::V1beta1::StreamBlurbsResponse>]
             #
             # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+            #
+            # @example Basic example
+            #   require "google/showcase/v1beta1"
+            #
+            #   # Create a client object. The client can be reused for multiple calls.
+            #   client = Google::Showcase::V1beta1::Messaging::Rest::Client.new
+            #
+            #   # Create a request. To set request fields, pass in keyword arguments.
+            #   request = Google::Showcase::V1beta1::StreamBlurbsRequest.new
+            #
+            #   # Call the stream_blurbs method to start streaming.
+            #   output = client.stream_blurbs request
+            #
+            #   # The returned object is a streamed enumerable yielding elements of type
+            #   # ::Google::Showcase::V1beta1::StreamBlurbsResponse
+            #   output.each do |current_response|
+            #     p current_response
+            #   end
+            #
             def stream_blurbs request, options = nil
               raise ::ArgumentError, "request must be provided" if request.nil?
 

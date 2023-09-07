@@ -212,6 +212,22 @@ module Testing
           # @return [::Gapic::GenericLRO::Operation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::Request.new
+          #
+          #   # Call the plain_lro_rpc method.
+          #   result = client.plain_lro_rpc request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+          #   p result
+          #
           def plain_lro_rpc request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -281,6 +297,22 @@ module Testing
           # @return [::Gapic::GenericLRO::Operation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::AnotherRequest.new
+          #
+          #   # Call the another_lro_rpc method.
+          #   result = client.another_lro_rpc request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+          #   p result
+          #
           def another_lro_rpc request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -345,6 +377,22 @@ module Testing
           # @return [::Gapic::GenericLRO::Operation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::NonCopyRequest.new
+          #
+          #   # Call the non_copy_another_lro_rpc method.
+          #   result = client.non_copy_another_lro_rpc request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+          #   p result
+          #
           def non_copy_another_lro_rpc request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -412,6 +460,29 @@ module Testing
           # @return [::Gapic::Operation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::Request.new
+          #
+          #   # Call the aip_lro method.
+          #   result = client.aip_lro request
+          #
+          #   # The returned object is of type Gapic::Operation. You can use it to
+          #   # check the status of an operation, cancel it, or wait for results.
+          #   # Here is how to wait for a response.
+          #   result.wait_until_done! timeout: 60
+          #   if result.response?
+          #     p result.response
+          #   else
+          #     puts "No response received."
+          #   end
+          #
           def aip_lro request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
@@ -474,6 +545,22 @@ module Testing
           # @return [::Testing::NonstandardLroGrpc::Response]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::AllSubclientsConsumer::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::Request.new
+          #
+          #   # Call the no_lro method.
+          #   result = client.no_lro request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::Response.
+          #   p result
+          #
           def no_lro request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 

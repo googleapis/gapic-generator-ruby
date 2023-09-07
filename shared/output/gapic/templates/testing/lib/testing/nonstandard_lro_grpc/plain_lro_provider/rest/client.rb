@@ -170,6 +170,22 @@ module Testing
           # @return [::Testing::NonstandardLroGrpc::NonstandardOperation]
           #
           # @raise [::Gapic::Rest::Error] if the REST call is aborted.
+          #
+          # @example Basic example
+          #   require "testing/nonstandard_lro_grpc"
+          #
+          #   # Create a client object. The client can be reused for multiple calls.
+          #   client = Testing::NonstandardLroGrpc::PlainLroProvider::Rest::Client.new
+          #
+          #   # Create a request. To set request fields, pass in keyword arguments.
+          #   request = Testing::NonstandardLroGrpc::LroGetRequest.new
+          #
+          #   # Call the get method.
+          #   result = client.get request
+          #
+          #   # The returned object is of type Testing::NonstandardLroGrpc::NonstandardOperation.
+          #   p result
+          #
           def get request, options = nil
             raise ::ArgumentError, "request must be provided" if request.nil?
 
