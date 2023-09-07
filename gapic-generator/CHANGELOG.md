@@ -1,5 +1,10 @@
 # Release History for gapic-generator
 
+### 0.25.0 / 2023-09-07
+
+* Feature: Add support for channel pool in gapic generator
+* Fix: Fix snippet generation for REGAPIC clients
+
 ### 0.24.0 / 2023-07-05
 
 * Feature: Loosen parsing for extra_dependencies

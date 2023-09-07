@@ -1,16 +1,16 @@
 PATH
   remote: ../gapic-generator
   specs:
-    gapic-generator (0.24.0)
+    gapic-generator (0.25.0)
       actionpack (~> 5.2)
       protobuf (~> 3.8)
 
 PATH
   remote: .
   specs:
-    gapic-generator-cloud (0.24.0)
+    gapic-generator-cloud (0.25.0)
       actionpack (~> 5.2)
-      gapic-generator (= 0.24.0)
+      gapic-generator (= 0.25.0)
       google-style (~> 1.26.1)
       protobuf (~> 3.8)
 
@@ -55,7 +55,7 @@ GEM
     method_source (1.0.0)
     middleware (0.1.0)
     mini_portile2 (2.8.4)
-    minitest (5.19.0)
+    minitest (5.20.0)
     minitest-autotest (1.1.1)
       minitest-server (~> 1.0)
       path_expander (~> 1.0)
